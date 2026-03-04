@@ -10,6 +10,25 @@ from src.data_sources.base import HttpClient, SourceFetchResult
 NHL_API_BASE = "https://api-web.nhle.com/v1"
 
 
+def _toi_to_minutes(toi: str | float | int | None) -> float | None:
+    if toi is None:
+        return None
+
+    if pd.isna(toi):
+        return None
+
+    text = str(toi).strip()
+    if not text:
+        return None
+
+    if ":" in text:
+        mm, ss = text.split(":")
+        return int(mm) + int(ss) / 60.0
+
+    # NHL club stats may return average TOI in seconds as a numeric.
+    return float(text) / 60.0
+
+
 def fetch_players(client: HttpClient, team_abbrevs: list[str], season: int | str) -> SourceFetchResult:
     as_of_utc = utc_now_iso()
     season_str = str(season)
@@ -25,6 +44,7 @@ def fetch_players(client: HttpClient, team_abbrevs: list[str], season: int | str
             continue
 
         for sk in payload.get("skaters", []):
+            avg_toi = sk.get("avgTimeOnIcePerGame") or sk.get("avgToi")
             rows.append(
                 {
                     "season": season_str,
@@ -35,7 +55,19 @@ def fetch_players(client: HttpClient, team_abbrevs: list[str], season: int | str
                     "goals": sk.get("goals"),
                     "assists": sk.get("assists"),
                     "points": sk.get("points"),
-                    "toi_per_game": sk.get("avgToi"),
+                    "shots": sk.get("shots"),
+                    "shooting_pctg": sk.get("shootingPctg"),
+                    "faceoff_win_pctg": sk.get("faceoffWinPctg"),
+                    "penalty_minutes": sk.get("penaltyMinutes"),
+                    "power_play_goals": sk.get("powerPlayGoals"),
+                    "shorthanded_goals": sk.get("shorthandedGoals"),
+                    "game_winning_goals": sk.get("gameWinningGoals"),
+                    "overtime_goals": sk.get("overtimeGoals"),
+                    "avg_shifts_per_game": sk.get("avgShiftsPerGame"),
+                    "avg_time_on_ice_per_game": avg_toi,
+                    # Backward-compatible alias retained for existing workflows.
+                    "toi_per_game": avg_toi,
+                    "toi_per_game_minutes": _toi_to_minutes(avg_toi),
                     "plus_minus": sk.get("plusMinus"),
                 }
             )
