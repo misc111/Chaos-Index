@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 const links = [
   ["/", "Overview"],
   ["/predictions", "Predictions"],
+  ["/actual-vs-expected", "Actual vs Expected"],
   ["/leaderboard", "Leaderboard"],
   ["/performance", "Performance"],
   ["/calibration", "Calibration"],

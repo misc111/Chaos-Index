@@ -16,6 +16,9 @@ export default function HomePage() {
           <Link href="/predictions">Upcoming forecasts</Link>
         </p>
         <p>
+          <Link href="/actual-vs-expected">Actual vs Expected</Link>
+        </p>
+        <p>
           <Link href="/leaderboard">Model leaderboard</Link>
         </p>
         <p>
