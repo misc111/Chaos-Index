@@ -170,6 +170,13 @@ CREATE TABLE IF NOT EXISTS validation_results (
 
 CREATE INDEX IF NOT EXISTS idx_predictions_game_model ON predictions(game_id, model_name);
 CREATE INDEX IF NOT EXISTS idx_predictions_asof ON predictions(as_of_utc);
+CREATE INDEX IF NOT EXISTS idx_upcoming_asof ON upcoming_game_forecasts(as_of_utc);
+CREATE INDEX IF NOT EXISTS idx_upcoming_asof_date ON upcoming_game_forecasts(as_of_utc, game_date_utc, game_id);
+CREATE INDEX IF NOT EXISTS idx_upcoming_asof_home_date ON upcoming_game_forecasts(as_of_utc, home_team, game_date_utc, game_id);
+CREATE INDEX IF NOT EXISTS idx_upcoming_asof_away_date ON upcoming_game_forecasts(as_of_utc, away_team, game_date_utc, game_id);
 CREATE INDEX IF NOT EXISTS idx_model_scores_model ON model_scores(model_name, scored_at_utc);
+CREATE INDEX IF NOT EXISTS idx_model_scores_game_date ON model_scores(game_date_utc);
+CREATE INDEX IF NOT EXISTS idx_model_scores_game_model_scoretime ON model_scores(game_id, model_name, scored_at_utc DESC, score_id DESC);
 CREATE INDEX IF NOT EXISTS idx_results_final_utc ON results(final_utc);
+CREATE INDEX IF NOT EXISTS idx_change_points_asof ON change_points(as_of_utc DESC);
 """

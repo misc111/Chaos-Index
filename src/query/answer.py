@@ -2,11 +2,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
+import random
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
+from typing import Any, Protocol
 
-import numpy as np
+import yaml
 
-from src.common.config import load_config
 from src.query.parse import TEAM_ALIAS_GROUPS, parse_question
 from src.query.templates import (
     best_model_answer,
@@ -18,21 +21,73 @@ from src.query.templates import (
 from src.storage.db import Database
 
 
-def _latest_upcoming_as_of(db: Database) -> str | None:
+class Queryable(Protocol):
+    def query(self, sql: str, params: tuple = ()) -> list[dict[str, Any]]:
+        ...
+
+
+class _ConnectionQueryAdapter:
+    def __init__(self, conn):
+        self.conn = conn
+
+    def query(self, sql: str, params: tuple = ()) -> list[dict[str, Any]]:
+        cur = self.conn.execute(sql, params)
+        return [dict(r) for r in cur.fetchall()]
+
+
+def _deep_update(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
+    out = dict(base)
+    for key, value in override.items():
+        if isinstance(value, dict) and isinstance(out.get(key), dict):
+            out[key] = _deep_update(out[key], value)
+        else:
+            out[key] = value
+    return out
+
+
+def _load_db_path(config_path: str) -> str:
+    path = Path(config_path)
+    data = yaml.safe_load(path.read_text()) or {}
+
+    extends = data.get("extends")
+    if extends:
+        parent_path = Path(extends)
+        if not parent_path.is_absolute():
+            candidate = (path.parent / parent_path).resolve()
+            if candidate.exists():
+                parent_path = candidate
+            else:
+                parent_path = Path(extends).resolve()
+        parent_data = yaml.safe_load(parent_path.read_text()) or {}
+        data = _deep_update(parent_data, {k: v for k, v in data.items() if k != "extends"})
+
+    return str(data.get("paths", {}).get("db_path", "data/processed/nhl_forecast.db"))
+
+
+def _latest_upcoming_as_of(db: Queryable) -> str | None:
     rows = db.query("SELECT MAX(as_of_utc) AS as_of_utc FROM upcoming_game_forecasts")
     return rows[0]["as_of_utc"] if rows and rows[0]["as_of_utc"] else None
 
 
-def _query_team_upcoming_rows(db: Database, team: str, as_of_utc: str, limit: int) -> list[dict]:
+def _query_team_upcoming_rows(db: Queryable, team: str, as_of_utc: str, limit: int) -> list[dict]:
     q = """
+    WITH team_games AS (
+      SELECT *
+      FROM upcoming_game_forecasts
+      WHERE as_of_utc = ?
+        AND home_team = ?
+      UNION ALL
+      SELECT *
+      FROM upcoming_game_forecasts
+      WHERE as_of_utc = ?
+        AND away_team = ?
+    )
     SELECT *
-    FROM upcoming_game_forecasts
-    WHERE as_of_utc = ?
-      AND (home_team = ? OR away_team = ?)
+    FROM team_games
     ORDER BY game_date_utc ASC, game_id ASC
     LIMIT ?
     """
-    return db.query(q, (as_of_utc, team, team, int(limit)))
+    return db.query(q, (as_of_utc, team, as_of_utc, team, int(limit)))
 
 
 def _oriented_game_forecast(row: dict, team: str) -> dict:
@@ -87,7 +142,7 @@ def _bernoulli_sum_distribution(probs: list[float]) -> list[float]:
     return dist
 
 
-def _answer_team_next_game(db: Database, team: str | None) -> tuple[str, dict]:
+def _answer_team_next_game(db: Queryable, team: str | None) -> tuple[str, dict]:
     if not team:
         return "Team not recognized. Include team name or abbreviation.", {"error": "team_not_recognized"}
 
@@ -118,7 +173,7 @@ def _answer_team_next_game(db: Database, team: str | None) -> tuple[str, dict]:
     return answer, payload
 
 
-def _answer_team_next_n_games(db: Database, team: str | None, n_games: int) -> tuple[str, dict]:
+def _answer_team_next_n_games(db: Queryable, team: str | None, n_games: int) -> tuple[str, dict]:
     if not team:
         return "Team not recognized. Include team name or abbreviation.", {"error": "team_not_recognized"}
 
@@ -136,8 +191,8 @@ def _answer_team_next_n_games(db: Database, team: str | None, n_games: int) -> t
 
     games = [_oriented_game_forecast(row, team=team) for row in rows]
     probs = [float(g["ensemble_prob_team_win"]) for g in games]
-    prob_win_all = float(np.prod(probs)) if probs else 0.0
-    expected_wins = float(np.sum(probs))
+    prob_win_all = float(math.prod(probs)) if probs else 0.0
+    expected_wins = float(sum(probs))
     wins_dist = _bernoulli_sum_distribution(probs)
 
     games_summary = "; ".join([f"{g['date']} vs {g['opponent']} {g['ensemble_prob_team_win']:.1%}" for g in games])
@@ -168,23 +223,41 @@ def _answer_team_next_n_games(db: Database, team: str | None, n_games: int) -> t
     return answer, payload
 
 
-def _cup_probs_from_win_rates(win_rates: np.ndarray) -> np.ndarray:
-    clipped = np.clip(win_rates, 0.15, 0.85)
-    strength = np.log(clipped / (1 - clipped))
-    n_teams = int(strength.shape[0])
+def _cup_probs_from_win_rates(win_rates: list[float]) -> list[float]:
+    clipped = [max(0.15, min(0.85, float(w))) for w in win_rates]
+    strength = [math.log(w / (1 - w)) for w in clipped]
+    n_teams = len(strength)
     playoff_slots = min(16, n_teams)
-    cutoff = np.sort(strength)[::-1][playoff_slots - 1] if playoff_slots > 0 else 0.0
+    cutoff = sorted(strength, reverse=True)[playoff_slots - 1] if playoff_slots > 0 else 0.0
 
     # Smooth playoff-qualification proxy, then strength-weighted champion share.
-    qual_prob = 1.0 / (1.0 + np.exp(-(strength - cutoff) / 0.30))
-    raw = qual_prob * np.exp(1.75 * strength)
-    denom = float(np.sum(raw))
+    raw = []
+    for s in strength:
+        qual_prob = 1.0 / (1.0 + math.exp(-(s - cutoff) / 0.30))
+        raw.append(qual_prob * math.exp(1.75 * s))
+    denom = float(sum(raw))
     if denom <= 0:
-        return np.full(n_teams, 1.0 / max(n_teams, 1), dtype=float)
-    return raw / denom
+        if n_teams == 0:
+            return []
+        return [1.0 / n_teams] * n_teams
+    return [r / denom for r in raw]
 
 
-def _answer_team_stanley_cup(db: Database, team: str | None) -> tuple[str, dict]:
+def _quantile(sorted_values: list[float], q: float) -> float:
+    if not sorted_values:
+        return 0.0
+    if len(sorted_values) == 1:
+        return float(sorted_values[0])
+    pos = (len(sorted_values) - 1) * q
+    lo = int(math.floor(pos))
+    hi = int(math.ceil(pos))
+    if lo == hi:
+        return float(sorted_values[lo])
+    weight = pos - lo
+    return float(sorted_values[lo] * (1 - weight) + sorted_values[hi] * weight)
+
+
+def _answer_team_stanley_cup(db: Queryable, team: str | None) -> tuple[str, dict]:
     if not team:
         return "Team not recognized. Include the NHL team for the Stanley Cup question.", {"error": "team_not_recognized"}
 
@@ -266,30 +339,32 @@ def _answer_team_stanley_cup(db: Database, team: str | None) -> tuple[str, dict]
     }
 
     teams = sorted(team_set)
-    wins = np.array([records.get(t, {}).get("wins", 0.0) for t in teams], dtype=float)
-    games = np.array([records.get(t, {}).get("games", 0.0) for t in teams], dtype=float)
-    losses = np.maximum(games - wins, 0.0)
+    wins = [float(records.get(t, {}).get("wins", 0.0)) for t in teams]
+    games = [float(records.get(t, {}).get("games", 0.0)) for t in teams]
+    losses = [max(g - w, 0.0) for g, w in zip(games, wins)]
 
-    alpha = 1.0 + wins
-    beta = 1.0 + losses
-    mean_win_rates = alpha / (alpha + beta)
+    alpha = [1.0 + w for w in wins]
+    beta = [1.0 + l for l in losses]
+    mean_win_rates = [a / (a + b) for a, b in zip(alpha, beta)]
     cup_probs = _cup_probs_from_win_rates(mean_win_rates)
 
     team_idx = teams.index(team)
     point_estimate = float(cup_probs[team_idx])
 
-    rng = np.random.default_rng(42)
+    rng = random.Random(42)
     n_sims = 2000
-    draws = rng.beta(alpha, beta, size=(n_sims, len(teams)))
-    sampled = np.empty(n_sims, dtype=float)
-    for i in range(n_sims):
-        sampled[i] = float(_cup_probs_from_win_rates(draws[i])[team_idx])
-    low_90, high_90 = np.quantile(sampled, [0.05, 0.95]).tolist()
+    sampled: list[float] = []
+    for _ in range(n_sims):
+        draw = [rng.betavariate(a, b) for a, b in zip(alpha, beta)]
+        sampled.append(float(_cup_probs_from_win_rates(draw)[team_idx]))
+    sampled.sort()
+    low_90 = _quantile(sampled, 0.05)
+    high_90 = _quantile(sampled, 0.95)
 
-    rank_order = np.argsort(cup_probs)[::-1]
-    rank_lookup = {int(idx): rank + 1 for rank, idx in enumerate(rank_order)}
+    rank_order = sorted(range(len(cup_probs)), key=lambda idx: cup_probs[idx], reverse=True)
+    rank_lookup = {idx: rank + 1 for rank, idx in enumerate(rank_order)}
     rank = int(rank_lookup[team_idx])
-    top_teams = [{"team": teams[int(idx)], "stanley_cup_prob": float(cup_probs[int(idx)])} for idx in rank_order[:5]]
+    top_teams = [{"team": teams[idx], "stanley_cup_prob": float(cup_probs[idx])} for idx in rank_order[:5]]
 
     answer = stanley_cup_answer(
         team=team,
@@ -332,7 +407,7 @@ def _answer_team_stanley_cup(db: Database, team: str | None) -> tuple[str, dict]
     return answer, payload
 
 
-def _answer_best_model(db: Database, window_days: int) -> tuple[str, dict]:
+def _answer_best_model(db: Queryable, window_days: int) -> tuple[str, dict]:
     cutoff = (datetime.now(timezone.utc) - timedelta(days=window_days)).date().isoformat()
     q = """
     WITH ranked AS (
@@ -347,10 +422,10 @@ def _answer_best_model(db: Database, window_days: int) -> tuple[str, dict]:
         scored_at_utc,
         ROW_NUMBER() OVER (
           PARTITION BY game_id, model_name
-          ORDER BY DATETIME(scored_at_utc) DESC, score_id DESC
+          ORDER BY scored_at_utc DESC, score_id DESC
         ) AS rn
       FROM model_scores
-      WHERE DATE(game_date_utc) >= DATE(?)
+      WHERE game_date_utc >= ?
     )
     SELECT model_name,
            AVG(log_loss) AS log_loss,
@@ -382,7 +457,7 @@ def _answer_best_model(db: Database, window_days: int) -> tuple[str, dict]:
     return answer, payload
 
 
-def answer_question(db: Database, question: str) -> tuple[str, dict]:
+def answer_question(db: Queryable, question: str) -> tuple[str, dict]:
     intent = parse_question(question)
 
     if intent.intent_type == "team_next_game":
@@ -406,10 +481,11 @@ def main() -> None:
     parser.add_argument("--question", type=str, required=True)
     args = parser.parse_args()
 
-    cfg = load_config(args.config)
-    db = Database(cfg.paths.db_path)
-
-    answer, payload = answer_question(db, args.question)
+    db_path = _load_db_path(args.config)
+    db = Database(db_path)
+    with db.connect() as conn:
+        session = _ConnectionQueryAdapter(conn)
+        answer, payload = answer_question(session, args.question)
     print(answer)
     print(json.dumps(payload, indent=2, sort_keys=True, default=str))
 
