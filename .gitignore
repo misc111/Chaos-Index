@@ -1,0 +1,57 @@
+# macOS / editor noise
+.DS_Store
+*.swp
+*.swo
+
+# Python cache / tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.coverage
+htmlcov/
+
+# Local virtual environments
+.venv/
+venv/
+env/
+
+# Python packaging artifacts
+build/
+dist/
+*.egg-info/
+
+# Node / Next.js artifacts
+web/node_modules/
+web/.next/
+web/.turbo/
+web/.vercel/
+web/coverage/
+
+# Local logs
+*.log
+
+# Generated data stores
+data/processed/*.db
+data/processed/*.sqlite*
+data/processed/*.duckdb
+data/raw/
+data/interim/
+data/processed/*.parquet
+
+# Generated model/report artifacts
+artifacts/models/
+artifacts/plots/
+artifacts/validation/
+artifacts/reports/runs/
+artifacts/reports/*.parquet
+artifacts/reports/backtest_*.csv
+artifacts/reports/*_latest.csv
+
+# Keep a small, versioned lane for historical tracking snapshots
+!artifacts/reports/history/
+!artifacts/reports/history/.gitkeep
+!artifacts/reports/history/*.csv
+!artifacts/reports/history/*.md
