@@ -50,64 +50,52 @@ MODEL_REPORT_ORDER = [
     "elo_baseline",
     "glm_logit",
     "dynamic_rating",
-    "gbdt",
     "rf",
-    "two_stage",
     "goals_poisson",
-    "simulation_first",
+    "gbdt",
+    "two_stage",
     "bayes_bt_state_space",
     "bayes_goals",
+    "simulation_first",
     "nn_mlp",
 ]
 
 MODEL_TRUST_NOTES = {
     "ensemble": (
-        "Built on: a blended vote from all models (stronger recent models get more say). "
-        "Good at: safest single number. Watch out: shared blind spots can still carry through."
+        "All models combined. Best default pick. Can share the same blind spot."
     ),
     "elo_baseline": (
-        "Built on: past game results and opponent strength. "
-        "Good at: steady long-term signal. Watch out: slow to react to sudden injuries/trades."
+        "Standard sports betting baseline based on past wins/losses. Good long-run read. Slow on sudden changes."
     ),
     "glm_logit": (
-        "Built on: a weighted checklist of game factors. "
-        "Good at: clear, stable probabilities. Watch out: can miss complex matchup quirks."
+        "Statistical model that uses a checklist. Usually steady. Weird matchups can slip through."
     ),
     "dynamic_rating": (
-        "Built on: team strength that updates game by game. "
-        "Good at: catching momentum shifts. Watch out: short streaks can fool it."
+        "Hot/cold meter. Good for momentum. Can overreact to short streaks."
     ),
     "gbdt": (
-        "Built on: many decision trees that find patterns in combinations of factors. "
-        "Good at: hidden interactions. Watch out: can become overconfident without recalibration."
+        "Machine learning model that finds hidden combos. Sometimes too confident."
     ),
     "rf": (
-        "Built on: an average of many random decision trees. "
-        "Good at: reducing noise. Watch out: often less decisive on close games."
+        "Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups."
     ),
     "two_stage": (
-        "Built on: two linked steps (first estimate game conditions, then winner). "
-        "Good at: structured game flow. Watch out: if step one is wrong, step two inherits it."
+        "Machine learning model with two steps: first predicts game type (fast/slow, close/lopsided), then predicts winner. Good when style matchups matter. If step 1 is wrong, final pick can be wrong."
     ),
     "goals_poisson": (
-        "Built on: expected scoring rates for each team. "
-        "Good at: score-driven matchups. Watch out: less reliable when games become chaotic."
+        "Score-based model. Good for normal scoring games. Messy games hurt it."
     ),
     "simulation_first": (
-        "Built on: thousands of simulated versions of the game. "
-        "Good at: what-if scenario coverage. Watch out: only as good as simulation assumptions."
+        "Runs the matchup thousands of times using set assumptions (team strength, pace, and scoring). Good for seeing different paths. If those assumptions are off, this number can be off."
     ),
     "bayes_bt_state_space": (
-        "Built on: team strength with uncertainty bands that evolve over time. "
-        "Good at: handling uncertainty openly. Watch out: setup choices can shift results."
+        "Tracks team strength after every game and gives a range, not just one number. Good for spotting rising/falling teams with uncertainty shown. Can move fast after injuries, trades, or short weird stretches."
     ),
     "bayes_goals": (
-        "Built on: scoring strength plus uncertainty ranges. "
-        "Good at: showing both estimate and confidence. Watch out: can lag in fast-changing periods."
+        "Scoring strength + confidence meter. Good trend read. Can lag sudden lineup changes."
     ),
     "nn_mlp": (
-        "Built on: a neural network that learns complex patterns from past games. "
-        "Good at: nonlinear pattern finding. Watch out: harder to explain in plain cause/effect terms."
+        "Machine learning model that finds subtle patterns. Hardest to explain."
     ),
 }
 

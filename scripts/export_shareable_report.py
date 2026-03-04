@@ -2,14 +2,37 @@
 from __future__ import annotations
 
 import argparse
+import html
+from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
-import matplotlib.pyplot as plt
 import pandas as pd
+from xhtml2pdf import pisa
 
 from src.common.config import load_config
 from src.query.answer import answer_question
 from src.storage.db import Database
+
+
+MODEL_DISPLAY_LABELS = {
+    "ensemble": "Ensemble",
+    "elo_baseline": "Elo",
+    "glm_logit": "GLM",
+    "dynamic_rating": "Dyn Rating",
+    "gbdt": "GBDT",
+    "rf": "RF",
+    "two_stage": "Two Stage",
+    "goals_poisson": "Goals Pois",
+    "simulation_first": "Sim",
+    "bayes_bt_state_space": "Bayes BT",
+    "bayes_goals": "Bayes Goals",
+    "nn_mlp": "NN",
+}
+
+
+def _display_label(column: str) -> str:
+    return MODEL_DISPLAY_LABELS.get(column, column)
 
 
 def _report_dataframe(payload: dict) -> pd.DataFrame:
@@ -30,68 +53,149 @@ def _report_dataframe(payload: dict) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def _dynamic_col_widths(df: pd.DataFrame) -> list[float]:
+def _dynamic_col_width_percentages(df: pd.DataFrame) -> list[float]:
     if df.empty:
         return []
 
-    def max_len(col: str) -> int:
-        vals = [len(str(v)) for v in df[col].tolist()]
-        return max([len(col)] + vals)
-
-    weights = []
+    weights: list[float] = []
     for col in df.columns:
-        length = max_len(col)
+        header_label = _display_label(col)
+        max_len = max([len(header_label)] + [len(str(v)) for v in df[col].tolist()])
         if col == "Team":
-            weight = max(6.0, min(11.0, float(length + 2)))
+            w = max(5.0, min(9.0, float(max_len + 1)))
         elif col == "Next Opponent":
-            weight = max(10.0, min(16.0, float(length + 2)))
+            w = max(7.0, min(12.0, float(max_len + 1)))
         elif col == "Date":
-            weight = 10.0
+            w = 8.0
         elif col == "Home/Away":
-            weight = 8.0
+            w = 8.0
         else:
-            weight = max(7.0, min(14.0, float(length + 1)))
-        weights.append(weight)
+            w = max(5.0, min(8.0, float(max_len + 1)))
+        weights.append(w)
 
     total = sum(weights) or 1.0
-    return [w / total for w in weights]
+    return [100.0 * w / total for w in weights]
 
 
-def _save_pdf(df: pd.DataFrame, title: str, out_path: Path) -> None:
+def _build_html(
+    df: pd.DataFrame,
+    title: str,
+    subtitle: str | None = None,
+    model_trust_notes: dict[str, str] | None = None,
+) -> str:
     if df.empty:
         raise RuntimeError("No report rows available to export.")
 
-    n_rows, n_cols = df.shape
-    fig_w = max(17.0, min(40.0, 8.0 + 1.35 * n_cols))
-    fig_h = max(8.5, min(20.0, 2.5 + 0.28 * (n_rows + 1)))
-
-    fig, ax = plt.subplots(figsize=(fig_w, fig_h))
-    ax.axis("off")
-
-    col_widths = _dynamic_col_widths(df)
-    table = ax.table(
-        cellText=df.values,
-        colLabels=df.columns,
-        colWidths=col_widths,
-        cellLoc="center",
-        loc="upper left",
+    widths = _dynamic_col_width_percentages(df)
+    trust_notes = model_trust_notes or {}
+    colgroup = "".join([f'<col style="width:{w:.4f}%" />' for w in widths])
+    header_cells = "".join(
+        [f"<th>{html.escape(_display_label(str(c)))}</th>" for c in df.columns]
     )
 
-    table.auto_set_font_size(False)
-    table.set_fontsize(6)
-    table.scale(1.0, 1.16)
+    body_rows = []
+    for _, row in df.iterrows():
+        cells = []
+        for idx, col in enumerate(df.columns):
+            val = html.escape(str(row[col]))
+            cell_class = "left" if idx < 4 else "num"
+            cells.append(f'<td class="{cell_class}">{val}</td>')
+        body_rows.append("<tr>" + "".join(cells) + "</tr>")
 
-    for (r, c), cell in table.get_celld().items():
-        if r == 0:
-            cell.set_facecolor("#ECECEC")
-            cell.set_text_props(weight="bold")
-        if c in (0, 1, 2, 3) and r > 0:
-            cell.set_text_props(ha="left")
+    explanation_items = []
+    for col in df.columns[4:]:
+        note = trust_notes.get(str(col))
+        if not note:
+            continue
+        short = _display_label(str(col))
+        explanation_items.append(
+            f'<div class="note-item"><b>{html.escape(short)}:</b> {html.escape(note)}</div>'
+        )
 
-    ax.set_title(title, fontsize=11, pad=14)
-    plt.tight_layout()
-    fig.savefig(out_path, format="pdf", dpi=300)
-    plt.close(fig)
+    notes_rows = []
+    if explanation_items:
+        n_left = (len(explanation_items) + 1) // 2
+        left_items = explanation_items[:n_left]
+        right_items = explanation_items[n_left:]
+        for idx in range(n_left):
+            left = left_items[idx]
+            right = right_items[idx] if idx < len(right_items) else ""
+            notes_rows.append(f"<tr><td>{left}</td><td>{right}</td></tr>")
+    notes_html = ""
+    if notes_rows:
+        notes_html = (
+            '<div class="notes-title">Model explanations</div>'
+            '<table class="notes-table"><tbody>'
+            + "".join(notes_rows)
+            + "</tbody></table>"
+        )
+
+    html_doc = f"""
+<html>
+  <head>
+    <meta charset=\"utf-8\" />
+    <style>
+      @page {{ size: A3 landscape; margin: 8mm; }}
+      body {{ font-family: Helvetica, Arial, sans-serif; font-size: 8px; color: #111; }}
+      h1 {{ font-size: 15px; margin: 0 0 2px 0; }}
+      .subtitle {{ font-size: 12px; margin: 0 0 6px 0; color: #333; }}
+      table {{ width: 100%; border-collapse: collapse; table-layout: fixed; }}
+      th, td {{ border: 1px solid #222; padding: 2px 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
+      th {{ background: #efefef; font-weight: 700; text-align: center; }}
+      td.left {{ text-align: left; }}
+      td.num {{ text-align: right; }}
+      .notes-title {{ margin-top: 4px; font-size: 7px; font-weight: 700; }}
+      .notes-table {{ width: 100%; border-collapse: collapse; table-layout: fixed; }}
+      .notes-table td {{ border: none; vertical-align: top; width: 50%; padding: 1px 4px 1px 0; font-size: 6px; line-height: 1.1; }}
+      .note-item {{ margin: 0; }}
+    </style>
+  </head>
+  <body>
+    <h1>{html.escape(title)}</h1>
+    <div class="subtitle">{html.escape(subtitle or "")}</div>
+    <table>
+      <colgroup>{colgroup}</colgroup>
+      <thead><tr>{header_cells}</tr></thead>
+      <tbody>
+        {''.join(body_rows)}
+      </tbody>
+    </table>
+    {notes_html}
+  </body>
+</html>
+"""
+    return html_doc
+
+
+def _save_pdf_from_html(html_doc: str, out_path: Path) -> None:
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with out_path.open("wb") as f:
+        result = pisa.CreatePDF(src=html_doc, dest=f, encoding="utf-8")
+    if result.err:
+        raise RuntimeError("xhtml2pdf failed to generate the PDF output.")
+
+
+def _format_as_of_label(as_of: str | None, timezone_name: str) -> str:
+    raw = str(as_of or "").strip()
+    if not raw:
+        return "unknown"
+
+    try:
+        dt = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=ZoneInfo("UTC"))
+        try:
+            tz = ZoneInfo(timezone_name)
+        except Exception:
+            tz = ZoneInfo("UTC")
+        local_dt = dt.astimezone(tz)
+        return (
+            f"{local_dt.strftime('%b')} {local_dt.day}, {local_dt.year} "
+            f"{local_dt.strftime('%I').lstrip('0') or '0'}:{local_dt.strftime('%M')} "
+            f"{local_dt.strftime('%p')} {local_dt.strftime('%Z')}"
+        )
+    except Exception:
+        return raw
 
 
 def main() -> None:
@@ -111,15 +215,20 @@ def main() -> None:
 
     out_pdf = Path(args.pdf_output)
     out_md = Path(args.md_output)
-    out_pdf.parent.mkdir(parents=True, exist_ok=True)
     out_md.parent.mkdir(parents=True, exist_ok=True)
-
     out_md.write_text(answer + "\n", encoding="utf-8")
 
     df = _report_dataframe(payload)
     as_of = payload.get("as_of_utc", "unknown")
-    title = f"{league} All-Teams Report (Ensemble Desc) | As of {as_of}"
-    _save_pdf(df, title, out_pdf)
+    as_of_label = _format_as_of_label(as_of=str(as_of), timezone_name=cfg.project.timezone)
+    title = f"{league} All-Teams Report | As of {as_of_label}"
+    html_doc = _build_html(
+        df,
+        title,
+        subtitle="Win chance of next game by team",
+        model_trust_notes=payload.get("model_trust_notes", {}),
+    )
+    _save_pdf_from_html(html_doc, out_pdf)
 
     print(out_md)
     print(out_pdf)
