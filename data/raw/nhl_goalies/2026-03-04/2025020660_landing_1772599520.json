@@ -1,0 +1,599 @@
+{
+  "id": 2025020660,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-04",
+  "venue": {
+    "default": "Prudential Center"
+  },
+  "venueLocation": {
+    "default": "Newark"
+  },
+  "startTimeUTC": "2026-01-05T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 561,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNSO",
+      "sequenceNumber": 202
+    },
+    {
+      "id": 409,
+      "market": "H",
+      "countryCode": "US",
+      "network": "MSGSN",
+      "sequenceNumber": 411
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 12,
+    "commonName": {
+      "default": "Hurricanes"
+    },
+    "abbrev": "CAR",
+    "placeName": {
+      "default": "Carolina",
+      "fr": "Caroline"
+    },
+    "placeNameWithPreposition": {
+      "default": "Carolina",
+      "fr": "de la Caroline"
+    },
+    "score": 3,
+    "sog": 29,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CAR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CAR_dark.svg"
+  },
+  "homeTeam": {
+    "id": 1,
+    "commonName": {
+      "default": "Devils"
+    },
+    "abbrev": "NJD",
+    "placeName": {
+      "default": "New Jersey"
+    },
+    "placeNameWithPreposition": {
+      "default": "New Jersey",
+      "fr": "du New Jersey"
+    },
+    "score": 1,
+    "sog": 29,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NJD_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NJD_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 101,
+            "strength": "ev",
+            "playerId": 8477940,
+            "firstName": {
+              "default": "Nikolaj"
+            },
+            "lastName": {
+              "default": "Ehlers"
+            },
+            "name": {
+              "default": "N. Ehlers"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8477940.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-njd-ehlers-scores-goal-against-jake-allen-6387233578112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-njd-ehlers-marque-un-but-contre-jake-allen-6387232606112",
+            "highlightClip": 6387233578112,
+            "highlightClipFr": 6387232606112,
+            "discreteClip": 6387234751112,
+            "discreteClipFr": 6387233097112,
+            "goalsToDate": 11,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CAR"
+            },
+            "timeInPeriod": "00:51",
+            "goalModifier": "own-goal",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020660/ev101.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 198,
+            "strength": "ev",
+            "playerId": 8482110,
+            "firstName": {
+              "default": "Dawson"
+            },
+            "lastName": {
+              "default": "Mercer"
+            },
+            "name": {
+              "default": "D. Mercer"
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8482110.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-njd-mercer-scores-goal-against-brandon-bussi-6387233584112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-njd-mercer-marque-un-but-contre-brandon-bussi-6387232700112",
+            "highlightClip": 6387233584112,
+            "highlightClipFr": 6387232700112,
+            "discreteClip": 6387233680112,
+            "discreteClipFr": 6387234656112,
+            "goalsToDate": 11,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "07:34",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481721,
+                "firstName": {
+                  "default": "Arseny"
+                },
+                "lastName": {
+                  "default": "Gritsyuk"
+                },
+                "name": {
+                  "default": "A. Gritsyuk"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 81
+              },
+              {
+                "playerId": 8478399,
+                "firstName": {
+                  "default": "Jonas"
+                },
+                "lastName": {
+                  "default": "Siegenthaler"
+                },
+                "name": {
+                  "default": "J. Siegenthaler"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 71
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020660/ev198.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 253,
+            "strength": "ev",
+            "playerId": 8475791,
+            "firstName": {
+              "default": "Taylor"
+            },
+            "lastName": {
+              "default": "Hall"
+            },
+            "name": {
+              "default": "T. Hall"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8475791.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-njd-hall-scores-goal-against-jake-allen-6387235203112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-njd-hall-marque-un-but-contre-jake-allen-6387235309112",
+            "highlightClip": 6387235203112,
+            "highlightClipFr": 6387235309112,
+            "discreteClip": 6387233630112,
+            "discreteClipFr": 6387235579112,
+            "goalsToDate": 8,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CAR"
+            },
+            "timeInPeriod": "07:47",
+            "shotType": "poke",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020660/ev253.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 255,
+            "strength": "ev",
+            "playerId": 8482702,
+            "firstName": {
+              "default": "Logan"
+            },
+            "lastName": {
+              "default": "Stankoven"
+            },
+            "name": {
+              "default": "L. Stankoven"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8482702.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-njd-stankoven-scores-goal-against-jake-allen-6387237385112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-njd-stankoven-marque-un-but-contre-jake-allen-6387236207112",
+            "highlightClip": 6387237385112,
+            "highlightClipFr": 6387236207112,
+            "discreteClip": 6387237387112,
+            "discreteClipFr": 6387235342112,
+            "goalsToDate": 7,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CAR"
+            },
+            "timeInPeriod": "12:16",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475791,
+                "firstName": {
+                  "default": "Taylor"
+                },
+                "lastName": {
+                  "default": "Hall"
+                },
+                "name": {
+                  "default": "T. Hall"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 71
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020660/ev255.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8483548,
+        "teamAbbrev": "CAR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8483548.png",
+        "name": {
+          "default": "B. Bussi"
+        },
+        "sweaterNo": 32,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.966
+      },
+      {
+        "star": 2,
+        "playerId": 8475791,
+        "teamAbbrev": "CAR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8475791.png",
+        "name": {
+          "default": "T. Hall"
+        },
+        "sweaterNo": 71,
+        "position": "L",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8482702,
+        "teamAbbrev": "CAR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8482702.png",
+        "name": {
+          "default": "L. Stankoven"
+        },
+        "sweaterNo": 22,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:38",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dawson"
+              },
+              "lastName": {
+                "default": "Mercer"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Shayne"
+              },
+              "lastName": {
+                "default": "Gostisbehere"
+              },
+              "sweaterNumber": 4
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:14",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dougie"
+              },
+              "lastName": {
+                "default": "Hamilton"
+              },
+              "sweaterNumber": 7
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jackson"
+              },
+              "lastName": {
+                "default": "Blake"
+              },
+              "sweaterNumber": 53
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "12:56",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sean"
+              },
+              "lastName": {
+                "default": "Walker"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jack"
+              },
+              "lastName": {
+                "default": "Hughes"
+              },
+              "sweaterNumber": 86
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "16:03",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Logan"
+              },
+              "lastName": {
+                "default": "Stankoven"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Cody"
+              },
+              "lastName": {
+                "default": "Glass"
+              },
+              "sweaterNumber": 12
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "18:13",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Logan"
+              },
+              "lastName": {
+                "default": "Stankoven"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nico"
+              },
+              "lastName": {
+                "default": "Hischier"
+              },
+              "sweaterNumber": 13
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:53",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jordan"
+              },
+              "lastName": {
+                "default": "Staal"
+              },
+              "sweaterNumber": 11
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          },
+          {
+            "timeInPeriod": "05:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ondrej",
+                "cs": "Ond\u0159ej",
+                "sk": "Ond\u0159ej"
+              },
+              "lastName": {
+                "default": "Palat",
+                "cs": "Pal\u00e1t",
+                "sk": "Pal\u00e1t"
+              },
+              "sweaterNumber": 18
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Taylor"
+              },
+              "lastName": {
+                "default": "Hall"
+              },
+              "sweaterNumber": 71
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "18:27",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Andrei",
+                "cs": "Andrej",
+                "sk": "Andrej"
+              },
+              "lastName": {
+                "default": "Svechnikov",
+                "cs": "Sve\u010dnikov",
+                "fi": "Svetshnikov",
+                "sk": "Sve\u010dnikov"
+              },
+              "sweaterNumber": 37
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Luke"
+              },
+              "lastName": {
+                "default": "Hughes"
+              },
+              "sweaterNumber": 43
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

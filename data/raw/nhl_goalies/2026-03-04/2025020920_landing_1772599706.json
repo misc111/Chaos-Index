@@ -1,0 +1,680 @@
+{
+  "id": 2025020920,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-26",
+  "venue": {
+    "default": "Canadian Tire Centre"
+  },
+  "venueLocation": {
+    "default": "Ottawa"
+  },
+  "startTimeUTC": "2026-02-27T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 294,
+      "market": "H",
+      "countryCode": "CA",
+      "network": "TSN5",
+      "sequenceNumber": 135
+    },
+    {
+      "id": 230,
+      "market": "H",
+      "countryCode": "CA",
+      "network": "RDS2",
+      "sequenceNumber": 146
+    },
+    {
+      "id": 562,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNDET",
+      "sequenceNumber": 282
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 17,
+    "commonName": {
+      "default": "Red Wings"
+    },
+    "abbrev": "DET",
+    "placeName": {
+      "default": "Detroit"
+    },
+    "placeNameWithPreposition": {
+      "default": "Detroit",
+      "fr": "de Detroit"
+    },
+    "score": 2,
+    "sog": 20,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/DET_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/DET_dark.svg?season=20252026"
+  },
+  "homeTeam": {
+    "id": 9,
+    "commonName": {
+      "default": "Senators",
+      "fr": "S\u00e9nateurs"
+    },
+    "abbrev": "OTT",
+    "placeName": {
+      "default": "Ottawa"
+    },
+    "placeNameWithPreposition": {
+      "default": "Ottawa",
+      "fr": "d'Ottawa"
+    },
+    "score": 1,
+    "sog": 27,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/OTT_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/OTT_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 511,
+            "strength": "pp",
+            "playerId": 8480801,
+            "firstName": {
+              "default": "Brady"
+            },
+            "lastName": {
+              "default": "Tkachuk"
+            },
+            "name": {
+              "default": "B. Tkachuk"
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8480801.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/det-ott-tkachuk-scores-ppg-against-john-gibson-6390018426112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/det-ott-tkachuk-marque-un-but-en-a-n-contre-john-gibson-6390015782112",
+            "highlightClip": 6390018426112,
+            "highlightClipFr": 6390015782112,
+            "discreteClip": 6390018045112,
+            "discreteClipFr": 6390017454112,
+            "goalsToDate": 15,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "OTT"
+            },
+            "timeInPeriod": "18:44",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482105,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "Sanderson"
+                },
+                "name": {
+                  "default": "J. Sanderson"
+                },
+                "assistsToDate": 36,
+                "sweaterNumber": 85
+              },
+              {
+                "playerId": 8482116,
+                "firstName": {
+                  "default": "Tim"
+                },
+                "lastName": {
+                  "default": "St\u00fctzle"
+                },
+                "name": {
+                  "default": "T. St\u00fctzle"
+                },
+                "assistsToDate": 34,
+                "sweaterNumber": 18
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020920/ev511.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 104,
+            "strength": "pp",
+            "playerId": 8477946,
+            "firstName": {
+              "default": "Dylan"
+            },
+            "lastName": {
+              "default": "Larkin"
+            },
+            "name": {
+              "default": "D. Larkin"
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8477946.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/det-ott-larkin-scores-ppg-against-linus-ullmark-6390018892112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/det-ott-larkin-marque-un-but-en-a-n-contre-linus-ullmark-6390020280112",
+            "highlightClip": 6390018892112,
+            "highlightClipFr": 6390020280112,
+            "discreteClip": 6390018399112,
+            "discreteClipFr": 6390021137112,
+            "goalsToDate": 27,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "05:24",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482078,
+                "firstName": {
+                  "default": "Lucas"
+                },
+                "lastName": {
+                  "default": "Raymond"
+                },
+                "name": {
+                  "default": "L. Raymond"
+                },
+                "assistsToDate": 42,
+                "sweaterNumber": 23
+              },
+              {
+                "playerId": 8481542,
+                "firstName": {
+                  "default": "Moritz"
+                },
+                "lastName": {
+                  "default": "Seider"
+                },
+                "name": {
+                  "default": "M. Seider"
+                },
+                "assistsToDate": 32,
+                "sweaterNumber": 53
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020920/ev104.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 1165,
+            "strength": "ev",
+            "playerId": 8477946,
+            "firstName": {
+              "default": "Dylan"
+            },
+            "lastName": {
+              "default": "Larkin"
+            },
+            "name": {
+              "default": "D. Larkin"
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8477946.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/det-ott-larkin-scores-goal-against-linus-ullmark-6390029080112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/det-ott-larkin-marque-un-but-contre-linus-ullmark-6390029650112",
+            "highlightClip": 6390029080112,
+            "highlightClipFr": 6390029650112,
+            "discreteClip": 6390027989112,
+            "discreteClipFr": 6390029842112,
+            "goalsToDate": 28,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "DET"
+            },
+            "timeInPeriod": "01:50",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482078,
+                "firstName": {
+                  "default": "Lucas"
+                },
+                "lastName": {
+                  "default": "Raymond"
+                },
+                "name": {
+                  "default": "L. Raymond"
+                },
+                "assistsToDate": 43,
+                "sweaterNumber": 23
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020920/ev1165.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8476434,
+        "teamAbbrev": "DET",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8476434.png",
+        "name": {
+          "default": "J. Gibson"
+        },
+        "sweaterNo": 36,
+        "position": "G",
+        "goalsAgainstAverage": 0.97,
+        "savePctg": 0.963
+      },
+      {
+        "star": 2,
+        "playerId": 8480801,
+        "teamAbbrev": "OTT",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8480801.png",
+        "name": {
+          "default": "B. Tkachuk"
+        },
+        "sweaterNo": 7,
+        "position": "L",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8477946,
+        "teamAbbrev": "DET",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8477946.png",
+        "name": {
+          "default": "D. Larkin"
+        },
+        "sweaterNo": 71,
+        "position": "C",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "11:42",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Patrick"
+              },
+              "lastName": {
+                "default": "Kane"
+              },
+              "sweaterNumber": 88
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          },
+          {
+            "timeInPeriod": "17:45",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jacob"
+              },
+              "lastName": {
+                "default": "Bernard-Docker"
+              },
+              "sweaterNumber": 25
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Dylan"
+              },
+              "lastName": {
+                "default": "Cozens"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "05:10",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ridly"
+              },
+              "lastName": {
+                "default": "Greig"
+              },
+              "sweaterNumber": 71
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Simon"
+              },
+              "lastName": {
+                "default": "Edvinsson"
+              },
+              "sweaterNumber": 77
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "07:40",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dylan"
+              },
+              "lastName": {
+                "default": "Cozens"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Simon"
+              },
+              "lastName": {
+                "default": "Edvinsson"
+              },
+              "sweaterNumber": 77
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "07:40",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Simon"
+              },
+              "lastName": {
+                "default": "Edvinsson"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brady"
+              },
+              "lastName": {
+                "default": "Tkachuk"
+              },
+              "sweaterNumber": 7
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "07:40",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dylan"
+              },
+              "lastName": {
+                "default": "Cozens"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Simon"
+              },
+              "lastName": {
+                "default": "Edvinsson"
+              },
+              "sweaterNumber": 77
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "07:40",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Simon"
+              },
+              "lastName": {
+                "default": "Edvinsson"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Dylan"
+              },
+              "lastName": {
+                "default": "Cozens"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "07:40",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brady"
+              },
+              "lastName": {
+                "default": "Tkachuk"
+              },
+              "sweaterNumber": 7
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "descKey": "misconduct"
+          },
+          {
+            "timeInPeriod": "12:35",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tyler"
+              },
+              "lastName": {
+                "default": "Kleven"
+              },
+              "sweaterNumber": 43
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Alex"
+              },
+              "lastName": {
+                "default": "DeBrincat"
+              },
+              "sweaterNumber": 93
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:35",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "John"
+              },
+              "lastName": {
+                "default": "Gibson"
+              },
+              "sweaterNumber": 36
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ridly"
+              },
+              "lastName": {
+                "default": "Greig"
+              },
+              "sweaterNumber": 71
+            },
+            "descKey": "roughing",
+            "servedBy": {
+              "default": "P. Kane"
+            }
+          },
+          {
+            "timeInPeriod": "01:35",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ridly"
+              },
+              "lastName": {
+                "default": "Greig"
+              },
+              "sweaterNumber": 71
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "John"
+              },
+              "lastName": {
+                "default": "Gibson"
+              },
+              "sweaterNumber": 36
+            },
+            "descKey": "interference-goalkeeper"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "03:10",
+    "secondsRemaining": 190,
+    "running": false,
+    "inIntermission": false
+  }
+}

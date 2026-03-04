@@ -1,0 +1,865 @@
+{
+  "id": 2025020839,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-27",
+  "venue": {
+    "default": "Climate Pledge Arena"
+  },
+  "venueLocation": {
+    "default": "Seattle"
+  },
+  "startTimeUTC": "2026-01-28T03:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "US/Pacific",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 21
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 554,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KHN/Prime",
+      "sequenceNumber": 348
+    },
+    {
+      "id": 517,
+      "market": "A",
+      "countryCode": "US",
+      "network": "MNMT",
+      "sequenceNumber": 396
+    },
+    {
+      "id": 388,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KONG",
+      "sequenceNumber": 654
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 15,
+    "commonName": {
+      "default": "Capitals"
+    },
+    "abbrev": "WSH",
+    "placeName": {
+      "default": "Washington"
+    },
+    "placeNameWithPreposition": {
+      "default": "Washington",
+      "fr": "de Washington"
+    },
+    "score": 1,
+    "sog": 20,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_dark.svg"
+  },
+  "homeTeam": {
+    "id": 55,
+    "commonName": {
+      "default": "Kraken"
+    },
+    "abbrev": "SEA",
+    "placeName": {
+      "default": "Seattle"
+    },
+    "placeNameWithPreposition": {
+      "default": "Seattle",
+      "fr": "de Seattle"
+    },
+    "score": 5,
+    "sog": 32,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/SEA_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 476,
+            "strength": "pp",
+            "playerId": 8477955,
+            "firstName": {
+              "default": "Jared"
+            },
+            "lastName": {
+              "default": "McCann"
+            },
+            "name": {
+              "default": "J. McCann"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8477955.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-sea-mccann-scores-ppg-against-logan-thompson-6388414273112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-sea-mccann-marque-un-but-en-a-n-contre-logan-thompson-6388414083112",
+            "highlightClip": 6388414273112,
+            "highlightClipFr": 6388414083112,
+            "discreteClip": 6388413494112,
+            "discreteClipFr": 6388413791112,
+            "goalsToDate": 13,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "01:15",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8474586,
+                "firstName": {
+                  "default": "Jordan"
+                },
+                "lastName": {
+                  "default": "Eberle"
+                },
+                "name": {
+                  "default": "J. Eberle"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 7
+              },
+              {
+                "playerId": 8476905,
+                "firstName": {
+                  "default": "Chandler"
+                },
+                "lastName": {
+                  "default": "Stephenson"
+                },
+                "name": {
+                  "default": "C. Stephenson"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020839/ev476.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 631,
+            "strength": "ev",
+            "playerId": 8477955,
+            "firstName": {
+              "default": "Jared"
+            },
+            "lastName": {
+              "default": "McCann"
+            },
+            "name": {
+              "default": "J. McCann"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8477955.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-sea-mccann-scores-goal-against-logan-thompson-6388414113112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-sea-mccann-marque-un-but-contre-logan-thompson-6388415675112",
+            "highlightClip": 6388414113112,
+            "highlightClipFr": 6388415675112,
+            "discreteClip": 6388413518112,
+            "discreteClipFr": 6388415486112,
+            "goalsToDate": 14,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "10:09",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482665,
+                "firstName": {
+                  "default": "Matty"
+                },
+                "lastName": {
+                  "default": "Beniers"
+                },
+                "name": {
+                  "default": "M. Beniers"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 10
+              },
+              {
+                "playerId": 8479324,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "Lindgren"
+                },
+                "name": {
+                  "default": "R. Lindgren"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 55
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020839/ev631.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 735,
+            "strength": "ev",
+            "playerId": 8474586,
+            "firstName": {
+              "default": "Jordan"
+            },
+            "lastName": {
+              "default": "Eberle"
+            },
+            "name": {
+              "default": "J. Eberle"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8474586.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-sea-eberle-scores-goal-against-logan-thompson-6388415178112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-sea-eberle-marque-un-but-contre-logan-thompson-6388415186112",
+            "highlightClip": 6388415178112,
+            "highlightClipFr": 6388415186112,
+            "discreteClip": 6388413416112,
+            "discreteClipFr": 6388414800112,
+            "goalsToDate": 19,
+            "awayScore": 0,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "17:54",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477955,
+                "firstName": {
+                  "default": "Jared"
+                },
+                "lastName": {
+                  "default": "McCann"
+                },
+                "name": {
+                  "default": "J. McCann"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 19
+              },
+              {
+                "playerId": 8476457,
+                "firstName": {
+                  "default": "Adam"
+                },
+                "lastName": {
+                  "default": "Larsson"
+                },
+                "name": {
+                  "default": "A. Larsson"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020839/ev735.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 807,
+            "strength": "pp",
+            "playerId": 8471214,
+            "firstName": {
+              "default": "Alex",
+              "cs": "Alexandr",
+              "fi": "Aleksandr",
+              "sk": "Alexander"
+            },
+            "lastName": {
+              "default": "Ovechkin",
+              "cs": "Ove\u010dkin",
+              "fi": "Ovetshkin",
+              "sk": "Ove\u010dkin"
+            },
+            "name": {
+              "default": "A. Ovechkin",
+              "cs": "A. Ove\u010dkin",
+              "fi": "A. Ovetshkin",
+              "sk": "A. Ove\u010dkin"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8471214.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-sea-ovechkin-scores-ppg-against-philipp-grubauer-6388417003112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-sea-ovechkin-marque-un-but-en-a-n-contre-philipp-grubauer-6388417685112",
+            "highlightClip": 6388417003112,
+            "highlightClipFr": 6388417685112,
+            "discreteClip": 6388415228112,
+            "discreteClipFr": 6388417783112,
+            "goalsToDate": 22,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "02:30",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484186,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "Leonard"
+                },
+                "name": {
+                  "default": "R. Leonard"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 9
+              },
+              {
+                "playerId": 8479345,
+                "firstName": {
+                  "default": "Jakob"
+                },
+                "lastName": {
+                  "default": "Chychrun"
+                },
+                "name": {
+                  "default": "J. Chychrun"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020839/ev807.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 503,
+            "strength": "ev",
+            "playerId": 8482858,
+            "firstName": {
+              "default": "Ryker"
+            },
+            "lastName": {
+              "default": "Evans"
+            },
+            "name": {
+              "default": "R. Evans"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8482858.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-sea-evans-scores-goal-against-logan-thompson-6388418479112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-sea-evans-marque-un-but-contre-logan-thompson-6388418676112",
+            "highlightClip": 6388418479112,
+            "highlightClipFr": 6388418676112,
+            "discreteClip": 6388417602112,
+            "discreteClipFr": 6388416345112,
+            "goalsToDate": 5,
+            "awayScore": 1,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "13:12",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477919,
+                "firstName": {
+                  "default": "Frederick"
+                },
+                "lastName": {
+                  "default": "Gaudreau"
+                },
+                "name": {
+                  "default": "F. Gaudreau"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 89
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020839/ev503.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 984,
+            "strength": "ev",
+            "playerId": 8482665,
+            "firstName": {
+              "default": "Matty"
+            },
+            "lastName": {
+              "default": "Beniers"
+            },
+            "name": {
+              "default": "M. Beniers"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8482665.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-sea-beniers-scores-goal-against-logan-thompson-6388417035112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-sea-beniers-marque-un-but-contre-logan-thompson-6388418001112",
+            "highlightClip": 6388417035112,
+            "highlightClipFr": 6388418001112,
+            "discreteClip": 6388417890112,
+            "discreteClipFr": 6388417511112,
+            "goalsToDate": 13,
+            "awayScore": 1,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "16:27",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477955,
+                "firstName": {
+                  "default": "Jared"
+                },
+                "lastName": {
+                  "default": "McCann"
+                },
+                "name": {
+                  "default": "J. McCann"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 19
+              },
+              {
+                "playerId": 8477986,
+                "firstName": {
+                  "default": "Brandon"
+                },
+                "lastName": {
+                  "default": "Montour"
+                },
+                "name": {
+                  "default": "B. Montour"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 62
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020839/ev984.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8477955,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8477955.png",
+        "name": {
+          "default": "J. McCann"
+        },
+        "sweaterNo": 19,
+        "position": "L",
+        "goals": 2,
+        "assists": 2,
+        "points": 4
+      },
+      {
+        "star": 2,
+        "playerId": 8482665,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8482665.png",
+        "name": {
+          "default": "M. Beniers"
+        },
+        "sweaterNo": 10,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8475831,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8475831.png",
+        "name": {
+          "default": "P. Grubauer"
+        },
+        "sweaterNo": 31,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.95
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "19:30",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ethen"
+              },
+              "lastName": {
+                "default": "Frank"
+              },
+              "sweaterNumber": 53
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Montour"
+              },
+              "sweaterNumber": 62
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:33",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Declan"
+              },
+              "lastName": {
+                "default": "Chisholm"
+              },
+              "sweaterNumber": 47
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          },
+          {
+            "timeInPeriod": "07:27",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Chandler"
+              },
+              "lastName": {
+                "default": "Stephenson"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jakob"
+              },
+              "lastName": {
+                "default": "Chychrun"
+              },
+              "sweaterNumber": 6
+            },
+            "descKey": "interference"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:27",
+            "type": "MIN",
+            "duration": 4,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matty"
+              },
+              "lastName": {
+                "default": "Beniers"
+              },
+              "sweaterNumber": 10
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Justin"
+              },
+              "lastName": {
+                "default": "Sourdif"
+              },
+              "sweaterNumber": 34
+            },
+            "descKey": "high-sticking-double-minor"
+          },
+          {
+            "timeInPeriod": "07:32",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Berkly"
+              },
+              "lastName": {
+                "default": "Catton"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Justin"
+              },
+              "lastName": {
+                "default": "Sourdif"
+              },
+              "sweaterNumber": 34
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "09:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Justin"
+              },
+              "lastName": {
+                "default": "Sourdif"
+              },
+              "sweaterNumber": 34
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jamie"
+              },
+              "lastName": {
+                "default": "Oleksiak"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "13:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Eeli"
+              },
+              "lastName": {
+                "default": "Tolvanen"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          },
+          {
+            "timeInPeriod": "18:43",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Duhaime"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jacob"
+              },
+              "lastName": {
+                "default": "Melanson"
+              },
+              "sweaterNumber": 63
+            },
+            "descKey": "roughing",
+            "servedBy": {
+              "default": "A. Ovechkin",
+              "cs": "A. Ove\u010dkin",
+              "fi": "A. Ovetshkin",
+              "sk": "A. Ove\u010dkin"
+            }
+          },
+          {
+            "timeInPeriod": "18:43",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jacob"
+              },
+              "lastName": {
+                "default": "Melanson"
+              },
+              "sweaterNumber": 63
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Duhaime"
+              },
+              "sweaterNumber": 22
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "18:43",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Duhaime"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jacob"
+              },
+              "lastName": {
+                "default": "Melanson"
+              },
+              "sweaterNumber": 63
+            },
+            "descKey": "fighting"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

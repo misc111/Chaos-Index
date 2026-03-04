@@ -1,0 +1,563 @@
+{
+  "id": 2025020722,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-12",
+  "venue": {
+    "default": "United Center"
+  },
+  "venueLocation": {
+    "default": "Chicago"
+  },
+  "startTimeUTC": "2026-01-13T01:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "America/Chicago",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 289,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "SNW",
+      "sequenceNumber": 34
+    },
+    {
+      "id": 551,
+      "market": "H",
+      "countryCode": "US",
+      "network": "CHSN",
+      "sequenceNumber": 254
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 22,
+    "commonName": {
+      "default": "Oilers"
+    },
+    "abbrev": "EDM",
+    "placeName": {
+      "default": "Edmonton"
+    },
+    "placeNameWithPreposition": {
+      "default": "Edmonton",
+      "fr": "d'Edmonton"
+    },
+    "score": 4,
+    "sog": 37,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/EDM_dark.svg"
+  },
+  "homeTeam": {
+    "id": 16,
+    "commonName": {
+      "default": "Blackhawks"
+    },
+    "abbrev": "CHI",
+    "placeName": {
+      "default": "Chicago"
+    },
+    "placeNameWithPreposition": {
+      "default": "Chicago",
+      "fr": "de Chicago"
+    },
+    "score": 1,
+    "sog": 30,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CHI_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CHI_dark.svg?season=20252026"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 283,
+            "strength": "ev",
+            "playerId": 8475786,
+            "firstName": {
+              "default": "Zach"
+            },
+            "lastName": {
+              "default": "Hyman"
+            },
+            "name": {
+              "default": "Z. Hyman"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8475786.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-chi-hyman-scores-goal-against-spencer-knight-6387632043112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-chi-hyman-marque-un-but-contre-spencer-knight-6387632517112",
+            "highlightClip": 6387632043112,
+            "highlightClipFr": 6387632517112,
+            "discreteClip": 6387632516112,
+            "discreteClipFr": 6387633007112,
+            "goalsToDate": 14,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "14:41",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480803,
+                "firstName": {
+                  "default": "Evan"
+                },
+                "lastName": {
+                  "default": "Bouchard"
+                },
+                "name": {
+                  "default": "E. Bouchard"
+                },
+                "assistsToDate": 35,
+                "sweaterNumber": 2
+              },
+              {
+                "playerId": 8478402,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McDavid"
+                },
+                "name": {
+                  "default": "C. McDavid"
+                },
+                "assistsToDate": 49,
+                "sweaterNumber": 97
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020722/ev283.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 352,
+            "strength": "ev",
+            "playerId": 8480803,
+            "firstName": {
+              "default": "Evan"
+            },
+            "lastName": {
+              "default": "Bouchard"
+            },
+            "name": {
+              "default": "E. Bouchard"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8480803.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-chi-bouchard-scores-goal-against-spencer-knight-6387635434112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-chi-bouchard-marque-un-but-contre-spencer-knight-6387633765112",
+            "highlightClip": 6387635434112,
+            "highlightClipFr": 6387633765112,
+            "discreteClip": 6387634021112,
+            "discreteClipFr": 6387634614112,
+            "goalsToDate": 10,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "00:16",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476454,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "Nugent-Hopkins"
+                },
+                "name": {
+                  "default": "R. Nugent-Hopkins"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 93
+              },
+              {
+                "playerId": 8478402,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McDavid"
+                },
+                "name": {
+                  "default": "C. McDavid"
+                },
+                "assistsToDate": 50,
+                "sweaterNumber": 97
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020722/ev352.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 990,
+            "strength": "ev",
+            "playerId": 8477479,
+            "firstName": {
+              "default": "Tyler"
+            },
+            "lastName": {
+              "default": "Bertuzzi"
+            },
+            "name": {
+              "default": "T. Bertuzzi"
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8477479.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-chi-bertuzzi-scores-goal-against-connor-ingram-6387640698112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-chi-bertuzzi-marque-un-but-contre-connor-ingram-6387640494112",
+            "highlightClip": 6387640698112,
+            "highlightClipFr": 6387640494112,
+            "discreteClip": 6387639346112,
+            "discreteClipFr": 6387641583112,
+            "goalsToDate": 24,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "14:46",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482176,
+                "firstName": {
+                  "default": "Wyatt"
+                },
+                "lastName": {
+                  "default": "Kaiser"
+                },
+                "name": {
+                  "default": "W. Kaiser"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 44
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020722/ev990.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 471,
+            "strength": "ev",
+            "playerId": 8480803,
+            "firstName": {
+              "default": "Evan"
+            },
+            "lastName": {
+              "default": "Bouchard"
+            },
+            "name": {
+              "default": "E. Bouchard"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8480803.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/evan-bouchard-with-a-goal-vs-chicago-blackhawks-6387640715112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/evan-bouchard-with-a-but-vs-les-blackhawks-de-chicago-6387641889112",
+            "highlightClip": 6387640715112,
+            "highlightClipFr": 6387641889112,
+            "discreteClip": 6387641298112,
+            "discreteClipFr": 6387641986112,
+            "goalsToDate": 11,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "19:07",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8475786,
+                "firstName": {
+                  "default": "Zach"
+                },
+                "lastName": {
+                  "default": "Hyman"
+                },
+                "name": {
+                  "default": "Z. Hyman"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 18
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020722/ev471.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1059,
+            "strength": "ev",
+            "playerId": 8477934,
+            "firstName": {
+              "default": "Leon"
+            },
+            "lastName": {
+              "default": "Draisaitl"
+            },
+            "name": {
+              "default": "L. Draisaitl"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8477934.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-chi-draisaitl-scores-goal-against-spencer-knight-6387640717112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-chi-draisaitl-marque-un-but-contre-spencer-knight-6387639935112",
+            "highlightClip": 6387640717112,
+            "highlightClipFr": 6387639935112,
+            "discreteClip": 6387640918112,
+            "discreteClipFr": 6387640608112,
+            "goalsToDate": 24,
+            "awayScore": 4,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "19:15",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020722/ev1059.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8480803,
+        "teamAbbrev": "EDM",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8480803.png",
+        "name": {
+          "default": "E. Bouchard"
+        },
+        "sweaterNo": 2,
+        "position": "D",
+        "goals": 2,
+        "assists": 1,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8478402,
+        "teamAbbrev": "EDM",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8478402.png",
+        "name": {
+          "default": "C. McDavid"
+        },
+        "sweaterNo": 97,
+        "position": "C",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8478971,
+        "teamAbbrev": "EDM",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8478971.png",
+        "name": {
+          "default": "C. Ingram"
+        },
+        "sweaterNo": 39,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.967
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:55",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mattias"
+              },
+              "lastName": {
+                "default": "Ekholm"
+              },
+              "sweaterNumber": 14
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Andre",
+                "cs": "Andr\u00e9",
+                "sk": "Andr\u00e9",
+                "sv": "Andr\u00e9"
+              },
+              "lastName": {
+                "default": "Burakovsky"
+              },
+              "sweaterNumber": 28
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "14:53",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "C. Dach"
+            }
+          },
+          {
+            "timeInPeriod": "17:51",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Greene"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Spencer"
+              },
+              "lastName": {
+                "default": "Stastney"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "10:32",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Spencer"
+              },
+              "lastName": {
+                "default": "Stastney"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Foligno"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

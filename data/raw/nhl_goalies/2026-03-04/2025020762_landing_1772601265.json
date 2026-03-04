@@ -1,0 +1,804 @@
+{
+  "id": 2025020762,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-17",
+  "venue": {
+    "default": "Canada Life Centre"
+  },
+  "venueLocation": {
+    "default": "Winnipeg"
+  },
+  "startTimeUTC": "2026-01-18T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "America/Winnipeg",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 21
+    },
+    {
+      "id": 324,
+      "market": "N",
+      "countryCode": "US",
+      "network": "NHLN",
+      "sequenceNumber": 35
+    },
+    {
+      "id": 4,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC",
+      "sequenceNumber": 101
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 10,
+    "commonName": {
+      "default": "Maple Leafs"
+    },
+    "abbrev": "TOR",
+    "placeName": {
+      "default": "Toronto"
+    },
+    "placeNameWithPreposition": {
+      "default": "Toronto",
+      "fr": "de Toronto"
+    },
+    "score": 4,
+    "sog": 37,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TOR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/TOR_dark.svg"
+  },
+  "homeTeam": {
+    "id": 52,
+    "commonName": {
+      "default": "Jets"
+    },
+    "abbrev": "WPG",
+    "placeName": {
+      "default": "Winnipeg"
+    },
+    "placeNameWithPreposition": {
+      "default": "Winnipeg",
+      "fr": "de Winnipeg"
+    },
+    "score": 3,
+    "sog": 30,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/WPG_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/WPG_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 528,
+            "strength": "ev",
+            "playerId": 8480113,
+            "firstName": {
+              "default": "Alex"
+            },
+            "lastName": {
+              "default": "Iafallo"
+            },
+            "name": {
+              "default": "A. Iafallo"
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WPG/8480113.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-wpg-niederreiter-scores-goal-against-dennis-hildeby-6387884188112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-wpg-iafallo-marque-un-but-contre-dennis-hildeby-6387885032112",
+            "highlightClip": 6387884188112,
+            "highlightClipFr": 6387885032112,
+            "discreteClip": 6387885326112,
+            "discreteClipFr": 6387884527112,
+            "goalsToDate": 9,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "WPG"
+            },
+            "timeInPeriod": "02:23",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479378,
+                "firstName": {
+                  "default": "Logan"
+                },
+                "lastName": {
+                  "default": "Stanley"
+                },
+                "name": {
+                  "default": "L. Stanley"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 64
+              },
+              {
+                "playerId": 8476480,
+                "firstName": {
+                  "default": "Vladislav"
+                },
+                "lastName": {
+                  "default": "Namestnikov",
+                  "cs": "Nam\u011bstnikov"
+                },
+                "name": {
+                  "default": "V. Namestnikov",
+                  "cs": "V. Nam\u011bstnikov"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 7
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020762/ev528.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 680,
+            "strength": "ev",
+            "playerId": 8478398,
+            "firstName": {
+              "default": "Kyle"
+            },
+            "lastName": {
+              "default": "Connor"
+            },
+            "name": {
+              "default": "K. Connor"
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WPG/8478398.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-wpg-connor-scores-goal-against-dennis-hildeby-6387883445112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-wpg-connor-marque-un-but-contre-dennis-hildeby-6387885602112",
+            "highlightClip": 6387883445112,
+            "highlightClipFr": 6387885602112,
+            "discreteClip": 6387883264112,
+            "discreteClipFr": 6387884915112,
+            "goalsToDate": 23,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "WPG"
+            },
+            "timeInPeriod": "08:59",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480014,
+                "firstName": {
+                  "default": "Gabriel"
+                },
+                "lastName": {
+                  "default": "Vilardi"
+                },
+                "name": {
+                  "default": "G. Vilardi"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 13
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020762/ev680.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 687,
+            "strength": "ev",
+            "playerId": 8479318,
+            "firstName": {
+              "default": "Auston"
+            },
+            "lastName": {
+              "default": "Matthews"
+            },
+            "name": {
+              "default": "A. Matthews"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8479318.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-wpg-matthews-scores-goal-against-connor-hellebuyck-6387885018112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-wpg-matthews-marque-un-but-contre-connor-hellebuyck-6387884632112",
+            "highlightClip": 6387885018112,
+            "highlightClipFr": 6387884632112,
+            "discreteClip": 6387885702112,
+            "discreteClipFr": 6387884819112,
+            "goalsToDate": 24,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "WPG"
+            },
+            "timeInPeriod": "09:22",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477503,
+                "firstName": {
+                  "default": "Max"
+                },
+                "lastName": {
+                  "default": "Domi"
+                },
+                "name": {
+                  "default": "M. Domi"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 11
+              },
+              {
+                "playerId": 8476853,
+                "firstName": {
+                  "default": "Morgan"
+                },
+                "lastName": {
+                  "default": "Rielly"
+                },
+                "name": {
+                  "default": "M. Rielly"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 44
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020762/ev687.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 866,
+            "strength": "ev",
+            "playerId": 8475799,
+            "firstName": {
+              "default": "Nino"
+            },
+            "lastName": {
+              "default": "Niederreiter"
+            },
+            "name": {
+              "default": "N. Niederreiter"
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WPG/8475799.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-wpg-niederreiter-scores-goal-against-dennis-hildeby-6387887137112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-wpg-niederreiter-marque-un-but-contre-dennis-hildeby-6387886926112",
+            "highlightClip": 6387887137112,
+            "highlightClipFr": 6387886926112,
+            "discreteClip": 6387885962112,
+            "discreteClipFr": 6387886147112,
+            "goalsToDate": 7,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "WPG"
+            },
+            "timeInPeriod": "02:28",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476480,
+                "firstName": {
+                  "default": "Vladislav"
+                },
+                "lastName": {
+                  "default": "Namestnikov",
+                  "cs": "Nam\u011bstnikov"
+                },
+                "name": {
+                  "default": "V. Namestnikov",
+                  "cs": "V. Nam\u011bstnikov"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 7
+              },
+              {
+                "playerId": 8474568,
+                "firstName": {
+                  "default": "Luke"
+                },
+                "lastName": {
+                  "default": "Schenn"
+                },
+                "name": {
+                  "default": "L. Schenn"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 5
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020762/ev866.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 911,
+            "strength": "ev",
+            "playerId": 8475171,
+            "firstName": {
+              "default": "Oliver"
+            },
+            "lastName": {
+              "default": "Ekman-Larsson"
+            },
+            "name": {
+              "default": "O. Ekman-Larsson"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8475171.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-wpg-ekman-larsson-scores-goal-against-connor-hellebuyck-6387885481112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-wpg-ekman-larsson-marque-un-but-contre-connor-hellebuyck-6387888320112",
+            "highlightClip": 6387885481112,
+            "highlightClipFr": 6387888320112,
+            "discreteClip": 6387886764112,
+            "discreteClipFr": 6387885879112,
+            "goalsToDate": 8,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "WPG"
+            },
+            "timeInPeriod": "05:58",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481582,
+                "firstName": {
+                  "default": "Nicholas"
+                },
+                "lastName": {
+                  "default": "Robertson"
+                },
+                "name": {
+                  "default": "N. Robertson"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 89
+              },
+              {
+                "playerId": 8484158,
+                "firstName": {
+                  "default": "Easton"
+                },
+                "lastName": {
+                  "default": "Cowan"
+                },
+                "name": {
+                  "default": "E. Cowan"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 53
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020762/ev911.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1045,
+            "strength": "ev",
+            "playerId": 8482259,
+            "firstName": {
+              "default": "Bobby"
+            },
+            "lastName": {
+              "default": "McMann"
+            },
+            "name": {
+              "default": "B. McMann"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8482259.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-wpg-mcmann-scores-goal-against-connor-hellebuyck-6387891156112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-wpg-mcmann-marque-un-but-contre-connor-hellebuyck-6387886986112",
+            "highlightClip": 6387891156112,
+            "highlightClipFr": 6387886986112,
+            "discreteClip": 6387889034112,
+            "discreteClipFr": 6387887880112,
+            "goalsToDate": 15,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "15:33",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475171,
+                "firstName": {
+                  "default": "Oliver"
+                },
+                "lastName": {
+                  "default": "Ekman-Larsson"
+                },
+                "name": {
+                  "default": "O. Ekman-Larsson"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 95
+              },
+              {
+                "playerId": 8476853,
+                "firstName": {
+                  "default": "Morgan"
+                },
+                "lastName": {
+                  "default": "Rielly"
+                },
+                "name": {
+                  "default": "M. Rielly"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 44
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020762/ev1045.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 1148,
+            "strength": "ev",
+            "playerId": 8477503,
+            "firstName": {
+              "default": "Max"
+            },
+            "lastName": {
+              "default": "Domi"
+            },
+            "name": {
+              "default": "M. Domi"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8477503.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-wpg-domi-scores-goal-against-connor-hellebuyck-6387887104112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-wpg-domi-marque-un-but-contre-connor-hellebuyck-6387888193112",
+            "highlightClip": 6387887104112,
+            "highlightClipFr": 6387888193112,
+            "discreteClip": 6387889446112,
+            "discreteClipFr": 6387888496112,
+            "goalsToDate": 6,
+            "awayScore": 4,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "03:08",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479318,
+                "firstName": {
+                  "default": "Auston"
+                },
+                "lastName": {
+                  "default": "Matthews"
+                },
+                "name": {
+                  "default": "A. Matthews"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 34
+              },
+              {
+                "playerId": 8475171,
+                "firstName": {
+                  "default": "Oliver"
+                },
+                "lastName": {
+                  "default": "Ekman-Larsson"
+                },
+                "name": {
+                  "default": "O. Ekman-Larsson"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 95
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020762/ev1148.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8477503,
+        "teamAbbrev": "TOR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8477503.png",
+        "name": {
+          "default": "M. Domi"
+        },
+        "sweaterNo": 11,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8475799,
+        "teamAbbrev": "WPG",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WPG/8475799.png",
+        "name": {
+          "default": "N. Niederreiter"
+        },
+        "sweaterNo": 62,
+        "position": "R",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8475171,
+        "teamAbbrev": "TOR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8475171.png",
+        "name": {
+          "default": "O. Ekman-Larsson"
+        },
+        "sweaterNo": 95,
+        "position": "D",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:22",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Carlo"
+              },
+              "sweaterNumber": 25
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Gabriel"
+              },
+              "lastName": {
+                "default": "Vilardi"
+              },
+              "sweaterNumber": 13
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "06:53",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nicholas"
+              },
+              "lastName": {
+                "default": "Robertson"
+              },
+              "sweaterNumber": 89
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Cole"
+              },
+              "lastName": {
+                "default": "Perfetti"
+              },
+              "sweaterNumber": 91
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "09:55",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jonathan"
+              },
+              "lastName": {
+                "default": "Toews"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Morgan"
+              },
+              "lastName": {
+                "default": "Rielly"
+              },
+              "sweaterNumber": 44
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "14:52",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Alex"
+              },
+              "lastName": {
+                "default": "Iafallo"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Knies"
+              },
+              "sweaterNumber": 23
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "16:47",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Knies"
+              },
+              "sweaterNumber": 23
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Gabriel"
+              },
+              "lastName": {
+                "default": "Vilardi"
+              },
+              "sweaterNumber": 13
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "01:52",
+    "secondsRemaining": 112,
+    "running": false,
+    "inIntermission": false
+  }
+}

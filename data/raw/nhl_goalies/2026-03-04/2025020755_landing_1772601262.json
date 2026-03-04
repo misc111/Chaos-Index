@@ -1,0 +1,920 @@
+{
+  "id": 2025020755,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-17",
+  "venue": {
+    "default": "Xfinity Mobile Arena"
+  },
+  "venueLocation": {
+    "default": "Philadelphia",
+    "fr": "Philadelphie"
+  },
+  "startTimeUTC": "2026-01-17T18:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 322,
+      "market": "H",
+      "countryCode": "US",
+      "network": "NBCSP",
+      "sequenceNumber": 389
+    },
+    {
+      "id": 27,
+      "market": "A",
+      "countryCode": "US",
+      "network": "MSG",
+      "sequenceNumber": 417
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 3,
+    "commonName": {
+      "default": "Rangers"
+    },
+    "abbrev": "NYR",
+    "placeName": {
+      "default": "New York"
+    },
+    "placeNameWithPreposition": {
+      "default": "New York",
+      "fr": "de New York"
+    },
+    "score": 6,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NYR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NYR_dark.svg"
+  },
+  "homeTeam": {
+    "id": 4,
+    "commonName": {
+      "default": "Flyers"
+    },
+    "abbrev": "PHI",
+    "placeName": {
+      "default": "Philadelphia",
+      "fr": "Philadelphie"
+    },
+    "placeNameWithPreposition": {
+      "default": "Philadelphia",
+      "fr": "de Philadelphie"
+    },
+    "score": 3,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/PHI_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/PHI_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 190,
+            "strength": "ev",
+            "playerId": 8478439,
+            "firstName": {
+              "default": "Travis"
+            },
+            "lastName": {
+              "default": "Konecny"
+            },
+            "name": {
+              "default": "T. Konecny"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8478439.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyr-phi-konecny-scores-goal-against-spencer-martin-6387869577112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyr-phi-konecny-marque-un-but-contre-spencer-martin-6387869856112",
+            "highlightClip": 6387869577112,
+            "highlightClipFr": 6387869856112,
+            "discreteClip": 6387868399112,
+            "discreteClipFr": 6387868208112,
+            "goalsToDate": 15,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "PHI"
+            },
+            "timeInPeriod": "06:22",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481533,
+                "firstName": {
+                  "default": "Trevor"
+                },
+                "lastName": {
+                  "default": "Zegras"
+                },
+                "name": {
+                  "default": "T. Zegras"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 46
+              },
+              {
+                "playerId": 8477948,
+                "firstName": {
+                  "default": "Travis"
+                },
+                "lastName": {
+                  "default": "Sanheim"
+                },
+                "name": {
+                  "default": "T. Sanheim"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020755/ev190.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 197,
+            "strength": "ev",
+            "playerId": 8478550,
+            "firstName": {
+              "default": "Artemi",
+              "cs": "Art\u011bmij",
+              "sk": "Artemij"
+            },
+            "lastName": {
+              "default": "Panarin"
+            },
+            "name": {
+              "default": "A. Panarin"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8478550.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyr-phi-panarin-scores-goal-against-aleksei-kolosov-6387867802112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyr-phi-panarin-marque-un-but-contre-aleksei-kolosov-6387870148112",
+            "highlightClip": 6387867802112,
+            "highlightClipFr": 6387870148112,
+            "discreteClip": 6387869581112,
+            "discreteClipFr": 6387868405112,
+            "goalsToDate": 17,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "07:05",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476389,
+                "firstName": {
+                  "default": "Vincent"
+                },
+                "lastName": {
+                  "default": "Trocheck"
+                },
+                "name": {
+                  "default": "V. Trocheck"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 16
+              },
+              {
+                "playerId": 8482109,
+                "firstName": {
+                  "default": "Alexis"
+                },
+                "lastName": {
+                  "default": "Lafreni\u00e8re"
+                },
+                "name": {
+                  "default": "A. Lafreni\u00e8re"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 13
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020755/ev197.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 203,
+            "strength": "ev",
+            "playerId": 8476459,
+            "firstName": {
+              "default": "Mika"
+            },
+            "lastName": {
+              "default": "Zibanejad"
+            },
+            "name": {
+              "default": "M. Zibanejad"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8476459.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyr-phi-zibanejad-scores-goal-against-aleksei-kolosov-6387869387112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyr-phi-zibanejad-marque-un-but-contre-aleksei-kolosov-6387868409112",
+            "highlightClip": 6387869387112,
+            "highlightClipFr": 6387868409112,
+            "discreteClip": 6387870258112,
+            "discreteClipFr": 6387869281112,
+            "goalsToDate": 19,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "07:26",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476468,
+                "firstName": {
+                  "default": "J.T."
+                },
+                "lastName": {
+                  "default": "Miller"
+                },
+                "name": {
+                  "default": "J. Miller"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 8
+              },
+              {
+                "playerId": 8482073,
+                "firstName": {
+                  "default": "Braden"
+                },
+                "lastName": {
+                  "default": "Schneider"
+                },
+                "name": {
+                  "default": "B. Schneider"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 4
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020755/ev203.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 214,
+            "strength": "ev",
+            "playerId": 8482747,
+            "firstName": {
+              "default": "Brennan"
+            },
+            "lastName": {
+              "default": "Othmann"
+            },
+            "name": {
+              "default": "B. Othmann"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8482747.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyr-phi-othmann-scores-goal-against-aleksei-kolosov-6387869485112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyr-phi-othmann-marque-un-but-contre-aleksei-kolosov-6387869103112",
+            "highlightClip": 6387869485112,
+            "highlightClipFr": 6387869103112,
+            "discreteClip": 6387868314112,
+            "discreteClipFr": 6387870751112,
+            "goalsToDate": 1,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "08:25",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482157,
+                "firstName": {
+                  "default": "Will"
+                },
+                "lastName": {
+                  "default": "Cuylle"
+                },
+                "name": {
+                  "default": "W. Cuylle"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 50
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020755/ev214.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 567,
+            "strength": "pp",
+            "playerId": 8476459,
+            "firstName": {
+              "default": "Mika"
+            },
+            "lastName": {
+              "default": "Zibanejad"
+            },
+            "name": {
+              "default": "M. Zibanejad"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8476459.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyr-phi-zibanejad-scores-ppg-against-samuel-ersson-6387871880112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyr-phi-zibanejad-marque-un-but-en-a-n-contre-samuel-ersson-6387870612112",
+            "highlightClip": 6387871880112,
+            "highlightClipFr": 6387870612112,
+            "discreteClip": 6387871497112,
+            "discreteClipFr": 6387871099112,
+            "goalsToDate": 20,
+            "awayScore": 4,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "05:38",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478550,
+                "firstName": {
+                  "default": "Artemi",
+                  "cs": "Art\u011bmij",
+                  "sk": "Artemij"
+                },
+                "lastName": {
+                  "default": "Panarin"
+                },
+                "name": {
+                  "default": "A. Panarin"
+                },
+                "assistsToDate": 36,
+                "sweaterNumber": 10
+              },
+              {
+                "playerId": 8476389,
+                "firstName": {
+                  "default": "Vincent"
+                },
+                "lastName": {
+                  "default": "Trocheck"
+                },
+                "name": {
+                  "default": "V. Trocheck"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 16
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020755/ev567.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 618,
+            "strength": "ev",
+            "playerId": 8476459,
+            "firstName": {
+              "default": "Mika"
+            },
+            "lastName": {
+              "default": "Zibanejad"
+            },
+            "name": {
+              "default": "M. Zibanejad"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8476459.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyr-phi-zibanejad-scores-goal-against-samuel-ersson-6387871404112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyr-phi-zibanejad-marque-un-but-contre-samuel-ersson-6387871508112",
+            "highlightClip": 6387871404112,
+            "highlightClipFr": 6387871508112,
+            "discreteClip": 6387870619112,
+            "discreteClipFr": 6387869724112,
+            "goalsToDate": 21,
+            "awayScore": 5,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "08:25",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476468,
+                "firstName": {
+                  "default": "J.T."
+                },
+                "lastName": {
+                  "default": "Miller"
+                },
+                "name": {
+                  "default": "J. Miller"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 8
+              },
+              {
+                "playerId": 8482666,
+                "firstName": {
+                  "default": "Scott"
+                },
+                "lastName": {
+                  "default": "Morrow"
+                },
+                "name": {
+                  "default": "S. Morrow"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 60
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020755/ev618.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 703,
+            "strength": "ev",
+            "playerId": 8478550,
+            "firstName": {
+              "default": "Artemi",
+              "cs": "Art\u011bmij",
+              "sk": "Artemij"
+            },
+            "lastName": {
+              "default": "Panarin"
+            },
+            "name": {
+              "default": "A. Panarin"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8478550.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyr-phi-panarin-scores-goal-against-samuel-ersson-6387872696112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyr-phi-panarin-marque-un-but-contre-samuel-ersson-6387871240112",
+            "highlightClip": 6387872696112,
+            "highlightClipFr": 6387871240112,
+            "discreteClip": 6387871815112,
+            "discreteClipFr": 6387873299112,
+            "goalsToDate": 18,
+            "awayScore": 6,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "14:31",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482109,
+                "firstName": {
+                  "default": "Alexis"
+                },
+                "lastName": {
+                  "default": "Lafreni\u00e8re"
+                },
+                "name": {
+                  "default": "A. Lafreni\u00e8re"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 13
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020755/ev703.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 728,
+            "strength": "sh",
+            "playerId": 8477948,
+            "firstName": {
+              "default": "Travis"
+            },
+            "lastName": {
+              "default": "Sanheim"
+            },
+            "name": {
+              "default": "T. Sanheim"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8477948.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyr-phi-sanheim-scores-shg-against-spencer-martin-6387871239112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyr-phi-sanheim-marque-un-but-en-i-n-contre-spencer-martin-6387872411112",
+            "highlightClip": 6387871239112,
+            "highlightClipFr": 6387872411112,
+            "discreteClip": 6387872218112,
+            "discreteClipFr": 6387870835112,
+            "goalsToDate": 6,
+            "awayScore": 6,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "16:48",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478439,
+                "firstName": {
+                  "default": "Travis"
+                },
+                "lastName": {
+                  "default": "Konecny"
+                },
+                "name": {
+                  "default": "T. Konecny"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 11
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020755/ev728.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 895,
+            "strength": "ev",
+            "playerId": 8481533,
+            "firstName": {
+              "default": "Trevor"
+            },
+            "lastName": {
+              "default": "Zegras"
+            },
+            "name": {
+              "default": "T. Zegras"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8481533.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyr-phi-zegras-scores-goal-against-spencer-martin-6387874193112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyr-phi-zegras-marque-un-but-contre-spencer-martin-6387872444112",
+            "highlightClip": 6387874193112,
+            "highlightClipFr": 6387872444112,
+            "discreteClip": 6387873702112,
+            "discreteClipFr": 6387872920112,
+            "goalsToDate": 19,
+            "awayScore": 6,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "08:01",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484142,
+                "firstName": {
+                  "default": "Denver"
+                },
+                "lastName": {
+                  "default": "Barkey"
+                },
+                "name": {
+                  "default": "D. Barkey"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 52
+              },
+              {
+                "playerId": 8480015,
+                "firstName": {
+                  "default": "Owen"
+                },
+                "lastName": {
+                  "default": "Tippett"
+                },
+                "name": {
+                  "default": "O. Tippett"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 74
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020755/ev895.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8476459,
+        "teamAbbrev": "NYR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8476459.png",
+        "name": {
+          "default": "M. Zibanejad"
+        },
+        "sweaterNo": 93,
+        "position": "C",
+        "goals": 3,
+        "assists": 0,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8478550,
+        "teamAbbrev": "NYR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8478550.png",
+        "name": {
+          "default": "A. Panarin"
+        },
+        "sweaterNo": 10,
+        "position": "L",
+        "goals": 2,
+        "assists": 1,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8482747,
+        "teamAbbrev": "NYR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8482747.png",
+        "name": {
+          "default": "B. Othmann"
+        },
+        "sweaterNo": 78,
+        "position": "L",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "10:02",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Will"
+              },
+              "lastName": {
+                "default": "Cuylle"
+              },
+              "sweaterNumber": 50
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jamie"
+              },
+              "lastName": {
+                "default": "Drysdale"
+              },
+              "sweaterNumber": 9
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matvei",
+                "cs": "Matvej",
+                "sk": "Matvej"
+              },
+              "lastName": {
+                "default": "Michkov",
+                "cs": "Mi\u010dkov",
+                "fi": "Mitshkov",
+                "sk": "Mi\u010dkov"
+              },
+              "sweaterNumber": 39
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Robertson"
+              },
+              "sweaterNumber": 29
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "03:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Samuel"
+              },
+              "lastName": {
+                "default": "Ersson"
+              },
+              "sweaterNumber": 33
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "descKey": "delaying-game-puck-over-glass",
+            "servedBy": {
+              "default": "M. Michkov",
+              "cs": "M. Mi\u010dkov",
+              "fi": "M. Mitshkov",
+              "sk": "M. Mi\u010dkov"
+            }
+          },
+          {
+            "timeInPeriod": "09:12",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Emil"
+              },
+              "lastName": {
+                "default": "Andrae"
+              },
+              "sweaterNumber": 36
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brennan"
+              },
+              "lastName": {
+                "default": "Othmann"
+              },
+              "sweaterNumber": 78
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "09:12",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brennan"
+              },
+              "lastName": {
+                "default": "Othmann"
+              },
+              "sweaterNumber": 78
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Emil"
+              },
+              "lastName": {
+                "default": "Andrae"
+              },
+              "sweaterNumber": 36
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "15:22",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nikita"
+              },
+              "lastName": {
+                "default": "Grebenkin"
+              },
+              "sweaterNumber": 29
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Robertson"
+              },
+              "sweaterNumber": 29
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

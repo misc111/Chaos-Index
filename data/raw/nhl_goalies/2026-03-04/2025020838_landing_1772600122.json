@@ -1,0 +1,1006 @@
+{
+  "id": 2025020838,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-27",
+  "venue": {
+    "default": "Rogers Arena"
+  },
+  "venueLocation": {
+    "default": "Vancouver"
+  },
+  "startTimeUTC": "2026-01-28T03:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "America/Vancouver",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 290,
+      "market": "H",
+      "countryCode": "CA",
+      "network": "SNP",
+      "sequenceNumber": 33
+    },
+    {
+      "id": 314,
+      "market": "A",
+      "countryCode": "US",
+      "network": "NBCSCA",
+      "sequenceNumber": 393
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 28,
+    "commonName": {
+      "default": "Sharks"
+    },
+    "abbrev": "SJS",
+    "placeName": {
+      "default": "San Jose"
+    },
+    "placeNameWithPreposition": {
+      "default": "San Jose",
+      "fr": "de San Jose"
+    },
+    "score": 5,
+    "sog": 33,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SJS_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/SJS_dark.svg"
+  },
+  "homeTeam": {
+    "id": 23,
+    "commonName": {
+      "default": "Canucks"
+    },
+    "abbrev": "VAN",
+    "placeName": {
+      "default": "Vancouver"
+    },
+    "placeNameWithPreposition": {
+      "default": "Vancouver",
+      "fr": "de Vancouver"
+    },
+    "score": 2,
+    "sog": 25,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VAN_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1441",
+            "eventId": 67,
+            "strength": "ev",
+            "playerId": 8484240,
+            "firstName": {
+              "default": "Tom"
+            },
+            "lastName": {
+              "default": "Willander"
+            },
+            "name": {
+              "default": "T. Willander"
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VAN/8484240.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sjs-van-willander-scores-goal-against-yaroslav-askarov-6388411270112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sjs-van-willander-marque-un-but-contre-yaroslav-askarov-6388411078112",
+            "highlightClip": 6388411270112,
+            "highlightClipFr": 6388411078112,
+            "discreteClip": 6388412421112,
+            "discreteClipFr": 6388412916112,
+            "goalsToDate": 3,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "VAN"
+            },
+            "timeInPeriod": "01:15",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480012,
+                "firstName": {
+                  "default": "Elias"
+                },
+                "lastName": {
+                  "default": "Pettersson"
+                },
+                "name": {
+                  "default": "E. Pettersson"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 40
+              },
+              {
+                "playerId": 8478498,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "DeBrusk"
+                },
+                "name": {
+                  "default": "J. DeBrusk"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 74
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020838/ev67.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1441",
+            "eventId": 73,
+            "strength": "ev",
+            "playerId": 8484801,
+            "firstName": {
+              "default": "Macklin"
+            },
+            "lastName": {
+              "default": "Celebrini"
+            },
+            "name": {
+              "default": "M. Celebrini"
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8484801.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sjs-van-celebrini-scores-goal-against-kevin-lankinen-6388412632112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sjs-van-celebrini-marque-un-but-contre-kevin-lankinen-6388411574112",
+            "highlightClip": 6388412632112,
+            "highlightClipFr": 6388411574112,
+            "discreteClip": 6388410577112,
+            "discreteClipFr": 6388412431112,
+            "goalsToDate": 27,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "01:51",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484227,
+                "firstName": {
+                  "default": "Will"
+                },
+                "lastName": {
+                  "default": "Smith"
+                },
+                "name": {
+                  "default": "W. Smith"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 2
+              },
+              {
+                "playerId": 8484806,
+                "firstName": {
+                  "default": "Sam"
+                },
+                "lastName": {
+                  "default": "Dickinson"
+                },
+                "name": {
+                  "default": "S. Dickinson"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020838/ev73.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 124,
+            "strength": "ev",
+            "playerId": 8478874,
+            "firstName": {
+              "default": "Adam"
+            },
+            "lastName": {
+              "default": "Gaudette"
+            },
+            "name": {
+              "default": "A. Gaudette"
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8478874.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sjs-van-gaudette-scores-goal-against-kevin-lankinen-6388413952112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sjs-van-gaudette-marque-un-but-contre-kevin-lankinen-6388411667112",
+            "highlightClip": 6388413952112,
+            "highlightClipFr": 6388411667112,
+            "discreteClip": 6388410872112,
+            "discreteClipFr": 6388412734112,
+            "goalsToDate": 11,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "SJS"
+            },
+            "timeInPeriod": "04:43",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482667,
+                "firstName": {
+                  "default": "William"
+                },
+                "lastName": {
+                  "default": "Eklund"
+                },
+                "name": {
+                  "default": "W. Eklund"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 72
+              },
+              {
+                "playerId": 8484801,
+                "firstName": {
+                  "default": "Macklin"
+                },
+                "lastName": {
+                  "default": "Celebrini"
+                },
+                "name": {
+                  "default": "M. Celebrini"
+                },
+                "assistsToDate": 49,
+                "sweaterNumber": 71
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020838/ev124.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 141,
+            "strength": "ev",
+            "playerId": 8475726,
+            "firstName": {
+              "default": "Tyler"
+            },
+            "lastName": {
+              "default": "Toffoli"
+            },
+            "name": {
+              "default": "T. Toffoli"
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8475726.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sjs-van-toffoli-scores-goal-against-kevin-lankinen-6388411589112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sjs-van-toffoli-marque-un-but-contre-kevin-lankinen-6388411947112",
+            "highlightClip": 6388411589112,
+            "highlightClipFr": 6388411947112,
+            "discreteClip": 6388411577112,
+            "discreteClipFr": 6388412932112,
+            "goalsToDate": 15,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "SJS"
+            },
+            "timeInPeriod": "05:55",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477505,
+                "firstName": {
+                  "default": "Alexander"
+                },
+                "lastName": {
+                  "default": "Wennberg"
+                },
+                "name": {
+                  "default": "A. Wennberg"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 21
+              },
+              {
+                "playerId": 8484806,
+                "firstName": {
+                  "default": "Sam"
+                },
+                "lastName": {
+                  "default": "Dickinson"
+                },
+                "name": {
+                  "default": "S. Dickinson"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020838/ev141.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 610,
+            "strength": "pp",
+            "playerId": 8484227,
+            "firstName": {
+              "default": "Will"
+            },
+            "lastName": {
+              "default": "Smith"
+            },
+            "name": {
+              "default": "W. Smith"
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8484227.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sjs-van-smith-scores-ppg-against-nikita-tolopilo-6388415081112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sjs-van-smith-marque-un-but-en-a-n-contre-nikita-tolopilo-6388413900112",
+            "highlightClip": 6388415081112,
+            "highlightClipFr": 6388413900112,
+            "discreteClip": 6388415567112,
+            "discreteClipFr": 6388414698112,
+            "goalsToDate": 15,
+            "awayScore": 4,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "SJS"
+            },
+            "timeInPeriod": "09:07",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475906,
+                "firstName": {
+                  "default": "John"
+                },
+                "lastName": {
+                  "default": "Klingberg"
+                },
+                "name": {
+                  "default": "J. Klingberg"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 3
+              },
+              {
+                "playerId": 8484801,
+                "firstName": {
+                  "default": "Macklin"
+                },
+                "lastName": {
+                  "default": "Celebrini"
+                },
+                "name": {
+                  "default": "M. Celebrini"
+                },
+                "assistsToDate": 50,
+                "sweaterNumber": 71
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020838/ev610.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1531",
+            "eventId": 762,
+            "strength": "pp",
+            "playerId": 8475906,
+            "firstName": {
+              "default": "John"
+            },
+            "lastName": {
+              "default": "Klingberg"
+            },
+            "name": {
+              "default": "J. Klingberg"
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8475906.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sjs-van-klingberg-scores-ppg-against-nikita-tolopilo-6388415617112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sjs-van-klingberg-marque-un-but-en-a-n-contre-nikita-tolopilo-6388415215112",
+            "highlightClip": 6388415617112,
+            "highlightClipFr": 6388415215112,
+            "discreteClip": 6388415531112,
+            "discreteClipFr": 6388415825112,
+            "goalsToDate": 10,
+            "awayScore": 5,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "SJS"
+            },
+            "timeInPeriod": "00:28",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484227,
+                "firstName": {
+                  "default": "Will"
+                },
+                "lastName": {
+                  "default": "Smith"
+                },
+                "name": {
+                  "default": "W. Smith"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 2
+              },
+              {
+                "playerId": 8484801,
+                "firstName": {
+                  "default": "Macklin"
+                },
+                "lastName": {
+                  "default": "Celebrini"
+                },
+                "name": {
+                  "default": "M. Celebrini"
+                },
+                "assistsToDate": 51,
+                "sweaterNumber": 71
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020838/ev762.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 882,
+            "strength": "pp",
+            "playerId": 8479425,
+            "firstName": {
+              "default": "Filip"
+            },
+            "lastName": {
+              "default": "Hronek"
+            },
+            "name": {
+              "default": "F. Hronek"
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VAN/8479425.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sjs-van-hronek-scores-ppg-against-yaroslav-askarov-6388418180112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sjs-van-hronek-marque-un-but-en-a-n-contre-yaroslav-askarov-6388416118112",
+            "highlightClip": 6388418180112,
+            "highlightClipFr": 6388416118112,
+            "discreteClip": 6388416810112,
+            "discreteClipFr": 6388417416112,
+            "goalsToDate": 5,
+            "awayScore": 5,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "SJS"
+            },
+            "timeInPeriod": "09:15",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480012,
+                "firstName": {
+                  "default": "Elias"
+                },
+                "lastName": {
+                  "default": "Pettersson"
+                },
+                "name": {
+                  "default": "E. Pettersson"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 40
+              },
+              {
+                "playerId": 8478498,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "DeBrusk"
+                },
+                "name": {
+                  "default": "J. DeBrusk"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 74
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020838/ev882.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8484801,
+        "teamAbbrev": "SJS",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8484801.png",
+        "name": {
+          "default": "M. Celebrini"
+        },
+        "sweaterNo": 71,
+        "position": "C",
+        "goals": 1,
+        "assists": 3,
+        "points": 4
+      },
+      {
+        "star": 2,
+        "playerId": 8484227,
+        "teamAbbrev": "SJS",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8484227.png",
+        "name": {
+          "default": "W. Smith"
+        },
+        "sweaterNo": 2,
+        "position": "C",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8480012,
+        "teamAbbrev": "VAN",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VAN/8480012.png",
+        "name": {
+          "default": "E. Pettersson"
+        },
+        "sweaterNo": 40,
+        "position": "C",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Conor"
+              },
+              "lastName": {
+                "default": "Garland"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Dmitry",
+                "cs": "Dmitrij",
+                "fi": "Dmitri",
+                "sk": "Dmitrij"
+              },
+              "lastName": {
+                "default": "Orlov"
+              },
+              "sweaterNumber": 9
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "00:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dmitry",
+                "cs": "Dmitrij",
+                "fi": "Dmitri",
+                "sk": "Dmitrij"
+              },
+              "lastName": {
+                "default": "Orlov"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Conor"
+              },
+              "lastName": {
+                "default": "Garland"
+              },
+              "sweaterNumber": 8
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "13:20",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "DeBrusk"
+              },
+              "sweaterNumber": 74
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Misa"
+              },
+              "sweaterNumber": 77
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "19:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Macklin"
+              },
+              "lastName": {
+                "default": "Celebrini"
+              },
+              "sweaterNumber": 71
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Linus"
+              },
+              "lastName": {
+                "default": "Karlsson"
+              },
+              "sweaterNumber": 94
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "08:01",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Teddy",
+                "cs": "Theodors",
+                "sk": "Theodors"
+              },
+              "lastName": {
+                "default": "Blueger",
+                "cs": "Blugers",
+                "sk": "Blugers"
+              },
+              "sweaterNumber": 53
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Macklin"
+              },
+              "lastName": {
+                "default": "Celebrini"
+              },
+              "sweaterNumber": 71
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "16:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tyler"
+              },
+              "lastName": {
+                "default": "Toffoli"
+              },
+              "sweaterNumber": 73
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nils"
+              },
+              "lastName": {
+                "default": "Hoglander",
+                "cs": "H\u00f6glander",
+                "fi": "H\u00f6glander",
+                "sk": "H\u00f6glander",
+                "sv": "H\u00f6glander"
+              },
+              "sweaterNumber": 21
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "16:25",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Barclay"
+              },
+              "lastName": {
+                "default": "Goodrow"
+              },
+              "sweaterNumber": 23
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "DeBrusk"
+              },
+              "sweaterNumber": 74
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "18:42",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Evander"
+              },
+              "lastName": {
+                "default": "Kane"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Timothy"
+              },
+              "lastName": {
+                "default": "Liljegren"
+              },
+              "sweaterNumber": 37
+            },
+            "descKey": "roughing",
+            "servedBy": {
+              "default": "N. Hoglander",
+              "cs": "H\u00f6glander",
+              "fi": "N. H\u00f6glander",
+              "sk": "N. H\u00f6glander",
+              "sv": "N. H\u00f6glander"
+            }
+          },
+          {
+            "timeInPeriod": "18:42",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Timothy"
+              },
+              "lastName": {
+                "default": "Liljegren"
+              },
+              "sweaterNumber": 37
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Evander"
+              },
+              "lastName": {
+                "default": "Kane"
+              },
+              "sweaterNumber": 91
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "18:42",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Evander"
+              },
+              "lastName": {
+                "default": "Kane"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Timothy"
+              },
+              "lastName": {
+                "default": "Liljegren"
+              },
+              "sweaterNumber": 37
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "18:49",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Marcus"
+              },
+              "lastName": {
+                "default": "Pettersson"
+              },
+              "sweaterNumber": 29
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Tyler"
+              },
+              "lastName": {
+                "default": "Toffoli"
+              },
+              "sweaterNumber": 73
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "07:42",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Will"
+              },
+              "lastName": {
+                "default": "Smith"
+              },
+              "sweaterNumber": 2
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Liam"
+              },
+              "lastName": {
+                "default": "Ohgren",
+                "cs": "\u00d6hgren",
+                "fi": "\u00d6hgren",
+                "sk": "\u00d6hgren",
+                "sv": "\u00d6hgren"
+              },
+              "sweaterNumber": 92
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

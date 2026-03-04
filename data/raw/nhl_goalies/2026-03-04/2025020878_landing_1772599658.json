@@ -1,0 +1,715 @@
+{
+  "id": 2025020878,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-02",
+  "venue": {
+    "default": "Capital One Arena"
+  },
+  "venueLocation": {
+    "default": "Washington"
+  },
+  "startTimeUTC": "2026-02-03T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 517,
+      "market": "H",
+      "countryCode": "US",
+      "network": "MNMT",
+      "sequenceNumber": 396
+    },
+    {
+      "id": 409,
+      "market": "A",
+      "countryCode": "US",
+      "network": "MSGSN",
+      "sequenceNumber": 411
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 2,
+    "commonName": {
+      "default": "Islanders"
+    },
+    "abbrev": "NYI",
+    "placeName": {
+      "default": "New York"
+    },
+    "placeNameWithPreposition": {
+      "default": "New York",
+      "fr": "de New York"
+    },
+    "score": 1,
+    "sog": 30,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NYI_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NYI_dark.svg"
+  },
+  "homeTeam": {
+    "id": 15,
+    "commonName": {
+      "default": "Capitals"
+    },
+    "abbrev": "WSH",
+    "placeName": {
+      "default": "Washington"
+    },
+    "placeNameWithPreposition": {
+      "default": "Washington",
+      "fr": "de Washington"
+    },
+    "score": 4,
+    "sog": 25,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 388,
+            "strength": "ev",
+            "playerId": 8478445,
+            "firstName": {
+              "default": "Mathew"
+            },
+            "lastName": {
+              "default": "Barzal"
+            },
+            "name": {
+              "default": "M. Barzal"
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYI/8478445.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyi-wsh-barzal-scores-goal-against-clay-stevenson-6388689628112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyi-wsh-barzal-marque-un-but-contre-clay-stevenson-6388690895112",
+            "highlightClip": 6388689628112,
+            "highlightClipFr": 6388690895112,
+            "discreteClip": 6388689625112,
+            "discreteClipFr": 6388690794112,
+            "goalsToDate": 15,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "NYI"
+            },
+            "timeInPeriod": "16:38",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020878/ev388.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 496,
+            "strength": "ev",
+            "playerId": 8480796,
+            "firstName": {
+              "default": "Martin"
+            },
+            "lastName": {
+              "default": "Feh\u00e9rv\u00e1ry"
+            },
+            "name": {
+              "default": "M. Feh\u00e9rv\u00e1ry"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8480796.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/martin-fehervary-with-a-goal-vs-new-york-islanders-6388691546112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/martin-fehervary-with-a-but-vs-les-islanders-de-new-york-6388691545112",
+            "highlightClip": 6388691546112,
+            "highlightClipFr": 6388691545112,
+            "discreteClip": 6388691041112,
+            "discreteClipFr": 6388691429112,
+            "goalsToDate": 4,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "05:29",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476880,
+                "firstName": {
+                  "default": "Tom"
+                },
+                "lastName": {
+                  "default": "Wilson"
+                },
+                "name": {
+                  "default": "T. Wilson"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 43
+              },
+              {
+                "playerId": 8475343,
+                "firstName": {
+                  "default": "Nic"
+                },
+                "lastName": {
+                  "default": "Dowd"
+                },
+                "name": {
+                  "default": "N. Dowd"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 26
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020878/ev496.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 655,
+            "strength": "ev",
+            "playerId": 8478463,
+            "firstName": {
+              "default": "Anthony"
+            },
+            "lastName": {
+              "default": "Beauvillier"
+            },
+            "name": {
+              "default": "A. Beauvillier"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8478463.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyi-wsh-beauvillier-scores-goal-against-david-rittich-6388692505112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyi-wsh-beauvillier-marque-un-but-contre-david-rittich-6388692306112",
+            "highlightClip": 6388692505112,
+            "highlightClipFr": 6388692306112,
+            "discreteClip": 6388691136112,
+            "discreteClipFr": 6388690841112,
+            "goalsToDate": 11,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "06:00",
+            "shotType": "wrap-around",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478911,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Roy"
+                },
+                "name": {
+                  "default": "M. Roy"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 3
+              },
+              {
+                "playerId": 8471214,
+                "firstName": {
+                  "default": "Alex",
+                  "cs": "Alexandr",
+                  "fi": "Aleksandr",
+                  "sk": "Alexander"
+                },
+                "lastName": {
+                  "default": "Ovechkin",
+                  "cs": "Ove\u010dkin",
+                  "fi": "Ovetshkin",
+                  "sk": "Ove\u010dkin"
+                },
+                "name": {
+                  "default": "A. Ovechkin",
+                  "cs": "A. Ove\u010dkin",
+                  "fi": "A. Ovetshkin",
+                  "sk": "A. Ove\u010dkin"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 8
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020878/ev655.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 253,
+            "strength": "ev",
+            "playerId": 8475343,
+            "firstName": {
+              "default": "Nic"
+            },
+            "lastName": {
+              "default": "Dowd"
+            },
+            "name": {
+              "default": "N. Dowd"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8475343.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nic-dowd-with-a-goal-vs-new-york-islanders-6388695332112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nic-dowd-with-a-but-vs-les-islanders-de-new-york-6388695440112",
+            "highlightClip": 6388695332112,
+            "highlightClipFr": 6388695440112,
+            "discreteClip": 6388693067112,
+            "discreteClipFr": 6388693367112,
+            "goalsToDate": 4,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "08:46",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480873,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Sandin"
+                },
+                "name": {
+                  "default": "R. Sandin"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 38
+              },
+              {
+                "playerId": 8483573,
+                "firstName": {
+                  "default": "Ethen"
+                },
+                "lastName": {
+                  "default": "Frank"
+                },
+                "name": {
+                  "default": "E. Frank"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 53
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020878/ev253.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 254,
+            "strength": "ev",
+            "playerId": 8474590,
+            "firstName": {
+              "default": "John"
+            },
+            "lastName": {
+              "default": "Carlson"
+            },
+            "name": {
+              "default": "J. Carlson"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8474590.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/john-carlson-with-a-goal-vs-new-york-islanders-6388696929112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/john-carlson-with-a-but-vs-les-islanders-de-new-york-6388696447112",
+            "highlightClip": 6388696929112,
+            "highlightClipFr": 6388696447112,
+            "discreteClip": 6388696928112,
+            "discreteClipFr": 6388694492112,
+            "goalsToDate": 10,
+            "awayScore": 1,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "17:35",
+            "shotType": "snap",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8481656,
+                "firstName": {
+                  "default": "Aliaksei",
+                  "cs": "Alexej",
+                  "de": "Alexei",
+                  "es": "Alexei",
+                  "fi": "Aljaksei",
+                  "sk": "Alexej"
+                },
+                "lastName": {
+                  "default": "Protas"
+                },
+                "name": {
+                  "default": "A. Protas"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 21
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020878/ev254.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8483532,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8483532.png",
+        "name": {
+          "default": "C. Stevenson"
+        },
+        "sweaterNo": 33,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.967
+      },
+      {
+        "star": 2,
+        "playerId": 8480796,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8480796.png",
+        "name": {
+          "default": "M. Feh\u00e9rv\u00e1ry"
+        },
+        "sweaterNo": 42,
+        "position": "D",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8475343,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8475343.png",
+        "name": {
+          "default": "N. Dowd"
+        },
+        "sweaterNo": 26,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:26",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nic"
+              },
+              "lastName": {
+                "default": "Dowd"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "David"
+              },
+              "lastName": {
+                "default": "Rittich"
+              },
+              "sweaterNumber": 33
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "10:51",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Schaefer"
+              },
+              "sweaterNumber": 48
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nic"
+              },
+              "lastName": {
+                "default": "Dowd"
+              },
+              "sweaterNumber": 26
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "19:41",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tom"
+              },
+              "lastName": {
+                "default": "Wilson"
+              },
+              "sweaterNumber": 43
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ondrej",
+                "cs": "Ond\u0159ej",
+                "sk": "Ond\u0159ej"
+              },
+              "lastName": {
+                "default": "Palat",
+                "cs": "Pal\u00e1t",
+                "sk": "Pal\u00e1t"
+              },
+              "sweaterNumber": 81
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:47",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Scott"
+              },
+              "lastName": {
+                "default": "Mayfield"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Tom"
+              },
+              "lastName": {
+                "default": "Wilson"
+              },
+              "sweaterNumber": 43
+            },
+            "descKey": "roughing",
+            "servedBy": {
+              "default": "Kyle MacLean"
+            }
+          },
+          {
+            "timeInPeriod": "01:47",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Scott"
+              },
+              "lastName": {
+                "default": "Mayfield"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Tom"
+              },
+              "lastName": {
+                "default": "Wilson"
+              },
+              "sweaterNumber": 43
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "01:47",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tom"
+              },
+              "lastName": {
+                "default": "Wilson"
+              },
+              "sweaterNumber": 43
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Scott"
+              },
+              "lastName": {
+                "default": "Mayfield"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "03:37",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Carson"
+              },
+              "lastName": {
+                "default": "Soucy"
+              },
+              "sweaterNumber": 4
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Leonard"
+              },
+              "sweaterNumber": 9
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "18:51",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Anthony"
+              },
+              "lastName": {
+                "default": "Duclair"
+              },
+              "sweaterNumber": 11
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Justin"
+              },
+              "lastName": {
+                "default": "Sourdif"
+              },
+              "sweaterNumber": 34
+            },
+            "descKey": "slashing"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

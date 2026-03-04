@@ -1,0 +1,1038 @@
+{
+  "id": 2025020880,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-02",
+  "venue": {
+    "default": "Bridgestone Arena"
+  },
+  "venueLocation": {
+    "default": "Nashville"
+  },
+  "startTimeUTC": "2026-02-03T01:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "US/Central",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 566,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNMW",
+      "sequenceNumber": 201
+    },
+    {
+      "id": 561,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNSO",
+      "sequenceNumber": 202
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 19,
+    "commonName": {
+      "default": "Blues"
+    },
+    "abbrev": "STL",
+    "placeName": {
+      "default": "St. Louis"
+    },
+    "placeNameWithPreposition": {
+      "default": "St. Louis",
+      "fr": "de St. Louis"
+    },
+    "score": 5,
+    "sog": 34,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/STL_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/STL_dark.svg?season=20252026"
+  },
+  "homeTeam": {
+    "id": 18,
+    "commonName": {
+      "default": "Predators"
+    },
+    "abbrev": "NSH",
+    "placeName": {
+      "default": "Nashville"
+    },
+    "placeNameWithPreposition": {
+      "default": "Nashville",
+      "fr": "de Nashville"
+    },
+    "score": 6,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NSH_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 109,
+            "strength": "ev",
+            "playerId": 8482089,
+            "firstName": {
+              "default": "Jake"
+            },
+            "lastName": {
+              "default": "Neighbours"
+            },
+            "name": {
+              "default": "J. Neighbours"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8482089.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-nsh-neighbours-scores-goal-against-juuse-saros-6388692705112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-nsh-neighbours-marque-un-but-contre-juuse-saros-6388691644112",
+            "highlightClip": 6388692705112,
+            "highlightClipFr": 6388691644112,
+            "discreteClip": 6388692517112,
+            "discreteClipFr": 6388691145112,
+            "goalsToDate": 14,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "04:53",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475753,
+                "firstName": {
+                  "default": "Justin"
+                },
+                "lastName": {
+                  "default": "Faulk"
+                },
+                "name": {
+                  "default": "J. Faulk"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 72
+              },
+              {
+                "playerId": 8481006,
+                "firstName": {
+                  "default": "Tyler"
+                },
+                "lastName": {
+                  "default": "Tucker"
+                },
+                "name": {
+                  "default": "T. Tucker"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 75
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020880/ev109.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 160,
+            "strength": "pp",
+            "playerId": 8475158,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "O'Reilly"
+            },
+            "name": {
+              "default": "R. O'Reilly"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8475158.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-nsh-o-reilly-scores-ppg-against-joel-hofer-6388693001112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-nsh-o-reilly-marque-un-but-en-a-n-contre-joel-hofer-6388692815112",
+            "highlightClip": 6388693001112,
+            "highlightClipFr": 6388692815112,
+            "discreteClip": 6388693093112,
+            "discreteClipFr": 6388691061112,
+            "goalsToDate": 19,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "09:16",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476887,
+                "firstName": {
+                  "default": "Filip"
+                },
+                "lastName": {
+                  "default": "Forsberg"
+                },
+                "name": {
+                  "default": "F. Forsberg"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 9
+              },
+              {
+                "playerId": 8474600,
+                "firstName": {
+                  "default": "Roman"
+                },
+                "lastName": {
+                  "default": "Josi"
+                },
+                "name": {
+                  "default": "R. Josi"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 59
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020880/ev160.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 394,
+            "strength": "pp",
+            "playerId": 8477402,
+            "firstName": {
+              "default": "Pavel"
+            },
+            "lastName": {
+              "default": "Buchnevich",
+              "cs": "Bu\u010dn\u011bvi\u010d",
+              "fi": "Butshnevitsh",
+              "sk": "Bu\u010dn\u011bvi\u010d"
+            },
+            "name": {
+              "default": "P. Buchnevich",
+              "cs": "P. Bu\u010dn\u011bvi\u010d",
+              "fi": "P. Butshnevitsh",
+              "sk": "P. Bu\u010dn\u011bvi\u010d"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8477402.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-nsh-buchnevich-scores-ppg-against-juuse-saros-6388692243112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-nsh-buchnevich-marque-un-but-en-a-n-contre-juuse-saros-6388692447112",
+            "highlightClip": 6388692243112,
+            "highlightClipFr": 6388692447112,
+            "discreteClip": 6388693905112,
+            "discreteClipFr": 6388692239112,
+            "goalsToDate": 10,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "14:24",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482089,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "Neighbours"
+                },
+                "name": {
+                  "default": "J. Neighbours"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 63
+              },
+              {
+                "playerId": 8479385,
+                "firstName": {
+                  "default": "Jordan"
+                },
+                "lastName": {
+                  "default": "Kyrou"
+                },
+                "name": {
+                  "default": "J. Kyrou"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 25
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020880/ev394.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 478,
+            "strength": "ev",
+            "playerId": 8477402,
+            "firstName": {
+              "default": "Pavel"
+            },
+            "lastName": {
+              "default": "Buchnevich",
+              "cs": "Bu\u010dn\u011bvi\u010d",
+              "fi": "Butshnevitsh",
+              "sk": "Bu\u010dn\u011bvi\u010d"
+            },
+            "name": {
+              "default": "P. Buchnevich",
+              "cs": "P. Bu\u010dn\u011bvi\u010d",
+              "fi": "P. Butshnevitsh",
+              "sk": "P. Bu\u010dn\u011bvi\u010d"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8477402.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-nsh-buchnevich-scores-goal-against-juuse-saros-6388694620112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-nsh-buchnevich-marque-un-but-contre-juuse-saros-6388693344112",
+            "highlightClip": 6388694620112,
+            "highlightClipFr": 6388693344112,
+            "discreteClip": 6388692479112,
+            "discreteClipFr": 6388692674112,
+            "goalsToDate": 11,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "00:45",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479385,
+                "firstName": {
+                  "default": "Jordan"
+                },
+                "lastName": {
+                  "default": "Kyrou"
+                },
+                "name": {
+                  "default": "J. Kyrou"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 25
+              },
+              {
+                "playerId": 8482089,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "Neighbours"
+                },
+                "name": {
+                  "default": "J. Neighbours"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 63
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020880/ev478.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 559,
+            "strength": "ev",
+            "playerId": 8481598,
+            "firstName": {
+              "default": "Philip"
+            },
+            "lastName": {
+              "default": "Broberg"
+            },
+            "name": {
+              "default": "P. Broberg"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8481598.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-nsh-broberg-scores-goal-against-juuse-saros-6388695215112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-nsh-broberg-marque-un-but-contre-juuse-saros-6388695115112",
+            "highlightClip": 6388695215112,
+            "highlightClipFr": 6388695115112,
+            "discreteClip": 6388693059112,
+            "discreteClipFr": 6388693356112,
+            "goalsToDate": 3,
+            "awayScore": 4,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "03:23",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479385,
+                "firstName": {
+                  "default": "Jordan"
+                },
+                "lastName": {
+                  "default": "Kyrou"
+                },
+                "name": {
+                  "default": "J. Kyrou"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 25
+              },
+              {
+                "playerId": 8477402,
+                "firstName": {
+                  "default": "Pavel"
+                },
+                "lastName": {
+                  "default": "Buchnevich",
+                  "cs": "Bu\u010dn\u011bvi\u010d",
+                  "fi": "Butshnevitsh",
+                  "sk": "Bu\u010dn\u011bvi\u010d"
+                },
+                "name": {
+                  "default": "P. Buchnevich",
+                  "cs": "P. Bu\u010dn\u011bvi\u010d",
+                  "fi": "P. Butshnevitsh",
+                  "sk": "P. Bu\u010dn\u011bvi\u010d"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 89
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020880/ev559.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 564,
+            "strength": "ev",
+            "playerId": 8476892,
+            "firstName": {
+              "default": "Colton"
+            },
+            "lastName": {
+              "default": "Parayko"
+            },
+            "name": {
+              "default": "C. Parayko"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8476892.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-nsh-parayko-scores-goal-against-juuse-saros-6388693434112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-nsh-parayko-marque-un-but-contre-juuse-saros-6388693432112",
+            "highlightClip": 6388693434112,
+            "highlightClipFr": 6388693432112,
+            "discreteClip": 6388695421112,
+            "discreteClipFr": 6388693360112,
+            "goalsToDate": 1,
+            "awayScore": 5,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "03:55",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483516,
+                "firstName": {
+                  "default": "Jimmy"
+                },
+                "lastName": {
+                  "default": "Snuggerud"
+                },
+                "name": {
+                  "default": "J. Snuggerud"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 21
+              },
+              {
+                "playerId": 8481598,
+                "firstName": {
+                  "default": "Philip"
+                },
+                "lastName": {
+                  "default": "Broberg"
+                },
+                "name": {
+                  "default": "P. Broberg"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020880/ev564.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 670,
+            "strength": "ev",
+            "playerId": 8477446,
+            "firstName": {
+              "default": "Michael"
+            },
+            "lastName": {
+              "default": "McCarron"
+            },
+            "name": {
+              "default": "M. McCarron"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8477446.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-nsh-mccarron-scores-goal-against-joel-hofer-6388694381112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-nsh-mccarron-marque-un-but-contre-joel-hofer-6388695849112",
+            "highlightClip": 6388694381112,
+            "highlightClipFr": 6388695849112,
+            "discreteClip": 6388696638112,
+            "discreteClipFr": 6388695643112,
+            "goalsToDate": 4,
+            "awayScore": 5,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "11:35",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478047,
+                "firstName": {
+                  "default": "Michael"
+                },
+                "lastName": {
+                  "default": "Bunting"
+                },
+                "name": {
+                  "default": "M. Bunting"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 58
+              },
+              {
+                "playerId": 8474600,
+                "firstName": {
+                  "default": "Roman"
+                },
+                "lastName": {
+                  "default": "Josi"
+                },
+                "name": {
+                  "default": "R. Josi"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 59
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020880/ev670.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 702,
+            "strength": "ev",
+            "playerId": 8476887,
+            "firstName": {
+              "default": "Filip"
+            },
+            "lastName": {
+              "default": "Forsberg"
+            },
+            "name": {
+              "default": "F. Forsberg"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8476887.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-nsh-forsberg-scores-goal-against-joel-hofer-6388696169112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-nsh-forsberg-marque-un-but-contre-joel-hofer-6388696545112",
+            "highlightClip": 6388696169112,
+            "highlightClipFr": 6388696545112,
+            "discreteClip": 6388697332112,
+            "discreteClipFr": 6388695861112,
+            "goalsToDate": 23,
+            "awayScore": 5,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "13:49",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8474600,
+                "firstName": {
+                  "default": "Roman"
+                },
+                "lastName": {
+                  "default": "Josi"
+                },
+                "name": {
+                  "default": "R. Josi"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 59
+              },
+              {
+                "playerId": 8475287,
+                "firstName": {
+                  "default": "Erik"
+                },
+                "lastName": {
+                  "default": "Haula"
+                },
+                "name": {
+                  "default": "E. Haula"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 56
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020880/ev702.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 810,
+            "strength": "ev",
+            "playerId": 8475158,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "O'Reilly"
+            },
+            "name": {
+              "default": "R. O'Reilly"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8475158.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-nsh-o-reilly-scores-goal-against-joel-hofer-6388697001112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-nsh-o-reilly-marque-un-but-contre-joel-hofer-6388698374112",
+            "highlightClip": 6388697001112,
+            "highlightClipFr": 6388698374112,
+            "discreteClip": 6388697397112,
+            "discreteClipFr": 6388698948112,
+            "goalsToDate": 20,
+            "awayScore": 5,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "02:02",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482111,
+                "firstName": {
+                  "default": "Justin"
+                },
+                "lastName": {
+                  "default": "Barron"
+                },
+                "name": {
+                  "default": "J. Barron"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 20
+              },
+              {
+                "playerId": 8482146,
+                "firstName": {
+                  "default": "Luke"
+                },
+                "lastName": {
+                  "default": "Evangelista"
+                },
+                "name": {
+                  "default": "L. Evangelista"
+                },
+                "assistsToDate": 32,
+                "sweaterNumber": 77
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020880/ev810.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 208,
+            "strength": "ev",
+            "playerId": 8474564,
+            "firstName": {
+              "default": "Steven"
+            },
+            "lastName": {
+              "default": "Stamkos"
+            },
+            "name": {
+              "default": "S. Stamkos"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8474564.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-nsh-stamkos-scores-goal-against-joel-hofer-6388698761112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-nsh-stamkos-marque-un-but-contre-joel-hofer-6388699066112",
+            "highlightClip": 6388698761112,
+            "highlightClipFr": 6388699066112,
+            "discreteClip": 6388697598112,
+            "discreteClipFr": 6388697600112,
+            "goalsToDate": 26,
+            "awayScore": 5,
+            "homeScore": 5,
+            "timeInPeriod": "07:14",
+            "shotType": "wrap-around",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482146,
+                "firstName": {
+                  "default": "Luke"
+                },
+                "lastName": {
+                  "default": "Evangelista"
+                },
+                "name": {
+                  "default": "L. Evangelista"
+                },
+                "assistsToDate": 33,
+                "sweaterNumber": 77
+              },
+              {
+                "playerId": 8474600,
+                "firstName": {
+                  "default": "Roman"
+                },
+                "lastName": {
+                  "default": "Josi"
+                },
+                "name": {
+                  "default": "R. Josi"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 59
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020880/ev208.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 211,
+            "strength": "ev",
+            "playerId": 8474564,
+            "firstName": {
+              "default": "Steven"
+            },
+            "lastName": {
+              "default": "Stamkos"
+            },
+            "name": {
+              "default": "S. Stamkos"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8474564.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-nsh-stamkos-scores-goal-against-joel-hofer-6388697427112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-nsh-stamkos-marque-un-but-contre-joel-hofer-6388698879112",
+            "highlightClip": 6388697427112,
+            "highlightClipFr": 6388698879112,
+            "discreteClip": 6388698406112,
+            "discreteClipFr": 6388697328112,
+            "goalsToDate": 27,
+            "awayScore": 5,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "NSH"
+            },
+            "timeInPeriod": "10:23",
+            "shotType": "poke",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476869,
+                "firstName": {
+                  "default": "Brady"
+                },
+                "lastName": {
+                  "default": "Skjei"
+                },
+                "name": {
+                  "default": "B. Skjei"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 76
+              },
+              {
+                "playerId": 8482146,
+                "firstName": {
+                  "default": "Luke"
+                },
+                "lastName": {
+                  "default": "Evangelista"
+                },
+                "name": {
+                  "default": "L. Evangelista"
+                },
+                "assistsToDate": 34,
+                "sweaterNumber": 77
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020880/ev211.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8474600,
+        "teamAbbrev": "NSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8474600.png",
+        "name": {
+          "default": "R. Josi"
+        },
+        "sweaterNo": 59,
+        "position": "D",
+        "goals": 0,
+        "assists": 4,
+        "points": 4
+      },
+      {
+        "star": 2,
+        "playerId": 8474564,
+        "teamAbbrev": "NSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8474564.png",
+        "name": {
+          "default": "S. Stamkos"
+        },
+        "sweaterNo": 91,
+        "position": "C",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8475158,
+        "teamAbbrev": "NSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8475158.png",
+        "name": {
+          "default": "R. O'Reilly"
+        },
+        "sweaterNo": 90,
+        "position": "C",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "08:04",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tyler"
+              },
+              "lastName": {
+                "default": "Tucker"
+              },
+              "sweaterNumber": 75
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Steven"
+              },
+              "lastName": {
+                "default": "Stamkos"
+              },
+              "sweaterNumber": 91
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "14:04",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Andreas"
+              },
+              "lastName": {
+                "default": "Englund"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mathieu"
+              },
+              "lastName": {
+                "default": "Joseph"
+              },
+              "sweaterNumber": 71
+            },
+            "descKey": "interference"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "10:41",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Steven"
+              },
+              "lastName": {
+                "default": "Stamkos"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          },
+          {
+            "timeInPeriod": "19:57",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brayden"
+              },
+              "lastName": {
+                "default": "Schenn"
+              },
+              "sweaterNumber": 10
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Steven"
+              },
+              "lastName": {
+                "default": "Stamkos"
+              },
+              "sweaterNumber": 91
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

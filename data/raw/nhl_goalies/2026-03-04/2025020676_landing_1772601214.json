@@ -1,0 +1,1104 @@
+{
+  "id": 2025020676,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-06",
+  "venue": {
+    "default": "Climate Pledge Arena"
+  },
+  "venueLocation": {
+    "default": "Seattle"
+  },
+  "startTimeUTC": "2026-01-07T03:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "US/Pacific",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 21
+    },
+    {
+      "id": 554,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KHN/Prime",
+      "sequenceNumber": 348
+    },
+    {
+      "id": 31,
+      "market": "A",
+      "countryCode": "US",
+      "network": "NESN",
+      "sequenceNumber": 405
+    },
+    {
+      "id": 388,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KONG",
+      "sequenceNumber": 654
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 6,
+    "commonName": {
+      "default": "Bruins"
+    },
+    "abbrev": "BOS",
+    "placeName": {
+      "default": "Boston"
+    },
+    "placeNameWithPreposition": {
+      "default": "Boston",
+      "fr": "de Boston"
+    },
+    "score": 4,
+    "sog": 36,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/BOS_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/BOS_dark.svg?season=20252026"
+  },
+  "homeTeam": {
+    "id": 55,
+    "commonName": {
+      "default": "Kraken"
+    },
+    "abbrev": "SEA",
+    "placeName": {
+      "default": "Seattle"
+    },
+    "placeNameWithPreposition": {
+      "default": "Seattle",
+      "fr": "de Seattle"
+    },
+    "score": 7,
+    "sog": 27,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/SEA_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1351",
+            "eventId": 241,
+            "strength": "pp",
+            "playerId": 8474586,
+            "firstName": {
+              "default": "Jordan"
+            },
+            "lastName": {
+              "default": "Eberle"
+            },
+            "name": {
+              "default": "J. Eberle"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8474586.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-sea-eberle-scores-ppg-against-jeremy-swayman-6387333892112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-sea-eberle-marque-un-but-en-a-n-contre-jeremy-swayman-6387334867112",
+            "highlightClip": 6387333892112,
+            "highlightClipFr": 6387334867112,
+            "discreteClip": 6387335357112,
+            "discreteClipFr": 6387333899112,
+            "goalsToDate": 15,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "08:50",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482665,
+                "firstName": {
+                  "default": "Matty"
+                },
+                "lastName": {
+                  "default": "Beniers"
+                },
+                "name": {
+                  "default": "M. Beniers"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 10
+              },
+              {
+                "playerId": 8478407,
+                "firstName": {
+                  "default": "Vince"
+                },
+                "lastName": {
+                  "default": "Dunn"
+                },
+                "name": {
+                  "default": "V. Dunn"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 29
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020676/ev241.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 324,
+            "strength": "ev",
+            "playerId": 8477956,
+            "firstName": {
+              "default": "David"
+            },
+            "lastName": {
+              "default": "Pastrnak",
+              "cs": "Pastr\u0148\u00e1k",
+              "sk": "Pastr\u0148\u00e1k"
+            },
+            "name": {
+              "default": "D. Pastrnak",
+              "cs": "D. Pastr\u0148\u00e1k",
+              "sk": "D. Pastr\u0148\u00e1k"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8477956.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-sea-pastrnak-scores-goal-against-joey-daccord-6387333716112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-sea-pastrnak-marque-un-but-contre-joey-daccord-6387333619112",
+            "highlightClip": 6387333716112,
+            "highlightClipFr": 6387333619112,
+            "discreteClip": 6387334891112,
+            "discreteClipFr": 6387335376112,
+            "goalsToDate": 18,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "12:47",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477507,
+                "firstName": {
+                  "default": "Nikita"
+                },
+                "lastName": {
+                  "default": "Zadorov"
+                },
+                "name": {
+                  "default": "N. Zadorov"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 91
+              },
+              {
+                "playerId": 8482177,
+                "firstName": {
+                  "default": "Marat"
+                },
+                "lastName": {
+                  "default": "Khusnutdinov",
+                  "cs": "Chusnutdinov",
+                  "fi": "Husnutdinov",
+                  "sk": "Chusnutdinov"
+                },
+                "name": {
+                  "default": "M. Khusnutdinov",
+                  "cs": "M. Chusnutdinov",
+                  "fi": "M. Husnutdinov",
+                  "sk": "M. Chusnutdinov"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 92
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020676/ev324.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 536,
+            "strength": "ev",
+            "playerId": 8484800,
+            "firstName": {
+              "default": "Berkly"
+            },
+            "lastName": {
+              "default": "Catton"
+            },
+            "name": {
+              "default": "B. Catton"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8484800.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-sea-catton-scores-goal-against-jeremy-swayman-6387337576112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-sea-catton-marque-un-but-contre-jeremy-swayman-6387337179112",
+            "highlightClip": 6387337576112,
+            "highlightClipFr": 6387337179112,
+            "discreteClip": 6387335028112,
+            "discreteClipFr": 6387336000112,
+            "goalsToDate": 1,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "02:48",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477955,
+                "firstName": {
+                  "default": "Jared"
+                },
+                "lastName": {
+                  "default": "McCann"
+                },
+                "name": {
+                  "default": "J. McCann"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 19
+              },
+              {
+                "playerId": 8482858,
+                "firstName": {
+                  "default": "Ryker"
+                },
+                "lastName": {
+                  "default": "Evans"
+                },
+                "name": {
+                  "default": "R. Evans"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 41
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020676/ev536.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 590,
+            "strength": "ev",
+            "playerId": 8477956,
+            "firstName": {
+              "default": "David"
+            },
+            "lastName": {
+              "default": "Pastrnak",
+              "cs": "Pastr\u0148\u00e1k",
+              "sk": "Pastr\u0148\u00e1k"
+            },
+            "name": {
+              "default": "D. Pastrnak",
+              "cs": "D. Pastr\u0148\u00e1k",
+              "sk": "D. Pastr\u0148\u00e1k"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8477956.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-sea-pastrnak-scores-goal-against-joey-daccord-6387337198112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-sea-pastrnak-marque-un-but-contre-joey-daccord-6387337489112",
+            "highlightClip": 6387337198112,
+            "highlightClipFr": 6387337489112,
+            "discreteClip": 6387337120112,
+            "discreteClipFr": 6387336612112,
+            "goalsToDate": 19,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "06:28",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479325,
+                "firstName": {
+                  "default": "Charlie"
+                },
+                "lastName": {
+                  "default": "McAvoy"
+                },
+                "name": {
+                  "default": "C. McAvoy"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 73
+              },
+              {
+                "playerId": 8477496,
+                "firstName": {
+                  "default": "Elias"
+                },
+                "lastName": {
+                  "default": "Lindholm"
+                },
+                "name": {
+                  "default": "E. Lindholm"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 28
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020676/ev590.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 736,
+            "strength": "ev",
+            "playerId": 8483570,
+            "firstName": {
+              "default": "Ben"
+            },
+            "lastName": {
+              "default": "Meyers"
+            },
+            "name": {
+              "default": "B. Meyers"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8483570.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-sea-meyers-scores-goal-against-jeremy-swayman-6387338603112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-sea-meyers-marque-un-but-contre-jeremy-swayman-6387339284112",
+            "highlightClip": 6387338603112,
+            "highlightClipFr": 6387339284112,
+            "discreteClip": 6387339092112,
+            "discreteClipFr": 6387338302112,
+            "goalsToDate": 4,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "18:23",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481789,
+                "firstName": {
+                  "default": "Tye"
+                },
+                "lastName": {
+                  "default": "Kartye"
+                },
+                "name": {
+                  "default": "T. Kartye"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 12
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020676/ev736.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 756,
+            "strength": "pp",
+            "playerId": 8477955,
+            "firstName": {
+              "default": "Jared"
+            },
+            "lastName": {
+              "default": "McCann"
+            },
+            "name": {
+              "default": "J. McCann"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8477955.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-sea-mccann-scores-ppg-against-jeremy-swayman-6387339005112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-sea-mccann-marque-un-but-en-a-n-contre-jeremy-swayman-6387337354112",
+            "highlightClip": 6387339005112,
+            "highlightClipFr": 6387337354112,
+            "discreteClip": 6387336957112,
+            "discreteClipFr": 6387337445112,
+            "goalsToDate": 8,
+            "awayScore": 2,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "19:59",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478407,
+                "firstName": {
+                  "default": "Vince"
+                },
+                "lastName": {
+                  "default": "Dunn"
+                },
+                "name": {
+                  "default": "V. Dunn"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8482665,
+                "firstName": {
+                  "default": "Matty"
+                },
+                "lastName": {
+                  "default": "Beniers"
+                },
+                "name": {
+                  "default": "M. Beniers"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 10
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020676/ev756.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 895,
+            "strength": "ev",
+            "playerId": 8481554,
+            "firstName": {
+              "default": "Kaapo"
+            },
+            "lastName": {
+              "default": "Kakko"
+            },
+            "name": {
+              "default": "K. Kakko"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8481554.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-sea-kakko-scores-goal-against-jeremy-swayman-6387338474112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-sea-kakko-marque-un-but-contre-jeremy-swayman-6387340904112",
+            "highlightClip": 6387338474112,
+            "highlightClipFr": 6387340904112,
+            "discreteClip": 6387338360112,
+            "discreteClipFr": 6387340612112,
+            "goalsToDate": 3,
+            "awayScore": 2,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "10:21",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477919,
+                "firstName": {
+                  "default": "Frederick"
+                },
+                "lastName": {
+                  "default": "Gaudreau"
+                },
+                "name": {
+                  "default": "F. Gaudreau"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 89
+              },
+              {
+                "playerId": 8476905,
+                "firstName": {
+                  "default": "Chandler"
+                },
+                "lastName": {
+                  "default": "Stephenson"
+                },
+                "name": {
+                  "default": "C. Stephenson"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020676/ev895.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 1008,
+            "strength": "pp",
+            "playerId": 8484800,
+            "firstName": {
+              "default": "Berkly"
+            },
+            "lastName": {
+              "default": "Catton"
+            },
+            "name": {
+              "default": "B. Catton"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8484800.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-sea-catton-scores-ppg-against-jeremy-swayman-6387340035112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-sea-catton-marque-un-but-en-a-n-contre-jeremy-swayman-6387339839112",
+            "highlightClip": 6387340035112,
+            "highlightClipFr": 6387339839112,
+            "discreteClip": 6387339833112,
+            "discreteClipFr": 6387340331112,
+            "goalsToDate": 2,
+            "awayScore": 2,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "14:20",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477919,
+                "firstName": {
+                  "default": "Frederick"
+                },
+                "lastName": {
+                  "default": "Gaudreau"
+                },
+                "name": {
+                  "default": "F. Gaudreau"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 89
+              },
+              {
+                "playerId": 8481554,
+                "firstName": {
+                  "default": "Kaapo"
+                },
+                "lastName": {
+                  "default": "Kakko"
+                },
+                "name": {
+                  "default": "K. Kakko"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 84
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020676/ev1008.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1017,
+            "strength": "ev",
+            "playerId": 8482511,
+            "firstName": {
+              "default": "Mason"
+            },
+            "lastName": {
+              "default": "Lohrei"
+            },
+            "name": {
+              "default": "M. Lohrei"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8482511.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-sea-lohrei-scores-goal-against-joey-daccord-6387341408112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-sea-lohrei-marque-un-but-contre-joey-daccord-6387338865112",
+            "highlightClip": 6387341408112,
+            "highlightClipFr": 6387338865112,
+            "discreteClip": 6387339372112,
+            "discreteClipFr": 6387339079112,
+            "goalsToDate": 3,
+            "awayScore": 3,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "14:50",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478401,
+                "firstName": {
+                  "default": "Pavel"
+                },
+                "lastName": {
+                  "default": "Zacha"
+                },
+                "name": {
+                  "default": "P. Zacha"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 18
+              },
+              {
+                "playerId": 8478042,
+                "firstName": {
+                  "default": "Viktor"
+                },
+                "lastName": {
+                  "default": "Arvidsson"
+                },
+                "name": {
+                  "default": "V. Arvidsson"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 71
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020676/ev1017.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 1059,
+            "strength": "pp",
+            "playerId": 8478042,
+            "firstName": {
+              "default": "Viktor"
+            },
+            "lastName": {
+              "default": "Arvidsson"
+            },
+            "name": {
+              "default": "V. Arvidsson"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8478042.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-sea-arvidsson-scores-ppg-against-joey-daccord-6387341711112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-sea-arvidsson-marque-un-but-en-a-n-contre-joey-daccord-6387338966112",
+            "highlightClip": 6387341711112,
+            "highlightClipFr": 6387338966112,
+            "discreteClip": 6387341208112,
+            "discreteClipFr": 6387340344112,
+            "goalsToDate": 8,
+            "awayScore": 4,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "17:38",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479999,
+                "firstName": {
+                  "default": "Casey"
+                },
+                "lastName": {
+                  "default": "Mittelstadt"
+                },
+                "name": {
+                  "default": "C. Mittelstadt"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 11
+              },
+              {
+                "playerId": 8482634,
+                "firstName": {
+                  "default": "Alex"
+                },
+                "lastName": {
+                  "default": "Steeves"
+                },
+                "name": {
+                  "default": "A. Steeves"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 21
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020676/ev1059.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 1084,
+            "strength": "ev",
+            "playerId": 8481554,
+            "firstName": {
+              "default": "Kaapo"
+            },
+            "lastName": {
+              "default": "Kakko"
+            },
+            "name": {
+              "default": "K. Kakko"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8481554.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/kaapo-kakko-with-a-goal-vs-boston-bruins-6387339475112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/kaapo-kakko-with-a-goal-vs-les-bruins-de-boston-6387341617112",
+            "highlightClip": 6387339475112,
+            "highlightClipFr": 6387341617112,
+            "discreteClip": 6387341216112,
+            "discreteClipFr": 6387340348112,
+            "goalsToDate": 4,
+            "awayScore": 4,
+            "homeScore": 7,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "19:48",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020676/ev1084.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8484800,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8484800.png",
+        "name": {
+          "default": "B. Catton"
+        },
+        "sweaterNo": 27,
+        "position": "C",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8477955,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8477955.png",
+        "name": {
+          "default": "J. McCann"
+        },
+        "sweaterNo": 19,
+        "position": "L",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8478407,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8478407.png",
+        "name": {
+          "default": "V. Dunn"
+        },
+        "sweaterNo": 29,
+        "position": "D",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "08:31",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nikita"
+              },
+              "lastName": {
+                "default": "Zadorov"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jared"
+              },
+              "lastName": {
+                "default": "McCann"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "08:40",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jeremy"
+              },
+              "lastName": {
+                "default": "Swayman"
+              },
+              "sweaterNumber": 1
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jordan"
+              },
+              "lastName": {
+                "default": "Eberle"
+              },
+              "sweaterNumber": 7
+            },
+            "descKey": "tripping",
+            "servedBy": {
+              "default": "M. Kastelic"
+            }
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "14:49",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Berkly"
+              },
+              "lastName": {
+                "default": "Catton"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Fraser"
+              },
+              "lastName": {
+                "default": "Minten"
+              },
+              "sweaterNumber": 93
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "18:39",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Alex"
+              },
+              "lastName": {
+                "default": "Steeves"
+              },
+              "sweaterNumber": 21
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Cale"
+              },
+              "lastName": {
+                "default": "Fleury"
+              },
+              "sweaterNumber": 8
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:49",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Joey"
+              },
+              "lastName": {
+                "default": "Daccord"
+              },
+              "sweaterNumber": 35
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Charlie"
+              },
+              "lastName": {
+                "default": "McAvoy"
+              },
+              "sweaterNumber": 73
+            },
+            "descKey": "tripping",
+            "servedBy": {
+              "default": "K. Kakko"
+            }
+          },
+          {
+            "timeInPeriod": "12:56",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "David"
+              },
+              "lastName": {
+                "default": "Pastrnak",
+                "cs": "Pastr\u0148\u00e1k",
+                "sk": "Pastr\u0148\u00e1k"
+              },
+              "sweaterNumber": 88
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Lindgren"
+              },
+              "sweaterNumber": 55
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "17:23",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Lindgren"
+              },
+              "sweaterNumber": 55
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Casey"
+              },
+              "lastName": {
+                "default": "Mittelstadt"
+              },
+              "sweaterNumber": 11
+            },
+            "descKey": "hooking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

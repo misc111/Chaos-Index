@@ -1,0 +1,1047 @@
+{
+  "id": 2025020829,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-26",
+  "venue": {
+    "default": "Rogers Place"
+  },
+  "venueLocation": {
+    "default": "Edmonton"
+  },
+  "startTimeUTC": "2026-01-27T01:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-07:00",
+  "venueTimezone": "America/Edmonton",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 548,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "Prime",
+      "sequenceNumber": 116
+    },
+    {
+      "id": 553,
+      "market": "A",
+      "countryCode": "US",
+      "network": "Victory+",
+      "sequenceNumber": 382
+    },
+    {
+      "id": 219,
+      "market": "A",
+      "countryCode": "US",
+      "network": "KCOP-13",
+      "sequenceNumber": 656
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 24,
+    "commonName": {
+      "default": "Ducks"
+    },
+    "abbrev": "ANA",
+    "placeName": {
+      "default": "Anaheim"
+    },
+    "placeNameWithPreposition": {
+      "default": "Anaheim",
+      "fr": "d'Anaheim"
+    },
+    "score": 4,
+    "sog": 41,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/ANA_dark.svg"
+  },
+  "homeTeam": {
+    "id": 22,
+    "commonName": {
+      "default": "Oilers"
+    },
+    "abbrev": "EDM",
+    "placeName": {
+      "default": "Edmonton"
+    },
+    "placeNameWithPreposition": {
+      "default": "Edmonton",
+      "fr": "d'Edmonton"
+    },
+    "score": 7,
+    "sog": 32,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/EDM_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 94,
+            "strength": "pp",
+            "playerId": 8475798,
+            "firstName": {
+              "default": "Mikael"
+            },
+            "lastName": {
+              "default": "Granlund"
+            },
+            "name": {
+              "default": "M. Granlund"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8475798.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-edm-granlund-scores-ppg-against-tristan-jarry-6388354364112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-edm-granlund-marque-un-but-en-a-n-contre-tristan-jarry-6388354757112",
+            "highlightClip": 6388354364112,
+            "highlightClipFr": 6388354757112,
+            "discreteClip": 6388354264112,
+            "discreteClipFr": 6388355046112,
+            "goalsToDate": 10,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "03:24",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475184,
+                "firstName": {
+                  "default": "Chris"
+                },
+                "lastName": {
+                  "default": "Kreider"
+                },
+                "name": {
+                  "default": "C. Kreider"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 20
+              },
+              {
+                "playerId": 8483445,
+                "firstName": {
+                  "default": "Cutter"
+                },
+                "lastName": {
+                  "default": "Gauthier"
+                },
+                "name": {
+                  "default": "C. Gauthier"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 61
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020829/ev94.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 388,
+            "strength": "pp",
+            "playerId": 8475786,
+            "firstName": {
+              "default": "Zach"
+            },
+            "lastName": {
+              "default": "Hyman"
+            },
+            "name": {
+              "default": "Z. Hyman"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8475786.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-edm-hyman-scores-ppg-against-ville-husso-6388354979112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-edm-hyman-marque-un-but-en-a-n-contre-ville-husso-6388354202112",
+            "highlightClip": 6388354979112,
+            "highlightClipFr": 6388354202112,
+            "discreteClip": 6388355274112,
+            "discreteClipFr": 6388355669112,
+            "goalsToDate": 21,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "17:14",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476454,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "Nugent-Hopkins"
+                },
+                "name": {
+                  "default": "R. Nugent-Hopkins"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 93
+              },
+              {
+                "playerId": 8477934,
+                "firstName": {
+                  "default": "Leon"
+                },
+                "lastName": {
+                  "default": "Draisaitl"
+                },
+                "name": {
+                  "default": "L. Draisaitl"
+                },
+                "assistsToDate": 46,
+                "sweaterNumber": 29
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020829/ev388.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 490,
+            "strength": "ev",
+            "playerId": 8473986,
+            "firstName": {
+              "default": "Alex"
+            },
+            "lastName": {
+              "default": "Killorn"
+            },
+            "name": {
+              "default": "A. Killorn"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8473986.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-edm-killorn-scores-goal-against-tristan-jarry-6388355714112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-edm-killorn-marque-un-but-contre-tristan-jarry-6388354522112",
+            "highlightClip": 6388355714112,
+            "highlightClipFr": 6388354522112,
+            "discreteClip": 6388354519112,
+            "discreteClipFr": 6388356591112,
+            "goalsToDate": 6,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "00:55",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480068,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "Poehling"
+                },
+                "name": {
+                  "default": "R. Poehling"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 25
+              },
+              {
+                "playerId": 8476885,
+                "firstName": {
+                  "default": "Jacob"
+                },
+                "lastName": {
+                  "default": "Trouba"
+                },
+                "name": {
+                  "default": "J. Trouba"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 65
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020829/ev490.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 602,
+            "strength": "ev",
+            "playerId": 8481056,
+            "firstName": {
+              "default": "Spencer"
+            },
+            "lastName": {
+              "default": "Stastney"
+            },
+            "name": {
+              "default": "S. Stastney"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8481056.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-edm-stastney-scores-shg-against-ville-husso-6388356301112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-edm-stastney-marque-un-but-en-i-n-contre-ville-husso-6388355724112",
+            "highlightClip": 6388356301112,
+            "highlightClipFr": 6388355724112,
+            "discreteClip": 6388355603112,
+            "discreteClipFr": 6388357280112,
+            "goalsToDate": 2,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "04:36",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480834,
+                "firstName": {
+                  "default": "Ty"
+                },
+                "lastName": {
+                  "default": "Emberson"
+                },
+                "name": {
+                  "default": "T. Emberson"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 49
+              },
+              {
+                "playerId": 8477934,
+                "firstName": {
+                  "default": "Leon"
+                },
+                "lastName": {
+                  "default": "Draisaitl"
+                },
+                "name": {
+                  "default": "L. Draisaitl"
+                },
+                "assistsToDate": 47,
+                "sweaterNumber": 29
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020829/ev602.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 603,
+            "strength": "ev",
+            "playerId": 8475218,
+            "firstName": {
+              "default": "Mattias"
+            },
+            "lastName": {
+              "default": "Ekholm"
+            },
+            "name": {
+              "default": "M. Ekholm"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8475218.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-edm-ekholm-scores-goal-against-ville-husso-6388357098112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-edm-ekholm-marque-un-but-contre-ville-husso-6388357389112",
+            "highlightClip": 6388357098112,
+            "highlightClipFr": 6388357389112,
+            "discreteClip": 6388355616112,
+            "discreteClipFr": 6388357877112,
+            "goalsToDate": 4,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "06:28",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475786,
+                "firstName": {
+                  "default": "Zach"
+                },
+                "lastName": {
+                  "default": "Hyman"
+                },
+                "name": {
+                  "default": "Z. Hyman"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 18
+              },
+              {
+                "playerId": 8478402,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McDavid"
+                },
+                "name": {
+                  "default": "C. McDavid"
+                },
+                "assistsToDate": 59,
+                "sweaterNumber": 97
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020829/ev603.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 576,
+            "strength": "ev",
+            "playerId": 8477498,
+            "firstName": {
+              "default": "Darnell"
+            },
+            "lastName": {
+              "default": "Nurse"
+            },
+            "name": {
+              "default": "D. Nurse"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8477498.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-edm-nurse-scores-goal-against-ville-husso-6388358279112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-edm-nurse-marque-un-but-contre-ville-husso-6388357507112",
+            "highlightClip": 6388358279112,
+            "highlightClipFr": 6388357507112,
+            "discreteClip": 6388356531112,
+            "discreteClipFr": 6388356024112,
+            "goalsToDate": 7,
+            "awayScore": 2,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "07:34",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020829/ev576.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 587,
+            "strength": "ev",
+            "playerId": 8475218,
+            "firstName": {
+              "default": "Mattias"
+            },
+            "lastName": {
+              "default": "Ekholm"
+            },
+            "name": {
+              "default": "M. Ekholm"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8475218.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-edm-ekholm-scores-goal-against-ville-husso-6388356912112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-edm-ekholm-marque-un-but-contre-ville-husso-6388356031112",
+            "highlightClip": 6388356912112,
+            "highlightClipFr": 6388356031112,
+            "discreteClip": 6388357821112,
+            "discreteClipFr": 6388355640112,
+            "goalsToDate": 5,
+            "awayScore": 2,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "08:25",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483512,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Savoie"
+                },
+                "name": {
+                  "default": "M. Savoie"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 22
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020829/ev587.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 760,
+            "strength": "pp",
+            "playerId": 8475798,
+            "firstName": {
+              "default": "Mikael"
+            },
+            "lastName": {
+              "default": "Granlund"
+            },
+            "name": {
+              "default": "M. Granlund"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8475798.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-edm-granlund-scores-ppg-against-tristan-jarry-6388357136112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-edm-granlund-marque-un-but-en-a-n-contre-tristan-jarry-6388358096112",
+            "highlightClip": 6388357136112,
+            "highlightClipFr": 6388358096112,
+            "discreteClip": 6388357416112,
+            "discreteClipFr": 6388358474112,
+            "goalsToDate": 11,
+            "awayScore": 3,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "13:41",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484762,
+                "firstName": {
+                  "default": "Beckett"
+                },
+                "lastName": {
+                  "default": "Sennecke"
+                },
+                "name": {
+                  "default": "B. Sennecke"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 45
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020829/ev760.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 1040,
+            "strength": "pp",
+            "playerId": 8475798,
+            "firstName": {
+              "default": "Mikael"
+            },
+            "lastName": {
+              "default": "Granlund"
+            },
+            "name": {
+              "default": "M. Granlund"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8475798.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-edm-granlund-scores-ppg-against-tristan-jarry-6388360012112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-edm-granlund-marque-un-but-en-a-n-contre-tristan-jarry-6388360495112",
+            "highlightClip": 6388360012112,
+            "highlightClipFr": 6388360495112,
+            "discreteClip": 6388359323112,
+            "discreteClipFr": 6388358360112,
+            "goalsToDate": 12,
+            "awayScore": 4,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "13:38",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484762,
+                "firstName": {
+                  "default": "Beckett"
+                },
+                "lastName": {
+                  "default": "Sennecke"
+                },
+                "name": {
+                  "default": "B. Sennecke"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 45
+              },
+              {
+                "playerId": 8481605,
+                "firstName": {
+                  "default": "Jackson"
+                },
+                "lastName": {
+                  "default": "LaCombe"
+                },
+                "name": {
+                  "default": "J. LaCombe"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 2
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020829/ev1040.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 1156,
+            "strength": "ev",
+            "playerId": 8478402,
+            "firstName": {
+              "default": "Connor"
+            },
+            "lastName": {
+              "default": "McDavid"
+            },
+            "name": {
+              "default": "C. McDavid"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8478402.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-edm-mcdavid-scores-empty-net-goal-6388359634112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-edm-mcdavid-edm-marque-un-but-dans-un-filet-desert-6388360021112",
+            "highlightClip": 6388359634112,
+            "highlightClipFr": 6388360021112,
+            "discreteClip": 6388360605112,
+            "discreteClipFr": 6388359822112,
+            "goalsToDate": 33,
+            "awayScore": 4,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "18:12",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8477934,
+                "firstName": {
+                  "default": "Leon"
+                },
+                "lastName": {
+                  "default": "Draisaitl"
+                },
+                "name": {
+                  "default": "L. Draisaitl"
+                },
+                "assistsToDate": 48,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8480803,
+                "firstName": {
+                  "default": "Evan"
+                },
+                "lastName": {
+                  "default": "Bouchard"
+                },
+                "name": {
+                  "default": "E. Bouchard"
+                },
+                "assistsToDate": 42,
+                "sweaterNumber": 2
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020829/ev1156.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 604,
+            "strength": "ev",
+            "playerId": 8475218,
+            "firstName": {
+              "default": "Mattias"
+            },
+            "lastName": {
+              "default": "Ekholm"
+            },
+            "name": {
+              "default": "M. Ekholm"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8475218.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-edm-ekholm-scores-empty-net-goal-6388360901112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-edm-ekholm-edm-marque-un-but-dans-un-filet-desert-6388359834112",
+            "highlightClip": 6388360901112,
+            "highlightClipFr": 6388359834112,
+            "discreteClip": 6388359739112,
+            "discreteClipFr": 6388359740112,
+            "goalsToDate": 6,
+            "awayScore": 4,
+            "homeScore": 7,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "19:49",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8477934,
+                "firstName": {
+                  "default": "Leon"
+                },
+                "lastName": {
+                  "default": "Draisaitl"
+                },
+                "name": {
+                  "default": "L. Draisaitl"
+                },
+                "assistsToDate": 49,
+                "sweaterNumber": 29
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020829/ev604.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8475218,
+        "teamAbbrev": "EDM",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8475218.png",
+        "name": {
+          "default": "M. Ekholm"
+        },
+        "sweaterNo": 14,
+        "position": "D",
+        "goals": 3,
+        "assists": 0,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8475798,
+        "teamAbbrev": "ANA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8475798.png",
+        "name": {
+          "default": "M. Granlund"
+        },
+        "sweaterNo": 64,
+        "position": "C",
+        "goals": 3,
+        "assists": 0,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8475786,
+        "teamAbbrev": "EDM",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8475786.png",
+        "name": {
+          "default": "Z. Hyman"
+        },
+        "sweaterNo": 18,
+        "position": "L",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:39",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jack"
+              },
+              "lastName": {
+                "default": "Roslovic"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Radko"
+              },
+              "lastName": {
+                "default": "Gudas"
+              },
+              "sweaterNumber": 7
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "05:37",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jansen"
+              },
+              "lastName": {
+                "default": "Harkins"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Tristan"
+              },
+              "lastName": {
+                "default": "Jarry"
+              },
+              "sweaterNumber": 35
+            },
+            "descKey": "interference-goalkeeper"
+          },
+          {
+            "timeInPeriod": "14:58",
+            "type": "MIN",
+            "duration": 4,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Strome"
+              },
+              "sweaterNumber": 16
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Darnell"
+              },
+              "lastName": {
+                "default": "Nurse"
+              },
+              "sweaterNumber": 25
+            },
+            "descKey": "high-sticking-double-minor"
+          },
+          {
+            "timeInPeriod": "18:25",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matt"
+              },
+              "lastName": {
+                "default": "Savoie"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Cutter"
+              },
+              "lastName": {
+                "default": "Gauthier"
+              },
+              "sweaterNumber": 61
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:18",
+            "type": "PS",
+            "duration": 0,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jacob"
+              },
+              "lastName": {
+                "default": "Trouba"
+              },
+              "sweaterNumber": 65
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Connor"
+              },
+              "lastName": {
+                "default": "McDavid"
+              },
+              "sweaterNumber": 97
+            },
+            "descKey": "ps-tripping-on-breakaway"
+          },
+          {
+            "timeInPeriod": "12:08",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ty"
+              },
+              "lastName": {
+                "default": "Emberson"
+              },
+              "sweaterNumber": 49
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Beckett"
+              },
+              "lastName": {
+                "default": "Sennecke"
+              },
+              "sweaterNumber": 45
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "11:43",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matt"
+              },
+              "lastName": {
+                "default": "Savoie"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jansen"
+              },
+              "lastName": {
+                "default": "Harkins"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

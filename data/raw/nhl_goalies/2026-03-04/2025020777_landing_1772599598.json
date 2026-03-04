@@ -1,0 +1,575 @@
+{
+  "id": 2025020777,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-19",
+  "venue": {
+    "default": "Scotiabank Saddledome"
+  },
+  "venueLocation": {
+    "default": "Calgary"
+  },
+  "startTimeUTC": "2026-01-20T02:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-07:00",
+  "venueTimezone": "US/Mountain",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 289,
+      "market": "H",
+      "countryCode": "CA",
+      "network": "SNW",
+      "sequenceNumber": 34
+    },
+    {
+      "id": 409,
+      "market": "A",
+      "countryCode": "US",
+      "network": "MSGSN",
+      "sequenceNumber": 411
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 1,
+    "commonName": {
+      "default": "Devils"
+    },
+    "abbrev": "NJD",
+    "placeName": {
+      "default": "New Jersey"
+    },
+    "placeNameWithPreposition": {
+      "default": "New Jersey",
+      "fr": "du New Jersey"
+    },
+    "score": 2,
+    "sog": 32,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NJD_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NJD_dark.svg"
+  },
+  "homeTeam": {
+    "id": 20,
+    "commonName": {
+      "default": "Flames"
+    },
+    "abbrev": "CGY",
+    "placeName": {
+      "default": "Calgary"
+    },
+    "placeNameWithPreposition": {
+      "default": "Calgary",
+      "fr": "de Calgary"
+    },
+    "score": 1,
+    "sog": 22,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CGY_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CGY_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 601,
+            "strength": "ev",
+            "playerId": 8482110,
+            "firstName": {
+              "default": "Dawson"
+            },
+            "lastName": {
+              "default": "Mercer"
+            },
+            "name": {
+              "default": "D. Mercer"
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8482110.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-cgy-mercer-scores-goal-against-devin-cooley-6387968570112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dawson-mercer-with-a-but-vs-les-flames-de-calgary-6387969151112",
+            "highlightClip": 6387968570112,
+            "highlightClipFr": 6387969151112,
+            "discreteClip": 6387968483112,
+            "discreteClipFr": 6387970037112,
+            "goalsToDate": 13,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "NJD"
+            },
+            "timeInPeriod": "07:51",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476462,
+                "firstName": {
+                  "default": "Dougie"
+                },
+                "lastName": {
+                  "default": "Hamilton"
+                },
+                "name": {
+                  "default": "D. Hamilton"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 7
+              },
+              {
+                "playerId": 8478399,
+                "firstName": {
+                  "default": "Jonas"
+                },
+                "lastName": {
+                  "default": "Siegenthaler"
+                },
+                "name": {
+                  "default": "J. Siegenthaler"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 71
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020777/ev601.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 624,
+            "strength": "ev",
+            "playerId": 8475172,
+            "firstName": {
+              "default": "Nazem"
+            },
+            "lastName": {
+              "default": "Kadri"
+            },
+            "name": {
+              "default": "N. Kadri"
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8475172.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-cgy-kadri-scores-goal-against-jacob-markstrom-6387969166112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-cgy-kadri-marque-un-but-contre-jacob-markstrom-6387968788112",
+            "highlightClip": 6387969166112,
+            "highlightClipFr": 6387968788112,
+            "discreteClip": 6387969659112,
+            "discreteClipFr": 6387968489112,
+            "goalsToDate": 9,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "09:44",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480860,
+                "firstName": {
+                  "default": "Kevin"
+                },
+                "lastName": {
+                  "default": "Bahl"
+                },
+                "name": {
+                  "default": "K. Bahl"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 7
+              },
+              {
+                "playerId": 8484860,
+                "firstName": {
+                  "default": "Matvei"
+                },
+                "lastName": {
+                  "default": "Gridin"
+                },
+                "name": {
+                  "default": "M. Gridin"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 92
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020777/ev624.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 1100,
+            "strength": "ev",
+            "playerId": 8483495,
+            "firstName": {
+              "default": "Simon",
+              "cs": "\u0160imon",
+              "sk": "\u0160imon"
+            },
+            "lastName": {
+              "default": "Nemec"
+            },
+            "name": {
+              "default": "S. Nemec",
+              "cs": "\u0160. Nemec",
+              "sk": "\u0160. Nemec"
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8483495.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-cgy-nemec-scores-goal-against-devin-cooley-6387971816112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-cgy-nemec-marque-un-but-contre-devin-cooley-6387973472112",
+            "highlightClip": 6387971816112,
+            "highlightClipFr": 6387973472112,
+            "discreteClip": 6387971527112,
+            "discreteClipFr": 6387972309112,
+            "goalsToDate": 8,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "NJD"
+            },
+            "timeInPeriod": "01:18",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481559,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Hughes"
+                },
+                "name": {
+                  "default": "J. Hughes"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 86
+              },
+              {
+                "playerId": 8479407,
+                "firstName": {
+                  "default": "Jesper"
+                },
+                "lastName": {
+                  "default": "Bratt"
+                },
+                "name": {
+                  "default": "J. Bratt"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 63
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020777/ev1100.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8482445,
+        "teamAbbrev": "CGY",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8482445.png",
+        "name": {
+          "default": "D. Cooley"
+        },
+        "sweaterNo": 1,
+        "position": "G",
+        "goalsAgainstAverage": 1.96,
+        "savePctg": 0.938
+      },
+      {
+        "star": 2,
+        "playerId": 8481559,
+        "teamAbbrev": "NJD",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8481559.png",
+        "name": {
+          "default": "J. Hughes"
+        },
+        "sweaterNo": 86,
+        "position": "C",
+        "goals": 0,
+        "assists": 1,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8480860,
+        "teamAbbrev": "CGY",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8480860.png",
+        "name": {
+          "default": "K. Bahl"
+        },
+        "sweaterNo": 7,
+        "position": "D",
+        "goals": 0,
+        "assists": 1,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "07:49",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nazem"
+              },
+              "lastName": {
+                "default": "Kadri"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Cody"
+              },
+              "lastName": {
+                "default": "Glass"
+              },
+              "sweaterNumber": 12
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "08:07",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nico"
+              },
+              "lastName": {
+                "default": "Hischier"
+              },
+              "sweaterNumber": 13
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Joel"
+              },
+              "lastName": {
+                "default": "Farabee"
+              },
+              "sweaterNumber": 86
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:30",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Cody"
+              },
+              "lastName": {
+                "default": "Glass"
+              },
+              "sweaterNumber": 12
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Connor"
+              },
+              "lastName": {
+                "default": "Zary"
+              },
+              "sweaterNumber": 47
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dougie"
+              },
+              "lastName": {
+                "default": "Hamilton"
+              },
+              "sweaterNumber": 7
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Morgan"
+              },
+              "lastName": {
+                "default": "Frost"
+              },
+              "sweaterNumber": 16
+            },
+            "descKey": "illegal-check-to-head"
+          },
+          {
+            "timeInPeriod": "03:20",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jonas"
+              },
+              "lastName": {
+                "default": "Siegenthaler"
+              },
+              "sweaterNumber": 71
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Joel"
+              },
+              "lastName": {
+                "default": "Farabee"
+              },
+              "sweaterNumber": 86
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "04:13",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Yegor",
+                "cs": "Jegor",
+                "fi": "Jahor",
+                "sk": "Jegor"
+              },
+              "lastName": {
+                "default": "Sharangovich",
+                "cs": "\u0160arangovi\u010d",
+                "fi": "Sharanhovitsh",
+                "sk": "\u0160arangovi\u010d"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brett"
+              },
+              "lastName": {
+                "default": "Pesce"
+              },
+              "sweaterNumber": 22
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "03:42",
+    "secondsRemaining": 222,
+    "running": false,
+    "inIntermission": false
+  }
+}

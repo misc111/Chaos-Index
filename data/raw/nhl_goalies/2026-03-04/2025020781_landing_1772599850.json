@@ -1,0 +1,587 @@
+{
+  "id": 2025020781,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-20",
+  "venue": {
+    "default": "Benchmark International Arena"
+  },
+  "venueLocation": {
+    "default": "Tampa"
+  },
+  "startTimeUTC": "2026-01-21T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 21
+    },
+    {
+      "id": 581,
+      "market": "H",
+      "countryCode": "US",
+      "network": "The Spot",
+      "sequenceNumber": 211
+    },
+    {
+      "id": 314,
+      "market": "A",
+      "countryCode": "US",
+      "network": "NBCSCA",
+      "sequenceNumber": 393
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 28,
+    "commonName": {
+      "default": "Sharks"
+    },
+    "abbrev": "SJS",
+    "placeName": {
+      "default": "San Jose"
+    },
+    "placeNameWithPreposition": {
+      "default": "San Jose",
+      "fr": "de San Jose"
+    },
+    "score": 1,
+    "sog": 23,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SJS_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/SJS_dark.svg"
+  },
+  "homeTeam": {
+    "id": 14,
+    "commonName": {
+      "default": "Lightning"
+    },
+    "abbrev": "TBL",
+    "placeName": {
+      "default": "Tampa Bay"
+    },
+    "placeNameWithPreposition": {
+      "default": "Tampa Bay",
+      "fr": "de Tampa Bay"
+    },
+    "score": 4,
+    "sog": 20,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TBL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/TBL_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 401,
+            "strength": "ev",
+            "playerId": 8475726,
+            "firstName": {
+              "default": "Tyler"
+            },
+            "lastName": {
+              "default": "Toffoli"
+            },
+            "name": {
+              "default": "T. Toffoli"
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8475726.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sjs-tbl-toffoli-scores-goal-against-andrei-vasilevskiy-6388012176112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sjs-tbl-toffoli-marque-un-but-contre-andrei-vasilevskiy-6388013280112",
+            "highlightClip": 6388012176112,
+            "highlightClipFr": 6388013280112,
+            "discreteClip": 6388013081112,
+            "discreteClipFr": 6388013575112,
+            "goalsToDate": 14,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "SJS"
+            },
+            "timeInPeriod": "14:37",
+            "shotType": "deflected",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482667,
+                "firstName": {
+                  "default": "William"
+                },
+                "lastName": {
+                  "default": "Eklund"
+                },
+                "name": {
+                  "default": "W. Eklund"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 72
+              },
+              {
+                "playerId": 8477505,
+                "firstName": {
+                  "default": "Alexander"
+                },
+                "lastName": {
+                  "default": "Wennberg"
+                },
+                "name": {
+                  "default": "A. Wennberg"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 21
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020781/ev401.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 339,
+            "strength": "ev",
+            "playerId": 8479542,
+            "firstName": {
+              "default": "Brandon"
+            },
+            "lastName": {
+              "default": "Hagel"
+            },
+            "name": {
+              "default": "B. Hagel"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8479542.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sjs-tbl-hagel-scores-goal-against-yaroslav-askarov-6388013588112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sjs-tbl-hagel-marque-un-but-contre-yaroslav-askarov-6388014086112",
+            "highlightClip": 6388013588112,
+            "highlightClipFr": 6388014086112,
+            "discreteClip": 6388012681112,
+            "discreteClipFr": 6388012997112,
+            "goalsToDate": 24,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "15:10",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478519,
+                "firstName": {
+                  "default": "Anthony"
+                },
+                "lastName": {
+                  "default": "Cirelli"
+                },
+                "name": {
+                  "default": "A. Cirelli"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 71
+              },
+              {
+                "playerId": 8476453,
+                "firstName": {
+                  "default": "Nikita"
+                },
+                "lastName": {
+                  "default": "Kucherov",
+                  "cs": "Ku\u010derov",
+                  "fi": "Kutsherov",
+                  "sk": "Ku\u010derov"
+                },
+                "name": {
+                  "default": "N. Kucherov",
+                  "cs": "N. Ku\u010derov",
+                  "fi": "N. Kutsherov",
+                  "sk": "N. Ku\u010derov"
+                },
+                "assistsToDate": 47,
+                "sweaterNumber": 86
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020781/ev339.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 521,
+            "strength": "ev",
+            "playerId": 8478519,
+            "firstName": {
+              "default": "Anthony"
+            },
+            "lastName": {
+              "default": "Cirelli"
+            },
+            "name": {
+              "default": "A. Cirelli"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8478519.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sjs-tbl-cirelli-scores-goal-against-yaroslav-askarov-6388014990112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sjs-tbl-cirelli-marque-un-but-contre-yaroslav-askarov-6388015781112",
+            "highlightClip": 6388014990112,
+            "highlightClipFr": 6388015781112,
+            "discreteClip": 6388015379112,
+            "discreteClipFr": 6388012745112,
+            "goalsToDate": 13,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "01:49",
+            "shotType": "poke",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479542,
+                "firstName": {
+                  "default": "Brandon"
+                },
+                "lastName": {
+                  "default": "Hagel"
+                },
+                "name": {
+                  "default": "B. Hagel"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 38
+              },
+              {
+                "playerId": 8476453,
+                "firstName": {
+                  "default": "Nikita"
+                },
+                "lastName": {
+                  "default": "Kucherov",
+                  "cs": "Ku\u010derov",
+                  "fi": "Kutsherov",
+                  "sk": "Ku\u010derov"
+                },
+                "name": {
+                  "default": "N. Kucherov",
+                  "cs": "N. Ku\u010derov",
+                  "fi": "N. Kutsherov",
+                  "sk": "N. Ku\u010derov"
+                },
+                "assistsToDate": 48,
+                "sweaterNumber": 86
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020781/ev521.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 539,
+            "strength": "ev",
+            "playerId": 8477404,
+            "firstName": {
+              "default": "Jake"
+            },
+            "lastName": {
+              "default": "Guentzel"
+            },
+            "name": {
+              "default": "J. Guentzel"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8477404.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sjs-tbl-guentzel-scores-goal-against-yaroslav-askarov-6388013524112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sjs-tbl-guentzel-marque-un-but-contre-yaroslav-askarov-6388014131112",
+            "highlightClip": 6388013524112,
+            "highlightClipFr": 6388014131112,
+            "discreteClip": 6388012522112,
+            "discreteClipFr": 6388012423112,
+            "goalsToDate": 22,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "03:17",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483752,
+                "firstName": {
+                  "default": "Dominic"
+                },
+                "lastName": {
+                  "default": "James"
+                },
+                "name": {
+                  "default": "D. James"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 17
+              },
+              {
+                "playerId": 8482201,
+                "firstName": {
+                  "default": "Gage"
+                },
+                "lastName": {
+                  "default": "Goncalves"
+                },
+                "name": {
+                  "default": "G. Goncalves"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 93
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020781/ev539.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "0651",
+            "eventId": 1072,
+            "strength": "ev",
+            "playerId": 8479542,
+            "firstName": {
+              "default": "Brandon"
+            },
+            "lastName": {
+              "default": "Hagel"
+            },
+            "name": {
+              "default": "B. Hagel"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8479542.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sjs-tbl-hagel-scores-empty-net-goal-6388015375112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sjs-tbl-hagel-tbl-marque-un-but-dans-un-filet-desert-6388016990112",
+            "highlightClip": 6388015375112,
+            "highlightClipFr": 6388016990112,
+            "discreteClip": 6388016480112,
+            "discreteClipFr": 6388016565112,
+            "goalsToDate": 25,
+            "awayScore": 1,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "17:41",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8477404,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "Guentzel"
+                },
+                "name": {
+                  "default": "J. Guentzel"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 59
+              },
+              {
+                "playerId": 8476453,
+                "firstName": {
+                  "default": "Nikita"
+                },
+                "lastName": {
+                  "default": "Kucherov",
+                  "cs": "Ku\u010derov",
+                  "fi": "Kutsherov",
+                  "sk": "Ku\u010derov"
+                },
+                "name": {
+                  "default": "N. Kucherov",
+                  "cs": "N. Ku\u010derov",
+                  "fi": "N. Kutsherov",
+                  "sk": "N. Ku\u010derov"
+                },
+                "assistsToDate": 49,
+                "sweaterNumber": 86
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020781/ev1072.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8479542,
+        "teamAbbrev": "TBL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8479542.png",
+        "name": {
+          "default": "B. Hagel"
+        },
+        "sweaterNo": 38,
+        "position": "L",
+        "goals": 2,
+        "assists": 1,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8476883,
+        "teamAbbrev": "TBL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8476883.png",
+        "name": {
+          "default": "A. Vasilevskiy",
+          "cs": "A. Vasilevskij",
+          "fi": "A. Vasilevski",
+          "sk": "A. Vasilevskij"
+        },
+        "sweaterNo": 88,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.957
+      },
+      {
+        "star": 3,
+        "playerId": 8483752,
+        "teamAbbrev": "TBL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8483752.png",
+        "name": {
+          "default": "D. James"
+        },
+        "sweaterNo": 17,
+        "position": "C",
+        "goals": 0,
+        "assists": 1,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:51",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Reaves"
+              },
+              "sweaterNumber": 75
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Declan"
+              },
+              "lastName": {
+                "default": "Carlile"
+              },
+              "sweaterNumber": 67
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "12:57",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "descKey": "interference-bench",
+            "servedBy": {
+              "default": "G. Goncalves"
+            }
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

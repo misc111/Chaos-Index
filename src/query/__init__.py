@@ -1,0 +1,1 @@
+"""Local deterministic query command."""

@@ -1,0 +1,729 @@
+{
+  "id": 2025020956,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-03-02",
+  "venue": {
+    "default": "Rogers Arena"
+  },
+  "venueLocation": {
+    "default": "Vancouver"
+  },
+  "startTimeUTC": "2026-03-03T03:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "America/Vancouver",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 290,
+      "market": "H",
+      "countryCode": "CA",
+      "network": "SNP",
+      "sequenceNumber": 33
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 553,
+      "market": "A",
+      "countryCode": "US",
+      "network": "Victory+",
+      "sequenceNumber": 382
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 25,
+    "commonName": {
+      "default": "Stars"
+    },
+    "abbrev": "DAL",
+    "placeName": {
+      "default": "Dallas"
+    },
+    "placeNameWithPreposition": {
+      "default": "Dallas",
+      "fr": "de Dallas"
+    },
+    "score": 6,
+    "sog": 37,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/DAL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/DAL_dark.svg"
+  },
+  "homeTeam": {
+    "id": 23,
+    "commonName": {
+      "default": "Canucks"
+    },
+    "abbrev": "VAN",
+    "placeName": {
+      "default": "Vancouver"
+    },
+    "placeNameWithPreposition": {
+      "default": "Vancouver",
+      "fr": "de Vancouver"
+    },
+    "score": 1,
+    "sog": 14,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VAN_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 258,
+            "strength": "ev",
+            "playerId": 8475169,
+            "firstName": {
+              "default": "Evander"
+            },
+            "lastName": {
+              "default": "Kane"
+            },
+            "name": {
+              "default": "E. Kane"
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VAN/8475169.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/evander-kane-with-a-goal-vs-dallas-stars-6390297093112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/evander-kane-with-a-but-vs-les-stars-de-dallas-6390296206112",
+            "highlightClip": 6390297093112,
+            "highlightClipFr": 6390296206112,
+            "discreteClip": 6390295347112,
+            "discreteClipFr": 6390295440112,
+            "goalsToDate": 11,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "VAN"
+            },
+            "timeInPeriod": "07:57",
+            "shotType": "deflected",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478498,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "DeBrusk"
+                },
+                "name": {
+                  "default": "J. DeBrusk"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 74
+              },
+              {
+                "playerId": 8477969,
+                "firstName": {
+                  "default": "Marcus"
+                },
+                "lastName": {
+                  "default": "Pettersson"
+                },
+                "name": {
+                  "default": "M. Pettersson"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 29
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020956/ev258.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 451,
+            "strength": "ev",
+            "playerId": 8477454,
+            "firstName": {
+              "default": "Adam"
+            },
+            "lastName": {
+              "default": "Erne"
+            },
+            "name": {
+              "default": "A. Erne"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8477454.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-van-erne-scores-goal-against-nikita-tolopilo-6390295938112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-van-erne-marque-un-but-contre-nikita-tolopilo-6390296933112",
+            "highlightClip": 6390295938112,
+            "highlightClipFr": 6390296933112,
+            "discreteClip": 6390297110112,
+            "discreteClipFr": 6390297512112,
+            "goalsToDate": 4,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "17:40",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476278,
+                "firstName": {
+                  "default": "Colin"
+                },
+                "lastName": {
+                  "default": "Blackwell"
+                },
+                "name": {
+                  "default": "C. Blackwell"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 15
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020956/ev451.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 660,
+            "strength": "ev",
+            "playerId": 8483425,
+            "firstName": {
+              "default": "Lian"
+            },
+            "lastName": {
+              "default": "Bichsel"
+            },
+            "name": {
+              "default": "L. Bichsel"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8483425.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/lian-bichsel-with-a-goal-vs-vancouver-canucks-6390298334112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/lian-bichsel-with-a-but-vs-les-canucks-de-vancouver-6390298047112",
+            "highlightClip": 6390298334112,
+            "highlightClipFr": 6390298047112,
+            "discreteClip": 6390297353112,
+            "discreteClipFr": 6390299111112,
+            "goalsToDate": 2,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "08:31",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480950,
+                "firstName": {
+                  "default": "Ilya",
+                  "cs": "Ilja",
+                  "fi": "Ilja",
+                  "sk": "I\u013eja"
+                },
+                "lastName": {
+                  "default": "Lyubushkin",
+                  "cs": "Ljubu\u0161kin",
+                  "fi": "Ljubushkin",
+                  "sk": "Ljubu\u0161kin"
+                },
+                "name": {
+                  "default": "I. Lyubushkin",
+                  "cs": "I. Ljubu\u0161kin",
+                  "fi": "I. Ljubushkin",
+                  "sk": "I. Ljubu\u0161kin"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 46
+              },
+              {
+                "playerId": 8479351,
+                "firstName": {
+                  "default": "Sam"
+                },
+                "lastName": {
+                  "default": "Steel"
+                },
+                "name": {
+                  "default": "S. Steel"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 18
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020956/ev660.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 676,
+            "strength": "pp",
+            "playerId": 8480027,
+            "firstName": {
+              "default": "Jason"
+            },
+            "lastName": {
+              "default": "Robertson"
+            },
+            "name": {
+              "default": "J. Robertson"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8480027.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-van-robertson-scores-ppg-against-nikita-tolopilo-6390297657112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-van-robertson-marque-un-but-en-a-n-contre-nikita-tolopilo-6390299512112",
+            "highlightClip": 6390297657112,
+            "highlightClipFr": 6390299512112,
+            "discreteClip": 6390298058112,
+            "discreteClipFr": 6390297842112,
+            "goalsToDate": 34,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "09:41",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475168,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Duchene"
+                },
+                "name": {
+                  "default": "M. Duchene"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 95
+              },
+              {
+                "playerId": 8480036,
+                "firstName": {
+                  "default": "Miro"
+                },
+                "lastName": {
+                  "default": "Heiskanen"
+                },
+                "name": {
+                  "default": "M. Heiskanen"
+                },
+                "assistsToDate": 42,
+                "sweaterNumber": 4
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020956/ev676.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 831,
+            "strength": "ev",
+            "playerId": 8475168,
+            "firstName": {
+              "default": "Matt"
+            },
+            "lastName": {
+              "default": "Duchene"
+            },
+            "name": {
+              "default": "M. Duchene"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8475168.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-van-duchene-scores-goal-against-nikita-tolopilo-6390302242112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-van-duchene-marque-un-but-contre-nikita-tolopilo-6390302138112",
+            "highlightClip": 6390302242112,
+            "highlightClipFr": 6390302138112,
+            "discreteClip": 6390301934112,
+            "discreteClipFr": 6390302446112,
+            "goalsToDate": 12,
+            "awayScore": 4,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "01:33",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479351,
+                "firstName": {
+                  "default": "Sam"
+                },
+                "lastName": {
+                  "default": "Steel"
+                },
+                "name": {
+                  "default": "S. Steel"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 18
+              },
+              {
+                "playerId": 8480036,
+                "firstName": {
+                  "default": "Miro"
+                },
+                "lastName": {
+                  "default": "Heiskanen"
+                },
+                "name": {
+                  "default": "M. Heiskanen"
+                },
+                "assistsToDate": 43,
+                "sweaterNumber": 4
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020956/ev831.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 884,
+            "strength": "ev",
+            "playerId": 8476278,
+            "firstName": {
+              "default": "Colin"
+            },
+            "lastName": {
+              "default": "Blackwell"
+            },
+            "name": {
+              "default": "C. Blackwell"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8476278.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-van-blackwell-scores-goal-against-nikita-tolopilo-6390301260112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-van-blackwell-marque-un-but-contre-nikita-tolopilo-6390301839112",
+            "highlightClip": 6390301260112,
+            "highlightClipFr": 6390301839112,
+            "discreteClip": 6390300460112,
+            "discreteClipFr": 6390300277112,
+            "goalsToDate": 3,
+            "awayScore": 5,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "05:40",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020956/ev884.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1026,
+            "strength": "ev",
+            "playerId": 8483425,
+            "firstName": {
+              "default": "Lian"
+            },
+            "lastName": {
+              "default": "Bichsel"
+            },
+            "name": {
+              "default": "L. Bichsel"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8483425.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-van-bichsel-scores-goal-against-nikita-tolopilo-6390301001112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/lian-bichsel-with-a-but-vs-les-canucks-de-vancouver-6390300289112",
+            "highlightClip": 6390301001112,
+            "highlightClipFr": 6390300289112,
+            "discreteClip": 6390302270112,
+            "discreteClipFr": 6390302653112,
+            "goalsToDate": 3,
+            "awayScore": 6,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "15:41",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482145,
+                "firstName": {
+                  "default": "Mavrik"
+                },
+                "lastName": {
+                  "default": "Bourque"
+                },
+                "name": {
+                  "default": "M. Bourque"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 22
+              },
+              {
+                "playerId": 8480027,
+                "firstName": {
+                  "default": "Jason"
+                },
+                "lastName": {
+                  "default": "Robertson"
+                },
+                "name": {
+                  "default": "J. Robertson"
+                },
+                "assistsToDate": 36,
+                "sweaterNumber": 21
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020956/ev1026.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8483425,
+        "teamAbbrev": "DAL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8483425.png",
+        "name": {
+          "default": "L. Bichsel"
+        },
+        "sweaterNo": 6,
+        "position": "D",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8480027,
+        "teamAbbrev": "DAL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8480027.png",
+        "name": {
+          "default": "J. Robertson"
+        },
+        "sweaterNo": 21,
+        "position": "L",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8475168,
+        "teamAbbrev": "DAL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8475168.png",
+        "name": {
+          "default": "M. Duchene"
+        },
+        "sweaterNo": 95,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:31",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jamie"
+              },
+              "lastName": {
+                "default": "Benn"
+              },
+              "sweaterNumber": 14
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Tom"
+              },
+              "lastName": {
+                "default": "Willander"
+              },
+              "sweaterNumber": 5
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "08:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Filip"
+              },
+              "lastName": {
+                "default": "Hronek"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "12:06",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tom"
+              },
+              "lastName": {
+                "default": "Willander"
+              },
+              "sweaterNumber": 5
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Arttu"
+              },
+              "lastName": {
+                "default": "Hyry"
+              },
+              "sweaterNumber": 25
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "12:45",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jamie"
+              },
+              "lastName": {
+                "default": "Benn"
+              },
+              "sweaterNumber": 14
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Conor"
+              },
+              "lastName": {
+                "default": "Garland"
+              },
+              "sweaterNumber": 8
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

@@ -1,0 +1,473 @@
+{
+  "id": 2025020855,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-29",
+  "venue": {
+    "default": "Rogers Arena"
+  },
+  "venueLocation": {
+    "default": "Vancouver"
+  },
+  "startTimeUTC": "2026-01-30T03:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "America/Vancouver",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 290,
+      "market": "H",
+      "countryCode": "CA",
+      "network": "SNP",
+      "sequenceNumber": 33
+    },
+    {
+      "id": 553,
+      "market": "A",
+      "countryCode": "US",
+      "network": "Victory+",
+      "sequenceNumber": 382
+    },
+    {
+      "id": 219,
+      "market": "A",
+      "countryCode": "US",
+      "network": "KCOP-13",
+      "sequenceNumber": 656
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 24,
+    "commonName": {
+      "default": "Ducks"
+    },
+    "abbrev": "ANA",
+    "placeName": {
+      "default": "Anaheim"
+    },
+    "placeNameWithPreposition": {
+      "default": "Anaheim",
+      "fr": "d'Anaheim"
+    },
+    "score": 0,
+    "sog": 33,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/ANA_dark.svg"
+  },
+  "homeTeam": {
+    "id": 23,
+    "commonName": {
+      "default": "Canucks"
+    },
+    "abbrev": "VAN",
+    "placeName": {
+      "default": "Vancouver"
+    },
+    "placeNameWithPreposition": {
+      "default": "Vancouver",
+      "fr": "de Vancouver"
+    },
+    "score": 2,
+    "sog": 26,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VAN_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 892,
+            "strength": "ev",
+            "playerId": 8482055,
+            "firstName": {
+              "default": "Drew"
+            },
+            "lastName": {
+              "default": "O'Connor"
+            },
+            "name": {
+              "default": "D. O'Connor"
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VAN/8482055.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-van-o-connor-scores-goal-against-lukas-dostal-6388528769112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-van-o-connor-marque-un-but-contre-lukas-dostal-6388526423112",
+            "highlightClip": 6388528769112,
+            "highlightClipFr": 6388526423112,
+            "discreteClip": 6388526909112,
+            "discreteClipFr": 6388528382112,
+            "goalsToDate": 13,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "VAN"
+            },
+            "timeInPeriod": "10:18",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478498,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "DeBrusk"
+                },
+                "name": {
+                  "default": "J. DeBrusk"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 74
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020855/ev892.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "0641",
+            "eventId": 1021,
+            "strength": "sh",
+            "playerId": 8476927,
+            "firstName": {
+              "default": "Teddy",
+              "cs": "Theodors",
+              "sk": "Theodors"
+            },
+            "lastName": {
+              "default": "Blueger",
+              "cs": "Blugers",
+              "sk": "Blugers"
+            },
+            "name": {
+              "default": "T. Blueger",
+              "cs": "T. Blugers",
+              "sk": "T. Blugers"
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VAN/8476927.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-van-blueger-scores-empty-net-goal-6388528298112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-van-blueger-van-marque-un-but-dans-un-filet-desert-6388528894112",
+            "highlightClip": 6388528298112,
+            "highlightClipFr": 6388528894112,
+            "discreteClip": 6388526941112,
+            "discreteClipFr": 6388526814112,
+            "goalsToDate": 4,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "VAN"
+            },
+            "timeInPeriod": "19:32",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8479425,
+                "firstName": {
+                  "default": "Filip"
+                },
+                "lastName": {
+                  "default": "Hronek"
+                },
+                "name": {
+                  "default": "F. Hronek"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 17
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020855/ev1021.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8484268,
+        "teamAbbrev": "VAN",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VAN/8484268.png",
+        "name": {
+          "default": "N. Tolopilo"
+        },
+        "sweaterNo": 60,
+        "position": "G",
+        "goalsAgainstAverage": 0.0,
+        "savePctg": 1.0
+      },
+      {
+        "star": 2,
+        "playerId": 8482055,
+        "teamAbbrev": "VAN",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VAN/8482055.png",
+        "name": {
+          "default": "D. O'Connor"
+        },
+        "sweaterNo": 18,
+        "position": "L",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8480843,
+        "teamAbbrev": "ANA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8480843.png",
+        "name": {
+          "default": "L. Dostal",
+          "cs": "L. Dost\u00e1l",
+          "sk": "L. Dost\u00e1l"
+        },
+        "sweaterNo": 1,
+        "position": "G",
+        "goalsAgainstAverage": 1.04,
+        "savePctg": 0.96
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "08:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "DeBrusk"
+              },
+              "sweaterNumber": 74
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Pavel"
+              },
+              "lastName": {
+                "default": "Mintyukov",
+                "cs": "Mintjukov",
+                "fi": "Mintjukov",
+                "sk": "Mintjukov"
+              },
+              "sweaterNumber": 98
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "14:39",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jeffrey"
+              },
+              "lastName": {
+                "default": "Viel"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nikita"
+              },
+              "lastName": {
+                "default": "Tolopilo"
+              },
+              "sweaterNumber": 60
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "17:59",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Poehling"
+              },
+              "sweaterNumber": 25
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nikita"
+              },
+              "lastName": {
+                "default": "Tolopilo"
+              },
+              "sweaterNumber": 60
+            },
+            "descKey": "interference-goalkeeper"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:23",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tyler"
+              },
+              "lastName": {
+                "default": "Myers"
+              },
+              "sweaterNumber": 57
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Cutter"
+              },
+              "lastName": {
+                "default": "Gauthier"
+              },
+              "sweaterNumber": 61
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:53",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Drew"
+              },
+              "lastName": {
+                "default": "Helleson"
+              },
+              "sweaterNumber": 14
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Elias"
+              },
+              "lastName": {
+                "default": "Pettersson"
+              },
+              "sweaterNumber": 40
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "19:11",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Conor"
+              },
+              "lastName": {
+                "default": "Garland"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Olen"
+              },
+              "lastName": {
+                "default": "Zellweger"
+              },
+              "sweaterNumber": 51
+            },
+            "descKey": "slashing"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

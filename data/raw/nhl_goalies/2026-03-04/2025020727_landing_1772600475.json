@@ -1,0 +1,864 @@
+{
+  "id": 2025020727,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-13",
+  "venue": {
+    "default": "Capital One Arena"
+  },
+  "venueLocation": {
+    "default": "Washington"
+  },
+  "startTimeUTC": "2026-01-14T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 131,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "TSN2",
+      "sequenceNumber": 112
+    },
+    {
+      "id": 33,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "RDS",
+      "sequenceNumber": 145
+    },
+    {
+      "id": 517,
+      "market": "H",
+      "countryCode": "US",
+      "network": "MNMT",
+      "sequenceNumber": 396
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 8,
+    "commonName": {
+      "default": "Canadiens"
+    },
+    "abbrev": "MTL",
+    "placeName": {
+      "default": "Montr\u00e9al"
+    },
+    "placeNameWithPreposition": {
+      "default": "Montr\u00e9al",
+      "fr": "de Montr\u00e9al"
+    },
+    "score": 2,
+    "sog": 25,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MTL_dark.svg"
+  },
+  "homeTeam": {
+    "id": 15,
+    "commonName": {
+      "default": "Capitals"
+    },
+    "abbrev": "WSH",
+    "placeName": {
+      "default": "Washington"
+    },
+    "placeNameWithPreposition": {
+      "default": "Washington",
+      "fr": "de Washington"
+    },
+    "score": 3,
+    "sog": 42,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 312,
+            "strength": "sh",
+            "playerId": 8476981,
+            "firstName": {
+              "default": "Josh"
+            },
+            "lastName": {
+              "default": "Anderson"
+            },
+            "name": {
+              "default": "J. Anderson"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8476981.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-wsh-anderson-scores-shg-against-logan-thompson-6387681990112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-wsh-anderson-marque-un-but-en-i-n-contre-logan-thompson-6387679952112",
+            "highlightClip": 6387681990112,
+            "highlightClipFr": 6387679952112,
+            "discreteClip": 6387681599112,
+            "discreteClipFr": 6387679851112,
+            "goalsToDate": 10,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "08:14",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020727/ev312.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 651,
+            "strength": "ev",
+            "playerId": 8475848,
+            "firstName": {
+              "default": "Brendan"
+            },
+            "lastName": {
+              "default": "Gallagher"
+            },
+            "name": {
+              "default": "B. Gallagher"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8475848.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-wsh-gallagher-scores-goal-against-logan-thompson-6387684113112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-wsh-gallagher-marque-un-but-contre-logan-thompson-6387683420112",
+            "highlightClip": 6387684113112,
+            "highlightClipFr": 6387683420112,
+            "discreteClip": 6387683920112,
+            "discreteClipFr": 6387682942112,
+            "goalsToDate": 4,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "07:40",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476479,
+                "firstName": {
+                  "default": "Phillip"
+                },
+                "lastName": {
+                  "default": "Danault"
+                },
+                "name": {
+                  "default": "P. Danault"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 24
+              },
+              {
+                "playerId": 8482737,
+                "firstName": {
+                  "default": "Zachary"
+                },
+                "lastName": {
+                  "default": "Bolduc"
+                },
+                "name": {
+                  "default": "Z. Bolduc"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 76
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020727/ev651.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 879,
+            "strength": "ev",
+            "playerId": 8483573,
+            "firstName": {
+              "default": "Ethen"
+            },
+            "lastName": {
+              "default": "Frank"
+            },
+            "name": {
+              "default": "E. Frank"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8483573.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-wsh-frank-scores-goal-against-samuel-montembeault-6387689393112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-wsh-frank-marque-un-but-contre-samuel-montembeault-6387688213112",
+            "highlightClip": 6387689393112,
+            "highlightClipFr": 6387688213112,
+            "discreteClip": 6387689088112,
+            "discreteClipFr": 6387689977112,
+            "goalsToDate": 9,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "05:06",
+            "shotType": "deflected",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478911,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Roy"
+                },
+                "name": {
+                  "default": "M. Roy"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 3
+              },
+              {
+                "playerId": 8480873,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Sandin"
+                },
+                "name": {
+                  "default": "R. Sandin"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 38
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020727/ev879.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1063,
+            "strength": "ev",
+            "playerId": 8483573,
+            "firstName": {
+              "default": "Ethen"
+            },
+            "lastName": {
+              "default": "Frank"
+            },
+            "name": {
+              "default": "E. Frank"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8483573.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-wsh-frank-scores-goal-against-samuel-montembeault-6387690792112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-wsh-frank-marque-un-but-contre-samuel-montembeault-6387690142112",
+            "highlightClip": 6387690792112,
+            "highlightClipFr": 6387690142112,
+            "discreteClip": 6387689334112,
+            "discreteClipFr": 6387691089112,
+            "goalsToDate": 10,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "18:06",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480873,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Sandin"
+                },
+                "name": {
+                  "default": "R. Sandin"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 38
+              },
+              {
+                "playerId": 8478463,
+                "firstName": {
+                  "default": "Anthony"
+                },
+                "lastName": {
+                  "default": "Beauvillier"
+                },
+                "name": {
+                  "default": "A. Beauvillier"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 72
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020727/ev1063.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 1138,
+            "strength": "ev",
+            "playerId": 8481580,
+            "firstName": {
+              "default": "Connor"
+            },
+            "lastName": {
+              "default": "McMichael"
+            },
+            "name": {
+              "default": "C. McMichael"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8481580.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-wsh-mcmichael-scores-goal-against-samuel-montembeault-6387691711112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-wsh-mcmichael-marque-un-but-contre-samuel-montembeault-6387692499112",
+            "highlightClip": 6387691711112,
+            "highlightClipFr": 6387692499112,
+            "discreteClip": 6387691118112,
+            "discreteClipFr": 6387692401112,
+            "goalsToDate": 7,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "04:21",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478440,
+                "firstName": {
+                  "default": "Dylan"
+                },
+                "lastName": {
+                  "default": "Strome"
+                },
+                "name": {
+                  "default": "D. Strome"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 17
+              },
+              {
+                "playerId": 8480873,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Sandin"
+                },
+                "name": {
+                  "default": "R. Sandin"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 38
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020727/ev1138.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8483573,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8483573.png",
+        "name": {
+          "default": "E. Frank"
+        },
+        "sweaterNo": 53,
+        "position": "C",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8481580,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8481580.png",
+        "name": {
+          "default": "C. McMichael"
+        },
+        "sweaterNo": 24,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8480873,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8480873.png",
+        "name": {
+          "default": "R. Sandin"
+        },
+        "sweaterNo": 38,
+        "position": "D",
+        "goals": 0,
+        "assists": 3,
+        "points": 3
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:59",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Martin"
+              },
+              "lastName": {
+                "default": "Feh\u00e9rv\u00e1ry"
+              },
+              "sweaterNumber": 42
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Suzuki"
+              },
+              "sweaterNumber": 14
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "07:55",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Joe",
+                "cs": "Joseph",
+                "de": "Joseph",
+                "es": "Joseph",
+                "fi": "Joseph",
+                "sk": "Joseph",
+                "sv": "Joseph"
+              },
+              "lastName": {
+                "default": "Veleno"
+              },
+              "sweaterNumber": 90
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nic"
+              },
+              "lastName": {
+                "default": "Dowd"
+              },
+              "sweaterNumber": 26
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "08:03",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Arber"
+              },
+              "lastName": {
+                "default": "Xhekaj"
+              },
+              "sweaterNumber": 72
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Dylan"
+              },
+              "lastName": {
+                "default": "McIlrath"
+              },
+              "sweaterNumber": 52
+            },
+            "descKey": "instigator",
+            "servedBy": {
+              "default": "Z. Bolduc"
+            }
+          },
+          {
+            "timeInPeriod": "08:03",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Arber"
+              },
+              "lastName": {
+                "default": "Xhekaj"
+              },
+              "sweaterNumber": 72
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Dylan"
+              },
+              "lastName": {
+                "default": "McIlrath"
+              },
+              "sweaterNumber": 52
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "08:03",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Arber"
+              },
+              "lastName": {
+                "default": "Xhekaj"
+              },
+              "sweaterNumber": 72
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "descKey": "instigator-misconduct"
+          },
+          {
+            "timeInPeriod": "08:03",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dylan"
+              },
+              "lastName": {
+                "default": "McIlrath"
+              },
+              "sweaterNumber": 52
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Arber"
+              },
+              "lastName": {
+                "default": "Xhekaj"
+              },
+              "sweaterNumber": 72
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "11:14",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Cole"
+              },
+              "lastName": {
+                "default": "Caufield"
+              },
+              "sweaterNumber": 13
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nic"
+              },
+              "lastName": {
+                "default": "Dowd"
+              },
+              "sweaterNumber": 26
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "17:31",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dylan"
+              },
+              "lastName": {
+                "default": "Strome"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Alexandre"
+              },
+              "lastName": {
+                "default": "Texier"
+              },
+              "sweaterNumber": 85
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "18:27",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nic"
+              },
+              "lastName": {
+                "default": "Dowd"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Suzuki"
+              },
+              "sweaterNumber": 14
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "10:24",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sammy"
+              },
+              "lastName": {
+                "default": "Blais"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Trevor"
+              },
+              "lastName": {
+                "default": "van Riemsdyk"
+              },
+              "sweaterNumber": 57
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "13:42",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nic"
+              },
+              "lastName": {
+                "default": "Dowd"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Arber"
+              },
+              "lastName": {
+                "default": "Xhekaj"
+              },
+              "sweaterNumber": 72
+            },
+            "descKey": "holding",
+            "servedBy": {
+              "default": "Ethen Frank"
+            }
+          },
+          {
+            "timeInPeriod": "13:42",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nic"
+              },
+              "lastName": {
+                "default": "Dowd"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "descKey": "misconduct"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:54",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Suzuki"
+              },
+              "sweaterNumber": 14
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Connor"
+              },
+              "lastName": {
+                "default": "McMichael"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:39",
+    "secondsRemaining": 39,
+    "running": false,
+    "inIntermission": false
+  }
+}

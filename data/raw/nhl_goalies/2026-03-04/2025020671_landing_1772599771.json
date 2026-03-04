@@ -1,0 +1,977 @@
+{
+  "id": 2025020671,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-06",
+  "venue": {
+    "default": "Lenovo Center"
+  },
+  "venueLocation": {
+    "default": "Raleigh"
+  },
+  "startTimeUTC": "2026-01-07T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 561,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNSO",
+      "sequenceNumber": 202
+    },
+    {
+      "id": 553,
+      "market": "A",
+      "countryCode": "US",
+      "network": "Victory+",
+      "sequenceNumber": 382
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 25,
+    "commonName": {
+      "default": "Stars"
+    },
+    "abbrev": "DAL",
+    "placeName": {
+      "default": "Dallas"
+    },
+    "placeNameWithPreposition": {
+      "default": "Dallas",
+      "fr": "de Dallas"
+    },
+    "score": 3,
+    "sog": 23,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/DAL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/DAL_dark.svg"
+  },
+  "homeTeam": {
+    "id": 12,
+    "commonName": {
+      "default": "Hurricanes"
+    },
+    "abbrev": "CAR",
+    "placeName": {
+      "default": "Carolina",
+      "fr": "Caroline"
+    },
+    "placeNameWithPreposition": {
+      "default": "Carolina",
+      "fr": "de la Caroline"
+    },
+    "score": 6,
+    "sog": 33,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CAR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CAR_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 207,
+            "strength": "ev",
+            "playerId": 8480817,
+            "firstName": {
+              "default": "K'Andre"
+            },
+            "lastName": {
+              "default": "Miller"
+            },
+            "name": {
+              "default": "K. Miller"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8480817.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-car-miller-scores-goal-against-jake-oettinger-6387322379112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-car-miller-marque-un-but-contre-jake-oettinger-6387322564112",
+            "highlightClip": 6387322379112,
+            "highlightClipFr": 6387322564112,
+            "discreteClip": 6387321199112,
+            "discreteClipFr": 6387322957112,
+            "goalsToDate": 3,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CAR"
+            },
+            "timeInPeriod": "07:19",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480830,
+                "firstName": {
+                  "default": "Andrei",
+                  "cs": "Andrej",
+                  "sk": "Andrej"
+                },
+                "lastName": {
+                  "default": "Svechnikov",
+                  "cs": "Sve\u010dnikov",
+                  "fi": "Svetshnikov",
+                  "sk": "Sve\u010dnikov"
+                },
+                "name": {
+                  "default": "A. Svechnikov",
+                  "cs": "A. Sve\u010dnikov",
+                  "fi": "A. Svetshnikov",
+                  "sk": "A. Sve\u010dnikov"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 37
+              },
+              {
+                "playerId": 8478427,
+                "firstName": {
+                  "default": "Sebastian"
+                },
+                "lastName": {
+                  "default": "Aho"
+                },
+                "name": {
+                  "default": "S. Aho"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 20
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020671/ev207.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 285,
+            "strength": "pp",
+            "playerId": 8480027,
+            "firstName": {
+              "default": "Jason"
+            },
+            "lastName": {
+              "default": "Robertson"
+            },
+            "name": {
+              "default": "J. Robertson"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8480027.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-car-robertson-scores-ppg-against-brandon-bussi-6387324537112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-car-robertson-marque-un-but-en-a-n-contre-brandon-bussi-6387323290112",
+            "highlightClip": 6387324537112,
+            "highlightClipFr": 6387323290112,
+            "discreteClip": 6387321701112,
+            "discreteClipFr": 6387324253112,
+            "goalsToDate": 25,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "11:53",
+            "goalModifier": "own-goal",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020671/ev285.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 319,
+            "strength": "pp",
+            "playerId": 8476906,
+            "firstName": {
+              "default": "Shayne"
+            },
+            "lastName": {
+              "default": "Gostisbehere"
+            },
+            "name": {
+              "default": "S. Gostisbehere"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8476906.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-car-gostisbehere-scores-ppg-against-jake-oettinger-6387323771112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-car-gostisbehere-marque-un-but-en-a-n-contre-jake-oettinger-6387325045112",
+            "highlightClip": 6387323771112,
+            "highlightClipFr": 6387325045112,
+            "discreteClip": 6387323276112,
+            "discreteClipFr": 6387322508112,
+            "goalsToDate": 5,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "CAR"
+            },
+            "timeInPeriod": "13:32",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482093,
+                "firstName": {
+                  "default": "Seth"
+                },
+                "lastName": {
+                  "default": "Jarvis"
+                },
+                "name": {
+                  "default": "S. Jarvis"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 24
+              },
+              {
+                "playerId": 8480830,
+                "firstName": {
+                  "default": "Andrei",
+                  "cs": "Andrej",
+                  "sk": "Andrej"
+                },
+                "lastName": {
+                  "default": "Svechnikov",
+                  "cs": "Sve\u010dnikov",
+                  "fi": "Svetshnikov",
+                  "sk": "Sve\u010dnikov"
+                },
+                "name": {
+                  "default": "A. Svechnikov",
+                  "cs": "A. Sve\u010dnikov",
+                  "fi": "A. Svetshnikov",
+                  "sk": "A. Sve\u010dnikov"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 37
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020671/ev319.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 153,
+            "strength": "ev",
+            "playerId": 8482702,
+            "firstName": {
+              "default": "Logan"
+            },
+            "lastName": {
+              "default": "Stankoven"
+            },
+            "name": {
+              "default": "L. Stankoven"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8482702.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-car-stankoven-scores-goal-against-jake-oettinger-6387324279112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-car-stankoven-marque-un-but-contre-jake-oettinger-6387324773112",
+            "highlightClip": 6387324279112,
+            "highlightClipFr": 6387324773112,
+            "discreteClip": 6387323524112,
+            "discreteClipFr": 6387322713112,
+            "goalsToDate": 8,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "CAR"
+            },
+            "timeInPeriod": "18:56",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480817,
+                "firstName": {
+                  "default": "K'Andre"
+                },
+                "lastName": {
+                  "default": "Miller"
+                },
+                "name": {
+                  "default": "K. Miller"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 19
+              },
+              {
+                "playerId": 8478970,
+                "firstName": {
+                  "default": "Jalen"
+                },
+                "lastName": {
+                  "default": "Chatfield"
+                },
+                "name": {
+                  "default": "J. Chatfield"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 5
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020671/ev153.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 570,
+            "strength": "ev",
+            "playerId": 8480817,
+            "firstName": {
+              "default": "K'Andre"
+            },
+            "lastName": {
+              "default": "Miller"
+            },
+            "name": {
+              "default": "K. Miller"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8480817.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-car-miller-scores-goal-against-jake-oettinger-6387324598112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-car-miller-marque-un-but-contre-jake-oettinger-6387325314112",
+            "highlightClip": 6387324598112,
+            "highlightClipFr": 6387325314112,
+            "discreteClip": 6387325225112,
+            "discreteClipFr": 6387326392112,
+            "goalsToDate": 4,
+            "awayScore": 1,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "CAR"
+            },
+            "timeInPeriod": "05:17",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480830,
+                "firstName": {
+                  "default": "Andrei",
+                  "cs": "Andrej",
+                  "sk": "Andrej"
+                },
+                "lastName": {
+                  "default": "Svechnikov",
+                  "cs": "Sve\u010dnikov",
+                  "fi": "Svetshnikov",
+                  "sk": "Sve\u010dnikov"
+                },
+                "name": {
+                  "default": "A. Svechnikov",
+                  "cs": "A. Sve\u010dnikov",
+                  "fi": "A. Svetshnikov",
+                  "sk": "A. Sve\u010dnikov"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 37
+              },
+              {
+                "playerId": 8477940,
+                "firstName": {
+                  "default": "Nikolaj"
+                },
+                "lastName": {
+                  "default": "Ehlers"
+                },
+                "name": {
+                  "default": "N. Ehlers"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 27
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020671/ev570.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 599,
+            "strength": "pp",
+            "playerId": 8482093,
+            "firstName": {
+              "default": "Seth"
+            },
+            "lastName": {
+              "default": "Jarvis"
+            },
+            "name": {
+              "default": "S. Jarvis"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8482093.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-car-jarvis-scores-ppg-against-jake-oettinger-6387325817112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-car-jarvis-marque-un-but-en-a-n-contre-jake-oettinger-6387325999112",
+            "highlightClip": 6387325817112,
+            "highlightClipFr": 6387325999112,
+            "discreteClip": 6387326885112,
+            "discreteClipFr": 6387326108112,
+            "goalsToDate": 20,
+            "awayScore": 1,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "CAR"
+            },
+            "timeInPeriod": "06:59",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480830,
+                "firstName": {
+                  "default": "Andrei",
+                  "cs": "Andrej",
+                  "sk": "Andrej"
+                },
+                "lastName": {
+                  "default": "Svechnikov",
+                  "cs": "Sve\u010dnikov",
+                  "fi": "Svetshnikov",
+                  "sk": "Sve\u010dnikov"
+                },
+                "name": {
+                  "default": "A. Svechnikov",
+                  "cs": "A. Sve\u010dnikov",
+                  "fi": "A. Svetshnikov",
+                  "sk": "A. Sve\u010dnikov"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 37
+              },
+              {
+                "playerId": 8477940,
+                "firstName": {
+                  "default": "Nikolaj"
+                },
+                "lastName": {
+                  "default": "Ehlers"
+                },
+                "name": {
+                  "default": "N. Ehlers"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 27
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020671/ev599.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 752,
+            "strength": "ev",
+            "playerId": 8478420,
+            "firstName": {
+              "default": "Mikko"
+            },
+            "lastName": {
+              "default": "Rantanen"
+            },
+            "name": {
+              "default": "M. Rantanen"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8478420.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-car-rantanen-scores-goal-against-brandon-bussi-6387329521112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-car-rantanen-marque-un-but-contre-brandon-bussi-6387327865112",
+            "highlightClip": 6387329521112,
+            "highlightClipFr": 6387327865112,
+            "discreteClip": 6387329706112,
+            "discreteClipFr": 6387329132112,
+            "goalsToDate": 17,
+            "awayScore": 2,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "CAR"
+            },
+            "timeInPeriod": "00:36",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480027,
+                "firstName": {
+                  "default": "Jason"
+                },
+                "lastName": {
+                  "default": "Robertson"
+                },
+                "name": {
+                  "default": "J. Robertson"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 21
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020671/ev752.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 943,
+            "strength": "ev",
+            "playerId": 8477478,
+            "firstName": {
+              "default": "William"
+            },
+            "lastName": {
+              "default": "Carrier"
+            },
+            "name": {
+              "default": "W. Carrier"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8477478.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-car-carrier-scores-goal-against-casey-desmith-6387328168112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-car-carrier-marque-un-but-contre-casey-desmith-6387328546112",
+            "highlightClip": 6387328168112,
+            "highlightClipFr": 6387328546112,
+            "discreteClip": 6387328748112,
+            "discreteClipFr": 6387329909112,
+            "goalsToDate": 4,
+            "awayScore": 2,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "CAR"
+            },
+            "timeInPeriod": "08:18",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477940,
+                "firstName": {
+                  "default": "Nikolaj"
+                },
+                "lastName": {
+                  "default": "Ehlers"
+                },
+                "name": {
+                  "default": "N. Ehlers"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 27
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020671/ev943.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 1101,
+            "strength": "pp",
+            "playerId": 8482740,
+            "firstName": {
+              "default": "Wyatt"
+            },
+            "lastName": {
+              "default": "Johnston"
+            },
+            "name": {
+              "default": "W. Johnston"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8482740.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-car-johnston-scores-ppg-against-brandon-bussi-6387329774112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-car-johnston-marque-un-but-en-a-n-contre-brandon-bussi-6387330872112",
+            "highlightClip": 6387329774112,
+            "highlightClipFr": 6387330872112,
+            "discreteClip": 6387330560112,
+            "discreteClipFr": 6387330651112,
+            "goalsToDate": 23,
+            "awayScore": 3,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "CAR"
+            },
+            "timeInPeriod": "18:11",
+            "shotType": "bat",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478420,
+                "firstName": {
+                  "default": "Mikko"
+                },
+                "lastName": {
+                  "default": "Rantanen"
+                },
+                "name": {
+                  "default": "M. Rantanen"
+                },
+                "assistsToDate": 42,
+                "sweaterNumber": 96
+              },
+              {
+                "playerId": 8480027,
+                "firstName": {
+                  "default": "Jason"
+                },
+                "lastName": {
+                  "default": "Robertson"
+                },
+                "name": {
+                  "default": "J. Robertson"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 21
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020671/ev1101.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8480817,
+        "teamAbbrev": "CAR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8480817.png",
+        "name": {
+          "default": "K. Miller"
+        },
+        "sweaterNo": 19,
+        "position": "D",
+        "goals": 2,
+        "assists": 1,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8480830,
+        "teamAbbrev": "CAR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8480830.png",
+        "name": {
+          "default": "A. Svechnikov",
+          "cs": "A. Sve\u010dnikov",
+          "fi": "A. Svetshnikov",
+          "sk": "A. Sve\u010dnikov"
+        },
+        "sweaterNo": 37,
+        "position": "R",
+        "goals": 0,
+        "assists": 4,
+        "points": 4
+      },
+      {
+        "star": 3,
+        "playerId": 8482093,
+        "teamAbbrev": "CAR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8482093.png",
+        "name": {
+          "default": "S. Jarvis"
+        },
+        "sweaterNo": 24,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "11:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "William"
+              },
+              "lastName": {
+                "default": "Carrier"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          },
+          {
+            "timeInPeriod": "13:04",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Adam"
+              },
+              "lastName": {
+                "default": "Erne"
+              },
+              "sweaterNumber": 73
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Logan"
+              },
+              "lastName": {
+                "default": "Stankoven"
+              },
+              "sweaterNumber": 22
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "15:57",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Roope"
+              },
+              "lastName": {
+                "default": "Hintz"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jordan"
+              },
+              "lastName": {
+                "default": "Staal"
+              },
+              "sweaterNumber": 11
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:33",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nils"
+              },
+              "lastName": {
+                "default": "Lundkvist"
+              },
+              "sweaterNumber": 5
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Seth"
+              },
+              "lastName": {
+                "default": "Jarvis"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "07:39",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jason"
+              },
+              "lastName": {
+                "default": "Robertson"
+              },
+              "sweaterNumber": 21
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jordan"
+              },
+              "lastName": {
+                "default": "Staal"
+              },
+              "sweaterNumber": 11
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "13:23",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sebastian"
+              },
+              "lastName": {
+                "default": "Aho"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Alexander",
+                "es": "Alex"
+              },
+              "lastName": {
+                "default": "Petrovic"
+              },
+              "sweaterNumber": 28
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "08:47",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mikko"
+              },
+              "lastName": {
+                "default": "Rantanen"
+              },
+              "sweaterNumber": 96
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Seth"
+              },
+              "lastName": {
+                "default": "Jarvis"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "16:41",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "William"
+              },
+              "lastName": {
+                "default": "Carrier"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Roope"
+              },
+              "lastName": {
+                "default": "Hintz"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "holding-the-stick"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

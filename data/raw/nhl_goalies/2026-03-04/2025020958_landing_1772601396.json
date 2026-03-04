@@ -1,0 +1,692 @@
+{
+  "id": 2025020958,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-03-02",
+  "venue": {
+    "default": "Crypto.com Arena"
+  },
+  "venueLocation": {
+    "default": "Los Angeles"
+  },
+  "startTimeUTC": "2026-03-03T03:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "America/Los_Angeles",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 564,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNW",
+      "sequenceNumber": 288
+    },
+    {
+      "id": 47,
+      "market": "A",
+      "countryCode": "US",
+      "network": "ALT2",
+      "sequenceNumber": 408
+    },
+    {
+      "id": 336,
+      "market": "A",
+      "countryCode": "US",
+      "network": "KTVD",
+      "sequenceNumber": 623
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 21,
+    "commonName": {
+      "default": "Avalanche"
+    },
+    "abbrev": "COL",
+    "placeName": {
+      "default": "Colorado"
+    },
+    "placeNameWithPreposition": {
+      "default": "Colorado",
+      "fr": "du Colorado"
+    },
+    "score": 4,
+    "sog": 39,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/COL_dark.svg"
+  },
+  "homeTeam": {
+    "id": 26,
+    "commonName": {
+      "default": "Kings"
+    },
+    "abbrev": "LAK",
+    "placeName": {
+      "default": "Los Angeles"
+    },
+    "placeNameWithPreposition": {
+      "default": "Los Angeles",
+      "fr": "de Los Angeles"
+    },
+    "score": 2,
+    "sog": 21,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/LAK_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/LAK_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 109,
+            "strength": "ev",
+            "playerId": 8477492,
+            "firstName": {
+              "default": "Nathan"
+            },
+            "lastName": {
+              "default": "MacKinnon"
+            },
+            "name": {
+              "default": "N. MacKinnon"
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8477492.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/col-lak-mackinnon-scores-goal-against-anton-forsberg-6390297419112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/col-lak-mackinnon-marque-un-but-contre-anton-forsberg-6390296639112",
+            "highlightClip": 6390297419112,
+            "highlightClipFr": 6390296639112,
+            "discreteClip": 6390296447112,
+            "discreteClipFr": 6390298199112,
+            "goalsToDate": 41,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "COL"
+            },
+            "timeInPeriod": "04:27",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480039,
+                "firstName": {
+                  "default": "Martin"
+                },
+                "lastName": {
+                  "default": "Necas",
+                  "cs": "Ne\u010das",
+                  "sk": "Ne\u010das"
+                },
+                "name": {
+                  "default": "M. Necas",
+                  "cs": "M. Ne\u010das",
+                  "sk": "M. Ne\u010das"
+                },
+                "assistsToDate": 44,
+                "sweaterNumber": 88
+              },
+              {
+                "playerId": 8476455,
+                "firstName": {
+                  "default": "Gabriel"
+                },
+                "lastName": {
+                  "default": "Landeskog"
+                },
+                "name": {
+                  "default": "G. Landeskog"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 92
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020958/ev109.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 195,
+            "strength": "ev",
+            "playerId": 8476455,
+            "firstName": {
+              "default": "Gabriel"
+            },
+            "lastName": {
+              "default": "Landeskog"
+            },
+            "name": {
+              "default": "G. Landeskog"
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8476455.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/col-lak-landeskog-scores-goal-against-anton-forsberg-6390297814112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/col-lak-landeskog-marque-un-but-contre-anton-forsberg-6390298216112",
+            "highlightClip": 6390297814112,
+            "highlightClipFr": 6390298216112,
+            "discreteClip": 6390297334112,
+            "discreteClipFr": 6390298494112,
+            "goalsToDate": 8,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "COL"
+            },
+            "timeInPeriod": "10:13",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8470613,
+                "firstName": {
+                  "default": "Brent"
+                },
+                "lastName": {
+                  "default": "Burns"
+                },
+                "name": {
+                  "default": "B. Burns"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 84
+              },
+              {
+                "playerId": 8480039,
+                "firstName": {
+                  "default": "Martin"
+                },
+                "lastName": {
+                  "default": "Necas",
+                  "cs": "Ne\u010das",
+                  "sk": "Ne\u010das"
+                },
+                "name": {
+                  "default": "M. Necas",
+                  "cs": "M. Ne\u010das",
+                  "sk": "M. Ne\u010das"
+                },
+                "assistsToDate": 45,
+                "sweaterNumber": 88
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020958/ev195.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 406,
+            "strength": "pp",
+            "playerId": 8482730,
+            "firstName": {
+              "default": "Brandt"
+            },
+            "lastName": {
+              "default": "Clarke"
+            },
+            "name": {
+              "default": "B. Clarke"
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8482730.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/col-lak-clarke-scores-ppg-against-mackenzie-blackwood-6390299497112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/col-lak-clarke-marque-un-but-en-a-n-contre-mackenzie-blackwood-6390298804112",
+            "highlightClip": 6390299497112,
+            "highlightClipFr": 6390298804112,
+            "discreteClip": 6390298235112,
+            "discreteClipFr": 6390297731112,
+            "goalsToDate": 8,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "COL"
+            },
+            "timeInPeriod": "17:20",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8471685,
+                "firstName": {
+                  "default": "Anze",
+                  "cs": "An\u017ee",
+                  "sk": "An\u017ee"
+                },
+                "lastName": {
+                  "default": "Kopitar"
+                },
+                "name": {
+                  "default": "A. Kopitar"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 11
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020958/ev406.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 352,
+            "strength": "ev",
+            "playerId": 8483699,
+            "firstName": {
+              "default": "Angus"
+            },
+            "lastName": {
+              "default": "Booth"
+            },
+            "name": {
+              "default": "A. Booth"
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8483699.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/col-lak-booth-scores-goal-against-mackenzie-blackwood-6390300413112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/col-lak-booth-marque-un-but-contre-mackenzie-blackwood-6390299832112",
+            "highlightClip": 6390300413112,
+            "highlightClipFr": 6390299832112,
+            "discreteClip": 6390299545112,
+            "discreteClipFr": 6390298367112,
+            "goalsToDate": 1,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "08:32",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475208,
+                "firstName": {
+                  "default": "Brian"
+                },
+                "lastName": {
+                  "default": "Dumoulin"
+                },
+                "name": {
+                  "default": "B. Dumoulin"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 2
+              },
+              {
+                "playerId": 8477960,
+                "firstName": {
+                  "default": "Adrian"
+                },
+                "lastName": {
+                  "default": "Kempe"
+                },
+                "name": {
+                  "default": "A. Kempe"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020958/ev352.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 984,
+            "strength": "ev",
+            "playerId": 8478038,
+            "firstName": {
+              "default": "Devon"
+            },
+            "lastName": {
+              "default": "Toews"
+            },
+            "name": {
+              "default": "D. Toews"
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8478038.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/col-lak-toews-scores-goal-against-anton-forsberg-6390301894112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/col-lak-toews-marque-un-but-contre-anton-forsberg-6390302793112",
+            "highlightClip": 6390301894112,
+            "highlightClipFr": 6390302793112,
+            "discreteClip": 6390301404112,
+            "discreteClipFr": 6390303736112,
+            "goalsToDate": 2,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "COL"
+            },
+            "timeInPeriod": "15:05",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477492,
+                "firstName": {
+                  "default": "Nathan"
+                },
+                "lastName": {
+                  "default": "MacKinnon"
+                },
+                "name": {
+                  "default": "N. MacKinnon"
+                },
+                "assistsToDate": 58,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8480069,
+                "firstName": {
+                  "default": "Cale"
+                },
+                "lastName": {
+                  "default": "Makar"
+                },
+                "name": {
+                  "default": "C. Makar"
+                },
+                "assistsToDate": 44,
+                "sweaterNumber": 8
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020958/ev984.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1550",
+            "eventId": 1104,
+            "strength": "pp",
+            "playerId": 8480039,
+            "firstName": {
+              "default": "Martin"
+            },
+            "lastName": {
+              "default": "Necas",
+              "cs": "Ne\u010das",
+              "sk": "Ne\u010das"
+            },
+            "name": {
+              "default": "M. Necas",
+              "cs": "M. Ne\u010das",
+              "sk": "M. Ne\u010das"
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8480039.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/martin-necas-with-a-powerplay-goal-vs-los-angeles-kings-6390303644112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/martin-necas-with-a-powerplay-goal-vs-les-kings-de-los-angeles-6390302799112",
+            "highlightClip": 6390303644112,
+            "highlightClipFr": 6390302799112,
+            "discreteClip": 6390303743112,
+            "discreteClipFr": 6390302203112,
+            "goalsToDate": 26,
+            "awayScore": 4,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "COL"
+            },
+            "timeInPeriod": "19:58",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8476455,
+                "firstName": {
+                  "default": "Gabriel"
+                },
+                "lastName": {
+                  "default": "Landeskog"
+                },
+                "name": {
+                  "default": "G. Landeskog"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 92
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020958/ev1104.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8476341,
+        "teamAbbrev": "LAK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8476341.png",
+        "name": {
+          "default": "A. Forsberg"
+        },
+        "sweaterNo": 31,
+        "position": "G",
+        "goalsAgainstAverage": 3.07,
+        "savePctg": 0.921
+      },
+      {
+        "star": 2,
+        "playerId": 8477492,
+        "teamAbbrev": "COL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8477492.png",
+        "name": {
+          "default": "N. MacKinnon"
+        },
+        "sweaterNo": 29,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8478038,
+        "teamAbbrev": "COL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8478038.png",
+        "name": {
+          "default": "D. Toews"
+        },
+        "sweaterNo": 7,
+        "position": "D",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "17:14",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Josh"
+              },
+              "lastName": {
+                "default": "Manson"
+              },
+              "sweaterNumber": 42
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Samuel"
+              },
+              "lastName": {
+                "default": "Helenius"
+              },
+              "sweaterNumber": 79
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "20:00",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandt"
+              },
+              "lastName": {
+                "default": "Clarke"
+              },
+              "sweaterNumber": 92
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Sam"
+              },
+              "lastName": {
+                "default": "Malinski"
+              },
+              "sweaterNumber": 70
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "20:00",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Parker"
+              },
+              "lastName": {
+                "default": "Kelly"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brandt"
+              },
+              "lastName": {
+                "default": "Clarke"
+              },
+              "sweaterNumber": 92
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "19:25",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandt"
+              },
+              "lastName": {
+                "default": "Clarke"
+              },
+              "sweaterNumber": 92
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Martin"
+              },
+              "lastName": {
+                "default": "Necas",
+                "cs": "Ne\u010das",
+                "sk": "Ne\u010das"
+              },
+              "sweaterNumber": 88
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

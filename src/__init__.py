@@ -1,0 +1,1 @@
+"""NHL forecasting package."""

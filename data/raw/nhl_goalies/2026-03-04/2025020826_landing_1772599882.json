@@ -1,0 +1,826 @@
+{
+  "id": 2025020826,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-26",
+  "venue": {
+    "default": "Madison Square Garden"
+  },
+  "venueLocation": {
+    "default": "New York"
+  },
+  "startTimeUTC": "2026-01-27T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "America/New_York",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 324,
+      "market": "N",
+      "countryCode": "US",
+      "network": "NHLN",
+      "sequenceNumber": 35
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 31,
+      "market": "A",
+      "countryCode": "US",
+      "network": "NESN",
+      "sequenceNumber": 405
+    },
+    {
+      "id": 27,
+      "market": "H",
+      "countryCode": "US",
+      "network": "MSG",
+      "sequenceNumber": 417
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 6,
+    "commonName": {
+      "default": "Bruins"
+    },
+    "abbrev": "BOS",
+    "placeName": {
+      "default": "Boston"
+    },
+    "placeNameWithPreposition": {
+      "default": "Boston",
+      "fr": "de Boston"
+    },
+    "score": 3,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/BOS_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/BOS_dark.svg?season=20252026"
+  },
+  "homeTeam": {
+    "id": 3,
+    "commonName": {
+      "default": "Rangers"
+    },
+    "abbrev": "NYR",
+    "placeName": {
+      "default": "New York"
+    },
+    "placeNameWithPreposition": {
+      "default": "New York",
+      "fr": "de New York"
+    },
+    "score": 4,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NYR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NYR_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 244,
+            "strength": "ev",
+            "playerId": 8482157,
+            "firstName": {
+              "default": "Will"
+            },
+            "lastName": {
+              "default": "Cuylle"
+            },
+            "name": {
+              "default": "W. Cuylle"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8482157.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-nyr-cuylle-scores-goal-against-joonas-korpisalo-6388351853112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-nyr-cuylle-marque-un-but-contre-joonas-korpisalo-6388352845112",
+            "highlightClip": 6388351853112,
+            "highlightClipFr": 6388352845112,
+            "discreteClip": 6388352039112,
+            "discreteClipFr": 6388350792112,
+            "goalsToDate": 12,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "09:45",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480001,
+                "firstName": {
+                  "default": "Urho"
+                },
+                "lastName": {
+                  "default": "Vaakanainen"
+                },
+                "name": {
+                  "default": "U. Vaakanainen"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 18
+              },
+              {
+                "playerId": 8483690,
+                "firstName": {
+                  "default": "Noah"
+                },
+                "lastName": {
+                  "default": "Laba"
+                },
+                "name": {
+                  "default": "N. Laba"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 42
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020826/ev244.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 337,
+            "strength": "ev",
+            "playerId": 8477496,
+            "firstName": {
+              "default": "Elias"
+            },
+            "lastName": {
+              "default": "Lindholm"
+            },
+            "name": {
+              "default": "E. Lindholm"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8477496.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-nyr-lindholm-scores-goal-against-jonathan-quick-6388352737112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-nyr-lindholm-marque-un-but-contre-jonathan-quick-6388352854112",
+            "highlightClip": 6388352737112,
+            "highlightClipFr": 6388352854112,
+            "discreteClip": 6388351562112,
+            "discreteClipFr": 6388351098112,
+            "goalsToDate": 10,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "12:09",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477956,
+                "firstName": {
+                  "default": "David"
+                },
+                "lastName": {
+                  "default": "Pastrnak",
+                  "cs": "Pastr\u0148\u00e1k",
+                  "sk": "Pastr\u0148\u00e1k"
+                },
+                "name": {
+                  "default": "D. Pastrnak",
+                  "cs": "D. Pastr\u0148\u00e1k",
+                  "sk": "D. Pastr\u0148\u00e1k"
+                },
+                "assistsToDate": 44,
+                "sweaterNumber": 88
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020826/ev337.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 343,
+            "strength": "ev",
+            "playerId": 8476468,
+            "firstName": {
+              "default": "J.T."
+            },
+            "lastName": {
+              "default": "Miller"
+            },
+            "name": {
+              "default": "J. Miller"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8476468.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-nyr-miller-scores-goal-against-joonas-korpisalo-6388352256112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-nyr-miller-marque-un-but-contre-joonas-korpisalo-6388352468112",
+            "highlightClip": 6388352256112,
+            "highlightClipFr": 6388352468112,
+            "discreteClip": 6388351371112,
+            "discreteClipFr": 6388350998112,
+            "goalsToDate": 14,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "12:35",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484210,
+                "firstName": {
+                  "default": "Gabe"
+                },
+                "lastName": {
+                  "default": "Perreault"
+                },
+                "name": {
+                  "default": "G. Perreault"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 94
+              },
+              {
+                "playerId": 8476459,
+                "firstName": {
+                  "default": "Mika"
+                },
+                "lastName": {
+                  "default": "Zibanejad"
+                },
+                "name": {
+                  "default": "M. Zibanejad"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 93
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020826/ev343.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 602,
+            "strength": "ev",
+            "playerId": 8477496,
+            "firstName": {
+              "default": "Elias"
+            },
+            "lastName": {
+              "default": "Lindholm"
+            },
+            "name": {
+              "default": "E. Lindholm"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8477496.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-nyr-lindholm-scores-goal-against-jonathan-quick-6388351894112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-nyr-lindholm-marque-un-but-contre-jonathan-quick-6388352163112",
+            "highlightClip": 6388351894112,
+            "highlightClipFr": 6388352163112,
+            "discreteClip": 6388352953112,
+            "discreteClipFr": 6388351805112,
+            "goalsToDate": 11,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "03:18",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477956,
+                "firstName": {
+                  "default": "David"
+                },
+                "lastName": {
+                  "default": "Pastrnak",
+                  "cs": "Pastr\u0148\u00e1k",
+                  "sk": "Pastr\u0148\u00e1k"
+                },
+                "name": {
+                  "default": "D. Pastrnak",
+                  "cs": "D. Pastr\u0148\u00e1k",
+                  "sk": "D. Pastr\u0148\u00e1k"
+                },
+                "assistsToDate": 45,
+                "sweaterNumber": 88
+              },
+              {
+                "playerId": 8479325,
+                "firstName": {
+                  "default": "Charlie"
+                },
+                "lastName": {
+                  "default": "McAvoy"
+                },
+                "name": {
+                  "default": "C. McAvoy"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 73
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020826/ev602.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 673,
+            "strength": "ev",
+            "playerId": 8479987,
+            "firstName": {
+              "default": "Morgan"
+            },
+            "lastName": {
+              "default": "Geekie"
+            },
+            "name": {
+              "default": "M. Geekie"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8479987.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-nyr-geekie-scores-goal-against-jonathan-quick-6388352007112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-nyr-geekie-marque-un-but-contre-jonathan-quick-6388353772112",
+            "highlightClip": 6388352007112,
+            "highlightClipFr": 6388353772112,
+            "discreteClip": 6388352883112,
+            "discreteClipFr": 6388353771112,
+            "goalsToDate": 29,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "BOS"
+            },
+            "timeInPeriod": "08:52",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477956,
+                "firstName": {
+                  "default": "David"
+                },
+                "lastName": {
+                  "default": "Pastrnak",
+                  "cs": "Pastr\u0148\u00e1k",
+                  "sk": "Pastr\u0148\u00e1k"
+                },
+                "name": {
+                  "default": "D. Pastrnak",
+                  "cs": "D. Pastr\u0148\u00e1k",
+                  "sk": "D. Pastr\u0148\u00e1k"
+                },
+                "assistsToDate": 46,
+                "sweaterNumber": 88
+              },
+              {
+                "playerId": 8482511,
+                "firstName": {
+                  "default": "Mason"
+                },
+                "lastName": {
+                  "default": "Lohrei"
+                },
+                "name": {
+                  "default": "M. Lohrei"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020826/ev673.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 994,
+            "strength": "ev",
+            "playerId": 8478840,
+            "firstName": {
+              "default": "Will",
+              "cs": "William",
+              "de": "William",
+              "es": "William",
+              "fi": "William",
+              "sk": "William",
+              "sv": "William"
+            },
+            "lastName": {
+              "default": "Borgen"
+            },
+            "name": {
+              "default": "W. Borgen"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8478840.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-nyr-borgen-scores-goal-against-joonas-korpisalo-6388356284112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-nyr-borgen-marque-un-but-contre-joonas-korpisalo-6388354627112",
+            "highlightClip": 6388356284112,
+            "highlightClipFr": 6388354627112,
+            "discreteClip": 6388356587112,
+            "discreteClipFr": 6388356386112,
+            "goalsToDate": 3,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "13:43",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478550,
+                "firstName": {
+                  "default": "Artemi",
+                  "cs": "Art\u011bmij",
+                  "sk": "Artemij"
+                },
+                "lastName": {
+                  "default": "Panarin"
+                },
+                "name": {
+                  "default": "A. Panarin"
+                },
+                "assistsToDate": 38,
+                "sweaterNumber": 10
+              },
+              {
+                "playerId": 8482109,
+                "firstName": {
+                  "default": "Alexis"
+                },
+                "lastName": {
+                  "default": "Lafreni\u00e8re"
+                },
+                "name": {
+                  "default": "A. Lafreni\u00e8re"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 13
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020826/ev994.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 554,
+            "strength": "ev",
+            "playerId": 8481525,
+            "firstName": {
+              "default": "Matthew"
+            },
+            "lastName": {
+              "default": "Robertson"
+            },
+            "name": {
+              "default": "M. Robertson"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8481525.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-nyr-robertson-scores-goal-against-joonas-korpisalo-6388355621112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-nyr-robertson-marque-un-but-contre-joonas-korpisalo-6388357001112",
+            "highlightClip": 6388355621112,
+            "highlightClipFr": 6388357001112,
+            "discreteClip": 6388356015112,
+            "discreteClipFr": 6388356122112,
+            "goalsToDate": 4,
+            "awayScore": 3,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "03:53",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8471734,
+                "firstName": {
+                  "default": "Jonathan"
+                },
+                "lastName": {
+                  "default": "Quick"
+                },
+                "name": {
+                  "default": "J. Quick"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 32
+              },
+              {
+                "playerId": 8476389,
+                "firstName": {
+                  "default": "Vincent"
+                },
+                "lastName": {
+                  "default": "Trocheck"
+                },
+                "name": {
+                  "default": "V. Trocheck"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 16
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020826/ev554.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8481525,
+        "teamAbbrev": "NYR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8481525.png",
+        "name": {
+          "default": "M. Robertson"
+        },
+        "sweaterNo": 29,
+        "position": "D",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8484210,
+        "teamAbbrev": "NYR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8484210.png",
+        "name": {
+          "default": "G. Perreault"
+        },
+        "sweaterNo": 94,
+        "position": "R",
+        "goals": 0,
+        "assists": 1,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8477956,
+        "teamAbbrev": "BOS",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8477956.png",
+        "name": {
+          "default": "D. Pastrnak",
+          "cs": "D. Pastr\u0148\u00e1k",
+          "sk": "D. Pastr\u0148\u00e1k"
+        },
+        "sweaterNo": 88,
+        "position": "R",
+        "goals": 0,
+        "assists": 3,
+        "points": 3
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:50",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Henri"
+              },
+              "lastName": {
+                "default": "Jokiharju"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Artemi",
+                "cs": "Art\u011bmij",
+                "sk": "Artemij"
+              },
+              "lastName": {
+                "default": "Panarin"
+              },
+              "sweaterNumber": 10
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "06:13",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Charlie"
+              },
+              "lastName": {
+                "default": "McAvoy"
+              },
+              "sweaterNumber": 73
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Vincent"
+              },
+              "lastName": {
+                "default": "Trocheck"
+              },
+              "sweaterNumber": 16
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "10:12",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matt"
+              },
+              "lastName": {
+                "default": "Rempe"
+              },
+              "sweaterNumber": 73
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Hampus"
+              },
+              "lastName": {
+                "default": "Lindholm"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "12:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tanner"
+              },
+              "lastName": {
+                "default": "Jeannot"
+              },
+              "sweaterNumber": 84
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Laba"
+              },
+              "sweaterNumber": 42
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "07:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Charlie"
+              },
+              "lastName": {
+                "default": "McAvoy"
+              },
+              "sweaterNumber": 73
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Gabe"
+              },
+              "lastName": {
+                "default": "Perreault"
+              },
+              "sweaterNumber": 94
+            },
+            "descKey": "interference"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "01:07",
+    "secondsRemaining": 67,
+    "running": false,
+    "inIntermission": false
+  }
+}

@@ -1,0 +1,820 @@
+{
+  "id": 2025020784,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-20",
+  "venue": {
+    "default": "Bridgestone Arena"
+  },
+  "venueLocation": {
+    "default": "Nashville"
+  },
+  "startTimeUTC": "2026-01-21T01:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "US/Central",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 561,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNSO",
+      "sequenceNumber": 202
+    },
+    {
+      "id": 28,
+      "market": "A",
+      "countryCode": "US",
+      "network": "MSG-B",
+      "sequenceNumber": 392
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 7,
+    "commonName": {
+      "default": "Sabres"
+    },
+    "abbrev": "BUF",
+    "placeName": {
+      "default": "Buffalo"
+    },
+    "placeNameWithPreposition": {
+      "default": "Buffalo",
+      "fr": "de Buffalo"
+    },
+    "score": 5,
+    "sog": 33,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/BUF_dark.svg"
+  },
+  "homeTeam": {
+    "id": 18,
+    "commonName": {
+      "default": "Predators"
+    },
+    "abbrev": "NSH",
+    "placeName": {
+      "default": "Nashville"
+    },
+    "placeNameWithPreposition": {
+      "default": "Nashville",
+      "fr": "de Nashville"
+    },
+    "score": 3,
+    "sog": 34,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NSH_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 202,
+            "strength": "ev",
+            "playerId": 8483500,
+            "firstName": {
+              "default": "Noah"
+            },
+            "lastName": {
+              "default": "Ostlund"
+            },
+            "name": {
+              "default": "N. Ostlund"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8483500.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-nsh-ostlund-scores-goal-against-juuse-saros-6388013855112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-nsh-ostlund-marque-un-but-contre-juuse-saros-6388013555112",
+            "highlightClip": 6388013855112,
+            "highlightClipFr": 6388013555112,
+            "discreteClip": 6388013955112,
+            "discreteClipFr": 6388013448112,
+            "goalsToDate": 8,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "08:11",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484797,
+                "firstName": {
+                  "default": "Konsta"
+                },
+                "lastName": {
+                  "default": "Helenius"
+                },
+                "name": {
+                  "default": "K. Helenius"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 94
+              },
+              {
+                "playerId": 8480839,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Dahlin"
+                },
+                "name": {
+                  "default": "R. Dahlin"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 26
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020784/ev202.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 263,
+            "strength": "ev",
+            "playerId": 8483500,
+            "firstName": {
+              "default": "Noah"
+            },
+            "lastName": {
+              "default": "Ostlund"
+            },
+            "name": {
+              "default": "N. Ostlund"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8483500.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-nsh-ostlund-scores-goal-against-juuse-saros-6388015191112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-nsh-ostlund-marque-un-but-contre-juuse-saros-6388014620112",
+            "highlightClip": 6388015191112,
+            "highlightClipFr": 6388014620112,
+            "discreteClip": 6388015886112,
+            "discreteClipFr": 6388015186112,
+            "goalsToDate": 9,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "11:45",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484797,
+                "firstName": {
+                  "default": "Konsta"
+                },
+                "lastName": {
+                  "default": "Helenius"
+                },
+                "name": {
+                  "default": "K. Helenius"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 94
+              },
+              {
+                "playerId": 8482671,
+                "firstName": {
+                  "default": "Owen"
+                },
+                "lastName": {
+                  "default": "Power"
+                },
+                "name": {
+                  "default": "O. Power"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 25
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020784/ev263.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 391,
+            "strength": "ev",
+            "playerId": 8484797,
+            "firstName": {
+              "default": "Konsta"
+            },
+            "lastName": {
+              "default": "Helenius"
+            },
+            "name": {
+              "default": "K. Helenius"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8484797.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-nsh-helenius-scores-goal-against-juuse-saros-6388015514112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-nsh-helenius-marque-un-but-contre-juuse-saros-6388015616112",
+            "highlightClip": 6388015514112,
+            "highlightClipFr": 6388015616112,
+            "discreteClip": 6388015107112,
+            "discreteClipFr": 6388015019112,
+            "goalsToDate": 1,
+            "awayScore": 3,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "17:24",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481522,
+                "firstName": {
+                  "default": "Peyton"
+                },
+                "lastName": {
+                  "default": "Krebs"
+                },
+                "name": {
+                  "default": "P. Krebs"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 19
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020784/ev391.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 478,
+            "strength": "ev",
+            "playerId": 8479420,
+            "firstName": {
+              "default": "Tage"
+            },
+            "lastName": {
+              "default": "Thompson"
+            },
+            "name": {
+              "default": "T. Thompson"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8479420.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-nsh-thompson-scores-goal-against-juuse-saros-6388017224112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-nsh-thompson-marque-un-but-contre-juuse-saros-6388015242112",
+            "highlightClip": 6388017224112,
+            "highlightClipFr": 6388015242112,
+            "discreteClip": 6388017221112,
+            "discreteClipFr": 6388016357112,
+            "goalsToDate": 26,
+            "awayScore": 4,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "04:20",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477949,
+                "firstName": {
+                  "default": "Alex"
+                },
+                "lastName": {
+                  "default": "Tuch"
+                },
+                "name": {
+                  "default": "A. Tuch"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 89
+              },
+              {
+                "playerId": 8482659,
+                "firstName": {
+                  "default": "Josh"
+                },
+                "lastName": {
+                  "default": "Doan"
+                },
+                "name": {
+                  "default": "J. Doan"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 91
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020784/ev478.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 599,
+            "strength": "ev",
+            "playerId": 8475158,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "O'Reilly"
+            },
+            "name": {
+              "default": "R. O'Reilly"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8475158.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-nsh-o-reilly-scores-goal-against-alex-lyon-6388017040112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-nsh-o-reilly-marque-un-but-contre-alex-lyon-6388016049112",
+            "highlightClip": 6388017040112,
+            "highlightClipFr": 6388016049112,
+            "discreteClip": 6388016753112,
+            "discreteClipFr": 6388017325112,
+            "goalsToDate": 17,
+            "awayScore": 4,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "10:09",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476887,
+                "firstName": {
+                  "default": "Filip"
+                },
+                "lastName": {
+                  "default": "Forsberg"
+                },
+                "name": {
+                  "default": "F. Forsberg"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 9
+              },
+              {
+                "playerId": 8476869,
+                "firstName": {
+                  "default": "Brady"
+                },
+                "lastName": {
+                  "default": "Skjei"
+                },
+                "name": {
+                  "default": "B. Skjei"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 76
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020784/ev599.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 620,
+            "strength": "ev",
+            "playerId": 8476887,
+            "firstName": {
+              "default": "Filip"
+            },
+            "lastName": {
+              "default": "Forsberg"
+            },
+            "name": {
+              "default": "F. Forsberg"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8476887.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-nsh-forsberg-scores-goal-against-alex-lyon-6388016554112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-nsh-forsberg-marque-un-but-contre-alex-lyon-6388016060112",
+            "highlightClip": 6388016554112,
+            "highlightClipFr": 6388016060112,
+            "discreteClip": 6388017246112,
+            "discreteClipFr": 6388017809112,
+            "goalsToDate": 19,
+            "awayScore": 4,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "11:54",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475158,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "O'Reilly"
+                },
+                "name": {
+                  "default": "R. O'Reilly"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 90
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020784/ev620.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 882,
+            "strength": "ev",
+            "playerId": 8475158,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "O'Reilly"
+            },
+            "name": {
+              "default": "R. O'Reilly"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8475158.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-nsh-o-reilly-scores-goal-against-alex-lyon-6388019856112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-nsh-o-reilly-marque-un-but-contre-alex-lyon-6388018095112",
+            "highlightClip": 6388019856112,
+            "highlightClipFr": 6388018095112,
+            "discreteClip": 6388019666112,
+            "discreteClipFr": 6388017792112,
+            "goalsToDate": 18,
+            "awayScore": 4,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "09:30",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482146,
+                "firstName": {
+                  "default": "Luke"
+                },
+                "lastName": {
+                  "default": "Evangelista"
+                },
+                "name": {
+                  "default": "L. Evangelista"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 77
+              },
+              {
+                "playerId": 8476887,
+                "firstName": {
+                  "default": "Filip"
+                },
+                "lastName": {
+                  "default": "Forsberg"
+                },
+                "name": {
+                  "default": "F. Forsberg"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020784/ev882.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1043,
+            "strength": "ev",
+            "playerId": 8481522,
+            "firstName": {
+              "default": "Peyton"
+            },
+            "lastName": {
+              "default": "Krebs"
+            },
+            "name": {
+              "default": "P. Krebs"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8481522.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/peyton-krebs-with-a-goal-vs-nashville-predators-6388021344112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/peyton-krebs-with-a-but-vs-les-predators-de-nashville-6388019280112",
+            "highlightClip": 6388021344112,
+            "highlightClipFr": 6388019280112,
+            "discreteClip": 6388020645112,
+            "discreteClipFr": 6388019880112,
+            "goalsToDate": 5,
+            "awayScore": 5,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "18:14",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8480807,
+                "firstName": {
+                  "default": "Mattias"
+                },
+                "lastName": {
+                  "default": "Samuelsson"
+                },
+                "name": {
+                  "default": "M. Samuelsson"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 23
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020784/ev1043.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8484797,
+        "teamAbbrev": "BUF",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8484797.png",
+        "name": {
+          "default": "K. Helenius"
+        },
+        "sweaterNo": 94,
+        "position": "C",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8483500,
+        "teamAbbrev": "BUF",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8483500.png",
+        "name": {
+          "default": "N. Ostlund"
+        },
+        "sweaterNo": 86,
+        "position": "C",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8475158,
+        "teamAbbrev": "NSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8475158.png",
+        "name": {
+          "default": "R. O'Reilly"
+        },
+        "sweaterNo": 90,
+        "position": "C",
+        "goals": 2,
+        "assists": 1,
+        "points": 3
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "13:24",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jason"
+              },
+              "lastName": {
+                "default": "Zucker"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Luke"
+              },
+              "lastName": {
+                "default": "Evangelista"
+              },
+              "sweaterNumber": 77
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:20",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Luke"
+              },
+              "lastName": {
+                "default": "Evangelista"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jordan"
+              },
+              "lastName": {
+                "default": "Greenway"
+              },
+              "sweaterNumber": 12
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "19:43",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jordan"
+              },
+              "lastName": {
+                "default": "Greenway"
+              },
+              "sweaterNumber": 12
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Blankenburg"
+              },
+              "sweaterNumber": 37
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "20:00",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mattias"
+              },
+              "lastName": {
+                "default": "Samuelsson"
+              },
+              "sweaterNumber": 23
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "O'Reilly"
+              },
+              "sweaterNumber": 90
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "20:00",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "O'Reilly"
+              },
+              "sweaterNumber": 90
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mattias"
+              },
+              "lastName": {
+                "default": "Samuelsson"
+              },
+              "sweaterNumber": 23
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

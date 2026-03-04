@@ -1,0 +1,599 @@
+{
+  "id": 2025020707,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-10",
+  "venue": {
+    "default": "Bridgestone Arena"
+  },
+  "venueLocation": {
+    "default": "Nashville"
+  },
+  "startTimeUTC": "2026-01-11T01:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "US/Central",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 561,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNSO",
+      "sequenceNumber": 202
+    },
+    {
+      "id": 551,
+      "market": "A",
+      "countryCode": "US",
+      "network": "CHSN",
+      "sequenceNumber": 254
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 16,
+    "commonName": {
+      "default": "Blackhawks"
+    },
+    "abbrev": "CHI",
+    "placeName": {
+      "default": "Chicago"
+    },
+    "placeNameWithPreposition": {
+      "default": "Chicago",
+      "fr": "de Chicago"
+    },
+    "score": 3,
+    "sog": 21,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CHI_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CHI_dark.svg?season=20252026"
+  },
+  "homeTeam": {
+    "id": 18,
+    "commonName": {
+      "default": "Predators"
+    },
+    "abbrev": "NSH",
+    "placeName": {
+      "default": "Nashville"
+    },
+    "placeNameWithPreposition": {
+      "default": "Nashville",
+      "fr": "de Nashville"
+    },
+    "score": 0,
+    "sog": 36,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NSH_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 105,
+            "strength": "pp",
+            "playerId": 8477479,
+            "firstName": {
+              "default": "Tyler"
+            },
+            "lastName": {
+              "default": "Bertuzzi"
+            },
+            "name": {
+              "default": "T. Bertuzzi"
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8477479.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/chi-nsh-bertuzzi-scores-goal-against-juuse-saros-6387549977112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/chi-nsh-bertuzzi-marque-un-but-contre-juuse-saros-6387548231112",
+            "highlightClip": 6387549977112,
+            "highlightClipFr": 6387548231112,
+            "discreteClip": 6387547928112,
+            "discreteClipFr": 6387549311112,
+            "goalsToDate": 23,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CHI"
+            },
+            "timeInPeriod": "06:41",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484144,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "Bedard"
+                },
+                "name": {
+                  "default": "C. Bedard"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 98
+              },
+              {
+                "playerId": 8484783,
+                "firstName": {
+                  "default": "Artyom"
+                },
+                "lastName": {
+                  "default": "Levshunov"
+                },
+                "name": {
+                  "default": "A. Levshunov"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 55
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020707/ev105.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 941,
+            "strength": "ev",
+            "playerId": 8484185,
+            "firstName": {
+              "default": "Nick"
+            },
+            "lastName": {
+              "default": "Lardis"
+            },
+            "name": {
+              "default": "N. Lardis"
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8484185.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/chi-nsh-lardis-scores-goal-against-juuse-saros-6387551459112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/chi-nsh-lardis-marque-un-but-contre-juuse-saros-6387551456112",
+            "highlightClip": 6387551459112,
+            "highlightClipFr": 6387551456112,
+            "discreteClip": 6387552726112,
+            "discreteClipFr": 6387551260112,
+            "goalsToDate": 4,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CHI"
+            },
+            "timeInPeriod": "11:01",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484144,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "Bedard"
+                },
+                "name": {
+                  "default": "C. Bedard"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 98
+              },
+              {
+                "playerId": 8483466,
+                "firstName": {
+                  "default": "Kevin"
+                },
+                "lastName": {
+                  "default": "Korchinski"
+                },
+                "name": {
+                  "default": "K. Korchinski"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 14
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020707/ev941.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1070,
+            "strength": "ev",
+            "playerId": 8483450,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "Greene"
+            },
+            "name": {
+              "default": "R. Greene"
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8483450.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ryan-greene-with-a-goal-vs-nashville-predators-6387553605112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ryan-greene-with-a-but-vs-les-predators-de-nashville-6387550876112",
+            "highlightClip": 6387553605112,
+            "highlightClipFr": 6387550876112,
+            "discreteClip": 6387553216112,
+            "discreteClipFr": 6387553217112,
+            "goalsToDate": 5,
+            "awayScore": 3,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CHI"
+            },
+            "timeInPeriod": "18:32",
+            "shotType": "backhand",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8477479,
+                "firstName": {
+                  "default": "Tyler"
+                },
+                "lastName": {
+                  "default": "Bertuzzi"
+                },
+                "name": {
+                  "default": "T. Bertuzzi"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 59
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020707/ev1070.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8482123,
+        "teamAbbrev": "CHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8482123.png",
+        "name": {
+          "default": "D. Commesso"
+        },
+        "sweaterNo": 33,
+        "position": "G",
+        "goalsAgainstAverage": 0.0,
+        "savePctg": 1.0
+      },
+      {
+        "star": 2,
+        "playerId": 8484144,
+        "teamAbbrev": "CHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8484144.png",
+        "name": {
+          "default": "C. Bedard"
+        },
+        "sweaterNo": 98,
+        "position": "C",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8484185,
+        "teamAbbrev": "CHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8484185.png",
+        "name": {
+          "default": "N. Lardis"
+        },
+        "sweaterNo": 76,
+        "position": "L",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "12:17",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Erik"
+              },
+              "lastName": {
+                "default": "Haula"
+              },
+              "sweaterNumber": 56
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Donato"
+              },
+              "sweaterNumber": 8
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "05:04",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Roman"
+              },
+              "lastName": {
+                "default": "Josi"
+              },
+              "sweaterNumber": 59
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Teuvo"
+              },
+              "lastName": {
+                "default": "Teravainen",
+                "cs": "Ter\u00e4v\u00e4inen",
+                "fi": "Ter\u00e4v\u00e4inen",
+                "sk": "Ter\u00e4v\u00e4inen",
+                "sv": "Ter\u00e4v\u00e4inen"
+              },
+              "sweaterNumber": 86
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "08:12",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Wyatt"
+              },
+              "lastName": {
+                "default": "Kaiser"
+              },
+              "sweaterNumber": 44
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Bunting"
+              },
+              "sweaterNumber": 58
+            },
+            "descKey": "unsportsmanlike-conduct"
+          },
+          {
+            "timeInPeriod": "08:12",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Bunting"
+              },
+              "sweaterNumber": 58
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Donato"
+              },
+              "sweaterNumber": 8
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "08:12",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Donato"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Bunting"
+              },
+              "sweaterNumber": 58
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "11:20",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kevin"
+              },
+              "lastName": {
+                "default": "Korchinski"
+              },
+              "sweaterNumber": 14
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Reid"
+              },
+              "lastName": {
+                "default": "Schaefer"
+              },
+              "sweaterNumber": 49
+            },
+            "descKey": "interference"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Cole"
+              },
+              "lastName": {
+                "default": "Smith"
+              },
+              "sweaterNumber": 36
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jason"
+              },
+              "lastName": {
+                "default": "Dickinson"
+              },
+              "sweaterNumber": 16
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "08:02",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Andre",
+                "cs": "Andr\u00e9",
+                "sk": "Andr\u00e9",
+                "sv": "Andr\u00e9"
+              },
+              "lastName": {
+                "default": "Burakovsky"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Bunting"
+              },
+              "sweaterNumber": 58
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

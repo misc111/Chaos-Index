@@ -1,0 +1,445 @@
+{
+  "id": 2025090030,
+  "season": 20252026,
+  "gameType": 9,
+  "limitedScoring": true,
+  "gameDate": "2026-02-22",
+  "venue": {
+    "default": "Milano Santagiulia Ice Hockey Arena"
+  },
+  "venueLocation": {
+    "default": "Milano Cortina"
+  },
+  "startTimeUTC": "2026-02-22T13:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "+01:00",
+  "venueTimezone": "Europe/Rome",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 637,
+      "market": "N",
+      "countryCode": "US",
+      "network": "Peacock",
+      "sequenceNumber": 1
+    },
+    {
+      "id": 29,
+      "market": "N",
+      "countryCode": "US",
+      "network": "NBC",
+      "sequenceNumber": 23
+    },
+    {
+      "id": 4,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC",
+      "sequenceNumber": 101
+    },
+    {
+      "id": 636,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC Gem",
+      "sequenceNumber": 103
+    },
+    {
+      "id": 642,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "ICI T\u00e9l\u00e9",
+      "sequenceNumber": 143
+    },
+    {
+      "id": 33,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "RDS",
+      "sequenceNumber": 145
+    }
+  ],
+  "gameState": "FINAL",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 67,
+    "commonName": {
+      "default": "USA",
+      "es": "Estados Unidos",
+      "fi": "Yhdysvaltojen",
+      "fr": "\u00c9tats-Unis"
+    },
+    "abbrev": "USA",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 2,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/USA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/USA_dark.svg"
+  },
+  "homeTeam": {
+    "id": 60,
+    "commonName": {
+      "default": "Canada",
+      "cs": "Kanada",
+      "de": "Kanada",
+      "es": "Canad\u00e1",
+      "fi": "Kanada",
+      "sk": "Kanada",
+      "sv": "Kanada"
+    },
+    "abbrev": "CAN",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 1,
+    "sog": 42,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/CAN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/CAN_dark.svg"
+  },
+  "shootoutInUse": false,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 9001,
+            "strength": "ev",
+            "playerId": 8481557,
+            "firstName": {
+              "default": "Matt"
+            },
+            "lastName": {
+              "default": "Boldy"
+            },
+            "name": {
+              "default": "M. Boldy"
+            },
+            "teamAbbrev": {
+              "default": "USA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/USA/8481557.png",
+            "goalsToDate": 2,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "USA"
+            },
+            "timeInPeriod": "06:00",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479318,
+                "firstName": {
+                  "default": "Auston"
+                },
+                "lastName": {
+                  "default": "Matthews"
+                },
+                "name": {
+                  "default": "A. Matthews"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 34
+              },
+              {
+                "playerId": 8480800,
+                "firstName": {
+                  "default": "Quinn"
+                },
+                "lastName": {
+                  "default": "Hughes"
+                },
+                "name": {
+                  "default": "Q. Hughes"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 43
+              }
+            ],
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 9007,
+            "strength": "ev",
+            "playerId": 8480069,
+            "firstName": {
+              "default": "Cale"
+            },
+            "lastName": {
+              "default": "Makar"
+            },
+            "name": {
+              "default": "C. Makar"
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAN/8480069.png",
+            "goalsToDate": 2,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "18:16",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478038,
+                "firstName": {
+                  "default": "Devon"
+                },
+                "lastName": {
+                  "default": "Toews"
+                },
+                "name": {
+                  "default": "D. Toews"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 7
+              }
+            ],
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 9012,
+            "strength": "ev",
+            "playerId": 8481559,
+            "firstName": {
+              "default": "Jack"
+            },
+            "lastName": {
+              "default": "Hughes"
+            },
+            "name": {
+              "default": "J. Hughes"
+            },
+            "teamAbbrev": {
+              "default": "USA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/USA/8481559.png",
+            "goalsToDate": 4,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "USA"
+            },
+            "timeInPeriod": "01:41",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478460,
+                "firstName": {
+                  "default": "Zach"
+                },
+                "lastName": {
+                  "default": "Werenski"
+                },
+                "name": {
+                  "default": "Z. Werenski"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 8
+              },
+              {
+                "playerId": 8476945,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "Hellebuyck"
+                },
+                "name": {
+                  "default": "C. Hellebuyck"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 37
+              }
+            ],
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "17:03",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Shea"
+              },
+              "lastName": {
+                "default": "Theodore"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:27",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "Guentzel"
+              },
+              "sweaterNumber": 59
+            },
+            "teamAbbrev": {
+              "default": "USA"
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "09:55",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Charlie"
+              },
+              "lastName": {
+                "default": "McAvoy"
+              },
+              "sweaterNumber": 25
+            },
+            "teamAbbrev": {
+              "default": "USA"
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "13:26",
+            "type": "MIN",
+            "duration": 4,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sam"
+              },
+              "lastName": {
+                "default": "Bennett"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "descKey": "high-sticking-double-minor"
+          },
+          {
+            "timeInPeriod": "16:37",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jack"
+              },
+              "lastName": {
+                "default": "Hughes"
+              },
+              "sweaterNumber": 86
+            },
+            "teamAbbrev": {
+              "default": "USA"
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

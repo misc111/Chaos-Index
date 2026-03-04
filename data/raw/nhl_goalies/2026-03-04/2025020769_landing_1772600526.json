@@ -1,0 +1,694 @@
+{
+  "id": 2025020769,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-18",
+  "venue": {
+    "default": "Rogers Place"
+  },
+  "venueLocation": {
+    "default": "Edmonton"
+  },
+  "startTimeUTC": "2026-01-19T01:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-07:00",
+  "venueTimezone": "America/Edmonton",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 107
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 566,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNMW",
+      "sequenceNumber": 201
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 19,
+    "commonName": {
+      "default": "Blues"
+    },
+    "abbrev": "STL",
+    "placeName": {
+      "default": "St. Louis"
+    },
+    "placeNameWithPreposition": {
+      "default": "St. Louis",
+      "fr": "de St. Louis"
+    },
+    "score": 0,
+    "sog": 27,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/STL_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/STL_dark.svg?season=20252026"
+  },
+  "homeTeam": {
+    "id": 22,
+    "commonName": {
+      "default": "Oilers"
+    },
+    "abbrev": "EDM",
+    "placeName": {
+      "default": "Edmonton"
+    },
+    "placeNameWithPreposition": {
+      "default": "Edmonton",
+      "fr": "d'Edmonton"
+    },
+    "score": 5,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/EDM_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 147,
+            "strength": "pp",
+            "playerId": 8476454,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "Nugent-Hopkins"
+            },
+            "name": {
+              "default": "R. Nugent-Hopkins"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8476454.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-edm-nugent-hopkins-scores-ppg-against-jordan-binnington-6387921876112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-edm-nugent-hopkins-marque-un-but-en-a-n-contre-jordan-binnington-6387922261112",
+            "highlightClip": 6387921876112,
+            "highlightClipFr": 6387922261112,
+            "discreteClip": 6387920586112,
+            "discreteClipFr": 6387920124112,
+            "goalsToDate": 12,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "05:55",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480803,
+                "firstName": {
+                  "default": "Evan"
+                },
+                "lastName": {
+                  "default": "Bouchard"
+                },
+                "name": {
+                  "default": "E. Bouchard"
+                },
+                "assistsToDate": 37,
+                "sweaterNumber": 2
+              },
+              {
+                "playerId": 8478013,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "Walman"
+                },
+                "name": {
+                  "default": "J. Walman"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 96
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020769/ev147.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 228,
+            "strength": "ev",
+            "playerId": 8478233,
+            "firstName": {
+              "default": "Andrew"
+            },
+            "lastName": {
+              "default": "Mangiapane"
+            },
+            "name": {
+              "default": "A. Mangiapane"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8478233.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-edm-mangiapane-scores-goal-against-jordan-binnington-6387920331112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-edm-mangiapane-marque-un-but-contre-jordan-binnington-6387921627112",
+            "highlightClip": 6387920331112,
+            "highlightClipFr": 6387921627112,
+            "discreteClip": 6387921801112,
+            "discreteClipFr": 6387922387112,
+            "goalsToDate": 6,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "11:52",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477508,
+                "firstName": {
+                  "default": "Curtis"
+                },
+                "lastName": {
+                  "default": "Lazar"
+                },
+                "name": {
+                  "default": "C. Lazar"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 20
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020769/ev228.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 429,
+            "strength": "ev",
+            "playerId": 8475786,
+            "firstName": {
+              "default": "Zach"
+            },
+            "lastName": {
+              "default": "Hyman"
+            },
+            "name": {
+              "default": "Z. Hyman"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8475786.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-edm-hyman-scores-goal-against-jordan-binnington-6387921642112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/zach-hyman-with-a-but-vs-les-blues-de-st-louis-6387922099112",
+            "highlightClip": 6387921642112,
+            "highlightClipFr": 6387922099112,
+            "discreteClip": 6387920620112,
+            "discreteClipFr": 6387922890112,
+            "goalsToDate": 18,
+            "awayScore": 0,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "18:43",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475218,
+                "firstName": {
+                  "default": "Mattias"
+                },
+                "lastName": {
+                  "default": "Ekholm"
+                },
+                "name": {
+                  "default": "M. Ekholm"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 14
+              },
+              {
+                "playerId": 8481617,
+                "firstName": {
+                  "default": "Vasily",
+                  "cs": "Vasilij",
+                  "fi": "Vasili",
+                  "sk": "Vasilij"
+                },
+                "lastName": {
+                  "default": "Podkolzin"
+                },
+                "name": {
+                  "default": "V. Podkolzin"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 92
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020769/ev429.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 701,
+            "strength": "ev",
+            "playerId": 8475786,
+            "firstName": {
+              "default": "Zach"
+            },
+            "lastName": {
+              "default": "Hyman"
+            },
+            "name": {
+              "default": "Z. Hyman"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8475786.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-edm-hyman-scores-goal-against-jordan-binnington-6387924509112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-edm-hyman-marque-un-but-contre-jordan-binnington-6387922534112",
+            "highlightClip": 6387924509112,
+            "highlightClipFr": 6387922534112,
+            "discreteClip": 6387923036112,
+            "discreteClipFr": 6387924020112,
+            "goalsToDate": 19,
+            "awayScore": 0,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "10:52",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478402,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McDavid"
+                },
+                "name": {
+                  "default": "C. McDavid"
+                },
+                "assistsToDate": 54,
+                "sweaterNumber": 97
+              },
+              {
+                "playerId": 8475218,
+                "firstName": {
+                  "default": "Mattias"
+                },
+                "lastName": {
+                  "default": "Ekholm"
+                },
+                "name": {
+                  "default": "M. Ekholm"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 14
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020769/ev701.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 827,
+            "strength": "ev",
+            "playerId": 8481617,
+            "firstName": {
+              "default": "Vasily",
+              "cs": "Vasilij",
+              "fi": "Vasili",
+              "sk": "Vasilij"
+            },
+            "lastName": {
+              "default": "Podkolzin"
+            },
+            "name": {
+              "default": "V. Podkolzin"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8481617.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-edm-podkolzin-scores-goal-against-jordan-binnington-6387925324112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-edm-podkolzin-marque-un-but-contre-jordan-binnington-6387923958112",
+            "highlightClip": 6387925324112,
+            "highlightClipFr": 6387923958112,
+            "discreteClip": 6387925214112,
+            "discreteClipFr": 6387925407112,
+            "goalsToDate": 12,
+            "awayScore": 0,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "01:19",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478402,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McDavid"
+                },
+                "name": {
+                  "default": "C. McDavid"
+                },
+                "assistsToDate": 55,
+                "sweaterNumber": 97
+              },
+              {
+                "playerId": 8475786,
+                "firstName": {
+                  "default": "Zach"
+                },
+                "lastName": {
+                  "default": "Hyman"
+                },
+                "name": {
+                  "default": "Z. Hyman"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 18
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020769/ev827.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8476454,
+        "teamAbbrev": "EDM",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8476454.png",
+        "name": {
+          "default": "R. Nugent-Hopkins"
+        },
+        "sweaterNo": 93,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8475786,
+        "teamAbbrev": "EDM",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8475786.png",
+        "name": {
+          "default": "Z. Hyman"
+        },
+        "sweaterNo": 18,
+        "position": "L",
+        "goals": 2,
+        "assists": 1,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8478971,
+        "teamAbbrev": "EDM",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8478971.png",
+        "name": {
+          "default": "C. Ingram"
+        },
+        "sweaterNo": 39,
+        "position": "G",
+        "goalsAgainstAverage": 0.0,
+        "savePctg": 1.0
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:56",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "T. Frederic"
+            }
+          },
+          {
+            "timeInPeriod": "05:18",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brayden"
+              },
+              "lastName": {
+                "default": "Schenn"
+              },
+              "sweaterNumber": 10
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Vasily",
+                "cs": "Vasilij",
+                "fi": "Vasili",
+                "sk": "Vasilij"
+              },
+              "lastName": {
+                "default": "Podkolzin"
+              },
+              "sweaterNumber": 92
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "06:24",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Evan"
+              },
+              "lastName": {
+                "default": "Bouchard"
+              },
+              "sweaterNumber": 2
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Philip"
+              },
+              "lastName": {
+                "default": "Broberg"
+              },
+              "sweaterNumber": 6
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "12:57",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nathan"
+              },
+              "lastName": {
+                "default": "Walker"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Vasily",
+                "cs": "Vasilij",
+                "fi": "Vasili",
+                "sk": "Vasilij"
+              },
+              "lastName": {
+                "default": "Podkolzin"
+              },
+              "sweaterNumber": 92
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "14:01",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tyler"
+              },
+              "lastName": {
+                "default": "Tucker"
+              },
+              "sweaterNumber": 75
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Zach"
+              },
+              "lastName": {
+                "default": "Hyman"
+              },
+              "sweaterNumber": 18
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:14",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mattias"
+              },
+              "lastName": {
+                "default": "Ekholm"
+              },
+              "sweaterNumber": 14
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          },
+          {
+            "timeInPeriod": "18:19",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Evan"
+              },
+              "lastName": {
+                "default": "Bouchard"
+              },
+              "sweaterNumber": 2
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "Neighbours"
+              },
+              "sweaterNumber": 63
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

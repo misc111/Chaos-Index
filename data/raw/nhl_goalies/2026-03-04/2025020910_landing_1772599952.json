@@ -1,0 +1,550 @@
+{
+  "id": 2025020910,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-25",
+  "venue": {
+    "default": "Prudential Center"
+  },
+  "venueLocation": {
+    "default": "Newark"
+  },
+  "startTimeUTC": "2026-02-26T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 28,
+      "market": "A",
+      "countryCode": "US",
+      "network": "MSG-B",
+      "sequenceNumber": 392
+    },
+    {
+      "id": 409,
+      "market": "H",
+      "countryCode": "US",
+      "network": "MSGSN",
+      "sequenceNumber": 411
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 7,
+    "commonName": {
+      "default": "Sabres"
+    },
+    "abbrev": "BUF",
+    "placeName": {
+      "default": "Buffalo"
+    },
+    "placeNameWithPreposition": {
+      "default": "Buffalo",
+      "fr": "de Buffalo"
+    },
+    "score": 2,
+    "sog": 30,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/BUF_dark.svg"
+  },
+  "homeTeam": {
+    "id": 1,
+    "commonName": {
+      "default": "Devils"
+    },
+    "abbrev": "NJD",
+    "placeName": {
+      "default": "New Jersey"
+    },
+    "placeNameWithPreposition": {
+      "default": "New Jersey",
+      "fr": "du New Jersey"
+    },
+    "score": 1,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NJD_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NJD_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 696,
+            "strength": "ev",
+            "playerId": 8479420,
+            "firstName": {
+              "default": "Tage"
+            },
+            "lastName": {
+              "default": "Thompson"
+            },
+            "name": {
+              "default": "T. Thompson"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8479420.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-njd-thompson-scores-goal-against-jake-allen-6389929539112",
+            "highlightClip": 6389929539112,
+            "discreteClip": 6389930620112,
+            "discreteClipFr": 6389930619112,
+            "goalsToDate": 31,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "08:10",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481522,
+                "firstName": {
+                  "default": "Peyton"
+                },
+                "lastName": {
+                  "default": "Krebs"
+                },
+                "name": {
+                  "default": "P. Krebs"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 19
+              },
+              {
+                "playerId": 8481524,
+                "firstName": {
+                  "default": "Bowen"
+                },
+                "lastName": {
+                  "default": "Byram"
+                },
+                "name": {
+                  "default": "B. Byram"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 4
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020910/ev696.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 1006,
+            "strength": "ev",
+            "playerId": 8481522,
+            "firstName": {
+              "default": "Peyton"
+            },
+            "lastName": {
+              "default": "Krebs"
+            },
+            "name": {
+              "default": "P. Krebs"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8481522.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-njd-krebs-scores-goal-against-jake-allen-6389932289112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/peyton-krebs-with-a-but-vs-les-devils-du-new-jersey-6389931797112",
+            "highlightClip": 6389932289112,
+            "highlightClipFr": 6389931797112,
+            "discreteClip": 6389931914112,
+            "discreteClipFr": 6389933377112,
+            "goalsToDate": 8,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "10:36",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479420,
+                "firstName": {
+                  "default": "Tage"
+                },
+                "lastName": {
+                  "default": "Thompson"
+                },
+                "name": {
+                  "default": "T. Thompson"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 72
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020910/ev1006.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1093,
+            "strength": "ev",
+            "playerId": 8478414,
+            "firstName": {
+              "default": "Timo"
+            },
+            "lastName": {
+              "default": "Meier"
+            },
+            "name": {
+              "default": "T. Meier"
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8478414.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-njd-meier-scores-goal-against-ukko-pekka-luukkonen-6389931943112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-njd-meier-marque-un-but-contre-ukko-pekka-luukkonen-6389933413112",
+            "highlightClip": 6389931943112,
+            "highlightClipFr": 6389933413112,
+            "discreteClip": 6389933122112,
+            "discreteClipFr": 6389933787112,
+            "goalsToDate": 15,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "17:30",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481559,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Hughes"
+                },
+                "name": {
+                  "default": "J. Hughes"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 86
+              },
+              {
+                "playerId": 8479407,
+                "firstName": {
+                  "default": "Jesper"
+                },
+                "lastName": {
+                  "default": "Bratt"
+                },
+                "name": {
+                  "default": "J. Bratt"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 63
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020910/ev1093.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8480045,
+        "teamAbbrev": "BUF",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8480045.png",
+        "name": {
+          "default": "U. Luukkonen"
+        },
+        "sweaterNo": 1,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.964
+      },
+      {
+        "star": 2,
+        "playerId": 8479420,
+        "teamAbbrev": "BUF",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8479420.png",
+        "name": {
+          "default": "T. Thompson"
+        },
+        "sweaterNo": 72,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8474596,
+        "teamAbbrev": "NJD",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8474596.png",
+        "name": {
+          "default": "J. Allen"
+        },
+        "sweaterNo": 34,
+        "position": "G",
+        "goalsAgainstAverage": 2.12,
+        "savePctg": 0.933
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "12:44",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "J. Quinn"
+            }
+          },
+          {
+            "timeInPeriod": "16:35",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nico"
+              },
+              "lastName": {
+                "default": "Hischier"
+              },
+              "sweaterNumber": 13
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Rasmus"
+              },
+              "lastName": {
+                "default": "Dahlin"
+              },
+              "sweaterNumber": 26
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "14:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jonas"
+              },
+              "lastName": {
+                "default": "Siegenthaler"
+              },
+              "sweaterNumber": 71
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jason"
+              },
+              "lastName": {
+                "default": "Zucker"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "high-sticking",
+            "servedBy": {
+              "default": "P. Cotter"
+            }
+          },
+          {
+            "timeInPeriod": "14:44",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jonas"
+              },
+              "lastName": {
+                "default": "Siegenthaler"
+              },
+              "sweaterNumber": 71
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jason"
+              },
+              "lastName": {
+                "default": "Zucker"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "14:44",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jason"
+              },
+              "lastName": {
+                "default": "Zucker"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jonas"
+              },
+              "lastName": {
+                "default": "Siegenthaler"
+              },
+              "sweaterNumber": 71
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "16:53",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Johnathan"
+              },
+              "lastName": {
+                "default": "Kovacevic"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Josh"
+              },
+              "lastName": {
+                "default": "Doan"
+              },
+              "sweaterNumber": 91
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "11:27",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Owen"
+              },
+              "lastName": {
+                "default": "Power"
+              },
+              "sweaterNumber": 25
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Bjugstad"
+              },
+              "sweaterNumber": 72
+            },
+            "descKey": "holding"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

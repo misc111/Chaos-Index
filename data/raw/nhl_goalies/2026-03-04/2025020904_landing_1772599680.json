@@ -1,0 +1,1427 @@
+{
+  "id": 2025020904,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-05",
+  "venue": {
+    "default": "Benchmark International Arena"
+  },
+  "venueLocation": {
+    "default": "Tampa"
+  },
+  "startTimeUTC": "2026-02-06T00:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 329,
+      "market": "N",
+      "countryCode": "US",
+      "network": "ESPN+",
+      "sequenceNumber": 16
+    },
+    {
+      "id": 391,
+      "market": "N",
+      "countryCode": "US",
+      "network": "HULU",
+      "sequenceNumber": 17
+    },
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 21
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 13,
+    "commonName": {
+      "default": "Panthers"
+    },
+    "abbrev": "FLA",
+    "placeName": {
+      "default": "Florida",
+      "fr": "Floride"
+    },
+    "placeNameWithPreposition": {
+      "default": "Florida",
+      "fr": "de la Floride"
+    },
+    "score": 1,
+    "sog": 34,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/FLA_dark.svg"
+  },
+  "homeTeam": {
+    "id": 14,
+    "commonName": {
+      "default": "Lightning"
+    },
+    "abbrev": "TBL",
+    "placeName": {
+      "default": "Tampa Bay"
+    },
+    "placeNameWithPreposition": {
+      "default": "Tampa Bay",
+      "fr": "de Tampa Bay"
+    },
+    "score": 6,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TBL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/TBL_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 83,
+            "strength": "ev",
+            "playerId": 8479542,
+            "firstName": {
+              "default": "Brandon"
+            },
+            "lastName": {
+              "default": "Hagel"
+            },
+            "name": {
+              "default": "B. Hagel"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8479542.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-tbl-hagel-scores-goal-against-daniil-tarasov-6388850057112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-tbl-hagel-marque-un-but-contre-daniil-tarasov-6388849168112",
+            "highlightClip": 6388850057112,
+            "highlightClipFr": 6388849168112,
+            "discreteClip": 6388848305112,
+            "discreteClipFr": 6388848874112,
+            "goalsToDate": 27,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "02:08",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475167,
+                "firstName": {
+                  "default": "Victor"
+                },
+                "lastName": {
+                  "default": "Hedman"
+                },
+                "name": {
+                  "default": "V. Hedman"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 77
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020904/ev83.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 300,
+            "strength": "ev",
+            "playerId": 8476878,
+            "firstName": {
+              "default": "Zemgus"
+            },
+            "lastName": {
+              "default": "Girgensons"
+            },
+            "name": {
+              "default": "Z. Girgensons"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8476878.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/zemgus-girgensons-with-a-goal-vs-florida-panthers-6388849405112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/zemgus-girgensons-with-a-but-vs-les-panthers-de-la-floride-6388850222112",
+            "highlightClip": 6388849405112,
+            "highlightClipFr": 6388850222112,
+            "discreteClip": 6388850008112,
+            "discreteClipFr": 6388851268112,
+            "goalsToDate": 7,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "14:08",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480995,
+                "firstName": {
+                  "default": "Pontus"
+                },
+                "lastName": {
+                  "default": "Holmberg"
+                },
+                "name": {
+                  "default": "P. Holmberg"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8476826,
+                "firstName": {
+                  "default": "Yanni"
+                },
+                "lastName": {
+                  "default": "Gourde"
+                },
+                "name": {
+                  "default": "Y. Gourde"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 37
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020904/ev300.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 410,
+            "strength": "pp",
+            "playerId": 8477404,
+            "firstName": {
+              "default": "Jake"
+            },
+            "lastName": {
+              "default": "Guentzel"
+            },
+            "name": {
+              "default": "J. Guentzel"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8477404.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-tbl-guentzel-scores-ppg-against-daniil-tarasov-6388853116112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-tbl-guentzel-marque-un-but-en-a-n-contre-daniil-tarasov-6388853909112",
+            "highlightClip": 6388853116112,
+            "highlightClipFr": 6388853909112,
+            "discreteClip": 6388853908112,
+            "discreteClipFr": 6388854404112,
+            "goalsToDate": 26,
+            "awayScore": 0,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "01:14",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478178,
+                "firstName": {
+                  "default": "Darren"
+                },
+                "lastName": {
+                  "default": "Raddysh"
+                },
+                "name": {
+                  "default": "D. Raddysh"
+                },
+                "assistsToDate": 35,
+                "sweaterNumber": 43
+              },
+              {
+                "playerId": 8476453,
+                "firstName": {
+                  "default": "Nikita"
+                },
+                "lastName": {
+                  "default": "Kucherov",
+                  "cs": "Ku\u010derov",
+                  "fi": "Kutsherov",
+                  "sk": "Ku\u010derov"
+                },
+                "name": {
+                  "default": "N. Kucherov",
+                  "cs": "N. Ku\u010derov",
+                  "fi": "N. Kutsherov",
+                  "sk": "N. Ku\u010derov"
+                },
+                "assistsToDate": 62,
+                "sweaterNumber": 86
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020904/ev410.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 737,
+            "strength": "ev",
+            "playerId": 8478416,
+            "firstName": {
+              "default": "Erik"
+            },
+            "lastName": {
+              "default": "Cernak",
+              "cs": "\u010cern\u00e1k",
+              "sk": "\u010cern\u00e1k"
+            },
+            "name": {
+              "default": "E. Cernak",
+              "cs": "E. \u010cern\u00e1k",
+              "sk": "E. \u010cern\u00e1k"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8478416.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-tbl-cernak-scores-goal-against-daniil-tarasov-6388857065112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-tbl-cernak-marque-un-but-contre-daniil-tarasov-6388857957112",
+            "highlightClip": 6388857065112,
+            "highlightClipFr": 6388857957112,
+            "discreteClip": 6388857538112,
+            "discreteClipFr": 6388857464112,
+            "goalsToDate": 1,
+            "awayScore": 0,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "17:50",
+            "shotType": "wrap-around",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8474151,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "McDonagh"
+                },
+                "name": {
+                  "default": "R. McDonagh"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 27
+              },
+              {
+                "playerId": 8483752,
+                "firstName": {
+                  "default": "Dominic"
+                },
+                "lastName": {
+                  "default": "James"
+                },
+                "name": {
+                  "default": "D. James"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 17
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020904/ev737.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 1101,
+            "strength": "ev",
+            "playerId": 8480995,
+            "firstName": {
+              "default": "Pontus"
+            },
+            "lastName": {
+              "default": "Holmberg"
+            },
+            "name": {
+              "default": "P. Holmberg"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8480995.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pontus-holmberg-with-a-goal-vs-florida-panthers-6388860841112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pontus-holmberg-with-a-but-vs-les-panthers-de-la-floride-6388862195112",
+            "highlightClip": 6388860841112,
+            "highlightClipFr": 6388862195112,
+            "discreteClip": 6388862583112,
+            "discreteClipFr": 6388861224112,
+            "goalsToDate": 9,
+            "awayScore": 0,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "06:09",
+            "shotType": "poke",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482201,
+                "firstName": {
+                  "default": "Gage"
+                },
+                "lastName": {
+                  "default": "Goncalves"
+                },
+                "name": {
+                  "default": "G. Goncalves"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 93
+              },
+              {
+                "playerId": 8477416,
+                "firstName": {
+                  "default": "Oliver"
+                },
+                "lastName": {
+                  "default": "Bjorkstrand"
+                },
+                "name": {
+                  "default": "O. Bjorkstrand"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 22
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020904/ev1101.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 978,
+            "strength": "pp",
+            "playerId": 8482713,
+            "firstName": {
+              "default": "Mackie"
+            },
+            "lastName": {
+              "default": "Samoskevich"
+            },
+            "name": {
+              "default": "M. Samoskevich"
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8482713.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mackie-samoskevich-with-a-goal-vs-tampa-bay-lightning-6388862207112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mackie-samoskevich-with-a-but-vs-le-lightning-de-tampa-bay-6388863096112",
+            "highlightClip": 6388862207112,
+            "highlightClipFr": 6388863096112,
+            "discreteClip": 6388863287112,
+            "discreteClipFr": 6388862786112,
+            "goalsToDate": 6,
+            "awayScore": 1,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "09:50",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480003,
+                "firstName": {
+                  "default": "Jesper"
+                },
+                "lastName": {
+                  "default": "Boqvist"
+                },
+                "name": {
+                  "default": "J. Boqvist"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 70
+              },
+              {
+                "playerId": 8482113,
+                "firstName": {
+                  "default": "Anton"
+                },
+                "lastName": {
+                  "default": "Lundell"
+                },
+                "name": {
+                  "default": "A. Lundell"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 15
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020904/ev978.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1217,
+            "strength": "ev",
+            "playerId": 8477416,
+            "firstName": {
+              "default": "Oliver"
+            },
+            "lastName": {
+              "default": "Bjorkstrand"
+            },
+            "name": {
+              "default": "O. Bjorkstrand"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8477416.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-tbl-bjorkstrand-scores-goal-against-sergei-bobrovsky-6388861824112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-tbl-bjorkstrand-marque-un-but-contre-sergei-bobrovsky-6388861826112",
+            "highlightClip": 6388861824112,
+            "highlightClipFr": 6388861826112,
+            "discreteClip": 6388861813112,
+            "discreteClipFr": 6388863017112,
+            "goalsToDate": 10,
+            "awayScore": 1,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "15:41",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020904/ev1217.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8476883,
+        "teamAbbrev": "TBL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8476883.png",
+        "name": {
+          "default": "A. Vasilevskiy",
+          "cs": "A. Vasilevskij",
+          "fi": "A. Vasilevski",
+          "sk": "A. Vasilevskij"
+        },
+        "sweaterNo": 88,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.971
+      },
+      {
+        "star": 2,
+        "playerId": 8480995,
+        "teamAbbrev": "TBL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8480995.png",
+        "name": {
+          "default": "P. Holmberg"
+        },
+        "sweaterNo": 29,
+        "position": "R",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8479542,
+        "teamAbbrev": "TBL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8479542.png",
+        "name": {
+          "default": "B. Hagel"
+        },
+        "sweaterNo": 38,
+        "position": "L",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "15:14",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nikita"
+              },
+              "lastName": {
+                "default": "Kucherov",
+                "cs": "Ku\u010derov",
+                "fi": "Kutsherov",
+                "sk": "Ku\u010derov"
+              },
+              "sweaterNumber": 86
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Anton"
+              },
+              "lastName": {
+                "default": "Lundell"
+              },
+              "sweaterNumber": 15
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "15:50",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Zemgus"
+              },
+              "lastName": {
+                "default": "Girgensons"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Uvis"
+              },
+              "lastName": {
+                "default": "Balinskis"
+              },
+              "sweaterNumber": 26
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "18:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dominic"
+              },
+              "lastName": {
+                "default": "James"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jesper"
+              },
+              "lastName": {
+                "default": "Boqvist"
+              },
+              "sweaterNumber": 70
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "18:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mackie"
+              },
+              "lastName": {
+                "default": "Samoskevich"
+              },
+              "sweaterNumber": 11
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Gage"
+              },
+              "lastName": {
+                "default": "Goncalves"
+              },
+              "sweaterNumber": 93
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "18:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Gage"
+              },
+              "lastName": {
+                "default": "Goncalves"
+              },
+              "sweaterNumber": 93
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mackie"
+              },
+              "lastName": {
+                "default": "Samoskevich"
+              },
+              "sweaterNumber": 11
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "18:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jesper"
+              },
+              "lastName": {
+                "default": "Boqvist"
+              },
+              "sweaterNumber": 70
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Dominic"
+              },
+              "lastName": {
+                "default": "James"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "20:00",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Tkachuk"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "descKey": "abuse-of-officials"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "10:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Anton"
+              },
+              "lastName": {
+                "default": "Lundell"
+              },
+              "sweaterNumber": 15
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Oliver"
+              },
+              "lastName": {
+                "default": "Bjorkstrand"
+              },
+              "sweaterNumber": 22
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "14:20",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nikita"
+              },
+              "lastName": {
+                "default": "Kucherov",
+                "cs": "Ku\u010derov",
+                "fi": "Kutsherov",
+                "sk": "Ku\u010derov"
+              },
+              "sweaterNumber": 86
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Uvis"
+              },
+              "lastName": {
+                "default": "Balinskis"
+              },
+              "sweaterNumber": 26
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "16:06",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sam"
+              },
+              "lastName": {
+                "default": "Bennett"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "J.J."
+              },
+              "lastName": {
+                "default": "Moser"
+              },
+              "sweaterNumber": 90
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "16:06",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "J.J."
+              },
+              "lastName": {
+                "default": "Moser"
+              },
+              "sweaterNumber": 90
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Sam"
+              },
+              "lastName": {
+                "default": "Bennett"
+              },
+              "sweaterNumber": 9
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "16:06",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Tkachuk"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Victor"
+              },
+              "lastName": {
+                "default": "Hedman"
+              },
+              "sweaterNumber": 77
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "16:06",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Victor"
+              },
+              "lastName": {
+                "default": "Hedman"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Tkachuk"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:06",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Tkachuk"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nikita"
+              },
+              "lastName": {
+                "default": "Kucherov",
+                "cs": "Ku\u010derov",
+                "fi": "Kutsherov",
+                "sk": "Ku\u010derov"
+              },
+              "sweaterNumber": 86
+            },
+            "descKey": "interference",
+            "servedBy": {
+              "default": "S. Reinhart"
+            }
+          },
+          {
+            "timeInPeriod": "04:06",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Niko"
+              },
+              "lastName": {
+                "default": "Mikkola"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Hagel"
+              },
+              "sweaterNumber": 38
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "04:06",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Tkachuk"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Hagel"
+              },
+              "sweaterNumber": 38
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "04:06",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Gustav"
+              },
+              "lastName": {
+                "default": "Forsling"
+              },
+              "sweaterNumber": 42
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "J.J."
+              },
+              "lastName": {
+                "default": "Moser"
+              },
+              "sweaterNumber": 90
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "04:06",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "J.J."
+              },
+              "lastName": {
+                "default": "Moser"
+              },
+              "sweaterNumber": 90
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Gustav"
+              },
+              "lastName": {
+                "default": "Forsling"
+              },
+              "sweaterNumber": 42
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "04:06",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Hagel"
+              },
+              "sweaterNumber": 38
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Tkachuk"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "04:06",
+            "type": "GAM",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Tkachuk"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "descKey": "game-misconduct"
+          },
+          {
+            "timeInPeriod": "04:06",
+            "type": "GAM",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "J.J."
+              },
+              "lastName": {
+                "default": "Moser"
+              },
+              "sweaterNumber": 90
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "descKey": "game-misconduct"
+          },
+          {
+            "timeInPeriod": "04:06",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Donovan"
+              },
+              "lastName": {
+                "default": "Sebrango"
+              },
+              "sweaterNumber": 6
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "descKey": "misconduct"
+          },
+          {
+            "timeInPeriod": "04:06",
+            "type": "GAM",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Gustav"
+              },
+              "lastName": {
+                "default": "Forsling"
+              },
+              "sweaterNumber": 42
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "descKey": "game-misconduct"
+          },
+          {
+            "timeInPeriod": "04:06",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sam"
+              },
+              "lastName": {
+                "default": "Bennett"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "descKey": "misconduct"
+          },
+          {
+            "timeInPeriod": "04:06",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "Guentzel"
+              },
+              "sweaterNumber": 59
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "descKey": "misconduct"
+          },
+          {
+            "timeInPeriod": "04:06",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nikita"
+              },
+              "lastName": {
+                "default": "Kucherov",
+                "cs": "Ku\u010derov",
+                "fi": "Kutsherov",
+                "sk": "Ku\u010derov"
+              },
+              "sweaterNumber": 86
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "descKey": "misconduct"
+          },
+          {
+            "timeInPeriod": "04:06",
+            "type": "GAM",
+            "duration": 0,
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "descKey": "game-misconduct-head-coach"
+          },
+          {
+            "timeInPeriod": "04:06",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Yanni"
+              },
+              "lastName": {
+                "default": "Gourde"
+              },
+              "sweaterNumber": 37
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "descKey": "misconduct"
+          },
+          {
+            "timeInPeriod": "04:06",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Darren"
+              },
+              "lastName": {
+                "default": "Raddysh"
+              },
+              "sweaterNumber": 43
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "descKey": "misconduct"
+          },
+          {
+            "timeInPeriod": "04:06",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Carter"
+              },
+              "lastName": {
+                "default": "Verhaeghe"
+              },
+              "sweaterNumber": 23
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "descKey": "misconduct"
+          },
+          {
+            "timeInPeriod": "06:33",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Curtis"
+              },
+              "lastName": {
+                "default": "Douglas"
+              },
+              "sweaterNumber": 42
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Niko"
+              },
+              "lastName": {
+                "default": "Mikkola"
+              },
+              "sweaterNumber": 77
+            },
+            "descKey": "fighting",
+            "servedBy": {
+              "default": "J. Finley"
+            }
+          },
+          {
+            "timeInPeriod": "06:33",
+            "type": "GAM",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Curtis"
+              },
+              "lastName": {
+                "default": "Douglas"
+              },
+              "sweaterNumber": 42
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "descKey": "aggressor"
+          },
+          {
+            "timeInPeriod": "16:05",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Declan"
+              },
+              "lastName": {
+                "default": "Carlile"
+              },
+              "sweaterNumber": 67
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mikulas"
+              },
+              "lastName": {
+                "default": "Hovorka"
+              },
+              "sweaterNumber": 96
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

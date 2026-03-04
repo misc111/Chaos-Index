@@ -1,0 +1,848 @@
+{
+  "id": 2025020924,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-26",
+  "venue": {
+    "default": "Madison Square Garden"
+  },
+  "venueLocation": {
+    "default": "New York"
+  },
+  "startTimeUTC": "2026-02-27T01:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "America/New_York",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 309,
+      "market": "N",
+      "countryCode": "US",
+      "network": "ESPN",
+      "sequenceNumber": 10
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 4,
+    "commonName": {
+      "default": "Flyers"
+    },
+    "abbrev": "PHI",
+    "placeName": {
+      "default": "Philadelphia",
+      "fr": "Philadelphie"
+    },
+    "placeNameWithPreposition": {
+      "default": "Philadelphia",
+      "fr": "de Philadelphie"
+    },
+    "score": 3,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/PHI_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/PHI_dark.svg"
+  },
+  "homeTeam": {
+    "id": 3,
+    "commonName": {
+      "default": "Rangers"
+    },
+    "abbrev": "NYR",
+    "placeName": {
+      "default": "New York"
+    },
+    "placeNameWithPreposition": {
+      "default": "New York",
+      "fr": "de New York"
+    },
+    "score": 2,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NYR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NYR_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 287,
+            "strength": "ev",
+            "playerId": 8475842,
+            "firstName": {
+              "default": "Sam"
+            },
+            "lastName": {
+              "default": "Carrick"
+            },
+            "name": {
+              "default": "S. Carrick"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8475842.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-nyr-carrick-scores-goal-against-samuel-ersson-6390020302112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-nyr-carrick-marque-un-but-contre-samuel-ersson-6390021443112",
+            "highlightClip": 6390020302112,
+            "highlightClipFr": 6390021443112,
+            "discreteClip": 6390020093112,
+            "discreteClipFr": 6390021244112,
+            "goalsToDate": 4,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "09:56",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479390,
+                "firstName": {
+                  "default": "Taylor"
+                },
+                "lastName": {
+                  "default": "Raddysh"
+                },
+                "name": {
+                  "default": "T. Raddysh"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 14
+              },
+              {
+                "playerId": 8478840,
+                "firstName": {
+                  "default": "Will",
+                  "cs": "William",
+                  "de": "William",
+                  "es": "William",
+                  "fi": "William",
+                  "sk": "William",
+                  "sv": "William"
+                },
+                "lastName": {
+                  "default": "Borgen"
+                },
+                "name": {
+                  "default": "W. Borgen"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 17
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020924/ev287.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 449,
+            "strength": "ev",
+            "playerId": 8482109,
+            "firstName": {
+              "default": "Alexis"
+            },
+            "lastName": {
+              "default": "Lafreni\u00e8re"
+            },
+            "name": {
+              "default": "A. Lafreni\u00e8re"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8482109.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-nyr-lafreniere-scores-goal-against-samuel-ersson-6390024243112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-nyr-lafreniere-marque-un-but-contre-samuel-ersson-6390025718112",
+            "highlightClip": 6390024243112,
+            "highlightClipFr": 6390025718112,
+            "discreteClip": 6390025136112,
+            "discreteClipFr": 6390025417112,
+            "goalsToDate": 13,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "01:23",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482157,
+                "firstName": {
+                  "default": "Will"
+                },
+                "lastName": {
+                  "default": "Cuylle"
+                },
+                "name": {
+                  "default": "W. Cuylle"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 50
+              },
+              {
+                "playerId": 8476389,
+                "firstName": {
+                  "default": "Vincent"
+                },
+                "lastName": {
+                  "default": "Trocheck"
+                },
+                "name": {
+                  "default": "V. Trocheck"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 16
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020924/ev449.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 622,
+            "strength": "pp",
+            "playerId": 8484387,
+            "firstName": {
+              "default": "Matvei",
+              "cs": "Matvej",
+              "sk": "Matvej"
+            },
+            "lastName": {
+              "default": "Michkov",
+              "cs": "Mi\u010dkov",
+              "fi": "Mitshkov",
+              "sk": "Mi\u010dkov"
+            },
+            "name": {
+              "default": "M. Michkov",
+              "cs": "M. Mi\u010dkov",
+              "fi": "M. Mitshkov",
+              "sk": "M. Mi\u010dkov"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8484387.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-nyr-michkov-scores-ppg-against-igor-shesterkin-6390026653112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-nyr-michkov-marque-un-but-en-a-n-contre-igor-shesterkin-6390026480112",
+            "highlightClip": 6390026653112,
+            "highlightClipFr": 6390026480112,
+            "discreteClip": 6390028031112,
+            "discreteClipFr": 6390028029112,
+            "goalsToDate": 14,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "10:25",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480220,
+                "firstName": {
+                  "default": "Noah"
+                },
+                "lastName": {
+                  "default": "Cates"
+                },
+                "name": {
+                  "default": "N. Cates"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 27
+              },
+              {
+                "playerId": 8480015,
+                "firstName": {
+                  "default": "Owen"
+                },
+                "lastName": {
+                  "default": "Tippett"
+                },
+                "name": {
+                  "default": "O. Tippett"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 74
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020924/ev622.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 744,
+            "strength": "ev",
+            "playerId": 8481533,
+            "firstName": {
+              "default": "Trevor"
+            },
+            "lastName": {
+              "default": "Zegras"
+            },
+            "name": {
+              "default": "T. Zegras"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8481533.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-nyr-zegras-scores-goal-against-igor-shesterkin-6390031215112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-nyr-zegras-marque-un-but-contre-igor-shesterkin-6390030720112",
+            "highlightClip": 6390031215112,
+            "highlightClipFr": 6390030720112,
+            "discreteClip": 6390030616112,
+            "discreteClipFr": 6390030103112,
+            "goalsToDate": 21,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "00:39",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478439,
+                "firstName": {
+                  "default": "Travis"
+                },
+                "lastName": {
+                  "default": "Konecny"
+                },
+                "name": {
+                  "default": "T. Konecny"
+                },
+                "assistsToDate": 33,
+                "sweaterNumber": 11
+              },
+              {
+                "playerId": 8477948,
+                "firstName": {
+                  "default": "Travis"
+                },
+                "lastName": {
+                  "default": "Sanheim"
+                },
+                "name": {
+                  "default": "T. Sanheim"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020924/ev744.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1441",
+            "eventId": 1093,
+            "strength": "ev",
+            "playerId": 8484387,
+            "firstName": {
+              "default": "Matvei",
+              "cs": "Matvej",
+              "sk": "Matvej"
+            },
+            "lastName": {
+              "default": "Michkov",
+              "cs": "Mi\u010dkov",
+              "fi": "Mitshkov",
+              "sk": "Mi\u010dkov"
+            },
+            "name": {
+              "default": "M. Michkov",
+              "cs": "M. Mi\u010dkov",
+              "fi": "M. Mitshkov",
+              "sk": "M. Mi\u010dkov"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8484387.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-nyr-michkov-scores-goal-against-igor-shesterkin-6390032739112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-nyr-michkov-marque-un-but-contre-igor-shesterkin-6390033225112",
+            "highlightClip": 6390032739112,
+            "highlightClipFr": 6390033225112,
+            "discreteClip": 6390033226112,
+            "discreteClipFr": 6390033691112,
+            "goalsToDate": 15,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "PHI"
+            },
+            "timeInPeriod": "02:10",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476461,
+                "firstName": {
+                  "default": "Sean"
+                },
+                "lastName": {
+                  "default": "Couturier"
+                },
+                "name": {
+                  "default": "S. Couturier"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 14
+              },
+              {
+                "playerId": 8476372,
+                "firstName": {
+                  "default": "Nick"
+                },
+                "lastName": {
+                  "default": "Seeler"
+                },
+                "name": {
+                  "default": "N. Seeler"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 24
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020924/ev1093.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8484387,
+        "teamAbbrev": "PHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8484387.png",
+        "name": {
+          "default": "M. Michkov",
+          "cs": "M. Mi\u010dkov",
+          "fi": "M. Mitshkov",
+          "sk": "M. Mi\u010dkov"
+        },
+        "sweaterNo": 39,
+        "position": "R",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8481533,
+        "teamAbbrev": "PHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8481533.png",
+        "name": {
+          "default": "T. Zegras"
+        },
+        "sweaterNo": 46,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8475842,
+        "teamAbbrev": "NYR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8475842.png",
+        "name": {
+          "default": "S. Carrick"
+        },
+        "sweaterNo": 39,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "16:11",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Garnet"
+              },
+              "lastName": {
+                "default": "Hathaway"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brennan"
+              },
+              "lastName": {
+                "default": "Othmann"
+              },
+              "sweaterNumber": 78
+            },
+            "descKey": "boarding",
+            "servedBy": {
+              "default": "M. Michkov",
+              "cs": "M. Mi\u010dkov",
+              "fi": "M. Mitshkov",
+              "sk": "M. Mi\u010dkov"
+            }
+          },
+          {
+            "timeInPeriod": "16:11",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sam"
+              },
+              "lastName": {
+                "default": "Carrick"
+              },
+              "sweaterNumber": 39
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Garnet"
+              },
+              "lastName": {
+                "default": "Hathaway"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "16:11",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Garnet"
+              },
+              "lastName": {
+                "default": "Hathaway"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Sam"
+              },
+              "lastName": {
+                "default": "Carrick"
+              },
+              "sweaterNumber": 39
+            },
+            "descKey": "fighting"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:29",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brennan"
+              },
+              "lastName": {
+                "default": "Othmann"
+              },
+              "sweaterNumber": 78
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Bobby"
+              },
+              "lastName": {
+                "default": "Brink"
+              },
+              "sweaterNumber": 10
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "08:27",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Conor"
+              },
+              "lastName": {
+                "default": "Sheary"
+              },
+              "sweaterNumber": 43
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matvei",
+                "cs": "Matvej",
+                "sk": "Matvej"
+              },
+              "lastName": {
+                "default": "Michkov",
+                "cs": "Mi\u010dkov",
+                "fi": "Mitshkov",
+                "sk": "Mi\u010dkov"
+              },
+              "sweaterNumber": 39
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "11:53",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Trevor"
+              },
+              "lastName": {
+                "default": "Zegras"
+              },
+              "sweaterNumber": 46
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Will"
+              },
+              "lastName": {
+                "default": "Cuylle"
+              },
+              "sweaterNumber": 50
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "13:17",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Vincent"
+              },
+              "lastName": {
+                "default": "Trocheck"
+              },
+              "sweaterNumber": 16
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Cates"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "interference"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "07:28",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Alexis"
+              },
+              "lastName": {
+                "default": "Lafreni\u00e8re"
+              },
+              "sweaterNumber": 13
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Travis"
+              },
+              "lastName": {
+                "default": "Sanheim"
+              },
+              "sweaterNumber": 6
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "14:40",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Vladislav"
+              },
+              "lastName": {
+                "default": "Gavrikov"
+              },
+              "sweaterNumber": 44
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Garnet"
+              },
+              "lastName": {
+                "default": "Hathaway"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "19:51",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matvei",
+                "cs": "Matvej",
+                "sk": "Matvej"
+              },
+              "lastName": {
+                "default": "Michkov",
+                "cs": "Mi\u010dkov",
+                "fi": "Mitshkov",
+                "sk": "Mi\u010dkov"
+              },
+              "sweaterNumber": 39
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Igor"
+              },
+              "lastName": {
+                "default": "Shesterkin",
+                "cs": "\u0160es\u0165orkin",
+                "fi": "Shestjorkin",
+                "sk": "\u0160es\u0165orkin"
+              },
+              "sweaterNumber": 31
+            },
+            "descKey": "interference-goalkeeper"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "02:50",
+    "secondsRemaining": 170,
+    "running": false,
+    "inIntermission": false
+  }
+}

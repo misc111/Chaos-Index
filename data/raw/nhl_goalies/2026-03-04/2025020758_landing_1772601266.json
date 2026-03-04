@@ -1,0 +1,1189 @@
+{
+  "id": 2025020758,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-17",
+  "venue": {
+    "default": "Canadian Tire Centre"
+  },
+  "venueLocation": {
+    "default": "Ottawa"
+  },
+  "startTimeUTC": "2026-01-18T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 287,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SNE",
+      "sequenceNumber": 30
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 286,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CITY",
+      "sequenceNumber": 137
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 8,
+    "commonName": {
+      "default": "Canadiens"
+    },
+    "abbrev": "MTL",
+    "placeName": {
+      "default": "Montr\u00e9al"
+    },
+    "placeNameWithPreposition": {
+      "default": "Montr\u00e9al",
+      "fr": "de Montr\u00e9al"
+    },
+    "score": 6,
+    "sog": 19,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MTL_dark.svg"
+  },
+  "homeTeam": {
+    "id": 9,
+    "commonName": {
+      "default": "Senators",
+      "fr": "S\u00e9nateurs"
+    },
+    "abbrev": "OTT",
+    "placeName": {
+      "default": "Ottawa"
+    },
+    "placeNameWithPreposition": {
+      "default": "Ottawa",
+      "fr": "d'Ottawa"
+    },
+    "score": 5,
+    "sog": 34,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/OTT_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/OTT_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 87,
+            "strength": "pp",
+            "playerId": 8483515,
+            "firstName": {
+              "default": "Juraj"
+            },
+            "lastName": {
+              "default": "Slafkovsk\u00fd"
+            },
+            "name": {
+              "default": "J. Slafkovsk\u00fd"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8483515.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-ott-slafkovsky-scores-ppg-against-leevi-merilainen-6387881377112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-ott-slafkovsky-marque-un-but-en-a-n-contre-leevi-merilainen-6387882185112",
+            "highlightClip": 6387881377112,
+            "highlightClipFr": 6387882185112,
+            "discreteClip": 6387880808112,
+            "discreteClipFr": 6387881888112,
+            "goalsToDate": 18,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "03:06",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481540,
+                "firstName": {
+                  "default": "Cole"
+                },
+                "lastName": {
+                  "default": "Caufield"
+                },
+                "name": {
+                  "default": "C. Caufield"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 13
+              },
+              {
+                "playerId": 8480018,
+                "firstName": {
+                  "default": "Nick"
+                },
+                "lastName": {
+                  "default": "Suzuki"
+                },
+                "name": {
+                  "default": "N. Suzuki"
+                },
+                "assistsToDate": 38,
+                "sweaterNumber": 14
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020758/ev87.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 513,
+            "strength": "pp",
+            "playerId": 8481540,
+            "firstName": {
+              "default": "Cole"
+            },
+            "lastName": {
+              "default": "Caufield"
+            },
+            "name": {
+              "default": "C. Caufield"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8481540.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-ott-caufield-scores-ppg-against-leevi-merilainen-6387883676112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-ott-caufield-marque-un-but-en-a-n-contre-leevi-merilainen-6387881650112",
+            "highlightClip": 6387883676112,
+            "highlightClipFr": 6387881650112,
+            "discreteClip": 6387881531112,
+            "discreteClipFr": 6387882024112,
+            "goalsToDate": 23,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "17:50",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480018,
+                "firstName": {
+                  "default": "Nick"
+                },
+                "lastName": {
+                  "default": "Suzuki"
+                },
+                "name": {
+                  "default": "N. Suzuki"
+                },
+                "assistsToDate": 39,
+                "sweaterNumber": 14
+              },
+              {
+                "playerId": 8483457,
+                "firstName": {
+                  "default": "Lane"
+                },
+                "lastName": {
+                  "default": "Hutson"
+                },
+                "name": {
+                  "default": "L. Hutson"
+                },
+                "assistsToDate": 40,
+                "sweaterNumber": 48
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020758/ev513.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1351",
+            "eventId": 553,
+            "strength": "pp",
+            "playerId": 8480801,
+            "firstName": {
+              "default": "Brady"
+            },
+            "lastName": {
+              "default": "Tkachuk"
+            },
+            "name": {
+              "default": "B. Tkachuk"
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8480801.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-ott-tkachuk-scores-ppg-against-samuel-montembeault-6387882145112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-ott-tkachuk-marque-un-but-en-a-n-contre-samuel-montembeault-6387884306112",
+            "highlightClip": 6387882145112,
+            "highlightClipFr": 6387884306112,
+            "discreteClip": 6387883901112,
+            "discreteClipFr": 6387884018112,
+            "goalsToDate": 10,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "00:42",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8473512,
+                "firstName": {
+                  "default": "Claude"
+                },
+                "lastName": {
+                  "default": "Giroux"
+                },
+                "name": {
+                  "default": "C. Giroux"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 28
+              },
+              {
+                "playerId": 8482105,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "Sanderson"
+                },
+                "name": {
+                  "default": "J. Sanderson"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 85
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020758/ev553.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 595,
+            "strength": "ev",
+            "playerId": 8482116,
+            "firstName": {
+              "default": "Tim"
+            },
+            "lastName": {
+              "default": "St\u00fctzle"
+            },
+            "name": {
+              "default": "T. St\u00fctzle"
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8482116.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-ott-stutzle-scores-goal-against-samuel-montembeault-6387885395112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-ott-stutzle-marque-un-but-contre-samuel-montembeault-6387884808112",
+            "highlightClip": 6387885395112,
+            "highlightClipFr": 6387884808112,
+            "discreteClip": 6387884315112,
+            "discreteClipFr": 6387884709112,
+            "goalsToDate": 21,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "03:07",
+            "shotType": "between-legs",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476393,
+                "firstName": {
+                  "default": "Nick"
+                },
+                "lastName": {
+                  "default": "Cousins"
+                },
+                "name": {
+                  "default": "N. Cousins"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 21
+              },
+              {
+                "playerId": 8474189,
+                "firstName": {
+                  "default": "Lars"
+                },
+                "lastName": {
+                  "default": "Eller"
+                },
+                "name": {
+                  "default": "L. Eller"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 89
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020758/ev595.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 609,
+            "strength": "ev",
+            "playerId": 8476981,
+            "firstName": {
+              "default": "Josh"
+            },
+            "lastName": {
+              "default": "Anderson"
+            },
+            "name": {
+              "default": "J. Anderson"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8476981.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-ott-anderson-scores-goal-against-leevi-merilainen-6387885003112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-ott-anderson-marque-un-but-contre-leevi-merilainen-6387885006112",
+            "highlightClip": 6387885003112,
+            "highlightClipFr": 6387885006112,
+            "discreteClip": 6387885500112,
+            "discreteClipFr": 6387884814112,
+            "goalsToDate": 11,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "04:26",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476875,
+                "firstName": {
+                  "default": "Mike"
+                },
+                "lastName": {
+                  "default": "Matheson"
+                },
+                "name": {
+                  "default": "M. Matheson"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 8
+              },
+              {
+                "playerId": 8480865,
+                "firstName": {
+                  "default": "Noah"
+                },
+                "lastName": {
+                  "default": "Dobson"
+                },
+                "name": {
+                  "default": "N. Dobson"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 53
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020758/ev609.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 758,
+            "strength": "pp",
+            "playerId": 8481528,
+            "firstName": {
+              "default": "Dylan"
+            },
+            "lastName": {
+              "default": "Cozens"
+            },
+            "name": {
+              "default": "D. Cozens"
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8481528.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-ott-cozens-scores-ppg-against-samuel-montembeault-6387886243112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-ott-cozens-marque-un-but-en-a-n-contre-samuel-montembeault-6387886125112",
+            "highlightClip": 6387886243112,
+            "highlightClipFr": 6387886125112,
+            "discreteClip": 6387884563112,
+            "discreteClipFr": 6387885562112,
+            "goalsToDate": 14,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "15:31",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482116,
+                "firstName": {
+                  "default": "Tim"
+                },
+                "lastName": {
+                  "default": "St\u00fctzle"
+                },
+                "name": {
+                  "default": "T. St\u00fctzle"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 18
+              },
+              {
+                "playerId": 8482105,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "Sanderson"
+                },
+                "name": {
+                  "default": "J. Sanderson"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 85
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020758/ev758.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 306,
+            "strength": "ev",
+            "playerId": 8474102,
+            "firstName": {
+              "default": "David"
+            },
+            "lastName": {
+              "default": "Perron"
+            },
+            "name": {
+              "default": "D. Perron"
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8474102.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-ott-perron-scores-goal-against-samuel-montembeault-6387886434112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-ott-perron-marque-un-but-contre-samuel-montembeault-6387886130112",
+            "highlightClip": 6387886434112,
+            "highlightClipFr": 6387886130112,
+            "discreteClip": 6387886818112,
+            "discreteClipFr": 6387887513112,
+            "goalsToDate": 10,
+            "awayScore": 3,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "OTT"
+            },
+            "timeInPeriod": "18:24",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482245,
+                "firstName": {
+                  "default": "Artem",
+                  "cs": "Ar\u0165om",
+                  "fi": "Artjom",
+                  "sk": "Ar\u0165om"
+                },
+                "lastName": {
+                  "default": "Zub"
+                },
+                "name": {
+                  "default": "A. Zub"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 2
+              },
+              {
+                "playerId": 8482105,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "Sanderson"
+                },
+                "name": {
+                  "default": "J. Sanderson"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 85
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020758/ev306.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 940,
+            "strength": "ev",
+            "playerId": 8482105,
+            "firstName": {
+              "default": "Jake"
+            },
+            "lastName": {
+              "default": "Sanderson"
+            },
+            "name": {
+              "default": "J. Sanderson"
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8482105.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-ott-sanderson-scores-goal-against-samuel-montembeault-6387888452112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-ott-sanderson-marque-un-but-contre-samuel-montembeault-6387888061112",
+            "highlightClip": 6387888452112,
+            "highlightClipFr": 6387888061112,
+            "discreteClip": 6387886688112,
+            "discreteClipFr": 6387888450112,
+            "goalsToDate": 10,
+            "awayScore": 3,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "OTT"
+            },
+            "timeInPeriod": "07:55",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482092,
+                "firstName": {
+                  "default": "Ridly"
+                },
+                "lastName": {
+                  "default": "Greig"
+                },
+                "name": {
+                  "default": "R. Greig"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 71
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020758/ev940.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 1060,
+            "strength": "ev",
+            "playerId": 8483515,
+            "firstName": {
+              "default": "Juraj"
+            },
+            "lastName": {
+              "default": "Slafkovsk\u00fd"
+            },
+            "name": {
+              "default": "J. Slafkovsk\u00fd"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8483515.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-ott-slafkovsky-scores-goal-against-leevi-merilainen-6387887805112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-ott-slafkovsky-marque-un-but-contre-leevi-merilainen-6387889155112",
+            "highlightClip": 6387887805112,
+            "highlightClipFr": 6387889155112,
+            "discreteClip": 6387889681112,
+            "discreteClipFr": 6387889953112,
+            "goalsToDate": 19,
+            "awayScore": 4,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "OTT"
+            },
+            "timeInPeriod": "15:36",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483457,
+                "firstName": {
+                  "default": "Lane"
+                },
+                "lastName": {
+                  "default": "Hutson"
+                },
+                "name": {
+                  "default": "L. Hutson"
+                },
+                "assistsToDate": 41,
+                "sweaterNumber": 48
+              },
+              {
+                "playerId": 8476479,
+                "firstName": {
+                  "default": "Phillip"
+                },
+                "lastName": {
+                  "default": "Danault"
+                },
+                "name": {
+                  "default": "P. Danault"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 24
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020758/ev1060.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1074,
+            "strength": "ev",
+            "playerId": 8478851,
+            "firstName": {
+              "default": "Alexandre"
+            },
+            "lastName": {
+              "default": "Carrier"
+            },
+            "name": {
+              "default": "A. Carrier"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8478851.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-ott-carrier-scores-goal-against-leevi-merilainen-6387888592112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-ott-carrier-marque-un-but-contre-leevi-merilainen-6387888990112",
+            "highlightClip": 6387888592112,
+            "highlightClipFr": 6387888990112,
+            "discreteClip": 6387890243112,
+            "discreteClipFr": 6387888287112,
+            "goalsToDate": 4,
+            "awayScore": 5,
+            "homeScore": 5,
+            "timeInPeriod": "16:41",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484984,
+                "firstName": {
+                  "default": "Ivan"
+                },
+                "lastName": {
+                  "default": "Demidov"
+                },
+                "name": {
+                  "default": "I. Demidov"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 93
+              },
+              {
+                "playerId": 8476981,
+                "firstName": {
+                  "default": "Josh"
+                },
+                "lastName": {
+                  "default": "Anderson"
+                },
+                "name": {
+                  "default": "J. Anderson"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 17
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020758/ev1074.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 1138,
+            "strength": "ev",
+            "playerId": 8481540,
+            "firstName": {
+              "default": "Cole"
+            },
+            "lastName": {
+              "default": "Caufield"
+            },
+            "name": {
+              "default": "C. Caufield"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8481540.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-ott-caufield-scores-goal-against-leevi-merilainen-6387888713112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-ott-caufield-marque-un-but-contre-leevi-merilainen-6387890962112",
+            "highlightClip": 6387888713112,
+            "highlightClipFr": 6387890962112,
+            "discreteClip": 6387890482112,
+            "discreteClipFr": 6387890370112,
+            "goalsToDate": 24,
+            "awayScore": 6,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "00:33",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483457,
+                "firstName": {
+                  "default": "Lane"
+                },
+                "lastName": {
+                  "default": "Hutson"
+                },
+                "name": {
+                  "default": "L. Hutson"
+                },
+                "assistsToDate": 42,
+                "sweaterNumber": 48
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020758/ev1138.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8481540,
+        "teamAbbrev": "MTL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8481540.png",
+        "name": {
+          "default": "C. Caufield"
+        },
+        "sweaterNo": 13,
+        "position": "R",
+        "goals": 2,
+        "assists": 1,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8483515,
+        "teamAbbrev": "MTL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8483515.png",
+        "name": {
+          "default": "J. Slafkovsk\u00fd"
+        },
+        "sweaterNo": 20,
+        "position": "L",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8482105,
+        "teamAbbrev": "OTT",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8482105.png",
+        "name": {
+          "default": "J. Sanderson"
+        },
+        "sweaterNo": 85,
+        "position": "D",
+        "goals": 1,
+        "assists": 3,
+        "points": 4
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:32",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Drake"
+              },
+              "lastName": {
+                "default": "Batherson"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mike"
+              },
+              "lastName": {
+                "default": "Matheson"
+              },
+              "sweaterNumber": 8
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "16:32",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "David"
+              },
+              "lastName": {
+                "default": "Perron"
+              },
+              "sweaterNumber": 57
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Arber"
+              },
+              "lastName": {
+                "default": "Xhekaj"
+              },
+              "sweaterNumber": 72
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "19:25",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kaiden"
+              },
+              "lastName": {
+                "default": "Guhle"
+              },
+              "sweaterNumber": 21
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ridly"
+              },
+              "lastName": {
+                "default": "Greig"
+              },
+              "sweaterNumber": 71
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "20:00",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Josh"
+              },
+              "lastName": {
+                "default": "Anderson"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Dylan"
+              },
+              "lastName": {
+                "default": "Cozens"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "10:12",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Cousins"
+              },
+              "sweaterNumber": 21
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Dobson"
+              },
+              "sweaterNumber": 53
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "12:39",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Cousins"
+              },
+              "sweaterNumber": 21
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Alexandre"
+              },
+              "lastName": {
+                "default": "Carrier"
+              },
+              "sweaterNumber": 45
+            },
+            "descKey": "roughing-removing-opponents-helmet"
+          },
+          {
+            "timeInPeriod": "13:34",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ivan"
+              },
+              "lastName": {
+                "default": "Demidov"
+              },
+              "sweaterNumber": 93
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Tim"
+              },
+              "lastName": {
+                "default": "St\u00fctzle"
+              },
+              "sweaterNumber": 18
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "15:03",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brady"
+              },
+              "lastName": {
+                "default": "Tkachuk"
+              },
+              "sweaterNumber": 7
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Phillip"
+              },
+              "lastName": {
+                "default": "Danault"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "15:03",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Phillip"
+              },
+              "lastName": {
+                "default": "Danault"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brady"
+              },
+              "lastName": {
+                "default": "Tkachuk"
+              },
+              "sweaterNumber": 7
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "05:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Thomas"
+              },
+              "lastName": {
+                "default": "Chabot"
+              },
+              "sweaterNumber": 72
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brendan"
+              },
+              "lastName": {
+                "default": "Gallagher"
+              },
+              "sweaterNumber": 11
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "04:27",
+    "secondsRemaining": 267,
+    "running": false,
+    "inIntermission": false
+  }
+}

@@ -1,0 +1,455 @@
+{
+  "id": 2025020907,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-05",
+  "venue": {
+    "default": "Xfinity Mobile Arena"
+  },
+  "venueLocation": {
+    "default": "Philadelphia",
+    "fr": "Philadelphie"
+  },
+  "startTimeUTC": "2026-02-06T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 294,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "TSN5",
+      "sequenceNumber": 135
+    },
+    {
+      "id": 33,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "RDS",
+      "sequenceNumber": 145
+    },
+    {
+      "id": 322,
+      "market": "H",
+      "countryCode": "US",
+      "network": "NBCSP",
+      "sequenceNumber": 389
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 9,
+    "commonName": {
+      "default": "Senators",
+      "fr": "S\u00e9nateurs"
+    },
+    "abbrev": "OTT",
+    "placeName": {
+      "default": "Ottawa"
+    },
+    "placeNameWithPreposition": {
+      "default": "Ottawa",
+      "fr": "d'Ottawa"
+    },
+    "score": 2,
+    "sog": 27,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/OTT_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/OTT_dark.svg"
+  },
+  "homeTeam": {
+    "id": 4,
+    "commonName": {
+      "default": "Flyers"
+    },
+    "abbrev": "PHI",
+    "placeName": {
+      "default": "Philadelphia",
+      "fr": "Philadelphie"
+    },
+    "placeNameWithPreposition": {
+      "default": "Philadelphia",
+      "fr": "de Philadelphie"
+    },
+    "score": 1,
+    "sog": 16,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/PHI_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/PHI_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 672,
+            "strength": "ev",
+            "playerId": 8476393,
+            "firstName": {
+              "default": "Nick"
+            },
+            "lastName": {
+              "default": "Cousins"
+            },
+            "name": {
+              "default": "N. Cousins"
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8476393.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ott-phi-cousins-scores-goal-against-dan-vladar-6388852393112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ott-phi-cousins-marque-un-but-contre-dan-vladar-6388851707112",
+            "highlightClip": 6388852393112,
+            "highlightClipFr": 6388851707112,
+            "discreteClip": 6388851030112,
+            "discreteClipFr": 6388851411112,
+            "goalsToDate": 8,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "OTT"
+            },
+            "timeInPeriod": "09:55",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481596,
+                "firstName": {
+                  "default": "Shane"
+                },
+                "lastName": {
+                  "default": "Pinto"
+                },
+                "name": {
+                  "default": "S. Pinto"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 12
+              },
+              {
+                "playerId": 8478020,
+                "firstName": {
+                  "default": "Michael"
+                },
+                "lastName": {
+                  "default": "Amadio"
+                },
+                "name": {
+                  "default": "M. Amadio"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 22
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020907/ev672.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1560",
+            "eventId": 1088,
+            "strength": "ev",
+            "playerId": 8482142,
+            "firstName": {
+              "default": "Jamie"
+            },
+            "lastName": {
+              "default": "Drysdale"
+            },
+            "name": {
+              "default": "J. Drysdale"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8482142.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/jamie-drysdale-with-a-goal-vs-ottawa-senators-6388857401112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ott-phi-drysdale-marque-un-but-contre-james-reimer-6388862388112",
+            "highlightClip": 6388857401112,
+            "highlightClipFr": 6388862388112,
+            "discreteClip": 6388858559112,
+            "discreteClipFr": 6388857200112,
+            "goalsToDate": 5,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "18:46",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481553,
+                "firstName": {
+                  "default": "Bobby"
+                },
+                "lastName": {
+                  "default": "Brink"
+                },
+                "name": {
+                  "default": "B. Brink"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 10
+              },
+              {
+                "playerId": 8481533,
+                "firstName": {
+                  "default": "Trevor"
+                },
+                "lastName": {
+                  "default": "Zegras"
+                },
+                "name": {
+                  "default": "T. Zegras"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 46
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020907/ev1088.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 1120,
+            "strength": "ev",
+            "playerId": 8482116,
+            "firstName": {
+              "default": "Tim"
+            },
+            "lastName": {
+              "default": "St\u00fctzle"
+            },
+            "name": {
+              "default": "T. St\u00fctzle"
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8482116.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ott-phi-stutzle-scores-goal-against-dan-vladar-6388859858112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ott-phi-stutzle-marque-un-but-contre-dan-vladar-6388858293112",
+            "highlightClip": 6388859858112,
+            "highlightClipFr": 6388858293112,
+            "discreteClip": 6388860444112,
+            "discreteClipFr": 6388858298112,
+            "goalsToDate": 28,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "OTT"
+            },
+            "timeInPeriod": "00:47",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480801,
+                "firstName": {
+                  "default": "Brady"
+                },
+                "lastName": {
+                  "default": "Tkachuk"
+                },
+                "name": {
+                  "default": "B. Tkachuk"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 7
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020907/ev1120.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8482116,
+        "teamAbbrev": "OTT",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8482116.png",
+        "name": {
+          "default": "T. St\u00fctzle"
+        },
+        "sweaterNo": 18,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8478435,
+        "teamAbbrev": "PHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8478435.png",
+        "name": {
+          "default": "D. Vladar",
+          "cs": "D. Vlada\u0159",
+          "sk": "D. Vlada\u0159"
+        },
+        "sweaterNo": 80,
+        "position": "G",
+        "goalsAgainstAverage": 2.01,
+        "savePctg": 0.926
+      },
+      {
+        "star": 3,
+        "playerId": 8478469,
+        "teamAbbrev": "OTT",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8478469.png",
+        "name": {
+          "default": "T. Chabot"
+        },
+        "sweaterNo": 72,
+        "position": "D",
+        "goals": 0,
+        "assists": 0,
+        "points": 0
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "19:19",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Drake"
+              },
+              "lastName": {
+                "default": "Batherson"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Trevor"
+              },
+              "lastName": {
+                "default": "Zegras"
+              },
+              "sweaterNumber": 46
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "05:52",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sean"
+              },
+              "lastName": {
+                "default": "Couturier"
+              },
+              "sweaterNumber": 14
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Amadio"
+              },
+              "sweaterNumber": 22
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "04:13",
+    "secondsRemaining": 253,
+    "running": false,
+    "inIntermission": false
+  }
+}

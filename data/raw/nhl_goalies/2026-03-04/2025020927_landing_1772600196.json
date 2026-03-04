@@ -1,0 +1,917 @@
+{
+  "id": 2025020927,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-26",
+  "venue": {
+    "default": "Ball Arena"
+  },
+  "venueLocation": {
+    "default": "Denver"
+  },
+  "startTimeUTC": "2026-02-27T02:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-07:00",
+  "venueTimezone": "America/Denver",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 290,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SNP",
+      "sequenceNumber": 33
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 567,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNNO",
+      "sequenceNumber": 284
+    },
+    {
+      "id": 555,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KUSA",
+      "sequenceNumber": 352
+    },
+    {
+      "id": 2,
+      "market": "H",
+      "countryCode": "US",
+      "network": "ALT",
+      "sequenceNumber": 385
+    },
+    {
+      "id": 569,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNWI",
+      "sequenceNumber": 419
+    },
+    {
+      "id": 336,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KTVD",
+      "sequenceNumber": 623
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 30,
+    "commonName": {
+      "default": "Wild"
+    },
+    "abbrev": "MIN",
+    "placeName": {
+      "default": "Minnesota"
+    },
+    "placeNameWithPreposition": {
+      "default": "Minnesota",
+      "fr": "du Minnesota"
+    },
+    "score": 5,
+    "sog": 36,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MIN_dark.svg"
+  },
+  "homeTeam": {
+    "id": 21,
+    "commonName": {
+      "default": "Avalanche"
+    },
+    "abbrev": "COL",
+    "placeName": {
+      "default": "Colorado"
+    },
+    "placeNameWithPreposition": {
+      "default": "Colorado",
+      "fr": "du Colorado"
+    },
+    "score": 2,
+    "sog": 47,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/COL_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 601,
+            "strength": "pp",
+            "playerId": 8478493,
+            "firstName": {
+              "default": "Joel"
+            },
+            "lastName": {
+              "default": "Eriksson Ek"
+            },
+            "name": {
+              "default": "J. Eriksson Ek"
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8478493.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/min-col-eriksson-ek-scores-ppg-against-mackenzie-blackwood-6390029608112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-eriksson-ek-marque-un-but-en-a-n-contre-mackenzie-blackwood-6390030517112",
+            "highlightClip": 6390029608112,
+            "highlightClipFr": 6390030517112,
+            "discreteClip": 6390030010112,
+            "discreteClipFr": 6390031872112,
+            "goalsToDate": 16,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "07:48",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481557,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Boldy"
+                },
+                "name": {
+                  "default": "M. Boldy"
+                },
+                "assistsToDate": 31,
+                "sweaterNumber": 12
+              },
+              {
+                "playerId": 8478864,
+                "firstName": {
+                  "default": "Kirill"
+                },
+                "lastName": {
+                  "default": "Kaprizov"
+                },
+                "name": {
+                  "default": "K. Kaprizov"
+                },
+                "assistsToDate": 39,
+                "sweaterNumber": 97
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020927/ev601.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 728,
+            "strength": "ev",
+            "playerId": 8480039,
+            "firstName": {
+              "default": "Martin"
+            },
+            "lastName": {
+              "default": "Necas",
+              "cs": "Ne\u010das",
+              "sk": "Ne\u010das"
+            },
+            "name": {
+              "default": "M. Necas",
+              "cs": "M. Ne\u010das",
+              "sk": "M. Ne\u010das"
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8480039.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/min-col-necas-scores-goal-against-filip-gustavsson-6390033067112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-necas-marque-un-but-contre-filip-gustavsson-6390032775112",
+            "highlightClip": 6390033067112,
+            "highlightClipFr": 6390032775112,
+            "discreteClip": 6390031794112,
+            "discreteClipFr": 6390032376112,
+            "goalsToDate": 24,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "13:30",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477492,
+                "firstName": {
+                  "default": "Nathan"
+                },
+                "lastName": {
+                  "default": "MacKinnon"
+                },
+                "name": {
+                  "default": "N. MacKinnon"
+                },
+                "assistsToDate": 54,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8476312,
+                "firstName": {
+                  "default": "Josh"
+                },
+                "lastName": {
+                  "default": "Manson"
+                },
+                "name": {
+                  "default": "J. Manson"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 42
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020927/ev728.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 71,
+            "strength": "pp",
+            "playerId": 8478493,
+            "firstName": {
+              "default": "Joel"
+            },
+            "lastName": {
+              "default": "Eriksson Ek"
+            },
+            "name": {
+              "default": "J. Eriksson Ek"
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8478493.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/min-col-eriksson-ek-scores-ppg-against-mackenzie-blackwood-6390031937112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-eriksson-ek-marque-un-but-en-a-n-contre-mackenzie-blackwood-6390033297112",
+            "highlightClip": 6390031937112,
+            "highlightClipFr": 6390033297112,
+            "discreteClip": 6390033873112,
+            "discreteClipFr": 6390031827112,
+            "goalsToDate": 17,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "17:37",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481557,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Boldy"
+                },
+                "name": {
+                  "default": "M. Boldy"
+                },
+                "assistsToDate": 32,
+                "sweaterNumber": 12
+              },
+              {
+                "playerId": 8480800,
+                "firstName": {
+                  "default": "Quinn"
+                },
+                "lastName": {
+                  "default": "Hughes"
+                },
+                "name": {
+                  "default": "Q. Hughes"
+                },
+                "assistsToDate": 53,
+                "sweaterNumber": 43
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020927/ev71.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 78,
+            "strength": "ev",
+            "playerId": 8475692,
+            "firstName": {
+              "default": "Mats"
+            },
+            "lastName": {
+              "default": "Zuccarello"
+            },
+            "name": {
+              "default": "M. Zuccarello"
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8475692.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/min-col-zuccarello-scores-goal-against-mackenzie-blackwood-6390036650112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-zuccarello-marque-un-but-contre-mackenzie-blackwood-6390036458112",
+            "highlightClip": 6390036650112,
+            "highlightClipFr": 6390036458112,
+            "discreteClip": 6390037028112,
+            "discreteClipFr": 6390035954112,
+            "goalsToDate": 10,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "15:08",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477451,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "Hartman"
+                },
+                "name": {
+                  "default": "R. Hartman"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 38
+              },
+              {
+                "playerId": 8478864,
+                "firstName": {
+                  "default": "Kirill"
+                },
+                "lastName": {
+                  "default": "Kaprizov"
+                },
+                "name": {
+                  "default": "K. Kaprizov"
+                },
+                "assistsToDate": 40,
+                "sweaterNumber": 97
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020927/ev78.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1460",
+            "eventId": 1116,
+            "strength": "sh",
+            "playerId": 8481557,
+            "firstName": {
+              "default": "Matt"
+            },
+            "lastName": {
+              "default": "Boldy"
+            },
+            "name": {
+              "default": "M. Boldy"
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8481557.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/matthew-boldy-with-a-shorthanded-goal-vs-colorado-avalanche-6390037821112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/matthew-boldy-with-a-shorthanded-goal-vs-l-avalanche-du-colorado-6390036552112",
+            "highlightClip": 6390037821112,
+            "highlightClipFr": 6390036552112,
+            "discreteClip": 6390038012112,
+            "discreteClipFr": 6390036960112,
+            "goalsToDate": 33,
+            "awayScore": 4,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "16:38",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020927/ev1116.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1155,
+            "strength": "ev",
+            "playerId": 8480039,
+            "firstName": {
+              "default": "Martin"
+            },
+            "lastName": {
+              "default": "Necas",
+              "cs": "Ne\u010das",
+              "sk": "Ne\u010das"
+            },
+            "name": {
+              "default": "M. Necas",
+              "cs": "M. Ne\u010das",
+              "sk": "M. Ne\u010das"
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8480039.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/min-col-necas-scores-goal-against-jesper-wallstedt-6390037253112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-col-necas-marque-un-but-contre-jesper-wallstedt-6390037930112",
+            "highlightClip": 6390037253112,
+            "highlightClipFr": 6390037930112,
+            "discreteClip": 6390036673112,
+            "discreteClipFr": 6390037654112,
+            "goalsToDate": 25,
+            "awayScore": 4,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "19:03",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477492,
+                "firstName": {
+                  "default": "Nathan"
+                },
+                "lastName": {
+                  "default": "MacKinnon"
+                },
+                "name": {
+                  "default": "N. MacKinnon"
+                },
+                "assistsToDate": 55,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8476455,
+                "firstName": {
+                  "default": "Gabriel"
+                },
+                "lastName": {
+                  "default": "Landeskog"
+                },
+                "name": {
+                  "default": "G. Landeskog"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 92
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020927/ev1155.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1163,
+            "strength": "ev",
+            "playerId": 8481557,
+            "firstName": {
+              "default": "Matt"
+            },
+            "lastName": {
+              "default": "Boldy"
+            },
+            "name": {
+              "default": "M. Boldy"
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8481557.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/matthew-boldy-with-a-goal-vs-colorado-avalanche-6390038818112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/matthew-boldy-with-a-but-vs-l-avalanche-du-colorado-6390038441112",
+            "highlightClip": 6390038818112,
+            "highlightClipFr": 6390038441112,
+            "discreteClip": 6390036577112,
+            "discreteClipFr": 6390038143112,
+            "goalsToDate": 34,
+            "awayScore": 5,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "19:28",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8482122,
+                "firstName": {
+                  "default": "Brock"
+                },
+                "lastName": {
+                  "default": "Faber"
+                },
+                "name": {
+                  "default": "B. Faber"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 7
+              },
+              {
+                "playerId": 8478136,
+                "firstName": {
+                  "default": "Jake",
+                  "cs": "Jacob",
+                  "de": "Jacob",
+                  "es": "Jacob",
+                  "fi": "Jacob",
+                  "sk": "Jacob",
+                  "sv": "Jacob"
+                },
+                "lastName": {
+                  "default": "Middleton"
+                },
+                "name": {
+                  "default": "J. Middleton"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 5
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020927/ev1163.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8479406,
+        "teamAbbrev": "MIN",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8479406.png",
+        "name": {
+          "default": "F. Gustavsson"
+        },
+        "sweaterNo": 32,
+        "position": "G",
+        "goalsAgainstAverage": 1.02,
+        "savePctg": 0.978
+      },
+      {
+        "star": 2,
+        "playerId": 8481557,
+        "teamAbbrev": "MIN",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8481557.png",
+        "name": {
+          "default": "M. Boldy"
+        },
+        "sweaterNo": 12,
+        "position": "L",
+        "goals": 2,
+        "assists": 2,
+        "points": 4
+      },
+      {
+        "star": 3,
+        "playerId": 8478493,
+        "teamAbbrev": "MIN",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8478493.png",
+        "name": {
+          "default": "J. Eriksson Ek"
+        },
+        "sweaterNo": 14,
+        "position": "C",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:41",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Daemon"
+              },
+              "lastName": {
+                "default": "Hunt"
+              },
+              "sweaterNumber": 48
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brock"
+              },
+              "lastName": {
+                "default": "Nelson"
+              },
+              "sweaterNumber": 11
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "09:38",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Josh"
+              },
+              "lastName": {
+                "default": "Manson"
+              },
+              "sweaterNumber": 42
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Joel"
+              },
+              "lastName": {
+                "default": "Eriksson Ek"
+              },
+              "sweaterNumber": 14
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "12:03",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Gabriel"
+              },
+              "lastName": {
+                "default": "Landeskog"
+              },
+              "sweaterNumber": 92
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Hartman"
+              },
+              "sweaterNumber": 38
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:49",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Cale"
+              },
+              "lastName": {
+                "default": "Makar"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Yakov",
+                "cs": "Jakov",
+                "fi": "Jakov",
+                "sk": "Jakov"
+              },
+              "lastName": {
+                "default": "Trenin"
+              },
+              "sweaterNumber": 13
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "14:15",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Gabriel"
+              },
+              "lastName": {
+                "default": "Landeskog"
+              },
+              "sweaterNumber": 92
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Joel"
+              },
+              "lastName": {
+                "default": "Eriksson Ek"
+              },
+              "sweaterNumber": 14
+            },
+            "descKey": "elbowing"
+          },
+          {
+            "timeInPeriod": "15:04",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Valeri",
+                "cs": "Valerij",
+                "sk": "Valerij"
+              },
+              "lastName": {
+                "default": "Nichushkin",
+                "cs": "Ni\u010du\u0161kin",
+                "fi": "Nitshushkin",
+                "sk": "Ni\u010du\u0161kin"
+              },
+              "sweaterNumber": 13
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matt"
+              },
+              "lastName": {
+                "default": "Boldy"
+              },
+              "sweaterNumber": 12
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "15:08",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brent"
+              },
+              "lastName": {
+                "default": "Burns"
+              },
+              "sweaterNumber": 84
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "descKey": "delaying-game"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "12:36",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nico"
+              },
+              "lastName": {
+                "default": "Sturm"
+              },
+              "sweaterNumber": 78
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ross"
+              },
+              "lastName": {
+                "default": "Colton"
+              },
+              "sweaterNumber": 20
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "16:12",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Danila"
+              },
+              "lastName": {
+                "default": "Yurov"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brett"
+              },
+              "lastName": {
+                "default": "Kulak"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

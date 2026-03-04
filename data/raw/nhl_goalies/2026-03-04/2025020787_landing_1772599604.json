@@ -1,0 +1,773 @@
+{
+  "id": 2025020787,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-20",
+  "venue": {
+    "default": "Crypto.com Arena"
+  },
+  "venueLocation": {
+    "default": "Los Angeles"
+  },
+  "startTimeUTC": "2026-01-21T03:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "America/Los_Angeles",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 21
+    },
+    {
+      "id": 564,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNW",
+      "sequenceNumber": 288
+    },
+    {
+      "id": 27,
+      "market": "A",
+      "countryCode": "US",
+      "network": "MSG",
+      "sequenceNumber": 417
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 3,
+    "commonName": {
+      "default": "Rangers"
+    },
+    "abbrev": "NYR",
+    "placeName": {
+      "default": "New York"
+    },
+    "placeNameWithPreposition": {
+      "default": "New York",
+      "fr": "de New York"
+    },
+    "score": 3,
+    "sog": 36,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NYR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NYR_dark.svg"
+  },
+  "homeTeam": {
+    "id": 26,
+    "commonName": {
+      "default": "Kings"
+    },
+    "abbrev": "LAK",
+    "placeName": {
+      "default": "Los Angeles"
+    },
+    "placeNameWithPreposition": {
+      "default": "Los Angeles",
+      "fr": "de Los Angeles"
+    },
+    "score": 4,
+    "sog": 27,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/LAK_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/LAK_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 56,
+            "strength": "ev",
+            "playerId": 8477960,
+            "firstName": {
+              "default": "Adrian"
+            },
+            "lastName": {
+              "default": "Kempe"
+            },
+            "name": {
+              "default": "A. Kempe"
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8477960.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyr-lak-kempe-scores-goal-against-jonathan-quick-6388019947112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyr-lak-kempe-marque-un-but-contre-jonathan-quick-6388020144112",
+            "highlightClip": 6388019947112,
+            "highlightClipFr": 6388020144112,
+            "discreteClip": 6388018079112,
+            "discreteClipFr": 6388018466112,
+            "goalsToDate": 17,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "LAK"
+            },
+            "timeInPeriod": "00:18",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482730,
+                "firstName": {
+                  "default": "Brandt"
+                },
+                "lastName": {
+                  "default": "Clarke"
+                },
+                "name": {
+                  "default": "B. Clarke"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 92
+              },
+              {
+                "playerId": 8470621,
+                "firstName": {
+                  "default": "Corey"
+                },
+                "lastName": {
+                  "default": "Perry"
+                },
+                "name": {
+                  "default": "C. Perry"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 10
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020787/ev56.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 214,
+            "strength": "ev",
+            "playerId": 8482157,
+            "firstName": {
+              "default": "Will"
+            },
+            "lastName": {
+              "default": "Cuylle"
+            },
+            "name": {
+              "default": "W. Cuylle"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8482157.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyr-lak-cuylle-scores-goal-against-darcy-kuemper-6388022064112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyr-lak-cuylle-marque-un-but-contre-darcy-kuemper-6388021861112",
+            "highlightClip": 6388022064112,
+            "highlightClipFr": 6388021861112,
+            "discreteClip": 6388020960112,
+            "discreteClipFr": 6388019409112,
+            "goalsToDate": 11,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "08:18",
+            "shotType": "deflected",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482666,
+                "firstName": {
+                  "default": "Scott"
+                },
+                "lastName": {
+                  "default": "Morrow"
+                },
+                "name": {
+                  "default": "S. Morrow"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 60
+              },
+              {
+                "playerId": 8483690,
+                "firstName": {
+                  "default": "Noah"
+                },
+                "lastName": {
+                  "default": "Laba"
+                },
+                "name": {
+                  "default": "N. Laba"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 42
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020787/ev214.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 226,
+            "strength": "ev",
+            "playerId": 8477942,
+            "firstName": {
+              "default": "Kevin"
+            },
+            "lastName": {
+              "default": "Fiala"
+            },
+            "name": {
+              "default": "K. Fiala"
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8477942.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyr-lak-fiala-scores-goal-against-jonathan-quick-6388020170112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyr-lak-fiala-marque-un-but-contre-jonathan-quick-6388019974112",
+            "highlightClip": 6388020170112,
+            "highlightClipFr": 6388019974112,
+            "discreteClip": 6388018689112,
+            "discreteClipFr": 6388018000112,
+            "goalsToDate": 18,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "LAK"
+            },
+            "timeInPeriod": "09:00",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020787/ev226.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 396,
+            "strength": "ev",
+            "playerId": 8476468,
+            "firstName": {
+              "default": "J.T."
+            },
+            "lastName": {
+              "default": "Miller"
+            },
+            "name": {
+              "default": "J. Miller"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8476468.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyr-lak-miller-scores-goal-against-darcy-kuemper-6388020656112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyr-lak-miller-marque-un-but-contre-darcy-kuemper-6388020458112",
+            "highlightClip": 6388020656112,
+            "highlightClipFr": 6388020458112,
+            "discreteClip": 6388020098112,
+            "discreteClipFr": 6388019391112,
+            "goalsToDate": 12,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "16:36",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476459,
+                "firstName": {
+                  "default": "Mika"
+                },
+                "lastName": {
+                  "default": "Zibanejad"
+                },
+                "name": {
+                  "default": "M. Zibanejad"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 93
+              },
+              {
+                "playerId": 8482073,
+                "firstName": {
+                  "default": "Braden"
+                },
+                "lastName": {
+                  "default": "Schneider"
+                },
+                "name": {
+                  "default": "B. Schneider"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 4
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020787/ev396.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 490,
+            "strength": "ev",
+            "playerId": 8483406,
+            "firstName": {
+              "default": "Taylor"
+            },
+            "lastName": {
+              "default": "Ward"
+            },
+            "name": {
+              "default": "T. Ward"
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8483406.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyr-lak-ward-scores-goal-against-jonathan-quick-6388021212112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyr-lak-ward-marque-un-but-contre-jonathan-quick-6388021506112",
+            "highlightClip": 6388021212112,
+            "highlightClipFr": 6388021506112,
+            "discreteClip": 6388022767112,
+            "discreteClipFr": 6388022096112,
+            "goalsToDate": 1,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "LAK"
+            },
+            "timeInPeriod": "04:23",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482408,
+                "firstName": {
+                  "default": "Jeff"
+                },
+                "lastName": {
+                  "default": "Malott",
+                  "cs": "Malottt",
+                  "de": "Malottt",
+                  "es": "Malottt",
+                  "fi": "Malottt",
+                  "sk": "Malottt",
+                  "sv": "Malottt"
+                },
+                "name": {
+                  "default": "J. Malott"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 39
+              },
+              {
+                "playerId": 8482726,
+                "firstName": {
+                  "default": "Samuel"
+                },
+                "lastName": {
+                  "default": "Helenius"
+                },
+                "name": {
+                  "default": "S. Helenius"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 79
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020787/ev490.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 710,
+            "strength": "ev",
+            "playerId": 8483808,
+            "firstName": {
+              "default": "Andrei",
+              "cs": "Andrej",
+              "sk": "Andrej"
+            },
+            "lastName": {
+              "default": "Kuzmenko"
+            },
+            "name": {
+              "default": "A. Kuzmenko"
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8483808.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyr-lak-kuzmenko-scores-goal-against-jonathan-quick-6388022223112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyr-lak-kuzmenko-marque-un-but-contre-jonathan-quick-6388022611112",
+            "highlightClip": 6388022223112,
+            "highlightClipFr": 6388022611112,
+            "discreteClip": 6388021428112,
+            "discreteClipFr": 6388021814112,
+            "goalsToDate": 10,
+            "awayScore": 2,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "LAK"
+            },
+            "timeInPeriod": "12:37",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477942,
+                "firstName": {
+                  "default": "Kevin"
+                },
+                "lastName": {
+                  "default": "Fiala"
+                },
+                "name": {
+                  "default": "K. Fiala"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 22
+              },
+              {
+                "playerId": 8481532,
+                "firstName": {
+                  "default": "Alex"
+                },
+                "lastName": {
+                  "default": "Turcotte"
+                },
+                "name": {
+                  "default": "A. Turcotte"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 15
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020787/ev710.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "0651",
+            "eventId": 1117,
+            "strength": "ev",
+            "playerId": 8476468,
+            "firstName": {
+              "default": "J.T."
+            },
+            "lastName": {
+              "default": "Miller"
+            },
+            "name": {
+              "default": "J. Miller"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8476468.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyr-lak-miller-scores-goal-against-anton-forsberg-6388025659112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyr-lak-miller-marque-un-but-contre-anton-forsberg-6388025736112",
+            "highlightClip": 6388025659112,
+            "highlightClipFr": 6388025736112,
+            "discreteClip": 6388025843112,
+            "discreteClipFr": 6388026029112,
+            "goalsToDate": 13,
+            "awayScore": 3,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "LAK"
+            },
+            "timeInPeriod": "19:33",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478882,
+                "firstName": {
+                  "default": "Vladislav"
+                },
+                "lastName": {
+                  "default": "Gavrikov"
+                },
+                "name": {
+                  "default": "V. Gavrikov"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 44
+              },
+              {
+                "playerId": 8476389,
+                "firstName": {
+                  "default": "Vincent"
+                },
+                "lastName": {
+                  "default": "Trocheck"
+                },
+                "name": {
+                  "default": "V. Trocheck"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 16
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020787/ev1117.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8476341,
+        "teamAbbrev": "LAK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8476341.png",
+        "name": {
+          "default": "A. Forsberg"
+        },
+        "sweaterNo": 31,
+        "position": "G",
+        "goalsAgainstAverage": 1.48,
+        "savePctg": 0.964
+      },
+      {
+        "star": 2,
+        "playerId": 8477942,
+        "teamAbbrev": "LAK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8477942.png",
+        "name": {
+          "default": "K. Fiala"
+        },
+        "sweaterNo": 22,
+        "position": "L",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8483406,
+        "teamAbbrev": "LAK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8483406.png",
+        "name": {
+          "default": "T. Ward"
+        },
+        "sweaterNo": 52,
+        "position": "R",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:33",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Robertson"
+              },
+              "sweaterNumber": 29
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Kevin"
+              },
+              "lastName": {
+                "default": "Fiala"
+              },
+              "sweaterNumber": 22
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "08:22",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Alex"
+              },
+              "lastName": {
+                "default": "Laferriere"
+              },
+              "sweaterNumber": 14
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Will"
+              },
+              "lastName": {
+                "default": "Cuylle"
+              },
+              "sweaterNumber": 50
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "08:47",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Joel"
+              },
+              "lastName": {
+                "default": "Edmundson"
+              },
+              "sweaterNumber": 6
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Vincent"
+              },
+              "lastName": {
+                "default": "Trocheck"
+              },
+              "sweaterNumber": 16
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "12:56",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Braden"
+              },
+              "lastName": {
+                "default": "Schneider"
+              },
+              "sweaterNumber": 4
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Quinton"
+              },
+              "lastName": {
+                "default": "Byfield"
+              },
+              "sweaterNumber": 55
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "16:11",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Braden"
+              },
+              "lastName": {
+                "default": "Schneider"
+              },
+              "sweaterNumber": 4
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Joel"
+              },
+              "lastName": {
+                "default": "Edmundson"
+              },
+              "sweaterNumber": 6
+            },
+            "descKey": "interference"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

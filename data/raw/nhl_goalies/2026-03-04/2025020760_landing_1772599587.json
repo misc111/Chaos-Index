@@ -1,0 +1,966 @@
+{
+  "id": 2025020760,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-17",
+  "venue": {
+    "default": "PPG Paints Arena"
+  },
+  "venueLocation": {
+    "default": "Pittsburgh"
+  },
+  "startTimeUTC": "2026-01-18T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 5,
+    "periodType": "SO",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 565,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNOH",
+      "sequenceNumber": 286
+    },
+    {
+      "id": 528,
+      "market": "H",
+      "countryCode": "US",
+      "network": "SN-PIT",
+      "sequenceNumber": 384
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 29,
+    "commonName": {
+      "default": "Blue Jackets"
+    },
+    "abbrev": "CBJ",
+    "placeName": {
+      "default": "Columbus"
+    },
+    "placeNameWithPreposition": {
+      "default": "Columbus",
+      "fr": "de Columbus"
+    },
+    "score": 4,
+    "sog": 26,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CBJ_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CBJ_dark.svg"
+  },
+  "homeTeam": {
+    "id": 5,
+    "commonName": {
+      "default": "Penguins"
+    },
+    "abbrev": "PIT",
+    "placeName": {
+      "default": "Pittsburgh"
+    },
+    "placeNameWithPreposition": {
+      "default": "Pittsburgh",
+      "fr": "de Pittsburgh"
+    },
+    "score": 3,
+    "sog": 33,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/PIT_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/PIT_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 140,
+            "strength": "ev",
+            "playerId": 8479944,
+            "firstName": {
+              "default": "Zachary"
+            },
+            "lastName": {
+              "default": "Aston-Reese"
+            },
+            "name": {
+              "default": "Z. Aston-Reese"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8479944.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-pit-aston-reese-scores-goal-against-arturs-silovs-6387881085112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-pit-aston-reese-marque-un-but-contre-arturs-silovs-6387881582112",
+            "highlightClip": 6387881085112,
+            "highlightClipFr": 6387881582112,
+            "discreteClip": 6387881464112,
+            "discreteClipFr": 6387880400112,
+            "goalsToDate": 1,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CBJ"
+            },
+            "timeInPeriod": "02:42",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478460,
+                "firstName": {
+                  "default": "Zach"
+                },
+                "lastName": {
+                  "default": "Werenski"
+                },
+                "name": {
+                  "default": "Z. Werenski"
+                },
+                "assistsToDate": 34,
+                "sweaterNumber": 8
+              },
+              {
+                "playerId": 8476867,
+                "firstName": {
+                  "default": "Brendan"
+                },
+                "lastName": {
+                  "default": "Gaunce"
+                },
+                "name": {
+                  "default": "B. Gaunce"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 16
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020760/ev140.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 303,
+            "strength": "ev",
+            "playerId": 8477365,
+            "firstName": {
+              "default": "Connor"
+            },
+            "lastName": {
+              "default": "Clifton"
+            },
+            "name": {
+              "default": "C. Clifton"
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8477365.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-pit-clifton-scores-goal-against-elvis-merzlikins-6387881894112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-pit-clifton-marque-un-but-contre-elvis-merzlikins-6387881597112",
+            "highlightClip": 6387881894112,
+            "highlightClipFr": 6387881597112,
+            "discreteClip": 6387882379112,
+            "discreteClipFr": 6387881475112,
+            "goalsToDate": 1,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "09:59",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478438,
+                "firstName": {
+                  "default": "Tommy",
+                  "cs": "Thomas",
+                  "de": "Thomas",
+                  "es": "Thomas",
+                  "fi": "Thomas",
+                  "sk": "Thomas",
+                  "sv": "Thomas"
+                },
+                "lastName": {
+                  "default": "Novak"
+                },
+                "name": {
+                  "default": "T. Novak"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 18
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020760/ev303.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 422,
+            "strength": "ev",
+            "playerId": 8476483,
+            "firstName": {
+              "default": "Rickard"
+            },
+            "lastName": {
+              "default": "Rakell"
+            },
+            "name": {
+              "default": "R. Rakell"
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8476483.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-pit-rakell-scores-goal-against-elvis-merzlikins-6387882702112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-pit-rakell-marque-un-but-contre-elvis-merzlikins-6387882303112",
+            "highlightClip": 6387882702112,
+            "highlightClipFr": 6387882303112,
+            "discreteClip": 6387882701112,
+            "discreteClipFr": 6387882225112,
+            "goalsToDate": 7,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "PIT"
+            },
+            "timeInPeriod": "17:52",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8471675,
+                "firstName": {
+                  "default": "Sidney"
+                },
+                "lastName": {
+                  "default": "Crosby"
+                },
+                "name": {
+                  "default": "S. Crosby"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 87
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020760/ev422.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 600,
+            "strength": "ev",
+            "playerId": 8480893,
+            "firstName": {
+              "default": "Kirill"
+            },
+            "lastName": {
+              "default": "Marchenko",
+              "cs": "Mar\u010denko",
+              "fi": "Martshenko",
+              "sk": "Mar\u010denko"
+            },
+            "name": {
+              "default": "K. Marchenko",
+              "cs": "K. Mar\u010denko",
+              "fi": "K. Martshenko",
+              "sk": "K. Mar\u010denko"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8480893.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-pit-marchenko-scores-goal-against-arturs-silovs-6387884025112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-pit-marchenko-marque-un-but-contre-arturs-silovs-6387884406112",
+            "highlightClip": 6387884025112,
+            "highlightClipFr": 6387884406112,
+            "discreteClip": 6387883242112,
+            "discreteClipFr": 6387884213112,
+            "goalsToDate": 18,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "07:32",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020760/ev600.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 825,
+            "strength": "ev",
+            "playerId": 8478046,
+            "firstName": {
+              "default": "Danton"
+            },
+            "lastName": {
+              "default": "Heinen"
+            },
+            "name": {
+              "default": "D. Heinen"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8478046.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-pit-heinen-scores-goal-against-arturs-silovs-6387886026112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-pit-heinen-marque-un-but-contre-arturs-silovs-6387884359112",
+            "highlightClip": 6387886026112,
+            "highlightClipFr": 6387884359112,
+            "discreteClip": 6387884536112,
+            "discreteClipFr": 6387886209112,
+            "goalsToDate": 2,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "CBJ"
+            },
+            "timeInPeriod": "17:38",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475790,
+                "firstName": {
+                  "default": "Erik"
+                },
+                "lastName": {
+                  "default": "Gudbranson"
+                },
+                "name": {
+                  "default": "E. Gudbranson"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 44
+              },
+              {
+                "playerId": 8481178,
+                "firstName": {
+                  "default": "Egor",
+                  "cs": "Jegor",
+                  "de": "Yegor",
+                  "es": "Yegor",
+                  "fi": "Jegor",
+                  "sk": "Jegor",
+                  "sv": "Yegor"
+                },
+                "lastName": {
+                  "default": "Zamula"
+                },
+                "name": {
+                  "default": "E. Zamula",
+                  "cs": "J. Zamula",
+                  "de": "Y. Zamula",
+                  "es": "Y. Zamula",
+                  "fi": "J. Zamula",
+                  "sk": "J. Zamula",
+                  "sv": "Y. Zamula"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020760/ev825.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1560",
+            "eventId": 1105,
+            "strength": "ev",
+            "playerId": 8471675,
+            "firstName": {
+              "default": "Sidney"
+            },
+            "lastName": {
+              "default": "Crosby"
+            },
+            "name": {
+              "default": "S. Crosby"
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8471675.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-pit-crosby-scores-goal-against-elvis-merzlikins-6387888552112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-pit-crosby-marque-un-but-contre-elvis-merzlikins-6387886891112",
+            "highlightClip": 6387888552112,
+            "highlightClipFr": 6387886891112,
+            "discreteClip": 6387887383112,
+            "discreteClipFr": 6387886889112,
+            "goalsToDate": 26,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "18:59",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8471724,
+                "firstName": {
+                  "default": "Kris"
+                },
+                "lastName": {
+                  "default": "Letang"
+                },
+                "name": {
+                  "default": "K. Letang"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 58
+              },
+              {
+                "playerId": 8471215,
+                "firstName": {
+                  "default": "Evgeni",
+                  "cs": "Jevgenij",
+                  "fi": "Jevgeni",
+                  "sk": "Jevgenij"
+                },
+                "lastName": {
+                  "default": "Malkin"
+                },
+                "name": {
+                  "default": "E. Malkin"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 71
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020760/ev1105.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 5,
+          "periodType": "SO",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "0101",
+            "eventId": 753,
+            "strength": "ev",
+            "playerId": 8475745,
+            "firstName": {
+              "default": "Charlie"
+            },
+            "lastName": {
+              "default": "Coyle"
+            },
+            "name": {
+              "default": "C. Coyle"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8475745.png",
+            "discreteClip": 6387891152112,
+            "discreteClipFr": 6387889473112,
+            "awayScore": 4,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "CBJ"
+            },
+            "timeInPeriod": "00:00",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "shootout": {
+      "liveScore": {
+        "home": 1,
+        "away": 2
+      },
+      "events": [
+        {
+          "sequence": 1,
+          "playerId": 8476483,
+          "teamAbbrev": {
+            "default": "PIT"
+          },
+          "firstName": {
+            "default": "Rickard"
+          },
+          "lastName": {
+            "default": "Rakell"
+          },
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8476483.png",
+          "gameWinner": false,
+          "homeScore": 0,
+          "awayScore": 0
+        },
+        {
+          "sequence": 2,
+          "playerId": 8482660,
+          "teamAbbrev": {
+            "default": "CBJ"
+          },
+          "firstName": {
+            "default": "Kent"
+          },
+          "lastName": {
+            "default": "Johnson"
+          },
+          "shotType": "backhand",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8482660.png",
+          "gameWinner": false,
+          "homeScore": 0,
+          "awayScore": 1
+        },
+        {
+          "sequence": 3,
+          "playerId": 8471675,
+          "teamAbbrev": {
+            "default": "PIT"
+          },
+          "firstName": {
+            "default": "Sidney"
+          },
+          "lastName": {
+            "default": "Crosby"
+          },
+          "shotType": "wrist",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8471675.png",
+          "gameWinner": false,
+          "homeScore": 0,
+          "awayScore": 1
+        },
+        {
+          "sequence": 4,
+          "playerId": 8484166,
+          "teamAbbrev": {
+            "default": "CBJ"
+          },
+          "firstName": {
+            "default": "Adam"
+          },
+          "lastName": {
+            "default": "Fantilli"
+          },
+          "shotType": "wrist",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8484166.png",
+          "gameWinner": false,
+          "homeScore": 0,
+          "awayScore": 1
+        },
+        {
+          "sequence": 5,
+          "playerId": 8482475,
+          "teamAbbrev": {
+            "default": "PIT"
+          },
+          "firstName": {
+            "default": "Egor"
+          },
+          "lastName": {
+            "default": "Chinakhov",
+            "cs": "\u010cinachov",
+            "fi": "Tshinahov",
+            "sk": "\u010cinachov"
+          },
+          "shotType": "wrist",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8482475.png",
+          "gameWinner": false,
+          "homeScore": 1,
+          "awayScore": 1
+        },
+        {
+          "sequence": 6,
+          "playerId": 8480893,
+          "teamAbbrev": {
+            "default": "CBJ"
+          },
+          "firstName": {
+            "default": "Kirill"
+          },
+          "lastName": {
+            "default": "Marchenko",
+            "cs": "Mar\u010denko",
+            "fi": "Martshenko",
+            "sk": "Mar\u010denko"
+          },
+          "shotType": "wrist",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8480893.png",
+          "gameWinner": false,
+          "homeScore": 1,
+          "awayScore": 1
+        },
+        {
+          "sequence": 7,
+          "playerId": 8475810,
+          "teamAbbrev": {
+            "default": "PIT"
+          },
+          "firstName": {
+            "default": "Bryan"
+          },
+          "lastName": {
+            "default": "Rust"
+          },
+          "shotType": "wrist",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8475810.png",
+          "gameWinner": false,
+          "homeScore": 1,
+          "awayScore": 1
+        },
+        {
+          "sequence": 8,
+          "playerId": 8475745,
+          "teamAbbrev": {
+            "default": "CBJ"
+          },
+          "firstName": {
+            "default": "Charlie"
+          },
+          "lastName": {
+            "default": "Coyle"
+          },
+          "shotType": "wrist",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8475745.png",
+          "gameWinner": true,
+          "discreteClip": 6387891152112,
+          "discreteClipFr": 6387889473112,
+          "homeScore": 1,
+          "awayScore": 2
+        }
+      ]
+    },
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8478046,
+        "teamAbbrev": "CBJ",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8478046.png",
+        "name": {
+          "default": "D. Heinen"
+        },
+        "sweaterNo": 43,
+        "position": "L",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8471675,
+        "teamAbbrev": "PIT",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8471675.png",
+        "name": {
+          "default": "S. Crosby"
+        },
+        "sweaterNo": 87,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8478007,
+        "teamAbbrev": "CBJ",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8478007.png",
+        "name": {
+          "default": "E. Merzlikins"
+        },
+        "sweaterNo": 90,
+        "position": "G",
+        "goalsAgainstAverage": 2.77,
+        "savePctg": 0.909
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:14",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Zachary"
+              },
+              "lastName": {
+                "default": "Aston-Reese"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Kris"
+              },
+              "lastName": {
+                "default": "Letang"
+              },
+              "sweaterNumber": 58
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:03",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ivan"
+              },
+              "lastName": {
+                "default": "Provorov"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ben"
+              },
+              "lastName": {
+                "default": "Kindel"
+              },
+              "sweaterNumber": 81
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "08:43",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Zach"
+              },
+              "lastName": {
+                "default": "Werenski"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Parker"
+              },
+              "lastName": {
+                "default": "Wotherspoon"
+              },
+              "sweaterNumber": 28
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "08:43",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Parker"
+              },
+              "lastName": {
+                "default": "Wotherspoon"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Zach"
+              },
+              "lastName": {
+                "default": "Werenski"
+              },
+              "sweaterNumber": 8
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "14:15",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Blake"
+              },
+              "lastName": {
+                "default": "Lizotte"
+              },
+              "sweaterNumber": 46
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Boone"
+              },
+              "lastName": {
+                "default": "Jenner"
+              },
+              "sweaterNumber": 38
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "19:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brett"
+              },
+              "lastName": {
+                "default": "Kulak"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Boone"
+              },
+              "lastName": {
+                "default": "Jenner"
+              },
+              "sweaterNumber": 38
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "12:11",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Adam"
+              },
+              "lastName": {
+                "default": "Fantilli"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ben"
+              },
+              "lastName": {
+                "default": "Kindel"
+              },
+              "sweaterNumber": 81
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

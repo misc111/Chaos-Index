@@ -1,0 +1,842 @@
+{
+  "id": 2025020652,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-03",
+  "venue": {
+    "default": "Capital One Arena"
+  },
+  "venueLocation": {
+    "default": "Washington"
+  },
+  "startTimeUTC": "2026-01-04T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 5,
+    "periodType": "SO",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 551,
+      "market": "A",
+      "countryCode": "US",
+      "network": "CHSN",
+      "sequenceNumber": 254
+    },
+    {
+      "id": 517,
+      "market": "H",
+      "countryCode": "US",
+      "network": "MNMT",
+      "sequenceNumber": 396
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 16,
+    "commonName": {
+      "default": "Blackhawks"
+    },
+    "abbrev": "CHI",
+    "placeName": {
+      "default": "Chicago"
+    },
+    "placeNameWithPreposition": {
+      "default": "Chicago",
+      "fr": "de Chicago"
+    },
+    "score": 3,
+    "sog": 33,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CHI_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CHI_dark.svg?season=20252026"
+  },
+  "homeTeam": {
+    "id": 15,
+    "commonName": {
+      "default": "Capitals"
+    },
+    "abbrev": "WSH",
+    "placeName": {
+      "default": "Washington"
+    },
+    "placeNameWithPreposition": {
+      "default": "Washington",
+      "fr": "de Washington"
+    },
+    "score": 2,
+    "sog": 34,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 66,
+            "strength": "ev",
+            "playerId": 8477987,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "Donato"
+            },
+            "name": {
+              "default": "R. Donato"
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8477987.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/chi-wsh-donato-scores-goal-against-logan-thompson-6387202452112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/chi-wsh-donato-marque-un-but-contre-logan-thompson-6387202180112",
+            "highlightClip": 6387202452112,
+            "highlightClipFr": 6387202180112,
+            "discreteClip": 6387201477112,
+            "discreteClipFr": 6387201476112,
+            "goalsToDate": 10,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CHI"
+            },
+            "timeInPeriod": "01:13",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481624,
+                "firstName": {
+                  "default": "Ilya",
+                  "cs": "Ilja",
+                  "fi": "Ilja",
+                  "sk": "I\u013eja"
+                },
+                "lastName": {
+                  "default": "Mikheyev",
+                  "cs": "Michejev",
+                  "fi": "Mihejev",
+                  "sk": "Michejev"
+                },
+                "name": {
+                  "default": "I. Mikheyev",
+                  "cs": "I. Michejev",
+                  "fi": "I. Mihejev",
+                  "sk": "I. Michejev"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 95
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020652/ev66.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 123,
+            "strength": "ev",
+            "playerId": 8478440,
+            "firstName": {
+              "default": "Dylan"
+            },
+            "lastName": {
+              "default": "Strome"
+            },
+            "name": {
+              "default": "D. Strome"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8478440.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/chi-wsh-strome-scores-goal-against-spencer-knight-6387202362112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/chi-wsh-strome-marque-un-but-contre-spencer-knight-6387203253112",
+            "highlightClip": 6387202362112,
+            "highlightClipFr": 6387203253112,
+            "discreteClip": 6387200994112,
+            "discreteClipFr": 6387202751112,
+            "goalsToDate": 10,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "04:46",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483573,
+                "firstName": {
+                  "default": "Ethen"
+                },
+                "lastName": {
+                  "default": "Frank"
+                },
+                "name": {
+                  "default": "E. Frank"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 53
+              },
+              {
+                "playerId": 8477845,
+                "firstName": {
+                  "default": "Trevor"
+                },
+                "lastName": {
+                  "default": "van Riemsdyk"
+                },
+                "name": {
+                  "default": "T. van Riemsdyk"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 57
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020652/ev123.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 485,
+            "strength": "pp",
+            "playerId": 8476882,
+            "firstName": {
+              "default": "Teuvo"
+            },
+            "lastName": {
+              "default": "Teravainen",
+              "cs": "Ter\u00e4v\u00e4inen",
+              "fi": "Ter\u00e4v\u00e4inen",
+              "sk": "Ter\u00e4v\u00e4inen",
+              "sv": "Ter\u00e4v\u00e4inen"
+            },
+            "name": {
+              "default": "T. Teravainen",
+              "cs": "T. Ter\u00e4v\u00e4inen",
+              "fi": "T. Ter\u00e4v\u00e4inen",
+              "sk": "T. Ter\u00e4v\u00e4inen",
+              "sv": "T. Ter\u00e4v\u00e4inen"
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8476882.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/chi-wsh-teravainen-scores-ppg-against-logan-thompson-6387204970112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/chi-wsh-teravainen-marque-un-but-en-a-n-contre-logan-thompson-6387205072112",
+            "highlightClip": 6387204970112,
+            "highlightClipFr": 6387205072112,
+            "discreteClip": 6387203033112,
+            "discreteClipFr": 6387204679112,
+            "goalsToDate": 9,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CHI"
+            },
+            "timeInPeriod": "04:24",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477479,
+                "firstName": {
+                  "default": "Tyler"
+                },
+                "lastName": {
+                  "default": "Bertuzzi"
+                },
+                "name": {
+                  "default": "T. Bertuzzi"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 59
+              },
+              {
+                "playerId": 8477444,
+                "firstName": {
+                  "default": "Andre",
+                  "cs": "Andr\u00e9",
+                  "sk": "Andr\u00e9",
+                  "sv": "Andr\u00e9"
+                },
+                "lastName": {
+                  "default": "Burakovsky"
+                },
+                "name": {
+                  "default": "A. Burakovsky"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 28
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020652/ev485.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 952,
+            "strength": "ev",
+            "playerId": 8484186,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "Leonard"
+            },
+            "name": {
+              "default": "R. Leonard"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8484186.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/chi-wsh-leonard-scores-goal-against-spencer-knight-6387205541112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/chi-wsh-leonard-marque-un-but-contre-spencer-knight-6387205657112",
+            "highlightClip": 6387205541112,
+            "highlightClipFr": 6387205657112,
+            "discreteClip": 6387205537112,
+            "discreteClipFr": 6387206704112,
+            "goalsToDate": 8,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "11:18",
+            "shotType": "bat",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478911,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Roy"
+                },
+                "name": {
+                  "default": "M. Roy"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 3
+              },
+              {
+                "playerId": 8478463,
+                "firstName": {
+                  "default": "Anthony"
+                },
+                "lastName": {
+                  "default": "Beauvillier"
+                },
+                "name": {
+                  "default": "A. Beauvillier"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 72
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020652/ev952.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 5,
+          "periodType": "SO",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "0101",
+            "eventId": 261,
+            "strength": "ev",
+            "playerId": 8473422,
+            "firstName": {
+              "default": "Nick"
+            },
+            "lastName": {
+              "default": "Foligno"
+            },
+            "name": {
+              "default": "N. Foligno"
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8473422.png",
+            "discreteClip": 6387208249112,
+            "discreteClipFr": 6387209199112,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "CHI"
+            },
+            "timeInPeriod": "00:00",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "shootout": {
+      "liveScore": {
+        "home": 2,
+        "away": 3
+      },
+      "events": [
+        {
+          "sequence": 1,
+          "playerId": 8484186,
+          "teamAbbrev": {
+            "default": "WSH"
+          },
+          "firstName": {
+            "default": "Ryan"
+          },
+          "lastName": {
+            "default": "Leonard"
+          },
+          "shotType": "snap",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8484186.png",
+          "gameWinner": false,
+          "homeScore": 0,
+          "awayScore": 0
+        },
+        {
+          "sequence": 2,
+          "playerId": 8484185,
+          "teamAbbrev": {
+            "default": "CHI"
+          },
+          "firstName": {
+            "default": "Nick"
+          },
+          "lastName": {
+            "default": "Lardis"
+          },
+          "shotType": "snap",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8484185.png",
+          "gameWinner": false,
+          "homeScore": 0,
+          "awayScore": 1
+        },
+        {
+          "sequence": 3,
+          "playerId": 8478440,
+          "teamAbbrev": {
+            "default": "WSH"
+          },
+          "firstName": {
+            "default": "Dylan"
+          },
+          "lastName": {
+            "default": "Strome"
+          },
+          "shotType": "backhand",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8478440.png",
+          "gameWinner": false,
+          "homeScore": 1,
+          "awayScore": 1
+        },
+        {
+          "sequence": 4,
+          "playerId": 8477987,
+          "teamAbbrev": {
+            "default": "CHI"
+          },
+          "firstName": {
+            "default": "Ryan"
+          },
+          "lastName": {
+            "default": "Donato"
+          },
+          "shotType": "snap",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8477987.png",
+          "gameWinner": false,
+          "homeScore": 1,
+          "awayScore": 1
+        },
+        {
+          "sequence": 5,
+          "playerId": 8478463,
+          "teamAbbrev": {
+            "default": "WSH"
+          },
+          "firstName": {
+            "default": "Anthony"
+          },
+          "lastName": {
+            "default": "Beauvillier"
+          },
+          "shotType": "backhand",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8478463.png",
+          "gameWinner": false,
+          "homeScore": 1,
+          "awayScore": 1
+        },
+        {
+          "sequence": 6,
+          "playerId": 8484197,
+          "teamAbbrev": {
+            "default": "CHI"
+          },
+          "firstName": {
+            "default": "Oliver"
+          },
+          "lastName": {
+            "default": "Moore"
+          },
+          "shotType": "snap",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8484197.png",
+          "gameWinner": false,
+          "homeScore": 1,
+          "awayScore": 1
+        },
+        {
+          "sequence": 7,
+          "playerId": 8481580,
+          "teamAbbrev": {
+            "default": "WSH"
+          },
+          "firstName": {
+            "default": "Connor"
+          },
+          "lastName": {
+            "default": "McMichael"
+          },
+          "shotType": "snap",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8481580.png",
+          "gameWinner": false,
+          "homeScore": 1,
+          "awayScore": 1
+        },
+        {
+          "sequence": 8,
+          "playerId": 8481806,
+          "teamAbbrev": {
+            "default": "CHI"
+          },
+          "firstName": {
+            "default": "Louis"
+          },
+          "lastName": {
+            "default": "Crevier"
+          },
+          "shotType": "backhand",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8481806.png",
+          "gameWinner": false,
+          "homeScore": 1,
+          "awayScore": 1
+        },
+        {
+          "sequence": 9,
+          "playerId": 8477947,
+          "teamAbbrev": {
+            "default": "WSH"
+          },
+          "firstName": {
+            "default": "Sonny"
+          },
+          "lastName": {
+            "default": "Milano"
+          },
+          "shotType": "snap",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8477947.png",
+          "gameWinner": false,
+          "homeScore": 2,
+          "awayScore": 1
+        },
+        {
+          "sequence": 10,
+          "playerId": 8477444,
+          "teamAbbrev": {
+            "default": "CHI"
+          },
+          "firstName": {
+            "default": "Andre",
+            "cs": "Andr\u00e9",
+            "sk": "Andr\u00e9",
+            "sv": "Andr\u00e9"
+          },
+          "lastName": {
+            "default": "Burakovsky"
+          },
+          "shotType": "snap",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8477444.png",
+          "gameWinner": false,
+          "homeScore": 2,
+          "awayScore": 2
+        },
+        {
+          "sequence": 11,
+          "playerId": 8479345,
+          "teamAbbrev": {
+            "default": "WSH"
+          },
+          "firstName": {
+            "default": "Jakob"
+          },
+          "lastName": {
+            "default": "Chychrun"
+          },
+          "shotType": "backhand",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8479345.png",
+          "gameWinner": false,
+          "homeScore": 2,
+          "awayScore": 2
+        },
+        {
+          "sequence": 12,
+          "playerId": 8473422,
+          "teamAbbrev": {
+            "default": "CHI"
+          },
+          "firstName": {
+            "default": "Nick"
+          },
+          "lastName": {
+            "default": "Foligno"
+          },
+          "shotType": "wrist",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8473422.png",
+          "gameWinner": true,
+          "discreteClip": 6387208249112,
+          "discreteClipFr": 6387209199112,
+          "homeScore": 2,
+          "awayScore": 3
+        }
+      ]
+    },
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8481519,
+        "teamAbbrev": "CHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8481519.png",
+        "name": {
+          "default": "S. Knight"
+        },
+        "sweaterNo": 30,
+        "position": "G",
+        "goalsAgainstAverage": 1.85,
+        "savePctg": 0.941
+      },
+      {
+        "star": 2,
+        "playerId": 8480313,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8480313.png",
+        "name": {
+          "default": "L. Thompson"
+        },
+        "sweaterNo": 48,
+        "position": "G",
+        "goalsAgainstAverage": 1.85,
+        "savePctg": 0.939
+      },
+      {
+        "star": 3,
+        "playerId": 8484186,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8484186.png",
+        "name": {
+          "default": "R. Leonard"
+        },
+        "sweaterNo": 9,
+        "position": "R",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:20",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jakob"
+              },
+              "lastName": {
+                "default": "Chychrun"
+              },
+              "sweaterNumber": 6
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Colton"
+              },
+              "lastName": {
+                "default": "Dach"
+              },
+              "sweaterNumber": 34
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "07:27",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Wyatt"
+              },
+              "lastName": {
+                "default": "Kaiser"
+              },
+              "sweaterNumber": 44
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Alex",
+                "cs": "Alexandr",
+                "fi": "Aleksandr",
+                "sk": "Alexander"
+              },
+              "lastName": {
+                "default": "Ovechkin",
+                "cs": "Ove\u010dkin",
+                "fi": "Ovetshkin",
+                "sk": "Ove\u010dkin"
+              },
+              "sweaterNumber": 8
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:06",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jakob"
+              },
+              "lastName": {
+                "default": "Chychrun"
+              },
+              "sweaterNumber": 6
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Lardis"
+              },
+              "sweaterNumber": 76
+            },
+            "descKey": "slashing"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

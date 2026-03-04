@@ -1,0 +1,824 @@
+{
+  "id": 2025020702,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-10",
+  "venue": {
+    "default": "Scotiabank Arena"
+  },
+  "venueLocation": {
+    "default": "Toronto"
+  },
+  "startTimeUTC": "2026-01-11T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "America/Toronto",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 21
+    },
+    {
+      "id": 4,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC",
+      "sequenceNumber": 101
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 23,
+    "commonName": {
+      "default": "Canucks"
+    },
+    "abbrev": "VAN",
+    "placeName": {
+      "default": "Vancouver"
+    },
+    "placeNameWithPreposition": {
+      "default": "Vancouver",
+      "fr": "de Vancouver"
+    },
+    "score": 0,
+    "sog": 29,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VAN_dark.svg"
+  },
+  "homeTeam": {
+    "id": 10,
+    "commonName": {
+      "default": "Maple Leafs"
+    },
+    "abbrev": "TOR",
+    "placeName": {
+      "default": "Toronto"
+    },
+    "placeNameWithPreposition": {
+      "default": "Toronto",
+      "fr": "de Toronto"
+    },
+    "score": 5,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TOR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/TOR_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 269,
+            "strength": "pp",
+            "playerId": 8481711,
+            "firstName": {
+              "default": "Matias"
+            },
+            "lastName": {
+              "default": "Maccelli"
+            },
+            "name": {
+              "default": "M. Maccelli"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8481711.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-tor-maccelli-scores-ppg-against-thatcher-demko-6387545131112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-tor-maccelli-marque-un-but-en-a-n-contre-thatcher-demko-6387543575112",
+            "highlightClip": 6387545131112,
+            "highlightClipFr": 6387543575112,
+            "discreteClip": 6387545532112,
+            "discreteClipFr": 6387545531112,
+            "goalsToDate": 7,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "08:03",
+            "shotType": "deflected",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477939,
+                "firstName": {
+                  "default": "William"
+                },
+                "lastName": {
+                  "default": "Nylander"
+                },
+                "name": {
+                  "default": "W. Nylander"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 88
+              },
+              {
+                "playerId": 8479318,
+                "firstName": {
+                  "default": "Auston"
+                },
+                "lastName": {
+                  "default": "Matthews"
+                },
+                "name": {
+                  "default": "A. Matthews"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 34
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020702/ev269.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 381,
+            "strength": "ev",
+            "playerId": 8477503,
+            "firstName": {
+              "default": "Max"
+            },
+            "lastName": {
+              "default": "Domi"
+            },
+            "name": {
+              "default": "M. Domi"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8477503.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-tor-domi-scores-goal-against-thatcher-demko-6387543900112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-tor-domi-marque-un-but-contre-thatcher-demko-6387545159112",
+            "highlightClip": 6387543900112,
+            "highlightClipFr": 6387545159112,
+            "discreteClip": 6387543899112,
+            "discreteClipFr": 6387545645112,
+            "goalsToDate": 5,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "16:31",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479442,
+                "firstName": {
+                  "default": "Troy"
+                },
+                "lastName": {
+                  "default": "Stecher"
+                },
+                "name": {
+                  "default": "T. Stecher"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 28
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020702/ev381.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 476,
+            "strength": "ev",
+            "playerId": 8477939,
+            "firstName": {
+              "default": "William"
+            },
+            "lastName": {
+              "default": "Nylander"
+            },
+            "name": {
+              "default": "W. Nylander"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8477939.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-tor-nylander-scores-goal-against-thatcher-demko-6387545073112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-tor-nylander-marque-un-but-contre-thatcher-demko-6387545355112",
+            "highlightClip": 6387545073112,
+            "highlightClipFr": 6387545355112,
+            "discreteClip": 6387546651112,
+            "discreteClipFr": 6387545563112,
+            "goalsToDate": 15,
+            "awayScore": 0,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "19:40",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478904,
+                "firstName": {
+                  "default": "Steven"
+                },
+                "lastName": {
+                  "default": "Lorentz"
+                },
+                "name": {
+                  "default": "S. Lorentz"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 18
+              },
+              {
+                "playerId": 8478443,
+                "firstName": {
+                  "default": "Brandon"
+                },
+                "lastName": {
+                  "default": "Carlo"
+                },
+                "name": {
+                  "default": "B. Carlo"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 25
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020702/ev476.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 711,
+            "strength": "ev",
+            "playerId": 8475166,
+            "firstName": {
+              "default": "John"
+            },
+            "lastName": {
+              "default": "Tavares"
+            },
+            "name": {
+              "default": "J. Tavares"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8475166.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-tor-tavares-scores-goal-against-kevin-lankinen-6387547387112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-tor-tavares-marque-un-but-contre-kevin-lankinen-6387547099112",
+            "highlightClip": 6387547387112,
+            "highlightClipFr": 6387547099112,
+            "discreteClip": 6387545826112,
+            "discreteClipFr": 6387547299112,
+            "goalsToDate": 16,
+            "awayScore": 0,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "13:07",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477939,
+                "firstName": {
+                  "default": "William"
+                },
+                "lastName": {
+                  "default": "Nylander"
+                },
+                "name": {
+                  "default": "W. Nylander"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 88
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020702/ev711.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 1115,
+            "strength": "pp",
+            "playerId": 8481582,
+            "firstName": {
+              "default": "Nicholas"
+            },
+            "lastName": {
+              "default": "Robertson"
+            },
+            "name": {
+              "default": "N. Robertson"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8481582.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-tor-robertson-scores-ppg-against-kevin-lankinen-6387551304112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-tor-robertson-marque-un-but-en-a-n-contre-kevin-lankinen-6387551995112",
+            "highlightClip": 6387551304112,
+            "highlightClipFr": 6387551995112,
+            "discreteClip": 6387550616112,
+            "discreteClipFr": 6387552092112,
+            "goalsToDate": 10,
+            "awayScore": 0,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "19:46",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020702/ev1115.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8479361,
+        "teamAbbrev": "TOR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8479361.png",
+        "name": {
+          "default": "J. Woll"
+        },
+        "sweaterNo": 60,
+        "position": "G",
+        "goalsAgainstAverage": 0.0,
+        "savePctg": 1.0
+      },
+      {
+        "star": 2,
+        "playerId": 8477939,
+        "teamAbbrev": "TOR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8477939.png",
+        "name": {
+          "default": "W. Nylander"
+        },
+        "sweaterNo": 88,
+        "position": "R",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8477503,
+        "teamAbbrev": "TOR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8477503.png",
+        "name": {
+          "default": "M. Domi"
+        },
+        "sweaterNo": 11,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:38",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "N. Robertson"
+            }
+          },
+          {
+            "timeInPeriod": "07:27",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Aatu"
+              },
+              "lastName": {
+                "default": "R\u00e4ty"
+              },
+              "sweaterNumber": 54
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Auston"
+              },
+              "lastName": {
+                "default": "Matthews"
+              },
+              "sweaterNumber": 34
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "10:24",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Auston"
+              },
+              "lastName": {
+                "default": "Matthews"
+              },
+              "sweaterNumber": 34
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Marcus"
+              },
+              "lastName": {
+                "default": "Pettersson"
+              },
+              "sweaterNumber": 29
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "13:01",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "Easton Cowan"
+            }
+          },
+          {
+            "timeInPeriod": "17:01",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Easton"
+              },
+              "lastName": {
+                "default": "Cowan"
+              },
+              "sweaterNumber": 53
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nils"
+              },
+              "lastName": {
+                "default": "Hoglander",
+                "cs": "H\u00f6glander",
+                "fi": "H\u00f6glander",
+                "sk": "H\u00f6glander",
+                "sv": "H\u00f6glander"
+              },
+              "sweaterNumber": 21
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "17:01",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nils"
+              },
+              "lastName": {
+                "default": "Hoglander",
+                "cs": "H\u00f6glander",
+                "fi": "H\u00f6glander",
+                "sk": "H\u00f6glander",
+                "sv": "H\u00f6glander"
+              },
+              "sweaterNumber": 21
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Simon"
+              },
+              "lastName": {
+                "default": "Benoit"
+              },
+              "sweaterNumber": 2
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "17:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "McCabe"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Elias"
+              },
+              "lastName": {
+                "default": "Pettersson"
+              },
+              "sweaterNumber": 40
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "19:57",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Drew"
+              },
+              "lastName": {
+                "default": "O'Connor"
+              },
+              "sweaterNumber": 18
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Morgan"
+              },
+              "lastName": {
+                "default": "Rielly"
+              },
+              "sweaterNumber": 44
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "07:24",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Morgan"
+              },
+              "lastName": {
+                "default": "Rielly"
+              },
+              "sweaterNumber": 44
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brock"
+              },
+              "lastName": {
+                "default": "Boeser"
+              },
+              "sweaterNumber": 6
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "14:00",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Marcus"
+              },
+              "lastName": {
+                "default": "Pettersson"
+              },
+              "sweaterNumber": 29
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Max"
+              },
+              "lastName": {
+                "default": "Domi"
+              },
+              "sweaterNumber": 11
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "14:00",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Max"
+              },
+              "lastName": {
+                "default": "Domi"
+              },
+              "sweaterNumber": 11
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Marcus"
+              },
+              "lastName": {
+                "default": "Pettersson"
+              },
+              "sweaterNumber": 29
+            },
+            "descKey": "fighting"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "08:30",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Troy"
+              },
+              "lastName": {
+                "default": "Stecher"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Marcus"
+              },
+              "lastName": {
+                "default": "Pettersson"
+              },
+              "sweaterNumber": 29
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "12:27",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Elias"
+              },
+              "lastName": {
+                "default": "Pettersson"
+              },
+              "sweaterNumber": 25
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nicholas"
+              },
+              "lastName": {
+                "default": "Robertson"
+              },
+              "sweaterNumber": 89
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "18:51",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kiefer"
+              },
+              "lastName": {
+                "default": "Sherwood"
+              },
+              "sweaterNumber": 44
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Carlo"
+              },
+              "sweaterNumber": 25
+            },
+            "descKey": "roughing"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

@@ -1,0 +1,1009 @@
+{
+  "id": 2025020899,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-04",
+  "venue": {
+    "default": "American Airlines Center"
+  },
+  "venueLocation": {
+    "default": "Dallas"
+  },
+  "startTimeUTC": "2026-02-05T02:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "US/Central",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 385,
+      "market": "N",
+      "countryCode": "US",
+      "network": "TNT",
+      "sequenceNumber": 11
+    },
+    {
+      "id": 578,
+      "market": "N",
+      "countryCode": "US",
+      "network": "HBO MAX",
+      "sequenceNumber": 19
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 19,
+    "commonName": {
+      "default": "Blues"
+    },
+    "abbrev": "STL",
+    "placeName": {
+      "default": "St. Louis"
+    },
+    "placeNameWithPreposition": {
+      "default": "St. Louis",
+      "fr": "de St. Louis"
+    },
+    "score": 4,
+    "sog": 18,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/STL_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/STL_dark.svg?season=20252026"
+  },
+  "homeTeam": {
+    "id": 25,
+    "commonName": {
+      "default": "Stars"
+    },
+    "abbrev": "DAL",
+    "placeName": {
+      "default": "Dallas"
+    },
+    "placeNameWithPreposition": {
+      "default": "Dallas",
+      "fr": "de Dallas"
+    },
+    "score": 5,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/DAL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/DAL_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 203,
+            "strength": "pp",
+            "playerId": 8477402,
+            "firstName": {
+              "default": "Pavel"
+            },
+            "lastName": {
+              "default": "Buchnevich",
+              "cs": "Bu\u010dn\u011bvi\u010d",
+              "fi": "Butshnevitsh",
+              "sk": "Bu\u010dn\u011bvi\u010d"
+            },
+            "name": {
+              "default": "P. Buchnevich",
+              "cs": "P. Bu\u010dn\u011bvi\u010d",
+              "fi": "P. Butshnevitsh",
+              "sk": "P. Bu\u010dn\u011bvi\u010d"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8477402.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-dal-buchnevich-scores-ppg-against-jake-oettinger-6388784888112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-dal-buchnevich-marque-un-but-en-a-n-contre-jake-oettinger-6388785194112",
+            "highlightClip": 6388784888112,
+            "highlightClipFr": 6388785194112,
+            "discreteClip": 6388786540112,
+            "discreteClipFr": 6388785681112,
+            "goalsToDate": 12,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "07:29",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479385,
+                "firstName": {
+                  "default": "Jordan"
+                },
+                "lastName": {
+                  "default": "Kyrou"
+                },
+                "name": {
+                  "default": "J. Kyrou"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 25
+              },
+              {
+                "playerId": 8475753,
+                "firstName": {
+                  "default": "Justin"
+                },
+                "lastName": {
+                  "default": "Faulk"
+                },
+                "name": {
+                  "default": "J. Faulk"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 72
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020899/ev203.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 258,
+            "strength": "ev",
+            "playerId": 8480027,
+            "firstName": {
+              "default": "Jason"
+            },
+            "lastName": {
+              "default": "Robertson"
+            },
+            "name": {
+              "default": "J. Robertson"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8480027.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-dal-robertson-scores-goal-against-jordan-binnington-6388786548112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-dal-robertson-marque-un-but-contre-jordan-binnington-6388787829112",
+            "highlightClip": 6388786548112,
+            "highlightClipFr": 6388787829112,
+            "discreteClip": 6388785297112,
+            "discreteClipFr": 6388785861112,
+            "goalsToDate": 32,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "11:37",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478420,
+                "firstName": {
+                  "default": "Mikko"
+                },
+                "lastName": {
+                  "default": "Rantanen"
+                },
+                "name": {
+                  "default": "M. Rantanen"
+                },
+                "assistsToDate": 49,
+                "sweaterNumber": 96
+              },
+              {
+                "playerId": 8480036,
+                "firstName": {
+                  "default": "Miro"
+                },
+                "lastName": {
+                  "default": "Heiskanen"
+                },
+                "name": {
+                  "default": "M. Heiskanen"
+                },
+                "assistsToDate": 38,
+                "sweaterNumber": 4
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020899/ev258.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 405,
+            "strength": "ev",
+            "playerId": 8479385,
+            "firstName": {
+              "default": "Jordan"
+            },
+            "lastName": {
+              "default": "Kyrou"
+            },
+            "name": {
+              "default": "J. Kyrou"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8479385.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-dal-kyrou-scores-goal-against-jake-oettinger-6388786204112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-dal-kyrou-marque-un-but-contre-jake-oettinger-6388787668112",
+            "highlightClip": 6388786204112,
+            "highlightClipFr": 6388787668112,
+            "discreteClip": 6388787002112,
+            "discreteClipFr": 6388786380112,
+            "goalsToDate": 13,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "18:33",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475753,
+                "firstName": {
+                  "default": "Justin"
+                },
+                "lastName": {
+                  "default": "Faulk"
+                },
+                "name": {
+                  "default": "J. Faulk"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 72
+              },
+              {
+                "playerId": 8481006,
+                "firstName": {
+                  "default": "Tyler"
+                },
+                "lastName": {
+                  "default": "Tucker"
+                },
+                "name": {
+                  "default": "T. Tucker"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 75
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020899/ev405.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 502,
+            "strength": "pp",
+            "playerId": 8475168,
+            "firstName": {
+              "default": "Matt"
+            },
+            "lastName": {
+              "default": "Duchene"
+            },
+            "name": {
+              "default": "M. Duchene"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8475168.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-dal-duchene-scores-ppg-against-jordan-binnington-6388788606112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-dal-duchene-marque-un-but-en-a-n-contre-jordan-binnington-6388788605112",
+            "highlightClip": 6388788606112,
+            "highlightClipFr": 6388788605112,
+            "discreteClip": 6388788296112,
+            "discreteClipFr": 6388788885112,
+            "goalsToDate": 10,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "01:55",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481581,
+                "firstName": {
+                  "default": "Thomas"
+                },
+                "lastName": {
+                  "default": "Harley"
+                },
+                "name": {
+                  "default": "T. Harley"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 55
+              },
+              {
+                "playerId": 8473994,
+                "firstName": {
+                  "default": "Jamie"
+                },
+                "lastName": {
+                  "default": "Benn"
+                },
+                "name": {
+                  "default": "J. Benn"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 14
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020899/ev502.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 530,
+            "strength": "ev",
+            "playerId": 8482145,
+            "firstName": {
+              "default": "Mavrik"
+            },
+            "lastName": {
+              "default": "Bourque"
+            },
+            "name": {
+              "default": "M. Bourque"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8482145.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mavrik-bourque-with-a-goal-vs-st-louis-blues-6388788777112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mavrik-bourque-with-a-but-vs-les-blues-de-st-louis-6388788126112",
+            "highlightClip": 6388788777112,
+            "highlightClipFr": 6388788126112,
+            "discreteClip": 6388789085112,
+            "discreteClipFr": 6388789659112,
+            "goalsToDate": 11,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "03:58",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480027,
+                "firstName": {
+                  "default": "Jason"
+                },
+                "lastName": {
+                  "default": "Robertson"
+                },
+                "name": {
+                  "default": "J. Robertson"
+                },
+                "assistsToDate": 34,
+                "sweaterNumber": 21
+              },
+              {
+                "playerId": 8478449,
+                "firstName": {
+                  "default": "Roope"
+                },
+                "lastName": {
+                  "default": "Hintz"
+                },
+                "name": {
+                  "default": "R. Hintz"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 24
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020899/ev530.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 687,
+            "strength": "ev",
+            "playerId": 8473994,
+            "firstName": {
+              "default": "Jamie"
+            },
+            "lastName": {
+              "default": "Benn"
+            },
+            "name": {
+              "default": "J. Benn"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8473994.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-dal-benn-scores-goal-against-jordan-binnington-6388791465112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-dal-benn-marque-un-but-contre-jordan-binnington-6388789233112",
+            "highlightClip": 6388791465112,
+            "highlightClipFr": 6388789233112,
+            "discreteClip": 6388790973112,
+            "discreteClipFr": 6388789380112,
+            "goalsToDate": 8,
+            "awayScore": 2,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "11:57",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475168,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Duchene"
+                },
+                "name": {
+                  "default": "M. Duchene"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 95
+              },
+              {
+                "playerId": 8476902,
+                "firstName": {
+                  "default": "Esa"
+                },
+                "lastName": {
+                  "default": "Lindell"
+                },
+                "name": {
+                  "default": "E. Lindell"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 23
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020899/ev687.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 933,
+            "strength": "ev",
+            "playerId": 8483516,
+            "firstName": {
+              "default": "Jimmy"
+            },
+            "lastName": {
+              "default": "Snuggerud"
+            },
+            "name": {
+              "default": "J. Snuggerud"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8483516.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-dal-snuggerud-scores-goal-against-jake-oettinger-6388792904112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-dal-snuggerud-marque-un-but-contre-jake-oettinger-6388791049112",
+            "highlightClip": 6388792904112,
+            "highlightClipFr": 6388791049112,
+            "discreteClip": 6388792417112,
+            "discreteClipFr": 6388792416112,
+            "goalsToDate": 10,
+            "awayScore": 3,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "11:05",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020899/ev933.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 995,
+            "strength": "ev",
+            "playerId": 8480281,
+            "firstName": {
+              "default": "Alexey",
+              "cs": "Alexej",
+              "de": "Alexei",
+              "es": "Alexei",
+              "fi": "Aleksei",
+              "sk": "Alexej",
+              "sv": "Alexei"
+            },
+            "lastName": {
+              "default": "Toropchenko",
+              "cs": "Torop\u010denko",
+              "fi": "Toroptshenko",
+              "sk": "Torop\u010denko"
+            },
+            "name": {
+              "default": "A. Toropchenko",
+              "cs": "A. Torop\u010denko",
+              "fi": "A. Toroptshenko",
+              "sk": "A. Torop\u010denko"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8480281.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-dal-toropchenko-scores-goal-against-jake-oettinger-6388793794112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-dal-toropchenko-marque-un-but-contre-jake-oettinger-6388792917112",
+            "highlightClip": 6388793794112,
+            "highlightClipFr": 6388792917112,
+            "discreteClip": 6388791148112,
+            "discreteClipFr": 6388791258112,
+            "goalsToDate": 3,
+            "awayScore": 4,
+            "homeScore": 4,
+            "timeInPeriod": "15:31",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481598,
+                "firstName": {
+                  "default": "Philip"
+                },
+                "lastName": {
+                  "default": "Broberg"
+                },
+                "name": {
+                  "default": "P. Broberg"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 6
+              },
+              {
+                "playerId": 8483516,
+                "firstName": {
+                  "default": "Jimmy"
+                },
+                "lastName": {
+                  "default": "Snuggerud"
+                },
+                "name": {
+                  "default": "J. Snuggerud"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 21
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020899/ev995.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1039,
+            "strength": "ev",
+            "playerId": 8473994,
+            "firstName": {
+              "default": "Jamie"
+            },
+            "lastName": {
+              "default": "Benn"
+            },
+            "name": {
+              "default": "J. Benn"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8473994.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-dal-benn-scores-goal-against-jordan-binnington-6388792728112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-dal-benn-marque-un-but-contre-jordan-binnington-6388792146112",
+            "highlightClip": 6388792728112,
+            "highlightClipFr": 6388792146112,
+            "discreteClip": 6388793706112,
+            "discreteClipFr": 6388793801112,
+            "goalsToDate": 9,
+            "awayScore": 4,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "19:37",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480036,
+                "firstName": {
+                  "default": "Miro"
+                },
+                "lastName": {
+                  "default": "Heiskanen"
+                },
+                "name": {
+                  "default": "M. Heiskanen"
+                },
+                "assistsToDate": 39,
+                "sweaterNumber": 4
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020899/ev1039.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8473994,
+        "teamAbbrev": "DAL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8473994.png",
+        "name": {
+          "default": "J. Benn"
+        },
+        "sweaterNo": 14,
+        "position": "L",
+        "goals": 2,
+        "assists": 1,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8480027,
+        "teamAbbrev": "DAL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8480027.png",
+        "name": {
+          "default": "J. Robertson"
+        },
+        "sweaterNo": 21,
+        "position": "L",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8483516,
+        "teamAbbrev": "STL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8483516.png",
+        "name": {
+          "default": "J. Snuggerud"
+        },
+        "sweaterNo": 21,
+        "position": "R",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Miro"
+              },
+              "lastName": {
+                "default": "Heiskanen"
+              },
+              "sweaterNumber": 4
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          },
+          {
+            "timeInPeriod": "15:03",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "Neighbours"
+              },
+              "sweaterNumber": 63
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jason"
+              },
+              "lastName": {
+                "default": "Robertson"
+              },
+              "sweaterNumber": 21
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "19:55",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Robby"
+              },
+              "lastName": {
+                "default": "Fabbri"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Miro"
+              },
+              "lastName": {
+                "default": "Heiskanen"
+              },
+              "sweaterNumber": 4
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:45",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jordan"
+              },
+              "lastName": {
+                "default": "Binnington"
+              },
+              "sweaterNumber": 50
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Oskar"
+              },
+              "lastName": {
+                "default": "B\u00e4ck"
+              },
+              "sweaterNumber": 10
+            },
+            "descKey": "tripping",
+            "servedBy": {
+              "default": "Dalibor Dvorsky"
+            }
+          },
+          {
+            "timeInPeriod": "12:49",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mikko"
+              },
+              "lastName": {
+                "default": "Rantanen"
+              },
+              "sweaterNumber": 96
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Tyler"
+              },
+              "lastName": {
+                "default": "Tucker"
+              },
+              "sweaterNumber": 75
+            },
+            "descKey": "roughing",
+            "servedBy": {
+              "default": "A. Erne"
+            }
+          },
+          {
+            "timeInPeriod": "12:49",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tyler"
+              },
+              "lastName": {
+                "default": "Tucker"
+              },
+              "sweaterNumber": 75
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mikko"
+              },
+              "lastName": {
+                "default": "Rantanen"
+              },
+              "sweaterNumber": 96
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "12:49",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mikko"
+              },
+              "lastName": {
+                "default": "Rantanen"
+              },
+              "sweaterNumber": 96
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Tyler"
+              },
+              "lastName": {
+                "default": "Tucker"
+              },
+              "sweaterNumber": 75
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "18:14",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Roope"
+              },
+              "lastName": {
+                "default": "Hintz"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Oskar"
+              },
+              "lastName": {
+                "default": "Sundqvist"
+              },
+              "sweaterNumber": 70
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:24",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Wyatt"
+              },
+              "lastName": {
+                "default": "Johnston"
+              },
+              "sweaterNumber": 53
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Alexey",
+                "cs": "Alexej",
+                "de": "Alexei",
+                "es": "Alexei",
+                "fi": "Aleksei",
+                "sk": "Alexej",
+                "sv": "Alexei"
+              },
+              "lastName": {
+                "default": "Toropchenko",
+                "cs": "Torop\u010denko",
+                "fi": "Toroptshenko",
+                "sk": "Torop\u010denko"
+              },
+              "sweaterNumber": 13
+            },
+            "descKey": "hooking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

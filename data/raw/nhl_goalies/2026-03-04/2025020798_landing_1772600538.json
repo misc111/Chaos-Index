@@ -1,0 +1,981 @@
+{
+  "id": 2025020798,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-22",
+  "venue": {
+    "default": "Bridgestone Arena"
+  },
+  "venueLocation": {
+    "default": "Nashville"
+  },
+  "startTimeUTC": "2026-01-23T01:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "US/Central",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 294,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "TSN5",
+      "sequenceNumber": 135
+    },
+    {
+      "id": 230,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "RDS2",
+      "sequenceNumber": 146
+    },
+    {
+      "id": 561,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNSO",
+      "sequenceNumber": 202
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 9,
+    "commonName": {
+      "default": "Senators",
+      "fr": "S\u00e9nateurs"
+    },
+    "abbrev": "OTT",
+    "placeName": {
+      "default": "Ottawa"
+    },
+    "placeNameWithPreposition": {
+      "default": "Ottawa",
+      "fr": "d'Ottawa"
+    },
+    "score": 3,
+    "sog": 26,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/OTT_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/OTT_dark.svg"
+  },
+  "homeTeam": {
+    "id": 18,
+    "commonName": {
+      "default": "Predators"
+    },
+    "abbrev": "NSH",
+    "placeName": {
+      "default": "Nashville"
+    },
+    "placeNameWithPreposition": {
+      "default": "Nashville",
+      "fr": "de Nashville"
+    },
+    "score": 5,
+    "sog": 27,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NSH_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 152,
+            "strength": "ev",
+            "playerId": 8483676,
+            "firstName": {
+              "default": "Stephen"
+            },
+            "lastName": {
+              "default": "Halliday"
+            },
+            "name": {
+              "default": "S. Halliday"
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8483676.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ott-nsh-halliday-scores-goal-against-juuse-saros-6388114346112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ott-nsh-halliday-marque-un-but-contre-juuse-saros-6388116199112",
+            "highlightClip": 6388114346112,
+            "highlightClipFr": 6388116199112,
+            "discreteClip": 6388114135112,
+            "discreteClipFr": 6388116584112,
+            "goalsToDate": 1,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "OTT"
+            },
+            "timeInPeriod": "06:03",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8474189,
+                "firstName": {
+                  "default": "Lars"
+                },
+                "lastName": {
+                  "default": "Eller"
+                },
+                "name": {
+                  "default": "L. Eller"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 89
+              },
+              {
+                "playerId": 8476393,
+                "firstName": {
+                  "default": "Nick"
+                },
+                "lastName": {
+                  "default": "Cousins"
+                },
+                "name": {
+                  "default": "N. Cousins"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 21
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020798/ev152.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 400,
+            "strength": "ev",
+            "playerId": 8482092,
+            "firstName": {
+              "default": "Ridly"
+            },
+            "lastName": {
+              "default": "Greig"
+            },
+            "name": {
+              "default": "R. Greig"
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8482092.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ott-nsh-greig-scores-goal-against-juuse-saros-6388116433112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ott-nsh-greig-marque-un-but-contre-juuse-saros-6388115055112",
+            "highlightClip": 6388116433112,
+            "highlightClipFr": 6388115055112,
+            "discreteClip": 6388116317112,
+            "discreteClipFr": 6388114939112,
+            "goalsToDate": 8,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "OTT"
+            },
+            "timeInPeriod": "14:19",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478020,
+                "firstName": {
+                  "default": "Michael"
+                },
+                "lastName": {
+                  "default": "Amadio"
+                },
+                "name": {
+                  "default": "M. Amadio"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 22
+              },
+              {
+                "playerId": 8482105,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "Sanderson"
+                },
+                "name": {
+                  "default": "J. Sanderson"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 85
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020798/ev400.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 697,
+            "strength": "ev",
+            "playerId": 8480801,
+            "firstName": {
+              "default": "Brady"
+            },
+            "lastName": {
+              "default": "Tkachuk"
+            },
+            "name": {
+              "default": "B. Tkachuk"
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8480801.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ott-nsh-cozens-scores-goal-against-juuse-saros-6388119060112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ott-nsh-cozens-marque-un-but-contre-juuse-saros-6388119149112",
+            "highlightClip": 6388119060112,
+            "highlightClipFr": 6388119149112,
+            "discreteClip": 6388117963112,
+            "discreteClipFr": 6388117486112,
+            "goalsToDate": 12,
+            "awayScore": 3,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "OTT"
+            },
+            "timeInPeriod": "10:46",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481528,
+                "firstName": {
+                  "default": "Dylan"
+                },
+                "lastName": {
+                  "default": "Cozens"
+                },
+                "name": {
+                  "default": "D. Cozens"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 24
+              },
+              {
+                "playerId": 8482245,
+                "firstName": {
+                  "default": "Artem",
+                  "cs": "Ar\u0165om",
+                  "fi": "Artjom",
+                  "sk": "Ar\u0165om"
+                },
+                "lastName": {
+                  "default": "Zub"
+                },
+                "name": {
+                  "default": "A. Zub"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 2
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020798/ev697.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 801,
+            "strength": "pp",
+            "playerId": 8474564,
+            "firstName": {
+              "default": "Steven"
+            },
+            "lastName": {
+              "default": "Stamkos"
+            },
+            "name": {
+              "default": "S. Stamkos"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8474564.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ott-nsh-stamkos-scores-ppg-against-james-reimer-6388119952112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ott-nsh-stamkos-marque-un-but-en-a-n-contre-james-reimer-6388118292112",
+            "highlightClip": 6388119952112,
+            "highlightClipFr": 6388118292112,
+            "discreteClip": 6388119949112,
+            "discreteClipFr": 6388121024112,
+            "goalsToDate": 22,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "OTT"
+            },
+            "timeInPeriod": "18:34",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482146,
+                "firstName": {
+                  "default": "Luke"
+                },
+                "lastName": {
+                  "default": "Evangelista"
+                },
+                "name": {
+                  "default": "L. Evangelista"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 77
+              },
+              {
+                "playerId": 8476887,
+                "firstName": {
+                  "default": "Filip"
+                },
+                "lastName": {
+                  "default": "Forsberg"
+                },
+                "name": {
+                  "default": "F. Forsberg"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020798/ev801.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 910,
+            "strength": "ev",
+            "playerId": 8476539,
+            "firstName": {
+              "default": "Jonathan"
+            },
+            "lastName": {
+              "default": "Marchessault"
+            },
+            "name": {
+              "default": "J. Marchessault"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8476539.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ott-nsh-marchessault-scores-goal-against-james-reimer-6388123160112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ott-nsh-marchessault-marque-un-but-contre-james-reimer-6388121968112",
+            "highlightClip": 6388123160112,
+            "highlightClipFr": 6388121968112,
+            "discreteClip": 6388122562112,
+            "discreteClipFr": 6388121873112,
+            "goalsToDate": 8,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "OTT"
+            },
+            "timeInPeriod": "08:19",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478047,
+                "firstName": {
+                  "default": "Michael"
+                },
+                "lastName": {
+                  "default": "Bunting"
+                },
+                "name": {
+                  "default": "M. Bunting"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 58
+              },
+              {
+                "playerId": 8482146,
+                "firstName": {
+                  "default": "Luke"
+                },
+                "lastName": {
+                  "default": "Evangelista"
+                },
+                "name": {
+                  "default": "L. Evangelista"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 77
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020798/ev910.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 940,
+            "strength": "pp",
+            "playerId": 8474564,
+            "firstName": {
+              "default": "Steven"
+            },
+            "lastName": {
+              "default": "Stamkos"
+            },
+            "name": {
+              "default": "S. Stamkos"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8474564.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ott-nsh-stamkos-scores-ppg-against-james-reimer-6388122183112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ott-nsh-stamkos-marque-un-but-en-a-n-contre-james-reimer-6388122180112",
+            "highlightClip": 6388122183112,
+            "highlightClipFr": 6388122180112,
+            "discreteClip": 6388120815112,
+            "discreteClipFr": 6388120814112,
+            "goalsToDate": 23,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "10:07",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475158,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "O'Reilly"
+                },
+                "name": {
+                  "default": "R. O'Reilly"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 90
+              },
+              {
+                "playerId": 8474600,
+                "firstName": {
+                  "default": "Roman"
+                },
+                "lastName": {
+                  "default": "Josi"
+                },
+                "name": {
+                  "default": "R. Josi"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 59
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020798/ev940.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1064,
+            "strength": "ev",
+            "playerId": 8474564,
+            "firstName": {
+              "default": "Steven"
+            },
+            "lastName": {
+              "default": "Stamkos"
+            },
+            "name": {
+              "default": "S. Stamkos"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8474564.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ott-nsh-stamkos-scores-goal-against-james-reimer-6388124077112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ott-nsh-stamkos-marque-un-but-contre-james-reimer-6388121722112",
+            "highlightClip": 6388124077112,
+            "highlightClipFr": 6388121722112,
+            "discreteClip": 6388124659112,
+            "discreteClipFr": 6388122816112,
+            "goalsToDate": 24,
+            "awayScore": 3,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "NSH"
+            },
+            "timeInPeriod": "18:47",
+            "shotType": "bat",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475158,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "O'Reilly"
+                },
+                "name": {
+                  "default": "R. O'Reilly"
+                },
+                "assistsToDate": 31,
+                "sweaterNumber": 90
+              },
+              {
+                "playerId": 8483565,
+                "firstName": {
+                  "default": "Nick"
+                },
+                "lastName": {
+                  "default": "Blankenburg"
+                },
+                "name": {
+                  "default": "N. Blankenburg"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 37
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020798/ev1064.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 1077,
+            "strength": "ev",
+            "playerId": 8482062,
+            "firstName": {
+              "default": "Cole"
+            },
+            "lastName": {
+              "default": "Smith"
+            },
+            "name": {
+              "default": "C. Smith"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8482062.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ott-nsh-smith-scores-empty-net-goal-6388123502112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ott-nsh-smith-nsh-marque-un-but-dans-un-filet-desert-6388123320112",
+            "highlightClip": 6388123502112,
+            "highlightClipFr": 6388123320112,
+            "discreteClip": 6388122313112,
+            "discreteClipFr": 6388123392112,
+            "goalsToDate": 6,
+            "awayScore": 3,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "NSH"
+            },
+            "timeInPeriod": "19:33",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8475287,
+                "firstName": {
+                  "default": "Erik"
+                },
+                "lastName": {
+                  "default": "Haula"
+                },
+                "name": {
+                  "default": "E. Haula"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 56
+              },
+              {
+                "playerId": 8475158,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "O'Reilly"
+                },
+                "name": {
+                  "default": "R. O'Reilly"
+                },
+                "assistsToDate": 32,
+                "sweaterNumber": 90
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020798/ev1077.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8474564,
+        "teamAbbrev": "NSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8474564.png",
+        "name": {
+          "default": "S. Stamkos"
+        },
+        "sweaterNo": 91,
+        "position": "C",
+        "goals": 3,
+        "assists": 0,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8482146,
+        "teamAbbrev": "NSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8482146.png",
+        "name": {
+          "default": "L. Evangelista"
+        },
+        "sweaterNo": 77,
+        "position": "R",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8476539,
+        "teamAbbrev": "NSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8476539.png",
+        "name": {
+          "default": "J. Marchessault"
+        },
+        "sweaterNo": 81,
+        "position": "R",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "19:57",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Shane"
+              },
+              "lastName": {
+                "default": "Pinto"
+              },
+              "sweaterNumber": 12
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Steven"
+              },
+              "lastName": {
+                "default": "Stamkos"
+              },
+              "sweaterNumber": 91
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "19:57",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Steven"
+              },
+              "lastName": {
+                "default": "Stamkos"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Shane"
+              },
+              "lastName": {
+                "default": "Pinto"
+              },
+              "sweaterNumber": 12
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:33",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Artem",
+                "cs": "Ar\u0165om",
+                "fi": "Artjom",
+                "sk": "Ar\u0165om"
+              },
+              "lastName": {
+                "default": "Zub"
+              },
+              "sweaterNumber": 2
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Filip"
+              },
+              "lastName": {
+                "default": "Forsberg"
+              },
+              "sweaterNumber": 9
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "14:05",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ozzy"
+              },
+              "lastName": {
+                "default": "Wiesblatt"
+              },
+              "sweaterNumber": 89
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Cousins"
+              },
+              "sweaterNumber": 21
+            },
+            "descKey": "boarding"
+          },
+          {
+            "timeInPeriod": "18:04",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jordan"
+              },
+              "lastName": {
+                "default": "Spence"
+              },
+              "sweaterNumber": 10
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "McCarron"
+              },
+              "sweaterNumber": 47
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "19:54",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Steven"
+              },
+              "lastName": {
+                "default": "Stamkos"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brady"
+              },
+              "lastName": {
+                "default": "Tkachuk"
+              },
+              "sweaterNumber": 7
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:14",
+            "type": "MIN",
+            "duration": 4,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Fabian"
+              },
+              "lastName": {
+                "default": "Zetterlund"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Blankenburg"
+              },
+              "sweaterNumber": 37
+            },
+            "descKey": "high-sticking-double-minor"
+          },
+          {
+            "timeInPeriod": "09:39",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tim"
+              },
+              "lastName": {
+                "default": "St\u00fctzle"
+              },
+              "sweaterNumber": 18
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Steven"
+              },
+              "lastName": {
+                "default": "Stamkos"
+              },
+              "sweaterNumber": 91
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "10:32",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "McCarron"
+              },
+              "sweaterNumber": 47
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ridly"
+              },
+              "lastName": {
+                "default": "Greig"
+              },
+              "sweaterNumber": 71
+            },
+            "descKey": "hooking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

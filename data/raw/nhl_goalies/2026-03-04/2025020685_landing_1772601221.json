@@ -1,0 +1,706 @@
+{
+  "id": 2025020685,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-08",
+  "venue": {
+    "default": "Madison Square Garden"
+  },
+  "venueLocation": {
+    "default": "New York"
+  },
+  "startTimeUTC": "2026-01-09T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "America/New_York",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 28,
+      "market": "A",
+      "countryCode": "US",
+      "network": "MSG-B",
+      "sequenceNumber": 392
+    },
+    {
+      "id": 27,
+      "market": "H",
+      "countryCode": "US",
+      "network": "MSG",
+      "sequenceNumber": 417
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 7,
+    "commonName": {
+      "default": "Sabres"
+    },
+    "abbrev": "BUF",
+    "placeName": {
+      "default": "Buffalo"
+    },
+    "placeNameWithPreposition": {
+      "default": "Buffalo",
+      "fr": "de Buffalo"
+    },
+    "score": 5,
+    "sog": 21,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/BUF_dark.svg"
+  },
+  "homeTeam": {
+    "id": 3,
+    "commonName": {
+      "default": "Rangers"
+    },
+    "abbrev": "NYR",
+    "placeName": {
+      "default": "New York"
+    },
+    "placeNameWithPreposition": {
+      "default": "New York",
+      "fr": "de New York"
+    },
+    "score": 2,
+    "sog": 32,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NYR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NYR_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 153,
+            "strength": "ev",
+            "playerId": 8482659,
+            "firstName": {
+              "default": "Josh"
+            },
+            "lastName": {
+              "default": "Doan"
+            },
+            "name": {
+              "default": "J. Doan"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8482659.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-nyr-doan-scores-goal-against-jonathan-quick-6387439990112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-nyr-doan-marque-un-but-contre-jonathan-quick-6387437037112",
+            "highlightClip": 6387439990112,
+            "highlightClipFr": 6387437037112,
+            "discreteClip": 6387438928112,
+            "discreteClipFr": 6387438030112,
+            "goalsToDate": 14,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "04:07",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480807,
+                "firstName": {
+                  "default": "Mattias"
+                },
+                "lastName": {
+                  "default": "Samuelsson"
+                },
+                "name": {
+                  "default": "M. Samuelsson"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 23
+              },
+              {
+                "playerId": 8475722,
+                "firstName": {
+                  "default": "Jason"
+                },
+                "lastName": {
+                  "default": "Zucker"
+                },
+                "name": {
+                  "default": "J. Zucker"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 17
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020685/ev153.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 647,
+            "strength": "ev",
+            "playerId": 8477949,
+            "firstName": {
+              "default": "Alex"
+            },
+            "lastName": {
+              "default": "Tuch"
+            },
+            "name": {
+              "default": "A. Tuch"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8477949.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-nyr-tuch-scores-goal-against-jonathan-quick-6387443301112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-nyr-tuch-marque-un-but-contre-jonathan-quick-6387444378112",
+            "highlightClip": 6387443301112,
+            "highlightClipFr": 6387444378112,
+            "discreteClip": 6387442994112,
+            "discreteClipFr": 6387443394112,
+            "goalsToDate": 14,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "06:58",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481524,
+                "firstName": {
+                  "default": "Bowen"
+                },
+                "lastName": {
+                  "default": "Byram"
+                },
+                "name": {
+                  "default": "B. Byram"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 4
+              },
+              {
+                "playerId": 8480064,
+                "firstName": {
+                  "default": "Josh"
+                },
+                "lastName": {
+                  "default": "Norris"
+                },
+                "name": {
+                  "default": "J. Norris"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020685/ev647.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 692,
+            "strength": "ev",
+            "playerId": 8476459,
+            "firstName": {
+              "default": "Mika"
+            },
+            "lastName": {
+              "default": "Zibanejad"
+            },
+            "name": {
+              "default": "M. Zibanejad"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8476459.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-nyr-zibanejad-scores-goal-against-colten-ellis-6387444016112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-nyr-zibanejad-marque-un-but-contre-colten-ellis-6387444193112",
+            "highlightClip": 6387444016112,
+            "highlightClipFr": 6387444193112,
+            "discreteClip": 6387446351112,
+            "discreteClipFr": 6387444409112,
+            "goalsToDate": 16,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "09:34",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478550,
+                "firstName": {
+                  "default": "Artemi",
+                  "cs": "Art\u011bmij",
+                  "sk": "Artemij"
+                },
+                "lastName": {
+                  "default": "Panarin"
+                },
+                "name": {
+                  "default": "A. Panarin"
+                },
+                "assistsToDate": 31,
+                "sweaterNumber": 10
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020685/ev692.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 729,
+            "strength": "pp",
+            "playerId": 8475722,
+            "firstName": {
+              "default": "Jason"
+            },
+            "lastName": {
+              "default": "Zucker"
+            },
+            "name": {
+              "default": "J. Zucker"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8475722.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-nyr-zucker-scores-ppg-against-jonathan-quick-6387444218112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-nyr-zucker-marque-un-but-en-a-n-contre-jonathan-quick-6387444783112",
+            "highlightClip": 6387444218112,
+            "highlightClipFr": 6387444783112,
+            "discreteClip": 6387446654112,
+            "discreteClipFr": 6387444216112,
+            "goalsToDate": 10,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "12:34",
+            "shotType": "deflected",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480839,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Dahlin"
+                },
+                "name": {
+                  "default": "R. Dahlin"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 26
+              },
+              {
+                "playerId": 8479420,
+                "firstName": {
+                  "default": "Tage"
+                },
+                "lastName": {
+                  "default": "Thompson"
+                },
+                "name": {
+                  "default": "T. Thompson"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 72
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020685/ev729.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 837,
+            "strength": "ev",
+            "playerId": 8476389,
+            "firstName": {
+              "default": "Vincent"
+            },
+            "lastName": {
+              "default": "Trocheck"
+            },
+            "name": {
+              "default": "V. Trocheck"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8476389.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-nyr-trocheck-scores-goal-against-colten-ellis-6387446621112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-nyr-trocheck-marque-un-but-contre-colten-ellis-6387445427112",
+            "highlightClip": 6387446621112,
+            "highlightClipFr": 6387445427112,
+            "discreteClip": 6387446509112,
+            "discreteClipFr": 6387446217112,
+            "goalsToDate": 11,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "00:51",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476468,
+                "firstName": {
+                  "default": "J.T."
+                },
+                "lastName": {
+                  "default": "Miller"
+                },
+                "name": {
+                  "default": "J. Miller"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 8
+              },
+              {
+                "playerId": 8478550,
+                "firstName": {
+                  "default": "Artemi",
+                  "cs": "Art\u011bmij",
+                  "sk": "Artemij"
+                },
+                "lastName": {
+                  "default": "Panarin"
+                },
+                "name": {
+                  "default": "A. Panarin"
+                },
+                "assistsToDate": 32,
+                "sweaterNumber": 10
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020685/ev837.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 1048,
+            "strength": "sh",
+            "playerId": 8480807,
+            "firstName": {
+              "default": "Mattias"
+            },
+            "lastName": {
+              "default": "Samuelsson"
+            },
+            "name": {
+              "default": "M. Samuelsson"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8480807.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-nyr-samuelsson-scores-shg-against-jonathan-quick-6387448887112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-nyr-samuelsson-marque-un-but-en-i-n-contre-jonathan-quick-6387447518112",
+            "highlightClip": 6387448887112,
+            "highlightClipFr": 6387447518112,
+            "discreteClip": 6387449198112,
+            "discreteClipFr": 6387447231112,
+            "goalsToDate": 7,
+            "awayScore": 4,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "14:38",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480802,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "McLeod"
+                },
+                "name": {
+                  "default": "R. McLeod"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 71
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020685/ev1048.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1090,
+            "strength": "ev",
+            "playerId": 8480802,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "McLeod"
+            },
+            "name": {
+              "default": "R. McLeod"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8480802.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-nyr-mcleod-scores-empty-net-goal-6387449409112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-nyr-mcleod-buf-marque-un-but-dans-un-filet-desert-6387447533112",
+            "highlightClip": 6387449409112,
+            "highlightClipFr": 6387447533112,
+            "discreteClip": 6387447835112,
+            "discreteClipFr": 6387448207112,
+            "goalsToDate": 9,
+            "awayScore": 5,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "18:30",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020685/ev1090.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8475722,
+        "teamAbbrev": "BUF",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8475722.png",
+        "name": {
+          "default": "J. Zucker"
+        },
+        "sweaterNo": 17,
+        "position": "L",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8480807,
+        "teamAbbrev": "BUF",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8480807.png",
+        "name": {
+          "default": "M. Samuelsson"
+        },
+        "sweaterNo": 23,
+        "position": "D",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8481551,
+        "teamAbbrev": "BUF",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8481551.png",
+        "name": {
+          "default": "C. Ellis"
+        },
+        "sweaterNo": 92,
+        "position": "G",
+        "goalsAgainstAverage": 2.0,
+        "savePctg": 0.938
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Vincent"
+              },
+              "lastName": {
+                "default": "Trocheck"
+              },
+              "sweaterNumber": 16
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "descKey": "abuse-of-officials"
+          },
+          {
+            "timeInPeriod": "11:53",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Robertson"
+              },
+              "sweaterNumber": 29
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Zach"
+              },
+              "lastName": {
+                "default": "Benson"
+              },
+              "sweaterNumber": 6
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "18:28",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Ostlund"
+              },
+              "sweaterNumber": 86
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Artemi",
+                "cs": "Art\u011bmij",
+                "sk": "Artemij"
+              },
+              "lastName": {
+                "default": "Panarin"
+              },
+              "sweaterNumber": 10
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "14:24",
+            "type": "MIN",
+            "duration": 4,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Peyton"
+              },
+              "lastName": {
+                "default": "Krebs"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Vincent"
+              },
+              "lastName": {
+                "default": "Trocheck"
+              },
+              "sweaterNumber": 16
+            },
+            "descKey": "high-sticking-double-minor"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

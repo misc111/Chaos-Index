@@ -1,0 +1,1043 @@
+{
+  "id": 2025020843,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-29",
+  "venue": {
+    "default": "TD Garden"
+  },
+  "venueLocation": {
+    "default": "Boston"
+  },
+  "startTimeUTC": "2026-01-30T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 287,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SNE",
+      "sequenceNumber": 30
+    },
+    {
+      "id": 323,
+      "market": "A",
+      "countryCode": "US",
+      "network": "NBCSP+",
+      "sequenceNumber": 401
+    },
+    {
+      "id": 31,
+      "market": "H",
+      "countryCode": "US",
+      "network": "NESN",
+      "sequenceNumber": 405
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 4,
+    "commonName": {
+      "default": "Flyers"
+    },
+    "abbrev": "PHI",
+    "placeName": {
+      "default": "Philadelphia",
+      "fr": "Philadelphie"
+    },
+    "placeNameWithPreposition": {
+      "default": "Philadelphia",
+      "fr": "de Philadelphie"
+    },
+    "score": 3,
+    "sog": 36,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/PHI_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/PHI_dark.svg"
+  },
+  "homeTeam": {
+    "id": 6,
+    "commonName": {
+      "default": "Bruins"
+    },
+    "abbrev": "BOS",
+    "placeName": {
+      "default": "Boston"
+    },
+    "placeNameWithPreposition": {
+      "default": "Boston",
+      "fr": "de Boston"
+    },
+    "score": 6,
+    "sog": 27,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/BOS_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/BOS_dark.svg?season=20252026"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 236,
+            "strength": "ev",
+            "playerId": 8478042,
+            "firstName": {
+              "default": "Viktor"
+            },
+            "lastName": {
+              "default": "Arvidsson"
+            },
+            "name": {
+              "default": "V. Arvidsson"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8478042.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-bos-arvidsson-scores-goal-against-samuel-ersson-6388510437112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-bos-arvidsson-marque-un-but-contre-samuel-ersson-6388510247112",
+            "highlightClip": 6388510437112,
+            "highlightClipFr": 6388510247112,
+            "discreteClip": 6388511327112,
+            "discreteClipFr": 6388509243112,
+            "goalsToDate": 13,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "BOS"
+            },
+            "timeInPeriod": "09:49",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479999,
+                "firstName": {
+                  "default": "Casey"
+                },
+                "lastName": {
+                  "default": "Mittelstadt"
+                },
+                "name": {
+                  "default": "C. Mittelstadt"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 11
+              },
+              {
+                "playerId": 8483489,
+                "firstName": {
+                  "default": "Fraser"
+                },
+                "lastName": {
+                  "default": "Minten"
+                },
+                "name": {
+                  "default": "F. Minten"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 93
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020843/ev236.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 245,
+            "strength": "ev",
+            "playerId": 8478401,
+            "firstName": {
+              "default": "Pavel"
+            },
+            "lastName": {
+              "default": "Zacha"
+            },
+            "name": {
+              "default": "P. Zacha"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8478401.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-bos-zacha-scores-goal-against-samuel-ersson-6388511710112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-bos-zacha-marque-un-but-contre-samuel-ersson-6388511801112",
+            "highlightClip": 6388511710112,
+            "highlightClipFr": 6388511801112,
+            "discreteClip": 6388511708112,
+            "discreteClipFr": 6388509247112,
+            "goalsToDate": 15,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "BOS"
+            },
+            "timeInPeriod": "10:30",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479987,
+                "firstName": {
+                  "default": "Morgan"
+                },
+                "lastName": {
+                  "default": "Geekie"
+                },
+                "name": {
+                  "default": "M. Geekie"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 39
+              },
+              {
+                "playerId": 8481219,
+                "firstName": {
+                  "default": "Jonathan"
+                },
+                "lastName": {
+                  "default": "Aspirot"
+                },
+                "name": {
+                  "default": "J. Aspirot"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 45
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020843/ev245.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 566,
+            "strength": "ev",
+            "playerId": 8483489,
+            "firstName": {
+              "default": "Fraser"
+            },
+            "lastName": {
+              "default": "Minten"
+            },
+            "name": {
+              "default": "F. Minten"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8483489.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-bos-minten-scores-goal-against-samuel-ersson-6388512279112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-bos-minten-marque-un-but-contre-samuel-ersson-6388513578112",
+            "highlightClip": 6388512279112,
+            "highlightClipFr": 6388513578112,
+            "discreteClip": 6388513255112,
+            "discreteClipFr": 6388512164112,
+            "goalsToDate": 14,
+            "awayScore": 0,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "BOS"
+            },
+            "timeInPeriod": "02:27",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479999,
+                "firstName": {
+                  "default": "Casey"
+                },
+                "lastName": {
+                  "default": "Mittelstadt"
+                },
+                "name": {
+                  "default": "C. Mittelstadt"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 11
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020843/ev566.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 577,
+            "strength": "ev",
+            "playerId": 8478439,
+            "firstName": {
+              "default": "Travis"
+            },
+            "lastName": {
+              "default": "Konecny"
+            },
+            "name": {
+              "default": "T. Konecny"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8478439.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-bos-konecny-scores-goal-against-jeremy-swayman-6388513268112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-bos-konecny-marque-un-but-contre-jeremy-swayman-6388514828112",
+            "highlightClip": 6388513268112,
+            "highlightClipFr": 6388514828112,
+            "discreteClip": 6388513955112,
+            "discreteClipFr": 6388514729112,
+            "goalsToDate": 21,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "BOS"
+            },
+            "timeInPeriod": "03:16",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477989,
+                "firstName": {
+                  "default": "Christian"
+                },
+                "lastName": {
+                  "default": "Dvorak"
+                },
+                "name": {
+                  "default": "C. Dvorak"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 22
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020843/ev577.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 740,
+            "strength": "ev",
+            "playerId": 8479999,
+            "firstName": {
+              "default": "Casey"
+            },
+            "lastName": {
+              "default": "Mittelstadt"
+            },
+            "name": {
+              "default": "C. Mittelstadt"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8479999.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-bos-mittelstadt-scores-goal-against-samuel-ersson-6388515461112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-bos-mittelstadt-marque-un-but-contre-samuel-ersson-6388514294112",
+            "highlightClip": 6388515461112,
+            "highlightClipFr": 6388514294112,
+            "discreteClip": 6388515661112,
+            "discreteClipFr": 6388515353112,
+            "goalsToDate": 11,
+            "awayScore": 1,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "BOS"
+            },
+            "timeInPeriod": "16:12",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479369,
+                "firstName": {
+                  "default": "Andrew"
+                },
+                "lastName": {
+                  "default": "Peeke"
+                },
+                "name": {
+                  "default": "A. Peeke"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 26
+              },
+              {
+                "playerId": 8483489,
+                "firstName": {
+                  "default": "Fraser"
+                },
+                "lastName": {
+                  "default": "Minten"
+                },
+                "name": {
+                  "default": "F. Minten"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 93
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020843/ev740.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 770,
+            "strength": "ev",
+            "playerId": 8479661,
+            "firstName": {
+              "default": "Tanner"
+            },
+            "lastName": {
+              "default": "Jeannot"
+            },
+            "name": {
+              "default": "T. Jeannot"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8479661.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-bos-jeannot-scores-goal-against-samuel-ersson-6388516380112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-bos-jeannot-marque-un-but-contre-samuel-ersson-6388517054112",
+            "highlightClip": 6388516380112,
+            "highlightClipFr": 6388517054112,
+            "discreteClip": 6388517147112,
+            "discreteClipFr": 6388514604112,
+            "goalsToDate": 6,
+            "awayScore": 1,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "BOS"
+            },
+            "timeInPeriod": "18:40",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479369,
+                "firstName": {
+                  "default": "Andrew"
+                },
+                "lastName": {
+                  "default": "Peeke"
+                },
+                "name": {
+                  "default": "A. Peeke"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 26
+              },
+              {
+                "playerId": 8476374,
+                "firstName": {
+                  "default": "Sean"
+                },
+                "lastName": {
+                  "default": "Kuraly"
+                },
+                "name": {
+                  "default": "S. Kuraly"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 52
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020843/ev770.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 784,
+            "strength": "ev",
+            "playerId": 8483733,
+            "firstName": {
+              "default": "Nikita"
+            },
+            "lastName": {
+              "default": "Grebenkin"
+            },
+            "name": {
+              "default": "N. Grebenkin"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8483733.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-bos-grebenkin-scores-goal-against-jeremy-swayman-6388517552112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-bos-grebenkin-marque-un-but-contre-jeremy-swayman-6388515616112",
+            "highlightClip": 6388517552112,
+            "highlightClipFr": 6388515616112,
+            "discreteClip": 6388515719112,
+            "discreteClipFr": 6388515720112,
+            "goalsToDate": 4,
+            "awayScore": 2,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "BOS"
+            },
+            "timeInPeriod": "19:05",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478439,
+                "firstName": {
+                  "default": "Travis"
+                },
+                "lastName": {
+                  "default": "Konecny"
+                },
+                "name": {
+                  "default": "T. Konecny"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 11
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020843/ev784.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "0651",
+            "eventId": 1045,
+            "strength": "ev",
+            "playerId": 8482177,
+            "firstName": {
+              "default": "Marat"
+            },
+            "lastName": {
+              "default": "Khusnutdinov",
+              "cs": "Chusnutdinov",
+              "fi": "Husnutdinov",
+              "sk": "Chusnutdinov"
+            },
+            "name": {
+              "default": "M. Khusnutdinov",
+              "cs": "M. Chusnutdinov",
+              "fi": "M. Husnutdinov",
+              "sk": "M. Chusnutdinov"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8482177.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-bos-khusnutdinov-scores-empty-net-goal-6388519607112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-bos-khusnutdinov-bos-marque-un-but-dans-un-filet-desert-6388519784112",
+            "highlightClip": 6388519607112,
+            "highlightClipFr": 6388519784112,
+            "discreteClip": 6388518818112,
+            "discreteClipFr": 6388519879112,
+            "goalsToDate": 12,
+            "awayScore": 2,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "BOS"
+            },
+            "timeInPeriod": "16:30",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8479325,
+                "firstName": {
+                  "default": "Charlie"
+                },
+                "lastName": {
+                  "default": "McAvoy"
+                },
+                "name": {
+                  "default": "C. McAvoy"
+                },
+                "assistsToDate": 32,
+                "sweaterNumber": 73
+              },
+              {
+                "playerId": 8481219,
+                "firstName": {
+                  "default": "Jonathan"
+                },
+                "lastName": {
+                  "default": "Aspirot"
+                },
+                "name": {
+                  "default": "J. Aspirot"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 45
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020843/ev1045.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 1076,
+            "strength": "pp",
+            "playerId": 8484387,
+            "firstName": {
+              "default": "Matvei",
+              "cs": "Matvej",
+              "sk": "Matvej"
+            },
+            "lastName": {
+              "default": "Michkov",
+              "cs": "Mi\u010dkov",
+              "fi": "Mitshkov",
+              "sk": "Mi\u010dkov"
+            },
+            "name": {
+              "default": "M. Michkov",
+              "cs": "M. Mi\u010dkov",
+              "fi": "M. Mitshkov",
+              "sk": "M. Mi\u010dkov"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8484387.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-bos-michkov-scores-ppg-against-jeremy-swayman-6388520019112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-bos-michkov-marque-un-but-en-a-n-contre-jeremy-swayman-6388519623112",
+            "highlightClip": 6388520019112,
+            "highlightClipFr": 6388519623112,
+            "discreteClip": 6388519411112,
+            "discreteClipFr": 6388517945112,
+            "goalsToDate": 13,
+            "awayScore": 3,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "BOS"
+            },
+            "timeInPeriod": "18:19",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484142,
+                "firstName": {
+                  "default": "Denver"
+                },
+                "lastName": {
+                  "default": "Barkey"
+                },
+                "name": {
+                  "default": "D. Barkey"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 52
+              },
+              {
+                "playerId": 8480015,
+                "firstName": {
+                  "default": "Owen"
+                },
+                "lastName": {
+                  "default": "Tippett"
+                },
+                "name": {
+                  "default": "O. Tippett"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 74
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020843/ev1076.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8479999,
+        "teamAbbrev": "BOS",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8479999.png",
+        "name": {
+          "default": "C. Mittelstadt"
+        },
+        "sweaterNo": 11,
+        "position": "C",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8483489,
+        "teamAbbrev": "BOS",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8483489.png",
+        "name": {
+          "default": "F. Minten"
+        },
+        "sweaterNo": 93,
+        "position": "C",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8480280,
+        "teamAbbrev": "BOS",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8480280.png",
+        "name": {
+          "default": "J. Swayman"
+        },
+        "sweaterNo": 1,
+        "position": "G",
+        "goalsAgainstAverage": 3.0,
+        "savePctg": 0.917
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:54",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Denver"
+              },
+              "lastName": {
+                "default": "Barkey"
+              },
+              "sweaterNumber": 52
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jonathan"
+              },
+              "lastName": {
+                "default": "Aspirot"
+              },
+              "sweaterNumber": 45
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "18:31",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Hampus"
+              },
+              "lastName": {
+                "default": "Lindholm"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nikita"
+              },
+              "lastName": {
+                "default": "Grebenkin"
+              },
+              "sweaterNumber": 29
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:10",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mason"
+              },
+              "lastName": {
+                "default": "Lohrei"
+              },
+              "sweaterNumber": 6
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Owen"
+              },
+              "lastName": {
+                "default": "Tippett"
+              },
+              "sweaterNumber": 74
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "07:17",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mark"
+              },
+              "lastName": {
+                "default": "Kastelic"
+              },
+              "sweaterNumber": 47
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Garnet"
+              },
+              "lastName": {
+                "default": "Hathaway"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "07:17",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Garnet"
+              },
+              "lastName": {
+                "default": "Hathaway"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mark"
+              },
+              "lastName": {
+                "default": "Kastelic"
+              },
+              "sweaterNumber": 47
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "17:53",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Andrew"
+              },
+              "lastName": {
+                "default": "Peeke"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Rasmus"
+              },
+              "lastName": {
+                "default": "Ristolainen"
+              },
+              "sweaterNumber": 55
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "18:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Poitras"
+              },
+              "sweaterNumber": 51
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Denver"
+              },
+              "lastName": {
+                "default": "Barkey"
+              },
+              "sweaterNumber": 52
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "18:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Denver"
+              },
+              "lastName": {
+                "default": "Barkey"
+              },
+              "sweaterNumber": 52
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Poitras"
+              },
+              "sweaterNumber": 51
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "18:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Seeler"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Eyssimont"
+              },
+              "sweaterNumber": 81
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "18:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Eyssimont"
+              },
+              "sweaterNumber": 81
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Seeler"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "roughing"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

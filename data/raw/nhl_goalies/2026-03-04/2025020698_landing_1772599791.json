@@ -1,0 +1,627 @@
+{
+  "id": 2025020698,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-10",
+  "venue": {
+    "default": "PPG Paints Arena"
+  },
+  "venueLocation": {
+    "default": "Pittsburgh"
+  },
+  "startTimeUTC": "2026-01-10T20:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 107
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 528,
+      "market": "H",
+      "countryCode": "US",
+      "network": "SN-PIT",
+      "sequenceNumber": 384
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 20,
+    "commonName": {
+      "default": "Flames"
+    },
+    "abbrev": "CGY",
+    "placeName": {
+      "default": "Calgary"
+    },
+    "placeNameWithPreposition": {
+      "default": "Calgary",
+      "fr": "de Calgary"
+    },
+    "score": 2,
+    "sog": 25,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CGY_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CGY_dark.svg"
+  },
+  "homeTeam": {
+    "id": 5,
+    "commonName": {
+      "default": "Penguins"
+    },
+    "abbrev": "PIT",
+    "placeName": {
+      "default": "Pittsburgh"
+    },
+    "placeNameWithPreposition": {
+      "default": "Pittsburgh",
+      "fr": "de Pittsburgh"
+    },
+    "score": 1,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/PIT_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/PIT_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 80,
+            "strength": "ev",
+            "playerId": 8482074,
+            "firstName": {
+              "default": "Connor"
+            },
+            "lastName": {
+              "default": "Zary"
+            },
+            "name": {
+              "default": "C. Zary"
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8482074.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cgy-pit-zary-scores-goal-against-arturs-silovs-6387536276112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cgy-pit-zary-marque-un-but-contre-arturs-silovs-6387535881112",
+            "highlightClip": 6387536276112,
+            "highlightClipFr": 6387535881112,
+            "discreteClip": 6387534715112,
+            "discreteClipFr": 6387534207112,
+            "goalsToDate": 8,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CGY"
+            },
+            "timeInPeriod": "02:33",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020698/ev80.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 752,
+            "strength": "ev",
+            "playerId": 8482475,
+            "firstName": {
+              "default": "Egor"
+            },
+            "lastName": {
+              "default": "Chinakhov",
+              "cs": "\u010cinachov",
+              "fi": "Tshinahov",
+              "sk": "\u010cinachov"
+            },
+            "name": {
+              "default": "E. Chinakhov",
+              "cs": "E. \u010cinachov",
+              "fi": "E. Tshinahov",
+              "sk": "E. \u010cinachov"
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8482475.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cgy-pit-chinakhov-scores-goal-against-devin-cooley-6387537107112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cgy-pit-chinakhov-marque-un-but-contre-devin-cooley-6387538031112",
+            "highlightClip": 6387537107112,
+            "highlightClipFr": 6387538031112,
+            "discreteClip": 6387538328112,
+            "discreteClipFr": 6387538922112,
+            "goalsToDate": 5,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "09:17",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8471215,
+                "firstName": {
+                  "default": "Evgeni",
+                  "cs": "Jevgenij",
+                  "fi": "Jevgeni",
+                  "sk": "Jevgenij"
+                },
+                "lastName": {
+                  "default": "Malkin"
+                },
+                "name": {
+                  "default": "E. Malkin"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 71
+              },
+              {
+                "playerId": 8485414,
+                "firstName": {
+                  "default": "Ben"
+                },
+                "lastName": {
+                  "default": "Kindel"
+                },
+                "name": {
+                  "default": "B. Kindel"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 81
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020698/ev752.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 901,
+            "strength": "ev",
+            "playerId": 8482679,
+            "firstName": {
+              "default": "Matt"
+            },
+            "lastName": {
+              "default": "Coronato"
+            },
+            "name": {
+              "default": "M. Coronato"
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8482679.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cgy-pit-coronato-scores-goal-against-arturs-silovs-6387540622112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cgy-pit-coronato-marque-un-but-contre-arturs-silovs-6387539818112",
+            "highlightClip": 6387540622112,
+            "highlightClipFr": 6387539818112,
+            "discreteClip": 6387541788112,
+            "discreteClipFr": 6387541789112,
+            "goalsToDate": 12,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CGY"
+            },
+            "timeInPeriod": "00:42",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478397,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Andersson"
+                },
+                "name": {
+                  "default": "R. Andersson"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 4
+              },
+              {
+                "playerId": 8474150,
+                "firstName": {
+                  "default": "Mikael"
+                },
+                "lastName": {
+                  "default": "Backlund"
+                },
+                "name": {
+                  "default": "M. Backlund"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 11
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020698/ev901.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8482445,
+        "teamAbbrev": "CGY",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8482445.png",
+        "name": {
+          "default": "D. Cooley"
+        },
+        "sweaterNo": 1,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.964
+      },
+      {
+        "star": 2,
+        "playerId": 8482679,
+        "teamAbbrev": "CGY",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8482679.png",
+        "name": {
+          "default": "M. Coronato"
+        },
+        "sweaterNo": 27,
+        "position": "R",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8482475,
+        "teamAbbrev": "PIT",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8482475.png",
+        "name": {
+          "default": "E. Chinakhov",
+          "cs": "E. \u010cinachov",
+          "fi": "E. Tshinahov",
+          "sk": "E. \u010cinachov"
+        },
+        "sweaterNo": 59,
+        "position": "R",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "15:39",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jonathan"
+              },
+              "lastName": {
+                "default": "Huberdeau"
+              },
+              "sweaterNumber": 10
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Blake"
+              },
+              "lastName": {
+                "default": "Lizotte"
+              },
+              "sweaterNumber": 46
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "20:00",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Rasmus"
+              },
+              "lastName": {
+                "default": "Andersson"
+              },
+              "sweaterNumber": 4
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Parker"
+              },
+              "lastName": {
+                "default": "Wotherspoon"
+              },
+              "sweaterNumber": 28
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "20:00",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Parker"
+              },
+              "lastName": {
+                "default": "Wotherspoon"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Rasmus"
+              },
+              "lastName": {
+                "default": "Andersson"
+              },
+              "sweaterNumber": 4
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:54",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kevin"
+              },
+              "lastName": {
+                "default": "Hayes"
+              },
+              "sweaterNumber": 13
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Connor"
+              },
+              "lastName": {
+                "default": "Zary"
+              },
+              "sweaterNumber": 47
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "09:17",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Evgeni",
+                "cs": "Jevgenij",
+                "fi": "Jevgeni",
+                "sk": "Jevgenij"
+              },
+              "lastName": {
+                "default": "Malkin"
+              },
+              "sweaterNumber": 71
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Connor"
+              },
+              "lastName": {
+                "default": "Zary"
+              },
+              "sweaterNumber": 47
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "10:27",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "W. Stromgren"
+            }
+          },
+          {
+            "timeInPeriod": "17:23",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Yan"
+              },
+              "lastName": {
+                "default": "Kuznetsov"
+              },
+              "sweaterNumber": 37
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Rickard"
+              },
+              "lastName": {
+                "default": "Rakell"
+              },
+              "sweaterNumber": 67
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "13:03",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Justin"
+              },
+              "lastName": {
+                "default": "Brazeau"
+              },
+              "sweaterNumber": 16
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "descKey": "embellishment"
+          },
+          {
+            "timeInPeriod": "13:03",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jonathan"
+              },
+              "lastName": {
+                "default": "Huberdeau"
+              },
+              "sweaterNumber": 10
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Justin"
+              },
+              "lastName": {
+                "default": "Brazeau"
+              },
+              "sweaterNumber": 16
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "15:35",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brett"
+              },
+              "lastName": {
+                "default": "Kulak"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Connor"
+              },
+              "lastName": {
+                "default": "Zary"
+              },
+              "sweaterNumber": 47
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

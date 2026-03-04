@@ -1,0 +1,781 @@
+{
+  "id": 2025020825,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-26",
+  "venue": {
+    "default": "Benchmark International Arena"
+  },
+  "venueLocation": {
+    "default": "Tampa"
+  },
+  "startTimeUTC": "2026-01-27T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 581,
+      "market": "H",
+      "countryCode": "US",
+      "network": "The Spot",
+      "sequenceNumber": 211
+    },
+    {
+      "id": 558,
+      "market": "A",
+      "countryCode": "US",
+      "network": "Utah16",
+      "sequenceNumber": 381
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 68,
+    "commonName": {
+      "default": "Mammoth"
+    },
+    "abbrev": "UTA",
+    "placeName": {
+      "default": "Utah"
+    },
+    "placeNameWithPreposition": {
+      "default": "Utah",
+      "fr": "de l'Utah"
+    },
+    "score": 0,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/UTA_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/UTA_dark.svg?season=20252026"
+  },
+  "homeTeam": {
+    "id": 14,
+    "commonName": {
+      "default": "Lightning"
+    },
+    "abbrev": "TBL",
+    "placeName": {
+      "default": "Tampa Bay"
+    },
+    "placeNameWithPreposition": {
+      "default": "Tampa Bay",
+      "fr": "de Tampa Bay"
+    },
+    "score": 2,
+    "sog": 29,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TBL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/TBL_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 755,
+            "strength": "pp",
+            "playerId": 8478178,
+            "firstName": {
+              "default": "Darren"
+            },
+            "lastName": {
+              "default": "Raddysh"
+            },
+            "name": {
+              "default": "D. Raddysh"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8478178.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/uta-tbl-raddysh-scores-ppg-against-karel-vejmelka-6388352781112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/uta-tbl-raddysh-marque-un-but-en-a-n-contre-karel-vejmelka-6388351692112",
+            "highlightClip": 6388352781112,
+            "highlightClipFr": 6388351692112,
+            "discreteClip": 6388352897112,
+            "discreteClipFr": 6388352603112,
+            "goalsToDate": 14,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "17:38",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476453,
+                "firstName": {
+                  "default": "Nikita"
+                },
+                "lastName": {
+                  "default": "Kucherov",
+                  "cs": "Ku\u010derov",
+                  "fi": "Kutsherov",
+                  "sk": "Ku\u010derov"
+                },
+                "name": {
+                  "default": "N. Kucherov",
+                  "cs": "N. Ku\u010derov",
+                  "fi": "N. Kutsherov",
+                  "sk": "N. Ku\u010derov"
+                },
+                "assistsToDate": 53,
+                "sweaterNumber": 86
+              },
+              {
+                "playerId": 8477404,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "Guentzel"
+                },
+                "name": {
+                  "default": "J. Guentzel"
+                },
+                "assistsToDate": 31,
+                "sweaterNumber": 59
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020825/ev755.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 1047,
+            "strength": "pp",
+            "playerId": 8478519,
+            "firstName": {
+              "default": "Anthony"
+            },
+            "lastName": {
+              "default": "Cirelli"
+            },
+            "name": {
+              "default": "A. Cirelli"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8478519.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/uta-tbl-hagel-scores-ppg-against-karel-vejmelka-6388356579112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/uta-tbl-hagel-marque-un-but-en-a-n-contre-karel-vejmelka-6388355578112",
+            "highlightClip": 6388356579112,
+            "highlightClipFr": 6388355578112,
+            "discreteClip": 6388356375112,
+            "discreteClipFr": 6388354226112,
+            "goalsToDate": 15,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "19:14",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482655,
+                "firstName": {
+                  "default": "J.J."
+                },
+                "lastName": {
+                  "default": "Moser"
+                },
+                "name": {
+                  "default": "J. Moser"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 90
+              },
+              {
+                "playerId": 8476453,
+                "firstName": {
+                  "default": "Nikita"
+                },
+                "lastName": {
+                  "default": "Kucherov",
+                  "cs": "Ku\u010derov",
+                  "fi": "Kutsherov",
+                  "sk": "Ku\u010derov"
+                },
+                "name": {
+                  "default": "N. Kucherov",
+                  "cs": "N. Ku\u010derov",
+                  "fi": "N. Kutsherov",
+                  "sk": "N. Ku\u010derov"
+                },
+                "assistsToDate": 54,
+                "sweaterNumber": 86
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020825/ev1047.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8476883,
+        "teamAbbrev": "TBL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8476883.png",
+        "name": {
+          "default": "A. Vasilevskiy",
+          "cs": "A. Vasilevskij",
+          "fi": "A. Vasilevski",
+          "sk": "A. Vasilevskij"
+        },
+        "sweaterNo": 88,
+        "position": "G",
+        "goalsAgainstAverage": 0.0,
+        "savePctg": 1.0
+      },
+      {
+        "star": 2,
+        "playerId": 8478178,
+        "teamAbbrev": "TBL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8478178.png",
+        "name": {
+          "default": "D. Raddysh"
+        },
+        "sweaterNo": 43,
+        "position": "D",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8478872,
+        "teamAbbrev": "UTA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8478872.png",
+        "name": {
+          "default": "K. Vejmelka"
+        },
+        "sweaterNo": 70,
+        "position": "G",
+        "goalsAgainstAverage": 2.0,
+        "savePctg": 0.931
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "17:16",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mikhail",
+                "cs": "Michail",
+                "fi": "Mihail",
+                "sk": "Michail"
+              },
+              "lastName": {
+                "default": "Sergachev",
+                "cs": "Serga\u010dov",
+                "fi": "Sergatshov",
+                "sk": "Serga\u010dov"
+              },
+              "sweaterNumber": 98
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nikita"
+              },
+              "lastName": {
+                "default": "Kucherov",
+                "cs": "Ku\u010derov",
+                "fi": "Kutsherov",
+                "sk": "Ku\u010derov"
+              },
+              "sweaterNumber": 86
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:45",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Hagel"
+              },
+              "sweaterNumber": 38
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Barrett"
+              },
+              "lastName": {
+                "default": "Hayton"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "06:59",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Declan"
+              },
+              "lastName": {
+                "default": "Carlile"
+              },
+              "sweaterNumber": 67
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Sean"
+              },
+              "lastName": {
+                "default": "Durzi"
+              },
+              "sweaterNumber": 50
+            },
+            "descKey": "roughing",
+            "servedBy": {
+              "default": "G. Goncalves"
+            }
+          },
+          {
+            "timeInPeriod": "06:59",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sean"
+              },
+              "lastName": {
+                "default": "Durzi"
+              },
+              "sweaterNumber": 50
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Declan"
+              },
+              "lastName": {
+                "default": "Carlile"
+              },
+              "sweaterNumber": 67
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "06:59",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Declan"
+              },
+              "lastName": {
+                "default": "Carlile"
+              },
+              "sweaterNumber": 67
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Sean"
+              },
+              "lastName": {
+                "default": "Durzi"
+              },
+              "sweaterNumber": 50
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "14:05",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ian"
+              },
+              "lastName": {
+                "default": "Cole"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Dominic"
+              },
+              "lastName": {
+                "default": "James"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "interference",
+            "servedBy": {
+              "default": "K. Yamamoto"
+            }
+          },
+          {
+            "timeInPeriod": "14:05",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ian"
+              },
+              "lastName": {
+                "default": "Cole"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Paul"
+              },
+              "sweaterNumber": 20
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "14:05",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Paul"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ian"
+              },
+              "lastName": {
+                "default": "Cole"
+              },
+              "sweaterNumber": 28
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "16:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "John"
+              },
+              "lastName": {
+                "default": "Marino"
+              },
+              "sweaterNumber": 6
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Hagel"
+              },
+              "sweaterNumber": 38
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "13:16",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Zemgus"
+              },
+              "lastName": {
+                "default": "Girgensons"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Clayton"
+              },
+              "lastName": {
+                "default": "Keller"
+              },
+              "sweaterNumber": 9
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "17:29",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Lawson"
+              },
+              "lastName": {
+                "default": "Crouse"
+              },
+              "sweaterNumber": 67
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Darren"
+              },
+              "lastName": {
+                "default": "Raddysh"
+              },
+              "sweaterNumber": 43
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "19:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Zemgus"
+              },
+              "lastName": {
+                "default": "Girgensons"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mikhail",
+                "cs": "Michail",
+                "fi": "Mihail",
+                "sk": "Michail"
+              },
+              "lastName": {
+                "default": "Sergachev",
+                "cs": "Serga\u010dov",
+                "fi": "Sergatshov",
+                "sk": "Serga\u010dov"
+              },
+              "sweaterNumber": 98
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "19:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mikhail",
+                "cs": "Michail",
+                "fi": "Mihail",
+                "sk": "Michail"
+              },
+              "lastName": {
+                "default": "Sergachev",
+                "cs": "Serga\u010dov",
+                "fi": "Sergatshov",
+                "sk": "Serga\u010dov"
+              },
+              "sweaterNumber": 98
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Zemgus"
+              },
+              "lastName": {
+                "default": "Girgensons"
+              },
+              "sweaterNumber": 28
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "19:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mikhail",
+                "cs": "Michail",
+                "fi": "Mihail",
+                "sk": "Michail"
+              },
+              "lastName": {
+                "default": "Sergachev",
+                "cs": "Serga\u010dov",
+                "fi": "Sergatshov",
+                "sk": "Serga\u010dov"
+              },
+              "sweaterNumber": 98
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Zemgus"
+              },
+              "lastName": {
+                "default": "Girgensons"
+              },
+              "sweaterNumber": 28
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "19:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Zemgus"
+              },
+              "lastName": {
+                "default": "Girgensons"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mikhail",
+                "cs": "Michail",
+                "fi": "Mihail",
+                "sk": "Michail"
+              },
+              "lastName": {
+                "default": "Sergachev",
+                "cs": "Serga\u010dov",
+                "fi": "Sergatshov",
+                "sk": "Serga\u010dov"
+              },
+              "sweaterNumber": 98
+            },
+            "descKey": "roughing"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

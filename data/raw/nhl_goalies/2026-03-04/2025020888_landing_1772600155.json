@@ -1,0 +1,888 @@
+{
+  "id": 2025020888,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-03",
+  "venue": {
+    "default": "UBS Arena"
+  },
+  "venueLocation": {
+    "default": "Elmont"
+  },
+  "startTimeUTC": "2026-02-04T00:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "America/New_York",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 385,
+      "market": "N",
+      "countryCode": "US",
+      "network": "TNT",
+      "sequenceNumber": 11
+    },
+    {
+      "id": 501,
+      "market": "N",
+      "countryCode": "US",
+      "network": "truTV",
+      "sequenceNumber": 14
+    },
+    {
+      "id": 578,
+      "market": "N",
+      "countryCode": "US",
+      "network": "HBO MAX",
+      "sequenceNumber": 19
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 5,
+    "commonName": {
+      "default": "Penguins"
+    },
+    "abbrev": "PIT",
+    "placeName": {
+      "default": "Pittsburgh"
+    },
+    "placeNameWithPreposition": {
+      "default": "Pittsburgh",
+      "fr": "de Pittsburgh"
+    },
+    "score": 4,
+    "sog": 35,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/PIT_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/PIT_dark.svg"
+  },
+  "homeTeam": {
+    "id": 2,
+    "commonName": {
+      "default": "Islanders"
+    },
+    "abbrev": "NYI",
+    "placeName": {
+      "default": "New York"
+    },
+    "placeNameWithPreposition": {
+      "default": "New York",
+      "fr": "de New York"
+    },
+    "score": 5,
+    "sog": 23,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NYI_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NYI_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 302,
+            "strength": "ev",
+            "playerId": 8477511,
+            "firstName": {
+              "default": "Anthony"
+            },
+            "lastName": {
+              "default": "Mantha"
+            },
+            "name": {
+              "default": "A. Mantha"
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8477511.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-nyi-mantha-scores-goal-against-ilya-sorokin-6388736426112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-nyi-mantha-marque-un-but-contre-ilya-sorokin-6388735131112",
+            "highlightClip": 6388736426112,
+            "highlightClipFr": 6388735131112,
+            "discreteClip": 6388734470112,
+            "discreteClipFr": 6388736033112,
+            "goalsToDate": 20,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "PIT"
+            },
+            "timeInPeriod": "12:09",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479638,
+                "firstName": {
+                  "default": "Justin"
+                },
+                "lastName": {
+                  "default": "Brazeau"
+                },
+                "name": {
+                  "default": "J. Brazeau"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 16
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020888/ev302.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 400,
+            "strength": "ev",
+            "playerId": 8477500,
+            "firstName": {
+              "default": "Bo"
+            },
+            "lastName": {
+              "default": "Horvat"
+            },
+            "name": {
+              "default": "B. Horvat"
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYI/8477500.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-nyi-horvat-scores-goal-against-stuart-skinner-6388734868112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-nyi-horvat-marque-un-but-contre-stuart-skinner-6388735557112",
+            "highlightClip": 6388734868112,
+            "highlightClipFr": 6388735557112,
+            "discreteClip": 6388734769112,
+            "discreteClipFr": 6388736342112,
+            "goalsToDate": 22,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "18:41",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475314,
+                "firstName": {
+                  "default": "Anders"
+                },
+                "lastName": {
+                  "default": "Lee"
+                },
+                "name": {
+                  "default": "A. Lee"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 27
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020888/ev400.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 517,
+            "strength": "ev",
+            "playerId": 8485366,
+            "firstName": {
+              "default": "Matthew"
+            },
+            "lastName": {
+              "default": "Schaefer"
+            },
+            "name": {
+              "default": "M. Schaefer"
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYI/8485366.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-nyi-schaefer-scores-goal-against-stuart-skinner-6388736173112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-nyi-schaefer-marque-un-but-contre-stuart-skinner-6388736831112",
+            "highlightClip": 6388736173112,
+            "highlightClipFr": 6388736831112,
+            "discreteClip": 6388736829112,
+            "discreteClipFr": 6388736174112,
+            "goalsToDate": 16,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "NYI"
+            },
+            "timeInPeriod": "19:56",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476292,
+                "firstName": {
+                  "default": "Ondrej",
+                  "cs": "Ond\u0159ej",
+                  "sk": "Ond\u0159ej"
+                },
+                "lastName": {
+                  "default": "Palat",
+                  "cs": "Pal\u00e1t",
+                  "sk": "Pal\u00e1t"
+                },
+                "name": {
+                  "default": "O. Palat",
+                  "cs": "O. Pal\u00e1t",
+                  "sk": "O. Pal\u00e1t"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 81
+              },
+              {
+                "playerId": 8477500,
+                "firstName": {
+                  "default": "Bo"
+                },
+                "lastName": {
+                  "default": "Horvat"
+                },
+                "name": {
+                  "default": "B. Horvat"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 14
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020888/ev517.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 576,
+            "strength": "ev",
+            "playerId": 8482475,
+            "firstName": {
+              "default": "Egor"
+            },
+            "lastName": {
+              "default": "Chinakhov",
+              "cs": "\u010cinachov",
+              "fi": "Tshinahov",
+              "sk": "\u010cinachov"
+            },
+            "name": {
+              "default": "E. Chinakhov",
+              "cs": "E. \u010cinachov",
+              "fi": "E. Tshinahov",
+              "sk": "E. \u010cinachov"
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8482475.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-nyi-chinakhov-scores-goal-against-ilya-sorokin-6388736397112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-nyi-chinakhov-marque-un-but-contre-ilya-sorokin-6388737864112",
+            "highlightClip": 6388736397112,
+            "highlightClipFr": 6388737864112,
+            "discreteClip": 6388736604112,
+            "discreteClipFr": 6388738157112,
+            "goalsToDate": 11,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "03:52",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478438,
+                "firstName": {
+                  "default": "Tommy",
+                  "cs": "Thomas",
+                  "de": "Thomas",
+                  "es": "Thomas",
+                  "fi": "Thomas",
+                  "sk": "Thomas",
+                  "sv": "Thomas"
+                },
+                "lastName": {
+                  "default": "Novak"
+                },
+                "name": {
+                  "default": "T. Novak"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 18
+              },
+              {
+                "playerId": 8474578,
+                "firstName": {
+                  "default": "Erik"
+                },
+                "lastName": {
+                  "default": "Karlsson"
+                },
+                "name": {
+                  "default": "E. Karlsson"
+                },
+                "assistsToDate": 31,
+                "sweaterNumber": 65
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020888/ev576.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 402,
+            "strength": "ev",
+            "playerId": 8475810,
+            "firstName": {
+              "default": "Bryan"
+            },
+            "lastName": {
+              "default": "Rust"
+            },
+            "name": {
+              "default": "B. Rust"
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8475810.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-nyi-rust-scores-goal-against-ilya-sorokin-6388737503112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-nyi-rust-marque-un-but-contre-ilya-sorokin-6388738678112",
+            "highlightClip": 6388737503112,
+            "highlightClipFr": 6388738678112,
+            "discreteClip": 6388737997112,
+            "discreteClipFr": 6388738463112,
+            "goalsToDate": 19,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "PIT"
+            },
+            "timeInPeriod": "14:09",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8471675,
+                "firstName": {
+                  "default": "Sidney"
+                },
+                "lastName": {
+                  "default": "Crosby"
+                },
+                "name": {
+                  "default": "S. Crosby"
+                },
+                "assistsToDate": 32,
+                "sweaterNumber": 87
+              },
+              {
+                "playerId": 8482470,
+                "firstName": {
+                  "default": "Ilya"
+                },
+                "lastName": {
+                  "default": "Solovyov"
+                },
+                "name": {
+                  "default": "I. Solovyov"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 7
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020888/ev402.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 948,
+            "strength": "ev",
+            "playerId": 8478445,
+            "firstName": {
+              "default": "Mathew"
+            },
+            "lastName": {
+              "default": "Barzal"
+            },
+            "name": {
+              "default": "M. Barzal"
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYI/8478445.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-nyi-barzal-scores-goal-against-stuart-skinner-6388739643112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-nyi-barzal-marque-un-but-contre-stuart-skinner-6388740721112",
+            "highlightClip": 6388739643112,
+            "highlightClipFr": 6388740721112,
+            "discreteClip": 6388739843112,
+            "discreteClipFr": 6388740039112,
+            "goalsToDate": 16,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "08:37",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476917,
+                "firstName": {
+                  "default": "Adam"
+                },
+                "lastName": {
+                  "default": "Pelech"
+                },
+                "name": {
+                  "default": "A. Pelech"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 3
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020888/ev948.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 971,
+            "strength": "ev",
+            "playerId": 8479638,
+            "firstName": {
+              "default": "Justin"
+            },
+            "lastName": {
+              "default": "Brazeau"
+            },
+            "name": {
+              "default": "J. Brazeau"
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8479638.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-nyi-brazeau-scores-goal-against-ilya-sorokin-6388740733112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-nyi-brazeau-marque-un-but-contre-ilya-sorokin-6388741882112",
+            "highlightClip": 6388740733112,
+            "highlightClipFr": 6388741882112,
+            "discreteClip": 6388741016112,
+            "discreteClipFr": 6388740229112,
+            "goalsToDate": 15,
+            "awayScore": 4,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "PIT"
+            },
+            "timeInPeriod": "10:40",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476967,
+                "firstName": {
+                  "default": "Brett"
+                },
+                "lastName": {
+                  "default": "Kulak"
+                },
+                "name": {
+                  "default": "B. Kulak"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 77
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020888/ev971.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1043,
+            "strength": "ev",
+            "playerId": 8477506,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "Pulock"
+            },
+            "name": {
+              "default": "R. Pulock"
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYI/8477506.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-nyi-pulock-scores-goal-against-stuart-skinner-6388742498112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-nyi-pulock-marque-un-but-contre-stuart-skinner-6388741437112",
+            "highlightClip": 6388742498112,
+            "highlightClipFr": 6388741437112,
+            "discreteClip": 6388742012112,
+            "discreteClipFr": 6388740653112,
+            "goalsToDate": 3,
+            "awayScore": 4,
+            "homeScore": 4,
+            "timeInPeriod": "15:24",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478445,
+                "firstName": {
+                  "default": "Mathew"
+                },
+                "lastName": {
+                  "default": "Barzal"
+                },
+                "name": {
+                  "default": "M. Barzal"
+                },
+                "assistsToDate": 33,
+                "sweaterNumber": 13
+              },
+              {
+                "playerId": 8481601,
+                "firstName": {
+                  "default": "Simon"
+                },
+                "lastName": {
+                  "default": "Holmstrom",
+                  "cs": "Holmstr\u00f6m",
+                  "fi": "Holmstr\u00f6m",
+                  "sk": "Holmstr\u00f6m",
+                  "sv": "Holmstr\u00f6m"
+                },
+                "name": {
+                  "default": "S. Holmstrom",
+                  "cs": "S. Holmstr\u00f6m",
+                  "fi": "S. Holmstr\u00f6m",
+                  "sk": "S. Holmstr\u00f6m",
+                  "sv": "S. Holmstr\u00f6m"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 10
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020888/ev1043.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 1126,
+            "strength": "ev",
+            "playerId": 8477500,
+            "firstName": {
+              "default": "Bo"
+            },
+            "lastName": {
+              "default": "Horvat"
+            },
+            "name": {
+              "default": "B. Horvat"
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYI/8477500.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-nyi-horvat-scores-goal-against-stuart-skinner-6388742747112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-nyi-horvat-marque-un-but-contre-stuart-skinner-6388742447112",
+            "highlightClip": 6388742747112,
+            "highlightClipFr": 6388742447112,
+            "discreteClip": 6388742936112,
+            "discreteClipFr": 6388741654112,
+            "goalsToDate": 23,
+            "awayScore": 4,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "NYI"
+            },
+            "timeInPeriod": "00:52",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478445,
+                "firstName": {
+                  "default": "Mathew"
+                },
+                "lastName": {
+                  "default": "Barzal"
+                },
+                "name": {
+                  "default": "M. Barzal"
+                },
+                "assistsToDate": 34,
+                "sweaterNumber": 13
+              },
+              {
+                "playerId": 8485366,
+                "firstName": {
+                  "default": "Matthew"
+                },
+                "lastName": {
+                  "default": "Schaefer"
+                },
+                "name": {
+                  "default": "M. Schaefer"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 48
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020888/ev1126.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8477500,
+        "teamAbbrev": "NYI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYI/8477500.png",
+        "name": {
+          "default": "B. Horvat"
+        },
+        "sweaterNo": 14,
+        "position": "C",
+        "goals": 2,
+        "assists": 1,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8478445,
+        "teamAbbrev": "NYI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYI/8478445.png",
+        "name": {
+          "default": "M. Barzal"
+        },
+        "sweaterNo": 13,
+        "position": "C",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8477506,
+        "teamAbbrev": "NYI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYI/8477506.png",
+        "name": {
+          "default": "R. Pulock"
+        },
+        "sweaterNo": 6,
+        "position": "D",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:54",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Scott"
+              },
+              "lastName": {
+                "default": "Mayfield"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Egor"
+              },
+              "lastName": {
+                "default": "Chinakhov",
+                "cs": "\u010cinachov",
+                "fi": "Tshinahov",
+                "sk": "\u010cinachov"
+              },
+              "sweaterNumber": 59
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:08",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Erik"
+              },
+              "lastName": {
+                "default": "Karlsson"
+              },
+              "sweaterNumber": 65
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          },
+          {
+            "timeInPeriod": "18:07",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Carson"
+              },
+              "lastName": {
+                "default": "Soucy"
+              },
+              "sweaterNumber": 4
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Egor"
+              },
+              "lastName": {
+                "default": "Chinakhov",
+                "cs": "\u010cinachov",
+                "fi": "Tshinahov",
+                "sk": "\u010cinachov"
+              },
+              "sweaterNumber": 59
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "11:52",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sidney"
+              },
+              "lastName": {
+                "default": "Crosby"
+              },
+              "sweaterNumber": 87
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mathew"
+              },
+              "lastName": {
+                "default": "Barzal"
+              },
+              "sweaterNumber": 13
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "04:08",
+    "secondsRemaining": 248,
+    "running": false,
+    "inIntermission": false
+  }
+}

@@ -1,0 +1,715 @@
+{
+  "id": 2025020714,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-11",
+  "venue": {
+    "default": "Delta Center"
+  },
+  "venueLocation": {
+    "default": "Salt Lake City"
+  },
+  "startTimeUTC": "2026-01-12T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-07:00",
+  "venueTimezone": "America/Denver",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 565,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNOH",
+      "sequenceNumber": 286
+    },
+    {
+      "id": 558,
+      "market": "H",
+      "countryCode": "US",
+      "network": "Utah16",
+      "sequenceNumber": 381
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 29,
+    "commonName": {
+      "default": "Blue Jackets"
+    },
+    "abbrev": "CBJ",
+    "placeName": {
+      "default": "Columbus"
+    },
+    "placeNameWithPreposition": {
+      "default": "Columbus",
+      "fr": "de Columbus"
+    },
+    "score": 3,
+    "sog": 36,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CBJ_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CBJ_dark.svg"
+  },
+  "homeTeam": {
+    "id": 68,
+    "commonName": {
+      "default": "Mammoth"
+    },
+    "abbrev": "UTA",
+    "placeName": {
+      "default": "Utah"
+    },
+    "placeNameWithPreposition": {
+      "default": "Utah",
+      "fr": "de l'Utah"
+    },
+    "score": 2,
+    "sog": 27,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/UTA_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/UTA_dark.svg?season=20252026"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 88,
+            "strength": "ev",
+            "playerId": 8482451,
+            "firstName": {
+              "default": "Mikael"
+            },
+            "lastName": {
+              "default": "Pyyhtia",
+              "cs": "Pyyhti\u00e4",
+              "fi": "Pyyhti\u00e4",
+              "sk": "Pyyhti\u00e4",
+              "sv": "Pyyhti\u00e4"
+            },
+            "name": {
+              "default": "M. Pyyhtia",
+              "cs": "M. Pyyhti\u00e4",
+              "fi": "M. Pyyhti\u00e4",
+              "sk": "M. Pyyhti\u00e4",
+              "sv": "M. Pyyhti\u00e4"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8482451.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-uta-pyyhtia-scores-goal-against-vitek-vanecek-6387580544112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-uta-pyyhtia-marque-un-but-contre-vitek-vanecek-6387581014112",
+            "highlightClip": 6387580544112,
+            "highlightClipFr": 6387581014112,
+            "discreteClip": 6387580417112,
+            "discreteClipFr": 6387581689112,
+            "goalsToDate": 1,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CBJ"
+            },
+            "timeInPeriod": "02:47",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478046,
+                "firstName": {
+                  "default": "Danton"
+                },
+                "lastName": {
+                  "default": "Heinen"
+                },
+                "name": {
+                  "default": "D. Heinen"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 43
+              },
+              {
+                "playerId": 8478500,
+                "firstName": {
+                  "default": "Ivan"
+                },
+                "lastName": {
+                  "default": "Provorov"
+                },
+                "name": {
+                  "default": "I. Provorov"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020714/ev88.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 380,
+            "strength": "ev",
+            "playerId": 8480855,
+            "firstName": {
+              "default": "Jack"
+            },
+            "lastName": {
+              "default": "McBain"
+            },
+            "name": {
+              "default": "J. McBain"
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8480855.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-uta-mcbain-scores-goal-against-jet-greaves-6387580363112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-uta-mcbain-marque-un-but-contre-jet-greaves-6387580842112",
+            "highlightClip": 6387580363112,
+            "highlightClipFr": 6387580842112,
+            "discreteClip": 6387582200112,
+            "discreteClipFr": 6387580267112,
+            "goalsToDate": 5,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "16:20",
+            "shotType": "deflected",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479343,
+                "firstName": {
+                  "default": "Clayton"
+                },
+                "lastName": {
+                  "default": "Keller"
+                },
+                "name": {
+                  "default": "C. Keller"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 9
+              },
+              {
+                "playerId": 8480084,
+                "firstName": {
+                  "default": "Nick"
+                },
+                "lastName": {
+                  "default": "DeSimone"
+                },
+                "name": {
+                  "default": "N. DeSimone"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 57
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020714/ev380.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 502,
+            "strength": "ev",
+            "playerId": 8479410,
+            "firstName": {
+              "default": "Mikhail",
+              "cs": "Michail",
+              "fi": "Mihail",
+              "sk": "Michail"
+            },
+            "lastName": {
+              "default": "Sergachev",
+              "cs": "Serga\u010dov",
+              "fi": "Sergatshov",
+              "sk": "Serga\u010dov"
+            },
+            "name": {
+              "default": "M. Sergachev",
+              "cs": "M. Serga\u010dov",
+              "fi": "M. Sergatshov",
+              "sk": "M. Serga\u010dov"
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8479410.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-uta-sergachev-scores-goal-against-jet-greaves-6387582040112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-uta-sergachev-marque-un-but-contre-jet-greaves-6387583525112",
+            "highlightClip": 6387582040112,
+            "highlightClipFr": 6387583525112,
+            "discreteClip": 6387583604112,
+            "discreteClipFr": 6387580972112,
+            "goalsToDate": 7,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "UTA"
+            },
+            "timeInPeriod": "01:02",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479343,
+                "firstName": {
+                  "default": "Clayton"
+                },
+                "lastName": {
+                  "default": "Keller"
+                },
+                "name": {
+                  "default": "C. Keller"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 9
+              },
+              {
+                "playerId": 8477951,
+                "firstName": {
+                  "default": "Nick"
+                },
+                "lastName": {
+                  "default": "Schmaltz"
+                },
+                "name": {
+                  "default": "N. Schmaltz"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 8
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020714/ev502.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 785,
+            "strength": "pp",
+            "playerId": 8475745,
+            "firstName": {
+              "default": "Charlie"
+            },
+            "lastName": {
+              "default": "Coyle"
+            },
+            "name": {
+              "default": "C. Coyle"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8475745.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-uta-coyle-scores-ppg-against-vitek-vanecek-6387584035112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/charlie-coyle-with-a-powerplay-goal-vs-les-mammoth-de-utah-6387584036112",
+            "highlightClip": 6387584035112,
+            "highlightClipFr": 6387584036112,
+            "discreteClip": 6387583830112,
+            "discreteClipFr": 6387583458112,
+            "goalsToDate": 7,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "18:31",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484166,
+                "firstName": {
+                  "default": "Adam"
+                },
+                "lastName": {
+                  "default": "Fantilli"
+                },
+                "name": {
+                  "default": "A. Fantilli"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 19
+              },
+              {
+                "playerId": 8480893,
+                "firstName": {
+                  "default": "Kirill"
+                },
+                "lastName": {
+                  "default": "Marchenko",
+                  "cs": "Mar\u010denko",
+                  "fi": "Martshenko",
+                  "sk": "Mar\u010denko"
+                },
+                "name": {
+                  "default": "K. Marchenko",
+                  "cs": "K. Mar\u010denko",
+                  "fi": "K. Martshenko",
+                  "sk": "K. Mar\u010denko"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 86
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020714/ev785.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1431",
+            "eventId": 1092,
+            "strength": "pp",
+            "playerId": 8481716,
+            "firstName": {
+              "default": "Dmitri",
+              "cs": "Dmitrij",
+              "sk": "Dmitrij"
+            },
+            "lastName": {
+              "default": "Voronkov"
+            },
+            "name": {
+              "default": "D. Voronkov"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8481716.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-uta-voronkov-scores-ppg-against-vitek-vanecek-6387585682112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-uta-voronkov-marque-un-but-en-a-n-contre-vitek-vanecek-6387586656112",
+            "highlightClip": 6387585682112,
+            "highlightClipFr": 6387586656112,
+            "discreteClip": 6387585580112,
+            "discreteClipFr": 6387586156112,
+            "goalsToDate": 16,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "CBJ"
+            },
+            "timeInPeriod": "01:01",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478460,
+                "firstName": {
+                  "default": "Zach"
+                },
+                "lastName": {
+                  "default": "Werenski"
+                },
+                "name": {
+                  "default": "Z. Werenski"
+                },
+                "assistsToDate": 31,
+                "sweaterNumber": 8
+              },
+              {
+                "playerId": 8480893,
+                "firstName": {
+                  "default": "Kirill"
+                },
+                "lastName": {
+                  "default": "Marchenko",
+                  "cs": "Mar\u010denko",
+                  "fi": "Martshenko",
+                  "sk": "Mar\u010denko"
+                },
+                "name": {
+                  "default": "K. Marchenko",
+                  "cs": "K. Mar\u010denko",
+                  "fi": "K. Martshenko",
+                  "sk": "K. Mar\u010denko"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 86
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020714/ev1092.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8481716,
+        "teamAbbrev": "CBJ",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8481716.png",
+        "name": {
+          "default": "D. Voronkov"
+        },
+        "sweaterNo": 10,
+        "position": "L",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8479410,
+        "teamAbbrev": "UTA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8479410.png",
+        "name": {
+          "default": "M. Sergachev",
+          "cs": "M. Serga\u010dov",
+          "fi": "M. Sergatshov",
+          "sk": "M. Serga\u010dov"
+        },
+        "sweaterNo": 98,
+        "position": "D",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8484166,
+        "teamAbbrev": "CBJ",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8484166.png",
+        "name": {
+          "default": "A. Fantilli"
+        },
+        "sweaterNo": 19,
+        "position": "C",
+        "goals": 0,
+        "assists": 1,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:45",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dmitri",
+                "cs": "Dmitrij",
+                "sk": "Dmitrij"
+              },
+              "lastName": {
+                "default": "Voronkov"
+              },
+              "sweaterNumber": 10
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Schmaltz"
+              },
+              "sweaterNumber": 8
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "17:29",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jack"
+              },
+              "lastName": {
+                "default": "McBain"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Zach"
+              },
+              "lastName": {
+                "default": "Werenski"
+              },
+              "sweaterNumber": 8
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:19",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jack"
+              },
+              "lastName": {
+                "default": "McBain"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Dmitri",
+                "cs": "Dmitrij",
+                "sk": "Dmitrij"
+              },
+              "lastName": {
+                "default": "Voronkov"
+              },
+              "sweaterNumber": 10
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "02:04",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Boone"
+              },
+              "lastName": {
+                "default": "Jenner"
+              },
+              "sweaterNumber": 38
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mikhail",
+                "cs": "Michail",
+                "fi": "Mihail",
+                "sk": "Michail"
+              },
+              "lastName": {
+                "default": "Sergachev",
+                "cs": "Serga\u010dov",
+                "fi": "Sergatshov",
+                "sk": "Serga\u010dov"
+              },
+              "sweaterNumber": 98
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "19:36",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Daniil"
+              },
+              "lastName": {
+                "default": "But"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Adam"
+              },
+              "lastName": {
+                "default": "Fantilli"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "03:59",
+    "secondsRemaining": 239,
+    "running": false,
+    "inIntermission": false
+  }
+}

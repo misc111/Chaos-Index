@@ -1,0 +1,541 @@
+{
+  "id": 2025020959,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-03-03",
+  "venue": {
+    "default": "TD Garden"
+  },
+  "venueLocation": {
+    "default": "Boston"
+  },
+  "startTimeUTC": "2026-03-04T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 290,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SNP",
+      "sequenceNumber": 33
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 528,
+      "market": "A",
+      "countryCode": "US",
+      "network": "SN-PIT",
+      "sequenceNumber": 384
+    },
+    {
+      "id": 31,
+      "market": "H",
+      "countryCode": "US",
+      "network": "NESN",
+      "sequenceNumber": 405
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 5,
+    "commonName": {
+      "default": "Penguins"
+    },
+    "abbrev": "PIT",
+    "placeName": {
+      "default": "Pittsburgh"
+    },
+    "placeNameWithPreposition": {
+      "default": "Pittsburgh",
+      "fr": "de Pittsburgh"
+    },
+    "score": 1,
+    "sog": 35,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/PIT_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/PIT_dark.svg"
+  },
+  "homeTeam": {
+    "id": 6,
+    "commonName": {
+      "default": "Bruins"
+    },
+    "abbrev": "BOS",
+    "placeName": {
+      "default": "Boston"
+    },
+    "placeNameWithPreposition": {
+      "default": "Boston",
+      "fr": "de Boston"
+    },
+    "score": 2,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/BOS_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/BOS_dark.svg?season=20252026"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 61,
+            "strength": "ev",
+            "playerId": 8474578,
+            "firstName": {
+              "default": "Erik"
+            },
+            "lastName": {
+              "default": "Karlsson"
+            },
+            "name": {
+              "default": "E. Karlsson"
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8474578.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-bos-karlsson-scores-goal-against-jeremy-swayman-6390338665112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-bos-karlsson-marque-un-but-contre-jeremy-swayman-6390338461112",
+            "highlightClip": 6390338665112,
+            "highlightClipFr": 6390338461112,
+            "discreteClip": 6390337455112,
+            "discreteClipFr": 6390338554112,
+            "goalsToDate": 5,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "PIT"
+            },
+            "timeInPeriod": "00:42",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475810,
+                "firstName": {
+                  "default": "Bryan"
+                },
+                "lastName": {
+                  "default": "Rust"
+                },
+                "name": {
+                  "default": "B. Rust"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 17
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020959/ev61.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 163,
+            "strength": "ev",
+            "playerId": 8482177,
+            "firstName": {
+              "default": "Marat"
+            },
+            "lastName": {
+              "default": "Khusnutdinov",
+              "cs": "Chusnutdinov",
+              "fi": "Husnutdinov",
+              "sk": "Chusnutdinov"
+            },
+            "name": {
+              "default": "M. Khusnutdinov",
+              "cs": "M. Chusnutdinov",
+              "fi": "M. Husnutdinov",
+              "sk": "M. Chusnutdinov"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8482177.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-bos-khusnutdinov-scores-goal-against-stuart-skinner-6390338474112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-bos-khusnutdinov-marque-un-but-contre-stuart-skinner-6390339057112",
+            "highlightClip": 6390338474112,
+            "highlightClipFr": 6390339057112,
+            "discreteClip": 6390339139112,
+            "discreteClipFr": 6390340023112,
+            "goalsToDate": 13,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "05:10",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479591,
+                "firstName": {
+                  "default": "Michael"
+                },
+                "lastName": {
+                  "default": "Eyssimont"
+                },
+                "name": {
+                  "default": "M. Eyssimont"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 81
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020959/ev163.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 178,
+            "strength": "ev",
+            "playerId": 8479999,
+            "firstName": {
+              "default": "Casey"
+            },
+            "lastName": {
+              "default": "Mittelstadt"
+            },
+            "name": {
+              "default": "C. Mittelstadt"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8479999.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-bos-mittelstadt-scores-goal-against-stuart-skinner-6390339650112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-bos-mittelstadt-marque-un-but-contre-stuart-skinner-6390339075112",
+            "highlightClip": 6390339650112,
+            "highlightClipFr": 6390339075112,
+            "discreteClip": 6390338780112,
+            "discreteClipFr": 6390339647112,
+            "goalsToDate": 13,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "BOS"
+            },
+            "timeInPeriod": "06:00",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477507,
+                "firstName": {
+                  "default": "Nikita"
+                },
+                "lastName": {
+                  "default": "Zadorov"
+                },
+                "name": {
+                  "default": "N. Zadorov"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 91
+              },
+              {
+                "playerId": 8478401,
+                "firstName": {
+                  "default": "Pavel"
+                },
+                "lastName": {
+                  "default": "Zacha"
+                },
+                "name": {
+                  "default": "P. Zacha"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 18
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020959/ev178.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8480280,
+        "teamAbbrev": "BOS",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8480280.png",
+        "name": {
+          "default": "J. Swayman"
+        },
+        "sweaterNo": 1,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.971
+      },
+      {
+        "star": 2,
+        "playerId": 8479973,
+        "teamAbbrev": "PIT",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8479973.png",
+        "name": {
+          "default": "S. Skinner"
+        },
+        "sweaterNo": 74,
+        "position": "G",
+        "goalsAgainstAverage": 2.07,
+        "savePctg": 0.929
+      },
+      {
+        "star": 3,
+        "playerId": 8479325,
+        "teamAbbrev": "BOS",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8479325.png",
+        "name": {
+          "default": "C. McAvoy"
+        },
+        "sweaterNo": 73,
+        "position": "D",
+        "goals": 0,
+        "assists": 0,
+        "points": 0
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:42",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "descKey": "delaying-game-unsuccessful-challenge",
+            "servedBy": {
+              "default": "M. Eyssimont"
+            }
+          },
+          {
+            "timeInPeriod": "14:06",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Connor"
+              },
+              "lastName": {
+                "default": "Clifton"
+              },
+              "sweaterNumber": 75
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "David"
+              },
+              "lastName": {
+                "default": "Pastrnak",
+                "cs": "Pastr\u0148\u00e1k",
+                "sk": "Pastr\u0148\u00e1k"
+              },
+              "sweaterNumber": 88
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "18:40",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jonathan"
+              },
+              "lastName": {
+                "default": "Aspirot"
+              },
+              "sweaterNumber": 45
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ben"
+              },
+              "lastName": {
+                "default": "Kindel"
+              },
+              "sweaterNumber": 81
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "10:34",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Egor"
+              },
+              "lastName": {
+                "default": "Chinakhov",
+                "cs": "\u010cinachov",
+                "fi": "Tshinahov",
+                "sk": "\u010cinachov"
+              },
+              "sweaterNumber": 59
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mason"
+              },
+              "lastName": {
+                "default": "Lohrei"
+              },
+              "sweaterNumber": 6
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "11:55",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "V. Arvidsson"
+            }
+          },
+          {
+            "timeInPeriod": "18:25",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Anthony"
+              },
+              "lastName": {
+                "default": "Mantha"
+              },
+              "sweaterNumber": 39
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jonathan"
+              },
+              "lastName": {
+                "default": "Aspirot"
+              },
+              "sweaterNumber": 45
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:15",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Casey"
+              },
+              "lastName": {
+                "default": "Mittelstadt"
+              },
+              "sweaterNumber": 11
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Erik"
+              },
+              "lastName": {
+                "default": "Karlsson"
+              },
+              "sweaterNumber": 65
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

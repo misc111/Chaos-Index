@@ -1,0 +1,821 @@
+{
+  "id": 2025020891,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-03",
+  "venue": {
+    "default": "Rogers Place"
+  },
+  "venueLocation": {
+    "default": "Edmonton"
+  },
+  "startTimeUTC": "2026-02-04T01:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-07:00",
+  "venueTimezone": "America/Edmonton",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 107
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 10,
+    "commonName": {
+      "default": "Maple Leafs"
+    },
+    "abbrev": "TOR",
+    "placeName": {
+      "default": "Toronto"
+    },
+    "placeNameWithPreposition": {
+      "default": "Toronto",
+      "fr": "de Toronto"
+    },
+    "score": 5,
+    "sog": 27,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TOR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/TOR_dark.svg"
+  },
+  "homeTeam": {
+    "id": 22,
+    "commonName": {
+      "default": "Oilers"
+    },
+    "abbrev": "EDM",
+    "placeName": {
+      "default": "Edmonton"
+    },
+    "placeNameWithPreposition": {
+      "default": "Edmonton",
+      "fr": "d'Edmonton"
+    },
+    "score": 2,
+    "sog": 36,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/EDM_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 573,
+            "strength": "ev",
+            "playerId": 8481711,
+            "firstName": {
+              "default": "Matias"
+            },
+            "lastName": {
+              "default": "Maccelli"
+            },
+            "name": {
+              "default": "M. Maccelli"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8481711.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-edm-maccelli-scores-goal-against-connor-ingram-6388741992112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-edm-maccelli-marque-un-but-contre-connor-ingram-6388741806112",
+            "highlightClip": 6388741992112,
+            "highlightClipFr": 6388741806112,
+            "discreteClip": 6388740239112,
+            "discreteClipFr": 6388741318112,
+            "goalsToDate": 9,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "07:12",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476931,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "McCabe"
+                },
+                "name": {
+                  "default": "J. McCabe"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 22
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020891/ev573.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 628,
+            "strength": "ev",
+            "playerId": 8478013,
+            "firstName": {
+              "default": "Jake"
+            },
+            "lastName": {
+              "default": "Walman"
+            },
+            "name": {
+              "default": "J. Walman"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8478013.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-edm-walman-scores-goal-against-anthony-stolarz-6388743427112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-edm-walman-marque-un-but-contre-anthony-stolarz-6388743701112",
+            "highlightClip": 6388743427112,
+            "highlightClipFr": 6388743701112,
+            "discreteClip": 6388742927112,
+            "discreteClipFr": 6388741959112,
+            "goalsToDate": 5,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "11:09",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484509,
+                "firstName": {
+                  "default": "Josh"
+                },
+                "lastName": {
+                  "default": "Samanski"
+                },
+                "name": {
+                  "default": "J. Samanski"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 81
+              },
+              {
+                "playerId": 8478458,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Roslovic"
+                },
+                "name": {
+                  "default": "J. Roslovic"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 28
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020891/ev628.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 632,
+            "strength": "ev",
+            "playerId": 8482720,
+            "firstName": {
+              "default": "Matthew"
+            },
+            "lastName": {
+              "default": "Knies"
+            },
+            "name": {
+              "default": "M. Knies"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8482720.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-edm-knies-scores-goal-against-connor-ingram-6388742422112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-edm-knies-marque-un-but-contre-connor-ingram-6388741748112",
+            "highlightClip": 6388742422112,
+            "highlightClipFr": 6388741748112,
+            "discreteClip": 6388741951112,
+            "discreteClipFr": 6388743715112,
+            "goalsToDate": 14,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "11:18",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478462,
+                "firstName": {
+                  "default": "Nicolas"
+                },
+                "lastName": {
+                  "default": "Roy"
+                },
+                "name": {
+                  "default": "N. Roy"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 55
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020891/ev632.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 815,
+            "strength": "ev",
+            "playerId": 8477953,
+            "firstName": {
+              "default": "Kasperi"
+            },
+            "lastName": {
+              "default": "Kapanen"
+            },
+            "name": {
+              "default": "K. Kapanen"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8477953.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-edm-kapanen-scores-goal-against-anthony-stolarz-6388743576112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-edm-kapanen-marque-un-but-contre-anthony-stolarz-6388745422112",
+            "highlightClip": 6388743576112,
+            "highlightClipFr": 6388745422112,
+            "discreteClip": 6388744140112,
+            "discreteClipFr": 6388743265112,
+            "goalsToDate": 4,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "04:27",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481617,
+                "firstName": {
+                  "default": "Vasily",
+                  "cs": "Vasilij",
+                  "fi": "Vasili",
+                  "sk": "Vasilij"
+                },
+                "lastName": {
+                  "default": "Podkolzin"
+                },
+                "name": {
+                  "default": "V. Podkolzin"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 92
+              },
+              {
+                "playerId": 8480834,
+                "firstName": {
+                  "default": "Ty"
+                },
+                "lastName": {
+                  "default": "Emberson"
+                },
+                "name": {
+                  "default": "T. Emberson"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 49
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020891/ev815.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1531",
+            "eventId": 857,
+            "strength": "pp",
+            "playerId": 8475166,
+            "firstName": {
+              "default": "John"
+            },
+            "lastName": {
+              "default": "Tavares"
+            },
+            "name": {
+              "default": "J. Tavares"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8475166.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-edm-tavares-scores-ppg-against-connor-ingram-6388744836112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-edm-tavares-marque-un-but-en-a-n-contre-connor-ingram-6388744657112",
+            "highlightClip": 6388744836112,
+            "highlightClipFr": 6388744657112,
+            "discreteClip": 6388745714112,
+            "discreteClipFr": 6388744744112,
+            "goalsToDate": 20,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "07:42",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477939,
+                "firstName": {
+                  "default": "William"
+                },
+                "lastName": {
+                  "default": "Nylander"
+                },
+                "name": {
+                  "default": "W. Nylander"
+                },
+                "assistsToDate": 34,
+                "sweaterNumber": 88
+              },
+              {
+                "playerId": 8482720,
+                "firstName": {
+                  "default": "Matthew"
+                },
+                "lastName": {
+                  "default": "Knies"
+                },
+                "name": {
+                  "default": "M. Knies"
+                },
+                "assistsToDate": 32,
+                "sweaterNumber": 23
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020891/ev857.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 864,
+            "strength": "pp",
+            "playerId": 8481711,
+            "firstName": {
+              "default": "Matias"
+            },
+            "lastName": {
+              "default": "Maccelli"
+            },
+            "name": {
+              "default": "M. Maccelli"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8481711.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-edm-maccelli-scores-ppg-against-connor-ingram-6388745815112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-edm-maccelli-marque-un-but-en-a-n-contre-connor-ingram-6388745918112",
+            "highlightClip": 6388745815112,
+            "highlightClipFr": 6388745918112,
+            "discreteClip": 6388744261112,
+            "discreteClipFr": 6388745334112,
+            "goalsToDate": 10,
+            "awayScore": 4,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "08:13",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477503,
+                "firstName": {
+                  "default": "Max"
+                },
+                "lastName": {
+                  "default": "Domi"
+                },
+                "name": {
+                  "default": "M. Domi"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 11
+              },
+              {
+                "playerId": 8475171,
+                "firstName": {
+                  "default": "Oliver"
+                },
+                "lastName": {
+                  "default": "Ekman-Larsson"
+                },
+                "name": {
+                  "default": "O. Ekman-Larsson"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 95
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020891/ev864.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 981,
+            "strength": "ev",
+            "playerId": 8482259,
+            "firstName": {
+              "default": "Bobby"
+            },
+            "lastName": {
+              "default": "McMann"
+            },
+            "name": {
+              "default": "B. McMann"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8482259.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bobby-mcmann-with-a-goal-vs-edmonton-oilers-6388744944112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bobby-mcmann-with-a-but-vs-le-oilers-d-edmonton-6388744943112",
+            "highlightClip": 6388744944112,
+            "highlightClipFr": 6388744943112,
+            "discreteClip": 6388743781112,
+            "discreteClipFr": 6388745351112,
+            "goalsToDate": 19,
+            "awayScore": 5,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "17:22",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8479318,
+                "firstName": {
+                  "default": "Auston"
+                },
+                "lastName": {
+                  "default": "Matthews"
+                },
+                "name": {
+                  "default": "A. Matthews"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 34
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020891/ev981.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8481711,
+        "teamAbbrev": "TOR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8481711.png",
+        "name": {
+          "default": "M. Maccelli"
+        },
+        "sweaterNo": 63,
+        "position": "L",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8477953,
+        "teamAbbrev": "EDM",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8477953.png",
+        "name": {
+          "default": "K. Kapanen"
+        },
+        "sweaterNo": 42,
+        "position": "R",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8482720,
+        "teamAbbrev": "TOR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8482720.png",
+        "name": {
+          "default": "M. Knies"
+        },
+        "sweaterNo": 23,
+        "position": "L",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "11:00",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Oliver"
+              },
+              "lastName": {
+                "default": "Ekman-Larsson"
+              },
+              "sweaterNumber": 95
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Connor"
+              },
+              "lastName": {
+                "default": "McDavid"
+              },
+              "sweaterNumber": 97
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "16:24",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Andrew"
+              },
+              "lastName": {
+                "default": "Mangiapane"
+              },
+              "sweaterNumber": 88
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Oliver"
+              },
+              "lastName": {
+                "default": "Ekman-Larsson"
+              },
+              "sweaterNumber": 95
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "16:24",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Oliver"
+              },
+              "lastName": {
+                "default": "Ekman-Larsson"
+              },
+              "sweaterNumber": 95
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Andrew"
+              },
+              "lastName": {
+                "default": "Mangiapane"
+              },
+              "sweaterNumber": 88
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "05:17",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Carlo"
+              },
+              "sweaterNumber": 25
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Darnell"
+              },
+              "lastName": {
+                "default": "Nurse"
+              },
+              "sweaterNumber": 25
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "05:17",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Darnell"
+              },
+              "lastName": {
+                "default": "Nurse"
+              },
+              "sweaterNumber": 25
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Carlo"
+              },
+              "sweaterNumber": 25
+            },
+            "descKey": "fighting"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:38",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matt"
+              },
+              "lastName": {
+                "default": "Savoie"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Troy"
+              },
+              "lastName": {
+                "default": "Stecher"
+              },
+              "sweaterNumber": 28
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "06:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mattias"
+              },
+              "lastName": {
+                "default": "Janmark"
+              },
+              "sweaterNumber": 13
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Auston"
+              },
+              "lastName": {
+                "default": "Matthews"
+              },
+              "sweaterNumber": 34
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "18:56",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Trent"
+              },
+              "lastName": {
+                "default": "Frederic"
+              },
+              "sweaterNumber": 10
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "descKey": "misconduct"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

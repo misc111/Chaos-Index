@@ -1,0 +1,775 @@
+{
+  "id": 2025020694,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-09",
+  "venue": {
+    "default": "United Center"
+  },
+  "venueLocation": {
+    "default": "Chicago"
+  },
+  "startTimeUTC": "2026-01-10T01:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "America/Chicago",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 290,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SNP",
+      "sequenceNumber": 33
+    },
+    {
+      "id": 324,
+      "market": "N",
+      "countryCode": "US",
+      "network": "NHLN",
+      "sequenceNumber": 35
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 551,
+      "market": "H",
+      "countryCode": "US",
+      "network": "CHSN",
+      "sequenceNumber": 254
+    },
+    {
+      "id": 520,
+      "market": "A",
+      "countryCode": "US",
+      "network": "MNMT2",
+      "sequenceNumber": 418
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 15,
+    "commonName": {
+      "default": "Capitals"
+    },
+    "abbrev": "WSH",
+    "placeName": {
+      "default": "Washington"
+    },
+    "placeNameWithPreposition": {
+      "default": "Washington",
+      "fr": "de Washington"
+    },
+    "score": 5,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_dark.svg"
+  },
+  "homeTeam": {
+    "id": 16,
+    "commonName": {
+      "default": "Blackhawks"
+    },
+    "abbrev": "CHI",
+    "placeName": {
+      "default": "Chicago"
+    },
+    "placeNameWithPreposition": {
+      "default": "Chicago",
+      "fr": "de Chicago"
+    },
+    "score": 1,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CHI_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CHI_dark.svg?season=20252026"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 95,
+            "strength": "ev",
+            "playerId": 8478463,
+            "firstName": {
+              "default": "Anthony"
+            },
+            "lastName": {
+              "default": "Beauvillier"
+            },
+            "name": {
+              "default": "A. Beauvillier"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8478463.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-chi-beauvillier-scores-goal-against-drew-commesso-6387500545112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/anthony-beauvillier-with-a-but-vs-les-blackhawks-de-chicago-6387500948112",
+            "highlightClip": 6387500545112,
+            "highlightClipFr": 6387500948112,
+            "discreteClip": 6387502011112,
+            "discreteClipFr": 6387501811112,
+            "goalsToDate": 9,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "04:03",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480796,
+                "firstName": {
+                  "default": "Martin"
+                },
+                "lastName": {
+                  "default": "Feh\u00e9rv\u00e1ry"
+                },
+                "name": {
+                  "default": "M. Feh\u00e9rv\u00e1ry"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 42
+              },
+              {
+                "playerId": 8474590,
+                "firstName": {
+                  "default": "John"
+                },
+                "lastName": {
+                  "default": "Carlson"
+                },
+                "name": {
+                  "default": "J. Carlson"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 74
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020694/ev95.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 297,
+            "strength": "ev",
+            "playerId": 8481580,
+            "firstName": {
+              "default": "Connor"
+            },
+            "lastName": {
+              "default": "McMichael"
+            },
+            "name": {
+              "default": "C. McMichael"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8481580.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-chi-mcmichael-scores-goal-against-drew-commesso-6387501481112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-chi-mcmichael-marque-un-but-contre-drew-commesso-6387502144112",
+            "highlightClip": 6387501481112,
+            "highlightClipFr": 6387502144112,
+            "discreteClip": 6387503111112,
+            "discreteClipFr": 6387501371112,
+            "goalsToDate": 6,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "15:07",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484186,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "Leonard"
+                },
+                "name": {
+                  "default": "R. Leonard"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020694/ev297.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 354,
+            "strength": "ev",
+            "playerId": 8483573,
+            "firstName": {
+              "default": "Ethen"
+            },
+            "lastName": {
+              "default": "Frank"
+            },
+            "name": {
+              "default": "E. Frank"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8483573.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-chi-frank-scores-goal-against-drew-commesso-6387501877112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-chi-frank-marque-un-but-contre-drew-commesso-6387502278112",
+            "highlightClip": 6387501877112,
+            "highlightClipFr": 6387502278112,
+            "discreteClip": 6387502163112,
+            "discreteClipFr": 6387502186112,
+            "goalsToDate": 7,
+            "awayScore": 3,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "18:54",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8474590,
+                "firstName": {
+                  "default": "John"
+                },
+                "lastName": {
+                  "default": "Carlson"
+                },
+                "name": {
+                  "default": "J. Carlson"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 74
+              },
+              {
+                "playerId": 8475343,
+                "firstName": {
+                  "default": "Nic"
+                },
+                "lastName": {
+                  "default": "Dowd"
+                },
+                "name": {
+                  "default": "N. Dowd"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 26
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020694/ev354.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 575,
+            "strength": "pp",
+            "playerId": 8484197,
+            "firstName": {
+              "default": "Oliver"
+            },
+            "lastName": {
+              "default": "Moore"
+            },
+            "name": {
+              "default": "O. Moore"
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8484197.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-chi-moore-scores-ppg-against-logan-thompson-6387503390112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-chi-moore-marque-un-but-en-a-n-contre-logan-thompson-6387503809112",
+            "highlightClip": 6387503390112,
+            "highlightClipFr": 6387503809112,
+            "discreteClip": 6387503810112,
+            "discreteClipFr": 6387505371112,
+            "goalsToDate": 5,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "08:48",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476891,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Grzelcyk"
+                },
+                "name": {
+                  "default": "M. Grzelcyk"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 48
+              },
+              {
+                "playerId": 8484185,
+                "firstName": {
+                  "default": "Nick"
+                },
+                "lastName": {
+                  "default": "Lardis"
+                },
+                "name": {
+                  "default": "N. Lardis"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 76
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020694/ev575.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 701,
+            "strength": "ev",
+            "playerId": 8482088,
+            "firstName": {
+              "default": "Justin"
+            },
+            "lastName": {
+              "default": "Sourdif"
+            },
+            "name": {
+              "default": "J. Sourdif"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8482088.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-chi-sourdif-scores-goal-against-drew-commesso-6387506456112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-chi-sourdif-marque-un-but-contre-drew-commesso-6387506653112",
+            "highlightClip": 6387506456112,
+            "highlightClipFr": 6387506653112,
+            "discreteClip": 6387506450112,
+            "discreteClipFr": 6387505570112,
+            "goalsToDate": 9,
+            "awayScore": 4,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "12:38",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481580,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McMichael"
+                },
+                "name": {
+                  "default": "C. McMichael"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 24
+              },
+              {
+                "playerId": 8484186,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "Leonard"
+                },
+                "name": {
+                  "default": "R. Leonard"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020694/ev701.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 959,
+            "strength": "ev",
+            "playerId": 8471214,
+            "firstName": {
+              "default": "Alex",
+              "cs": "Alexandr",
+              "fi": "Aleksandr",
+              "sk": "Alexander"
+            },
+            "lastName": {
+              "default": "Ovechkin",
+              "cs": "Ove\u010dkin",
+              "fi": "Ovetshkin",
+              "sk": "Ove\u010dkin"
+            },
+            "name": {
+              "default": "A. Ovechkin",
+              "cs": "A. Ove\u010dkin",
+              "fi": "A. Ovetshkin",
+              "sk": "A. Ove\u010dkin"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8471214.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-chi-ovechkin-scores-goal-against-drew-commesso-6387509289112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-chi-ovechkin-marque-un-but-contre-drew-commesso-6387508801112",
+            "highlightClip": 6387509289112,
+            "highlightClipFr": 6387508801112,
+            "discreteClip": 6387509184112,
+            "discreteClipFr": 6387509396112,
+            "goalsToDate": 19,
+            "awayScore": 5,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "13:33",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480796,
+                "firstName": {
+                  "default": "Martin"
+                },
+                "lastName": {
+                  "default": "Feh\u00e9rv\u00e1ry"
+                },
+                "name": {
+                  "default": "M. Feh\u00e9rv\u00e1ry"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 42
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020694/ev959.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8481580,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8481580.png",
+        "name": {
+          "default": "C. McMichael"
+        },
+        "sweaterNo": 24,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8480796,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8480796.png",
+        "name": {
+          "default": "M. Feh\u00e9rv\u00e1ry"
+        },
+        "sweaterNo": 42,
+        "position": "D",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8474590,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8474590.png",
+        "name": {
+          "default": "J. Carlson"
+        },
+        "sweaterNo": 74,
+        "position": "D",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "08:33",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Justin"
+              },
+              "lastName": {
+                "default": "Sourdif"
+              },
+              "sweaterNumber": 34
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Alex"
+              },
+              "lastName": {
+                "default": "Vlasic"
+              },
+              "sweaterNumber": 72
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "09:18",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Martin"
+              },
+              "lastName": {
+                "default": "Feh\u00e9rv\u00e1ry"
+              },
+              "sweaterNumber": 42
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:14",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Greene"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Justin"
+              },
+              "lastName": {
+                "default": "Sourdif"
+              },
+              "sweaterNumber": 34
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "06:51",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Duhaime"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Lardis"
+              },
+              "sweaterNumber": 76
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "12:54",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Lardis"
+              },
+              "sweaterNumber": 76
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Justin"
+              },
+              "lastName": {
+                "default": "Sourdif"
+              },
+              "sweaterNumber": 34
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:20",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nic"
+              },
+              "lastName": {
+                "default": "Dowd"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Greene"
+              },
+              "sweaterNumber": 20
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "18:35",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Landon"
+              },
+              "lastName": {
+                "default": "Slaggert"
+              },
+              "sweaterNumber": 84
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Hendrix"
+              },
+              "lastName": {
+                "default": "Lapierre"
+              },
+              "sweaterNumber": 29
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

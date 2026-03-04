@@ -1,0 +1,658 @@
+{
+  "id": 2025090005,
+  "season": 20252026,
+  "gameType": 9,
+  "limitedScoring": true,
+  "gameDate": "2026-02-12",
+  "venue": {
+    "default": "Milano Santagiulia Ice Hockey Arena"
+  },
+  "venueLocation": {
+    "default": "Milano Cortina"
+  },
+  "startTimeUTC": "2026-02-12T20:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "+01:00",
+  "venueTimezone": "Europe/Rome",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 637,
+      "market": "N",
+      "countryCode": "US",
+      "network": "Peacock",
+      "sequenceNumber": 1
+    },
+    {
+      "id": 188,
+      "market": "N",
+      "countryCode": "US",
+      "network": "USA",
+      "sequenceNumber": 31
+    },
+    {
+      "id": 636,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC Gem",
+      "sequenceNumber": 103
+    },
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 107
+    },
+    {
+      "id": 643,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "ICI TOU.TV",
+      "sequenceNumber": 144
+    },
+    {
+      "id": 33,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "RDS",
+      "sequenceNumber": 145
+    }
+  ],
+  "gameState": "FINAL",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 6775,
+    "commonName": {
+      "default": "Latvia",
+      "cs": "Loty\u0161sko",
+      "de": "Lettland",
+      "es": "Letonia",
+      "fr": "Lettonie",
+      "sk": "Loty\u0161sko",
+      "sv": "Lettland"
+    },
+    "abbrev": "LAT",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 1,
+    "sog": 18,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/LAT_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/LAT_dark.svg"
+  },
+  "homeTeam": {
+    "id": 67,
+    "commonName": {
+      "default": "USA",
+      "es": "Estados Unidos",
+      "fi": "Yhdysvaltojen",
+      "fr": "\u00c9tats-Unis"
+    },
+    "abbrev": "USA",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 5,
+    "sog": 38,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/USA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/USA_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 9001,
+            "strength": "ev",
+            "playerId": 8480801,
+            "firstName": {
+              "default": "Brady"
+            },
+            "lastName": {
+              "default": "Tkachuk"
+            },
+            "name": {
+              "default": "B. Tkachuk"
+            },
+            "teamAbbrev": {
+              "default": "USA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/USA/8480801.png",
+            "goalsToDate": 1,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "USA"
+            },
+            "timeInPeriod": "05:29",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479314,
+                "firstName": {
+                  "default": "Matthew"
+                },
+                "lastName": {
+                  "default": "Tkachuk"
+                },
+                "name": {
+                  "default": "M. Tkachuk"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 19
+              },
+              {
+                "playerId": 8478460,
+                "firstName": {
+                  "default": "Zach"
+                },
+                "lastName": {
+                  "default": "Werenski"
+                },
+                "name": {
+                  "default": "Z. Werenski"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 8
+              }
+            ],
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 9004,
+            "strength": "ev",
+            "playerId": 8481137,
+            "firstName": {
+              "default": "Renars"
+            },
+            "lastName": {
+              "default": "Krastenbergs"
+            },
+            "name": {
+              "default": "R. Krastenbergs"
+            },
+            "teamAbbrev": {
+              "default": "LAT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAT/8481137.png",
+            "goalsToDate": 1,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "07:25",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476878,
+                "firstName": {
+                  "default": "Zemgus"
+                },
+                "lastName": {
+                  "default": "Girgensons"
+                },
+                "name": {
+                  "default": "Z. Girgensons"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 28
+              }
+            ],
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 9009,
+            "strength": "ev",
+            "playerId": 8475754,
+            "firstName": {
+              "default": "Brock"
+            },
+            "lastName": {
+              "default": "Nelson"
+            },
+            "name": {
+              "default": "B. Nelson"
+            },
+            "teamAbbrev": {
+              "default": "USA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/USA/8475754.png",
+            "goalsToDate": 1,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "USA"
+            },
+            "timeInPeriod": "10:38",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481559,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Hughes"
+                },
+                "name": {
+                  "default": "J. Hughes"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 86
+              },
+              {
+                "playerId": 8476389,
+                "firstName": {
+                  "default": "Vincent"
+                },
+                "lastName": {
+                  "default": "Trocheck"
+                },
+                "name": {
+                  "default": "V. Trocheck"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 16
+              }
+            ],
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 9013,
+            "strength": "pp",
+            "playerId": 8479420,
+            "firstName": {
+              "default": "Tage"
+            },
+            "lastName": {
+              "default": "Thompson"
+            },
+            "name": {
+              "default": "T. Thompson"
+            },
+            "teamAbbrev": {
+              "default": "USA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/USA/8479420.png",
+            "goalsToDate": 1,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "USA"
+            },
+            "timeInPeriod": "17:35",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478403,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Eichel"
+                },
+                "name": {
+                  "default": "J. Eichel"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 9
+              },
+              {
+                "playerId": 8480800,
+                "firstName": {
+                  "default": "Quinn"
+                },
+                "lastName": {
+                  "default": "Hughes"
+                },
+                "name": {
+                  "default": "Q. Hughes"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 43
+              }
+            ],
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 9016,
+            "strength": "ev",
+            "playerId": 8475754,
+            "firstName": {
+              "default": "Brock"
+            },
+            "lastName": {
+              "default": "Nelson"
+            },
+            "name": {
+              "default": "B. Nelson"
+            },
+            "teamAbbrev": {
+              "default": "USA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/USA/8475754.png",
+            "goalsToDate": 2,
+            "awayScore": 1,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "USA"
+            },
+            "timeInPeriod": "19:48",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481559,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Hughes"
+                },
+                "name": {
+                  "default": "J. Hughes"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 86
+              },
+              {
+                "playerId": 8479314,
+                "firstName": {
+                  "default": "Matthew"
+                },
+                "lastName": {
+                  "default": "Tkachuk"
+                },
+                "name": {
+                  "default": "M. Tkachuk"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 19
+              }
+            ],
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 9020,
+            "strength": "pp",
+            "playerId": 8479318,
+            "firstName": {
+              "default": "Auston"
+            },
+            "lastName": {
+              "default": "Matthews"
+            },
+            "name": {
+              "default": "A. Matthews"
+            },
+            "teamAbbrev": {
+              "default": "USA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/USA/8479318.png",
+            "goalsToDate": 1,
+            "awayScore": 1,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "USA"
+            },
+            "timeInPeriod": "02:35",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478403,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Eichel"
+                },
+                "name": {
+                  "default": "J. Eichel"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 9
+              },
+              {
+                "playerId": 8480800,
+                "firstName": {
+                  "default": "Quinn"
+                },
+                "lastName": {
+                  "default": "Hughes"
+                },
+                "name": {
+                  "default": "Q. Hughes"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 43
+              }
+            ],
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "15:52",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Renars"
+              },
+              "lastName": {
+                "default": "Krastenbergs"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "LAT"
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:40",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "Guentzel"
+              },
+              "sweaterNumber": 59
+            },
+            "teamAbbrev": {
+              "default": "USA"
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "16:54",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Roberts"
+              },
+              "lastName": {
+                "default": "Mamcics"
+              },
+              "sweaterNumber": 55
+            },
+            "teamAbbrev": {
+              "default": "LAT"
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:28",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kaspars"
+              },
+              "lastName": {
+                "default": "Daugavins"
+              },
+              "sweaterNumber": 16
+            },
+            "teamAbbrev": {
+              "default": "LAT"
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "09:11",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dylan"
+              },
+              "lastName": {
+                "default": "Larkin"
+              },
+              "sweaterNumber": 21
+            },
+            "teamAbbrev": {
+              "default": "USA"
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "16:38",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brock"
+              },
+              "lastName": {
+                "default": "Faber"
+              },
+              "sweaterNumber": 14
+            },
+            "teamAbbrev": {
+              "default": "USA"
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "16:38",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brock"
+              },
+              "lastName": {
+                "default": "Faber"
+              },
+              "sweaterNumber": 14
+            },
+            "teamAbbrev": {
+              "default": "USA"
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "16:38",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Eduards"
+              },
+              "lastName": {
+                "default": "Tralmaks"
+              },
+              "sweaterNumber": 34
+            },
+            "teamAbbrev": {
+              "default": "LAT"
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

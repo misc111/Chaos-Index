@@ -1,0 +1,828 @@
+{
+  "id": 2025020820,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-25",
+  "venue": {
+    "default": "Climate Pledge Arena"
+  },
+  "venueLocation": {
+    "default": "Seattle"
+  },
+  "startTimeUTC": "2026-01-25T20:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "US/Pacific",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 107
+    },
+    {
+      "id": 554,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KHN/Prime",
+      "sequenceNumber": 348
+    },
+    {
+      "id": 409,
+      "market": "A",
+      "countryCode": "US",
+      "network": "MSGSN",
+      "sequenceNumber": 411
+    },
+    {
+      "id": 388,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KONG",
+      "sequenceNumber": 654
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 1,
+    "commonName": {
+      "default": "Devils"
+    },
+    "abbrev": "NJD",
+    "placeName": {
+      "default": "New Jersey"
+    },
+    "placeNameWithPreposition": {
+      "default": "New Jersey",
+      "fr": "du New Jersey"
+    },
+    "score": 2,
+    "sog": 29,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NJD_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NJD_dark.svg"
+  },
+  "homeTeam": {
+    "id": 55,
+    "commonName": {
+      "default": "Kraken"
+    },
+    "abbrev": "SEA",
+    "placeName": {
+      "default": "Seattle"
+    },
+    "placeNameWithPreposition": {
+      "default": "Seattle",
+      "fr": "de Seattle"
+    },
+    "score": 4,
+    "sog": 19,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/SEA_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 168,
+            "strength": "pp",
+            "playerId": 8476462,
+            "firstName": {
+              "default": "Dougie"
+            },
+            "lastName": {
+              "default": "Hamilton"
+            },
+            "name": {
+              "default": "D. Hamilton"
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8476462.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-sea-hamilton-scores-ppg-against-joey-daccord-6388294569112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-sea-hamilton-marque-un-but-en-a-n-contre-joey-daccord-6388294377112",
+            "highlightClip": 6388294569112,
+            "highlightClipFr": 6388294377112,
+            "discreteClip": 6388295049112,
+            "discreteClipFr": 6388292914112,
+            "goalsToDate": 6,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "NJD"
+            },
+            "timeInPeriod": "08:11",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481559,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Hughes"
+                },
+                "name": {
+                  "default": "J. Hughes"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 86
+              },
+              {
+                "playerId": 8477015,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "Brown"
+                },
+                "name": {
+                  "default": "C. Brown"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 16
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020820/ev168.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 623,
+            "strength": "ev",
+            "playerId": 8482858,
+            "firstName": {
+              "default": "Ryker"
+            },
+            "lastName": {
+              "default": "Evans"
+            },
+            "name": {
+              "default": "R. Evans"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8482858.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-sea-evans-scores-goal-against-jacob-markstrom-6388296900112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-sea-evans-marque-un-but-contre-jacob-markstrom-6388296299112",
+            "highlightClip": 6388296900112,
+            "highlightClipFr": 6388296299112,
+            "discreteClip": 6388295694112,
+            "discreteClipFr": 6388295695112,
+            "goalsToDate": 4,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "07:37",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020820/ev623.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 858,
+            "strength": "ev",
+            "playerId": 8482665,
+            "firstName": {
+              "default": "Matty"
+            },
+            "lastName": {
+              "default": "Beniers"
+            },
+            "name": {
+              "default": "M. Beniers"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8482665.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-sea-beniers-scores-goal-against-jacob-markstrom-6388297639112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-sea-beniers-marque-un-but-contre-jacob-markstrom-6388297045112",
+            "highlightClip": 6388297639112,
+            "highlightClipFr": 6388297045112,
+            "discreteClip": 6388299392112,
+            "discreteClipFr": 6388298710112,
+            "goalsToDate": 12,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "07:04",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8474586,
+                "firstName": {
+                  "default": "Jordan"
+                },
+                "lastName": {
+                  "default": "Eberle"
+                },
+                "name": {
+                  "default": "J. Eberle"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 7
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020820/ev858.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 211,
+            "strength": "ev",
+            "playerId": 8484800,
+            "firstName": {
+              "default": "Berkly"
+            },
+            "lastName": {
+              "default": "Catton"
+            },
+            "name": {
+              "default": "B. Catton"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8484800.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-sea-catton-scores-goal-against-jacob-markstrom-6388299490112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-sea-catton-marque-un-but-contre-jacob-markstrom-6388298121112",
+            "highlightClip": 6388299490112,
+            "highlightClipFr": 6388298121112,
+            "discreteClip": 6388297141112,
+            "discreteClipFr": 6388298616112,
+            "goalsToDate": 5,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "07:22",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476905,
+                "firstName": {
+                  "default": "Chandler"
+                },
+                "lastName": {
+                  "default": "Stephenson"
+                },
+                "name": {
+                  "default": "C. Stephenson"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 9
+              },
+              {
+                "playerId": 8480009,
+                "firstName": {
+                  "default": "Eeli"
+                },
+                "lastName": {
+                  "default": "Tolvanen"
+                },
+                "name": {
+                  "default": "E. Tolvanen"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 20
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020820/ev211.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 886,
+            "strength": "pp",
+            "playerId": 8481559,
+            "firstName": {
+              "default": "Jack"
+            },
+            "lastName": {
+              "default": "Hughes"
+            },
+            "name": {
+              "default": "J. Hughes"
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8481559.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-sea-hughes-scores-ppg-against-joey-daccord-6388299595112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-sea-hughes-marque-un-but-en-a-n-contre-joey-daccord-6388299699112",
+            "highlightClip": 6388299595112,
+            "highlightClipFr": 6388299699112,
+            "discreteClip": 6388298240112,
+            "discreteClipFr": 6388298241112,
+            "goalsToDate": 12,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "08:14",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476462,
+                "firstName": {
+                  "default": "Dougie"
+                },
+                "lastName": {
+                  "default": "Hamilton"
+                },
+                "name": {
+                  "default": "D. Hamilton"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 7
+              },
+              {
+                "playerId": 8477015,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "Brown"
+                },
+                "name": {
+                  "default": "C. Brown"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 16
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020820/ev886.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 1022,
+            "strength": "ev",
+            "playerId": 8474586,
+            "firstName": {
+              "default": "Jordan"
+            },
+            "lastName": {
+              "default": "Eberle"
+            },
+            "name": {
+              "default": "J. Eberle"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8474586.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-sea-eberle-scores-empty-net-goal-6388300205112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-sea-eberle-sea-marque-un-but-dans-un-filet-desert-6388299128112",
+            "highlightClip": 6388300205112,
+            "highlightClipFr": 6388299128112,
+            "discreteClip": 6388299616112,
+            "discreteClipFr": 6388300101112,
+            "goalsToDate": 18,
+            "awayScore": 2,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "18:48",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020820/ev1022.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8482665,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8482665.png",
+        "name": {
+          "default": "M. Beniers"
+        },
+        "sweaterNo": 10,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8484800,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8484800.png",
+        "name": {
+          "default": "B. Catton"
+        },
+        "sweaterNo": 27,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8478916,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8478916.png",
+        "name": {
+          "default": "J. Daccord"
+        },
+        "sweaterNo": 35,
+        "position": "G",
+        "goalsAgainstAverage": 2.0,
+        "savePctg": 0.931
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:51",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Shane"
+              },
+              "lastName": {
+                "default": "Wright"
+              },
+              "sweaterNumber": 51
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Cody"
+              },
+              "lastName": {
+                "default": "Glass"
+              },
+              "sweaterNumber": 12
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "10:26",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dawson"
+              },
+              "lastName": {
+                "default": "Mercer"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Lindgren"
+              },
+              "sweaterNumber": 55
+            },
+            "descKey": "instigator",
+            "servedBy": {
+              "default": "E. Dadonov",
+              "cs": "J. Dadonov",
+              "sk": "J. Dadonov"
+            }
+          },
+          {
+            "timeInPeriod": "10:26",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Lindgren"
+              },
+              "sweaterNumber": 55
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Dawson"
+              },
+              "lastName": {
+                "default": "Mercer"
+              },
+              "sweaterNumber": 91
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "10:26",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dawson"
+              },
+              "lastName": {
+                "default": "Mercer"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Lindgren"
+              },
+              "sweaterNumber": 55
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "10:26",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dawson"
+              },
+              "lastName": {
+                "default": "Mercer"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "descKey": "instigator-misconduct"
+          },
+          {
+            "timeInPeriod": "15:28",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jamie"
+              },
+              "lastName": {
+                "default": "Oleksiak"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Timo"
+              },
+              "lastName": {
+                "default": "Meier"
+              },
+              "sweaterNumber": 28
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "15:55",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dougie"
+              },
+              "lastName": {
+                "default": "Hamilton"
+              },
+              "sweaterNumber": 7
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Winterton"
+              },
+              "sweaterNumber": 26
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "18:56",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Paul"
+              },
+              "lastName": {
+                "default": "Cotter"
+              },
+              "sweaterNumber": 47
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jacob"
+              },
+              "lastName": {
+                "default": "Melanson"
+              },
+              "sweaterNumber": 63
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "11:30",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jacob"
+              },
+              "lastName": {
+                "default": "Melanson"
+              },
+              "sweaterNumber": 63
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jonas"
+              },
+              "lastName": {
+                "default": "Siegenthaler"
+              },
+              "sweaterNumber": 71
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:40",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ondrej",
+                "cs": "Ond\u0159ej",
+                "sk": "Ond\u0159ej"
+              },
+              "lastName": {
+                "default": "Palat",
+                "cs": "Pal\u00e1t",
+                "sk": "Pal\u00e1t"
+              },
+              "sweaterNumber": 18
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matty"
+              },
+              "lastName": {
+                "default": "Beniers"
+              },
+              "sweaterNumber": 10
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "07:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Montour"
+              },
+              "sweaterNumber": 62
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Cody"
+              },
+              "lastName": {
+                "default": "Glass"
+              },
+              "sweaterNumber": 12
+            },
+            "descKey": "slashing"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

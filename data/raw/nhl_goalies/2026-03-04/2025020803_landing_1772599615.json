@@ -1,0 +1,797 @@
+{
+  "id": 2025020803,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-23",
+  "venue": {
+    "default": "United Center"
+  },
+  "venueLocation": {
+    "default": "Chicago"
+  },
+  "startTimeUTC": "2026-01-24T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "America/Chicago",
+  "periodDescriptor": {
+    "number": 5,
+    "periodType": "SO",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 309,
+      "market": "N",
+      "countryCode": "US",
+      "network": "ESPN",
+      "sequenceNumber": 10
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 14,
+    "commonName": {
+      "default": "Lightning"
+    },
+    "abbrev": "TBL",
+    "placeName": {
+      "default": "Tampa Bay"
+    },
+    "placeNameWithPreposition": {
+      "default": "Tampa Bay",
+      "fr": "de Tampa Bay"
+    },
+    "score": 2,
+    "sog": 31,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TBL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/TBL_dark.svg"
+  },
+  "homeTeam": {
+    "id": 16,
+    "commonName": {
+      "default": "Blackhawks"
+    },
+    "abbrev": "CHI",
+    "placeName": {
+      "default": "Chicago"
+    },
+    "placeNameWithPreposition": {
+      "default": "Chicago",
+      "fr": "de Chicago"
+    },
+    "score": 1,
+    "sog": 19,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CHI_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CHI_dark.svg?season=20252026"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 392,
+            "strength": "ev",
+            "playerId": 8483450,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "Greene"
+            },
+            "name": {
+              "default": "R. Greene"
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8483450.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tbl-chi-greene-scores-goal-against-andrei-vasilevskiy-6388195632112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tbl-chi-greene-marque-un-but-contre-andrei-vasilevskiy-6388194545112",
+            "highlightClip": 6388195632112,
+            "highlightClipFr": 6388194545112,
+            "discreteClip": 6388195540112,
+            "discreteClipFr": 6388195340112,
+            "goalsToDate": 7,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CHI"
+            },
+            "timeInPeriod": "17:42",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484185,
+                "firstName": {
+                  "default": "Nick"
+                },
+                "lastName": {
+                  "default": "Lardis"
+                },
+                "name": {
+                  "default": "N. Lardis"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 76
+              },
+              {
+                "playerId": 8484197,
+                "firstName": {
+                  "default": "Oliver"
+                },
+                "lastName": {
+                  "default": "Moore"
+                },
+                "name": {
+                  "default": "O. Moore"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 11
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020803/ev392.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 745,
+            "strength": "ev",
+            "playerId": 8476453,
+            "firstName": {
+              "default": "Nikita"
+            },
+            "lastName": {
+              "default": "Kucherov",
+              "cs": "Ku\u010derov",
+              "fi": "Kutsherov",
+              "sk": "Ku\u010derov"
+            },
+            "name": {
+              "default": "N. Kucherov",
+              "cs": "N. Ku\u010derov",
+              "fi": "N. Kutsherov",
+              "sk": "N. Ku\u010derov"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8476453.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tbl-chi-kucherov-scores-goal-against-arvid-soderblom-6388198114112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tbl-chi-kucherov-marque-un-but-contre-arvid-soderblom-6388197527112",
+            "highlightClip": 6388198114112,
+            "highlightClipFr": 6388197527112,
+            "discreteClip": 6388195252112,
+            "discreteClipFr": 6388197607112,
+            "goalsToDate": 25,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "18:42",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479542,
+                "firstName": {
+                  "default": "Brandon"
+                },
+                "lastName": {
+                  "default": "Hagel"
+                },
+                "name": {
+                  "default": "B. Hagel"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 38
+              },
+              {
+                "playerId": 8478519,
+                "firstName": {
+                  "default": "Anthony"
+                },
+                "lastName": {
+                  "default": "Cirelli"
+                },
+                "name": {
+                  "default": "A. Cirelli"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 71
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020803/ev745.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 5,
+          "periodType": "SO",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "0101",
+            "eventId": 210,
+            "strength": "ev",
+            "playerId": 8483752,
+            "firstName": {
+              "default": "Dominic"
+            },
+            "lastName": {
+              "default": "James"
+            },
+            "name": {
+              "default": "D. James"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8483752.png",
+            "discreteClip": 6388202836112,
+            "discreteClipFr": 6388199802112,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "00:00",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "shootout": {
+      "liveScore": {
+        "home": 2,
+        "away": 3
+      },
+      "events": [
+        {
+          "sequence": 1,
+          "playerId": 8484185,
+          "teamAbbrev": {
+            "default": "CHI"
+          },
+          "firstName": {
+            "default": "Nick"
+          },
+          "lastName": {
+            "default": "Lardis"
+          },
+          "shotType": "backhand",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8484185.png",
+          "gameWinner": false,
+          "homeScore": 0,
+          "awayScore": 0
+        },
+        {
+          "sequence": 2,
+          "playerId": 8480426,
+          "teamAbbrev": {
+            "default": "TBL"
+          },
+          "firstName": {
+            "default": "Charle-Edouard"
+          },
+          "lastName": {
+            "default": "D'Astous"
+          },
+          "shotType": "wrist",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8480426.png",
+          "gameWinner": false,
+          "homeScore": 0,
+          "awayScore": 0
+        },
+        {
+          "sequence": 3,
+          "playerId": 8484144,
+          "teamAbbrev": {
+            "default": "CHI"
+          },
+          "firstName": {
+            "default": "Connor"
+          },
+          "lastName": {
+            "default": "Bedard"
+          },
+          "shotType": "wrist",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8484144.png",
+          "gameWinner": false,
+          "homeScore": 0,
+          "awayScore": 0
+        },
+        {
+          "sequence": 4,
+          "playerId": 8476453,
+          "teamAbbrev": {
+            "default": "TBL"
+          },
+          "firstName": {
+            "default": "Nikita"
+          },
+          "lastName": {
+            "default": "Kucherov",
+            "cs": "Ku\u010derov",
+            "fi": "Kutsherov",
+            "sk": "Ku\u010derov"
+          },
+          "shotType": "wrist",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8476453.png",
+          "gameWinner": false,
+          "homeScore": 0,
+          "awayScore": 1
+        },
+        {
+          "sequence": 5,
+          "playerId": 8483493,
+          "teamAbbrev": {
+            "default": "CHI"
+          },
+          "firstName": {
+            "default": "Frank"
+          },
+          "lastName": {
+            "default": "Nazar"
+          },
+          "shotType": "wrist",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8483493.png",
+          "gameWinner": false,
+          "homeScore": 1,
+          "awayScore": 1
+        },
+        {
+          "sequence": 6,
+          "playerId": 8477404,
+          "teamAbbrev": {
+            "default": "TBL"
+          },
+          "firstName": {
+            "default": "Jake"
+          },
+          "lastName": {
+            "default": "Guentzel"
+          },
+          "shotType": "backhand",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8477404.png",
+          "gameWinner": false,
+          "homeScore": 1,
+          "awayScore": 1
+        },
+        {
+          "sequence": 7,
+          "playerId": 8481806,
+          "teamAbbrev": {
+            "default": "CHI"
+          },
+          "firstName": {
+            "default": "Louis"
+          },
+          "lastName": {
+            "default": "Crevier"
+          },
+          "shotType": "backhand",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8481806.png",
+          "gameWinner": false,
+          "homeScore": 2,
+          "awayScore": 1
+        },
+        {
+          "sequence": 8,
+          "playerId": 8482201,
+          "teamAbbrev": {
+            "default": "TBL"
+          },
+          "firstName": {
+            "default": "Gage"
+          },
+          "lastName": {
+            "default": "Goncalves"
+          },
+          "shotType": "wrist",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8482201.png",
+          "gameWinner": false,
+          "homeScore": 2,
+          "awayScore": 2
+        },
+        {
+          "sequence": 9,
+          "playerId": 8484197,
+          "teamAbbrev": {
+            "default": "CHI"
+          },
+          "firstName": {
+            "default": "Oliver"
+          },
+          "lastName": {
+            "default": "Moore"
+          },
+          "shotType": "wrist",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8484197.png",
+          "gameWinner": false,
+          "homeScore": 2,
+          "awayScore": 2
+        },
+        {
+          "sequence": 10,
+          "playerId": 8483752,
+          "teamAbbrev": {
+            "default": "TBL"
+          },
+          "firstName": {
+            "default": "Dominic"
+          },
+          "lastName": {
+            "default": "James"
+          },
+          "shotType": "wrist",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8483752.png",
+          "gameWinner": true,
+          "discreteClip": 6388202836112,
+          "discreteClipFr": 6388199802112,
+          "homeScore": 2,
+          "awayScore": 3
+        }
+      ]
+    },
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8483752,
+        "teamAbbrev": "TBL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8483752.png",
+        "name": {
+          "default": "D. James"
+        },
+        "sweaterNo": 17,
+        "position": "C",
+        "goals": 0,
+        "assists": 0,
+        "points": 0
+      },
+      {
+        "star": 2,
+        "playerId": 8476453,
+        "teamAbbrev": "TBL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8476453.png",
+        "name": {
+          "default": "N. Kucherov",
+          "cs": "N. Ku\u010derov",
+          "fi": "N. Kutsherov",
+          "sk": "N. Ku\u010derov"
+        },
+        "sweaterNo": 86,
+        "position": "R",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8482821,
+        "teamAbbrev": "CHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8482821.png",
+        "name": {
+          "default": "A. Soderblom",
+          "cs": "A. S\u00f6derblom",
+          "fi": "A. S\u00f6derblom",
+          "sk": "A. S\u00f6derblom",
+          "sv": "A. S\u00f6derblom"
+        },
+        "sweaterNo": 40,
+        "position": "G",
+        "goalsAgainstAverage": 0.92,
+        "savePctg": 0.968
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:23",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jack"
+              },
+              "lastName": {
+                "default": "Finley"
+              },
+              "sweaterNumber": 62
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Foligno"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "unsportsmanlike-conduct",
+            "servedBy": {
+              "default": "G. Goncalves"
+            }
+          },
+          {
+            "timeInPeriod": "03:23",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jack"
+              },
+              "lastName": {
+                "default": "Finley"
+              },
+              "sweaterNumber": 62
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Foligno"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "03:23",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Foligno"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jack"
+              },
+              "lastName": {
+                "default": "Finley"
+              },
+              "sweaterNumber": 62
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "07:25",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Arvid"
+              },
+              "lastName": {
+                "default": "Soderblom",
+                "cs": "S\u00f6derblom",
+                "fi": "S\u00f6derblom",
+                "sk": "S\u00f6derblom",
+                "sv": "S\u00f6derblom"
+              },
+              "sweaterNumber": 40
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Gage"
+              },
+              "lastName": {
+                "default": "Goncalves"
+              },
+              "sweaterNumber": 93
+            },
+            "descKey": "tripping",
+            "servedBy": {
+              "default": "A. Burakovsky"
+            }
+          },
+          {
+            "timeInPeriod": "15:36",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Darren"
+              },
+              "lastName": {
+                "default": "Raddysh"
+              },
+              "sweaterNumber": 43
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Tyler"
+              },
+              "lastName": {
+                "default": "Bertuzzi"
+              },
+              "sweaterNumber": 59
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "17:42",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "descKey": "delaying-game-unsuccessful-challenge",
+            "servedBy": {
+              "default": "G. Goncalves"
+            }
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:11",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Artyom"
+              },
+              "lastName": {
+                "default": "Levshunov"
+              },
+              "sweaterNumber": 55
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Zemgus"
+              },
+              "lastName": {
+                "default": "Girgensons"
+              },
+              "sweaterNumber": 28
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:56",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jason"
+              },
+              "lastName": {
+                "default": "Dickinson"
+              },
+              "sweaterNumber": 16
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "J.J."
+              },
+              "lastName": {
+                "default": "Moser"
+              },
+              "sweaterNumber": 90
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

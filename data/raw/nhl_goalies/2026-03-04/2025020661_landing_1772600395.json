@@ -1,0 +1,637 @@
+{
+  "id": 2025020661,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-04",
+  "venue": {
+    "default": "United Center"
+  },
+  "venueLocation": {
+    "default": "Chicago"
+  },
+  "startTimeUTC": "2026-01-05T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "America/Chicago",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 284,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN1",
+      "sequenceNumber": 113
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 551,
+      "market": "H",
+      "countryCode": "US",
+      "network": "CHSN",
+      "sequenceNumber": 254
+    },
+    {
+      "id": 521,
+      "market": "A",
+      "countryCode": "US",
+      "network": "SCRIPPS",
+      "sequenceNumber": 657
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 54,
+    "commonName": {
+      "default": "Golden Knights"
+    },
+    "abbrev": "VGK",
+    "placeName": {
+      "default": "Vegas"
+    },
+    "placeNameWithPreposition": {
+      "default": "Vegas",
+      "fr": "de Vegas"
+    },
+    "score": 2,
+    "sog": 15,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VGK_dark.svg"
+  },
+  "homeTeam": {
+    "id": 16,
+    "commonName": {
+      "default": "Blackhawks"
+    },
+    "abbrev": "CHI",
+    "placeName": {
+      "default": "Chicago"
+    },
+    "placeNameWithPreposition": {
+      "default": "Chicago",
+      "fr": "de Chicago"
+    },
+    "score": 3,
+    "sog": 20,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CHI_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CHI_dark.svg?season=20252026"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 103,
+            "strength": "ev",
+            "playerId": 8476438,
+            "firstName": {
+              "default": "Brandon"
+            },
+            "lastName": {
+              "default": "Saad"
+            },
+            "name": {
+              "default": "B. Saad"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8476438.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-chi-saad-scores-goal-against-arvid-soderblom-6387235052112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-chi-saad-marque-un-but-contre-arvid-soderblom-6387232703112",
+            "highlightClip": 6387235052112,
+            "highlightClipFr": 6387232703112,
+            "discreteClip": 6387234001112,
+            "discreteClipFr": 6387233692112,
+            "goalsToDate": 2,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "10:40",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479353,
+                "firstName": {
+                  "default": "Brett"
+                },
+                "lastName": {
+                  "default": "Howden"
+                },
+                "name": {
+                  "default": "B. Howden"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 21
+              },
+              {
+                "playerId": 8482125,
+                "firstName": {
+                  "default": "Alexander"
+                },
+                "lastName": {
+                  "default": "Holtz"
+                },
+                "name": {
+                  "default": "A. Holtz"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 26
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020661/ev103.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 268,
+            "strength": "ev",
+            "playerId": 8477479,
+            "firstName": {
+              "default": "Tyler"
+            },
+            "lastName": {
+              "default": "Bertuzzi"
+            },
+            "name": {
+              "default": "T. Bertuzzi"
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8477479.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-chi-bertuzzi-scores-goal-against-akira-schmid-6387234775112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-chi-bertuzzi-marque-un-but-contre-akira-schmid-6387233015112",
+            "highlightClip": 6387234775112,
+            "highlightClipFr": 6387233015112,
+            "discreteClip": 6387234098112,
+            "discreteClipFr": 6387232626112,
+            "goalsToDate": 20,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "12:38",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481568,
+                "firstName": {
+                  "default": "Alex"
+                },
+                "lastName": {
+                  "default": "Vlasic"
+                },
+                "name": {
+                  "default": "A. Vlasic"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 72
+              },
+              {
+                "playerId": 8477444,
+                "firstName": {
+                  "default": "Andre",
+                  "cs": "Andr\u00e9",
+                  "sk": "Andr\u00e9",
+                  "sv": "Andr\u00e9"
+                },
+                "lastName": {
+                  "default": "Burakovsky"
+                },
+                "name": {
+                  "default": "A. Burakovsky"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 28
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020661/ev268.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 410,
+            "strength": "ev",
+            "playerId": 8475913,
+            "firstName": {
+              "default": "Mark"
+            },
+            "lastName": {
+              "default": "Stone"
+            },
+            "name": {
+              "default": "M. Stone"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8475913.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-chi-stone-scores-goal-against-arvid-soderblom-6387234613112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-chi-stone-marque-un-but-contre-arvid-soderblom-6387234894112",
+            "highlightClip": 6387234613112,
+            "highlightClipFr": 6387234894112,
+            "discreteClip": 6387233429112,
+            "discreteClipFr": 6387234310112,
+            "goalsToDate": 12,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "00:43",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478403,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Eichel"
+                },
+                "name": {
+                  "default": "J. Eichel"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 9
+              },
+              {
+                "playerId": 8478396,
+                "firstName": {
+                  "default": "Noah"
+                },
+                "lastName": {
+                  "default": "Hanifin"
+                },
+                "name": {
+                  "default": "N. Hanifin"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 15
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020661/ev410.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 832,
+            "strength": "ev",
+            "playerId": 8477479,
+            "firstName": {
+              "default": "Tyler"
+            },
+            "lastName": {
+              "default": "Bertuzzi"
+            },
+            "name": {
+              "default": "T. Bertuzzi"
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8477479.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-chi-bertuzzi-scores-goal-against-akira-schmid-6387235427112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-chi-bertuzzi-marque-un-but-contre-akira-schmid-6387235909112",
+            "highlightClip": 6387235427112,
+            "highlightClipFr": 6387235909112,
+            "discreteClip": 6387237391112,
+            "discreteClipFr": 6387237089112,
+            "goalsToDate": 21,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "11:36",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483450,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "Greene"
+                },
+                "name": {
+                  "default": "R. Greene"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 20
+              },
+              {
+                "playerId": 8477444,
+                "firstName": {
+                  "default": "Andre",
+                  "cs": "Andr\u00e9",
+                  "sk": "Andr\u00e9",
+                  "sv": "Andr\u00e9"
+                },
+                "lastName": {
+                  "default": "Burakovsky"
+                },
+                "name": {
+                  "default": "A. Burakovsky"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 28
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020661/ev832.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 1011,
+            "strength": "ev",
+            "playerId": 8477479,
+            "firstName": {
+              "default": "Tyler"
+            },
+            "lastName": {
+              "default": "Bertuzzi"
+            },
+            "name": {
+              "default": "T. Bertuzzi"
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8477479.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-chi-bertuzzi-scores-goal-against-akira-schmid-6387235550112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-chi-bertuzzi-marque-un-but-contre-akira-schmid-6387237691112",
+            "highlightClip": 6387235550112,
+            "highlightClipFr": 6387237691112,
+            "discreteClip": 6387236603112,
+            "discreteClipFr": 6387236419112,
+            "goalsToDate": 22,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "CHI"
+            },
+            "timeInPeriod": "01:18",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481624,
+                "firstName": {
+                  "default": "Ilya",
+                  "cs": "Ilja",
+                  "fi": "Ilja",
+                  "sk": "I\u013eja"
+                },
+                "lastName": {
+                  "default": "Mikheyev",
+                  "cs": "Michejev",
+                  "fi": "Mihejev",
+                  "sk": "Michejev"
+                },
+                "name": {
+                  "default": "I. Mikheyev",
+                  "cs": "I. Michejev",
+                  "fi": "I. Mihejev",
+                  "sk": "I. Michejev"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 95
+              },
+              {
+                "playerId": 8484783,
+                "firstName": {
+                  "default": "Artyom"
+                },
+                "lastName": {
+                  "default": "Levshunov"
+                },
+                "name": {
+                  "default": "A. Levshunov"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 55
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020661/ev1011.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8477479,
+        "teamAbbrev": "CHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8477479.png",
+        "name": {
+          "default": "T. Bertuzzi"
+        },
+        "sweaterNo": 59,
+        "position": "L",
+        "goals": 3,
+        "assists": 0,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8477444,
+        "teamAbbrev": "CHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8477444.png",
+        "name": {
+          "default": "A. Burakovsky"
+        },
+        "sweaterNo": 28,
+        "position": "L",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8483450,
+        "teamAbbrev": "CHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8483450.png",
+        "name": {
+          "default": "R. Greene"
+        },
+        "sweaterNo": 20,
+        "position": "C",
+        "goals": 0,
+        "assists": 1,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:55",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jeremy"
+              },
+              "lastName": {
+                "default": "Lauzon"
+              },
+              "sweaterNumber": 5
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "descKey": "delaying-game-smothering-puck"
+          },
+          {
+            "timeInPeriod": "14:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Greene"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jack"
+              },
+              "lastName": {
+                "default": "Eichel"
+              },
+              "sweaterNumber": 9
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "13:35",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jaycob"
+              },
+              "lastName": {
+                "default": "Megna"
+              },
+              "sweaterNumber": 88
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Greene"
+              },
+              "sweaterNumber": 20
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "03:42",
+    "secondsRemaining": 222,
+    "running": false,
+    "inIntermission": false
+  }
+}

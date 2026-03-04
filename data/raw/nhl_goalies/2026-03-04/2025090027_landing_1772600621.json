@@ -1,0 +1,541 @@
+{
+  "id": 2025090027,
+  "season": 20252026,
+  "gameType": 9,
+  "limitedScoring": true,
+  "gameDate": "2026-02-20",
+  "venue": {
+    "default": "Milano Santagiulia Ice Hockey Arena"
+  },
+  "venueLocation": {
+    "default": "Milano Cortina"
+  },
+  "startTimeUTC": "2026-02-20T15:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "+01:00",
+  "venueTimezone": "Europe/Rome",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 637,
+      "market": "N",
+      "countryCode": "US",
+      "network": "Peacock",
+      "sequenceNumber": 1
+    },
+    {
+      "id": 188,
+      "market": "N",
+      "countryCode": "US",
+      "network": "USA",
+      "sequenceNumber": 31
+    },
+    {
+      "id": 4,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC",
+      "sequenceNumber": 101
+    },
+    {
+      "id": 636,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC Gem",
+      "sequenceNumber": 103
+    },
+    {
+      "id": 642,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "ICI T\u00e9l\u00e9",
+      "sequenceNumber": 143
+    },
+    {
+      "id": 230,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "RDS2",
+      "sequenceNumber": 146
+    }
+  ],
+  "gameState": "FINAL",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 62,
+    "commonName": {
+      "default": "Finland",
+      "cs": "Finsko",
+      "de": "Finnland",
+      "es": "Finlandia",
+      "fi": "Suomi",
+      "fr": "Finlande",
+      "sk": "F\u00ednsko"
+    },
+    "abbrev": "FIN",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 2,
+    "sog": 17,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/FIN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/FIN_dark.svg"
+  },
+  "homeTeam": {
+    "id": 60,
+    "commonName": {
+      "default": "Canada",
+      "cs": "Kanada",
+      "de": "Kanada",
+      "es": "Canad\u00e1",
+      "fi": "Kanada",
+      "sk": "Kanada",
+      "sv": "Kanada"
+    },
+    "abbrev": "CAN",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 3,
+    "sog": 39,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/CAN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/CAN_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 9003,
+            "strength": "pp",
+            "playerId": 8478420,
+            "firstName": {
+              "default": "Mikko"
+            },
+            "lastName": {
+              "default": "Rantanen"
+            },
+            "name": {
+              "default": "M. Rantanen"
+            },
+            "teamAbbrev": {
+              "default": "FIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FIN/8478420.png",
+            "goalsToDate": 2,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "FIN"
+            },
+            "timeInPeriod": "16:55",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478427,
+                "firstName": {
+                  "default": "Sebastian"
+                },
+                "lastName": {
+                  "default": "Aho"
+                },
+                "name": {
+                  "default": "S. Aho"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 20
+              }
+            ],
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 9007,
+            "strength": "sh",
+            "playerId": 8475287,
+            "firstName": {
+              "default": "Erik"
+            },
+            "lastName": {
+              "default": "Haula"
+            },
+            "name": {
+              "default": "E. Haula"
+            },
+            "teamAbbrev": {
+              "default": "FIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FIN/8475287.png",
+            "goalsToDate": 1,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "FIN"
+            },
+            "timeInPeriod": "03:26",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476469,
+                "firstName": {
+                  "default": "Joel"
+                },
+                "lastName": {
+                  "default": "Armia"
+                },
+                "name": {
+                  "default": "J. Armia"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 40
+              }
+            ],
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 9011,
+            "strength": "pp",
+            "playerId": 8477933,
+            "firstName": {
+              "default": "Sam"
+            },
+            "lastName": {
+              "default": "Reinhart"
+            },
+            "name": {
+              "default": "S. Reinhart"
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAN/8477933.png",
+            "goalsToDate": 1,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "FIN"
+            },
+            "timeInPeriod": "14:20",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480069,
+                "firstName": {
+                  "default": "Cale"
+                },
+                "lastName": {
+                  "default": "Makar"
+                },
+                "name": {
+                  "default": "C. Makar"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 8
+              },
+              {
+                "playerId": 8478402,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McDavid"
+                },
+                "name": {
+                  "default": "C. McDavid"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 97
+              }
+            ],
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 9014,
+            "strength": "ev",
+            "playerId": 8477447,
+            "firstName": {
+              "default": "Shea"
+            },
+            "lastName": {
+              "default": "Theodore"
+            },
+            "name": {
+              "default": "S. Theodore"
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAN/8477447.png",
+            "goalsToDate": 1,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "10:34",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477948,
+                "firstName": {
+                  "default": "Travis"
+                },
+                "lastName": {
+                  "default": "Sanheim"
+                },
+                "name": {
+                  "default": "T. Sanheim"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 6
+              },
+              {
+                "playerId": 8476880,
+                "firstName": {
+                  "default": "Tom"
+                },
+                "lastName": {
+                  "default": "Wilson"
+                },
+                "name": {
+                  "default": "T. Wilson"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 43
+              }
+            ],
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 9018,
+            "strength": "pp",
+            "playerId": 8477492,
+            "firstName": {
+              "default": "Nathan"
+            },
+            "lastName": {
+              "default": "MacKinnon"
+            },
+            "name": {
+              "default": "N. MacKinnon"
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAN/8477492.png",
+            "goalsToDate": 4,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "CAN"
+            },
+            "timeInPeriod": "19:24",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478402,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McDavid"
+                },
+                "name": {
+                  "default": "C. McDavid"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 97
+              },
+              {
+                "playerId": 8484801,
+                "firstName": {
+                  "default": "Macklin"
+                },
+                "lastName": {
+                  "default": "Celebrini"
+                },
+                "name": {
+                  "default": "M. Celebrini"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 17
+              }
+            ],
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:51",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "S. Bennett"
+            }
+          },
+          {
+            "timeInPeriod": "16:52",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sam"
+              },
+              "lastName": {
+                "default": "Bennett"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "descKey": "interference-goalkeeper"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:03",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sebastian"
+              },
+              "lastName": {
+                "default": "Aho"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "FIN"
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "13:35",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Anton"
+              },
+              "lastName": {
+                "default": "Lundell"
+              },
+              "sweaterNumber": 15
+            },
+            "teamAbbrev": {
+              "default": "FIN"
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "17:25",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Niko"
+              },
+              "lastName": {
+                "default": "Mikkola"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "FIN"
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "19:24",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "FIN"
+            },
+            "descKey": "delaying-game-bench",
+            "servedBy": {
+              "default": "K. Kakko"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

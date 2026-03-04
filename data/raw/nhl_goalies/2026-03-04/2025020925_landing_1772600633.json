@@ -1,0 +1,669 @@
+{
+  "id": 2025020925,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-26",
+  "venue": {
+    "default": "Enterprise Center"
+  },
+  "venueLocation": {
+    "default": "St. Louis"
+  },
+  "startTimeUTC": "2026-02-27T01:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "US/Central",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 566,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNMW",
+      "sequenceNumber": 201
+    },
+    {
+      "id": 554,
+      "market": "A",
+      "countryCode": "US",
+      "network": "KHN/Prime",
+      "sequenceNumber": 348
+    },
+    {
+      "id": 388,
+      "market": "A",
+      "countryCode": "US",
+      "network": "KONG",
+      "sequenceNumber": 654
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 55,
+    "commonName": {
+      "default": "Kraken"
+    },
+    "abbrev": "SEA",
+    "placeName": {
+      "default": "Seattle"
+    },
+    "placeNameWithPreposition": {
+      "default": "Seattle",
+      "fr": "de Seattle"
+    },
+    "score": 1,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/SEA_dark.svg"
+  },
+  "homeTeam": {
+    "id": 19,
+    "commonName": {
+      "default": "Blues"
+    },
+    "abbrev": "STL",
+    "placeName": {
+      "default": "St. Louis"
+    },
+    "placeNameWithPreposition": {
+      "default": "St. Louis",
+      "fr": "de St. Louis"
+    },
+    "score": 5,
+    "sog": 32,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/STL_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/STL_dark.svg?season=20252026"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 262,
+            "strength": "ev",
+            "playerId": 8482077,
+            "firstName": {
+              "default": "Dylan"
+            },
+            "lastName": {
+              "default": "Holloway"
+            },
+            "name": {
+              "default": "D. Holloway"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8482077.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-stl-holloway-scores-goal-against-philipp-grubauer-6390019004112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-stl-holloway-marque-un-but-contre-philipp-grubauer-6390020472112",
+            "highlightClip": 6390019004112,
+            "highlightClipFr": 6390020472112,
+            "discreteClip": 6390021155112,
+            "discreteClipFr": 6390019271112,
+            "goalsToDate": 9,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "07:58",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481013,
+                "firstName": {
+                  "default": "Jonatan"
+                },
+                "lastName": {
+                  "default": "Berggren"
+                },
+                "name": {
+                  "default": "J. Berggren"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8480459,
+                "firstName": {
+                  "default": "Pius"
+                },
+                "lastName": {
+                  "default": "Suter"
+                },
+                "name": {
+                  "default": "P. Suter"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 22
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020925/ev262.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 203,
+            "strength": "ev",
+            "playerId": 8481554,
+            "firstName": {
+              "default": "Kaapo"
+            },
+            "lastName": {
+              "default": "Kakko"
+            },
+            "name": {
+              "default": "K. Kakko"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8481554.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-stl-kakko-scores-goal-against-joel-hofer-6390021018112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-stl-kakko-marque-un-but-contre-joel-hofer-6390020822112",
+            "highlightClip": 6390021018112,
+            "highlightClipFr": 6390020822112,
+            "discreteClip": 6390022582112,
+            "discreteClipFr": 6390022968112,
+            "goalsToDate": 7,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "12:32",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483524,
+                "firstName": {
+                  "default": "Shane"
+                },
+                "lastName": {
+                  "default": "Wright"
+                },
+                "name": {
+                  "default": "S. Wright"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 51
+              },
+              {
+                "playerId": 8477986,
+                "firstName": {
+                  "default": "Brandon"
+                },
+                "lastName": {
+                  "default": "Montour"
+                },
+                "name": {
+                  "default": "B. Montour"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 62
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020925/ev203.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 436,
+            "strength": "ev",
+            "playerId": 8479385,
+            "firstName": {
+              "default": "Jordan"
+            },
+            "lastName": {
+              "default": "Kyrou"
+            },
+            "name": {
+              "default": "J. Kyrou"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8479385.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-stl-kyrou-scores-goal-against-philipp-grubauer-6390025102112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-stl-kyrou-marque-un-but-contre-philipp-grubauer-6390023730112",
+            "highlightClip": 6390025102112,
+            "highlightClipFr": 6390023730112,
+            "discreteClip": 6390024624112,
+            "discreteClipFr": 6390025984112,
+            "goalsToDate": 14,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "01:12",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477402,
+                "firstName": {
+                  "default": "Pavel"
+                },
+                "lastName": {
+                  "default": "Buchnevich",
+                  "cs": "Bu\u010dn\u011bvi\u010d",
+                  "fi": "Butshnevitsh",
+                  "sk": "Bu\u010dn\u011bvi\u010d"
+                },
+                "name": {
+                  "default": "P. Buchnevich",
+                  "cs": "P. Bu\u010dn\u011bvi\u010d",
+                  "fi": "P. Butshnevitsh",
+                  "sk": "P. Bu\u010dn\u011bvi\u010d"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 89
+              },
+              {
+                "playerId": 8476892,
+                "firstName": {
+                  "default": "Colton"
+                },
+                "lastName": {
+                  "default": "Parayko"
+                },
+                "name": {
+                  "default": "C. Parayko"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 55
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020925/ev436.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 102,
+            "strength": "ev",
+            "playerId": 8482077,
+            "firstName": {
+              "default": "Dylan"
+            },
+            "lastName": {
+              "default": "Holloway"
+            },
+            "name": {
+              "default": "D. Holloway"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8482077.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-stl-holloway-scores-goal-against-philipp-grubauer-6390025019112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-stl-holloway-marque-un-but-contre-philipp-grubauer-6390025622112",
+            "highlightClip": 6390025019112,
+            "highlightClipFr": 6390025622112,
+            "discreteClip": 6390025988112,
+            "discreteClipFr": 6390023740112,
+            "goalsToDate": 10,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "01:35",
+            "shotType": "poke",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481013,
+                "firstName": {
+                  "default": "Jonatan"
+                },
+                "lastName": {
+                  "default": "Berggren"
+                },
+                "name": {
+                  "default": "J. Berggren"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8480459,
+                "firstName": {
+                  "default": "Pius"
+                },
+                "lastName": {
+                  "default": "Suter"
+                },
+                "name": {
+                  "default": "P. Suter"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 22
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020925/ev102.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 729,
+            "strength": "ev",
+            "playerId": 8480459,
+            "firstName": {
+              "default": "Pius"
+            },
+            "lastName": {
+              "default": "Suter"
+            },
+            "name": {
+              "default": "P. Suter"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8480459.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-stl-suter-scores-goal-against-philipp-grubauer-6390030754112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-stl-suter-marque-un-but-contre-philipp-grubauer-6390029101112",
+            "highlightClip": 6390030754112,
+            "highlightClipFr": 6390029101112,
+            "discreteClip": 6390030180112,
+            "discreteClipFr": 6390029783112,
+            "goalsToDate": 8,
+            "awayScore": 1,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "01:56",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482077,
+                "firstName": {
+                  "default": "Dylan"
+                },
+                "lastName": {
+                  "default": "Holloway"
+                },
+                "name": {
+                  "default": "D. Holloway"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 81
+              },
+              {
+                "playerId": 8475753,
+                "firstName": {
+                  "default": "Justin"
+                },
+                "lastName": {
+                  "default": "Faulk"
+                },
+                "name": {
+                  "default": "J. Faulk"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 72
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020925/ev729.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 926,
+            "strength": "ev",
+            "playerId": 8482077,
+            "firstName": {
+              "default": "Dylan"
+            },
+            "lastName": {
+              "default": "Holloway"
+            },
+            "name": {
+              "default": "D. Holloway"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8482077.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-stl-holloway-scores-empty-net-goal-6390032776112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-stl-holloway-stl-marque-un-but-dans-un-filet-desert-6390033074112",
+            "highlightClip": 6390032776112,
+            "highlightClipFr": 6390033074112,
+            "discreteClip": 6390032292112,
+            "discreteClipFr": 6390033465112,
+            "goalsToDate": 11,
+            "awayScore": 1,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "16:59",
+            "shotType": "backhand",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8475753,
+                "firstName": {
+                  "default": "Justin"
+                },
+                "lastName": {
+                  "default": "Faulk"
+                },
+                "name": {
+                  "default": "J. Faulk"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 72
+              },
+              {
+                "playerId": 8482090,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Finley"
+                },
+                "name": {
+                  "default": "J. Finley"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 37
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020925/ev926.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8482077,
+        "teamAbbrev": "STL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8482077.png",
+        "name": {
+          "default": "D. Holloway"
+        },
+        "sweaterNo": 81,
+        "position": "L",
+        "goals": 3,
+        "assists": 1,
+        "points": 4
+      },
+      {
+        "star": 2,
+        "playerId": 8480459,
+        "teamAbbrev": "STL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8480459.png",
+        "name": {
+          "default": "P. Suter"
+        },
+        "sweaterNo": 22,
+        "position": "C",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8481013,
+        "teamAbbrev": "STL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8481013.png",
+        "name": {
+          "default": "J. Berggren"
+        },
+        "sweaterNo": 29,
+        "position": "R",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:59",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "Neighbours"
+              },
+              "sweaterNumber": 63
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Berkly"
+              },
+              "lastName": {
+                "default": "Catton"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "11:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Cam"
+              },
+              "lastName": {
+                "default": "Fowler"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Eeli"
+              },
+              "lastName": {
+                "default": "Tolvanen"
+              },
+              "sweaterNumber": 20
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "14:32",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "Jonatan Berggren"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

@@ -1,0 +1,526 @@
+{
+  "id": 2025020951,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-03-01",
+  "venue": {
+    "default": "Grand Casino Arena"
+  },
+  "venueLocation": {
+    "default": "St. Paul"
+  },
+  "startTimeUTC": "2026-03-01T22:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "US/Central",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 566,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNMW",
+      "sequenceNumber": 201
+    },
+    {
+      "id": 567,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNNO",
+      "sequenceNumber": 284
+    },
+    {
+      "id": 570,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNWIX",
+      "sequenceNumber": 420
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 19,
+    "commonName": {
+      "default": "Blues"
+    },
+    "abbrev": "STL",
+    "placeName": {
+      "default": "St. Louis"
+    },
+    "placeNameWithPreposition": {
+      "default": "St. Louis",
+      "fr": "de St. Louis"
+    },
+    "score": 3,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/STL_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/STL_dark.svg?season=20252026"
+  },
+  "homeTeam": {
+    "id": 30,
+    "commonName": {
+      "default": "Wild"
+    },
+    "abbrev": "MIN",
+    "placeName": {
+      "default": "Minnesota"
+    },
+    "placeNameWithPreposition": {
+      "default": "Minnesota",
+      "fr": "du Minnesota"
+    },
+    "score": 1,
+    "sog": 23,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MIN_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 738,
+            "strength": "pp",
+            "playerId": 8478864,
+            "firstName": {
+              "default": "Kirill"
+            },
+            "lastName": {
+              "default": "Kaprizov"
+            },
+            "name": {
+              "default": "K. Kaprizov"
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8478864.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-min-kaprizov-scores-ppg-against-joel-hofer-6390244461112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-min-kaprizov-marque-un-but-en-a-n-contre-joel-hofer-6390244460112",
+            "highlightClip": 6390244461112,
+            "highlightClipFr": 6390244460112,
+            "discreteClip": 6390243676112,
+            "discreteClipFr": 6390243582112,
+            "goalsToDate": 34,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "16:09",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481557,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Boldy"
+                },
+                "name": {
+                  "default": "M. Boldy"
+                },
+                "assistsToDate": 34,
+                "sweaterNumber": 12
+              },
+              {
+                "playerId": 8480800,
+                "firstName": {
+                  "default": "Quinn"
+                },
+                "lastName": {
+                  "default": "Hughes"
+                },
+                "name": {
+                  "default": "Q. Hughes"
+                },
+                "assistsToDate": 54,
+                "sweaterNumber": 43
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020951/ev738.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 752,
+            "strength": "ev",
+            "playerId": 8482733,
+            "firstName": {
+              "default": "Logan"
+            },
+            "lastName": {
+              "default": "Mailloux"
+            },
+            "name": {
+              "default": "L. Mailloux"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8482733.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-min-mailloux-scores-goal-against-filip-gustavsson-6390244854112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-min-mailloux-marque-un-but-contre-filip-gustavsson-6390243203112",
+            "highlightClip": 6390244854112,
+            "highlightClipFr": 6390243203112,
+            "discreteClip": 6390242302112,
+            "discreteClipFr": 6390244376112,
+            "goalsToDate": 2,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "18:05",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480023,
+                "firstName": {
+                  "default": "Robert"
+                },
+                "lastName": {
+                  "default": "Thomas"
+                },
+                "name": {
+                  "default": "R. Thomas"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 18
+              },
+              {
+                "playerId": 8475170,
+                "firstName": {
+                  "default": "Brayden"
+                },
+                "lastName": {
+                  "default": "Schenn"
+                },
+                "name": {
+                  "default": "B. Schenn"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 10
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020951/ev752.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 988,
+            "strength": "ev",
+            "playerId": 8477402,
+            "firstName": {
+              "default": "Pavel"
+            },
+            "lastName": {
+              "default": "Buchnevich",
+              "cs": "Bu\u010dn\u011bvi\u010d",
+              "fi": "Butshnevitsh",
+              "sk": "Bu\u010dn\u011bvi\u010d"
+            },
+            "name": {
+              "default": "P. Buchnevich",
+              "cs": "P. Bu\u010dn\u011bvi\u010d",
+              "fi": "P. Butshnevitsh",
+              "sk": "P. Bu\u010dn\u011bvi\u010d"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8477402.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-min-buchnevich-scores-goal-against-filip-gustavsson-6390246374112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/stl-min-buchnevich-marque-un-but-contre-filip-gustavsson-6390244430112",
+            "highlightClip": 6390246374112,
+            "highlightClipFr": 6390244430112,
+            "discreteClip": 6390245490112,
+            "discreteClipFr": 6390245396112,
+            "goalsToDate": 14,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "16:21",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483516,
+                "firstName": {
+                  "default": "Jimmy"
+                },
+                "lastName": {
+                  "default": "Snuggerud"
+                },
+                "name": {
+                  "default": "J. Snuggerud"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 21
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020951/ev988.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1034,
+            "strength": "ev",
+            "playerId": 8480023,
+            "firstName": {
+              "default": "Robert"
+            },
+            "lastName": {
+              "default": "Thomas"
+            },
+            "name": {
+              "default": "R. Thomas"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8480023.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/stl-min-thomas-scores-empty-net-goal-6390245986112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/robert-thomas-with-a-but-vs-le-wild-du-minnesota-6390246675112",
+            "highlightClip": 6390245986112,
+            "highlightClipFr": 6390246675112,
+            "discreteClip": 6390243935112,
+            "discreteClipFr": 6390245312112,
+            "goalsToDate": 12,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "19:35",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8477402,
+                "firstName": {
+                  "default": "Pavel"
+                },
+                "lastName": {
+                  "default": "Buchnevich",
+                  "cs": "Bu\u010dn\u011bvi\u010d",
+                  "fi": "Butshnevitsh",
+                  "sk": "Bu\u010dn\u011bvi\u010d"
+                },
+                "name": {
+                  "default": "P. Buchnevich",
+                  "cs": "P. Bu\u010dn\u011bvi\u010d",
+                  "fi": "P. Butshnevitsh",
+                  "sk": "P. Bu\u010dn\u011bvi\u010d"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 89
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020951/ev1034.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8480981,
+        "teamAbbrev": "STL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8480981.png",
+        "name": {
+          "default": "J. Hofer"
+        },
+        "sweaterNo": 30,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.957
+      },
+      {
+        "star": 2,
+        "playerId": 8480023,
+        "teamAbbrev": "STL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8480023.png",
+        "name": {
+          "default": "R. Thomas"
+        },
+        "sweaterNo": 18,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8478864,
+        "teamAbbrev": "MIN",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8478864.png",
+        "name": {
+          "default": "K. Kaprizov"
+        },
+        "sweaterNo": 97,
+        "position": "L",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "18:51",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Robert"
+              },
+              "lastName": {
+                "default": "Thomas"
+              },
+              "sweaterNumber": 18
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jared"
+              },
+              "lastName": {
+                "default": "Spurgeon"
+              },
+              "sweaterNumber": 46
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "15:22",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jack"
+              },
+              "lastName": {
+                "default": "Finley"
+              },
+              "sweaterNumber": 37
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Kirill"
+              },
+              "lastName": {
+                "default": "Kaprizov"
+              },
+              "sweaterNumber": 97
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:12",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nico"
+              },
+              "lastName": {
+                "default": "Sturm"
+              },
+              "sweaterNumber": 78
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Tyler"
+              },
+              "lastName": {
+                "default": "Tucker"
+              },
+              "sweaterNumber": 75
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

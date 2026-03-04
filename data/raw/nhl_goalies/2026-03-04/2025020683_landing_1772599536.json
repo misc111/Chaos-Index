@@ -1,0 +1,1048 @@
+{
+  "id": 2025020683,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-08",
+  "venue": {
+    "default": "Centre Bell"
+  },
+  "venueLocation": {
+    "default": "Montreal",
+    "fr": "Montr\u00e9al"
+  },
+  "startTimeUTC": "2026-01-09T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "America/Montreal",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 131,
+      "market": "H",
+      "countryCode": "CA",
+      "network": "TSN2",
+      "sequenceNumber": 112
+    },
+    {
+      "id": 33,
+      "market": "H",
+      "countryCode": "CA",
+      "network": "RDS",
+      "sequenceNumber": 145
+    },
+    {
+      "id": 521,
+      "market": "A",
+      "countryCode": "US",
+      "network": "SCRIPPS",
+      "sequenceNumber": 657
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 13,
+    "commonName": {
+      "default": "Panthers"
+    },
+    "abbrev": "FLA",
+    "placeName": {
+      "default": "Florida",
+      "fr": "Floride"
+    },
+    "placeNameWithPreposition": {
+      "default": "Florida",
+      "fr": "de la Floride"
+    },
+    "score": 2,
+    "sog": 27,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/FLA_dark.svg"
+  },
+  "homeTeam": {
+    "id": 8,
+    "commonName": {
+      "default": "Canadiens"
+    },
+    "abbrev": "MTL",
+    "placeName": {
+      "default": "Montr\u00e9al"
+    },
+    "placeNameWithPreposition": {
+      "default": "Montr\u00e9al",
+      "fr": "de Montr\u00e9al"
+    },
+    "score": 6,
+    "sog": 19,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MTL_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 144,
+            "strength": "ev",
+            "playerId": 8480865,
+            "firstName": {
+              "default": "Noah"
+            },
+            "lastName": {
+              "default": "Dobson"
+            },
+            "name": {
+              "default": "N. Dobson"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8480865.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-mtl-dobson-scores-goal-against-sergei-bobrovsky-6387438009112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-mtl-dobson-marque-un-but-contre-sergei-bobrovsky-6387438008112",
+            "highlightClip": 6387438009112,
+            "highlightClipFr": 6387438008112,
+            "discreteClip": 6387438806112,
+            "discreteClipFr": 6387436740112,
+            "goalsToDate": 8,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "02:59",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476875,
+                "firstName": {
+                  "default": "Mike"
+                },
+                "lastName": {
+                  "default": "Matheson"
+                },
+                "name": {
+                  "default": "M. Matheson"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 8
+              },
+              {
+                "playerId": 8482775,
+                "firstName": {
+                  "default": "Oliver"
+                },
+                "lastName": {
+                  "default": "Kapanen"
+                },
+                "name": {
+                  "default": "O. Kapanen"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 91
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020683/ev144.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 436,
+            "strength": "ev",
+            "playerId": 8482775,
+            "firstName": {
+              "default": "Oliver"
+            },
+            "lastName": {
+              "default": "Kapanen"
+            },
+            "name": {
+              "default": "O. Kapanen"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8482775.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-mtl-kapanen-scores-goal-against-sergei-bobrovsky-6387442218112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-mtl-kapanen-marque-un-but-contre-sergei-bobrovsky-6387442038112",
+            "highlightClip": 6387442218112,
+            "highlightClipFr": 6387442038112,
+            "discreteClip": 6387440951112,
+            "discreteClipFr": 6387440255112,
+            "goalsToDate": 15,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "17:35",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483515,
+                "firstName": {
+                  "default": "Juraj"
+                },
+                "lastName": {
+                  "default": "Slafkovsk\u00fd"
+                },
+                "name": {
+                  "default": "J. Slafkovsk\u00fd"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 20
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020683/ev436.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 546,
+            "strength": "ev",
+            "playerId": 8477935,
+            "firstName": {
+              "default": "Sam"
+            },
+            "lastName": {
+              "default": "Bennett"
+            },
+            "name": {
+              "default": "S. Bennett"
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8477935.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-mtl-bennett-scores-goal-against-samuel-montembeault-6387443964112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-mtl-bennett-marque-un-but-contre-samuel-montembeault-6387442292112",
+            "highlightClip": 6387443964112,
+            "highlightClipFr": 6387442292112,
+            "discreteClip": 6387442681112,
+            "discreteClipFr": 6387442477112,
+            "goalsToDate": 15,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "05:33",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020683/ev546.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 653,
+            "strength": "ev",
+            "playerId": 8480074,
+            "firstName": {
+              "default": "Alexandre"
+            },
+            "lastName": {
+              "default": "Texier"
+            },
+            "name": {
+              "default": "A. Texier"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8480074.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-mtl-texier-scores-goal-against-sergei-bobrovsky-6387443895112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-mtl-texier-marque-un-but-contre-sergei-bobrovsky-6387443305112",
+            "highlightClip": 6387443895112,
+            "highlightClipFr": 6387443305112,
+            "discreteClip": 6387444749112,
+            "discreteClipFr": 6387444855112,
+            "goalsToDate": 5,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "13:41",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478851,
+                "firstName": {
+                  "default": "Alexandre"
+                },
+                "lastName": {
+                  "default": "Carrier"
+                },
+                "name": {
+                  "default": "A. Carrier"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 45
+              },
+              {
+                "playerId": 8480018,
+                "firstName": {
+                  "default": "Nick"
+                },
+                "lastName": {
+                  "default": "Suzuki"
+                },
+                "name": {
+                  "default": "N. Suzuki"
+                },
+                "assistsToDate": 34,
+                "sweaterNumber": 14
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020683/ev653.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 259,
+            "strength": "ev",
+            "playerId": 8480074,
+            "firstName": {
+              "default": "Alexandre"
+            },
+            "lastName": {
+              "default": "Texier"
+            },
+            "name": {
+              "default": "A. Texier"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8480074.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-mtl-texier-scores-goal-against-sergei-bobrovsky-6387447379112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-mtl-texier-marque-un-but-contre-sergei-bobrovsky-6387445324112",
+            "highlightClip": 6387447379112,
+            "highlightClipFr": 6387445324112,
+            "discreteClip": 6387445902112,
+            "discreteClipFr": 6387445633112,
+            "goalsToDate": 6,
+            "awayScore": 1,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "07:26",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476875,
+                "firstName": {
+                  "default": "Mike"
+                },
+                "lastName": {
+                  "default": "Matheson"
+                },
+                "name": {
+                  "default": "M. Matheson"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 8
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020683/ev259.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 888,
+            "strength": "ev",
+            "playerId": 8477935,
+            "firstName": {
+              "default": "Sam"
+            },
+            "lastName": {
+              "default": "Bennett"
+            },
+            "name": {
+              "default": "S. Bennett"
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8477935.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-mtl-bennett-scores-goal-against-samuel-montembeault-6387446338112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-mtl-bennett-marque-un-but-contre-samuel-montembeault-6387445926112",
+            "highlightClip": 6387446338112,
+            "highlightClipFr": 6387445926112,
+            "discreteClip": 6387448177112,
+            "discreteClipFr": 6387446540112,
+            "goalsToDate": 16,
+            "awayScore": 2,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "11:23",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478542,
+                "firstName": {
+                  "default": "Evan"
+                },
+                "lastName": {
+                  "default": "Rodrigues"
+                },
+                "name": {
+                  "default": "E. Rodrigues"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 17
+              },
+              {
+                "playerId": 8478859,
+                "firstName": {
+                  "default": "Niko"
+                },
+                "lastName": {
+                  "default": "Mikkola"
+                },
+                "name": {
+                  "default": "N. Mikkola"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 77
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020683/ev888.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 1021,
+            "strength": "ev",
+            "playerId": 8483515,
+            "firstName": {
+              "default": "Juraj"
+            },
+            "lastName": {
+              "default": "Slafkovsk\u00fd"
+            },
+            "name": {
+              "default": "J. Slafkovsk\u00fd"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8483515.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/juraj-slafkovsky-with-a-goal-vs-florida-panthers-6387447734112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/juraj-slafkovsky-with-a-but-vs-les-panthers-de-la-floride-6387447735112",
+            "highlightClip": 6387447734112,
+            "highlightClipFr": 6387447735112,
+            "discreteClip": 6387447623112,
+            "discreteClipFr": 6387449482112,
+            "goalsToDate": 16,
+            "awayScore": 2,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "17:59",
+            "goalModifier": "awarded-empty-net",
+            "assists": [
+              {
+                "playerId": 8482775,
+                "firstName": {
+                  "default": "Oliver"
+                },
+                "lastName": {
+                  "default": "Kapanen"
+                },
+                "name": {
+                  "default": "O. Kapanen"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 91
+              },
+              {
+                "playerId": 8483457,
+                "firstName": {
+                  "default": "Lane"
+                },
+                "lastName": {
+                  "default": "Hutson"
+                },
+                "name": {
+                  "default": "L. Hutson"
+                },
+                "assistsToDate": 36,
+                "sweaterNumber": 48
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020683/ev1021.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1043,
+            "strength": "ev",
+            "playerId": 8480074,
+            "firstName": {
+              "default": "Alexandre"
+            },
+            "lastName": {
+              "default": "Texier"
+            },
+            "name": {
+              "default": "A. Texier"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8480074.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-mtl-texier-scores-goal-against-sergei-bobrovsky-6387448117112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-mtl-texier-marque-un-but-contre-sergei-bobrovsky-6387449218112",
+            "highlightClip": 6387448117112,
+            "highlightClipFr": 6387449218112,
+            "discreteClip": 6387448214112,
+            "discreteClipFr": 6387449219112,
+            "goalsToDate": 7,
+            "awayScore": 2,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "19:10",
+            "shotType": "bat",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478104,
+                "firstName": {
+                  "default": "Sammy"
+                },
+                "lastName": {
+                  "default": "Blais"
+                },
+                "name": {
+                  "default": "S. Blais"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 27
+              },
+              {
+                "playerId": 8480813,
+                "firstName": {
+                  "default": "Joe",
+                  "cs": "Joseph",
+                  "de": "Joseph",
+                  "es": "Joseph",
+                  "fi": "Joseph",
+                  "sk": "Joseph",
+                  "sv": "Joseph"
+                },
+                "lastName": {
+                  "default": "Veleno"
+                },
+                "name": {
+                  "default": "J. Veleno"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 90
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020683/ev1043.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8480074,
+        "teamAbbrev": "MTL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8480074.png",
+        "name": {
+          "default": "A. Texier"
+        },
+        "sweaterNo": 85,
+        "position": "L",
+        "goals": 3,
+        "assists": 0,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8482775,
+        "teamAbbrev": "MTL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8482775.png",
+        "name": {
+          "default": "O. Kapanen"
+        },
+        "sweaterNo": 91,
+        "position": "C",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8478470,
+        "teamAbbrev": "MTL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8478470.png",
+        "name": {
+          "default": "S. Montembeault"
+        },
+        "sweaterNo": 35,
+        "position": "G",
+        "goalsAgainstAverage": 2.0,
+        "savePctg": 0.926
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:24",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Juraj"
+              },
+              "lastName": {
+                "default": "Slafkovsk\u00fd"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Aaron"
+              },
+              "lastName": {
+                "default": "Ekblad"
+              },
+              "sweaterNumber": 5
+            },
+            "descKey": "boarding"
+          },
+          {
+            "timeInPeriod": "10:45",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Uvis"
+              },
+              "lastName": {
+                "default": "Balinskis"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Cole"
+              },
+              "lastName": {
+                "default": "Caufield"
+              },
+              "sweaterNumber": 13
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "17:41",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Juraj"
+              },
+              "lastName": {
+                "default": "Slafkovsk\u00fd"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mackie"
+              },
+              "lastName": {
+                "default": "Samoskevich"
+              },
+              "sweaterNumber": 11
+            },
+            "descKey": "interference"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "16:54",
+            "type": "MIN",
+            "duration": 4,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Anton"
+              },
+              "lastName": {
+                "default": "Lundell"
+              },
+              "sweaterNumber": 15
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Alexandre"
+              },
+              "lastName": {
+                "default": "Texier"
+              },
+              "sweaterNumber": 85
+            },
+            "descKey": "high-sticking-double-minor"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:06",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Phillip"
+              },
+              "lastName": {
+                "default": "Danault"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Anton"
+              },
+              "lastName": {
+                "default": "Lundell"
+              },
+              "sweaterNumber": 15
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "04:26",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Donovan"
+              },
+              "lastName": {
+                "default": "Sebrango"
+              },
+              "sweaterNumber": 6
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Sammy"
+              },
+              "lastName": {
+                "default": "Blais"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "04:26",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sammy"
+              },
+              "lastName": {
+                "default": "Blais"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Sergei",
+                "cs": "Sergej",
+                "sk": "Sergej"
+              },
+              "lastName": {
+                "default": "Bobrovsky",
+                "cs": "Bobrovskij",
+                "fi": "Bobrovski",
+                "sk": "Bobrovskij"
+              },
+              "sweaterNumber": 72
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "09:12",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sam"
+              },
+              "lastName": {
+                "default": "Bennett"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Zachary"
+              },
+              "lastName": {
+                "default": "Bolduc"
+              },
+              "sweaterNumber": 76
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "18:45",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Donovan"
+              },
+              "lastName": {
+                "default": "Sebrango"
+              },
+              "sweaterNumber": 6
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Arber"
+              },
+              "lastName": {
+                "default": "Xhekaj"
+              },
+              "sweaterNumber": 72
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "18:45",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Arber"
+              },
+              "lastName": {
+                "default": "Xhekaj"
+              },
+              "sweaterNumber": 72
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Donovan"
+              },
+              "lastName": {
+                "default": "Sebrango"
+              },
+              "sweaterNumber": 6
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "18:45",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Owen"
+              },
+              "lastName": {
+                "default": "Beck"
+              },
+              "sweaterNumber": 62
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jack"
+              },
+              "lastName": {
+                "default": "Studnicka"
+              },
+              "sweaterNumber": 53
+            },
+            "descKey": "charging"
+          },
+          {
+            "timeInPeriod": "18:45",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Donovan"
+              },
+              "lastName": {
+                "default": "Sebrango"
+              },
+              "sweaterNumber": 6
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Arber"
+              },
+              "lastName": {
+                "default": "Xhekaj"
+              },
+              "sweaterNumber": 72
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "18:45",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Donovan"
+              },
+              "lastName": {
+                "default": "Sebrango"
+              },
+              "sweaterNumber": 6
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "descKey": "misconduct"
+          },
+          {
+            "timeInPeriod": "18:45",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Arber"
+              },
+              "lastName": {
+                "default": "Xhekaj"
+              },
+              "sweaterNumber": 72
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "descKey": "misconduct"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

@@ -1,0 +1,549 @@
+{
+  "id": 2025020734,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-13",
+  "venue": {
+    "default": "Honda Center"
+  },
+  "venueLocation": {
+    "default": "Anaheim"
+  },
+  "startTimeUTC": "2026-01-14T03:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "America/Los_Angeles",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 385,
+      "market": "N",
+      "countryCode": "US",
+      "network": "TNT",
+      "sequenceNumber": 11
+    },
+    {
+      "id": 501,
+      "market": "N",
+      "countryCode": "US",
+      "network": "truTV",
+      "sequenceNumber": 14
+    },
+    {
+      "id": 578,
+      "market": "N",
+      "countryCode": "US",
+      "network": "HBO MAX",
+      "sequenceNumber": 19
+    },
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 21
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 25,
+    "commonName": {
+      "default": "Stars"
+    },
+    "abbrev": "DAL",
+    "placeName": {
+      "default": "Dallas"
+    },
+    "placeNameWithPreposition": {
+      "default": "Dallas",
+      "fr": "de Dallas"
+    },
+    "score": 1,
+    "sog": 25,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/DAL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/DAL_dark.svg"
+  },
+  "homeTeam": {
+    "id": 24,
+    "commonName": {
+      "default": "Ducks"
+    },
+    "abbrev": "ANA",
+    "placeName": {
+      "default": "Anaheim"
+    },
+    "placeNameWithPreposition": {
+      "default": "Anaheim",
+      "fr": "d'Anaheim"
+    },
+    "score": 3,
+    "sog": 25,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/ANA_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1450",
+            "eventId": 558,
+            "strength": "ev",
+            "playerId": 8475184,
+            "firstName": {
+              "default": "Chris"
+            },
+            "lastName": {
+              "default": "Kreider"
+            },
+            "name": {
+              "default": "C. Kreider"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8475184.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-ana-kreider-scores-goal-against-casey-desmith-6387697129112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-ana-kreider-marque-un-but-contre-casey-desmith-6387696552112",
+            "highlightClip": 6387697129112,
+            "highlightClipFr": 6387696552112,
+            "discreteClip": 6387695574112,
+            "discreteClipFr": 6387696931112,
+            "goalsToDate": 15,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "03:36",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475798,
+                "firstName": {
+                  "default": "Mikael"
+                },
+                "lastName": {
+                  "default": "Granlund"
+                },
+                "name": {
+                  "default": "M. Granlund"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 64
+              },
+              {
+                "playerId": 8475462,
+                "firstName": {
+                  "default": "Radko"
+                },
+                "lastName": {
+                  "default": "Gudas"
+                },
+                "name": {
+                  "default": "R. Gudas"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 7
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020734/ev558.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 983,
+            "strength": "ev",
+            "playerId": 8484762,
+            "firstName": {
+              "default": "Beckett"
+            },
+            "lastName": {
+              "default": "Sennecke"
+            },
+            "name": {
+              "default": "B. Sennecke"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8484762.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-ana-sennecke-scores-goal-against-casey-desmith-6387696806112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-ana-sennecke-marque-un-but-contre-casey-desmith-6387698951112",
+            "highlightClip": 6387696806112,
+            "highlightClipFr": 6387698951112,
+            "discreteClip": 6387698571112,
+            "discreteClipFr": 6387698476112,
+            "goalsToDate": 15,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "12:03",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020734/ev983.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 1046,
+            "strength": "ev",
+            "playerId": 8478449,
+            "firstName": {
+              "default": "Roope"
+            },
+            "lastName": {
+              "default": "Hintz"
+            },
+            "name": {
+              "default": "R. Hintz"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8478449.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-ana-hintz-scores-goal-against-lukas-dostal-6387699357112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-ana-hintz-marque-un-but-contre-lukas-dostal-6387697595112",
+            "highlightClip": 6387699357112,
+            "highlightClipFr": 6387697595112,
+            "discreteClip": 6387698362112,
+            "discreteClipFr": 6387699154112,
+            "goalsToDate": 14,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "17:48",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475168,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Duchene"
+                },
+                "name": {
+                  "default": "M. Duchene"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 95
+              },
+              {
+                "playerId": 8482740,
+                "firstName": {
+                  "default": "Wyatt"
+                },
+                "lastName": {
+                  "default": "Johnston"
+                },
+                "name": {
+                  "default": "W. Johnston"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 53
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020734/ev1046.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 117,
+            "strength": "ev",
+            "playerId": 8476885,
+            "firstName": {
+              "default": "Jacob"
+            },
+            "lastName": {
+              "default": "Trouba"
+            },
+            "name": {
+              "default": "J. Trouba"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8476885.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/jacob-trouba-with-a-goal-vs-dallas-stars-6387697317112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/jacob-trouba-with-a-but-vs-les-stars-de-dallas-6387697024112",
+            "highlightClip": 6387697317112,
+            "highlightClipFr": 6387697024112,
+            "discreteClip": 6387697801112,
+            "discreteClipFr": 6387698609112,
+            "goalsToDate": 8,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "19:39",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8481605,
+                "firstName": {
+                  "default": "Jackson"
+                },
+                "lastName": {
+                  "default": "LaCombe"
+                },
+                "name": {
+                  "default": "J. LaCombe"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 2
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020734/ev117.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8480843,
+        "teamAbbrev": "ANA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8480843.png",
+        "name": {
+          "default": "L. Dostal",
+          "cs": "L. Dost\u00e1l",
+          "sk": "L. Dost\u00e1l"
+        },
+        "sweaterNo": 1,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.96
+      },
+      {
+        "star": 2,
+        "playerId": 8475184,
+        "teamAbbrev": "ANA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8475184.png",
+        "name": {
+          "default": "C. Kreider"
+        },
+        "sweaterNo": 20,
+        "position": "L",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8484762,
+        "teamAbbrev": "ANA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8484762.png",
+        "name": {
+          "default": "B. Sennecke"
+        },
+        "sweaterNo": 45,
+        "position": "R",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nils"
+              },
+              "lastName": {
+                "default": "Lundkvist"
+              },
+              "sweaterNumber": 5
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Beckett"
+              },
+              "lastName": {
+                "default": "Sennecke"
+              },
+              "sweaterNumber": 45
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:43",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mikael"
+              },
+              "lastName": {
+                "default": "Granlund"
+              },
+              "sweaterNumber": 64
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Esa"
+              },
+              "lastName": {
+                "default": "Lindell"
+              },
+              "sweaterNumber": 23
+            },
+            "descKey": "holding-the-stick"
+          },
+          {
+            "timeInPeriod": "02:27",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "O. Zellweger"
+            }
+          },
+          {
+            "timeInPeriod": "02:31",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jason"
+              },
+              "lastName": {
+                "default": "Robertson"
+              },
+              "sweaterNumber": 21
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Poehling"
+              },
+              "sweaterNumber": 25
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "18:12",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Radko"
+              },
+              "lastName": {
+                "default": "Gudas"
+              },
+              "sweaterNumber": 7
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Wyatt"
+              },
+              "lastName": {
+                "default": "Johnston"
+              },
+              "sweaterNumber": 53
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

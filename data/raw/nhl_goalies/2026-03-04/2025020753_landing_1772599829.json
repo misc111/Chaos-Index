@@ -1,0 +1,788 @@
+{
+  "id": 2025020753,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-16",
+  "venue": {
+    "default": "Crypto.com Arena"
+  },
+  "venueLocation": {
+    "default": "Los Angeles"
+  },
+  "startTimeUTC": "2026-01-17T03:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "America/Los_Angeles",
+  "periodDescriptor": {
+    "number": 5,
+    "periodType": "SO",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 333,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SNE (JIP)",
+      "sequenceNumber": 1
+    },
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 21
+    },
+    {
+      "id": 564,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNW",
+      "sequenceNumber": 288
+    },
+    {
+      "id": 553,
+      "market": "A",
+      "countryCode": "US",
+      "network": "Victory+",
+      "sequenceNumber": 382
+    },
+    {
+      "id": 219,
+      "market": "A",
+      "countryCode": "US",
+      "network": "KCOP-13",
+      "sequenceNumber": 656
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 24,
+    "commonName": {
+      "default": "Ducks"
+    },
+    "abbrev": "ANA",
+    "placeName": {
+      "default": "Anaheim"
+    },
+    "placeNameWithPreposition": {
+      "default": "Anaheim",
+      "fr": "d'Anaheim"
+    },
+    "score": 3,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/ANA_dark.svg"
+  },
+  "homeTeam": {
+    "id": 26,
+    "commonName": {
+      "default": "Kings"
+    },
+    "abbrev": "LAK",
+    "placeName": {
+      "default": "Los Angeles"
+    },
+    "placeNameWithPreposition": {
+      "default": "Los Angeles",
+      "fr": "de Los Angeles"
+    },
+    "score": 2,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/LAK_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/LAK_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 69,
+            "strength": "ev",
+            "playerId": 8482124,
+            "firstName": {
+              "default": "Quinton"
+            },
+            "lastName": {
+              "default": "Byfield"
+            },
+            "name": {
+              "default": "Q. Byfield"
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8482124.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-lak-byfield-scores-goal-against-lukas-dostal-6387848256112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-lak-byfield-marque-un-but-contre-lukas-dostal-6387848061112",
+            "highlightClip": 6387848256112,
+            "highlightClipFr": 6387848061112,
+            "discreteClip": 6387847663112,
+            "discreteClipFr": 6387845986112,
+            "goalsToDate": 9,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "LAK"
+            },
+            "timeInPeriod": "01:38",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476469,
+                "firstName": {
+                  "default": "Joel"
+                },
+                "lastName": {
+                  "default": "Armia"
+                },
+                "name": {
+                  "default": "J. Armia"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 40
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020753/ev69.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 698,
+            "strength": "ev",
+            "playerId": 8476469,
+            "firstName": {
+              "default": "Joel"
+            },
+            "lastName": {
+              "default": "Armia"
+            },
+            "name": {
+              "default": "J. Armia"
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8476469.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-lak-armia-scores-goal-against-lukas-dostal-6387852267112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-lak-armia-marque-un-but-contre-lukas-dostal-6387850796112",
+            "highlightClip": 6387852267112,
+            "highlightClipFr": 6387850796112,
+            "discreteClip": 6387851979112,
+            "discreteClipFr": 6387850909112,
+            "goalsToDate": 10,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "LAK"
+            },
+            "timeInPeriod": "11:33",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481732,
+                "firstName": {
+                  "default": "Andre"
+                },
+                "lastName": {
+                  "default": "Lee"
+                },
+                "name": {
+                  "default": "A. Lee"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 47
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020753/ev698.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 709,
+            "strength": "ev",
+            "playerId": 8476458,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "Strome"
+            },
+            "name": {
+              "default": "R. Strome"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8476458.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-lak-strome-scores-goal-against-darcy-kuemper-6387852788112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-lak-strome-marque-un-but-contre-darcy-kuemper-6387852777112",
+            "highlightClip": 6387852788112,
+            "highlightClipFr": 6387852777112,
+            "discreteClip": 6387852582112,
+            "discreteClipFr": 6387851894112,
+            "goalsToDate": 3,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "LAK"
+            },
+            "timeInPeriod": "12:12",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481605,
+                "firstName": {
+                  "default": "Jackson"
+                },
+                "lastName": {
+                  "default": "LaCombe"
+                },
+                "name": {
+                  "default": "J. LaCombe"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 2
+              },
+              {
+                "playerId": 8484762,
+                "firstName": {
+                  "default": "Beckett"
+                },
+                "lastName": {
+                  "default": "Sennecke"
+                },
+                "name": {
+                  "default": "B. Sennecke"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 45
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020753/ev709.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 745,
+            "strength": "ev",
+            "playerId": 8485512,
+            "firstName": {
+              "default": "Tim"
+            },
+            "lastName": {
+              "default": "Washe"
+            },
+            "name": {
+              "default": "T. Washe"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8485512.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-lak-washe-scores-goal-against-darcy-kuemper-6387850337112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-lak-washe-marque-un-but-contre-darcy-kuemper-6387851218112",
+            "highlightClip": 6387850337112,
+            "highlightClipFr": 6387851218112,
+            "discreteClip": 6387850644112,
+            "discreteClipFr": 6387852892112,
+            "goalsToDate": 1,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "14:56",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476885,
+                "firstName": {
+                  "default": "Jacob"
+                },
+                "lastName": {
+                  "default": "Trouba"
+                },
+                "name": {
+                  "default": "J. Trouba"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 65
+              },
+              {
+                "playerId": 8484762,
+                "firstName": {
+                  "default": "Beckett"
+                },
+                "lastName": {
+                  "default": "Sennecke"
+                },
+                "name": {
+                  "default": "B. Sennecke"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 45
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020753/ev745.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 5,
+          "periodType": "SO",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "0101",
+            "eventId": 165,
+            "strength": "ev",
+            "playerId": 8482745,
+            "firstName": {
+              "default": "Mason"
+            },
+            "lastName": {
+              "default": "McTavish"
+            },
+            "name": {
+              "default": "M. McTavish"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8482745.png",
+            "discreteClip": 6387853347112,
+            "discreteClipFr": 6387853646112,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "00:00",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [],
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "shootout": {
+      "liveScore": {
+        "home": 1,
+        "away": 2
+      },
+      "events": [
+        {
+          "sequence": 1,
+          "playerId": 8477960,
+          "teamAbbrev": {
+            "default": "LAK"
+          },
+          "firstName": {
+            "default": "Adrian"
+          },
+          "lastName": {
+            "default": "Kempe"
+          },
+          "shotType": "snap",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8477960.png",
+          "gameWinner": false,
+          "homeScore": 0,
+          "awayScore": 0
+        },
+        {
+          "sequence": 2,
+          "playerId": 8475798,
+          "teamAbbrev": {
+            "default": "ANA"
+          },
+          "firstName": {
+            "default": "Mikael"
+          },
+          "lastName": {
+            "default": "Granlund"
+          },
+          "shotType": "wrist",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8475798.png",
+          "gameWinner": false,
+          "homeScore": 0,
+          "awayScore": 0
+        },
+        {
+          "sequence": 3,
+          "playerId": 8482730,
+          "teamAbbrev": {
+            "default": "LAK"
+          },
+          "firstName": {
+            "default": "Brandt"
+          },
+          "lastName": {
+            "default": "Clarke"
+          },
+          "shotType": "wrist",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8482730.png",
+          "gameWinner": false,
+          "homeScore": 1,
+          "awayScore": 0
+        },
+        {
+          "sequence": 4,
+          "playerId": 8484762,
+          "teamAbbrev": {
+            "default": "ANA"
+          },
+          "firstName": {
+            "default": "Beckett"
+          },
+          "lastName": {
+            "default": "Sennecke"
+          },
+          "shotType": "backhand",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8484762.png",
+          "gameWinner": false,
+          "homeScore": 1,
+          "awayScore": 1
+        },
+        {
+          "sequence": 5,
+          "playerId": 8477942,
+          "teamAbbrev": {
+            "default": "LAK"
+          },
+          "firstName": {
+            "default": "Kevin"
+          },
+          "lastName": {
+            "default": "Fiala"
+          },
+          "shotType": "backhand",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8477942.png",
+          "gameWinner": false,
+          "homeScore": 1,
+          "awayScore": 1
+        },
+        {
+          "sequence": 6,
+          "playerId": 8482745,
+          "teamAbbrev": {
+            "default": "ANA"
+          },
+          "firstName": {
+            "default": "Mason"
+          },
+          "lastName": {
+            "default": "McTavish"
+          },
+          "shotType": "backhand",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8482745.png",
+          "gameWinner": true,
+          "discreteClip": 6387853347112,
+          "discreteClipFr": 6387853646112,
+          "homeScore": 1,
+          "awayScore": 2
+        }
+      ]
+    },
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8484762,
+        "teamAbbrev": "ANA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8484762.png",
+        "name": {
+          "default": "B. Sennecke"
+        },
+        "sweaterNo": 45,
+        "position": "R",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8476469,
+        "teamAbbrev": "LAK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8476469.png",
+        "name": {
+          "default": "J. Armia"
+        },
+        "sweaterNo": 40,
+        "position": "R",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8476458,
+        "teamAbbrev": "ANA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8476458.png",
+        "name": {
+          "default": "R. Strome"
+        },
+        "sweaterNo": 16,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:39",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "J. Malott"
+            }
+          },
+          {
+            "timeInPeriod": "14:12",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Alex"
+              },
+              "lastName": {
+                "default": "Killorn"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Kevin"
+              },
+              "lastName": {
+                "default": "Fiala"
+              },
+              "sweaterNumber": 22
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "17:25",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brian"
+              },
+              "lastName": {
+                "default": "Dumoulin"
+              },
+              "sweaterNumber": 2
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Cutter"
+              },
+              "lastName": {
+                "default": "Gauthier"
+              },
+              "sweaterNumber": 61
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:50",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "descKey": "interference-bench",
+            "servedBy": {
+              "default": "Beckett Sennecke"
+            }
+          },
+          {
+            "timeInPeriod": "09:22",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ross"
+              },
+              "lastName": {
+                "default": "Johnston"
+              },
+              "sweaterNumber": 44
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Kevin"
+              },
+              "lastName": {
+                "default": "Fiala"
+              },
+              "sweaterNumber": 22
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "19:19",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Darcy"
+              },
+              "lastName": {
+                "default": "Kuemper"
+              },
+              "sweaterNumber": 35
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Beckett"
+              },
+              "lastName": {
+                "default": "Sennecke"
+              },
+              "sweaterNumber": 45
+            },
+            "descKey": "roughing",
+            "servedBy": {
+              "default": "Andre Lee"
+            }
+          },
+          {
+            "timeInPeriod": "19:19",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Lukas",
+                "cs": "Luk\u00e1\u0161",
+                "sk": "Luk\u00e1\u0161"
+              },
+              "lastName": {
+                "default": "Dostal",
+                "cs": "Dost\u00e1l",
+                "sk": "Dost\u00e1l"
+              },
+              "sweaterNumber": 1
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "descKey": "goalie-leave-crease",
+            "servedBy": {
+              "default": "Beckett Sennecke"
+            }
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

@@ -1,0 +1,717 @@
+{
+  "id": 2025020695,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-09",
+  "venue": {
+    "default": "Canada Life Centre"
+  },
+  "venueLocation": {
+    "default": "Winnipeg"
+  },
+  "startTimeUTC": "2026-01-10T01:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "America/Winnipeg",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 292,
+      "market": "H",
+      "countryCode": "CA",
+      "network": "TSN3",
+      "sequenceNumber": 134
+    },
+    {
+      "id": 564,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNW",
+      "sequenceNumber": 288
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 26,
+    "commonName": {
+      "default": "Kings"
+    },
+    "abbrev": "LAK",
+    "placeName": {
+      "default": "Los Angeles"
+    },
+    "placeNameWithPreposition": {
+      "default": "Los Angeles",
+      "fr": "de Los Angeles"
+    },
+    "score": 1,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/LAK_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/LAK_dark.svg"
+  },
+  "homeTeam": {
+    "id": 52,
+    "commonName": {
+      "default": "Jets"
+    },
+    "abbrev": "WPG",
+    "placeName": {
+      "default": "Winnipeg"
+    },
+    "placeNameWithPreposition": {
+      "default": "Winnipeg",
+      "fr": "de Winnipeg"
+    },
+    "score": 5,
+    "sog": 20,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/WPG_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/WPG_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 67,
+            "strength": "ev",
+            "playerId": 8476480,
+            "firstName": {
+              "default": "Vladislav"
+            },
+            "lastName": {
+              "default": "Namestnikov",
+              "cs": "Nam\u011bstnikov"
+            },
+            "name": {
+              "default": "V. Namestnikov",
+              "cs": "V. Nam\u011bstnikov"
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WPG/8476480.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/lak-wpg-namestnikov-scores-goal-against-darcy-kuemper-6387499965112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/lak-wpg-namestnikov-marque-un-but-contre-darcy-kuemper-6387502098112",
+            "highlightClip": 6387499965112,
+            "highlightClipFr": 6387502098112,
+            "discreteClip": 6387499964112,
+            "discreteClipFr": 6387501906112,
+            "goalsToDate": 7,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "WPG"
+            },
+            "timeInPeriod": "01:31",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479378,
+                "firstName": {
+                  "default": "Logan"
+                },
+                "lastName": {
+                  "default": "Stanley"
+                },
+                "name": {
+                  "default": "L. Stanley"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 64
+              },
+              {
+                "playerId": 8475799,
+                "firstName": {
+                  "default": "Nino"
+                },
+                "lastName": {
+                  "default": "Niederreiter"
+                },
+                "name": {
+                  "default": "N. Niederreiter"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 62
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020695/ev67.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 340,
+            "strength": "ev",
+            "playerId": 8481043,
+            "firstName": {
+              "default": "Cole"
+            },
+            "lastName": {
+              "default": "Koepke"
+            },
+            "name": {
+              "default": "C. Koepke"
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WPG/8481043.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/lak-wpg-koepke-scores-goal-against-darcy-kuemper-6387502835112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/lak-wpg-koepke-marque-un-but-contre-darcy-kuemper-6387502735112",
+            "highlightClip": 6387502835112,
+            "highlightClipFr": 6387502735112,
+            "discreteClip": 6387502255112,
+            "discreteClipFr": 6387503532112,
+            "goalsToDate": 3,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "WPG"
+            },
+            "timeInPeriod": "18:05",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480049,
+                "firstName": {
+                  "default": "Dylan"
+                },
+                "lastName": {
+                  "default": "Samberg"
+                },
+                "name": {
+                  "default": "D. Samberg"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 54
+              },
+              {
+                "playerId": 8476871,
+                "firstName": {
+                  "default": "Tanner"
+                },
+                "lastName": {
+                  "default": "Pearson"
+                },
+                "name": {
+                  "default": "T. Pearson"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 70
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020695/ev340.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 452,
+            "strength": "ev",
+            "playerId": 8473604,
+            "firstName": {
+              "default": "Jonathan"
+            },
+            "lastName": {
+              "default": "Toews"
+            },
+            "name": {
+              "default": "J. Toews"
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WPG/8473604.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/lak-wpg-toews-scores-goal-against-darcy-kuemper-6387505630112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/lak-wpg-toews-marque-un-but-contre-darcy-kuemper-6387504093112",
+            "highlightClip": 6387505630112,
+            "highlightClipFr": 6387504093112,
+            "discreteClip": 6387505530112,
+            "discreteClipFr": 6387505046112,
+            "goalsToDate": 4,
+            "awayScore": 0,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "WPG"
+            },
+            "timeInPeriod": "02:07",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476525,
+                "firstName": {
+                  "default": "Colin"
+                },
+                "lastName": {
+                  "default": "Miller"
+                },
+                "name": {
+                  "default": "C. Miller"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 6
+              },
+              {
+                "playerId": 8482149,
+                "firstName": {
+                  "default": "Cole"
+                },
+                "lastName": {
+                  "default": "Perfetti"
+                },
+                "name": {
+                  "default": "C. Perfetti"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 91
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020695/ev452.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 597,
+            "strength": "ev",
+            "playerId": 8482124,
+            "firstName": {
+              "default": "Quinton"
+            },
+            "lastName": {
+              "default": "Byfield"
+            },
+            "name": {
+              "default": "Q. Byfield"
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8482124.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/lak-wpg-byfield-scores-goal-against-eric-comrie-6387505563112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/lak-wpg-byfield-marque-un-but-contre-eric-comrie-6387505152112",
+            "highlightClip": 6387505563112,
+            "highlightClipFr": 6387505152112,
+            "discreteClip": 6387504778112,
+            "discreteClipFr": 6387505848112,
+            "goalsToDate": 7,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "WPG"
+            },
+            "timeInPeriod": "09:32",
+            "shotType": "deflected",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483406,
+                "firstName": {
+                  "default": "Taylor"
+                },
+                "lastName": {
+                  "default": "Ward"
+                },
+                "name": {
+                  "default": "T. Ward"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 52
+              },
+              {
+                "playerId": 8477998,
+                "firstName": {
+                  "default": "Warren"
+                },
+                "lastName": {
+                  "default": "Foegele"
+                },
+                "name": {
+                  "default": "W. Foegele"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 37
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020695/ev597.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 456,
+            "strength": "pp",
+            "playerId": 8476460,
+            "firstName": {
+              "default": "Mark"
+            },
+            "lastName": {
+              "default": "Scheifele"
+            },
+            "name": {
+              "default": "M. Scheifele"
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WPG/8476460.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mark-scheifele-with-a-powerplay-goal-vs-los-angeles-kings-6387506165112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mark-scheifele-with-a-powerplay-goal-vs-les-kings-de-los-angeles-6387504715112",
+            "highlightClip": 6387506165112,
+            "highlightClipFr": 6387504715112,
+            "discreteClip": 6387506169112,
+            "discreteClipFr": 6387504887112,
+            "goalsToDate": 21,
+            "awayScore": 1,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "WPG"
+            },
+            "timeInPeriod": "12:35",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478398,
+                "firstName": {
+                  "default": "Kyle"
+                },
+                "lastName": {
+                  "default": "Connor"
+                },
+                "name": {
+                  "default": "K. Connor"
+                },
+                "assistsToDate": 31,
+                "sweaterNumber": 81
+              },
+              {
+                "playerId": 8480014,
+                "firstName": {
+                  "default": "Gabriel"
+                },
+                "lastName": {
+                  "default": "Vilardi"
+                },
+                "name": {
+                  "default": "G. Vilardi"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 13
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020695/ev456.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 720,
+            "strength": "ev",
+            "playerId": 8476460,
+            "firstName": {
+              "default": "Mark"
+            },
+            "lastName": {
+              "default": "Scheifele"
+            },
+            "name": {
+              "default": "M. Scheifele"
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WPG/8476460.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/lak-wpg-scheifele-scores-goal-against-darcy-kuemper-6387506802112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/lak-wpg-scheifele-marque-un-but-contre-darcy-kuemper-6387505512112",
+            "highlightClip": 6387506802112,
+            "highlightClipFr": 6387505512112,
+            "discreteClip": 6387507462112,
+            "discreteClipFr": 6387505605112,
+            "goalsToDate": 22,
+            "awayScore": 1,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "WPG"
+            },
+            "timeInPeriod": "19:17",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482149,
+                "firstName": {
+                  "default": "Cole"
+                },
+                "lastName": {
+                  "default": "Perfetti"
+                },
+                "name": {
+                  "default": "C. Perfetti"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 91
+              },
+              {
+                "playerId": 8480014,
+                "firstName": {
+                  "default": "Gabriel"
+                },
+                "lastName": {
+                  "default": "Vilardi"
+                },
+                "name": {
+                  "default": "G. Vilardi"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 13
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020695/ev720.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8476460,
+        "teamAbbrev": "WPG",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WPG/8476460.png",
+        "name": {
+          "default": "M. Scheifele"
+        },
+        "sweaterNo": 55,
+        "position": "C",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8473604,
+        "teamAbbrev": "WPG",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WPG/8473604.png",
+        "name": {
+          "default": "J. Toews"
+        },
+        "sweaterNo": 19,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8476480,
+        "teamAbbrev": "WPG",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WPG/8476480.png",
+        "name": {
+          "default": "V. Namestnikov",
+          "cs": "V. Nam\u011bstnikov"
+        },
+        "sweaterNo": 7,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "11:28",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kyle"
+              },
+              "lastName": {
+                "default": "Connor"
+              },
+              "sweaterNumber": 81
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Quinton"
+              },
+              "lastName": {
+                "default": "Byfield"
+              },
+              "sweaterNumber": 55
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "15:33",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kevin"
+              },
+              "lastName": {
+                "default": "Fiala"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mark"
+              },
+              "lastName": {
+                "default": "Scheifele"
+              },
+              "sweaterNumber": 55
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:32",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "descKey": "delaying-game-unsuccessful-challenge",
+            "servedBy": {
+              "default": "N. Niederreiter"
+            }
+          },
+          {
+            "timeInPeriod": "11:04",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Adrian"
+              },
+              "lastName": {
+                "default": "Kempe"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Luke"
+              },
+              "lastName": {
+                "default": "Schenn"
+              },
+              "sweaterNumber": 5
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "13:04",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Logan"
+              },
+              "lastName": {
+                "default": "Stanley"
+              },
+              "sweaterNumber": 64
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Andrei",
+                "cs": "Andrej",
+                "sk": "Andrej"
+              },
+              "lastName": {
+                "default": "Kuzmenko"
+              },
+              "sweaterNumber": 96
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

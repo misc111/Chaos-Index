@@ -1,0 +1,700 @@
+{
+  "id": 2025090025,
+  "season": 20252026,
+  "gameType": 9,
+  "limitedScoring": true,
+  "gameDate": "2026-02-18",
+  "venue": {
+    "default": "Milano Santagiulia Ice Hockey Arena"
+  },
+  "venueLocation": {
+    "default": "Milano Cortina"
+  },
+  "startTimeUTC": "2026-02-18T15:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "+01:00",
+  "venueTimezone": "Europe/Rome",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 637,
+      "market": "N",
+      "countryCode": "US",
+      "network": "Peacock",
+      "sequenceNumber": 1
+    },
+    {
+      "id": 188,
+      "market": "N",
+      "countryCode": "US",
+      "network": "USA",
+      "sequenceNumber": 31
+    },
+    {
+      "id": 4,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC",
+      "sequenceNumber": 101
+    },
+    {
+      "id": 636,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC Gem",
+      "sequenceNumber": 103
+    },
+    {
+      "id": 40,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TSN",
+      "sequenceNumber": 136
+    },
+    {
+      "id": 642,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "ICI T\u00e9l\u00e9",
+      "sequenceNumber": 143
+    }
+  ],
+  "gameState": "FINAL",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 61,
+    "commonName": {
+      "default": "Czechia",
+      "cs": "\u010cesko",
+      "de": "Tschechien",
+      "es": "Chequia",
+      "fi": "Tshekki",
+      "fr": "Tch\u00e9quie",
+      "sk": "\u010cesko",
+      "sv": "Tjeckien"
+    },
+    "abbrev": "CZE",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 3,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/CZE_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/CZE_dark.svg"
+  },
+  "homeTeam": {
+    "id": 60,
+    "commonName": {
+      "default": "Canada",
+      "cs": "Kanada",
+      "de": "Kanada",
+      "es": "Canad\u00e1",
+      "fi": "Kanada",
+      "sk": "Kanada",
+      "sv": "Kanada"
+    },
+    "abbrev": "CAN",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 4,
+    "sog": 41,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/CAN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/CAN_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 9001,
+            "strength": "ev",
+            "playerId": 8484801,
+            "firstName": {
+              "default": "Macklin"
+            },
+            "lastName": {
+              "default": "Celebrini"
+            },
+            "name": {
+              "default": "M. Celebrini"
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAN/8484801.png",
+            "goalsToDate": 5,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CAN"
+            },
+            "timeInPeriod": "03:05",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478402,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McDavid"
+                },
+                "name": {
+                  "default": "C. McDavid"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 97
+              }
+            ],
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 9004,
+            "strength": "ev",
+            "playerId": 8476310,
+            "firstName": {
+              "default": "Lukas"
+            },
+            "lastName": {
+              "default": "Sedlak"
+            },
+            "name": {
+              "default": "L. Sedlak"
+            },
+            "teamAbbrev": {
+              "default": "CZE"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CZE/8476310.png",
+            "goalsToDate": 1,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "08:34",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476834,
+                "firstName": {
+                  "default": "Roman"
+                },
+                "lastName": {
+                  "default": "Cervenka"
+                },
+                "name": {
+                  "default": "R. Cervenka"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 10
+              },
+              {
+                "playerId": 8475462,
+                "firstName": {
+                  "default": "Radko"
+                },
+                "lastName": {
+                  "default": "Gudas"
+                },
+                "name": {
+                  "default": "R. Gudas"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 3
+              }
+            ],
+            "isHome": false
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 9009,
+            "strength": "pp",
+            "playerId": 8477956,
+            "firstName": {
+              "default": "David"
+            },
+            "lastName": {
+              "default": "Pastrnak",
+              "cs": "Pastr\u0148\u00e1k",
+              "sk": "Pastr\u0148\u00e1k"
+            },
+            "name": {
+              "default": "D. Pastrnak",
+              "cs": "D. Pastr\u0148\u00e1k",
+              "sk": "D. Pastr\u0148\u00e1k"
+            },
+            "teamAbbrev": {
+              "default": "CZE"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CZE/8477956.png",
+            "goalsToDate": 2,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CZE"
+            },
+            "timeInPeriod": "14:49",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479425,
+                "firstName": {
+                  "default": "Filip"
+                },
+                "lastName": {
+                  "default": "Hronek"
+                },
+                "name": {
+                  "default": "F. Hronek"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 17
+              },
+              {
+                "playerId": 8476834,
+                "firstName": {
+                  "default": "Roman"
+                },
+                "lastName": {
+                  "default": "Cervenka"
+                },
+                "name": {
+                  "default": "R. Cervenka"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 10
+              }
+            ],
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 9014,
+            "strength": "pp",
+            "playerId": 8477492,
+            "firstName": {
+              "default": "Nathan"
+            },
+            "lastName": {
+              "default": "MacKinnon"
+            },
+            "name": {
+              "default": "N. MacKinnon"
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAN/8477492.png",
+            "goalsToDate": 3,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "12:16",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478402,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McDavid"
+                },
+                "name": {
+                  "default": "C. McDavid"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 97
+              },
+              {
+                "playerId": 8484801,
+                "firstName": {
+                  "default": "Macklin"
+                },
+                "lastName": {
+                  "default": "Celebrini"
+                },
+                "name": {
+                  "default": "M. Celebrini"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 17
+              }
+            ],
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 9018,
+            "strength": "ev",
+            "playerId": 8476292,
+            "firstName": {
+              "default": "Ondrej",
+              "cs": "Ond\u0159ej",
+              "sk": "Ond\u0159ej"
+            },
+            "lastName": {
+              "default": "Palat",
+              "cs": "Pal\u00e1t",
+              "sk": "Pal\u00e1t"
+            },
+            "name": {
+              "default": "O. Palat",
+              "cs": "O. Pal\u00e1t",
+              "sk": "O. Pal\u00e1t"
+            },
+            "teamAbbrev": {
+              "default": "CZE"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CZE/8476292.png",
+            "goalsToDate": 1,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "CZE"
+            },
+            "timeInPeriod": "12:18",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480039,
+                "firstName": {
+                  "default": "Martin"
+                },
+                "lastName": {
+                  "default": "Necas",
+                  "cs": "Ne\u010das",
+                  "sk": "Ne\u010das"
+                },
+                "name": {
+                  "default": "M. Necas",
+                  "cs": "M. Ne\u010das",
+                  "sk": "M. Ne\u010das"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 98
+              },
+              {
+                "playerId": 8476881,
+                "firstName": {
+                  "default": "Tomas",
+                  "cs": "Tom\u00e1\u0161",
+                  "sk": "Tom\u00e1\u0161"
+                },
+                "lastName": {
+                  "default": "Hertl"
+                },
+                "name": {
+                  "default": "T. Hertl"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 48
+              }
+            ],
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 9021,
+            "strength": "ev",
+            "playerId": 8480018,
+            "firstName": {
+              "default": "Nick"
+            },
+            "lastName": {
+              "default": "Suzuki"
+            },
+            "name": {
+              "default": "N. Suzuki"
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAN/8480018.png",
+            "goalsToDate": 2,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "16:33",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478038,
+                "firstName": {
+                  "default": "Devon"
+                },
+                "lastName": {
+                  "default": "Toews"
+                },
+                "name": {
+                  "default": "D. Toews"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 7
+              },
+              {
+                "playerId": 8482093,
+                "firstName": {
+                  "default": "Seth"
+                },
+                "lastName": {
+                  "default": "Jarvis"
+                },
+                "name": {
+                  "default": "S. Jarvis"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 24
+              }
+            ],
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 9024,
+            "strength": "ev",
+            "playerId": 8478483,
+            "firstName": {
+              "default": "Mitch",
+              "cs": "Mitchell",
+              "de": "Mitchell",
+              "es": "Mitchell",
+              "fi": "Mitchell",
+              "sk": "Mitchell",
+              "sv": "Mitchell"
+            },
+            "lastName": {
+              "default": "Marner"
+            },
+            "name": {
+              "default": "M. Marner"
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAN/8478483.png",
+            "goalsToDate": 1,
+            "awayScore": 3,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "CAN"
+            },
+            "timeInPeriod": "01:22",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484801,
+                "firstName": {
+                  "default": "Macklin"
+                },
+                "lastName": {
+                  "default": "Celebrini"
+                },
+                "name": {
+                  "default": "M. Celebrini"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 17
+              },
+              {
+                "playerId": 8481581,
+                "firstName": {
+                  "default": "Thomas"
+                },
+                "lastName": {
+                  "default": "Harley"
+                },
+                "name": {
+                  "default": "T. Harley"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 20
+              }
+            ],
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jan"
+              },
+              "lastName": {
+                "default": "Rutta"
+              },
+              "sweaterNumber": 44
+            },
+            "teamAbbrev": {
+              "default": "CZE"
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "13:49",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Macklin"
+              },
+              "lastName": {
+                "default": "Celebrini"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "16:43",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tom"
+              },
+              "lastName": {
+                "default": "Wilson"
+              },
+              "sweaterNumber": 43
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "11:24",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Michal"
+              },
+              "lastName": {
+                "default": "Kempny",
+                "cs": "Kempn\u00fd",
+                "sk": "Kempn\u00fd"
+              },
+              "sweaterNumber": 6
+            },
+            "teamAbbrev": {
+              "default": "CZE"
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "18:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Radko"
+              },
+              "lastName": {
+                "default": "Gudas"
+              },
+              "sweaterNumber": 3
+            },
+            "teamAbbrev": {
+              "default": "CZE"
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

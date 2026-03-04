@@ -1,0 +1,654 @@
+{
+  "id": 2025020885,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-02",
+  "venue": {
+    "default": "Scotiabank Saddledome"
+  },
+  "venueLocation": {
+    "default": "Calgary"
+  },
+  "startTimeUTC": "2026-02-03T03:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-07:00",
+  "venueTimezone": "US/Mountain",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 289,
+      "market": "H",
+      "countryCode": "CA",
+      "network": "SNW",
+      "sequenceNumber": 34
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 293,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "TSN4",
+      "sequenceNumber": 137
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 10,
+    "commonName": {
+      "default": "Maple Leafs"
+    },
+    "abbrev": "TOR",
+    "placeName": {
+      "default": "Toronto"
+    },
+    "placeNameWithPreposition": {
+      "default": "Toronto",
+      "fr": "de Toronto"
+    },
+    "score": 4,
+    "sog": 22,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TOR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/TOR_dark.svg"
+  },
+  "homeTeam": {
+    "id": 20,
+    "commonName": {
+      "default": "Flames"
+    },
+    "abbrev": "CGY",
+    "placeName": {
+      "default": "Calgary"
+    },
+    "placeNameWithPreposition": {
+      "default": "Calgary",
+      "fr": "de Calgary"
+    },
+    "score": 2,
+    "sog": 30,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CGY_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CGY_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 57,
+            "strength": "ev",
+            "playerId": 8477939,
+            "firstName": {
+              "default": "William"
+            },
+            "lastName": {
+              "default": "Nylander"
+            },
+            "name": {
+              "default": "W. Nylander"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8477939.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-cgy-nylander-scores-goal-against-dustin-wolf-6388697483112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-cgy-nylander-marque-un-but-contre-dustin-wolf-6388697115112",
+            "highlightClip": 6388697483112,
+            "highlightClipFr": 6388697115112,
+            "discreteClip": 6388698459112,
+            "discreteClipFr": 6388699286112,
+            "goalsToDate": 18,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "00:35",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475166,
+                "firstName": {
+                  "default": "John"
+                },
+                "lastName": {
+                  "default": "Tavares"
+                },
+                "name": {
+                  "default": "J. Tavares"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 91
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020885/ev57.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 521,
+            "strength": "ev",
+            "playerId": 8481711,
+            "firstName": {
+              "default": "Matias"
+            },
+            "lastName": {
+              "default": "Maccelli"
+            },
+            "name": {
+              "default": "M. Maccelli"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8481711.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-cgy-maccelli-scores-goal-against-dustin-wolf-6388698942112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-cgy-maccelli-marque-un-but-contre-dustin-wolf-6388700919112",
+            "highlightClip": 6388698942112,
+            "highlightClipFr": 6388700919112,
+            "discreteClip": 6388699025112,
+            "discreteClipFr": 6388700116112,
+            "goalsToDate": 8,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "07:17",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477939,
+                "firstName": {
+                  "default": "William"
+                },
+                "lastName": {
+                  "default": "Nylander"
+                },
+                "name": {
+                  "default": "W. Nylander"
+                },
+                "assistsToDate": 32,
+                "sweaterNumber": 88
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020885/ev521.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1441",
+            "eventId": 563,
+            "strength": "ev",
+            "playerId": 8479442,
+            "firstName": {
+              "default": "Troy"
+            },
+            "lastName": {
+              "default": "Stecher"
+            },
+            "name": {
+              "default": "T. Stecher"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8479442.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-cgy-stecher-scores-goal-against-dustin-wolf-6388701191112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-cgy-stecher-marque-un-but-contre-dustin-wolf-6388700214112",
+            "highlightClip": 6388701191112,
+            "highlightClipFr": 6388700214112,
+            "discreteClip": 6388700616112,
+            "discreteClipFr": 6388701099112,
+            "goalsToDate": 3,
+            "awayScore": 3,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "09:10",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477939,
+                "firstName": {
+                  "default": "William"
+                },
+                "lastName": {
+                  "default": "Nylander"
+                },
+                "name": {
+                  "default": "W. Nylander"
+                },
+                "assistsToDate": 33,
+                "sweaterNumber": 88
+              },
+              {
+                "playerId": 8479318,
+                "firstName": {
+                  "default": "Auston"
+                },
+                "lastName": {
+                  "default": "Matthews"
+                },
+                "name": {
+                  "default": "A. Matthews"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 34
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020885/ev563.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 663,
+            "strength": "ev",
+            "playerId": 8475172,
+            "firstName": {
+              "default": "Nazem"
+            },
+            "lastName": {
+              "default": "Kadri"
+            },
+            "name": {
+              "default": "N. Kadri"
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8475172.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-cgy-kadri-scores-goal-against-joseph-woll-6388701003112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-cgy-kadri-marque-un-but-contre-joseph-woll-6388699633112",
+            "highlightClip": 6388701003112,
+            "highlightClipFr": 6388699633112,
+            "discreteClip": 6388699736112,
+            "discreteClipFr": 6388700141112,
+            "goalsToDate": 10,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "13:15",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480797,
+                "firstName": {
+                  "default": "Joel"
+                },
+                "lastName": {
+                  "default": "Farabee"
+                },
+                "name": {
+                  "default": "J. Farabee"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 86
+              },
+              {
+                "playerId": 8477810,
+                "firstName": {
+                  "default": "Joel"
+                },
+                "lastName": {
+                  "default": "Hanley"
+                },
+                "name": {
+                  "default": "J. Hanley"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 44
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020885/ev663.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 701,
+            "strength": "ev",
+            "playerId": 8480797,
+            "firstName": {
+              "default": "Joel"
+            },
+            "lastName": {
+              "default": "Farabee"
+            },
+            "name": {
+              "default": "J. Farabee"
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8480797.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-cgy-farabee-scores-goal-against-joseph-woll-6388700151112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-cgy-farabee-marque-un-but-contre-joseph-woll-6388701391112",
+            "highlightClip": 6388700151112,
+            "highlightClipFr": 6388701391112,
+            "discreteClip": 6388700324112,
+            "discreteClipFr": 6388699744112,
+            "goalsToDate": 12,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "15:46",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475172,
+                "firstName": {
+                  "default": "Nazem"
+                },
+                "lastName": {
+                  "default": "Kadri"
+                },
+                "name": {
+                  "default": "N. Kadri"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 91
+              },
+              {
+                "playerId": 8477346,
+                "firstName": {
+                  "default": "MacKenzie"
+                },
+                "lastName": {
+                  "default": "Weegar"
+                },
+                "name": {
+                  "default": "M. Weegar"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 52
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020885/ev701.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1560",
+            "eventId": 1100,
+            "strength": "ev",
+            "playerId": 8482259,
+            "firstName": {
+              "default": "Bobby"
+            },
+            "lastName": {
+              "default": "McMann"
+            },
+            "name": {
+              "default": "B. McMann"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8482259.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-cgy-mcmann-scores-empty-net-goal-6388703896112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-cgy-mcmann-tor-marque-un-but-dans-un-filet-desert-6388702329112",
+            "highlightClip": 6388703896112,
+            "highlightClipFr": 6388702329112,
+            "discreteClip": 6388703316112,
+            "discreteClipFr": 6388702737112,
+            "goalsToDate": 18,
+            "awayScore": 4,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "19:35",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8476872,
+                "firstName": {
+                  "default": "Scott"
+                },
+                "lastName": {
+                  "default": "Laughton"
+                },
+                "name": {
+                  "default": "S. Laughton"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 24
+              },
+              {
+                "playerId": 8478443,
+                "firstName": {
+                  "default": "Brandon"
+                },
+                "lastName": {
+                  "default": "Carlo"
+                },
+                "name": {
+                  "default": "B. Carlo"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 25
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020885/ev1100.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8477939,
+        "teamAbbrev": "TOR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8477939.png",
+        "name": {
+          "default": "W. Nylander"
+        },
+        "sweaterNo": 88,
+        "position": "R",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8475172,
+        "teamAbbrev": "CGY",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8475172.png",
+        "name": {
+          "default": "N. Kadri"
+        },
+        "sweaterNo": 91,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8480797,
+        "teamAbbrev": "CGY",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8480797.png",
+        "name": {
+          "default": "J. Farabee"
+        },
+        "sweaterNo": 86,
+        "position": "L",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "08:11",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Joseph"
+              },
+              "lastName": {
+                "default": "Woll"
+              },
+              "sweaterNumber": 60
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mikael"
+              },
+              "lastName": {
+                "default": "Backlund"
+              },
+              "sweaterNumber": 11
+            },
+            "descKey": "holding-the-stick",
+            "servedBy": {
+              "default": "Bobby McMann"
+            }
+          },
+          {
+            "timeInPeriod": "08:11",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mikael"
+              },
+              "lastName": {
+                "default": "Backlund"
+              },
+              "sweaterNumber": 11
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Joseph"
+              },
+              "lastName": {
+                "default": "Woll"
+              },
+              "sweaterNumber": 60
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "17:46",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Knies"
+              },
+              "sweaterNumber": 23
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Joel"
+              },
+              "lastName": {
+                "default": "Hanley"
+              },
+              "sweaterNumber": 44
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

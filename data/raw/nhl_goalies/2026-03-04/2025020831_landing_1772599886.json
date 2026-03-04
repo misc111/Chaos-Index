@@ -1,0 +1,886 @@
+{
+  "id": 2025020831,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-27",
+  "venue": {
+    "default": "Scotiabank Arena"
+  },
+  "venueLocation": {
+    "default": "Toronto"
+  },
+  "startTimeUTC": "2026-01-28T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "America/Toronto",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 293,
+      "market": "H",
+      "countryCode": "CA",
+      "network": "TSN4",
+      "sequenceNumber": 137
+    },
+    {
+      "id": 28,
+      "market": "A",
+      "countryCode": "US",
+      "network": "MSG-B",
+      "sequenceNumber": 392
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 7,
+    "commonName": {
+      "default": "Sabres"
+    },
+    "abbrev": "BUF",
+    "placeName": {
+      "default": "Buffalo"
+    },
+    "placeNameWithPreposition": {
+      "default": "Buffalo",
+      "fr": "de Buffalo"
+    },
+    "score": 7,
+    "sog": 31,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/BUF_dark.svg"
+  },
+  "homeTeam": {
+    "id": 10,
+    "commonName": {
+      "default": "Maple Leafs"
+    },
+    "abbrev": "TOR",
+    "placeName": {
+      "default": "Toronto"
+    },
+    "placeNameWithPreposition": {
+      "default": "Toronto",
+      "fr": "de Toronto"
+    },
+    "score": 4,
+    "sog": 23,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TOR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/TOR_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 206,
+            "strength": "ev",
+            "playerId": 8482720,
+            "firstName": {
+              "default": "Matthew"
+            },
+            "lastName": {
+              "default": "Knies"
+            },
+            "name": {
+              "default": "M. Knies"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8482720.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-tor-knies-scores-goal-against-ukko-pekka-luukkonen-6388402517112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-tor-knies-marque-un-but-contre-ukko-pekka-luukkonen-6388400276112",
+            "highlightClip": 6388402517112,
+            "highlightClipFr": 6388400276112,
+            "discreteClip": 6388401934112,
+            "discreteClipFr": 6388401161112,
+            "goalsToDate": 13,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "07:44",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475166,
+                "firstName": {
+                  "default": "John"
+                },
+                "lastName": {
+                  "default": "Tavares"
+                },
+                "name": {
+                  "default": "J. Tavares"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 91
+              },
+              {
+                "playerId": 8481711,
+                "firstName": {
+                  "default": "Matias"
+                },
+                "lastName": {
+                  "default": "Maccelli"
+                },
+                "name": {
+                  "default": "M. Maccelli"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 63
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020831/ev206.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 152,
+            "strength": "ev",
+            "playerId": 8480839,
+            "firstName": {
+              "default": "Rasmus"
+            },
+            "lastName": {
+              "default": "Dahlin"
+            },
+            "name": {
+              "default": "R. Dahlin"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8480839.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-tor-dahlin-scores-goal-against-joseph-woll-6388402825112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-tor-dahlin-marque-un-but-contre-joseph-woll-6388402439112",
+            "highlightClip": 6388402825112,
+            "highlightClipFr": 6388402439112,
+            "discreteClip": 6388403319112,
+            "discreteClipFr": 6388401657112,
+            "goalsToDate": 9,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "09:29",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480802,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "McLeod"
+                },
+                "name": {
+                  "default": "R. McLeod"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 71
+              },
+              {
+                "playerId": 8480807,
+                "firstName": {
+                  "default": "Mattias"
+                },
+                "lastName": {
+                  "default": "Samuelsson"
+                },
+                "name": {
+                  "default": "M. Samuelsson"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 23
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020831/ev152.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 305,
+            "strength": "ev",
+            "playerId": 8479318,
+            "firstName": {
+              "default": "Auston"
+            },
+            "lastName": {
+              "default": "Matthews"
+            },
+            "name": {
+              "default": "A. Matthews"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8479318.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-tor-matthews-scores-goal-against-ukko-pekka-luukkonen-6388402454112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-tor-matthews-marque-un-but-contre-ukko-pekka-luukkonen-6388400875112",
+            "highlightClip": 6388402454112,
+            "highlightClipFr": 6388400875112,
+            "discreteClip": 6388402738112,
+            "discreteClipFr": 6388400584112,
+            "goalsToDate": 26,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "10:49",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477503,
+                "firstName": {
+                  "default": "Max"
+                },
+                "lastName": {
+                  "default": "Domi"
+                },
+                "name": {
+                  "default": "M. Domi"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 11
+              },
+              {
+                "playerId": 8475171,
+                "firstName": {
+                  "default": "Oliver"
+                },
+                "lastName": {
+                  "default": "Ekman-Larsson"
+                },
+                "name": {
+                  "default": "O. Ekman-Larsson"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 95
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020831/ev305.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 153,
+            "strength": "pp",
+            "playerId": 8482659,
+            "firstName": {
+              "default": "Josh"
+            },
+            "lastName": {
+              "default": "Doan"
+            },
+            "name": {
+              "default": "J. Doan"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8482659.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-tor-doan-scores-goal-against-joseph-woll-6388402386112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-tor-doan-marque-un-but-contre-joseph-woll-6388401592112",
+            "highlightClip": 6388402386112,
+            "highlightClipFr": 6388401592112,
+            "discreteClip": 6388401669112,
+            "discreteClipFr": 6388402846112,
+            "goalsToDate": 16,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "13:16",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480839,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Dahlin"
+                },
+                "name": {
+                  "default": "R. Dahlin"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 26
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020831/ev153.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 402,
+            "strength": "ev",
+            "playerId": 8479420,
+            "firstName": {
+              "default": "Tage"
+            },
+            "lastName": {
+              "default": "Thompson"
+            },
+            "name": {
+              "default": "T. Thompson"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8479420.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-tor-thompson-scores-goal-against-joseph-woll-6388402683112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-tor-thompson-marque-un-but-contre-joseph-woll-6388402758112",
+            "highlightClip": 6388402683112,
+            "highlightClipFr": 6388402758112,
+            "discreteClip": 6388402860112,
+            "discreteClipFr": 6388403934112,
+            "goalsToDate": 28,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "18:05",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020831/ev402.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 720,
+            "strength": "ev",
+            "playerId": 8482259,
+            "firstName": {
+              "default": "Bobby"
+            },
+            "lastName": {
+              "default": "McMann"
+            },
+            "name": {
+              "default": "B. McMann"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8482259.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-tor-mcmann-scores-goal-against-colten-ellis-6388404529112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-tor-mcmann-marque-un-but-contre-colten-ellis-6388406356112",
+            "highlightClip": 6388404529112,
+            "highlightClipFr": 6388406356112,
+            "discreteClip": 6388405862112,
+            "discreteClipFr": 6388405282112,
+            "goalsToDate": 17,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "11:17",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479318,
+                "firstName": {
+                  "default": "Auston"
+                },
+                "lastName": {
+                  "default": "Matthews"
+                },
+                "name": {
+                  "default": "A. Matthews"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 34
+              },
+              {
+                "playerId": 8477503,
+                "firstName": {
+                  "default": "Max"
+                },
+                "lastName": {
+                  "default": "Domi"
+                },
+                "name": {
+                  "default": "M. Domi"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 11
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020831/ev720.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 815,
+            "strength": "ev",
+            "playerId": 8480839,
+            "firstName": {
+              "default": "Rasmus"
+            },
+            "lastName": {
+              "default": "Dahlin"
+            },
+            "name": {
+              "default": "R. Dahlin"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8480839.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-tor-dahlin-scores-goal-against-joseph-woll-6388405121112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-tor-dahlin-marque-un-but-contre-joseph-woll-6388406490112",
+            "highlightClip": 6388405121112,
+            "highlightClipFr": 6388406490112,
+            "discreteClip": 6388406491112,
+            "discreteClipFr": 6388405404112,
+            "goalsToDate": 10,
+            "awayScore": 4,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "18:17",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480807,
+                "firstName": {
+                  "default": "Mattias"
+                },
+                "lastName": {
+                  "default": "Samuelsson"
+                },
+                "name": {
+                  "default": "M. Samuelsson"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 23
+              },
+              {
+                "playerId": 8481522,
+                "firstName": {
+                  "default": "Peyton"
+                },
+                "lastName": {
+                  "default": "Krebs"
+                },
+                "name": {
+                  "default": "P. Krebs"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 19
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020831/ev815.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 845,
+            "strength": "ev",
+            "playerId": 8477949,
+            "firstName": {
+              "default": "Alex"
+            },
+            "lastName": {
+              "default": "Tuch"
+            },
+            "name": {
+              "default": "A. Tuch"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8477949.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-tor-tuch-scores-goal-against-joseph-woll-6388408384112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-tor-tuch-marque-un-but-contre-joseph-woll-6388407887112",
+            "highlightClip": 6388408384112,
+            "highlightClipFr": 6388407887112,
+            "discreteClip": 6388406126112,
+            "discreteClipFr": 6388407014112,
+            "goalsToDate": 19,
+            "awayScore": 5,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "00:16",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479420,
+                "firstName": {
+                  "default": "Tage"
+                },
+                "lastName": {
+                  "default": "Thompson"
+                },
+                "name": {
+                  "default": "T. Thompson"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 72
+              },
+              {
+                "playerId": 8480807,
+                "firstName": {
+                  "default": "Mattias"
+                },
+                "lastName": {
+                  "default": "Samuelsson"
+                },
+                "name": {
+                  "default": "M. Samuelsson"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 23
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020831/ev845.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1001,
+            "strength": "ev",
+            "playerId": 8482097,
+            "firstName": {
+              "default": "Jack"
+            },
+            "lastName": {
+              "default": "Quinn"
+            },
+            "name": {
+              "default": "J. Quinn"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8482097.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-tor-quinn-scores-goal-against-joseph-woll-6388408346112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-tor-quinn-marque-un-but-contre-joseph-woll-6388409599112",
+            "highlightClip": 6388408346112,
+            "highlightClipFr": 6388409599112,
+            "discreteClip": 6388408262112,
+            "discreteClipFr": 6388409395112,
+            "goalsToDate": 12,
+            "awayScore": 6,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "11:33",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480839,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Dahlin"
+                },
+                "name": {
+                  "default": "R. Dahlin"
+                },
+                "assistsToDate": 31,
+                "sweaterNumber": 26
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020831/ev1001.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1048,
+            "strength": "ev",
+            "playerId": 8477503,
+            "firstName": {
+              "default": "Max"
+            },
+            "lastName": {
+              "default": "Domi"
+            },
+            "name": {
+              "default": "M. Domi"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8477503.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-tor-domi-scores-goal-against-colten-ellis-6388410306112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-tor-domi-marque-un-but-contre-colten-ellis-6388410496112",
+            "highlightClip": 6388410306112,
+            "highlightClipFr": 6388410496112,
+            "discreteClip": 6388409717112,
+            "discreteClipFr": 6388410604112,
+            "goalsToDate": 8,
+            "awayScore": 6,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "14:59",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479318,
+                "firstName": {
+                  "default": "Auston"
+                },
+                "lastName": {
+                  "default": "Matthews"
+                },
+                "name": {
+                  "default": "A. Matthews"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 34
+              },
+              {
+                "playerId": 8482259,
+                "firstName": {
+                  "default": "Bobby"
+                },
+                "lastName": {
+                  "default": "McMann"
+                },
+                "name": {
+                  "default": "B. McMann"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 74
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020831/ev1048.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1096,
+            "strength": "ev",
+            "playerId": 8480839,
+            "firstName": {
+              "default": "Rasmus"
+            },
+            "lastName": {
+              "default": "Dahlin"
+            },
+            "name": {
+              "default": "R. Dahlin"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8480839.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-tor-dahlin-scores-empty-net-goal-6388410021112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-tor-dahlin-buf-marque-un-but-dans-un-filet-desert-6388411106112",
+            "highlightClip": 6388410021112,
+            "highlightClipFr": 6388411106112,
+            "discreteClip": 6388409814112,
+            "discreteClipFr": 6388409032112,
+            "goalsToDate": 11,
+            "awayScore": 7,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "19:16",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020831/ev1096.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8480839,
+        "teamAbbrev": "BUF",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8480839.png",
+        "name": {
+          "default": "R. Dahlin"
+        },
+        "sweaterNo": 26,
+        "position": "D",
+        "goals": 3,
+        "assists": 2,
+        "points": 5
+      },
+      {
+        "star": 2,
+        "playerId": 8477949,
+        "teamAbbrev": "BUF",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8477949.png",
+        "name": {
+          "default": "A. Tuch"
+        },
+        "sweaterNo": 89,
+        "position": "R",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8480807,
+        "teamAbbrev": "BUF",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8480807.png",
+        "name": {
+          "default": "M. Samuelsson"
+        },
+        "sweaterNo": 23,
+        "position": "D",
+        "goals": 0,
+        "assists": 3,
+        "points": 3
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "12:27",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Steven"
+              },
+              "lastName": {
+                "default": "Lorentz"
+              },
+              "sweaterNumber": 18
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Ostlund"
+              },
+              "sweaterNumber": 86
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:53",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Carlo"
+              },
+              "sweaterNumber": 25
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Zach"
+              },
+              "lastName": {
+                "default": "Benson"
+              },
+              "sweaterNumber": 6
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

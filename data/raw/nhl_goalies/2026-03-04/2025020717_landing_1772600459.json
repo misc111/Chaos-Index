@@ -1,0 +1,914 @@
+{
+  "id": 2025020717,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-12",
+  "venue": {
+    "default": "Little Caesars Arena"
+  },
+  "venueLocation": {
+    "default": "Detroit"
+  },
+  "startTimeUTC": "2026-01-13T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "America/Detroit",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 561,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNSO",
+      "sequenceNumber": 202
+    },
+    {
+      "id": 562,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNDET",
+      "sequenceNumber": 282
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 12,
+    "commonName": {
+      "default": "Hurricanes"
+    },
+    "abbrev": "CAR",
+    "placeName": {
+      "default": "Carolina",
+      "fr": "Caroline"
+    },
+    "placeNameWithPreposition": {
+      "default": "Carolina",
+      "fr": "de la Caroline"
+    },
+    "score": 3,
+    "sog": 34,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CAR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CAR_dark.svg"
+  },
+  "homeTeam": {
+    "id": 17,
+    "commonName": {
+      "default": "Red Wings"
+    },
+    "abbrev": "DET",
+    "placeName": {
+      "default": "Detroit"
+    },
+    "placeNameWithPreposition": {
+      "default": "Detroit",
+      "fr": "de Detroit"
+    },
+    "score": 4,
+    "sog": 18,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/DET_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/DET_dark.svg?season=20252026"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 70,
+            "strength": "pp",
+            "playerId": 8474037,
+            "firstName": {
+              "default": "James"
+            },
+            "lastName": {
+              "default": "van Riemsdyk"
+            },
+            "name": {
+              "default": "J. van Riemsdyk"
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8474037.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-det-van-riemsdyk-scores-ppg-against-frederik-andersen-6387628954112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-det-van-riemsdyk-marque-un-but-en-a-n-contre-frederik-andersen-6387628763112",
+            "highlightClip": 6387628954112,
+            "highlightClipFr": 6387628763112,
+            "discreteClip": 6387627016112,
+            "discreteClipFr": 6387627868112,
+            "goalsToDate": 12,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "DET"
+            },
+            "timeInPeriod": "01:32",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481542,
+                "firstName": {
+                  "default": "Moritz"
+                },
+                "lastName": {
+                  "default": "Seider"
+                },
+                "name": {
+                  "default": "M. Seider"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 53
+              },
+              {
+                "playerId": 8482078,
+                "firstName": {
+                  "default": "Lucas"
+                },
+                "lastName": {
+                  "default": "Raymond"
+                },
+                "name": {
+                  "default": "L. Raymond"
+                },
+                "assistsToDate": 35,
+                "sweaterNumber": 23
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020717/ev70.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 584,
+            "strength": "ev",
+            "playerId": 8479337,
+            "firstName": {
+              "default": "Alex"
+            },
+            "lastName": {
+              "default": "DeBrincat"
+            },
+            "name": {
+              "default": "A. DeBrincat"
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8479337.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-det-debrincat-scores-goal-against-frederik-andersen-6387631584112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-det-debrincat-marque-un-but-contre-frederik-andersen-6387631683112",
+            "highlightClip": 6387631584112,
+            "highlightClipFr": 6387631683112,
+            "discreteClip": 6387631379112,
+            "discreteClipFr": 6387631582112,
+            "goalsToDate": 24,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "DET"
+            },
+            "timeInPeriod": "01:28",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477429,
+                "firstName": {
+                  "default": "Andrew"
+                },
+                "lastName": {
+                  "default": "Copp"
+                },
+                "name": {
+                  "default": "A. Copp"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 18
+              },
+              {
+                "playerId": 8475279,
+                "firstName": {
+                  "default": "Ben"
+                },
+                "lastName": {
+                  "default": "Chiarot"
+                },
+                "name": {
+                  "default": "B. Chiarot"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 8
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020717/ev584.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 637,
+            "strength": "ev",
+            "playerId": 8481607,
+            "firstName": {
+              "default": "Albert"
+            },
+            "lastName": {
+              "default": "Johansson"
+            },
+            "name": {
+              "default": "A. Johansson"
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8481607.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-det-johansson-scores-goal-against-frederik-andersen-6387630553112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-det-johansson-marque-un-but-contre-frederik-andersen-6387630232112",
+            "highlightClip": 6387630553112,
+            "highlightClipFr": 6387630232112,
+            "discreteClip": 6387631795112,
+            "discreteClipFr": 6387632089112,
+            "goalsToDate": 1,
+            "awayScore": 0,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "DET"
+            },
+            "timeInPeriod": "04:54",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8474141,
+                "firstName": {
+                  "default": "Patrick"
+                },
+                "lastName": {
+                  "default": "Kane"
+                },
+                "name": {
+                  "default": "P. Kane"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 88
+              },
+              {
+                "playerId": 8479337,
+                "firstName": {
+                  "default": "Alex"
+                },
+                "lastName": {
+                  "default": "DeBrincat"
+                },
+                "name": {
+                  "default": "A. DeBrincat"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 93
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020717/ev637.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 895,
+            "strength": "pp",
+            "playerId": 8482809,
+            "firstName": {
+              "default": "Jackson"
+            },
+            "lastName": {
+              "default": "Blake"
+            },
+            "name": {
+              "default": "J. Blake"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8482809.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-det-blake-scores-ppg-against-john-gibson-6387631877112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/jackson-blake-with-a-powerplay-goal-vs-les-red-wings-de-detroit-6387634715112",
+            "highlightClip": 6387631877112,
+            "highlightClipFr": 6387634715112,
+            "discreteClip": 6387634406112,
+            "discreteClipFr": 6387632876112,
+            "goalsToDate": 14,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "DET"
+            },
+            "timeInPeriod": "04:44",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475791,
+                "firstName": {
+                  "default": "Taylor"
+                },
+                "lastName": {
+                  "default": "Hall"
+                },
+                "name": {
+                  "default": "T. Hall"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 71
+              },
+              {
+                "playerId": 8482100,
+                "firstName": {
+                  "default": "Alexander"
+                },
+                "lastName": {
+                  "default": "Nikishin"
+                },
+                "name": {
+                  "default": "A. Nikishin"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 21
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020717/ev895.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 936,
+            "strength": "sh",
+            "playerId": 8482093,
+            "firstName": {
+              "default": "Seth"
+            },
+            "lastName": {
+              "default": "Jarvis"
+            },
+            "name": {
+              "default": "S. Jarvis"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8482093.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-det-jarvis-scores-shg-against-john-gibson-6387632985112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-det-jarvis-marque-un-but-en-i-n-contre-john-gibson-6387634948112",
+            "highlightClip": 6387632985112,
+            "highlightClipFr": 6387634948112,
+            "discreteClip": 6387634934112,
+            "discreteClipFr": 6387632975112,
+            "goalsToDate": 21,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "DET"
+            },
+            "timeInPeriod": "07:56",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478427,
+                "firstName": {
+                  "default": "Sebastian"
+                },
+                "lastName": {
+                  "default": "Aho"
+                },
+                "name": {
+                  "default": "S. Aho"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 20
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020717/ev936.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1531",
+            "eventId": 1067,
+            "strength": "pp",
+            "playerId": 8476906,
+            "firstName": {
+              "default": "Shayne"
+            },
+            "lastName": {
+              "default": "Gostisbehere"
+            },
+            "name": {
+              "default": "S. Gostisbehere"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8476906.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-det-gostisbehere-scores-ppg-against-john-gibson-6387636878112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-det-gostisbehere-marque-un-but-en-a-n-contre-john-gibson-6387636346112",
+            "highlightClip": 6387636878112,
+            "highlightClipFr": 6387636346112,
+            "discreteClip": 6387635541112,
+            "discreteClipFr": 6387634268112,
+            "goalsToDate": 6,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "16:59",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478427,
+                "firstName": {
+                  "default": "Sebastian"
+                },
+                "lastName": {
+                  "default": "Aho"
+                },
+                "name": {
+                  "default": "S. Aho"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 20
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020717/ev1067.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 1142,
+            "strength": "ev",
+            "playerId": 8477429,
+            "firstName": {
+              "default": "Andrew"
+            },
+            "lastName": {
+              "default": "Copp"
+            },
+            "name": {
+              "default": "A. Copp"
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8477429.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-det-copp-scores-goal-against-frederik-andersen-6387637016112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-det-copp-marque-un-but-contre-frederik-andersen-6387637015112",
+            "highlightClip": 6387637016112,
+            "highlightClipFr": 6387637015112,
+            "discreteClip": 6387638392112,
+            "discreteClipFr": 6387638205112,
+            "goalsToDate": 8,
+            "awayScore": 3,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "DET"
+            },
+            "timeInPeriod": "03:27",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479337,
+                "firstName": {
+                  "default": "Alex"
+                },
+                "lastName": {
+                  "default": "DeBrincat"
+                },
+                "name": {
+                  "default": "A. DeBrincat"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 93
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020717/ev1142.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8477429,
+        "teamAbbrev": "DET",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8477429.png",
+        "name": {
+          "default": "A. Copp"
+        },
+        "sweaterNo": 18,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8479337,
+        "teamAbbrev": "DET",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8479337.png",
+        "name": {
+          "default": "A. DeBrincat"
+        },
+        "sweaterNo": 93,
+        "position": "R",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8476906,
+        "teamAbbrev": "CAR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8476906.png",
+        "name": {
+          "default": "S. Gostisbehere"
+        },
+        "sweaterNo": 4,
+        "position": "D",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:37",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jaccob"
+              },
+              "lastName": {
+                "default": "Slavin"
+              },
+              "sweaterNumber": 74
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Marco"
+              },
+              "lastName": {
+                "default": "Kasper"
+              },
+              "sweaterNumber": 92
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "10:49",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jackson"
+              },
+              "lastName": {
+                "default": "Blake"
+              },
+              "sweaterNumber": 53
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Dylan"
+              },
+              "lastName": {
+                "default": "Larkin"
+              },
+              "sweaterNumber": 71
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "14:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Moritz"
+              },
+              "lastName": {
+                "default": "Seider"
+              },
+              "sweaterNumber": 53
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Taylor"
+              },
+              "lastName": {
+                "default": "Hall"
+              },
+              "sweaterNumber": 71
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "14:30",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jacob"
+              },
+              "lastName": {
+                "default": "Bernard-Docker"
+              },
+              "sweaterNumber": 25
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Eric"
+              },
+              "lastName": {
+                "default": "Robinson"
+              },
+              "sweaterNumber": 50
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:52",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Albert"
+              },
+              "lastName": {
+                "default": "Johansson"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jackson"
+              },
+              "lastName": {
+                "default": "Blake"
+              },
+              "sweaterNumber": 53
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "06:47",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "K'Andre"
+              },
+              "lastName": {
+                "default": "Miller"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Elmer"
+              },
+              "lastName": {
+                "default": "Soderblom",
+                "sv": "S\u00f6derblom"
+              },
+              "sweaterNumber": 85
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "15:18",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Lucas"
+              },
+              "lastName": {
+                "default": "Raymond"
+              },
+              "sweaterNumber": 23
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Logan"
+              },
+              "lastName": {
+                "default": "Stankoven"
+              },
+              "sweaterNumber": 22
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "15:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ben"
+              },
+              "lastName": {
+                "default": "Chiarot"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Seth"
+              },
+              "lastName": {
+                "default": "Jarvis"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "17:30",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Taylor"
+              },
+              "lastName": {
+                "default": "Hall"
+              },
+              "sweaterNumber": 71
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Rasmussen"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:27",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sebastian"
+              },
+              "lastName": {
+                "default": "Aho"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "descKey": "misconduct"
+          },
+          {
+            "timeInPeriod": "03:27",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Shayne"
+              },
+              "lastName": {
+                "default": "Gostisbehere"
+              },
+              "sweaterNumber": 4
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "descKey": "misconduct"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "01:33",
+    "secondsRemaining": 93,
+    "running": false,
+    "inIntermission": false
+  }
+}

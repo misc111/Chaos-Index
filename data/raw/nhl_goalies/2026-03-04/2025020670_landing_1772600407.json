@@ -1,0 +1,1055 @@
+{
+  "id": 2025020670,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-06",
+  "venue": {
+    "default": "Xfinity Mobile Arena"
+  },
+  "venueLocation": {
+    "default": "Philadelphia",
+    "fr": "Philadelphie"
+  },
+  "startTimeUTC": "2026-01-07T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 553,
+      "market": "A",
+      "countryCode": "US",
+      "network": "Victory+",
+      "sequenceNumber": 382
+    },
+    {
+      "id": 322,
+      "market": "H",
+      "countryCode": "US",
+      "network": "NBCSP",
+      "sequenceNumber": 389
+    },
+    {
+      "id": 219,
+      "market": "A",
+      "countryCode": "US",
+      "network": "KCOP-13",
+      "sequenceNumber": 656
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 24,
+    "commonName": {
+      "default": "Ducks"
+    },
+    "abbrev": "ANA",
+    "placeName": {
+      "default": "Anaheim"
+    },
+    "placeNameWithPreposition": {
+      "default": "Anaheim",
+      "fr": "d'Anaheim"
+    },
+    "score": 2,
+    "sog": 18,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/ANA_dark.svg"
+  },
+  "homeTeam": {
+    "id": 4,
+    "commonName": {
+      "default": "Flyers"
+    },
+    "abbrev": "PHI",
+    "placeName": {
+      "default": "Philadelphia",
+      "fr": "Philadelphie"
+    },
+    "placeNameWithPreposition": {
+      "default": "Philadelphia",
+      "fr": "de Philadelphie"
+    },
+    "score": 5,
+    "sog": 39,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/PHI_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/PHI_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 112,
+            "strength": "pp",
+            "playerId": 8483445,
+            "firstName": {
+              "default": "Cutter"
+            },
+            "lastName": {
+              "default": "Gauthier"
+            },
+            "name": {
+              "default": "C. Gauthier"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8483445.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-phi-gauthier-scores-ppg-against-dan-vladar-6387321674112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-phi-gauthier-marque-un-but-en-a-n-contre-dan-vladar-6387323162112",
+            "highlightClip": 6387321674112,
+            "highlightClipFr": 6387323162112,
+            "discreteClip": 6387321197112,
+            "discreteClipFr": 6387322663112,
+            "goalsToDate": 20,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "04:15",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481605,
+                "firstName": {
+                  "default": "Jackson"
+                },
+                "lastName": {
+                  "default": "LaCombe"
+                },
+                "name": {
+                  "default": "J. LaCombe"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 2
+              },
+              {
+                "playerId": 8478873,
+                "firstName": {
+                  "default": "Troy"
+                },
+                "lastName": {
+                  "default": "Terry"
+                },
+                "name": {
+                  "default": "T. Terry"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 19
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020670/ev112.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 201,
+            "strength": "ev",
+            "playerId": 8481533,
+            "firstName": {
+              "default": "Trevor"
+            },
+            "lastName": {
+              "default": "Zegras"
+            },
+            "name": {
+              "default": "T. Zegras"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8481533.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-phi-zegras-scores-goal-against-lukas-dostal-6387322111112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-phi-zegras-marque-un-but-contre-lukas-dostal-6387323867112",
+            "highlightClip": 6387322111112,
+            "highlightClipFr": 6387323867112,
+            "discreteClip": 6387324437112,
+            "discreteClipFr": 6387321705112,
+            "goalsToDate": 16,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "10:22",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477989,
+                "firstName": {
+                  "default": "Christian"
+                },
+                "lastName": {
+                  "default": "Dvorak"
+                },
+                "name": {
+                  "default": "C. Dvorak"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 22
+              },
+              {
+                "playerId": 8478439,
+                "firstName": {
+                  "default": "Travis"
+                },
+                "lastName": {
+                  "default": "Konecny"
+                },
+                "name": {
+                  "default": "T. Konecny"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 11
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020670/ev201.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 315,
+            "strength": "pp",
+            "playerId": 8481533,
+            "firstName": {
+              "default": "Trevor"
+            },
+            "lastName": {
+              "default": "Zegras"
+            },
+            "name": {
+              "default": "T. Zegras"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8481533.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-phi-zegras-scores-ppg-against-lukas-dostal-6387323282112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-phi-zegras-marque-un-but-en-a-n-contre-lukas-dostal-6387323589112",
+            "highlightClip": 6387323282112,
+            "highlightClipFr": 6387323589112,
+            "discreteClip": 6387323586112,
+            "discreteClipFr": 6387324362112,
+            "goalsToDate": 17,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "PHI"
+            },
+            "timeInPeriod": "14:23",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481546,
+                "firstName": {
+                  "default": "Cam"
+                },
+                "lastName": {
+                  "default": "York"
+                },
+                "name": {
+                  "default": "C. York"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 8
+              },
+              {
+                "playerId": 8476461,
+                "firstName": {
+                  "default": "Sean"
+                },
+                "lastName": {
+                  "default": "Couturier"
+                },
+                "name": {
+                  "default": "S. Couturier"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 14
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020670/ev315.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 470,
+            "strength": "ev",
+            "playerId": 8481546,
+            "firstName": {
+              "default": "Cam"
+            },
+            "lastName": {
+              "default": "York"
+            },
+            "name": {
+              "default": "C. York"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8481546.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-phi-york-scores-goal-against-lukas-dostal-6387326772112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-phi-york-marque-un-but-contre-lukas-dostal-6387325904112",
+            "highlightClip": 6387326772112,
+            "highlightClipFr": 6387325904112,
+            "discreteClip": 6387324427112,
+            "discreteClipFr": 6387324220112,
+            "goalsToDate": 3,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "PHI"
+            },
+            "timeInPeriod": "01:15",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483733,
+                "firstName": {
+                  "default": "Nikita"
+                },
+                "lastName": {
+                  "default": "Grebenkin"
+                },
+                "name": {
+                  "default": "N. Grebenkin"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8480220,
+                "firstName": {
+                  "default": "Noah"
+                },
+                "lastName": {
+                  "default": "Cates"
+                },
+                "name": {
+                  "default": "N. Cates"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 27
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020670/ev470.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 741,
+            "strength": "ev",
+            "playerId": 8477948,
+            "firstName": {
+              "default": "Travis"
+            },
+            "lastName": {
+              "default": "Sanheim"
+            },
+            "name": {
+              "default": "T. Sanheim"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8477948.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-phi-sanheim-scores-goal-against-lukas-dostal-6387328589112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-phi-sanheim-marque-un-but-contre-lukas-dostal-6387329185112",
+            "highlightClip": 6387328589112,
+            "highlightClipFr": 6387329185112,
+            "discreteClip": 6387328212112,
+            "discreteClipFr": 6387326939112,
+            "goalsToDate": 5,
+            "awayScore": 1,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "PHI"
+            },
+            "timeInPeriod": "14:40",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480220,
+                "firstName": {
+                  "default": "Noah"
+                },
+                "lastName": {
+                  "default": "Cates"
+                },
+                "name": {
+                  "default": "N. Cates"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 27
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020670/ev741.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 829,
+            "strength": "pp",
+            "playerId": 8473986,
+            "firstName": {
+              "default": "Alex"
+            },
+            "lastName": {
+              "default": "Killorn"
+            },
+            "name": {
+              "default": "A. Killorn"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8473986.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/alex-killorn-with-a-powerplay-goal-vs-philadelphia-flyers-6387330815112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/alex-killorn-with-a-powerplay-goal-vs-les-flyers-de-philadelphie-6387328759112",
+            "highlightClip": 6387330815112,
+            "highlightClipFr": 6387328759112,
+            "discreteClip": 6387329824112,
+            "discreteClipFr": 6387328863112,
+            "goalsToDate": 4,
+            "awayScore": 2,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "PHI"
+            },
+            "timeInPeriod": "01:25",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478873,
+                "firstName": {
+                  "default": "Troy"
+                },
+                "lastName": {
+                  "default": "Terry"
+                },
+                "name": {
+                  "default": "T. Terry"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 19
+              },
+              {
+                "playerId": 8481605,
+                "firstName": {
+                  "default": "Jackson"
+                },
+                "lastName": {
+                  "default": "LaCombe"
+                },
+                "name": {
+                  "default": "J. LaCombe"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 2
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020670/ev829.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 1154,
+            "strength": "ev",
+            "playerId": 8483733,
+            "firstName": {
+              "default": "Nikita"
+            },
+            "lastName": {
+              "default": "Grebenkin"
+            },
+            "name": {
+              "default": "N. Grebenkin"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8483733.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-phi-grebenkin-scores-empty-net-goal-6387332674112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nikita-grebenkin-with-a-goal-vs-les-ducks-d-anaheim-6387331568112",
+            "highlightClip": 6387332674112,
+            "highlightClipFr": 6387331568112,
+            "discreteClip": 6387331866112,
+            "discreteClipFr": 6387331364112,
+            "goalsToDate": 3,
+            "awayScore": 2,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "PHI"
+            },
+            "timeInPeriod": "18:46",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020670/ev1154.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8481533,
+        "teamAbbrev": "PHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8481533.png",
+        "name": {
+          "default": "T. Zegras"
+        },
+        "sweaterNo": 46,
+        "position": "C",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8481546,
+        "teamAbbrev": "PHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8481546.png",
+        "name": {
+          "default": "C. York"
+        },
+        "sweaterNo": 8,
+        "position": "D",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8480220,
+        "teamAbbrev": "PHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8480220.png",
+        "name": {
+          "default": "N. Cates"
+        },
+        "sweaterNo": 27,
+        "position": "L",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:38",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Cates"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jansen"
+              },
+              "lastName": {
+                "default": "Harkins"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "instigator",
+            "servedBy": {
+              "default": "Nikita Grebenkin"
+            }
+          },
+          {
+            "timeInPeriod": "02:38",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jansen"
+              },
+              "lastName": {
+                "default": "Harkins"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Cates"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "02:38",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Cates"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jansen"
+              },
+              "lastName": {
+                "default": "Harkins"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "02:38",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Cates"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "descKey": "instigator-misconduct"
+          },
+          {
+            "timeInPeriod": "04:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Trevor"
+              },
+              "lastName": {
+                "default": "Zegras"
+              },
+              "sweaterNumber": 46
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Olen"
+              },
+              "lastName": {
+                "default": "Zellweger"
+              },
+              "sweaterNumber": 51
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "08:09",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Troy"
+              },
+              "lastName": {
+                "default": "Terry"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Christian"
+              },
+              "lastName": {
+                "default": "Dvorak"
+              },
+              "sweaterNumber": 22
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "12:49",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "J. Harkins"
+            }
+          },
+          {
+            "timeInPeriod": "18:08",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Beckett"
+              },
+              "lastName": {
+                "default": "Sennecke"
+              },
+              "sweaterNumber": 45
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Trevor"
+              },
+              "lastName": {
+                "default": "Zegras"
+              },
+              "sweaterNumber": 46
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:39",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ross"
+              },
+              "lastName": {
+                "default": "Johnston"
+              },
+              "sweaterNumber": 44
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jamie"
+              },
+              "lastName": {
+                "default": "Drysdale"
+              },
+              "sweaterNumber": 9
+            },
+            "descKey": "interference",
+            "servedBy": {
+              "default": "J. Harkins"
+            }
+          },
+          {
+            "timeInPeriod": "02:39",
+            "type": "GAM",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ross"
+              },
+              "lastName": {
+                "default": "Johnston"
+              },
+              "sweaterNumber": 44
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "descKey": "game-misconduct"
+          },
+          {
+            "timeInPeriod": "09:23",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Leo"
+              },
+              "lastName": {
+                "default": "Carlsson"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Garnet"
+              },
+              "lastName": {
+                "default": "Hathaway"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "interference"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:09",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sean"
+              },
+              "lastName": {
+                "default": "Couturier"
+              },
+              "sweaterNumber": 14
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Cutter"
+              },
+              "lastName": {
+                "default": "Gauthier"
+              },
+              "sweaterNumber": 61
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "07:51",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Garnet"
+              },
+              "lastName": {
+                "default": "Hathaway"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Radko"
+              },
+              "lastName": {
+                "default": "Gudas"
+              },
+              "sweaterNumber": 7
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "07:51",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Radko"
+              },
+              "lastName": {
+                "default": "Gudas"
+              },
+              "sweaterNumber": 7
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Garnet"
+              },
+              "lastName": {
+                "default": "Hathaway"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "08:14",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jacob"
+              },
+              "lastName": {
+                "default": "Trouba"
+              },
+              "sweaterNumber": 65
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Denver"
+              },
+              "lastName": {
+                "default": "Barkey"
+              },
+              "sweaterNumber": 52
+            },
+            "descKey": "elbowing"
+          },
+          {
+            "timeInPeriod": "09:29",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Chris"
+              },
+              "lastName": {
+                "default": "Kreider"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Cates"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "15:46",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Radko"
+              },
+              "lastName": {
+                "default": "Gudas"
+              },
+              "sweaterNumber": 7
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Cates"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "elbowing"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

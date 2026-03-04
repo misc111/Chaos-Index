@@ -1,0 +1,1050 @@
+{
+  "id": 2025020715,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-11",
+  "venue": {
+    "default": "SAP Center at San Jose"
+  },
+  "venueLocation": {
+    "default": "San Jose"
+  },
+  "startTimeUTC": "2026-01-12T01:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "US/Pacific",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 21
+    },
+    {
+      "id": 324,
+      "market": "N",
+      "countryCode": "US",
+      "network": "NHLN",
+      "sequenceNumber": 35
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 314,
+      "market": "H",
+      "countryCode": "US",
+      "network": "NBCSCA",
+      "sequenceNumber": 393
+    },
+    {
+      "id": 521,
+      "market": "A",
+      "countryCode": "US",
+      "network": "SCRIPPS",
+      "sequenceNumber": 657
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 54,
+    "commonName": {
+      "default": "Golden Knights"
+    },
+    "abbrev": "VGK",
+    "placeName": {
+      "default": "Vegas"
+    },
+    "placeNameWithPreposition": {
+      "default": "Vegas",
+      "fr": "de Vegas"
+    },
+    "score": 7,
+    "sog": 32,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VGK_dark.svg"
+  },
+  "homeTeam": {
+    "id": 28,
+    "commonName": {
+      "default": "Sharks"
+    },
+    "abbrev": "SJS",
+    "placeName": {
+      "default": "San Jose"
+    },
+    "placeNameWithPreposition": {
+      "default": "San Jose",
+      "fr": "de San Jose"
+    },
+    "score": 2,
+    "sog": 20,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SJS_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/SJS_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 209,
+            "strength": "ev",
+            "playerId": 8478403,
+            "firstName": {
+              "default": "Jack"
+            },
+            "lastName": {
+              "default": "Eichel"
+            },
+            "name": {
+              "default": "J. Eichel"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8478403.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-sjs-eichel-scores-goal-against-yaroslav-askarov-6387582164112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-sjs-eichel-marque-un-but-contre-yaroslav-askarov-6387582662112",
+            "highlightClip": 6387582164112,
+            "highlightClipFr": 6387582662112,
+            "discreteClip": 6387582347112,
+            "discreteClipFr": 6387582349112,
+            "goalsToDate": 15,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "07:19",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477964,
+                "firstName": {
+                  "default": "Ivan"
+                },
+                "lastName": {
+                  "default": "Barbashev",
+                  "cs": "Barba\u0161ev",
+                  "fi": "Barbashov",
+                  "sk": "Barba\u0161ev"
+                },
+                "name": {
+                  "default": "I. Barbashev",
+                  "cs": "I. Barba\u0161ev",
+                  "fi": "I. Barbashov",
+                  "sk": "I. Barba\u0161ev"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 49
+              },
+              {
+                "playerId": 8478468,
+                "firstName": {
+                  "default": "Jeremy"
+                },
+                "lastName": {
+                  "default": "Lauzon"
+                },
+                "name": {
+                  "default": "J. Lauzon"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 5
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020715/ev209.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 240,
+            "strength": "ev",
+            "playerId": 8484911,
+            "firstName": {
+              "default": "Collin"
+            },
+            "lastName": {
+              "default": "Graf"
+            },
+            "name": {
+              "default": "C. Graf"
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8484911.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-sjs-graf-scores-goal-against-carl-lindbom-6387582856112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-sjs-graf-marque-un-but-contre-carl-lindbom-6387582460112",
+            "highlightClip": 6387582856112,
+            "highlightClipFr": 6387582460112,
+            "discreteClip": 6387582762112,
+            "discreteClipFr": 6387581985112,
+            "goalsToDate": 12,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "09:33",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475784,
+                "firstName": {
+                  "default": "Jeff"
+                },
+                "lastName": {
+                  "default": "Skinner"
+                },
+                "name": {
+                  "default": "J. Skinner"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 53
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020715/ev240.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 308,
+            "strength": "pp",
+            "playerId": 8481604,
+            "firstName": {
+              "default": "Pavel"
+            },
+            "lastName": {
+              "default": "Dorofeyev",
+              "cs": "Dorofejev",
+              "fi": "Dorofejev",
+              "sk": "Dorofejev"
+            },
+            "name": {
+              "default": "P. Dorofeyev",
+              "cs": "P. Dorofejev",
+              "fi": "P. Dorofejev",
+              "sk": "P. Dorofejev"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8481604.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-sjs-dorofeyev-scores-ppg-against-yaroslav-askarov-6387581876112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-sjs-dorofeyev-marque-un-but-en-a-n-contre-yaroslav-askarov-6387583350112",
+            "highlightClip": 6387581876112,
+            "highlightClipFr": 6387583350112,
+            "discreteClip": 6387582166112,
+            "discreteClipFr": 6387583153112,
+            "goalsToDate": 17,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "10:57",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476881,
+                "firstName": {
+                  "default": "Tomas",
+                  "cs": "Tom\u00e1\u0161",
+                  "sk": "Tom\u00e1\u0161"
+                },
+                "lastName": {
+                  "default": "Hertl"
+                },
+                "name": {
+                  "default": "T. Hertl"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 48
+              },
+              {
+                "playerId": 8475913,
+                "firstName": {
+                  "default": "Mark"
+                },
+                "lastName": {
+                  "default": "Stone"
+                },
+                "name": {
+                  "default": "M. Stone"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 61
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020715/ev308.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 532,
+            "strength": "ev",
+            "playerId": 8478403,
+            "firstName": {
+              "default": "Jack"
+            },
+            "lastName": {
+              "default": "Eichel"
+            },
+            "name": {
+              "default": "J. Eichel"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8478403.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-sjs-eichel-scores-goal-against-yaroslav-askarov-6387584097112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-sjs-eichel-marque-un-but-contre-yaroslav-askarov-6387584763112",
+            "highlightClip": 6387584097112,
+            "highlightClipFr": 6387584763112,
+            "discreteClip": 6387584852112,
+            "discreteClipFr": 6387583786112,
+            "goalsToDate": 16,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "04:19",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475913,
+                "firstName": {
+                  "default": "Mark"
+                },
+                "lastName": {
+                  "default": "Stone"
+                },
+                "name": {
+                  "default": "M. Stone"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 61
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020715/ev532.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 258,
+            "strength": "pp",
+            "playerId": 8476881,
+            "firstName": {
+              "default": "Tomas",
+              "cs": "Tom\u00e1\u0161",
+              "sk": "Tom\u00e1\u0161"
+            },
+            "lastName": {
+              "default": "Hertl"
+            },
+            "name": {
+              "default": "T. Hertl"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8476881.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-sjs-hertl-scores-ppg-against-yaroslav-askarov-6387584979112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-sjs-hertl-marque-un-but-en-a-n-contre-yaroslav-askarov-6387587037112",
+            "highlightClip": 6387584979112,
+            "highlightClipFr": 6387587037112,
+            "discreteClip": 6387585867112,
+            "discreteClipFr": 6387585565112,
+            "goalsToDate": 17,
+            "awayScore": 4,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "11:00",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475913,
+                "firstName": {
+                  "default": "Mark"
+                },
+                "lastName": {
+                  "default": "Stone"
+                },
+                "name": {
+                  "default": "M. Stone"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 61
+              },
+              {
+                "playerId": 8481604,
+                "firstName": {
+                  "default": "Pavel"
+                },
+                "lastName": {
+                  "default": "Dorofeyev",
+                  "cs": "Dorofejev",
+                  "fi": "Dorofejev",
+                  "sk": "Dorofejev"
+                },
+                "name": {
+                  "default": "P. Dorofeyev",
+                  "cs": "P. Dorofejev",
+                  "fi": "P. Dorofejev",
+                  "sk": "P. Dorofejev"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 16
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020715/ev258.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 676,
+            "strength": "ev",
+            "playerId": 8480727,
+            "firstName": {
+              "default": "Zach"
+            },
+            "lastName": {
+              "default": "Whitecloud"
+            },
+            "name": {
+              "default": "Z. Whitecloud"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8480727.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-sjs-whitecloud-scores-goal-against-yaroslav-askarov-6387584991112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-sjs-whitecloud-marque-un-but-contre-yaroslav-askarov-6387585996112",
+            "highlightClip": 6387584991112,
+            "highlightClipFr": 6387585996112,
+            "discreteClip": 6387585871112,
+            "discreteClipFr": 6387585383112,
+            "goalsToDate": 2,
+            "awayScore": 5,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "12:25",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476881,
+                "firstName": {
+                  "default": "Tomas",
+                  "cs": "Tom\u00e1\u0161",
+                  "sk": "Tom\u00e1\u0161"
+                },
+                "lastName": {
+                  "default": "Hertl"
+                },
+                "name": {
+                  "default": "T. Hertl"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 48
+              },
+              {
+                "playerId": 8478396,
+                "firstName": {
+                  "default": "Noah"
+                },
+                "lastName": {
+                  "default": "Hanifin"
+                },
+                "name": {
+                  "default": "N. Hanifin"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 15
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020715/ev676.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 722,
+            "strength": "ev",
+            "playerId": 8477505,
+            "firstName": {
+              "default": "Alexander"
+            },
+            "lastName": {
+              "default": "Wennberg"
+            },
+            "name": {
+              "default": "A. Wennberg"
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8477505.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-sjs-wennberg-scores-goal-against-carl-lindbom-6387585412112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-sjs-wennberg-marque-un-but-contre-carl-lindbom-6387587542112",
+            "highlightClip": 6387585412112,
+            "highlightClipFr": 6387587542112,
+            "discreteClip": 6387585210112,
+            "discreteClipFr": 6387584308112,
+            "goalsToDate": 10,
+            "awayScore": 5,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "16:29",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480043,
+                "firstName": {
+                  "default": "Timothy"
+                },
+                "lastName": {
+                  "default": "Liljegren"
+                },
+                "name": {
+                  "default": "T. Liljegren"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 37
+              },
+              {
+                "playerId": 8475726,
+                "firstName": {
+                  "default": "Tyler"
+                },
+                "lastName": {
+                  "default": "Toffoli"
+                },
+                "name": {
+                  "default": "T. Toffoli"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 73
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020715/ev722.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1560",
+            "eventId": 262,
+            "strength": "ev",
+            "playerId": 8477447,
+            "firstName": {
+              "default": "Shea"
+            },
+            "lastName": {
+              "default": "Theodore"
+            },
+            "name": {
+              "default": "S. Theodore"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8477447.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-sjs-theodore-scores-empty-net-goal-6387587998112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-sjs-theodore-vgk-marque-un-but-dans-un-filet-desert-6387588775112",
+            "highlightClip": 6387587998112,
+            "highlightClipFr": 6387588775112,
+            "discreteClip": 6387587781112,
+            "discreteClipFr": 6387587315112,
+            "goalsToDate": 6,
+            "awayScore": 6,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "17:03",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8476881,
+                "firstName": {
+                  "default": "Tomas",
+                  "cs": "Tom\u00e1\u0161",
+                  "sk": "Tom\u00e1\u0161"
+                },
+                "lastName": {
+                  "default": "Hertl"
+                },
+                "name": {
+                  "default": "T. Hertl"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 48
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020715/ev262.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1046,
+            "strength": "ev",
+            "playerId": 8476881,
+            "firstName": {
+              "default": "Tomas",
+              "cs": "Tom\u00e1\u0161",
+              "sk": "Tom\u00e1\u0161"
+            },
+            "lastName": {
+              "default": "Hertl"
+            },
+            "name": {
+              "default": "T. Hertl"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8476881.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-sjs-hertl-scores-goal-against-yaroslav-askarov-6387589265112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-sjs-hertl-marque-un-but-contre-yaroslav-askarov-6387588597112",
+            "highlightClip": 6387589265112,
+            "highlightClipFr": 6387588597112,
+            "discreteClip": 6387588382112,
+            "discreteClipFr": 6387588599112,
+            "goalsToDate": 18,
+            "awayScore": 7,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "18:59",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481604,
+                "firstName": {
+                  "default": "Pavel"
+                },
+                "lastName": {
+                  "default": "Dorofeyev",
+                  "cs": "Dorofejev",
+                  "fi": "Dorofejev",
+                  "sk": "Dorofejev"
+                },
+                "name": {
+                  "default": "P. Dorofeyev",
+                  "cs": "P. Dorofejev",
+                  "fi": "P. Dorofejev",
+                  "sk": "P. Dorofejev"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 16
+              },
+              {
+                "playerId": 8478396,
+                "firstName": {
+                  "default": "Noah"
+                },
+                "lastName": {
+                  "default": "Hanifin"
+                },
+                "name": {
+                  "default": "N. Hanifin"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 15
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020715/ev1046.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8476881,
+        "teamAbbrev": "VGK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8476881.png",
+        "name": {
+          "default": "T. Hertl"
+        },
+        "sweaterNo": 48,
+        "position": "C",
+        "goals": 2,
+        "assists": 3,
+        "points": 5
+      },
+      {
+        "star": 2,
+        "playerId": 8478403,
+        "teamAbbrev": "VGK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8478403.png",
+        "name": {
+          "default": "J. Eichel"
+        },
+        "sweaterNo": 9,
+        "position": "C",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8475913,
+        "teamAbbrev": "VGK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8475913.png",
+        "name": {
+          "default": "M. Stone"
+        },
+        "sweaterNo": 61,
+        "position": "R",
+        "goals": 0,
+        "assists": 3,
+        "points": 3
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:09",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Hanifin"
+              },
+              "sweaterNumber": 15
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "William"
+              },
+              "lastName": {
+                "default": "Eklund"
+              },
+              "sweaterNumber": 72
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "09:54",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Timothy"
+              },
+              "lastName": {
+                "default": "Liljegren"
+              },
+              "sweaterNumber": 37
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jack"
+              },
+              "lastName": {
+                "default": "Eichel"
+              },
+              "sweaterNumber": 9
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "18:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Pavel"
+              },
+              "lastName": {
+                "default": "Dorofeyev",
+                "cs": "Dorofejev",
+                "fi": "Dorofejev",
+                "sk": "Dorofejev"
+              },
+              "sweaterNumber": 16
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Collin"
+              },
+              "lastName": {
+                "default": "Graf"
+              },
+              "sweaterNumber": 51
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "07:11",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jeremy"
+              },
+              "lastName": {
+                "default": "Lauzon"
+              },
+              "sweaterNumber": 5
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Macklin"
+              },
+              "lastName": {
+                "default": "Celebrini"
+              },
+              "sweaterNumber": 71
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "09:33",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sam"
+              },
+              "lastName": {
+                "default": "Dickinson"
+              },
+              "sweaterNumber": 6
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jeremy"
+              },
+              "lastName": {
+                "default": "Lauzon"
+              },
+              "sweaterNumber": 5
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "13:05",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "William"
+              },
+              "lastName": {
+                "default": "Eklund"
+              },
+              "sweaterNumber": 72
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Zach"
+              },
+              "lastName": {
+                "default": "Whitecloud"
+              },
+              "sweaterNumber": 2
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:13",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jack"
+              },
+              "lastName": {
+                "default": "Eichel"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Tyler"
+              },
+              "lastName": {
+                "default": "Toffoli"
+              },
+              "sweaterNumber": 73
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "09:11",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Cole"
+              },
+              "lastName": {
+                "default": "Reinhardt"
+              },
+              "sweaterNumber": 23
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "William"
+              },
+              "lastName": {
+                "default": "Eklund"
+              },
+              "sweaterNumber": 72
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "09:28",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tyler"
+              },
+              "lastName": {
+                "default": "Toffoli"
+              },
+              "sweaterNumber": 73
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jeremy"
+              },
+              "lastName": {
+                "default": "Lauzon"
+              },
+              "sweaterNumber": 5
+            },
+            "descKey": "hooking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

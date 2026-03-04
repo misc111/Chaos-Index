@@ -1,0 +1,702 @@
+{
+  "id": 2025020832,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-27",
+  "venue": {
+    "default": "Centre Bell"
+  },
+  "venueLocation": {
+    "default": "Montreal",
+    "fr": "Montr\u00e9al"
+  },
+  "startTimeUTC": "2026-01-28T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "America/Montreal",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 131,
+      "market": "H",
+      "countryCode": "CA",
+      "network": "TSN2",
+      "sequenceNumber": 112
+    },
+    {
+      "id": 33,
+      "market": "H",
+      "countryCode": "CA",
+      "network": "RDS",
+      "sequenceNumber": 145
+    },
+    {
+      "id": 521,
+      "market": "A",
+      "countryCode": "US",
+      "network": "SCRIPPS",
+      "sequenceNumber": 657
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 54,
+    "commonName": {
+      "default": "Golden Knights"
+    },
+    "abbrev": "VGK",
+    "placeName": {
+      "default": "Vegas"
+    },
+    "placeNameWithPreposition": {
+      "default": "Vegas",
+      "fr": "de Vegas"
+    },
+    "score": 2,
+    "sog": 34,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VGK_dark.svg"
+  },
+  "homeTeam": {
+    "id": 8,
+    "commonName": {
+      "default": "Canadiens"
+    },
+    "abbrev": "MTL",
+    "placeName": {
+      "default": "Montr\u00e9al"
+    },
+    "placeNameWithPreposition": {
+      "default": "Montr\u00e9al",
+      "fr": "de Montr\u00e9al"
+    },
+    "score": 3,
+    "sog": 26,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MTL_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 158,
+            "strength": "ev",
+            "playerId": 8481604,
+            "firstName": {
+              "default": "Pavel"
+            },
+            "lastName": {
+              "default": "Dorofeyev",
+              "cs": "Dorofejev",
+              "fi": "Dorofejev",
+              "sk": "Dorofejev"
+            },
+            "name": {
+              "default": "P. Dorofeyev",
+              "cs": "P. Dorofejev",
+              "fi": "P. Dorofejev",
+              "sk": "P. Dorofejev"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8481604.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-mtl-dorofeyev-scores-goal-against-jakub-dobes-6388401158112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-mtl-dorofeyev-marque-un-but-contre-jakub-dobes-6388402419112",
+            "highlightClip": 6388401158112,
+            "highlightClipFr": 6388402419112,
+            "discreteClip": 6388400764112,
+            "discreteClipFr": 6388401634112,
+            "goalsToDate": 23,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "08:38",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020832/ev158.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 432,
+            "strength": "ev",
+            "playerId": 8476479,
+            "firstName": {
+              "default": "Phillip"
+            },
+            "lastName": {
+              "default": "Danault"
+            },
+            "name": {
+              "default": "P. Danault"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8476479.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-mtl-danault-scores-goal-against-akira-schmid-6388405040112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-mtl-danault-marque-un-but-contre-akira-schmid-6388404466112",
+            "highlightClip": 6388405040112,
+            "highlightClipFr": 6388404466112,
+            "discreteClip": 6388403375112,
+            "discreteClipFr": 6388404257112,
+            "goalsToDate": 2,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "04:24",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482737,
+                "firstName": {
+                  "default": "Zachary"
+                },
+                "lastName": {
+                  "default": "Bolduc"
+                },
+                "name": {
+                  "default": "Z. Bolduc"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 76
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020832/ev432.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 593,
+            "strength": "ev",
+            "playerId": 8481540,
+            "firstName": {
+              "default": "Cole"
+            },
+            "lastName": {
+              "default": "Caufield"
+            },
+            "name": {
+              "default": "C. Caufield"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8481540.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-mtl-caufield-scores-goal-against-akira-schmid-6388403602112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-mtl-caufield-marque-un-but-contre-akira-schmid-6388405164112",
+            "highlightClip": 6388403602112,
+            "highlightClipFr": 6388405164112,
+            "discreteClip": 6388404488112,
+            "discreteClipFr": 6388404971112,
+            "goalsToDate": 30,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "08:55",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480865,
+                "firstName": {
+                  "default": "Noah"
+                },
+                "lastName": {
+                  "default": "Dobson"
+                },
+                "name": {
+                  "default": "N. Dobson"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 53
+              },
+              {
+                "playerId": 8476875,
+                "firstName": {
+                  "default": "Mike"
+                },
+                "lastName": {
+                  "default": "Matheson"
+                },
+                "name": {
+                  "default": "M. Matheson"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 8
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020832/ev593.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 939,
+            "strength": "ev",
+            "playerId": 8481604,
+            "firstName": {
+              "default": "Pavel"
+            },
+            "lastName": {
+              "default": "Dorofeyev",
+              "cs": "Dorofejev",
+              "fi": "Dorofejev",
+              "sk": "Dorofejev"
+            },
+            "name": {
+              "default": "P. Dorofeyev",
+              "cs": "P. Dorofejev",
+              "fi": "P. Dorofejev",
+              "sk": "P. Dorofejev"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8481604.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-mtl-dorofeyev-scores-goal-against-jakub-dobes-6388407245112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-mtl-dorofeyev-marque-un-but-contre-jakub-dobes-6388408906112",
+            "highlightClip": 6388407245112,
+            "highlightClipFr": 6388408906112,
+            "discreteClip": 6388408984112,
+            "discreteClipFr": 6388406840112,
+            "goalsToDate": 24,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "16:52",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477018,
+                "firstName": {
+                  "default": "Ben"
+                },
+                "lastName": {
+                  "default": "Hutton"
+                },
+                "name": {
+                  "default": "B. Hutton"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 17
+              },
+              {
+                "playerId": 8483890,
+                "firstName": {
+                  "default": "Braeden"
+                },
+                "lastName": {
+                  "default": "Bowman"
+                },
+                "name": {
+                  "default": "B. Bowman"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 42
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020832/ev939.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1441",
+            "eventId": 1028,
+            "strength": "ev",
+            "playerId": 8478133,
+            "firstName": {
+              "default": "Jake"
+            },
+            "lastName": {
+              "default": "Evans"
+            },
+            "name": {
+              "default": "J. Evans"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8478133.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-mtl-evans-scores-goal-against-akira-schmid-6388410507112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-mtl-evans-marque-un-but-contre-akira-schmid-6388409322112",
+            "highlightClip": 6388410507112,
+            "highlightClipFr": 6388409322112,
+            "discreteClip": 6388408742112,
+            "discreteClipFr": 6388409412112,
+            "goalsToDate": 6,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "03:58",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480074,
+                "firstName": {
+                  "default": "Alexandre"
+                },
+                "lastName": {
+                  "default": "Texier"
+                },
+                "name": {
+                  "default": "A. Texier"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 85
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020832/ev1028.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8478133,
+        "teamAbbrev": "MTL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8478133.png",
+        "name": {
+          "default": "J. Evans"
+        },
+        "sweaterNo": 71,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8482487,
+        "teamAbbrev": "MTL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8482487.png",
+        "name": {
+          "default": "J. Dobes"
+        },
+        "sweaterNo": 75,
+        "position": "G",
+        "goalsAgainstAverage": 1.88,
+        "savePctg": 0.941
+      },
+      {
+        "star": 3,
+        "playerId": 8481604,
+        "teamAbbrev": "VGK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8481604.png",
+        "name": {
+          "default": "P. Dorofeyev",
+          "cs": "P. Dorofejev",
+          "fi": "P. Dorofejev",
+          "sk": "P. Dorofejev"
+        },
+        "sweaterNo": 16,
+        "position": "R",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:36",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ivan"
+              },
+              "lastName": {
+                "default": "Barbashev",
+                "cs": "Barba\u0161ev",
+                "fi": "Barbashov",
+                "sk": "Barba\u0161ev"
+              },
+              "sweaterNumber": 49
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "Evans"
+              },
+              "sweaterNumber": 71
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "10:31",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Alexander"
+              },
+              "lastName": {
+                "default": "Holtz"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Phillip"
+              },
+              "lastName": {
+                "default": "Danault"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "16:34",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Cole"
+              },
+              "lastName": {
+                "default": "Caufield"
+              },
+              "sweaterNumber": 13
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mitch",
+                "cs": "Mitchell",
+                "de": "Mitchell",
+                "es": "Mitchell",
+                "fi": "Mitchell",
+                "sk": "Mitchell",
+                "sv": "Mitchell"
+              },
+              "lastName": {
+                "default": "Marner"
+              },
+              "sweaterNumber": 93
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "19:18",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Lane"
+              },
+              "lastName": {
+                "default": "Hutson"
+              },
+              "sweaterNumber": 48
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ivan"
+              },
+              "lastName": {
+                "default": "Barbashev",
+                "cs": "Barba\u0161ev",
+                "fi": "Barbashov",
+                "sk": "Barba\u0161ev"
+              },
+              "sweaterNumber": 49
+            },
+            "descKey": "holding-the-stick"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:37",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Oliver"
+              },
+              "lastName": {
+                "default": "Kapanen"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mark"
+              },
+              "lastName": {
+                "default": "Stone"
+              },
+              "sweaterNumber": 61
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "09:01",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Shea"
+              },
+              "lastName": {
+                "default": "Theodore"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Kaiden"
+              },
+              "lastName": {
+                "default": "Guhle"
+              },
+              "sweaterNumber": 21
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "19:27",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Rasmus"
+              },
+              "lastName": {
+                "default": "Andersson"
+              },
+              "sweaterNumber": 4
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Alexandre"
+              },
+              "lastName": {
+                "default": "Texier"
+              },
+              "sweaterNumber": 85
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "01:02",
+    "secondsRemaining": 62,
+    "running": false,
+    "inIntermission": false
+  }
+}

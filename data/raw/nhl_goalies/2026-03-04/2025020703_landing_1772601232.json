@@ -1,0 +1,619 @@
+{
+  "id": 2025020703,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-10",
+  "venue": {
+    "default": "Centre Bell"
+  },
+  "venueLocation": {
+    "default": "Montreal",
+    "fr": "Montr\u00e9al"
+  },
+  "startTimeUTC": "2026-01-11T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "America/Montreal",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 287,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SNE",
+      "sequenceNumber": 30
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 286,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CITY",
+      "sequenceNumber": 137
+    },
+    {
+      "id": 562,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNDET",
+      "sequenceNumber": 282
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 17,
+    "commonName": {
+      "default": "Red Wings"
+    },
+    "abbrev": "DET",
+    "placeName": {
+      "default": "Detroit"
+    },
+    "placeNameWithPreposition": {
+      "default": "Detroit",
+      "fr": "de Detroit"
+    },
+    "score": 4,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/DET_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/DET_dark.svg?season=20252026"
+  },
+  "homeTeam": {
+    "id": 8,
+    "commonName": {
+      "default": "Canadiens"
+    },
+    "abbrev": "MTL",
+    "placeName": {
+      "default": "Montr\u00e9al"
+    },
+    "placeNameWithPreposition": {
+      "default": "Montr\u00e9al",
+      "fr": "de Montr\u00e9al"
+    },
+    "score": 0,
+    "sog": 27,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MTL_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 587,
+            "strength": "ev",
+            "playerId": 8482078,
+            "firstName": {
+              "default": "Lucas"
+            },
+            "lastName": {
+              "default": "Raymond"
+            },
+            "name": {
+              "default": "L. Raymond"
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8482078.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/det-mtl-raymond-scores-goal-against-jacob-fowler-6387546275112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/det-mtl-raymond-marque-un-but-contre-jacob-fowler-6387547156112",
+            "highlightClip": 6387546275112,
+            "highlightClipFr": 6387547156112,
+            "discreteClip": 6387546482112,
+            "discreteClipFr": 6387545693112,
+            "goalsToDate": 14,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "DET"
+            },
+            "timeInPeriod": "04:52",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8474037,
+                "firstName": {
+                  "default": "James"
+                },
+                "lastName": {
+                  "default": "van Riemsdyk"
+                },
+                "name": {
+                  "default": "J. van Riemsdyk"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 21
+              },
+              {
+                "playerId": 8480879,
+                "firstName": {
+                  "default": "Jacob"
+                },
+                "lastName": {
+                  "default": "Bernard-Docker"
+                },
+                "name": {
+                  "default": "J. Bernard-Docker"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 25
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020703/ev587.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 676,
+            "strength": "pp",
+            "playerId": 8477946,
+            "firstName": {
+              "default": "Dylan"
+            },
+            "lastName": {
+              "default": "Larkin"
+            },
+            "name": {
+              "default": "D. Larkin"
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8477946.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/det-mtl-larkin-scores-ppg-against-jacob-fowler-6387547181112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/det-mtl-larkin-marque-un-but-en-a-n-contre-jacob-fowler-6387547564112",
+            "highlightClip": 6387547181112,
+            "highlightClipFr": 6387547564112,
+            "discreteClip": 6387546001112,
+            "discreteClipFr": 6387546121112,
+            "goalsToDate": 23,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "DET"
+            },
+            "timeInPeriod": "11:43",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479337,
+                "firstName": {
+                  "default": "Alex"
+                },
+                "lastName": {
+                  "default": "DeBrincat"
+                },
+                "name": {
+                  "default": "A. DeBrincat"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 93
+              },
+              {
+                "playerId": 8481542,
+                "firstName": {
+                  "default": "Moritz"
+                },
+                "lastName": {
+                  "default": "Seider"
+                },
+                "name": {
+                  "default": "M. Seider"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 53
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020703/ev676.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 798,
+            "strength": "ev",
+            "playerId": 8479337,
+            "firstName": {
+              "default": "Alex"
+            },
+            "lastName": {
+              "default": "DeBrincat"
+            },
+            "name": {
+              "default": "A. DeBrincat"
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8479337.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/det-mtl-debrincat-scores-goal-against-jacob-fowler-6387548402112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/det-mtl-debrincat-marque-un-but-contre-jacob-fowler-6387547828112",
+            "highlightClip": 6387548402112,
+            "highlightClipFr": 6387547828112,
+            "discreteClip": 6387547342112,
+            "discreteClipFr": 6387547126112,
+            "goalsToDate": 23,
+            "awayScore": 3,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "DET"
+            },
+            "timeInPeriod": "00:34",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8474141,
+                "firstName": {
+                  "default": "Patrick"
+                },
+                "lastName": {
+                  "default": "Kane"
+                },
+                "name": {
+                  "default": "P. Kane"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 88
+              },
+              {
+                "playerId": 8477429,
+                "firstName": {
+                  "default": "Andrew"
+                },
+                "lastName": {
+                  "default": "Copp"
+                },
+                "name": {
+                  "default": "A. Copp"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 18
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020703/ev798.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 156,
+            "strength": "ev",
+            "playerId": 8477429,
+            "firstName": {
+              "default": "Andrew"
+            },
+            "lastName": {
+              "default": "Copp"
+            },
+            "name": {
+              "default": "A. Copp"
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8477429.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/det-mtl-copp-scores-empty-net-goal-6387551688112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/andrew-copp-with-a-but-vs-les-canadiens-de-montreal-6387549055112",
+            "highlightClip": 6387551688112,
+            "highlightClipFr": 6387549055112,
+            "discreteClip": 6387551499112,
+            "discreteClipFr": 6387549054112,
+            "goalsToDate": 7,
+            "awayScore": 4,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "DET"
+            },
+            "timeInPeriod": "18:53",
+            "shotType": "tip-in",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8479337,
+                "firstName": {
+                  "default": "Alex"
+                },
+                "lastName": {
+                  "default": "DeBrincat"
+                },
+                "name": {
+                  "default": "A. DeBrincat"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 93
+              },
+              {
+                "playerId": 8477946,
+                "firstName": {
+                  "default": "Dylan"
+                },
+                "lastName": {
+                  "default": "Larkin"
+                },
+                "name": {
+                  "default": "D. Larkin"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 71
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020703/ev156.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8476434,
+        "teamAbbrev": "DET",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8476434.png",
+        "name": {
+          "default": "J. Gibson"
+        },
+        "sweaterNo": 36,
+        "position": "G",
+        "goalsAgainstAverage": 0.0,
+        "savePctg": 1.0
+      },
+      {
+        "star": 2,
+        "playerId": 8479337,
+        "teamAbbrev": "DET",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8479337.png",
+        "name": {
+          "default": "A. DeBrincat"
+        },
+        "sweaterNo": 93,
+        "position": "R",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8482964,
+        "teamAbbrev": "MTL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8482964.png",
+        "name": {
+          "default": "A. Xhekaj"
+        },
+        "sweaterNo": 72,
+        "position": "D",
+        "goals": 0,
+        "assists": 0,
+        "points": 0
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:59",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Alexandre"
+              },
+              "lastName": {
+                "default": "Carrier"
+              },
+              "sweaterNumber": 45
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Rasmussen"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "holding-the-stick"
+          },
+          {
+            "timeInPeriod": "10:43",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brendan"
+              },
+              "lastName": {
+                "default": "Gallagher"
+              },
+              "sweaterNumber": 11
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mason"
+              },
+              "lastName": {
+                "default": "Appleton"
+              },
+              "sweaterNumber": 22
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:31",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Alexandre"
+              },
+              "lastName": {
+                "default": "Texier"
+              },
+              "sweaterNumber": 85
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "J.T."
+              },
+              "lastName": {
+                "default": "Compher"
+              },
+              "sweaterNumber": 37
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "09:30",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Emmitt"
+              },
+              "lastName": {
+                "default": "Finnie"
+              },
+              "sweaterNumber": 58
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Dobson"
+              },
+              "sweaterNumber": 53
+            },
+            "descKey": "holding-the-stick"
+          },
+          {
+            "timeInPeriod": "11:37",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "Owen Beck"
+            }
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "10:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Oliver"
+              },
+              "lastName": {
+                "default": "Kapanen"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Moritz"
+              },
+              "lastName": {
+                "default": "Seider"
+              },
+              "sweaterNumber": 53
+            },
+            "descKey": "roughing"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

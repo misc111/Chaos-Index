@@ -1,0 +1,758 @@
+{
+  "id": 2025020756,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-17",
+  "venue": {
+    "default": "Scotiabank Saddledome"
+  },
+  "venueLocation": {
+    "default": "Calgary"
+  },
+  "startTimeUTC": "2026-01-17T20:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-07:00",
+  "venueTimezone": "US/Mountain",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 4,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC",
+      "sequenceNumber": 101
+    },
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 107
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 409,
+      "market": "A",
+      "countryCode": "US",
+      "network": "MSGSN",
+      "sequenceNumber": 411
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 2,
+    "commonName": {
+      "default": "Islanders"
+    },
+    "abbrev": "NYI",
+    "placeName": {
+      "default": "New York"
+    },
+    "placeNameWithPreposition": {
+      "default": "New York",
+      "fr": "de New York"
+    },
+    "score": 2,
+    "sog": 30,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NYI_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NYI_dark.svg"
+  },
+  "homeTeam": {
+    "id": 20,
+    "commonName": {
+      "default": "Flames"
+    },
+    "abbrev": "CGY",
+    "placeName": {
+      "default": "Calgary"
+    },
+    "placeNameWithPreposition": {
+      "default": "Calgary",
+      "fr": "de Calgary"
+    },
+    "score": 4,
+    "sog": 19,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CGY_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CGY_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 213,
+            "strength": "ev",
+            "playerId": 8481068,
+            "firstName": {
+              "default": "Yegor",
+              "cs": "Jegor",
+              "fi": "Jahor",
+              "sk": "Jegor"
+            },
+            "lastName": {
+              "default": "Sharangovich",
+              "cs": "\u0160arangovi\u010d",
+              "fi": "Sharanhovitsh",
+              "sk": "\u0160arangovi\u010d"
+            },
+            "name": {
+              "default": "Y. Sharangovich",
+              "cs": "J. \u0160arangovi\u010d",
+              "fi": "J. Sharanhovitsh",
+              "sk": "J. \u0160arangovi\u010d"
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8481068.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyi-cgy-sharangovich-scores-goal-against-david-rittich-6387874895112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyi-cgy-sharangovich-marque-un-but-contre-david-rittich-6387872152112",
+            "highlightClip": 6387874895112,
+            "highlightClipFr": 6387872152112,
+            "discreteClip": 6387875190112,
+            "discreteClipFr": 6387872946112,
+            "goalsToDate": 10,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CGY"
+            },
+            "timeInPeriod": "11:51",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478397,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Andersson"
+                },
+                "name": {
+                  "default": "R. Andersson"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 4
+              },
+              {
+                "playerId": 8480860,
+                "firstName": {
+                  "default": "Kevin"
+                },
+                "lastName": {
+                  "default": "Bahl"
+                },
+                "name": {
+                  "default": "K. Bahl"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 7
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020756/ev213.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 507,
+            "strength": "ev",
+            "playerId": 8483609,
+            "firstName": {
+              "default": "Adam"
+            },
+            "lastName": {
+              "default": "Klapka"
+            },
+            "name": {
+              "default": "A. Klapka"
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8483609.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyi-cgy-klapka-scores-goal-against-david-rittich-6387875049112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/adam-klapka-with-a-but-vs-les-islanders-de-new-york-6387873874112",
+            "highlightClip": 6387875049112,
+            "highlightClipFr": 6387873874112,
+            "discreteClip": 6387875048112,
+            "discreteClipFr": 6387876402112,
+            "goalsToDate": 5,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "CGY"
+            },
+            "timeInPeriod": "03:04",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480860,
+                "firstName": {
+                  "default": "Kevin"
+                },
+                "lastName": {
+                  "default": "Bahl"
+                },
+                "name": {
+                  "default": "K. Bahl"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 7
+              },
+              {
+                "playerId": 8480028,
+                "firstName": {
+                  "default": "Morgan"
+                },
+                "lastName": {
+                  "default": "Frost"
+                },
+                "name": {
+                  "default": "M. Frost"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 16
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020756/ev507.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 588,
+            "strength": "ev",
+            "playerId": 8477993,
+            "firstName": {
+              "default": "Justin"
+            },
+            "lastName": {
+              "default": "Kirkland"
+            },
+            "name": {
+              "default": "J. Kirkland"
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8477993.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyi-cgy-kirkland-scores-goal-against-david-rittich-6387875537112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyi-cgy-kirkland-marque-un-but-contre-david-rittich-6387876610112",
+            "highlightClip": 6387875537112,
+            "highlightClipFr": 6387876610112,
+            "discreteClip": 6387876320112,
+            "discreteClipFr": 6387876224112,
+            "goalsToDate": 1,
+            "awayScore": 0,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "CGY"
+            },
+            "timeInPeriod": "09:50",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479066,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "Lomberg"
+                },
+                "name": {
+                  "default": "R. Lomberg"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 70
+              },
+              {
+                "playerId": 8483609,
+                "firstName": {
+                  "default": "Adam"
+                },
+                "lastName": {
+                  "default": "Klapka"
+                },
+                "name": {
+                  "default": "A. Klapka"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 43
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020756/ev588.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 615,
+            "strength": "ev",
+            "playerId": 8482165,
+            "firstName": {
+              "default": "Yan"
+            },
+            "lastName": {
+              "default": "Kuznetsov"
+            },
+            "name": {
+              "default": "Y. Kuznetsov"
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8482165.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyi-cgy-kuznetsov-scores-goal-against-david-rittich-6387874876112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyi-cgy-kuznetsov-marque-un-but-contre-david-rittich-6387876235112",
+            "highlightClip": 6387874876112,
+            "highlightClipFr": 6387876235112,
+            "discreteClip": 6387876721112,
+            "discreteClipFr": 6387875251112,
+            "goalsToDate": 4,
+            "awayScore": 0,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "CGY"
+            },
+            "timeInPeriod": "11:49",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475172,
+                "firstName": {
+                  "default": "Nazem"
+                },
+                "lastName": {
+                  "default": "Kadri"
+                },
+                "name": {
+                  "default": "N. Kadri"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 91
+              },
+              {
+                "playerId": 8482074,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "Zary"
+                },
+                "name": {
+                  "default": "C. Zary"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 47
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020756/ev615.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 622,
+            "strength": "ev",
+            "playerId": 8476419,
+            "firstName": {
+              "default": "Jean-Gabriel"
+            },
+            "lastName": {
+              "default": "Pageau"
+            },
+            "name": {
+              "default": "J. Pageau"
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYI/8476419.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyi-cgy-pageau-scores-goal-against-dustin-wolf-6387875150112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/jean-gabriel-pageau-with-a-but-vs-les-flames-de-calgary-6387875255112",
+            "highlightClip": 6387875150112,
+            "highlightClipFr": 6387875255112,
+            "discreteClip": 6387876818112,
+            "discreteClipFr": 6387877108112,
+            "goalsToDate": 8,
+            "awayScore": 1,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "CGY"
+            },
+            "timeInPeriod": "12:21",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8485366,
+                "firstName": {
+                  "default": "Matthew"
+                },
+                "lastName": {
+                  "default": "Schaefer"
+                },
+                "name": {
+                  "default": "M. Schaefer"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 48
+              },
+              {
+                "playerId": 8481601,
+                "firstName": {
+                  "default": "Simon"
+                },
+                "lastName": {
+                  "default": "Holmstrom",
+                  "cs": "Holmstr\u00f6m",
+                  "fi": "Holmstr\u00f6m",
+                  "sk": "Holmstr\u00f6m",
+                  "sv": "Holmstr\u00f6m"
+                },
+                "name": {
+                  "default": "S. Holmstrom",
+                  "cs": "S. Holmstr\u00f6m",
+                  "fi": "S. Holmstr\u00f6m",
+                  "sk": "S. Holmstr\u00f6m",
+                  "sv": "S. Holmstr\u00f6m"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 10
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020756/ev622.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "0651",
+            "eventId": 1008,
+            "strength": "ev",
+            "playerId": 8475314,
+            "firstName": {
+              "default": "Anders"
+            },
+            "lastName": {
+              "default": "Lee"
+            },
+            "name": {
+              "default": "A. Lee"
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYI/8475314.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nyi-cgy-lee-scores-goal-against-dustin-wolf-6387876485112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nyi-cgy-lee-marque-un-but-contre-dustin-wolf-6387879029112",
+            "highlightClip": 6387876485112,
+            "highlightClipFr": 6387879029112,
+            "discreteClip": 6387878634112,
+            "discreteClipFr": 6387877099112,
+            "goalsToDate": 11,
+            "awayScore": 2,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "CGY"
+            },
+            "timeInPeriod": "17:04",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484221,
+                "firstName": {
+                  "default": "Calum"
+                },
+                "lastName": {
+                  "default": "Ritchie"
+                },
+                "name": {
+                  "default": "C. Ritchie"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 64
+              },
+              {
+                "playerId": 8485366,
+                "firstName": {
+                  "default": "Matthew"
+                },
+                "lastName": {
+                  "default": "Schaefer"
+                },
+                "name": {
+                  "default": "M. Schaefer"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 48
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020756/ev1008.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8480860,
+        "teamAbbrev": "CGY",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8480860.png",
+        "name": {
+          "default": "K. Bahl"
+        },
+        "sweaterNo": 7,
+        "position": "D",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8483609,
+        "teamAbbrev": "CGY",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8483609.png",
+        "name": {
+          "default": "A. Klapka"
+        },
+        "sweaterNo": 43,
+        "position": "R",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8478397,
+        "teamAbbrev": "CGY",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8478397.png",
+        "name": {
+          "default": "R. Andersson"
+        },
+        "sweaterNo": 4,
+        "position": "D",
+        "goals": 0,
+        "assists": 1,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:00",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Adam"
+              },
+              "lastName": {
+                "default": "Pelech"
+              },
+              "sweaterNumber": 3
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Joel"
+              },
+              "lastName": {
+                "default": "Farabee"
+              },
+              "sweaterNumber": 86
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "03:31",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kyle"
+              },
+              "lastName": {
+                "default": "MacLean"
+              },
+              "sweaterNumber": 32
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Hunter"
+              },
+              "lastName": {
+                "default": "Brzustewicz"
+              },
+              "sweaterNumber": 48
+            },
+            "descKey": "holding-the-stick"
+          },
+          {
+            "timeInPeriod": "16:59",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kevin"
+              },
+              "lastName": {
+                "default": "Bahl"
+              },
+              "sweaterNumber": 7
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Emil"
+              },
+              "lastName": {
+                "default": "Heineman"
+              },
+              "sweaterNumber": 51
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:14",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Adam"
+              },
+              "lastName": {
+                "default": "Pelech"
+              },
+              "sweaterNumber": 3
+            },
+            "teamAbbrev": {
+              "default": "NYI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Morgan"
+              },
+              "lastName": {
+                "default": "Frost"
+              },
+              "sweaterNumber": 16
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "18:11",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jonathan"
+              },
+              "lastName": {
+                "default": "Huberdeau"
+              },
+              "sweaterNumber": 10
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Anthony"
+              },
+              "lastName": {
+                "default": "Duclair"
+              },
+              "sweaterNumber": 11
+            },
+            "descKey": "hooking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

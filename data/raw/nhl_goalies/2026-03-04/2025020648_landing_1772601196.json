@@ -1,0 +1,499 @@
+{
+  "id": 2025020648,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-03",
+  "venue": {
+    "default": "Enterprise Center"
+  },
+  "venueLocation": {
+    "default": "St. Louis"
+  },
+  "startTimeUTC": "2026-01-03T21:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "US/Central",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 131,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "TSN2",
+      "sequenceNumber": 112
+    },
+    {
+      "id": 33,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "RDS",
+      "sequenceNumber": 145
+    },
+    {
+      "id": 566,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNMW",
+      "sequenceNumber": 201
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 8,
+    "commonName": {
+      "default": "Canadiens"
+    },
+    "abbrev": "MTL",
+    "placeName": {
+      "default": "Montr\u00e9al"
+    },
+    "placeNameWithPreposition": {
+      "default": "Montr\u00e9al",
+      "fr": "de Montr\u00e9al"
+    },
+    "score": 0,
+    "sog": 26,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MTL_dark.svg"
+  },
+  "homeTeam": {
+    "id": 19,
+    "commonName": {
+      "default": "Blues"
+    },
+    "abbrev": "STL",
+    "placeName": {
+      "default": "St. Louis"
+    },
+    "placeNameWithPreposition": {
+      "default": "St. Louis",
+      "fr": "de St. Louis"
+    },
+    "score": 2,
+    "sog": 19,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/STL_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/STL_dark.svg?season=20252026"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 193,
+            "strength": "ev",
+            "playerId": 8481013,
+            "firstName": {
+              "default": "Jonatan"
+            },
+            "lastName": {
+              "default": "Berggren"
+            },
+            "name": {
+              "default": "J. Berggren"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8481013.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-stl-berggren-scores-goal-against-jacob-fowler-6387197717112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-stl-berggren-marque-un-but-contre-jacob-fowler-6387196839112",
+            "highlightClip": 6387197717112,
+            "highlightClipFr": 6387196839112,
+            "discreteClip": 6387196645112,
+            "discreteClipFr": 6387197117112,
+            "goalsToDate": 5,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "10:48",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475764,
+                "firstName": {
+                  "default": "Cam"
+                },
+                "lastName": {
+                  "default": "Fowler"
+                },
+                "name": {
+                  "default": "C. Fowler"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 17
+              },
+              {
+                "playerId": 8484230,
+                "firstName": {
+                  "default": "Otto"
+                },
+                "lastName": {
+                  "default": "Stenberg"
+                },
+                "name": {
+                  "default": "O. Stenberg"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 28
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020648/ev193.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 562,
+            "strength": "sh",
+            "playerId": 8480023,
+            "firstName": {
+              "default": "Robert"
+            },
+            "lastName": {
+              "default": "Thomas"
+            },
+            "name": {
+              "default": "R. Thomas"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8480023.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-stl-thomas-scores-shg-against-jacob-fowler-6387200108112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-stl-thomas-marque-un-but-en-i-n-contre-jacob-fowler-6387198359112",
+            "highlightClip": 6387200108112,
+            "highlightClipFr": 6387198359112,
+            "discreteClip": 6387198732112,
+            "discreteClipFr": 6387199131112,
+            "goalsToDate": 10,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "10:13",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480281,
+                "firstName": {
+                  "default": "Alexey",
+                  "cs": "Alexej",
+                  "de": "Alexei",
+                  "es": "Alexei",
+                  "fi": "Aleksei",
+                  "sk": "Alexej",
+                  "sv": "Alexei"
+                },
+                "lastName": {
+                  "default": "Toropchenko",
+                  "cs": "Torop\u010denko",
+                  "fi": "Toroptshenko",
+                  "sk": "Torop\u010denko"
+                },
+                "name": {
+                  "default": "A. Toropchenko",
+                  "cs": "A. Torop\u010denko",
+                  "fi": "A. Toroptshenko",
+                  "sk": "A. Torop\u010denko"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 13
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020648/ev562.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8476412,
+        "teamAbbrev": "STL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8476412.png",
+        "name": {
+          "default": "J. Binnington"
+        },
+        "sweaterNo": 50,
+        "position": "G",
+        "goalsAgainstAverage": 0.0,
+        "savePctg": 1.0
+      },
+      {
+        "star": 2,
+        "playerId": 8480023,
+        "teamAbbrev": "STL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8480023.png",
+        "name": {
+          "default": "R. Thomas"
+        },
+        "sweaterNo": 18,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8480281,
+        "teamAbbrev": "STL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8480281.png",
+        "name": {
+          "default": "A. Toropchenko",
+          "cs": "A. Torop\u010denko",
+          "fi": "A. Toroptshenko",
+          "sk": "A. Torop\u010denko"
+        },
+        "sweaterNo": 13,
+        "position": "R",
+        "goals": 0,
+        "assists": 1,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:27",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Dobson"
+              },
+              "sweaterNumber": 53
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mathieu"
+              },
+              "lastName": {
+                "default": "Joseph"
+              },
+              "sweaterNumber": 71
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:02",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Pavel"
+              },
+              "lastName": {
+                "default": "Buchnevich",
+                "cs": "Bu\u010dn\u011bvi\u010d",
+                "fi": "Butshnevitsh",
+                "sk": "Bu\u010dn\u011bvi\u010d"
+              },
+              "sweaterNumber": 89
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Alexandre"
+              },
+              "lastName": {
+                "default": "Carrier"
+              },
+              "sweaterNumber": 45
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "13:20",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brayden"
+              },
+              "lastName": {
+                "default": "Schenn"
+              },
+              "sweaterNumber": 10
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Alexandre"
+              },
+              "lastName": {
+                "default": "Carrier"
+              },
+              "sweaterNumber": 45
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "13:43",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Colton"
+              },
+              "lastName": {
+                "default": "Parayko"
+              },
+              "sweaterNumber": 55
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Suzuki"
+              },
+              "sweaterNumber": 14
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "15:36",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brendan"
+              },
+              "lastName": {
+                "default": "Gallagher"
+              },
+              "sweaterNumber": 11
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Justin"
+              },
+              "lastName": {
+                "default": "Faulk"
+              },
+              "sweaterNumber": 72
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:14",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Pavel"
+              },
+              "lastName": {
+                "default": "Buchnevich",
+                "cs": "Bu\u010dn\u011bvi\u010d",
+                "fi": "Butshnevitsh",
+                "sk": "Bu\u010dn\u011bvi\u010d"
+              },
+              "sweaterNumber": 89
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Juraj"
+              },
+              "lastName": {
+                "default": "Slafkovsk\u00fd"
+              },
+              "sweaterNumber": 20
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

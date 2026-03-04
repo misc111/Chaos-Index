@@ -1,0 +1,724 @@
+{
+  "id": 2025020677,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-07",
+  "venue": {
+    "default": "Capital One Arena"
+  },
+  "venueLocation": {
+    "default": "Washington"
+  },
+  "startTimeUTC": "2026-01-08T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 385,
+      "market": "N",
+      "countryCode": "US",
+      "network": "TNT",
+      "sequenceNumber": 11
+    },
+    {
+      "id": 578,
+      "market": "N",
+      "countryCode": "US",
+      "network": "HBO MAX",
+      "sequenceNumber": 19
+    },
+    {
+      "id": 553,
+      "market": "A",
+      "countryCode": "US",
+      "network": "Victory+",
+      "sequenceNumber": 382
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 25,
+    "commonName": {
+      "default": "Stars"
+    },
+    "abbrev": "DAL",
+    "placeName": {
+      "default": "Dallas"
+    },
+    "placeNameWithPreposition": {
+      "default": "Dallas",
+      "fr": "de Dallas"
+    },
+    "score": 4,
+    "sog": 36,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/DAL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/DAL_dark.svg"
+  },
+  "homeTeam": {
+    "id": 15,
+    "commonName": {
+      "default": "Capitals"
+    },
+    "abbrev": "WSH",
+    "placeName": {
+      "default": "Washington"
+    },
+    "placeNameWithPreposition": {
+      "default": "Washington",
+      "fr": "de Washington"
+    },
+    "score": 1,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 152,
+            "strength": "sh",
+            "playerId": 8476889,
+            "firstName": {
+              "default": "Radek"
+            },
+            "lastName": {
+              "default": "Faksa"
+            },
+            "name": {
+              "default": "R. Faksa"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8476889.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-wsh-faksa-scores-shg-against-logan-thompson-6387383294112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/radek-faksa-with-a-shorthanded-goal-vs-les-capitals-de-washington-6387385037112",
+            "highlightClip": 6387383294112,
+            "highlightClipFr": 6387385037112,
+            "discreteClip": 6387383860112,
+            "discreteClipFr": 6387383673112,
+            "goalsToDate": 2,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "03:06",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476902,
+                "firstName": {
+                  "default": "Esa"
+                },
+                "lastName": {
+                  "default": "Lindell"
+                },
+                "name": {
+                  "default": "E. Lindell"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 23
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020677/ev152.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1441",
+            "eventId": 460,
+            "strength": "ev",
+            "playerId": 8479351,
+            "firstName": {
+              "default": "Sam"
+            },
+            "lastName": {
+              "default": "Steel"
+            },
+            "name": {
+              "default": "S. Steel"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8479351.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-wsh-steel-scores-goal-against-logan-thompson-6387385113112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-wsh-steel-marque-un-but-contre-logan-thompson-6387386679112",
+            "highlightClip": 6387385113112,
+            "highlightClipFr": 6387386679112,
+            "discreteClip": 6387387062112,
+            "discreteClipFr": 6387385708112,
+            "goalsToDate": 7,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "02:37",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481581,
+                "firstName": {
+                  "default": "Thomas"
+                },
+                "lastName": {
+                  "default": "Harley"
+                },
+                "name": {
+                  "default": "T. Harley"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 55
+              },
+              {
+                "playerId": 8475168,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Duchene"
+                },
+                "name": {
+                  "default": "M. Duchene"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 95
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020677/ev460.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 1017,
+            "strength": "ev",
+            "playerId": 8482740,
+            "firstName": {
+              "default": "Wyatt"
+            },
+            "lastName": {
+              "default": "Johnston"
+            },
+            "name": {
+              "default": "W. Johnston"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8482740.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wyatt-johnston-with-a-goal-vs-washington-capitals-6387389047112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wyatt-johnston-with-a-but-vs-les-capitals-de-washington-6387388669112",
+            "highlightClip": 6387389047112,
+            "highlightClipFr": 6387388669112,
+            "discreteClip": 6387388557112,
+            "discreteClipFr": 6387390309112,
+            "goalsToDate": 24,
+            "awayScore": 3,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "13:31",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479351,
+                "firstName": {
+                  "default": "Sam"
+                },
+                "lastName": {
+                  "default": "Steel"
+                },
+                "name": {
+                  "default": "S. Steel"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 18
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020677/ev1017.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1082,
+            "strength": "ev",
+            "playerId": 8471214,
+            "firstName": {
+              "default": "Alex",
+              "cs": "Alexandr",
+              "fi": "Aleksandr",
+              "sk": "Alexander"
+            },
+            "lastName": {
+              "default": "Ovechkin",
+              "cs": "Ove\u010dkin",
+              "fi": "Ovetshkin",
+              "sk": "Ove\u010dkin"
+            },
+            "name": {
+              "default": "A. Ovechkin",
+              "cs": "A. Ove\u010dkin",
+              "fi": "A. Ovetshkin",
+              "sk": "A. Ove\u010dkin"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8471214.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-wsh-ovechkin-scores-goal-against-casey-desmith-6387389845112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-wsh-ovechkin-marque-un-but-contre-casey-desmith-6387391308112",
+            "highlightClip": 6387389845112,
+            "highlightClipFr": 6387391308112,
+            "discreteClip": 6387391005112,
+            "discreteClipFr": 6387391501112,
+            "goalsToDate": 18,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "17:41",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8474590,
+                "firstName": {
+                  "default": "John"
+                },
+                "lastName": {
+                  "default": "Carlson"
+                },
+                "name": {
+                  "default": "J. Carlson"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 74
+              },
+              {
+                "playerId": 8479345,
+                "firstName": {
+                  "default": "Jakob"
+                },
+                "lastName": {
+                  "default": "Chychrun"
+                },
+                "name": {
+                  "default": "J. Chychrun"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020677/ev1082.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1106,
+            "strength": "ev",
+            "playerId": 8478449,
+            "firstName": {
+              "default": "Roope"
+            },
+            "lastName": {
+              "default": "Hintz"
+            },
+            "name": {
+              "default": "R. Hintz"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8478449.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/dal-wsh-hintz-scores-empty-net-goal-6387391613112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/dal-wsh-hintz-dal-marque-un-but-dans-un-filet-desert-6387391115112",
+            "highlightClip": 6387391613112,
+            "highlightClipFr": 6387391115112,
+            "discreteClip": 6387390441112,
+            "discreteClipFr": 6387391223112,
+            "goalsToDate": 13,
+            "awayScore": 4,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "19:41",
+            "shotType": "snap",
+            "goalModifier": "empty-net",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020677/ev1106.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8479351,
+        "teamAbbrev": "DAL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8479351.png",
+        "name": {
+          "default": "S. Steel"
+        },
+        "sweaterNo": 18,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8479193,
+        "teamAbbrev": "DAL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8479193.png",
+        "name": {
+          "default": "C. DeSmith"
+        },
+        "sweaterNo": 1,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.958
+      },
+      {
+        "star": 3,
+        "playerId": 8482740,
+        "teamAbbrev": "DAL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8482740.png",
+        "name": {
+          "default": "W. Johnston"
+        },
+        "sweaterNo": 53,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ilya",
+                "cs": "Ilja",
+                "fi": "Ilja",
+                "sk": "I\u013eja"
+              },
+              "lastName": {
+                "default": "Lyubushkin",
+                "cs": "Ljubu\u0161kin",
+                "fi": "Ljubushkin",
+                "sk": "Ljubu\u0161kin"
+              },
+              "sweaterNumber": 46
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jakob"
+              },
+              "lastName": {
+                "default": "Chychrun"
+              },
+              "sweaterNumber": 6
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "03:16",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Connor"
+              },
+              "lastName": {
+                "default": "McMichael"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "descKey": "abuse-of-officials"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:12",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ilya",
+                "cs": "Ilja",
+                "fi": "Ilja",
+                "sk": "I\u013eja"
+              },
+              "lastName": {
+                "default": "Lyubushkin",
+                "cs": "Ljubu\u0161kin",
+                "fi": "Ljubushkin",
+                "sk": "Ljubu\u0161kin"
+              },
+              "sweaterNumber": 46
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Duhaime"
+              },
+              "sweaterNumber": 22
+            },
+            "descKey": "roughing",
+            "servedBy": {
+              "default": "N. Bastian"
+            }
+          },
+          {
+            "timeInPeriod": "01:12",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Duhaime"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ilya",
+                "cs": "Ilja",
+                "fi": "Ilja",
+                "sk": "I\u013eja"
+              },
+              "lastName": {
+                "default": "Lyubushkin",
+                "cs": "Ljubu\u0161kin",
+                "fi": "Ljubushkin",
+                "sk": "Ljubu\u0161kin"
+              },
+              "sweaterNumber": 46
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "12:53",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ilya",
+                "cs": "Ilja",
+                "fi": "Ilja",
+                "sk": "I\u013eja"
+              },
+              "lastName": {
+                "default": "Lyubushkin",
+                "cs": "Ljubu\u0161kin",
+                "fi": "Ljubushkin",
+                "sk": "Ljubu\u0161kin"
+              },
+              "sweaterNumber": 46
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Duhaime"
+              },
+              "sweaterNumber": 22
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "12:53",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Duhaime"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ilya",
+                "cs": "Ilja",
+                "fi": "Ilja",
+                "sk": "I\u013eja"
+              },
+              "lastName": {
+                "default": "Lyubushkin",
+                "cs": "Ljubu\u0161kin",
+                "fi": "Ljubushkin",
+                "sk": "Ljubu\u0161kin"
+              },
+              "sweaterNumber": 46
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "15:55",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mikko"
+              },
+              "lastName": {
+                "default": "Rantanen"
+              },
+              "sweaterNumber": 96
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Justin"
+              },
+              "lastName": {
+                "default": "Sourdif"
+              },
+              "sweaterNumber": 34
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:57",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nic"
+              },
+              "lastName": {
+                "default": "Dowd"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jason"
+              },
+              "lastName": {
+                "default": "Robertson"
+              },
+              "sweaterNumber": 21
+            },
+            "descKey": "hooking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

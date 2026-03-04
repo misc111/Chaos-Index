@@ -1,0 +1,749 @@
+{
+  "id": 2025020921,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-26",
+  "venue": {
+    "default": "Amerant Bank Arena"
+  },
+  "venueLocation": {
+    "default": "Sunrise"
+  },
+  "startTimeUTC": "2026-02-27T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 293,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "TSN4",
+      "sequenceNumber": 137
+    },
+    {
+      "id": 521,
+      "market": "H",
+      "countryCode": "US",
+      "network": "SCRIPPS",
+      "sequenceNumber": 657
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 10,
+    "commonName": {
+      "default": "Maple Leafs"
+    },
+    "abbrev": "TOR",
+    "placeName": {
+      "default": "Toronto"
+    },
+    "placeNameWithPreposition": {
+      "default": "Toronto",
+      "fr": "de Toronto"
+    },
+    "score": 1,
+    "sog": 30,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TOR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/TOR_dark.svg"
+  },
+  "homeTeam": {
+    "id": 13,
+    "commonName": {
+      "default": "Panthers"
+    },
+    "abbrev": "FLA",
+    "placeName": {
+      "default": "Florida",
+      "fr": "Floride"
+    },
+    "placeNameWithPreposition": {
+      "default": "Florida",
+      "fr": "de la Floride"
+    },
+    "score": 5,
+    "sog": 37,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/FLA_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 102,
+            "strength": "ev",
+            "playerId": 8473419,
+            "firstName": {
+              "default": "Brad"
+            },
+            "lastName": {
+              "default": "Marchand"
+            },
+            "name": {
+              "default": "B. Marchand"
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8473419.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-fla-marchand-scores-goal-against-joseph-woll-6390014247112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-fla-marchand-marque-un-but-contre-joseph-woll-6390014153112",
+            "highlightClip": 6390014247112,
+            "highlightClipFr": 6390014153112,
+            "discreteClip": 6390015787112,
+            "discreteClipFr": 6390013645112,
+            "goalsToDate": 26,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "FLA"
+            },
+            "timeInPeriod": "03:18",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482113,
+                "firstName": {
+                  "default": "Anton"
+                },
+                "lastName": {
+                  "default": "Lundell"
+                },
+                "name": {
+                  "default": "A. Lundell"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 15
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020921/ev102.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 134,
+            "strength": "pp",
+            "playerId": 8477409,
+            "firstName": {
+              "default": "Carter"
+            },
+            "lastName": {
+              "default": "Verhaeghe"
+            },
+            "name": {
+              "default": "C. Verhaeghe"
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8477409.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-fla-verhaeghe-scores-ppg-against-joseph-woll-6390016006112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-fla-verhaeghe-marque-un-but-en-a-n-contre-joseph-woll-6390016096112",
+            "highlightClip": 6390016006112,
+            "highlightClipFr": 6390016096112,
+            "discreteClip": 6390013756112,
+            "discreteClipFr": 6390016389112,
+            "goalsToDate": 17,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "FLA"
+            },
+            "timeInPeriod": "05:13",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478542,
+                "firstName": {
+                  "default": "Evan"
+                },
+                "lastName": {
+                  "default": "Rodrigues"
+                },
+                "name": {
+                  "default": "E. Rodrigues"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 17
+              },
+              {
+                "playerId": 8482113,
+                "firstName": {
+                  "default": "Anton"
+                },
+                "lastName": {
+                  "default": "Lundell"
+                },
+                "name": {
+                  "default": "A. Lundell"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 15
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020921/ev134.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 451,
+            "strength": "sh",
+            "playerId": 8478542,
+            "firstName": {
+              "default": "Evan"
+            },
+            "lastName": {
+              "default": "Rodrigues"
+            },
+            "name": {
+              "default": "E. Rodrigues"
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8478542.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-fla-rodrigues-scores-shg-against-joseph-woll-6390017450112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-fla-rodrigues-marque-un-but-en-i-n-contre-joseph-woll-6390017549112",
+            "highlightClip": 6390017450112,
+            "highlightClipFr": 6390017549112,
+            "discreteClip": 6390017551112,
+            "discreteClipFr": 6390016259112,
+            "goalsToDate": 11,
+            "awayScore": 0,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "FLA"
+            },
+            "timeInPeriod": "16:40",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020921/ev451.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 452,
+            "strength": "pp",
+            "playerId": 8475166,
+            "firstName": {
+              "default": "John"
+            },
+            "lastName": {
+              "default": "Tavares"
+            },
+            "name": {
+              "default": "J. Tavares"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8475166.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-fla-tavares-scores-ppg-against-sergei-bobrovsky-6390025596112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-fla-tavares-marque-un-but-en-a-n-contre-sergei-bobrovsky-6390023355112",
+            "highlightClip": 6390025596112,
+            "highlightClipFr": 6390023355112,
+            "discreteClip": 6390023151112,
+            "discreteClipFr": 6390023357112,
+            "goalsToDate": 22,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "FLA"
+            },
+            "timeInPeriod": "00:47",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479318,
+                "firstName": {
+                  "default": "Auston"
+                },
+                "lastName": {
+                  "default": "Matthews"
+                },
+                "name": {
+                  "default": "A. Matthews"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 34
+              },
+              {
+                "playerId": 8475171,
+                "firstName": {
+                  "default": "Oliver"
+                },
+                "lastName": {
+                  "default": "Ekman-Larsson"
+                },
+                "name": {
+                  "default": "O. Ekman-Larsson"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 95
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020921/ev452.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 1152,
+            "strength": "ev",
+            "playerId": 8473419,
+            "firstName": {
+              "default": "Brad"
+            },
+            "lastName": {
+              "default": "Marchand"
+            },
+            "name": {
+              "default": "B. Marchand"
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8473419.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-fla-marchand-scores-empty-net-goal-6390027253112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-fla-marchand-fla-marque-un-but-dans-un-filet-desert-6390026575112",
+            "highlightClip": 6390027253112,
+            "highlightClipFr": 6390026575112,
+            "discreteClip": 6390027850112,
+            "discreteClipFr": 6390027445112,
+            "goalsToDate": 27,
+            "awayScore": 1,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "FLA"
+            },
+            "timeInPeriod": "16:51",
+            "shotType": "snap",
+            "goalModifier": "empty-net",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020921/ev1152.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 1172,
+            "strength": "ev",
+            "playerId": 8479314,
+            "firstName": {
+              "default": "Matthew"
+            },
+            "lastName": {
+              "default": "Tkachuk"
+            },
+            "name": {
+              "default": "M. Tkachuk"
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8479314.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-fla-tkachuk-scores-empty-net-goal-6390028353112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-fla-tkachuk-fla-marque-un-but-dans-un-filet-desert-6390026968112",
+            "highlightClip": 6390028353112,
+            "highlightClipFr": 6390026968112,
+            "discreteClip": 6390028443112,
+            "discreteClipFr": 6390028828112,
+            "goalsToDate": 4,
+            "awayScore": 1,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "FLA"
+            },
+            "timeInPeriod": "18:08",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8477935,
+                "firstName": {
+                  "default": "Sam"
+                },
+                "lastName": {
+                  "default": "Bennett"
+                },
+                "name": {
+                  "default": "S. Bennett"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 9
+              },
+              {
+                "playerId": 8477933,
+                "firstName": {
+                  "default": "Sam"
+                },
+                "lastName": {
+                  "default": "Reinhart"
+                },
+                "name": {
+                  "default": "S. Reinhart"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 13
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020921/ev1172.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8478542,
+        "teamAbbrev": "FLA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8478542.png",
+        "name": {
+          "default": "E. Rodrigues"
+        },
+        "sweaterNo": 17,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8475683,
+        "teamAbbrev": "FLA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8475683.png",
+        "name": {
+          "default": "S. Bobrovsky",
+          "cs": "S. Bobrovskij",
+          "fi": "S. Bobrovski",
+          "sk": "S. Bobrovskij"
+        },
+        "sweaterNo": 72,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.967
+      },
+      {
+        "star": 3,
+        "playerId": 8473419,
+        "teamAbbrev": "FLA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8473419.png",
+        "name": {
+          "default": "B. Marchand"
+        },
+        "sweaterNo": 63,
+        "position": "L",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:37",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nicolas"
+              },
+              "lastName": {
+                "default": "Roy"
+              },
+              "sweaterNumber": 55
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Tkachuk"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "15:43",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Aaron"
+              },
+              "lastName": {
+                "default": "Ekblad"
+              },
+              "sweaterNumber": 5
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matias"
+              },
+              "lastName": {
+                "default": "Maccelli"
+              },
+              "sweaterNumber": 63
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "05:30",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "McCabe"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Sandis"
+              },
+              "lastName": {
+                "default": "Vilmanis"
+              },
+              "sweaterNumber": 95
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "11:09",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mackie"
+              },
+              "lastName": {
+                "default": "Samoskevich"
+              },
+              "sweaterNumber": 11
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Knies"
+              },
+              "sweaterNumber": 23
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "18:49",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Aaron"
+              },
+              "lastName": {
+                "default": "Ekblad"
+              },
+              "sweaterNumber": 5
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Simon"
+              },
+              "lastName": {
+                "default": "Benoit"
+              },
+              "sweaterNumber": 2
+            },
+            "descKey": "roughing",
+            "servedBy": {
+              "default": "Sandis Vilmanis"
+            }
+          },
+          {
+            "timeInPeriod": "18:49",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Simon"
+              },
+              "lastName": {
+                "default": "Benoit"
+              },
+              "sweaterNumber": 2
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Aaron"
+              },
+              "lastName": {
+                "default": "Ekblad"
+              },
+              "sweaterNumber": 5
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "18:49",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Aaron"
+              },
+              "lastName": {
+                "default": "Ekblad"
+              },
+              "sweaterNumber": 5
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Simon"
+              },
+              "lastName": {
+                "default": "Benoit"
+              },
+              "sweaterNumber": 2
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "10:01",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matias"
+              },
+              "lastName": {
+                "default": "Maccelli"
+              },
+              "sweaterNumber": 63
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Aaron"
+              },
+              "lastName": {
+                "default": "Ekblad"
+              },
+              "sweaterNumber": 5
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

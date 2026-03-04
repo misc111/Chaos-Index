@@ -1,0 +1,715 @@
+{
+  "id": 2025020853,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-29",
+  "venue": {
+    "default": "Grand Casino Arena"
+  },
+  "venueLocation": {
+    "default": "St. Paul"
+  },
+  "startTimeUTC": "2026-01-30T01:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "US/Central",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 289,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "SNW",
+      "sequenceNumber": 34
+    },
+    {
+      "id": 567,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNNO",
+      "sequenceNumber": 284
+    },
+    {
+      "id": 569,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNWI",
+      "sequenceNumber": 419
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 20,
+    "commonName": {
+      "default": "Flames"
+    },
+    "abbrev": "CGY",
+    "placeName": {
+      "default": "Calgary"
+    },
+    "placeNameWithPreposition": {
+      "default": "Calgary",
+      "fr": "de Calgary"
+    },
+    "score": 1,
+    "sog": 30,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CGY_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CGY_dark.svg"
+  },
+  "homeTeam": {
+    "id": 30,
+    "commonName": {
+      "default": "Wild"
+    },
+    "abbrev": "MIN",
+    "placeName": {
+      "default": "Minnesota"
+    },
+    "placeNameWithPreposition": {
+      "default": "Minnesota",
+      "fr": "du Minnesota"
+    },
+    "score": 4,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MIN_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 87,
+            "strength": "ev",
+            "playerId": 8483525,
+            "firstName": {
+              "default": "Danila"
+            },
+            "lastName": {
+              "default": "Yurov"
+            },
+            "name": {
+              "default": "D. Yurov"
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8483525.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cgy-min-yurov-scores-goal-against-devin-cooley-6388513755112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cgy-min-yurov-marque-un-but-contre-devin-cooley-6388513153112",
+            "highlightClip": 6388513755112,
+            "highlightClipFr": 6388513153112,
+            "discreteClip": 6388512555112,
+            "discreteClipFr": 6388512842112,
+            "goalsToDate": 8,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "02:43",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475765,
+                "firstName": {
+                  "default": "Vladimir"
+                },
+                "lastName": {
+                  "default": "Tarasenko"
+                },
+                "name": {
+                  "default": "V. Tarasenko"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 91
+              },
+              {
+                "playerId": 8482094,
+                "firstName": {
+                  "default": "Daemon"
+                },
+                "lastName": {
+                  "default": "Hunt"
+                },
+                "name": {
+                  "default": "D. Hunt"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 48
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020853/ev87.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 308,
+            "strength": "ev",
+            "playerId": 8476994,
+            "firstName": {
+              "default": "Vinnie"
+            },
+            "lastName": {
+              "default": "Hinostroza"
+            },
+            "name": {
+              "default": "V. Hinostroza"
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8476994.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cgy-min-hinostroza-scores-goal-against-devin-cooley-6388514466112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cgy-min-hinostroza-marque-un-but-contre-devin-cooley-6388515637112",
+            "highlightClip": 6388514466112,
+            "highlightClipFr": 6388515637112,
+            "discreteClip": 6388514759112,
+            "discreteClipFr": 6388513799112,
+            "goalsToDate": 3,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "10:37",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478136,
+                "firstName": {
+                  "default": "Jake",
+                  "cs": "Jacob",
+                  "de": "Jacob",
+                  "es": "Jacob",
+                  "fi": "Jacob",
+                  "sk": "Jacob",
+                  "sv": "Jacob"
+                },
+                "lastName": {
+                  "default": "Middleton"
+                },
+                "name": {
+                  "default": "J. Middleton"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 5
+              },
+              {
+                "playerId": 8474716,
+                "firstName": {
+                  "default": "Jared"
+                },
+                "lastName": {
+                  "default": "Spurgeon"
+                },
+                "name": {
+                  "default": "J. Spurgeon"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 46
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020853/ev308.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 858,
+            "strength": "ev",
+            "playerId": 8480028,
+            "firstName": {
+              "default": "Morgan"
+            },
+            "lastName": {
+              "default": "Frost"
+            },
+            "name": {
+              "default": "M. Frost"
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8480028.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/morgan-frost-with-a-goal-vs-minnesota-wild-6388521929112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/morgan-frost-with-a-but-vs-le-wild-du-minnesota-6388521928112",
+            "highlightClip": 6388521929112,
+            "highlightClipFr": 6388521928112,
+            "discreteClip": 6388522128112,
+            "discreteClipFr": 6388520639112,
+            "goalsToDate": 11,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "05:49",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476456,
+                "firstName": {
+                  "default": "Jonathan"
+                },
+                "lastName": {
+                  "default": "Huberdeau"
+                },
+                "name": {
+                  "default": "J. Huberdeau"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 10
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020853/ev858.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 1016,
+            "strength": "pp",
+            "playerId": 8481557,
+            "firstName": {
+              "default": "Matt"
+            },
+            "lastName": {
+              "default": "Boldy"
+            },
+            "name": {
+              "default": "M. Boldy"
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8481557.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cgy-min-boldy-scores-ppg-against-devin-cooley-6388523818112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cgy-min-boldy-marque-un-but-en-a-n-contre-devin-cooley-6388523332112",
+            "highlightClip": 6388523818112,
+            "highlightClipFr": 6388523332112,
+            "discreteClip": 6388522638112,
+            "discreteClipFr": 6388520668112,
+            "goalsToDate": 29,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "17:17",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478864,
+                "firstName": {
+                  "default": "Kirill"
+                },
+                "lastName": {
+                  "default": "Kaprizov"
+                },
+                "name": {
+                  "default": "K. Kaprizov"
+                },
+                "assistsToDate": 37,
+                "sweaterNumber": 97
+              },
+              {
+                "playerId": 8480800,
+                "firstName": {
+                  "default": "Quinn"
+                },
+                "lastName": {
+                  "default": "Hughes"
+                },
+                "name": {
+                  "default": "Q. Hughes"
+                },
+                "assistsToDate": 46,
+                "sweaterNumber": 43
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020853/ev1016.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 1027,
+            "strength": "ev",
+            "playerId": 8478864,
+            "firstName": {
+              "default": "Kirill"
+            },
+            "lastName": {
+              "default": "Kaprizov"
+            },
+            "name": {
+              "default": "K. Kaprizov"
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8478864.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/kirill-kaprizov-with-a-goal-vs-calgary-flames-6388522174112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/kirill-kaprizov-with-a-but-vs-les-flames-de-calgary-6388522264112",
+            "highlightClip": 6388522174112,
+            "highlightClipFr": 6388522264112,
+            "discreteClip": 6388521670112,
+            "discreteClipFr": 6388522257112,
+            "goalsToDate": 29,
+            "awayScore": 1,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "17:45",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8482122,
+                "firstName": {
+                  "default": "Brock"
+                },
+                "lastName": {
+                  "default": "Faber"
+                },
+                "name": {
+                  "default": "B. Faber"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 7
+              },
+              {
+                "playerId": 8478493,
+                "firstName": {
+                  "default": "Joel"
+                },
+                "lastName": {
+                  "default": "Eriksson Ek"
+                },
+                "name": {
+                  "default": "J. Eriksson Ek"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 14
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020853/ev1027.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8478136,
+        "teamAbbrev": "MIN",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8478136.png",
+        "name": {
+          "default": "J. Middleton"
+        },
+        "sweaterNo": 5,
+        "position": "D",
+        "goals": 0,
+        "assists": 1,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8479406,
+        "teamAbbrev": "MIN",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8479406.png",
+        "name": {
+          "default": "F. Gustavsson"
+        },
+        "sweaterNo": 32,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.967
+      },
+      {
+        "star": 3,
+        "playerId": 8474716,
+        "teamAbbrev": "MIN",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8474716.png",
+        "name": {
+          "default": "J. Spurgeon"
+        },
+        "sweaterNo": 46,
+        "position": "D",
+        "goals": 0,
+        "assists": 1,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:45",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Adam"
+              },
+              "lastName": {
+                "default": "Klapka"
+              },
+              "sweaterNumber": 43
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Marcus"
+              },
+              "lastName": {
+                "default": "Foligno"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "02:45",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Marcus"
+              },
+              "lastName": {
+                "default": "Foligno"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Adam"
+              },
+              "lastName": {
+                "default": "Klapka"
+              },
+              "sweaterNumber": 43
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "06:05",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brock"
+              },
+              "lastName": {
+                "default": "Faber"
+              },
+              "sweaterNumber": 7
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Morgan"
+              },
+              "lastName": {
+                "default": "Frost"
+              },
+              "sweaterNumber": 16
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "18:20",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Hartman"
+              },
+              "sweaterNumber": 38
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Adam"
+              },
+              "lastName": {
+                "default": "Klapka"
+              },
+              "sweaterNumber": 43
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:05",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Quinn"
+              },
+              "lastName": {
+                "default": "Hughes"
+              },
+              "sweaterNumber": 43
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Martin"
+              },
+              "lastName": {
+                "default": "Pospisil",
+                "cs": "Posp\u00ed\u0161il",
+                "sk": "Posp\u00ed\u0161il"
+              },
+              "sweaterNumber": 76
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "14:53",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Martin"
+              },
+              "lastName": {
+                "default": "Pospisil",
+                "cs": "Posp\u00ed\u0161il",
+                "sk": "Posp\u00ed\u0161il"
+              },
+              "sweaterNumber": 76
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jared"
+              },
+              "lastName": {
+                "default": "Spurgeon"
+              },
+              "sweaterNumber": 46
+            },
+            "descKey": "elbowing"
+          },
+          {
+            "timeInPeriod": "16:07",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "MacKenzie"
+              },
+              "lastName": {
+                "default": "Weegar"
+              },
+              "sweaterNumber": 52
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Vladimir"
+              },
+              "lastName": {
+                "default": "Tarasenko"
+              },
+              "sweaterNumber": 91
+            },
+            "descKey": "holding"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

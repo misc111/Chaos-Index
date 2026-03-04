@@ -1,0 +1,745 @@
+{
+  "id": 2025020931,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-27",
+  "venue": {
+    "default": "Capital One Arena"
+  },
+  "venueLocation": {
+    "default": "Washington"
+  },
+  "startTimeUTC": "2026-02-28T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 21
+    },
+    {
+      "id": 324,
+      "market": "N",
+      "countryCode": "US",
+      "network": "NHLN",
+      "sequenceNumber": 35
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 517,
+      "market": "H",
+      "countryCode": "US",
+      "network": "MNMT",
+      "sequenceNumber": 396
+    },
+    {
+      "id": 521,
+      "market": "A",
+      "countryCode": "US",
+      "network": "SCRIPPS",
+      "sequenceNumber": 657
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 54,
+    "commonName": {
+      "default": "Golden Knights"
+    },
+    "abbrev": "VGK",
+    "placeName": {
+      "default": "Vegas"
+    },
+    "placeNameWithPreposition": {
+      "default": "Vegas",
+      "fr": "de Vegas"
+    },
+    "score": 2,
+    "sog": 26,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VGK_dark.svg"
+  },
+  "homeTeam": {
+    "id": 15,
+    "commonName": {
+      "default": "Capitals"
+    },
+    "abbrev": "WSH",
+    "placeName": {
+      "default": "Washington"
+    },
+    "placeNameWithPreposition": {
+      "default": "Washington",
+      "fr": "de Washington"
+    },
+    "score": 3,
+    "sog": 30,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 484,
+            "strength": "ev",
+            "playerId": 8479400,
+            "firstName": {
+              "default": "Pierre-Luc"
+            },
+            "lastName": {
+              "default": "Dubois"
+            },
+            "name": {
+              "default": "P. Dubois"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8479400.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-wsh-dubois-scores-goal-against-akira-schmid-6390109242112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-wsh-dubois-marque-un-but-contre-akira-schmid-6390108468112",
+            "highlightClip": 6390109242112,
+            "highlightClipFr": 6390108468112,
+            "discreteClip": 6390108556112,
+            "discreteClipFr": 6390108866112,
+            "goalsToDate": 2,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "00:49",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481656,
+                "firstName": {
+                  "default": "Aliaksei",
+                  "cs": "Alexej",
+                  "de": "Alexei",
+                  "es": "Alexei",
+                  "fi": "Aljaksei",
+                  "sk": "Alexej"
+                },
+                "lastName": {
+                  "default": "Protas"
+                },
+                "name": {
+                  "default": "A. Protas"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 21
+              },
+              {
+                "playerId": 8480873,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Sandin"
+                },
+                "name": {
+                  "default": "R. Sandin"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 38
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020931/ev484.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 566,
+            "strength": "ev",
+            "playerId": 8479400,
+            "firstName": {
+              "default": "Pierre-Luc"
+            },
+            "lastName": {
+              "default": "Dubois"
+            },
+            "name": {
+              "default": "P. Dubois"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8479400.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-wsh-dubois-scores-goal-against-akira-schmid-6390108494112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-wsh-dubois-marque-un-but-contre-akira-schmid-6390110751112",
+            "highlightClip": 6390108494112,
+            "highlightClipFr": 6390110751112,
+            "discreteClip": 6390109263112,
+            "discreteClipFr": 6390110645112,
+            "goalsToDate": 3,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "03:23",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481656,
+                "firstName": {
+                  "default": "Aliaksei",
+                  "cs": "Alexej",
+                  "de": "Alexei",
+                  "es": "Alexei",
+                  "fi": "Aljaksei",
+                  "sk": "Alexej"
+                },
+                "lastName": {
+                  "default": "Protas"
+                },
+                "name": {
+                  "default": "A. Protas"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 21
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020931/ev566.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 711,
+            "strength": "ev",
+            "playerId": 8479345,
+            "firstName": {
+              "default": "Jakob"
+            },
+            "lastName": {
+              "default": "Chychrun"
+            },
+            "name": {
+              "default": "J. Chychrun"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8479345.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-wsh-chychrun-scores-goal-against-akira-schmid-6390111495112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-wsh-chychrun-marque-un-but-contre-akira-schmid-6390111515112",
+            "highlightClip": 6390111495112,
+            "highlightClipFr": 6390111515112,
+            "discreteClip": 6390111619112,
+            "discreteClipFr": 6390111309112,
+            "goalsToDate": 22,
+            "awayScore": 0,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "14:52",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480873,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Sandin"
+                },
+                "name": {
+                  "default": "R. Sandin"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 38
+              },
+              {
+                "playerId": 8479400,
+                "firstName": {
+                  "default": "Pierre-Luc"
+                },
+                "lastName": {
+                  "default": "Dubois"
+                },
+                "name": {
+                  "default": "P. Dubois"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 80
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020931/ev711.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 810,
+            "strength": "ev",
+            "playerId": 8483890,
+            "firstName": {
+              "default": "Braeden"
+            },
+            "lastName": {
+              "default": "Bowman"
+            },
+            "name": {
+              "default": "B. Bowman"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8483890.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-wsh-bowman-scores-goal-against-logan-thompson-6390113733112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-wsh-bowman-marque-un-but-contre-logan-thompson-6390113514112",
+            "highlightClip": 6390113733112,
+            "highlightClipFr": 6390113514112,
+            "discreteClip": 6390112932112,
+            "discreteClipFr": 6390113515112,
+            "goalsToDate": 8,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "02:27",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481527,
+                "firstName": {
+                  "default": "Kaedan"
+                },
+                "lastName": {
+                  "default": "Korczak"
+                },
+                "name": {
+                  "default": "K. Korczak"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 6
+              },
+              {
+                "playerId": 8475188,
+                "firstName": {
+                  "default": "Brayden"
+                },
+                "lastName": {
+                  "default": "McNabb"
+                },
+                "name": {
+                  "default": "B. McNabb"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 3
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020931/ev810.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 901,
+            "strength": "pp",
+            "playerId": 8476881,
+            "firstName": {
+              "default": "Tomas",
+              "cs": "Tom\u00e1\u0161",
+              "sk": "Tom\u00e1\u0161"
+            },
+            "lastName": {
+              "default": "Hertl"
+            },
+            "name": {
+              "default": "T. Hertl"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8476881.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-wsh-hertl-scores-ppg-against-logan-thompson-6390116400112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-wsh-hertl-marque-un-but-en-a-n-contre-logan-thompson-6390116790112",
+            "highlightClip": 6390116400112,
+            "highlightClipFr": 6390116790112,
+            "discreteClip": 6390114903112,
+            "discreteClipFr": 6390114538112,
+            "goalsToDate": 23,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "09:15",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481604,
+                "firstName": {
+                  "default": "Pavel"
+                },
+                "lastName": {
+                  "default": "Dorofeyev",
+                  "cs": "Dorofejev",
+                  "fi": "Dorofejev",
+                  "sk": "Dorofejev"
+                },
+                "name": {
+                  "default": "P. Dorofeyev",
+                  "cs": "P. Dorofejev",
+                  "fi": "P. Dorofejev",
+                  "sk": "P. Dorofejev"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 16
+              },
+              {
+                "playerId": 8478483,
+                "firstName": {
+                  "default": "Mitch",
+                  "cs": "Mitchell",
+                  "de": "Mitchell",
+                  "es": "Mitchell",
+                  "fi": "Mitchell",
+                  "sk": "Mitchell",
+                  "sv": "Mitchell"
+                },
+                "lastName": {
+                  "default": "Marner"
+                },
+                "name": {
+                  "default": "M. Marner"
+                },
+                "assistsToDate": 43,
+                "sweaterNumber": 93
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020931/ev901.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8479400,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8479400.png",
+        "name": {
+          "default": "P. Dubois"
+        },
+        "sweaterNo": 80,
+        "position": "L",
+        "goals": 2,
+        "assists": 1,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8480873,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8480873.png",
+        "name": {
+          "default": "R. Sandin"
+        },
+        "sweaterNo": 38,
+        "position": "D",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8481656,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8481656.png",
+        "name": {
+          "default": "A. Protas"
+        },
+        "sweaterNo": 21,
+        "position": "C",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "12:47",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "I. Barbashev",
+              "cs": "I. Barba\u0161ev",
+              "fi": "I. Barbashov",
+              "sk": "I. Barba\u0161ev"
+            }
+          },
+          {
+            "timeInPeriod": "15:34",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matt"
+              },
+              "lastName": {
+                "default": "Roy"
+              },
+              "sweaterNumber": 3
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Reilly"
+              },
+              "lastName": {
+                "default": "Smith"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:41",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Braeden"
+              },
+              "lastName": {
+                "default": "Bowman"
+              },
+              "sweaterNumber": 42
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nic"
+              },
+              "lastName": {
+                "default": "Dowd"
+              },
+              "sweaterNumber": 26
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "05:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Hanifin"
+              },
+              "sweaterNumber": 15
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Dylan"
+              },
+              "lastName": {
+                "default": "Strome"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "16:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Leonard"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Shea"
+              },
+              "lastName": {
+                "default": "Theodore"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "05:26",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kaedan"
+              },
+              "lastName": {
+                "default": "Korczak"
+              },
+              "sweaterNumber": 6
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Justin"
+              },
+              "lastName": {
+                "default": "Sourdif"
+              },
+              "sweaterNumber": 34
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "08:15",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "J. Sourdif"
+            }
+          },
+          {
+            "timeInPeriod": "15:36",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mark"
+              },
+              "lastName": {
+                "default": "Stone"
+              },
+              "sweaterNumber": 61
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Pierre-Luc"
+              },
+              "lastName": {
+                "default": "Dubois"
+              },
+              "sweaterNumber": 80
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

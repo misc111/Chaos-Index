@@ -1,0 +1,694 @@
+{
+  "id": 2025090008,
+  "season": 20252026,
+  "gameType": 9,
+  "limitedScoring": true,
+  "gameDate": "2026-02-13",
+  "venue": {
+    "default": "Fiera Milano Rho"
+  },
+  "venueLocation": {
+    "default": "Milano Cortina"
+  },
+  "startTimeUTC": "2026-02-13T11:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "+01:00",
+  "venueTimezone": "Europe/Rome",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 637,
+      "market": "N",
+      "countryCode": "US",
+      "network": "Peacock",
+      "sequenceNumber": 1
+    },
+    {
+      "id": 636,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC Gem",
+      "sequenceNumber": 103
+    },
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 107
+    },
+    {
+      "id": 642,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "ICI T\u00e9l\u00e9",
+      "sequenceNumber": 143
+    }
+  ],
+  "gameState": "FINAL",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 6773,
+    "commonName": {
+      "default": "Italy",
+      "cs": "It\u00e1lie",
+      "de": "Italien",
+      "es": "Italia",
+      "fi": "Italia",
+      "fr": "Italie",
+      "sk": "Taliansko",
+      "sv": "Italien"
+    },
+    "abbrev": "ITA",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 2,
+    "sog": 22,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/ITA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/ITA_dark.svg"
+  },
+  "homeTeam": {
+    "id": 65,
+    "commonName": {
+      "default": "Slovakia",
+      "cs": "Slovensko",
+      "de": "Slowakei",
+      "es": "Eslovaquia",
+      "fr": "Slovaquie",
+      "sk": "Slovensko",
+      "sv": "Slovakien"
+    },
+    "abbrev": "SVK",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 3,
+    "sog": 38,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/SVK_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/SVK_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 9004,
+            "strength": "pp",
+            "playerId": 8485959,
+            "firstName": {
+              "default": "Libor"
+            },
+            "lastName": {
+              "default": "Hudacek"
+            },
+            "name": {
+              "default": "L. Hudacek"
+            },
+            "teamAbbrev": {
+              "default": "SVK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SVK/8485959.png",
+            "goalsToDate": 1,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "SVK"
+            },
+            "timeInPeriod": "03:51",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483515,
+                "firstName": {
+                  "default": "Juraj"
+                },
+                "lastName": {
+                  "default": "Slafkovsk\u00fd"
+                },
+                "name": {
+                  "default": "J. Slafkovsk\u00fd"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 20
+              },
+              {
+                "playerId": 8484164,
+                "firstName": {
+                  "default": "Dalibor"
+                },
+                "lastName": {
+                  "default": "Dvorsky"
+                },
+                "name": {
+                  "default": "D. Dvorsky"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 15
+              }
+            ],
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 9008,
+            "strength": "ev",
+            "playerId": 8485962,
+            "firstName": {
+              "default": "Matus"
+            },
+            "lastName": {
+              "default": "Sukel"
+            },
+            "name": {
+              "default": "M. Sukel"
+            },
+            "teamAbbrev": {
+              "default": "SVK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SVK/8485962.png",
+            "goalsToDate": 1,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "SVK"
+            },
+            "timeInPeriod": "13:45",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8485960,
+                "firstName": {
+                  "default": "Adam"
+                },
+                "lastName": {
+                  "default": "Liska"
+                },
+                "name": {
+                  "default": "A. Liska"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 23
+              },
+              {
+                "playerId": 8485992,
+                "firstName": {
+                  "default": "Luk\u00e1\u0161"
+                },
+                "lastName": {
+                  "default": "Cingel"
+                },
+                "name": {
+                  "default": "L. Cingel"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 6
+              }
+            ],
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 9012,
+            "strength": "pp",
+            "playerId": 8478862,
+            "firstName": {
+              "default": "Matthew"
+            },
+            "lastName": {
+              "default": "Bradley"
+            },
+            "name": {
+              "default": "M. Bradley"
+            },
+            "teamAbbrev": {
+              "default": "ITA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ITA/8478862.png",
+            "goalsToDate": 2,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "SVK"
+            },
+            "timeInPeriod": "17:06",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8485972,
+                "firstName": {
+                  "default": "Phil"
+                },
+                "lastName": {
+                  "default": "Pietroniro"
+                },
+                "name": {
+                  "default": "P. Pietroniro"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 37
+              },
+              {
+                "playerId": 8477139,
+                "firstName": {
+                  "default": "Dustin"
+                },
+                "lastName": {
+                  "default": "Gazley"
+                },
+                "name": {
+                  "default": "D. Gazley"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 10
+              }
+            ],
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 9020,
+            "strength": "ev",
+            "playerId": 8480008,
+            "firstName": {
+              "default": "Adam"
+            },
+            "lastName": {
+              "default": "Ruzicka",
+              "cs": "Ru\u017ei\u010dka",
+              "sk": "Ru\u017ei\u010dka"
+            },
+            "name": {
+              "default": "A. Ruzicka",
+              "cs": "A. Ru\u017ei\u010dka",
+              "sk": "A. Ru\u017ei\u010dka"
+            },
+            "teamAbbrev": {
+              "default": "SVK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SVK/8480008.png",
+            "goalsToDate": 2,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "SVK"
+            },
+            "timeInPeriod": "11:54",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483630,
+                "firstName": {
+                  "default": "Pavol"
+                },
+                "lastName": {
+                  "default": "Regenda"
+                },
+                "name": {
+                  "default": "P. Regenda"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 84
+              },
+              {
+                "playerId": 8476364,
+                "firstName": {
+                  "default": "Martin"
+                },
+                "lastName": {
+                  "default": "Gernat",
+                  "cs": "Gern\u00e1t",
+                  "sk": "Gern\u00e1t"
+                },
+                "name": {
+                  "default": "M. Gernat",
+                  "cs": "M. Gern\u00e1t",
+                  "sk": "M. Gern\u00e1t"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 28
+              }
+            ],
+            "isHome": true
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 9024,
+            "strength": "ev",
+            "playerId": 8477139,
+            "firstName": {
+              "default": "Dustin"
+            },
+            "lastName": {
+              "default": "Gazley"
+            },
+            "name": {
+              "default": "D. Gazley"
+            },
+            "teamAbbrev": {
+              "default": "ITA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ITA/8477139.png",
+            "goalsToDate": 1,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "SVK"
+            },
+            "timeInPeriod": "16:25",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475262,
+                "firstName": {
+                  "default": "Thomas"
+                },
+                "lastName": {
+                  "default": "Larkin"
+                },
+                "name": {
+                  "default": "T. Larkin"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 27
+              },
+              {
+                "playerId": 8485972,
+                "firstName": {
+                  "default": "Phil"
+                },
+                "lastName": {
+                  "default": "Pietroniro"
+                },
+                "name": {
+                  "default": "P. Pietroniro"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 37
+              }
+            ],
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:20",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Martin"
+              },
+              "lastName": {
+                "default": "Marincin",
+                "cs": "Marin\u010din",
+                "sk": "Marin\u010din"
+              },
+              "sweaterNumber": 52
+            },
+            "teamAbbrev": {
+              "default": "SVK"
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "11:56",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Marco"
+              },
+              "lastName": {
+                "default": "Zanetti"
+              },
+              "sweaterNumber": 11
+            },
+            "teamAbbrev": {
+              "default": "ITA"
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:07",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tommy"
+              },
+              "lastName": {
+                "default": "Purdeller"
+              },
+              "sweaterNumber": 34
+            },
+            "teamAbbrev": {
+              "default": "ITA"
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "08:05",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Cristiano"
+              },
+              "lastName": {
+                "default": "Digiacinto"
+              },
+              "sweaterNumber": 36
+            },
+            "teamAbbrev": {
+              "default": "ITA"
+            },
+            "descKey": "illegal-check-to-head"
+          },
+          {
+            "timeInPeriod": "16:02",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Martin"
+              },
+              "lastName": {
+                "default": "Marincin",
+                "cs": "Marin\u010din",
+                "sk": "Marin\u010din"
+              },
+              "sweaterNumber": 52
+            },
+            "teamAbbrev": {
+              "default": "SVK"
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "19:41",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Pavol"
+              },
+              "lastName": {
+                "default": "Regenda"
+              },
+              "sweaterNumber": 84
+            },
+            "teamAbbrev": {
+              "default": "SVK"
+            },
+            "descKey": "interference"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Erik"
+              },
+              "lastName": {
+                "default": "Cernak",
+                "cs": "\u010cern\u00e1k",
+                "sk": "\u010cern\u00e1k"
+              },
+              "sweaterNumber": 81
+            },
+            "teamAbbrev": {
+              "default": "SVK"
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "06:13",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Luca"
+              },
+              "lastName": {
+                "default": "Frigo"
+              },
+              "sweaterNumber": 93
+            },
+            "teamAbbrev": {
+              "default": "ITA"
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "06:13",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Juraj"
+              },
+              "lastName": {
+                "default": "Slafkovsk\u00fd"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "SVK"
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "09:50",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dylan"
+              },
+              "lastName": {
+                "default": "Di Perna"
+              },
+              "sweaterNumber": 90
+            },
+            "teamAbbrev": {
+              "default": "ITA"
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "13:25",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Martin"
+              },
+              "lastName": {
+                "default": "Marincin",
+                "cs": "Marin\u010din",
+                "sk": "Marin\u010din"
+              },
+              "sweaterNumber": 52
+            },
+            "teamAbbrev": {
+              "default": "SVK"
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "19:31",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Thomas"
+              },
+              "lastName": {
+                "default": "Larkin"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "ITA"
+            },
+            "descKey": "delaying-game"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

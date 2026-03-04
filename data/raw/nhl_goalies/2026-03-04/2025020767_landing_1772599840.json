@@ -1,0 +1,718 @@
+{
+  "id": 2025020767,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-18",
+  "venue": {
+    "default": "American Airlines Center"
+  },
+  "venueLocation": {
+    "default": "Dallas"
+  },
+  "startTimeUTC": "2026-01-18T19:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "US/Central",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 324,
+      "market": "N",
+      "countryCode": "US",
+      "network": "NHLN",
+      "sequenceNumber": 35
+    },
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 107
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 581,
+      "market": "A",
+      "countryCode": "US",
+      "network": "The Spot",
+      "sequenceNumber": 211
+    },
+    {
+      "id": 553,
+      "market": "H",
+      "countryCode": "US",
+      "network": "Victory+",
+      "sequenceNumber": 382
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 14,
+    "commonName": {
+      "default": "Lightning"
+    },
+    "abbrev": "TBL",
+    "placeName": {
+      "default": "Tampa Bay"
+    },
+    "placeNameWithPreposition": {
+      "default": "Tampa Bay",
+      "fr": "de Tampa Bay"
+    },
+    "score": 4,
+    "sog": 26,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TBL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/TBL_dark.svg"
+  },
+  "homeTeam": {
+    "id": 25,
+    "commonName": {
+      "default": "Stars"
+    },
+    "abbrev": "DAL",
+    "placeName": {
+      "default": "Dallas"
+    },
+    "placeNameWithPreposition": {
+      "default": "Dallas",
+      "fr": "de Dallas"
+    },
+    "score": 1,
+    "sog": 20,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/DAL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/DAL_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 151,
+            "strength": "ev",
+            "playerId": 8480840,
+            "firstName": {
+              "default": "Oskar"
+            },
+            "lastName": {
+              "default": "B\u00e4ck"
+            },
+            "name": {
+              "default": "O. B\u00e4ck"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8480840.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tbl-dal-back-scores-goal-against-andrei-vasilevskiy-6387909325112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tbl-dal-back-marque-un-but-contre-andrei-vasilevskiy-6387909727112",
+            "highlightClip": 6387909325112,
+            "highlightClipFr": 6387909727112,
+            "discreteClip": 6387910307112,
+            "discreteClipFr": 6387910313112,
+            "goalsToDate": 4,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "04:00",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480878,
+                "firstName": {
+                  "default": "Nils"
+                },
+                "lastName": {
+                  "default": "Lundkvist"
+                },
+                "name": {
+                  "default": "N. Lundkvist"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 5
+              },
+              {
+                "playerId": 8482145,
+                "firstName": {
+                  "default": "Mavrik"
+                },
+                "lastName": {
+                  "default": "Bourque"
+                },
+                "name": {
+                  "default": "M. Bourque"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 22
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020767/ev151.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 218,
+            "strength": "ev",
+            "playerId": 8483752,
+            "firstName": {
+              "default": "Dominic"
+            },
+            "lastName": {
+              "default": "James"
+            },
+            "name": {
+              "default": "D. James"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8483752.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tbl-dal-james-scores-goal-against-jake-oettinger-6387911954112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tbl-dal-james-marque-un-but-contre-jake-oettinger-6387910207112",
+            "highlightClip": 6387911954112,
+            "highlightClipFr": 6387910207112,
+            "discreteClip": 6387910980112,
+            "discreteClipFr": 6387911661112,
+            "goalsToDate": 4,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "08:04",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477404,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "Guentzel"
+                },
+                "name": {
+                  "default": "J. Guentzel"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 59
+              },
+              {
+                "playerId": 8480426,
+                "firstName": {
+                  "default": "Charle-Edouard"
+                },
+                "lastName": {
+                  "default": "D'Astous"
+                },
+                "name": {
+                  "default": "C. D'Astous"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 51
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020767/ev218.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 402,
+            "strength": "ev",
+            "playerId": 8479542,
+            "firstName": {
+              "default": "Brandon"
+            },
+            "lastName": {
+              "default": "Hagel"
+            },
+            "name": {
+              "default": "B. Hagel"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8479542.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tbl-dal-hagel-scores-goal-against-jake-oettinger-6387912813112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tbl-dal-hagel-marque-un-but-contre-jake-oettinger-6387913678112",
+            "highlightClip": 6387912813112,
+            "highlightClipFr": 6387913678112,
+            "discreteClip": 6387913195112,
+            "discreteClipFr": 6387912520112,
+            "goalsToDate": 23,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "11:04",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476453,
+                "firstName": {
+                  "default": "Nikita"
+                },
+                "lastName": {
+                  "default": "Kucherov",
+                  "cs": "Ku\u010derov",
+                  "fi": "Kutsherov",
+                  "sk": "Ku\u010derov"
+                },
+                "name": {
+                  "default": "N. Kucherov",
+                  "cs": "N. Ku\u010derov",
+                  "fi": "N. Kutsherov",
+                  "sk": "N. Ku\u010derov"
+                },
+                "assistsToDate": 46,
+                "sweaterNumber": 86
+              },
+              {
+                "playerId": 8478178,
+                "firstName": {
+                  "default": "Darren"
+                },
+                "lastName": {
+                  "default": "Raddysh"
+                },
+                "name": {
+                  "default": "D. Raddysh"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 43
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020767/ev402.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 781,
+            "strength": "ev",
+            "playerId": 8477404,
+            "firstName": {
+              "default": "Jake"
+            },
+            "lastName": {
+              "default": "Guentzel"
+            },
+            "name": {
+              "default": "J. Guentzel"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8477404.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tbl-dal-guentzel-scores-goal-against-jake-oettinger-6387912019112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tbl-dal-guentzel-marque-un-but-contre-jake-oettinger-6387914282112",
+            "highlightClip": 6387912019112,
+            "highlightClipFr": 6387914282112,
+            "discreteClip": 6387913983112,
+            "discreteClipFr": 6387912540112,
+            "goalsToDate": 21,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "18:50",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483752,
+                "firstName": {
+                  "default": "Dominic"
+                },
+                "lastName": {
+                  "default": "James"
+                },
+                "name": {
+                  "default": "D. James"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 17
+              },
+              {
+                "playerId": 8477416,
+                "firstName": {
+                  "default": "Oliver"
+                },
+                "lastName": {
+                  "default": "Bjorkstrand"
+                },
+                "name": {
+                  "default": "O. Bjorkstrand"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 22
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020767/ev781.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1560",
+            "eventId": 1020,
+            "strength": "ev",
+            "playerId": 8480995,
+            "firstName": {
+              "default": "Pontus"
+            },
+            "lastName": {
+              "default": "Holmberg"
+            },
+            "name": {
+              "default": "P. Holmberg"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8480995.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tbl-dal-holmberg-scores-empty-net-goal-6387915494112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tbl-dal-holmberg-tbl-marque-un-but-dans-un-filet-desert-6387914701112",
+            "highlightClip": 6387915494112,
+            "highlightClipFr": 6387914701112,
+            "discreteClip": 6387914324112,
+            "discreteClipFr": 6387915397112,
+            "goalsToDate": 8,
+            "awayScore": 4,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "17:59",
+            "shotType": "snap",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8476826,
+                "firstName": {
+                  "default": "Yanni"
+                },
+                "lastName": {
+                  "default": "Gourde"
+                },
+                "name": {
+                  "default": "Y. Gourde"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 37
+              },
+              {
+                "playerId": 8482655,
+                "firstName": {
+                  "default": "J.J."
+                },
+                "lastName": {
+                  "default": "Moser"
+                },
+                "name": {
+                  "default": "J. Moser"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 90
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020767/ev1020.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8476883,
+        "teamAbbrev": "TBL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8476883.png",
+        "name": {
+          "default": "A. Vasilevskiy",
+          "cs": "A. Vasilevskij",
+          "fi": "A. Vasilevski",
+          "sk": "A. Vasilevskij"
+        },
+        "sweaterNo": 88,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.95
+      },
+      {
+        "star": 2,
+        "playerId": 8483752,
+        "teamAbbrev": "TBL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8483752.png",
+        "name": {
+          "default": "D. James"
+        },
+        "sweaterNo": 17,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8477404,
+        "teamAbbrev": "TBL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8477404.png",
+        "name": {
+          "default": "J. Guentzel"
+        },
+        "sweaterNo": 59,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "05:24",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Erik"
+              },
+              "lastName": {
+                "default": "Cernak",
+                "cs": "\u010cern\u00e1k",
+                "sk": "\u010cern\u00e1k"
+              },
+              "sweaterNumber": 81
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Radek"
+              },
+              "lastName": {
+                "default": "Faksa"
+              },
+              "sweaterNumber": 12
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "18:04",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Declan"
+              },
+              "lastName": {
+                "default": "Carlile"
+              },
+              "sweaterNumber": 67
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Justin"
+              },
+              "lastName": {
+                "default": "Hryckowian"
+              },
+              "sweaterNumber": 49
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "18:04",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Justin"
+              },
+              "lastName": {
+                "default": "Hryckowian"
+              },
+              "sweaterNumber": 49
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Declan"
+              },
+              "lastName": {
+                "default": "Carlile"
+              },
+              "sweaterNumber": 67
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:16",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jason"
+              },
+              "lastName": {
+                "default": "Robertson"
+              },
+              "sweaterNumber": 21
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Hagel"
+              },
+              "sweaterNumber": 38
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "14:20",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Erik"
+              },
+              "lastName": {
+                "default": "Cernak",
+                "cs": "\u010cern\u00e1k",
+                "sk": "\u010cern\u00e1k"
+              },
+              "sweaterNumber": 81
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mikko"
+              },
+              "lastName": {
+                "default": "Rantanen"
+              },
+              "sweaterNumber": 96
+            },
+            "descKey": "interference"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "07:26",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Colin"
+              },
+              "lastName": {
+                "default": "Blackwell"
+              },
+              "sweaterNumber": 15
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "J.J."
+              },
+              "lastName": {
+                "default": "Moser"
+              },
+              "sweaterNumber": 90
+            },
+            "descKey": "interference"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

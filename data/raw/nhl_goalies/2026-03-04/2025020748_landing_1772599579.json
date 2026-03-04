@@ -1,0 +1,1074 @@
+{
+  "id": 2025020748,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-15",
+  "venue": {
+    "default": "T-Mobile Arena"
+  },
+  "venueLocation": {
+    "default": "Paradise"
+  },
+  "startTimeUTC": "2026-01-16T02:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "US/Pacific",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 309,
+      "market": "N",
+      "countryCode": "US",
+      "network": "ESPN",
+      "sequenceNumber": 10
+    },
+    {
+      "id": 293,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "TSN4",
+      "sequenceNumber": 137
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 10,
+    "commonName": {
+      "default": "Maple Leafs"
+    },
+    "abbrev": "TOR",
+    "placeName": {
+      "default": "Toronto"
+    },
+    "placeNameWithPreposition": {
+      "default": "Toronto",
+      "fr": "de Toronto"
+    },
+    "score": 5,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TOR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/TOR_dark.svg"
+  },
+  "homeTeam": {
+    "id": 54,
+    "commonName": {
+      "default": "Golden Knights"
+    },
+    "abbrev": "VGK",
+    "placeName": {
+      "default": "Vegas"
+    },
+    "placeNameWithPreposition": {
+      "default": "Vegas",
+      "fr": "de Vegas"
+    },
+    "score": 6,
+    "sog": 33,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VGK_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 81,
+            "strength": "ev",
+            "playerId": 8476853,
+            "firstName": {
+              "default": "Morgan"
+            },
+            "lastName": {
+              "default": "Rielly"
+            },
+            "name": {
+              "default": "M. Rielly"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8476853.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-vgk-rielly-scores-goal-against-adin-hill-6387790989112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-vgk-rielly-marque-un-but-contre-adin-hill-6387790996112",
+            "highlightClip": 6387790989112,
+            "highlightClipFr": 6387790996112,
+            "discreteClip": 6387790789112,
+            "discreteClipFr": 6387789800112,
+            "goalsToDate": 6,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "02:05",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477939,
+                "firstName": {
+                  "default": "William"
+                },
+                "lastName": {
+                  "default": "Nylander"
+                },
+                "name": {
+                  "default": "W. Nylander"
+                },
+                "assistsToDate": 31,
+                "sweaterNumber": 88
+              },
+              {
+                "playerId": 8475166,
+                "firstName": {
+                  "default": "John"
+                },
+                "lastName": {
+                  "default": "Tavares"
+                },
+                "name": {
+                  "default": "J. Tavares"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 91
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020748/ev81.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 181,
+            "strength": "ev",
+            "playerId": 8477939,
+            "firstName": {
+              "default": "William"
+            },
+            "lastName": {
+              "default": "Nylander"
+            },
+            "name": {
+              "default": "W. Nylander"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8477939.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-vgk-nylander-scores-goal-against-adin-hill-6387788934112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-vgk-nylander-marque-un-but-contre-adin-hill-6387789515112",
+            "highlightClip": 6387788934112,
+            "highlightClipFr": 6387789515112,
+            "discreteClip": 6387790502112,
+            "discreteClipFr": 6387789620112,
+            "goalsToDate": 17,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "05:03",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481711,
+                "firstName": {
+                  "default": "Matias"
+                },
+                "lastName": {
+                  "default": "Maccelli"
+                },
+                "name": {
+                  "default": "M. Maccelli"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 63
+              },
+              {
+                "playerId": 8478443,
+                "firstName": {
+                  "default": "Brandon"
+                },
+                "lastName": {
+                  "default": "Carlo"
+                },
+                "name": {
+                  "default": "B. Carlo"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 25
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020748/ev181.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 228,
+            "strength": "pp",
+            "playerId": 8481604,
+            "firstName": {
+              "default": "Pavel"
+            },
+            "lastName": {
+              "default": "Dorofeyev",
+              "cs": "Dorofejev",
+              "fi": "Dorofejev",
+              "sk": "Dorofejev"
+            },
+            "name": {
+              "default": "P. Dorofeyev",
+              "cs": "P. Dorofejev",
+              "fi": "P. Dorofejev",
+              "sk": "P. Dorofejev"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8481604.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-vgk-dorofeyev-scores-ppg-against-joseph-woll-6387789434112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-vgk-dorofeyev-marque-un-but-en-a-n-contre-joseph-woll-6387789532112",
+            "highlightClip": 6387789434112,
+            "highlightClipFr": 6387789532112,
+            "discreteClip": 6387790817112,
+            "discreteClipFr": 6387790419112,
+            "goalsToDate": 18,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "08:12",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478483,
+                "firstName": {
+                  "default": "Mitch",
+                  "cs": "Mitchell",
+                  "de": "Mitchell",
+                  "es": "Mitchell",
+                  "fi": "Mitchell",
+                  "sk": "Mitchell",
+                  "sv": "Mitchell"
+                },
+                "lastName": {
+                  "default": "Marner"
+                },
+                "name": {
+                  "default": "M. Marner"
+                },
+                "assistsToDate": 37,
+                "sweaterNumber": 93
+              },
+              {
+                "playerId": 8478403,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Eichel"
+                },
+                "name": {
+                  "default": "J. Eichel"
+                },
+                "assistsToDate": 36,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020748/ev228.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 257,
+            "strength": "ev",
+            "playerId": 8479318,
+            "firstName": {
+              "default": "Auston"
+            },
+            "lastName": {
+              "default": "Matthews"
+            },
+            "name": {
+              "default": "A. Matthews"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8479318.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-vgk-matthews-scores-goal-against-adin-hill-6387791682112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-vgk-matthews-marque-un-but-contre-adin-hill-6387791881112",
+            "highlightClip": 6387791682112,
+            "highlightClipFr": 6387791881112,
+            "discreteClip": 6387790033112,
+            "discreteClipFr": 6387789727112,
+            "goalsToDate": 23,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "09:57",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476931,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "McCabe"
+                },
+                "name": {
+                  "default": "J. McCabe"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 22
+              },
+              {
+                "playerId": 8479442,
+                "firstName": {
+                  "default": "Troy"
+                },
+                "lastName": {
+                  "default": "Stecher"
+                },
+                "name": {
+                  "default": "T. Stecher"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 28
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020748/ev257.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 595,
+            "strength": "ev",
+            "playerId": 8478434,
+            "firstName": {
+              "default": "Keegan"
+            },
+            "lastName": {
+              "default": "Kolesar"
+            },
+            "name": {
+              "default": "K. Kolesar"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8478434.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-vgk-kolesar-scores-goal-against-joseph-woll-6387793927112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-vgk-kolesar-marque-un-but-contre-joseph-woll-6387792344112",
+            "highlightClip": 6387793927112,
+            "highlightClipFr": 6387792344112,
+            "discreteClip": 6387792842112,
+            "discreteClipFr": 6387794017112,
+            "goalsToDate": 2,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "05:51",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483890,
+                "firstName": {
+                  "default": "Braeden"
+                },
+                "lastName": {
+                  "default": "Bowman"
+                },
+                "name": {
+                  "default": "B. Bowman"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 42
+              },
+              {
+                "playerId": 8478396,
+                "firstName": {
+                  "default": "Noah"
+                },
+                "lastName": {
+                  "default": "Hanifin"
+                },
+                "name": {
+                  "default": "N. Hanifin"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 15
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020748/ev595.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 687,
+            "strength": "pp",
+            "playerId": 8475166,
+            "firstName": {
+              "default": "John"
+            },
+            "lastName": {
+              "default": "Tavares"
+            },
+            "name": {
+              "default": "J. Tavares"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8475166.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-vgk-tavares-scores-ppg-against-adin-hill-6387792566112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-vgk-tavares-marque-un-but-en-a-n-contre-adin-hill-6387794418112",
+            "highlightClip": 6387792566112,
+            "highlightClipFr": 6387794418112,
+            "discreteClip": 6387795300112,
+            "discreteClipFr": 6387794147112,
+            "goalsToDate": 17,
+            "awayScore": 4,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "12:46",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481711,
+                "firstName": {
+                  "default": "Matias"
+                },
+                "lastName": {
+                  "default": "Maccelli"
+                },
+                "name": {
+                  "default": "M. Maccelli"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 63
+              },
+              {
+                "playerId": 8482720,
+                "firstName": {
+                  "default": "Matthew"
+                },
+                "lastName": {
+                  "default": "Knies"
+                },
+                "name": {
+                  "default": "M. Knies"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 23
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020748/ev687.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 808,
+            "strength": "pp",
+            "playerId": 8481604,
+            "firstName": {
+              "default": "Pavel"
+            },
+            "lastName": {
+              "default": "Dorofeyev",
+              "cs": "Dorofejev",
+              "fi": "Dorofejev",
+              "sk": "Dorofejev"
+            },
+            "name": {
+              "default": "P. Dorofeyev",
+              "cs": "P. Dorofejev",
+              "fi": "P. Dorofejev",
+              "sk": "P. Dorofejev"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8481604.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-vgk-dorofeyev-scores-ppg-against-joseph-woll-6387796622112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-vgk-dorofeyev-marque-un-but-en-a-n-contre-joseph-woll-6387796915112",
+            "highlightClip": 6387796622112,
+            "highlightClipFr": 6387796915112,
+            "discreteClip": 6387795550112,
+            "discreteClipFr": 6387794847112,
+            "goalsToDate": 19,
+            "awayScore": 4,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "02:10",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478483,
+                "firstName": {
+                  "default": "Mitch",
+                  "cs": "Mitchell",
+                  "de": "Mitchell",
+                  "es": "Mitchell",
+                  "fi": "Mitchell",
+                  "sk": "Mitchell",
+                  "sv": "Mitchell"
+                },
+                "lastName": {
+                  "default": "Marner"
+                },
+                "name": {
+                  "default": "M. Marner"
+                },
+                "assistsToDate": 38,
+                "sweaterNumber": 93
+              },
+              {
+                "playerId": 8476881,
+                "firstName": {
+                  "default": "Tomas",
+                  "cs": "Tom\u00e1\u0161",
+                  "sk": "Tom\u00e1\u0161"
+                },
+                "lastName": {
+                  "default": "Hertl"
+                },
+                "name": {
+                  "default": "T. Hertl"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 48
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020748/ev808.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 915,
+            "strength": "ev",
+            "playerId": 8476872,
+            "firstName": {
+              "default": "Scott"
+            },
+            "lastName": {
+              "default": "Laughton"
+            },
+            "name": {
+              "default": "S. Laughton"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8476872.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-vgk-laughton-scores-goal-against-adin-hill-6387797031112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-vgk-laughton-marque-un-but-contre-adin-hill-6387797027112",
+            "highlightClip": 6387797031112,
+            "highlightClipFr": 6387797027112,
+            "discreteClip": 6387795060112,
+            "discreteClipFr": 6387797024112,
+            "goalsToDate": 6,
+            "awayScore": 5,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "08:58",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482720,
+                "firstName": {
+                  "default": "Matthew"
+                },
+                "lastName": {
+                  "default": "Knies"
+                },
+                "name": {
+                  "default": "M. Knies"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 23
+              },
+              {
+                "playerId": 8478904,
+                "firstName": {
+                  "default": "Steven"
+                },
+                "lastName": {
+                  "default": "Lorentz"
+                },
+                "name": {
+                  "default": "S. Lorentz"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 18
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020748/ev915.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 934,
+            "strength": "ev",
+            "playerId": 8475913,
+            "firstName": {
+              "default": "Mark"
+            },
+            "lastName": {
+              "default": "Stone"
+            },
+            "name": {
+              "default": "M. Stone"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8475913.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-vgk-stone-scores-goal-against-joseph-woll-6387796660112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-vgk-stone-marque-un-but-contre-joseph-woll-6387795067112",
+            "highlightClip": 6387796660112,
+            "highlightClipFr": 6387795067112,
+            "discreteClip": 6387796751112,
+            "discreteClipFr": 6387794786112,
+            "goalsToDate": 17,
+            "awayScore": 5,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "10:14",
+            "shotType": "deflected",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477964,
+                "firstName": {
+                  "default": "Ivan"
+                },
+                "lastName": {
+                  "default": "Barbashev",
+                  "cs": "Barba\u0161ev",
+                  "fi": "Barbashov",
+                  "sk": "Barba\u0161ev"
+                },
+                "name": {
+                  "default": "I. Barbashev",
+                  "cs": "I. Barba\u0161ev",
+                  "fi": "I. Barbashov",
+                  "sk": "I. Barba\u0161ev"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 49
+              },
+              {
+                "playerId": 8478403,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Eichel"
+                },
+                "name": {
+                  "default": "J. Eichel"
+                },
+                "assistsToDate": 37,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020748/ev934.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1126,
+            "strength": "ev",
+            "playerId": 8476881,
+            "firstName": {
+              "default": "Tomas",
+              "cs": "Tom\u00e1\u0161",
+              "sk": "Tom\u00e1\u0161"
+            },
+            "lastName": {
+              "default": "Hertl"
+            },
+            "name": {
+              "default": "T. Hertl"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8476881.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-vgk-hertl-scores-goal-against-joseph-woll-6387795997112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-vgk-hertl-marque-un-but-contre-joseph-woll-6387795092112",
+            "highlightClip": 6387795997112,
+            "highlightClipFr": 6387795092112,
+            "discreteClip": 6387795292112,
+            "discreteClipFr": 6387795196112,
+            "goalsToDate": 19,
+            "awayScore": 5,
+            "homeScore": 5,
+            "timeInPeriod": "19:53",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478403,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Eichel"
+                },
+                "name": {
+                  "default": "J. Eichel"
+                },
+                "assistsToDate": 38,
+                "sweaterNumber": 9
+              },
+              {
+                "playerId": 8475913,
+                "firstName": {
+                  "default": "Mark"
+                },
+                "lastName": {
+                  "default": "Stone"
+                },
+                "name": {
+                  "default": "M. Stone"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 61
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020748/ev1126.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 1208,
+            "strength": "ev",
+            "playerId": 8478403,
+            "firstName": {
+              "default": "Jack"
+            },
+            "lastName": {
+              "default": "Eichel"
+            },
+            "name": {
+              "default": "J. Eichel"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8478403.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-vgk-eichel-scores-goal-against-joseph-woll-6387796399112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-vgk-eichel-marque-un-but-contre-joseph-woll-6387797069112",
+            "highlightClip": 6387796399112,
+            "highlightClipFr": 6387797069112,
+            "discreteClip": 6387797537112,
+            "discreteClipFr": 6387796587112,
+            "goalsToDate": 17,
+            "awayScore": 5,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "02:44",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475913,
+                "firstName": {
+                  "default": "Mark"
+                },
+                "lastName": {
+                  "default": "Stone"
+                },
+                "name": {
+                  "default": "M. Stone"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 61
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020748/ev1208.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8478403,
+        "teamAbbrev": "VGK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8478403.png",
+        "name": {
+          "default": "J. Eichel"
+        },
+        "sweaterNo": 9,
+        "position": "C",
+        "goals": 1,
+        "assists": 3,
+        "points": 4
+      },
+      {
+        "star": 2,
+        "playerId": 8476881,
+        "teamAbbrev": "VGK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8476881.png",
+        "name": {
+          "default": "T. Hertl"
+        },
+        "sweaterNo": 48,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8478483,
+        "teamAbbrev": "VGK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8478483.png",
+        "name": {
+          "default": "M. Marner"
+        },
+        "sweaterNo": 93,
+        "position": "R",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:36",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "McCabe"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mark"
+              },
+              "lastName": {
+                "default": "Stone"
+              },
+              "sweaterNumber": 61
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "McCabe"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Tomas",
+                "cs": "Tom\u00e1\u0161",
+                "sk": "Tom\u00e1\u0161"
+              },
+              "lastName": {
+                "default": "Hertl"
+              },
+              "sweaterNumber": 48
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "11:36",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tomas",
+                "cs": "Tom\u00e1\u0161",
+                "sk": "Tom\u00e1\u0161"
+              },
+              "lastName": {
+                "default": "Hertl"
+              },
+              "sweaterNumber": 48
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Steven"
+              },
+              "lastName": {
+                "default": "Lorentz"
+              },
+              "sweaterNumber": 18
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:03",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Easton"
+              },
+              "lastName": {
+                "default": "Cowan"
+              },
+              "sweaterNumber": 53
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ben"
+              },
+              "lastName": {
+                "default": "Hutton"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "02:16",
+    "secondsRemaining": 136,
+    "running": false,
+    "inIntermission": false
+  }
+}

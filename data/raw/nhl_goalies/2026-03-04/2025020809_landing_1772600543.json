@@ -1,0 +1,730 @@
+{
+  "id": 2025020809,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-23",
+  "venue": {
+    "default": "Climate Pledge Arena"
+  },
+  "venueLocation": {
+    "default": "Seattle"
+  },
+  "startTimeUTC": "2026-01-24T03:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "US/Pacific",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 554,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KHN/Prime",
+      "sequenceNumber": 348
+    },
+    {
+      "id": 553,
+      "market": "A",
+      "countryCode": "US",
+      "network": "Victory+",
+      "sequenceNumber": 382
+    },
+    {
+      "id": 388,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KONG",
+      "sequenceNumber": 654
+    },
+    {
+      "id": 219,
+      "market": "A",
+      "countryCode": "US",
+      "network": "KCOP-13",
+      "sequenceNumber": 656
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 24,
+    "commonName": {
+      "default": "Ducks"
+    },
+    "abbrev": "ANA",
+    "placeName": {
+      "default": "Anaheim"
+    },
+    "placeNameWithPreposition": {
+      "default": "Anaheim",
+      "fr": "d'Anaheim"
+    },
+    "score": 4,
+    "sog": 31,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/ANA_dark.svg"
+  },
+  "homeTeam": {
+    "id": 55,
+    "commonName": {
+      "default": "Kraken"
+    },
+    "abbrev": "SEA",
+    "placeName": {
+      "default": "Seattle"
+    },
+    "placeNameWithPreposition": {
+      "default": "Seattle",
+      "fr": "de Seattle"
+    },
+    "score": 2,
+    "sog": 22,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/SEA_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 63,
+            "strength": "ev",
+            "playerId": 8483445,
+            "firstName": {
+              "default": "Cutter"
+            },
+            "lastName": {
+              "default": "Gauthier"
+            },
+            "name": {
+              "default": "C. Gauthier"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8483445.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-sea-gauthier-scores-goal-against-philipp-grubauer-6388204876112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-sea-gauthier-marque-un-but-contre-philipp-grubauer-6388204179112",
+            "highlightClip": 6388204876112,
+            "highlightClipFr": 6388204179112,
+            "discreteClip": 6388204962112,
+            "discreteClipFr": 6388205260112,
+            "goalsToDate": 23,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "01:02",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479705,
+                "firstName": {
+                  "default": "Jeffrey"
+                },
+                "lastName": {
+                  "default": "Viel"
+                },
+                "name": {
+                  "default": "J. Viel"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 28
+              },
+              {
+                "playerId": 8483490,
+                "firstName": {
+                  "default": "Pavel"
+                },
+                "lastName": {
+                  "default": "Mintyukov",
+                  "cs": "Mintjukov",
+                  "fi": "Mintjukov",
+                  "sk": "Mintjukov"
+                },
+                "name": {
+                  "default": "P. Mintyukov",
+                  "cs": "P. Mintjukov",
+                  "fi": "P. Mintjukov",
+                  "sk": "P. Mintjukov"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 98
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020809/ev63.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 358,
+            "strength": "sh",
+            "playerId": 8480068,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "Poehling"
+            },
+            "name": {
+              "default": "R. Poehling"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8480068.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-sea-poehling-scores-shg-against-philipp-grubauer-6388206598112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-sea-poehling-marque-un-but-en-i-n-contre-philipp-grubauer-6388205822112",
+            "highlightClip": 6388206598112,
+            "highlightClipFr": 6388205822112,
+            "discreteClip": 6388206015112,
+            "discreteClipFr": 6388206596112,
+            "goalsToDate": 4,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "15:24",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482178,
+                "firstName": {
+                  "default": "Ian"
+                },
+                "lastName": {
+                  "default": "Moore"
+                },
+                "name": {
+                  "default": "I. Moore"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 74
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020809/ev358.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 504,
+            "strength": "ev",
+            "playerId": 8477955,
+            "firstName": {
+              "default": "Jared"
+            },
+            "lastName": {
+              "default": "McCann"
+            },
+            "name": {
+              "default": "J. McCann"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8477955.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-sea-mccann-scores-goal-against-lukas-dostal-6388207052112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-sea-mccann-marque-un-but-contre-lukas-dostal-6388206150112",
+            "highlightClip": 6388207052112,
+            "highlightClipFr": 6388206150112,
+            "discreteClip": 6388208120112,
+            "discreteClipFr": 6388207821112,
+            "goalsToDate": 12,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "01:55",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8474586,
+                "firstName": {
+                  "default": "Jordan"
+                },
+                "lastName": {
+                  "default": "Eberle"
+                },
+                "name": {
+                  "default": "J. Eberle"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 7
+              },
+              {
+                "playerId": 8482665,
+                "firstName": {
+                  "default": "Matty"
+                },
+                "lastName": {
+                  "default": "Beniers"
+                },
+                "name": {
+                  "default": "M. Beniers"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 10
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020809/ev504.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 527,
+            "strength": "pp",
+            "playerId": 8475184,
+            "firstName": {
+              "default": "Chris"
+            },
+            "lastName": {
+              "default": "Kreider"
+            },
+            "name": {
+              "default": "C. Kreider"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8475184.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-sea-kreider-scores-ppg-against-philipp-grubauer-6388208137112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-sea-kreider-marque-un-but-en-a-n-contre-philipp-grubauer-6388208542112",
+            "highlightClip": 6388208137112,
+            "highlightClipFr": 6388208542112,
+            "discreteClip": 6388207421112,
+            "discreteClipFr": 6388206768112,
+            "goalsToDate": 16,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "04:00",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483445,
+                "firstName": {
+                  "default": "Cutter"
+                },
+                "lastName": {
+                  "default": "Gauthier"
+                },
+                "name": {
+                  "default": "C. Gauthier"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 61
+              },
+              {
+                "playerId": 8481605,
+                "firstName": {
+                  "default": "Jackson"
+                },
+                "lastName": {
+                  "default": "LaCombe"
+                },
+                "name": {
+                  "default": "J. LaCombe"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 2
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020809/ev527.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 781,
+            "strength": "ev",
+            "playerId": 8475768,
+            "firstName": {
+              "default": "Jaden"
+            },
+            "lastName": {
+              "default": "Schwartz"
+            },
+            "name": {
+              "default": "J. Schwartz"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8475768.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-sea-schwartz-scores-goal-against-lukas-dostal-6388213439112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-sea-schwartz-marque-un-but-contre-lukas-dostal-6388211765112",
+            "highlightClip": 6388213439112,
+            "highlightClipFr": 6388211765112,
+            "discreteClip": 6388210890112,
+            "discreteClipFr": 6388210776112,
+            "goalsToDate": 9,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "01:54",
+            "shotType": "poke",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483524,
+                "firstName": {
+                  "default": "Shane"
+                },
+                "lastName": {
+                  "default": "Wright"
+                },
+                "name": {
+                  "default": "S. Wright"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 51
+              },
+              {
+                "playerId": 8481554,
+                "firstName": {
+                  "default": "Kaapo"
+                },
+                "lastName": {
+                  "default": "Kakko"
+                },
+                "name": {
+                  "default": "K. Kakko"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 84
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020809/ev781.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 214,
+            "strength": "ev",
+            "playerId": 8483490,
+            "firstName": {
+              "default": "Pavel"
+            },
+            "lastName": {
+              "default": "Mintyukov",
+              "cs": "Mintjukov",
+              "fi": "Mintjukov",
+              "sk": "Mintjukov"
+            },
+            "name": {
+              "default": "P. Mintyukov",
+              "cs": "P. Mintjukov",
+              "fi": "P. Mintjukov",
+              "sk": "P. Mintjukov"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8483490.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/ana-sea-mintyukov-scores-empty-net-goal-6388213587112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/ana-sea-mintyukov-ana-marque-un-but-dans-un-filet-desert-6388214180112",
+            "highlightClip": 6388213587112,
+            "highlightClipFr": 6388214180112,
+            "discreteClip": 6388214368112,
+            "discreteClipFr": 6388214274112,
+            "goalsToDate": 6,
+            "awayScore": 4,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "18:48",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8475798,
+                "firstName": {
+                  "default": "Mikael"
+                },
+                "lastName": {
+                  "default": "Granlund"
+                },
+                "name": {
+                  "default": "M. Granlund"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 64
+              },
+              {
+                "playerId": 8481563,
+                "firstName": {
+                  "default": "Drew"
+                },
+                "lastName": {
+                  "default": "Helleson"
+                },
+                "name": {
+                  "default": "D. Helleson"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 14
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020809/ev214.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8483445,
+        "teamAbbrev": "ANA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8483445.png",
+        "name": {
+          "default": "C. Gauthier"
+        },
+        "sweaterNo": 61,
+        "position": "L",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8475768,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8475768.png",
+        "name": {
+          "default": "J. Schwartz"
+        },
+        "sweaterNo": 17,
+        "position": "L",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8477955,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8477955.png",
+        "name": {
+          "default": "J. McCann"
+        },
+        "sweaterNo": 19,
+        "position": "L",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "14:17",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Alex"
+              },
+              "lastName": {
+                "default": "Killorn"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Berkly"
+              },
+              "lastName": {
+                "default": "Catton"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:38",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryker"
+              },
+              "lastName": {
+                "default": "Evans"
+              },
+              "sweaterNumber": 41
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          },
+          {
+            "timeInPeriod": "08:00",
+            "type": "PS",
+            "duration": 0,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Lindgren"
+              },
+              "sweaterNumber": 55
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jansen"
+              },
+              "lastName": {
+                "default": "Harkins"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "ps-holding-on-breakaway"
+          },
+          {
+            "timeInPeriod": "12:42",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Strome"
+              },
+              "sweaterNumber": 16
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Adam"
+              },
+              "lastName": {
+                "default": "Larsson"
+              },
+              "sweaterNumber": 6
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "14:12",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Montour"
+              },
+              "sweaterNumber": 62
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Alex"
+              },
+              "lastName": {
+                "default": "Killorn"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

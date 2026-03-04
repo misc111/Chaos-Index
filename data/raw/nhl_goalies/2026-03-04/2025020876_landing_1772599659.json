@@ -1,0 +1,907 @@
+{
+  "id": 2025020876,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-02",
+  "venue": {
+    "default": "Amerant Bank Arena"
+  },
+  "venueLocation": {
+    "default": "Sunrise"
+  },
+  "startTimeUTC": "2026-02-03T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 28,
+      "market": "A",
+      "countryCode": "US",
+      "network": "MSG-B",
+      "sequenceNumber": 392
+    },
+    {
+      "id": 521,
+      "market": "H",
+      "countryCode": "US",
+      "network": "SCRIPPS",
+      "sequenceNumber": 657
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 7,
+    "commonName": {
+      "default": "Sabres"
+    },
+    "abbrev": "BUF",
+    "placeName": {
+      "default": "Buffalo"
+    },
+    "placeNameWithPreposition": {
+      "default": "Buffalo",
+      "fr": "de Buffalo"
+    },
+    "score": 5,
+    "sog": 20,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/BUF_dark.svg"
+  },
+  "homeTeam": {
+    "id": 13,
+    "commonName": {
+      "default": "Panthers"
+    },
+    "abbrev": "FLA",
+    "placeName": {
+      "default": "Florida",
+      "fr": "Floride"
+    },
+    "placeNameWithPreposition": {
+      "default": "Florida",
+      "fr": "de la Floride"
+    },
+    "score": 3,
+    "sog": 42,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/FLA_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 56,
+            "strength": "ev",
+            "playerId": 8483771,
+            "firstName": {
+              "default": "Sandis"
+            },
+            "lastName": {
+              "default": "Vilmanis"
+            },
+            "name": {
+              "default": "S. Vilmanis"
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8483771.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-fla-vilmanis-scores-goal-against-alex-lyon-6388688329112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-fla-vilmanis-marque-un-but-contre-alex-lyon-6388689599112",
+            "highlightClip": 6388688329112,
+            "highlightClipFr": 6388689599112,
+            "discreteClip": 6388690564112,
+            "discreteClipFr": 6388688129112,
+            "goalsToDate": 2,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "FLA"
+            },
+            "timeInPeriod": "00:37",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478421,
+                "firstName": {
+                  "default": "A.J."
+                },
+                "lastName": {
+                  "default": "Greer"
+                },
+                "name": {
+                  "default": "A. Greer"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 10
+              },
+              {
+                "playerId": 8478859,
+                "firstName": {
+                  "default": "Niko"
+                },
+                "lastName": {
+                  "default": "Mikkola"
+                },
+                "name": {
+                  "default": "N. Mikkola"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 77
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020876/ev56.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 135,
+            "strength": "ev",
+            "playerId": 8478542,
+            "firstName": {
+              "default": "Evan"
+            },
+            "lastName": {
+              "default": "Rodrigues"
+            },
+            "name": {
+              "default": "E. Rodrigues"
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8478542.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-fla-rodrigues-scores-goal-against-alex-lyon-6388689225112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-fla-rodrigues-marque-un-but-contre-alex-lyon-6388689319112",
+            "highlightClip": 6388689225112,
+            "highlightClipFr": 6388689319112,
+            "discreteClip": 6388691471112,
+            "discreteClipFr": 6388690873112,
+            "goalsToDate": 10,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "FLA"
+            },
+            "timeInPeriod": "05:54",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477933,
+                "firstName": {
+                  "default": "Sam"
+                },
+                "lastName": {
+                  "default": "Reinhart"
+                },
+                "name": {
+                  "default": "S. Reinhart"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 13
+              },
+              {
+                "playerId": 8481600,
+                "firstName": {
+                  "default": "Tobias"
+                },
+                "lastName": {
+                  "default": "Bjornfot",
+                  "cs": "Bj\u00f6rnfot",
+                  "fi": "Bj\u00f6rnfot",
+                  "sk": "Bj\u00f6rnfot"
+                },
+                "name": {
+                  "default": "T. Bjornfot",
+                  "cs": "T. Bj\u00f6rnfot",
+                  "fi": "T. Bj\u00f6rnfot",
+                  "sk": "T. Bj\u00f6rnfot"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 22
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020876/ev135.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 414,
+            "strength": "ev",
+            "playerId": 8479420,
+            "firstName": {
+              "default": "Tage"
+            },
+            "lastName": {
+              "default": "Thompson"
+            },
+            "name": {
+              "default": "T. Thompson"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8479420.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-fla-thompson-scores-goal-against-sergei-bobrovsky-6388690706112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-fla-thompson-marque-un-but-contre-sergei-bobrovsky-6388690204112",
+            "highlightClip": 6388690706112,
+            "highlightClipFr": 6388690204112,
+            "discreteClip": 6388691584112,
+            "discreteClipFr": 6388691284112,
+            "goalsToDate": 29,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "FLA"
+            },
+            "timeInPeriod": "15:03",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481522,
+                "firstName": {
+                  "default": "Peyton"
+                },
+                "lastName": {
+                  "default": "Krebs"
+                },
+                "name": {
+                  "default": "P. Krebs"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 19
+              },
+              {
+                "playerId": 8480839,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Dahlin"
+                },
+                "name": {
+                  "default": "R. Dahlin"
+                },
+                "assistsToDate": 34,
+                "sweaterNumber": 26
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020876/ev414.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 461,
+            "strength": "ev",
+            "playerId": 8481522,
+            "firstName": {
+              "default": "Peyton"
+            },
+            "lastName": {
+              "default": "Krebs"
+            },
+            "name": {
+              "default": "P. Krebs"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8481522.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-fla-krebs-scores-goal-against-sergei-bobrovsky-6388691514112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-fla-krebs-marque-un-but-contre-sergei-bobrovsky-6388690313112",
+            "highlightClip": 6388691514112,
+            "highlightClipFr": 6388690313112,
+            "discreteClip": 6388689346112,
+            "discreteClipFr": 6388689439112,
+            "goalsToDate": 7,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "18:26",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480839,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Dahlin"
+                },
+                "name": {
+                  "default": "R. Dahlin"
+                },
+                "assistsToDate": 35,
+                "sweaterNumber": 26
+              },
+              {
+                "playerId": 8477949,
+                "firstName": {
+                  "default": "Alex"
+                },
+                "lastName": {
+                  "default": "Tuch"
+                },
+                "name": {
+                  "default": "A. Tuch"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 89
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020876/ev461.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 202,
+            "strength": "ev",
+            "playerId": 8484145,
+            "firstName": {
+              "default": "Zach"
+            },
+            "lastName": {
+              "default": "Benson"
+            },
+            "name": {
+              "default": "Z. Benson"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8484145.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-fla-benson-scores-goal-against-sergei-bobrovsky-6388692520112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-fla-benson-marque-un-but-contre-sergei-bobrovsky-6388691816112",
+            "highlightClip": 6388692520112,
+            "highlightClipFr": 6388691816112,
+            "discreteClip": 6388692508112,
+            "discreteClipFr": 6388691640112,
+            "goalsToDate": 7,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "05:44",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480802,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "McLeod"
+                },
+                "name": {
+                  "default": "R. McLeod"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 71
+              },
+              {
+                "playerId": 8482671,
+                "firstName": {
+                  "default": "Owen"
+                },
+                "lastName": {
+                  "default": "Power"
+                },
+                "name": {
+                  "default": "O. Power"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 25
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020876/ev202.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 793,
+            "strength": "pp",
+            "playerId": 8484304,
+            "firstName": {
+              "default": "Uvis"
+            },
+            "lastName": {
+              "default": "Balinskis"
+            },
+            "name": {
+              "default": "U. Balinskis"
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8484304.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-fla-balinskis-scores-ppg-against-alex-lyon-6388693213112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-fla-balinskis-marque-un-but-en-a-n-contre-alex-lyon-6388692449112",
+            "highlightClip": 6388693213112,
+            "highlightClipFr": 6388692449112,
+            "discreteClip": 6388692045112,
+            "discreteClipFr": 6388693403112,
+            "goalsToDate": 4,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "18:59",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477933,
+                "firstName": {
+                  "default": "Sam"
+                },
+                "lastName": {
+                  "default": "Reinhart"
+                },
+                "name": {
+                  "default": "S. Reinhart"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 13
+              },
+              {
+                "playerId": 8477409,
+                "firstName": {
+                  "default": "Carter"
+                },
+                "lastName": {
+                  "default": "Verhaeghe"
+                },
+                "name": {
+                  "default": "C. Verhaeghe"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 23
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020876/ev793.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 878,
+            "strength": "pp",
+            "playerId": 8475722,
+            "firstName": {
+              "default": "Jason"
+            },
+            "lastName": {
+              "default": "Zucker"
+            },
+            "name": {
+              "default": "J. Zucker"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8475722.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-fla-zucker-scores-ppg-against-sergei-bobrovsky-6388692766112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/jason-zucker-with-a-powerplay-goal-vs-les-panthers-de-la-floride-6388692765112",
+            "highlightClip": 6388692766112,
+            "highlightClipFr": 6388692765112,
+            "discreteClip": 6388692884112,
+            "discreteClipFr": 6388693556112,
+            "goalsToDate": 14,
+            "awayScore": 4,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "05:31",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482659,
+                "firstName": {
+                  "default": "Josh"
+                },
+                "lastName": {
+                  "default": "Doan"
+                },
+                "name": {
+                  "default": "J. Doan"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 91
+              },
+              {
+                "playerId": 8482097,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Quinn"
+                },
+                "name": {
+                  "default": "J. Quinn"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 22
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020876/ev878.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1107,
+            "strength": "ev",
+            "playerId": 8482659,
+            "firstName": {
+              "default": "Josh"
+            },
+            "lastName": {
+              "default": "Doan"
+            },
+            "name": {
+              "default": "J. Doan"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8482659.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/buf-fla-doan-scores-goal-against-sergei-bobrovsky-6388697737112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/buf-fla-doan-marque-un-but-contre-sergei-bobrovsky-6388696264112",
+            "highlightClip": 6388697737112,
+            "highlightClipFr": 6388696264112,
+            "discreteClip": 6388696255112,
+            "discreteClipFr": 6388694495112,
+            "goalsToDate": 17,
+            "awayScore": 5,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "17:51",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481522,
+                "firstName": {
+                  "default": "Peyton"
+                },
+                "lastName": {
+                  "default": "Krebs"
+                },
+                "name": {
+                  "default": "P. Krebs"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 19
+              },
+              {
+                "playerId": 8480802,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "McLeod"
+                },
+                "name": {
+                  "default": "R. McLeod"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 71
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020876/ev1107.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8475722,
+        "teamAbbrev": "BUF",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8475722.png",
+        "name": {
+          "default": "J. Zucker"
+        },
+        "sweaterNo": 17,
+        "position": "L",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8480839,
+        "teamAbbrev": "BUF",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8480839.png",
+        "name": {
+          "default": "R. Dahlin"
+        },
+        "sweaterNo": 26,
+        "position": "D",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8477933,
+        "teamAbbrev": "FLA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8477933.png",
+        "name": {
+          "default": "S. Reinhart"
+        },
+        "sweaterNo": 13,
+        "position": "C",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:36",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "McLeod"
+              },
+              "sweaterNumber": 71
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "descKey": "delaying-game"
+          },
+          {
+            "timeInPeriod": "12:51",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jeff"
+              },
+              "lastName": {
+                "default": "Petry"
+              },
+              "sweaterNumber": 2
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Zach"
+              },
+              "lastName": {
+                "default": "Benson"
+              },
+              "sweaterNumber": 6
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "17:11",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jack"
+              },
+              "lastName": {
+                "default": "Quinn"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Aaron"
+              },
+              "lastName": {
+                "default": "Ekblad"
+              },
+              "sweaterNumber": 5
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:35",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Aaron"
+              },
+              "lastName": {
+                "default": "Ekblad"
+              },
+              "sweaterNumber": 5
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Alex"
+              },
+              "lastName": {
+                "default": "Tuch"
+              },
+              "sweaterNumber": 89
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "05:19",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Cole"
+              },
+              "lastName": {
+                "default": "Schwindt"
+              },
+              "sweaterNumber": 79
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Peyton"
+              },
+              "lastName": {
+                "default": "Krebs"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "12:15",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Rasmus"
+              },
+              "lastName": {
+                "default": "Dahlin"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Eetu"
+              },
+              "lastName": {
+                "default": "Luostarinen"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "13:08",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Bowen"
+              },
+              "lastName": {
+                "default": "Byram"
+              },
+              "sweaterNumber": 4
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Evan"
+              },
+              "lastName": {
+                "default": "Rodrigues"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "slashing"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

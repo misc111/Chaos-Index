@@ -1,0 +1,881 @@
+{
+  "id": 2025020936,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-28",
+  "venue": {
+    "default": "SAP Center at San Jose"
+  },
+  "venueLocation": {
+    "default": "San Jose"
+  },
+  "startTimeUTC": "2026-02-28T21:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "US/Pacific",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 107
+    },
+    {
+      "id": 314,
+      "market": "H",
+      "countryCode": "US",
+      "network": "NBCSCA",
+      "sequenceNumber": 393
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 22,
+    "commonName": {
+      "default": "Oilers"
+    },
+    "abbrev": "EDM",
+    "placeName": {
+      "default": "Edmonton"
+    },
+    "placeNameWithPreposition": {
+      "default": "Edmonton",
+      "fr": "d'Edmonton"
+    },
+    "score": 4,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/EDM_dark.svg"
+  },
+  "homeTeam": {
+    "id": 28,
+    "commonName": {
+      "default": "Sharks"
+    },
+    "abbrev": "SJS",
+    "placeName": {
+      "default": "San Jose"
+    },
+    "placeNameWithPreposition": {
+      "default": "San Jose",
+      "fr": "de San Jose"
+    },
+    "score": 5,
+    "sog": 33,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SJS_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/SJS_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 301,
+            "strength": "ev",
+            "playerId": 8484801,
+            "firstName": {
+              "default": "Macklin"
+            },
+            "lastName": {
+              "default": "Celebrini"
+            },
+            "name": {
+              "default": "M. Celebrini"
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8484801.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-sjs-celebrini-scores-goal-against-connor-ingram-6390171124112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-sjs-celebrini-marque-un-but-contre-connor-ingram-6390169572112",
+            "highlightClip": 6390171124112,
+            "highlightClipFr": 6390169572112,
+            "discreteClip": 6390168689112,
+            "discreteClipFr": 6390171122112,
+            "goalsToDate": 29,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "SJS"
+            },
+            "timeInPeriod": "08:34",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484227,
+                "firstName": {
+                  "default": "Will"
+                },
+                "lastName": {
+                  "default": "Smith"
+                },
+                "name": {
+                  "default": "W. Smith"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 2
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020936/ev301.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 255,
+            "strength": "pp",
+            "playerId": 8485402,
+            "firstName": {
+              "default": "Michael"
+            },
+            "lastName": {
+              "default": "Misa"
+            },
+            "name": {
+              "default": "M. Misa"
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8485402.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-sjs-misa-scores-ppg-against-connor-ingram-6390171529112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-sjs-misa-marque-un-but-en-a-n-contre-connor-ingram-6390171043112",
+            "highlightClip": 6390171529112,
+            "highlightClipFr": 6390171043112,
+            "discreteClip": 6390169880112,
+            "discreteClipFr": 6390171236112,
+            "goalsToDate": 3,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "SJS"
+            },
+            "timeInPeriod": "11:07",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475726,
+                "firstName": {
+                  "default": "Tyler"
+                },
+                "lastName": {
+                  "default": "Toffoli"
+                },
+                "name": {
+                  "default": "T. Toffoli"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 73
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020936/ev255.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 406,
+            "strength": "pp",
+            "playerId": 8477934,
+            "firstName": {
+              "default": "Leon"
+            },
+            "lastName": {
+              "default": "Draisaitl"
+            },
+            "name": {
+              "default": "L. Draisaitl"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8477934.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-sjs-draisaitl-scores-ppg-against-yaroslav-askarov-6390170005112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-sjs-draisaitl-marque-un-but-en-a-n-contre-yaroslav-askarov-6390171060112",
+            "highlightClip": 6390170005112,
+            "highlightClipFr": 6390171060112,
+            "discreteClip": 6390171156112,
+            "discreteClipFr": 6390168996112,
+            "goalsToDate": 31,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "SJS"
+            },
+            "timeInPeriod": "14:51",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478402,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McDavid"
+                },
+                "name": {
+                  "default": "C. McDavid"
+                },
+                "assistsToDate": 66,
+                "sweaterNumber": 97
+              },
+              {
+                "playerId": 8480803,
+                "firstName": {
+                  "default": "Evan"
+                },
+                "lastName": {
+                  "default": "Bouchard"
+                },
+                "name": {
+                  "default": "E. Bouchard"
+                },
+                "assistsToDate": 51,
+                "sweaterNumber": 2
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020936/ev406.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 442,
+            "strength": "ev",
+            "playerId": 8476624,
+            "firstName": {
+              "default": "Barclay"
+            },
+            "lastName": {
+              "default": "Goodrow"
+            },
+            "name": {
+              "default": "B. Goodrow"
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8476624.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-sjs-goodrow-scores-goal-against-connor-ingram-6390172235112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-sjs-goodrow-marque-un-but-contre-connor-ingram-6390171353112",
+            "highlightClip": 6390172235112,
+            "highlightClipFr": 6390171353112,
+            "discreteClip": 6390170967112,
+            "discreteClipFr": 6390170871112,
+            "goalsToDate": 5,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "SJS"
+            },
+            "timeInPeriod": "17:05",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482859,
+                "firstName": {
+                  "default": "Zack"
+                },
+                "lastName": {
+                  "default": "Ostapchuk"
+                },
+                "name": {
+                  "default": "Z. Ostapchuk"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 63
+              },
+              {
+                "playerId": 8475906,
+                "firstName": {
+                  "default": "John"
+                },
+                "lastName": {
+                  "default": "Klingberg"
+                },
+                "name": {
+                  "default": "J. Klingberg"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 3
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020936/ev442.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 733,
+            "strength": "ev",
+            "playerId": 8480803,
+            "firstName": {
+              "default": "Evan"
+            },
+            "lastName": {
+              "default": "Bouchard"
+            },
+            "name": {
+              "default": "E. Bouchard"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8480803.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-sjs-bouchard-scores-goal-against-yaroslav-askarov-6390171722112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-sjs-bouchard-marque-un-but-contre-yaroslav-askarov-6390172021112",
+            "highlightClip": 6390171722112,
+            "highlightClipFr": 6390172021112,
+            "discreteClip": 6390173517112,
+            "discreteClipFr": 6390174285112,
+            "goalsToDate": 17,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "SJS"
+            },
+            "timeInPeriod": "15:49",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478402,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McDavid"
+                },
+                "name": {
+                  "default": "C. McDavid"
+                },
+                "assistsToDate": 67,
+                "sweaterNumber": 97
+              },
+              {
+                "playerId": 8475218,
+                "firstName": {
+                  "default": "Mattias"
+                },
+                "lastName": {
+                  "default": "Ekholm"
+                },
+                "name": {
+                  "default": "M. Ekholm"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 14
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020936/ev733.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 841,
+            "strength": "ev",
+            "playerId": 8479365,
+            "firstName": {
+              "default": "Trent"
+            },
+            "lastName": {
+              "default": "Frederic"
+            },
+            "name": {
+              "default": "T. Frederic"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8479365.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-sjs-frederic-scores-goal-against-yaroslav-askarov-6390175822112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-sjs-frederic-marque-un-but-contre-yaroslav-askarov-6390174841112",
+            "highlightClip": 6390175822112,
+            "highlightClipFr": 6390174841112,
+            "discreteClip": 6390174236112,
+            "discreteClipFr": 6390175431112,
+            "goalsToDate": 3,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "02:54",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483512,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Savoie"
+                },
+                "name": {
+                  "default": "M. Savoie"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 22
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020936/ev841.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 871,
+            "strength": "ev",
+            "playerId": 8477505,
+            "firstName": {
+              "default": "Alexander"
+            },
+            "lastName": {
+              "default": "Wennberg"
+            },
+            "name": {
+              "default": "A. Wennberg"
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8477505.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-sjs-wennberg-scores-goal-against-connor-ingram-6390175530112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-sjs-wennberg-marque-un-but-contre-connor-ingram-6390176705112",
+            "highlightClip": 6390175530112,
+            "highlightClipFr": 6390176705112,
+            "discreteClip": 6390176418112,
+            "discreteClipFr": 6390175140112,
+            "goalsToDate": 11,
+            "awayScore": 3,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "SJS"
+            },
+            "timeInPeriod": "05:30",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480798,
+                "firstName": {
+                  "default": "Philipp"
+                },
+                "lastName": {
+                  "default": "Kurashev"
+                },
+                "name": {
+                  "default": "P. Kurashev"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 96
+              },
+              {
+                "playerId": 8479983,
+                "firstName": {
+                  "default": "Mario"
+                },
+                "lastName": {
+                  "default": "Ferraro"
+                },
+                "name": {
+                  "default": "M. Ferraro"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 38
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020936/ev871.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 905,
+            "strength": "ev",
+            "playerId": 8478013,
+            "firstName": {
+              "default": "Jake"
+            },
+            "lastName": {
+              "default": "Walman"
+            },
+            "name": {
+              "default": "J. Walman"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8478013.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-sjs-walman-scores-goal-against-yaroslav-askarov-6390177005112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-sjs-walman-marque-un-but-contre-yaroslav-askarov-6390175544112",
+            "highlightClip": 6390177005112,
+            "highlightClipFr": 6390175544112,
+            "discreteClip": 6390174542112,
+            "discreteClipFr": 6390176806112,
+            "goalsToDate": 8,
+            "awayScore": 4,
+            "homeScore": 4,
+            "timeInPeriod": "07:13",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478402,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McDavid"
+                },
+                "name": {
+                  "default": "C. McDavid"
+                },
+                "assistsToDate": 68,
+                "sweaterNumber": 97
+              },
+              {
+                "playerId": 8480803,
+                "firstName": {
+                  "default": "Evan"
+                },
+                "lastName": {
+                  "default": "Bouchard"
+                },
+                "name": {
+                  "default": "E. Bouchard"
+                },
+                "assistsToDate": 52,
+                "sweaterNumber": 2
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020936/ev905.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 937,
+            "strength": "ev",
+            "playerId": 8482166,
+            "firstName": {
+              "default": "Shakir"
+            },
+            "lastName": {
+              "default": "Mukhamadullin"
+            },
+            "name": {
+              "default": "S. Mukhamadullin"
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8482166.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-sjs-mukhamadullin-scores-goal-against-connor-ingram-6390177898112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-sjs-mukhamadullin-marque-un-but-contre-connor-ingram-6390177590112",
+            "highlightClip": 6390177898112,
+            "highlightClipFr": 6390177590112,
+            "discreteClip": 6390175356112,
+            "discreteClipFr": 6390176333112,
+            "goalsToDate": 4,
+            "awayScore": 4,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "SJS"
+            },
+            "timeInPeriod": "09:27",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482667,
+                "firstName": {
+                  "default": "William"
+                },
+                "lastName": {
+                  "default": "Eklund"
+                },
+                "name": {
+                  "default": "W. Eklund"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 72
+              },
+              {
+                "playerId": 8485402,
+                "firstName": {
+                  "default": "Michael"
+                },
+                "lastName": {
+                  "default": "Misa"
+                },
+                "name": {
+                  "default": "M. Misa"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 77
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020936/ev937.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8482166,
+        "teamAbbrev": "SJS",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8482166.png",
+        "name": {
+          "default": "S. Mukhamadullin"
+        },
+        "sweaterNo": 85,
+        "position": "D",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8478402,
+        "teamAbbrev": "EDM",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8478402.png",
+        "name": {
+          "default": "C. McDavid"
+        },
+        "sweaterNo": 97,
+        "position": "C",
+        "goals": 0,
+        "assists": 3,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8485402,
+        "teamAbbrev": "SJS",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8485402.png",
+        "name": {
+          "default": "M. Misa"
+        },
+        "sweaterNo": 77,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:51",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kiefer"
+              },
+              "lastName": {
+                "default": "Sherwood"
+              },
+              "sweaterNumber": 44
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Connor"
+              },
+              "lastName": {
+                "default": "Ingram"
+              },
+              "sweaterNumber": 39
+            },
+            "descKey": "interference-goalkeeper"
+          },
+          {
+            "timeInPeriod": "09:39",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Spencer"
+              },
+              "lastName": {
+                "default": "Stastney"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "William"
+              },
+              "lastName": {
+                "default": "Eklund"
+              },
+              "sweaterNumber": 72
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "13:16",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Philipp"
+              },
+              "lastName": {
+                "default": "Kurashev"
+              },
+              "sweaterNumber": 96
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Darnell"
+              },
+              "lastName": {
+                "default": "Nurse"
+              },
+              "sweaterNumber": 25
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "10:10",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kasperi"
+              },
+              "lastName": {
+                "default": "Kapanen"
+              },
+              "sweaterNumber": 42
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Macklin"
+              },
+              "lastName": {
+                "default": "Celebrini"
+              },
+              "sweaterNumber": 71
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "18:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Vincent"
+              },
+              "lastName": {
+                "default": "Desharnais"
+              },
+              "sweaterNumber": 5
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Zach"
+              },
+              "lastName": {
+                "default": "Hyman"
+              },
+              "sweaterNumber": 18
+            },
+            "descKey": "hooking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

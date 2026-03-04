@@ -1,0 +1,916 @@
+{
+  "id": 2025020757,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-17",
+  "venue": {
+    "default": "Delta Center"
+  },
+  "venueLocation": {
+    "default": "Salt Lake City"
+  },
+  "startTimeUTC": "2026-01-17T22:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-07:00",
+  "venueTimezone": "America/Denver",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 554,
+      "market": "A",
+      "countryCode": "US",
+      "network": "KHN/Prime",
+      "sequenceNumber": 348
+    },
+    {
+      "id": 558,
+      "market": "H",
+      "countryCode": "US",
+      "network": "Utah16",
+      "sequenceNumber": 381
+    },
+    {
+      "id": 388,
+      "market": "A",
+      "countryCode": "US",
+      "network": "KONG",
+      "sequenceNumber": 654
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 55,
+    "commonName": {
+      "default": "Kraken"
+    },
+    "abbrev": "SEA",
+    "placeName": {
+      "default": "Seattle"
+    },
+    "placeNameWithPreposition": {
+      "default": "Seattle",
+      "fr": "de Seattle"
+    },
+    "score": 3,
+    "sog": 21,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/SEA_dark.svg"
+  },
+  "homeTeam": {
+    "id": 68,
+    "commonName": {
+      "default": "Mammoth"
+    },
+    "abbrev": "UTA",
+    "placeName": {
+      "default": "Utah"
+    },
+    "placeNameWithPreposition": {
+      "default": "Utah",
+      "fr": "de l'Utah"
+    },
+    "score": 6,
+    "sog": 31,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/UTA_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/UTA_dark.svg?season=20252026"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 65,
+            "strength": "ev",
+            "playerId": 8474586,
+            "firstName": {
+              "default": "Jordan"
+            },
+            "lastName": {
+              "default": "Eberle"
+            },
+            "name": {
+              "default": "J. Eberle"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8474586.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-uta-eberle-scores-goal-against-karel-vejmelka-6387876563112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-uta-eberle-marque-un-but-contre-karel-vejmelka-6387876082112",
+            "highlightClip": 6387876563112,
+            "highlightClipFr": 6387876082112,
+            "discreteClip": 6387875981112,
+            "discreteClipFr": 6387877441112,
+            "goalsToDate": 17,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "01:09",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481554,
+                "firstName": {
+                  "default": "Kaapo"
+                },
+                "lastName": {
+                  "default": "Kakko"
+                },
+                "name": {
+                  "default": "K. Kakko"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 84
+              },
+              {
+                "playerId": 8482665,
+                "firstName": {
+                  "default": "Matty"
+                },
+                "lastName": {
+                  "default": "Beniers"
+                },
+                "name": {
+                  "default": "M. Beniers"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 10
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020757/ev65.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 94,
+            "strength": "sh",
+            "playerId": 8478831,
+            "firstName": {
+              "default": "Kevin"
+            },
+            "lastName": {
+              "default": "Stenlund"
+            },
+            "name": {
+              "default": "K. Stenlund"
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8478831.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-uta-stenlund-scores-shg-against-philipp-grubauer-6387878124112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-uta-stenlund-marque-un-but-en-i-n-contre-philipp-grubauer-6387878123112",
+            "highlightClip": 6387878124112,
+            "highlightClipFr": 6387878123112,
+            "discreteClip": 6387877152112,
+            "discreteClipFr": 6387877455112,
+            "goalsToDate": 4,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "02:47",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478474,
+                "firstName": {
+                  "default": "Lawson"
+                },
+                "lastName": {
+                  "default": "Crouse"
+                },
+                "name": {
+                  "default": "L. Crouse"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 67
+              },
+              {
+                "playerId": 8474013,
+                "firstName": {
+                  "default": "Ian"
+                },
+                "lastName": {
+                  "default": "Cole"
+                },
+                "name": {
+                  "default": "I. Cole"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 28
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020757/ev94.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 580,
+            "strength": "ev",
+            "playerId": 8477220,
+            "firstName": {
+              "default": "Nate"
+            },
+            "lastName": {
+              "default": "Schmidt"
+            },
+            "name": {
+              "default": "N. Schmidt"
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8477220.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-uta-schmidt-scores-goal-against-philipp-grubauer-6387880148112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-uta-schmidt-marque-un-but-contre-philipp-grubauer-6387878286112",
+            "highlightClip": 6387880148112,
+            "highlightClipFr": 6387878286112,
+            "discreteClip": 6387878679112,
+            "discreteClipFr": 6387879274112,
+            "goalsToDate": 3,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "UTA"
+            },
+            "timeInPeriod": "00:28",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480855,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "McBain"
+                },
+                "name": {
+                  "default": "J. McBain"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 22
+              },
+              {
+                "playerId": 8482699,
+                "firstName": {
+                  "default": "Dylan"
+                },
+                "lastName": {
+                  "default": "Guenther"
+                },
+                "name": {
+                  "default": "D. Guenther"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 11
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020757/ev580.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 633,
+            "strength": "ev",
+            "playerId": 8477951,
+            "firstName": {
+              "default": "Nick"
+            },
+            "lastName": {
+              "default": "Schmaltz"
+            },
+            "name": {
+              "default": "N. Schmaltz"
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8477951.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-uta-schmaltz-scores-goal-against-philipp-grubauer-6387877308112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-uta-schmaltz-marque-un-but-contre-philipp-grubauer-6387880253112",
+            "highlightClip": 6387877308112,
+            "highlightClipFr": 6387880253112,
+            "discreteClip": 6387877595112,
+            "discreteClipFr": 6387878890112,
+            "goalsToDate": 18,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "UTA"
+            },
+            "timeInPeriod": "04:31",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478474,
+                "firstName": {
+                  "default": "Lawson"
+                },
+                "lastName": {
+                  "default": "Crouse"
+                },
+                "name": {
+                  "default": "L. Crouse"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 67
+              },
+              {
+                "playerId": 8477220,
+                "firstName": {
+                  "default": "Nate"
+                },
+                "lastName": {
+                  "default": "Schmidt"
+                },
+                "name": {
+                  "default": "N. Schmidt"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 88
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020757/ev633.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 771,
+            "strength": "ev",
+            "playerId": 8482665,
+            "firstName": {
+              "default": "Matty"
+            },
+            "lastName": {
+              "default": "Beniers"
+            },
+            "name": {
+              "default": "M. Beniers"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8482665.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-uta-beniers-scores-goal-against-karel-vejmelka-6387879607112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-uta-beniers-marque-un-but-contre-karel-vejmelka-6387880563112",
+            "highlightClip": 6387879607112,
+            "highlightClipFr": 6387880563112,
+            "discreteClip": 6387878521112,
+            "discreteClipFr": 6387879208112,
+            "goalsToDate": 10,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "UTA"
+            },
+            "timeInPeriod": "15:11",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478407,
+                "firstName": {
+                  "default": "Vince"
+                },
+                "lastName": {
+                  "default": "Dunn"
+                },
+                "name": {
+                  "default": "V. Dunn"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8484800,
+                "firstName": {
+                  "default": "Berkly"
+                },
+                "lastName": {
+                  "default": "Catton"
+                },
+                "name": {
+                  "default": "B. Catton"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 27
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020757/ev771.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 797,
+            "strength": "ev",
+            "playerId": 8476905,
+            "firstName": {
+              "default": "Chandler"
+            },
+            "lastName": {
+              "default": "Stephenson"
+            },
+            "name": {
+              "default": "C. Stephenson"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8476905.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-uta-stephenson-scores-goal-against-karel-vejmelka-6387879022112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-uta-stephenson-marque-un-but-contre-karel-vejmelka-6387879321112",
+            "highlightClip": 6387879022112,
+            "highlightClipFr": 6387879321112,
+            "discreteClip": 6387878809112,
+            "discreteClipFr": 6387878810112,
+            "goalsToDate": 13,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "17:43",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477919,
+                "firstName": {
+                  "default": "Frederick"
+                },
+                "lastName": {
+                  "default": "Gaudreau"
+                },
+                "name": {
+                  "default": "F. Gaudreau"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 89
+              },
+              {
+                "playerId": 8480009,
+                "firstName": {
+                  "default": "Eeli"
+                },
+                "lastName": {
+                  "default": "Tolvanen"
+                },
+                "name": {
+                  "default": "E. Tolvanen"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 20
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020757/ev797.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 1025,
+            "strength": "ev",
+            "playerId": 8477220,
+            "firstName": {
+              "default": "Nate"
+            },
+            "lastName": {
+              "default": "Schmidt"
+            },
+            "name": {
+              "default": "N. Schmidt"
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8477220.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-uta-schmidt-scores-goal-against-philipp-grubauer-6387882878112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-uta-schmidt-marque-un-but-contre-philipp-grubauer-6387881611112",
+            "highlightClip": 6387882878112,
+            "highlightClipFr": 6387881611112,
+            "discreteClip": 6387880539112,
+            "discreteClipFr": 6387881693112,
+            "goalsToDate": 4,
+            "awayScore": 3,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "UTA"
+            },
+            "timeInPeriod": "14:30",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479343,
+                "firstName": {
+                  "default": "Clayton"
+                },
+                "lastName": {
+                  "default": "Keller"
+                },
+                "name": {
+                  "default": "C. Keller"
+                },
+                "assistsToDate": 32,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020757/ev1025.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1038,
+            "strength": "ev",
+            "playerId": 8478474,
+            "firstName": {
+              "default": "Lawson"
+            },
+            "lastName": {
+              "default": "Crouse"
+            },
+            "name": {
+              "default": "L. Crouse"
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8478474.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-uta-crouse-scores-goal-against-philipp-grubauer-6387882294112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-uta-crouse-marque-un-but-contre-philipp-grubauer-6387880738112",
+            "highlightClip": 6387882294112,
+            "highlightClipFr": 6387880738112,
+            "discreteClip": 6387881209112,
+            "discreteClipFr": 6387882085112,
+            "goalsToDate": 12,
+            "awayScore": 3,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "UTA"
+            },
+            "timeInPeriod": "15:12",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479343,
+                "firstName": {
+                  "default": "Clayton"
+                },
+                "lastName": {
+                  "default": "Keller"
+                },
+                "name": {
+                  "default": "C. Keller"
+                },
+                "assistsToDate": 33,
+                "sweaterNumber": 9
+              },
+              {
+                "playerId": 8477220,
+                "firstName": {
+                  "default": "Nate"
+                },
+                "lastName": {
+                  "default": "Schmidt"
+                },
+                "name": {
+                  "default": "N. Schmidt"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 88
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020757/ev1038.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 1087,
+            "strength": "ev",
+            "playerId": 8480849,
+            "firstName": {
+              "default": "Barrett"
+            },
+            "lastName": {
+              "default": "Hayton"
+            },
+            "name": {
+              "default": "B. Hayton"
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8480849.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/barrett-hayton-with-a-goal-vs-seattle-kraken-6387882601112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/barrett-hayton-with-a-but-vs-le-kraken-de-seattle-6387882992112",
+            "highlightClip": 6387882601112,
+            "highlightClipFr": 6387882992112,
+            "discreteClip": 6387881921112,
+            "discreteClipFr": 6387882896112,
+            "goalsToDate": 5,
+            "awayScore": 3,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "UTA"
+            },
+            "timeInPeriod": "19:09",
+            "shotType": "snap",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8478507,
+                "firstName": {
+                  "default": "John"
+                },
+                "lastName": {
+                  "default": "Marino"
+                },
+                "name": {
+                  "default": "J. Marino"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 6
+              },
+              {
+                "playerId": 8478872,
+                "firstName": {
+                  "default": "Karel"
+                },
+                "lastName": {
+                  "default": "Vejmelka"
+                },
+                "name": {
+                  "default": "K. Vejmelka"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 70
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020757/ev1087.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8477220,
+        "teamAbbrev": "UTA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8477220.png",
+        "name": {
+          "default": "N. Schmidt"
+        },
+        "sweaterNo": 88,
+        "position": "D",
+        "goals": 2,
+        "assists": 2,
+        "points": 4
+      },
+      {
+        "star": 2,
+        "playerId": 8478474,
+        "teamAbbrev": "UTA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8478474.png",
+        "name": {
+          "default": "L. Crouse"
+        },
+        "sweaterNo": 67,
+        "position": "L",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8477951,
+        "teamAbbrev": "UTA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8477951.png",
+        "name": {
+          "default": "N. Schmaltz"
+        },
+        "sweaterNo": 8,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:36",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Tanev"
+              },
+              "sweaterNumber": 13
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ben"
+              },
+              "lastName": {
+                "default": "Meyers"
+              },
+              "sweaterNumber": 59
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "02:59",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jack"
+              },
+              "lastName": {
+                "default": "McBain"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Shane"
+              },
+              "lastName": {
+                "default": "Wright"
+              },
+              "sweaterNumber": 51
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dylan"
+              },
+              "lastName": {
+                "default": "Guenther"
+              },
+              "sweaterNumber": 11
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Winterton"
+              },
+              "sweaterNumber": 26
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "12:30",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jordan"
+              },
+              "lastName": {
+                "default": "Eberle"
+              },
+              "sweaterNumber": 7
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Barrett"
+              },
+              "lastName": {
+                "default": "Hayton"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "interference"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:08",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Adam"
+              },
+              "lastName": {
+                "default": "Larsson"
+              },
+              "sweaterNumber": 6
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Schmaltz"
+              },
+              "sweaterNumber": 8
+            },
+            "descKey": "hooking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

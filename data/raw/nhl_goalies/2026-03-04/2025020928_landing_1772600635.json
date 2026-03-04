@@ -1,0 +1,656 @@
+{
+  "id": 2025020928,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-26",
+  "venue": {
+    "default": "SAP Center at San Jose"
+  },
+  "venueLocation": {
+    "default": "San Jose"
+  },
+  "startTimeUTC": "2026-02-27T03:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "US/Pacific",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 284,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN1",
+      "sequenceNumber": 113
+    },
+    {
+      "id": 314,
+      "market": "H",
+      "countryCode": "US",
+      "network": "NBCSCA",
+      "sequenceNumber": 393
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 20,
+    "commonName": {
+      "default": "Flames"
+    },
+    "abbrev": "CGY",
+    "placeName": {
+      "default": "Calgary"
+    },
+    "placeNameWithPreposition": {
+      "default": "Calgary",
+      "fr": "de Calgary"
+    },
+    "score": 4,
+    "sog": 29,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CGY_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CGY_dark.svg"
+  },
+  "homeTeam": {
+    "id": 28,
+    "commonName": {
+      "default": "Sharks"
+    },
+    "abbrev": "SJS",
+    "placeName": {
+      "default": "San Jose"
+    },
+    "placeNameWithPreposition": {
+      "default": "San Jose",
+      "fr": "de San Jose"
+    },
+    "score": 1,
+    "sog": 35,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SJS_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/SJS_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 510,
+            "strength": "ev",
+            "playerId": 8475726,
+            "firstName": {
+              "default": "Tyler"
+            },
+            "lastName": {
+              "default": "Toffoli"
+            },
+            "name": {
+              "default": "T. Toffoli"
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SJS/8475726.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cgy-sjs-toffoli-scores-goal-against-dustin-wolf-6390035591112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cgy-sjs-toffoli-marque-un-but-contre-dustin-wolf-6390033946112",
+            "highlightClip": 6390035591112,
+            "highlightClipFr": 6390033946112,
+            "discreteClip": 6390032537112,
+            "discreteClipFr": 6390033726112,
+            "goalsToDate": 16,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "SJS"
+            },
+            "timeInPeriod": "01:17",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479983,
+                "firstName": {
+                  "default": "Mario"
+                },
+                "lastName": {
+                  "default": "Ferraro"
+                },
+                "name": {
+                  "default": "M. Ferraro"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 38
+              },
+              {
+                "playerId": 8485402,
+                "firstName": {
+                  "default": "Michael"
+                },
+                "lastName": {
+                  "default": "Misa"
+                },
+                "name": {
+                  "default": "M. Misa"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 77
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020928/ev510.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 764,
+            "strength": "ev",
+            "playerId": 8475172,
+            "firstName": {
+              "default": "Nazem"
+            },
+            "lastName": {
+              "default": "Kadri"
+            },
+            "name": {
+              "default": "N. Kadri"
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8475172.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cgy-sjs-kadri-scores-goal-against-yaroslav-askarov-6390035366112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cgy-sjs-kadri-marque-un-but-contre-yaroslav-askarov-6390035663112",
+            "highlightClip": 6390035366112,
+            "highlightClipFr": 6390035663112,
+            "discreteClip": 6390036239112,
+            "discreteClipFr": 6390036632112,
+            "goalsToDate": 11,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "15:02",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480797,
+                "firstName": {
+                  "default": "Joel"
+                },
+                "lastName": {
+                  "default": "Farabee"
+                },
+                "name": {
+                  "default": "J. Farabee"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 86
+              },
+              {
+                "playerId": 8477346,
+                "firstName": {
+                  "default": "MacKenzie"
+                },
+                "lastName": {
+                  "default": "Weegar"
+                },
+                "name": {
+                  "default": "M. Weegar"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 52
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020928/ev764.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 909,
+            "strength": "ev",
+            "playerId": 8482074,
+            "firstName": {
+              "default": "Connor"
+            },
+            "lastName": {
+              "default": "Zary"
+            },
+            "name": {
+              "default": "C. Zary"
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8482074.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cgy-sjs-zary-scores-goal-against-yaroslav-askarov-6390037982112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cgy-sjs-zary-marque-un-but-contre-yaroslav-askarov-6390037887112",
+            "highlightClip": 6390037982112,
+            "highlightClipFr": 6390037887112,
+            "discreteClip": 6390037975112,
+            "discreteClipFr": 6390037976112,
+            "goalsToDate": 10,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CGY"
+            },
+            "timeInPeriod": "05:22",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8474150,
+                "firstName": {
+                  "default": "Mikael"
+                },
+                "lastName": {
+                  "default": "Backlund"
+                },
+                "name": {
+                  "default": "M. Backlund"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 11
+              },
+              {
+                "playerId": 8482165,
+                "firstName": {
+                  "default": "Yan"
+                },
+                "lastName": {
+                  "default": "Kuznetsov"
+                },
+                "name": {
+                  "default": "Y. Kuznetsov"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 37
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020928/ev909.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1005,
+            "strength": "ev",
+            "playerId": 8475172,
+            "firstName": {
+              "default": "Nazem"
+            },
+            "lastName": {
+              "default": "Kadri"
+            },
+            "name": {
+              "default": "N. Kadri"
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8475172.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cgy-sjs-kadri-scores-goal-against-yaroslav-askarov-6390039986112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cgy-sjs-kadri-marque-un-but-contre-yaroslav-askarov-6390040944112",
+            "highlightClip": 6390039986112,
+            "highlightClipFr": 6390040944112,
+            "discreteClip": 6390040072112,
+            "discreteClipFr": 6390041141112,
+            "goalsToDate": 12,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CGY"
+            },
+            "timeInPeriod": "11:56",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482074,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "Zary"
+                },
+                "name": {
+                  "default": "C. Zary"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 47
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020928/ev1005.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1073,
+            "strength": "ev",
+            "playerId": 8474150,
+            "firstName": {
+              "default": "Mikael"
+            },
+            "lastName": {
+              "default": "Backlund"
+            },
+            "name": {
+              "default": "M. Backlund"
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8474150.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cgy-sjs-backlund-scores-empty-net-goal-6390040009112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cgy-sjs-backlund-cgy-marque-un-but-dans-un-filet-desert-6390040767112",
+            "highlightClip": 6390040009112,
+            "highlightClipFr": 6390040767112,
+            "discreteClip": 6390041746112,
+            "discreteClipFr": 6390041071112,
+            "goalsToDate": 13,
+            "awayScore": 4,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CGY"
+            },
+            "timeInPeriod": "17:30",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8482679,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Coronato"
+                },
+                "name": {
+                  "default": "M. Coronato"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 27
+              },
+              {
+                "playerId": 8480727,
+                "firstName": {
+                  "default": "Zach"
+                },
+                "lastName": {
+                  "default": "Whitecloud"
+                },
+                "name": {
+                  "default": "Z. Whitecloud"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 28
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020928/ev1073.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8481692,
+        "teamAbbrev": "CGY",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8481692.png",
+        "name": {
+          "default": "D. Wolf"
+        },
+        "sweaterNo": 32,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.971
+      },
+      {
+        "star": 2,
+        "playerId": 8475172,
+        "teamAbbrev": "CGY",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8475172.png",
+        "name": {
+          "default": "N. Kadri"
+        },
+        "sweaterNo": 91,
+        "position": "C",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8482074,
+        "teamAbbrev": "CGY",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CGY/8482074.png",
+        "name": {
+          "default": "C. Zary"
+        },
+        "sweaterNo": 47,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "08:10",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Blake"
+              },
+              "lastName": {
+                "default": "Coleman"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Dmitry",
+                "cs": "Dmitrij",
+                "fi": "Dmitri",
+                "sk": "Dmitrij"
+              },
+              "lastName": {
+                "default": "Orlov"
+              },
+              "sweaterNumber": 9
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "10:19",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sam"
+              },
+              "lastName": {
+                "default": "Dickinson"
+              },
+              "sweaterNumber": 6
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Joel"
+              },
+              "lastName": {
+                "default": "Farabee"
+              },
+              "sweaterNumber": 86
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:38",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mario"
+              },
+              "lastName": {
+                "default": "Ferraro"
+              },
+              "sweaterNumber": 38
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Morgan"
+              },
+              "lastName": {
+                "default": "Frost"
+              },
+              "sweaterNumber": 16
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "07:31",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kiefer"
+              },
+              "lastName": {
+                "default": "Sherwood"
+              },
+              "sweaterNumber": 44
+            },
+            "teamAbbrev": {
+              "default": "SJS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Kevin"
+              },
+              "lastName": {
+                "default": "Bahl"
+              },
+              "sweaterNumber": 7
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "08:55",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Morgan"
+              },
+              "lastName": {
+                "default": "Frost"
+              },
+              "sweaterNumber": 16
+            },
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "William"
+              },
+              "lastName": {
+                "default": "Eklund"
+              },
+              "sweaterNumber": 72
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "17:23",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "CGY"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "C. Zary"
+            }
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

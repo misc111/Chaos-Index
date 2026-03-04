@@ -1,0 +1,737 @@
+{
+  "id": 2025020901,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-04",
+  "venue": {
+    "default": "T-Mobile Arena"
+  },
+  "venueLocation": {
+    "default": "Paradise"
+  },
+  "startTimeUTC": "2026-02-05T03:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "US/Pacific",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 290,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "SNP",
+      "sequenceNumber": 33
+    },
+    {
+      "id": 521,
+      "market": "H",
+      "countryCode": "US",
+      "network": "SCRIPPS",
+      "sequenceNumber": 657
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 23,
+    "commonName": {
+      "default": "Canucks"
+    },
+    "abbrev": "VAN",
+    "placeName": {
+      "default": "Vancouver"
+    },
+    "placeNameWithPreposition": {
+      "default": "Vancouver",
+      "fr": "de Vancouver"
+    },
+    "score": 2,
+    "sog": 23,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VAN_dark.svg"
+  },
+  "homeTeam": {
+    "id": 54,
+    "commonName": {
+      "default": "Golden Knights"
+    },
+    "abbrev": "VGK",
+    "placeName": {
+      "default": "Vegas"
+    },
+    "placeNameWithPreposition": {
+      "default": "Vegas",
+      "fr": "de Vegas"
+    },
+    "score": 5,
+    "sog": 31,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VGK_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 599,
+            "strength": "ev",
+            "playerId": 8478403,
+            "firstName": {
+              "default": "Jack"
+            },
+            "lastName": {
+              "default": "Eichel"
+            },
+            "name": {
+              "default": "J. Eichel"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8478403.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-vgk-eichel-scores-goal-against-kevin-lankinen-6388791074112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-vgk-eichel-marque-un-but-contre-kevin-lankinen-6388791075112",
+            "highlightClip": 6388791074112,
+            "highlightClipFr": 6388791075112,
+            "discreteClip": 6388789508112,
+            "discreteClipFr": 6388791362112,
+            "goalsToDate": 20,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "05:09",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478397,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Andersson"
+                },
+                "name": {
+                  "default": "R. Andersson"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 4
+              },
+              {
+                "playerId": 8475913,
+                "firstName": {
+                  "default": "Mark"
+                },
+                "lastName": {
+                  "default": "Stone"
+                },
+                "name": {
+                  "default": "M. Stone"
+                },
+                "assistsToDate": 36,
+                "sweaterNumber": 61
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020901/ev599.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 615,
+            "strength": "ev",
+            "playerId": 8481133,
+            "firstName": {
+              "default": "Cole"
+            },
+            "lastName": {
+              "default": "Reinhardt"
+            },
+            "name": {
+              "default": "C. Reinhardt"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8481133.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-vgk-reinhardt-scores-goal-against-kevin-lankinen-6388788822112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-vgk-reinhardt-marque-un-but-contre-kevin-lankinen-6388789022112",
+            "highlightClip": 6388788822112,
+            "highlightClipFr": 6388789022112,
+            "discreteClip": 6388791476112,
+            "discreteClipFr": 6388789136112,
+            "goalsToDate": 3,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "06:34",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483890,
+                "firstName": {
+                  "default": "Braeden"
+                },
+                "lastName": {
+                  "default": "Bowman"
+                },
+                "name": {
+                  "default": "B. Bowman"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 42
+              },
+              {
+                "playerId": 8477447,
+                "firstName": {
+                  "default": "Shea"
+                },
+                "lastName": {
+                  "default": "Theodore"
+                },
+                "name": {
+                  "default": "S. Theodore"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 27
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020901/ev615.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 626,
+            "strength": "ev",
+            "playerId": 8483678,
+            "firstName": {
+              "default": "Elias"
+            },
+            "lastName": {
+              "default": "Pettersson"
+            },
+            "name": {
+              "default": "E. Pettersson"
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VAN/8483678.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-vgk-pettersson-d-scores-goal-against-akira-schmid-6388789898112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-vgk-pettersson-d-marque-un-but-contre-akira-schmid-6388791372112",
+            "highlightClip": 6388789898112,
+            "highlightClipFr": 6388791372112,
+            "discreteClip": 6388791664112,
+            "discreteClipFr": 6388790378112,
+            "goalsToDate": 2,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "07:11",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483499,
+                "firstName": {
+                  "default": "Liam"
+                },
+                "lastName": {
+                  "default": "Ohgren",
+                  "cs": "\u00d6hgren",
+                  "fi": "\u00d6hgren",
+                  "sk": "\u00d6hgren",
+                  "sv": "\u00d6hgren"
+                },
+                "name": {
+                  "default": "L. Ohgren",
+                  "cs": "L. \u00d6hgren",
+                  "fi": "L. \u00d6hgren",
+                  "sk": "L. \u00d6hgren",
+                  "sv": "L. \u00d6hgren"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 92
+              },
+              {
+                "playerId": 8476927,
+                "firstName": {
+                  "default": "Teddy",
+                  "cs": "Theodors",
+                  "sk": "Theodors"
+                },
+                "lastName": {
+                  "default": "Blueger",
+                  "cs": "Blugers",
+                  "sk": "Blugers"
+                },
+                "name": {
+                  "default": "T. Blueger",
+                  "cs": "T. Blugers",
+                  "sk": "T. Blugers"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 53
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020901/ev626.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 633,
+            "strength": "ev",
+            "playerId": 8477964,
+            "firstName": {
+              "default": "Ivan"
+            },
+            "lastName": {
+              "default": "Barbashev",
+              "cs": "Barba\u0161ev",
+              "fi": "Barbashov",
+              "sk": "Barba\u0161ev"
+            },
+            "name": {
+              "default": "I. Barbashev",
+              "cs": "I. Barba\u0161ev",
+              "fi": "I. Barbashov",
+              "sk": "I. Barba\u0161ev"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8477964.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-vgk-barbashev-scores-goal-against-kevin-lankinen-6388790325112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-vgk-barbashev-marque-un-but-contre-kevin-lankinen-6388791374112",
+            "highlightClip": 6388790325112,
+            "highlightClipFr": 6388791374112,
+            "discreteClip": 6388789609112,
+            "discreteClipFr": 6388791181112,
+            "goalsToDate": 16,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "07:39",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475913,
+                "firstName": {
+                  "default": "Mark"
+                },
+                "lastName": {
+                  "default": "Stone"
+                },
+                "name": {
+                  "default": "M. Stone"
+                },
+                "assistsToDate": 37,
+                "sweaterNumber": 61
+              },
+              {
+                "playerId": 8478403,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Eichel"
+                },
+                "name": {
+                  "default": "J. Eichel"
+                },
+                "assistsToDate": 46,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020901/ev633.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 795,
+            "strength": "ev",
+            "playerId": 8480058,
+            "firstName": {
+              "default": "Pierre-Olivier"
+            },
+            "lastName": {
+              "default": "Joseph"
+            },
+            "name": {
+              "default": "P. Joseph"
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VAN/8480058.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-vgk-joseph-scores-goal-against-akira-schmid-6388792889112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-vgk-joseph-marque-un-but-contre-akira-schmid-6388791814112",
+            "highlightClip": 6388792889112,
+            "highlightClipFr": 6388791814112,
+            "discreteClip": 6388791322112,
+            "discreteClipFr": 6388792301112,
+            "goalsToDate": 1,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "19:51",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478856,
+                "firstName": {
+                  "default": "Conor"
+                },
+                "lastName": {
+                  "default": "Garland"
+                },
+                "name": {
+                  "default": "C. Garland"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 8
+              },
+              {
+                "playerId": 8476927,
+                "firstName": {
+                  "default": "Teddy",
+                  "cs": "Theodors",
+                  "sk": "Theodors"
+                },
+                "lastName": {
+                  "default": "Blueger",
+                  "cs": "Blugers",
+                  "sk": "Blugers"
+                },
+                "name": {
+                  "default": "T. Blueger",
+                  "cs": "T. Blugers",
+                  "sk": "T. Blugers"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 53
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020901/ev795.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 826,
+            "strength": "ev",
+            "playerId": 8481604,
+            "firstName": {
+              "default": "Pavel"
+            },
+            "lastName": {
+              "default": "Dorofeyev",
+              "cs": "Dorofejev",
+              "fi": "Dorofejev",
+              "sk": "Dorofejev"
+            },
+            "name": {
+              "default": "P. Dorofeyev",
+              "cs": "P. Dorofejev",
+              "fi": "P. Dorofejev",
+              "sk": "P. Dorofejev"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8481604.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-vgk-dorofeyev-scores-goal-against-kevin-lankinen-6388793218112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-vgk-dorofeyev-marque-un-but-contre-kevin-lankinen-6388793698112",
+            "highlightClip": 6388793218112,
+            "highlightClipFr": 6388793698112,
+            "discreteClip": 6388792922112,
+            "discreteClipFr": 6388793591112,
+            "goalsToDate": 25,
+            "awayScore": 2,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "02:31",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478483,
+                "firstName": {
+                  "default": "Mitch",
+                  "cs": "Mitchell",
+                  "de": "Mitchell",
+                  "es": "Mitchell",
+                  "fi": "Mitchell",
+                  "sk": "Mitchell",
+                  "sv": "Mitchell"
+                },
+                "lastName": {
+                  "default": "Marner"
+                },
+                "name": {
+                  "default": "M. Marner"
+                },
+                "assistsToDate": 42,
+                "sweaterNumber": 93
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020901/ev826.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 841,
+            "strength": "ev",
+            "playerId": 8482125,
+            "firstName": {
+              "default": "Alexander"
+            },
+            "lastName": {
+              "default": "Holtz"
+            },
+            "name": {
+              "default": "A. Holtz"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8482125.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-vgk-holtz-scores-goal-against-kevin-lankinen-6388793597112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-vgk-holtz-marque-un-but-contre-kevin-lankinen-6388791948112",
+            "highlightClip": 6388793597112,
+            "highlightClipFr": 6388791948112,
+            "discreteClip": 6388792445112,
+            "discreteClipFr": 6388793115112,
+            "goalsToDate": 3,
+            "awayScore": 2,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "03:31",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478434,
+                "firstName": {
+                  "default": "Keegan"
+                },
+                "lastName": {
+                  "default": "Kolesar"
+                },
+                "name": {
+                  "default": "K. Kolesar"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 55
+              },
+              {
+                "playerId": 8478468,
+                "firstName": {
+                  "default": "Jeremy"
+                },
+                "lastName": {
+                  "default": "Lauzon"
+                },
+                "name": {
+                  "default": "J. Lauzon"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 5
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020901/ev841.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8478403,
+        "teamAbbrev": "VGK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8478403.png",
+        "name": {
+          "default": "J. Eichel"
+        },
+        "sweaterNo": 9,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8477964,
+        "teamAbbrev": "VGK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8477964.png",
+        "name": {
+          "default": "I. Barbashev",
+          "cs": "I. Barba\u0161ev",
+          "fi": "I. Barbashov",
+          "sk": "I. Barba\u0161ev"
+        },
+        "sweaterNo": 49,
+        "position": "L",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8481033,
+        "teamAbbrev": "VGK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8481033.png",
+        "name": {
+          "default": "A. Schmid"
+        },
+        "sweaterNo": 40,
+        "position": "G",
+        "goalsAgainstAverage": 2.0,
+        "savePctg": 0.913
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:30",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jeremy"
+              },
+              "lastName": {
+                "default": "Lauzon"
+              },
+              "sweaterNumber": 5
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Aatu"
+              },
+              "lastName": {
+                "default": "R\u00e4ty"
+              },
+              "sweaterNumber": 54
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "06:35",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Aatu"
+              },
+              "lastName": {
+                "default": "R\u00e4ty"
+              },
+              "sweaterNumber": 54
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jack"
+              },
+              "lastName": {
+                "default": "Eichel"
+              },
+              "sweaterNumber": 9
+            },
+            "descKey": "interference"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

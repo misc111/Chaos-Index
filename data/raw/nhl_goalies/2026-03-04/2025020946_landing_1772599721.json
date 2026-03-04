@@ -1,0 +1,772 @@
+{
+  "id": 2025020946,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-28",
+  "venue": {
+    "default": "Climate Pledge Arena"
+  },
+  "venueLocation": {
+    "default": "Seattle"
+  },
+  "startTimeUTC": "2026-03-01T03:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "US/Pacific",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 4,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC",
+      "sequenceNumber": 101
+    },
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 107
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 286,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CITY",
+      "sequenceNumber": 137
+    },
+    {
+      "id": 554,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KHN/Prime",
+      "sequenceNumber": 348
+    },
+    {
+      "id": 388,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KONG",
+      "sequenceNumber": 654
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 23,
+    "commonName": {
+      "default": "Canucks"
+    },
+    "abbrev": "VAN",
+    "placeName": {
+      "default": "Vancouver"
+    },
+    "placeNameWithPreposition": {
+      "default": "Vancouver",
+      "fr": "de Vancouver"
+    },
+    "score": 1,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VAN_dark.svg"
+  },
+  "homeTeam": {
+    "id": 55,
+    "commonName": {
+      "default": "Kraken"
+    },
+    "abbrev": "SEA",
+    "placeName": {
+      "default": "Seattle"
+    },
+    "placeNameWithPreposition": {
+      "default": "Seattle",
+      "fr": "de Seattle"
+    },
+    "score": 5,
+    "sog": 25,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/SEA_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 211,
+            "strength": "ev",
+            "playerId": 8478407,
+            "firstName": {
+              "default": "Vince"
+            },
+            "lastName": {
+              "default": "Dunn"
+            },
+            "name": {
+              "default": "V. Dunn"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8478407.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-sea-dunn-scores-goal-against-kevin-lankinen-6390191713112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-sea-dunn-marque-un-but-contre-kevin-lankinen-6390192899112",
+            "highlightClip": 6390191713112,
+            "highlightClipFr": 6390192899112,
+            "discreteClip": 6390191616112,
+            "discreteClipFr": 6390192622112,
+            "goalsToDate": 9,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "07:36",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476905,
+                "firstName": {
+                  "default": "Chandler"
+                },
+                "lastName": {
+                  "default": "Stephenson"
+                },
+                "name": {
+                  "default": "C. Stephenson"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020946/ev211.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 242,
+            "strength": "ev",
+            "playerId": 8476905,
+            "firstName": {
+              "default": "Chandler"
+            },
+            "lastName": {
+              "default": "Stephenson"
+            },
+            "name": {
+              "default": "C. Stephenson"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8476905.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-sea-stephenson-scores-goal-against-kevin-lankinen-6390192219112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-sea-stephenson-marque-un-but-contre-kevin-lankinen-6390193194112",
+            "highlightClip": 6390192219112,
+            "highlightClipFr": 6390193194112,
+            "discreteClip": 6390192119112,
+            "discreteClipFr": 6390194157112,
+            "goalsToDate": 14,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "10:20",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476457,
+                "firstName": {
+                  "default": "Adam"
+                },
+                "lastName": {
+                  "default": "Larsson"
+                },
+                "name": {
+                  "default": "A. Larsson"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 6
+              },
+              {
+                "playerId": 8475768,
+                "firstName": {
+                  "default": "Jaden"
+                },
+                "lastName": {
+                  "default": "Schwartz"
+                },
+                "name": {
+                  "default": "J. Schwartz"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 17
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020946/ev242.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 615,
+            "strength": "ev",
+            "playerId": 8483499,
+            "firstName": {
+              "default": "Liam"
+            },
+            "lastName": {
+              "default": "Ohgren",
+              "cs": "\u00d6hgren",
+              "fi": "\u00d6hgren",
+              "sk": "\u00d6hgren",
+              "sv": "\u00d6hgren"
+            },
+            "name": {
+              "default": "L. Ohgren",
+              "cs": "L. \u00d6hgren",
+              "fi": "L. \u00d6hgren",
+              "sk": "L. \u00d6hgren",
+              "sv": "L. \u00d6hgren"
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VAN/8483499.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-sea-ohgren-scores-goal-against-joey-daccord-6390196590112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-sea-ohgren-marque-un-but-contre-joey-daccord-6390197180112",
+            "highlightClip": 6390196590112,
+            "highlightClipFr": 6390197180112,
+            "discreteClip": 6390195709112,
+            "discreteClipFr": 6390195541112,
+            "goalsToDate": 5,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "08:28",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478856,
+                "firstName": {
+                  "default": "Conor"
+                },
+                "lastName": {
+                  "default": "Garland"
+                },
+                "name": {
+                  "default": "C. Garland"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 8
+              },
+              {
+                "playerId": 8480058,
+                "firstName": {
+                  "default": "Pierre-Olivier"
+                },
+                "lastName": {
+                  "default": "Joseph"
+                },
+                "name": {
+                  "default": "P. Joseph"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 7
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020946/ev615.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 679,
+            "strength": "ev",
+            "playerId": 8474586,
+            "firstName": {
+              "default": "Jordan"
+            },
+            "lastName": {
+              "default": "Eberle"
+            },
+            "name": {
+              "default": "J. Eberle"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8474586.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-sea-eberle-scores-goal-against-kevin-lankinen-6390194545112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-sea-eberle-marque-un-but-contre-kevin-lankinen-6390195248112",
+            "highlightClip": 6390194545112,
+            "highlightClipFr": 6390195248112,
+            "discreteClip": 6390194949112,
+            "discreteClipFr": 6390196014112,
+            "goalsToDate": 21,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "13:47",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020946/ev679.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 924,
+            "strength": "pp",
+            "playerId": 8482665,
+            "firstName": {
+              "default": "Matty"
+            },
+            "lastName": {
+              "default": "Beniers"
+            },
+            "name": {
+              "default": "M. Beniers"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8482665.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/van-sea-eberle-scores-ppg-against-kevin-lankinen-6390198536112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/van-sea-eberle-marque-un-but-en-a-n-contre-kevin-lankinen-6390198720112",
+            "highlightClip": 6390198536112,
+            "highlightClipFr": 6390198720112,
+            "discreteClip": 6390198423112,
+            "discreteClipFr": 6390197065112,
+            "goalsToDate": 15,
+            "awayScore": 1,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "11:56",
+            "shotType": "deflected",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8474586,
+                "firstName": {
+                  "default": "Jordan"
+                },
+                "lastName": {
+                  "default": "Eberle"
+                },
+                "name": {
+                  "default": "J. Eberle"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 7
+              },
+              {
+                "playerId": 8476905,
+                "firstName": {
+                  "default": "Chandler"
+                },
+                "lastName": {
+                  "default": "Stephenson"
+                },
+                "name": {
+                  "default": "C. Stephenson"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020946/ev924.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 991,
+            "strength": "ev",
+            "playerId": 8474586,
+            "firstName": {
+              "default": "Jordan"
+            },
+            "lastName": {
+              "default": "Eberle"
+            },
+            "name": {
+              "default": "J. Eberle"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8474586.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/jordan-eberle-with-a-goal-vs-vancouver-canucks-6390198067112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/jordan-eberle-with-a-but-vs-les-canucks-de-vancouver-6390198076112",
+            "highlightClip": 6390198067112,
+            "highlightClipFr": 6390198076112,
+            "discreteClip": 6390196869112,
+            "discreteClipFr": 6390198835112,
+            "goalsToDate": 22,
+            "awayScore": 1,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "17:00",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8477955,
+                "firstName": {
+                  "default": "Jared"
+                },
+                "lastName": {
+                  "default": "McCann"
+                },
+                "name": {
+                  "default": "J. McCann"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 19
+              },
+              {
+                "playerId": 8476467,
+                "firstName": {
+                  "default": "Jamie"
+                },
+                "lastName": {
+                  "default": "Oleksiak"
+                },
+                "name": {
+                  "default": "J. Oleksiak"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 24
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020946/ev991.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8474586,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8474586.png",
+        "name": {
+          "default": "J. Eberle"
+        },
+        "sweaterNo": 7,
+        "position": "R",
+        "goals": 2,
+        "assists": 1,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8476905,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8476905.png",
+        "name": {
+          "default": "C. Stephenson"
+        },
+        "sweaterNo": 9,
+        "position": "C",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8478407,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8478407.png",
+        "name": {
+          "default": "V. Dunn"
+        },
+        "sweaterNo": 29,
+        "position": "D",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:37",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryker"
+              },
+              "lastName": {
+                "default": "Evans"
+              },
+              "sweaterNumber": 41
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Evander"
+              },
+              "lastName": {
+                "default": "Kane"
+              },
+              "sweaterNumber": 91
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "17:29",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kaapo"
+              },
+              "lastName": {
+                "default": "Kakko"
+              },
+              "sweaterNumber": 84
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Filip"
+              },
+              "lastName": {
+                "default": "Hronek"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "17:29",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Filip"
+              },
+              "lastName": {
+                "default": "Hronek"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Kaapo"
+              },
+              "lastName": {
+                "default": "Kakko"
+              },
+              "sweaterNumber": 84
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "20:00",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jared"
+              },
+              "lastName": {
+                "default": "McCann"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "David"
+              },
+              "lastName": {
+                "default": "Kampf",
+                "cs": "K\u00e4mpf",
+                "fi": "K\u00e4mpf",
+                "sk": "K\u00e4mpf",
+                "sv": "K\u00e4mpf"
+              },
+              "sweaterNumber": 64
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "11:46",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Drew"
+              },
+              "lastName": {
+                "default": "O'Connor"
+              },
+              "sweaterNumber": 18
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jacob"
+              },
+              "lastName": {
+                "default": "Melanson"
+              },
+              "sweaterNumber": 63
+            },
+            "descKey": "interference",
+            "servedBy": {
+              "default": "E. Kane"
+            }
+          },
+          {
+            "timeInPeriod": "11:46",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Drew"
+              },
+              "lastName": {
+                "default": "O'Connor"
+              },
+              "sweaterNumber": 18
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "descKey": "misconduct"
+          },
+          {
+            "timeInPeriod": "12:22",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Pierre-Olivier"
+              },
+              "lastName": {
+                "default": "Joseph"
+              },
+              "sweaterNumber": 7
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ben"
+              },
+              "lastName": {
+                "default": "Meyers"
+              },
+              "sweaterNumber": 59
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

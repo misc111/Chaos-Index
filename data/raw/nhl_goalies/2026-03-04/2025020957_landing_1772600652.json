@@ -1,0 +1,496 @@
+{
+  "id": 2025020957,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-03-02",
+  "venue": {
+    "default": "Climate Pledge Arena"
+  },
+  "venueLocation": {
+    "default": "Seattle"
+  },
+  "startTimeUTC": "2026-03-03T03:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "US/Pacific",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 561,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNSO",
+      "sequenceNumber": 202
+    },
+    {
+      "id": 554,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KHN/Prime",
+      "sequenceNumber": 348
+    },
+    {
+      "id": 388,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KONG",
+      "sequenceNumber": 654
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 12,
+    "commonName": {
+      "default": "Hurricanes"
+    },
+    "abbrev": "CAR",
+    "placeName": {
+      "default": "Carolina",
+      "fr": "Caroline"
+    },
+    "placeNameWithPreposition": {
+      "default": "Carolina",
+      "fr": "de la Caroline"
+    },
+    "score": 1,
+    "sog": 36,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CAR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CAR_dark.svg"
+  },
+  "homeTeam": {
+    "id": 55,
+    "commonName": {
+      "default": "Kraken"
+    },
+    "abbrev": "SEA",
+    "placeName": {
+      "default": "Seattle"
+    },
+    "placeNameWithPreposition": {
+      "default": "Seattle",
+      "fr": "de Seattle"
+    },
+    "score": 2,
+    "sog": 15,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/SEA_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 553,
+            "strength": "ev",
+            "playerId": 8481554,
+            "firstName": {
+              "default": "Kaapo"
+            },
+            "lastName": {
+              "default": "Kakko"
+            },
+            "name": {
+              "default": "K. Kakko"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8481554.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-sea-kakko-scores-goal-against-frederik-andersen-6390298409112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-sea-kakko-marque-un-but-contre-frederik-andersen-6390296856112",
+            "highlightClip": 6390298409112,
+            "highlightClipFr": 6390296856112,
+            "discreteClip": 6390298500112,
+            "discreteClipFr": 6390296758112,
+            "goalsToDate": 8,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "03:22",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476457,
+                "firstName": {
+                  "default": "Adam"
+                },
+                "lastName": {
+                  "default": "Larsson"
+                },
+                "name": {
+                  "default": "A. Larsson"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020957/ev553.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 623,
+            "strength": "ev",
+            "playerId": 8483570,
+            "firstName": {
+              "default": "Ben"
+            },
+            "lastName": {
+              "default": "Meyers"
+            },
+            "name": {
+              "default": "B. Meyers"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8483570.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-sea-meyers-scores-goal-against-frederik-andersen-6390298623112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-sea-meyers-marque-un-but-contre-frederik-andersen-6390297366112",
+            "highlightClip": 6390298623112,
+            "highlightClipFr": 6390297366112,
+            "discreteClip": 6390298713112,
+            "discreteClipFr": 6390298619112,
+            "goalsToDate": 6,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "08:48",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477919,
+                "firstName": {
+                  "default": "Frederick"
+                },
+                "lastName": {
+                  "default": "Gaudreau"
+                },
+                "name": {
+                  "default": "F. Gaudreau"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 89
+              },
+              {
+                "playerId": 8476457,
+                "firstName": {
+                  "default": "Adam"
+                },
+                "lastName": {
+                  "default": "Larsson"
+                },
+                "name": {
+                  "default": "A. Larsson"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020957/ev623.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 795,
+            "strength": "ev",
+            "playerId": 8477940,
+            "firstName": {
+              "default": "Nikolaj"
+            },
+            "lastName": {
+              "default": "Ehlers"
+            },
+            "name": {
+              "default": "N. Ehlers"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8477940.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-sea-ehlers-scores-goal-against-joey-daccord-6390299027112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-sea-ehlers-marque-un-but-contre-joey-daccord-6390298730112",
+            "highlightClip": 6390299027112,
+            "highlightClipFr": 6390298730112,
+            "discreteClip": 6390298924112,
+            "discreteClipFr": 6390299420112,
+            "goalsToDate": 16,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "18:30",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476921,
+                "firstName": {
+                  "default": "Jordan"
+                },
+                "lastName": {
+                  "default": "Martinook"
+                },
+                "name": {
+                  "default": "J. Martinook"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 48
+              },
+              {
+                "playerId": 8480336,
+                "firstName": {
+                  "default": "Sean"
+                },
+                "lastName": {
+                  "default": "Walker"
+                },
+                "name": {
+                  "default": "S. Walker"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 26
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020957/ev795.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8478916,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8478916.png",
+        "name": {
+          "default": "J. Daccord"
+        },
+        "sweaterNo": 35,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.972
+      },
+      {
+        "star": 2,
+        "playerId": 8476457,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8476457.png",
+        "name": {
+          "default": "A. Larsson"
+        },
+        "sweaterNo": 6,
+        "position": "D",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8481554,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8481554.png",
+        "name": {
+          "default": "K. Kakko"
+        },
+        "sweaterNo": 84,
+        "position": "R",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "08:46",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Andrei",
+                "cs": "Andrej",
+                "sk": "Andrej"
+              },
+              "lastName": {
+                "default": "Svechnikov",
+                "cs": "Sve\u010dnikov",
+                "fi": "Svetshnikov",
+                "sk": "Sve\u010dnikov"
+              },
+              "sweaterNumber": 37
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Vince"
+              },
+              "lastName": {
+                "default": "Dunn"
+              },
+              "sweaterNumber": 29
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:11",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Eric"
+              },
+              "lastName": {
+                "default": "Robinson"
+              },
+              "sweaterNumber": 50
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jared"
+              },
+              "lastName": {
+                "default": "McCann"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "09:27",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jordan"
+              },
+              "lastName": {
+                "default": "Martinook"
+              },
+              "sweaterNumber": 48
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matty"
+              },
+              "lastName": {
+                "default": "Beniers"
+              },
+              "sweaterNumber": 10
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "18:31",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Eeli"
+              },
+              "lastName": {
+                "default": "Tolvanen"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Sebastian"
+              },
+              "lastName": {
+                "default": "Aho"
+              },
+              "sweaterNumber": 20
+            },
+            "descKey": "holding"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

@@ -1,0 +1,514 @@
+{
+  "id": 2025020911,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-25",
+  "venue": {
+    "default": "Capital One Arena"
+  },
+  "venueLocation": {
+    "default": "Washington"
+  },
+  "startTimeUTC": "2026-02-26T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 322,
+      "market": "A",
+      "countryCode": "US",
+      "network": "NBCSP",
+      "sequenceNumber": 389
+    },
+    {
+      "id": 517,
+      "market": "H",
+      "countryCode": "US",
+      "network": "MNMT",
+      "sequenceNumber": 396
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 4,
+    "commonName": {
+      "default": "Flyers"
+    },
+    "abbrev": "PHI",
+    "placeName": {
+      "default": "Philadelphia",
+      "fr": "Philadelphie"
+    },
+    "placeNameWithPreposition": {
+      "default": "Philadelphia",
+      "fr": "de Philadelphie"
+    },
+    "score": 1,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/PHI_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/PHI_dark.svg"
+  },
+  "homeTeam": {
+    "id": 15,
+    "commonName": {
+      "default": "Capitals"
+    },
+    "abbrev": "WSH",
+    "placeName": {
+      "default": "Washington"
+    },
+    "placeNameWithPreposition": {
+      "default": "Washington",
+      "fr": "de Washington"
+    },
+    "score": 3,
+    "sog": 29,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 681,
+            "strength": "ev",
+            "playerId": 8480873,
+            "firstName": {
+              "default": "Rasmus"
+            },
+            "lastName": {
+              "default": "Sandin"
+            },
+            "name": {
+              "default": "R. Sandin"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8480873.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-wsh-sandin-scores-goal-against-dan-vladar-6389929024112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-wsh-sandin-marque-un-but-contre-dan-vladar-6389928155112",
+            "highlightClip": 6389929024112,
+            "highlightClipFr": 6389928155112,
+            "discreteClip": 6389928236112,
+            "discreteClipFr": 6389928235112,
+            "goalsToDate": 3,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "13:52",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482148,
+                "firstName": {
+                  "default": "Hendrix"
+                },
+                "lastName": {
+                  "default": "Lapierre"
+                },
+                "name": {
+                  "default": "H. Lapierre"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8479345,
+                "firstName": {
+                  "default": "Jakob"
+                },
+                "lastName": {
+                  "default": "Chychrun"
+                },
+                "name": {
+                  "default": "J. Chychrun"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020911/ev681.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 821,
+            "strength": "ev",
+            "playerId": 8480220,
+            "firstName": {
+              "default": "Noah"
+            },
+            "lastName": {
+              "default": "Cates"
+            },
+            "name": {
+              "default": "N. Cates"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8480220.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-wsh-cates-scores-goal-against-logan-thompson-6389930256112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-wsh-cates-marque-un-but-contre-logan-thompson-6389929688112",
+            "highlightClip": 6389930256112,
+            "highlightClipFr": 6389929688112,
+            "discreteClip": 6389929279112,
+            "discreteClipFr": 6389930550112,
+            "goalsToDate": 11,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "00:29",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477948,
+                "firstName": {
+                  "default": "Travis"
+                },
+                "lastName": {
+                  "default": "Sanheim"
+                },
+                "name": {
+                  "default": "T. Sanheim"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 6
+              },
+              {
+                "playerId": 8481553,
+                "firstName": {
+                  "default": "Bobby"
+                },
+                "lastName": {
+                  "default": "Brink"
+                },
+                "name": {
+                  "default": "B. Brink"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 10
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020911/ev821.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1005,
+            "strength": "ev",
+            "playerId": 8477845,
+            "firstName": {
+              "default": "Trevor"
+            },
+            "lastName": {
+              "default": "van Riemsdyk"
+            },
+            "name": {
+              "default": "T. van Riemsdyk"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8477845.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-wsh-van-riemsdyk-scores-goal-against-dan-vladar-6389931619112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-wsh-van-riemsdyk-marque-un-but-contre-dan-vladar-6389931206112",
+            "highlightClip": 6389931619112,
+            "highlightClipFr": 6389931206112,
+            "discreteClip": 6389933069112,
+            "discreteClipFr": 6389933070112,
+            "goalsToDate": 2,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "14:08",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480990,
+                "firstName": {
+                  "default": "Declan"
+                },
+                "lastName": {
+                  "default": "Chisholm"
+                },
+                "name": {
+                  "default": "D. Chisholm"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 47
+              },
+              {
+                "playerId": 8481656,
+                "firstName": {
+                  "default": "Aliaksei",
+                  "cs": "Alexej",
+                  "de": "Alexei",
+                  "es": "Alexei",
+                  "fi": "Aljaksei",
+                  "sk": "Alexej"
+                },
+                "lastName": {
+                  "default": "Protas"
+                },
+                "name": {
+                  "default": "A. Protas"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 21
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020911/ev1005.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "0641",
+            "eventId": 1093,
+            "strength": "sh",
+            "playerId": 8481656,
+            "firstName": {
+              "default": "Aliaksei",
+              "cs": "Alexej",
+              "de": "Alexei",
+              "es": "Alexei",
+              "fi": "Aljaksei",
+              "sk": "Alexej"
+            },
+            "lastName": {
+              "default": "Protas"
+            },
+            "name": {
+              "default": "A. Protas"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8481656.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/aliaksei-protas-with-a-shorthanded-goal-vs-philadelphia-flyers-6389932429112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/aliaksei-protas-with-a-shorthanded-goal-vs-les-flyers-de-philadelphie-6389933121112",
+            "highlightClip": 6389932429112,
+            "highlightClipFr": 6389933121112,
+            "discreteClip": 6389932310112,
+            "discreteClipFr": 6389934085112,
+            "goalsToDate": 20,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "19:34",
+            "shotType": "snap",
+            "goalModifier": "empty-net",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020911/ev1093.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8477845,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8477845.png",
+        "name": {
+          "default": "T. van Riemsdyk"
+        },
+        "sweaterNo": 57,
+        "position": "D",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8480313,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8480313.png",
+        "name": {
+          "default": "L. Thompson"
+        },
+        "sweaterNo": 48,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.958
+      },
+      {
+        "star": 3,
+        "playerId": 8478435,
+        "teamAbbrev": "PHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8478435.png",
+        "name": {
+          "default": "D. Vladar",
+          "cs": "D. Vlada\u0159",
+          "sk": "D. Vlada\u0159"
+        },
+        "sweaterNo": 80,
+        "position": "G",
+        "goalsAgainstAverage": 2.08,
+        "savePctg": 0.929
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:43",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Alex",
+                "cs": "Alexandr",
+                "fi": "Aleksandr",
+                "sk": "Alexander"
+              },
+              "lastName": {
+                "default": "Ovechkin",
+                "cs": "Ove\u010dkin",
+                "fi": "Ovetshkin",
+                "sk": "Ove\u010dkin"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Cates"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:46",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Cam"
+              },
+              "lastName": {
+                "default": "York"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Pierre-Luc"
+              },
+              "lastName": {
+                "default": "Dubois"
+              },
+              "sweaterNumber": 80
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "19:11",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nic"
+              },
+              "lastName": {
+                "default": "Dowd"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

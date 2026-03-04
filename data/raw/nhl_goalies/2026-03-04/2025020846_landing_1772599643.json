@@ -1,0 +1,884 @@
+{
+  "id": 2025020846,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-29",
+  "venue": {
+    "default": "Little Caesars Arena"
+  },
+  "venueLocation": {
+    "default": "Detroit"
+  },
+  "startTimeUTC": "2026-01-30T00:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "America/Detroit",
+  "periodDescriptor": {
+    "number": 5,
+    "periodType": "SO",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 329,
+      "market": "N",
+      "countryCode": "US",
+      "network": "ESPN+",
+      "sequenceNumber": 16
+    },
+    {
+      "id": 391,
+      "market": "N",
+      "countryCode": "US",
+      "network": "HULU",
+      "sequenceNumber": 17
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 15,
+    "commonName": {
+      "default": "Capitals"
+    },
+    "abbrev": "WSH",
+    "placeName": {
+      "default": "Washington"
+    },
+    "placeNameWithPreposition": {
+      "default": "Washington",
+      "fr": "de Washington"
+    },
+    "score": 4,
+    "sog": 23,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_dark.svg"
+  },
+  "homeTeam": {
+    "id": 17,
+    "commonName": {
+      "default": "Red Wings"
+    },
+    "abbrev": "DET",
+    "placeName": {
+      "default": "Detroit"
+    },
+    "placeNameWithPreposition": {
+      "default": "Detroit",
+      "fr": "de Detroit"
+    },
+    "score": 3,
+    "sog": 21,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/DET_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/DET_dark.svg?season=20252026"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 136,
+            "strength": "ev",
+            "playerId": 8475343,
+            "firstName": {
+              "default": "Nic"
+            },
+            "lastName": {
+              "default": "Dowd"
+            },
+            "name": {
+              "default": "N. Dowd"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8475343.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-det-dowd-scores-goal-against-john-gibson-6388512713112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-det-dowd-marque-un-but-contre-john-gibson-6388512712112",
+            "highlightClip": 6388512713112,
+            "highlightClipFr": 6388512712112,
+            "discreteClip": 6388511361112,
+            "discreteClipFr": 6388512325112,
+            "goalsToDate": 3,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "06:27",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481580,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McMichael"
+                },
+                "name": {
+                  "default": "C. McMichael"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 24
+              },
+              {
+                "playerId": 8479345,
+                "firstName": {
+                  "default": "Jakob"
+                },
+                "lastName": {
+                  "default": "Chychrun"
+                },
+                "name": {
+                  "default": "J. Chychrun"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020846/ev136.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 628,
+            "strength": "ev",
+            "playerId": 8475279,
+            "firstName": {
+              "default": "Ben"
+            },
+            "lastName": {
+              "default": "Chiarot"
+            },
+            "name": {
+              "default": "B. Chiarot"
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8475279.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-det-chiarot-scores-goal-against-charlie-lindgren-6388516574112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-det-chiarot-marque-un-but-contre-charlie-lindgren-6388516787112",
+            "highlightClip": 6388516574112,
+            "highlightClipFr": 6388516787112,
+            "discreteClip": 6388516895112,
+            "discreteClipFr": 6388516896112,
+            "goalsToDate": 5,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "09:52",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479337,
+                "firstName": {
+                  "default": "Alex"
+                },
+                "lastName": {
+                  "default": "DeBrincat"
+                },
+                "name": {
+                  "default": "A. DeBrincat"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 93
+              },
+              {
+                "playerId": 8474141,
+                "firstName": {
+                  "default": "Patrick"
+                },
+                "lastName": {
+                  "default": "Kane"
+                },
+                "name": {
+                  "default": "P. Kane"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 88
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020846/ev628.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 153,
+            "strength": "ev",
+            "playerId": 8478440,
+            "firstName": {
+              "default": "Dylan"
+            },
+            "lastName": {
+              "default": "Strome"
+            },
+            "name": {
+              "default": "D. Strome"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8478440.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-det-strome-scores-goal-against-john-gibson-6388520423112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-det-strome-marque-un-but-contre-john-gibson-6388519732112",
+            "highlightClip": 6388520423112,
+            "highlightClipFr": 6388519732112,
+            "discreteClip": 6388521395112,
+            "discreteClipFr": 6388519822112,
+            "goalsToDate": 15,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "09:36",
+            "shotType": "wrap-around",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8471214,
+                "firstName": {
+                  "default": "Alex",
+                  "cs": "Alexandr",
+                  "fi": "Aleksandr",
+                  "sk": "Alexander"
+                },
+                "lastName": {
+                  "default": "Ovechkin",
+                  "cs": "Ove\u010dkin",
+                  "fi": "Ovetshkin",
+                  "sk": "Ove\u010dkin"
+                },
+                "name": {
+                  "default": "A. Ovechkin",
+                  "cs": "A. Ove\u010dkin",
+                  "fi": "A. Ovetshkin",
+                  "sk": "A. Ove\u010dkin"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 8
+              },
+              {
+                "playerId": 8479345,
+                "firstName": {
+                  "default": "Jakob"
+                },
+                "lastName": {
+                  "default": "Chychrun"
+                },
+                "name": {
+                  "default": "J. Chychrun"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020846/ev153.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 948,
+            "strength": "ev",
+            "playerId": 8480990,
+            "firstName": {
+              "default": "Declan"
+            },
+            "lastName": {
+              "default": "Chisholm"
+            },
+            "name": {
+              "default": "D. Chisholm"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8480990.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-det-chisholm-scores-goal-against-john-gibson-6388520632112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-det-chisholm-marque-un-but-contre-john-gibson-6388521327112",
+            "highlightClip": 6388520632112,
+            "highlightClipFr": 6388521327112,
+            "discreteClip": 6388520159112,
+            "discreteClipFr": 6388520931112,
+            "goalsToDate": 1,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "14:44",
+            "shotType": "deflected",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479345,
+                "firstName": {
+                  "default": "Jakob"
+                },
+                "lastName": {
+                  "default": "Chychrun"
+                },
+                "name": {
+                  "default": "J. Chychrun"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 6
+              },
+              {
+                "playerId": 8478440,
+                "firstName": {
+                  "default": "Dylan"
+                },
+                "lastName": {
+                  "default": "Strome"
+                },
+                "name": {
+                  "default": "D. Strome"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 17
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020846/ev948.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 999,
+            "strength": "ev",
+            "playerId": 8479337,
+            "firstName": {
+              "default": "Alex"
+            },
+            "lastName": {
+              "default": "DeBrincat"
+            },
+            "name": {
+              "default": "A. DeBrincat"
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8479337.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-det-debrincat-scores-goal-against-charlie-lindgren-6388521233112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-det-debrincat-marque-un-but-contre-charlie-lindgren-6388521144112",
+            "highlightClip": 6388521233112,
+            "highlightClipFr": 6388521144112,
+            "discreteClip": 6388522503112,
+            "discreteClipFr": 6388520475112,
+            "goalsToDate": 29,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "18:20",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477946,
+                "firstName": {
+                  "default": "Dylan"
+                },
+                "lastName": {
+                  "default": "Larkin"
+                },
+                "name": {
+                  "default": "D. Larkin"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 71
+              },
+              {
+                "playerId": 8477429,
+                "firstName": {
+                  "default": "Andrew"
+                },
+                "lastName": {
+                  "default": "Copp"
+                },
+                "name": {
+                  "default": "A. Copp"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 18
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020846/ev999.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 556,
+            "strength": "ev",
+            "playerId": 8479337,
+            "firstName": {
+              "default": "Alex"
+            },
+            "lastName": {
+              "default": "DeBrincat"
+            },
+            "name": {
+              "default": "A. DeBrincat"
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8479337.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-det-debrincat-scores-goal-against-charlie-lindgren-6388520962112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-det-debrincat-marque-un-but-contre-charlie-lindgren-6388521476112",
+            "highlightClip": 6388520962112,
+            "highlightClipFr": 6388521476112,
+            "discreteClip": 6388521241112,
+            "discreteClipFr": 6388522809112,
+            "goalsToDate": 30,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "19:07",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481542,
+                "firstName": {
+                  "default": "Moritz"
+                },
+                "lastName": {
+                  "default": "Seider"
+                },
+                "name": {
+                  "default": "M. Seider"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 53
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020846/ev556.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 5,
+          "periodType": "SO",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "0101",
+            "eventId": 156,
+            "strength": "ev",
+            "playerId": 8475343,
+            "firstName": {
+              "default": "Nic"
+            },
+            "lastName": {
+              "default": "Dowd"
+            },
+            "name": {
+              "default": "N. Dowd"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8475343.png",
+            "discreteClip": 6388523719112,
+            "discreteClipFr": 6388522467112,
+            "awayScore": 4,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "WSH"
+            },
+            "timeInPeriod": "00:00",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [],
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "shootout": {
+      "liveScore": {
+        "home": 2,
+        "away": 3
+      },
+      "events": [
+        {
+          "sequence": 1,
+          "playerId": 8482078,
+          "teamAbbrev": {
+            "default": "DET"
+          },
+          "firstName": {
+            "default": "Lucas"
+          },
+          "lastName": {
+            "default": "Raymond"
+          },
+          "shotType": "snap",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8482078.png",
+          "gameWinner": false,
+          "homeScore": 1,
+          "awayScore": 0
+        },
+        {
+          "sequence": 2,
+          "playerId": 8478440,
+          "teamAbbrev": {
+            "default": "WSH"
+          },
+          "firstName": {
+            "default": "Dylan"
+          },
+          "lastName": {
+            "default": "Strome"
+          },
+          "shotType": "backhand",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8478440.png",
+          "gameWinner": false,
+          "homeScore": 1,
+          "awayScore": 1
+        },
+        {
+          "sequence": 3,
+          "playerId": 8474141,
+          "teamAbbrev": {
+            "default": "DET"
+          },
+          "firstName": {
+            "default": "Patrick"
+          },
+          "lastName": {
+            "default": "Kane"
+          },
+          "shotType": "snap",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8474141.png",
+          "gameWinner": false,
+          "homeScore": 2,
+          "awayScore": 1
+        },
+        {
+          "sequence": 4,
+          "playerId": 8484186,
+          "teamAbbrev": {
+            "default": "WSH"
+          },
+          "firstName": {
+            "default": "Ryan"
+          },
+          "lastName": {
+            "default": "Leonard"
+          },
+          "shotType": "wrist",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8484186.png",
+          "gameWinner": false,
+          "homeScore": 2,
+          "awayScore": 2
+        },
+        {
+          "sequence": 5,
+          "playerId": 8477946,
+          "teamAbbrev": {
+            "default": "DET"
+          },
+          "firstName": {
+            "default": "Dylan"
+          },
+          "lastName": {
+            "default": "Larkin"
+          },
+          "shotType": "backhand",
+          "result": "save",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8477946.png",
+          "gameWinner": false,
+          "homeScore": 2,
+          "awayScore": 2
+        },
+        {
+          "sequence": 6,
+          "playerId": 8475343,
+          "teamAbbrev": {
+            "default": "WSH"
+          },
+          "firstName": {
+            "default": "Nic"
+          },
+          "lastName": {
+            "default": "Dowd"
+          },
+          "shotType": "backhand",
+          "result": "goal",
+          "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8475343.png",
+          "gameWinner": true,
+          "discreteClip": 6388523719112,
+          "discreteClipFr": 6388522467112,
+          "homeScore": 2,
+          "awayScore": 3
+        }
+      ]
+    },
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8474141,
+        "teamAbbrev": "DET",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8474141.png",
+        "name": {
+          "default": "P. Kane"
+        },
+        "sweaterNo": 88,
+        "position": "R",
+        "goals": 0,
+        "assists": 1,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8479337,
+        "teamAbbrev": "DET",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DET/8479337.png",
+        "name": {
+          "default": "A. DeBrincat"
+        },
+        "sweaterNo": 93,
+        "position": "R",
+        "goals": 2,
+        "assists": 1,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8478440,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8478440.png",
+        "name": {
+          "default": "D. Strome"
+        },
+        "sweaterNo": 17,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:06",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "John"
+              },
+              "lastName": {
+                "default": "Carlson"
+              },
+              "sweaterNumber": 74
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          },
+          {
+            "timeInPeriod": "17:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Trevor"
+              },
+              "lastName": {
+                "default": "van Riemsdyk"
+              },
+              "sweaterNumber": 57
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Lucas"
+              },
+              "lastName": {
+                "default": "Raymond"
+              },
+              "sweaterNumber": 23
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:45",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Charlie"
+              },
+              "lastName": {
+                "default": "Lindgren"
+              },
+              "sweaterNumber": 79
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "J.T."
+              },
+              "lastName": {
+                "default": "Compher"
+              },
+              "sweaterNumber": 37
+            },
+            "descKey": "tripping",
+            "servedBy": {
+              "default": "J. Sourdif"
+            }
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:12",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ben"
+              },
+              "lastName": {
+                "default": "Chiarot"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          },
+          {
+            "timeInPeriod": "09:36",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "DET"
+            },
+            "descKey": "delaying-game-unsuccessful-challenge",
+            "servedBy": {
+              "default": "E. Soderblom",
+              "sv": "E. S\u00f6derblom"
+            }
+          },
+          {
+            "timeInPeriod": "11:52",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "descKey": "too-many-men-on-the-ice",
+            "servedBy": {
+              "default": "A. Ovechkin",
+              "cs": "A. Ove\u010dkin",
+              "fi": "A. Ovetshkin",
+              "sk": "A. Ove\u010dkin"
+            }
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

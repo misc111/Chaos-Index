@@ -1,0 +1,706 @@
+{
+  "id": 2025020662,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-05",
+  "venue": {
+    "default": "Madison Square Garden"
+  },
+  "venueLocation": {
+    "default": "New York"
+  },
+  "startTimeUTC": "2026-01-06T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "America/New_York",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 558,
+      "market": "A",
+      "countryCode": "US",
+      "network": "Utah16",
+      "sequenceNumber": 381
+    },
+    {
+      "id": 27,
+      "market": "H",
+      "countryCode": "US",
+      "network": "MSG",
+      "sequenceNumber": 417
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 68,
+    "commonName": {
+      "default": "Mammoth"
+    },
+    "abbrev": "UTA",
+    "placeName": {
+      "default": "Utah"
+    },
+    "placeNameWithPreposition": {
+      "default": "Utah",
+      "fr": "de l'Utah"
+    },
+    "score": 3,
+    "sog": 27,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/UTA_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/UTA_dark.svg?season=20252026"
+  },
+  "homeTeam": {
+    "id": 3,
+    "commonName": {
+      "default": "Rangers"
+    },
+    "abbrev": "NYR",
+    "placeName": {
+      "default": "New York"
+    },
+    "placeNameWithPreposition": {
+      "default": "New York",
+      "fr": "de New York"
+    },
+    "score": 2,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NYR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NYR_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 622,
+            "strength": "pp",
+            "playerId": 8482109,
+            "firstName": {
+              "default": "Alexis"
+            },
+            "lastName": {
+              "default": "Lafreni\u00e8re"
+            },
+            "name": {
+              "default": "A. Lafreni\u00e8re"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8482109.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/uta-nyr-lafreniere-scores-ppg-against-karel-vejmelka-6387271701112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/uta-nyr-lafreniere-marque-un-but-en-a-n-contre-karel-vejmelka-6387273465112",
+            "highlightClip": 6387271701112,
+            "highlightClipFr": 6387273465112,
+            "discreteClip": 6387271612112,
+            "discreteClipFr": 6387272295112,
+            "goalsToDate": 9,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "08:29",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476459,
+                "firstName": {
+                  "default": "Mika"
+                },
+                "lastName": {
+                  "default": "Zibanejad"
+                },
+                "name": {
+                  "default": "M. Zibanejad"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 93
+              },
+              {
+                "playerId": 8478550,
+                "firstName": {
+                  "default": "Artemi",
+                  "cs": "Art\u011bmij",
+                  "sk": "Artemij"
+                },
+                "lastName": {
+                  "default": "Panarin"
+                },
+                "name": {
+                  "default": "A. Panarin"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 10
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020662/ev622.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 682,
+            "strength": "ev",
+            "playerId": 8482699,
+            "firstName": {
+              "default": "Dylan"
+            },
+            "lastName": {
+              "default": "Guenther"
+            },
+            "name": {
+              "default": "D. Guenther"
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8482699.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/uta-nyr-guenther-scores-goal-against-jonathan-quick-6387274055112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/uta-nyr-guenther-marque-un-but-contre-jonathan-quick-6387274054112",
+            "highlightClip": 6387274055112,
+            "highlightClipFr": 6387274054112,
+            "discreteClip": 6387273962112,
+            "discreteClipFr": 6387274053112,
+            "goalsToDate": 21,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "12:38",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8474013,
+                "firstName": {
+                  "default": "Ian"
+                },
+                "lastName": {
+                  "default": "Cole"
+                },
+                "name": {
+                  "default": "I. Cole"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 28
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020662/ev682.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1351",
+            "eventId": 746,
+            "strength": "pp",
+            "playerId": 8476389,
+            "firstName": {
+              "default": "Vincent"
+            },
+            "lastName": {
+              "default": "Trocheck"
+            },
+            "name": {
+              "default": "V. Trocheck"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8476389.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/uta-nyr-trocheck-scores-ppg-against-karel-vejmelka-6387273298112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/uta-nyr-trocheck-marque-un-but-en-a-n-contre-karel-vejmelka-6387273573112",
+            "highlightClip": 6387273298112,
+            "highlightClipFr": 6387273573112,
+            "discreteClip": 6387272509112,
+            "discreteClipFr": 6387273568112,
+            "goalsToDate": 10,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "16:36",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478550,
+                "firstName": {
+                  "default": "Artemi",
+                  "cs": "Art\u011bmij",
+                  "sk": "Artemij"
+                },
+                "lastName": {
+                  "default": "Panarin"
+                },
+                "name": {
+                  "default": "A. Panarin"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 10
+              },
+              {
+                "playerId": 8476459,
+                "firstName": {
+                  "default": "Mika"
+                },
+                "lastName": {
+                  "default": "Zibanejad"
+                },
+                "name": {
+                  "default": "M. Zibanejad"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 93
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020662/ev746.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 927,
+            "strength": "ev",
+            "playerId": 8479619,
+            "firstName": {
+              "default": "Michael"
+            },
+            "lastName": {
+              "default": "Carcone"
+            },
+            "name": {
+              "default": "M. Carcone"
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8479619.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/uta-nyr-carcone-scores-goal-against-jonathan-quick-6387275287112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/uta-nyr-carcone-marque-un-but-contre-jonathan-quick-6387273920112",
+            "highlightClip": 6387275287112,
+            "highlightClipFr": 6387273920112,
+            "discreteClip": 6387274971112,
+            "discreteClipFr": 6387273801112,
+            "goalsToDate": 8,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "06:15",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478507,
+                "firstName": {
+                  "default": "John"
+                },
+                "lastName": {
+                  "default": "Marino"
+                },
+                "name": {
+                  "default": "J. Marino"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020662/ev927.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 1121,
+            "strength": "ev",
+            "playerId": 8480434,
+            "firstName": {
+              "default": "Sean"
+            },
+            "lastName": {
+              "default": "Durzi"
+            },
+            "name": {
+              "default": "S. Durzi"
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8480434.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/uta-nyr-durzi-scores-goal-against-jonathan-quick-6387275976112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/uta-nyr-durzi-marque-un-but-contre-jonathan-quick-6387275210112",
+            "highlightClip": 6387275976112,
+            "highlightClipFr": 6387275210112,
+            "discreteClip": 6387275101112,
+            "discreteClipFr": 6387274429112,
+            "goalsToDate": 2,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "UTA"
+            },
+            "timeInPeriod": "01:06",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477951,
+                "firstName": {
+                  "default": "Nick"
+                },
+                "lastName": {
+                  "default": "Schmaltz"
+                },
+                "name": {
+                  "default": "N. Schmaltz"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 8
+              },
+              {
+                "playerId": 8478474,
+                "firstName": {
+                  "default": "Lawson"
+                },
+                "lastName": {
+                  "default": "Crouse"
+                },
+                "name": {
+                  "default": "L. Crouse"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 67
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020662/ev1121.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8480434,
+        "teamAbbrev": "UTA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8480434.png",
+        "name": {
+          "default": "S. Durzi"
+        },
+        "sweaterNo": 50,
+        "position": "D",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8479619,
+        "teamAbbrev": "UTA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/UTA/8479619.png",
+        "name": {
+          "default": "M. Carcone"
+        },
+        "sweaterNo": 53,
+        "position": "L",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8476459,
+        "teamAbbrev": "NYR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8476459.png",
+        "name": {
+          "default": "M. Zibanejad"
+        },
+        "sweaterNo": 93,
+        "position": "C",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:00",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jonathan"
+              },
+              "lastName": {
+                "default": "Quick"
+              },
+              "sweaterNumber": 32
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Daniil"
+              },
+              "lastName": {
+                "default": "But"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "roughing",
+            "servedBy": {
+              "default": "J. Brodzinski"
+            }
+          },
+          {
+            "timeInPeriod": "02:00",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Daniil"
+              },
+              "lastName": {
+                "default": "But"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jonathan"
+              },
+              "lastName": {
+                "default": "Quick"
+              },
+              "sweaterNumber": 32
+            },
+            "descKey": "interference-goalkeeper"
+          },
+          {
+            "timeInPeriod": "07:33",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dylan"
+              },
+              "lastName": {
+                "default": "Guenther"
+              },
+              "sweaterNumber": 11
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Adam"
+              },
+              "lastName": {
+                "default": "Fox"
+              },
+              "sweaterNumber": 23
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "15:31",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Alexander",
+                "fr": "Alex"
+              },
+              "lastName": {
+                "default": "Kerfoot"
+              },
+              "sweaterNumber": 15
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Carson"
+              },
+              "lastName": {
+                "default": "Soucy"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "15:31",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Tanev"
+              },
+              "sweaterNumber": 13
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Artemi",
+                "cs": "Art\u011bmij",
+                "sk": "Artemij"
+              },
+              "lastName": {
+                "default": "Panarin"
+              },
+              "sweaterNumber": 10
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:52",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Urho"
+              },
+              "lastName": {
+                "default": "Vaakanainen"
+              },
+              "sweaterNumber": 18
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Carcone"
+              },
+              "sweaterNumber": 53
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "16:46",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sean"
+              },
+              "lastName": {
+                "default": "Durzi"
+              },
+              "sweaterNumber": 50
+            },
+            "teamAbbrev": {
+              "default": "UTA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Mika"
+              },
+              "lastName": {
+                "default": "Zibanejad"
+              },
+              "sweaterNumber": 93
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "03:54",
+    "secondsRemaining": 234,
+    "running": false,
+    "inIntermission": false
+  }
+}

@@ -1,0 +1,628 @@
+{
+  "id": 2025090010,
+  "season": 20252026,
+  "gameType": 9,
+  "limitedScoring": true,
+  "gameDate": "2026-02-13",
+  "venue": {
+    "default": "Milano Santagiulia Ice Hockey Arena"
+  },
+  "venueLocation": {
+    "default": "Milano Cortina"
+  },
+  "startTimeUTC": "2026-02-13T20:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "+01:00",
+  "venueTimezone": "Europe/Rome",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 637,
+      "market": "N",
+      "countryCode": "US",
+      "network": "Peacock",
+      "sequenceNumber": 1
+    },
+    {
+      "id": 4,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC",
+      "sequenceNumber": 101
+    },
+    {
+      "id": 636,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC Gem",
+      "sequenceNumber": 103
+    },
+    {
+      "id": 642,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "ICI T\u00e9l\u00e9",
+      "sequenceNumber": 143
+    },
+    {
+      "id": 230,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "RDS2",
+      "sequenceNumber": 146
+    }
+  ],
+  "gameState": "FINAL",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 60,
+    "commonName": {
+      "default": "Canada",
+      "cs": "Kanada",
+      "de": "Kanada",
+      "es": "Canad\u00e1",
+      "fi": "Kanada",
+      "sk": "Kanada",
+      "sv": "Kanada"
+    },
+    "abbrev": "CAN",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 5,
+    "sog": 39,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/CAN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/CAN_dark.svg"
+  },
+  "homeTeam": {
+    "id": 6776,
+    "commonName": {
+      "default": "Switzerland",
+      "cs": "\u0160v\u00fdcarsko",
+      "de": "Schweiz",
+      "es": "Suiza",
+      "fi": "Sveitsi",
+      "fr": "Suisse",
+      "sk": "\u0160vaj\u010diarsko",
+      "sv": "Schweiz"
+    },
+    "abbrev": "SUI",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 1,
+    "sog": 25,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/SUI_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/SUI_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 9002,
+            "strength": "pp",
+            "playerId": 8478402,
+            "firstName": {
+              "default": "Connor"
+            },
+            "lastName": {
+              "default": "McDavid"
+            },
+            "name": {
+              "default": "C. McDavid"
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAN/8478402.png",
+            "goalsToDate": 1,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CAN"
+            },
+            "timeInPeriod": "05:45",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477492,
+                "firstName": {
+                  "default": "Nathan"
+                },
+                "lastName": {
+                  "default": "MacKinnon"
+                },
+                "name": {
+                  "default": "N. MacKinnon"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8480069,
+                "firstName": {
+                  "default": "Cale"
+                },
+                "lastName": {
+                  "default": "Makar"
+                },
+                "name": {
+                  "default": "C. Makar"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 8
+              }
+            ],
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 9005,
+            "strength": "ev",
+            "playerId": 8481581,
+            "firstName": {
+              "default": "Thomas"
+            },
+            "lastName": {
+              "default": "Harley"
+            },
+            "name": {
+              "default": "T. Harley"
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAN/8481581.png",
+            "goalsToDate": 1,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CAN"
+            },
+            "timeInPeriod": "10:54",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478402,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McDavid"
+                },
+                "name": {
+                  "default": "C. McDavid"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 97
+              },
+              {
+                "playerId": 8476880,
+                "firstName": {
+                  "default": "Tom"
+                },
+                "lastName": {
+                  "default": "Wilson"
+                },
+                "name": {
+                  "default": "T. Wilson"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 43
+              }
+            ],
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 9009,
+            "strength": "pp",
+            "playerId": 8480459,
+            "firstName": {
+              "default": "Pius"
+            },
+            "lastName": {
+              "default": "Suter"
+            },
+            "name": {
+              "default": "P. Suter"
+            },
+            "teamAbbrev": {
+              "default": "SUI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SUI/8480459.png",
+            "goalsToDate": 1,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CAN"
+            },
+            "timeInPeriod": "12:42",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477413,
+                "firstName": {
+                  "default": "Sven"
+                },
+                "lastName": {
+                  "default": "Andrighetto"
+                },
+                "name": {
+                  "default": "S. Andrighetto"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 85
+              },
+              {
+                "playerId": 8478567,
+                "firstName": {
+                  "default": "Dean"
+                },
+                "lastName": {
+                  "default": "Kukan"
+                },
+                "name": {
+                  "default": "D. Kukan"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 14
+              }
+            ],
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 9013,
+            "strength": "ev",
+            "playerId": 8484801,
+            "firstName": {
+              "default": "Macklin"
+            },
+            "lastName": {
+              "default": "Celebrini"
+            },
+            "name": {
+              "default": "M. Celebrini"
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAN/8484801.png",
+            "goalsToDate": 2,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CAN"
+            },
+            "timeInPeriod": "04:14",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477492,
+                "firstName": {
+                  "default": "Nathan"
+                },
+                "lastName": {
+                  "default": "MacKinnon"
+                },
+                "name": {
+                  "default": "N. MacKinnon"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 29
+              }
+            ],
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 9018,
+            "strength": "ev",
+            "playerId": 8471675,
+            "firstName": {
+              "default": "Sidney"
+            },
+            "lastName": {
+              "default": "Crosby"
+            },
+            "name": {
+              "default": "S. Crosby"
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAN/8471675.png",
+            "goalsToDate": 1,
+            "awayScore": 4,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CAN"
+            },
+            "timeInPeriod": "07:28",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478483,
+                "firstName": {
+                  "default": "Mitch",
+                  "cs": "Mitchell",
+                  "de": "Mitchell",
+                  "es": "Mitchell",
+                  "fi": "Mitchell",
+                  "sk": "Mitchell",
+                  "sv": "Mitchell"
+                },
+                "lastName": {
+                  "default": "Marner"
+                },
+                "name": {
+                  "default": "M. Marner"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 93
+              },
+              {
+                "playerId": 8480069,
+                "firstName": {
+                  "default": "Cale"
+                },
+                "lastName": {
+                  "default": "Makar"
+                },
+                "name": {
+                  "default": "C. Makar"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 8
+              }
+            ],
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 9022,
+            "strength": "ev",
+            "playerId": 8477492,
+            "firstName": {
+              "default": "Nathan"
+            },
+            "lastName": {
+              "default": "MacKinnon"
+            },
+            "name": {
+              "default": "N. MacKinnon"
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAN/8477492.png",
+            "goalsToDate": 2,
+            "awayScore": 5,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CAN"
+            },
+            "timeInPeriod": "13:03",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478402,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McDavid"
+                },
+                "name": {
+                  "default": "C. McDavid"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 97
+              },
+              {
+                "playerId": 8484801,
+                "firstName": {
+                  "default": "Macklin"
+                },
+                "lastName": {
+                  "default": "Celebrini"
+                },
+                "name": {
+                  "default": "M. Celebrini"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 17
+              }
+            ],
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "05:25",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dean"
+              },
+              "lastName": {
+                "default": "Kukan"
+              },
+              "sweaterNumber": 14
+            },
+            "teamAbbrev": {
+              "default": "SUI"
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "10:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Bo"
+              },
+              "lastName": {
+                "default": "Horvat"
+              },
+              "sweaterNumber": 14
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:22",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Shea"
+              },
+              "lastName": {
+                "default": "Theodore"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "05:59",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Fora"
+              },
+              "sweaterNumber": 45
+            },
+            "teamAbbrev": {
+              "default": "SUI"
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "15:19",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nino"
+              },
+              "lastName": {
+                "default": "Niederreiter"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "SUI"
+            },
+            "descKey": "elbowing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "10:47",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Macklin"
+              },
+              "lastName": {
+                "default": "Celebrini"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "CAN"
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

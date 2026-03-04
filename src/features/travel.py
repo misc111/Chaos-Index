@@ -1,0 +1,157 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+from math import atan2, cos, radians, sin, sqrt
+
+import numpy as np
+import pandas as pd
+
+from src.common.time import parse_iso
+
+
+@dataclass(frozen=True)
+class TeamCity:
+    lat: float
+    lon: float
+    utc_offset_hours: int
+
+
+TEAM_CITY = {
+    "ANA": TeamCity(33.8078, -117.8767, -8),
+    "ARI": TeamCity(33.5312, -112.2617, -7),
+    "BOS": TeamCity(42.3662, -71.0621, -5),
+    "BUF": TeamCity(42.8740, -78.8768, -5),
+    "CAR": TeamCity(35.8033, -78.7218, -5),
+    "CBJ": TeamCity(39.9690, -83.0063, -5),
+    "CGY": TeamCity(51.0374, -114.0519, -7),
+    "CHI": TeamCity(41.8807, -87.6742, -6),
+    "COL": TeamCity(39.7487, -105.0077, -7),
+    "DAL": TeamCity(32.7905, -96.8103, -6),
+    "DET": TeamCity(42.3410, -83.0551, -5),
+    "EDM": TeamCity(53.5461, -113.4970, -7),
+    "FLA": TeamCity(26.1585, -80.3256, -5),
+    "LAK": TeamCity(34.0430, -118.2673, -8),
+    "MIN": TeamCity(44.9448, -93.1010, -6),
+    "MTL": TeamCity(45.4960, -73.5693, -5),
+    "NJD": TeamCity(40.7335, -74.1711, -5),
+    "NSH": TeamCity(36.1591, -86.7785, -6),
+    "NYI": TeamCity(40.7229, -73.5909, -5),
+    "NYR": TeamCity(40.7505, -73.9934, -5),
+    "OTT": TeamCity(45.2969, -75.9272, -5),
+    "PHI": TeamCity(39.9012, -75.1720, -5),
+    "PIT": TeamCity(40.4392, -79.9899, -5),
+    "SEA": TeamCity(47.6221, -122.3540, -8),
+    "SJS": TeamCity(37.3328, -121.9010, -8),
+    "STL": TeamCity(38.6268, -90.2026, -6),
+    "TBL": TeamCity(27.9427, -82.4518, -5),
+    "TOR": TeamCity(43.6435, -79.3791, -5),
+    "UTA": TeamCity(40.7683, -111.9012, -7),
+    "VAN": TeamCity(49.2777, -123.1089, -8),
+    "VGK": TeamCity(36.1020, -115.1783, -8),
+    "WPG": TeamCity(49.8927, -97.1436, -6),
+    "WSH": TeamCity(38.8981, -77.0209, -5),
+}
+
+
+def haversine_miles(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    r = 3958.7613
+    dlat = radians(lat2 - lat1)
+    dlon = radians(lon2 - lon1)
+    a = sin(dlat / 2) ** 2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(dlon / 2) ** 2
+    return 2 * r * atan2(sqrt(a), sqrt(1 - a))
+
+
+def _rolling_load(flags: list[int], window: int) -> list[int]:
+    arr = np.array(flags, dtype=int)
+    out = []
+    for i in range(len(arr)):
+        lo = max(0, i - window)
+        out.append(int(arr[lo:i].sum()))
+    return out
+
+
+def build_travel_features(games_df: pd.DataFrame) -> pd.DataFrame:
+    if games_df.empty:
+        return pd.DataFrame()
+
+    games = games_df.sort_values("start_time_utc").copy()
+    rows = []
+
+    for team_col, prefix in [("home_team", "home"), ("away_team", "away")]:
+        team_rows = []
+        for _, r in games.iterrows():
+            team = r[team_col]
+            opp = r["away_team"] if prefix == "home" else r["home_team"]
+            city = TEAM_CITY.get(team)
+            opp_city = TEAM_CITY.get(opp)
+            team_rows.append(
+                {
+                    "game_id": r["game_id"],
+                    "team": team,
+                    "opp": opp,
+                    "start_time_utc": r["start_time_utc"],
+                    "lat": city.lat if city else np.nan,
+                    "lon": city.lon if city else np.nan,
+                    "tz": city.utc_offset_hours if city else np.nan,
+                    "opp_tz": opp_city.utc_offset_hours if opp_city else np.nan,
+                    "is_home": 1 if prefix == "home" else 0,
+                }
+            )
+
+        tdf = pd.DataFrame(team_rows).sort_values("start_time_utc").reset_index(drop=True)
+        by_team_frames = []
+        for team, grp in tdf.groupby("team", sort=False):
+            g = grp.copy().sort_values("start_time_utc").reset_index(drop=True)
+            g["start_dt"] = g["start_time_utc"].map(parse_iso)
+            g["prev_start_dt"] = g["start_dt"].shift(1)
+            g["rest_days"] = (g["start_dt"] - g["prev_start_dt"]).dt.total_seconds() / 86400
+            g["rest_days"] = g["rest_days"].fillna(7).clip(lower=0)
+            g["b2b"] = (g["rest_days"] <= 1.1).astype(int)
+            b2b_list = g["b2b"].tolist()
+            g["gms_3in4"] = [int(x >= 2) for x in _rolling_load(b2b_list, 3)]
+            g["gms_4in6"] = [int(x >= 3) for x in _rolling_load(b2b_list, 5)]
+            g["prev_lat"] = g["lat"].shift(1)
+            g["prev_lon"] = g["lon"].shift(1)
+            g["travel_miles"] = [
+                0.0
+                if np.isnan(pl) or np.isnan(po) or np.isnan(cl) or np.isnan(co)
+                else haversine_miles(pl, po, cl, co)
+                for pl, po, cl, co in zip(g["prev_lat"], g["prev_lon"], g["lat"], g["lon"])
+            ]
+            g["travel_miles"] = g["travel_miles"].fillna(0.0)
+            g["prev_tz"] = g["tz"].shift(1)
+            g["tz_change"] = (g["tz"] - g["prev_tz"]).fillna(0)
+            g["utc_hour"] = g["start_dt"].dt.hour
+            g["local_hour"] = g["utc_hour"] + g["tz"]
+            g["local_start_mismatch"] = ((g["local_hour"] < 15) | (g["local_hour"] > 22)).astype(int)
+            by_team_frames.append(g)
+
+        feat = pd.concat(by_team_frames, ignore_index=True)
+        feat = feat[
+            [
+                "game_id",
+                "rest_days",
+                "b2b",
+                "gms_3in4",
+                "gms_4in6",
+                "travel_miles",
+                "tz_change",
+                "local_start_mismatch",
+            ]
+        ].rename(
+            columns={
+                "rest_days": f"{prefix}_rest_days",
+                "b2b": f"{prefix}_b2b",
+                "gms_3in4": f"{prefix}_3in4",
+                "gms_4in6": f"{prefix}_4in6",
+                "travel_miles": f"{prefix}_travel_miles",
+                "tz_change": f"{prefix}_tz_change",
+                "local_start_mismatch": f"{prefix}_local_start_mismatch",
+            }
+        )
+        rows.append(feat)
+
+    merged = rows[0].merge(rows[1], on="game_id", how="outer")
+    merged["travel_diff"] = merged["home_travel_miles"] - merged["away_travel_miles"]
+    merged["rest_diff"] = merged["home_rest_days"] - merged["away_rest_days"]
+    return merged

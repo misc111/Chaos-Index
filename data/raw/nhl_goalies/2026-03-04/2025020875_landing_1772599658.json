@@ -1,0 +1,799 @@
+{
+  "id": 2025020875,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-01",
+  "venue": {
+    "default": "Honda Center"
+  },
+  "venueLocation": {
+    "default": "Anaheim"
+  },
+  "startTimeUTC": "2026-02-02T02:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "America/Los_Angeles",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 309,
+      "market": "N",
+      "countryCode": "US",
+      "network": "ESPN",
+      "sequenceNumber": 10
+    },
+    {
+      "id": 283,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN360",
+      "sequenceNumber": 114
+    },
+    {
+      "id": 332,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN (JIP)",
+      "sequenceNumber": 118
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 54,
+    "commonName": {
+      "default": "Golden Knights"
+    },
+    "abbrev": "VGK",
+    "placeName": {
+      "default": "Vegas"
+    },
+    "placeNameWithPreposition": {
+      "default": "Vegas",
+      "fr": "de Vegas"
+    },
+    "score": 3,
+    "sog": 31,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VGK_dark.svg"
+  },
+  "homeTeam": {
+    "id": 24,
+    "commonName": {
+      "default": "Ducks"
+    },
+    "abbrev": "ANA",
+    "placeName": {
+      "default": "Anaheim"
+    },
+    "placeNameWithPreposition": {
+      "default": "Anaheim",
+      "fr": "d'Anaheim"
+    },
+    "score": 4,
+    "sog": 23,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/ANA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/ANA_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 285,
+            "strength": "ev",
+            "playerId": 8475184,
+            "firstName": {
+              "default": "Chris"
+            },
+            "lastName": {
+              "default": "Kreider"
+            },
+            "name": {
+              "default": "C. Kreider"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8475184.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-ana-kreider-scores-goal-against-adin-hill-6388655929112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-ana-kreider-marque-un-but-contre-adin-hill-6388654478112",
+            "highlightClip": 6388655929112,
+            "highlightClipFr": 6388654478112,
+            "discreteClip": 6388655249112,
+            "discreteClipFr": 6388655838112,
+            "goalsToDate": 18,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "13:21",
+            "shotType": "deflected",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480068,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "Poehling"
+                },
+                "name": {
+                  "default": "R. Poehling"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 25
+              },
+              {
+                "playerId": 8483490,
+                "firstName": {
+                  "default": "Pavel"
+                },
+                "lastName": {
+                  "default": "Mintyukov",
+                  "cs": "Mintjukov",
+                  "fi": "Mintjukov",
+                  "sk": "Mintjukov"
+                },
+                "name": {
+                  "default": "P. Mintyukov",
+                  "cs": "P. Mintjukov",
+                  "fi": "P. Mintjukov",
+                  "sk": "P. Mintjukov"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 98
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020875/ev285.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 504,
+            "strength": "ev",
+            "playerId": 8475184,
+            "firstName": {
+              "default": "Chris"
+            },
+            "lastName": {
+              "default": "Kreider"
+            },
+            "name": {
+              "default": "C. Kreider"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8475184.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-ana-kreider-scores-goal-against-adin-hill-6388656455112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-ana-kreider-marque-un-but-contre-adin-hill-6388655387112",
+            "highlightClip": 6388656455112,
+            "highlightClipFr": 6388655387112,
+            "discreteClip": 6388657236112,
+            "discreteClipFr": 6388657041112,
+            "goalsToDate": 19,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "01:10",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476885,
+                "firstName": {
+                  "default": "Jacob"
+                },
+                "lastName": {
+                  "default": "Trouba"
+                },
+                "name": {
+                  "default": "J. Trouba"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 65
+              },
+              {
+                "playerId": 8478873,
+                "firstName": {
+                  "default": "Troy"
+                },
+                "lastName": {
+                  "default": "Terry"
+                },
+                "name": {
+                  "default": "T. Terry"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 19
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020875/ev504.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 548,
+            "strength": "pp",
+            "playerId": 8483445,
+            "firstName": {
+              "default": "Cutter"
+            },
+            "lastName": {
+              "default": "Gauthier"
+            },
+            "name": {
+              "default": "C. Gauthier"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8483445.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-ana-gauthier-scores-ppg-against-adin-hill-6388656654112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-ana-gauthier-marque-un-but-en-a-n-contre-adin-hill-6388655769112",
+            "highlightClip": 6388656654112,
+            "highlightClipFr": 6388655769112,
+            "discreteClip": 6388656752112,
+            "discreteClipFr": 6388657435112,
+            "goalsToDate": 24,
+            "awayScore": 0,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "04:32",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481605,
+                "firstName": {
+                  "default": "Jackson"
+                },
+                "lastName": {
+                  "default": "LaCombe"
+                },
+                "name": {
+                  "default": "J. LaCombe"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 2
+              },
+              {
+                "playerId": 8484762,
+                "firstName": {
+                  "default": "Beckett"
+                },
+                "lastName": {
+                  "default": "Sennecke"
+                },
+                "name": {
+                  "default": "B. Sennecke"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 45
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020875/ev548.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 660,
+            "strength": "ev",
+            "playerId": 8478483,
+            "firstName": {
+              "default": "Mitch",
+              "cs": "Mitchell",
+              "de": "Mitchell",
+              "es": "Mitchell",
+              "fi": "Mitchell",
+              "sk": "Mitchell",
+              "sv": "Mitchell"
+            },
+            "lastName": {
+              "default": "Marner"
+            },
+            "name": {
+              "default": "M. Marner"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8478483.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-ana-marner-scores-goal-against-lukas-dostal-6388656081112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-ana-marner-marque-un-but-contre-lukas-dostal-6388655486112",
+            "highlightClip": 6388656081112,
+            "highlightClipFr": 6388655486112,
+            "discreteClip": 6388656470112,
+            "discreteClipFr": 6388655287112,
+            "goalsToDate": 15,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "09:47",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475913,
+                "firstName": {
+                  "default": "Mark"
+                },
+                "lastName": {
+                  "default": "Stone"
+                },
+                "name": {
+                  "default": "M. Stone"
+                },
+                "assistsToDate": 34,
+                "sweaterNumber": 61
+              },
+              {
+                "playerId": 8481604,
+                "firstName": {
+                  "default": "Pavel"
+                },
+                "lastName": {
+                  "default": "Dorofeyev",
+                  "cs": "Dorofejev",
+                  "fi": "Dorofejev",
+                  "sk": "Dorofejev"
+                },
+                "name": {
+                  "default": "P. Dorofeyev",
+                  "cs": "P. Dorofejev",
+                  "fi": "P. Dorofejev",
+                  "sk": "P. Dorofejev"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 16
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020875/ev660.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 1000,
+            "strength": "ev",
+            "playerId": 8477964,
+            "firstName": {
+              "default": "Ivan"
+            },
+            "lastName": {
+              "default": "Barbashev",
+              "cs": "Barba\u0161ev",
+              "fi": "Barbashov",
+              "sk": "Barba\u0161ev"
+            },
+            "name": {
+              "default": "I. Barbashev",
+              "cs": "I. Barba\u0161ev",
+              "fi": "I. Barbashov",
+              "sk": "I. Barba\u0161ev"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8477964.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-ana-barbashev-scores-goal-against-lukas-dostal-6388657122112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-ana-barbashev-marque-un-but-contre-lukas-dostal-6388659164112",
+            "highlightClip": 6388657122112,
+            "highlightClipFr": 6388659164112,
+            "discreteClip": 6388659356112,
+            "discreteClipFr": 6388657790112,
+            "goalsToDate": 15,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "10:40",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478403,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Eichel"
+                },
+                "name": {
+                  "default": "J. Eichel"
+                },
+                "assistsToDate": 45,
+                "sweaterNumber": 9
+              },
+              {
+                "playerId": 8482125,
+                "firstName": {
+                  "default": "Alexander"
+                },
+                "lastName": {
+                  "default": "Holtz"
+                },
+                "name": {
+                  "default": "A. Holtz"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 26
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020875/ev1000.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 1149,
+            "strength": "ev",
+            "playerId": 8480068,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "Poehling"
+            },
+            "name": {
+              "default": "R. Poehling"
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8480068.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-ana-poehling-scores-empty-net-goal-6388657799112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-ana-poehling-ana-marque-un-but-dans-un-filet-desert-6388659268112",
+            "highlightClip": 6388657799112,
+            "highlightClipFr": 6388659268112,
+            "discreteClip": 6388657889112,
+            "discreteClipFr": 6388659662112,
+            "goalsToDate": 5,
+            "awayScore": 2,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "18:53",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8478873,
+                "firstName": {
+                  "default": "Troy"
+                },
+                "lastName": {
+                  "default": "Terry"
+                },
+                "name": {
+                  "default": "T. Terry"
+                },
+                "assistsToDate": 31,
+                "sweaterNumber": 19
+              },
+              {
+                "playerId": 8476885,
+                "firstName": {
+                  "default": "Jacob"
+                },
+                "lastName": {
+                  "default": "Trouba"
+                },
+                "name": {
+                  "default": "J. Trouba"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 65
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020875/ev1149.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 1165,
+            "strength": "ev",
+            "playerId": 8476881,
+            "firstName": {
+              "default": "Tomas",
+              "cs": "Tom\u00e1\u0161",
+              "sk": "Tom\u00e1\u0161"
+            },
+            "lastName": {
+              "default": "Hertl"
+            },
+            "name": {
+              "default": "T. Hertl"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8476881.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/vgk-ana-hertl-scores-goal-against-lukas-dostal-6388658981112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vgk-ana-hertl-marque-un-but-contre-lukas-dostal-6388659767112",
+            "highlightClip": 6388658981112,
+            "highlightClipFr": 6388659767112,
+            "discreteClip": 6388658402112,
+            "discreteClipFr": 6388657223112,
+            "goalsToDate": 22,
+            "awayScore": 3,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "ANA"
+            },
+            "timeInPeriod": "19:54",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475913,
+                "firstName": {
+                  "default": "Mark"
+                },
+                "lastName": {
+                  "default": "Stone"
+                },
+                "name": {
+                  "default": "M. Stone"
+                },
+                "assistsToDate": 35,
+                "sweaterNumber": 61
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020875/ev1165.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8475184,
+        "teamAbbrev": "ANA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8475184.png",
+        "name": {
+          "default": "C. Kreider"
+        },
+        "sweaterNo": 20,
+        "position": "L",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8480843,
+        "teamAbbrev": "ANA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8480843.png",
+        "name": {
+          "default": "L. Dostal",
+          "cs": "L. Dost\u00e1l",
+          "sk": "L. Dost\u00e1l"
+        },
+        "sweaterNo": 1,
+        "position": "G",
+        "goalsAgainstAverage": 3.0,
+        "savePctg": 0.903
+      },
+      {
+        "star": 3,
+        "playerId": 8480068,
+        "teamAbbrev": "ANA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/ANA/8480068.png",
+        "name": {
+          "default": "R. Poehling"
+        },
+        "sweaterNo": 25,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:49",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Olen"
+              },
+              "lastName": {
+                "default": "Zellweger"
+              },
+              "sweaterNumber": 51
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Reilly"
+              },
+              "lastName": {
+                "default": "Smith"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:11",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tomas",
+                "cs": "Tom\u00e1\u0161",
+                "sk": "Tom\u00e1\u0161"
+              },
+              "lastName": {
+                "default": "Hertl"
+              },
+              "sweaterNumber": 48
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Pavel"
+              },
+              "lastName": {
+                "default": "Mintyukov",
+                "cs": "Mintjukov",
+                "fi": "Mintjukov",
+                "sk": "Mintjukov"
+              },
+              "sweaterNumber": 98
+            },
+            "descKey": "holding-the-stick"
+          },
+          {
+            "timeInPeriod": "05:20",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tanner"
+              },
+              "lastName": {
+                "default": "Laczynski"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Troy"
+              },
+              "lastName": {
+                "default": "Terry"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "14:22",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Radko"
+              },
+              "lastName": {
+                "default": "Gudas"
+              },
+              "sweaterNumber": 7
+            },
+            "teamAbbrev": {
+              "default": "ANA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Braeden"
+              },
+              "lastName": {
+                "default": "Bowman"
+              },
+              "sweaterNumber": 42
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

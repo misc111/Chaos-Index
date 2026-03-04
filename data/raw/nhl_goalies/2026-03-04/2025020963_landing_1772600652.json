@@ -1,0 +1,617 @@
+{
+  "id": 2025020963,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-03-03",
+  "venue": {
+    "default": "Nationwide Arena"
+  },
+  "venueLocation": {
+    "default": "Columbus"
+  },
+  "startTimeUTC": "2026-03-04T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 561,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNSO",
+      "sequenceNumber": 202
+    },
+    {
+      "id": 565,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNOH",
+      "sequenceNumber": 286
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 18,
+    "commonName": {
+      "default": "Predators"
+    },
+    "abbrev": "NSH",
+    "placeName": {
+      "default": "Nashville"
+    },
+    "placeNameWithPreposition": {
+      "default": "Nashville",
+      "fr": "de Nashville"
+    },
+    "score": 2,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NSH_dark.svg"
+  },
+  "homeTeam": {
+    "id": 29,
+    "commonName": {
+      "default": "Blue Jackets"
+    },
+    "abbrev": "CBJ",
+    "placeName": {
+      "default": "Columbus"
+    },
+    "placeNameWithPreposition": {
+      "default": "Columbus",
+      "fr": "de Columbus"
+    },
+    "score": 3,
+    "sog": 27,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CBJ_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CBJ_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 244,
+            "strength": "ev",
+            "playerId": 8484166,
+            "firstName": {
+              "default": "Adam"
+            },
+            "lastName": {
+              "default": "Fantilli"
+            },
+            "name": {
+              "default": "A. Fantilli"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8484166.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nsh-cbj-fantilli-scores-goal-against-justus-annunen-6390341951112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nsh-cbj-fantilli-marque-un-but-contre-justus-annunen-6390341376112",
+            "highlightClip": 6390341951112,
+            "highlightClipFr": 6390341376112,
+            "discreteClip": 6390340591112,
+            "discreteClipFr": 6390340291112,
+            "goalsToDate": 17,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CBJ"
+            },
+            "timeInPeriod": "14:23",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480893,
+                "firstName": {
+                  "default": "Kirill"
+                },
+                "lastName": {
+                  "default": "Marchenko",
+                  "cs": "Mar\u010denko",
+                  "fi": "Martshenko",
+                  "sk": "Mar\u010denko"
+                },
+                "name": {
+                  "default": "K. Marchenko",
+                  "cs": "K. Mar\u010denko",
+                  "fi": "K. Martshenko",
+                  "sk": "K. Mar\u010denko"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 86
+              },
+              {
+                "playerId": 8478975,
+                "firstName": {
+                  "default": "Mason"
+                },
+                "lastName": {
+                  "default": "Marchment"
+                },
+                "name": {
+                  "default": "M. Marchment"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 17
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020963/ev244.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 453,
+            "strength": "pp",
+            "playerId": 8476887,
+            "firstName": {
+              "default": "Filip"
+            },
+            "lastName": {
+              "default": "Forsberg"
+            },
+            "name": {
+              "default": "F. Forsberg"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8476887.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/filip-forsberg-with-a-powerplay-goal-vs-columbus-blue-jackets-6390341991112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/filip-forsberg-with-a-powerplay-goal-vs-les-blue-jackets-de-columbus-6390341793112",
+            "highlightClip": 6390341991112,
+            "highlightClipFr": 6390341793112,
+            "discreteClip": 6390342159112,
+            "discreteClipFr": 6390342559112,
+            "goalsToDate": 27,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "19:32",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8474564,
+                "firstName": {
+                  "default": "Steven"
+                },
+                "lastName": {
+                  "default": "Stamkos"
+                },
+                "name": {
+                  "default": "S. Stamkos"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 91
+              },
+              {
+                "playerId": 8482146,
+                "firstName": {
+                  "default": "Luke"
+                },
+                "lastName": {
+                  "default": "Evangelista"
+                },
+                "name": {
+                  "default": "L. Evangelista"
+                },
+                "assistsToDate": 38,
+                "sweaterNumber": 77
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020963/ev453.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 454,
+            "strength": "ev",
+            "playerId": 8475158,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "O'Reilly"
+            },
+            "name": {
+              "default": "R. O'Reilly"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8475158.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nsh-cbj-o-reilly-scores-goal-against-jet-greaves-6390346073112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nsh-cbj-o-reilly-marque-un-but-contre-jet-greaves-6390344120112",
+            "highlightClip": 6390346073112,
+            "highlightClipFr": 6390344120112,
+            "discreteClip": 6390344805112,
+            "discreteClipFr": 6390345178112,
+            "goalsToDate": 22,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "NSH"
+            },
+            "timeInPeriod": "14:39",
+            "goalModifier": "own-goal",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020963/ev454.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 804,
+            "strength": "sh",
+            "playerId": 8477497,
+            "firstName": {
+              "default": "Sean"
+            },
+            "lastName": {
+              "default": "Monahan"
+            },
+            "name": {
+              "default": "S. Monahan"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8477497.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nsh-cbj-monahan-scores-shg-against-justus-annunen-6390348566112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nsh-cbj-monahan-marque-un-but-en-i-n-contre-justus-annunen-6390350515112",
+            "highlightClip": 6390348566112,
+            "highlightClipFr": 6390350515112,
+            "discreteClip": 6390349356112,
+            "discreteClipFr": 6390351119112,
+            "goalsToDate": 12,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "01:52",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020963/ev804.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 857,
+            "strength": "ev",
+            "playerId": 8475745,
+            "firstName": {
+              "default": "Charlie"
+            },
+            "lastName": {
+              "default": "Coyle"
+            },
+            "name": {
+              "default": "C. Coyle"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8475745.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nsh-cbj-severson-scores-goal-against-justus-annunen-6390350185112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nsh-cbj-coyle-marque-un-but-contre-justus-annunen-6390354340112",
+            "highlightClip": 6390350185112,
+            "highlightClipFr": 6390354340112,
+            "discreteClip": 6390351906112,
+            "discreteClipFr": 6390354441112,
+            "goalsToDate": 16,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "CBJ"
+            },
+            "timeInPeriod": "06:07",
+            "shotType": "deflected",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476923,
+                "firstName": {
+                  "default": "Damon"
+                },
+                "lastName": {
+                  "default": "Severson"
+                },
+                "name": {
+                  "default": "D. Severson"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 78
+              },
+              {
+                "playerId": 8483485,
+                "firstName": {
+                  "default": "Denton"
+                },
+                "lastName": {
+                  "default": "Mateychuk"
+                },
+                "name": {
+                  "default": "D. Mateychuk"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 5
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020963/ev857.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8477497,
+        "teamAbbrev": "CBJ",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8477497.png",
+        "name": {
+          "default": "S. Monahan"
+        },
+        "sweaterNo": 23,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8475745,
+        "teamAbbrev": "CBJ",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8475745.png",
+        "name": {
+          "default": "C. Coyle"
+        },
+        "sweaterNo": 3,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8484166,
+        "teamAbbrev": "CBJ",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8484166.png",
+        "name": {
+          "default": "A. Fantilli"
+        },
+        "sweaterNo": 19,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "16:26",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Steven"
+              },
+              "lastName": {
+                "default": "Stamkos"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Erik"
+              },
+              "lastName": {
+                "default": "Gudbranson"
+              },
+              "sweaterNumber": 44
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "17:43",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mason"
+              },
+              "lastName": {
+                "default": "Marchment"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Blankenburg"
+              },
+              "sweaterNumber": 37
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "05:07",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Luke"
+              },
+              "lastName": {
+                "default": "Evangelista"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Adam"
+              },
+              "lastName": {
+                "default": "Fantilli"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:33",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kirill"
+              },
+              "lastName": {
+                "default": "Marchenko",
+                "cs": "Mar\u010denko",
+                "fi": "Martshenko",
+                "sk": "Mar\u010denko"
+              },
+              "sweaterNumber": 86
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Roman"
+              },
+              "lastName": {
+                "default": "Josi"
+              },
+              "sweaterNumber": 59
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "06:07",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "descKey": "delaying-game-unsuccessful-challenge",
+            "servedBy": {
+              "default": "L. Evangelista"
+            }
+          },
+          {
+            "timeInPeriod": "10:03",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Bunting"
+              },
+              "sweaterNumber": 58
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Erik"
+              },
+              "lastName": {
+                "default": "Gudbranson"
+              },
+              "sweaterNumber": 44
+            },
+            "descKey": "slashing"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

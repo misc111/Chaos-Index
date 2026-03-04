@@ -1,0 +1,814 @@
+{
+  "id": 2025020723,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-12",
+  "venue": {
+    "default": "Ball Arena"
+  },
+  "venueLocation": {
+    "default": "Denver"
+  },
+  "startTimeUTC": "2026-01-13T03:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-07:00",
+  "venueTimezone": "America/Denver",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 288,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "SNO",
+      "sequenceNumber": 31
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 2,
+      "market": "H",
+      "countryCode": "US",
+      "network": "ALT",
+      "sequenceNumber": 385
+    },
+    {
+      "id": 336,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KTVD",
+      "sequenceNumber": 623
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 10,
+    "commonName": {
+      "default": "Maple Leafs"
+    },
+    "abbrev": "TOR",
+    "placeName": {
+      "default": "Toronto"
+    },
+    "placeNameWithPreposition": {
+      "default": "Toronto",
+      "fr": "de Toronto"
+    },
+    "score": 4,
+    "sog": 31,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TOR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/TOR_dark.svg"
+  },
+  "homeTeam": {
+    "id": 21,
+    "commonName": {
+      "default": "Avalanche"
+    },
+    "abbrev": "COL",
+    "placeName": {
+      "default": "Colorado"
+    },
+    "placeNameWithPreposition": {
+      "default": "Colorado",
+      "fr": "du Colorado"
+    },
+    "score": 3,
+    "sog": 34,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/COL_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 301,
+            "strength": "ev",
+            "playerId": 8484158,
+            "firstName": {
+              "default": "Easton"
+            },
+            "lastName": {
+              "default": "Cowan"
+            },
+            "name": {
+              "default": "E. Cowan"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8484158.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-col-cowan-scores-goal-against-trent-miner-6387639105112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-col-cowan-marque-un-but-contre-trent-miner-6387638430112",
+            "highlightClip": 6387639105112,
+            "highlightClipFr": 6387638430112,
+            "discreteClip": 6387639211112,
+            "discreteClipFr": 6387638129112,
+            "goalsToDate": 7,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "11:15",
+            "goalModifier": "own-goal",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020723/ev301.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 287,
+            "strength": "ev",
+            "playerId": 8480069,
+            "firstName": {
+              "default": "Cale"
+            },
+            "lastName": {
+              "default": "Makar"
+            },
+            "name": {
+              "default": "C. Makar"
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8480069.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-col-makar-scores-goal-against-joseph-woll-6387640993112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-col-makar-marque-un-but-contre-joseph-woll-6387639444112",
+            "highlightClip": 6387640993112,
+            "highlightClipFr": 6387639444112,
+            "discreteClip": 6387639908112,
+            "discreteClipFr": 6387640898112,
+            "goalsToDate": 14,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "16:12",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480039,
+                "firstName": {
+                  "default": "Martin"
+                },
+                "lastName": {
+                  "default": "Necas",
+                  "cs": "Ne\u010das",
+                  "sk": "Ne\u010das"
+                },
+                "name": {
+                  "default": "M. Necas",
+                  "cs": "M. Ne\u010das",
+                  "sk": "M. Ne\u010das"
+                },
+                "assistsToDate": 36,
+                "sweaterNumber": 88
+              },
+              {
+                "playerId": 8477492,
+                "firstName": {
+                  "default": "Nathan"
+                },
+                "lastName": {
+                  "default": "MacKinnon"
+                },
+                "name": {
+                  "default": "N. MacKinnon"
+                },
+                "assistsToDate": 43,
+                "sweaterNumber": 29
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020723/ev287.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 463,
+            "strength": "pp",
+            "playerId": 8475754,
+            "firstName": {
+              "default": "Brock"
+            },
+            "lastName": {
+              "default": "Nelson"
+            },
+            "name": {
+              "default": "B. Nelson"
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8475754.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-col-nelson-scores-ppg-against-joseph-woll-6387640216112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-col-nelson-marque-un-but-en-a-n-contre-joseph-woll-6387639995112",
+            "highlightClip": 6387640216112,
+            "highlightClipFr": 6387639995112,
+            "discreteClip": 6387641187112,
+            "discreteClipFr": 6387639639112,
+            "goalsToDate": 22,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "COL"
+            },
+            "timeInPeriod": "17:53",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477492,
+                "firstName": {
+                  "default": "Nathan"
+                },
+                "lastName": {
+                  "default": "MacKinnon"
+                },
+                "name": {
+                  "default": "N. MacKinnon"
+                },
+                "assistsToDate": 44,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8480069,
+                "firstName": {
+                  "default": "Cale"
+                },
+                "lastName": {
+                  "default": "Makar"
+                },
+                "name": {
+                  "default": "C. Makar"
+                },
+                "assistsToDate": 39,
+                "sweaterNumber": 8
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020723/ev463.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 536,
+            "strength": "ev",
+            "playerId": 8482259,
+            "firstName": {
+              "default": "Bobby"
+            },
+            "lastName": {
+              "default": "McMann"
+            },
+            "name": {
+              "default": "B. McMann"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8482259.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-col-mcmann-scores-goal-against-trent-miner-6387642196112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-col-mcmann-marque-un-but-contre-trent-miner-6387641413112",
+            "highlightClip": 6387642196112,
+            "highlightClipFr": 6387641413112,
+            "discreteClip": 6387640936112,
+            "discreteClipFr": 6387640831112,
+            "goalsToDate": 14,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "02:12",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020723/ev536.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1441",
+            "eventId": 974,
+            "strength": "ev",
+            "playerId": 8479318,
+            "firstName": {
+              "default": "Auston"
+            },
+            "lastName": {
+              "default": "Matthews"
+            },
+            "name": {
+              "default": "A. Matthews"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8479318.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-col-matthews-scores-goal-against-trent-miner-6387644309112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-col-matthews-marque-un-but-contre-trent-miner-6387644023112",
+            "highlightClip": 6387644309112,
+            "highlightClipFr": 6387644023112,
+            "discreteClip": 6387644210112,
+            "discreteClipFr": 6387642254112,
+            "goalsToDate": 22,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "10:24",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477939,
+                "firstName": {
+                  "default": "William"
+                },
+                "lastName": {
+                  "default": "Nylander"
+                },
+                "name": {
+                  "default": "W. Nylander"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 88
+              },
+              {
+                "playerId": 8475171,
+                "firstName": {
+                  "default": "Oliver"
+                },
+                "lastName": {
+                  "default": "Ekman-Larsson"
+                },
+                "name": {
+                  "default": "O. Ekman-Larsson"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 95
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020723/ev974.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1007,
+            "strength": "ev",
+            "playerId": 8480039,
+            "firstName": {
+              "default": "Martin"
+            },
+            "lastName": {
+              "default": "Necas",
+              "cs": "Ne\u010das",
+              "sk": "Ne\u010das"
+            },
+            "name": {
+              "default": "M. Necas",
+              "cs": "M. Ne\u010das",
+              "sk": "M. Ne\u010das"
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8480039.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-col-necas-scores-goal-against-joseph-woll-6387642945112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-col-necas-marque-un-but-contre-joseph-woll-6387643135112",
+            "highlightClip": 6387642945112,
+            "highlightClipFr": 6387643135112,
+            "discreteClip": 6387644413112,
+            "discreteClipFr": 6387644613112,
+            "goalsToDate": 21,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "12:55",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477492,
+                "firstName": {
+                  "default": "Nathan"
+                },
+                "lastName": {
+                  "default": "MacKinnon"
+                },
+                "name": {
+                  "default": "N. MacKinnon"
+                },
+                "assistsToDate": 45,
+                "sweaterNumber": 29
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020723/ev1007.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 1156,
+            "strength": "ev",
+            "playerId": 8477939,
+            "firstName": {
+              "default": "William"
+            },
+            "lastName": {
+              "default": "Nylander"
+            },
+            "name": {
+              "default": "W. Nylander"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8477939.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-col-nylander-scores-goal-against-trent-miner-6387645319112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-col-nylander-marque-un-but-contre-trent-miner-6387643385112",
+            "highlightClip": 6387645319112,
+            "highlightClipFr": 6387643385112,
+            "discreteClip": 6387645236112,
+            "discreteClipFr": 6387644437112,
+            "goalsToDate": 16,
+            "awayScore": 4,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "TOR"
+            },
+            "timeInPeriod": "03:59",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475171,
+                "firstName": {
+                  "default": "Oliver"
+                },
+                "lastName": {
+                  "default": "Ekman-Larsson"
+                },
+                "name": {
+                  "default": "O. Ekman-Larsson"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 95
+              },
+              {
+                "playerId": 8479318,
+                "firstName": {
+                  "default": "Auston"
+                },
+                "lastName": {
+                  "default": "Matthews"
+                },
+                "name": {
+                  "default": "A. Matthews"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 34
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020723/ev1156.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8477939,
+        "teamAbbrev": "TOR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8477939.png",
+        "name": {
+          "default": "W. Nylander"
+        },
+        "sweaterNo": 88,
+        "position": "R",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8477492,
+        "teamAbbrev": "COL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8477492.png",
+        "name": {
+          "default": "N. MacKinnon"
+        },
+        "sweaterNo": 29,
+        "position": "C",
+        "goals": 0,
+        "assists": 3,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8480039,
+        "teamAbbrev": "COL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8480039.png",
+        "name": {
+          "default": "M. Necas",
+          "cs": "M. Ne\u010das",
+          "sk": "M. Ne\u010das"
+        },
+        "sweaterNo": 88,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "13:29",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Cale"
+              },
+              "lastName": {
+                "default": "Makar"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Carlo"
+              },
+              "sweaterNumber": 25
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "17:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Morgan"
+              },
+              "lastName": {
+                "default": "Rielly"
+              },
+              "sweaterNumber": 44
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Parker"
+              },
+              "lastName": {
+                "default": "Kelly"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "interference"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:18",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ivan"
+              },
+              "lastName": {
+                "default": "Ivan"
+              },
+              "sweaterNumber": 82
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "John"
+              },
+              "lastName": {
+                "default": "Tavares"
+              },
+              "sweaterNumber": 91
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:31",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Bobby"
+              },
+              "lastName": {
+                "default": "McMann"
+              },
+              "sweaterNumber": 74
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Cale"
+              },
+              "lastName": {
+                "default": "Makar"
+              },
+              "sweaterNumber": 8
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "10:08",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Scott"
+              },
+              "lastName": {
+                "default": "Laughton"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Martin"
+              },
+              "lastName": {
+                "default": "Necas",
+                "cs": "Ne\u010das",
+                "sk": "Ne\u010das"
+              },
+              "sweaterNumber": 88
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "10:08",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Martin"
+              },
+              "lastName": {
+                "default": "Necas",
+                "cs": "Ne\u010das",
+                "sk": "Ne\u010das"
+              },
+              "sweaterNumber": 88
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Scott"
+              },
+              "lastName": {
+                "default": "Laughton"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "17:18",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Auston"
+              },
+              "lastName": {
+                "default": "Matthews"
+              },
+              "sweaterNumber": 34
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Martin"
+              },
+              "lastName": {
+                "default": "Necas",
+                "cs": "Ne\u010das",
+                "sk": "Ne\u010das"
+              },
+              "sweaterNumber": 88
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "01:01",
+    "secondsRemaining": 61,
+    "running": false,
+    "inIntermission": false
+  }
+}

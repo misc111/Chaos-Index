@@ -1,0 +1,863 @@
+{
+  "id": 2025020882,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-02",
+  "venue": {
+    "default": "American Airlines Center"
+  },
+  "venueLocation": {
+    "default": "Dallas"
+  },
+  "startTimeUTC": "2026-02-03T01:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "US/Central",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 640,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FOX4",
+      "sequenceNumber": 1
+    },
+    {
+      "id": 292,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "TSN3",
+      "sequenceNumber": 134
+    },
+    {
+      "id": 553,
+      "market": "H",
+      "countryCode": "US",
+      "network": "Victory+",
+      "sequenceNumber": 382
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 52,
+    "commonName": {
+      "default": "Jets"
+    },
+    "abbrev": "WPG",
+    "placeName": {
+      "default": "Winnipeg"
+    },
+    "placeNameWithPreposition": {
+      "default": "Winnipeg",
+      "fr": "de Winnipeg"
+    },
+    "score": 3,
+    "sog": 27,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/WPG_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/WPG_dark.svg"
+  },
+  "homeTeam": {
+    "id": 25,
+    "commonName": {
+      "default": "Stars"
+    },
+    "abbrev": "DAL",
+    "placeName": {
+      "default": "Dallas"
+    },
+    "placeNameWithPreposition": {
+      "default": "Dallas",
+      "fr": "de Dallas"
+    },
+    "score": 4,
+    "sog": 28,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/DAL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/DAL_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 457,
+            "strength": "pp",
+            "playerId": 8480027,
+            "firstName": {
+              "default": "Jason"
+            },
+            "lastName": {
+              "default": "Robertson"
+            },
+            "name": {
+              "default": "J. Robertson"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8480027.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wpg-dal-robertson-scores-ppg-against-connor-hellebuyck-6388696035112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wpg-dal-robertson-marque-un-but-en-a-n-contre-connor-hellebuyck-6388696142112",
+            "highlightClip": 6388696035112,
+            "highlightClipFr": 6388696142112,
+            "discreteClip": 6388696830112,
+            "discreteClipFr": 6388696732112,
+            "goalsToDate": 31,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "00:48",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478420,
+                "firstName": {
+                  "default": "Mikko"
+                },
+                "lastName": {
+                  "default": "Rantanen"
+                },
+                "name": {
+                  "default": "M. Rantanen"
+                },
+                "assistsToDate": 48,
+                "sweaterNumber": 96
+              },
+              {
+                "playerId": 8478449,
+                "firstName": {
+                  "default": "Roope"
+                },
+                "lastName": {
+                  "default": "Hintz"
+                },
+                "name": {
+                  "default": "R. Hintz"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 24
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020882/ev457.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 475,
+            "strength": "ev",
+            "playerId": 8480014,
+            "firstName": {
+              "default": "Gabriel"
+            },
+            "lastName": {
+              "default": "Vilardi"
+            },
+            "name": {
+              "default": "G. Vilardi"
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WPG/8480014.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wpg-dal-vilardi-scores-goal-against-jake-oettinger-6388695946112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wpg-dal-vilardi-marque-un-but-contre-jake-oettinger-6388696453112",
+            "highlightClip": 6388695946112,
+            "highlightClipFr": 6388696453112,
+            "discreteClip": 6388696831112,
+            "discreteClipFr": 6388696156112,
+            "goalsToDate": 21,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "02:26",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482149,
+                "firstName": {
+                  "default": "Cole"
+                },
+                "lastName": {
+                  "default": "Perfetti"
+                },
+                "name": {
+                  "default": "C. Perfetti"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 91
+              },
+              {
+                "playerId": 8476392,
+                "firstName": {
+                  "default": "Adam"
+                },
+                "lastName": {
+                  "default": "Lowry"
+                },
+                "name": {
+                  "default": "A. Lowry"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 17
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020882/ev475.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 552,
+            "strength": "pp",
+            "playerId": 8482149,
+            "firstName": {
+              "default": "Cole"
+            },
+            "lastName": {
+              "default": "Perfetti"
+            },
+            "name": {
+              "default": "C. Perfetti"
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WPG/8482149.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wpg-dal-perfetti-scores-ppg-against-jake-oettinger-6388696547112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wpg-dal-perfetti-marque-un-but-en-a-n-contre-jake-oettinger-6388697148112",
+            "highlightClip": 6388696547112,
+            "highlightClipFr": 6388697148112,
+            "discreteClip": 6388695201112,
+            "discreteClipFr": 6388695669112,
+            "goalsToDate": 6,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "WPG"
+            },
+            "timeInPeriod": "03:58",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480014,
+                "firstName": {
+                  "default": "Gabriel"
+                },
+                "lastName": {
+                  "default": "Vilardi"
+                },
+                "name": {
+                  "default": "G. Vilardi"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 13
+              },
+              {
+                "playerId": 8476460,
+                "firstName": {
+                  "default": "Mark"
+                },
+                "lastName": {
+                  "default": "Scheifele"
+                },
+                "name": {
+                  "default": "M. Scheifele"
+                },
+                "assistsToDate": 39,
+                "sweaterNumber": 55
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020882/ev552.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 703,
+            "strength": "ev",
+            "playerId": 8480878,
+            "firstName": {
+              "default": "Nils"
+            },
+            "lastName": {
+              "default": "Lundkvist"
+            },
+            "name": {
+              "default": "N. Lundkvist"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8480878.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wpg-dal-lundkvist-scores-goal-against-connor-hellebuyck-6388696208112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wpg-dal-lundkvist-marque-un-but-contre-connor-hellebuyck-6388696607112",
+            "highlightClip": 6388696208112,
+            "highlightClipFr": 6388696607112,
+            "discreteClip": 6388697181112,
+            "discreteClipFr": 6388696881112,
+            "goalsToDate": 3,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "15:13",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475168,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Duchene"
+                },
+                "name": {
+                  "default": "M. Duchene"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 95
+              },
+              {
+                "playerId": 8473994,
+                "firstName": {
+                  "default": "Jamie"
+                },
+                "lastName": {
+                  "default": "Benn"
+                },
+                "name": {
+                  "default": "J. Benn"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 14
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020882/ev703.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 704,
+            "strength": "ev",
+            "playerId": 8478420,
+            "firstName": {
+              "default": "Mikko"
+            },
+            "lastName": {
+              "default": "Rantanen"
+            },
+            "name": {
+              "default": "M. Rantanen"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8478420.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wpg-dal-rantanen-scores-goal-against-connor-hellebuyck-6388700172112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wpg-dal-rantanen-marque-un-but-contre-connor-hellebuyck-6388700478112",
+            "highlightClip": 6388700172112,
+            "highlightClipFr": 6388700478112,
+            "discreteClip": 6388700772112,
+            "discreteClipFr": 6388699976112,
+            "goalsToDate": 20,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "12:17",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484829,
+                "firstName": {
+                  "default": "Justin"
+                },
+                "lastName": {
+                  "default": "Hryckowian"
+                },
+                "name": {
+                  "default": "J. Hryckowian"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 49
+              },
+              {
+                "playerId": 8480036,
+                "firstName": {
+                  "default": "Miro"
+                },
+                "lastName": {
+                  "default": "Heiskanen"
+                },
+                "name": {
+                  "default": "M. Heiskanen"
+                },
+                "assistsToDate": 36,
+                "sweaterNumber": 4
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020882/ev704.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 1058,
+            "strength": "ev",
+            "playerId": 8479378,
+            "firstName": {
+              "default": "Logan"
+            },
+            "lastName": {
+              "default": "Stanley"
+            },
+            "name": {
+              "default": "L. Stanley"
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WPG/8479378.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wpg-dal-stanley-scores-goal-against-jake-oettinger-6388698615112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wpg-dal-stanley-marque-un-but-contre-jake-oettinger-6388699805112",
+            "highlightClip": 6388698615112,
+            "highlightClipFr": 6388699805112,
+            "discreteClip": 6388699893112,
+            "discreteClipFr": 6388699994112,
+            "goalsToDate": 9,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "18:17",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476460,
+                "firstName": {
+                  "default": "Mark"
+                },
+                "lastName": {
+                  "default": "Scheifele"
+                },
+                "name": {
+                  "default": "M. Scheifele"
+                },
+                "assistsToDate": 40,
+                "sweaterNumber": 55
+              },
+              {
+                "playerId": 8478398,
+                "firstName": {
+                  "default": "Kyle"
+                },
+                "lastName": {
+                  "default": "Connor"
+                },
+                "name": {
+                  "default": "K. Connor"
+                },
+                "assistsToDate": 39,
+                "sweaterNumber": 81
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020882/ev1058.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 1099,
+            "strength": "ev",
+            "playerId": 8481581,
+            "firstName": {
+              "default": "Thomas"
+            },
+            "lastName": {
+              "default": "Harley"
+            },
+            "name": {
+              "default": "T. Harley"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8481581.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wpg-dal-harley-scores-goal-against-connor-hellebuyck-6388701176112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wpg-dal-harley-marque-un-but-contre-connor-hellebuyck-6388699522112",
+            "highlightClip": 6388701176112,
+            "highlightClipFr": 6388699522112,
+            "discreteClip": 6388700596112,
+            "discreteClipFr": 6388700298112,
+            "goalsToDate": 5,
+            "awayScore": 3,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "02:05",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475168,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Duchene"
+                },
+                "name": {
+                  "default": "M. Duchene"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 95
+              },
+              {
+                "playerId": 8480036,
+                "firstName": {
+                  "default": "Miro"
+                },
+                "lastName": {
+                  "default": "Heiskanen"
+                },
+                "name": {
+                  "default": "M. Heiskanen"
+                },
+                "assistsToDate": 37,
+                "sweaterNumber": 4
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020882/ev1099.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8481581,
+        "teamAbbrev": "DAL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8481581.png",
+        "name": {
+          "default": "T. Harley"
+        },
+        "sweaterNo": 55,
+        "position": "D",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8478420,
+        "teamAbbrev": "DAL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8478420.png",
+        "name": {
+          "default": "M. Rantanen"
+        },
+        "sweaterNo": 96,
+        "position": "R",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8482149,
+        "teamAbbrev": "WPG",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WPG/8482149.png",
+        "name": {
+          "default": "C. Perfetti"
+        },
+        "sweaterNo": 91,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "05:22",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Radek"
+              },
+              "lastName": {
+                "default": "Faksa"
+              },
+              "sweaterNumber": 12
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Morgan"
+              },
+              "lastName": {
+                "default": "Barron"
+              },
+              "sweaterNumber": 36
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "14:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Miro"
+              },
+              "lastName": {
+                "default": "Heiskanen"
+              },
+              "sweaterNumber": 4
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Gabriel"
+              },
+              "lastName": {
+                "default": "Vilardi"
+              },
+              "sweaterNumber": 13
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "19:39",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jonathan"
+              },
+              "lastName": {
+                "default": "Toews"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Adam"
+              },
+              "lastName": {
+                "default": "Erne"
+              },
+              "sweaterNumber": 73
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:31",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mikko"
+              },
+              "lastName": {
+                "default": "Rantanen"
+              },
+              "sweaterNumber": 96
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Gustav"
+              },
+              "lastName": {
+                "default": "Nyquist"
+              },
+              "sweaterNumber": 14
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "11:34",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Luke"
+              },
+              "lastName": {
+                "default": "Schenn"
+              },
+              "sweaterNumber": 5
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jamie"
+              },
+              "lastName": {
+                "default": "Benn"
+              },
+              "sweaterNumber": 14
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "12:20",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Morgan"
+              },
+              "lastName": {
+                "default": "Barron"
+              },
+              "sweaterNumber": 36
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jason"
+              },
+              "lastName": {
+                "default": "Robertson"
+              },
+              "sweaterNumber": 21
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:43",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jonathan"
+              },
+              "lastName": {
+                "default": "Toews"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "WPG"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Sam"
+              },
+              "lastName": {
+                "default": "Steel"
+              },
+              "sweaterNumber": 18
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "02:55",
+    "secondsRemaining": 175,
+    "running": false,
+    "inIntermission": false
+  }
+}

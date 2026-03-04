@@ -1,0 +1,37 @@
+extends: configs/default.yaml
+project:
+  name: nhl_forecast
+
+paths:
+  raw_dir: data/raw
+  interim_dir: data/interim
+  processed_dir: data/processed
+  artifacts_dir: artifacts
+  db_path: data/processed/nhl_forecast.db
+
+data:
+  league: NHL
+  season_start: "2025-10-01"
+  season_end: "2026-06-30"
+  history_days: 220
+  upcoming_days: 14
+  offline_mode: false
+  timeout_seconds: 30
+  max_retries: 4
+  backoff_seconds: 1.5
+
+modeling:
+  random_seed: 42
+  cv_splits: 5
+  rolling_windows_days: [7, 30, 60, 90]
+  calibration_bins: 10
+
+bayes:
+  process_variance: 0.08
+  prior_variance: 1.5
+  observation_scale: 1.0
+  posterior_draws: 500
+
+runtime:
+  retrain_daily: true
+  embargo_days: 1

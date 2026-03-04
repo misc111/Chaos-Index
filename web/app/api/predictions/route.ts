@@ -1,0 +1,17 @@
+import { NextResponse } from "next/server";
+import { runSqlJson } from "@/lib/db";
+
+export async function GET() {
+  const latest = runSqlJson("SELECT MAX(as_of_utc) AS as_of_utc FROM upcoming_game_forecasts");
+  const asOf = latest?.[0]?.as_of_utc;
+  const rows = asOf
+    ? runSqlJson(
+        `SELECT game_id, game_date_utc, home_team, away_team, ensemble_prob_home_win, predicted_winner,
+                spread_mean, spread_sd, bayes_ci_low, bayes_ci_high, uncertainty_flags_json
+         FROM upcoming_game_forecasts
+         WHERE as_of_utc = '${asOf}'
+         ORDER BY game_date_utc ASC`
+      )
+    : [];
+  return NextResponse.json({ as_of_utc: asOf, rows });
+}

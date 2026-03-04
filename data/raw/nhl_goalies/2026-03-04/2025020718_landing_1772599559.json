@@ -1,0 +1,642 @@
+{
+  "id": 2025020718,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-12",
+  "venue": {
+    "default": "Madison Square Garden"
+  },
+  "venueLocation": {
+    "default": "New York"
+  },
+  "startTimeUTC": "2026-01-13T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "America/New_York",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 324,
+      "market": "N",
+      "countryCode": "US",
+      "network": "NHLN",
+      "sequenceNumber": 35
+    },
+    {
+      "id": 554,
+      "market": "A",
+      "countryCode": "US",
+      "network": "KHN/Prime",
+      "sequenceNumber": 348
+    },
+    {
+      "id": 27,
+      "market": "H",
+      "countryCode": "US",
+      "network": "MSG",
+      "sequenceNumber": 417
+    },
+    {
+      "id": 388,
+      "market": "A",
+      "countryCode": "US",
+      "network": "KONG",
+      "sequenceNumber": 654
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 55,
+    "commonName": {
+      "default": "Kraken"
+    },
+    "abbrev": "SEA",
+    "placeName": {
+      "default": "Seattle"
+    },
+    "placeNameWithPreposition": {
+      "default": "Seattle",
+      "fr": "de Seattle"
+    },
+    "score": 4,
+    "sog": 29,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/SEA_dark.svg"
+  },
+  "homeTeam": {
+    "id": 3,
+    "commonName": {
+      "default": "Rangers"
+    },
+    "abbrev": "NYR",
+    "placeName": {
+      "default": "New York"
+    },
+    "placeNameWithPreposition": {
+      "default": "New York",
+      "fr": "de New York"
+    },
+    "score": 2,
+    "sog": 22,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NYR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NYR_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 85,
+            "strength": "ev",
+            "playerId": 8476459,
+            "firstName": {
+              "default": "Mika"
+            },
+            "lastName": {
+              "default": "Zibanejad"
+            },
+            "name": {
+              "default": "M. Zibanejad"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8476459.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-nyr-zibanejad-scores-goal-against-philipp-grubauer-6387625980112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-nyr-zibanejad-marque-un-but-contre-philipp-grubauer-6387626794112",
+            "highlightClip": 6387625980112,
+            "highlightClipFr": 6387626794112,
+            "discreteClip": 6387628145112,
+            "discreteClipFr": 6387625405112,
+            "goalsToDate": 18,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "03:08",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478550,
+                "firstName": {
+                  "default": "Artemi",
+                  "cs": "Art\u011bmij",
+                  "sk": "Artemij"
+                },
+                "lastName": {
+                  "default": "Panarin"
+                },
+                "name": {
+                  "default": "A. Panarin"
+                },
+                "assistsToDate": 34,
+                "sweaterNumber": 10
+              },
+              {
+                "playerId": 8477369,
+                "firstName": {
+                  "default": "Carson"
+                },
+                "lastName": {
+                  "default": "Soucy"
+                },
+                "name": {
+                  "default": "C. Soucy"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 24
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020718/ev85.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 123,
+            "strength": "ev",
+            "playerId": 8475842,
+            "firstName": {
+              "default": "Sam"
+            },
+            "lastName": {
+              "default": "Carrick"
+            },
+            "name": {
+              "default": "S. Carrick"
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8475842.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-nyr-carrick-scores-goal-against-philipp-grubauer-6387626600112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-nyr-carrick-marque-un-but-contre-philipp-grubauer-6387627692112",
+            "highlightClip": 6387626600112,
+            "highlightClipFr": 6387627692112,
+            "discreteClip": 6387626599112,
+            "discreteClipFr": 6387627583112,
+            "goalsToDate": 2,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "05:31",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020718/ev123.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 344,
+            "strength": "ev",
+            "playerId": 8480009,
+            "firstName": {
+              "default": "Eeli"
+            },
+            "lastName": {
+              "default": "Tolvanen"
+            },
+            "name": {
+              "default": "E. Tolvanen"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8480009.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-nyr-tolvanen-scores-goal-against-jonathan-quick-6387630084112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-nyr-tolvanen-marque-un-but-contre-jonathan-quick-6387628907112",
+            "highlightClip": 6387630084112,
+            "highlightClipFr": 6387628907112,
+            "discreteClip": 6387627912112,
+            "discreteClipFr": 6387630179112,
+            "goalsToDate": 8,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "NYR"
+            },
+            "timeInPeriod": "01:00",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477919,
+                "firstName": {
+                  "default": "Frederick"
+                },
+                "lastName": {
+                  "default": "Gaudreau"
+                },
+                "name": {
+                  "default": "F. Gaudreau"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 89
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020718/ev344.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 393,
+            "strength": "ev",
+            "playerId": 8474586,
+            "firstName": {
+              "default": "Jordan"
+            },
+            "lastName": {
+              "default": "Eberle"
+            },
+            "name": {
+              "default": "J. Eberle"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8474586.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-nyr-eberle-scores-goal-against-jonathan-quick-6387630502112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-nyr-eberle-marque-un-but-contre-jonathan-quick-6387629724112",
+            "highlightClip": 6387630502112,
+            "highlightClipFr": 6387629724112,
+            "discreteClip": 6387630593112,
+            "discreteClipFr": 6387628825112,
+            "goalsToDate": 16,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "04:27",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481554,
+                "firstName": {
+                  "default": "Kaapo"
+                },
+                "lastName": {
+                  "default": "Kakko"
+                },
+                "name": {
+                  "default": "K. Kakko"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 84
+              },
+              {
+                "playerId": 8482665,
+                "firstName": {
+                  "default": "Matty"
+                },
+                "lastName": {
+                  "default": "Beniers"
+                },
+                "name": {
+                  "default": "M. Beniers"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 10
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020718/ev393.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 893,
+            "strength": "ev",
+            "playerId": 8484800,
+            "firstName": {
+              "default": "Berkly"
+            },
+            "lastName": {
+              "default": "Catton"
+            },
+            "name": {
+              "default": "B. Catton"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8484800.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/sea-nyr-catton-scores-goal-against-jonathan-quick-6387634114112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/sea-nyr-catton-marque-un-but-contre-jonathan-quick-6387634915112",
+            "highlightClip": 6387634114112,
+            "highlightClipFr": 6387634915112,
+            "discreteClip": 6387634517112,
+            "discreteClipFr": 6387633819112,
+            "goalsToDate": 4,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "12:02",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483524,
+                "firstName": {
+                  "default": "Shane"
+                },
+                "lastName": {
+                  "default": "Wright"
+                },
+                "name": {
+                  "default": "S. Wright"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 51
+              },
+              {
+                "playerId": 8479324,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "Lindgren"
+                },
+                "name": {
+                  "default": "R. Lindgren"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 55
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020718/ev893.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1009,
+            "strength": "ev",
+            "playerId": 8477955,
+            "firstName": {
+              "default": "Jared"
+            },
+            "lastName": {
+              "default": "McCann"
+            },
+            "name": {
+              "default": "J. McCann"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8477955.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/jared-mccann-with-a-goal-vs-new-york-rangers-6387633556112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/jared-mccann-with-a-but-vs-les-rangers-de-new-york-6387634515112",
+            "highlightClip": 6387633556112,
+            "highlightClipFr": 6387634515112,
+            "discreteClip": 6387633157112,
+            "discreteClipFr": 6387634309112,
+            "goalsToDate": 9,
+            "awayScore": 4,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "SEA"
+            },
+            "timeInPeriod": "19:50",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020718/ev1009.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8483524,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8483524.png",
+        "name": {
+          "default": "S. Wright"
+        },
+        "sweaterNo": 51,
+        "position": "C",
+        "goals": 0,
+        "assists": 1,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8474586,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8474586.png",
+        "name": {
+          "default": "J. Eberle"
+        },
+        "sweaterNo": 7,
+        "position": "R",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8475842,
+        "teamAbbrev": "NYR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NYR/8475842.png",
+        "name": {
+          "default": "S. Carrick"
+        },
+        "sweaterNo": 39,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:36",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "J.T."
+              },
+              "lastName": {
+                "default": "Miller"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matty"
+              },
+              "lastName": {
+                "default": "Beniers"
+              },
+              "sweaterNumber": 10
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "12:53",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryker"
+              },
+              "lastName": {
+                "default": "Evans"
+              },
+              "sweaterNumber": 41
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Vincent"
+              },
+              "lastName": {
+                "default": "Trocheck"
+              },
+              "sweaterNumber": 16
+            },
+            "descKey": "interference"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "05:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Vladislav"
+              },
+              "lastName": {
+                "default": "Gavrikov"
+              },
+              "sweaterNumber": 44
+            },
+            "teamAbbrev": {
+              "default": "NYR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jacob"
+              },
+              "lastName": {
+                "default": "Melanson"
+              },
+              "sweaterNumber": 63
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "12:28",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Eeli"
+              },
+              "lastName": {
+                "default": "Tolvanen"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "J.T."
+              },
+              "lastName": {
+                "default": "Miller"
+              },
+              "sweaterNumber": 8
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

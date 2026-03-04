@@ -1,0 +1,91 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+from src.common.time import utc_now_iso
+from src.common.utils import ensure_dir
+from src.evaluation.calibration import calibration_alpha_beta, ece_mce, reliability_table
+from src.evaluation.metrics import metric_bundle, per_game_scores
+from src.training.cv import time_series_splits
+from src.training.train import _fit_suite, _predict_suite, select_feature_columns
+
+
+
+def run_walk_forward_backtest(
+    features_df: pd.DataFrame,
+    artifacts_dir: str,
+    bayes_cfg: dict,
+    n_splits: int = 5,
+) -> dict:
+    df = features_df[features_df["home_win"].notna()].copy().sort_values("start_time_utc")
+    feature_cols = select_feature_columns(df)
+    splits = time_series_splits(df, n_splits=n_splits, min_train_size=min(220, max(80, len(df) // 2)))
+
+    pred_rows = []
+    for fold, (tr_idx, va_idx) in enumerate(splits, start=1):
+        tr = df.loc[tr_idx].copy().sort_values("start_time_utc")
+        va = df.loc[va_idx].copy().sort_values("start_time_utc")
+        if tr.empty or va.empty:
+            continue
+
+        models, _, _, _ = _fit_suite(tr, feature_cols, artifacts_dir=artifacts_dir, bayes_cfg=bayes_cfg, allow_nn=False)
+        pred_df, extras = _predict_suite(models, va, feature_cols)
+        pred_df["fold"] = fold
+        pred_df["home_win"] = va["home_win"].astype(int).to_numpy()
+        pred_df["game_id"] = va["game_id"].to_numpy()
+        pred_df["game_date_utc"] = va["game_date_utc"].to_numpy()
+        pred_rows.append(pred_df)
+
+    if not pred_rows:
+        return {"oof_predictions": pd.DataFrame(), "metrics": pd.DataFrame(), "per_game_scores": pd.DataFrame()}
+
+    oof = pd.concat(pred_rows, ignore_index=True)
+    model_cols = [c for c in oof.columns if c not in {"fold", "home_win", "game_id", "game_date_utc"}]
+
+    metrics_rows = []
+    score_rows = []
+    y = oof["home_win"].to_numpy()
+    for col in model_cols:
+        p = oof[col].to_numpy(dtype=float)
+        m = metric_bundle(y, p)
+        c = ece_mce(y, p)
+        ab = calibration_alpha_beta(y, p)
+        metrics_rows.append({"model_name": col} | m | c | ab)
+
+        s = per_game_scores(y, p)
+        s["model_name"] = col
+        s["game_id"] = oof["game_id"].values
+        s["game_date_utc"] = oof["game_date_utc"].values
+        s["prob_home_win"] = p
+        s["outcome_home_win"] = y
+        s["as_of_utc"] = utc_now_iso()
+        score_rows.append(s)
+
+    metrics_df = pd.DataFrame(metrics_rows).sort_values("log_loss")
+    scores_df = pd.concat(score_rows, ignore_index=True)
+
+    out_dir = ensure_dir(Path(artifacts_dir) / "reports")
+    try:
+        oof.to_parquet(out_dir / "backtest_oof_predictions.parquet", index=False)
+    except Exception:
+        oof.to_csv(out_dir / "backtest_oof_predictions.csv", index=False)
+    metrics_df.to_csv(out_dir / "backtest_metrics.csv", index=False)
+    try:
+        scores_df.to_parquet(out_dir / "backtest_per_game_scores.parquet", index=False)
+    except Exception:
+        scores_df.to_csv(out_dir / "backtest_per_game_scores.csv", index=False)
+
+    # Reliability tables
+    rel_dir = ensure_dir(Path(artifacts_dir) / "validation")
+    for col in model_cols:
+        rel = reliability_table(y, oof[col].to_numpy(dtype=float), n_bins=10)
+        rel.to_csv(rel_dir / f"backtest_reliability_{col}.csv", index=False)
+
+    return {
+        "oof_predictions": oof,
+        "metrics": metrics_df,
+        "per_game_scores": scores_df,
+    }

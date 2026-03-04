@@ -1,0 +1,989 @@
+{
+  "id": 2025020805,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-23",
+  "venue": {
+    "default": "Ball Arena"
+  },
+  "venueLocation": {
+    "default": "Denver"
+  },
+  "startTimeUTC": "2026-01-24T02:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-07:00",
+  "venueTimezone": "America/Denver",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 2,
+      "market": "H",
+      "countryCode": "US",
+      "network": "ALT",
+      "sequenceNumber": 385
+    },
+    {
+      "id": 322,
+      "market": "A",
+      "countryCode": "US",
+      "network": "NBCSP",
+      "sequenceNumber": 389
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 4,
+    "commonName": {
+      "default": "Flyers"
+    },
+    "abbrev": "PHI",
+    "placeName": {
+      "default": "Philadelphia",
+      "fr": "Philadelphie"
+    },
+    "placeNameWithPreposition": {
+      "default": "Philadelphia",
+      "fr": "de Philadelphie"
+    },
+    "score": 7,
+    "sog": 20,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/PHI_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/PHI_dark.svg"
+  },
+  "homeTeam": {
+    "id": 21,
+    "commonName": {
+      "default": "Avalanche"
+    },
+    "abbrev": "COL",
+    "placeName": {
+      "default": "Colorado"
+    },
+    "placeNameWithPreposition": {
+      "default": "Colorado",
+      "fr": "du Colorado"
+    },
+    "score": 3,
+    "sog": 35,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/COL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/COL_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 376,
+            "strength": "ev",
+            "playerId": 8480015,
+            "firstName": {
+              "default": "Owen"
+            },
+            "lastName": {
+              "default": "Tippett"
+            },
+            "name": {
+              "default": "O. Tippett"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8480015.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-col-tippett-scores-goal-against-mackenzie-blackwood-6388201550112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-col-tippett-marque-un-but-contre-mackenzie-blackwood-6388200770112",
+            "highlightClip": 6388201550112,
+            "highlightClipFr": 6388200770112,
+            "discreteClip": 6388201554112,
+            "discreteClipFr": 6388201358112,
+            "goalsToDate": 16,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "PHI"
+            },
+            "timeInPeriod": "15:02",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484142,
+                "firstName": {
+                  "default": "Denver"
+                },
+                "lastName": {
+                  "default": "Barkey"
+                },
+                "name": {
+                  "default": "D. Barkey"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 52
+              },
+              {
+                "playerId": 8481546,
+                "firstName": {
+                  "default": "Cam"
+                },
+                "lastName": {
+                  "default": "York"
+                },
+                "name": {
+                  "default": "C. York"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 8
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020805/ev376.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 426,
+            "strength": "pp",
+            "playerId": 8484142,
+            "firstName": {
+              "default": "Denver"
+            },
+            "lastName": {
+              "default": "Barkey"
+            },
+            "name": {
+              "default": "D. Barkey"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8484142.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-col-barkey-scores-ppg-against-mackenzie-blackwood-6388201308112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-col-barkey-marque-un-but-en-a-n-contre-mackenzie-blackwood-6388201295112",
+            "highlightClip": 6388201308112,
+            "highlightClipFr": 6388201295112,
+            "discreteClip": 6388200491112,
+            "discreteClipFr": 6388202352112,
+            "goalsToDate": 2,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "PHI"
+            },
+            "timeInPeriod": "18:57",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484387,
+                "firstName": {
+                  "default": "Matvei",
+                  "cs": "Matvej",
+                  "sk": "Matvej"
+                },
+                "lastName": {
+                  "default": "Michkov",
+                  "cs": "Mi\u010dkov",
+                  "fi": "Mitshkov",
+                  "sk": "Mi\u010dkov"
+                },
+                "name": {
+                  "default": "M. Michkov",
+                  "cs": "M. Mi\u010dkov",
+                  "fi": "M. Mitshkov",
+                  "sk": "M. Mi\u010dkov"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 39
+              },
+              {
+                "playerId": 8480015,
+                "firstName": {
+                  "default": "Owen"
+                },
+                "lastName": {
+                  "default": "Tippett"
+                },
+                "name": {
+                  "default": "O. Tippett"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 74
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020805/ev426.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 591,
+            "strength": "ev",
+            "playerId": 8480448,
+            "firstName": {
+              "default": "Parker"
+            },
+            "lastName": {
+              "default": "Kelly"
+            },
+            "name": {
+              "default": "P. Kelly"
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8480448.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-col-kelly-scores-goal-against-samuel-ersson-6388205885112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-col-kelly-marque-un-but-contre-samuel-ersson-6388206478112",
+            "highlightClip": 6388205885112,
+            "highlightClipFr": 6388206478112,
+            "discreteClip": 6388204541112,
+            "discreteClipFr": 6388206176112,
+            "goalsToDate": 10,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "PHI"
+            },
+            "timeInPeriod": "07:17",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482947,
+                "firstName": {
+                  "default": "Zakhar"
+                },
+                "lastName": {
+                  "default": "Bardakov"
+                },
+                "name": {
+                  "default": "Z. Bardakov"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 93
+              },
+              {
+                "playerId": 8482072,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Ahcan"
+                },
+                "name": {
+                  "default": "J. Ahcan"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 15
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020805/ev591.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 692,
+            "strength": "ev",
+            "playerId": 8478109,
+            "firstName": {
+              "default": "Victor"
+            },
+            "lastName": {
+              "default": "Olofsson"
+            },
+            "name": {
+              "default": "V. Olofsson"
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8478109.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-col-olofsson-scores-goal-against-samuel-ersson-6388204447112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-col-olofsson-marque-un-but-contre-samuel-ersson-6388207378112",
+            "highlightClip": 6388204447112,
+            "highlightClipFr": 6388207378112,
+            "discreteClip": 6388206981112,
+            "discreteClipFr": 6388204344112,
+            "goalsToDate": 10,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "10:29",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477492,
+                "firstName": {
+                  "default": "Nathan"
+                },
+                "lastName": {
+                  "default": "MacKinnon"
+                },
+                "name": {
+                  "default": "N. MacKinnon"
+                },
+                "assistsToDate": 48,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8480039,
+                "firstName": {
+                  "default": "Martin"
+                },
+                "lastName": {
+                  "default": "Necas",
+                  "cs": "Ne\u010das",
+                  "sk": "Ne\u010das"
+                },
+                "name": {
+                  "default": "M. Necas",
+                  "cs": "M. Ne\u010das",
+                  "sk": "M. Ne\u010das"
+                },
+                "assistsToDate": 39,
+                "sweaterNumber": 88
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020805/ev692.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 700,
+            "strength": "ev",
+            "playerId": 8481553,
+            "firstName": {
+              "default": "Bobby"
+            },
+            "lastName": {
+              "default": "Brink"
+            },
+            "name": {
+              "default": "B. Brink"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8481553.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-col-brink-scores-goal-against-mackenzie-blackwood-6388205518112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-col-brink-marque-un-but-contre-mackenzie-blackwood-6388206991112",
+            "highlightClip": 6388205518112,
+            "highlightClipFr": 6388206991112,
+            "discreteClip": 6388206886112,
+            "discreteClipFr": 6388205036112,
+            "goalsToDate": 13,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "PHI"
+            },
+            "timeInPeriod": "11:01",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480220,
+                "firstName": {
+                  "default": "Noah"
+                },
+                "lastName": {
+                  "default": "Cates"
+                },
+                "name": {
+                  "default": "N. Cates"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 27
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020805/ev700.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 723,
+            "strength": "ev",
+            "playerId": 8480069,
+            "firstName": {
+              "default": "Cale"
+            },
+            "lastName": {
+              "default": "Makar"
+            },
+            "name": {
+              "default": "C. Makar"
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/COL/8480069.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-col-makar-scores-goal-against-samuel-ersson-6388206131112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-col-makar-marque-un-but-contre-samuel-ersson-6388206620112",
+            "highlightClip": 6388206131112,
+            "highlightClipFr": 6388206620112,
+            "discreteClip": 6388206222112,
+            "discreteClipFr": 6388205847112,
+            "goalsToDate": 15,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "12:12",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477492,
+                "firstName": {
+                  "default": "Nathan"
+                },
+                "lastName": {
+                  "default": "MacKinnon"
+                },
+                "name": {
+                  "default": "N. MacKinnon"
+                },
+                "assistsToDate": 49,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8480039,
+                "firstName": {
+                  "default": "Martin"
+                },
+                "lastName": {
+                  "default": "Necas",
+                  "cs": "Ne\u010das",
+                  "sk": "Ne\u010das"
+                },
+                "name": {
+                  "default": "M. Necas",
+                  "cs": "M. Ne\u010das",
+                  "sk": "M. Ne\u010das"
+                },
+                "assistsToDate": 40,
+                "sweaterNumber": 88
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020805/ev723.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 835,
+            "strength": "ev",
+            "playerId": 8480015,
+            "firstName": {
+              "default": "Owen"
+            },
+            "lastName": {
+              "default": "Tippett"
+            },
+            "name": {
+              "default": "O. Tippett"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8480015.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-col-tippett-scores-goal-against-mackenzie-blackwood-6388208624112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-col-tippett-marque-un-but-contre-mackenzie-blackwood-6388206663112",
+            "highlightClip": 6388208624112,
+            "highlightClipFr": 6388206663112,
+            "discreteClip": 6388207247112,
+            "discreteClipFr": 6388207348112,
+            "goalsToDate": 17,
+            "awayScore": 4,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "PHI"
+            },
+            "timeInPeriod": "00:56",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476461,
+                "firstName": {
+                  "default": "Sean"
+                },
+                "lastName": {
+                  "default": "Couturier"
+                },
+                "name": {
+                  "default": "S. Couturier"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 14
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020805/ev835.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 848,
+            "strength": "ev",
+            "playerId": 8484387,
+            "firstName": {
+              "default": "Matvei",
+              "cs": "Matvej",
+              "sk": "Matvej"
+            },
+            "lastName": {
+              "default": "Michkov",
+              "cs": "Mi\u010dkov",
+              "fi": "Mitshkov",
+              "sk": "Mi\u010dkov"
+            },
+            "name": {
+              "default": "M. Michkov",
+              "cs": "M. Mi\u010dkov",
+              "fi": "M. Mitshkov",
+              "sk": "M. Mi\u010dkov"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8484387.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-col-michkov-scores-goal-against-mackenzie-blackwood-6388208550112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-col-michkov-marque-un-but-contre-mackenzie-blackwood-6388207645112",
+            "highlightClip": 6388208550112,
+            "highlightClipFr": 6388207645112,
+            "discreteClip": 6388206654112,
+            "discreteClipFr": 6388206655112,
+            "goalsToDate": 11,
+            "awayScore": 5,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "PHI"
+            },
+            "timeInPeriod": "02:00",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482126,
+                "firstName": {
+                  "default": "Emil"
+                },
+                "lastName": {
+                  "default": "Andrae"
+                },
+                "name": {
+                  "default": "E. Andrae"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 36
+              },
+              {
+                "playerId": 8477903,
+                "firstName": {
+                  "default": "Garnet"
+                },
+                "lastName": {
+                  "default": "Hathaway"
+                },
+                "name": {
+                  "default": "G. Hathaway"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 19
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020805/ev848.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 960,
+            "strength": "sh",
+            "playerId": 8480015,
+            "firstName": {
+              "default": "Owen"
+            },
+            "lastName": {
+              "default": "Tippett"
+            },
+            "name": {
+              "default": "O. Tippett"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8480015.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/phi-col-tippett-scores-shg-against-mackenzie-blackwood-6388209069112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/phi-col-tippett-marque-un-but-en-i-n-contre-mackenzie-blackwood-6388207673112",
+            "highlightClip": 6388209069112,
+            "highlightClipFr": 6388207673112,
+            "discreteClip": 6388209736112,
+            "discreteClipFr": 6388207451112,
+            "goalsToDate": 18,
+            "awayScore": 6,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "PHI"
+            },
+            "timeInPeriod": "10:24",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020805/ev960.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1059,
+            "strength": "ev",
+            "playerId": 8484387,
+            "firstName": {
+              "default": "Matvei",
+              "cs": "Matvej",
+              "sk": "Matvej"
+            },
+            "lastName": {
+              "default": "Michkov",
+              "cs": "Mi\u010dkov",
+              "fi": "Mitshkov",
+              "sk": "Mi\u010dkov"
+            },
+            "name": {
+              "default": "M. Michkov",
+              "cs": "M. Mi\u010dkov",
+              "fi": "M. Mitshkov",
+              "sk": "M. Mi\u010dkov"
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8484387.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/matvei-michkov-with-a-goal-vs-colorado-avalanche-6388210951112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/matvei-michkov-with-a-but-vs-l-avalanche-du-colorado-6388210662112",
+            "highlightClip": 6388210951112,
+            "highlightClipFr": 6388210662112,
+            "discreteClip": 6388210661112,
+            "discreteClipFr": 6388210554112,
+            "goalsToDate": 12,
+            "awayScore": 7,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "PHI"
+            },
+            "timeInPeriod": "16:53",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8478439,
+                "firstName": {
+                  "default": "Travis"
+                },
+                "lastName": {
+                  "default": "Konecny"
+                },
+                "name": {
+                  "default": "T. Konecny"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 11
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020805/ev1059.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8480015,
+        "teamAbbrev": "PHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8480015.png",
+        "name": {
+          "default": "O. Tippett"
+        },
+        "sweaterNo": 74,
+        "position": "R",
+        "goals": 3,
+        "assists": 1,
+        "points": 4
+      },
+      {
+        "star": 2,
+        "playerId": 8484387,
+        "teamAbbrev": "PHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8484387.png",
+        "name": {
+          "default": "M. Michkov",
+          "cs": "M. Mi\u010dkov",
+          "fi": "M. Mitshkov",
+          "sk": "M. Mi\u010dkov"
+        },
+        "sweaterNo": 39,
+        "position": "R",
+        "goals": 2,
+        "assists": 1,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8484142,
+        "teamAbbrev": "PHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PHI/8484142.png",
+        "name": {
+          "default": "D. Barkey"
+        },
+        "sweaterNo": 52,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:45",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Travis"
+              },
+              "lastName": {
+                "default": "Konecny"
+              },
+              "sweaterNumber": 11
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nathan"
+              },
+              "lastName": {
+                "default": "MacKinnon"
+              },
+              "sweaterNumber": 29
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "04:59",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Cates"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Martin"
+              },
+              "lastName": {
+                "default": "Necas",
+                "cs": "Ne\u010das",
+                "sk": "Ne\u010das"
+              },
+              "sweaterNumber": 88
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "17:41",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nathan"
+              },
+              "lastName": {
+                "default": "MacKinnon"
+              },
+              "sweaterNumber": 29
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Seeler"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "interference"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:02",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Artturi"
+              },
+              "lastName": {
+                "default": "Lehkonen"
+              },
+              "sweaterNumber": 62
+            },
+            "teamAbbrev": {
+              "default": "COL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matvei",
+                "cs": "Matvej",
+                "sk": "Matvej"
+              },
+              "lastName": {
+                "default": "Michkov",
+                "cs": "Mi\u010dkov",
+                "fi": "Mitshkov",
+                "sk": "Mi\u010dkov"
+              },
+              "sweaterNumber": 39
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:17",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Emil"
+              },
+              "lastName": {
+                "default": "Andrae"
+              },
+              "sweaterNumber": 36
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Zakhar"
+              },
+              "lastName": {
+                "default": "Bardakov"
+              },
+              "sweaterNumber": 93
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "08:37",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Denver"
+              },
+              "lastName": {
+                "default": "Barkey"
+              },
+              "sweaterNumber": 52
+            },
+            "teamAbbrev": {
+              "default": "PHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Josh"
+              },
+              "lastName": {
+                "default": "Manson"
+              },
+              "sweaterNumber": 42
+            },
+            "descKey": "slashing"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

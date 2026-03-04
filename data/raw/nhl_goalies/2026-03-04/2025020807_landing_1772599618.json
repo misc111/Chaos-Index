@@ -1,0 +1,895 @@
+{
+  "id": 2025020807,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-23",
+  "venue": {
+    "default": "Rogers Arena"
+  },
+  "venueLocation": {
+    "default": "Vancouver"
+  },
+  "startTimeUTC": "2026-01-24T03:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "America/Vancouver",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 290,
+      "market": "H",
+      "countryCode": "CA",
+      "network": "SNP",
+      "sequenceNumber": 33
+    },
+    {
+      "id": 409,
+      "market": "A",
+      "countryCode": "US",
+      "network": "MSGSN",
+      "sequenceNumber": 411
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 1,
+    "commonName": {
+      "default": "Devils"
+    },
+    "abbrev": "NJD",
+    "placeName": {
+      "default": "New Jersey"
+    },
+    "placeNameWithPreposition": {
+      "default": "New Jersey",
+      "fr": "du New Jersey"
+    },
+    "score": 5,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NJD_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NJD_dark.svg"
+  },
+  "homeTeam": {
+    "id": 23,
+    "commonName": {
+      "default": "Canucks"
+    },
+    "abbrev": "VAN",
+    "placeName": {
+      "default": "Vancouver"
+    },
+    "placeNameWithPreposition": {
+      "default": "Vancouver",
+      "fr": "de Vancouver"
+    },
+    "score": 4,
+    "sog": 25,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VAN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VAN_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 151,
+            "strength": "ev",
+            "playerId": 8484177,
+            "firstName": {
+              "default": "Lenni"
+            },
+            "lastName": {
+              "default": "Hameenaho"
+            },
+            "name": {
+              "default": "L. Hameenaho"
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8484177.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-van-hameenaho-scores-goal-against-kevin-lankinen-6388205384112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-van-hameenaho-marque-un-but-contre-kevin-lankinen-6388205571112",
+            "highlightClip": 6388205384112,
+            "highlightClipFr": 6388205571112,
+            "discreteClip": 6388204681112,
+            "discreteClipFr": 6388204287112,
+            "goalsToDate": 1,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "NJD"
+            },
+            "timeInPeriod": "01:41",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483495,
+                "firstName": {
+                  "default": "Simon",
+                  "cs": "\u0160imon",
+                  "sk": "\u0160imon"
+                },
+                "lastName": {
+                  "default": "Nemec"
+                },
+                "name": {
+                  "default": "S. Nemec",
+                  "cs": "\u0160. Nemec",
+                  "sk": "\u0160. Nemec"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 17
+              },
+              {
+                "playerId": 8479996,
+                "firstName": {
+                  "default": "Cody"
+                },
+                "lastName": {
+                  "default": "Glass"
+                },
+                "name": {
+                  "default": "C. Glass"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 12
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020807/ev151.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 564,
+            "strength": "pp",
+            "playerId": 8480002,
+            "firstName": {
+              "default": "Nico"
+            },
+            "lastName": {
+              "default": "Hischier"
+            },
+            "name": {
+              "default": "N. Hischier"
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8480002.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-van-hischier-scores-ppg-against-kevin-lankinen-6388207643112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-van-hischier-marque-un-but-en-a-n-contre-kevin-lankinen-6388208527112",
+            "highlightClip": 6388207643112,
+            "highlightClipFr": 6388208527112,
+            "discreteClip": 6388205654112,
+            "discreteClipFr": 6388208809112,
+            "goalsToDate": 16,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "NJD"
+            },
+            "timeInPeriod": "02:34",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481559,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Hughes"
+                },
+                "name": {
+                  "default": "J. Hughes"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 86
+              },
+              {
+                "playerId": 8476462,
+                "firstName": {
+                  "default": "Dougie"
+                },
+                "lastName": {
+                  "default": "Hamilton"
+                },
+                "name": {
+                  "default": "D. Hamilton"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 7
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020807/ev564.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 570,
+            "strength": "ev",
+            "playerId": 8479996,
+            "firstName": {
+              "default": "Cody"
+            },
+            "lastName": {
+              "default": "Glass"
+            },
+            "name": {
+              "default": "C. Glass"
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8479996.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-van-glass-scores-goal-against-kevin-lankinen-6388209120112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-van-glass-marque-un-but-contre-kevin-lankinen-6388207830112",
+            "highlightClip": 6388209120112,
+            "highlightClipFr": 6388207830112,
+            "discreteClip": 6388209102112,
+            "discreteClipFr": 6388208021112,
+            "goalsToDate": 12,
+            "awayScore": 3,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "NJD"
+            },
+            "timeInPeriod": "03:14",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484177,
+                "firstName": {
+                  "default": "Lenni"
+                },
+                "lastName": {
+                  "default": "Hameenaho"
+                },
+                "name": {
+                  "default": "L. Hameenaho"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8478399,
+                "firstName": {
+                  "default": "Jonas"
+                },
+                "lastName": {
+                  "default": "Siegenthaler"
+                },
+                "name": {
+                  "default": "J. Siegenthaler"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 71
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020807/ev570.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 644,
+            "strength": "ev",
+            "playerId": 8481024,
+            "firstName": {
+              "default": "Linus"
+            },
+            "lastName": {
+              "default": "Karlsson"
+            },
+            "name": {
+              "default": "L. Karlsson"
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VAN/8481024.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-van-karlsson-scores-goal-against-jacob-markstrom-6388210113112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-van-karlsson-marque-un-but-contre-jacob-markstrom-6388207858112",
+            "highlightClip": 6388210113112,
+            "highlightClipFr": 6388207858112,
+            "discreteClip": 6388208933112,
+            "discreteClipFr": 6388208444112,
+            "goalsToDate": 11,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "NJD"
+            },
+            "timeInPeriod": "09:47",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481535,
+                "firstName": {
+                  "default": "Nils"
+                },
+                "lastName": {
+                  "default": "Hoglander",
+                  "cs": "H\u00f6glander",
+                  "fi": "H\u00f6glander",
+                  "sk": "H\u00f6glander",
+                  "sv": "H\u00f6glander"
+                },
+                "name": {
+                  "default": "N. Hoglander",
+                  "cs": "H\u00f6glander",
+                  "fi": "N. H\u00f6glander",
+                  "sk": "N. H\u00f6glander",
+                  "sv": "N. H\u00f6glander"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 21
+              },
+              {
+                "playerId": 8477969,
+                "firstName": {
+                  "default": "Marcus"
+                },
+                "lastName": {
+                  "default": "Pettersson"
+                },
+                "name": {
+                  "default": "M. Pettersson"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 29
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020807/ev644.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 679,
+            "strength": "sh",
+            "playerId": 8476927,
+            "firstName": {
+              "default": "Teddy",
+              "cs": "Theodors",
+              "sk": "Theodors"
+            },
+            "lastName": {
+              "default": "Blueger",
+              "cs": "Blugers",
+              "sk": "Blugers"
+            },
+            "name": {
+              "default": "T. Blueger",
+              "cs": "T. Blugers",
+              "sk": "T. Blugers"
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VAN/8476927.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-van-blueger-scores-shg-against-jacob-markstrom-6388209261112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-van-blueger-marque-un-but-en-i-n-contre-jacob-markstrom-6388208968112",
+            "highlightClip": 6388209261112,
+            "highlightClipFr": 6388208968112,
+            "discreteClip": 6388208469112,
+            "discreteClipFr": 6388211020112,
+            "goalsToDate": 2,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "NJD"
+            },
+            "timeInPeriod": "11:59",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482055,
+                "firstName": {
+                  "default": "Drew"
+                },
+                "lastName": {
+                  "default": "O'Connor"
+                },
+                "name": {
+                  "default": "D. O'Connor"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 18
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020807/ev679.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 704,
+            "strength": "pp",
+            "playerId": 8477015,
+            "firstName": {
+              "default": "Connor"
+            },
+            "lastName": {
+              "default": "Brown"
+            },
+            "name": {
+              "default": "C. Brown"
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8477015.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-van-brown-scores-ppg-against-kevin-lankinen-6388210551112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-van-brown-marque-un-but-en-a-n-contre-kevin-lankinen-6388210741112",
+            "highlightClip": 6388210551112,
+            "highlightClipFr": 6388210741112,
+            "discreteClip": 6388210543112,
+            "discreteClipFr": 6388209094112,
+            "goalsToDate": 10,
+            "awayScore": 4,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "NJD"
+            },
+            "timeInPeriod": "15:12",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481721,
+                "firstName": {
+                  "default": "Arseny"
+                },
+                "lastName": {
+                  "default": "Gritsyuk"
+                },
+                "name": {
+                  "default": "A. Gritsyuk"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 81
+              },
+              {
+                "playerId": 8480002,
+                "firstName": {
+                  "default": "Nico"
+                },
+                "lastName": {
+                  "default": "Hischier"
+                },
+                "name": {
+                  "default": "N. Hischier"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 13
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020807/ev704.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 745,
+            "strength": "ev",
+            "playerId": 8484798,
+            "firstName": {
+              "default": "Zeev"
+            },
+            "lastName": {
+              "default": "Buium"
+            },
+            "name": {
+              "default": "Z. Buium"
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VAN/8484798.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-van-buium-scores-goal-against-jacob-markstrom-6388212125112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-van-buium-marque-un-but-contre-jacob-markstrom-6388211531112",
+            "highlightClip": 6388212125112,
+            "highlightClipFr": 6388211531112,
+            "discreteClip": 6388209475112,
+            "discreteClipFr": 6388209678112,
+            "goalsToDate": 5,
+            "awayScore": 4,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "NJD"
+            },
+            "timeInPeriod": "18:12",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480012,
+                "firstName": {
+                  "default": "Elias"
+                },
+                "lastName": {
+                  "default": "Pettersson"
+                },
+                "name": {
+                  "default": "E. Pettersson"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 40
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020807/ev745.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 957,
+            "strength": "ev",
+            "playerId": 8479996,
+            "firstName": {
+              "default": "Cody"
+            },
+            "lastName": {
+              "default": "Glass"
+            },
+            "name": {
+              "default": "C. Glass"
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8479996.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-van-glass-scores-goal-against-kevin-lankinen-6388213460112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-van-glass-marque-un-but-contre-kevin-lankinen-6388211579112",
+            "highlightClip": 6388213460112,
+            "highlightClipFr": 6388211579112,
+            "discreteClip": 6388211210112,
+            "discreteClipFr": 6388210905112,
+            "goalsToDate": 13,
+            "awayScore": 5,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "NJD"
+            },
+            "timeInPeriod": "11:03",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478414,
+                "firstName": {
+                  "default": "Timo"
+                },
+                "lastName": {
+                  "default": "Meier"
+                },
+                "name": {
+                  "default": "T. Meier"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 28
+              },
+              {
+                "playerId": 8480192,
+                "firstName": {
+                  "default": "Johnathan"
+                },
+                "lastName": {
+                  "default": "Kovacevic"
+                },
+                "name": {
+                  "default": "J. Kovacevic"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 8
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020807/ev957.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1049,
+            "strength": "ev",
+            "playerId": 8478444,
+            "firstName": {
+              "default": "Brock"
+            },
+            "lastName": {
+              "default": "Boeser"
+            },
+            "name": {
+              "default": "B. Boeser"
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VAN/8478444.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/njd-van-boeser-scores-goal-against-jacob-markstrom-6388214051112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/njd-van-boeser-marque-un-but-contre-jacob-markstrom-6388213754112",
+            "highlightClip": 6388214051112,
+            "highlightClipFr": 6388213754112,
+            "discreteClip": 6388211001112,
+            "discreteClipFr": 6388211587112,
+            "goalsToDate": 12,
+            "awayScore": 5,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "NJD"
+            },
+            "timeInPeriod": "18:48",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481024,
+                "firstName": {
+                  "default": "Linus"
+                },
+                "lastName": {
+                  "default": "Karlsson"
+                },
+                "name": {
+                  "default": "L. Karlsson"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 94
+              },
+              {
+                "playerId": 8484240,
+                "firstName": {
+                  "default": "Tom"
+                },
+                "lastName": {
+                  "default": "Willander"
+                },
+                "name": {
+                  "default": "T. Willander"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 5
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020807/ev1049.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8479996,
+        "teamAbbrev": "NJD",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8479996.png",
+        "name": {
+          "default": "C. Glass"
+        },
+        "sweaterNo": 12,
+        "position": "C",
+        "goals": 2,
+        "assists": 1,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8484177,
+        "teamAbbrev": "NJD",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8484177.png",
+        "name": {
+          "default": "L. Hameenaho"
+        },
+        "sweaterNo": 29,
+        "position": "R",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8484798,
+        "teamAbbrev": "VAN",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VAN/8484798.png",
+        "name": {
+          "default": "Z. Buium"
+        },
+        "sweaterNo": 24,
+        "position": "D",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "14:23",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jesper"
+              },
+              "lastName": {
+                "default": "Bratt"
+              },
+              "sweaterNumber": 63
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Elias"
+              },
+              "lastName": {
+                "default": "Pettersson"
+              },
+              "sweaterNumber": 40
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:56",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tom"
+              },
+              "lastName": {
+                "default": "Willander"
+              },
+              "sweaterNumber": 5
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Arseny"
+              },
+              "lastName": {
+                "default": "Gritsyuk"
+              },
+              "sweaterNumber": 81
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "11:30",
+            "type": "MIN",
+            "duration": 4,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Conor"
+              },
+              "lastName": {
+                "default": "Garland"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "VAN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nico"
+              },
+              "lastName": {
+                "default": "Hischier"
+              },
+              "sweaterNumber": 13
+            },
+            "descKey": "high-sticking-double-minor"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "07:28",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Evgenii",
+                "cs": "Jevgenij",
+                "fi": "Jevgeni",
+                "sk": "Jevgenij"
+              },
+              "lastName": {
+                "default": "Dadonov"
+              },
+              "sweaterNumber": 33
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Drew"
+              },
+              "lastName": {
+                "default": "O'Connor"
+              },
+              "sweaterNumber": 18
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

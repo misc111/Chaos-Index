@@ -1,0 +1,760 @@
+{
+  "id": 2025020813,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-24",
+  "venue": {
+    "default": "Canadian Tire Centre"
+  },
+  "venueLocation": {
+    "default": "Ottawa"
+  },
+  "startTimeUTC": "2026-01-25T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 284,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN1",
+      "sequenceNumber": 113
+    },
+    {
+      "id": 286,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CITY",
+      "sequenceNumber": 137
+    },
+    {
+      "id": 561,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNSO",
+      "sequenceNumber": 202
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 12,
+    "commonName": {
+      "default": "Hurricanes"
+    },
+    "abbrev": "CAR",
+    "placeName": {
+      "default": "Carolina",
+      "fr": "Caroline"
+    },
+    "placeNameWithPreposition": {
+      "default": "Carolina",
+      "fr": "de la Caroline"
+    },
+    "score": 4,
+    "sog": 19,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CAR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CAR_dark.svg"
+  },
+  "homeTeam": {
+    "id": 9,
+    "commonName": {
+      "default": "Senators",
+      "fr": "S\u00e9nateurs"
+    },
+    "abbrev": "OTT",
+    "placeName": {
+      "default": "Ottawa"
+    },
+    "placeNameWithPreposition": {
+      "default": "Ottawa",
+      "fr": "d'Ottawa"
+    },
+    "score": 1,
+    "sog": 37,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/OTT_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/OTT_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 106,
+            "strength": "ev",
+            "playerId": 8477478,
+            "firstName": {
+              "default": "William"
+            },
+            "lastName": {
+              "default": "Carrier"
+            },
+            "name": {
+              "default": "W. Carrier"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8477478.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-ott-carrier-scores-goal-against-james-reimer-6388257505112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-ott-carrier-marque-un-but-contre-james-reimer-6388256045112",
+            "highlightClip": 6388257505112,
+            "highlightClipFr": 6388256045112,
+            "discreteClip": 6388255623112,
+            "discreteClipFr": 6388257784112,
+            "goalsToDate": 6,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CAR"
+            },
+            "timeInPeriod": "03:53",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476873,
+                "firstName": {
+                  "default": "Mark"
+                },
+                "lastName": {
+                  "default": "Jankowski"
+                },
+                "name": {
+                  "default": "M. Jankowski"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 77
+              },
+              {
+                "playerId": 8478970,
+                "firstName": {
+                  "default": "Jalen"
+                },
+                "lastName": {
+                  "default": "Chatfield"
+                },
+                "name": {
+                  "default": "J. Chatfield"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 5
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020813/ev106.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 129,
+            "strength": "ev",
+            "playerId": 8482093,
+            "firstName": {
+              "default": "Seth"
+            },
+            "lastName": {
+              "default": "Jarvis"
+            },
+            "name": {
+              "default": "S. Jarvis"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8482093.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-ott-jarvis-scores-goal-against-james-reimer-6388255451112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-ott-jarvis-marque-un-but-contre-james-reimer-6388257106112",
+            "highlightClip": 6388255451112,
+            "highlightClipFr": 6388257106112,
+            "discreteClip": 6388256901112,
+            "discreteClipFr": 6388257792112,
+            "goalsToDate": 23,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CAR"
+            },
+            "timeInPeriod": "05:36",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482100,
+                "firstName": {
+                  "default": "Alexander"
+                },
+                "lastName": {
+                  "default": "Nikishin"
+                },
+                "name": {
+                  "default": "A. Nikishin"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 21
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020813/ev129.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 433,
+            "strength": "ev",
+            "playerId": 8475791,
+            "firstName": {
+              "default": "Taylor"
+            },
+            "lastName": {
+              "default": "Hall"
+            },
+            "name": {
+              "default": "T. Hall"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8475791.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-ott-hall-scores-goal-against-james-reimer-6388257835112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-ott-hall-marque-un-but-contre-james-reimer-6388257445112",
+            "highlightClip": 6388257835112,
+            "highlightClipFr": 6388257445112,
+            "discreteClip": 6388257239112,
+            "discreteClipFr": 6388258499112,
+            "goalsToDate": 12,
+            "awayScore": 3,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CAR"
+            },
+            "timeInPeriod": "18:43",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482809,
+                "firstName": {
+                  "default": "Jackson"
+                },
+                "lastName": {
+                  "default": "Blake"
+                },
+                "name": {
+                  "default": "J. Blake"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 53
+              },
+              {
+                "playerId": 8478970,
+                "firstName": {
+                  "default": "Jalen"
+                },
+                "lastName": {
+                  "default": "Chatfield"
+                },
+                "name": {
+                  "default": "J. Chatfield"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 5
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020813/ev433.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1531",
+            "eventId": 503,
+            "strength": "pp",
+            "playerId": 8480830,
+            "firstName": {
+              "default": "Andrei",
+              "cs": "Andrej",
+              "sk": "Andrej"
+            },
+            "lastName": {
+              "default": "Svechnikov",
+              "cs": "Sve\u010dnikov",
+              "fi": "Svetshnikov",
+              "sk": "Sve\u010dnikov"
+            },
+            "name": {
+              "default": "A. Svechnikov",
+              "cs": "A. Sve\u010dnikov",
+              "fi": "A. Svetshnikov",
+              "sk": "A. Sve\u010dnikov"
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8480830.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-ott-svechnikov-scores-ppg-against-james-reimer-6388259634112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-ott-svechnikov-marque-un-but-en-a-n-contre-james-reimer-6388261013112",
+            "highlightClip": 6388259634112,
+            "highlightClipFr": 6388261013112,
+            "discreteClip": 6388259364112,
+            "discreteClipFr": 6388260042112,
+            "goalsToDate": 18,
+            "awayScore": 4,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CAR"
+            },
+            "timeInPeriod": "09:29",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477940,
+                "firstName": {
+                  "default": "Nikolaj"
+                },
+                "lastName": {
+                  "default": "Ehlers"
+                },
+                "name": {
+                  "default": "N. Ehlers"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 27
+              },
+              {
+                "playerId": 8482093,
+                "firstName": {
+                  "default": "Seth"
+                },
+                "lastName": {
+                  "default": "Jarvis"
+                },
+                "name": {
+                  "default": "S. Jarvis"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 24
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020813/ev503.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 710,
+            "strength": "ev",
+            "playerId": 8482116,
+            "firstName": {
+              "default": "Tim"
+            },
+            "lastName": {
+              "default": "St\u00fctzle"
+            },
+            "name": {
+              "default": "T. St\u00fctzle"
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8482116.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/car-ott-stutzle-scores-goal-against-brandon-bussi-6388258366112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/car-ott-stutzle-marque-un-but-contre-brandon-bussi-6388258563112",
+            "highlightClip": 6388258366112,
+            "highlightClipFr": 6388258563112,
+            "discreteClip": 6388261216112,
+            "discreteClipFr": 6388258363112,
+            "goalsToDate": 23,
+            "awayScore": 4,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CAR"
+            },
+            "timeInPeriod": "12:11",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482105,
+                "firstName": {
+                  "default": "Jake"
+                },
+                "lastName": {
+                  "default": "Sanderson"
+                },
+                "name": {
+                  "default": "J. Sanderson"
+                },
+                "assistsToDate": 31,
+                "sweaterNumber": 85
+              },
+              {
+                "playerId": 8473512,
+                "firstName": {
+                  "default": "Claude"
+                },
+                "lastName": {
+                  "default": "Giroux"
+                },
+                "name": {
+                  "default": "C. Giroux"
+                },
+                "assistsToDate": 27,
+                "sweaterNumber": 28
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020813/ev710.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8483548,
+        "teamAbbrev": "CAR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8483548.png",
+        "name": {
+          "default": "B. Bussi"
+        },
+        "sweaterNo": 32,
+        "position": "G",
+        "goalsAgainstAverage": 1.0,
+        "savePctg": 0.973
+      },
+      {
+        "star": 2,
+        "playerId": 8482093,
+        "teamAbbrev": "CAR",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CAR/8482093.png",
+        "name": {
+          "default": "S. Jarvis"
+        },
+        "sweaterNo": 24,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8482116,
+        "teamAbbrev": "OTT",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/OTT/8482116.png",
+        "name": {
+          "default": "T. St\u00fctzle"
+        },
+        "sweaterNo": 18,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:17",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "Sanderson"
+              },
+              "sweaterNumber": 85
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Andrei",
+                "cs": "Andrej",
+                "sk": "Andrej"
+              },
+              "lastName": {
+                "default": "Svechnikov",
+                "cs": "Sve\u010dnikov",
+                "fi": "Svetshnikov",
+                "sk": "Sve\u010dnikov"
+              },
+              "sweaterNumber": 37
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "08:34",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Alexander"
+              },
+              "lastName": {
+                "default": "Nikishin"
+              },
+              "sweaterNumber": 21
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Dylan"
+              },
+              "lastName": {
+                "default": "Cozens"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:07",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sean"
+              },
+              "lastName": {
+                "default": "Walker"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Tim"
+              },
+              "lastName": {
+                "default": "St\u00fctzle"
+              },
+              "sweaterNumber": 18
+            },
+            "descKey": "kneeing"
+          },
+          {
+            "timeInPeriod": "08:39",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "Sanderson"
+              },
+              "sweaterNumber": 85
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Sebastian"
+              },
+              "lastName": {
+                "default": "Aho"
+              },
+              "sweaterNumber": 20
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "08:49",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Claude"
+              },
+              "lastName": {
+                "default": "Giroux"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Seth"
+              },
+              "lastName": {
+                "default": "Jarvis"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "13:52",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Taylor"
+              },
+              "lastName": {
+                "default": "Hall"
+              },
+              "sweaterNumber": 71
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "descKey": "abuse-of-officials",
+            "servedBy": {
+              "default": "J. Blake"
+            }
+          },
+          {
+            "timeInPeriod": "13:52",
+            "type": "MIS",
+            "duration": 10,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Taylor"
+              },
+              "lastName": {
+                "default": "Hall"
+              },
+              "sweaterNumber": 71
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "descKey": "misconduct"
+          },
+          {
+            "timeInPeriod": "16:35",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Cousins"
+              },
+              "sweaterNumber": 21
+            },
+            "teamAbbrev": {
+              "default": "OTT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Joel"
+              },
+              "lastName": {
+                "default": "Nystrom"
+              },
+              "sweaterNumber": 64
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "15:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sean"
+              },
+              "lastName": {
+                "default": "Walker"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "CAR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Drake"
+              },
+              "lastName": {
+                "default": "Batherson"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "tripping"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

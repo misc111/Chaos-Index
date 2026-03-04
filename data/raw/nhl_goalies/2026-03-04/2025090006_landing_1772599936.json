@@ -1,0 +1,440 @@
+{
+  "id": 2025090006,
+  "season": 20252026,
+  "gameType": 9,
+  "limitedScoring": true,
+  "gameDate": "2026-02-12",
+  "venue": {
+    "default": "Fiera Milano Rho"
+  },
+  "venueLocation": {
+    "default": "Milano Cortina"
+  },
+  "startTimeUTC": "2026-02-12T20:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "+01:00",
+  "venueTimezone": "Europe/Rome",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 637,
+      "market": "N",
+      "countryCode": "US",
+      "network": "Peacock",
+      "sequenceNumber": 1
+    },
+    {
+      "id": 636,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC Gem",
+      "sequenceNumber": 103
+    },
+    {
+      "id": 40,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TSN",
+      "sequenceNumber": 136
+    },
+    {
+      "id": 642,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "ICI T\u00e9l\u00e9",
+      "sequenceNumber": 143
+    }
+  ],
+  "gameState": "FINAL",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 63,
+    "commonName": {
+      "default": "Germany",
+      "cs": "N\u011bmecko",
+      "de": "Deutschland",
+      "es": "Alemania",
+      "fi": "Saksa",
+      "fr": "Allemagne",
+      "sk": "Nemecko",
+      "sv": "Tyskland"
+    },
+    "abbrev": "GER",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 3,
+    "sog": 26,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/GER_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/GER_dark.svg"
+  },
+  "homeTeam": {
+    "id": 5096,
+    "commonName": {
+      "default": "Denmark",
+      "cs": "D\u00e1nsko",
+      "de": "D\u00e4nemark",
+      "es": "Dinamarca",
+      "fi": "Tanska",
+      "fr": "Danemark",
+      "sk": "D\u00e1nsko",
+      "sv": "Danmark"
+    },
+    "abbrev": "DEN",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 1,
+    "sog": 38,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/DEN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/DEN_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 9001,
+            "strength": "ev",
+            "playerId": 8477934,
+            "firstName": {
+              "default": "Leon"
+            },
+            "lastName": {
+              "default": "Draisaitl"
+            },
+            "name": {
+              "default": "L. Draisaitl"
+            },
+            "teamAbbrev": {
+              "default": "GER"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/GER/8477934.png",
+            "goalsToDate": 1,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "GER"
+            },
+            "timeInPeriod": "00:23",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478890,
+                "firstName": {
+                  "default": "Frederik"
+                },
+                "lastName": {
+                  "default": "Tiffels"
+                },
+                "name": {
+                  "default": "F. Tiffels"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 95
+              },
+              {
+                "playerId": 8485948,
+                "firstName": {
+                  "default": "Fabio"
+                },
+                "lastName": {
+                  "default": "Wagner"
+                },
+                "name": {
+                  "default": "F. Wagner"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 38
+              }
+            ],
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 9004,
+            "strength": "ev",
+            "playerId": 8484168,
+            "firstName": {
+              "default": "Oscar"
+            },
+            "lastName": {
+              "default": "Fisker Molgaard"
+            },
+            "name": {
+              "default": "O. Fisker Molgaard"
+            },
+            "teamAbbrev": {
+              "default": "DEN",
+              "cs": ""
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DEN/8484168.png",
+            "goalsToDate": 1,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "13:09",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477940,
+                "firstName": {
+                  "default": "Nikolaj"
+                },
+                "lastName": {
+                  "default": "Ehlers"
+                },
+                "name": {
+                  "default": "N. Ehlers"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 24
+              },
+              {
+                "playerId": 8485919,
+                "firstName": {
+                  "default": "Jesper"
+                },
+                "lastName": {
+                  "default": "Jensen Aabo"
+                },
+                "name": {
+                  "default": "J. Jensen Aabo"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 41
+              }
+            ],
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 9008,
+            "strength": "ev",
+            "playerId": 8482116,
+            "firstName": {
+              "default": "Tim"
+            },
+            "lastName": {
+              "default": "St\u00fctzle"
+            },
+            "name": {
+              "default": "T. St\u00fctzle"
+            },
+            "teamAbbrev": {
+              "default": "GER"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/GER/8482116.png",
+            "goalsToDate": 1,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "GER"
+            },
+            "timeInPeriod": "04:20",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482175,
+                "firstName": {
+                  "default": "JJ"
+                },
+                "lastName": {
+                  "default": "Peterka"
+                },
+                "name": {
+                  "default": "J. Peterka"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 77
+              },
+              {
+                "playerId": 8485539,
+                "firstName": {
+                  "default": "Wojciech"
+                },
+                "lastName": {
+                  "default": "Stachowiak"
+                },
+                "name": {
+                  "default": "W. Stachowiak"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 19
+              }
+            ],
+            "isHome": false
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 9012,
+            "strength": "pp",
+            "playerId": 8482116,
+            "firstName": {
+              "default": "Tim"
+            },
+            "lastName": {
+              "default": "St\u00fctzle"
+            },
+            "name": {
+              "default": "T. St\u00fctzle"
+            },
+            "teamAbbrev": {
+              "default": "GER"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/GER/8482116.png",
+            "goalsToDate": 2,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "GER"
+            },
+            "timeInPeriod": "10:02",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477934,
+                "firstName": {
+                  "default": "Leon"
+                },
+                "lastName": {
+                  "default": "Draisaitl"
+                },
+                "name": {
+                  "default": "L. Draisaitl"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8481542,
+                "firstName": {
+                  "default": "Moritz"
+                },
+                "lastName": {
+                  "default": "Seider"
+                },
+                "name": {
+                  "default": "M. Seider"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 53
+              }
+            ],
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      }
+    ],
+    "threeStars": [],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "15:30",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Lars"
+              },
+              "lastName": {
+                "default": "Eller"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "DEN",
+              "cs": ""
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:41",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Oscar"
+              },
+              "lastName": {
+                "default": "Fisker Molgaard"
+              },
+              "sweaterNumber": 12
+            },
+            "teamAbbrev": {
+              "default": "DEN",
+              "cs": ""
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

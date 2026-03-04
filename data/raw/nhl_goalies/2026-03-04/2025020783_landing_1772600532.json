@@ -1,0 +1,906 @@
+{
+  "id": 2025020783,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-20",
+  "venue": {
+    "default": "American Airlines Center"
+  },
+  "venueLocation": {
+    "default": "Dallas"
+  },
+  "startTimeUTC": "2026-01-21T00:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "US/Central",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 385,
+      "market": "N",
+      "countryCode": "US",
+      "network": "TNT",
+      "sequenceNumber": 11
+    },
+    {
+      "id": 578,
+      "market": "N",
+      "countryCode": "US",
+      "network": "HBO MAX",
+      "sequenceNumber": 19
+    },
+    {
+      "id": 287,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SNE",
+      "sequenceNumber": 30
+    },
+    {
+      "id": 31,
+      "market": "A",
+      "countryCode": "US",
+      "network": "NESN",
+      "sequenceNumber": 405
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 6,
+    "commonName": {
+      "default": "Bruins"
+    },
+    "abbrev": "BOS",
+    "placeName": {
+      "default": "Boston"
+    },
+    "placeNameWithPreposition": {
+      "default": "Boston",
+      "fr": "de Boston"
+    },
+    "score": 2,
+    "sog": 18,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/BOS_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/BOS_dark.svg?season=20252026"
+  },
+  "homeTeam": {
+    "id": 25,
+    "commonName": {
+      "default": "Stars"
+    },
+    "abbrev": "DAL",
+    "placeName": {
+      "default": "Dallas"
+    },
+    "placeNameWithPreposition": {
+      "default": "Dallas",
+      "fr": "de Dallas"
+    },
+    "score": 6,
+    "sog": 37,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/DAL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/DAL_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 429,
+            "strength": "pp",
+            "playerId": 8482740,
+            "firstName": {
+              "default": "Wyatt"
+            },
+            "lastName": {
+              "default": "Johnston"
+            },
+            "name": {
+              "default": "W. Johnston"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8482740.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-dal-johnston-scores-ppg-against-jeremy-swayman-6388012546112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-dal-johnston-marque-un-but-en-a-n-contre-jeremy-swayman-6388012223112",
+            "highlightClip": 6388012546112,
+            "highlightClipFr": 6388012223112,
+            "discreteClip": 6388012719112,
+            "discreteClipFr": 6388014336112,
+            "goalsToDate": 26,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "16:08",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478449,
+                "firstName": {
+                  "default": "Roope"
+                },
+                "lastName": {
+                  "default": "Hintz"
+                },
+                "name": {
+                  "default": "R. Hintz"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 24
+              },
+              {
+                "playerId": 8480036,
+                "firstName": {
+                  "default": "Miro"
+                },
+                "lastName": {
+                  "default": "Heiskanen"
+                },
+                "name": {
+                  "default": "M. Heiskanen"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 4
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020783/ev429.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 526,
+            "strength": "pp",
+            "playerId": 8482145,
+            "firstName": {
+              "default": "Mavrik"
+            },
+            "lastName": {
+              "default": "Bourque"
+            },
+            "name": {
+              "default": "M. Bourque"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8482145.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-dal-bourque-scores-ppg-against-jeremy-swayman-6388014606112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-dal-bourque-marque-un-but-en-a-n-contre-jeremy-swayman-6388014879112",
+            "highlightClip": 6388014606112,
+            "highlightClipFr": 6388014879112,
+            "discreteClip": 6388014508112,
+            "discreteClipFr": 6388014255112,
+            "goalsToDate": 8,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "19:47",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481581,
+                "firstName": {
+                  "default": "Thomas"
+                },
+                "lastName": {
+                  "default": "Harley"
+                },
+                "name": {
+                  "default": "T. Harley"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 55
+              },
+              {
+                "playerId": 8484829,
+                "firstName": {
+                  "default": "Justin"
+                },
+                "lastName": {
+                  "default": "Hryckowian"
+                },
+                "name": {
+                  "default": "J. Hryckowian"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 49
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020783/ev526.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 708,
+            "strength": "ev",
+            "playerId": 8476902,
+            "firstName": {
+              "default": "Esa"
+            },
+            "lastName": {
+              "default": "Lindell"
+            },
+            "name": {
+              "default": "E. Lindell"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8476902.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-dal-lindell-scores-goal-against-jeremy-swayman-6388016524112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-dal-lindell-marque-un-but-contre-jeremy-swayman-6388016329112",
+            "highlightClip": 6388016524112,
+            "highlightClipFr": 6388016329112,
+            "discreteClip": 6388015316112,
+            "discreteClipFr": 6388015221112,
+            "goalsToDate": 5,
+            "awayScore": 0,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "08:26",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480036,
+                "firstName": {
+                  "default": "Miro"
+                },
+                "lastName": {
+                  "default": "Heiskanen"
+                },
+                "name": {
+                  "default": "M. Heiskanen"
+                },
+                "assistsToDate": 31,
+                "sweaterNumber": 4
+              },
+              {
+                "playerId": 8484829,
+                "firstName": {
+                  "default": "Justin"
+                },
+                "lastName": {
+                  "default": "Hryckowian"
+                },
+                "name": {
+                  "default": "J. Hryckowian"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 49
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020783/ev708.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 845,
+            "strength": "ev",
+            "playerId": 8484829,
+            "firstName": {
+              "default": "Justin"
+            },
+            "lastName": {
+              "default": "Hryckowian"
+            },
+            "name": {
+              "default": "J. Hryckowian"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8484829.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/justin-hryckowian-with-a-goal-vs-boston-bruins-6388016946112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/justin-hryckowian-with-a-but-vs-les-bruins-de-boston-6388016439112",
+            "highlightClip": 6388016946112,
+            "highlightClipFr": 6388016439112,
+            "discreteClip": 6388015930112,
+            "discreteClipFr": 6388016538112,
+            "goalsToDate": 8,
+            "awayScore": 0,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "19:29",
+            "shotType": "deflected",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481581,
+                "firstName": {
+                  "default": "Thomas"
+                },
+                "lastName": {
+                  "default": "Harley"
+                },
+                "name": {
+                  "default": "T. Harley"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 55
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020783/ev845.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 894,
+            "strength": "ev",
+            "playerId": 8480027,
+            "firstName": {
+              "default": "Jason"
+            },
+            "lastName": {
+              "default": "Robertson"
+            },
+            "name": {
+              "default": "J. Robertson"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8480027.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-dal-robertson-scores-goal-against-jeremy-swayman-6388015779112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-dal-robertson-marque-un-but-contre-jeremy-swayman-6388017177112",
+            "highlightClip": 6388015779112,
+            "highlightClipFr": 6388017177112,
+            "discreteClip": 6388017272112,
+            "discreteClipFr": 6388016078112,
+            "goalsToDate": 28,
+            "awayScore": 0,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "03:15",
+            "shotType": "wrap-around",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480036,
+                "firstName": {
+                  "default": "Miro"
+                },
+                "lastName": {
+                  "default": "Heiskanen"
+                },
+                "name": {
+                  "default": "M. Heiskanen"
+                },
+                "assistsToDate": 32,
+                "sweaterNumber": 4
+              },
+              {
+                "playerId": 8478449,
+                "firstName": {
+                  "default": "Roope"
+                },
+                "lastName": {
+                  "default": "Hintz"
+                },
+                "name": {
+                  "default": "R. Hintz"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 24
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020783/ev894.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 941,
+            "strength": "ev",
+            "playerId": 8480027,
+            "firstName": {
+              "default": "Jason"
+            },
+            "lastName": {
+              "default": "Robertson"
+            },
+            "name": {
+              "default": "J. Robertson"
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8480027.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-dal-robertson-scores-goal-against-jeremy-swayman-6388019322112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-dal-robertson-marque-un-but-contre-jeremy-swayman-6388019327112",
+            "highlightClip": 6388019322112,
+            "highlightClipFr": 6388019327112,
+            "discreteClip": 6388019128112,
+            "discreteClipFr": 6388017643112,
+            "goalsToDate": 29,
+            "awayScore": 0,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "06:37",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482145,
+                "firstName": {
+                  "default": "Mavrik"
+                },
+                "lastName": {
+                  "default": "Bourque"
+                },
+                "name": {
+                  "default": "M. Bourque"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 22
+              },
+              {
+                "playerId": 8476889,
+                "firstName": {
+                  "default": "Radek"
+                },
+                "lastName": {
+                  "default": "Faksa"
+                },
+                "name": {
+                  "default": "R. Faksa"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 12
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020783/ev941.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 1019,
+            "strength": "pp",
+            "playerId": 8479987,
+            "firstName": {
+              "default": "Morgan"
+            },
+            "lastName": {
+              "default": "Geekie"
+            },
+            "name": {
+              "default": "M. Geekie"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8479987.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-dal-geekie-scores-ppg-against-jake-oettinger-6388018062112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-dal-geekie-marque-un-but-en-a-n-contre-jake-oettinger-6388019832112",
+            "highlightClip": 6388018062112,
+            "highlightClipFr": 6388019832112,
+            "discreteClip": 6388018750112,
+            "discreteClipFr": 6388017946112,
+            "goalsToDate": 26,
+            "awayScore": 1,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "12:11",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477956,
+                "firstName": {
+                  "default": "David"
+                },
+                "lastName": {
+                  "default": "Pastrnak",
+                  "cs": "Pastr\u0148\u00e1k",
+                  "sk": "Pastr\u0148\u00e1k"
+                },
+                "name": {
+                  "default": "D. Pastrnak",
+                  "cs": "D. Pastr\u0148\u00e1k",
+                  "sk": "D. Pastr\u0148\u00e1k"
+                },
+                "assistsToDate": 40,
+                "sweaterNumber": 88
+              },
+              {
+                "playerId": 8477496,
+                "firstName": {
+                  "default": "Elias"
+                },
+                "lastName": {
+                  "default": "Lindholm"
+                },
+                "name": {
+                  "default": "E. Lindholm"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 28
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020783/ev1019.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1061,
+            "strength": "ev",
+            "playerId": 8483489,
+            "firstName": {
+              "default": "Fraser"
+            },
+            "lastName": {
+              "default": "Minten"
+            },
+            "name": {
+              "default": "F. Minten"
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BOS/8483489.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/bos-dal-minten-scores-goal-against-jake-oettinger-6388018650112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/bos-dal-minten-marque-un-but-contre-jake-oettinger-6388019737112",
+            "highlightClip": 6388018650112,
+            "highlightClipFr": 6388019737112,
+            "discreteClip": 6388019147112,
+            "discreteClipFr": 6388017664112,
+            "goalsToDate": 12,
+            "awayScore": 2,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "DAL"
+            },
+            "timeInPeriod": "15:39",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477507,
+                "firstName": {
+                  "default": "Nikita"
+                },
+                "lastName": {
+                  "default": "Zadorov"
+                },
+                "name": {
+                  "default": "N. Zadorov"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 91
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020783/ev1061.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8484829,
+        "teamAbbrev": "DAL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8484829.png",
+        "name": {
+          "default": "J. Hryckowian"
+        },
+        "sweaterNo": 49,
+        "position": "C",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8479979,
+        "teamAbbrev": "DAL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8479979.png",
+        "name": {
+          "default": "J. Oettinger"
+        },
+        "sweaterNo": 29,
+        "position": "G",
+        "goalsAgainstAverage": 2.0,
+        "savePctg": 0.889
+      },
+      {
+        "star": 3,
+        "playerId": 8480027,
+        "teamAbbrev": "DAL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DAL/8480027.png",
+        "name": {
+          "default": "J. Robertson"
+        },
+        "sweaterNo": 21,
+        "position": "L",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:22",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "David"
+              },
+              "lastName": {
+                "default": "Pastrnak",
+                "cs": "Pastr\u0148\u00e1k",
+                "sk": "Pastr\u0148\u00e1k"
+              },
+              "sweaterNumber": 88
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matt"
+              },
+              "lastName": {
+                "default": "Duchene"
+              },
+              "sweaterNumber": 95
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "07:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jason"
+              },
+              "lastName": {
+                "default": "Robertson"
+              },
+              "sweaterNumber": 21
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Morgan"
+              },
+              "lastName": {
+                "default": "Geekie"
+              },
+              "sweaterNumber": 39
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "11:23",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nathan"
+              },
+              "lastName": {
+                "default": "Bastian"
+              },
+              "sweaterNumber": 11
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jonathan"
+              },
+              "lastName": {
+                "default": "Aspirot"
+              },
+              "sweaterNumber": 45
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "11:23",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jonathan"
+              },
+              "lastName": {
+                "default": "Aspirot"
+              },
+              "sweaterNumber": 45
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nathan"
+              },
+              "lastName": {
+                "default": "Bastian"
+              },
+              "sweaterNumber": 11
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "15:43",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Elias"
+              },
+              "lastName": {
+                "default": "Lindholm"
+              },
+              "sweaterNumber": 28
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Esa"
+              },
+              "lastName": {
+                "default": "Lindell"
+              },
+              "sweaterNumber": 23
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "17:55",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nikita"
+              },
+              "lastName": {
+                "default": "Zadorov"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "BOS"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Colin"
+              },
+              "lastName": {
+                "default": "Blackwell"
+              },
+              "sweaterNumber": 15
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "11:05",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Esa"
+              },
+              "lastName": {
+                "default": "Lindell"
+              },
+              "sweaterNumber": 23
+            },
+            "teamAbbrev": {
+              "default": "DAL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Elias"
+              },
+              "lastName": {
+                "default": "Lindholm"
+              },
+              "sweaterNumber": 28
+            },
+            "descKey": "interference"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

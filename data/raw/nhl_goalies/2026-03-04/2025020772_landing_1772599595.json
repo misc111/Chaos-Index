@@ -1,0 +1,896 @@
+{
+  "id": 2025020772,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-19",
+  "venue": {
+    "default": "Climate Pledge Arena"
+  },
+  "venueLocation": {
+    "default": "Seattle"
+  },
+  "startTimeUTC": "2026-01-19T22:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "US/Pacific",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 554,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KHN/Prime",
+      "sequenceNumber": 348
+    },
+    {
+      "id": 528,
+      "market": "A",
+      "countryCode": "US",
+      "network": "SN-PIT",
+      "sequenceNumber": 384
+    },
+    {
+      "id": 388,
+      "market": "H",
+      "countryCode": "US",
+      "network": "KONG",
+      "sequenceNumber": 654
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 5,
+    "commonName": {
+      "default": "Penguins"
+    },
+    "abbrev": "PIT",
+    "placeName": {
+      "default": "Pittsburgh"
+    },
+    "placeNameWithPreposition": {
+      "default": "Pittsburgh",
+      "fr": "de Pittsburgh"
+    },
+    "score": 6,
+    "sog": 32,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/PIT_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/PIT_dark.svg"
+  },
+  "homeTeam": {
+    "id": 55,
+    "commonName": {
+      "default": "Kraken"
+    },
+    "abbrev": "SEA",
+    "placeName": {
+      "default": "Seattle"
+    },
+    "placeNameWithPreposition": {
+      "default": "Seattle",
+      "fr": "de Seattle"
+    },
+    "score": 3,
+    "sog": 23,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/SEA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/SEA_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 123,
+            "strength": "ev",
+            "playerId": 8478450,
+            "firstName": {
+              "default": "Parker"
+            },
+            "lastName": {
+              "default": "Wotherspoon"
+            },
+            "name": {
+              "default": "P. Wotherspoon"
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8478450.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-sea-wotherspoon-scores-goal-against-joey-daccord-6387959142112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-sea-wotherspoon-marque-un-but-contre-joey-daccord-6387956289112",
+            "highlightClip": 6387959142112,
+            "highlightClipFr": 6387956289112,
+            "discreteClip": 6387959041112,
+            "discreteClipFr": 6387957760112,
+            "goalsToDate": 3,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "PIT"
+            },
+            "timeInPeriod": "05:44",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481481,
+                "firstName": {
+                  "default": "Blake"
+                },
+                "lastName": {
+                  "default": "Lizotte"
+                },
+                "name": {
+                  "default": "B. Lizotte"
+                },
+                "assistsToDate": 6,
+                "sweaterNumber": 46
+              },
+              {
+                "playerId": 8477511,
+                "firstName": {
+                  "default": "Anthony"
+                },
+                "lastName": {
+                  "default": "Mantha"
+                },
+                "name": {
+                  "default": "A. Mantha"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 39
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020772/ev123.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 159,
+            "strength": "sh",
+            "playerId": 8480980,
+            "firstName": {
+              "default": "Connor"
+            },
+            "lastName": {
+              "default": "Dewar"
+            },
+            "name": {
+              "default": "C. Dewar"
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8480980.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-sea-dewar-scores-shg-against-joey-daccord-6387957775112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-sea-dewar-marque-un-but-en-i-n-contre-joey-daccord-6387957886112",
+            "highlightClip": 6387957775112,
+            "highlightClipFr": 6387957886112,
+            "discreteClip": 6387958957112,
+            "discreteClipFr": 6387959149112,
+            "goalsToDate": 10,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "PIT"
+            },
+            "timeInPeriod": "07:50",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020772/ev159.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 367,
+            "strength": "ev",
+            "playerId": 8483570,
+            "firstName": {
+              "default": "Ben"
+            },
+            "lastName": {
+              "default": "Meyers"
+            },
+            "name": {
+              "default": "B. Meyers"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8483570.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-sea-meyers-scores-goal-against-stuart-skinner-6387957797112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-sea-meyers-marque-un-but-contre-stuart-skinner-6387958677112",
+            "highlightClip": 6387957797112,
+            "highlightClipFr": 6387958677112,
+            "discreteClip": 6387958276112,
+            "discreteClipFr": 6387958881112,
+            "goalsToDate": 5,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "PIT"
+            },
+            "timeInPeriod": "16:12",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475768,
+                "firstName": {
+                  "default": "Jaden"
+                },
+                "lastName": {
+                  "default": "Schwartz"
+                },
+                "name": {
+                  "default": "J. Schwartz"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 17
+              },
+              {
+                "playerId": 8482751,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "Winterton"
+                },
+                "name": {
+                  "default": "R. Winterton"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 26
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020772/ev367.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 689,
+            "strength": "ev",
+            "playerId": 8479324,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "Lindgren"
+            },
+            "name": {
+              "default": "R. Lindgren"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8479324.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-sea-lindgren-scores-goal-against-stuart-skinner-6387961570112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-sea-lindgren-marque-un-but-contre-stuart-skinner-6387960975112",
+            "highlightClip": 6387961570112,
+            "highlightClipFr": 6387960975112,
+            "discreteClip": 6387962060112,
+            "discreteClipFr": 6387960007112,
+            "goalsToDate": 2,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "13:55",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482751,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "Winterton"
+                },
+                "name": {
+                  "default": "R. Winterton"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 26
+              },
+              {
+                "playerId": 8483570,
+                "firstName": {
+                  "default": "Ben"
+                },
+                "lastName": {
+                  "default": "Meyers"
+                },
+                "name": {
+                  "default": "B. Meyers"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 59
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020772/ev689.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 704,
+            "strength": "ev",
+            "playerId": 8476967,
+            "firstName": {
+              "default": "Brett"
+            },
+            "lastName": {
+              "default": "Kulak"
+            },
+            "name": {
+              "default": "B. Kulak"
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8476967.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-sea-kulak-scores-goal-against-joey-daccord-6387960886112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-sea-kulak-marque-un-but-contre-joey-daccord-6387961587112",
+            "highlightClip": 6387960886112,
+            "highlightClipFr": 6387961587112,
+            "discreteClip": 6387962171112,
+            "discreteClipFr": 6387960991112,
+            "goalsToDate": 1,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "PIT"
+            },
+            "timeInPeriod": "14:45",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8471675,
+                "firstName": {
+                  "default": "Sidney"
+                },
+                "lastName": {
+                  "default": "Crosby"
+                },
+                "name": {
+                  "default": "S. Crosby"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 87
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020772/ev704.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 806,
+            "strength": "ev",
+            "playerId": 8479638,
+            "firstName": {
+              "default": "Justin"
+            },
+            "lastName": {
+              "default": "Brazeau"
+            },
+            "name": {
+              "default": "J. Brazeau"
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8479638.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-sea-brazeau-scores-goal-against-joey-daccord-6387962779112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-sea-brazeau-marque-un-but-contre-joey-daccord-6387961498112",
+            "highlightClip": 6387962779112,
+            "highlightClipFr": 6387961498112,
+            "discreteClip": 6387962489112,
+            "discreteClipFr": 6387963178112,
+            "goalsToDate": 14,
+            "awayScore": 4,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "PIT"
+            },
+            "timeInPeriod": "02:21",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477511,
+                "firstName": {
+                  "default": "Anthony"
+                },
+                "lastName": {
+                  "default": "Mantha"
+                },
+                "name": {
+                  "default": "A. Mantha"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 39
+              },
+              {
+                "playerId": 8477365,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "Clifton"
+                },
+                "name": {
+                  "default": "C. Clifton"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 75
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020772/ev806.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 888,
+            "strength": "pp",
+            "playerId": 8480009,
+            "firstName": {
+              "default": "Eeli"
+            },
+            "lastName": {
+              "default": "Tolvanen"
+            },
+            "name": {
+              "default": "E. Tolvanen"
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8480009.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-sea-tolvanen-scores-ppg-against-stuart-skinner-6387961921112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-sea-tolvanen-marque-un-but-en-a-n-contre-stuart-skinner-6387961926112",
+            "highlightClip": 6387961921112,
+            "highlightClipFr": 6387961926112,
+            "discreteClip": 6387962225112,
+            "discreteClipFr": 6387964082112,
+            "goalsToDate": 10,
+            "awayScore": 4,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "PIT"
+            },
+            "timeInPeriod": "07:47",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477986,
+                "firstName": {
+                  "default": "Brandon"
+                },
+                "lastName": {
+                  "default": "Montour"
+                },
+                "name": {
+                  "default": "B. Montour"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 62
+              },
+              {
+                "playerId": 8483524,
+                "firstName": {
+                  "default": "Shane"
+                },
+                "lastName": {
+                  "default": "Wright"
+                },
+                "name": {
+                  "default": "S. Wright"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 51
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020772/ev888.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1004,
+            "strength": "ev",
+            "playerId": 8476483,
+            "firstName": {
+              "default": "Rickard"
+            },
+            "lastName": {
+              "default": "Rakell"
+            },
+            "name": {
+              "default": "R. Rakell"
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8476483.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-sea-rakell-scores-goal-against-joey-daccord-6387962717112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-sea-rakell-marque-un-but-contre-joey-daccord-6387963454112",
+            "highlightClip": 6387962717112,
+            "highlightClipFr": 6387963454112,
+            "discreteClip": 6387962638112,
+            "discreteClipFr": 6387963802112,
+            "goalsToDate": 8,
+            "awayScore": 5,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "PIT"
+            },
+            "timeInPeriod": "16:48",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8471675,
+                "firstName": {
+                  "default": "Sidney"
+                },
+                "lastName": {
+                  "default": "Crosby"
+                },
+                "name": {
+                  "default": "S. Crosby"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 87
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020772/ev1004.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1033,
+            "strength": "ev",
+            "playerId": 8480980,
+            "firstName": {
+              "default": "Connor"
+            },
+            "lastName": {
+              "default": "Dewar"
+            },
+            "name": {
+              "default": "C. Dewar"
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8480980.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/pit-sea-dewar-scores-empty-net-goal-6387962843112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/pit-sea-dewar-pit-marque-un-but-dans-un-filet-desert-6387963120112",
+            "highlightClip": 6387962843112,
+            "highlightClipFr": 6387963120112,
+            "discreteClip": 6387962920112,
+            "discreteClipFr": 6387963716112,
+            "goalsToDate": 11,
+            "awayScore": 6,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "PIT"
+            },
+            "timeInPeriod": "19:30",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8481481,
+                "firstName": {
+                  "default": "Blake"
+                },
+                "lastName": {
+                  "default": "Lizotte"
+                },
+                "name": {
+                  "default": "B. Lizotte"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 46
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020772/ev1033.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8471675,
+        "teamAbbrev": "PIT",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8471675.png",
+        "name": {
+          "default": "S. Crosby"
+        },
+        "sweaterNo": 87,
+        "position": "C",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8483570,
+        "teamAbbrev": "SEA",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SEA/8483570.png",
+        "name": {
+          "default": "B. Meyers"
+        },
+        "sweaterNo": 59,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8480980,
+        "teamAbbrev": "PIT",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/PIT/8480980.png",
+        "name": {
+          "default": "C. Dewar"
+        },
+        "sweaterNo": 19,
+        "position": "C",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:29",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Lindgren"
+              },
+              "sweaterNumber": 55
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Sidney"
+              },
+              "lastName": {
+                "default": "Crosby"
+              },
+              "sweaterNumber": 87
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "07:20",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brett"
+              },
+              "lastName": {
+                "default": "Kulak"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Montour"
+              },
+              "sweaterNumber": 62
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "07:57",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Blake"
+              },
+              "lastName": {
+                "default": "Lizotte"
+              },
+              "sweaterNumber": 46
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Vince"
+              },
+              "lastName": {
+                "default": "Dunn"
+              },
+              "sweaterNumber": 29
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "17:02",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Lindgren"
+              },
+              "sweaterNumber": 55
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ben"
+              },
+              "lastName": {
+                "default": "Kindel"
+              },
+              "sweaterNumber": 81
+            },
+            "descKey": "interference"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:24",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brett"
+              },
+              "lastName": {
+                "default": "Kulak"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "PIT"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jamie"
+              },
+              "lastName": {
+                "default": "Oleksiak"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "10:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Montour"
+              },
+              "sweaterNumber": 62
+            },
+            "teamAbbrev": {
+              "default": "SEA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Anthony"
+              },
+              "lastName": {
+                "default": "Mantha"
+              },
+              "sweaterNumber": 39
+            },
+            "descKey": "slashing"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

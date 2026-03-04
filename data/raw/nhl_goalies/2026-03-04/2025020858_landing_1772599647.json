@@ -1,0 +1,717 @@
+{
+  "id": 2025020858,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-30",
+  "venue": {
+    "default": "United Center"
+  },
+  "venueLocation": {
+    "default": "Chicago"
+  },
+  "startTimeUTC": "2026-01-31T01:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "America/Chicago",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 324,
+      "market": "N",
+      "countryCode": "US",
+      "network": "NHLN",
+      "sequenceNumber": 35
+    },
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 107
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 551,
+      "market": "H",
+      "countryCode": "US",
+      "network": "CHSN",
+      "sequenceNumber": 254
+    },
+    {
+      "id": 565,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNOH",
+      "sequenceNumber": 286
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 29,
+    "commonName": {
+      "default": "Blue Jackets"
+    },
+    "abbrev": "CBJ",
+    "placeName": {
+      "default": "Columbus"
+    },
+    "placeNameWithPreposition": {
+      "default": "Columbus",
+      "fr": "de Columbus"
+    },
+    "score": 4,
+    "sog": 26,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CBJ_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CBJ_dark.svg"
+  },
+  "homeTeam": {
+    "id": 16,
+    "commonName": {
+      "default": "Blackhawks"
+    },
+    "abbrev": "CHI",
+    "placeName": {
+      "default": "Chicago"
+    },
+    "placeNameWithPreposition": {
+      "default": "Chicago",
+      "fr": "de Chicago"
+    },
+    "score": 2,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CHI_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CHI_dark.svg?season=20252026"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 461,
+            "strength": "pp",
+            "playerId": 8475745,
+            "firstName": {
+              "default": "Charlie"
+            },
+            "lastName": {
+              "default": "Coyle"
+            },
+            "name": {
+              "default": "C. Coyle"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8475745.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-chi-coyle-scores-ppg-against-spencer-knight-6388573408112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-chi-coyle-marque-un-but-en-a-n-contre-spencer-knight-6388575070112",
+            "highlightClip": 6388573408112,
+            "highlightClipFr": 6388575070112,
+            "discreteClip": 6388572329112,
+            "discreteClipFr": 6388573405112,
+            "goalsToDate": 13,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CBJ"
+            },
+            "timeInPeriod": "19:13",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478460,
+                "firstName": {
+                  "default": "Zach"
+                },
+                "lastName": {
+                  "default": "Werenski"
+                },
+                "name": {
+                  "default": "Z. Werenski"
+                },
+                "assistsToDate": 39,
+                "sweaterNumber": 8
+              },
+              {
+                "playerId": 8480893,
+                "firstName": {
+                  "default": "Kirill"
+                },
+                "lastName": {
+                  "default": "Marchenko",
+                  "cs": "Mar\u010denko",
+                  "fi": "Martshenko",
+                  "sk": "Mar\u010denko"
+                },
+                "name": {
+                  "default": "K. Marchenko",
+                  "cs": "K. Mar\u010denko",
+                  "fi": "K. Martshenko",
+                  "sk": "K. Mar\u010denko"
+                },
+                "assistsToDate": 26,
+                "sweaterNumber": 86
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020858/ev461.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 472,
+            "strength": "ev",
+            "playerId": 8484144,
+            "firstName": {
+              "default": "Connor"
+            },
+            "lastName": {
+              "default": "Bedard"
+            },
+            "name": {
+              "default": "C. Bedard"
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8484144.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-chi-bedard-scores-goal-against-elvis-merzlikins-6388571761112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-chi-bedard-marque-un-but-contre-elvis-merzlikins-6388576247112",
+            "highlightClip": 6388571761112,
+            "highlightClipFr": 6388576247112,
+            "discreteClip": 6388571962112,
+            "discreteClipFr": 6388571274112,
+            "goalsToDate": 22,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "19:57",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481568,
+                "firstName": {
+                  "default": "Alex"
+                },
+                "lastName": {
+                  "default": "Vlasic"
+                },
+                "name": {
+                  "default": "A. Vlasic"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 72
+              },
+              {
+                "playerId": 8477479,
+                "firstName": {
+                  "default": "Tyler"
+                },
+                "lastName": {
+                  "default": "Bertuzzi"
+                },
+                "name": {
+                  "default": "T. Bertuzzi"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 59
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020858/ev472.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 495,
+            "strength": "ev",
+            "playerId": 8475745,
+            "firstName": {
+              "default": "Charlie"
+            },
+            "lastName": {
+              "default": "Coyle"
+            },
+            "name": {
+              "default": "C. Coyle"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8475745.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-chi-coyle-scores-goal-against-spencer-knight-6388573057112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-chi-coyle-marque-un-but-contre-spencer-knight-6388574792112",
+            "highlightClip": 6388573057112,
+            "highlightClipFr": 6388574792112,
+            "discreteClip": 6388574128112,
+            "discreteClipFr": 6388574236112,
+            "goalsToDate": 14,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CBJ"
+            },
+            "timeInPeriod": "01:23",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020858/ev495.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 609,
+            "strength": "ev",
+            "playerId": 8479671,
+            "firstName": {
+              "default": "Mathieu"
+            },
+            "lastName": {
+              "default": "Olivier"
+            },
+            "name": {
+              "default": "M. Olivier"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8479671.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-chi-olivier-scores-goal-against-spencer-knight-6388573379112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-chi-olivier-marque-un-but-contre-spencer-knight-6388576433112",
+            "highlightClip": 6388573379112,
+            "highlightClipFr": 6388576433112,
+            "discreteClip": 6388572573112,
+            "discreteClipFr": 6388574460112,
+            "goalsToDate": 6,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CBJ"
+            },
+            "timeInPeriod": "06:47",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475745,
+                "firstName": {
+                  "default": "Charlie"
+                },
+                "lastName": {
+                  "default": "Coyle"
+                },
+                "name": {
+                  "default": "C. Coyle"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 3
+              },
+              {
+                "playerId": 8478460,
+                "firstName": {
+                  "default": "Zach"
+                },
+                "lastName": {
+                  "default": "Werenski"
+                },
+                "name": {
+                  "default": "Z. Werenski"
+                },
+                "assistsToDate": 40,
+                "sweaterNumber": 8
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020858/ev609.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 658,
+            "strength": "ev",
+            "playerId": 8483493,
+            "firstName": {
+              "default": "Frank"
+            },
+            "lastName": {
+              "default": "Nazar"
+            },
+            "name": {
+              "default": "F. Nazar"
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8483493.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-chi-nazar-scores-goal-against-elvis-merzlikins-6388576238112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-chi-nazar-marque-un-but-contre-elvis-merzlikins-6388576248112",
+            "highlightClip": 6388576238112,
+            "highlightClipFr": 6388576248112,
+            "discreteClip": 6388574070112,
+            "discreteClipFr": 6388575939112,
+            "goalsToDate": 7,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "CBJ"
+            },
+            "timeInPeriod": "10:49",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484144,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "Bedard"
+                },
+                "name": {
+                  "default": "C. Bedard"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 98
+              },
+              {
+                "playerId": 8477479,
+                "firstName": {
+                  "default": "Tyler"
+                },
+                "lastName": {
+                  "default": "Bertuzzi"
+                },
+                "name": {
+                  "default": "T. Bertuzzi"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 59
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020858/ev658.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1560",
+            "eventId": 1068,
+            "strength": "ev",
+            "playerId": 8475745,
+            "firstName": {
+              "default": "Charlie"
+            },
+            "lastName": {
+              "default": "Coyle"
+            },
+            "name": {
+              "default": "C. Coyle"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8475745.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-chi-coyle-scores-empty-net-goal-6388577136112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-chi-coyle-cbj-marque-un-but-dans-un-filet-desert-6388577138112",
+            "highlightClip": 6388577136112,
+            "highlightClipFr": 6388577138112,
+            "discreteClip": 6388578194112,
+            "discreteClipFr": 6388579467112,
+            "goalsToDate": 15,
+            "awayScore": 4,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "CBJ"
+            },
+            "timeInPeriod": "18:57",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8482705,
+                "firstName": {
+                  "default": "Cole"
+                },
+                "lastName": {
+                  "default": "Sillinger"
+                },
+                "name": {
+                  "default": "C. Sillinger"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 4
+              },
+              {
+                "playerId": 8479671,
+                "firstName": {
+                  "default": "Mathieu"
+                },
+                "lastName": {
+                  "default": "Olivier"
+                },
+                "name": {
+                  "default": "M. Olivier"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 24
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020858/ev1068.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8475745,
+        "teamAbbrev": "CBJ",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8475745.png",
+        "name": {
+          "default": "C. Coyle"
+        },
+        "sweaterNo": 3,
+        "position": "C",
+        "goals": 3,
+        "assists": 1,
+        "points": 4
+      },
+      {
+        "star": 2,
+        "playerId": 8484144,
+        "teamAbbrev": "CHI",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CHI/8484144.png",
+        "name": {
+          "default": "C. Bedard"
+        },
+        "sweaterNo": 98,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8478460,
+        "teamAbbrev": "CBJ",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8478460.png",
+        "name": {
+          "default": "Z. Werenski"
+        },
+        "sweaterNo": 8,
+        "position": "D",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "18:39",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Connor"
+              },
+              "lastName": {
+                "default": "Murphy"
+              },
+              "sweaterNumber": 5
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Kirill"
+              },
+              "lastName": {
+                "default": "Marchenko",
+                "cs": "Mar\u010denko",
+                "fi": "Martshenko",
+                "sk": "Mar\u010denko"
+              },
+              "sweaterNumber": 86
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:47",
+            "type": "BEN",
+            "duration": 2,
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "descKey": "delaying-game-unsuccessful-challenge",
+            "servedBy": {
+              "default": "Oliver Moore"
+            }
+          },
+          {
+            "timeInPeriod": "13:11",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dmitri",
+                "cs": "Dmitrij",
+                "sk": "Dmitrij"
+              },
+              "lastName": {
+                "default": "Voronkov"
+              },
+              "sweaterNumber": 10
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Connor"
+              },
+              "lastName": {
+                "default": "Murphy"
+              },
+              "sweaterNumber": 5
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matt"
+              },
+              "lastName": {
+                "default": "Grzelcyk"
+              },
+              "sweaterNumber": 48
+            },
+            "teamAbbrev": {
+              "default": "CHI"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Sean"
+              },
+              "lastName": {
+                "default": "Monahan"
+              },
+              "sweaterNumber": 23
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "14:22",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kent"
+              },
+              "lastName": {
+                "default": "Johnson"
+              },
+              "sweaterNumber": 91
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Teuvo"
+              },
+              "lastName": {
+                "default": "Teravainen",
+                "cs": "Ter\u00e4v\u00e4inen",
+                "fi": "Ter\u00e4v\u00e4inen",
+                "sk": "Ter\u00e4v\u00e4inen",
+                "sv": "Ter\u00e4v\u00e4inen"
+              },
+              "sweaterNumber": 86
+            },
+            "descKey": "holding"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

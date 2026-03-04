@@ -1,0 +1,846 @@
+{
+  "id": 2025020929,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-26",
+  "venue": {
+    "default": "Crypto.com Arena"
+  },
+  "venueLocation": {
+    "default": "Los Angeles"
+  },
+  "startTimeUTC": "2026-02-27T03:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "America/Los_Angeles",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 309,
+      "market": "N",
+      "countryCode": "US",
+      "network": "ESPN",
+      "sequenceNumber": 10
+    },
+    {
+      "id": 289,
+      "market": "A",
+      "countryCode": "CA",
+      "network": "SNW",
+      "sequenceNumber": 34
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 22,
+    "commonName": {
+      "default": "Oilers"
+    },
+    "abbrev": "EDM",
+    "placeName": {
+      "default": "Edmonton"
+    },
+    "placeNameWithPreposition": {
+      "default": "Edmonton",
+      "fr": "d'Edmonton"
+    },
+    "score": 8,
+    "sog": 37,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/EDM_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/EDM_dark.svg"
+  },
+  "homeTeam": {
+    "id": 26,
+    "commonName": {
+      "default": "Kings"
+    },
+    "abbrev": "LAK",
+    "placeName": {
+      "default": "Los Angeles"
+    },
+    "placeNameWithPreposition": {
+      "default": "Los Angeles",
+      "fr": "de Los Angeles"
+    },
+    "score": 1,
+    "sog": 22,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/LAK_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/LAK_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 133,
+            "strength": "ev",
+            "playerId": 8480834,
+            "firstName": {
+              "default": "Ty"
+            },
+            "lastName": {
+              "default": "Emberson"
+            },
+            "name": {
+              "default": "T. Emberson"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8480834.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-lak-emberson-scores-goal-against-darcy-kuemper-6390033718112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-lak-emberson-marque-un-but-contre-darcy-kuemper-6390033712112",
+            "highlightClip": 6390033718112,
+            "highlightClipFr": 6390033712112,
+            "discreteClip": 6390034502112,
+            "discreteClipFr": 6390035080112,
+            "goalsToDate": 2,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "07:25",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478458,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Roslovic"
+                },
+                "name": {
+                  "default": "J. Roslovic"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 28
+              },
+              {
+                "playerId": 8483512,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Savoie"
+                },
+                "name": {
+                  "default": "M. Savoie"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 22
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020929/ev133.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 150,
+            "strength": "ev",
+            "playerId": 8481617,
+            "firstName": {
+              "default": "Vasily",
+              "cs": "Vasilij",
+              "fi": "Vasili",
+              "sk": "Vasilij"
+            },
+            "lastName": {
+              "default": "Podkolzin"
+            },
+            "name": {
+              "default": "V. Podkolzin"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8481617.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-lak-podkolzin-scores-goal-against-darcy-kuemper-6390034432112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/vasily-podkolzin-with-a-but-vs-les-kings-de-los-angeles-6390035589112",
+            "highlightClip": 6390034432112,
+            "highlightClipFr": 6390035589112,
+            "discreteClip": 6390034036112,
+            "discreteClipFr": 6390033153112,
+            "goalsToDate": 13,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "08:19",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478233,
+                "firstName": {
+                  "default": "Andrew"
+                },
+                "lastName": {
+                  "default": "Mangiapane"
+                },
+                "name": {
+                  "default": "A. Mangiapane"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 88
+              },
+              {
+                "playerId": 8477498,
+                "firstName": {
+                  "default": "Darnell"
+                },
+                "lastName": {
+                  "default": "Nurse"
+                },
+                "name": {
+                  "default": "D. Nurse"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 25
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020929/ev150.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 355,
+            "strength": "ev",
+            "playerId": 8477998,
+            "firstName": {
+              "default": "Warren"
+            },
+            "lastName": {
+              "default": "Foegele"
+            },
+            "name": {
+              "default": "W. Foegele"
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/LAK/8477998.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-lak-foegele-scores-goal-against-connor-ingram-6390035023112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-lak-foegele-marque-un-but-contre-connor-ingram-6390034743112",
+            "highlightClip": 6390035023112,
+            "highlightClipFr": 6390034743112,
+            "discreteClip": 6390036391112,
+            "discreteClipFr": 6390035233112,
+            "goalsToDate": 7,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "12:15",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476441,
+                "firstName": {
+                  "default": "Joel"
+                },
+                "lastName": {
+                  "default": "Edmundson"
+                },
+                "name": {
+                  "default": "J. Edmundson"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020929/ev355.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 535,
+            "strength": "ev",
+            "playerId": 8478233,
+            "firstName": {
+              "default": "Andrew"
+            },
+            "lastName": {
+              "default": "Mangiapane"
+            },
+            "name": {
+              "default": "A. Mangiapane"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8478233.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-lak-mangiapane-scores-goal-against-darcy-kuemper-6390036771112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-lak-mangiapane-marque-un-but-contre-darcy-kuemper-6390038722112",
+            "highlightClip": 6390036771112,
+            "highlightClipFr": 6390038722112,
+            "discreteClip": 6390036382112,
+            "discreteClipFr": 6390037578112,
+            "goalsToDate": 7,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "02:59",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475786,
+                "firstName": {
+                  "default": "Zach"
+                },
+                "lastName": {
+                  "default": "Hyman"
+                },
+                "name": {
+                  "default": "Z. Hyman"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 18
+              },
+              {
+                "playerId": 8475218,
+                "firstName": {
+                  "default": "Mattias"
+                },
+                "lastName": {
+                  "default": "Ekholm"
+                },
+                "name": {
+                  "default": "M. Ekholm"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 14
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020929/ev535.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 560,
+            "strength": "ev",
+            "playerId": 8478402,
+            "firstName": {
+              "default": "Connor"
+            },
+            "lastName": {
+              "default": "McDavid"
+            },
+            "name": {
+              "default": "C. McDavid"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8478402.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-lak-mcdavid-scores-goal-against-darcy-kuemper-6390037779112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-lak-mcdavid-marque-un-but-contre-darcy-kuemper-6390038644112",
+            "highlightClip": 6390037779112,
+            "highlightClipFr": 6390038644112,
+            "discreteClip": 6390039027112,
+            "discreteClipFr": 6390038547112,
+            "goalsToDate": 35,
+            "awayScore": 4,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "04:58",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475786,
+                "firstName": {
+                  "default": "Zach"
+                },
+                "lastName": {
+                  "default": "Hyman"
+                },
+                "name": {
+                  "default": "Z. Hyman"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 18
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020929/ev560.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 622,
+            "strength": "pp",
+            "playerId": 8475786,
+            "firstName": {
+              "default": "Zach"
+            },
+            "lastName": {
+              "default": "Hyman"
+            },
+            "name": {
+              "default": "Z. Hyman"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8475786.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-lak-hyman-scores-ppg-against-anton-forsberg-6390040048112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-lak-hyman-marque-un-but-en-a-n-contre-anton-forsberg-6390039262112",
+            "highlightClip": 6390040048112,
+            "highlightClipFr": 6390039262112,
+            "discreteClip": 6390038475112,
+            "discreteClipFr": 6390038476112,
+            "goalsToDate": 24,
+            "awayScore": 5,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "08:44",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477934,
+                "firstName": {
+                  "default": "Leon"
+                },
+                "lastName": {
+                  "default": "Draisaitl"
+                },
+                "name": {
+                  "default": "L. Draisaitl"
+                },
+                "assistsToDate": 52,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8480803,
+                "firstName": {
+                  "default": "Evan"
+                },
+                "lastName": {
+                  "default": "Bouchard"
+                },
+                "name": {
+                  "default": "E. Bouchard"
+                },
+                "assistsToDate": 50,
+                "sweaterNumber": 2
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020929/ev622.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 780,
+            "strength": "pp",
+            "playerId": 8477934,
+            "firstName": {
+              "default": "Leon"
+            },
+            "lastName": {
+              "default": "Draisaitl"
+            },
+            "name": {
+              "default": "L. Draisaitl"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8477934.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-lak-draisaitl-scores-ppg-against-anton-forsberg-6390041381112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-lak-draisaitl-marque-un-but-en-a-n-contre-anton-forsberg-6390041285112",
+            "highlightClip": 6390041381112,
+            "highlightClipFr": 6390041285112,
+            "discreteClip": 6390040318112,
+            "discreteClipFr": 6390042355112,
+            "goalsToDate": 30,
+            "awayScore": 6,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "00:31",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478402,
+                "firstName": {
+                  "default": "Connor"
+                },
+                "lastName": {
+                  "default": "McDavid"
+                },
+                "name": {
+                  "default": "C. McDavid"
+                },
+                "assistsToDate": 65,
+                "sweaterNumber": 97
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020929/ev780.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 846,
+            "strength": "ev",
+            "playerId": 8478013,
+            "firstName": {
+              "default": "Jake"
+            },
+            "lastName": {
+              "default": "Walman"
+            },
+            "name": {
+              "default": "J. Walman"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8478013.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-lak-walman-scores-goal-against-anton-forsberg-6390041887112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-lak-walman-marque-un-but-contre-anton-forsberg-6390040903112",
+            "highlightClip": 6390041887112,
+            "highlightClipFr": 6390040903112,
+            "discreteClip": 6390041576112,
+            "discreteClipFr": 6390042082112,
+            "goalsToDate": 6,
+            "awayScore": 7,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "05:24",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8483512,
+                "firstName": {
+                  "default": "Matt"
+                },
+                "lastName": {
+                  "default": "Savoie"
+                },
+                "name": {
+                  "default": "M. Savoie"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 22
+              },
+              {
+                "playerId": 8477934,
+                "firstName": {
+                  "default": "Leon"
+                },
+                "lastName": {
+                  "default": "Draisaitl"
+                },
+                "name": {
+                  "default": "L. Draisaitl"
+                },
+                "assistsToDate": 53,
+                "sweaterNumber": 29
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020929/ev846.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 871,
+            "strength": "ev",
+            "playerId": 8478013,
+            "firstName": {
+              "default": "Jake"
+            },
+            "lastName": {
+              "default": "Walman"
+            },
+            "name": {
+              "default": "J. Walman"
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8478013.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/edm-lak-walman-scores-goal-against-anton-forsberg-6390041026112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/edm-lak-walman-marque-un-but-contre-anton-forsberg-6390041804112",
+            "highlightClip": 6390041026112,
+            "highlightClipFr": 6390041804112,
+            "discreteClip": 6390042192112,
+            "discreteClipFr": 6390041411112,
+            "goalsToDate": 7,
+            "awayScore": 8,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "EDM"
+            },
+            "timeInPeriod": "07:36",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477934,
+                "firstName": {
+                  "default": "Leon"
+                },
+                "lastName": {
+                  "default": "Draisaitl"
+                },
+                "name": {
+                  "default": "L. Draisaitl"
+                },
+                "assistsToDate": 54,
+                "sweaterNumber": 29
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020929/ev871.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8477934,
+        "teamAbbrev": "EDM",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8477934.png",
+        "name": {
+          "default": "L. Draisaitl"
+        },
+        "sweaterNo": 29,
+        "position": "C",
+        "goals": 1,
+        "assists": 3,
+        "points": 4
+      },
+      {
+        "star": 2,
+        "playerId": 8475786,
+        "teamAbbrev": "EDM",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8475786.png",
+        "name": {
+          "default": "Z. Hyman"
+        },
+        "sweaterNo": 18,
+        "position": "L",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8478013,
+        "teamAbbrev": "EDM",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/EDM/8478013.png",
+        "name": {
+          "default": "J. Walman"
+        },
+        "sweaterNo": 96,
+        "position": "D",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "15:28",
+            "type": "MIN",
+            "duration": 4,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Darnell"
+              },
+              "lastName": {
+                "default": "Nurse"
+              },
+              "sweaterNumber": 25
+            },
+            "teamAbbrev": {
+              "default": "EDM"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brian"
+              },
+              "lastName": {
+                "default": "Dumoulin"
+              },
+              "sweaterNumber": 2
+            },
+            "descKey": "high-sticking-double-minor"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "08:26",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Drew"
+              },
+              "lastName": {
+                "default": "Doughty"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          },
+          {
+            "timeInPeriod": "10:20",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Alex"
+              },
+              "lastName": {
+                "default": "Laferriere"
+              },
+              "sweaterNumber": 14
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Connor"
+              },
+              "lastName": {
+                "default": "McDavid"
+              },
+              "sweaterNumber": 97
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:09",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jeff"
+              },
+              "lastName": {
+                "default": "Malott",
+                "cs": "Malottt",
+                "de": "Malottt",
+                "es": "Malottt",
+                "fi": "Malottt",
+                "sk": "Malottt",
+                "sv": "Malottt"
+              },
+              "sweaterNumber": 39
+            },
+            "teamAbbrev": {
+              "default": "LAK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Trent"
+              },
+              "lastName": {
+                "default": "Frederic"
+              },
+              "sweaterNumber": 10
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

@@ -1,0 +1,1245 @@
+{
+  "id": 2025020852,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-29",
+  "venue": {
+    "default": "Enterprise Center"
+  },
+  "venueLocation": {
+    "default": "St. Louis"
+  },
+  "startTimeUTC": "2026-01-30T01:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-06:00",
+  "venueTimezone": "US/Central",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 566,
+      "market": "H",
+      "countryCode": "US",
+      "network": "FDSNMW",
+      "sequenceNumber": 201
+    },
+    {
+      "id": 521,
+      "market": "A",
+      "countryCode": "US",
+      "network": "SCRIPPS",
+      "sequenceNumber": 657
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 13,
+    "commonName": {
+      "default": "Panthers"
+    },
+    "abbrev": "FLA",
+    "placeName": {
+      "default": "Florida",
+      "fr": "Floride"
+    },
+    "placeNameWithPreposition": {
+      "default": "Florida",
+      "fr": "de la Floride"
+    },
+    "score": 4,
+    "sog": 20,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/FLA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/FLA_dark.svg"
+  },
+  "homeTeam": {
+    "id": 19,
+    "commonName": {
+      "default": "Blues"
+    },
+    "abbrev": "STL",
+    "placeName": {
+      "default": "St. Louis"
+    },
+    "placeNameWithPreposition": {
+      "default": "St. Louis",
+      "fr": "de St. Louis"
+    },
+    "score": 5,
+    "sog": 31,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/STL_light.svg?season=20252026",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/STL_dark.svg?season=20252026"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 151,
+            "strength": "ev",
+            "playerId": 8478421,
+            "firstName": {
+              "default": "A.J."
+            },
+            "lastName": {
+              "default": "Greer"
+            },
+            "name": {
+              "default": "A. Greer"
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8478421.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-stl-greer-scores-goal-against-joel-hofer-6388514332112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-stl-greer-marque-un-but-contre-joel-hofer-6388513753112",
+            "highlightClip": 6388514332112,
+            "highlightClipFr": 6388513753112,
+            "discreteClip": 6388512062112,
+            "discreteClipFr": 6388511884112,
+            "goalsToDate": 11,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "FLA"
+            },
+            "timeInPeriod": "03:12",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479316,
+                "firstName": {
+                  "default": "Luke"
+                },
+                "lastName": {
+                  "default": "Kunin"
+                },
+                "name": {
+                  "default": "L. Kunin"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 71
+              },
+              {
+                "playerId": 8483771,
+                "firstName": {
+                  "default": "Sandis"
+                },
+                "lastName": {
+                  "default": "Vilmanis"
+                },
+                "name": {
+                  "default": "S. Vilmanis"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 95
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020852/ev151.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 113,
+            "strength": "ev",
+            "playerId": 8482089,
+            "firstName": {
+              "default": "Jake"
+            },
+            "lastName": {
+              "default": "Neighbours"
+            },
+            "name": {
+              "default": "J. Neighbours"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8482089.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-stl-neighbours-scores-goal-against-daniil-tarasov-6388516655112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-stl-neighbours-marque-un-but-contre-daniil-tarasov-6388516860112",
+            "highlightClip": 6388516655112,
+            "highlightClipFr": 6388516860112,
+            "discreteClip": 6388514146112,
+            "discreteClipFr": 6388513852112,
+            "goalsToDate": 13,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "04:46",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477402,
+                "firstName": {
+                  "default": "Pavel"
+                },
+                "lastName": {
+                  "default": "Buchnevich",
+                  "cs": "Bu\u010dn\u011bvi\u010d",
+                  "fi": "Butshnevitsh",
+                  "sk": "Bu\u010dn\u011bvi\u010d"
+                },
+                "name": {
+                  "default": "P. Buchnevich",
+                  "cs": "P. Bu\u010dn\u011bvi\u010d",
+                  "fi": "P. Butshnevitsh",
+                  "sk": "P. Bu\u010dn\u011bvi\u010d"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 89
+              },
+              {
+                "playerId": 8479385,
+                "firstName": {
+                  "default": "Jordan"
+                },
+                "lastName": {
+                  "default": "Kyrou"
+                },
+                "name": {
+                  "default": "J. Kyrou"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 25
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020852/ev113.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 208,
+            "strength": "ev",
+            "playerId": 8479385,
+            "firstName": {
+              "default": "Jordan"
+            },
+            "lastName": {
+              "default": "Kyrou"
+            },
+            "name": {
+              "default": "J. Kyrou"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8479385.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-stl-kyrou-scores-goal-against-daniil-tarasov-6388513485112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-stl-kyrou-marque-un-but-contre-daniil-tarasov-6388512686112",
+            "highlightClip": 6388513485112,
+            "highlightClipFr": 6388512686112,
+            "discreteClip": 6388513970112,
+            "discreteClipFr": 6388512883112,
+            "goalsToDate": 12,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "07:51",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8481598,
+                "firstName": {
+                  "default": "Philip"
+                },
+                "lastName": {
+                  "default": "Broberg"
+                },
+                "name": {
+                  "default": "P. Broberg"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 6
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020852/ev208.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 239,
+            "strength": "pp",
+            "playerId": 8477933,
+            "firstName": {
+              "default": "Sam"
+            },
+            "lastName": {
+              "default": "Reinhart"
+            },
+            "name": {
+              "default": "S. Reinhart"
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8477933.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-stl-reinhart-scores-ppg-against-joel-hofer-6388513288112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-stl-reinhart-marque-un-but-en-a-n-contre-joel-hofer-6388513503112",
+            "highlightClip": 6388513288112,
+            "highlightClipFr": 6388513503112,
+            "discreteClip": 6388512981112,
+            "discreteClipFr": 6388514462112,
+            "goalsToDate": 27,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "09:22",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479314,
+                "firstName": {
+                  "default": "Matthew"
+                },
+                "lastName": {
+                  "default": "Tkachuk"
+                },
+                "name": {
+                  "default": "M. Tkachuk"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 19
+              },
+              {
+                "playerId": 8484304,
+                "firstName": {
+                  "default": "Uvis"
+                },
+                "lastName": {
+                  "default": "Balinskis"
+                },
+                "name": {
+                  "default": "U. Balinskis"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 26
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020852/ev239.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1441",
+            "eventId": 321,
+            "strength": "ev",
+            "playerId": 8481013,
+            "firstName": {
+              "default": "Jonatan"
+            },
+            "lastName": {
+              "default": "Berggren"
+            },
+            "name": {
+              "default": "J. Berggren"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8481013.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-stl-berggren-scores-goal-against-daniil-tarasov-6388514885112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-stl-berggren-marque-un-but-contre-daniil-tarasov-6388516759112",
+            "highlightClip": 6388514885112,
+            "highlightClipFr": 6388516759112,
+            "discreteClip": 6388516665112,
+            "discreteClipFr": 6388516184112,
+            "goalsToDate": 6,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "14:27",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475753,
+                "firstName": {
+                  "default": "Justin"
+                },
+                "lastName": {
+                  "default": "Faulk"
+                },
+                "name": {
+                  "default": "J. Faulk"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 72
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020852/ev321.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 400,
+            "strength": "ev",
+            "playerId": 8476897,
+            "firstName": {
+              "default": "Oskar"
+            },
+            "lastName": {
+              "default": "Sundqvist"
+            },
+            "name": {
+              "default": "O. Sundqvist"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8476897.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-stl-sundqvist-scores-goal-against-daniil-tarasov-6388516429112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-stl-sundqvist-marque-un-but-contre-daniil-tarasov-6388516819112",
+            "highlightClip": 6388516429112,
+            "highlightClipFr": 6388516819112,
+            "discreteClip": 6388515203112,
+            "discreteClipFr": 6388516323112,
+            "goalsToDate": 4,
+            "awayScore": 2,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "00:41",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475753,
+                "firstName": {
+                  "default": "Justin"
+                },
+                "lastName": {
+                  "default": "Faulk"
+                },
+                "name": {
+                  "default": "J. Faulk"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 72
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020852/ev400.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 783,
+            "strength": "ev",
+            "playerId": 8479314,
+            "firstName": {
+              "default": "Matthew"
+            },
+            "lastName": {
+              "default": "Tkachuk"
+            },
+            "name": {
+              "default": "M. Tkachuk"
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8479314.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-stl-tkachuk-scores-goal-against-joel-hofer-6388520006112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-stl-tkachuk-marque-un-but-contre-joel-hofer-6388518129112",
+            "highlightClip": 6388520006112,
+            "highlightClipFr": 6388518129112,
+            "discreteClip": 6388519794112,
+            "discreteClipFr": 6388520285112,
+            "goalsToDate": 1,
+            "awayScore": 3,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "16:52",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480185,
+                "firstName": {
+                  "default": "Eetu"
+                },
+                "lastName": {
+                  "default": "Luostarinen"
+                },
+                "name": {
+                  "default": "E. Luostarinen"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 27
+              },
+              {
+                "playerId": 8477935,
+                "firstName": {
+                  "default": "Sam"
+                },
+                "lastName": {
+                  "default": "Bennett"
+                },
+                "name": {
+                  "default": "S. Bennett"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020852/ev783.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 806,
+            "strength": "pp",
+            "playerId": 8479314,
+            "firstName": {
+              "default": "Matthew"
+            },
+            "lastName": {
+              "default": "Tkachuk"
+            },
+            "name": {
+              "default": "M. Tkachuk"
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/FLA/8479314.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-stl-tkachuk-scores-ppg-against-joel-hofer-6388518936112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-stl-tkachuk-marque-un-but-en-a-n-contre-joel-hofer-6388518551112",
+            "highlightClip": 6388518936112,
+            "highlightClipFr": 6388518551112,
+            "discreteClip": 6388518152112,
+            "discreteClipFr": 6388518750112,
+            "goalsToDate": 2,
+            "awayScore": 4,
+            "homeScore": 4,
+            "timeInPeriod": "18:39",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477933,
+                "firstName": {
+                  "default": "Sam"
+                },
+                "lastName": {
+                  "default": "Reinhart"
+                },
+                "name": {
+                  "default": "S. Reinhart"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 13
+              },
+              {
+                "playerId": 8478055,
+                "firstName": {
+                  "default": "Gustav"
+                },
+                "lastName": {
+                  "default": "Forsling"
+                },
+                "name": {
+                  "default": "G. Forsling"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 42
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020852/ev806.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 1134,
+            "strength": "pp",
+            "playerId": 8483516,
+            "firstName": {
+              "default": "Jimmy"
+            },
+            "lastName": {
+              "default": "Snuggerud"
+            },
+            "name": {
+              "default": "J. Snuggerud"
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8483516.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/fla-stl-snuggerud-scores-ppg-against-daniil-tarasov-6388524242112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/fla-stl-snuggerud-marque-un-but-en-a-n-contre-daniil-tarasov-6388523666112",
+            "highlightClip": 6388524242112,
+            "highlightClipFr": 6388523666112,
+            "discreteClip": 6388524643112,
+            "discreteClipFr": 6388524032112,
+            "goalsToDate": 8,
+            "awayScore": 4,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "STL"
+            },
+            "timeInPeriod": "19:51",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477402,
+                "firstName": {
+                  "default": "Pavel"
+                },
+                "lastName": {
+                  "default": "Buchnevich",
+                  "cs": "Bu\u010dn\u011bvi\u010d",
+                  "fi": "Butshnevitsh",
+                  "sk": "Bu\u010dn\u011bvi\u010d"
+                },
+                "name": {
+                  "default": "P. Buchnevich",
+                  "cs": "P. Bu\u010dn\u011bvi\u010d",
+                  "fi": "P. Butshnevitsh",
+                  "sk": "P. Bu\u010dn\u011bvi\u010d"
+                },
+                "assistsToDate": 21,
+                "sweaterNumber": 89
+              },
+              {
+                "playerId": 8479385,
+                "firstName": {
+                  "default": "Jordan"
+                },
+                "lastName": {
+                  "default": "Kyrou"
+                },
+                "name": {
+                  "default": "J. Kyrou"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 25
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020852/ev1134.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8479385,
+        "teamAbbrev": "STL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8479385.png",
+        "name": {
+          "default": "J. Kyrou"
+        },
+        "sweaterNo": 25,
+        "position": "R",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8483516,
+        "teamAbbrev": "STL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8483516.png",
+        "name": {
+          "default": "J. Snuggerud"
+        },
+        "sweaterNo": 21,
+        "position": "R",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 3,
+        "playerId": 8475753,
+        "teamAbbrev": "STL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/STL/8475753.png",
+        "name": {
+          "default": "J. Faulk"
+        },
+        "sweaterNo": 72,
+        "position": "D",
+        "goals": 0,
+        "assists": 2,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "09:03",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nathan"
+              },
+              "lastName": {
+                "default": "Walker"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brad"
+              },
+              "lastName": {
+                "default": "Marchand"
+              },
+              "sweaterNumber": 63
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "09:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Niko"
+              },
+              "lastName": {
+                "default": "Mikkola"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Bjugstad"
+              },
+              "sweaterNumber": 77
+            },
+            "descKey": "unsportsmanlike-conduct"
+          },
+          {
+            "timeInPeriod": "09:44",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Bjugstad"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Niko"
+              },
+              "lastName": {
+                "default": "Mikkola"
+              },
+              "sweaterNumber": 77
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "11:51",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Aaron"
+              },
+              "lastName": {
+                "default": "Ekblad"
+              },
+              "sweaterNumber": 5
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Philip"
+              },
+              "lastName": {
+                "default": "Broberg"
+              },
+              "sweaterNumber": 6
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "12:53",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jeff"
+              },
+              "lastName": {
+                "default": "Petry"
+              },
+              "sweaterNumber": 2
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jimmy"
+              },
+              "lastName": {
+                "default": "Snuggerud"
+              },
+              "sweaterNumber": 21
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "13:35",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dalibor"
+              },
+              "lastName": {
+                "default": "Dvorsky"
+              },
+              "sweaterNumber": 54
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Eetu"
+              },
+              "lastName": {
+                "default": "Luostarinen"
+              },
+              "sweaterNumber": 27
+            },
+            "descKey": "holding-the-stick"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:34",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Philip"
+              },
+              "lastName": {
+                "default": "Broberg"
+              },
+              "sweaterNumber": 6
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Tkachuk"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "06:20",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mackie"
+              },
+              "lastName": {
+                "default": "Samoskevich"
+              },
+              "sweaterNumber": 11
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jake"
+              },
+              "lastName": {
+                "default": "Neighbours"
+              },
+              "sweaterNumber": 63
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "07:09",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dalibor"
+              },
+              "lastName": {
+                "default": "Dvorsky"
+              },
+              "sweaterNumber": 54
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Evan"
+              },
+              "lastName": {
+                "default": "Rodrigues"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "07:25",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brayden"
+              },
+              "lastName": {
+                "default": "Schenn"
+              },
+              "sweaterNumber": 10
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Niko"
+              },
+              "lastName": {
+                "default": "Mikkola"
+              },
+              "sweaterNumber": 77
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "07:57",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Sam"
+              },
+              "lastName": {
+                "default": "Bennett"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Colton"
+              },
+              "lastName": {
+                "default": "Parayko"
+              },
+              "sweaterNumber": 55
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "11:12",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "A.J."
+              },
+              "lastName": {
+                "default": "Greer"
+              },
+              "sweaterNumber": 10
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Tyler"
+              },
+              "lastName": {
+                "default": "Tucker"
+              },
+              "sweaterNumber": 75
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "11:12",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tyler"
+              },
+              "lastName": {
+                "default": "Tucker"
+              },
+              "sweaterNumber": 75
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "A.J."
+              },
+              "lastName": {
+                "default": "Greer"
+              },
+              "sweaterNumber": 10
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "17:15",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Oskar"
+              },
+              "lastName": {
+                "default": "Sundqvist"
+              },
+              "sweaterNumber": 70
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Cole"
+              },
+              "lastName": {
+                "default": "Schwindt"
+              },
+              "sweaterNumber": 79
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "11:01",
+            "type": "MIN",
+            "duration": 4,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Bjugstad"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Evan"
+              },
+              "lastName": {
+                "default": "Rodrigues"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "high-sticking-double-minor"
+          },
+          {
+            "timeInPeriod": "16:46",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Joel"
+              },
+              "lastName": {
+                "default": "Hofer"
+              },
+              "sweaterNumber": 30
+            },
+            "teamAbbrev": {
+              "default": "STL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Tkachuk"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "roughing",
+            "servedBy": {
+              "default": "Jimmy Snuggerud"
+            }
+          },
+          {
+            "timeInPeriod": "16:46",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Matthew"
+              },
+              "lastName": {
+                "default": "Tkachuk"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Joel"
+              },
+              "lastName": {
+                "default": "Hofer"
+              },
+              "sweaterNumber": 30
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "18:06",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Niko"
+              },
+              "lastName": {
+                "default": "Mikkola"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "FLA"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Joel"
+              },
+              "lastName": {
+                "default": "Hofer"
+              },
+              "sweaterNumber": 30
+            },
+            "descKey": "interference-goalkeeper"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

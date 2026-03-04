@@ -1,0 +1,509 @@
+{
+  "id": 2025090020,
+  "season": 20252026,
+  "gameType": 9,
+  "limitedScoring": true,
+  "gameDate": "2026-02-17",
+  "venue": {
+    "default": "Fiera Milano Rho"
+  },
+  "venueLocation": {
+    "default": "Milano Cortina"
+  },
+  "startTimeUTC": "2026-02-17T11:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "+01:00",
+  "venueTimezone": "Europe/Rome",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 637,
+      "market": "N",
+      "countryCode": "US",
+      "network": "Peacock",
+      "sequenceNumber": 1
+    },
+    {
+      "id": 636,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC Gem",
+      "sequenceNumber": 103
+    },
+    {
+      "id": 40,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TSN",
+      "sequenceNumber": 136
+    },
+    {
+      "id": 642,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "ICI T\u00e9l\u00e9",
+      "sequenceNumber": 143
+    }
+  ],
+  "gameState": "FINAL",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 6773,
+    "commonName": {
+      "default": "Italy",
+      "cs": "It\u00e1lie",
+      "de": "Italien",
+      "es": "Italia",
+      "fi": "Italia",
+      "fr": "Italie",
+      "sk": "Taliansko",
+      "sv": "Italien"
+    },
+    "abbrev": "ITA",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 0,
+    "sog": 20,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/ITA_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/ITA_dark.svg"
+  },
+  "homeTeam": {
+    "id": 6776,
+    "commonName": {
+      "default": "Switzerland",
+      "cs": "\u0160v\u00fdcarsko",
+      "de": "Schweiz",
+      "es": "Suiza",
+      "fi": "Sveitsi",
+      "fr": "Suisse",
+      "sk": "\u0160vaj\u010diarsko",
+      "sv": "Schweiz"
+    },
+    "abbrev": "SUI",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 3,
+    "sog": 51,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/SUI_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/SUI_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 9001,
+            "strength": "ev",
+            "playerId": 8480798,
+            "firstName": {
+              "default": "Philipp"
+            },
+            "lastName": {
+              "default": "Kurashev"
+            },
+            "name": {
+              "default": "P. Kurashev"
+            },
+            "teamAbbrev": {
+              "default": "SUI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SUI/8480798.png",
+            "goalsToDate": 1,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "SUI"
+            },
+            "timeInPeriod": "01:19",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480002,
+                "firstName": {
+                  "default": "Nico"
+                },
+                "lastName": {
+                  "default": "Hischier"
+                },
+                "name": {
+                  "default": "N. Hischier"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 13
+              },
+              {
+                "playerId": 8478414,
+                "firstName": {
+                  "default": "Timo"
+                },
+                "lastName": {
+                  "default": "Meier"
+                },
+                "name": {
+                  "default": "T. Meier"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 28
+              }
+            ],
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 9005,
+            "strength": "pp",
+            "playerId": 8474600,
+            "firstName": {
+              "default": "Roman"
+            },
+            "lastName": {
+              "default": "Josi"
+            },
+            "name": {
+              "default": "R. Josi"
+            },
+            "teamAbbrev": {
+              "default": "SUI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SUI/8474600.png",
+            "goalsToDate": 2,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "SUI"
+            },
+            "timeInPeriod": "10:25",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477413,
+                "firstName": {
+                  "default": "Sven"
+                },
+                "lastName": {
+                  "default": "Andrighetto"
+                },
+                "name": {
+                  "default": "S. Andrighetto"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 85
+              },
+              {
+                "playerId": 8480002,
+                "firstName": {
+                  "default": "Nico"
+                },
+                "lastName": {
+                  "default": "Hischier"
+                },
+                "name": {
+                  "default": "N. Hischier"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 13
+              }
+            ],
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 9015,
+            "strength": "pp",
+            "playerId": 8480002,
+            "firstName": {
+              "default": "Nico"
+            },
+            "lastName": {
+              "default": "Hischier"
+            },
+            "name": {
+              "default": "N. Hischier"
+            },
+            "teamAbbrev": {
+              "default": "SUI"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/SUI/8480002.png",
+            "goalsToDate": 1,
+            "awayScore": 0,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "SUI"
+            },
+            "timeInPeriod": "05:53",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479584,
+                "firstName": {
+                  "default": "Damien"
+                },
+                "lastName": {
+                  "default": "Riat"
+                },
+                "name": {
+                  "default": "D. Riat"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 9
+              },
+              {
+                "playerId": 8478414,
+                "firstName": {
+                  "default": "Timo"
+                },
+                "lastName": {
+                  "default": "Meier"
+                },
+                "name": {
+                  "default": "T. Meier"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 28
+              }
+            ],
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "10:01",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Thomas"
+              },
+              "lastName": {
+                "default": "Larkin"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "ITA"
+            },
+            "descKey": "holding-the-stick"
+          },
+          {
+            "timeInPeriod": "11:55",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "J.J."
+              },
+              "lastName": {
+                "default": "Moser"
+              },
+              "sweaterNumber": 86
+            },
+            "teamAbbrev": {
+              "default": "SUI"
+            },
+            "descKey": "cross-checking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:37",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Simon"
+              },
+              "lastName": {
+                "default": "Knak"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "SUI"
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "08:43",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Greg"
+              },
+              "lastName": {
+                "default": "Ditomaso"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "ITA"
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "17:40",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mikael"
+              },
+              "lastName": {
+                "default": "Frycklund"
+              },
+              "sweaterNumber": 67
+            },
+            "teamAbbrev": {
+              "default": "ITA"
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "19:40",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Daniel"
+              },
+              "lastName": {
+                "default": "Mantenuto"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "ITA"
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "19:40",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Philipp"
+              },
+              "lastName": {
+                "default": "Kurashev"
+              },
+              "sweaterNumber": 23
+            },
+            "teamAbbrev": {
+              "default": "SUI"
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "05:47",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mikael"
+              },
+              "lastName": {
+                "default": "Frycklund"
+              },
+              "sweaterNumber": 67
+            },
+            "teamAbbrev": {
+              "default": "ITA"
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "09:47",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Thomas"
+              },
+              "lastName": {
+                "default": "Larkin"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "ITA"
+            },
+            "descKey": "boarding"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

@@ -1,0 +1,782 @@
+{
+  "id": 2025020865,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-31",
+  "venue": {
+    "default": "KeyBank Center"
+  },
+  "venueLocation": {
+    "default": "Buffalo"
+  },
+  "startTimeUTC": "2026-02-01T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "America/New_York",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 287,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SNE",
+      "sequenceNumber": 30
+    },
+    {
+      "id": 324,
+      "market": "N",
+      "countryCode": "US",
+      "network": "NHLN",
+      "sequenceNumber": 35
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 286,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CITY",
+      "sequenceNumber": 137
+    },
+    {
+      "id": 28,
+      "market": "H",
+      "countryCode": "US",
+      "network": "MSG-B",
+      "sequenceNumber": 392
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 8,
+    "commonName": {
+      "default": "Canadiens"
+    },
+    "abbrev": "MTL",
+    "placeName": {
+      "default": "Montr\u00e9al"
+    },
+    "placeNameWithPreposition": {
+      "default": "Montr\u00e9al",
+      "fr": "de Montr\u00e9al"
+    },
+    "score": 4,
+    "sog": 31,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MTL_dark.svg"
+  },
+  "homeTeam": {
+    "id": 7,
+    "commonName": {
+      "default": "Sabres"
+    },
+    "abbrev": "BUF",
+    "placeName": {
+      "default": "Buffalo"
+    },
+    "placeNameWithPreposition": {
+      "default": "Buffalo",
+      "fr": "de Buffalo"
+    },
+    "score": 2,
+    "sog": 38,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/BUF_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1541",
+            "eventId": 259,
+            "strength": "pp",
+            "playerId": 8483515,
+            "firstName": {
+              "default": "Juraj"
+            },
+            "lastName": {
+              "default": "Slafkovsk\u00fd"
+            },
+            "name": {
+              "default": "J. Slafkovsk\u00fd"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8483515.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-buf-slafkovsky-scores-ppg-against-alex-lyon-6388613172112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-buf-slafkovsky-marque-un-but-en-a-n-contre-alex-lyon-6388615021112",
+            "highlightClip": 6388613172112,
+            "highlightClipFr": 6388615021112,
+            "discreteClip": 6388613874112,
+            "discreteClipFr": 6388613164112,
+            "goalsToDate": 21,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "11:20",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480018,
+                "firstName": {
+                  "default": "Nick"
+                },
+                "lastName": {
+                  "default": "Suzuki"
+                },
+                "name": {
+                  "default": "N. Suzuki"
+                },
+                "assistsToDate": 45,
+                "sweaterNumber": 14
+              },
+              {
+                "playerId": 8481540,
+                "firstName": {
+                  "default": "Cole"
+                },
+                "lastName": {
+                  "default": "Caufield"
+                },
+                "name": {
+                  "default": "C. Caufield"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 13
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020865/ev259.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1560",
+            "eventId": 673,
+            "strength": "ev",
+            "playerId": 8482671,
+            "firstName": {
+              "default": "Owen"
+            },
+            "lastName": {
+              "default": "Power"
+            },
+            "name": {
+              "default": "O. Power"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8482671.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-buf-power-scores-goal-against-jakub-dobes-6388615979112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-buf-power-marque-un-but-contre-jakub-dobes-6388616474112",
+            "highlightClip": 6388615979112,
+            "highlightClipFr": 6388616474112,
+            "discreteClip": 6388615685112,
+            "discreteClipFr": 6388615888112,
+            "goalsToDate": 4,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "07:36",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479420,
+                "firstName": {
+                  "default": "Tage"
+                },
+                "lastName": {
+                  "default": "Thompson"
+                },
+                "name": {
+                  "default": "T. Thompson"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 72
+              },
+              {
+                "playerId": 8480839,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Dahlin"
+                },
+                "name": {
+                  "default": "R. Dahlin"
+                },
+                "assistsToDate": 33,
+                "sweaterNumber": 26
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020865/ev673.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 820,
+            "strength": "pp",
+            "playerId": 8483500,
+            "firstName": {
+              "default": "Noah"
+            },
+            "lastName": {
+              "default": "Ostlund"
+            },
+            "name": {
+              "default": "N. Ostlund"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8483500.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-buf-ostlund-scores-ppg-against-jakub-dobes-6388617179112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-buf-ostlund-marque-un-but-en-a-n-contre-jakub-dobes-6388617769112",
+            "highlightClip": 6388617179112,
+            "highlightClipFr": 6388617769112,
+            "discreteClip": 6388618360112,
+            "discreteClipFr": 6388616620112,
+            "goalsToDate": 10,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "18:58",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477949,
+                "firstName": {
+                  "default": "Alex"
+                },
+                "lastName": {
+                  "default": "Tuch"
+                },
+                "name": {
+                  "default": "A. Tuch"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 89
+              },
+              {
+                "playerId": 8481524,
+                "firstName": {
+                  "default": "Bowen"
+                },
+                "lastName": {
+                  "default": "Byram"
+                },
+                "name": {
+                  "default": "B. Byram"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 4
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020865/ev820.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 894,
+            "strength": "ev",
+            "playerId": 8481540,
+            "firstName": {
+              "default": "Cole"
+            },
+            "lastName": {
+              "default": "Caufield"
+            },
+            "name": {
+              "default": "C. Caufield"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8481540.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-buf-caufield-scores-goal-against-alex-lyon-6388618305112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-buf-caufield-marque-un-but-contre-alex-lyon-6388619101112",
+            "highlightClip": 6388618305112,
+            "highlightClipFr": 6388619101112,
+            "discreteClip": 6388619771112,
+            "discreteClipFr": 6388618092112,
+            "goalsToDate": 31,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "04:14",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480865,
+                "firstName": {
+                  "default": "Noah"
+                },
+                "lastName": {
+                  "default": "Dobson"
+                },
+                "name": {
+                  "default": "N. Dobson"
+                },
+                "assistsToDate": 24,
+                "sweaterNumber": 53
+              },
+              {
+                "playerId": 8483457,
+                "firstName": {
+                  "default": "Lane"
+                },
+                "lastName": {
+                  "default": "Hutson"
+                },
+                "name": {
+                  "default": "L. Hutson"
+                },
+                "assistsToDate": 47,
+                "sweaterNumber": 48
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020865/ev894.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 974,
+            "strength": "ev",
+            "playerId": 8481540,
+            "firstName": {
+              "default": "Cole"
+            },
+            "lastName": {
+              "default": "Caufield"
+            },
+            "name": {
+              "default": "C. Caufield"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8481540.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-buf-caufield-scores-goal-against-alex-lyon-6388618421112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-buf-caufield-marque-un-but-contre-alex-lyon-6388619404112",
+            "highlightClip": 6388618421112,
+            "highlightClipFr": 6388619404112,
+            "discreteClip": 6388619789112,
+            "discreteClipFr": 6388617739112,
+            "goalsToDate": 32,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "10:13",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480018,
+                "firstName": {
+                  "default": "Nick"
+                },
+                "lastName": {
+                  "default": "Suzuki"
+                },
+                "name": {
+                  "default": "N. Suzuki"
+                },
+                "assistsToDate": 46,
+                "sweaterNumber": 14
+              },
+              {
+                "playerId": 8481523,
+                "firstName": {
+                  "default": "Kirby"
+                },
+                "lastName": {
+                  "default": "Dach"
+                },
+                "name": {
+                  "default": "K. Dach"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 77
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020865/ev974.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1560",
+            "eventId": 1085,
+            "strength": "ev",
+            "playerId": 8482775,
+            "firstName": {
+              "default": "Oliver"
+            },
+            "lastName": {
+              "default": "Kapanen"
+            },
+            "name": {
+              "default": "O. Kapanen"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8482775.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/mtl-buf-kapanen-scores-empty-net-goal-6388621682112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/mtl-buf-kapanen-mtl-marque-un-but-dans-un-filet-desert-6388620710112",
+            "highlightClip": 6388621682112,
+            "highlightClipFr": 6388620710112,
+            "discreteClip": 6388618944112,
+            "discreteClipFr": 6388619534112,
+            "goalsToDate": 17,
+            "awayScore": 4,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "19:12",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [
+              {
+                "playerId": 8480865,
+                "firstName": {
+                  "default": "Noah"
+                },
+                "lastName": {
+                  "default": "Dobson"
+                },
+                "name": {
+                  "default": "N. Dobson"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 53
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020865/ev1085.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8481540,
+        "teamAbbrev": "MTL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8481540.png",
+        "name": {
+          "default": "C. Caufield"
+        },
+        "sweaterNo": 13,
+        "position": "R",
+        "goals": 2,
+        "assists": 1,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8482487,
+        "teamAbbrev": "MTL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8482487.png",
+        "name": {
+          "default": "J. Dobes"
+        },
+        "sweaterNo": 75,
+        "position": "G",
+        "goalsAgainstAverage": 2.0,
+        "savePctg": 0.947
+      },
+      {
+        "star": 3,
+        "playerId": 8482671,
+        "teamAbbrev": "BUF",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8482671.png",
+        "name": {
+          "default": "O. Power"
+        },
+        "sweaterNo": 25,
+        "position": "D",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "10:00",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tage"
+              },
+              "lastName": {
+                "default": "Thompson"
+              },
+              "sweaterNumber": 72
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Phillip"
+              },
+              "lastName": {
+                "default": "Danault"
+              },
+              "sweaterNumber": 24
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "19:06",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Bowen"
+              },
+              "lastName": {
+                "default": "Byram"
+              },
+              "sweaterNumber": 4
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nick"
+              },
+              "lastName": {
+                "default": "Suzuki"
+              },
+              "sweaterNumber": 14
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Lane"
+              },
+              "lastName": {
+                "default": "Hutson"
+              },
+              "sweaterNumber": 48
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "McLeod"
+              },
+              "sweaterNumber": 71
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "02:46",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "McLeod"
+              },
+              "sweaterNumber": 71
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Kaiden"
+              },
+              "lastName": {
+                "default": "Guhle"
+              },
+              "sweaterNumber": 21
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "14:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Dobson"
+              },
+              "sweaterNumber": 53
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Jason"
+              },
+              "lastName": {
+                "default": "Zucker"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "16:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Lane"
+              },
+              "lastName": {
+                "default": "Hutson"
+              },
+              "sweaterNumber": 48
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Alex"
+              },
+              "lastName": {
+                "default": "Tuch"
+              },
+              "sweaterNumber": 89
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "16:24",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kirby"
+              },
+              "lastName": {
+                "default": "Dach"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Bowen"
+              },
+              "lastName": {
+                "default": "Byram"
+              },
+              "sweaterNumber": 4
+            },
+            "descKey": "holding"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

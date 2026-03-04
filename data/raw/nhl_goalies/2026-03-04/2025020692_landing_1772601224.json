@@ -1,0 +1,845 @@
+{
+  "id": 2025020692,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-08",
+  "venue": {
+    "default": "T-Mobile Arena"
+  },
+  "venueLocation": {
+    "default": "Paradise"
+  },
+  "startTimeUTC": "2026-01-09T03:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-08:00",
+  "venueTimezone": "US/Pacific",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 21
+    },
+    {
+      "id": 284,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN1",
+      "sequenceNumber": 113
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 565,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNOH",
+      "sequenceNumber": 286
+    },
+    {
+      "id": 521,
+      "market": "H",
+      "countryCode": "US",
+      "network": "SCRIPPS",
+      "sequenceNumber": 657
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 29,
+    "commonName": {
+      "default": "Blue Jackets"
+    },
+    "abbrev": "CBJ",
+    "placeName": {
+      "default": "Columbus"
+    },
+    "placeNameWithPreposition": {
+      "default": "Columbus",
+      "fr": "de Columbus"
+    },
+    "score": 3,
+    "sog": 25,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/CBJ_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/CBJ_dark.svg"
+  },
+  "homeTeam": {
+    "id": 54,
+    "commonName": {
+      "default": "Golden Knights"
+    },
+    "abbrev": "VGK",
+    "placeName": {
+      "default": "Vegas"
+    },
+    "placeNameWithPreposition": {
+      "default": "Vegas",
+      "fr": "de Vegas"
+    },
+    "score": 5,
+    "sog": 26,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/VGK_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/VGK_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 253,
+            "strength": "ev",
+            "playerId": 8476432,
+            "firstName": {
+              "default": "Boone"
+            },
+            "lastName": {
+              "default": "Jenner"
+            },
+            "name": {
+              "default": "B. Jenner"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8476432.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-vgk-jenner-scores-goal-against-carter-hart-6387449762112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-vgk-jenner-marque-un-but-contre-carter-hart-6387451426112",
+            "highlightClip": 6387449762112,
+            "highlightClipFr": 6387451426112,
+            "discreteClip": 6387450140112,
+            "discreteClipFr": 6387449571112,
+            "goalsToDate": 7,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CBJ"
+            },
+            "timeInPeriod": "08:24",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478460,
+                "firstName": {
+                  "default": "Zach"
+                },
+                "lastName": {
+                  "default": "Werenski"
+                },
+                "name": {
+                  "default": "Z. Werenski"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 8
+              },
+              {
+                "playerId": 8477497,
+                "firstName": {
+                  "default": "Sean"
+                },
+                "lastName": {
+                  "default": "Monahan"
+                },
+                "name": {
+                  "default": "S. Monahan"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 23
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020692/ev253.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 290,
+            "strength": "ev",
+            "playerId": 8482660,
+            "firstName": {
+              "default": "Kent"
+            },
+            "lastName": {
+              "default": "Johnson"
+            },
+            "name": {
+              "default": "K. Johnson"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8482660.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-vgk-johnson-scores-goal-against-akira-schmid-6387452112112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-vgk-johnson-marque-un-but-contre-akira-schmid-6387450267112",
+            "highlightClip": 6387452112112,
+            "highlightClipFr": 6387450267112,
+            "discreteClip": 6387450621112,
+            "discreteClipFr": 6387450072112,
+            "goalsToDate": 4,
+            "awayScore": 2,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "CBJ"
+            },
+            "timeInPeriod": "10:41",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477497,
+                "firstName": {
+                  "default": "Sean"
+                },
+                "lastName": {
+                  "default": "Monahan"
+                },
+                "name": {
+                  "default": "S. Monahan"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 23
+              },
+              {
+                "playerId": 8476432,
+                "firstName": {
+                  "default": "Boone"
+                },
+                "lastName": {
+                  "default": "Jenner"
+                },
+                "name": {
+                  "default": "B. Jenner"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 38
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020692/ev290.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 313,
+            "strength": "ev",
+            "playerId": 8475191,
+            "firstName": {
+              "default": "Reilly"
+            },
+            "lastName": {
+              "default": "Smith"
+            },
+            "name": {
+              "default": "R. Smith"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8475191.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-vgk-smith-scores-goal-against-jet-greaves-6387451129112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-vgk-smith-marque-un-but-contre-jet-greaves-6387452608112",
+            "highlightClip": 6387451129112,
+            "highlightClipFr": 6387452608112,
+            "discreteClip": 6387449960112,
+            "discreteClipFr": 6387452320112,
+            "goalsToDate": 7,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CBJ"
+            },
+            "timeInPeriod": "12:20",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477018,
+                "firstName": {
+                  "default": "Ben"
+                },
+                "lastName": {
+                  "default": "Hutton"
+                },
+                "name": {
+                  "default": "B. Hutton"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 17
+              },
+              {
+                "playerId": 8478483,
+                "firstName": {
+                  "default": "Mitch",
+                  "cs": "Mitchell",
+                  "de": "Mitchell",
+                  "es": "Mitchell",
+                  "fi": "Mitchell",
+                  "sk": "Mitchell",
+                  "sv": "Mitchell"
+                },
+                "lastName": {
+                  "default": "Marner"
+                },
+                "name": {
+                  "default": "M. Marner"
+                },
+                "assistsToDate": 34,
+                "sweaterNumber": 93
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020692/ev313.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1560",
+            "eventId": 563,
+            "strength": "ev",
+            "playerId": 8475191,
+            "firstName": {
+              "default": "Reilly"
+            },
+            "lastName": {
+              "default": "Smith"
+            },
+            "name": {
+              "default": "R. Smith"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8475191.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-vgk-smith-scores-goal-against-jet-greaves-6387455461112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-vgk-smith-marque-un-but-contre-jet-greaves-6387454071112",
+            "highlightClip": 6387455461112,
+            "highlightClipFr": 6387454071112,
+            "discreteClip": 6387453193112,
+            "discreteClipFr": 6387454957112,
+            "goalsToDate": 8,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "05:19",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478483,
+                "firstName": {
+                  "default": "Mitch",
+                  "cs": "Mitchell",
+                  "de": "Mitchell",
+                  "es": "Mitchell",
+                  "fi": "Mitchell",
+                  "sk": "Mitchell",
+                  "sv": "Mitchell"
+                },
+                "lastName": {
+                  "default": "Marner"
+                },
+                "name": {
+                  "default": "M. Marner"
+                },
+                "assistsToDate": 35,
+                "sweaterNumber": 93
+              },
+              {
+                "playerId": 8475913,
+                "firstName": {
+                  "default": "Mark"
+                },
+                "lastName": {
+                  "default": "Stone"
+                },
+                "name": {
+                  "default": "M. Stone"
+                },
+                "assistsToDate": 22,
+                "sweaterNumber": 61
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020692/ev563.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 659,
+            "strength": "ev",
+            "playerId": 8478403,
+            "firstName": {
+              "default": "Jack"
+            },
+            "lastName": {
+              "default": "Eichel"
+            },
+            "name": {
+              "default": "J. Eichel"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8478403.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-vgk-eichel-scores-goal-against-jet-greaves-6387455160112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-vgk-eichel-marque-un-but-contre-jet-greaves-6387454770112",
+            "highlightClip": 6387455160112,
+            "highlightClipFr": 6387454770112,
+            "discreteClip": 6387453797112,
+            "discreteClipFr": 6387454594112,
+            "goalsToDate": 13,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "13:07",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477964,
+                "firstName": {
+                  "default": "Ivan"
+                },
+                "lastName": {
+                  "default": "Barbashev",
+                  "cs": "Barba\u0161ev",
+                  "fi": "Barbashov",
+                  "sk": "Barba\u0161ev"
+                },
+                "name": {
+                  "default": "I. Barbashev",
+                  "cs": "I. Barba\u0161ev",
+                  "fi": "I. Barbashov",
+                  "sk": "I. Barba\u0161ev"
+                },
+                "assistsToDate": 19,
+                "sweaterNumber": 49
+              },
+              {
+                "playerId": 8475913,
+                "firstName": {
+                  "default": "Mark"
+                },
+                "lastName": {
+                  "default": "Stone"
+                },
+                "name": {
+                  "default": "M. Stone"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 61
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020692/ev659.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 733,
+            "strength": "pp",
+            "playerId": 8475913,
+            "firstName": {
+              "default": "Mark"
+            },
+            "lastName": {
+              "default": "Stone"
+            },
+            "name": {
+              "default": "M. Stone"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8475913.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-vgk-stone-scores-ppg-against-jet-greaves-6387455760112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-vgk-stone-marque-un-but-en-a-n-contre-jet-greaves-6387454100112",
+            "highlightClip": 6387455760112,
+            "highlightClipFr": 6387454100112,
+            "discreteClip": 6387455176112,
+            "discreteClipFr": 6387454207112,
+            "goalsToDate": 14,
+            "awayScore": 2,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "18:44",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476881,
+                "firstName": {
+                  "default": "Tomas",
+                  "cs": "Tom\u00e1\u0161",
+                  "sk": "Tom\u00e1\u0161"
+                },
+                "lastName": {
+                  "default": "Hertl"
+                },
+                "name": {
+                  "default": "T. Hertl"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 48
+              },
+              {
+                "playerId": 8478403,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Eichel"
+                },
+                "name": {
+                  "default": "J. Eichel"
+                },
+                "assistsToDate": 32,
+                "sweaterNumber": 9
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020692/ev733.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 957,
+            "strength": "ev",
+            "playerId": 8480893,
+            "firstName": {
+              "default": "Kirill"
+            },
+            "lastName": {
+              "default": "Marchenko",
+              "cs": "Mar\u010denko",
+              "fi": "Martshenko",
+              "sk": "Mar\u010denko"
+            },
+            "name": {
+              "default": "K. Marchenko",
+              "cs": "K. Mar\u010denko",
+              "fi": "K. Martshenko",
+              "sk": "K. Mar\u010denko"
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CBJ/8480893.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-vgk-marchenko-scores-goal-against-akira-schmid-6387456798112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-vgk-marchenko-marque-un-but-contre-akira-schmid-6387456205112",
+            "highlightClip": 6387456798112,
+            "highlightClipFr": 6387456205112,
+            "discreteClip": 6387457658112,
+            "discreteClipFr": 6387456406112,
+            "goalsToDate": 16,
+            "awayScore": 3,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "14:28",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478500,
+                "firstName": {
+                  "default": "Ivan"
+                },
+                "lastName": {
+                  "default": "Provorov"
+                },
+                "name": {
+                  "default": "I. Provorov"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 9
+              },
+              {
+                "playerId": 8484166,
+                "firstName": {
+                  "default": "Adam"
+                },
+                "lastName": {
+                  "default": "Fantilli"
+                },
+                "name": {
+                  "default": "A. Fantilli"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 19
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020692/ev957.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 978,
+            "strength": "ev",
+            "playerId": 8479353,
+            "firstName": {
+              "default": "Brett"
+            },
+            "lastName": {
+              "default": "Howden"
+            },
+            "name": {
+              "default": "B. Howden"
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8479353.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/cbj-vgk-howden-scores-goal-against-jet-greaves-6387455707112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/cbj-vgk-howden-marque-un-but-contre-jet-greaves-6387456588112",
+            "highlightClip": 6387455707112,
+            "highlightClipFr": 6387456588112,
+            "discreteClip": 6387455428112,
+            "discreteClipFr": 6387457574112,
+            "goalsToDate": 9,
+            "awayScore": 3,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "VGK"
+            },
+            "timeInPeriod": "16:14",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478434,
+                "firstName": {
+                  "default": "Keegan"
+                },
+                "lastName": {
+                  "default": "Kolesar"
+                },
+                "name": {
+                  "default": "K. Kolesar"
+                },
+                "assistsToDate": 7,
+                "sweaterNumber": 55
+              },
+              {
+                "playerId": 8476881,
+                "firstName": {
+                  "default": "Tomas",
+                  "cs": "Tom\u00e1\u0161",
+                  "sk": "Tom\u00e1\u0161"
+                },
+                "lastName": {
+                  "default": "Hertl"
+                },
+                "name": {
+                  "default": "T. Hertl"
+                },
+                "assistsToDate": 18,
+                "sweaterNumber": 48
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020692/ev978.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8475913,
+        "teamAbbrev": "VGK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8475913.png",
+        "name": {
+          "default": "M. Stone"
+        },
+        "sweaterNo": 61,
+        "position": "R",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8475191,
+        "teamAbbrev": "VGK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8475191.png",
+        "name": {
+          "default": "R. Smith"
+        },
+        "sweaterNo": 19,
+        "position": "R",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8478403,
+        "teamAbbrev": "VGK",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/VGK/8478403.png",
+        "name": {
+          "default": "J. Eichel"
+        },
+        "sweaterNo": 9,
+        "position": "C",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "18:04",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Keegan"
+              },
+              "lastName": {
+                "default": "Kolesar"
+              },
+              "sweaterNumber": 55
+            },
+            "teamAbbrev": {
+              "default": "VGK"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Adam"
+              },
+              "lastName": {
+                "default": "Fantilli"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "18:28",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mathieu"
+              },
+              "lastName": {
+                "default": "Olivier"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Braeden"
+              },
+              "lastName": {
+                "default": "Bowman"
+              },
+              "sweaterNumber": 42
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:39",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brendan"
+              },
+              "lastName": {
+                "default": "Gaunce"
+              },
+              "sweaterNumber": 16
+            },
+            "teamAbbrev": {
+              "default": "CBJ"
+            },
+            "descKey": "delaying-game-puck-over-glass"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

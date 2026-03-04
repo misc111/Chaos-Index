@@ -1,0 +1,619 @@
+{
+  "id": 2025020848,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-29",
+  "venue": {
+    "default": "Prudential Center"
+  },
+  "venueLocation": {
+    "default": "Newark"
+  },
+  "startTimeUTC": "2026-01-30T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 561,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNSO",
+      "sequenceNumber": 202
+    },
+    {
+      "id": 409,
+      "market": "H",
+      "countryCode": "US",
+      "network": "MSGSN",
+      "sequenceNumber": 411
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 18,
+    "commonName": {
+      "default": "Predators"
+    },
+    "abbrev": "NSH",
+    "placeName": {
+      "default": "Nashville"
+    },
+    "placeNameWithPreposition": {
+      "default": "Nashville",
+      "fr": "de Nashville"
+    },
+    "score": 2,
+    "sog": 29,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NSH_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NSH_dark.svg"
+  },
+  "homeTeam": {
+    "id": 1,
+    "commonName": {
+      "default": "Devils"
+    },
+    "abbrev": "NJD",
+    "placeName": {
+      "default": "New Jersey"
+    },
+    "placeNameWithPreposition": {
+      "default": "New Jersey",
+      "fr": "du New Jersey"
+    },
+    "score": 3,
+    "sog": 35,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/NJD_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/NJD_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 124,
+            "strength": "ev",
+            "playerId": 8477446,
+            "firstName": {
+              "default": "Michael"
+            },
+            "lastName": {
+              "default": "McCarron"
+            },
+            "name": {
+              "default": "M. McCarron"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8477446.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/michael-mccarron-with-a-goal-vs-new-jersey-devils-6388509616112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nsh-njd-mccarron-marque-un-but-contre-jacob-markstrom-6388509327112",
+            "highlightClip": 6388509616112,
+            "highlightClipFr": 6388509327112,
+            "discreteClip": 6388508547112,
+            "discreteClipFr": 6388508649112,
+            "goalsToDate": 3,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "NSH"
+            },
+            "timeInPeriod": "05:07",
+            "shotType": "wrap-around",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476539,
+                "firstName": {
+                  "default": "Jonathan"
+                },
+                "lastName": {
+                  "default": "Marchessault"
+                },
+                "name": {
+                  "default": "J. Marchessault"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 81
+              },
+              {
+                "playerId": 8482062,
+                "firstName": {
+                  "default": "Cole"
+                },
+                "lastName": {
+                  "default": "Smith"
+                },
+                "name": {
+                  "default": "C. Smith"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 36
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020848/ev124.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 699,
+            "strength": "ev",
+            "playerId": 8476462,
+            "firstName": {
+              "default": "Dougie"
+            },
+            "lastName": {
+              "default": "Hamilton"
+            },
+            "name": {
+              "default": "D. Hamilton"
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8476462.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nsh-njd-hamilton-scores-goal-against-justus-annunen-6388513381112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nsh-njd-hamilton-marque-un-but-contre-justus-annunen-6388515433112",
+            "highlightClip": 6388513381112,
+            "highlightClipFr": 6388515433112,
+            "discreteClip": 6388513196112,
+            "discreteClipFr": 6388514452112,
+            "goalsToDate": 7,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "10:01",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484177,
+                "firstName": {
+                  "default": "Lenni"
+                },
+                "lastName": {
+                  "default": "Hameenaho"
+                },
+                "name": {
+                  "default": "L. Hameenaho"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 29
+              },
+              {
+                "playerId": 8481721,
+                "firstName": {
+                  "default": "Arseny"
+                },
+                "lastName": {
+                  "default": "Gritsyuk"
+                },
+                "name": {
+                  "default": "A. Gritsyuk"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 81
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020848/ev699.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 843,
+            "strength": "ev",
+            "playerId": 8476887,
+            "firstName": {
+              "default": "Filip"
+            },
+            "lastName": {
+              "default": "Forsberg"
+            },
+            "name": {
+              "default": "F. Forsberg"
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NSH/8476887.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nsh-njd-forsberg-scores-goal-against-jacob-markstrom-6388518362112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nsh-njd-forsberg-marque-un-but-contre-jacob-markstrom-6388517480112",
+            "highlightClip": 6388518362112,
+            "highlightClipFr": 6388517480112,
+            "discreteClip": 6388517479112,
+            "discreteClipFr": 6388517405112,
+            "goalsToDate": 20,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "NSH"
+            },
+            "timeInPeriod": "01:34",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482482,
+                "firstName": {
+                  "default": "Adam"
+                },
+                "lastName": {
+                  "default": "Wilsby"
+                },
+                "name": {
+                  "default": "A. Wilsby"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 83
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020848/ev843.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 957,
+            "strength": "ev",
+            "playerId": 8479407,
+            "firstName": {
+              "default": "Jesper"
+            },
+            "lastName": {
+              "default": "Bratt"
+            },
+            "name": {
+              "default": "J. Bratt"
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8479407.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nsh-njd-bratt-scores-goal-against-justus-annunen-6388518003112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nsh-njd-bratt-marque-un-but-contre-justus-annunen-6388518002112",
+            "highlightClip": 6388518003112,
+            "highlightClipFr": 6388518002112,
+            "discreteClip": 6388518983112,
+            "discreteClipFr": 6388517229112,
+            "goalsToDate": 13,
+            "awayScore": 2,
+            "homeScore": 2,
+            "timeInPeriod": "10:42",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020848/ev957.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1331",
+            "eventId": 1088,
+            "strength": "ev",
+            "playerId": 8480002,
+            "firstName": {
+              "default": "Nico"
+            },
+            "lastName": {
+              "default": "Hischier"
+            },
+            "name": {
+              "default": "N. Hischier"
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8480002.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/nsh-njd-hischier-scores-goal-against-justus-annunen-6388519153112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/nsh-njd-hischier-marque-un-but-contre-justus-annunen-6388520217112",
+            "highlightClip": 6388519153112,
+            "highlightClipFr": 6388520217112,
+            "discreteClip": 6388518745112,
+            "discreteClipFr": 6388520025112,
+            "goalsToDate": 18,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "NJD"
+            },
+            "timeInPeriod": "00:42",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482110,
+                "firstName": {
+                  "default": "Dawson"
+                },
+                "lastName": {
+                  "default": "Mercer"
+                },
+                "name": {
+                  "default": "D. Mercer"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 91
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020848/ev1088.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8480002,
+        "teamAbbrev": "NJD",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8480002.png",
+        "name": {
+          "default": "N. Hischier"
+        },
+        "sweaterNo": 13,
+        "position": "C",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      },
+      {
+        "star": 2,
+        "playerId": 8474593,
+        "teamAbbrev": "NJD",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8474593.png",
+        "name": {
+          "default": "J. Markstrom",
+          "cs": "J. Markstr\u00f6m",
+          "fi": "J. Markstr\u00f6m",
+          "sk": "J. Markstr\u00f6m",
+          "sv": "J. Markstr\u00f6m"
+        },
+        "sweaterNo": 25,
+        "position": "G",
+        "goalsAgainstAverage": 1.98,
+        "savePctg": 0.931
+      },
+      {
+        "star": 3,
+        "playerId": 8479407,
+        "teamAbbrev": "NJD",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/NJD/8479407.png",
+        "name": {
+          "default": "J. Bratt"
+        },
+        "sweaterNo": 63,
+        "position": "L",
+        "goals": 1,
+        "assists": 0,
+        "points": 1
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "02:50",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Adam"
+              },
+              "lastName": {
+                "default": "Wilsby"
+              },
+              "sweaterNumber": 83
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Lenni"
+              },
+              "lastName": {
+                "default": "Hameenaho"
+              },
+              "sweaterNumber": 29
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "12:09",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Dougie"
+              },
+              "lastName": {
+                "default": "Hamilton"
+              },
+              "sweaterNumber": 7
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Tyson"
+              },
+              "lastName": {
+                "default": "Jost"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:08",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Cole"
+              },
+              "lastName": {
+                "default": "Smith"
+              },
+              "sweaterNumber": 36
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Simon",
+                "cs": "\u0160imon",
+                "sk": "\u0160imon"
+              },
+              "lastName": {
+                "default": "Nemec"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "12:35",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Arseny"
+              },
+              "lastName": {
+                "default": "Gritsyuk"
+              },
+              "sweaterNumber": 81
+            },
+            "teamAbbrev": {
+              "default": "NJD"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Luke"
+              },
+              "lastName": {
+                "default": "Evangelista"
+              },
+              "sweaterNumber": 77
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "15:19",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Cole"
+              },
+              "lastName": {
+                "default": "Smith"
+              },
+              "sweaterNumber": 36
+            },
+            "teamAbbrev": {
+              "default": "NSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Arseny"
+              },
+              "lastName": {
+                "default": "Gritsyuk"
+              },
+              "sweaterNumber": 81
+            },
+            "descKey": "high-sticking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "04:18",
+    "secondsRemaining": 258,
+    "running": false,
+    "inIntermission": false
+  }
+}

@@ -1,0 +1,798 @@
+{
+  "id": 2025020912,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-25",
+  "venue": {
+    "default": "Benchmark International Arena"
+  },
+  "venueLocation": {
+    "default": "Tampa"
+  },
+  "startTimeUTC": "2026-02-26T00:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "US/Eastern",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 385,
+      "market": "N",
+      "countryCode": "US",
+      "network": "TNT",
+      "sequenceNumber": 11
+    },
+    {
+      "id": 501,
+      "market": "N",
+      "countryCode": "US",
+      "network": "truTV",
+      "sequenceNumber": 14
+    },
+    {
+      "id": 578,
+      "market": "N",
+      "countryCode": "US",
+      "network": "HBO MAX",
+      "sequenceNumber": 19
+    },
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 107
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 10,
+    "commonName": {
+      "default": "Maple Leafs"
+    },
+    "abbrev": "TOR",
+    "placeName": {
+      "default": "Toronto"
+    },
+    "placeNameWithPreposition": {
+      "default": "Toronto",
+      "fr": "de Toronto"
+    },
+    "score": 2,
+    "sog": 34,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TOR_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/TOR_dark.svg"
+  },
+  "homeTeam": {
+    "id": 14,
+    "commonName": {
+      "default": "Lightning"
+    },
+    "abbrev": "TBL",
+    "placeName": {
+      "default": "Tampa Bay"
+    },
+    "placeNameWithPreposition": {
+      "default": "Tampa Bay",
+      "fr": "de Tampa Bay"
+    },
+    "score": 4,
+    "sog": 36,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/TBL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/TBL_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 690,
+            "strength": "ev",
+            "playerId": 8478010,
+            "firstName": {
+              "default": "Brayden"
+            },
+            "lastName": {
+              "default": "Point"
+            },
+            "name": {
+              "default": "B. Point"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8478010.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-tbl-point-scores-goal-against-anthony-stolarz-6389928702112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-tbl-point-marque-un-but-contre-anthony-stolarz-6389929955112",
+            "highlightClip": 6389928702112,
+            "highlightClipFr": 6389929955112,
+            "discreteClip": 6389930160112,
+            "discreteClipFr": 6389928791112,
+            "goalsToDate": 12,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "07:07",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480426,
+                "firstName": {
+                  "default": "Charle-Edouard"
+                },
+                "lastName": {
+                  "default": "D'Astous"
+                },
+                "name": {
+                  "default": "C. D'Astous"
+                },
+                "assistsToDate": 15,
+                "sweaterNumber": 51
+              },
+              {
+                "playerId": 8480995,
+                "firstName": {
+                  "default": "Pontus"
+                },
+                "lastName": {
+                  "default": "Holmberg"
+                },
+                "name": {
+                  "default": "P. Holmberg"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 29
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020912/ev690.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 699,
+            "strength": "ev",
+            "playerId": 8482201,
+            "firstName": {
+              "default": "Gage"
+            },
+            "lastName": {
+              "default": "Goncalves"
+            },
+            "name": {
+              "default": "G. Goncalves"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8482201.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-tbl-goncalves-scores-goal-against-anthony-stolarz-6389930856112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-tbl-goncalves-marque-un-but-contre-anthony-stolarz-6389929096112",
+            "highlightClip": 6389930856112,
+            "highlightClipFr": 6389929096112,
+            "discreteClip": 6389931147112,
+            "discreteClipFr": 6389929787112,
+            "goalsToDate": 7,
+            "awayScore": 0,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "07:58",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476453,
+                "firstName": {
+                  "default": "Nikita"
+                },
+                "lastName": {
+                  "default": "Kucherov",
+                  "cs": "Ku\u010derov",
+                  "fi": "Kutsherov",
+                  "sk": "Ku\u010derov"
+                },
+                "name": {
+                  "default": "N. Kucherov",
+                  "cs": "N. Ku\u010derov",
+                  "fi": "N. Kutsherov",
+                  "sk": "N. Ku\u010derov"
+                },
+                "assistsToDate": 63,
+                "sweaterNumber": 86
+              },
+              {
+                "playerId": 8480426,
+                "firstName": {
+                  "default": "Charle-Edouard"
+                },
+                "lastName": {
+                  "default": "D'Astous"
+                },
+                "name": {
+                  "default": "C. D'Astous"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 51
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020912/ev699.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 893,
+            "strength": "ev",
+            "playerId": 8476453,
+            "firstName": {
+              "default": "Nikita"
+            },
+            "lastName": {
+              "default": "Kucherov",
+              "cs": "Ku\u010derov",
+              "fi": "Kutsherov",
+              "sk": "Ku\u010derov"
+            },
+            "name": {
+              "default": "N. Kucherov",
+              "cs": "N. Ku\u010derov",
+              "fi": "N. Kutsherov",
+              "sk": "N. Ku\u010derov"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8476453.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-tbl-kucherov-scores-goal-against-anthony-stolarz-6389934097112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-tbl-kucherov-marque-un-but-contre-anthony-stolarz-6389932537112",
+            "highlightClip": 6389934097112,
+            "highlightClipFr": 6389932537112,
+            "discreteClip": 6389934397112,
+            "discreteClipFr": 6389933045112,
+            "goalsToDate": 30,
+            "awayScore": 0,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "02:59",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482201,
+                "firstName": {
+                  "default": "Gage"
+                },
+                "lastName": {
+                  "default": "Goncalves"
+                },
+                "name": {
+                  "default": "G. Goncalves"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 93
+              },
+              {
+                "playerId": 8478010,
+                "firstName": {
+                  "default": "Brayden"
+                },
+                "lastName": {
+                  "default": "Point"
+                },
+                "name": {
+                  "default": "B. Point"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 21
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020912/ev893.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "0641",
+            "eventId": 1074,
+            "strength": "pp",
+            "playerId": 8475166,
+            "firstName": {
+              "default": "John"
+            },
+            "lastName": {
+              "default": "Tavares"
+            },
+            "name": {
+              "default": "J. Tavares"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8475166.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-tbl-tavares-scores-ppg-against-andrei-vasilevskiy-6389936022112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-tbl-tavares-marque-un-but-en-a-n-contre-andrei-vasilevskiy-6389935829112",
+            "highlightClip": 6389936022112,
+            "highlightClipFr": 6389935829112,
+            "discreteClip": 6389933864112,
+            "discreteClipFr": 6389934864112,
+            "goalsToDate": 21,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "16:19",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477939,
+                "firstName": {
+                  "default": "William"
+                },
+                "lastName": {
+                  "default": "Nylander"
+                },
+                "name": {
+                  "default": "W. Nylander"
+                },
+                "assistsToDate": 35,
+                "sweaterNumber": 88
+              },
+              {
+                "playerId": 8482720,
+                "firstName": {
+                  "default": "Matthew"
+                },
+                "lastName": {
+                  "default": "Knies"
+                },
+                "name": {
+                  "default": "M. Knies"
+                },
+                "assistsToDate": 33,
+                "sweaterNumber": 23
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020912/ev1074.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 1082,
+            "strength": "ev",
+            "playerId": 8478010,
+            "firstName": {
+              "default": "Brayden"
+            },
+            "lastName": {
+              "default": "Point"
+            },
+            "name": {
+              "default": "B. Point"
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8478010.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-tbl-point-scores-goal-against-anthony-stolarz-6389935732112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-tbl-point-marque-un-but-contre-anthony-stolarz-6389936206112",
+            "highlightClip": 6389935732112,
+            "highlightClipFr": 6389936206112,
+            "discreteClip": 6389934652112,
+            "discreteClipFr": 6389934272112,
+            "goalsToDate": 13,
+            "awayScore": 1,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "16:30",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8476453,
+                "firstName": {
+                  "default": "Nikita"
+                },
+                "lastName": {
+                  "default": "Kucherov",
+                  "cs": "Ku\u010derov",
+                  "fi": "Kutsherov",
+                  "sk": "Ku\u010derov"
+                },
+                "name": {
+                  "default": "N. Kucherov",
+                  "cs": "N. Ku\u010derov",
+                  "fi": "N. Kutsherov",
+                  "sk": "N. Ku\u010derov"
+                },
+                "assistsToDate": 64,
+                "sweaterNumber": 86
+              },
+              {
+                "playerId": 8482201,
+                "firstName": {
+                  "default": "Gage"
+                },
+                "lastName": {
+                  "default": "Goncalves"
+                },
+                "name": {
+                  "default": "G. Goncalves"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 93
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020912/ev1082.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 1089,
+            "strength": "ev",
+            "playerId": 8482720,
+            "firstName": {
+              "default": "Matthew"
+            },
+            "lastName": {
+              "default": "Knies"
+            },
+            "name": {
+              "default": "M. Knies"
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TOR/8482720.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/tor-tbl-knies-scores-goal-against-andrei-vasilevskiy-6389936030112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/tor-tbl-knies-marque-un-but-contre-andrei-vasilevskiy-6389935951112",
+            "highlightClip": 6389936030112,
+            "highlightClipFr": 6389935951112,
+            "discreteClip": 6389934358112,
+            "discreteClipFr": 6389937011112,
+            "goalsToDate": 15,
+            "awayScore": 2,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "TBL"
+            },
+            "timeInPeriod": "17:13",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477939,
+                "firstName": {
+                  "default": "William"
+                },
+                "lastName": {
+                  "default": "Nylander"
+                },
+                "name": {
+                  "default": "W. Nylander"
+                },
+                "assistsToDate": 36,
+                "sweaterNumber": 88
+              },
+              {
+                "playerId": 8479318,
+                "firstName": {
+                  "default": "Auston"
+                },
+                "lastName": {
+                  "default": "Matthews"
+                },
+                "name": {
+                  "default": "A. Matthews"
+                },
+                "assistsToDate": 23,
+                "sweaterNumber": 34
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020912/ev1089.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8478010,
+        "teamAbbrev": "TBL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8478010.png",
+        "name": {
+          "default": "B. Point"
+        },
+        "sweaterNo": 21,
+        "position": "C",
+        "goals": 2,
+        "assists": 1,
+        "points": 3
+      },
+      {
+        "star": 2,
+        "playerId": 8476453,
+        "teamAbbrev": "TBL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8476453.png",
+        "name": {
+          "default": "N. Kucherov",
+          "cs": "N. Ku\u010derov",
+          "fi": "N. Kutsherov",
+          "sk": "N. Ku\u010derov"
+        },
+        "sweaterNo": 86,
+        "position": "R",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8482201,
+        "teamAbbrev": "TBL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/TBL/8482201.png",
+        "name": {
+          "default": "G. Goncalves"
+        },
+        "sweaterNo": 93,
+        "position": "C",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "14:06",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Simon"
+              },
+              "lastName": {
+                "default": "Benoit"
+              },
+              "sweaterNumber": 2
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brayden"
+              },
+              "lastName": {
+                "default": "Point"
+              },
+              "sweaterNumber": 21
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "00:48",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Erik"
+              },
+              "lastName": {
+                "default": "Cernak",
+                "cs": "\u010cern\u00e1k",
+                "sk": "\u010cern\u00e1k"
+              },
+              "sweaterNumber": 81
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Auston"
+              },
+              "lastName": {
+                "default": "Matthews"
+              },
+              "sweaterNumber": 34
+            },
+            "descKey": "interference"
+          },
+          {
+            "timeInPeriod": "07:58",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Oliver"
+              },
+              "lastName": {
+                "default": "Ekman-Larsson"
+              },
+              "sweaterNumber": 95
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Gage"
+              },
+              "lastName": {
+                "default": "Goncalves"
+              },
+              "sweaterNumber": 93
+            },
+            "descKey": "roughing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "05:24",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Auston"
+              },
+              "lastName": {
+                "default": "Matthews"
+              },
+              "sweaterNumber": 34
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Pontus"
+              },
+              "lastName": {
+                "default": "Holmberg"
+              },
+              "sweaterNumber": 29
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "09:43",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Simon"
+              },
+              "lastName": {
+                "default": "Benoit"
+              },
+              "sweaterNumber": 2
+            },
+            "teamAbbrev": {
+              "default": "TOR"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Hagel"
+              },
+              "sweaterNumber": 38
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "14:54",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "McDonagh"
+              },
+              "sweaterNumber": 27
+            },
+            "teamAbbrev": {
+              "default": "TBL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Auston"
+              },
+              "lastName": {
+                "default": "Matthews"
+              },
+              "sweaterNumber": 34
+            },
+            "descKey": "holding"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

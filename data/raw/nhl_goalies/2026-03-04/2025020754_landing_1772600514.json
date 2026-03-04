@@ -1,0 +1,1127 @@
+{
+  "id": 2025020754,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-01-17",
+  "venue": {
+    "default": "KeyBank Center"
+  },
+  "venueLocation": {
+    "default": "Buffalo"
+  },
+  "startTimeUTC": "2026-01-17T17:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "America/New_York",
+  "periodDescriptor": {
+    "number": 4,
+    "periodType": "OT",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 324,
+      "market": "N",
+      "countryCode": "US",
+      "network": "NHLN",
+      "sequenceNumber": 35
+    },
+    {
+      "id": 567,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNNO",
+      "sequenceNumber": 284
+    },
+    {
+      "id": 28,
+      "market": "H",
+      "countryCode": "US",
+      "network": "MSG-B",
+      "sequenceNumber": 392
+    },
+    {
+      "id": 569,
+      "market": "A",
+      "countryCode": "US",
+      "network": "FDSNWI",
+      "sequenceNumber": 419
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 30,
+    "commonName": {
+      "default": "Wild"
+    },
+    "abbrev": "MIN",
+    "placeName": {
+      "default": "Minnesota"
+    },
+    "placeNameWithPreposition": {
+      "default": "Minnesota",
+      "fr": "du Minnesota"
+    },
+    "score": 5,
+    "sog": 36,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/MIN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MIN_dark.svg"
+  },
+  "homeTeam": {
+    "id": 7,
+    "commonName": {
+      "default": "Sabres"
+    },
+    "abbrev": "BUF",
+    "placeName": {
+      "default": "Buffalo"
+    },
+    "placeNameWithPreposition": {
+      "default": "Buffalo",
+      "fr": "de Buffalo"
+    },
+    "score": 4,
+    "sog": 24,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/BUF_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/BUF_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 225,
+            "strength": "ev",
+            "playerId": 8475220,
+            "firstName": {
+              "default": "Marcus"
+            },
+            "lastName": {
+              "default": "Foligno"
+            },
+            "name": {
+              "default": "M. Foligno"
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8475220.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/min-buf-foligno-scores-goal-against-ukko-pekka-luukkonen-6387867574112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/marcus-foligno-with-a-but-vs-les-sabres-de-buffalo-6387867005112",
+            "highlightClip": 6387867574112,
+            "highlightClipFr": 6387867005112,
+            "discreteClip": 6387868857112,
+            "discreteClipFr": 6387868954112,
+            "goalsToDate": 3,
+            "awayScore": 1,
+            "homeScore": 0,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "09:19",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8475765,
+                "firstName": {
+                  "default": "Vladimir"
+                },
+                "lastName": {
+                  "default": "Tarasenko"
+                },
+                "name": {
+                  "default": "V. Tarasenko"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 91
+              },
+              {
+                "playerId": 8480259,
+                "firstName": {
+                  "default": "Ben"
+                },
+                "lastName": {
+                  "default": "Jones"
+                },
+                "name": {
+                  "default": "B. Jones"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 39
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020754/ev225.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 233,
+            "strength": "ev",
+            "playerId": 8480802,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "McLeod"
+            },
+            "name": {
+              "default": "R. McLeod"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8480802.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/min-buf-mcleod-scores-goal-against-filip-gustavsson-6387868867112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-buf-mcleod-marque-un-but-contre-filip-gustavsson-6387868477112",
+            "highlightClip": 6387868867112,
+            "highlightClipFr": 6387868477112,
+            "discreteClip": 6387867678112,
+            "discreteClipFr": 6387866502112,
+            "goalsToDate": 11,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "10:05",
+            "shotType": "deflected",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482097,
+                "firstName": {
+                  "default": "Jack"
+                },
+                "lastName": {
+                  "default": "Quinn"
+                },
+                "name": {
+                  "default": "J. Quinn"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 22
+              },
+              {
+                "playerId": 8475722,
+                "firstName": {
+                  "default": "Jason"
+                },
+                "lastName": {
+                  "default": "Zucker"
+                },
+                "name": {
+                  "default": "J. Zucker"
+                },
+                "assistsToDate": 12,
+                "sweaterNumber": 17
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020754/ev233.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 381,
+            "strength": "ev",
+            "playerId": 8477451,
+            "firstName": {
+              "default": "Ryan"
+            },
+            "lastName": {
+              "default": "Hartman"
+            },
+            "name": {
+              "default": "R. Hartman"
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8477451.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/min-buf-hartman-scores-goal-against-ukko-pekka-luukkonen-6387868689112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-buf-hartman-marque-un-but-contre-ukko-pekka-luukkonen-6387868495112",
+            "highlightClip": 6387868689112,
+            "highlightClipFr": 6387868495112,
+            "discreteClip": 6387870341112,
+            "discreteClipFr": 6387869651112,
+            "goalsToDate": 13,
+            "awayScore": 2,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "19:52",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480800,
+                "firstName": {
+                  "default": "Quinn"
+                },
+                "lastName": {
+                  "default": "Hughes"
+                },
+                "name": {
+                  "default": "Q. Hughes"
+                },
+                "assistsToDate": 37,
+                "sweaterNumber": 43
+              },
+              {
+                "playerId": 8478864,
+                "firstName": {
+                  "default": "Kirill"
+                },
+                "lastName": {
+                  "default": "Kaprizov"
+                },
+                "name": {
+                  "default": "K. Kaprizov"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 97
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020754/ev381.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 452,
+            "strength": "ev",
+            "playerId": 8475765,
+            "firstName": {
+              "default": "Vladimir"
+            },
+            "lastName": {
+              "default": "Tarasenko"
+            },
+            "name": {
+              "default": "V. Tarasenko"
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8475765.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/min-buf-tarasenko-scores-goal-against-ukko-pekka-luukkonen-6387869884112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-buf-tarasenko-marque-un-but-contre-ukko-pekka-luukkonen-6387871155112",
+            "highlightClip": 6387869884112,
+            "highlightClipFr": 6387871155112,
+            "discreteClip": 6387870660112,
+            "discreteClipFr": 6387868811112,
+            "goalsToDate": 9,
+            "awayScore": 3,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "01:08",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8474716,
+                "firstName": {
+                  "default": "Jared"
+                },
+                "lastName": {
+                  "default": "Spurgeon"
+                },
+                "name": {
+                  "default": "J. Spurgeon"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 46
+              },
+              {
+                "playerId": 8483525,
+                "firstName": {
+                  "default": "Danila"
+                },
+                "lastName": {
+                  "default": "Yurov"
+                },
+                "name": {
+                  "default": "D. Yurov"
+                },
+                "assistsToDate": 11,
+                "sweaterNumber": 22
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020754/ev452.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 622,
+            "strength": "ev",
+            "playerId": 8481522,
+            "firstName": {
+              "default": "Peyton"
+            },
+            "lastName": {
+              "default": "Krebs"
+            },
+            "name": {
+              "default": "P. Krebs"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8481522.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/min-buf-krebs-scores-goal-against-filip-gustavsson-6387871562112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-buf-krebs-marque-un-but-contre-filip-gustavsson-6387871173112",
+            "highlightClip": 6387871562112,
+            "highlightClipFr": 6387871173112,
+            "discreteClip": 6387870296112,
+            "discreteClipFr": 6387871166112,
+            "goalsToDate": 4,
+            "awayScore": 3,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "10:07",
+            "shotType": "tip-in",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480807,
+                "firstName": {
+                  "default": "Mattias"
+                },
+                "lastName": {
+                  "default": "Samuelsson"
+                },
+                "name": {
+                  "default": "M. Samuelsson"
+                },
+                "assistsToDate": 16,
+                "sweaterNumber": 23
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020754/ev622.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 642,
+            "strength": "ev",
+            "playerId": 8482097,
+            "firstName": {
+              "default": "Jack"
+            },
+            "lastName": {
+              "default": "Quinn"
+            },
+            "name": {
+              "default": "J. Quinn"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8482097.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/min-buf-quinn-scores-goal-against-filip-gustavsson-6387871080112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-buf-quinn-marque-un-but-contre-filip-gustavsson-6387869632112",
+            "highlightClip": 6387871080112,
+            "highlightClipFr": 6387869632112,
+            "discreteClip": 6387871570112,
+            "discreteClipFr": 6387869811112,
+            "goalsToDate": 11,
+            "awayScore": 3,
+            "homeScore": 3,
+            "timeInPeriod": "11:34",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480839,
+                "firstName": {
+                  "default": "Rasmus"
+                },
+                "lastName": {
+                  "default": "Dahlin"
+                },
+                "name": {
+                  "default": "R. Dahlin"
+                },
+                "assistsToDate": 28,
+                "sweaterNumber": 26
+              },
+              {
+                "playerId": 8475722,
+                "firstName": {
+                  "default": "Jason"
+                },
+                "lastName": {
+                  "default": "Zucker"
+                },
+                "name": {
+                  "default": "J. Zucker"
+                },
+                "assistsToDate": 13,
+                "sweaterNumber": 17
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020754/ev642.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1451",
+            "eventId": 690,
+            "strength": "pp",
+            "playerId": 8477949,
+            "firstName": {
+              "default": "Alex"
+            },
+            "lastName": {
+              "default": "Tuch"
+            },
+            "name": {
+              "default": "A. Tuch"
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8477949.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/min-buf-tuch-scores-ppg-against-filip-gustavsson-6387871869112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-buf-tuch-marque-un-but-en-a-n-contre-filip-gustavsson-6387872070112",
+            "highlightClip": 6387871869112,
+            "highlightClipFr": 6387872070112,
+            "discreteClip": 6387871690112,
+            "discreteClipFr": 6387872074112,
+            "goalsToDate": 17,
+            "awayScore": 3,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "BUF"
+            },
+            "timeInPeriod": "16:07",
+            "shotType": "wrist",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479420,
+                "firstName": {
+                  "default": "Tage"
+                },
+                "lastName": {
+                  "default": "Thompson"
+                },
+                "name": {
+                  "default": "T. Thompson"
+                },
+                "assistsToDate": 25,
+                "sweaterNumber": 72
+              },
+              {
+                "playerId": 8480802,
+                "firstName": {
+                  "default": "Ryan"
+                },
+                "lastName": {
+                  "default": "McLeod"
+                },
+                "name": {
+                  "default": "R. McLeod"
+                },
+                "assistsToDate": 20,
+                "sweaterNumber": 71
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020754/ev690.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 804,
+            "strength": "ev",
+            "playerId": 8480800,
+            "firstName": {
+              "default": "Quinn"
+            },
+            "lastName": {
+              "default": "Hughes"
+            },
+            "name": {
+              "default": "Q. Hughes"
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8480800.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/min-buf-hughes-scores-goal-against-ukko-pekka-luukkonen-6387871879112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/quinn-hughes-with-a-but-vs-les-sabres-de-buffalo-6387870914112",
+            "highlightClip": 6387871879112,
+            "highlightClipFr": 6387870914112,
+            "discreteClip": 6387872372112,
+            "discreteClipFr": 6387871002112,
+            "goalsToDate": 4,
+            "awayScore": 4,
+            "homeScore": 4,
+            "timeInPeriod": "17:04",
+            "shotType": "slap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478864,
+                "firstName": {
+                  "default": "Kirill"
+                },
+                "lastName": {
+                  "default": "Kaprizov"
+                },
+                "name": {
+                  "default": "K. Kaprizov"
+                },
+                "assistsToDate": 29,
+                "sweaterNumber": 97
+              },
+              {
+                "playerId": 8475692,
+                "firstName": {
+                  "default": "Mats"
+                },
+                "lastName": {
+                  "default": "Zuccarello"
+                },
+                "name": {
+                  "default": "M. Zuccarello"
+                },
+                "assistsToDate": 17,
+                "sweaterNumber": 36
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020754/ev804.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1431",
+            "eventId": 1135,
+            "strength": "pp",
+            "playerId": 8475692,
+            "firstName": {
+              "default": "Mats"
+            },
+            "lastName": {
+              "default": "Zuccarello"
+            },
+            "name": {
+              "default": "M. Zuccarello"
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8475692.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/min-buf-zuccarello-scores-ppg-against-ukko-pekka-luukkonen-6387873709112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/min-buf-zuccarello-marque-un-but-en-a-n-contre-ukko-pekka-luukkonen-6387873995112",
+            "highlightClip": 6387873709112,
+            "highlightClipFr": 6387873995112,
+            "discreteClip": 6387873908112,
+            "discreteClipFr": 6387873115112,
+            "goalsToDate": 6,
+            "awayScore": 5,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "MIN"
+            },
+            "timeInPeriod": "01:46",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478864,
+                "firstName": {
+                  "default": "Kirill"
+                },
+                "lastName": {
+                  "default": "Kaprizov"
+                },
+                "name": {
+                  "default": "K. Kaprizov"
+                },
+                "assistsToDate": 30,
+                "sweaterNumber": 97
+              },
+              {
+                "playerId": 8479406,
+                "firstName": {
+                  "default": "Filip"
+                },
+                "lastName": {
+                  "default": "Gustavsson"
+                },
+                "name": {
+                  "default": "F. Gustavsson"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 32
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020754/ev1135.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8480800,
+        "teamAbbrev": "MIN",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8480800.png",
+        "name": {
+          "default": "Q. Hughes"
+        },
+        "sweaterNo": 43,
+        "position": "D",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8475692,
+        "teamAbbrev": "MIN",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MIN/8475692.png",
+        "name": {
+          "default": "M. Zuccarello"
+        },
+        "sweaterNo": 36,
+        "position": "R",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      },
+      {
+        "star": 3,
+        "playerId": 8482097,
+        "teamAbbrev": "BUF",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/BUF/8482097.png",
+        "name": {
+          "default": "J. Quinn"
+        },
+        "sweaterNo": 22,
+        "position": "R",
+        "goals": 1,
+        "assists": 1,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "03:10",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tage"
+              },
+              "lastName": {
+                "default": "Thompson"
+              },
+              "sweaterNumber": 72
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Quinn"
+              },
+              "lastName": {
+                "default": "Hughes"
+              },
+              "sweaterNumber": 43
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "10:05",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Kesselring"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Marcus"
+              },
+              "lastName": {
+                "default": "Foligno"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "unsportsmanlike-conduct"
+          },
+          {
+            "timeInPeriod": "10:05",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Marcus"
+              },
+              "lastName": {
+                "default": "Foligno"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Kesselring"
+              },
+              "sweaterNumber": 8
+            },
+            "descKey": "unsportsmanlike-conduct"
+          },
+          {
+            "timeInPeriod": "12:11",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Marcus"
+              },
+              "lastName": {
+                "default": "Foligno"
+              },
+              "sweaterNumber": 17
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Kesselring"
+              },
+              "sweaterNumber": 8
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "12:11",
+            "type": "MAJ",
+            "duration": 5,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Kesselring"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Marcus"
+              },
+              "lastName": {
+                "default": "Foligno"
+              },
+              "sweaterNumber": 17
+            },
+            "descKey": "fighting"
+          },
+          {
+            "timeInPeriod": "15:25",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Quinn"
+              },
+              "lastName": {
+                "default": "Hughes"
+              },
+              "sweaterNumber": 43
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Tage"
+              },
+              "lastName": {
+                "default": "Thompson"
+              },
+              "sweaterNumber": 72
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "16:26",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Danila"
+              },
+              "lastName": {
+                "default": "Yurov"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Rasmus"
+              },
+              "lastName": {
+                "default": "Dahlin"
+              },
+              "sweaterNumber": 26
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "01:47",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Bowen"
+              },
+              "lastName": {
+                "default": "Byram"
+              },
+              "sweaterNumber": 4
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Danila"
+              },
+              "lastName": {
+                "default": "Yurov"
+              },
+              "sweaterNumber": 22
+            },
+            "descKey": "slashing"
+          },
+          {
+            "timeInPeriod": "04:08",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Kesselring"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Vinnie"
+              },
+              "lastName": {
+                "default": "Hinostroza"
+              },
+              "sweaterNumber": 18
+            },
+            "descKey": "hooking"
+          },
+          {
+            "timeInPeriod": "12:19",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "David"
+              },
+              "lastName": {
+                "default": "Jiricek",
+                "cs": "Ji\u0159\u00ed\u010dek",
+                "sk": "Ji\u0159\u00ed\u010dek"
+              },
+              "sweaterNumber": 55
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Michael"
+              },
+              "lastName": {
+                "default": "Kesselring"
+              },
+              "sweaterNumber": 8
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "15:01",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Danila"
+              },
+              "lastName": {
+                "default": "Yurov"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "MIN"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Peyton"
+              },
+              "lastName": {
+                "default": "Krebs"
+              },
+              "sweaterNumber": 19
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "19:46",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Peyton"
+              },
+              "lastName": {
+                "default": "Krebs"
+              },
+              "sweaterNumber": 19
+            },
+            "teamAbbrev": {
+              "default": "BUF"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Vladimir"
+              },
+              "lastName": {
+                "default": "Tarasenko"
+              },
+              "sweaterNumber": 91
+            },
+            "descKey": "hooking"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 4,
+          "periodType": "OT",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": []
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "03:14",
+    "secondsRemaining": 194,
+    "running": false,
+    "inIntermission": false
+  }
+}

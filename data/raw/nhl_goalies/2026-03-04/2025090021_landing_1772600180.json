@@ -1,0 +1,567 @@
+{
+  "id": 2025090021,
+  "season": 20252026,
+  "gameType": 9,
+  "limitedScoring": true,
+  "gameDate": "2026-02-17",
+  "venue": {
+    "default": "Milano Santagiulia Ice Hockey Arena"
+  },
+  "venueLocation": {
+    "default": "Milano Cortina"
+  },
+  "startTimeUTC": "2026-02-17T15:30:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "+01:00",
+  "venueTimezone": "Europe/Rome",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 637,
+      "market": "N",
+      "countryCode": "US",
+      "network": "Peacock",
+      "sequenceNumber": 1
+    },
+    {
+      "id": 636,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CBC Gem",
+      "sequenceNumber": 103
+    },
+    {
+      "id": 282,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SN",
+      "sequenceNumber": 107
+    },
+    {
+      "id": 642,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "ICI T\u00e9l\u00e9",
+      "sequenceNumber": 143
+    }
+  ],
+  "gameState": "FINAL",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 5096,
+    "commonName": {
+      "default": "Denmark",
+      "cs": "D\u00e1nsko",
+      "de": "D\u00e4nemark",
+      "es": "Dinamarca",
+      "fi": "Tanska",
+      "fr": "Danemark",
+      "sk": "D\u00e1nsko",
+      "sv": "Danmark"
+    },
+    "abbrev": "DEN",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 2,
+    "sog": 26,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/DEN_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/DEN_dark.svg"
+  },
+  "homeTeam": {
+    "id": 61,
+    "commonName": {
+      "default": "Czechia",
+      "cs": "\u010cesko",
+      "de": "Tschechien",
+      "es": "Chequia",
+      "fi": "Tshekki",
+      "fr": "Tch\u00e9quie",
+      "sk": "\u010cesko",
+      "sv": "Tjeckien"
+    },
+    "abbrev": "CZE",
+    "placeName": {
+      "default": ""
+    },
+    "placeNameWithPreposition": {
+      "default": ""
+    },
+    "score": 3,
+    "sog": 31,
+    "logo": "https://assets.nhle.com/logos/ntl/svg/CZE_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/ntl/svg/CZE_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1451",
+            "eventId": 9004,
+            "strength": "pp",
+            "playerId": 8480039,
+            "firstName": {
+              "default": "Martin"
+            },
+            "lastName": {
+              "default": "Necas",
+              "cs": "Ne\u010das",
+              "sk": "Ne\u010das"
+            },
+            "name": {
+              "default": "M. Necas",
+              "cs": "M. Ne\u010das",
+              "sk": "M. Ne\u010das"
+            },
+            "teamAbbrev": {
+              "default": "CZE"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CZE/8480039.png",
+            "goalsToDate": 3,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "CZE"
+            },
+            "timeInPeriod": "05:39",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479425,
+                "firstName": {
+                  "default": "Filip"
+                },
+                "lastName": {
+                  "default": "Hronek"
+                },
+                "name": {
+                  "default": "F. Hronek"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 17
+              },
+              {
+                "playerId": 8476834,
+                "firstName": {
+                  "default": "Roman"
+                },
+                "lastName": {
+                  "default": "Cervenka"
+                },
+                "name": {
+                  "default": "R. Cervenka"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 10
+              }
+            ],
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 9007,
+            "strength": "ev",
+            "playerId": 8480384,
+            "firstName": {
+              "default": "Alexander"
+            },
+            "lastName": {
+              "default": "True"
+            },
+            "name": {
+              "default": "A. True"
+            },
+            "teamAbbrev": {
+              "default": "DEN",
+              "cs": ""
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DEN/8480384.png",
+            "goalsToDate": 1,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "09:02",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8479571,
+                "firstName": {
+                  "default": "Joachim"
+                },
+                "lastName": {
+                  "default": "Blichfeld"
+                },
+                "name": {
+                  "default": "J. Blichfeld"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 86
+              }
+            ],
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 9010,
+            "strength": "ev",
+            "playerId": 8480144,
+            "firstName": {
+              "default": "David"
+            },
+            "lastName": {
+              "default": "Kampf",
+              "cs": "K\u00e4mpf",
+              "fi": "K\u00e4mpf",
+              "sk": "K\u00e4mpf",
+              "sv": "K\u00e4mpf"
+            },
+            "name": {
+              "default": "D. Kampf",
+              "cs": "D. K\u00e4mpf",
+              "fi": "D. K\u00e4mpf",
+              "sk": "D. K\u00e4mpf",
+              "sv": "D. K\u00e4mpf"
+            },
+            "teamAbbrev": {
+              "default": "CZE"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CZE/8480144.png",
+            "goalsToDate": 1,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "CZE"
+            },
+            "timeInPeriod": "10:15",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480172,
+                "firstName": {
+                  "default": "Jan"
+                },
+                "lastName": {
+                  "default": "Rutta"
+                },
+                "name": {
+                  "default": "J. Rutta"
+                },
+                "assistsToDate": 1,
+                "sweaterNumber": 44
+              },
+              {
+                "playerId": 8480039,
+                "firstName": {
+                  "default": "Martin"
+                },
+                "lastName": {
+                  "default": "Necas",
+                  "cs": "Ne\u010das",
+                  "sk": "Ne\u010das"
+                },
+                "name": {
+                  "default": "M. Necas",
+                  "cs": "M. Ne\u010das",
+                  "sk": "M. Ne\u010das"
+                },
+                "assistsToDate": 4,
+                "sweaterNumber": 98
+              }
+            ],
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 9013,
+            "strength": "ev",
+            "playerId": 8476834,
+            "firstName": {
+              "default": "Roman"
+            },
+            "lastName": {
+              "default": "Cervenka"
+            },
+            "name": {
+              "default": "R. Cervenka"
+            },
+            "teamAbbrev": {
+              "default": "CZE"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/CZE/8476834.png",
+            "goalsToDate": 2,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "CZE"
+            },
+            "timeInPeriod": "11:24",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8477956,
+                "firstName": {
+                  "default": "David"
+                },
+                "lastName": {
+                  "default": "Pastrnak",
+                  "cs": "Pastr\u0148\u00e1k",
+                  "sk": "Pastr\u0148\u00e1k"
+                },
+                "name": {
+                  "default": "D. Pastrnak",
+                  "cs": "D. Pastr\u0148\u00e1k",
+                  "sk": "D. Pastr\u0148\u00e1k"
+                },
+                "assistsToDate": 3,
+                "sweaterNumber": 88
+              }
+            ],
+            "isHome": true
+          },
+          {
+            "situationCode": "1541",
+            "eventId": 9017,
+            "strength": "pp",
+            "playerId": 8485922,
+            "firstName": {
+              "default": "Nick"
+            },
+            "lastName": {
+              "default": "Olesen"
+            },
+            "name": {
+              "default": "N. Olesen"
+            },
+            "teamAbbrev": {
+              "default": "DEN",
+              "cs": ""
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/DEN/8485922.png",
+            "goalsToDate": 4,
+            "awayScore": 2,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "CZE"
+            },
+            "timeInPeriod": "17:12",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8484168,
+                "firstName": {
+                  "default": "Oscar"
+                },
+                "lastName": {
+                  "default": "Fisker Molgaard"
+                },
+                "name": {
+                  "default": "O. Fisker Molgaard"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 12
+              },
+              {
+                "playerId": 8479571,
+                "firstName": {
+                  "default": "Joachim"
+                },
+                "lastName": {
+                  "default": "Blichfeld"
+                },
+                "name": {
+                  "default": "J. Blichfeld"
+                },
+                "assistsToDate": 2,
+                "sweaterNumber": 86
+              }
+            ],
+            "isHome": false
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": []
+      }
+    ],
+    "threeStars": [],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "07:06",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Jan"
+              },
+              "lastName": {
+                "default": "Rutta"
+              },
+              "sweaterNumber": 44
+            },
+            "teamAbbrev": {
+              "default": "CZE"
+            },
+            "descKey": "holding-the-stick"
+          },
+          {
+            "timeInPeriod": "17:54",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Oliver"
+              },
+              "lastName": {
+                "default": "Lauridsen"
+              },
+              "sweaterNumber": 25
+            },
+            "teamAbbrev": {
+              "default": "DEN",
+              "cs": ""
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "04:03",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Lars"
+              },
+              "lastName": {
+                "default": "Eller"
+              },
+              "sweaterNumber": 20
+            },
+            "teamAbbrev": {
+              "default": "DEN",
+              "cs": ""
+            },
+            "descKey": "high-sticking"
+          },
+          {
+            "timeInPeriod": "15:21",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tomas",
+                "cs": "Tom\u00e1\u0161",
+                "sk": "Tom\u00e1\u0161"
+              },
+              "lastName": {
+                "default": "Hertl"
+              },
+              "sweaterNumber": 48
+            },
+            "teamAbbrev": {
+              "default": "CZE"
+            },
+            "descKey": "tripping"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "08:13",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Radko"
+              },
+              "lastName": {
+                "default": "Gudas"
+              },
+              "sweaterNumber": 3
+            },
+            "teamAbbrev": {
+              "default": "CZE"
+            },
+            "descKey": "interference-goalkeeper"
+          },
+          {
+            "timeInPeriod": "11:31",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Tomas",
+                "cs": "Tom\u00e1\u0161",
+                "sk": "Tom\u00e1\u0161"
+              },
+              "lastName": {
+                "default": "Hertl"
+              },
+              "sweaterNumber": 48
+            },
+            "teamAbbrev": {
+              "default": "CZE"
+            },
+            "descKey": "elbowing"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}

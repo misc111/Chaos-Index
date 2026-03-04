@@ -1,0 +1,902 @@
+{
+  "id": 2025020940,
+  "season": 20252026,
+  "gameType": 2,
+  "limitedScoring": false,
+  "gameDate": "2026-02-28",
+  "venue": {
+    "default": "Centre Bell"
+  },
+  "venueLocation": {
+    "default": "Montreal",
+    "fr": "Montr\u00e9al"
+  },
+  "startTimeUTC": "2026-03-01T00:00:00Z",
+  "easternUTCOffset": "-05:00",
+  "venueUTCOffset": "-05:00",
+  "venueTimezone": "America/Montreal",
+  "periodDescriptor": {
+    "number": 3,
+    "periodType": "REG",
+    "maxRegulationPeriods": 3
+  },
+  "tvBroadcasts": [
+    {
+      "id": 287,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "SNE",
+      "sequenceNumber": 30
+    },
+    {
+      "id": 281,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "TVAS",
+      "sequenceNumber": 120
+    },
+    {
+      "id": 286,
+      "market": "N",
+      "countryCode": "CA",
+      "network": "CITY",
+      "sequenceNumber": 137
+    },
+    {
+      "id": 517,
+      "market": "A",
+      "countryCode": "US",
+      "network": "MNMT",
+      "sequenceNumber": 396
+    }
+  ],
+  "gameState": "OFF",
+  "gameScheduleState": "OK",
+  "awayTeam": {
+    "id": 15,
+    "commonName": {
+      "default": "Capitals"
+    },
+    "abbrev": "WSH",
+    "placeName": {
+      "default": "Washington"
+    },
+    "placeNameWithPreposition": {
+      "default": "Washington",
+      "fr": "de Washington"
+    },
+    "score": 2,
+    "sog": 29,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/WSH_secondary_dark.svg"
+  },
+  "homeTeam": {
+    "id": 8,
+    "commonName": {
+      "default": "Canadiens"
+    },
+    "abbrev": "MTL",
+    "placeName": {
+      "default": "Montr\u00e9al"
+    },
+    "placeNameWithPreposition": {
+      "default": "Montr\u00e9al",
+      "fr": "de Montr\u00e9al"
+    },
+    "score": 6,
+    "sog": 25,
+    "logo": "https://assets.nhle.com/logos/nhl/svg/MTL_light.svg",
+    "darkLogo": "https://assets.nhle.com/logos/nhl/svg/MTL_dark.svg"
+  },
+  "shootoutInUse": true,
+  "maxPeriods": 5,
+  "regPeriods": 3,
+  "otInUse": true,
+  "tiesInUse": false,
+  "summary": {
+    "scoring": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 56,
+            "strength": "ev",
+            "playerId": 8481540,
+            "firstName": {
+              "default": "Cole"
+            },
+            "lastName": {
+              "default": "Caufield"
+            },
+            "name": {
+              "default": "C. Caufield"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8481540.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-mtl-caufield-scores-goal-against-charlie-lindgren-6390178183112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-mtl-caufield-marque-un-but-contre-charlie-lindgren-6390180632112",
+            "highlightClip": 6390178183112,
+            "highlightClipFr": 6390180632112,
+            "discreteClip": 6390178889112,
+            "discreteClipFr": 6390179196112,
+            "goalsToDate": 34,
+            "awayScore": 0,
+            "homeScore": 1,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "00:30",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020940/ev56.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 283,
+            "strength": "ev",
+            "playerId": 8471214,
+            "firstName": {
+              "default": "Alex",
+              "cs": "Alexandr",
+              "fi": "Aleksandr",
+              "sk": "Alexander"
+            },
+            "lastName": {
+              "default": "Ovechkin",
+              "cs": "Ove\u010dkin",
+              "fi": "Ovetshkin",
+              "sk": "Ove\u010dkin"
+            },
+            "name": {
+              "default": "A. Ovechkin",
+              "cs": "A. Ove\u010dkin",
+              "fi": "A. Ovetshkin",
+              "sk": "A. Ove\u010dkin"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8471214.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-mtl-ovechkin-scores-goal-against-jakub-dobes-6390182282112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-mtl-ovechkin-marque-un-but-contre-jakub-dobes-6390182459112",
+            "highlightClip": 6390182282112,
+            "highlightClipFr": 6390182459112,
+            "discreteClip": 6390182362112,
+            "discreteClipFr": 6390180988112,
+            "goalsToDate": 23,
+            "awayScore": 1,
+            "homeScore": 1,
+            "timeInPeriod": "13:16",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478463,
+                "firstName": {
+                  "default": "Anthony"
+                },
+                "lastName": {
+                  "default": "Beauvillier"
+                },
+                "name": {
+                  "default": "A. Beauvillier"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 72
+              },
+              {
+                "playerId": 8480990,
+                "firstName": {
+                  "default": "Declan"
+                },
+                "lastName": {
+                  "default": "Chisholm"
+                },
+                "name": {
+                  "default": "D. Chisholm"
+                },
+                "assistsToDate": 5,
+                "sweaterNumber": 47
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020940/ev283.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 107,
+            "strength": "ev",
+            "playerId": 8481540,
+            "firstName": {
+              "default": "Cole"
+            },
+            "lastName": {
+              "default": "Caufield"
+            },
+            "name": {
+              "default": "C. Caufield"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8481540.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-mtl-caufield-scores-goal-against-charlie-lindgren-6390181592112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-mtl-caufield-marque-un-but-contre-charlie-lindgren-6390182585112",
+            "highlightClip": 6390181592112,
+            "highlightClipFr": 6390182585112,
+            "discreteClip": 6390181311112,
+            "discreteClipFr": 6390182463112,
+            "goalsToDate": 35,
+            "awayScore": 1,
+            "homeScore": 2,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "14:19",
+            "shotType": "backhand",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480018,
+                "firstName": {
+                  "default": "Nick"
+                },
+                "lastName": {
+                  "default": "Suzuki"
+                },
+                "name": {
+                  "default": "N. Suzuki"
+                },
+                "assistsToDate": 48,
+                "sweaterNumber": 14
+              },
+              {
+                "playerId": 8481593,
+                "firstName": {
+                  "default": "Jayden"
+                },
+                "lastName": {
+                  "default": "Struble"
+                },
+                "name": {
+                  "default": "J. Struble"
+                },
+                "assistsToDate": 9,
+                "sweaterNumber": 47
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020940/ev107.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 642,
+            "strength": "ev",
+            "playerId": 8476875,
+            "firstName": {
+              "default": "Mike"
+            },
+            "lastName": {
+              "default": "Matheson"
+            },
+            "name": {
+              "default": "M. Matheson"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8476875.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-mtl-matheson-scores-goal-against-charlie-lindgren-6390187216112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-mtl-matheson-marque-un-but-contre-charlie-lindgren-6390185960112",
+            "highlightClip": 6390187216112,
+            "highlightClipFr": 6390185960112,
+            "discreteClip": 6390185646112,
+            "discreteClipFr": 6390186734112,
+            "goalsToDate": 6,
+            "awayScore": 1,
+            "homeScore": 3,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "12:22",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8482737,
+                "firstName": {
+                  "default": "Zachary"
+                },
+                "lastName": {
+                  "default": "Bolduc"
+                },
+                "name": {
+                  "default": "Z. Bolduc"
+                },
+                "assistsToDate": 14,
+                "sweaterNumber": 76
+              },
+              {
+                "playerId": 8481618,
+                "firstName": {
+                  "default": "Alex"
+                },
+                "lastName": {
+                  "default": "Newhook"
+                },
+                "name": {
+                  "default": "A. Newhook"
+                },
+                "assistsToDate": 8,
+                "sweaterNumber": 15
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020940/ev642.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          },
+          {
+            "situationCode": "1551",
+            "eventId": 691,
+            "strength": "ev",
+            "playerId": 8481523,
+            "firstName": {
+              "default": "Kirby"
+            },
+            "lastName": {
+              "default": "Dach"
+            },
+            "name": {
+              "default": "K. Dach"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8481523.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-mtl-dach-scores-goal-against-charlie-lindgren-6390186956112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-mtl-dach-marque-un-but-contre-charlie-lindgren-6390187462112",
+            "highlightClip": 6390186956112,
+            "highlightClipFr": 6390187462112,
+            "discreteClip": 6390187155112,
+            "discreteClipFr": 6390188597112,
+            "goalsToDate": 8,
+            "awayScore": 1,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "16:34",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8480018,
+                "firstName": {
+                  "default": "Nick"
+                },
+                "lastName": {
+                  "default": "Suzuki"
+                },
+                "name": {
+                  "default": "N. Suzuki"
+                },
+                "assistsToDate": 49,
+                "sweaterNumber": 14
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020940/ev691.json",
+            "homeTeamDefendingSide": "left",
+            "isHome": true
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "goals": [
+          {
+            "situationCode": "1551",
+            "eventId": 904,
+            "strength": "ev",
+            "playerId": 8471214,
+            "firstName": {
+              "default": "Alex",
+              "cs": "Alexandr",
+              "fi": "Aleksandr",
+              "sk": "Alexander"
+            },
+            "lastName": {
+              "default": "Ovechkin",
+              "cs": "Ove\u010dkin",
+              "fi": "Ovetshkin",
+              "sk": "Ove\u010dkin"
+            },
+            "name": {
+              "default": "A. Ovechkin",
+              "cs": "A. Ove\u010dkin",
+              "fi": "A. Ovetshkin",
+              "sk": "A. Ove\u010dkin"
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8471214.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-mtl-ovechkin-scores-goal-against-jakub-dobes-6390190567112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-mtl-ovechkin-marque-un-but-contre-jakub-dobes-6390191329112",
+            "highlightClip": 6390190567112,
+            "highlightClipFr": 6390191329112,
+            "discreteClip": 6390190165112,
+            "discreteClipFr": 6390191424112,
+            "goalsToDate": 24,
+            "awayScore": 2,
+            "homeScore": 4,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "12:12",
+            "shotType": "snap",
+            "goalModifier": "none",
+            "assists": [
+              {
+                "playerId": 8478440,
+                "firstName": {
+                  "default": "Dylan"
+                },
+                "lastName": {
+                  "default": "Strome"
+                },
+                "name": {
+                  "default": "D. Strome"
+                },
+                "assistsToDate": 32,
+                "sweaterNumber": 17
+              },
+              {
+                "playerId": 8478463,
+                "firstName": {
+                  "default": "Anthony"
+                },
+                "lastName": {
+                  "default": "Beauvillier"
+                },
+                "name": {
+                  "default": "A. Beauvillier"
+                },
+                "assistsToDate": 10,
+                "sweaterNumber": 72
+              }
+            ],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020940/ev904.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": false
+          },
+          {
+            "situationCode": "0651",
+            "eventId": 973,
+            "strength": "ev",
+            "playerId": 8480018,
+            "firstName": {
+              "default": "Nick"
+            },
+            "lastName": {
+              "default": "Suzuki"
+            },
+            "name": {
+              "default": "N. Suzuki"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8480018.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-mtl-suzuki-scores-empty-net-goal-6390190773112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-mtl-suzuki-mtl-marque-un-but-dans-un-filet-desert-6390191952112",
+            "highlightClip": 6390190773112,
+            "highlightClipFr": 6390191952112,
+            "discreteClip": 6390190772112,
+            "discreteClipFr": 6390191740112,
+            "goalsToDate": 19,
+            "awayScore": 2,
+            "homeScore": 5,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "16:44",
+            "shotType": "backhand",
+            "goalModifier": "empty-net",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020940/ev973.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          },
+          {
+            "situationCode": "0641",
+            "eventId": 995,
+            "strength": "sh",
+            "playerId": 8478133,
+            "firstName": {
+              "default": "Jake"
+            },
+            "lastName": {
+              "default": "Evans"
+            },
+            "name": {
+              "default": "J. Evans"
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8478133.png",
+            "highlightClipSharingUrl": "https://nhl.com/video/wsh-mtl-evans-scores-empty-net-goal-6390190976112",
+            "highlightClipSharingUrlFr": "https://nhl.com/fr/video/wsh-mtl-evans-mtl-marque-un-but-dans-un-filet-desert-6390190698112",
+            "highlightClip": 6390190976112,
+            "highlightClipFr": 6390190698112,
+            "discreteClip": 6390191654112,
+            "discreteClipFr": 6390192246112,
+            "goalsToDate": 8,
+            "awayScore": 2,
+            "homeScore": 6,
+            "leadingTeamAbbrev": {
+              "default": "MTL"
+            },
+            "timeInPeriod": "18:35",
+            "shotType": "wrist",
+            "goalModifier": "empty-net",
+            "assists": [],
+            "pptReplayUrl": "https://wsr.nhle.com/sprites/20252026/2025020940/ev995.json",
+            "homeTeamDefendingSide": "right",
+            "isHome": true
+          }
+        ]
+      }
+    ],
+    "threeStars": [
+      {
+        "star": 1,
+        "playerId": 8481540,
+        "teamAbbrev": "MTL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8481540.png",
+        "name": {
+          "default": "C. Caufield"
+        },
+        "sweaterNo": 13,
+        "position": "R",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      },
+      {
+        "star": 2,
+        "playerId": 8480018,
+        "teamAbbrev": "MTL",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/MTL/8480018.png",
+        "name": {
+          "default": "N. Suzuki"
+        },
+        "sweaterNo": 14,
+        "position": "C",
+        "goals": 1,
+        "assists": 2,
+        "points": 3
+      },
+      {
+        "star": 3,
+        "playerId": 8471214,
+        "teamAbbrev": "WSH",
+        "headshot": "https://assets.nhle.com/mugs/nhl/20252026/WSH/8471214.png",
+        "name": {
+          "default": "A. Ovechkin",
+          "cs": "A. Ove\u010dkin",
+          "fi": "A. Ovetshkin",
+          "sk": "A. Ove\u010dkin"
+        },
+        "sweaterNo": 8,
+        "position": "L",
+        "goals": 2,
+        "assists": 0,
+        "points": 2
+      }
+    ],
+    "penalties": [
+      {
+        "periodDescriptor": {
+          "number": 1,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:06",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Duhaime"
+              },
+              "sweaterNumber": 22
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Kirby"
+              },
+              "lastName": {
+                "default": "Dach"
+              },
+              "sweaterNumber": 77
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "08:24",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Mike"
+              },
+              "lastName": {
+                "default": "Matheson"
+              },
+              "sweaterNumber": 8
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Duhaime"
+              },
+              "sweaterNumber": 22
+            },
+            "descKey": "holding"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 2,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "10:09",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Ryan"
+              },
+              "lastName": {
+                "default": "Leonard"
+              },
+              "sweaterNumber": 9
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Kaiden"
+              },
+              "lastName": {
+                "default": "Guhle"
+              },
+              "sweaterNumber": 21
+            },
+            "descKey": "roughing-removing-opponents-helmet"
+          },
+          {
+            "timeInPeriod": "17:17",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Brendan"
+              },
+              "lastName": {
+                "default": "Gallagher"
+              },
+              "sweaterNumber": 11
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Declan"
+              },
+              "lastName": {
+                "default": "Chisholm"
+              },
+              "sweaterNumber": 47
+            },
+            "descKey": "slashing"
+          }
+        ]
+      },
+      {
+        "periodDescriptor": {
+          "number": 3,
+          "periodType": "REG",
+          "maxRegulationPeriods": 3
+        },
+        "penalties": [
+          {
+            "timeInPeriod": "06:00",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Nic"
+              },
+              "lastName": {
+                "default": "Dowd"
+              },
+              "sweaterNumber": 26
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Kirby"
+              },
+              "lastName": {
+                "default": "Dach"
+              },
+              "sweaterNumber": 77
+            },
+            "descKey": "cross-checking"
+          },
+          {
+            "timeInPeriod": "06:00",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Kirby"
+              },
+              "lastName": {
+                "default": "Dach"
+              },
+              "sweaterNumber": 77
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Nic"
+              },
+              "lastName": {
+                "default": "Dowd"
+              },
+              "sweaterNumber": 26
+            },
+            "descKey": "roughing"
+          },
+          {
+            "timeInPeriod": "07:51",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Noah"
+              },
+              "lastName": {
+                "default": "Dobson"
+              },
+              "sweaterNumber": 53
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Pierre-Luc"
+              },
+              "lastName": {
+                "default": "Dubois"
+              },
+              "sweaterNumber": 80
+            },
+            "descKey": "tripping"
+          },
+          {
+            "timeInPeriod": "13:33",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Connor"
+              },
+              "lastName": {
+                "default": "McMichael"
+              },
+              "sweaterNumber": 24
+            },
+            "teamAbbrev": {
+              "default": "WSH"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Ivan"
+              },
+              "lastName": {
+                "default": "Demidov"
+              },
+              "sweaterNumber": 93
+            },
+            "descKey": "holding"
+          },
+          {
+            "timeInPeriod": "17:37",
+            "type": "MIN",
+            "duration": 2,
+            "committedByPlayer": {
+              "firstName": {
+                "default": "Alexandre"
+              },
+              "lastName": {
+                "default": "Carrier"
+              },
+              "sweaterNumber": 45
+            },
+            "teamAbbrev": {
+              "default": "MTL"
+            },
+            "drawnBy": {
+              "firstName": {
+                "default": "Brandon"
+              },
+              "lastName": {
+                "default": "Duhaime"
+              },
+              "sweaterNumber": 22
+            },
+            "descKey": "holding-the-stick"
+          }
+        ]
+      }
+    ]
+  },
+  "clock": {
+    "timeRemaining": "00:00",
+    "secondsRemaining": 0,
+    "running": false,
+    "inIntermission": false
+  }
+}
