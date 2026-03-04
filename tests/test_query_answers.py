@@ -45,6 +45,28 @@ def test_query_answers(tmp_path: Path):
 
     db.executemany(
         """
+        INSERT INTO teams(
+          league, team_abbrev, team_name, conference, division,
+          as_of_date, as_of_utc, snapshot_id, metadata_json
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        [
+            ("NHL", "BOS", "Boston Bruins", "E", "Atlantic", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
+            ("NHL", "FLA", "Florida Panthers", "E", "Atlantic", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
+            ("NHL", "MTL", "Montreal Canadiens", "E", "Atlantic", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
+            ("NHL", "NJD", "New Jersey Devils", "E", "Metropolitan", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
+            ("NHL", "TOR", "Toronto Maple Leafs", "E", "Atlantic", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
+            ("NHL", "TBL", "Tampa Bay Lightning", "E", "Atlantic", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
+            ("NHL", "WPG", "Winnipeg Jets", "W", "Central", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
+            ("NBA", "BOS", "Boston Celtics", "East", "Atlantic", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
+            ("NBA", "CHI", "Chicago Bulls", "East", "Central", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
+            ("NBA", "MIA", "Miami Heat", "East", "Southeast", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
+            ("NBA", "NYK", "New York Knicks", "East", "Atlantic", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
+        ],
+    )
+
+    db.executemany(
+        """
         INSERT INTO results(
           game_id, season, game_date_utc, final_utc, home_team, away_team,
           home_score, away_score, home_win, ingested_at_utc
@@ -125,3 +147,21 @@ def test_query_answers(tmp_path: Path):
     _, payload2 = answer_question(db, "Which model has performed best the last 60 days?")
     assert payload2["intent"] == "best_model"
     assert len(payload2["leaderboard"]) >= 1
+
+    report_answer, report_payload = answer_question(db, "Give me the report of all teams in a table")
+    assert report_payload["intent"] == "league_report"
+    assert report_payload["league"] == "NHL"
+    assert report_payload["as_of_utc"] == "2026-03-01T00:00:00Z"
+    assert report_payload["model_columns"][:2] == ["ensemble", "glm_logit"]
+    assert "Model trust guide (super brief)" in report_answer
+    assert "Team | Next Opponent | Date | Home/Away" in report_answer
+
+    tor_row = next(r for r in report_payload["rows"] if r["team"] == "TOR")
+    assert tor_row["division"] == "Atlantic"
+    assert tor_row["next_opponent"] == "MTL"
+    assert tor_row["next_game_date_utc"] == "2026-03-05"
+    assert tor_row["home_or_away"] == "Home"
+    assert 0 < tor_row["model_win_probabilities"]["ensemble"] < 1
+
+    wpg_row = next(r for r in report_payload["rows"] if r["team"] == "WPG")
+    assert wpg_row["next_opponent"] is None

@@ -21,7 +21,20 @@ def compute_dynamic_rating_features(
 
     rows = []
     for _, r in games_df.sort_values("start_time_utc").iterrows():
-        h, a = r["home_team"], r["away_team"]
+        h_raw, a_raw = r["home_team"], r["away_team"]
+        if pd.isna(h_raw) or pd.isna(a_raw):
+            continue
+        h = str(h_raw).strip().upper()
+        a = str(a_raw).strip().upper()
+        if not h or not a:
+            continue
+        if h not in mean:
+            mean[h] = 0.0
+            var[h] = 1.0
+        if a not in mean:
+            mean[a] = 0.0
+            var[a] = 1.0
+
         mean[h] += 0.0
         mean[a] += 0.0
         var[h] += process_var

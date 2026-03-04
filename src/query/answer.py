@@ -10,7 +10,7 @@ from typing import Any, Protocol
 
 import yaml
 
-from src.query.parse import TEAM_ALIAS_GROUPS_BY_LEAGUE, parse_question
+from src.query.parse import TEAM_ABBREV_ALIASES_BY_LEAGUE, TEAM_ALIAS_GROUPS_BY_LEAGUE, parse_question
 from src.query.templates import (
     best_model_answer,
     championship_answer,
@@ -43,6 +43,72 @@ PROBABILITY_KEY_BY_LEAGUE = {
 COMPETITION_NAME_BY_LEAGUE = {
     "NHL": "Stanley Cup",
     "NBA": "NBA Finals",
+}
+
+MODEL_REPORT_ORDER = [
+    "ensemble",
+    "elo_baseline",
+    "glm_logit",
+    "dynamic_rating",
+    "gbdt",
+    "rf",
+    "two_stage",
+    "goals_poisson",
+    "simulation_first",
+    "bayes_bt_state_space",
+    "bayes_goals",
+    "nn_mlp",
+]
+
+MODEL_TRUST_NOTES = {
+    "ensemble": (
+        "Built on: a blended vote from all models (stronger recent models get more say). "
+        "Good at: safest single number. Watch out: shared blind spots can still carry through."
+    ),
+    "elo_baseline": (
+        "Built on: past game results and opponent strength. "
+        "Good at: steady long-term signal. Watch out: slow to react to sudden injuries/trades."
+    ),
+    "glm_logit": (
+        "Built on: a weighted checklist of game factors. "
+        "Good at: clear, stable probabilities. Watch out: can miss complex matchup quirks."
+    ),
+    "dynamic_rating": (
+        "Built on: team strength that updates game by game. "
+        "Good at: catching momentum shifts. Watch out: short streaks can fool it."
+    ),
+    "gbdt": (
+        "Built on: many decision trees that find patterns in combinations of factors. "
+        "Good at: hidden interactions. Watch out: can become overconfident without recalibration."
+    ),
+    "rf": (
+        "Built on: an average of many random decision trees. "
+        "Good at: reducing noise. Watch out: often less decisive on close games."
+    ),
+    "two_stage": (
+        "Built on: two linked steps (first estimate game conditions, then winner). "
+        "Good at: structured game flow. Watch out: if step one is wrong, step two inherits it."
+    ),
+    "goals_poisson": (
+        "Built on: expected scoring rates for each team. "
+        "Good at: score-driven matchups. Watch out: less reliable when games become chaotic."
+    ),
+    "simulation_first": (
+        "Built on: thousands of simulated versions of the game. "
+        "Good at: what-if scenario coverage. Watch out: only as good as simulation assumptions."
+    ),
+    "bayes_bt_state_space": (
+        "Built on: team strength with uncertainty bands that evolve over time. "
+        "Good at: handling uncertainty openly. Watch out: setup choices can shift results."
+    ),
+    "bayes_goals": (
+        "Built on: scoring strength plus uncertainty ranges. "
+        "Good at: showing both estimate and confidence. Watch out: can lag in fast-changing periods."
+    ),
+    "nn_mlp": (
+        "Built on: a neural network that learns complex patterns from past games. "
+        "Good at: nonlinear pattern finding. Watch out: harder to explain in plain cause/effect terms."
+    ),
 }
 
 
@@ -162,6 +228,219 @@ def _bernoulli_sum_distribution(probs: list[float]) -> list[float]:
         dist = nxt
     return dist
 
+
+
+def _ordered_model_names(model_names: set[str]) -> list[str]:
+    ordered = [name for name in MODEL_REPORT_ORDER if name in model_names]
+    seen = set(ordered)
+    ordered.extend(sorted(name for name in model_names if name not in seen))
+    return ordered
+
+
+def _canonical_team_code(team: Any, league: str) -> str:
+    token = str(team or "").strip().upper()
+    if not token:
+        return ""
+    return TEAM_ABBREV_ALIASES_BY_LEAGUE.get(league, {}).get(token, token)
+
+
+def _latest_team_metadata(db: Queryable, league: str) -> dict[str, dict[str, Any]]:
+    try:
+        as_of_rows = db.query("SELECT MAX(as_of_utc) AS as_of_utc FROM teams WHERE league = ?", (league,))
+        team_as_of = as_of_rows[0]["as_of_utc"] if as_of_rows and as_of_rows[0].get("as_of_utc") else None
+        if not team_as_of:
+            return {}
+        rows = db.query(
+            """
+            SELECT team_abbrev, team_name, conference, division
+            FROM teams
+            WHERE league = ? AND as_of_utc = ?
+            """,
+            (league, team_as_of),
+        )
+    except Exception:
+        return {}
+
+    out: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        team = _canonical_team_code(row.get("team_abbrev"), league=league)
+        if not team:
+            continue
+        out[team] = {
+            "team_name": row.get("team_name"),
+            "conference": row.get("conference"),
+            "division": row.get("division"),
+        }
+    return out
+
+
+def _available_team_leagues(db: Queryable) -> set[str]:
+    try:
+        rows = db.query("SELECT DISTINCT league FROM teams WHERE league IS NOT NULL")
+    except Exception:
+        return set()
+    return {str(row.get("league") or "").strip().upper() for row in rows if str(row.get("league") or "").strip()}
+
+
+def _format_probability(p: float | None) -> str:
+    if p is None:
+        return "-"
+    return f"{float(p):.1%}"
+
+
+def _build_league_report_markdown(rows: list[dict[str, Any]], model_columns: list[str]) -> str:
+    headers = ["Team", "Next Opponent", "Date", "Home/Away"] + model_columns
+    sep = ["---"] * len(headers)
+    lines = ["| " + " | ".join(headers) + " |", "| " + " | ".join(sep) + " |"]
+
+    for row in rows:
+        team = row["team"]
+        opponent = row.get("next_opponent") or "-"
+        game_date = row.get("next_game_date_utc") or "-"
+        home_or_away = row.get("home_or_away") or "-"
+        probs = row.get("model_win_probabilities", {})
+        cells = [team, opponent, game_date, home_or_away] + [_format_probability(probs.get(model)) for model in model_columns]
+        lines.append("| " + " | ".join(cells) + " |")
+
+    return "\n".join(lines)
+
+
+def _answer_league_report(db: Queryable, league: str | None) -> tuple[str, dict]:
+    league_code = str(league or "NHL").upper()
+    if league_code not in TEAM_ALIAS_GROUPS_BY_LEAGUE:
+        league_code = "NHL"
+
+    latest_as_of = _latest_upcoming_as_of(db)
+    if not latest_as_of:
+        return "No upcoming forecasts are currently stored.", {"error": "no_upcoming_forecasts", "league": league_code}
+
+    upcoming_rows = db.query(
+        """
+        SELECT game_id, game_date_utc, home_team, away_team, ensemble_prob_home_win, per_model_probs_json
+        FROM upcoming_game_forecasts
+        WHERE as_of_utc = ?
+        ORDER BY game_date_utc ASC, game_id ASC
+        """,
+        (latest_as_of,),
+    )
+    if not upcoming_rows:
+        return "No upcoming forecasts are currently stored.", {"error": "no_upcoming_forecasts", "league": league_code}
+
+    available_leagues = _available_team_leagues(db)
+    if available_leagues and league_code not in available_leagues:
+        return (
+            f"No {league_code} team metadata is stored in this database snapshot. "
+            f"Available league snapshots: {', '.join(sorted(available_leagues))}.",
+            {
+                "error": "league_not_available_in_db",
+                "league_requested": league_code,
+                "available_leagues": sorted(available_leagues),
+            },
+        )
+
+    team_meta = _latest_team_metadata(db, league=league_code)
+    allowed_teams = set(TEAM_ALIAS_GROUPS_BY_LEAGUE.get(league_code, {}).keys())
+    team_scope = set(team_meta.keys()) if team_meta else allowed_teams
+
+    teams_seen_in_games: set[str] = set()
+    next_game_by_team: dict[str, dict[str, Any]] = {}
+    model_names: set[str] = {"ensemble"}
+    for row in upcoming_rows:
+        home_team = _canonical_team_code(row.get("home_team"), league=league_code)
+        away_team = _canonical_team_code(row.get("away_team"), league=league_code)
+        if not home_team or not away_team:
+            continue
+        if team_scope and (home_team not in team_scope or away_team not in team_scope):
+            continue
+        if home_team in allowed_teams:
+            teams_seen_in_games.add(home_team)
+        if away_team in allowed_teams:
+            teams_seen_in_games.add(away_team)
+
+        for team in (home_team, away_team):
+            if team not in allowed_teams or team in next_game_by_team:
+                continue
+            canonical_row = dict(row)
+            canonical_row["home_team"] = home_team
+            canonical_row["away_team"] = away_team
+            game = _oriented_game_forecast(canonical_row, team=team)
+            probs = {"ensemble": float(game["ensemble_prob_team_win"])} | game["per_model_probs_team_win"]
+            model_names.update(probs.keys())
+            next_game_by_team[team] = {
+                "game_id": game["game_id"],
+                "next_opponent": game["opponent"],
+                "next_game_date_utc": game["date"],
+                "is_home": game["is_home"],
+                "model_win_probabilities": probs,
+            }
+
+    model_columns = _ordered_model_names(model_names=model_names)
+    teams_from_meta = set(team_meta.keys())
+    if teams_from_meta:
+        teams = sorted((teams_from_meta | teams_seen_in_games) & allowed_teams)
+    else:
+        teams = sorted((set(TEAM_ALIAS_GROUPS_BY_LEAGUE.get(league_code, {}).keys()) | teams_seen_in_games) & allowed_teams)
+
+    report_rows = []
+    for team in teams:
+        meta = team_meta.get(team, {})
+        next_game = next_game_by_team.get(team)
+        if next_game:
+            raw_probs = dict(next_game.get("model_win_probabilities", {}))
+            model_probs = {name: raw_probs.get(name) for name in model_columns}
+            home_or_away = "Home" if bool(next_game.get("is_home")) else "Away"
+        else:
+            model_probs = {name: None for name in model_columns}
+            home_or_away = None
+
+        report_rows.append(
+            {
+                "team": team,
+                "team_name": meta.get("team_name"),
+                "conference": meta.get("conference"),
+                "division": meta.get("division"),
+                "next_opponent": next_game.get("next_opponent") if next_game else None,
+                "next_game_date_utc": next_game.get("next_game_date_utc") if next_game else None,
+                "home_or_away": home_or_away,
+                "model_win_probabilities": model_probs,
+            }
+        )
+
+    report_rows.sort(
+        key=lambda r: (
+            0 if r.get("model_win_probabilities", {}).get("ensemble") is not None else 1,
+            -float(r["model_win_probabilities"]["ensemble"])
+            if r.get("model_win_probabilities", {}).get("ensemble") is not None
+            else 0.0,
+            r["team"],
+        )
+    )
+    table_md = _build_league_report_markdown(report_rows, model_columns=model_columns)
+
+    trust_notes = {
+        model: MODEL_TRUST_NOTES.get(
+            model,
+            "Built on: that model's own rule set. Good at: extra perspective. Watch out: trust less if it is far from ensemble.",
+        )
+        for model in model_columns
+    }
+    trust_lines = [f"- `{model}`: {note}" for model, note in trust_notes.items()]
+    answer = (
+        f"{league_code} all-teams next-game report as of {latest_as_of}.\n\n"
+        f"{table_md}\n\n"
+        "Model trust guide (super brief): each line is Built on / Good at / Watch out.\n"
+        + "\n".join(trust_lines)
+    )
+
+    payload = {
+        "intent": "league_report",
+        "league": league_code,
+        "as_of_utc": latest_as_of,
+        "model_columns": model_columns,
+        "rows": report_rows,
+        "model_trust_notes": trust_notes,
+    }
+    return answer, payload
 
 
 def _answer_team_next_game(db: Queryable, team: str | None, league: str | None) -> tuple[str, dict]:
@@ -551,6 +830,9 @@ def answer_question(db: Queryable, question: str, default_league: str | None = "
         league = intent.league or (default_league or "NHL")
         competition = intent.competition or COMPETITION_NAME_BY_LEAGUE.get(league, "Championship")
         return _answer_team_championship(db, intent.team, league=league, competition=competition)
+
+    if intent.intent_type == "league_report":
+        return _answer_league_report(db, league=intent.league or default_league)
 
     if intent.intent_type == "best_model":
         return _answer_best_model(db, intent.window_days)

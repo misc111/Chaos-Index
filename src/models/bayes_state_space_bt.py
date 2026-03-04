@@ -44,6 +44,13 @@ class BayesStateSpaceBTModel:
         self.intercept = 0.0
         self.elbo_trace: list[float] = []
 
+    @staticmethod
+    def _team_code(value: object) -> str | None:
+        if pd.isna(value):
+            return None
+        token = str(value).strip().upper()
+        return token or None
+
     def _ensure_teams(self, teams: list[str]) -> None:
         for t in teams:
             if t not in self.team_to_ix:
@@ -75,7 +82,14 @@ class BayesStateSpaceBTModel:
 
     def fit_offline(self, df: pd.DataFrame, feature_columns: list[str], n_passes: int = 2) -> None:
         work = df[df["home_win"].notna()].copy().sort_values("start_time_utc")
+        work["home_team"] = work["home_team"].map(self._team_code)
+        work["away_team"] = work["away_team"].map(self._team_code)
+        work = work[work["home_team"].notna() & work["away_team"].notna()].copy()
         self.feature_columns = feature_columns
+        if work.empty:
+            self.beta = np.zeros(len(self.feature_columns), dtype=float)
+            self.intercept = 0.12
+            return
 
         teams = sorted(set(work["home_team"]) | set(work["away_team"]))
         self._ensure_teams(teams)
@@ -142,6 +156,9 @@ class BayesStateSpaceBTModel:
 
     def daily_update(self, new_results_df: pd.DataFrame) -> None:
         work = new_results_df[new_results_df["home_win"].notna()].copy().sort_values("start_time_utc")
+        work["home_team"] = work["home_team"].map(self._team_code)
+        work["away_team"] = work["away_team"].map(self._team_code)
+        work = work[work["home_team"].notna() & work["away_team"].notna()].copy()
         if work.empty:
             return
 
@@ -179,7 +196,9 @@ class BayesStateSpaceBTModel:
 
         for _, r in df.iterrows():
             x = np.array([float(r.get(c, 0.0)) for c in self.feature_columns], dtype=float)
-            z_mean, z_var = self._predict_z(r["home_team"], r["away_team"], x)
+            home_team = self._team_code(r.get("home_team")) or ""
+            away_team = self._team_code(r.get("away_team")) or ""
+            z_mean, z_var = self._predict_z(home_team, away_team, x)
             z_samples = self.rng.normal(loc=z_mean, scale=np.sqrt(max(z_var, 1e-6)), size=self.draws)
             p_samples = 1.0 / (1.0 + np.exp(-z_samples))
             means.append(float(np.mean(p_samples)))

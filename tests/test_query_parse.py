@@ -88,3 +88,13 @@ def test_parse_question_best_model_still_supported():
     intent = parse_question("Which model has performed best the last 45 days?")
     assert intent.intent_type == "best_model"
     assert intent.window_days == 45
+
+
+def test_parse_question_league_report():
+    intent = parse_question("Give me the report of all teams in a table with next opponents")
+    assert intent.intent_type == "league_report"
+    assert intent.league == "NHL"
+
+    nba_intent = parse_question("Give me the NBA team report table", default_league="NHL")
+    assert nba_intent.intent_type == "league_report"
+    assert nba_intent.league == "NBA"

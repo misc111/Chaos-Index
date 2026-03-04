@@ -93,6 +93,7 @@ Deterministic local query command:
 make query Q="What's the chance the Leafs win their next game?"
 make query CONFIG=configs/nba.yaml Q="What's the chance the Raptors win their next game?"
 make query Q="Which model has performed best the last 60 days?"
+make query Q="Give me the report of all teams in a table."
 ```
 
 Python entrypoint equivalent:

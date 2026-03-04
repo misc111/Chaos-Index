@@ -45,6 +45,19 @@ CREATE TABLE IF NOT EXISTS results (
   ingested_at_utc TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS teams (
+  team_row_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  league TEXT NOT NULL,
+  team_abbrev TEXT NOT NULL,
+  team_name TEXT,
+  conference TEXT,
+  division TEXT,
+  as_of_date TEXT,
+  as_of_utc TEXT NOT NULL,
+  snapshot_id TEXT,
+  metadata_json TEXT
+);
+
 CREATE TABLE IF NOT EXISTS feature_sets (
   feature_set_version TEXT PRIMARY KEY,
   created_at_utc TEXT NOT NULL,
@@ -178,5 +191,7 @@ CREATE INDEX IF NOT EXISTS idx_model_scores_model ON model_scores(model_name, sc
 CREATE INDEX IF NOT EXISTS idx_model_scores_game_date ON model_scores(game_date_utc);
 CREATE INDEX IF NOT EXISTS idx_model_scores_game_model_scoretime ON model_scores(game_id, model_name, scored_at_utc DESC, score_id DESC);
 CREATE INDEX IF NOT EXISTS idx_results_final_utc ON results(final_utc);
+CREATE INDEX IF NOT EXISTS idx_teams_league_asof ON teams(league, as_of_utc DESC);
+CREATE INDEX IF NOT EXISTS idx_teams_league_team_asof ON teams(league, team_abbrev, as_of_utc DESC);
 CREATE INDEX IF NOT EXISTS idx_change_points_asof ON change_points(as_of_utc DESC);
 """

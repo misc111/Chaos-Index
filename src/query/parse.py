@@ -99,7 +99,16 @@ TEAM_ALIASES_BY_LEAGUE["NBA"]["brk"] = "BKN"  # common alt abbreviation
 
 TEAM_ABBREV_ALIASES_BY_LEAGUE = {
     "NHL": {"ARI": "UTA"},
-    "NBA": {"BRK": "BKN"},
+    "NBA": {
+        "BRK": "BKN",
+        "GS": "GSW",
+        "NO": "NOP",
+        "NY": "NYK",
+        "PHO": "PHX",
+        "SA": "SAS",
+        "UTAH": "UTA",
+        "WSH": "WAS",
+    },
 }
 
 TEAM_ABBREVIATIONS_BY_LEAGUE = {
@@ -327,9 +336,33 @@ def _competition_for_question(
 
 
 
+def _is_league_report_request(question: str) -> bool:
+    q = _normalize(question)
+
+    direct_report_phrases = (
+        "give me the report",
+        "team report",
+        "league report",
+        "all teams report",
+        "full report",
+    )
+    if any(phrase in q for phrase in direct_report_phrases):
+        return True
+
+    has_reportish = any(token in q for token in ("report", "table", "breakdown"))
+    has_scope = any(token in q for token in ("all teams", "every team", "by division"))
+    has_schedule_context = any(token in q for token in ("next game", "next opponent", "upcoming"))
+    return has_reportish and (has_scope or has_schedule_context)
+
+
 def parse_question(question: str, default_league: str | None = "NHL") -> QueryIntent:
     q = question.lower().strip()
     canonical_default = _canonical_league(default_league) or "NHL"
+    league_hint = _explicit_league_hint(question) or canonical_default
+
+    if _is_league_report_request(question):
+        return QueryIntent(intent_type="league_report", league=league_hint)
+
     team, team_league, candidates = _resolve_team(question, default_league=canonical_default)
     n_games = _parse_next_games_count(question)
 

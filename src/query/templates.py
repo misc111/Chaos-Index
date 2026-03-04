@@ -52,6 +52,7 @@ def help_answer() -> str:
         "I can answer forecast and performance questions from local SQLite data, for example: "
         "'What's the chance the Leafs win their next game?', "
         "'What's the chance the Raptors win their next game?', "
+        "'Give me the all-teams report table for this league.', "
         "'What are Toronto's odds in the next three games?', "
         "'What's the probability the Kings win the Stanley Cup?', "
         "'What's the probability the Knicks win the NBA Finals?', or "

@@ -210,6 +210,46 @@ def _upsert_results(db: Database, results_df: pd.DataFrame) -> None:
 
 
 
+def _upsert_teams(
+    db: Database,
+    teams_df: pd.DataFrame,
+    league: str,
+    snapshot_id: str | None,
+    as_of_utc: str,
+) -> None:
+    if teams_df.empty:
+        return
+
+    rows = []
+    for r in teams_df.itertuples(index=False):
+        team_abbrev = getattr(r, "team_abbrev", None)
+        if team_abbrev is None or str(team_abbrev).strip() == "":
+            continue
+        rows.append(
+            (
+                league,
+                str(team_abbrev),
+                getattr(r, "team_name", None),
+                getattr(r, "conference", None),
+                getattr(r, "division", None),
+                getattr(r, "as_of_date", None),
+                as_of_utc,
+                snapshot_id,
+                to_json({}),
+            )
+        )
+
+    db.executemany(
+        """
+        INSERT INTO teams(
+          league, team_abbrev, team_name, conference, division,
+          as_of_date, as_of_utc, snapshot_id, metadata_json
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        rows,
+    )
+
+
 def _latest_snapshot_id(db: Database) -> str | None:
     rows = db.query("SELECT snapshot_id FROM raw_snapshots ORDER BY extracted_at_utc DESC LIMIT 1")
     return rows[0]["snapshot_id"] if rows else None
@@ -245,6 +285,13 @@ def cmd_fetch(cfg: AppConfig) -> None:
     teams_res = sources["fetch_teams"](client)
     _save_interim(teams_res.dataframe, cfg.paths.interim_dir, "teams")
     _insert_snapshot(db, teams_res)
+    _upsert_teams(
+        db,
+        teams_df=teams_res.dataframe,
+        league=league,
+        snapshot_id=teams_res.snapshot_id,
+        as_of_utc=teams_res.extracted_at_utc,
+    )
 
     team_abbrevs = sorted(set(teams_res.dataframe.get("team_abbrev", pd.Series(dtype=str)).dropna().astype(str).tolist()))
     if not games_res.dataframe.empty and "season" in games_res.dataframe.columns and games_res.dataframe["season"].notna().any():
