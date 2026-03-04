@@ -50,14 +50,30 @@ Train model suite + ensemble + upcoming forecasts + validation artifacts:
 make train
 ```
 
+Train only selected models (comma-separated):
+```bash
+make train MODELS=glm_logit
+make train MODELS=glm_logit,rf
+```
+
 Walk-forward backtest + prequential scoring:
 ```bash
 make backtest
 ```
 
+Backtest only selected models:
+```bash
+make backtest MODELS=glm_logit
+```
+
 Daily end-to-end:
 ```bash
 make run_daily
+```
+
+Daily run with selected models:
+```bash
+make run_daily MODELS=glm_logit
 ```
 
 Launch dashboard:

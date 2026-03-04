@@ -37,7 +37,7 @@ from src.storage.db import Database
 from src.storage.tracker import RunTracker
 from src.training.backtest import run_walk_forward_backtest
 from src.training.prequential import score_predictions
-from src.training.train import train_and_predict
+from src.training.train import normalize_selected_models, train_and_predict
 
 logger = get_logger(__name__)
 
@@ -52,6 +52,13 @@ INTERIM_FILES = {
     "odds": "odds.parquet",
     "xg": "xg.parquet",
 }
+
+
+def _parse_models_arg(models_arg: str | None) -> list[str] | None:
+    if models_arg is None:
+        return None
+    tokens = [t.strip() for t in str(models_arg).split(",") if t.strip()]
+    return normalize_selected_models(tokens)
 
 
 
@@ -398,7 +405,7 @@ def _run_validation_outputs(result: dict, cfg: AppConfig) -> None:
             df=va,
             p_col="glm_prob",
             y_col="home_win",
-            feature_cols=feature_cols,
+            feature_cols=glm.feature_columns,
             coefs=glm.model.coef_[0],
             out_dir=str(Path(cfg.paths.artifacts_dir) / "plots"),
             prefix="glm",
@@ -458,7 +465,7 @@ def _run_validation_outputs(result: dict, cfg: AppConfig) -> None:
 
 
 
-def cmd_train(cfg: AppConfig) -> None:
+def cmd_train(cfg: AppConfig, models_arg: str | None = None) -> None:
     db = Database(cfg.paths.db_path)
     db.init_schema()
 
@@ -474,16 +481,31 @@ def cmd_train(cfg: AppConfig) -> None:
         features_df = pd.read_csv(feat_path)
     feature_set_rows = db.query("SELECT feature_set_version FROM feature_sets ORDER BY created_at_utc DESC LIMIT 1")
     feature_set_version = feature_set_rows[0]["feature_set_version"] if feature_set_rows else "unknown_feature_set"
+    selected_models = _parse_models_arg(models_arg)
 
     tracker = RunTracker(cfg.paths.artifacts_dir)
-    run_id = tracker.start_run("train", {"feature_set_version": feature_set_version})
+    run_id = tracker.start_run(
+        "train",
+        {
+            "feature_set_version": feature_set_version,
+            "selected_models": selected_models if selected_models is not None else ["all"],
+        },
+    )
     result = train_and_predict(
         features_df=features_df,
         feature_set_version=feature_set_version,
         artifacts_dir=cfg.paths.artifacts_dir,
         bayes_cfg=cfg.bayes.model_dump(),
+        selected_models=selected_models,
     )
-    tracker.log_metrics(run_id, {"n_upcoming": int(len(result["forecasts"])), "stack_ready": int(result["stack_ready"])})
+    tracker.log_metrics(
+        run_id,
+        {
+            "n_upcoming": int(len(result["forecasts"])),
+            "stack_ready": int(result["stack_ready"]),
+            "n_selected_models": int(len(result["run_payload"].get("selected_models", []))),
+        },
+    )
     tracker.log_artifact(run_id, "train_metrics", result["train_metrics"])
 
     _persist_predictions(
@@ -524,11 +546,16 @@ def cmd_train(cfg: AppConfig) -> None:
     _run_validation_outputs(result, cfg)
 
     tracker.end_run(run_id)
-    logger.info("Train complete | model_run_id=%s upcoming=%d", result["model_run_id"], len(result["forecasts"]))
+    logger.info(
+        "Train complete | model_run_id=%s upcoming=%d selected_models=%s",
+        result["model_run_id"],
+        len(result["forecasts"]),
+        result["run_payload"].get("selected_models"),
+    )
 
 
 
-def cmd_backtest(cfg: AppConfig) -> None:
+def cmd_backtest(cfg: AppConfig, models_arg: str | None = None) -> None:
     db = Database(cfg.paths.db_path)
     db.init_schema()
 
@@ -542,7 +569,14 @@ def cmd_backtest(cfg: AppConfig) -> None:
         features_df = pd.read_parquet(feat_path)
     else:
         features_df = pd.read_csv(feat_path)
-    bt = run_walk_forward_backtest(features_df, artifacts_dir=cfg.paths.artifacts_dir, bayes_cfg=cfg.bayes.model_dump(), n_splits=cfg.modeling.cv_splits)
+    selected_models = _parse_models_arg(models_arg)
+    bt = run_walk_forward_backtest(
+        features_df,
+        artifacts_dir=cfg.paths.artifacts_dir,
+        bayes_cfg=cfg.bayes.model_dump(),
+        n_splits=cfg.modeling.cv_splits,
+        selected_models=selected_models,
+    )
 
     oof = bt["oof_predictions"]
     if oof.empty:
@@ -602,15 +636,20 @@ def cmd_backtest(cfg: AppConfig) -> None:
     ensure_dir(out_path.parent)
     out_path.write_text(json.dumps(integrity, indent=2, sort_keys=True))
 
-    logger.info("Backtest complete | oof_rows=%d scored=%d", len(oof), score_info.get("n_scored", 0))
+    logger.info(
+        "Backtest complete | oof_rows=%d scored=%d selected_models=%s",
+        len(oof),
+        score_info.get("n_scored", 0),
+        selected_models if selected_models is not None else ["all"],
+    )
 
 
 
-def cmd_run_daily(cfg: AppConfig) -> None:
+def cmd_run_daily(cfg: AppConfig, models_arg: str | None = None) -> None:
     cmd_fetch(cfg)
     cmd_features(cfg)
     if cfg.runtime.retrain_daily:
-        cmd_train(cfg)
+        cmd_train(cfg, models_arg=models_arg)
 
     db = Database(cfg.paths.db_path)
     score_info = score_predictions(db, windows_days=cfg.modeling.rolling_windows_days)
@@ -665,6 +704,12 @@ def main() -> None:
     for cmd in ["init-db", "fetch", "features", "train", "backtest", "run-daily", "smoke"]:
         p = sub.add_parser(cmd)
         p.add_argument("--config", default="configs/nhl.yaml")
+        if cmd in {"train", "backtest", "run-daily"}:
+            p.add_argument(
+                "--models",
+                default="all",
+                help="Comma-separated model list (e.g. glm_logit,rf) or 'all'",
+            )
 
     args = parser.parse_args()
     cfg = load_config(args.config)
@@ -679,11 +724,11 @@ def main() -> None:
     elif args.command == "features":
         cmd_features(cfg)
     elif args.command == "train":
-        cmd_train(cfg)
+        cmd_train(cfg, models_arg=args.models)
     elif args.command == "backtest":
-        cmd_backtest(cfg)
+        cmd_backtest(cfg, models_arg=args.models)
     elif args.command == "run-daily":
-        cmd_run_daily(cfg)
+        cmd_run_daily(cfg, models_arg=args.models)
     elif args.command == "smoke":
         cmd_smoke(cfg)
 

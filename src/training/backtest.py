@@ -10,7 +10,14 @@ from src.common.utils import ensure_dir
 from src.evaluation.calibration import calibration_alpha_beta, ece_mce, reliability_table
 from src.evaluation.metrics import metric_bundle, per_game_scores
 from src.training.cv import time_series_splits
-from src.training.train import _fit_suite, _predict_suite, select_feature_columns
+from src.training.train import (
+    _fit_suite,
+    _predict_suite,
+    glm_feature_subset,
+    normalize_selected_models,
+    select_feature_columns,
+)
+from src.training.tune import quick_tune_glm
 
 
 
@@ -19,9 +26,12 @@ def run_walk_forward_backtest(
     artifacts_dir: str,
     bayes_cfg: dict,
     n_splits: int = 5,
+    selected_models: list[str] | None = None,
 ) -> dict:
     df = features_df[features_df["home_win"].notna()].copy().sort_values("start_time_utc")
+    models_selected = normalize_selected_models(selected_models)
     feature_cols = select_feature_columns(df)
+    glm_cols = glm_feature_subset(feature_cols)
     splits = time_series_splits(df, n_splits=n_splits, min_train_size=min(220, max(80, len(df) // 2)))
 
     pred_rows = []
@@ -31,8 +41,26 @@ def run_walk_forward_backtest(
         if tr.empty or va.empty:
             continue
 
-        models, _, _, _ = _fit_suite(tr, feature_cols, artifacts_dir=artifacts_dir, bayes_cfg=bayes_cfg, allow_nn=False)
-        pred_df, extras = _predict_suite(models, va, feature_cols)
+        fold_glm_c = 1.0
+        if "glm_logit" in models_selected:
+            tune = quick_tune_glm(
+                tr,
+                glm_cols,
+                n_splits=3,
+                min_train_size=min(140, max(70, len(tr) // 2)),
+            )
+            fold_glm_c = float(tune.get("best_c", 1.0))
+        models, _, _, _ = _fit_suite(
+            tr,
+            feature_cols,
+            artifacts_dir=artifacts_dir,
+            bayes_cfg=bayes_cfg,
+            selected_models=models_selected,
+            allow_nn=False,
+            glm_feature_cols=glm_cols,
+            glm_c=fold_glm_c,
+        )
+        pred_df, _ = _predict_suite(models, va, feature_cols, selected_models=models_selected)
         pred_df["fold"] = fold
         pred_df["home_win"] = va["home_win"].astype(int).to_numpy()
         pred_df["game_id"] = va["game_id"].to_numpy()

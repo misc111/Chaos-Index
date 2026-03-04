@@ -2,6 +2,8 @@ SHELL := /bin/zsh
 PYTHON ?= python3
 PIP ?= pip3
 NPM ?= npm
+MODELS ?=
+MODEL_ARGS := $(if $(MODELS),--models "$(MODELS)",)
 
 .DEFAULT_GOAL := help
 
@@ -14,6 +16,7 @@ help:
 	@echo "  features            Build feature tables"
 	@echo "  train               Train models + predict upcoming games"
 	@echo "  backtest            Walk-forward backtest + artifacts"
+	@echo "                      Optional: MODELS=glm_logit,rf (default: all)"
 	@echo "  run_daily           Daily pipeline end-to-end"
 	@echo "  dashboard           Launch Next.js dashboard"
 	@echo "  query Q=...         Query local forecast/performance DB"
@@ -36,13 +39,13 @@ features:
 	$(PYTHON) -m src.cli features --config configs/nhl.yaml
 
 train:
-	$(PYTHON) -m src.cli train --config configs/nhl.yaml
+	$(PYTHON) -m src.cli train --config configs/nhl.yaml $(MODEL_ARGS)
 
 backtest:
-	$(PYTHON) -m src.cli backtest --config configs/nhl.yaml
+	$(PYTHON) -m src.cli backtest --config configs/nhl.yaml $(MODEL_ARGS)
 
 run_daily:
-	$(PYTHON) -m src.cli run-daily --config configs/nhl.yaml
+	$(PYTHON) -m src.cli run-daily --config configs/nhl.yaml $(MODEL_ARGS)
 
 dashboard:
 	cd web && $(NPM) run dev

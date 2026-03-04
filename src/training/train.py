@@ -23,6 +23,37 @@ from src.models.rf import RFModel
 from src.models.two_stage import TwoStageModel
 from src.simulation.game_simulator import GameSimulator
 from src.training.cv import time_series_splits
+from src.training.tune import quick_tune_glm
+
+ALL_MODEL_NAMES = [
+    "elo_baseline",
+    "dynamic_rating",
+    "glm_logit",
+    "gbdt",
+    "rf",
+    "two_stage",
+    "goals_poisson",
+    "simulation_first",
+    "bayes_bt_state_space",
+    "bayes_goals",
+    "nn_mlp",
+]
+
+MODEL_ALIASES = {
+    "elo": "elo_baseline",
+    "dyn": "dynamic_rating",
+    "dynamic": "dynamic_rating",
+    "glm": "glm_logit",
+    "logit": "glm_logit",
+    "gbm": "gbdt",
+    "forest": "rf",
+    "goals": "goals_poisson",
+    "sim": "simulation_first",
+    "simulation": "simulation_first",
+    "bayes_bt": "bayes_bt_state_space",
+    "bayes_goals_model": "bayes_goals",
+    "nn": "nn_mlp",
+}
 
 
 RESERVED_NON_FEATURES = {
@@ -39,6 +70,35 @@ RESERVED_NON_FEATURES = {
     "home_score",
     "away_score",
 }
+
+
+def normalize_selected_models(selected_models: list[str] | None) -> list[str]:
+    if not selected_models:
+        return list(ALL_MODEL_NAMES)
+
+    out: list[str] = []
+    bad: list[str] = []
+    seen = set()
+    for raw in selected_models:
+        token = str(raw).strip().lower()
+        if not token:
+            continue
+        if token in {"all", "*"}:
+            return list(ALL_MODEL_NAMES)
+        canonical = MODEL_ALIASES.get(token, token)
+        if canonical not in ALL_MODEL_NAMES:
+            bad.append(raw)
+            continue
+        if canonical in seen:
+            continue
+        seen.add(canonical)
+        out.append(canonical)
+
+    if bad:
+        raise ValueError(f"Unknown model names: {sorted(set(bad))}. Valid={ALL_MODEL_NAMES}")
+    if not out:
+        raise ValueError(f"No valid models selected. Valid={ALL_MODEL_NAMES}")
+    return out
 
 
 
@@ -110,46 +170,85 @@ def bayes_feature_subset(feature_cols: list[str]) -> list[str]:
 
 
 
-def _fit_suite(train_df: pd.DataFrame, feature_cols: list[str], artifacts_dir: str, bayes_cfg: dict, allow_nn: bool = True):
+def glm_feature_subset(feature_cols: list[str]) -> list[str]:
+    keep_exact = {"travel_diff", "rest_diff", "rink_goal_effect", "rink_shot_effect"}
+    keep_prefix = ("diff_", "special_", "goalie_", "elo_", "dyn_")
+
+    out = [
+        c
+        for c in feature_cols
+        if (c.startswith(keep_prefix) or c in keep_exact) and not c.endswith("_goalie_id")
+    ]
+
+    # Fallback when upstream feature engineering changes and curated set is too small.
+    if len(out) < 12:
+        banned = {"home_season", "away_season", "home_is_home", "away_is_home"}
+        out = [c for c in feature_cols if c not in banned and not c.endswith("_goalie_id")]
+    return out
+
+
+
+def _fit_suite(
+    train_df: pd.DataFrame,
+    feature_cols: list[str],
+    artifacts_dir: str,
+    bayes_cfg: dict,
+    selected_models: list[str],
+    allow_nn: bool = True,
+    glm_feature_cols: list[str] | None = None,
+    glm_c: float = 1.0,
+):
     models: dict[str, object] = {}
+    selected = set(selected_models)
 
-    glm = GLMLogitModel()
-    glm.fit(train_df, feature_cols)
-    models[glm.model_name] = glm
+    glm_cols = glm_feature_cols if glm_feature_cols else feature_cols
+    if "glm_logit" in selected:
+        glm = GLMLogitModel(c=float(glm_c))
+        glm.fit(train_df, glm_cols)
+        models[glm.model_name] = glm
 
-    gbdt = GBDTModel()
-    gbdt.fit(train_df, feature_cols)
-    models[gbdt.model_name] = gbdt
+    gbdt = None
+    if "gbdt" in selected:
+        gbdt = GBDTModel()
+        gbdt.fit(train_df, feature_cols)
+        models[gbdt.model_name] = gbdt
 
-    rf = RFModel()
-    rf.fit(train_df, feature_cols)
-    models[rf.model_name] = rf
+    if "rf" in selected:
+        rf = RFModel()
+        rf.fit(train_df, feature_cols)
+        models[rf.model_name] = rf
 
-    two_stage = TwoStageModel()
-    two_stage.fit(train_df, feature_cols)
-    models[two_stage.model_name] = two_stage
+    if "two_stage" in selected:
+        two_stage = TwoStageModel()
+        two_stage.fit(train_df, feature_cols)
+        models[two_stage.model_name] = two_stage
 
-    goals = GoalsPoissonModel()
-    goals.fit(train_df)
-    models[goals.model_name] = goals
+    if "goals_poisson" in selected:
+        goals = GoalsPoissonModel()
+        goals.fit(train_df)
+        models[goals.model_name] = goals
 
-    bayes_goals = BayesGoalsModel()
-    bayes_goals.fit(train_df)
-    models[bayes_goals.model_name] = bayes_goals
+    if "bayes_goals" in selected:
+        bayes_goals = BayesGoalsModel()
+        bayes_goals.fit(train_df)
+        models[bayes_goals.model_name] = bayes_goals
 
-    bcols = bayes_feature_subset(feature_cols)
-    bayes_model, bayes_diag = run_bayes_offline_fit(
-        features_df=train_df,
-        feature_columns=bcols,
-        artifacts_dir=artifacts_dir,
-        process_variance=bayes_cfg.get("process_variance", 0.08),
-        prior_variance=bayes_cfg.get("prior_variance", 1.5),
-        draws=bayes_cfg.get("posterior_draws", 500),
-    )
-    models[bayes_model.model_name] = bayes_model
+    bcols: list[str] = []
+    bayes_diag: dict = {}
+    if "bayes_bt_state_space" in selected:
+        bcols = bayes_feature_subset(feature_cols)
+        bayes_model, bayes_diag = run_bayes_offline_fit(
+            features_df=train_df,
+            feature_columns=bcols,
+            artifacts_dir=artifacts_dir,
+            process_variance=bayes_cfg.get("process_variance", 0.08),
+            prior_variance=bayes_cfg.get("prior_variance", 1.5),
+            draws=bayes_cfg.get("posterior_draws", 500),
+        )
+        models[bayes_model.model_name] = bayes_model
 
     nn_included = False
-    if allow_nn and len(train_df) >= 350:
+    if "nn_mlp" in selected and allow_nn and len(train_df) >= 350:
         # Gate NN by quick holdout improvement versus GBDT.
         split_ix = int(len(train_df) * 0.85)
         tr = train_df.iloc[:split_ix]
@@ -157,11 +256,14 @@ def _fit_suite(train_df: pd.DataFrame, feature_cols: list[str], artifacts_dir: s
         if not va.empty and va["home_win"].nunique() > 1:
             nn = NNModel()
             nn.fit(tr, feature_cols)
-            nn_p = nn.predict_proba(va)
-            gbdt_p = gbdt.predict_proba(va)
-            m_nn = metric_bundle(va["home_win"].to_numpy(), nn_p)
-            m_g = metric_bundle(va["home_win"].to_numpy(), gbdt_p)
-            if m_nn["log_loss"] + 0.001 < m_g["log_loss"]:
+            include_nn = True
+            if gbdt is not None:
+                nn_p = nn.predict_proba(va)
+                gbdt_p = gbdt.predict_proba(va)
+                m_nn = metric_bundle(va["home_win"].to_numpy(), nn_p)
+                m_g = metric_bundle(va["home_win"].to_numpy(), gbdt_p)
+                include_nn = m_nn["log_loss"] + 0.001 < m_g["log_loss"]
+            if include_nn:
                 models[nn.model_name] = nn
                 nn_included = True
 
@@ -169,13 +271,21 @@ def _fit_suite(train_df: pd.DataFrame, feature_cols: list[str], artifacts_dir: s
 
 
 
-def _predict_suite(models: dict[str, object], df: pd.DataFrame, feature_cols: list[str]) -> tuple[pd.DataFrame, dict]:
+def _predict_suite(
+    models: dict[str, object],
+    df: pd.DataFrame,
+    feature_cols: list[str],
+    selected_models: list[str],
+) -> tuple[pd.DataFrame, dict]:
     out = pd.DataFrame({"game_id": df["game_id"].values})
     extras: dict = {}
+    selected = set(selected_models)
 
     # Direct feature baselines.
-    out["elo_baseline"] = np.clip(df.get("elo_home_prob", 0.5).to_numpy(dtype=float), 1e-6, 1 - 1e-6)
-    out["dynamic_rating"] = np.clip(df.get("dyn_home_prob", 0.5).to_numpy(dtype=float), 1e-6, 1 - 1e-6)
+    if "elo_baseline" in selected:
+        out["elo_baseline"] = np.clip(df.get("elo_home_prob", 0.5).to_numpy(dtype=float), 1e-6, 1 - 1e-6)
+    if "dynamic_rating" in selected:
+        out["dynamic_rating"] = np.clip(df.get("dyn_home_prob", 0.5).to_numpy(dtype=float), 1e-6, 1 - 1e-6)
 
     for name, m in models.items():
         if name in {"goals_poisson"}:
@@ -194,26 +304,53 @@ def _predict_suite(models: dict[str, object], df: pd.DataFrame, feature_cols: li
         else:
             out[name] = m.predict_proba(df)
 
-    sim = GameSimulator(seed=42)
-    sim_df = sim.simulate_dataframe(df, n_sims=3500)
-    out = out.merge(sim_df[["game_id", "sim_prob_home_win"]], on="game_id", how="left")
-    out = out.rename(columns={"sim_prob_home_win": "simulation_first"})
+    if "simulation_first" in selected:
+        sim = GameSimulator(seed=42)
+        sim_df = sim.simulate_dataframe(df, n_sims=3500)
+        out = out.merge(sim_df[["game_id", "sim_prob_home_win"]], on="game_id", how="left")
+        out = out.rename(columns={"sim_prob_home_win": "simulation_first"})
 
     return out, extras
 
 
 
-def _oof_predictions(train_df: pd.DataFrame, feature_cols: list[str], artifacts_dir: str, bayes_cfg: dict) -> pd.DataFrame:
+def _oof_predictions(
+    train_df: pd.DataFrame,
+    feature_cols: list[str],
+    glm_feature_cols: list[str],
+    artifacts_dir: str,
+    bayes_cfg: dict,
+    selected_models: list[str],
+) -> pd.DataFrame:
     splits = time_series_splits(train_df, n_splits=5, min_train_size=min(220, max(80, len(train_df) // 2)))
     rows = []
+    selected = set(selected_models)
 
     for tr_idx, va_idx in splits:
         tr = train_df.loc[tr_idx].copy().sort_values("start_time_utc")
         va = train_df.loc[va_idx].copy().sort_values("start_time_utc")
         if tr.empty or va.empty:
             continue
-        models, _, _, _ = _fit_suite(tr, feature_cols, artifacts_dir=artifacts_dir, bayes_cfg=bayes_cfg, allow_nn=False)
-        pred, _ = _predict_suite(models, va, feature_cols)
+        fold_glm_c = 1.0
+        if "glm_logit" in selected:
+            tune = quick_tune_glm(
+                tr,
+                glm_feature_cols,
+                n_splits=3,
+                min_train_size=min(140, max(70, len(tr) // 2)),
+            )
+            fold_glm_c = float(tune.get("best_c", 1.0))
+        models, _, _, _ = _fit_suite(
+            tr,
+            feature_cols,
+            artifacts_dir=artifacts_dir,
+            bayes_cfg=bayes_cfg,
+            selected_models=selected_models,
+            allow_nn=False,
+            glm_feature_cols=glm_feature_cols,
+            glm_c=fold_glm_c,
+        )
+        pred, _ = _predict_suite(models, va, feature_cols, selected_models=selected_models)
         pred["home_win"] = va["home_win"].to_numpy()
         pred["game_date_utc"] = va["game_date_utc"].to_numpy()
         rows.append(pred)
@@ -224,24 +361,40 @@ def _oof_predictions(train_df: pd.DataFrame, feature_cols: list[str], artifacts_
 
 
 
-def train_and_predict(features_df: pd.DataFrame, feature_set_version: str, artifacts_dir: str, bayes_cfg: dict) -> dict:
+def train_and_predict(
+    features_df: pd.DataFrame,
+    feature_set_version: str,
+    artifacts_dir: str,
+    bayes_cfg: dict,
+    selected_models: list[str] | None = None,
+) -> dict:
     df = features_df.sort_values("start_time_utc").copy()
     train_df = df[df["home_win"].notna()].copy()
     upcoming_df = df[df["home_win"].isna()].copy()
+    models_selected = normalize_selected_models(selected_models)
 
     feature_cols = select_feature_columns(df)
+    glm_cols = glm_feature_subset(feature_cols)
     issues = run_leakage_checks(df, feature_columns=feature_cols)
     if issues:
         raise RuntimeError(f"Leakage checks failed: {issues}")
     model_run_prefix = stable_hash({"feature_set_version": feature_set_version, "n_train": len(train_df), "ts": utc_now_iso()})
 
     model_dir = ensure_dir(Path(artifacts_dir) / "models" / model_run_prefix)
+    glm_tune: dict = {"best_c": 1.0, "results": [], "fold_metrics": []}
+    glm_best_c = 1.0
+    if "glm_logit" in models_selected:
+        glm_tune = quick_tune_glm(train_df, glm_cols, n_splits=4, min_train_size=min(220, max(100, len(train_df) // 2)))
+        glm_best_c = float(glm_tune.get("best_c", 1.0))
     models, bayes_cols, bayes_diag, nn_included = _fit_suite(
         train_df,
         feature_cols,
         artifacts_dir=artifacts_dir,
         bayes_cfg=bayes_cfg,
+        selected_models=models_selected,
         allow_nn=True,
+        glm_feature_cols=glm_cols,
+        glm_c=glm_best_c,
     )
 
     # Save models.
@@ -250,7 +403,14 @@ def train_and_predict(features_df: pd.DataFrame, feature_set_version: str, artif
             ext = "json" if name == "bayes_bt_state_space" else "joblib"
             m.save(model_dir / f"{name}.{ext}")
 
-    oof = _oof_predictions(train_df, feature_cols, artifacts_dir=artifacts_dir, bayes_cfg=bayes_cfg)
+    oof = _oof_predictions(
+        train_df,
+        feature_cols,
+        glm_cols,
+        artifacts_dir=artifacts_dir,
+        bayes_cfg=bayes_cfg,
+        selected_models=models_selected,
+    )
 
     # Fit stacker.
     stacker = StackingEnsemble()
@@ -296,10 +456,14 @@ def train_and_predict(features_df: pd.DataFrame, feature_set_version: str, artif
     weights = compute_weights(pd.DataFrame(oof_metrics))
 
     # Predict upcoming and in-sample for diagnostics.
-    upcoming_preds, upcoming_extras = _predict_suite(models, upcoming_df, feature_cols)
-    train_preds, _ = _predict_suite(models, train_df, feature_cols)
+    upcoming_preds, upcoming_extras = _predict_suite(models, upcoming_df, feature_cols, selected_models=models_selected)
+    train_preds, _ = _predict_suite(models, train_df, feature_cols, selected_models=models_selected)
 
     model_cols = [c for c in upcoming_preds.columns if c != "game_id"]
+    if not model_cols:
+        raise RuntimeError(f"No model predictions were produced. selected_models={models_selected}")
+    if not weights:
+        weights = {c: 1.0 for c in model_cols}
     if stack_ready:
         stack_prob = stacker.predict_proba(upcoming_preds)
     else:
@@ -353,7 +517,11 @@ def train_and_predict(features_df: pd.DataFrame, feature_set_version: str, artif
     run_payload = {
         "model_run_id": f"run_{model_run_prefix}",
         "feature_set_version": feature_set_version,
+        "selected_models": models_selected,
         "feature_columns": feature_cols,
+        "glm_feature_columns": glm_cols,
+        "glm_tuning": glm_tune,
+        "glm_best_c": glm_best_c,
         "bayes_feature_columns": bayes_cols,
         "stack_base_columns": stack_base_cols,
         "weights": weights,
