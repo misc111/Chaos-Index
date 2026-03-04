@@ -1,22 +1,22 @@
-# NHL-Only Agent Instructions
+# NHL + NBA Agent Instructions
 
 ## Scope Contract
-- This project is strictly NHL-only.
-- Interpret user questions in NHL context by default.
-- Resolve casual city/team wording to the correct NHL team whenever possible.
+- This project supports NHL and NBA forecasting.
+- Interpret user questions in the configured league context by default (`config.data.league`).
+- If no config context is available, default to NHL for ambiguous wording.
 
 ## Team Interpretation
-- Treat city names, nicknames, mascots, and common shorthand as NHL clubs.
-- Example mappings:
-  - `Toronto` / `Leafs` / `Maple Leafs` -> `TOR`
-  - `New Jersey` / `Devils` -> `NJD`
-  - `Tampa Bay` / `Lightning` / `Bolts` -> `TBL`
-- If wording is ambiguous across NHL teams (for example, a phrase that could map to multiple NHL clubs), ask for a short NHL-specific clarification.
+- Treat city names, nicknames, mascots, and common shorthand as NHL/NBA clubs.
+- Resolve clear references directly.
+- If wording is ambiguous across leagues and context is missing, ask for a short league clarification.
 
 ## Supported Query Styles
 - Casual next-game probability phrasing should map to the team forecast.
 - Casual multi-game phrasing should be supported, e.g. `next 3 games`, `next three`, `next couple`, `next few`.
-- Stanley Cup questions should be supported and answered as probabilistic heuristic estimates with explicit caveats.
+- Championship questions should be supported:
+  - NHL: Stanley Cup
+  - NBA: NBA Finals
+- Championship answers should be probabilistic heuristic estimates with explicit caveats.
 
 ## Out-of-Scope Requests
-- If a user asks about non-NHL leagues or teams (NBA, MLB, MLS, NFL, etc.), respond that this project only supports NHL forecasting and ask for an NHL-framed question.
+- If a user asks about leagues outside NHL/NBA (MLB, MLS, NFL, etc.), respond that this project currently supports NHL and NBA forecasting and ask for an NHL/NBA-framed question.

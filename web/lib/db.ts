@@ -1,8 +1,12 @@
 import { execFileSync } from "node:child_process";
 import path from "node:path";
 
-const defaultDbPath = path.resolve(process.cwd(), "..", "data", "processed", "nhl_forecast.db");
-const dbPath = process.env.NHL_DB_PATH || defaultDbPath;
+const defaultNhlDbPath = path.resolve(process.cwd(), "..", "data", "processed", "nhl_forecast.db");
+const defaultNbaDbPath = path.resolve(process.cwd(), "..", "data", "processed", "nba_forecast.db");
+const league = (process.env.LEAGUE || "NHL").toUpperCase();
+const dbPath =
+  process.env.SPORTS_DB_PATH ||
+  (league === "NBA" ? process.env.NBA_DB_PATH || defaultNbaDbPath : process.env.NHL_DB_PATH || defaultNhlDbPath);
 
 export function runSqlJson(sql: string): any[] {
   try {

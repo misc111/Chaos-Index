@@ -1,7 +1,7 @@
 from src.query.parse import parse_question
 
 
-def test_parse_question_team_variants():
+def test_parse_question_team_variants_nhl_default():
     cases = [
         ("new jersey", "NJD"),
         ("What are New Jersey's chances?", "NJD"),
@@ -13,38 +13,75 @@ def test_parse_question_team_variants():
         ("leafs next one", "TOR"),
         ("habs", "MTL"),
         ("ARI next game", "UTA"),
+        ("kings next game", "LAK"),
     ]
 
     for question, team in cases:
         intent = parse_question(question)
         assert intent.intent_type == "team_next_game"
         assert intent.team == team
+        assert intent.league == "NHL"
+
+
+def test_parse_question_team_variants_nba():
+    cases = [
+        ("raptors next game", "TOR"),
+        ("what are the knicks odds tonight", "NYK"),
+        ("thunder next game", "OKC"),
+        ("boston celtics next game", "BOS"),
+    ]
+
+    for question, team in cases:
+        intent = parse_question(question)
+        assert intent.intent_type == "team_next_game"
+        assert intent.team == team
+        assert intent.league == "NBA"
+
+
+def test_parse_question_default_league_override():
+    nhl_intent = parse_question("Toronto next game")
+    nba_intent = parse_question("Toronto next game", default_league="NBA")
+
+    assert nhl_intent.intent_type == "team_next_game"
+    assert nhl_intent.team == "TOR"
+    assert nhl_intent.league == "NHL"
+
+    assert nba_intent.intent_type == "team_next_game"
+    assert nba_intent.team == "TOR"
+    assert nba_intent.league == "NBA"
 
 
 def test_parse_question_next_n_games():
     cases = [
-        ("What are Toronto's odds in the next 3 games?", 3, "TOR"),
-        ("red wings next three games", 3, "DET"),
-        ("devils next couple", 2, "NJD"),
-        ("lightning next few", 3, "TBL"),
+        ("What are Toronto's odds in the next 3 games?", 3, "TOR", "NHL"),
+        ("red wings next three games", 3, "DET", "NHL"),
+        ("devils next couple", 2, "NJD", "NHL"),
+        ("lightning next few", 3, "TBL", "NHL"),
+        ("What are the Knicks odds in the next 3 games?", 3, "NYK", "NBA"),
+        ("raptors next few", 3, "TOR", "NBA"),
     ]
-    for question, n_games, team in cases:
+    for question, n_games, team, league in cases:
         intent = parse_question(question)
         assert intent.intent_type == "team_next_n_games"
         assert intent.team == team
+        assert intent.league == league
         assert intent.n_games == n_games
 
 
-def test_parse_question_stanley_cup():
+def test_parse_question_championships():
     cases = [
-        ("what's the probability the kings win the stanley cup?", "LAK"),
-        ("do the bolts win the cup?", "TBL"),
-        ("new jersey to win it all", "NJD"),
+        ("what's the probability the kings win the stanley cup?", "LAK", "NHL", "Stanley Cup"),
+        ("do the bolts win the cup?", "TBL", "NHL", "Stanley Cup"),
+        ("new jersey to win it all", "NJD", "NHL", "Stanley Cup"),
+        ("what are the odds the knicks win the nba finals?", "NYK", "NBA", "NBA Finals"),
+        ("do the raptors win it all?", "TOR", "NBA", "NBA Finals"),
     ]
-    for question, team in cases:
+    for question, team, league, competition in cases:
         intent = parse_question(question)
-        assert intent.intent_type == "team_stanley_cup"
+        assert intent.intent_type == "team_championship"
         assert intent.team == team
+        assert intent.league == league
+        assert intent.competition == competition
 
 
 def test_parse_question_best_model_still_supported():

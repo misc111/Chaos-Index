@@ -23,11 +23,23 @@ def team_multi_game_answer(
     )
 
 
-def stanley_cup_answer(team: str, cup_prob: float, low_90: float, high_90: float, as_of_date: str) -> str:
+def championship_answer(team: str, competition: str, championship_prob: float, low_90: float, high_90: float, as_of_date: str) -> str:
     return (
-        f"Estimated {team} Stanley Cup win probability as of {as_of_date}: {cup_prob:.1%} "
+        f"Estimated {team} {competition} win probability as of {as_of_date}: {championship_prob:.1%} "
         f"(90% interval {low_90:.1%}-{high_90:.1%}). "
-        "Heuristic estimate from current-season results, not a full bracket simulation."
+        "Heuristic estimate from current-season results, not a full playoff bracket simulation."
+    )
+
+
+# Backward-compatible alias retained for older imports/tests.
+def stanley_cup_answer(team: str, cup_prob: float, low_90: float, high_90: float, as_of_date: str) -> str:
+    return championship_answer(
+        team=team,
+        competition="Stanley Cup",
+        championship_prob=cup_prob,
+        low_90=low_90,
+        high_90=high_90,
+        as_of_date=as_of_date,
     )
 
 
@@ -39,7 +51,9 @@ def help_answer() -> str:
     return (
         "I can answer forecast and performance questions from local SQLite data, for example: "
         "'What's the chance the Leafs win their next game?', "
+        "'What's the chance the Raptors win their next game?', "
         "'What are Toronto's odds in the next three games?', "
-        "'What's the probability the Kings win the Stanley Cup?', or "
+        "'What's the probability the Kings win the Stanley Cup?', "
+        "'What's the probability the Knicks win the NBA Finals?', or "
         "'Which model has performed best the last 60 days?'"
     )

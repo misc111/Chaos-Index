@@ -4,6 +4,7 @@ import argparse
 import json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from typing import Any
 import warnings
 
 import pandas as pd
@@ -14,15 +15,6 @@ from src.common.logging import get_logger, setup_logging
 from src.common.time import utc_now_iso
 from src.common.utils import ensure_dir, to_json
 from src.data_sources.base import HttpClient, SourceFetchResult
-from src.data_sources.nhl.games import fetch_games
-from src.data_sources.nhl.goalies import fetch_goalie_game_stats
-from src.data_sources.nhl.injuries import fetch_injuries_proxy
-from src.data_sources.nhl.odds import fetch_public_odds_optional
-from src.data_sources.nhl.players import fetch_players
-from src.data_sources.nhl.results import build_results_from_games
-from src.data_sources.nhl.schedule import fetch_upcoming_schedule
-from src.data_sources.nhl.teams import fetch_teams
-from src.data_sources.nhl.xg import fetch_xg_optional
 from src.evaluation.brier_decomposition import brier_decompose
 from src.evaluation.calibration import calibration_alpha_beta, ece_mce
 from src.evaluation.diagnostics_glm import save_glm_diagnostics
@@ -52,6 +44,49 @@ INTERIM_FILES = {
     "odds": "odds.parquet",
     "xg": "xg.parquet",
 }
+
+
+def _canonical_league(league: str | None) -> str:
+    token = str(league or "").strip().upper()
+    if token in {"NHL", "NBA"}:
+        return token
+    raise ValueError(f"Unsupported league '{league}'. Expected one of: NHL, NBA.")
+
+
+def _league_sources(league: str) -> dict[str, Any]:
+    code = _canonical_league(league)
+    if code == "NHL":
+        from src.data_sources.nhl.games import fetch_games
+        from src.data_sources.nhl.goalies import fetch_goalie_game_stats
+        from src.data_sources.nhl.injuries import fetch_injuries_proxy
+        from src.data_sources.nhl.odds import fetch_public_odds_optional
+        from src.data_sources.nhl.players import fetch_players
+        from src.data_sources.nhl.results import build_results_from_games
+        from src.data_sources.nhl.schedule import fetch_upcoming_schedule
+        from src.data_sources.nhl.teams import fetch_teams
+        from src.data_sources.nhl.xg import fetch_xg_optional
+    else:
+        from src.data_sources.nba.games import fetch_games
+        from src.data_sources.nba.goalies import fetch_goalie_game_stats
+        from src.data_sources.nba.injuries import fetch_injuries_proxy
+        from src.data_sources.nba.odds import fetch_public_odds_optional
+        from src.data_sources.nba.players import fetch_players
+        from src.data_sources.nba.results import build_results_from_games
+        from src.data_sources.nba.schedule import fetch_upcoming_schedule
+        from src.data_sources.nba.teams import fetch_teams
+        from src.data_sources.nba.xg import fetch_xg_optional
+
+    return {
+        "fetch_games": fetch_games,
+        "fetch_goalie_game_stats": fetch_goalie_game_stats,
+        "fetch_injuries_proxy": fetch_injuries_proxy,
+        "fetch_public_odds_optional": fetch_public_odds_optional,
+        "fetch_players": fetch_players,
+        "build_results_from_games": build_results_from_games,
+        "fetch_upcoming_schedule": fetch_upcoming_schedule,
+        "fetch_teams": fetch_teams,
+        "fetch_xg_optional": fetch_xg_optional,
+    }
 
 
 def _parse_models_arg(models_arg: str | None) -> list[str] | None:
@@ -192,52 +227,60 @@ def cmd_fetch(cfg: AppConfig) -> None:
     db = Database(cfg.paths.db_path)
     db.init_schema()
     client = _client(cfg)
+    league = _canonical_league(cfg.data.league)
+    sources = _league_sources(league)
 
     end_date = datetime.now(timezone.utc) + timedelta(days=cfg.data.upcoming_days)
     start_date = datetime.now(timezone.utc) - timedelta(days=cfg.data.history_days)
 
-    games_res = fetch_games(client, start_date=start_date, end_date=end_date)
+    games_res = sources["fetch_games"](client, start_date=start_date, end_date=end_date)
     _save_interim(games_res.dataframe, cfg.paths.interim_dir, "games")
     _insert_snapshot(db, games_res)
     _upsert_games(db, games_res.dataframe)
 
-    schedule_res = fetch_upcoming_schedule(client, days_ahead=cfg.data.upcoming_days)
+    schedule_res = sources["fetch_upcoming_schedule"](client, days_ahead=cfg.data.upcoming_days)
     _save_interim(schedule_res.dataframe, cfg.paths.interim_dir, "schedule")
     _insert_snapshot(db, schedule_res)
 
-    teams_res = fetch_teams(client)
+    teams_res = sources["fetch_teams"](client)
     _save_interim(teams_res.dataframe, cfg.paths.interim_dir, "teams")
     _insert_snapshot(db, teams_res)
 
     team_abbrevs = sorted(set(teams_res.dataframe.get("team_abbrev", pd.Series(dtype=str)).dropna().astype(str).tolist()))
-    season_guess = str(int(games_res.dataframe["season"].dropna().max())) if not games_res.dataframe.empty else "20252026"
+    if not games_res.dataframe.empty and "season" in games_res.dataframe.columns and games_res.dataframe["season"].notna().any():
+        season_guess = str(int(games_res.dataframe["season"].dropna().max()))
+    else:
+        now = datetime.now(timezone.utc)
+        season_end_year = now.year + (1 if now.month >= 7 else 0)
+        season_guess = f"{season_end_year - 1}{season_end_year}"
 
-    players_res = fetch_players(client, team_abbrevs=team_abbrevs, season=season_guess)
+    players_res = sources["fetch_players"](client, team_abbrevs=team_abbrevs, season=season_guess)
     _save_interim(players_res.dataframe, cfg.paths.interim_dir, "players")
     _insert_snapshot(db, players_res)
 
     final_ids = games_res.dataframe[games_res.dataframe["status_final"] == 1]["game_id"].astype(int).tolist()
-    goalies_res = fetch_goalie_game_stats(client, game_ids=final_ids, max_games=350)
+    goalies_res = sources["fetch_goalie_game_stats"](client, game_ids=final_ids, max_games=350)
     _save_interim(goalies_res.dataframe, cfg.paths.interim_dir, "goalies")
     _insert_snapshot(db, goalies_res)
 
-    injuries_res = fetch_injuries_proxy(client, teams=team_abbrevs)
+    injuries_res = sources["fetch_injuries_proxy"](client, teams=team_abbrevs)
     _save_interim(injuries_res.dataframe, cfg.paths.interim_dir, "injuries")
     _insert_snapshot(db, injuries_res)
 
-    odds_res = fetch_public_odds_optional(client)
+    odds_res = sources["fetch_public_odds_optional"](client)
     _save_interim(odds_res.dataframe, cfg.paths.interim_dir, "odds")
     _insert_snapshot(db, odds_res)
 
-    xg_res = fetch_xg_optional(client)
+    xg_res = sources["fetch_xg_optional"](client)
     _save_interim(xg_res.dataframe, cfg.paths.interim_dir, "xg")
     _insert_snapshot(db, xg_res)
 
-    results_df = build_results_from_games(games_res.dataframe)
+    results_df = sources["build_results_from_games"](games_res.dataframe)
     _upsert_results(db, results_df)
 
     logger.info(
-        "Fetch complete | games=%d final=%d upcoming=%d players=%d goalie_rows=%d",
+        "Fetch complete | league=%s games=%d final=%d upcoming=%d players=%d goalie_rows=%d",
+        league,
         len(games_res.dataframe),
         int(games_res.dataframe["status_final"].sum()) if not games_res.dataframe.empty else 0,
         len(schedule_res.dataframe),
@@ -682,12 +725,15 @@ def cmd_smoke(cfg: AppConfig) -> None:
     logger.info("Smoke query checks:")
     from src.query.answer import answer_question
 
+    league = _canonical_league(cfg.data.league)
+    team_prompt = "Leafs" if league == "NHL" else "Raptors"
+
     db = Database(cfg.paths.db_path)
     for q in [
-        "What's the chance the Leafs win their next game?",
+        f"What's the chance the {team_prompt} win their next game?",
         "Which model has performed best the last 60 days?",
     ]:
-        ans, payload = answer_question(db, q)
+        ans, payload = answer_question(db, q, default_league=league)
         logger.info("Q: %s", q)
         logger.info("A: %s", ans)
         logger.info("Payload keys: %s", list(payload.keys()))
@@ -698,7 +744,7 @@ def cmd_smoke(cfg: AppConfig) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="NHL probabilistic forecasting pipeline")
+    parser = argparse.ArgumentParser(description="NHL/NBA probabilistic forecasting pipeline")
     sub = parser.add_subparsers(dest="command", required=True)
 
     for cmd in ["init-db", "fetch", "features", "train", "backtest", "run-daily", "smoke"]:

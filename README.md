@@ -1,6 +1,6 @@
-# NHL Probabilistic Forecasting System
+# NHL + NBA Probabilistic Forecasting System
 
-Production-grade NHL home-win probability forecasting with:
+Production-grade NHL/NBA home-win probability forecasting with:
 - daily pipeline (`fetch -> features -> train/update -> predict -> ingest results -> score -> aggregates -> artifacts`)
 - walk-forward backtesting and prequential scoring
 - model calibration/diagnostics/validation artifacts
@@ -30,14 +30,17 @@ make install-node
 
 ## Core Commands
 
-Initialize DB schema:
+Initialize DB schema (defaults to NHL config):
 ```bash
 make init-db
 ```
 
-Fetch/cache public NHL data + ingest results:
+Fetch/cache league data + ingest results:
 ```bash
 make fetch
+```
+```bash
+make fetch CONFIG=configs/nba.yaml
 ```
 
 Build features with leakage checks/fallback metadata:
@@ -75,21 +78,27 @@ Daily run with selected models:
 ```bash
 make run_daily MODELS=glm_logit
 ```
+```bash
+make run_daily CONFIG=configs/nba.yaml MODELS=glm_logit
+```
 
 Launch dashboard:
 ```bash
 make dashboard
+LEAGUE=NBA NBA_DB_PATH=data/processed/nba_forecast.db make dashboard
 ```
 
 Deterministic local query command:
 ```bash
 make query Q="What's the chance the Leafs win their next game?"
+make query CONFIG=configs/nba.yaml Q="What's the chance the Raptors win their next game?"
 make query Q="Which model has performed best the last 60 days?"
 ```
 
 Python entrypoint equivalent:
 ```bash
 python3 -m src.query.answer --config configs/nhl.yaml --question "What's the chance the Leafs win their next game?"
+python3 -m src.query.answer --config configs/nba.yaml --question "What's the chance the Raptors win their next game?"
 ```
 
 Run tests:
@@ -106,7 +115,7 @@ scripts/smoke_e2e.sh
 
 ## Data + Temporal Integrity
 
-- Uses public NHL web endpoints (`api-web.nhle.com`) with retries and caching.
+- Uses public NHL (`api-web.nhle.com`) and NBA (`site.api.espn.com`) endpoints with retries and caching.
 - Raw pulls cached under `data/raw/{source}/{YYYY-MM-DD}/...`.
 - Offline fallback uses latest cached payload when live fetch fails (or when `offline_mode: true`).
 - Features are generated with lagged/rolling calculations only; leakage checks run before training.
