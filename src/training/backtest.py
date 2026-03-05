@@ -27,10 +27,20 @@ def run_walk_forward_backtest(
     bayes_cfg: dict,
     n_splits: int = 5,
     selected_models: list[str] | None = None,
+    selected_feature_columns: list[str] | None = None,
 ) -> dict:
     df = features_df[features_df["home_win"].notna()].copy().sort_values("start_time_utc")
     models_selected = normalize_selected_models(selected_models)
-    feature_cols = select_feature_columns(df)
+    if selected_feature_columns is None:
+        feature_cols = select_feature_columns(df)
+    else:
+        missing_cols = [c for c in selected_feature_columns if c not in df.columns]
+        if missing_cols:
+            raise ValueError(f"selected_feature_columns includes missing columns: {missing_cols}")
+        non_numeric = [c for c in selected_feature_columns if not pd.api.types.is_numeric_dtype(df[c])]
+        if non_numeric:
+            raise ValueError(f"selected_feature_columns includes non-numeric columns: {non_numeric}")
+        feature_cols = list(selected_feature_columns)
     glm_cols = glm_feature_subset(feature_cols)
     splits = time_series_splits(df, n_splits=n_splits, min_train_size=min(220, max(80, len(df) // 2)))
 

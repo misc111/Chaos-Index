@@ -35,3 +35,7 @@ bayes:
 runtime:
   retrain_daily: true
   embargo_days: 1
+
+feature_policy:
+  mode: production
+  registry_path: configs/feature_registry_{league}.yaml

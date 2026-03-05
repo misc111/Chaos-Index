@@ -686,6 +686,7 @@ def train_and_predict(
     bayes_cfg: dict,
     selected_models: list[str] | None = None,
     progress_callback: ProgressCallback | None = None,
+    selected_feature_columns: list[str] | None = None,
 ) -> dict:
     _emit_progress(
         progress_callback,
@@ -713,7 +714,16 @@ def train_and_predict(
         progress_callback,
         {"kind": "pipeline", "stage": "feature_selection", "status": "started", "message": "Selecting feature columns"},
     )
-    feature_cols = select_feature_columns(df)
+    if selected_feature_columns is None:
+        feature_cols = select_feature_columns(df)
+    else:
+        missing_cols = [c for c in selected_feature_columns if c not in df.columns]
+        if missing_cols:
+            raise ValueError(f"selected_feature_columns includes missing columns: {missing_cols}")
+        non_numeric = [c for c in selected_feature_columns if not pd.api.types.is_numeric_dtype(df[c])]
+        if non_numeric:
+            raise ValueError(f"selected_feature_columns includes non-numeric columns: {non_numeric}")
+        feature_cols = list(selected_feature_columns)
     glm_cols = glm_feature_subset(feature_cols)
     _emit_progress(
         progress_callback,

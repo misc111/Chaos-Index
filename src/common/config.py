@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 import yaml
 from pydantic import BaseModel, Field
@@ -51,6 +51,13 @@ class RuntimeConfig(BaseModel):
     embargo_days: int = 1
 
 
+class FeaturePolicyConfig(BaseModel):
+    # production: block feature entry/exit unless explicitly approved via CLI flag.
+    # research: do not block, but track newly discovered features as candidates.
+    mode: Literal["production", "research"] = "production"
+    registry_path: str = "configs/feature_registry_{league}.yaml"
+
+
 class AppConfig(BaseModel):
     project: ProjectConfig
     paths: PathsConfig
@@ -58,6 +65,7 @@ class AppConfig(BaseModel):
     modeling: ModelingConfig
     bayes: BayesConfig
     runtime: RuntimeConfig
+    feature_policy: FeaturePolicyConfig = Field(default_factory=FeaturePolicyConfig)
 
 
 def _deep_update(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
