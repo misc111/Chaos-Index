@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { normalizeLeague, withLeague } from "@/lib/league";
 
 type HistoricalRow = {
   game_id: number;
@@ -11,7 +13,10 @@ type HistoricalRow = {
   prob_home_win: number;
   predicted_winner: string;
   home_win: number;
-  model_correct: number;
+  final_utc?: string | null;
+  start_time_utc?: string | null;
+  is_toss_up?: number;
+  model_correct?: number | null;
 };
 
 type UpcomingRow = {
@@ -36,7 +41,7 @@ type CalendarItem = {
   matchup: string;
   status: string;
   detail?: string;
-  dotClass: "dot-correct" | "dot-incorrect" | "dot-upcoming";
+  dotClass: "dot-correct" | "dot-incorrect" | "dot-upcoming" | "dot-tossup";
   kind: "historical" | "upcoming";
 };
 
@@ -57,6 +62,34 @@ function dateKeyFromLocalToday(): string {
 
 function normalizeDateKey(value: string): string {
   return value.slice(0, 10);
+}
+
+function centralDateKeyFromTimestamp(value?: string | null): string | null {
+  if (!value) return null;
+  const normalized = normalizeUtcTimestamp(value);
+  const parsed = new Date(normalized);
+  if (Number.isNaN(parsed.getTime())) return null;
+
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(parsed);
+
+  const year = parts.find((p) => p.type === "year")?.value;
+  const month = parts.find((p) => p.type === "month")?.value;
+  const day = parts.find((p) => p.type === "day")?.value;
+  if (!year || !month || !day) return null;
+  return `${year}-${month}-${day}`;
+}
+
+function resolveCalendarDateKey(gameDateUtc: string, ...timestamps: Array<string | null | undefined>): string {
+  for (const value of timestamps) {
+    const localKey = centralDateKeyFromTimestamp(value);
+    if (localKey) return localKey;
+  }
+  return normalizeDateKey(gameDateUtc);
 }
 
 function formatAsOfLabel(value: string): string {
@@ -117,12 +150,14 @@ function formatCentralTime(value?: string | null): string {
   });
 }
 
-export default function ActualVsExpectedPage() {
+function ActualVsExpectedPageContent() {
   const [historicalRows, setHistoricalRows] = useState<HistoricalRow[]>([]);
   const [upcomingRows, setUpcomingRows] = useState<UpcomingRow[]>([]);
   const [latestAsOf, setLatestAsOf] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
+  const searchParams = useSearchParams();
+  const league = normalizeLeague(searchParams.get("league"));
 
   const [monthCursor, setMonthCursor] = useState(() => {
     const now = new Date();
@@ -136,7 +171,7 @@ export default function ActualVsExpectedPage() {
     setLoading(true);
     setError("");
 
-    fetch("/api/actual-vs-expected", { cache: "no-store" })
+    fetch(withLeague("/api/actual-vs-expected", league), { cache: "no-store" })
       .then((res) => {
         if (!res.ok) {
           throw new Error(`Request failed: ${res.status}`);
@@ -161,27 +196,28 @@ export default function ActualVsExpectedPage() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [league]);
 
   const eventsByDate = useMemo(() => {
     const map: Record<string, CalendarItem[]> = {};
 
     for (const row of historicalRows) {
-      const key = normalizeDateKey(row.game_date_utc);
+      const key = resolveCalendarDateKey(row.game_date_utc, row.start_time_utc, row.final_utc);
       if (!map[key]) map[key] = [];
 
+      const isTossUp = Number(row.is_toss_up) === 1;
       const isCorrect = Number(row.model_correct) === 1;
       map[key].push({
         id: `hist-${row.game_id}`,
         matchup: `${row.home_team} vs ${row.away_team}`,
-        status: isCorrect ? "Model Correct" : "Model Incorrect",
+        status: isTossUp ? "Model Toss-up" : isCorrect ? "Model Correct" : "Model Incorrect",
         detail: `Modeled win %: ${modeledWinPctLabel(
           Number(row.prob_home_win),
           row.home_team,
           row.away_team,
           row.predicted_winner
         )}`,
-        dotClass: isCorrect ? "dot-correct" : "dot-incorrect",
+        dotClass: isTossUp ? "dot-tossup" : isCorrect ? "dot-correct" : "dot-incorrect",
         kind: "historical",
       });
     }
@@ -253,6 +289,7 @@ export default function ActualVsExpectedPage() {
         <p className="small">
           Past game markers use the historical ensemble snapshot timestamp recorded before each game finalized.
         </p>
+        <p className="small">Toss-up band: 45%-55% modeled home-win probability.</p>
         {latestAsOf ? <p className="small">Upcoming snapshot as of {formatAsOfLabel(latestAsOf)}</p> : null}
         {loading ? <p className="small">Loading calendar...</p> : null}
         {error ? <p className="small">Failed to load: {error}</p> : null}
@@ -313,5 +350,13 @@ export default function ActualVsExpectedPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ActualVsExpectedPage() {
+  return (
+    <Suspense fallback={<p className="small">Loading actual vs expected...</p>}>
+      <ActualVsExpectedPageContent />
+    </Suspense>
   );
 }

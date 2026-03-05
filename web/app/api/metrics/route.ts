@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { runSqlJson } from "@/lib/db";
+import { leagueFromRequest } from "@/lib/league";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -17,23 +18,30 @@ function maybeCsv(filePath: string): any[] {
   });
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+  const league = leagueFromRequest(request);
   const leaderboard = runSqlJson(
     `SELECT model_name, window_label, n_games, log_loss, brier, accuracy, ece, calibration_alpha, calibration_beta
      FROM performance_aggregates
      ORDER BY as_of_utc DESC, window_label ASC, log_loss ASC
-     LIMIT 200`
+     LIMIT 200`,
+    { league }
   );
 
   const calibration = runSqlJson(
     `SELECT model_name, window_label, calibration_alpha, calibration_beta, ece, mce, n_games
      FROM performance_aggregates
      ORDER BY as_of_utc DESC, log_loss ASC
-     LIMIT 200`
+     LIMIT 200`,
+    { league }
   );
 
-  const slicesPath = path.resolve(process.cwd(), "..", "artifacts", "validation", "slice_analysis.csv");
+  const validationRoot = path.resolve(process.cwd(), "..", "artifacts", "validation");
+  const leagueSpecificSlicesPath = path.join(validationRoot, `slice_analysis_${league.toLowerCase()}.csv`);
+  const slicesPath = fs.existsSync(leagueSpecificSlicesPath)
+    ? leagueSpecificSlicesPath
+    : path.join(validationRoot, "slice_analysis.csv");
   const slices = maybeCsv(slicesPath);
 
-  return NextResponse.json({ leaderboard, calibration, slices });
+  return NextResponse.json({ league, leaderboard, calibration, slices });
 }

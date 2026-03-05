@@ -1,16 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import ValidationTabs from "@/components/ValidationTabs";
+import { normalizeLeague, withLeague } from "@/lib/league";
 
-export default function ValidationPage() {
+function ValidationPageContent() {
   const [sections, setSections] = useState<Record<string, Record<string, any>[]>>({});
+  const searchParams = useSearchParams();
+  const league = normalizeLeague(searchParams.get("league"));
 
   useEffect(() => {
-    fetch("/api/validation", { cache: "no-store" })
+    fetch(withLeague("/api/validation", league), { cache: "no-store" })
       .then((r) => r.json())
       .then((d) => setSections(d.sections || {}));
-  }, []);
+  }, [league]);
 
   return <ValidationTabs sections={sections} />;
+}
+
+export default function ValidationPage() {
+  return (
+    <Suspense fallback={<p className="small">Loading validation...</p>}>
+      <ValidationPageContent />
+    </Suspense>
+  );
 }

@@ -1,18 +1,22 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Filters from "@/components/Filters";
 import { ForecastRow } from "@/lib/types";
+import { normalizeLeague, withLeague } from "@/lib/league";
 
-export default function PredictionsPage() {
+function PredictionsPageContent() {
   const [rows, setRows] = useState<ForecastRow[]>([]);
   const [team, setTeam] = useState("");
+  const searchParams = useSearchParams();
+  const league = normalizeLeague(searchParams.get("league"));
 
   useEffect(() => {
-    fetch("/api/predictions", { cache: "no-store" })
+    fetch(withLeague("/api/predictions", league), { cache: "no-store" })
       .then((r) => r.json())
       .then((d) => setRows(d.rows || []));
-  }, []);
+  }, [league]);
 
   const teams = useMemo(
     () => Array.from(new Set(rows.flatMap((r) => [r.home_team, r.away_team]))).sort(),
@@ -60,5 +64,13 @@ export default function PredictionsPage() {
         </table>
       </div>
     </div>
+  );
+}
+
+export default function PredictionsPage() {
+  return (
+    <Suspense fallback={<p className="small">Loading predictions...</p>}>
+      <PredictionsPageContent />
+    </Suspense>
   );
 }

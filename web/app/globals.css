@@ -49,6 +49,39 @@ a {
   font-size: 13px;
 }
 
+.app-title {
+  margin-top: 22px;
+  margin-bottom: 6px;
+}
+
+.league-toggle-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 6px 0 4px;
+}
+
+.league-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 86px;
+  padding: 10px 18px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.league-toggle-btn.active {
+  background: #ecfeff;
+  border-color: #67e8f9;
+  color: #0f766e;
+}
+
 .card {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -250,6 +283,10 @@ td {
 
 .dot-incorrect {
   background: #dc2626;
+}
+
+.dot-tossup {
+  background: #64748b;
 }
 
 .dot-upcoming {

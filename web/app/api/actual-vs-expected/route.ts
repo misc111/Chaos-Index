@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
 import { runSqlJson } from "@/lib/db";
+import { leagueFromRequest } from "@/lib/league";
 
 function escapeSqlString(value: string): string {
   return value.replace(/'/g, "''");
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+  const league = leagueFromRequest(request);
   const historical_rows = runSqlJson(
     `
     WITH eligible AS (
@@ -18,7 +20,8 @@ export async function GET() {
         p.away_team,
         p.pred_winner,
         p.prob_home_win,
-        r.home_win
+        r.home_win,
+        r.final_utc
       FROM predictions p
       JOIN results r ON r.game_id = p.game_id
       WHERE p.model_name = 'ensemble'
@@ -38,6 +41,7 @@ export async function GET() {
         prob_home_win,
         COALESCE(pred_winner, CASE WHEN prob_home_win >= 0.5 THEN home_team ELSE away_team END) AS predicted_winner,
         home_win,
+        final_utc,
         ROW_NUMBER() OVER (
           PARTITION BY game_id
           ORDER BY DATETIME(as_of_utc) DESC, prediction_id DESC
@@ -45,27 +49,36 @@ export async function GET() {
       FROM eligible
     )
     SELECT
-      game_id,
-      game_date_utc,
-      home_team,
-      away_team,
-      as_of_utc,
-      prob_home_win,
-      predicted_winner,
-      home_win,
+      r.game_id,
+      r.game_date_utc,
+      r.home_team,
+      r.away_team,
+      r.as_of_utc,
+      r.prob_home_win,
+      r.predicted_winner,
+      r.home_win,
+      r.final_utc,
+      g.start_time_utc,
       CASE
-        WHEN (home_win = 1 AND predicted_winner = home_team)
-          OR (home_win = 0 AND predicted_winner = away_team)
+        WHEN r.prob_home_win >= 0.45 AND r.prob_home_win <= 0.55 THEN 1
+        ELSE 0
+      END AS is_toss_up,
+      CASE
+        WHEN r.prob_home_win >= 0.45 AND r.prob_home_win <= 0.55 THEN NULL
+        WHEN (r.home_win = 1 AND r.predicted_winner = r.home_team)
+          OR (r.home_win = 0 AND r.predicted_winner = r.away_team)
         THEN 1
         ELSE 0
       END AS model_correct
-    FROM ranked
-    WHERE rn = 1
-    ORDER BY game_date_utc ASC, game_id ASC
-    `
+    FROM ranked r
+    LEFT JOIN games g ON g.game_id = r.game_id
+    WHERE r.rn = 1
+    ORDER BY r.game_date_utc ASC, r.game_id ASC
+    `,
+    { league }
   );
 
-  const latest = runSqlJson("SELECT MAX(as_of_utc) AS as_of_utc FROM upcoming_game_forecasts");
+  const latest = runSqlJson("SELECT MAX(as_of_utc) AS as_of_utc FROM upcoming_game_forecasts", { league });
   const asOf = latest?.[0]?.as_of_utc;
   const escapedAsOf = typeof asOf === "string" ? escapeSqlString(asOf) : null;
 
@@ -85,10 +98,12 @@ export async function GET() {
         LEFT JOIN games g ON g.game_id = u.game_id
         WHERE u.as_of_utc = '${escapedAsOf}'
           AND u.game_date_utc >= DATE('now')
+          AND COALESCE(g.status_final, 0) = 0
         ORDER BY u.game_date_utc ASC, u.game_id ASC
-        `
+        `,
+        { league }
       )
     : [];
 
-  return NextResponse.json({ as_of_utc: asOf, historical_rows, upcoming_rows });
+  return NextResponse.json({ league, as_of_utc: asOf, historical_rows, upcoming_rows });
 }

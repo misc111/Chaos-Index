@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { leagueFromRequest } from "@/lib/league";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -35,8 +36,11 @@ function parseJson(filePath: string): Record<string, any>[] {
   }
 }
 
-export async function GET() {
-  const root = path.resolve(process.cwd(), "..", "artifacts", "validation");
+export async function GET(request: Request) {
+  const league = leagueFromRequest(request);
+  const baseRoot = path.resolve(process.cwd(), "..", "artifacts", "validation");
+  const leagueRoot = path.join(baseRoot, league.toLowerCase());
+  const root = fs.existsSync(leagueRoot) ? leagueRoot : baseRoot;
 
   const sections: Record<string, Record<string, any>[]> = {
     significance: parseCsv(path.join(root, "validation_significance.csv")),
@@ -52,6 +56,7 @@ export async function GET() {
   };
 
   return NextResponse.json({
+    league,
     significance: sections.significance,
     sections,
   });
