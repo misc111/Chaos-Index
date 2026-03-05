@@ -65,6 +65,64 @@ def _synthetic_nhl_rf_frame(n: int = 280) -> pd.DataFrame:
     return df
 
 
+def _synthetic_nba_nn_frame(n: int = 420) -> pd.DataFrame:
+    rng = np.random.default_rng(1234)
+    skill = rng.normal(0, 1, n)
+    noise = rng.normal(0, 1, n)
+    start = pd.date_range("2025-10-01", periods=n, freq="D")
+
+    df = pd.DataFrame(
+        {
+            "game_id": np.arange(1, n + 1),
+            "start_time_utc": start.astype(str),
+            "game_date_utc": start.date.astype(str),
+            "home_win": (0.9 * skill + 0.2 * noise > 0).astype(int),
+        }
+    )
+
+    signal_features = [
+        "diff_form_point_margin",
+        "travel_diff",
+        "rest_diff",
+        "elo_home_prob",
+        "dyn_home_prob",
+        "arena_shot_volume_effect",
+        "diff_shot_volume_share",
+        "diff_form_win_rate",
+        "elo_away_pre",
+        "away_r14_point_margin",
+        "away_r14_field_goal_attempts_against",
+        "dyn_away_mean",
+        "home_ewm_shot_volume_share",
+        "home_ewm_point_margin",
+        "away_ewm_point_margin",
+        "home_r14_point_margin",
+        "elo_home_pre",
+        "away_r14_points_against",
+        "away_r5_field_goal_attempts_against",
+        "home_r14_shot_volume_share",
+        "home_r14_points_against",
+        "home_ewm_field_goal_attempts_for",
+        "away_r14_scoring_efficiency_proxy",
+        "home_r14_scoring_efficiency_proxy",
+        "home_r5_shot_volume_share",
+        "home_ewm_points_against",
+        "away_r14_possession_proxy",
+        "away_r14_shot_volume_share",
+        "dyn_home_mean",
+        "away_win_rate_ewm",
+        "home_r5_points_against",
+        "away_ewm_points_against",
+        "diff_roster_depth",
+        "home_r14_field_goal_attempts_for",
+    ]
+    for idx, col in enumerate(signal_features, start=1):
+        strength = 1.0 - 0.015 * idx
+        df[col] = strength * skill + rng.normal(0, 0.3 + 0.01 * idx, n)
+
+    return df
+
+
 def test_feature_width_eval_runs_backtests_and_promotes_best_width(tmp_path) -> None:
     df = _synthetic_nhl_rf_frame()
 
@@ -90,3 +148,29 @@ def test_feature_width_eval_runs_backtests_and_promotes_best_width(tmp_path) -> 
     assert len(result.summary_rows) == 2
     assert {row["feature_count"] for row in result.summary_rows} == {20, 24}
     assert summary_rows[0]["feature_count"] == result.best_width
+
+
+def test_feature_width_eval_supports_nn_mlp(tmp_path) -> None:
+    df = _synthetic_nba_nn_frame()
+
+    result = run_feature_width_eval(
+        df,
+        league="NBA",
+        model_name="nn_mlp",
+        artifacts_dir=str(tmp_path / "artifacts"),
+        bayes_cfg={},
+        n_splits=3,
+        candidate_widths=[30, 34],
+        path_template=str(tmp_path / "model_feature_map_{league}.yaml"),
+        approve_changes=True,
+    )
+
+    saved = load_model_feature_map("NBA", path_template=str(tmp_path / "model_feature_map_{league}.yaml"))
+    summary_rows = json.loads(Path(result.summary_path).read_text())
+
+    assert result.registry_updated is True
+    assert result.best_width in {30, 34}
+    assert len(result.best_features) == result.best_width
+    assert saved["nn_mlp"] == result.best_features
+    assert len(summary_rows) == 2
+    assert {row["feature_count"] for row in summary_rows} == {30, 34}

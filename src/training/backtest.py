@@ -29,6 +29,8 @@ def run_walk_forward_backtest(
     selected_models: list[str] | None = None,
     selected_feature_columns: list[str] | None = None,
     selected_model_feature_columns: dict[str, list[str]] | None = None,
+    allow_nn: bool = False,
+    min_train_size: int | None = None,
 ) -> dict:
     df = features_df[features_df["home_win"].notna()].copy().sort_values("start_time_utc")
     models_selected = normalize_selected_models(selected_models)
@@ -43,7 +45,8 @@ def run_walk_forward_backtest(
             raise ValueError(f"selected_feature_columns includes non-numeric columns: {non_numeric}")
         feature_cols = list(selected_feature_columns)
     glm_cols = glm_feature_subset(feature_cols)
-    splits = time_series_splits(df, n_splits=n_splits, min_train_size=min(220, max(80, len(df) // 2)))
+    resolved_min_train_size = min(220, max(80, len(df) // 2)) if min_train_size is None else int(min_train_size)
+    splits = time_series_splits(df, n_splits=n_splits, min_train_size=resolved_min_train_size)
 
     pred_rows = []
     for fold, (tr_idx, va_idx) in enumerate(splits, start=1):
@@ -68,7 +71,7 @@ def run_walk_forward_backtest(
             artifacts_dir=artifacts_dir,
             bayes_cfg=bayes_cfg,
             selected_models=models_selected,
-            allow_nn=False,
+            allow_nn=allow_nn,
             glm_feature_cols=fold_glm_cols,
             glm_c=fold_glm_c,
             model_feature_columns=selected_model_feature_columns,
@@ -88,9 +91,12 @@ def run_walk_forward_backtest(
 
     metrics_rows = []
     score_rows = []
-    y = oof["home_win"].to_numpy()
     for col in model_cols:
-        p = oof[col].to_numpy(dtype=float)
+        model_eval = oof[["game_id", "game_date_utc", "home_win", col]].dropna().copy()
+        if model_eval.empty:
+            continue
+        y = model_eval["home_win"].to_numpy(dtype=int)
+        p = model_eval[col].to_numpy(dtype=float)
         m = metric_bundle(y, p)
         c = ece_mce(y, p)
         ab = calibration_alpha_beta(y, p)
@@ -98,15 +104,17 @@ def run_walk_forward_backtest(
 
         s = per_game_scores(y, p)
         s["model_name"] = col
-        s["game_id"] = oof["game_id"].values
-        s["game_date_utc"] = oof["game_date_utc"].values
+        s["game_id"] = model_eval["game_id"].values
+        s["game_date_utc"] = model_eval["game_date_utc"].values
         s["prob_home_win"] = p
         s["outcome_home_win"] = y
         s["as_of_utc"] = utc_now_iso()
         score_rows.append(s)
 
-    metrics_df = pd.DataFrame(metrics_rows).sort_values("log_loss")
-    scores_df = pd.concat(score_rows, ignore_index=True)
+    metrics_df = pd.DataFrame(metrics_rows)
+    if not metrics_df.empty:
+        metrics_df = metrics_df.sort_values("log_loss")
+    scores_df = pd.concat(score_rows, ignore_index=True) if score_rows else pd.DataFrame()
 
     out_dir = ensure_dir(Path(artifacts_dir) / "reports")
     try:
@@ -121,8 +129,9 @@ def run_walk_forward_backtest(
 
     # Reliability tables
     rel_dir = ensure_dir(Path(artifacts_dir) / "validation")
-    for col in model_cols:
-        rel = reliability_table(y, oof[col].to_numpy(dtype=float), n_bins=10)
+    for col in metrics_df["model_name"].tolist() if not metrics_df.empty else []:
+        model_eval = oof[["home_win", col]].dropna().copy()
+        rel = reliability_table(model_eval["home_win"].to_numpy(dtype=int), model_eval[col].to_numpy(dtype=float), n_bins=10)
         rel.to_csv(rel_dir / f"backtest_reliability_{col}.csv", index=False)
 
     return {

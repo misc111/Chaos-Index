@@ -1,6 +1,6 @@
 version: 1
 league: NHL
-updated_at_utc: '2026-03-05T21:58:24+00:00'
+updated_at_utc: '2026-03-05T22:32:23+00:00'
 models:
   glm_logit:
     active_features:
@@ -18,16 +18,7 @@ models:
     - elo_home_pre
     - goalie_uncertainty_diff
     - elo_away_pre
-    - goalie_workload_diff_7
-    - goalie_quality_diff
-    - special_pk_pressure_diff
-    - dyn_away_mean
-    - special_pp_diff
-    - goalie_workload_diff_14
-    - diff_penalty_diff
-    - dyn_var_diff
-    - diff_lineup_uncertainty
-    feature_count: 23
+    feature_count: 14
   gbdt:
     active_features:
     - home_penalty_diff
@@ -54,23 +45,7 @@ models:
     - home_r14_team_save_pct_proxy
     - home_r5_team_save_pct_proxy
     - home_r14_shots_for
-    - away_goalie_b2b_starter
-    - home_goalie_b2b_starter
-    - away_roster_strength_index
-    - home_season_phase_early
-    - elo_home_prob
-    - home_r14_goals_for
-    - diff_form_win_rate
-    - away_b2b_x
-    - dyn_home_mean
-    - home_r5_goal_diff
-    - home_ewm_goals_for
-    - away_local_start_mismatch
-    - diff_form_goal_diff
-    - home_r14_goal_diff
-    - diff_xg_share
-    - home_season_phase_mid
-    feature_count: 40
+    feature_count: 24
   rf:
     active_features:
     - home_penalty_diff
@@ -112,21 +87,7 @@ models:
     - home_r5_team_save_pct_proxy
     - home_r14_shots_for
     - elo_home_prob
-    - home_r14_goals_for
-    - diff_form_win_rate
-    - dyn_home_prob
-    - dyn_home_mean
-    - home_r5_goal_diff
-    - home_ewm_goals_for
-    - home_r5_goals_for
-    - diff_form_goal_diff
-    - home_r14_goal_diff
-    - diff_xg_share
-    - elo_home_pre
-    - away_ewm_goals_against
-    - goalie_uncertainty_diff
-    - elo_away_pre
-    feature_count: 30
+    feature_count: 16
   bayes_bt_state_space:
     active_features:
     - diff_form_goal_diff
@@ -141,15 +102,7 @@ models:
     - dyn_home_mean
     - diff_xg_share
     - elo_home_pre
-    - goalie_uncertainty_diff
-    - elo_away_pre
-    - goalie_workload_diff_7
-    - goalie_quality_diff
-    - dyn_away_mean
-    - goalie_workload_diff_14
-    - diff_penalty_diff
-    - dyn_var_diff
-    feature_count: 20
+    feature_count: 12
   nn_mlp:
     active_features:
     - home_penalty_diff

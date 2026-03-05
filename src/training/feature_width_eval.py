@@ -22,9 +22,6 @@ from src.training.model_feature_research import (
 from src.training.train import select_feature_columns
 
 
-WIDTH_EVAL_UNSUPPORTED_MODELS = {"nn_mlp"}
-
-
 @dataclass(frozen=True)
 class FeatureWidthEvalResult:
     league: str
@@ -96,8 +93,6 @@ def run_feature_width_eval(
     model_code = str(model_name or "").strip()
     if model_code not in RESEARCHABLE_MODELS:
         raise ValueError(f"Unsupported model_name '{model_name}'. Expected one of {RESEARCHABLE_MODELS}.")
-    if model_code in WIDTH_EVAL_UNSUPPORTED_MODELS:
-        raise ValueError(f"Feature-width evaluation is not supported for {model_code}.")
 
     train_df = features_df[features_df["home_win"].notna()].copy().sort_values("start_time_utc")
     if train_df.empty:
@@ -124,6 +119,8 @@ def run_feature_width_eval(
 
     summary_rows: list[dict[str, object]] = []
     best_features_by_width: dict[int, list[str]] = {}
+    allow_nn = model_code == "nn_mlp"
+    min_train_size = max(350, min(220, max(80, len(train_df) // 2))) if allow_nn else None
 
     for width in widths:
         selected_features = select_model_features(
@@ -146,6 +143,8 @@ def run_feature_width_eval(
             selected_models=[model_code],
             selected_feature_columns=all_feature_columns,
             selected_model_feature_columns={model_code: selected_features},
+            allow_nn=allow_nn,
+            min_train_size=min_train_size,
         )
         metrics_df = bt["metrics"]
         if metrics_df.empty or model_code not in set(metrics_df["model_name"]):

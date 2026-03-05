@@ -1,6 +1,6 @@
 version: 1
 league: NBA
-updated_at_utc: '2026-03-05T21:44:12+00:00'
+updated_at_utc: '2026-03-05T22:17:44+00:00'
 models:
   glm_logit:
     active_features:
@@ -18,14 +18,7 @@ models:
     - dyn_away_mean
     - elo_home_pre
     - dyn_home_mean
-    - diff_roster_depth
-    - discipline_foul_pressure_diff
-    - dyn_var_diff
-    - diff_scoring_efficiency
-    - diff_availability_uncertainty
-    - diff_availability_reliability
-    - availability_stress_diff
-    feature_count: 21
+    feature_count: 14
   gbdt:
     active_features:
     - diff_form_point_margin
@@ -95,27 +88,7 @@ models:
     - home_ewm_field_goal_attempts_for
     - away_r14_scoring_efficiency_proxy
     - home_r14_scoring_efficiency_proxy
-    - home_r5_shot_volume_share
-    - home_ewm_points_against
-    - away_r14_possession_proxy
-    - away_r14_shot_volume_share
-    - dyn_home_mean
-    - away_win_rate_ewm
-    - home_r5_points_against
-    - away_ewm_points_against
-    - diff_roster_depth
-    - home_r14_field_goal_attempts_for
-    - home_win_rate_ewm
-    - away_games_played_prior
-    - away_ewm_shot_volume_share
-    - home_ewm_field_goal_attempts_against
-    - away_r5_possession_proxy
-    - away_r5_scoring_efficiency_proxy
-    - home_r5_scoring_efficiency_proxy
-    - away_r5_shot_volume_share
-    - away_r5_points_against
-    - away_roster_depth_index
-    feature_count: 44
+    feature_count: 24
   two_stage:
     active_features:
     - home_ewm_shot_volume_share
@@ -144,11 +117,7 @@ models:
     - away_r5_field_goal_attempts_against
     - home_r14_shot_volume_share
     - home_r14_points_against
-    - home_ewm_field_goal_attempts_for
-    - away_r14_scoring_efficiency_proxy
-    - home_r14_scoring_efficiency_proxy
-    - home_r5_shot_volume_share
-    feature_count: 30
+    feature_count: 26
   bayes_bt_state_space:
     active_features:
     - diff_form_point_margin
@@ -195,16 +164,4 @@ models:
     - home_r14_shot_volume_share
     - home_r14_points_against
     - home_ewm_field_goal_attempts_for
-    - away_r14_scoring_efficiency_proxy
-    - home_r14_scoring_efficiency_proxy
-    - home_r5_shot_volume_share
-    - home_ewm_points_against
-    - away_r14_possession_proxy
-    - away_r14_shot_volume_share
-    - dyn_home_mean
-    - away_win_rate_ewm
-    - home_r5_points_against
-    - away_ewm_points_against
-    - diff_roster_depth
-    - home_r14_field_goal_attempts_for
-    feature_count: 34
+    feature_count: 22
