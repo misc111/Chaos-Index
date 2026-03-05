@@ -16,7 +16,7 @@ class TeamCity:
     utc_offset_hours: int
 
 
-TEAM_CITY = {
+NHL_TEAM_CITY = {
     "ANA": TeamCity(33.8078, -117.8767, -8),
     "ARI": TeamCity(33.5312, -112.2617, -7),
     "BOS": TeamCity(42.3662, -71.0621, -5),
@@ -52,6 +52,52 @@ TEAM_CITY = {
     "WSH": TeamCity(38.8981, -77.0209, -5),
 }
 
+NBA_TEAM_CITY = {
+    "ATL": TeamCity(33.7573, -84.3963, -5),
+    "BOS": TeamCity(42.3663, -71.0622, -5),
+    "BKN": TeamCity(40.6827, -73.9751, -5),
+    "BRK": TeamCity(40.6827, -73.9751, -5),
+    "CHA": TeamCity(35.2251, -80.8392, -5),
+    "CHI": TeamCity(41.8807, -87.6742, -6),
+    "CLE": TeamCity(41.4965, -81.6882, -5),
+    "DAL": TeamCity(32.7905, -96.8103, -6),
+    "DEN": TeamCity(39.7487, -105.0077, -7),
+    "DET": TeamCity(42.3410, -83.0551, -5),
+    "GSW": TeamCity(37.7680, -122.3877, -8),
+    "GS": TeamCity(37.7680, -122.3877, -8),
+    "HOU": TeamCity(29.7508, -95.3621, -6),
+    "IND": TeamCity(39.7639, -86.1555, -5),
+    "LAC": TeamCity(34.0430, -118.2673, -8),
+    "LAL": TeamCity(34.0430, -118.2673, -8),
+    "MEM": TeamCity(35.1382, -90.0505, -6),
+    "MIA": TeamCity(25.7814, -80.1870, -5),
+    "MIL": TeamCity(43.0451, -87.9172, -6),
+    "MIN": TeamCity(44.9795, -93.2760, -6),
+    "NOP": TeamCity(29.9490, -90.0821, -6),
+    "NO": TeamCity(29.9490, -90.0821, -6),
+    "NYK": TeamCity(40.7505, -73.9934, -5),
+    "NY": TeamCity(40.7505, -73.9934, -5),
+    "OKC": TeamCity(35.4634, -97.5151, -6),
+    "ORL": TeamCity(28.5392, -81.3839, -5),
+    "PHI": TeamCity(39.9012, -75.1720, -5),
+    "PHX": TeamCity(33.4457, -112.0712, -7),
+    "PHO": TeamCity(33.4457, -112.0712, -7),
+    "POR": TeamCity(45.5316, -122.6668, -8),
+    "SAC": TeamCity(38.5806, -121.4996, -8),
+    "SAS": TeamCity(29.4270, -98.4375, -6),
+    "SA": TeamCity(29.4270, -98.4375, -6),
+    "TOR": TeamCity(43.6435, -79.3791, -5),
+    "UTA": TeamCity(40.7683, -111.9012, -7),
+    "UTAH": TeamCity(40.7683, -111.9012, -7),
+    "WAS": TeamCity(38.8981, -77.0209, -5),
+    "WSH": TeamCity(38.8981, -77.0209, -5),
+}
+
+TEAM_CITY_BY_LEAGUE = {
+    "NHL": NHL_TEAM_CITY,
+    "NBA": NBA_TEAM_CITY,
+}
+
 
 def haversine_miles(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     r = 3958.7613
@@ -70,10 +116,12 @@ def _rolling_load(flags: list[int], window: int) -> list[int]:
     return out
 
 
-def build_travel_features(games_df: pd.DataFrame) -> pd.DataFrame:
+def build_travel_features(games_df: pd.DataFrame, league: str = "NHL") -> pd.DataFrame:
     if games_df.empty:
         return pd.DataFrame()
 
+    league_code = str(league or "NHL").strip().upper()
+    team_city = TEAM_CITY_BY_LEAGUE.get(league_code, NHL_TEAM_CITY)
     games = games_df.sort_values("start_time_utc").copy()
     rows = []
 
@@ -82,8 +130,8 @@ def build_travel_features(games_df: pd.DataFrame) -> pd.DataFrame:
         for _, r in games.iterrows():
             team = r[team_col]
             opp = r["away_team"] if prefix == "home" else r["home_team"]
-            city = TEAM_CITY.get(team)
-            opp_city = TEAM_CITY.get(opp)
+            city = team_city.get(team)
+            opp_city = team_city.get(opp)
             team_rows.append(
                 {
                     "game_id": r["game_id"],

@@ -8,6 +8,7 @@ import pandas as pd
 from src.common.time import utc_now_iso
 from src.common.utils import stable_hash
 from src.features.base import FeatureBuildResult
+from src.features.build_features_nba import build_nba_features_from_interim
 from src.features.dynamic_ratings import compute_dynamic_rating_features
 from src.features.elo import compute_elo_features
 from src.features.goalie_features import add_goalie_features, combine_goalie_game_features
@@ -322,7 +323,10 @@ def _to_game_level(team_games: pd.DataFrame, games_df: pd.DataFrame) -> pd.DataF
     return merged
 
 
-def build_features_from_interim(interim_dir: str, processed_dir: str) -> FeatureBuildResult:
+def build_features_from_interim(interim_dir: str, processed_dir: str, league: str = "NHL") -> FeatureBuildResult:
+    if str(league or "NHL").strip().upper() == "NBA":
+        return build_nba_features_from_interim(interim_dir=interim_dir, processed_dir=processed_dir)
+
     games = _load("games", interim_dir)
     goalies = _load("goalies", interim_dir)
     players = _load("players", interim_dir)

@@ -17,6 +17,7 @@ help:
 	@echo "  init-db             Initialize SQLite schema"
 	@echo "  fetch               Fetch league data from CONFIG"
 	@echo "  features            Build feature tables"
+	@echo "  research-features   Score and promote per-model feature maps"
 	@echo "  train               Train models + predict upcoming games"
 	@echo "  backtest            Walk-forward backtest + artifacts"
 	@echo "                      Optional: MODELS=glm_logit,rf (default: all)"
@@ -45,6 +46,9 @@ fetch:
 
 features:
 	$(PYTHON) -m src.cli features --config $(CONFIG)
+
+research-features:
+	$(PYTHON) -m src.cli research-features --config $(CONFIG) $(MODEL_ARGS) $(APPROVE_FEATURE_ARGS)
 
 train:
 	$(PYTHON) -m src.cli train --config $(CONFIG) $(MODEL_ARGS) $(APPROVE_FEATURE_ARGS)

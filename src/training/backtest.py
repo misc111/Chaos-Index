@@ -28,6 +28,7 @@ def run_walk_forward_backtest(
     n_splits: int = 5,
     selected_models: list[str] | None = None,
     selected_feature_columns: list[str] | None = None,
+    selected_model_feature_columns: dict[str, list[str]] | None = None,
 ) -> dict:
     df = features_df[features_df["home_win"].notna()].copy().sort_values("start_time_utc")
     models_selected = normalize_selected_models(selected_models)
@@ -52,23 +53,25 @@ def run_walk_forward_backtest(
             continue
 
         fold_glm_c = 1.0
+        fold_glm_cols = selected_model_feature_columns.get("glm_logit", glm_cols) if selected_model_feature_columns else glm_cols
         if "glm_logit" in models_selected:
             tune = quick_tune_glm(
                 tr,
-                glm_cols,
+                fold_glm_cols,
                 n_splits=3,
                 min_train_size=min(140, max(70, len(tr) // 2)),
             )
             fold_glm_c = float(tune.get("best_c", 1.0))
-        models, _, _, _ = _fit_suite(
+        models, _, _, _, _ = _fit_suite(
             tr,
             feature_cols,
             artifacts_dir=artifacts_dir,
             bayes_cfg=bayes_cfg,
             selected_models=models_selected,
             allow_nn=False,
-            glm_feature_cols=glm_cols,
+            glm_feature_cols=fold_glm_cols,
             glm_c=fold_glm_c,
+            model_feature_columns=selected_model_feature_columns,
         )
         pred_df, _ = _predict_suite(models, va, feature_cols, selected_models=models_selected)
         pred_df["fold"] = fold

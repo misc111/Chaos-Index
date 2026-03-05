@@ -124,6 +124,12 @@ def select_feature_columns(df: pd.DataFrame) -> list[str]:
         "away_goals_against",
         "home_goal_diff",
         "away_goal_diff",
+        "home_points_for",
+        "away_points_for",
+        "home_points_against",
+        "away_points_against",
+        "home_point_margin",
+        "away_point_margin",
         "home_home_score",
         "home_away_score",
         "away_home_score",
@@ -137,17 +143,26 @@ def select_feature_columns(df: pd.DataFrame) -> list[str]:
     direct_event_tokens = (
         "goals_for",
         "goals_against",
+        "points_for",
+        "points_against",
         "shots_for",
         "shots_against",
+        "field_goal_attempts_for",
+        "field_goal_attempts_against",
         "penalties_taken",
         "penalties_drawn",
+        "fouls_committed",
+        "fouls_drawn",
         "pp_goals",
+        "free_throws_made",
         "starter_save_pct",
         "goalie_quality_raw",
         "team_save_pct_proxy",
         "xg_share_proxy",
         "penalty_diff_proxy",
         "pace_proxy",
+        "scoring_efficiency_proxy",
+        "possession_proxy",
     )
 
     cols = []
@@ -162,7 +177,9 @@ def select_feature_columns(df: pd.DataFrame) -> list[str]:
             continue
         if "home_win" in c and "win_rate" not in c:
             continue
-        if ("goals_for" in c or "goals_against" in c) and not any(m in c for m in lag_markers):
+        if ("goals_for" in c or "goals_against" in c or "points_for" in c or "points_against" in c) and not any(
+            m in c for m in lag_markers
+        ):
             continue
         if any(tok in c for tok in direct_event_tokens) and not any(m in c for m in lag_markers):
             continue
@@ -174,7 +191,20 @@ def select_feature_columns(df: pd.DataFrame) -> list[str]:
 
 def bayes_feature_subset(feature_cols: list[str]) -> list[str]:
     keep = []
-    keywords = ["diff_", "travel", "rest", "goalie", "special", "rink", "elo", "dyn", "lineup"]
+    keywords = [
+        "diff_",
+        "travel",
+        "rest",
+        "goalie",
+        "special",
+        "discipline",
+        "availability",
+        "rink",
+        "arena",
+        "elo",
+        "dyn",
+        "lineup",
+    ]
     for c in feature_cols:
         if any(k in c for k in keywords):
             keep.append(c)
@@ -185,8 +215,15 @@ def bayes_feature_subset(feature_cols: list[str]) -> list[str]:
 
 
 def glm_feature_subset(feature_cols: list[str]) -> list[str]:
-    keep_exact = {"travel_diff", "rest_diff", "rink_goal_effect", "rink_shot_effect"}
-    keep_prefix = ("diff_", "special_", "goalie_", "elo_", "dyn_")
+    keep_exact = {
+        "travel_diff",
+        "rest_diff",
+        "rink_goal_effect",
+        "rink_shot_effect",
+        "arena_margin_effect",
+        "arena_shot_volume_effect",
+    }
+    keep_prefix = ("diff_", "special_", "discipline_", "goalie_", "availability_", "elo_", "dyn_")
 
     out = [
         c
@@ -201,6 +238,26 @@ def glm_feature_subset(feature_cols: list[str]) -> list[str]:
     return out
 
 
+def _resolve_model_feature_columns(
+    all_feature_cols: list[str],
+    *,
+    model_name: str,
+    model_feature_columns: dict[str, list[str]] | None,
+    fallback_columns: list[str],
+) -> list[str]:
+    if not model_feature_columns:
+        return list(fallback_columns)
+
+    requested = model_feature_columns.get(model_name, [])
+    if not requested:
+        return list(fallback_columns)
+
+    missing = [c for c in requested if c not in all_feature_cols]
+    if missing:
+        raise ValueError(f"model_feature_columns[{model_name}] includes missing columns: {missing}")
+    return list(requested)
+
+
 
 def _fit_suite(
     train_df: pd.DataFrame,
@@ -212,11 +269,18 @@ def _fit_suite(
     allow_nn: bool = True,
     glm_feature_cols: list[str] | None = None,
     glm_c: float = 1.0,
+    model_feature_columns: dict[str, list[str]] | None = None,
 ):
     models: dict[str, object] = {}
     selected = set(selected_models)
+    used_feature_map: dict[str, list[str]] = {}
 
-    glm_cols = glm_feature_cols if glm_feature_cols else feature_cols
+    glm_cols = _resolve_model_feature_columns(
+        feature_cols,
+        model_name="glm_logit",
+        model_feature_columns=model_feature_columns,
+        fallback_columns=glm_feature_cols if glm_feature_cols else feature_cols,
+    )
     if "glm_logit" in selected:
         _emit_progress(
             progress_callback,
@@ -225,6 +289,7 @@ def _fit_suite(
         glm = GLMLogitModel(c=float(glm_c))
         glm.fit(train_df, glm_cols)
         models[glm.model_name] = glm
+        used_feature_map[glm.model_name] = glm_cols
         _emit_progress(
             progress_callback,
             {
@@ -242,9 +307,16 @@ def _fit_suite(
             progress_callback,
             {"kind": "model", "model": "gbdt", "stage": "fit", "status": "started", "message": "Fitting gbdt"},
         )
+        gbdt_cols = _resolve_model_feature_columns(
+            feature_cols,
+            model_name="gbdt",
+            model_feature_columns=model_feature_columns,
+            fallback_columns=feature_cols,
+        )
         gbdt = GBDTModel()
-        gbdt.fit(train_df, feature_cols)
+        gbdt.fit(train_df, gbdt_cols)
         models[gbdt.model_name] = gbdt
+        used_feature_map[gbdt.model_name] = gbdt_cols
         _emit_progress(
             progress_callback,
             {"kind": "model", "model": "gbdt", "stage": "fit", "status": "completed", "message": "Completed gbdt fit"},
@@ -255,9 +327,16 @@ def _fit_suite(
             progress_callback,
             {"kind": "model", "model": "rf", "stage": "fit", "status": "started", "message": "Fitting rf"},
         )
+        rf_cols = _resolve_model_feature_columns(
+            feature_cols,
+            model_name="rf",
+            model_feature_columns=model_feature_columns,
+            fallback_columns=feature_cols,
+        )
         rf = RFModel()
-        rf.fit(train_df, feature_cols)
+        rf.fit(train_df, rf_cols)
         models[rf.model_name] = rf
+        used_feature_map[rf.model_name] = rf_cols
         _emit_progress(
             progress_callback,
             {"kind": "model", "model": "rf", "stage": "fit", "status": "completed", "message": "Completed rf fit"},
@@ -268,9 +347,16 @@ def _fit_suite(
             progress_callback,
             {"kind": "model", "model": "two_stage", "stage": "fit", "status": "started", "message": "Fitting two_stage"},
         )
+        two_stage_cols = _resolve_model_feature_columns(
+            feature_cols,
+            model_name="two_stage",
+            model_feature_columns=model_feature_columns,
+            fallback_columns=feature_cols,
+        )
         two_stage = TwoStageModel()
-        two_stage.fit(train_df, feature_cols)
+        two_stage.fit(train_df, two_stage_cols)
         models[two_stage.model_name] = two_stage
+        used_feature_map[two_stage.model_name] = two_stage_cols
         _emit_progress(
             progress_callback,
             {
@@ -345,7 +431,12 @@ def _fit_suite(
                 "message": "Fitting bayes_bt_state_space",
             },
         )
-        bcols = bayes_feature_subset(feature_cols)
+        bcols = _resolve_model_feature_columns(
+            feature_cols,
+            model_name="bayes_bt_state_space",
+            model_feature_columns=model_feature_columns,
+            fallback_columns=bayes_feature_subset(feature_cols),
+        )
         bayes_model, bayes_diag = run_bayes_offline_fit(
             features_df=train_df,
             feature_columns=bcols,
@@ -355,6 +446,7 @@ def _fit_suite(
             draws=bayes_cfg.get("posterior_draws", 500),
         )
         models[bayes_model.model_name] = bayes_model
+        used_feature_map[bayes_model.model_name] = bcols
         _emit_progress(
             progress_callback,
             {
@@ -381,8 +473,14 @@ def _fit_suite(
                 progress_callback,
                 {"kind": "model", "model": "nn_mlp", "stage": "fit", "status": "started", "message": "Fitting nn_mlp"},
             )
+            nn_cols = _resolve_model_feature_columns(
+                feature_cols,
+                model_name="nn_mlp",
+                model_feature_columns=model_feature_columns,
+                fallback_columns=feature_cols,
+            )
             nn = NNModel()
-            nn.fit(tr, feature_cols)
+            nn.fit(tr, nn_cols)
             include_nn = True
             if gbdt is not None:
                 nn_p = nn.predict_proba(va)
@@ -393,6 +491,7 @@ def _fit_suite(
             if include_nn:
                 models[nn.model_name] = nn
                 nn_included = True
+                used_feature_map[nn.model_name] = nn_cols
                 _emit_progress(
                     progress_callback,
                     {
@@ -437,7 +536,7 @@ def _fit_suite(
             },
         )
 
-    return models, bcols, bayes_diag, nn_included
+    return models, bcols, bayes_diag, nn_included, used_feature_map
 
 
 
@@ -568,6 +667,7 @@ def _oof_predictions(
     bayes_cfg: dict,
     selected_models: list[str],
     progress_callback: ProgressCallback | None = None,
+    model_feature_columns: dict[str, list[str]] | None = None,
 ) -> pd.DataFrame:
     splits = time_series_splits(train_df, n_splits=5, min_train_size=min(220, max(80, len(train_df) // 2)))
     rows = []
@@ -611,15 +711,21 @@ def _oof_predictions(
             )
             continue
         fold_glm_c = 1.0
+        fold_glm_cols = _resolve_model_feature_columns(
+            feature_cols,
+            model_name="glm_logit",
+            model_feature_columns=model_feature_columns,
+            fallback_columns=glm_feature_cols,
+        )
         if "glm_logit" in selected:
             tune = quick_tune_glm(
                 tr,
-                glm_feature_cols,
+                fold_glm_cols,
                 n_splits=3,
                 min_train_size=min(140, max(70, len(tr) // 2)),
             )
             fold_glm_c = float(tune.get("best_c", 1.0))
-        models, _, _, _ = _fit_suite(
+        models, _, _, _, _ = _fit_suite(
             tr,
             feature_cols,
             artifacts_dir=artifacts_dir,
@@ -627,8 +733,9 @@ def _oof_predictions(
             selected_models=selected_models,
             progress_callback=progress_callback,
             allow_nn=False,
-            glm_feature_cols=glm_feature_cols,
+            glm_feature_cols=fold_glm_cols,
             glm_c=fold_glm_c,
+            model_feature_columns=model_feature_columns,
         )
         pred, _ = _predict_suite(
             models,
@@ -687,6 +794,7 @@ def train_and_predict(
     selected_models: list[str] | None = None,
     progress_callback: ProgressCallback | None = None,
     selected_feature_columns: list[str] | None = None,
+    selected_model_feature_columns: dict[str, list[str]] | None = None,
 ) -> dict:
     _emit_progress(
         progress_callback,
@@ -724,7 +832,12 @@ def train_and_predict(
         if non_numeric:
             raise ValueError(f"selected_feature_columns includes non-numeric columns: {non_numeric}")
         feature_cols = list(selected_feature_columns)
-    glm_cols = glm_feature_subset(feature_cols)
+    glm_cols = _resolve_model_feature_columns(
+        feature_cols,
+        model_name="glm_logit",
+        model_feature_columns=selected_model_feature_columns,
+        fallback_columns=glm_feature_subset(feature_cols),
+    )
     _emit_progress(
         progress_callback,
         {
@@ -783,7 +896,7 @@ def train_and_predict(
         progress_callback,
         {"kind": "pipeline", "stage": "fit_models", "status": "started", "message": "Fitting selected models"},
     )
-    models, bayes_cols, bayes_diag, nn_included = _fit_suite(
+    models, bayes_cols, bayes_diag, nn_included, used_feature_map = _fit_suite(
         train_df,
         feature_cols,
         artifacts_dir=artifacts_dir,
@@ -793,6 +906,7 @@ def train_and_predict(
         allow_nn=True,
         glm_feature_cols=glm_cols,
         glm_c=glm_best_c,
+        model_feature_columns=selected_model_feature_columns,
     )
     _emit_progress(
         progress_callback,
@@ -833,6 +947,7 @@ def train_and_predict(
         bayes_cfg=bayes_cfg,
         selected_models=models_selected,
         progress_callback=progress_callback,
+        model_feature_columns=selected_model_feature_columns,
     )
 
     # Fit stacker.
@@ -954,12 +1069,22 @@ def train_and_predict(
     forecasts["bayes_ci_high"] = upcoming_extras.get("bayes_high", np.full(len(forecasts), np.nan))
 
     flags = []
+    nba_style_flags = "home_availability_uncertainty" in upcoming_df.columns or "fallback_shot_profile_proxy_used" in upcoming_df.columns
     for _, r in upcoming_df.iterrows():
-        game_flags = {
-            "starter_unknown": bool((r.get("home_goalie_uncertainty_feature", 1) + r.get("away_goalie_uncertainty_feature", 1)) > 0),
-            "xg_unavailable": bool(r.get("fallback_xg_proxy_used", 1) == 1),
-            "lineup_uncertainty": bool((r.get("home_lineup_uncertainty", 1) + r.get("away_lineup_uncertainty", 1)) > 0),
-        }
+        if nba_style_flags:
+            game_flags = {
+                "availability_uncertainty": bool(
+                    (r.get("home_availability_uncertainty", 1) + r.get("away_availability_uncertainty", 1)) > 0
+                ),
+                "shot_profile_proxy_used": bool(r.get("fallback_shot_profile_proxy_used", 1) == 1),
+                "availability_proxy_used": bool(r.get("fallback_availability_proxy_used", 1) == 1),
+            }
+        else:
+            game_flags = {
+                "starter_unknown": bool((r.get("home_goalie_uncertainty_feature", 1) + r.get("away_goalie_uncertainty_feature", 1)) > 0),
+                "xg_unavailable": bool(r.get("fallback_xg_proxy_used", 1) == 1),
+                "lineup_uncertainty": bool((r.get("home_lineup_uncertainty", 1) + r.get("away_lineup_uncertainty", 1)) > 0),
+            }
         flags.append(json.dumps(game_flags, sort_keys=True))
     forecasts["uncertainty_flags_json"] = flags
 
@@ -1000,6 +1125,7 @@ def train_and_predict(
         "selected_models": models_selected,
         "feature_columns": feature_cols,
         "glm_feature_columns": glm_cols,
+        "model_feature_columns": used_feature_map,
         "glm_tuning": glm_tune,
         "glm_best_c": glm_best_c,
         "bayes_feature_columns": bayes_cols,

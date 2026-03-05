@@ -48,6 +48,12 @@ Build features with leakage checks/fallback metadata:
 make features
 ```
 
+Research per-model feature subsets and optionally promote them into the active league map:
+```bash
+make research-features CONFIG=configs/nba.yaml
+make research-features CONFIG=configs/nba.yaml APPROVE_FEATURE_CHANGES=1
+```
+
 Train model suite + ensemble + upcoming forecasts + validation artifacts:
 ```bash
 make train
@@ -92,6 +98,14 @@ make run_daily MODELS=glm_logit
 ```
 ```bash
 make run_daily CONFIG=configs/nba.yaml MODELS=glm_logit
+```
+
+NBA rebuild with explicit research phase:
+```bash
+make fetch CONFIG=configs/nba.yaml
+make features CONFIG=configs/nba.yaml
+make research-features CONFIG=configs/nba.yaml APPROVE_FEATURE_CHANGES=1
+make train CONFIG=configs/nba.yaml APPROVE_FEATURE_CHANGES=1
 ```
 
 Launch dashboard:
@@ -144,6 +158,12 @@ scripts/smoke_e2e.sh
 - In research mode:
   - runs are not blocked
   - newly seen features are tracked as `candidate_features` in the registry
+
+## Model Feature Research
+
+- Per-model research maps can be generated with `research-features`.
+- Promoted model maps are stored at `configs/model_feature_map_{league}.yaml`.
+- The NBA path now uses a league-specific basketball feature builder and a promoted per-model feature map during training/backtesting.
 
 ## Forecast Outputs Per Upcoming Game
 

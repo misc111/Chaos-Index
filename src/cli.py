@@ -30,6 +30,7 @@ from src.storage.db import Database
 from src.storage.tracker import RunTracker
 from src.training.backtest import run_walk_forward_backtest
 from src.training.feature_policy import apply_feature_policy
+from src.training.model_feature_research import load_model_feature_map, research_model_feature_map
 from src.training.prequential import score_predictions
 from src.training.train import normalize_selected_models, select_feature_columns, train_and_predict
 
@@ -579,7 +580,7 @@ def cmd_features(cfg: AppConfig) -> None:
     db = Database(cfg.paths.db_path)
     db.init_schema()
 
-    res = build_features_from_interim(cfg.paths.interim_dir, cfg.paths.processed_dir)
+    res = build_features_from_interim(cfg.paths.interim_dir, cfg.paths.processed_dir, league=cfg.data.league)
     db.execute(
         """
         INSERT OR REPLACE INTO feature_sets(feature_set_version, created_at_utc, snapshot_id, feature_columns_json, metadata_json)
@@ -594,6 +595,37 @@ def cmd_features(cfg: AppConfig) -> None:
         ),
     )
     logger.info("Features built | rows=%d features=%d version=%s", len(res.dataframe), len(res.feature_columns), res.feature_set_version)
+
+
+def cmd_research_features(cfg: AppConfig, models_arg: str | None = None, approve_feature_changes: bool = False) -> None:
+    feat_path = Path(cfg.paths.processed_dir) / "features.parquet"
+    if not feat_path.exists():
+        feat_path = Path(cfg.paths.processed_dir) / "features.csv"
+    if not feat_path.exists():
+        raise FileNotFoundError("features.parquet not found. Run features first.")
+
+    if feat_path.suffix == ".parquet":
+        features_df = pd.read_parquet(feat_path)
+    else:
+        features_df = pd.read_csv(feat_path)
+
+    feature_cols = select_feature_columns(features_df)
+    selected_models = _parse_models_arg(models_arg)
+    result = research_model_feature_map(
+        features_df,
+        league=cfg.data.league,
+        artifacts_dir=cfg.paths.artifacts_dir,
+        feature_columns=feature_cols,
+        selected_models=selected_models,
+        approve_changes=approve_feature_changes,
+    )
+    logger.info(
+        "Feature research complete | league=%s registry=%s updated=%s report=%s",
+        result.league,
+        result.registry_path,
+        result.registry_updated,
+        result.report_path,
+    )
 
 
 
@@ -719,6 +751,7 @@ def _run_validation_outputs(result: dict, cfg: AppConfig) -> None:
     train_df = result["train_df"].copy()
     feature_cols = result["feature_columns"]
     out_val = ensure_dir(Path(cfg.paths.artifacts_dir) / "validation")
+    league = _canonical_league(cfg.data.league)
 
     split = int(len(train_df) * 0.8)
     tr = train_df.iloc[:split].copy()
@@ -726,6 +759,7 @@ def _run_validation_outputs(result: dict, cfg: AppConfig) -> None:
 
     # GLM diagnostics.
     glm = models.get("glm_logit")
+    diagnostic_feature_cols = list(getattr(glm, "feature_columns", []) or feature_cols[: min(40, len(feature_cols))])
     if glm is not None and not va.empty:
         va = va.copy()
         va["glm_prob"] = glm.predict_proba(va)
@@ -733,7 +767,7 @@ def _run_validation_outputs(result: dict, cfg: AppConfig) -> None:
             df=va,
             p_col="glm_prob",
             y_col="home_win",
-            feature_cols=glm.feature_columns,
+            feature_cols=diagnostic_feature_cols,
             coefs=glm.model.coef_[0],
             out_dir=str(Path(cfg.paths.artifacts_dir) / "plots"),
             prefix="glm",
@@ -743,44 +777,71 @@ def _run_validation_outputs(result: dict, cfg: AppConfig) -> None:
     for model_name in ["gbdt", "rf"]:
         m = models.get(model_name)
         if m is not None and len(va) > 25:
+            model_feature_cols = getattr(m, "feature_columns", feature_cols) or feature_cols
             permutation_importance_report(
                 m.model,
-                va[feature_cols],
+                va[model_feature_cols],
                 va["home_win"].astype(int).to_numpy(),
                 out_dir=str(Path(cfg.paths.artifacts_dir) / "validation"),
                 model_name=model_name,
             )
 
+    # The NBA rebuild now fits per-model feature maps. The heavyweight GLM-era validation suite
+    # is disproportionate at train time and can leave long-running duplicate jobs behind.
+    if league == "NBA":
+        if glm is not None:
+            stress = missingness_stress_test(glm, va if not va.empty else train_df, feature_cols=diagnostic_feature_cols)
+            stress.to_csv(out_val / "validation_fragility_missingness.csv", index=False)
+            pert = perturbation_sensitivity(glm, va if not va.empty else train_df, feature_cols=diagnostic_feature_cols)
+            (out_val / "validation_fragility_perturbation.json").write_text(json.dumps(pert, indent=2, sort_keys=True))
+
+            if not va.empty:
+                p = glm.predict_proba(va)
+                y = va["home_win"].astype(int).to_numpy()
+                cal = calibration_alpha_beta(y, p) | ece_mce(y, p)
+                cal |= brier_decompose(y, p)
+                (out_val / "validation_calibration_robustness.json").write_text(json.dumps(cal, indent=2, sort_keys=True))
+        return
+
     # Significance blocks.
-    feature_blocks = {
-        "goalie_block": [c for c in feature_cols if "goalie" in c],
-        "xg_block": [c for c in feature_cols if "xg" in c],
-        "special_teams_block": [c for c in feature_cols if "special" in c or "penalty" in c or "pp_" in c],
-        "travel_block": [c for c in feature_cols if "travel" in c or "rest" in c or "tz_" in c],
-        "lineup_block": [c for c in feature_cols if "lineup" in c or "roster" in c or "man_games" in c],
-        "rink_block": [c for c in feature_cols if "rink" in c],
-    }
-    sig = blockwise_nested_lrt(tr, va, feature_blocks=feature_blocks, all_features=feature_cols)
+    if league == "NBA":
+        feature_blocks = {
+            "availability_block": [c for c in diagnostic_feature_cols if "availability" in c or "absence" in c or "roster_depth" in c],
+            "shot_profile_block": [c for c in diagnostic_feature_cols if "shot" in c or "scoring_efficiency" in c],
+            "discipline_block": [c for c in diagnostic_feature_cols if "discipline" in c or "foul" in c or "free_throw" in c],
+            "travel_block": [c for c in diagnostic_feature_cols if "travel" in c or "rest" in c or "tz_" in c],
+            "arena_block": [c for c in diagnostic_feature_cols if "arena" in c],
+        }
+    else:
+        feature_blocks = {
+            "goalie_block": [c for c in diagnostic_feature_cols if "goalie" in c],
+            "xg_block": [c for c in diagnostic_feature_cols if "xg" in c],
+            "special_teams_block": [c for c in diagnostic_feature_cols if "special" in c or "penalty" in c or "pp_" in c],
+            "travel_block": [c for c in diagnostic_feature_cols if "travel" in c or "rest" in c or "tz_" in c],
+            "lineup_block": [c for c in diagnostic_feature_cols if "lineup" in c or "roster" in c or "man_games" in c],
+            "rink_block": [c for c in diagnostic_feature_cols if "rink" in c],
+        }
+    sig = blockwise_nested_lrt(tr, va, feature_blocks=feature_blocks, all_features=diagnostic_feature_cols)
     sig.to_csv(out_val / "validation_significance.csv", index=False)
 
     # Stability and multicollinearity.
-    coef_path = coefficient_paths(train_df, features=feature_cols)
+    coef_path = coefficient_paths(train_df, features=diagnostic_feature_cols)
     coef_path.to_csv(out_val / "validation_coef_paths.csv", index=False)
-    vif = vif_table(train_df, features=feature_cols)
+    vif = vif_table(train_df, features=diagnostic_feature_cols)
     vif.to_csv(out_val / "validation_vif.csv", index=False)
-    break_test = break_test_trade_deadline(train_df, features=feature_cols)
+    break_test = break_test_trade_deadline(train_df, features=diagnostic_feature_cols)
     (out_val / "validation_break_test.json").write_text(json.dumps(break_test, indent=2, sort_keys=True))
 
     # Influence.
-    infl_df, infl_summary = influence_diagnostics(train_df, features=feature_cols, top_k=10)
+    infl_df, infl_summary = influence_diagnostics(train_df, features=diagnostic_feature_cols, top_k=10)
     infl_df.to_csv(out_val / "validation_influence_top.csv", index=False)
     (out_val / "validation_influence_summary.json").write_text(json.dumps(infl_summary, indent=2, sort_keys=True))
 
     # Fragility.
     if glm is not None:
-        stress = missingness_stress_test(glm, va if not va.empty else train_df, feature_cols=feature_cols)
+        stress = missingness_stress_test(glm, va if not va.empty else train_df, feature_cols=diagnostic_feature_cols)
         stress.to_csv(out_val / "validation_fragility_missingness.csv", index=False)
-        pert = perturbation_sensitivity(glm, va if not va.empty else train_df, feature_cols=feature_cols)
+        pert = perturbation_sensitivity(glm, va if not va.empty else train_df, feature_cols=diagnostic_feature_cols)
         (out_val / "validation_fragility_perturbation.json").write_text(json.dumps(pert, indent=2, sort_keys=True))
 
     # Calibration robustness outputs.
@@ -816,6 +877,7 @@ def cmd_train(cfg: AppConfig, models_arg: str | None = None, approve_feature_cha
         approve_feature_changes=approve_feature_changes,
         run_context="train",
     )
+    model_feature_columns = load_model_feature_map(cfg.data.league)
     feature_set_rows = db.query("SELECT feature_set_version FROM feature_sets ORDER BY created_at_utc DESC LIMIT 1")
     feature_set_version = feature_set_rows[0]["feature_set_version"] if feature_set_rows else "unknown_feature_set"
     selected_models = _parse_models_arg(models_arg)
@@ -846,6 +908,7 @@ def cmd_train(cfg: AppConfig, models_arg: str | None = None, approve_feature_cha
         selected_models=selected_models,
         progress_callback=emit_train_progress,
         selected_feature_columns=approved_feature_columns,
+        selected_model_feature_columns=model_feature_columns,
     )
     tracker.log_metrics(
         run_id,
@@ -933,6 +996,7 @@ def cmd_backtest(cfg: AppConfig, models_arg: str | None = None, approve_feature_
         approve_feature_changes=approve_feature_changes,
         run_context="backtest",
     )
+    model_feature_columns = load_model_feature_map(cfg.data.league)
     selected_models = _parse_models_arg(models_arg)
     bt = run_walk_forward_backtest(
         features_df,
@@ -941,6 +1005,7 @@ def cmd_backtest(cfg: AppConfig, models_arg: str | None = None, approve_feature_
         n_splits=cfg.modeling.cv_splits,
         selected_models=selected_models,
         selected_feature_columns=approved_feature_columns,
+        selected_model_feature_columns=model_feature_columns,
     )
 
     oof = bt["oof_predictions"]
@@ -1072,10 +1137,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="NHL/NBA probabilistic forecasting pipeline")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    for cmd in ["init-db", "fetch", "features", "train", "backtest", "run-daily", "smoke"]:
+    for cmd in ["init-db", "fetch", "features", "research-features", "train", "backtest", "run-daily", "smoke"]:
         p = sub.add_parser(cmd)
         p.add_argument("--config", default="configs/nhl.yaml")
-        if cmd in {"train", "backtest", "run-daily"}:
+        if cmd in {"research-features", "train", "backtest", "run-daily"}:
             p.add_argument(
                 "--models",
                 default="all",
@@ -1099,6 +1164,8 @@ def main() -> None:
         cmd_fetch(cfg)
     elif args.command == "features":
         cmd_features(cfg)
+    elif args.command == "research-features":
+        cmd_research_features(cfg, models_arg=args.models, approve_feature_changes=bool(args.approve_feature_changes))
     elif args.command == "train":
         cmd_train(cfg, models_arg=args.models, approve_feature_changes=bool(args.approve_feature_changes))
     elif args.command == "backtest":
