@@ -30,6 +30,15 @@ type GamesTodayResponse = {
   rows?: GamesTodayRow[];
 };
 
+type RefreshOddsResponse = {
+  ok?: boolean;
+  error?: string;
+  details?: string;
+  odds_as_of_utc?: string | null;
+  event_count?: number | null;
+  row_count?: number | null;
+};
+
 function formatAsOfLabel(value: string): string {
   const parsed = new Date(value);
   if (Number.isNaN(parsed.getTime())) return value;
@@ -64,6 +73,10 @@ function GamesTodayPageContent() {
   const [latestOddsAsOf, setLatestOddsAsOf] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [reloadKey, setReloadKey] = useState(0);
+  const [refreshingOdds, setRefreshingOdds] = useState(false);
+  const [refreshOddsError, setRefreshOddsError] = useState("");
+  const [refreshOddsStatus, setRefreshOddsStatus] = useState("");
 
   useEffect(() => {
     let cancelled = false;
@@ -95,7 +108,41 @@ function GamesTodayPageContent() {
     return () => {
       cancelled = true;
     };
-  }, [league]);
+  }, [league, reloadKey]);
+
+  const handleRefreshOdds = async () => {
+    setRefreshingOdds(true);
+    setRefreshOddsError("");
+    setRefreshOddsStatus("");
+
+    try {
+      const response = await fetch(withLeague("/api/refresh-odds", league), {
+        method: "POST",
+      });
+      const payload = (await response.json().catch(() => ({}))) as RefreshOddsResponse;
+      if (!response.ok || payload.ok === false) {
+        const detailSuffix = payload.details ? ` ${payload.details}` : "";
+        throw new Error(payload.error ? `${payload.error}${detailSuffix}` : `Odds refresh failed (${response.status}).`);
+      }
+
+      if (typeof payload.odds_as_of_utc === "string" && payload.odds_as_of_utc) {
+        const counts =
+          payload.event_count != null && payload.row_count != null
+            ? ` Saved ${Number(payload.event_count)} events and ${Number(payload.row_count)} lines.`
+            : "";
+        setRefreshOddsStatus(`Odds refreshed as of ${formatAsOfLabel(payload.odds_as_of_utc)}.${counts}`);
+      } else {
+        setRefreshOddsStatus("Odds refreshed and saved.");
+      }
+
+      setReloadKey((value) => value + 1);
+    } catch (refreshError) {
+      const message = refreshError instanceof Error ? refreshError.message : "Unable to refresh odds right now.";
+      setRefreshOddsError(message.length > 320 ? `${message.slice(0, 317)}...` : message);
+    } finally {
+      setRefreshingOdds(false);
+    }
+  };
 
   return (
     <div className="grid">
@@ -103,6 +150,19 @@ function GamesTodayPageContent() {
         <h2 className="title">Games Today</h2>
         <p className="small">Only games scheduled for today (Central Time) are shown.</p>
         <p className="small">Anticipated winner threshold: win chance greater than 55%.</p>
+        <div className={styles.actionsRow}>
+          <button
+            type="button"
+            className={styles.refreshOddsButton}
+            onClick={handleRefreshOdds}
+            disabled={refreshingOdds}
+            aria-busy={refreshingOdds}
+          >
+            {refreshingOdds ? "Refreshing odds..." : "Refresh Odds"}
+          </button>
+          {refreshOddsStatus ? <p className={styles.refreshStatus}>{refreshOddsStatus}</p> : null}
+          {refreshOddsError ? <p className={styles.refreshError}>{refreshOddsError}</p> : null}
+        </div>
         {latestAsOf ? <p className="small">Forecast snapshot as of {formatAsOfLabel(latestAsOf)}</p> : null}
         {latestOddsAsOf ? <p className="small">Odds snapshot as of {formatAsOfLabel(latestOddsAsOf)}</p> : null}
         {loading ? <p className="small">Loading games...</p> : null}

@@ -2,6 +2,56 @@
   overflow-x: auto;
 }
 
+.actionsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin: 12px 0 10px;
+}
+
+.refreshOddsButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 140px;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid rgba(15, 118, 110, 0.28);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(236, 254, 255, 0.95), rgba(209, 250, 229, 0.92));
+  color: #0f766e;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.refreshOddsButton:hover:enabled {
+  background: linear-gradient(135deg, rgba(207, 250, 254, 1), rgba(187, 247, 208, 0.98));
+}
+
+.refreshOddsButton:disabled {
+  opacity: 0.8;
+  cursor: wait;
+}
+
+.refreshStatus,
+.refreshError {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.refreshStatus {
+  color: #0f766e;
+  font-weight: 600;
+}
+
+.refreshError {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
 .gamesTable {
   min-width: 760px;
   table-layout: fixed;

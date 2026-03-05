@@ -299,6 +299,24 @@ def _upsert_teams(
     )
 
 
+def _latest_teams_df(db: Database, league: str) -> pd.DataFrame:
+    rows = db.query(
+        """
+        SELECT team_abbrev, team_name, conference, division, as_of_date
+        FROM teams
+        WHERE league = ?
+          AND as_of_utc = (
+            SELECT MAX(as_of_utc)
+            FROM teams
+            WHERE league = ?
+          )
+        ORDER BY team_abbrev ASC
+        """,
+        (league, league),
+    )
+    return pd.DataFrame(rows)
+
+
 def _parse_iso_or_none(value: Any) -> datetime | None:
     raw = str(value or "").strip()
     if not raw:
@@ -574,6 +592,42 @@ def cmd_fetch(cfg: AppConfig) -> None:
         len(goalies_res.dataframe),
     )
 
+
+
+def cmd_fetch_odds(cfg: AppConfig) -> None:
+    db = Database(cfg.paths.db_path)
+    db.init_schema()
+    client = _client(cfg)
+    league = _canonical_league(cfg.data.league)
+    sources = _league_sources(league)
+
+    teams_df = _latest_teams_df(db, league)
+    if teams_df.empty:
+        teams_res = sources["fetch_teams"](client)
+        _save_interim(teams_res.dataframe, cfg.paths.interim_dir, "teams")
+        _insert_snapshot(db, teams_res)
+        _upsert_teams(
+            db,
+            teams_df=teams_res.dataframe,
+            league=league,
+            snapshot_id=teams_res.snapshot_id,
+            as_of_utc=teams_res.extracted_at_utc,
+        )
+        teams_df = teams_res.dataframe
+
+    odds_res = sources["fetch_public_odds_optional"](client, teams_df=teams_df, league=league)
+    _save_interim(odds_res.dataframe, cfg.paths.interim_dir, "odds")
+    _insert_snapshot(db, odds_res)
+    _insert_odds_snapshot_and_lines(db, league=league, odds_res=odds_res)
+
+    logger.info(
+        "Odds fetch complete | league=%s snapshot=%s events=%s rows=%d requests_remaining=%s",
+        league,
+        odds_res.snapshot_id,
+        odds_res.metadata.get("n_events"),
+        len(odds_res.dataframe),
+        odds_res.metadata.get("requests_remaining"),
+    )
 
 
 def cmd_features(cfg: AppConfig) -> None:
@@ -1137,7 +1191,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="NHL/NBA probabilistic forecasting pipeline")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    for cmd in ["init-db", "fetch", "features", "research-features", "train", "backtest", "run-daily", "smoke"]:
+    for cmd in ["init-db", "fetch", "fetch-odds", "features", "research-features", "train", "backtest", "run-daily", "smoke"]:
         p = sub.add_parser(cmd)
         p.add_argument("--config", default="configs/nhl.yaml")
         if cmd in {"research-features", "train", "backtest", "run-daily"}:
@@ -1162,6 +1216,8 @@ def main() -> None:
         cmd_init_db(cfg)
     elif args.command == "fetch":
         cmd_fetch(cfg)
+    elif args.command == "fetch-odds":
+        cmd_fetch_odds(cfg)
     elif args.command == "features":
         cmd_features(cfg)
     elif args.command == "research-features":
