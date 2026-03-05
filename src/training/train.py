@@ -599,6 +599,8 @@ def _predict_suite(
         )
 
     for name, m in models.items():
+        if name not in selected:
+            continue
         _emit_progress(
             progress_callback,
             {"kind": "model", "model": name, "stage": phase, "status": "started", "message": f"Running {phase} for {name}"},

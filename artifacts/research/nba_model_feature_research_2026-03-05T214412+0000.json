@@ -1,0 +1,52 @@
+{
+  "approved_model_features": {
+    "gbdt": [
+      "diff_form_point_margin",
+      "travel_diff",
+      "rest_diff",
+      "elo_home_prob",
+      "dyn_home_prob",
+      "home_ewm_points_for",
+      "away_ewm_points_for",
+      "home_ewm_point_margin",
+      "away_ewm_point_margin",
+      "arena_shot_volume_effect",
+      "diff_shot_volume_share",
+      "elo_away_pre",
+      "away_r14_field_goal_attempts_against",
+      "dyn_away_mean",
+      "home_ewm_shot_volume_share",
+      "elo_home_pre",
+      "away_r14_points_against",
+      "away_r5_field_goal_attempts_against",
+      "home_r14_points_against",
+      "home_ewm_field_goal_attempts_for",
+      "away_r14_scoring_efficiency_proxy",
+      "home_r14_scoring_efficiency_proxy",
+      "away_r14_shot_volume_share",
+      "dyn_home_mean",
+      "home_r5_points_against",
+      "diff_roster_depth",
+      "away_games_played_prior",
+      "home_ewm_field_goal_attempts_against",
+      "away_ewm_possession_proxy",
+      "away_r5_shot_volume_share",
+      "away_r5_points_against",
+      "away_roster_depth_index",
+      "away_r5_field_goal_attempts_for",
+      "home_r5_possession_proxy",
+      "discipline_foul_pressure_diff",
+      "home_r14_possession_proxy",
+      "away_r14_field_goal_attempts_for",
+      "away_r14_points_for",
+      "home_r14_points_for",
+      "dyn_var_diff"
+    ]
+  },
+  "created_at_utc": "2026-03-05T21:44:12+00:00",
+  "league": "NBA",
+  "score_table_path": "artifacts/research/nba_model_feature_scores_2026-03-05T214412+0000.csv",
+  "selected_models": [
+    "gbdt"
+  ]
+}
