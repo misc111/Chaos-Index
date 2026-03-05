@@ -67,6 +67,19 @@ NHL_NAME_ALIASES = {
 }
 
 
+def _split_markets(markets: str) -> list[str]:
+    out: list[str] = []
+    for token in str(markets or "").split(","):
+        value = token.strip()
+        if value and value not in out:
+            out.append(value)
+    return out
+
+
+def _join_markets(markets: list[str]) -> str:
+    return ",".join(markets)
+
+
 def _normalize_text(value: Any) -> str:
     text = str(value or "").strip()
     if not text:
@@ -122,6 +135,10 @@ def _central_date_key(value: Any) -> str | None:
     return dt.astimezone(CENTRAL_TZ).date().isoformat()
 
 
+def _central_today_key() -> str:
+    return datetime.now(timezone.utc).astimezone(CENTRAL_TZ).date().isoformat()
+
+
 def _team_aliases_for_league(league: str) -> dict[str, str]:
     if league.upper() == "NBA":
         return NBA_NAME_ALIASES
@@ -169,100 +186,14 @@ def _resolve_outcome_side(outcome_name: str, api_home_team: str, api_away_team: 
     return None
 
 
-def _maybe_cached_payload_for_throttle(
-    client: HttpClient,
-    source: str,
-    min_interval_seconds: int,
-) -> tuple[Any, str] | None:
-    if min_interval_seconds <= 0:
-        return None
-    latest_cached: Path | None = client.latest_cached_file(source)
-    if latest_cached is None:
-        return None
-
-    age_seconds = max(0.0, datetime.now(timezone.utc).timestamp() - latest_cached.stat().st_mtime)
-    if age_seconds >= float(min_interval_seconds):
-        return None
-
-    payload = client.load_latest_cached(source)
-    if payload is None:
-        return None
-    return payload, str(latest_cached)
-
-
-def fetch_public_odds(
-    client: HttpClient,
+def _flatten_odds_events(
+    events: list[dict[str, Any]],
     *,
     league: str,
     sport_key: str,
-    source: str,
-    teams_df: pd.DataFrame | None = None,
-) -> SourceFetchResult:
-    as_of_utc = utc_now_iso()
-    api_key = str(os.getenv("ODDS_API_KEY", "")).strip()
-    regions = str(os.getenv("ODDS_API_REGIONS", "us")).strip() or "us"
-    markets = str(os.getenv("ODDS_API_MARKETS", "h2h,spreads,totals")).strip() or "h2h,spreads,totals"
-    odds_format = str(os.getenv("ODDS_API_ODDS_FORMAT", "american")).strip() or "american"
-    date_format = str(os.getenv("ODDS_API_DATE_FORMAT", "iso")).strip() or "iso"
-    throttle_seconds = _parse_env_int("ODDS_API_THROTTLE_SECONDS", default=0)
-
-    if not api_key:
-        df = pd.DataFrame(columns=ODDS_COLUMNS)
-        metadata = {
-            "fetched_at_utc": as_of_utc,
-            "league": league,
-            "sport_key": sport_key,
-            "regions": regions,
-            "markets": markets,
-            "odds_format": odds_format,
-            "date_format": date_format,
-            "fallback_used": 1,
-            "reason": "odds_api_key_not_configured",
-            "api_call_performed": 0,
-            "from_cache": 0,
-            "throttle_seconds": throttle_seconds,
-            "throttle_applied": 0,
-            "n_events": 0,
-            "n_rows": 0,
-        }
-        snapshot_id = client.snapshot_id(source, metadata)
-        return SourceFetchResult(
-            source=source,
-            snapshot_id=snapshot_id,
-            extracted_at_utc=as_of_utc,
-            raw_path="",
-            metadata=metadata,
-            dataframe=df,
-        )
-
-    endpoint = f"{ODDS_API_BASE}/sports/{sport_key}/odds/"
-    params = {
-        "apiKey": api_key,
-        "regions": regions,
-        "markets": markets,
-        "oddsFormat": odds_format,
-        "dateFormat": date_format,
-    }
-
-    throttled = _maybe_cached_payload_for_throttle(client, source, throttle_seconds)
-    if throttled is not None:
-        payload, raw_path = throttled
-        headers: dict[str, str] = {}
-        from_cache = True
-        throttle_applied = True
-    else:
-        payload, raw_path, headers, from_cache = client.get_json_with_headers(
-            source=source,
-            url=endpoint,
-            params=params,
-            key=as_of_utc.replace(":", "-"),
-        )
-        throttle_applied = False
-
-    events = payload if isinstance(payload, list) else []
-    team_name_map = _build_team_name_map(teams_df)
-    alias_map = _team_aliases_for_league(league)
-
+    team_name_map: dict[str, str],
+    alias_map: dict[str, str],
+) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for event in events:
         api_home_team = str(event.get("home_team") or "")
@@ -308,11 +239,224 @@ def fetch_public_odds(
                             "implied_probability": _american_to_implied_probability(outcome.get("price")),
                         }
                     )
+    return rows
 
-    df = pd.DataFrame(rows, columns=ODDS_COLUMNS)
-    requests_last = _parse_header_int(headers, "x-requests-last")
+
+def _fetch_nba_alternate_totals_events(
+    *,
+    client: HttpClient,
+    source: str,
+    sport_key: str,
+    api_key: str,
+    regions: str,
+    odds_format: str,
+    date_format: str,
+    base_events: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], int, int, int | None, int | None]:
+    today_key = _central_today_key()
+    target_event_ids: list[str] = []
+    for event in base_events:
+        event_id = str(event.get("id") or "").strip()
+        if not event_id:
+            continue
+        event_day = _central_date_key(event.get("commence_time"))
+        if event_day == today_key:
+            target_event_ids.append(event_id)
+
+    alt_events: list[dict[str, Any]] = []
+    alt_calls = 0
+    alt_cache_hits = 0
+    requests_last_total = 0
+    requests_used: int | None = None
+    requests_remaining: int | None = None
+
+    for event_id in target_event_ids:
+        alt_calls += 1
+        endpoint = f"{ODDS_API_BASE}/sports/{sport_key}/events/{event_id}/odds/"
+        params = {
+            "apiKey": api_key,
+            "regions": regions,
+            "markets": "alternate_totals",
+            "oddsFormat": odds_format,
+            "dateFormat": date_format,
+        }
+
+        try:
+            payload, _, headers, from_cache = client.get_json_with_headers(
+                source=f"{source}_alternate_totals",
+                url=endpoint,
+                params=params,
+                key=f"{event_id}_{utc_now_iso().replace(':', '-')}",
+            )
+        except Exception:
+            continue
+
+        if from_cache:
+            alt_cache_hits += 1
+
+        last_value = _parse_header_int(headers, "x-requests-last")
+        used_value = _parse_header_int(headers, "x-requests-used")
+        remaining_value = _parse_header_int(headers, "x-requests-remaining")
+        if last_value is not None:
+            requests_last_total += last_value
+        if used_value is not None:
+            requests_used = used_value
+        if remaining_value is not None:
+            requests_remaining = remaining_value
+
+        if isinstance(payload, dict):
+            payload_event = {
+                "id": str(payload.get("id") or event_id),
+                "sport_key": str(payload.get("sport_key") or sport_key),
+                "home_team": payload.get("home_team"),
+                "away_team": payload.get("away_team"),
+                "commence_time": payload.get("commence_time"),
+                "bookmakers": payload.get("bookmakers") or [],
+            }
+            alt_events.append(payload_event)
+
+    return alt_events, alt_calls, alt_cache_hits, requests_used, requests_remaining
+
+
+def _maybe_cached_payload_for_throttle(
+    client: HttpClient,
+    source: str,
+    min_interval_seconds: int,
+) -> tuple[Any, str] | None:
+    if min_interval_seconds <= 0:
+        return None
+    latest_cached: Path | None = client.latest_cached_file(source)
+    if latest_cached is None:
+        return None
+
+    age_seconds = max(0.0, datetime.now(timezone.utc).timestamp() - latest_cached.stat().st_mtime)
+    if age_seconds >= float(min_interval_seconds):
+        return None
+
+    payload = client.load_latest_cached(source)
+    if payload is None:
+        return None
+    return payload, str(latest_cached)
+
+
+def fetch_public_odds(
+    client: HttpClient,
+    *,
+    league: str,
+    sport_key: str,
+    source: str,
+    teams_df: pd.DataFrame | None = None,
+) -> SourceFetchResult:
+    as_of_utc = utc_now_iso()
+    api_key = str(os.getenv("ODDS_API_KEY", "")).strip()
+    regions = str(os.getenv("ODDS_API_REGIONS", "us")).strip() or "us"
+    base_markets_default = "h2h,spreads,totals"
+    league_markets_default = "h2h,spreads,totals,alternate_totals" if league.upper() == "NBA" else base_markets_default
+    markets = (
+        str(os.getenv(f"ODDS_API_MARKETS_{league.upper()}", "")).strip()
+        or str(os.getenv("ODDS_API_MARKETS", league_markets_default)).strip()
+        or league_markets_default
+    )
+    odds_format = str(os.getenv("ODDS_API_ODDS_FORMAT", "american")).strip() or "american"
+    date_format = str(os.getenv("ODDS_API_DATE_FORMAT", "iso")).strip() or "iso"
+    throttle_seconds = _parse_env_int("ODDS_API_THROTTLE_SECONDS", default=0)
+
+    if not api_key:
+        df = pd.DataFrame(columns=ODDS_COLUMNS)
+        metadata = {
+            "fetched_at_utc": as_of_utc,
+            "league": league,
+            "sport_key": sport_key,
+            "regions": regions,
+            "markets": markets,
+            "odds_format": odds_format,
+            "date_format": date_format,
+            "fallback_used": 1,
+            "reason": "odds_api_key_not_configured",
+            "api_call_performed": 0,
+            "from_cache": 0,
+            "throttle_seconds": throttle_seconds,
+            "throttle_applied": 0,
+            "n_events": 0,
+            "n_rows": 0,
+        }
+        snapshot_id = client.snapshot_id(source, metadata)
+        return SourceFetchResult(
+            source=source,
+            snapshot_id=snapshot_id,
+            extracted_at_utc=as_of_utc,
+            raw_path="",
+            metadata=metadata,
+            dataframe=df,
+        )
+
+    requested_markets = _split_markets(markets)
+    include_alt_totals = league.upper() == "NBA" and "alternate_totals" in requested_markets
+    primary_markets = [m for m in requested_markets if m != "alternate_totals"] or ["h2h"]
+
+    endpoint = f"{ODDS_API_BASE}/sports/{sport_key}/odds/"
+    params = {
+        "apiKey": api_key,
+        "regions": regions,
+        "markets": _join_markets(primary_markets),
+        "oddsFormat": odds_format,
+        "dateFormat": date_format,
+    }
+
+    throttled = _maybe_cached_payload_for_throttle(client, source, throttle_seconds)
+    if throttled is not None:
+        payload, raw_path = throttled
+        headers: dict[str, str] = {}
+        from_cache = True
+        throttle_applied = True
+    else:
+        payload, raw_path, headers, from_cache = client.get_json_with_headers(
+            source=source,
+            url=endpoint,
+            params=params,
+            key=as_of_utc.replace(":", "-"),
+        )
+        throttle_applied = False
+
+    events = payload if isinstance(payload, list) else []
+    base_requests_last = _parse_header_int(headers, "x-requests-last")
     requests_used = _parse_header_int(headers, "x-requests-used")
     requests_remaining = _parse_header_int(headers, "x-requests-remaining")
+    requests_last_total = base_requests_last or 0
+    alt_calls = 0
+    alt_cache_hits = 0
+
+    if include_alt_totals:
+        alt_events, alt_calls, alt_cache_hits, alt_used, alt_remaining = _fetch_nba_alternate_totals_events(
+            client=client,
+            source=source,
+            sport_key=sport_key,
+            api_key=api_key,
+            regions=regions,
+            odds_format=odds_format,
+            date_format=date_format,
+            base_events=events,
+        )
+        events = events + alt_events
+        # Event-odds calls with alternate_totals cost 1 credit each when live.
+        live_alt_calls = max(0, alt_calls - alt_cache_hits)
+        requests_last_total += live_alt_calls
+        if alt_used is not None:
+            requests_used = alt_used
+        if alt_remaining is not None:
+            requests_remaining = alt_remaining
+
+    team_name_map = _build_team_name_map(teams_df)
+    alias_map = _team_aliases_for_league(league)
+    rows = _flatten_odds_events(
+        events,
+        league=league,
+        sport_key=sport_key,
+        team_name_map=team_name_map,
+        alias_map=alias_map,
+    )
+
+    df = pd.DataFrame(rows, columns=ODDS_COLUMNS)
 
     metadata = {
         "fetched_at_utc": as_of_utc,
@@ -321,9 +465,13 @@ def fetch_public_odds(
         "endpoint": endpoint,
         "regions": regions,
         "markets": markets,
+        "markets_primary": _join_markets(primary_markets),
+        "alternate_totals_requested": int(include_alt_totals),
+        "alternate_totals_event_calls": int(alt_calls),
+        "alternate_totals_event_cache_hits": int(alt_cache_hits),
         "odds_format": odds_format,
         "date_format": date_format,
-        "api_call_performed": int(not from_cache),
+        "api_call_performed": int((not from_cache) or (alt_calls - alt_cache_hits > 0)),
         "from_cache": int(from_cache),
         "throttle_seconds": throttle_seconds,
         "throttle_applied": int(throttle_applied),
@@ -333,7 +481,7 @@ def fetch_public_odds(
         "n_events_with_team_mapping": int(df["odds_event_id"][df["home_team"].notna() & df["away_team"].notna()].nunique())
         if not df.empty
         else 0,
-        "requests_last": requests_last,
+        "requests_last": requests_last_total,
         "requests_used": requests_used,
         "requests_remaining": requests_remaining,
     }

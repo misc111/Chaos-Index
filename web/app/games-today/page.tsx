@@ -16,6 +16,9 @@ type GamesTodayRow = {
   away_moneyline?: number | null;
   home_moneyline_book?: string | null;
   away_moneyline_book?: string | null;
+  over_190_price?: number | null;
+  over_190_point?: number | null;
+  over_190_book?: string | null;
 };
 
 type GamesTodayResponse = {
@@ -56,6 +59,14 @@ function formatMoneyline(value?: number | null): string {
   if (!Number.isFinite(numeric) || numeric === 0) return "—";
   const rounded = Math.round(numeric);
   return rounded > 0 ? `+${rounded}` : `${rounded}`;
+}
+
+function formatOver190(value?: number | null, point?: number | null): string {
+  const price = formatMoneyline(value);
+  const p = Number(point);
+  if (price === "—") return "—";
+  if (!Number.isFinite(p)) return price;
+  return `${price} @ ${p.toFixed(1)}`;
 }
 
 function GamesTodayPageContent() {
@@ -122,6 +133,7 @@ function GamesTodayPageContent() {
                 <th>Away Team</th>
                 <th>Win Chance</th>
                 <th>Moneyline</th>
+                {league === "NBA" ? <th>Over 190</th> : null}
               </tr>
             </thead>
             <tbody>
@@ -140,6 +152,9 @@ function GamesTodayPageContent() {
                     <td className={styles.moneylineCell}>
                       {`H ${formatMoneyline(row.home_moneyline)} · A ${formatMoneyline(row.away_moneyline)}`}
                     </td>
+                    {league === "NBA" ? (
+                      <td className={styles.over190Cell}>{formatOver190(row.over_190_price, row.over_190_point)}</td>
+                    ) : null}
                   </tr>
                 );
               })}

@@ -21,6 +21,15 @@ type RawMoneylineRow = {
   away_moneyline_book?: string | null;
 };
 
+type RawOver190Row = {
+  game_id?: number | null;
+  home_team?: string | null;
+  away_team?: string | null;
+  over_190_price?: number | null;
+  over_190_point?: number | null;
+  over_190_book?: string | null;
+};
+
 function escapeSqlString(value: string): string {
   return value.replace(/'/g, "''");
 }
@@ -188,6 +197,42 @@ export async function GET(request: Request) {
       ) as RawMoneylineRow[])
     : [];
 
+  const over190Rows =
+    escapedSnapshotId && league === "NBA"
+      ? (runSqlJson(
+          `
+          WITH ranked AS (
+            SELECT
+              game_id,
+              home_team,
+              away_team,
+              outcome_price,
+              bookmaker_title,
+              ROW_NUMBER() OVER (
+                PARTITION BY COALESCE(CAST(game_id AS TEXT), home_team || '|' || away_team)
+                ORDER BY outcome_point ASC, DATETIME(bookmaker_last_update_utc) DESC, line_id DESC
+              ) AS rn
+            FROM odds_market_lines
+            WHERE odds_snapshot_id = '${escapedSnapshotId}'
+              AND market_key = 'alternate_totals'
+              AND outcome_side = 'over'
+              AND outcome_point >= 190.0
+              AND outcome_price IS NOT NULL
+            )
+          SELECT
+            game_id,
+            home_team,
+            away_team,
+            MAX(CASE WHEN rn = 1 THEN outcome_price END) AS over_190_price,
+            MAX(CASE WHEN rn = 1 THEN outcome_point END) AS over_190_point,
+            MAX(CASE WHEN rn = 1 THEN bookmaker_title END) AS over_190_book
+          FROM ranked
+          GROUP BY game_id, home_team, away_team
+          `,
+          { league }
+        ) as RawOver190Row[])
+      : [];
+
   const moneylineByGameId = new Map<number, RawMoneylineRow>();
   const moneylineByTeamKey = new Map<string, RawMoneylineRow>();
   for (const row of moneylineRows) {
@@ -202,16 +247,36 @@ export async function GET(request: Request) {
     }
   }
 
+  const over190ByGameId = new Map<number, RawOver190Row>();
+  const over190ByTeamKey = new Map<string, RawOver190Row>();
+  for (const row of over190Rows) {
+    const gameId = Number(row.game_id);
+    if (Number.isFinite(gameId)) {
+      over190ByGameId.set(gameId, row);
+    }
+    const homeTeam = String(row.home_team || "").trim();
+    const awayTeam = String(row.away_team || "").trim();
+    if (homeTeam && awayTeam) {
+      over190ByTeamKey.set(`${homeTeam}|${awayTeam}`, row);
+    }
+  }
+
   const enrichedRows = rows.map((row) => {
-    const match =
+    const moneylineMatch =
       moneylineByGameId.get(Number(row.game_id)) ||
       moneylineByTeamKey.get(`${row.home_team}|${row.away_team}`);
+    const over190Match =
+      over190ByGameId.get(Number(row.game_id)) ||
+      over190ByTeamKey.get(`${row.home_team}|${row.away_team}`);
     return {
       ...row,
-      home_moneyline: match?.home_moneyline ?? null,
-      away_moneyline: match?.away_moneyline ?? null,
-      home_moneyline_book: match?.home_moneyline_book ?? null,
-      away_moneyline_book: match?.away_moneyline_book ?? null,
+      home_moneyline: moneylineMatch?.home_moneyline ?? null,
+      away_moneyline: moneylineMatch?.away_moneyline ?? null,
+      home_moneyline_book: moneylineMatch?.home_moneyline_book ?? null,
+      away_moneyline_book: moneylineMatch?.away_moneyline_book ?? null,
+      over_190_price: over190Match?.over_190_price ?? null,
+      over_190_point: over190Match?.over_190_point ?? null,
+      over_190_book: over190Match?.over_190_book ?? null,
     };
   });
 

@@ -32,6 +32,11 @@
   width: 20%;
 }
 
+.gamesTable th:nth-child(5),
+.gamesTable td:nth-child(5) {
+  width: 16%;
+}
+
 .teamWin {
   color: #0f5132;
   background: #d1e7dd;
@@ -62,4 +67,11 @@
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
   font-weight: 600;
+}
+
+.over190Cell {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: #1e3a8a;
 }
