@@ -22,6 +22,7 @@ type UpcomingRow = {
   as_of_utc: string;
   ensemble_prob_home_win: number;
   predicted_winner: string;
+  start_time_utc?: string | null;
 };
 
 type ApiResponse = {
@@ -36,6 +37,7 @@ type CalendarItem = {
   status: string;
   detail?: string;
   dotClass: "dot-correct" | "dot-incorrect" | "dot-upcoming";
+  kind: "historical" | "upcoming";
 };
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -72,6 +74,32 @@ function monthTitle(year: number, monthIndex: number): string {
   return new Date(year, monthIndex, 1).toLocaleDateString(undefined, {
     month: "long",
     year: "numeric",
+  });
+}
+
+function normalizeUtcTimestamp(value: string): string {
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}Z$/.test(value)) {
+    return value.replace("Z", ":00Z");
+  }
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(value)) {
+    return `${value}:00Z`;
+  }
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/.test(value)) {
+    return `${value}Z`;
+  }
+  return value;
+}
+
+function formatCentralTime(value?: string | null): string {
+  if (!value) return "Time TBD (CT)";
+  const normalized = normalizeUtcTimestamp(value);
+  const parsed = new Date(normalized);
+  if (Number.isNaN(parsed.getTime())) return `${value} CT`;
+  return parsed.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: "America/Chicago",
+    timeZoneName: "short",
   });
 }
 
@@ -135,6 +163,7 @@ export default function ActualVsExpectedPage() {
         status: isCorrect ? "Model correct" : "Model incorrect",
         detail: `Forecast made ${formatAsOfLabel(row.as_of_utc)}`,
         dotClass: isCorrect ? "dot-correct" : "dot-incorrect",
+        kind: "historical",
       });
     }
 
@@ -143,15 +172,13 @@ export default function ActualVsExpectedPage() {
       if (!map[key]) map[key] = [];
 
       const homeWinProb = Number(row.ensemble_prob_home_win);
-      const projectedWinnerProb =
-        row.predicted_winner === row.home_team ? homeWinProb : 1 - homeWinProb;
 
       map[key].push({
         id: `future-${row.game_id}`,
         matchup: `${row.home_team} vs ${row.away_team}`,
-        status: `Projected: ${row.predicted_winner} ${(projectedWinnerProb * 100).toFixed(1)}%`,
-        detail: "Current ensemble outlook",
-        dotClass: "dot-upcoming",
+        status: `${(homeWinProb * 100).toFixed(1)}%`,
+        dotClass: homeWinProb >= 0.5 ? "dot-correct" : "dot-incorrect",
+        kind: "upcoming",
       });
     }
 
@@ -239,11 +266,23 @@ export default function ActualVsExpectedPage() {
                   <div className="calendar-events">
                     {(cell.items || []).map((item) => (
                       <div key={item.id} className="calendar-event">
-                        <div className="calendar-event-status">
-                          <span className={`status-dot ${item.dotClass}`} />
-                          <span>{item.status}</span>
-                        </div>
-                        <div className="calendar-event-matchup">{item.matchup}</div>
+                        {item.kind === "upcoming" ? (
+                          <>
+                            <div className="calendar-event-matchup">{item.matchup}</div>
+                            <div className="calendar-event-status">
+                              <span className={`status-dot ${item.dotClass}`} />
+                              <span>{item.status}</span>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="calendar-event-status">
+                              <span className={`status-dot ${item.dotClass}`} />
+                              <span>{item.status}</span>
+                            </div>
+                            <div className="calendar-event-matchup">{item.matchup}</div>
+                          </>
+                        )}
                         {item.detail ? <div className="calendar-event-detail">{item.detail}</div> : null}
                       </div>
                     ))}

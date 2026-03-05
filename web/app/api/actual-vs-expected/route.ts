@@ -73,17 +73,19 @@ export async function GET() {
     ? runSqlJson(
         `
         SELECT
-          game_id,
-          game_date_utc,
-          home_team,
-          away_team,
-          as_of_utc,
-          ensemble_prob_home_win,
-          predicted_winner
-        FROM upcoming_game_forecasts
-        WHERE as_of_utc = '${escapedAsOf}'
-          AND game_date_utc >= DATE('now')
-        ORDER BY game_date_utc ASC, game_id ASC
+          u.game_id,
+          u.game_date_utc,
+          u.home_team,
+          u.away_team,
+          u.as_of_utc,
+          u.ensemble_prob_home_win,
+          u.predicted_winner,
+          g.start_time_utc
+        FROM upcoming_game_forecasts u
+        LEFT JOIN games g ON g.game_id = u.game_id
+        WHERE u.as_of_utc = '${escapedAsOf}'
+          AND u.game_date_utc >= DATE('now')
+        ORDER BY u.game_date_utc ASC, u.game_id ASC
         `
       )
     : [];

@@ -40,15 +40,34 @@ def _report_dataframe(payload: dict) -> pd.DataFrame:
     rows = []
     for r in payload.get("rows", []):
         probs = r.get("model_win_probabilities", {}) or {}
+        team = r.get("team") or "-"
+        opponent = r.get("next_opponent") or "-"
+        home_or_away = r.get("home_or_away")
+        if str(home_or_away or "").strip().lower() != "home":
+            continue
+        home_team = r.get("home_team")
+        away_team = r.get("away_team")
+        if not home_team or not away_team:
+            if home_or_away == "Home":
+                home_team = team
+                away_team = opponent
+            elif home_or_away == "Away":
+                home_team = opponent
+                away_team = team
+            else:
+                home_team = home_team or "-"
+                away_team = away_team or "-"
         out = {
-            "Team": r.get("team") or "-",
-            "Next Opponent": r.get("next_opponent") or "-",
+            "Home Team": home_team or "-",
+            "Away Team": away_team or "-",
             "Date": r.get("next_game_date_utc") or "-",
-            "Home/Away": r.get("home_or_away") or "-",
         }
         for m in model_cols:
             p = probs.get(m)
-            out[m] = "-" if p is None else f"{float(p):.1%}"
+            if p is None:
+                out[m] = "-"
+                continue
+            out[m] = f"{float(p):.1%}"
         rows.append(out)
     return pd.DataFrame(rows)
 
@@ -61,13 +80,11 @@ def _dynamic_col_width_percentages(df: pd.DataFrame) -> list[float]:
     for col in df.columns:
         header_label = _display_label(col)
         max_len = max([len(header_label)] + [len(str(v)) for v in df[col].tolist()])
-        if col == "Team":
-            w = max(5.0, min(9.0, float(max_len + 1)))
-        elif col == "Next Opponent":
+        if col == "Home Team":
+            w = max(7.0, min(12.0, float(max_len + 1)))
+        elif col == "Away Team":
             w = max(7.0, min(12.0, float(max_len + 1)))
         elif col == "Date":
-            w = 8.0
-        elif col == "Home/Away":
             w = 8.0
         else:
             w = max(5.0, min(8.0, float(max_len + 1)))
@@ -98,12 +115,12 @@ def _build_html(
         cells = []
         for idx, col in enumerate(df.columns):
             val = html.escape(str(row[col]))
-            cell_class = "left" if idx < 4 else "num"
+            cell_class = "left" if idx < 3 else "num"
             cells.append(f'<td class="{cell_class}">{val}</td>')
         body_rows.append("<tr>" + "".join(cells) + "</tr>")
 
     explanation_items = []
-    for col in df.columns[4:]:
+    for col in df.columns[3:]:
         note = trust_notes.get(str(col))
         if not note:
             continue

@@ -277,17 +277,18 @@ def _format_probability(p: float | None) -> str:
 
 
 def _build_league_report_markdown(rows: list[dict[str, Any]], model_columns: list[str]) -> str:
-    headers = ["Team", "Next Opponent", "Date", "Home/Away"] + model_columns
+    headers = ["Home Team", "Away Team", "Date"] + model_columns
     sep = ["---"] * len(headers)
     lines = ["| " + " | ".join(headers) + " |", "| " + " | ".join(sep) + " |"]
 
     for row in rows:
-        team = row["team"]
-        opponent = row.get("next_opponent") or "-"
+        if str(row.get("home_or_away") or "").strip().lower() != "home":
+            continue
+        home_team = row.get("home_team") or "-"
+        away_team = row.get("away_team") or "-"
         game_date = row.get("next_game_date_utc") or "-"
-        home_or_away = row.get("home_or_away") or "-"
-        probs = row.get("model_win_probabilities", {})
-        cells = [team, opponent, game_date, home_or_away] + [_format_probability(probs.get(model)) for model in model_columns]
+        team_probs = row.get("model_win_probabilities", {})
+        cells = [home_team, away_team, game_date] + [_format_probability(team_probs.get(model)) for model in model_columns]
         lines.append("| " + " | ".join(cells) + " |")
 
     return "\n".join(lines)
@@ -376,10 +377,20 @@ def _answer_league_report(db: Queryable, league: str | None) -> tuple[str, dict]
         if next_game:
             raw_probs = dict(next_game.get("model_win_probabilities", {}))
             model_probs = {name: raw_probs.get(name) for name in model_columns}
-            home_or_away = "Home" if bool(next_game.get("is_home")) else "Away"
+            is_home = bool(next_game.get("is_home"))
+            home_or_away = "Home" if is_home else "Away"
+            opponent = next_game.get("next_opponent")
+            if is_home:
+                home_team = team
+                away_team = opponent
+            else:
+                home_team = opponent
+                away_team = team
         else:
             model_probs = {name: None for name in model_columns}
             home_or_away = None
+            home_team = None
+            away_team = None
 
         report_rows.append(
             {
@@ -388,6 +399,8 @@ def _answer_league_report(db: Queryable, league: str | None) -> tuple[str, dict]
                 "conference": meta.get("conference"),
                 "division": meta.get("division"),
                 "next_opponent": next_game.get("next_opponent") if next_game else None,
+                "home_team": home_team,
+                "away_team": away_team,
                 "next_game_date_utc": next_game.get("next_game_date_utc") if next_game else None,
                 "home_or_away": home_or_away,
                 "model_win_probabilities": model_probs,

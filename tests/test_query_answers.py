@@ -154,11 +154,14 @@ def test_query_answers(tmp_path: Path):
     assert report_payload["as_of_utc"] == "2026-03-01T00:00:00Z"
     assert report_payload["model_columns"][:2] == ["ensemble", "glm_logit"]
     assert "Model trust guide (super brief)" in report_answer
-    assert "Team | Next Opponent | Date | Home/Away" in report_answer
+    assert "Home Team | Away Team | Date" in report_answer
+    assert report_answer.count("| TOR | MTL | 2026-03-05 | 62.0% | 61.0% |") == 1
 
     tor_row = next(r for r in report_payload["rows"] if r["team"] == "TOR")
     assert tor_row["division"] == "Atlantic"
     assert tor_row["next_opponent"] == "MTL"
+    assert tor_row["home_team"] == "TOR"
+    assert tor_row["away_team"] == "MTL"
     assert tor_row["next_game_date_utc"] == "2026-03-05"
     assert tor_row["home_or_away"] == "Home"
     assert 0 < tor_row["model_win_probabilities"]["ensemble"] < 1
