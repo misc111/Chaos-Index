@@ -28,6 +28,9 @@ function probabilityTone(value?: number | null): string {
   if (typeof value !== "number" || !Number.isFinite(value)) {
     return styles.probNeutral;
   }
+  if (value > 0.9) {
+    return styles.probDominant;
+  }
   if (value >= 0.65) {
     return styles.probStrong;
   }
@@ -105,13 +108,26 @@ function PredictionsPageContent() {
     };
   }, [league]);
 
+  useEffect(() => {
+    setTeam("");
+  }, [league]);
+
   const teams = useMemo(
-    () => Array.from(new Set(report.rows.flatMap((r) => [r.home_team, r.away_team]))).sort(),
+    () => Array.from(new Set(report.rows.map((row) => row.home_team))).sort(),
     [report.rows]
   );
 
+  useEffect(() => {
+    if (!team) {
+      return;
+    }
+    if (!teams.includes(team)) {
+      setTeam("");
+    }
+  }, [team, teams]);
+
   const filteredRows = useMemo(
-    () => report.rows.filter((row) => !team || row.home_team === team || row.away_team === team),
+    () => report.rows.filter((row) => !team || row.home_team === team),
     [report.rows, team]
   );
 
@@ -143,18 +159,19 @@ function PredictionsPageContent() {
           <p className={styles.eyebrow}>{league} report view</p>
           <h2 className={styles.headline}>Predictions</h2>
           <p className={styles.description}>
-            One wide report view for every upcoming matchup. Scan the home-team win probability across the full model
-            stack, then narrow by team when you want a focused read.
+            A compact report view for teams whose next scheduled game is at home. Every row belongs to the home side,
+            column two is the opponent, and every probability cell is interpreted from that home team&apos;s point of
+            view.
           </p>
           <div className={styles.heroHighlights}>
             <span className={styles.heroHighlight}>
               <strong>{report.model_columns.length || 0}</strong> active models
             </span>
             <span className={styles.heroHighlight}>
-              <strong>{filteredRows.length}</strong> visible games
+              <strong>{filteredRows.length}</strong> visible home teams
             </span>
             <span className={styles.heroHighlight}>
-              <strong>Home-side</strong> probabilities
+              <strong>Unique</strong> home rows
             </span>
           </div>
         </div>
@@ -200,7 +217,7 @@ function PredictionsPageContent() {
         <div className={styles.filterCluster}>
           <div className={styles.filterField}>
             <label htmlFor="predictions-team-filter" className={styles.filterLabel}>
-              Team filter
+              Home team
             </label>
             <select
               id="predictions-team-filter"
@@ -208,7 +225,7 @@ function PredictionsPageContent() {
               value={team}
               onChange={(event) => setTeam(event.target.value)}
             >
-              <option value="">All teams</option>
+              <option value="">All home teams</option>
               {teams.map((entry) => (
                 <option key={entry} value={entry}>
                   {entry}
@@ -223,19 +240,21 @@ function PredictionsPageContent() {
           ) : null}
         </div>
         <p className={styles.toolbarHint}>
-          Sorted by ensemble home win probability, then date. Every percentage cell is from the home team&apos;s point
-          of view, matching the report-style matrix.
+          Each row is the subset of teams whose next game is at home. Teams do not repeat, the away side is column two,
+          and every percentage is the home team&apos;s win probability.
         </p>
       </section>
 
       <section className={styles.tableCard}>
         <div className={styles.tableHeader}>
           <div>
-            <h3 className={styles.sectionTitle}>All upcoming matchups</h3>
-            <p className={styles.sectionSubtitle}>A report-style matrix, rendered with the dashboard&apos;s visual system.</p>
+            <h3 className={styles.sectionTitle}>Next home games</h3>
+            <p className={styles.sectionSubtitle}>
+              One row per home team when that team&apos;s next scheduled game is at home.
+            </p>
           </div>
           <p className={styles.tableCount}>
-            {filteredRows.length} {filteredRows.length === 1 ? "game" : "games"} shown
+            {filteredRows.length} {filteredRows.length === 1 ? "team" : "teams"} shown
           </p>
         </div>
 
@@ -244,7 +263,7 @@ function PredictionsPageContent() {
         ) : isLoading ? (
           <div className={styles.loadingState}>Loading the latest predictions report...</div>
         ) : filteredRows.length === 0 ? (
-          <div className={styles.emptyState}>No upcoming games match the current filter.</div>
+          <div className={styles.emptyState}>No home teams match the current filter.</div>
         ) : (
           <div className={styles.tableScroll}>
             <table className={styles.reportTable}>

@@ -45,8 +45,25 @@ a {
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--panel);
+  color: var(--ink);
   font-weight: 600;
   font-size: 13px;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.nav a:hover {
+  background: #f5efe2;
+}
+
+.nav a.active {
+  background: #ecfeff;
+  border-color: #67e8f9;
+  color: #0f766e;
+  box-shadow: 0 0 0 1px rgba(103, 232, 249, 0.25);
 }
 
 .app-title {

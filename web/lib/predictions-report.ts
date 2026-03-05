@@ -58,6 +58,13 @@ export function displayPredictionModel(model: string): string {
   return MODEL_DISPLAY_LABELS[model] || titleCaseIdentifier(model);
 }
 
+export function predictionTrustNote(model: string): string {
+  return (
+    MODEL_TRUST_NOTES[model] ||
+    "Built on that model's own rule set. Good for a second opinion. Watch for large gaps versus the ensemble."
+  );
+}
+
 export function orderPredictionModels(models: Iterable<string>): string[] {
   const unique = new Set(
     Array.from(models)

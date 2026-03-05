@@ -19,6 +19,12 @@ const links: Array<[string, string]> = [
   ["/validation", "Validation"],
 ];
 
+function isActivePath(currentPath: string, href: string): boolean {
+  const normalizedCurrentPath = currentPath !== "/" ? currentPath.replace(/\/+$/, "") : currentPath;
+  const normalizedHref = href !== "/" ? href.replace(/\/+$/, "") : href;
+  return normalizedCurrentPath === normalizedHref;
+}
+
 type RefreshResponse = {
   ok?: boolean;
   error?: string;
@@ -66,7 +72,7 @@ function HeaderFallback() {
       </div>
       <div className="nav">
         {links.map(([href, label]) => (
-          <Link href={`${href}?league=NHL`} key={href}>
+          <Link href={`${href}?league=NHL`} key={href} className="nav-link">
             {label}
           </Link>
         ))}
@@ -168,11 +174,19 @@ function DashboardHeaderContent() {
       </div>
 
       <div className="nav">
-        {links.map(([href, label]) => (
-          <Link href={hrefWithLeague(href, league, search)} key={href}>
-            {label}
-          </Link>
-        ))}
+        {links.map(([href, label]) => {
+          const isActive = isActivePath(pathname, href);
+          return (
+            <Link
+              href={hrefWithLeague(href, league, search)}
+              key={href}
+              className={`nav-link ${isActive ? "active" : ""}`}
+              aria-current={isActive ? "page" : undefined}
+            >
+              {label}
+            </Link>
+          );
+        })}
       </div>
     </>
   );

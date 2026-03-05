@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { runSqlJson } from "@/lib/db";
 import { leagueFromRequest } from "@/lib/league";
-import { MODEL_TRUST_NOTES, orderPredictionModels, parseModelWinProbabilities } from "@/lib/predictions-report";
+import { orderPredictionModels, parseModelWinProbabilities, predictionTrustNote } from "@/lib/predictions-report";
 
 export async function GET(request: Request) {
   const league = leagueFromRequest(request);
@@ -13,12 +13,12 @@ export async function GET(request: Request) {
                 spread_mean, spread_sd, bayes_ci_low, bayes_ci_high, uncertainty_flags_json, per_model_probs_json
          FROM upcoming_game_forecasts
          WHERE as_of_utc = '${asOf}'
-         ORDER BY ensemble_prob_home_win DESC, game_date_utc ASC, game_id ASC`,
+         ORDER BY game_date_utc ASC, game_id ASC`,
         { league }
       )
     : [];
 
-  const rows = rawRows.map((row) => {
+  const games = rawRows.map((row) => {
     const modelWinProbabilities = {
       ensemble: Number(row.ensemble_prob_home_win),
       ...parseModelWinProbabilities(row.per_model_probs_json),
@@ -40,16 +40,37 @@ export async function GET(request: Request) {
     };
   });
 
+  const nextGameByTeam = new Map<string, { row: (typeof games)[number]; isHome: boolean }>();
+
+  for (const row of games) {
+    const homeTeam = row.home_team.trim();
+    const awayTeam = row.away_team.trim();
+
+    if (homeTeam && !nextGameByTeam.has(homeTeam)) {
+      nextGameByTeam.set(homeTeam, { row, isHome: true });
+    }
+
+    if (awayTeam && !nextGameByTeam.has(awayTeam)) {
+      nextGameByTeam.set(awayTeam, { row, isHome: false });
+    }
+  }
+
+  const rows = Array.from(nextGameByTeam.values())
+    .filter((entry) => entry.isHome)
+    .map((entry) => entry.row)
+    .sort(
+      (left, right) =>
+        right.ensemble_prob_home_win - left.ensemble_prob_home_win ||
+        left.game_date_utc.localeCompare(right.game_date_utc) ||
+        left.game_id - right.game_id
+    );
+
   const modelColumns = orderPredictionModels(
     rows.flatMap((row) => Object.keys(row.model_win_probabilities || {}))
   );
 
   const modelTrustNotes = Object.fromEntries(
-    modelColumns.map((model) => [
-      model,
-      MODEL_TRUST_NOTES[model] ||
-        "Built on that model's own rule set. Good for a second opinion. Watch for large gaps versus ensemble.",
-    ])
+    modelColumns.map((model) => [model, predictionTrustNote(model)])
   );
 
   return NextResponse.json({ league, as_of_utc: asOf, model_columns: modelColumns, model_trust_notes: modelTrustNotes, rows });
