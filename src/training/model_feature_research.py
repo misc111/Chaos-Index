@@ -46,6 +46,31 @@ def load_model_feature_map(league: str, path_template: str = MODEL_FEATURE_MAP_P
     return out
 
 
+def save_model_feature_map(
+    league: str,
+    model_features: dict[str, list[str]],
+    *,
+    path_template: str = MODEL_FEATURE_MAP_PATH_TEMPLATE,
+) -> Path:
+    league_code = str(league or "NHL").strip().upper()
+    registry_path = resolve_model_feature_map_path(path_template, league=league_code)
+    registry_path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "version": 1,
+        "league": league_code,
+        "updated_at_utc": utc_now_iso(),
+        "models": {
+            model_name: {
+                "active_features": list(features),
+                "feature_count": len(features),
+            }
+            for model_name, features in model_features.items()
+        },
+    }
+    registry_path.write_text(yaml.safe_dump(payload, sort_keys=False))
+    return registry_path
+
+
 def _safe_abs_corr(feature: pd.Series, target: pd.Series) -> float:
     joined = pd.concat([feature, target], axis=1).dropna()
     if len(joined) < 20:
@@ -268,6 +293,78 @@ def _prune_correlated_features(
     return selected[:max_features]
 
 
+def rank_model_features(
+    train_df: pd.DataFrame,
+    *,
+    model_name: str,
+    feature_columns: list[str],
+    league: str,
+) -> list[dict[str, object]]:
+    league_code = str(league or "NHL").strip().upper()
+    eligible = [c for c in _eligible_features_for_model(model_name, feature_columns, league_code) if c in train_df.columns]
+    if not eligible:
+        return []
+
+    y = train_df["home_win"].astype(float)
+    stage_targets = [
+        c
+        for c in [
+            "target_xg_share",
+            "target_penalty_diff",
+            "target_pace",
+            "target_shot_volume_share",
+            "target_free_throw_pressure",
+            "target_possession_volume",
+        ]
+        if c in train_df.columns
+    ]
+
+    scored_rows: list[dict[str, object]] = []
+    for feature in eligible:
+        feature_series = pd.to_numeric(train_df[feature], errors="coerce")
+        outcome_score = _safe_abs_corr(feature_series, y)
+        stage_score = 0.0
+        if stage_targets:
+            stage_score = max(_safe_abs_corr(feature_series, pd.to_numeric(train_df[target], errors="coerce")) for target in stage_targets)
+        non_null_share = float(feature_series.notna().mean())
+        combined_score = outcome_score + 0.35 * stage_score + 0.05 * non_null_share
+        scored_rows.append(
+            {
+                "model_name": model_name,
+                "feature": feature,
+                "outcome_score": outcome_score,
+                "stage_score": stage_score,
+                "non_null_share": non_null_share,
+                "combined_score": combined_score,
+            }
+        )
+
+    scored_rows.sort(key=lambda row: (float(row["combined_score"]), float(row["outcome_score"])), reverse=True)
+    return scored_rows
+
+
+def select_model_features(
+    train_df: pd.DataFrame,
+    *,
+    model_name: str,
+    league: str,
+    ranked_features: list[str],
+    target_width: int | None = None,
+) -> list[str]:
+    league_code = str(league or "NHL").strip().upper()
+    min_features, max_features, max_abs_corr = _model_feature_pruning_config(model_name)
+    width = max_features if target_width is None else int(target_width)
+    width = max(min_features, min(width, max_features))
+    return _prune_correlated_features(
+        train_df,
+        ranked_features,
+        seed_features=_anchor_features(model_name, league_code),
+        min_features=width,
+        max_features=width,
+        max_abs_corr=max_abs_corr,
+    )
+
+
 def research_model_feature_map(
     features_df: pd.DataFrame,
     *,
@@ -284,48 +381,28 @@ def research_model_feature_map(
         raise RuntimeError("Model feature research requires finalized games with non-null home_win.")
 
     model_names = [m for m in (selected_models or RESEARCHABLE_MODELS) if m in RESEARCHABLE_MODELS]
-    y = train_df["home_win"].astype(float)
-    stage_targets = [c for c in ["target_xg_share", "target_penalty_diff", "target_pace", "target_shot_volume_share", "target_free_throw_pressure", "target_possession_volume"] if c in train_df.columns]
-
     report_rows: list[dict[str, object]] = []
     approved_model_features: dict[str, list[str]] = {}
 
     for model_name in model_names:
-        eligible = [c for c in _eligible_features_for_model(model_name, feature_columns, league_code) if c in train_df.columns]
-        if not eligible:
+        scored_rows = rank_model_features(
+            train_df,
+            model_name=model_name,
+            feature_columns=feature_columns,
+            league=league_code,
+        )
+        if not scored_rows:
             approved_model_features[model_name] = []
             continue
 
-        scored_rows: list[dict[str, object]] = []
-        for feature in eligible:
-            feature_series = pd.to_numeric(train_df[feature], errors="coerce")
-            outcome_score = _safe_abs_corr(feature_series, y)
-            stage_score = 0.0
-            if stage_targets:
-                stage_score = max(_safe_abs_corr(feature_series, pd.to_numeric(train_df[target], errors="coerce")) for target in stage_targets)
-            non_null_share = float(feature_series.notna().mean())
-            combined_score = outcome_score + 0.35 * stage_score + 0.05 * non_null_share
-            scored_rows.append(
-                {
-                    "model_name": model_name,
-                    "feature": feature,
-                    "outcome_score": outcome_score,
-                    "stage_score": stage_score,
-                    "non_null_share": non_null_share,
-                    "combined_score": combined_score,
-                }
-            )
-
-        scored_rows.sort(key=lambda row: (float(row["combined_score"]), float(row["outcome_score"])), reverse=True)
         ranked_features = [str(row["feature"]) for row in scored_rows]
-        min_features, max_features, max_abs_corr = _model_feature_pruning_config(model_name)
-        selected = _prune_correlated_features(
+        _, max_features, _ = _model_feature_pruning_config(model_name)
+        selected = select_model_features(
             train_df,
-            ranked_features,
-            seed_features=_anchor_features(model_name, league_code),
-            min_features=min_features,
-            max_features=max_features,
-            max_abs_corr=max_abs_corr,
+            model_name=model_name,
+            league=league_code,
+            ranked_features=ranked_features,
+            target_width=max_features,
         )
         approved_model_features[model_name] = selected
 
@@ -362,22 +439,9 @@ def research_model_feature_map(
     registry_path = resolve_model_feature_map_path(path_template, league=league_code)
     registry_updated = False
     if approve_changes:
-        registry_path.parent.mkdir(parents=True, exist_ok=True)
         merged_model_features = load_model_feature_map(league_code, path_template=path_template)
         merged_model_features.update(approved_model_features)
-        payload = {
-            "version": 1,
-            "league": league_code,
-            "updated_at_utc": utc_now_iso(),
-            "models": {
-                model_name: {
-                    "active_features": features,
-                    "feature_count": len(features),
-                }
-                for model_name, features in merged_model_features.items()
-            },
-        }
-        registry_path.write_text(yaml.safe_dump(payload, sort_keys=False))
+        registry_path = save_model_feature_map(league_code, merged_model_features, path_template=path_template)
         registry_updated = True
 
     return ModelFeatureResearchResult(
