@@ -556,6 +556,9 @@ def _run_validation_outputs(result: dict, cfg: AppConfig) -> None:
 
 
 def cmd_train(cfg: AppConfig, models_arg: str | None = None) -> None:
+    def emit_train_progress(event: dict[str, Any]) -> None:
+        print(f"TRAIN_PROGRESS::{json.dumps(event, sort_keys=True)}", flush=True)
+
     db = Database(cfg.paths.db_path)
     db.init_schema()
 
@@ -581,12 +584,23 @@ def cmd_train(cfg: AppConfig, models_arg: str | None = None) -> None:
             "selected_models": selected_models if selected_models is not None else ["all"],
         },
     )
+    emit_train_progress(
+        {
+            "kind": "pipeline",
+            "stage": "train_command",
+            "status": "started",
+            "message": "Starting cmd_train",
+            "feature_set_version": feature_set_version,
+            "selected_models": selected_models if selected_models is not None else ["all"],
+        }
+    )
     result = train_and_predict(
         features_df=features_df,
         feature_set_version=feature_set_version,
         artifacts_dir=cfg.paths.artifacts_dir,
         bayes_cfg=cfg.bayes.model_dump(),
         selected_models=selected_models,
+        progress_callback=emit_train_progress,
     )
     tracker.log_metrics(
         run_id,
@@ -636,6 +650,15 @@ def cmd_train(cfg: AppConfig, models_arg: str | None = None) -> None:
     _run_validation_outputs(result, cfg)
 
     tracker.end_run(run_id)
+    emit_train_progress(
+        {
+            "kind": "pipeline",
+            "stage": "train_command",
+            "status": "completed",
+            "message": "Completed cmd_train",
+            "model_run_id": result["model_run_id"],
+        }
+    )
     logger.info(
         "Train complete | model_run_id=%s upcoming=%d selected_models=%s",
         result["model_run_id"],

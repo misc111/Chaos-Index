@@ -156,6 +156,165 @@ a {
   color: #b91c1c;
 }
 
+.train-cta-row {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.train-model-grid {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.train-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  padding: 10px 14px;
+  border: 1px solid #7c3aed;
+  border-radius: 999px;
+  background: #ede9fe;
+  color: #4c1d95;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.train-btn:hover:enabled {
+  background: #ddd6fe;
+}
+
+.train-btn:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+.train-monitor-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.train-target-models {
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+.train-stage-note {
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+.train-progress-block {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.train-progress-track {
+  width: min(460px, 100%);
+  height: 8px;
+  border: 1px solid #c4b5fd;
+  border-radius: 999px;
+  background: #f5f3ff;
+  overflow: hidden;
+}
+
+.train-progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #7c3aed 0%, #14b8a6 100%);
+  transition: width 250ms ease;
+}
+
+.train-progress-text {
+  margin: 0;
+}
+
+.train-events-window {
+  margin-top: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fcfbf6;
+  max-height: 300px;
+  overflow: auto;
+}
+
+.train-events-list {
+  list-style: none;
+  margin: 0;
+  padding: 10px 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.train-event-item {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  gap: 8px;
+  align-items: baseline;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.train-event-time {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.train-event-status {
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 2px 7px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.train-event-status-started {
+  color: #0f766e;
+  border-color: #5eead4;
+  background: #f0fdfa;
+}
+
+.train-event-status-completed {
+  color: #1d4ed8;
+  border-color: #93c5fd;
+  background: #eff6ff;
+}
+
+.train-event-status-skipped {
+  color: #92400e;
+  border-color: #fde68a;
+  background: #fffbeb;
+}
+
+.train-event-status-failed {
+  color: #991b1b;
+  border-color: #fca5a5;
+  background: #fef2f2;
+}
+
+.train-event-message {
+  color: var(--ink);
+}
+
+.train-error {
+  color: #b91c1c;
+}
+
 .card {
   background: var(--panel);
   border: 1px solid var(--border);

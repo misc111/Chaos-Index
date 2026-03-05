@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import re
+from typing import Any, Callable
 
 import numpy as np
 import pandas as pd
@@ -70,6 +71,19 @@ RESERVED_NON_FEATURES = {
     "home_score",
     "away_score",
 }
+
+ProgressCallback = Callable[[dict[str, Any]], None]
+
+
+def _emit_progress(progress_callback: ProgressCallback | None, payload: dict[str, Any]) -> None:
+    if progress_callback is None:
+        return
+    event = {"ts_utc": utc_now_iso(), **payload}
+    try:
+        progress_callback(event)
+    except Exception:
+        # Progress reporting should never block model training.
+        return
 
 
 def normalize_selected_models(selected_models: list[str] | None) -> list[str]:
@@ -194,6 +208,7 @@ def _fit_suite(
     artifacts_dir: str,
     bayes_cfg: dict,
     selected_models: list[str],
+    progress_callback: ProgressCallback | None = None,
     allow_nn: bool = True,
     glm_feature_cols: list[str] | None = None,
     glm_c: float = 1.0,
@@ -203,39 +218,133 @@ def _fit_suite(
 
     glm_cols = glm_feature_cols if glm_feature_cols else feature_cols
     if "glm_logit" in selected:
+        _emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "glm_logit", "stage": "fit", "status": "started", "message": "Fitting glm_logit"},
+        )
         glm = GLMLogitModel(c=float(glm_c))
         glm.fit(train_df, glm_cols)
         models[glm.model_name] = glm
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": "glm_logit",
+                "stage": "fit",
+                "status": "completed",
+                "message": "Completed glm_logit fit",
+            },
+        )
 
     gbdt = None
     if "gbdt" in selected:
+        _emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "gbdt", "stage": "fit", "status": "started", "message": "Fitting gbdt"},
+        )
         gbdt = GBDTModel()
         gbdt.fit(train_df, feature_cols)
         models[gbdt.model_name] = gbdt
+        _emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "gbdt", "stage": "fit", "status": "completed", "message": "Completed gbdt fit"},
+        )
 
     if "rf" in selected:
+        _emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "rf", "stage": "fit", "status": "started", "message": "Fitting rf"},
+        )
         rf = RFModel()
         rf.fit(train_df, feature_cols)
         models[rf.model_name] = rf
+        _emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "rf", "stage": "fit", "status": "completed", "message": "Completed rf fit"},
+        )
 
     if "two_stage" in selected:
+        _emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "two_stage", "stage": "fit", "status": "started", "message": "Fitting two_stage"},
+        )
         two_stage = TwoStageModel()
         two_stage.fit(train_df, feature_cols)
         models[two_stage.model_name] = two_stage
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": "two_stage",
+                "stage": "fit",
+                "status": "completed",
+                "message": "Completed two_stage fit",
+            },
+        )
 
     if "goals_poisson" in selected:
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": "goals_poisson",
+                "stage": "fit",
+                "status": "started",
+                "message": "Fitting goals_poisson",
+            },
+        )
         goals = GoalsPoissonModel()
         goals.fit(train_df)
         models[goals.model_name] = goals
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": "goals_poisson",
+                "stage": "fit",
+                "status": "completed",
+                "message": "Completed goals_poisson fit",
+            },
+        )
 
     if "bayes_goals" in selected:
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": "bayes_goals",
+                "stage": "fit",
+                "status": "started",
+                "message": "Fitting bayes_goals",
+            },
+        )
         bayes_goals = BayesGoalsModel()
         bayes_goals.fit(train_df)
         models[bayes_goals.model_name] = bayes_goals
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": "bayes_goals",
+                "stage": "fit",
+                "status": "completed",
+                "message": "Completed bayes_goals fit",
+            },
+        )
 
     bcols: list[str] = []
     bayes_diag: dict = {}
     if "bayes_bt_state_space" in selected:
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": "bayes_bt_state_space",
+                "stage": "fit",
+                "status": "started",
+                "message": "Fitting bayes_bt_state_space",
+            },
+        )
         bcols = bayes_feature_subset(feature_cols)
         bayes_model, bayes_diag = run_bayes_offline_fit(
             features_df=train_df,
@@ -246,14 +355,32 @@ def _fit_suite(
             draws=bayes_cfg.get("posterior_draws", 500),
         )
         models[bayes_model.model_name] = bayes_model
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": "bayes_bt_state_space",
+                "stage": "fit",
+                "status": "completed",
+                "message": "Completed bayes_bt_state_space fit",
+            },
+        )
 
     nn_included = False
     if "nn_mlp" in selected and allow_nn and len(train_df) >= 350:
+        _emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "nn_mlp", "stage": "fit_gate", "status": "started", "message": "Evaluating nn_mlp gate"},
+        )
         # Gate NN by quick holdout improvement versus GBDT.
         split_ix = int(len(train_df) * 0.85)
         tr = train_df.iloc[:split_ix]
         va = train_df.iloc[split_ix:]
         if not va.empty and va["home_win"].nunique() > 1:
+            _emit_progress(
+                progress_callback,
+                {"kind": "model", "model": "nn_mlp", "stage": "fit", "status": "started", "message": "Fitting nn_mlp"},
+            )
             nn = NNModel()
             nn.fit(tr, feature_cols)
             include_nn = True
@@ -266,6 +393,49 @@ def _fit_suite(
             if include_nn:
                 models[nn.model_name] = nn
                 nn_included = True
+                _emit_progress(
+                    progress_callback,
+                    {
+                        "kind": "model",
+                        "model": "nn_mlp",
+                        "stage": "fit",
+                        "status": "completed",
+                        "message": "Completed nn_mlp fit",
+                    },
+                )
+            else:
+                _emit_progress(
+                    progress_callback,
+                    {
+                        "kind": "model",
+                        "model": "nn_mlp",
+                        "stage": "fit_gate",
+                        "status": "skipped",
+                        "message": "Skipped nn_mlp because holdout did not beat gbdt",
+                    },
+                )
+        else:
+            _emit_progress(
+                progress_callback,
+                {
+                    "kind": "model",
+                    "model": "nn_mlp",
+                    "stage": "fit_gate",
+                    "status": "skipped",
+                    "message": "Skipped nn_mlp because validation split was not eligible",
+                },
+            )
+    elif "nn_mlp" in selected:
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": "nn_mlp",
+                "stage": "fit_gate",
+                "status": "skipped",
+                "message": "Skipped nn_mlp because training set is too small",
+            },
+        )
 
     return models, bcols, bayes_diag, nn_included
 
@@ -276,6 +446,8 @@ def _predict_suite(
     df: pd.DataFrame,
     feature_cols: list[str],
     selected_models: list[str],
+    progress_callback: ProgressCallback | None = None,
+    phase: str = "predict",
 ) -> tuple[pd.DataFrame, dict]:
     out = pd.DataFrame({"game_id": df["game_id"].values})
     extras: dict = {}
@@ -283,11 +455,55 @@ def _predict_suite(
 
     # Direct feature baselines.
     if "elo_baseline" in selected:
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": "elo_baseline",
+                "stage": phase,
+                "status": "started",
+                "message": f"Running {phase} for elo_baseline",
+            },
+        )
         out["elo_baseline"] = np.clip(df.get("elo_home_prob", 0.5).to_numpy(dtype=float), 1e-6, 1 - 1e-6)
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": "elo_baseline",
+                "stage": phase,
+                "status": "completed",
+                "message": f"Completed {phase} for elo_baseline",
+            },
+        )
     if "dynamic_rating" in selected:
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": "dynamic_rating",
+                "stage": phase,
+                "status": "started",
+                "message": f"Running {phase} for dynamic_rating",
+            },
+        )
         out["dynamic_rating"] = np.clip(df.get("dyn_home_prob", 0.5).to_numpy(dtype=float), 1e-6, 1 - 1e-6)
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": "dynamic_rating",
+                "stage": phase,
+                "status": "completed",
+                "message": f"Completed {phase} for dynamic_rating",
+            },
+        )
 
     for name, m in models.items():
+        _emit_progress(
+            progress_callback,
+            {"kind": "model", "model": name, "stage": phase, "status": "started", "message": f"Running {phase} for {name}"},
+        )
         if name in {"goals_poisson"}:
             out[name] = m.predict_proba(df)
         elif name == "bayes_goals":
@@ -303,12 +519,42 @@ def _predict_suite(
             extras["bayes_pred_var"] = summary.pred_var
         else:
             out[name] = m.predict_proba(df)
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": name,
+                "stage": phase,
+                "status": "completed",
+                "message": f"Completed {phase} for {name}",
+            },
+        )
 
     if "simulation_first" in selected:
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": "simulation_first",
+                "stage": phase,
+                "status": "started",
+                "message": f"Running {phase} for simulation_first",
+            },
+        )
         sim = GameSimulator(seed=42)
         sim_df = sim.simulate_dataframe(df, n_sims=3500)
         out = out.merge(sim_df[["game_id", "sim_prob_home_win"]], on="game_id", how="left")
         out = out.rename(columns={"sim_prob_home_win": "simulation_first"})
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": "simulation_first",
+                "stage": phase,
+                "status": "completed",
+                "message": f"Completed {phase} for simulation_first",
+            },
+        )
 
     return out, extras
 
@@ -321,15 +567,48 @@ def _oof_predictions(
     artifacts_dir: str,
     bayes_cfg: dict,
     selected_models: list[str],
+    progress_callback: ProgressCallback | None = None,
 ) -> pd.DataFrame:
     splits = time_series_splits(train_df, n_splits=5, min_train_size=min(220, max(80, len(train_df) // 2)))
     rows = []
     selected = set(selected_models)
+    _emit_progress(
+        progress_callback,
+        {
+            "kind": "pipeline",
+            "stage": "oof_validation",
+            "status": "started",
+            "message": "Starting time-series OOF validation",
+            "fold_total": len(splits),
+        },
+    )
 
-    for tr_idx, va_idx in splits:
+    for fold_number, (tr_idx, va_idx) in enumerate(splits, start=1):
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "pipeline",
+                "stage": "oof_fold",
+                "status": "started",
+                "message": f"Starting OOF fold {fold_number}/{len(splits)}",
+                "fold": fold_number,
+                "fold_total": len(splits),
+            },
+        )
         tr = train_df.loc[tr_idx].copy().sort_values("start_time_utc")
         va = train_df.loc[va_idx].copy().sort_values("start_time_utc")
         if tr.empty or va.empty:
+            _emit_progress(
+                progress_callback,
+                {
+                    "kind": "pipeline",
+                    "stage": "oof_fold",
+                    "status": "skipped",
+                    "message": f"Skipped OOF fold {fold_number}/{len(splits)} because split was empty",
+                    "fold": fold_number,
+                    "fold_total": len(splits),
+                },
+            )
             continue
         fold_glm_c = 1.0
         if "glm_logit" in selected:
@@ -346,17 +625,56 @@ def _oof_predictions(
             artifacts_dir=artifacts_dir,
             bayes_cfg=bayes_cfg,
             selected_models=selected_models,
+            progress_callback=progress_callback,
             allow_nn=False,
             glm_feature_cols=glm_feature_cols,
             glm_c=fold_glm_c,
         )
-        pred, _ = _predict_suite(models, va, feature_cols, selected_models=selected_models)
+        pred, _ = _predict_suite(
+            models,
+            va,
+            feature_cols,
+            selected_models=selected_models,
+            progress_callback=progress_callback,
+            phase="oof_predict",
+        )
         pred["home_win"] = va["home_win"].to_numpy()
         pred["game_date_utc"] = va["game_date_utc"].to_numpy()
         rows.append(pred)
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "pipeline",
+                "stage": "oof_fold",
+                "status": "completed",
+                "message": f"Completed OOF fold {fold_number}/{len(splits)}",
+                "fold": fold_number,
+                "fold_total": len(splits),
+            },
+        )
 
     if not rows:
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "pipeline",
+                "stage": "oof_validation",
+                "status": "completed",
+                "message": "OOF validation completed with no folds",
+                "fold_total": len(splits),
+            },
+        )
         return pd.DataFrame()
+    _emit_progress(
+        progress_callback,
+        {
+            "kind": "pipeline",
+            "stage": "oof_validation",
+            "status": "completed",
+            "message": "Completed time-series OOF validation",
+            "fold_total": len(splits),
+        },
+    )
     return pd.concat(rows, ignore_index=True)
 
 
@@ -367,41 +685,135 @@ def train_and_predict(
     artifacts_dir: str,
     bayes_cfg: dict,
     selected_models: list[str] | None = None,
+    progress_callback: ProgressCallback | None = None,
 ) -> dict:
+    _emit_progress(
+        progress_callback,
+        {"kind": "pipeline", "stage": "prepare_data", "status": "started", "message": "Preparing training datasets"},
+    )
     df = features_df.sort_values("start_time_utc").copy()
     train_df = df[df["home_win"].notna()].copy()
     upcoming_df = df[df["home_win"].isna()].copy()
     models_selected = normalize_selected_models(selected_models)
+    _emit_progress(
+        progress_callback,
+        {
+            "kind": "pipeline",
+            "stage": "prepare_data",
+            "status": "completed",
+            "message": "Prepared training and upcoming datasets",
+            "n_train": int(len(train_df)),
+            "n_upcoming": int(len(upcoming_df)),
+            "model_total": len(models_selected),
+            "selected_models": models_selected,
+        },
+    )
 
+    _emit_progress(
+        progress_callback,
+        {"kind": "pipeline", "stage": "feature_selection", "status": "started", "message": "Selecting feature columns"},
+    )
     feature_cols = select_feature_columns(df)
     glm_cols = glm_feature_subset(feature_cols)
+    _emit_progress(
+        progress_callback,
+        {
+            "kind": "pipeline",
+            "stage": "feature_selection",
+            "status": "completed",
+            "message": "Selected feature columns",
+            "feature_count": len(feature_cols),
+            "glm_feature_count": len(glm_cols),
+        },
+    )
+
+    _emit_progress(
+        progress_callback,
+        {"kind": "pipeline", "stage": "leakage_checks", "status": "started", "message": "Running leakage checks"},
+    )
     issues = run_leakage_checks(df, feature_columns=feature_cols)
     if issues:
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "pipeline",
+                "stage": "leakage_checks",
+                "status": "failed",
+                "message": f"Leakage checks failed: {issues}",
+            },
+        )
         raise RuntimeError(f"Leakage checks failed: {issues}")
+    _emit_progress(
+        progress_callback,
+        {"kind": "pipeline", "stage": "leakage_checks", "status": "completed", "message": "Leakage checks passed"},
+    )
     model_run_prefix = stable_hash({"feature_set_version": feature_set_version, "n_train": len(train_df), "ts": utc_now_iso()})
 
     model_dir = ensure_dir(Path(artifacts_dir) / "models" / model_run_prefix)
     glm_tune: dict = {"best_c": 1.0, "results": [], "fold_metrics": []}
     glm_best_c = 1.0
     if "glm_logit" in models_selected:
+        _emit_progress(
+            progress_callback,
+            {"kind": "pipeline", "stage": "glm_tuning", "status": "started", "message": "Running GLM hyperparameter tuning"},
+        )
         glm_tune = quick_tune_glm(train_df, glm_cols, n_splits=4, min_train_size=min(220, max(100, len(train_df) // 2)))
         glm_best_c = float(glm_tune.get("best_c", 1.0))
+        _emit_progress(
+            progress_callback,
+            {
+                "kind": "pipeline",
+                "stage": "glm_tuning",
+                "status": "completed",
+                "message": "Completed GLM hyperparameter tuning",
+                "glm_best_c": glm_best_c,
+            },
+        )
+    _emit_progress(
+        progress_callback,
+        {"kind": "pipeline", "stage": "fit_models", "status": "started", "message": "Fitting selected models"},
+    )
     models, bayes_cols, bayes_diag, nn_included = _fit_suite(
         train_df,
         feature_cols,
         artifacts_dir=artifacts_dir,
         bayes_cfg=bayes_cfg,
         selected_models=models_selected,
+        progress_callback=progress_callback,
         allow_nn=True,
         glm_feature_cols=glm_cols,
         glm_c=glm_best_c,
+    )
+    _emit_progress(
+        progress_callback,
+        {
+            "kind": "pipeline",
+            "stage": "fit_models",
+            "status": "completed",
+            "message": "Completed model fitting",
+            "fitted_model_count": len(models),
+        },
     )
 
     # Save models.
     for name, m in models.items():
         if hasattr(m, "save"):
+            _emit_progress(
+                progress_callback,
+                {"kind": "model", "model": name, "stage": "save", "status": "started", "message": f"Saving {name} artifact"},
+            )
             ext = "json" if name == "bayes_bt_state_space" else "joblib"
             m.save(model_dir / f"{name}.{ext}")
+            _emit_progress(
+                progress_callback,
+                {
+                    "kind": "model",
+                    "model": name,
+                    "stage": "save",
+                    "status": "completed",
+                    "message": f"Saved {name} artifact",
+                },
+            )
 
     oof = _oof_predictions(
         train_df,
@@ -410,9 +822,14 @@ def train_and_predict(
         artifacts_dir=artifacts_dir,
         bayes_cfg=bayes_cfg,
         selected_models=models_selected,
+        progress_callback=progress_callback,
     )
 
     # Fit stacker.
+    _emit_progress(
+        progress_callback,
+        {"kind": "pipeline", "stage": "stacking", "status": "started", "message": "Preparing stacking ensemble"},
+    )
     stacker = StackingEnsemble()
     stack_base_cols = [
         c
@@ -437,6 +854,17 @@ def train_and_predict(
         stack_ready = True
     else:
         stack_ready = False
+    _emit_progress(
+        progress_callback,
+        {
+            "kind": "pipeline",
+            "stage": "stacking",
+            "status": "completed",
+            "message": "Stacking ensemble stage completed",
+            "stack_ready": bool(stack_ready),
+            "stack_base_count": len(stack_base_cols),
+        },
+    )
 
     oof_metrics = []
     if not oof.empty:
@@ -456,8 +884,38 @@ def train_and_predict(
     weights = compute_weights(pd.DataFrame(oof_metrics))
 
     # Predict upcoming and in-sample for diagnostics.
-    upcoming_preds, upcoming_extras = _predict_suite(models, upcoming_df, feature_cols, selected_models=models_selected)
-    train_preds, _ = _predict_suite(models, train_df, feature_cols, selected_models=models_selected)
+    _emit_progress(
+        progress_callback,
+        {"kind": "pipeline", "stage": "predict_upcoming", "status": "started", "message": "Generating upcoming predictions"},
+    )
+    upcoming_preds, upcoming_extras = _predict_suite(
+        models,
+        upcoming_df,
+        feature_cols,
+        selected_models=models_selected,
+        progress_callback=progress_callback,
+        phase="predict_upcoming",
+    )
+    _emit_progress(
+        progress_callback,
+        {"kind": "pipeline", "stage": "predict_upcoming", "status": "completed", "message": "Completed upcoming predictions"},
+    )
+    _emit_progress(
+        progress_callback,
+        {"kind": "pipeline", "stage": "predict_train", "status": "started", "message": "Generating in-sample diagnostics"},
+    )
+    train_preds, _ = _predict_suite(
+        models,
+        train_df,
+        feature_cols,
+        selected_models=models_selected,
+        progress_callback=progress_callback,
+        phase="predict_train",
+    )
+    _emit_progress(
+        progress_callback,
+        {"kind": "pipeline", "stage": "predict_train", "status": "completed", "message": "Completed in-sample diagnostics"},
+    )
 
     model_cols = [c for c in upcoming_preds.columns if c != "game_id"]
     if not model_cols:
@@ -471,6 +929,10 @@ def train_and_predict(
 
     weight_prob = weighted_ensemble(upcoming_preds, weights)
     ensemble_prob = np.clip(0.6 * stack_prob + 0.4 * weight_prob, 1e-6, 1 - 1e-6)
+    _emit_progress(
+        progress_callback,
+        {"kind": "pipeline", "stage": "ensemble", "status": "completed", "message": "Built ensemble probabilities"},
+    )
 
     spread = spread_stats(upcoming_preds, model_cols)
 
@@ -500,6 +962,10 @@ def train_and_predict(
     forecasts["per_model_probs_json"] = per_model_rows
 
     # Save artifacts.
+    _emit_progress(
+        progress_callback,
+        {"kind": "pipeline", "stage": "save_artifacts", "status": "started", "message": "Saving training artifacts"},
+    )
     try:
         forecasts.to_parquet(model_dir / "upcoming_forecasts.parquet", index=False)
     except Exception:
@@ -513,6 +979,10 @@ def train_and_predict(
             oof.to_parquet(model_dir / "oof_predictions.parquet", index=False)
         except Exception:
             oof.to_csv(model_dir / "oof_predictions.csv", index=False)
+    _emit_progress(
+        progress_callback,
+        {"kind": "pipeline", "stage": "save_artifacts", "status": "completed", "message": "Saved training artifacts"},
+    )
 
     run_payload = {
         "model_run_id": f"run_{model_run_prefix}",
@@ -537,6 +1007,17 @@ def train_and_predict(
         y = train_df["home_win"].astype(int).to_numpy()
         for col in [c for c in train_preds.columns if c != "game_id"]:
             train_metrics[col] = metric_bundle(y, train_preds[col].to_numpy())
+
+    _emit_progress(
+        progress_callback,
+        {
+            "kind": "pipeline",
+            "stage": "train_complete",
+            "status": "completed",
+            "message": "Model training completed",
+            "model_run_id": run_payload["model_run_id"],
+        },
+    )
 
     return {
         "model_run_id": run_payload["model_run_id"],
