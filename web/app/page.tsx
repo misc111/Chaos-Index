@@ -39,6 +39,11 @@ const QUICK_LINKS: Array<{ href: string; label: string; description: string }> =
     description: "Check the next slate, win probabilities, and model output before tip-off.",
   },
   {
+    href: "/market-board",
+    label: "Market board",
+    description: "Scan today’s spread, total, and moneyline board with fair-price context from the ensemble.",
+  },
+  {
     href: "/actual-vs-expected",
     label: "Actual vs expected",
     description: "Compare realized outcomes with forecasted performance and spot drift quickly.",

@@ -2,61 +2,86 @@
 .DS_Store
 *.swp
 *.swo
+.vscode/
+.idea/
 
 # Python cache / tooling
 __pycache__/
 *.py[cod]
+*.pyd
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.hypothesis/
+.pyre/
+.pytype/
+.tox/
+.nox/
 .ipynb_checkpoints/
 .coverage
+.coverage.*
 htmlcov/
+coverage.xml
+pip-wheel-metadata/
 
-# Local virtual environments
+# Local virtual environments / Python version managers
 .venv/
 venv/
 env/
+.python-version
+.direnv/
+.envrc
 
 # Python packaging artifacts
 build/
 dist/
+site/
 *.egg-info/
 
 # Node / Next.js artifacts
-web/node_modules/
-web/.next/
-web/.turbo/
-web/.vercel/
-web/coverage/
+node_modules/
+.next/
+.turbo/
+.vercel/
+coverage/
+*.tsbuildinfo
+.eslintcache
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
 
 # Local logs
 *.log
+
+# Root-level scratch exports / screenshots
+/*.png
+/*.jpg
+/*.jpeg
 
 # Local environment secrets
 .env
 .env.*
 !.env.example
+!.env.sample
 web/.env
 web/.env.*
 !web/.env.example
 
-# Generated data stores
-data/processed/*.db
-data/processed/*.sqlite*
-data/processed/*.duckdb
+# Generated data stores / caches
 data/raw/
 data/interim/
-data/processed/*.parquet
+data/processed/
+data/**/*.db
+data/**/*.sqlite*
+data/**/*.duckdb
+!data/**/.gitkeep
 
-# Generated model/report artifacts
+# Generated model / report artifacts
 artifacts/models/
 artifacts/plots/
 artifacts/validation/
-artifacts/reports/runs/
-artifacts/reports/*.parquet
-artifacts/reports/backtest_*.csv
-artifacts/reports/*_latest.csv
+artifacts/research/
+artifacts/reports/*
 
 # Keep a small, versioned lane for historical tracking snapshots
 !artifacts/reports/history/
