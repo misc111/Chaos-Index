@@ -207,6 +207,7 @@ export async function GET(request: Request) {
               home_team,
               away_team,
               outcome_price,
+              outcome_point,
               bookmaker_title,
               ROW_NUMBER() OVER (
                 PARTITION BY COALESCE(CAST(game_id AS TEXT), home_team || '|' || away_team)

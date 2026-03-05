@@ -190,6 +190,18 @@ a {
   background: #ddd6fe;
 }
 
+.train-btn-active {
+  background: #d8b4fe;
+  border-color: #7c3aed;
+  color: #3b0764;
+}
+
+.train-btn-muted {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+  color: #64748b;
+}
+
 .train-btn:disabled {
   opacity: 0.75;
   cursor: not-allowed;

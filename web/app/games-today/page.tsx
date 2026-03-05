@@ -69,6 +69,76 @@ function formatOver190(value?: number | null, point?: number | null): string {
   return `${price} @ ${p.toFixed(1)}`;
 }
 
+function americanToImpliedProbability(odds: number): number | null {
+  if (!Number.isFinite(odds) || odds === 0) return null;
+  if (odds > 0) return 100 / (odds + 100);
+  const absOdds = Math.abs(odds);
+  return absOdds / (absOdds + 100);
+}
+
+function americanToDecimalOdds(odds: number): number | null {
+  if (!Number.isFinite(odds) || odds === 0) return null;
+  if (odds > 0) return 1 + odds / 100;
+  return 1 + 100 / Math.abs(odds);
+}
+
+type BetDecision = {
+  bet: string;
+  reason: string;
+};
+
+function computeBetDecision(row: GamesTodayRow): BetDecision {
+  const homeOdds = Number(row.home_moneyline);
+  const awayOdds = Number(row.away_moneyline);
+  if (!Number.isFinite(homeOdds) || !Number.isFinite(awayOdds) || homeOdds === 0 || awayOdds === 0) {
+    return { bet: "$0", reason: "Missing odds" };
+  }
+
+  const pHomeRaw = Number(row.home_win_probability);
+  if (!Number.isFinite(pHomeRaw)) return { bet: "$0", reason: "Missing odds" };
+  const pHome = Math.min(1, Math.max(0, pHomeRaw));
+  const pAway = 1 - pHome;
+  if (Math.max(pHome, pAway) < 0.55) return { bet: "$0", reason: "Too close" };
+
+  const impHome = americanToImpliedProbability(homeOdds);
+  const impAway = americanToImpliedProbability(awayOdds);
+  if (impHome === null || impAway === null) return { bet: "$0", reason: "Missing odds" };
+  const impTotal = impHome + impAway;
+  if (!Number.isFinite(impTotal) || impTotal <= 0) return { bet: "$0", reason: "Missing odds" };
+
+  const fairHome = impHome / impTotal;
+  const fairAway = impAway / impTotal;
+
+  const decHome = americanToDecimalOdds(homeOdds);
+  const decAway = americanToDecimalOdds(awayOdds);
+  if (decHome === null || decAway === null) return { bet: "$0", reason: "Missing odds" };
+
+  const evHome = pHome * decHome - 1;
+  const evAway = pAway * decAway - 1;
+  if (evHome <= 0 && evAway <= 0) return { bet: "$0", reason: "Price fair" };
+
+  const side = evHome > evAway ? "home" : evAway > evHome ? "away" : pHome >= pAway ? "home" : "away";
+  const modelProb = side === "home" ? pHome : pAway;
+  const fairProb = side === "home" ? fairHome : fairAway;
+  const edge = modelProb - fairProb;
+  const ev = side === "home" ? evHome : evAway;
+  if (edge < 0.03 || ev < 0.02) return { bet: "$0", reason: "Price fair" };
+
+  const team = side === "home" ? row.home_team : row.away_team;
+  const sideOdds = side === "home" ? homeOdds : awayOdds;
+  const isUnderdog = sideOdds > 0;
+
+  if (isUnderdog) {
+    if (edge >= 0.08 && ev >= 0.10) return { bet: `$150 ${team}`, reason: "Underdog underpriced" };
+    if (edge >= 0.05 && ev >= 0.05) return { bet: `$100 ${team}`, reason: "Underdog underpriced" };
+    return { bet: `$50 ${team}`, reason: "Underdog underpriced" };
+  }
+
+  if (edge >= 0.08 && ev >= 0.10) return { bet: `$100 ${team}`, reason: "Favorite underpriced" };
+  if (edge >= 0.05 && ev >= 0.05) return { bet: `$50 ${team}`, reason: "Favorite underpriced" };
+  return { bet: "$0", reason: "Price fair" };
+}
+
 function GamesTodayPageContent() {
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
@@ -133,13 +203,16 @@ function GamesTodayPageContent() {
                 <th>Away Team</th>
                 <th>Win Chance</th>
                 <th>Moneyline</th>
-                {league === "NBA" ? <th>Over 190</th> : null}
+                {league === "NBA" ? <th>Over Odds</th> : null}
+                <th>Bet per $100</th>
+                <th>Reason</th>
               </tr>
             </thead>
             <tbody>
               {rows.map((row) => {
                 const side = expectedSide(row.home_win_probability);
                 const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
+                const bet = computeBetDecision(row);
                 return (
                   <tr key={row.game_id}>
                     <td className={side === "home" ? styles.teamWin : side === "away" ? styles.teamLoss : styles.teamNeutral}>
@@ -155,6 +228,8 @@ function GamesTodayPageContent() {
                     {league === "NBA" ? (
                       <td className={styles.over190Cell}>{formatOver190(row.over_190_price, row.over_190_point)}</td>
                     ) : null}
+                    <td className={styles.betCell}>{bet.bet}</td>
+                    <td className={styles.reasonCell}>{bet.reason}</td>
                   </tr>
                 );
               })}

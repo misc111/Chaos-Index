@@ -3,7 +3,7 @@
 }
 
 .gamesTable {
-  min-width: 520px;
+  min-width: 760px;
   table-layout: fixed;
 }
 
@@ -14,27 +14,37 @@
 
 .gamesTable th:nth-child(1),
 .gamesTable td:nth-child(1) {
-  width: 30%;
+  width: 24%;
 }
 
 .gamesTable th:nth-child(2),
 .gamesTable td:nth-child(2) {
-  width: 30%;
+  width: 24%;
 }
 
 .gamesTable th:nth-child(3),
 .gamesTable td:nth-child(3) {
-  width: 20%;
+  width: 14%;
 }
 
 .gamesTable th:nth-child(4),
 .gamesTable td:nth-child(4) {
-  width: 20%;
+  width: 16%;
 }
 
 .gamesTable th:nth-child(5),
 .gamesTable td:nth-child(5) {
-  width: 16%;
+  width: 12%;
+}
+
+.gamesTable th:nth-child(6),
+.gamesTable td:nth-child(6) {
+  width: 15%;
+}
+
+.gamesTable th:nth-child(7),
+.gamesTable td:nth-child(7) {
+  width: 17%;
 }
 
 .teamWin {
@@ -74,4 +84,15 @@
   font-variant-numeric: tabular-nums;
   font-weight: 700;
   color: #1e3a8a;
+}
+
+.betCell {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.reasonCell {
+  white-space: nowrap;
+  font-weight: 600;
 }
