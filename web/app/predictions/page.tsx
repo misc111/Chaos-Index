@@ -10,7 +10,6 @@ import {
   formatPredictionDate,
   formatPredictionProbability,
 } from "@/lib/predictions-report";
-import { partitionModels } from "@/lib/model-groups";
 import styles from "./predictions.module.css";
 
 function closestGame(rows: ForecastRow[]): ForecastRow | null {
@@ -115,10 +114,6 @@ function PredictionsPageContent() {
     () => report.rows.filter((row) => !team || row.home_team === team || row.away_team === team),
     [report.rows, team]
   );
-  const { primaryModels, shadowModels } = useMemo(
-    () => partitionModels(report.model_columns),
-    [report.model_columns]
-  );
 
   const strongestEdge = filteredRows[0] || null;
   const closestMatchup = useMemo(() => closestGame(filteredRows), [filteredRows]);
@@ -153,10 +148,7 @@ function PredictionsPageContent() {
           </p>
           <div className={styles.heroHighlights}>
             <span className={styles.heroHighlight}>
-              <strong>{Math.max(primaryModels.length - 1, 0)}</strong> core models
-            </span>
-            <span className={styles.heroHighlight}>
-              <strong>{shadowModels.length}</strong> shadow models
+              <strong>{report.model_columns.length || 0}</strong> active models
             </span>
             <span className={styles.heroHighlight}>
               <strong>{filteredRows.length}</strong> visible games
@@ -261,7 +253,7 @@ function PredictionsPageContent() {
                   <th>Home Team</th>
                   <th>Away Team</th>
                   <th>Date</th>
-                  {primaryModels.map((model) => (
+                  {report.model_columns.map((model) => (
                     <th key={model}>{displayPredictionModel(model)}</th>
                   ))}
                 </tr>
@@ -272,7 +264,7 @@ function PredictionsPageContent() {
                     <td className={styles.teamCell}>{row.home_team}</td>
                     <td className={styles.awayCell}>{row.away_team}</td>
                     <td className={styles.dateCell}>{formatPredictionDate(row.game_date_utc)}</td>
-                    {primaryModels.map((model) => {
+                    {report.model_columns.map((model) => {
                       const value = row.model_win_probabilities?.[model];
                       return (
                         <td key={model} className={styles.metricCell}>
@@ -290,64 +282,6 @@ function PredictionsPageContent() {
         )}
       </section>
 
-      {shadowModels.length ? (
-        <section className={styles.tableCard}>
-          <div className={styles.tableHeader}>
-            <div>
-              <h3 className={styles.sectionTitle}>Shadow models</h3>
-              <p className={styles.sectionSubtitle}>
-                Trained and tracked separately for comparison. These numbers are not used in the ensemble.
-              </p>
-            </div>
-            <p className={styles.tableCount}>
-              {shadowModels.length} {shadowModels.length === 1 ? "model" : "models"} shown
-            </p>
-          </div>
-
-          {error ? (
-            <div className={styles.errorState}>{error}</div>
-          ) : isLoading ? (
-            <div className={styles.loadingState}>Loading the latest predictions report...</div>
-          ) : filteredRows.length === 0 ? (
-            <div className={styles.emptyState}>No upcoming games match the current filter.</div>
-          ) : (
-            <div className={styles.tableScroll}>
-              <table className={styles.reportTable}>
-                <thead>
-                  <tr>
-                    <th>Home Team</th>
-                    <th>Away Team</th>
-                    <th>Date</th>
-                    {shadowModels.map((model) => (
-                      <th key={model}>{displayPredictionModel(model)}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredRows.map((row) => (
-                    <tr key={`shadow-${row.game_id}-${row.game_date_utc}`}>
-                      <td className={styles.teamCell}>{row.home_team}</td>
-                      <td className={styles.awayCell}>{row.away_team}</td>
-                      <td className={styles.dateCell}>{formatPredictionDate(row.game_date_utc)}</td>
-                      {shadowModels.map((model) => {
-                        const value = row.model_win_probabilities?.[model];
-                        return (
-                          <td key={model} className={styles.metricCell}>
-                            <span className={`${styles.probPill} ${probabilityTone(value)}`}>
-                              {formatPredictionProbability(value)}
-                            </span>
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </section>
-      ) : null}
-
       <section className={styles.notesSection}>
         <div>
           <h3 className={styles.sectionTitle}>Model guide</h3>
@@ -355,31 +289,13 @@ function PredictionsPageContent() {
             Same explanations as the shareable report, turned into scan-friendly cards for the dashboard.
           </p>
         </div>
-        <div className={styles.notesBlock}>
-          <div>
-            <p className={styles.notesHeading}>Ensemble + core models</p>
-            <div className={styles.notesGrid}>
-              {primaryModels.map((model) => (
-                <article key={model} className={styles.noteCard}>
-                  <p className={styles.noteLabel}>{displayPredictionModel(model)}</p>
-                  <p className={styles.noteText}>{report.model_trust_notes[model]}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-          {shadowModels.length ? (
-            <div>
-              <p className={styles.notesHeading}>Shadow models</p>
-              <div className={styles.notesGrid}>
-                {shadowModels.map((model) => (
-                  <article key={model} className={styles.noteCard}>
-                    <p className={styles.noteLabel}>{displayPredictionModel(model)}</p>
-                    <p className={styles.noteText}>{report.model_trust_notes[model]}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-          ) : null}
+        <div className={styles.notesGrid}>
+          {report.model_columns.map((model) => (
+            <article key={model} className={styles.noteCard}>
+              <p className={styles.noteLabel}>{displayPredictionModel(model)}</p>
+              <p className={styles.noteText}>{report.model_trust_notes[model]}</p>
+            </article>
+          ))}
         </div>
       </section>
     </div>

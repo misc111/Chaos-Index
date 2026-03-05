@@ -1,10 +1,11 @@
-import { ENSEMBLE_CORE_MODEL_NAMES, isShadowModel } from "@/lib/model-groups";
-
 const MODEL_REPORT_ORDER = [
   "ensemble",
-  ...ENSEMBLE_CORE_MODEL_NAMES,
-  "gbdt",
+  "elo_baseline",
+  "glm_logit",
+  "dynamic_rating",
   "rf",
+  "goals_poisson",
+  "gbdt",
   "two_stage",
   "bayes_bt_state_space",
   "bayes_goals",
@@ -27,7 +28,7 @@ const MODEL_DISPLAY_LABELS: Record<string, string> = {
   nn_mlp: "NN",
 };
 
-const BASE_MODEL_TRUST_NOTES: Record<string, string> = {
+export const MODEL_TRUST_NOTES: Record<string, string> = {
   ensemble: "All models combined. Best default pick. Can share the same blind spot.",
   elo_baseline: "Standard sports betting baseline based on past wins/losses. Good long-run read. Slow on sudden changes.",
   glm_logit: "Statistical model that uses a checklist. Usually steady. Weird matchups can slip through.",
@@ -45,13 +46,6 @@ const BASE_MODEL_TRUST_NOTES: Record<string, string> = {
   nn_mlp: "Machine learning model that finds subtle patterns. Hardest to explain.",
 };
 
-export const MODEL_TRUST_NOTES: Record<string, string> = Object.fromEntries(
-  Object.entries(BASE_MODEL_TRUST_NOTES).map(([model, note]) => [
-    model,
-    isShadowModel(model) ? `Tracked separately. Not used in the ensemble. ${note}` : note,
-  ])
-);
-
 function titleCaseIdentifier(value: string): string {
   return value
     .split("_")
@@ -62,15 +56,6 @@ function titleCaseIdentifier(value: string): string {
 
 export function displayPredictionModel(model: string): string {
   return MODEL_DISPLAY_LABELS[model] || titleCaseIdentifier(model);
-}
-
-export function predictionTrustNote(model: string): string {
-  return (
-    MODEL_TRUST_NOTES[model] ||
-    (isShadowModel(model)
-      ? "Tracked separately. Not used in the ensemble. Built on that model's own rule set. Watch for large gaps versus the ensemble."
-      : "Built on that model's own rule set. Good for a second opinion. Watch for large gaps versus the ensemble.")
-  );
 }
 
 export function orderPredictionModels(models: Iterable<string>): string[] {

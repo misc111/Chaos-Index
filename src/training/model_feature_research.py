@@ -148,16 +148,16 @@ def _eligible_features_for_model(model_name: str, feature_columns: list[str], le
     return cols
 
 
-def _model_feature_limits(model_name: str) -> tuple[int, int]:
+def _model_feature_pruning_config(model_name: str) -> tuple[int, int, float]:
     limits = {
-        "glm_logit": (14, 24),
-        "gbdt": (24, 56),
-        "rf": (20, 44),
-        "two_stage": (16, 30),
-        "bayes_bt_state_space": (12, 20),
-        "nn_mlp": (18, 34),
+        "glm_logit": (14, 24, 0.92),
+        "gbdt": (24, 40, 0.88),
+        "rf": (20, 44, 0.92),
+        "two_stage": (16, 30, 0.92),
+        "bayes_bt_state_space": (12, 20, 0.92),
+        "nn_mlp": (18, 34, 0.92),
     }
-    return limits.get(model_name, (12, 24))
+    return limits.get(model_name, (12, 24, 0.92))
 
 
 def _anchor_features(model_name: str, league: str) -> list[str]:
@@ -318,13 +318,14 @@ def research_model_feature_map(
 
         scored_rows.sort(key=lambda row: (float(row["combined_score"]), float(row["outcome_score"])), reverse=True)
         ranked_features = [str(row["feature"]) for row in scored_rows]
-        min_features, max_features = _model_feature_limits(model_name)
+        min_features, max_features, max_abs_corr = _model_feature_pruning_config(model_name)
         selected = _prune_correlated_features(
             train_df,
             ranked_features,
             seed_features=_anchor_features(model_name, league_code),
             min_features=min_features,
             max_features=max_features,
+            max_abs_corr=max_abs_corr,
         )
         approved_model_features[model_name] = selected
 
@@ -362,6 +363,8 @@ def research_model_feature_map(
     registry_updated = False
     if approve_changes:
         registry_path.parent.mkdir(parents=True, exist_ok=True)
+        merged_model_features = load_model_feature_map(league_code, path_template=path_template)
+        merged_model_features.update(approved_model_features)
         payload = {
             "version": 1,
             "league": league_code,
@@ -371,7 +374,7 @@ def research_model_feature_map(
                     "active_features": features,
                     "feature_count": len(features),
                 }
-                for model_name, features in approved_model_features.items()
+                for model_name, features in merged_model_features.items()
             },
         }
         registry_path.write_text(yaml.safe_dump(payload, sort_keys=False))
