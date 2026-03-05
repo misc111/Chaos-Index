@@ -191,8 +191,10 @@ function wireStream(stream: NodeJS.ReadableStream, source: "stdout" | "stderr"):
 }
 
 function summarizeState() {
+  const events = [...trainingState.events];
   const modelEvents = trainingState.events.filter((event) => event.kind === "model");
-  const latestEvent = modelEvents[modelEvents.length - 1] || null;
+  const latestEvent = events[events.length - 1] || null;
+  const latestModelEvent = modelEvents[modelEvents.length - 1] || null;
   const requestedModels = trainingState.requestedModels || [];
   const completedModels = new Set(
     modelEvents
@@ -212,10 +214,12 @@ function summarizeState() {
     finished_at_utc: trainingState.finishedAtUtc,
     exit_code: trainingState.exitCode,
     error: trainingState.error,
-    latest_model_event: latestEvent,
+    latest_event: latestEvent,
+    latest_model_event: latestModelEvent,
     model_total: requestedModels.length || undefined,
     completed_models: completedModelCount,
     recent_logs: trainingState.recentLogs,
+    events,
     model_events: modelEvents,
   };
 }

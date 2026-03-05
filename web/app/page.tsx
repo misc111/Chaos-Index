@@ -39,10 +39,12 @@ type TrainStatusResponse = {
   finished_at_utc?: string;
   exit_code?: number | null;
   error?: string;
+  latest_event?: TrainEvent | null;
   latest_model_event?: TrainEvent | null;
   requested_models?: string[];
   model_total?: number;
   completed_models?: number;
+  events?: TrainEvent[];
   model_events?: TrainEvent[];
 };
 
@@ -71,7 +73,7 @@ function formatTimestamp(value?: string): string {
 }
 
 function eventSummary(event: TrainEvent): string {
-  const model = event.model ? `${event.model} - ` : "";
+  const model = event.model ? `${modelNameLabel(event.model)} - ` : event.kind === "pipeline" ? "Pipeline - " : "";
   const fold =
     typeof event.fold === "number" && typeof event.fold_total === "number"
       ? ` (fold ${event.fold}/${event.fold_total})`
@@ -101,9 +103,11 @@ function HomePageContent() {
       }
       setTrainStatus(payload);
       setTrainActionError("");
+      return payload;
     } catch (error) {
       const message = error instanceof Error ? error.message : "Failed to fetch training status.";
       setTrainActionError(message);
+      return null;
     }
   }, [league]);
 
@@ -112,22 +116,40 @@ function HomePageContent() {
   }, [fetchTrainStatus]);
 
   useEffect(() => {
-    if (!trainStatus?.running) return;
-    const timer = window.setInterval(() => {
-      void fetchTrainStatus();
-    }, POLL_INTERVAL_MS);
-    return () => window.clearInterval(timer);
-  }, [fetchTrainStatus, trainStatus?.running]);
+    if (!startingModel && !trainStatus?.running) return;
 
-  const onTrainModels = async (modelKey: string) => {
-    setStartingModel(modelKey);
+    let timer: number | null = null;
+    let cancelled = false;
+
+    const pollStatus = async () => {
+      const nextStatus = await fetchTrainStatus();
+      if (cancelled || !nextStatus?.running) return;
+      timer = window.setTimeout(() => {
+        void pollStatus();
+      }, POLL_INTERVAL_MS);
+    };
+
+    timer = window.setTimeout(() => {
+      void pollStatus();
+    }, POLL_INTERVAL_MS);
+
+    return () => {
+      cancelled = true;
+      if (timer !== null) {
+        window.clearTimeout(timer);
+      }
+    };
+  }, [fetchTrainStatus, startingModel, trainStatus?.running]);
+
+  const startTrainingRequest = async (marker: string, models?: string[]) => {
+    setStartingModel(marker);
     setTrainActionError("");
 
     try {
       const response = await fetch(withLeague("/api/train-models", league), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ models: [modelKey] }),
+        body: JSON.stringify(models && models.length ? { models } : {}),
       });
       const payload = (await response.json().catch(() => ({}))) as TrainStatusResponse;
       if (!response.ok || payload.ok === false) {
@@ -143,15 +165,30 @@ function HomePageContent() {
     }
   };
 
-  const events = trainStatus?.model_events || [];
-  const latestEvent = trainStatus?.latest_model_event || (events.length ? events[events.length - 1] : null);
+  const onTrainModels = async (modelKey: string) => {
+    await startTrainingRequest(modelKey, [modelKey]);
+  };
+
+  const onTrainAllModels = async () => {
+    await startTrainingRequest("__all__");
+  };
+
+  const events = trainStatus?.events || trainStatus?.model_events || [];
+  const latestEvent = trainStatus?.latest_event || (events.length ? events[events.length - 1] : null);
   const recentEvents = useMemo(() => events.slice(-16).reverse(), [events]);
   const modelTotal = Number(trainStatus?.model_total || 0);
   const completedModels = Number(trainStatus?.completed_models || 0);
   const modelProgressPct = modelTotal > 0 ? Math.min(100, Math.round((completedModels / modelTotal) * 100)) : 0;
+  const isTrainingActive = Boolean(startingModel) || Boolean(trainStatus?.running);
   const runningOtherLeague =
     Boolean(trainStatus?.running) && Boolean(trainStatus?.league) && trainStatus?.league !== league;
   const requestedModels = trainStatus?.requested_models || [];
+  const activeRequestedModels = isTrainingActive ? requestedModels : [];
+  const requestedSet = useMemo(() => new Set(activeRequestedModels), [activeRequestedModels]);
+  const isSingleModelRun = Boolean(trainStatus?.running) && requestedModels.length === 1;
+  const isStartingSingleModel = Boolean(startingModel) && startingModel !== "__all__";
+  const singleModelInFlight = isSingleModelRun || isStartingSingleModel;
+  const activeModelKey = isSingleModelRun ? requestedModels[0] : isStartingSingleModel ? startingModel : null;
 
   return (
     <div className="grid two">
@@ -161,23 +198,41 @@ function HomePageContent() {
           Daily workflow: fetch {"->"} features {"->"} train/update {"->"} predict {"->"} ingest results {"->"} score {"->"} performance/validation artifacts.
         </p>
         <p className="small">Use Make targets from repo root to run each stage.</p>
+        <div className="train-cta-row">
+          <button
+            type="button"
+            className={`train-btn ${trainStatus?.running && requestedModels.length > 1 ? "train-btn-active" : ""} ${
+              singleModelInFlight ? "train-btn-muted" : ""
+            }`}
+            onClick={onTrainAllModels}
+            disabled={isTrainingActive}
+          >
+            {startingModel === "__all__"
+              ? "Starting..."
+              : trainStatus?.running && requestedModels.length > 1
+                ? "Training All..."
+                : "Train All Models"}
+          </button>
+        </div>
         <div className="train-model-grid">
           {MODEL_BUTTONS.map((model) => {
             const isStartingThis = startingModel === model.key;
+            const isActiveModel = requestedSet.has(model.key) || activeModelKey === model.key;
+            const isGreyedOut = singleModelInFlight && !isActiveModel;
             return (
               <button
                 key={model.key}
                 type="button"
-                className="train-btn"
+                className={`train-btn ${isActiveModel ? "train-btn-active" : ""} ${isGreyedOut ? "train-btn-muted" : ""}`}
                 onClick={() => onTrainModels(model.key)}
-                disabled={Boolean(startingModel) || Boolean(trainStatus?.running)}
+                disabled={isTrainingActive}
               >
-                {isStartingThis ? "Starting..." : model.label}
+                {isStartingThis ? "Starting..." : isActiveModel && trainStatus?.running ? "Training..." : model.label}
               </button>
             );
           })}
         </div>
-        <p className="small">Each button runs training for one model in {league}.</p>
+        <p className="small">Use `Train All Models` for the full suite, or pick one model in {league}.</p>
       </div>
       <div className="card">
         <h2 className="title">Quick Links</h2>
@@ -209,11 +264,10 @@ function HomePageContent() {
 
         {latestEvent ? (
           <p className="small train-stage-note">
-            Current model: <strong>{latestEvent.model || "Unknown model"}</strong> | Stage:{" "}
-            <strong>{stageLabel(latestEvent.stage)}</strong> ({latestEvent.status})
+            Latest update: <strong>{eventSummary(latestEvent)}</strong> ({stageLabel(latestEvent.stage)} {latestEvent.status})
           </p>
         ) : trainStatus?.running ? (
-          <p className="small train-stage-note">Waiting for first model-stage update...</p>
+          <p className="small train-stage-note">Waiting for first training update...</p>
         ) : (
           <p className="small train-stage-note">No training has started in this session yet.</p>
         )}
