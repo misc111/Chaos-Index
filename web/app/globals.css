@@ -82,6 +82,80 @@ a {
   color: #0f766e;
 }
 
+.refresh-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 0 8px;
+}
+
+.refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 150px;
+  padding: 10px 14px;
+  border: 1px solid #67e8f9;
+  border-radius: 999px;
+  background: #ecfeff;
+  color: #0f766e;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.refresh-btn:hover:enabled {
+  background: #cffafe;
+}
+
+.refresh-btn:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.refresh-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #99f6e4;
+  border-top-color: #0f766e;
+  border-radius: 999px;
+  animation: refresh-spin 0.8s linear infinite;
+}
+
+.refresh-meta {
+  display: grid;
+  gap: 5px;
+  min-width: min(360px, 100%);
+}
+
+.refresh-meta .small {
+  margin: 0;
+}
+
+.refresh-progress-track {
+  width: min(320px, 100%);
+  height: 6px;
+  border-radius: 999px;
+  border: 1px solid #a5f3fc;
+  background: #f0fdfa;
+  overflow: hidden;
+}
+
+.refresh-progress-fill {
+  display: block;
+  width: 45%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #0f766e 0%, #14b8a6 100%);
+  animation: refresh-progress 1.2s ease-in-out infinite;
+}
+
+.refresh-error {
+  color: #b91c1c;
+}
+
 .card {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -208,6 +282,19 @@ td {
   margin-bottom: 6px;
 }
 
+.calendar-day-header {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.calendar-day-success-rate {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
 .calendar-day-past {
   background: #eceff3;
   border-color: #d5dbe3;
@@ -270,6 +357,10 @@ td {
   color: rgba(248, 255, 252, 0.86);
 }
 
+.calendar-day-today .calendar-day-success-rate {
+  color: rgba(248, 255, 252, 0.86);
+}
+
 .status-dot {
   width: 8px;
   height: 8px;
@@ -295,4 +386,22 @@ td {
 
 .calendar-day-today .dot-upcoming {
   background: #fef08a;
+}
+
+@keyframes refresh-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes refresh-progress {
+  from {
+    transform: translateX(-40%);
+  }
+  to {
+    transform: translateX(170%);
+  }
 }

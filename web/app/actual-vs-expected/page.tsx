@@ -43,6 +43,7 @@ type CalendarItem = {
   detail?: string;
   dotClass: "dot-correct" | "dot-incorrect" | "dot-upcoming" | "dot-tossup";
   kind: "historical" | "upcoming";
+  resultClass?: "correct" | "incorrect" | "tossup";
 };
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -150,6 +151,22 @@ function formatCentralTime(value?: string | null): string {
   });
 }
 
+function daySuccessRateLabel(items: CalendarItem[] = []): string | null {
+  const historical = items.filter((item) => item.kind === "historical");
+  if (!historical.length) return null;
+
+  let correct = 0;
+  let incorrect = 0;
+  for (const item of historical) {
+    if (item.resultClass === "correct") correct += 1;
+    if (item.resultClass === "incorrect") incorrect += 1;
+  }
+
+  const denom = correct + incorrect;
+  const pct = denom > 0 ? `${((correct / denom) * 100).toFixed(0)}%` : "—";
+  return `Success Rate: ${pct}`;
+}
+
 function ActualVsExpectedPageContent() {
   const [historicalRows, setHistoricalRows] = useState<HistoricalRow[]>([]);
   const [upcomingRows, setUpcomingRows] = useState<UpcomingRow[]>([]);
@@ -158,6 +175,7 @@ function ActualVsExpectedPageContent() {
   const [error, setError] = useState<string>("");
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
+  const refreshNonce = searchParams.get("refreshNonce");
 
   const [monthCursor, setMonthCursor] = useState(() => {
     const now = new Date();
@@ -196,7 +214,7 @@ function ActualVsExpectedPageContent() {
     return () => {
       cancelled = true;
     };
-  }, [league]);
+  }, [league, refreshNonce]);
 
   const eventsByDate = useMemo(() => {
     const map: Record<string, CalendarItem[]> = {};
@@ -219,6 +237,7 @@ function ActualVsExpectedPageContent() {
         )}`,
         dotClass: isTossUp ? "dot-tossup" : isCorrect ? "dot-correct" : "dot-incorrect",
         kind: "historical",
+        resultClass: isTossUp ? "tossup" : isCorrect ? "correct" : "incorrect",
       });
     }
 
@@ -315,10 +334,14 @@ function ActualVsExpectedPageContent() {
                   : cell.key < todayKey
                     ? "calendar-day-past"
                     : "calendar-day-future";
+              const successRateLabel = daySuccessRateLabel(cell.items || []);
 
               return (
                 <div key={cell.key} className={`calendar-day ${dayClass}`}>
-                  <div className="calendar-day-number">{cell.day}</div>
+                  <div className="calendar-day-header">
+                    <div className="calendar-day-number">{cell.day}</div>
+                    {successRateLabel ? <div className="calendar-day-success-rate">{successRateLabel}</div> : null}
+                  </div>
                   <div className="calendar-events">
                     {(cell.items || []).map((item) => (
                       <div key={item.id} className="calendar-event">
