@@ -1,6 +1,6 @@
 version: 1
 league: NHL
-updated_at_utc: '2026-03-05T15:28:48+00:00'
+updated_at_utc: '2026-03-05T16:46:35+00:00'
 active_features:
 - away_3in4
 - away_4in6
@@ -49,6 +49,7 @@ active_features:
 - away_season_phase_early
 - away_season_phase_late
 - away_season_phase_mid
+- away_starter_goalie_id
 - away_starter_known
 - away_starter_unknown
 - away_travel_miles
@@ -125,6 +126,7 @@ active_features:
 - home_season_phase_early
 - home_season_phase_late
 - home_season_phase_mid
+- home_starter_goalie_id
 - home_starter_known
 - home_starter_unknown
 - home_travel_miles
@@ -142,4 +144,4 @@ active_features:
 - special_pp_diff
 - travel_diff
 candidate_features: []
-active_features_hash: 4ddb753ac32c385a
+active_features_hash: 92d2ac454e61d5ce
