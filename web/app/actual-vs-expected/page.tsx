@@ -223,7 +223,7 @@ function ActualVsExpectedPageContent() {
     }
 
     for (const row of upcomingRows) {
-      const key = normalizeDateKey(row.game_date_utc);
+      const key = resolveCalendarDateKey(row.game_date_utc, row.start_time_utc);
       if (!map[key]) map[key] = [];
 
       const homeWinProb = Number(row.ensemble_prob_home_win);
