@@ -181,6 +181,51 @@ CREATE TABLE IF NOT EXISTS validation_results (
   artifact_path TEXT
 );
 
+CREATE TABLE IF NOT EXISTS odds_snapshots (
+  odds_snapshot_id TEXT PRIMARY KEY,
+  source TEXT NOT NULL,
+  league TEXT NOT NULL,
+  as_of_utc TEXT NOT NULL,
+  raw_path TEXT,
+  regions TEXT,
+  markets TEXT,
+  odds_format TEXT,
+  date_format TEXT,
+  event_count INTEGER DEFAULT 0,
+  row_count INTEGER DEFAULT 0,
+  requests_last INTEGER,
+  requests_used INTEGER,
+  requests_remaining INTEGER,
+  from_cache INTEGER DEFAULT 0,
+  metadata_json TEXT
+);
+
+CREATE TABLE IF NOT EXISTS odds_market_lines (
+  line_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  odds_snapshot_id TEXT NOT NULL,
+  league TEXT NOT NULL,
+  game_id INTEGER,
+  sport_key TEXT,
+  odds_event_id TEXT NOT NULL,
+  commence_time_utc TEXT,
+  commence_date_central TEXT,
+  api_home_team TEXT,
+  api_away_team TEXT,
+  home_team TEXT,
+  away_team TEXT,
+  bookmaker_key TEXT,
+  bookmaker_title TEXT,
+  bookmaker_last_update_utc TEXT,
+  market_key TEXT,
+  outcome_name TEXT,
+  outcome_side TEXT,
+  outcome_team TEXT,
+  outcome_price REAL,
+  outcome_point REAL,
+  implied_probability REAL,
+  created_at_utc TEXT NOT NULL
+);
+
 CREATE INDEX IF NOT EXISTS idx_predictions_game_model ON predictions(game_id, model_name);
 CREATE INDEX IF NOT EXISTS idx_predictions_asof ON predictions(as_of_utc);
 CREATE INDEX IF NOT EXISTS idx_upcoming_asof ON upcoming_game_forecasts(as_of_utc);
@@ -194,4 +239,8 @@ CREATE INDEX IF NOT EXISTS idx_results_final_utc ON results(final_utc);
 CREATE INDEX IF NOT EXISTS idx_teams_league_asof ON teams(league, as_of_utc DESC);
 CREATE INDEX IF NOT EXISTS idx_teams_league_team_asof ON teams(league, team_abbrev, as_of_utc DESC);
 CREATE INDEX IF NOT EXISTS idx_change_points_asof ON change_points(as_of_utc DESC);
+CREATE INDEX IF NOT EXISTS idx_odds_snapshots_league_asof ON odds_snapshots(league, as_of_utc DESC);
+CREATE INDEX IF NOT EXISTS idx_odds_lines_snapshot ON odds_market_lines(odds_snapshot_id);
+CREATE INDEX IF NOT EXISTS idx_odds_lines_league_game_market ON odds_market_lines(league, game_id, market_key, odds_snapshot_id);
+CREATE INDEX IF NOT EXISTS idx_odds_lines_event_market_book ON odds_market_lines(odds_event_id, market_key, bookmaker_key);
 """

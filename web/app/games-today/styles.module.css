@@ -3,7 +3,7 @@
 }
 
 .gamesTable {
-  min-width: 430px;
+  min-width: 520px;
   table-layout: fixed;
 }
 
@@ -14,17 +14,22 @@
 
 .gamesTable th:nth-child(1),
 .gamesTable td:nth-child(1) {
-  width: 38%;
+  width: 30%;
 }
 
 .gamesTable th:nth-child(2),
 .gamesTable td:nth-child(2) {
-  width: 38%;
+  width: 30%;
 }
 
 .gamesTable th:nth-child(3),
 .gamesTable td:nth-child(3) {
-  width: 24%;
+  width: 20%;
+}
+
+.gamesTable th:nth-child(4),
+.gamesTable td:nth-child(4) {
+  width: 20%;
 }
 
 .teamWin {
@@ -51,4 +56,10 @@
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
   font-weight: 700;
+}
+
+.moneylineCell {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
 }

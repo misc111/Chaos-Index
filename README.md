@@ -52,6 +52,10 @@ Train model suite + ensemble + upcoming forecasts + validation artifacts:
 ```bash
 make train
 ```
+First run (or any intentional feature-contract update):
+```bash
+make train APPROVE_FEATURE_CHANGES=1
+```
 
 Train only selected models (comma-separated):
 ```bash
@@ -63,6 +67,10 @@ Walk-forward backtest + prequential scoring:
 ```bash
 make backtest
 ```
+With explicit feature-contract approval:
+```bash
+make backtest APPROVE_FEATURE_CHANGES=1
+```
 
 Backtest only selected models:
 ```bash
@@ -72,6 +80,10 @@ make backtest MODELS=glm_logit
 Daily end-to-end:
 ```bash
 make run_daily
+```
+With explicit feature-contract approval:
+```bash
+make run_daily APPROVE_FEATURE_CHANGES=1
 ```
 
 Daily run with selected models:
@@ -121,6 +133,18 @@ scripts/smoke_e2e.sh
 - Offline fallback uses latest cached payload when live fetch fails (or when `offline_mode: true`).
 - Features are generated with lagged/rolling calculations only; leakage checks run before training.
 
+## Feature Contract Policy
+
+- Feature contract is controlled by `feature_policy` in config (`production` or `research`).
+- Default mode is `production`, which blocks silent model-feature entry/exit.
+- Registry path defaults to `configs/feature_registry_{league}.yaml`.
+- In production mode:
+  - if drift is detected (added/removed model features), training/backtest fail fast
+  - pass `--approve-feature-changes` (or `APPROVE_FEATURE_CHANGES=1` in `make`) to explicitly accept and persist the new contract
+- In research mode:
+  - runs are not blocked
+  - newly seen features are tracked as `candidate_features` in the registry
+
 ## Forecast Outputs Per Upcoming Game
 
 Persisted in SQLite (`upcoming_game_forecasts`, `predictions`) with `as_of_utc`:
@@ -150,6 +174,8 @@ Generated under `artifacts/validation/` and surfaced in `/validation`:
 
 ## Notes
 
+- Odds snapshots now persist to `odds_snapshots` and `odds_market_lines` on each `fetch` run (including bookmaker/market/outcome rows) for historical line tracking.
+- Configure The Odds API via env vars: `ODDS_API_KEY`, `ODDS_API_REGIONS`, `ODDS_API_MARKETS`, `ODDS_API_ODDS_FORMAT`, `ODDS_API_DATE_FORMAT`, `ODDS_API_THROTTLE_SECONDS`.
 - xG, injuries, and odds adapters include explicit graceful fallback behavior when stable no-auth feeds are unavailable.
 - Bayesian state-space model runs in offline fit mode and supports daily sequential updates.
 - Dashboard is visualization-only; no in-dashboard chat UI.

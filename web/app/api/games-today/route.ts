@@ -11,6 +11,16 @@ type RawTodayGameRow = {
   start_time_utc?: string | null;
 };
 
+type RawMoneylineRow = {
+  game_id?: number | null;
+  home_team?: string | null;
+  away_team?: string | null;
+  home_moneyline?: number | null;
+  away_moneyline?: number | null;
+  home_moneyline_book?: string | null;
+  away_moneyline_book?: string | null;
+};
+
 function escapeSqlString(value: string): string {
   return value.replace(/'/g, "''");
 }
@@ -125,5 +135,91 @@ export async function GET(request: Request) {
     }))
     .filter((row) => dateKeyForRow(row) === todayKey);
 
-  return NextResponse.json({ league, as_of_utc: asOf, date_central: todayKey, rows });
+  const latestOddsSnapshot = runSqlJson(
+    `
+    SELECT odds_snapshot_id, as_of_utc
+    FROM odds_snapshots
+    WHERE league = '${escapeSqlString(league)}'
+    ORDER BY DATETIME(as_of_utc) DESC
+    LIMIT 1
+    `,
+    { league }
+  );
+
+  const oddsSnapshotId = typeof latestOddsSnapshot?.[0]?.odds_snapshot_id === "string" ? latestOddsSnapshot[0].odds_snapshot_id : "";
+  const oddsAsOfUtc = typeof latestOddsSnapshot?.[0]?.as_of_utc === "string" ? latestOddsSnapshot[0].as_of_utc : null;
+  const escapedSnapshotId = oddsSnapshotId ? escapeSqlString(oddsSnapshotId) : "";
+
+  const moneylineRows = escapedSnapshotId
+    ? (runSqlJson(
+        `
+        WITH ranked AS (
+          SELECT
+            game_id,
+            home_team,
+            away_team,
+            outcome_side,
+            outcome_price,
+            bookmaker_title,
+            ROW_NUMBER() OVER (
+              PARTITION BY
+                COALESCE(CAST(game_id AS TEXT), home_team || '|' || away_team),
+                outcome_side
+              ORDER BY outcome_price DESC, DATETIME(bookmaker_last_update_utc) DESC, line_id DESC
+            ) AS rn
+          FROM odds_market_lines
+          WHERE odds_snapshot_id = '${escapedSnapshotId}'
+            AND market_key = 'h2h'
+            AND outcome_side IN ('home', 'away')
+            AND outcome_price IS NOT NULL
+        )
+        SELECT
+          game_id,
+          home_team,
+          away_team,
+          MAX(CASE WHEN outcome_side = 'home' AND rn = 1 THEN outcome_price END) AS home_moneyline,
+          MAX(CASE WHEN outcome_side = 'away' AND rn = 1 THEN outcome_price END) AS away_moneyline,
+          MAX(CASE WHEN outcome_side = 'home' AND rn = 1 THEN bookmaker_title END) AS home_moneyline_book,
+          MAX(CASE WHEN outcome_side = 'away' AND rn = 1 THEN bookmaker_title END) AS away_moneyline_book
+        FROM ranked
+        GROUP BY game_id, home_team, away_team
+        `,
+        { league }
+      ) as RawMoneylineRow[])
+    : [];
+
+  const moneylineByGameId = new Map<number, RawMoneylineRow>();
+  const moneylineByTeamKey = new Map<string, RawMoneylineRow>();
+  for (const row of moneylineRows) {
+    const gameId = Number(row.game_id);
+    if (Number.isFinite(gameId)) {
+      moneylineByGameId.set(gameId, row);
+    }
+    const homeTeam = String(row.home_team || "").trim();
+    const awayTeam = String(row.away_team || "").trim();
+    if (homeTeam && awayTeam) {
+      moneylineByTeamKey.set(`${homeTeam}|${awayTeam}`, row);
+    }
+  }
+
+  const enrichedRows = rows.map((row) => {
+    const match =
+      moneylineByGameId.get(Number(row.game_id)) ||
+      moneylineByTeamKey.get(`${row.home_team}|${row.away_team}`);
+    return {
+      ...row,
+      home_moneyline: match?.home_moneyline ?? null,
+      away_moneyline: match?.away_moneyline ?? null,
+      home_moneyline_book: match?.home_moneyline_book ?? null,
+      away_moneyline_book: match?.away_moneyline_book ?? null,
+    };
+  });
+
+  return NextResponse.json({
+    league,
+    as_of_utc: asOf,
+    date_central: todayKey,
+    odds_as_of_utc: oddsAsOfUtc,
+    rows: enrichedRows,
+  });
 }

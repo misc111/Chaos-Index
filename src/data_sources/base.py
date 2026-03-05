@@ -71,9 +71,24 @@ class HttpClient:
         stop=stop_after_attempt(5),
         reraise=True,
     )
-    def _request(self, url: str, params: dict[str, Any] | None = None) -> Any:
-        response = requests.get(url, params=params, timeout=self.timeout_seconds)
+    def _request_response(
+        self,
+        url: str,
+        params: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> requests.Response:
+        response = requests.get(url, params=params, headers=headers, timeout=self.timeout_seconds)
         response.raise_for_status()
+        return response
+
+    @retry(
+        retry=retry_if_exception_type(requests.RequestException),
+        wait=wait_exponential(multiplier=1, min=1, max=20),
+        stop=stop_after_attempt(5),
+        reraise=True,
+    )
+    def _request(self, url: str, params: dict[str, Any] | None = None) -> Any:
+        response = self._request_response(url, params=params)
         return response.json()
 
     def get_json(self, source: str, url: str, params: dict[str, Any] | None = None, key: str = "snapshot") -> tuple[Any, str]:
@@ -93,6 +108,34 @@ class HttpClient:
             if cached is None:
                 raise
             return cached, str(self.latest_cached_file(source))
+
+    def get_json_with_headers(
+        self,
+        source: str,
+        url: str,
+        params: dict[str, Any] | None = None,
+        key: str = "snapshot",
+        headers: dict[str, str] | None = None,
+    ) -> tuple[Any, str, dict[str, str], bool]:
+        if self.offline_mode:
+            cached = self.load_latest_cached(source)
+            if cached is None:
+                raise RuntimeError(f"offline_mode=True but no cache available for source={source}")
+            cached_file = self.latest_cached_file(source)
+            return cached, str(cached_file) if cached_file else "", {}, True
+
+        try:
+            response = self._request_response(url, params=params, headers=headers)
+            payload = response.json()
+            raw_path = self.save_raw(source, payload, key=key)
+            return payload, raw_path, dict(response.headers), False
+        except Exception as exc:
+            logger.warning("Source %s failed live fetch (%s); attempting cache fallback", source, exc)
+            cached = self.load_latest_cached(source)
+            if cached is None:
+                raise
+            cached_file = self.latest_cached_file(source)
+            return cached, str(cached_file) if cached_file else "", {}, True
 
     def snapshot_id(self, source: str, metadata: dict[str, Any]) -> str:
         return f"{source}_{stable_hash(metadata)}"

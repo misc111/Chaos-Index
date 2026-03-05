@@ -12,11 +12,16 @@ type GamesTodayRow = {
   away_team: string;
   home_win_probability: number;
   start_time_utc?: string | null;
+  home_moneyline?: number | null;
+  away_moneyline?: number | null;
+  home_moneyline_book?: string | null;
+  away_moneyline_book?: string | null;
 };
 
 type GamesTodayResponse = {
   league?: string;
   as_of_utc?: string | null;
+  odds_as_of_utc?: string | null;
   date_central?: string;
   rows?: GamesTodayRow[];
 };
@@ -46,11 +51,19 @@ function formatAsOfLabel(value: string): string {
   });
 }
 
+function formatMoneyline(value?: number | null): string {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric) || numeric === 0) return "—";
+  const rounded = Math.round(numeric);
+  return rounded > 0 ? `+${rounded}` : `${rounded}`;
+}
+
 function GamesTodayPageContent() {
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
   const [rows, setRows] = useState<GamesTodayRow[]>([]);
   const [latestAsOf, setLatestAsOf] = useState<string>("");
+  const [latestOddsAsOf, setLatestOddsAsOf] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -70,6 +83,7 @@ function GamesTodayPageContent() {
         if (cancelled) return;
         setRows(payload.rows || []);
         setLatestAsOf(typeof payload.as_of_utc === "string" ? payload.as_of_utc : "");
+        setLatestOddsAsOf(typeof payload.odds_as_of_utc === "string" ? payload.odds_as_of_utc : "");
       })
       .catch((err: unknown) => {
         if (cancelled) return;
@@ -92,6 +106,7 @@ function GamesTodayPageContent() {
         <p className="small">Only games scheduled for today (Central Time) are shown.</p>
         <p className="small">Anticipated winner threshold: win chance greater than 55%.</p>
         {latestAsOf ? <p className="small">Forecast snapshot as of {formatAsOfLabel(latestAsOf)}</p> : null}
+        {latestOddsAsOf ? <p className="small">Odds snapshot as of {formatAsOfLabel(latestOddsAsOf)}</p> : null}
         {loading ? <p className="small">Loading games...</p> : null}
         {error ? <p className="small">Failed to load: {error}</p> : null}
 
@@ -106,6 +121,7 @@ function GamesTodayPageContent() {
                 <th>Home Team</th>
                 <th>Away Team</th>
                 <th>Win Chance</th>
+                <th>Moneyline</th>
               </tr>
             </thead>
             <tbody>
@@ -121,6 +137,9 @@ function GamesTodayPageContent() {
                       {row.away_team}
                     </td>
                     <td className={styles.winChanceCell}>{side === "none" ? `Toss-up (${chanceLabel})` : chanceLabel}</td>
+                    <td className={styles.moneylineCell}>
+                      {`H ${formatMoneyline(row.home_moneyline)} · A ${formatMoneyline(row.away_moneyline)}`}
+                    </td>
                   </tr>
                 );
               })}

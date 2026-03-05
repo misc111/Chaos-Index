@@ -33,6 +33,14 @@ web/coverage/
 # Local logs
 *.log
 
+# Local environment secrets
+.env
+.env.*
+!.env.example
+web/.env
+web/.env.*
+!web/.env.example
+
 # Generated data stores
 data/processed/*.db
 data/processed/*.sqlite*

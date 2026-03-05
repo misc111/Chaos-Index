@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
@@ -28,8 +29,9 @@ from src.features.build_features import build_features_from_interim
 from src.storage.db import Database
 from src.storage.tracker import RunTracker
 from src.training.backtest import run_walk_forward_backtest
+from src.training.feature_policy import apply_feature_policy
 from src.training.prequential import score_predictions
-from src.training.train import normalize_selected_models, train_and_predict
+from src.training.train import normalize_selected_models, select_feature_columns, train_and_predict
 
 logger = get_logger(__name__)
 
@@ -95,6 +97,52 @@ def _parse_models_arg(models_arg: str | None) -> list[str] | None:
     tokens = [t.strip() for t in str(models_arg).split(",") if t.strip()]
     return normalize_selected_models(tokens)
 
+
+def _apply_model_feature_policy(
+    cfg: AppConfig,
+    features_df: pd.DataFrame,
+    *,
+    approve_feature_changes: bool,
+    run_context: str,
+) -> list[str]:
+    league = _canonical_league(cfg.data.league)
+    raw_feature_cols = select_feature_columns(features_df)
+    policy = apply_feature_policy(
+        raw_feature_cols,
+        league=league,
+        mode=cfg.feature_policy.mode,
+        registry_path_template=cfg.feature_policy.registry_path,
+        approve_changes=approve_feature_changes,
+    )
+    logger.info(
+        "Feature policy | context=%s mode=%s registry=%s selected=%d added=%d removed=%d candidates_added=%d updated=%s",
+        run_context,
+        policy.mode,
+        policy.registry_path,
+        len(policy.approved_feature_columns),
+        len(policy.added_features),
+        len(policy.removed_features),
+        len(policy.candidates_added),
+        policy.registry_updated,
+    )
+    return policy.approved_feature_columns
+
+
+def _load_dotenv_file(path: Path) -> None:
+    if not path.exists() or not path.is_file():
+        return
+    for line in path.read_text().splitlines():
+        text = line.strip()
+        if not text or text.startswith("#") or "=" not in text:
+            continue
+        key, value = text.split("=", 1)
+        env_key = key.strip()
+        if not env_key or env_key in os.environ:
+            continue
+        env_value = value.strip()
+        if len(env_value) >= 2 and env_value[0] == env_value[-1] and env_value[0] in {"'", '"'}:
+            env_value = env_value[1:-1]
+        os.environ[env_key] = env_value
 
 
 def _client(cfg: AppConfig) -> HttpClient:
@@ -250,6 +298,195 @@ def _upsert_teams(
     )
 
 
+def _parse_iso_or_none(value: Any) -> datetime | None:
+    raw = str(value or "").strip()
+    if not raw:
+        return None
+    try:
+        if raw.endswith("Z"):
+            raw = raw[:-1] + "+00:00"
+        return datetime.fromisoformat(raw)
+    except Exception:
+        return None
+
+
+def _map_odds_rows_to_games(db: Database, odds_df: pd.DataFrame) -> pd.DataFrame:
+    if odds_df.empty:
+        mapped = odds_df.copy()
+        mapped["game_id"] = None
+        return mapped
+
+    required = {"odds_event_id", "home_team", "away_team"}
+    if not required.issubset(set(odds_df.columns)):
+        mapped = odds_df.copy()
+        mapped["game_id"] = None
+        return mapped
+
+    games = pd.DataFrame(
+        db.query(
+            """
+            SELECT game_id, game_date_utc, start_time_utc, home_team, away_team
+            FROM games
+            WHERE home_team IS NOT NULL
+              AND away_team IS NOT NULL
+            """
+        )
+    )
+
+    if games.empty:
+        mapped = odds_df.copy()
+        mapped["game_id"] = None
+        return mapped
+
+    event_keys = (
+        odds_df[["odds_event_id", "home_team", "away_team", "commence_date_central", "commence_time_utc"]]
+        .drop_duplicates(subset=["odds_event_id"])
+        .to_dict(orient="records")
+    )
+
+    event_to_game: dict[str, int | None] = {}
+    for event in event_keys:
+        event_id = str(event.get("odds_event_id") or "").strip()
+        if not event_id:
+            continue
+        home_team = str(event.get("home_team") or "").strip()
+        away_team = str(event.get("away_team") or "").strip()
+        if not home_team or not away_team:
+            event_to_game[event_id] = None
+            continue
+
+        candidates = games[(games["home_team"] == home_team) & (games["away_team"] == away_team)].copy()
+        if candidates.empty:
+            event_to_game[event_id] = None
+            continue
+
+        preferred_date = str(event.get("commence_date_central") or "").strip()
+        if preferred_date:
+            by_date = candidates[candidates["game_date_utc"].astype(str) == preferred_date]
+            if len(by_date) == 1:
+                event_to_game[event_id] = int(by_date.iloc[0]["game_id"])
+                continue
+            if len(by_date) > 1:
+                candidates = by_date
+
+        commence_dt = _parse_iso_or_none(event.get("commence_time_utc"))
+        if commence_dt is not None and not candidates.empty:
+            candidates = candidates.copy()
+            candidates["start_dt"] = candidates["start_time_utc"].apply(_parse_iso_or_none)
+            candidates = candidates[candidates["start_dt"].notna()]
+            if not candidates.empty:
+                candidates["abs_diff_seconds"] = candidates["start_dt"].apply(lambda dt: abs((dt - commence_dt).total_seconds()))
+                winner = candidates.sort_values("abs_diff_seconds").iloc[0]
+                if float(winner["abs_diff_seconds"]) <= 18 * 3600:
+                    event_to_game[event_id] = int(winner["game_id"])
+                    continue
+
+        event_to_game[event_id] = int(candidates.iloc[0]["game_id"]) if len(candidates) == 1 else None
+
+    mapped = odds_df.copy()
+    mapped["game_id"] = mapped["odds_event_id"].map(event_to_game)
+    return mapped
+
+
+def _insert_odds_snapshot_and_lines(
+    db: Database,
+    league: str,
+    odds_res: SourceFetchResult,
+) -> None:
+    def _nullable_text(value: Any) -> str | None:
+        if value is None or pd.isna(value):
+            return None
+        text = str(value).strip()
+        if not text or text.lower() == "nan":
+            return None
+        return text
+
+    metadata = odds_res.metadata or {}
+    rows_df = _map_odds_rows_to_games(db, odds_res.dataframe)
+
+    db.execute(
+        """
+        INSERT OR REPLACE INTO odds_snapshots(
+          odds_snapshot_id, source, league, as_of_utc, raw_path,
+          regions, markets, odds_format, date_format,
+          event_count, row_count,
+          requests_last, requests_used, requests_remaining,
+          from_cache, metadata_json
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            odds_res.snapshot_id,
+            odds_res.source,
+            league,
+            odds_res.extracted_at_utc,
+            odds_res.raw_path,
+            str(metadata.get("regions") or ""),
+            str(metadata.get("markets") or ""),
+            str(metadata.get("odds_format") or ""),
+            str(metadata.get("date_format") or ""),
+            int(metadata.get("n_events") or 0),
+            int(len(rows_df)),
+            int(metadata["requests_last"]) if metadata.get("requests_last") is not None else None,
+            int(metadata["requests_used"]) if metadata.get("requests_used") is not None else None,
+            int(metadata["requests_remaining"]) if metadata.get("requests_remaining") is not None else None,
+            int(metadata.get("from_cache") or 0),
+            to_json(metadata),
+        ),
+    )
+
+    if rows_df.empty:
+        return
+
+    created_at_utc = utc_now_iso()
+    insert_rows: list[tuple[Any, ...]] = []
+    for row in rows_df.itertuples(index=False):
+        game_id_raw = getattr(row, "game_id", None)
+        game_id = int(game_id_raw) if pd.notna(game_id_raw) else None
+        outcome_price = pd.to_numeric(getattr(row, "outcome_price", None), errors="coerce")
+        outcome_point = pd.to_numeric(getattr(row, "outcome_point", None), errors="coerce")
+        implied_probability = pd.to_numeric(getattr(row, "implied_probability", None), errors="coerce")
+
+        insert_rows.append(
+            (
+                odds_res.snapshot_id,
+                league,
+                game_id,
+                _nullable_text(getattr(row, "sport_key", "")),
+                _nullable_text(getattr(row, "odds_event_id", "")),
+                _nullable_text(getattr(row, "commence_time_utc", "")),
+                _nullable_text(getattr(row, "commence_date_central", "")),
+                _nullable_text(getattr(row, "api_home_team", "")),
+                _nullable_text(getattr(row, "api_away_team", "")),
+                _nullable_text(getattr(row, "home_team", "")),
+                _nullable_text(getattr(row, "away_team", "")),
+                _nullable_text(getattr(row, "bookmaker_key", "")),
+                _nullable_text(getattr(row, "bookmaker_title", "")),
+                _nullable_text(getattr(row, "bookmaker_last_update_utc", "")),
+                _nullable_text(getattr(row, "market_key", "")),
+                _nullable_text(getattr(row, "outcome_name", "")),
+                _nullable_text(getattr(row, "outcome_side", "")),
+                _nullable_text(getattr(row, "outcome_team", "")),
+                float(outcome_price) if pd.notna(outcome_price) else None,
+                float(outcome_point) if pd.notna(outcome_point) else None,
+                float(implied_probability) if pd.notna(implied_probability) else None,
+                created_at_utc,
+            )
+        )
+
+    db.executemany(
+        """
+        INSERT INTO odds_market_lines(
+          odds_snapshot_id, league, game_id, sport_key, odds_event_id,
+          commence_time_utc, commence_date_central, api_home_team, api_away_team,
+          home_team, away_team, bookmaker_key, bookmaker_title, bookmaker_last_update_utc,
+          market_key, outcome_name, outcome_side, outcome_team,
+          outcome_price, outcome_point, implied_probability, created_at_utc
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        insert_rows,
+    )
+
+
 def _latest_snapshot_id(db: Database) -> str | None:
     rows = db.query("SELECT snapshot_id FROM raw_snapshots ORDER BY extracted_at_utc DESC LIMIT 1")
     return rows[0]["snapshot_id"] if rows else None
@@ -314,9 +551,10 @@ def cmd_fetch(cfg: AppConfig) -> None:
     _save_interim(injuries_res.dataframe, cfg.paths.interim_dir, "injuries")
     _insert_snapshot(db, injuries_res)
 
-    odds_res = sources["fetch_public_odds_optional"](client)
+    odds_res = sources["fetch_public_odds_optional"](client, teams_df=teams_res.dataframe, league=league)
     _save_interim(odds_res.dataframe, cfg.paths.interim_dir, "odds")
     _insert_snapshot(db, odds_res)
+    _insert_odds_snapshot_and_lines(db, league=league, odds_res=odds_res)
 
     xg_res = sources["fetch_xg_optional"](client)
     _save_interim(xg_res.dataframe, cfg.paths.interim_dir, "xg")
@@ -555,7 +793,7 @@ def _run_validation_outputs(result: dict, cfg: AppConfig) -> None:
 
 
 
-def cmd_train(cfg: AppConfig, models_arg: str | None = None) -> None:
+def cmd_train(cfg: AppConfig, models_arg: str | None = None, approve_feature_changes: bool = False) -> None:
     def emit_train_progress(event: dict[str, Any]) -> None:
         print(f"TRAIN_PROGRESS::{json.dumps(event, sort_keys=True)}", flush=True)
 
@@ -572,6 +810,12 @@ def cmd_train(cfg: AppConfig, models_arg: str | None = None) -> None:
         features_df = pd.read_parquet(feat_path)
     else:
         features_df = pd.read_csv(feat_path)
+    approved_feature_columns = _apply_model_feature_policy(
+        cfg,
+        features_df,
+        approve_feature_changes=approve_feature_changes,
+        run_context="train",
+    )
     feature_set_rows = db.query("SELECT feature_set_version FROM feature_sets ORDER BY created_at_utc DESC LIMIT 1")
     feature_set_version = feature_set_rows[0]["feature_set_version"] if feature_set_rows else "unknown_feature_set"
     selected_models = _parse_models_arg(models_arg)
@@ -601,6 +845,7 @@ def cmd_train(cfg: AppConfig, models_arg: str | None = None) -> None:
         bayes_cfg=cfg.bayes.model_dump(),
         selected_models=selected_models,
         progress_callback=emit_train_progress,
+        selected_feature_columns=approved_feature_columns,
     )
     tracker.log_metrics(
         run_id,
@@ -668,7 +913,7 @@ def cmd_train(cfg: AppConfig, models_arg: str | None = None) -> None:
 
 
 
-def cmd_backtest(cfg: AppConfig, models_arg: str | None = None) -> None:
+def cmd_backtest(cfg: AppConfig, models_arg: str | None = None, approve_feature_changes: bool = False) -> None:
     db = Database(cfg.paths.db_path)
     db.init_schema()
 
@@ -682,6 +927,12 @@ def cmd_backtest(cfg: AppConfig, models_arg: str | None = None) -> None:
         features_df = pd.read_parquet(feat_path)
     else:
         features_df = pd.read_csv(feat_path)
+    approved_feature_columns = _apply_model_feature_policy(
+        cfg,
+        features_df,
+        approve_feature_changes=approve_feature_changes,
+        run_context="backtest",
+    )
     selected_models = _parse_models_arg(models_arg)
     bt = run_walk_forward_backtest(
         features_df,
@@ -689,6 +940,7 @@ def cmd_backtest(cfg: AppConfig, models_arg: str | None = None) -> None:
         bayes_cfg=cfg.bayes.model_dump(),
         n_splits=cfg.modeling.cv_splits,
         selected_models=selected_models,
+        selected_feature_columns=approved_feature_columns,
     )
 
     oof = bt["oof_predictions"]
@@ -758,11 +1010,11 @@ def cmd_backtest(cfg: AppConfig, models_arg: str | None = None) -> None:
 
 
 
-def cmd_run_daily(cfg: AppConfig, models_arg: str | None = None) -> None:
+def cmd_run_daily(cfg: AppConfig, models_arg: str | None = None, approve_feature_changes: bool = False) -> None:
     cmd_fetch(cfg)
     cmd_features(cfg)
     if cfg.runtime.retrain_daily:
-        cmd_train(cfg, models_arg=models_arg)
+        cmd_train(cfg, models_arg=models_arg, approve_feature_changes=approve_feature_changes)
 
     db = Database(cfg.paths.db_path)
     score_info = score_predictions(db, windows_days=cfg.modeling.rolling_windows_days)
@@ -788,7 +1040,7 @@ def cmd_smoke(cfg: AppConfig) -> None:
     cmd_init_db(cfg)
     cmd_fetch(cfg)
     cmd_features(cfg)
-    cmd_train(cfg)
+    cmd_train(cfg, approve_feature_changes=True)
     score_info = score_predictions(Database(cfg.paths.db_path), windows_days=cfg.modeling.rolling_windows_days)
 
     logger.info("Smoke scoring info: %s", score_info)
@@ -814,6 +1066,9 @@ def cmd_smoke(cfg: AppConfig) -> None:
 
 
 def main() -> None:
+    _load_dotenv_file(Path(".env"))
+    _load_dotenv_file(Path("web/.env.local"))
+
     parser = argparse.ArgumentParser(description="NHL/NBA probabilistic forecasting pipeline")
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -825,6 +1080,11 @@ def main() -> None:
                 "--models",
                 default="all",
                 help="Comma-separated model list (e.g. glm_logit,rf) or 'all'",
+            )
+            p.add_argument(
+                "--approve-feature-changes",
+                action="store_true",
+                help="Explicitly accept and persist model feature-contract changes in the registry.",
             )
 
     args = parser.parse_args()
@@ -840,11 +1100,15 @@ def main() -> None:
     elif args.command == "features":
         cmd_features(cfg)
     elif args.command == "train":
-        cmd_train(cfg, models_arg=args.models)
+        cmd_train(cfg, models_arg=args.models, approve_feature_changes=bool(args.approve_feature_changes))
     elif args.command == "backtest":
-        cmd_backtest(cfg, models_arg=args.models)
+        cmd_backtest(cfg, models_arg=args.models, approve_feature_changes=bool(args.approve_feature_changes))
     elif args.command == "run-daily":
-        cmd_run_daily(cfg, models_arg=args.models)
+        cmd_run_daily(
+            cfg,
+            models_arg=args.models,
+            approve_feature_changes=bool(args.approve_feature_changes),
+        )
     elif args.command == "smoke":
         cmd_smoke(cfg)
 
