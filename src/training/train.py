@@ -40,6 +40,13 @@ ALL_MODEL_NAMES = [
     "nn_mlp",
 ]
 
+ENSEMBLE_CORE_MODEL_NAMES = (
+    "elo_baseline",
+    "dynamic_rating",
+    "glm_logit",
+    "goals_poisson",
+)
+
 MODEL_ALIASES = {
     "elo": "elo_baseline",
     "dyn": "dynamic_rating",
@@ -599,6 +606,8 @@ def _predict_suite(
         )
 
     for name, m in models.items():
+        if name not in selected:
+            continue
         _emit_progress(
             progress_callback,
             {"kind": "model", "model": name, "stage": phase, "status": "started", "message": f"Running {phase} for {name}"},
@@ -656,6 +665,19 @@ def _predict_suite(
         )
 
     return out, extras
+
+
+def _ensemble_prediction_columns(available_columns: list[str]) -> list[str]:
+    available = {str(col) for col in available_columns}
+    return [model_name for model_name in ENSEMBLE_CORE_MODEL_NAMES if model_name in available]
+
+
+def _ensemble_selected_models(models: dict[str, object]) -> list[str]:
+    selected: list[str] = []
+    for model_name in ENSEMBLE_CORE_MODEL_NAMES:
+        if model_name in {"elo_baseline", "dynamic_rating"} or model_name in models:
+            selected.append(model_name)
+    return selected
 
 
 
@@ -956,23 +978,7 @@ def train_and_predict(
         {"kind": "pipeline", "stage": "stacking", "status": "started", "message": "Preparing stacking ensemble"},
     )
     stacker = StackingEnsemble()
-    stack_base_cols = [
-        c
-        for c in [
-            "elo_baseline",
-            "dynamic_rating",
-            "glm_logit",
-            "gbdt",
-            "rf",
-            "two_stage",
-            "goals_poisson",
-            "simulation_first",
-            "bayes_bt_state_space",
-            "bayes_goals",
-            "nn_mlp",
-        ]
-        if c in oof.columns
-    ]
+    stack_base_cols = _ensemble_prediction_columns([str(c) for c in oof.columns])
 
     if not oof.empty and len(stack_base_cols) >= 3:
         stacker.fit(oof.dropna(subset=["home_win"]), base_columns=stack_base_cols, target_col="home_win")
@@ -994,7 +1000,7 @@ def train_and_predict(
     oof_metrics = []
     if not oof.empty:
         y = oof["home_win"].astype(int).to_numpy()
-        for col in [c for c in oof.columns if c not in {"game_id", "home_win", "game_date_utc"}]:
+        for col in _ensemble_prediction_columns([str(c) for c in oof.columns if c not in {"game_id", "home_win", "game_date_utc"}]):
             m = metric_bundle(y, oof[col].to_numpy())
             oof_metrics.append(
                 {
@@ -1021,6 +1027,14 @@ def train_and_predict(
         progress_callback=progress_callback,
         phase="predict_upcoming",
     )
+    ensemble_upcoming_preds, _ = _predict_suite(
+        models,
+        upcoming_df,
+        feature_cols,
+        selected_models=_ensemble_selected_models(models),
+        progress_callback=progress_callback,
+        phase="predict_upcoming_ensemble",
+    )
     _emit_progress(
         progress_callback,
         {"kind": "pipeline", "stage": "predict_upcoming", "status": "completed", "message": "Completed upcoming predictions"},
@@ -1045,15 +1059,19 @@ def train_and_predict(
     model_cols = [c for c in upcoming_preds.columns if c != "game_id"]
     if not model_cols:
         raise RuntimeError(f"No model predictions were produced. selected_models={models_selected}")
+    ensemble_model_cols = _ensemble_prediction_columns([str(c) for c in ensemble_upcoming_preds.columns if c != "game_id"])
     if not weights:
-        weights = {c: 1.0 for c in model_cols}
+        weights = {c: 1.0 for c in ensemble_model_cols}
     if stack_ready:
-        stack_prob = stacker.predict_proba(upcoming_preds)
+        stack_prob = stacker.predict_proba(ensemble_upcoming_preds)
     else:
-        stack_prob = weighted_ensemble(upcoming_preds, weights)
+        stack_prob = weighted_ensemble(ensemble_upcoming_preds, weights)
 
-    weight_prob = weighted_ensemble(upcoming_preds, weights)
-    ensemble_prob = np.clip(0.6 * stack_prob + 0.4 * weight_prob, 1e-6, 1 - 1e-6)
+    weight_prob = weighted_ensemble(ensemble_upcoming_preds, weights)
+    if weights:
+        ensemble_prob = np.clip(0.6 * stack_prob + 0.4 * weight_prob, 1e-6, 1 - 1e-6)
+    else:
+        ensemble_prob = np.full(len(upcoming_preds), 0.5)
     _emit_progress(
         progress_callback,
         {"kind": "pipeline", "stage": "ensemble", "status": "completed", "message": "Built ensemble probabilities"},

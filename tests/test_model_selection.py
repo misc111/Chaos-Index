@@ -93,3 +93,22 @@ def test_train_single_model_glm_only(tmp_path):
     per_model = json.loads(row["per_model_probs_json"])
     assert list(per_model.keys()) == ["glm_logit"]
     assert 0.0 < float(row["ensemble_prob_home_win"]) < 1.0
+
+
+def test_shadow_models_stay_visible_but_out_of_ensemble(tmp_path):
+    df = _synthetic_features()
+    out = train_and_predict(
+        features_df=df,
+        feature_set_version="test_feature_set",
+        artifacts_dir=str(tmp_path / "artifacts"),
+        bayes_cfg={},
+        selected_models=["elo_baseline", "dynamic_rating", "glm_logit", "rf"],
+    )
+
+    assert out["run_payload"]["stack_base_columns"] == ["elo_baseline", "dynamic_rating", "glm_logit"]
+    assert set(out["weights"].keys()) == {"elo_baseline", "dynamic_rating", "glm_logit"}
+    assert "rf" not in out["weights"]
+
+    row = out["forecasts"].iloc[0]
+    per_model = json.loads(row["per_model_probs_json"])
+    assert set(per_model.keys()) == {"elo_baseline", "dynamic_rating", "glm_logit", "rf"}

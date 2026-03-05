@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { runSqlJson } from "@/lib/db";
 import { leagueFromRequest } from "@/lib/league";
-import { MODEL_TRUST_NOTES, orderPredictionModels, parseModelWinProbabilities } from "@/lib/predictions-report";
+import { orderPredictionModels, parseModelWinProbabilities, predictionTrustNote } from "@/lib/predictions-report";
 
 export async function GET(request: Request) {
   const league = leagueFromRequest(request);
@@ -45,11 +45,7 @@ export async function GET(request: Request) {
   );
 
   const modelTrustNotes = Object.fromEntries(
-    modelColumns.map((model) => [
-      model,
-      MODEL_TRUST_NOTES[model] ||
-        "Built on that model's own rule set. Good for a second opinion. Watch for large gaps versus ensemble.",
-    ])
+    modelColumns.map((model) => [model, predictionTrustNote(model)])
   );
 
   return NextResponse.json({ league, as_of_utc: asOf, model_columns: modelColumns, model_trust_notes: modelTrustNotes, rows });
