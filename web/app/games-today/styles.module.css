@@ -1,0 +1,54 @@
+.tableCard {
+  overflow-x: auto;
+}
+
+.gamesTable {
+  min-width: 430px;
+  table-layout: fixed;
+}
+
+.gamesTable th,
+.gamesTable td {
+  padding: 6px 8px;
+}
+
+.gamesTable th:nth-child(1),
+.gamesTable td:nth-child(1) {
+  width: 38%;
+}
+
+.gamesTable th:nth-child(2),
+.gamesTable td:nth-child(2) {
+  width: 38%;
+}
+
+.gamesTable th:nth-child(3),
+.gamesTable td:nth-child(3) {
+  width: 24%;
+}
+
+.teamWin {
+  color: #0f5132;
+  background: #d1e7dd;
+  border-color: #badbcc;
+  font-weight: 700;
+}
+
+.teamLoss {
+  color: #842029;
+  background: #f8d7da;
+  border-color: #f5c2c7;
+  font-weight: 700;
+}
+
+.teamNeutral {
+  color: var(--ink);
+  background: #f8fafc;
+  font-weight: 600;
+}
+
+.winChanceCell {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}

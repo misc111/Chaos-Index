@@ -8,6 +8,7 @@ import { type LeagueCode, normalizeLeague, withLeague } from "@/lib/league";
 const links: Array<[string, string]> = [
   ["/", "Overview"],
   ["/predictions", "Predictions"],
+  ["/games-today", "Games Today"],
   ["/actual-vs-expected", "Actual vs Expected"],
   ["/leaderboard", "Leaderboard"],
   ["/performance", "Performance"],
