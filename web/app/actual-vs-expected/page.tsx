@@ -70,6 +70,20 @@ function formatAsOfLabel(value: string): string {
   });
 }
 
+function modeledWinPctLabel(
+  probHomeWin: number,
+  homeTeam: string,
+  awayTeam: string,
+  predictedWinner?: string | null
+): string {
+  const pHome = Number.isFinite(probHomeWin) ? Math.min(1, Math.max(0, probHomeWin)) : 0.5;
+  const winner = (predictedWinner || "").trim();
+  const resolvedWinner =
+    winner === homeTeam || winner === awayTeam ? winner : pHome >= 0.5 ? homeTeam : awayTeam;
+  const winProb = resolvedWinner === homeTeam ? pHome : 1 - pHome;
+  return `${(winProb * 100).toFixed(1)}%`;
+}
+
 function monthTitle(year: number, monthIndex: number): string {
   return new Date(year, monthIndex, 1).toLocaleDateString(undefined, {
     month: "long",
@@ -160,8 +174,13 @@ export default function ActualVsExpectedPage() {
       map[key].push({
         id: `hist-${row.game_id}`,
         matchup: `${row.home_team} vs ${row.away_team}`,
-        status: isCorrect ? "Model correct" : "Model incorrect",
-        detail: `Forecast made ${formatAsOfLabel(row.as_of_utc)}`,
+        status: isCorrect ? "Model Correct" : "Model Incorrect",
+        detail: `Modeled win %: ${modeledWinPctLabel(
+          Number(row.prob_home_win),
+          row.home_team,
+          row.away_team,
+          row.predicted_winner
+        )}`,
         dotClass: isCorrect ? "dot-correct" : "dot-incorrect",
         kind: "historical",
       });
