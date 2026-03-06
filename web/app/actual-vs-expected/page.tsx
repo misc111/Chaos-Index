@@ -329,11 +329,21 @@ function ActualVsExpectedPageContent() {
                   : cell.key < todayKey
                     ? "calendar-day-past"
                     : "calendar-day-future";
+              const hasItems = Boolean(cell.items && cell.items.length > 0);
               const successRateLabel = daySuccessRateLabel(cell.items || []);
+              const dayLabel = new Date(year, month, cell.day).toLocaleDateString(undefined, {
+                weekday: "short",
+                month: "short",
+                day: "numeric",
+              });
 
               return (
-                <div key={cell.key} className={`calendar-day ${dayClass}`}>
+                <div
+                  key={cell.key}
+                  className={`calendar-day ${dayClass} ${hasItems ? "calendar-day-has-items" : "calendar-day-no-items"}`}
+                >
                   <div className="calendar-day-header">
+                    <div className="calendar-day-date-label">{dayLabel}</div>
                     <div className="calendar-day-number">{cell.day}</div>
                     {successRateLabel ? <div className="calendar-day-success-rate">{successRateLabel}</div> : null}
                   </div>

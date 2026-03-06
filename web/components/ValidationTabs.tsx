@@ -17,11 +17,18 @@ export default function ValidationTabs({ sections }: Props) {
 
   return (
     <div>
-      <div className="nav" style={{ paddingTop: 0 }}>
+      <div className="tabRail" role="tablist" aria-label="Validation sections">
         {keys.map((k) => (
-          <a key={k} onClick={() => setActive(k)} style={{ cursor: "pointer", opacity: active === k ? 1 : 0.6 }}>
+          <button
+            key={k}
+            type="button"
+            role="tab"
+            aria-selected={active === k}
+            className={`tabButton ${active === k ? "active" : ""}`}
+            onClick={() => setActive(k)}
+          >
             {k}
-          </a>
+          </button>
         ))}
       </div>
       <ModelTable title={active} rows={sections[active] || []} />

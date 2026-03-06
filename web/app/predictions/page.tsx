@@ -148,6 +148,11 @@ function PredictionsPageContent() {
     return first === last ? first : `${first} to ${last}`;
   }, [filteredRows]);
 
+  const modelEntries = report.model_columns.map((model) => ({
+    key: model,
+    label: displayPredictionModel(model),
+  }));
+
   return (
     <div className={styles.page}>
       <section className={styles.hero}>
@@ -261,39 +266,90 @@ function PredictionsPageContent() {
         ) : filteredRows.length === 0 ? (
           <div className={styles.emptyState}>No home teams match the current filter.</div>
         ) : (
-          <div className={styles.tableScroll}>
-            <table className={styles.reportTable}>
-              <thead>
-                <tr>
-                  <th>Home Team</th>
-                  <th>Away Team</th>
-                  <th>Date</th>
-                  {report.model_columns.map((model) => (
-                    <th key={model}>{displayPredictionModel(model)}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {filteredRows.map((row) => (
-                  <tr key={`${row.game_id}-${row.game_date_utc}`}>
-                    <td className={styles.teamCell}>{row.home_team}</td>
-                    <td className={styles.awayCell}>{row.away_team}</td>
-                    <td className={styles.dateCell}>{formatPredictionDate(row.game_date_utc)}</td>
-                    {report.model_columns.map((model) => {
-                      const value = row.model_win_probabilities?.[model];
-                      return (
-                        <td key={model} className={styles.metricCell}>
-                          <span className={`${styles.probPill} ${probabilityTone(value)}`}>
-                            {formatPredictionProbability(value)}
-                          </span>
-                        </td>
-                      );
-                    })}
+          <>
+            <div className={`${styles.tableScroll} ${styles.tableDesktop}`}>
+              <table className={styles.reportTable}>
+                <thead>
+                  <tr>
+                    <th>Home Team</th>
+                    <th>Away Team</th>
+                    <th>Date</th>
+                    {modelEntries.map((model) => (
+                      <th key={model.key}>{model.label}</th>
+                    ))}
                   </tr>
+                </thead>
+                <tbody>
+                  {filteredRows.map((row) => (
+                    <tr key={`${row.game_id}-${row.game_date_utc}`}>
+                      <td className={styles.teamCell}>{row.home_team}</td>
+                      <td className={styles.awayCell}>{row.away_team}</td>
+                      <td className={styles.dateCell}>{formatPredictionDate(row.game_date_utc)}</td>
+                      {modelEntries.map((model) => {
+                        const value = row.model_win_probabilities?.[model.key];
+                        return (
+                          <td key={model.key} className={styles.metricCell}>
+                            <span className={`${styles.probPill} ${probabilityTone(value)}`}>
+                              {formatPredictionProbability(value)}
+                            </span>
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className={styles.tableMobile}>
+              <div className={styles.mobileCardList}>
+                {filteredRows.map((row) => (
+                  <article key={`${row.game_id}-${row.game_date_utc}-mobile`} className={styles.mobileCard}>
+                    <div className={styles.mobileCardTop}>
+                      <div>
+                        <p className={styles.mobileCardEyebrow}>Matchup</p>
+                        <h4 className={styles.mobileCardTitle}>
+                          {row.away_team} at {row.home_team}
+                        </h4>
+                      </div>
+                      <span className={`${styles.probPill} ${probabilityTone(row.ensemble_prob_home_win)}`}>
+                        Ensemble {formatPredictionProbability(row.ensemble_prob_home_win)}
+                      </span>
+                    </div>
+
+                    <div className={styles.mobileMetaGrid}>
+                      <div className={styles.mobileMetaItem}>
+                        <span className={styles.mobileMetaLabel}>Date</span>
+                        <span className={styles.mobileMetaValue}>{formatPredictionDate(row.game_date_utc)}</span>
+                      </div>
+                      <div className={styles.mobileMetaItem}>
+                        <span className={styles.mobileMetaLabel}>Home</span>
+                        <span className={styles.mobileMetaValue}>{row.home_team}</span>
+                      </div>
+                      <div className={styles.mobileMetaItem}>
+                        <span className={styles.mobileMetaLabel}>Away</span>
+                        <span className={styles.mobileMetaValue}>{row.away_team}</span>
+                      </div>
+                    </div>
+
+                    <div className={styles.mobileModelGrid}>
+                      {modelEntries.map((model) => {
+                        const value = row.model_win_probabilities?.[model.key];
+                        return (
+                          <div key={model.key} className={styles.mobileModelItem}>
+                            <span className={styles.mobileModelLabel}>{model.label}</span>
+                            <span className={`${styles.probPill} ${probabilityTone(value)}`}>
+                              {formatPredictionProbability(value)}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </article>
                 ))}
-              </tbody>
-            </table>
-          </div>
+              </div>
+            </div>
+          </>
         )}
       </section>
 

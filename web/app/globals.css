@@ -41,6 +41,7 @@ a {
 }
 
 .nav a {
+  flex: 0 0 auto;
   padding: 8px 12px;
   border: 1px solid var(--border);
   border-radius: 999px;
@@ -82,6 +83,7 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex: 0 0 auto;
   min-width: 86px;
   padding: 10px 18px;
   border: 1px solid var(--border);
@@ -350,6 +352,7 @@ a {
   border-radius: 14px;
   padding: 16px;
   box-shadow: 0 2px 6px rgba(31, 42, 52, 0.05);
+  min-width: 0;
 }
 
 .grid {
@@ -457,6 +460,10 @@ td {
   border-radius: 12px;
   min-height: 150px;
   padding: 8px;
+}
+
+.calendar-day-date-label {
+  display: none;
 }
 
 .calendar-day-empty {
@@ -576,6 +583,102 @@ td {
   background: #fef08a;
 }
 
+.tableMobile {
+  display: none;
+}
+
+.dataCardList {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.dataCard {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid rgba(217, 207, 186, 0.94);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(252, 249, 241, 0.94));
+}
+
+.dataCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dataCardTitle {
+  margin: 0;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.dataCardGrid {
+  display: grid;
+  gap: 10px;
+}
+
+.dataField {
+  display: grid;
+  gap: 4px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(217, 207, 186, 0.78);
+}
+
+.dataField:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.dataLabel {
+  color: #607281;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dataValue {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.tabRail {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 0 0 12px;
+  scrollbar-width: thin;
+}
+
+.tabButton {
+  flex: 0 0 auto;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.tabButton.active {
+  background: #ecfeff;
+  border-color: #67e8f9;
+  color: #0f766e;
+}
+
 @keyframes refresh-spin {
   from {
     transform: rotate(0deg);
@@ -591,5 +694,123 @@ td {
   }
   to {
     transform: translateX(170%);
+  }
+}
+
+@media (max-width: 820px) {
+  .container {
+    width: min(1180px, calc(100vw - 24px));
+  }
+
+  .refresh-row {
+    align-items: stretch;
+  }
+
+  .refresh-btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .refresh-meta,
+  .refresh-progress-track {
+    width: 100%;
+  }
+
+  .calendar-month-label {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .nav,
+  .league-toggle-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: thin;
+  }
+
+  .nav a,
+  .league-toggle-btn {
+    white-space: nowrap;
+  }
+
+  .card {
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .title {
+    font-size: 1.35rem;
+  }
+
+  .small {
+    line-height: 1.55;
+  }
+
+  .grid.two {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-top-row {
+    align-items: stretch;
+  }
+
+  .calendar-nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .calendar-scroll {
+    overflow: visible;
+  }
+
+  .calendar-weekdays {
+    display: none;
+  }
+
+  .calendar-grid {
+    min-width: 0;
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-day {
+    min-height: 0;
+    padding: 12px;
+  }
+
+  .calendar-day-no-items {
+    display: none;
+  }
+
+  .calendar-day-date-label {
+    display: block;
+    color: #516574;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .calendar-day-header {
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .calendar-day-number {
+    display: none;
+  }
+
+  .calendar-events {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .tableDesktop {
+    display: none;
+  }
+
+  .tableMobile {
+    display: block;
   }
 }

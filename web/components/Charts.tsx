@@ -39,7 +39,7 @@ export default function Charts({ title, points, color = "#0f766e" }: Props) {
   return (
     <div className="card">
       <h3 className="title">{title}</h3>
-      <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", height: 220 }}>
+      <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", height: "clamp(180px, 42vw, 220px)" }}>
         <rect x="0" y="0" width={w} height={h} fill="#fff" />
         <path d={d} fill="none" stroke={color} strokeWidth="2.5" />
       </svg>

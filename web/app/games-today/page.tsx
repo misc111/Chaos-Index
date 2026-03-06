@@ -66,6 +66,17 @@ function formatOver190(value?: number | null, point?: number | null): string {
   return `${price} @ ${p.toFixed(1)}`;
 }
 
+function formatCentralTip(value?: string | null): string {
+  if (!value) return "Time TBD";
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return value;
+  return parsed.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: "America/Chicago",
+  });
+}
+
 function GamesTodayPageContent() {
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
@@ -175,45 +186,115 @@ function GamesTodayPageContent() {
         ) : null}
 
         {!loading && !error && rows.length > 0 ? (
-          <table className={styles.gamesTable}>
-            <thead>
-              <tr>
-                <th>Home Team</th>
-                <th>Away Team</th>
-                <th>Win Chance</th>
-                <th>Moneyline</th>
-                {league === "NBA" ? <th>Over Odds</th> : null}
-                <th>Bet per $100</th>
-                <th>Reason</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => {
-                const side = expectedSide(row.home_win_probability);
-                const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
-                const bet = computeBetDecision(row);
-                return (
-                  <tr key={row.game_id}>
-                    <td className={side === "home" ? styles.teamWin : side === "away" ? styles.teamLoss : styles.teamNeutral}>
-                      {row.home_team}
-                    </td>
-                    <td className={side === "away" ? styles.teamWin : side === "home" ? styles.teamLoss : styles.teamNeutral}>
-                      {row.away_team}
-                    </td>
-                    <td className={styles.winChanceCell}>{side === "none" ? `Toss-up (${chanceLabel})` : chanceLabel}</td>
-                    <td className={styles.moneylineCell}>
-                      {`H ${formatMoneyline(row.home_moneyline)} · A ${formatMoneyline(row.away_moneyline)}`}
-                    </td>
-                    {league === "NBA" ? (
-                      <td className={styles.over190Cell}>{formatOver190(row.over_190_price, row.over_190_point)}</td>
-                    ) : null}
-                    <td className={styles.betCell}>{bet.bet}</td>
-                    <td className={styles.reasonCell}>{bet.reason}</td>
+          <>
+            <div className={styles.tableDesktop}>
+              <table className={styles.gamesTable}>
+                <thead>
+                  <tr>
+                    <th>Home Team</th>
+                    <th>Away Team</th>
+                    <th>Win Chance</th>
+                    <th>Moneyline</th>
+                    {league === "NBA" ? <th>Over Odds</th> : null}
+                    <th>Bet per $100</th>
+                    <th>Reason</th>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                </thead>
+                <tbody>
+                  {rows.map((row) => {
+                    const side = expectedSide(row.home_win_probability);
+                    const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
+                    const bet = computeBetDecision(row);
+                    return (
+                      <tr key={row.game_id}>
+                        <td className={side === "home" ? styles.teamWin : side === "away" ? styles.teamLoss : styles.teamNeutral}>
+                          {row.home_team}
+                        </td>
+                        <td className={side === "away" ? styles.teamWin : side === "home" ? styles.teamLoss : styles.teamNeutral}>
+                          {row.away_team}
+                        </td>
+                        <td className={styles.winChanceCell}>{side === "none" ? `Toss-up (${chanceLabel})` : chanceLabel}</td>
+                        <td className={styles.moneylineCell}>
+                          {`H ${formatMoneyline(row.home_moneyline)} · A ${formatMoneyline(row.away_moneyline)}`}
+                        </td>
+                        {league === "NBA" ? (
+                          <td className={styles.over190Cell}>{formatOver190(row.over_190_price, row.over_190_point)}</td>
+                        ) : null}
+                        <td className={styles.betCell}>{bet.bet}</td>
+                        <td className={styles.reasonCell}>{bet.reason}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            <div className={styles.tableMobile}>
+              <div className={styles.mobileCardList}>
+                {rows.map((row) => {
+                  const side = expectedSide(row.home_win_probability);
+                  const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
+                  const bet = computeBetDecision(row);
+                  const sideLabel =
+                    side === "home" ? `${row.home_team} lean` : side === "away" ? `${row.away_team} lean` : "Toss-up";
+                  return (
+                    <article key={`${row.game_id}-mobile`} className={styles.mobileCard}>
+                      <div className={styles.mobileCardTop}>
+                        <div>
+                          <p className={styles.mobileCardEyebrow}>Matchup</p>
+                          <h3 className={styles.mobileCardTitle}>
+                            {row.away_team} at {row.home_team}
+                          </h3>
+                        </div>
+                        <span
+                          className={`${styles.mobileSideBadge} ${
+                            side === "home" ? styles.teamWin : side === "away" ? styles.teamLoss : styles.teamNeutral
+                          }`}
+                        >
+                          {sideLabel}
+                        </span>
+                      </div>
+
+                      <div className={styles.mobileMetaGrid}>
+                        <div className={styles.mobileMetaItem}>
+                          <span className={styles.mobileMetaLabel}>Tip (CT)</span>
+                          <span className={styles.mobileMetaValue}>{formatCentralTip(row.start_time_utc)}</span>
+                        </div>
+                        <div className={styles.mobileMetaItem}>
+                          <span className={styles.mobileMetaLabel}>Win chance</span>
+                          <span className={styles.mobileMetaValue}>
+                            {side === "none" ? `Toss-up (${chanceLabel})` : chanceLabel}
+                          </span>
+                        </div>
+                        <div className={styles.mobileMetaItem}>
+                          <span className={styles.mobileMetaLabel}>Moneyline</span>
+                          <span className={styles.mobileMetaValue}>
+                            {`H ${formatMoneyline(row.home_moneyline)} · A ${formatMoneyline(row.away_moneyline)}`}
+                          </span>
+                        </div>
+                        {league === "NBA" ? (
+                          <div className={styles.mobileMetaItem}>
+                            <span className={styles.mobileMetaLabel}>Over odds</span>
+                            <span className={styles.mobileMetaValue}>
+                              {formatOver190(row.over_190_price, row.over_190_point)}
+                            </span>
+                          </div>
+                        ) : null}
+                        <div className={styles.mobileMetaItem}>
+                          <span className={styles.mobileMetaLabel}>Bet per $100</span>
+                          <span className={styles.mobileMetaValue}>{bet.bet}</span>
+                        </div>
+                        <div className={styles.mobileMetaItem}>
+                          <span className={styles.mobileMetaLabel}>Reason</span>
+                          <span className={styles.mobileMetaValue}>{bet.reason}</span>
+                        </div>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          </>
         ) : null}
       </div>
     </div>

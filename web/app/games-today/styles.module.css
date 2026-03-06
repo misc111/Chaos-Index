@@ -2,6 +2,14 @@
   overflow-x: auto;
 }
 
+.tableDesktop {
+  display: block;
+}
+
+.tableMobile {
+  display: none;
+}
+
 .actionsRow {
   display: flex;
   flex-wrap: wrap;
@@ -145,4 +153,99 @@
 .reasonCell {
   white-space: nowrap;
   font-weight: 600;
+}
+
+.mobileCardList {
+  display: grid;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.mobileCard {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid rgba(217, 207, 186, 0.92);
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(252, 249, 241, 0.94));
+}
+
+.mobileCardTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.mobileCardEyebrow,
+.mobileMetaLabel {
+  color: #607281;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mobileCardEyebrow {
+  margin: 0 0 6px;
+}
+
+.mobileCardTitle {
+  margin: 0;
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.mobileSideBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mobileMetaGrid {
+  display: grid;
+  gap: 10px;
+}
+
+.mobileMetaItem {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid rgba(217, 207, 186, 0.82);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.mobileMetaValue {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+@media (max-width: 720px) {
+  .tableDesktop {
+    display: none;
+  }
+
+  .tableMobile {
+    display: block;
+  }
+
+  .tableCard {
+    overflow-x: visible;
+  }
+
+  .refreshOddsButton {
+    width: 100%;
+    min-width: 0;
+  }
 }
