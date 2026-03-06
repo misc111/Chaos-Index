@@ -34,9 +34,11 @@ jobs:
         working-directory: web
         run: npm ci
 
-      - name: Generate sanitized staging snapshot
-        working-directory: web
-        run: npm run generate:staging-data
+      - name: Verify committed staging snapshot
+        run: |
+          test -f web/public/staging-data/manifest.json
+          test -f web/public/staging-data/nhl/predictions.json
+          test -f web/public/staging-data/nba/predictions.json
 
       - name: Build static staging site
         working-directory: web
