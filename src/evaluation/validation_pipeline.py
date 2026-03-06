@@ -11,6 +11,7 @@ from src.common.config import AppConfig
 from src.common.utils import ensure_dir
 from src.evaluation.brier_decomposition import brier_decompose
 from src.evaluation.calibration import calibration_alpha_beta, ece_mce
+from src.evaluation.validation_classification import validate_logistic_probability_model
 from src.evaluation.diagnostics_glm import save_glm_diagnostics
 from src.evaluation.diagnostics_ml import permutation_importance_report
 from src.evaluation.validation_fragility import missingness_stress_test, perturbation_sensitivity
@@ -341,6 +342,67 @@ def _task_calibration(ctx: ValidationContext) -> ValidationOutputs:
     return out
 
 
+def _task_classification_curves(ctx: ValidationContext) -> ValidationOutputs:
+    p = ctx.glm.predict_proba(ctx.va)
+    y = ctx.va["home_win"].astype(int).to_numpy()
+    report = validate_logistic_probability_model(
+        y,
+        p,
+        bins=max(2, int(ctx.cfg.modeling.calibration_bins)),
+        current_tossup_half_width=0.05,
+        plot_dir=ctx.plots_dir,
+        plot_prefix="glm_validation",
+    )
+
+    out = ValidationOutputs()
+    out.add_json(
+        section="logit_quantile_summary",
+        file_name="validation_logit_quantile_summary.json",
+        payload=report["quantile_summary"],
+    )
+    out.add_csv(
+        section="logit_quantile_curve",
+        file_name="validation_logit_quantile_curve.csv",
+        rows=report["quantile_curve"],
+    )
+    out.add_json(
+        section="logit_lorenz_summary",
+        file_name="validation_logit_lorenz_summary.json",
+        payload=report["lorenz_summary"],
+    )
+    out.add_csv(
+        section="logit_lorenz_curve",
+        file_name="validation_logit_lorenz_curve.csv",
+        rows=report["lorenz_curve"],
+    )
+    out.add_json(
+        section="logit_roc_summary",
+        file_name="validation_logit_roc_summary.json",
+        payload=report["roc_summary"],
+    )
+    out.add_csv(
+        section="logit_roc_curve",
+        file_name="validation_logit_roc_curve.csv",
+        rows=report["roc_curve"],
+    )
+    out.add_csv(
+        section="logit_operating_points",
+        file_name="validation_logit_operating_points.csv",
+        rows=report["operating_points"],
+    )
+    out.add_json(
+        section="logit_tossup_summary",
+        file_name="validation_logit_tossup_summary.json",
+        payload=report["tossup_summary"],
+    )
+    out.add_csv(
+        section="logit_tossup_sweep",
+        file_name="validation_logit_tossup_sweep.csv",
+        rows=report["tossup_sweep"],
+    )
+    return out
+
+
 def build_validation_tasks(
     *,
     extra_tasks: Sequence[ValidationTask] | None = None,
@@ -359,6 +421,11 @@ def build_validation_tasks(
         ValidationTask(name="influence", runner=_task_influence, enabled=_is_full_suite_league),
         ValidationTask(name="fragility", runner=_task_fragility, enabled=_has_glm),
         ValidationTask(name="calibration", runner=_task_calibration, enabled=lambda ctx: _has_glm(ctx) and _has_holdout(ctx)),
+        ValidationTask(
+            name="classification_curves",
+            runner=_task_classification_curves,
+            enabled=lambda ctx: _has_glm(ctx) and _has_holdout(ctx),
+        ),
     ]
     if extra_tasks:
         tasks.extend(extra_tasks)
