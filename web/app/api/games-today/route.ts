@@ -4,7 +4,7 @@ import { runSqlJson } from "@/lib/db";
 import { centralTodayDateKey } from "@/lib/games-today";
 import { leagueFromRequest } from "@/lib/league";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 type RawTodayGameRow = {
   game_id: number;

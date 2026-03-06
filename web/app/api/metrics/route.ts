@@ -4,7 +4,7 @@ import { leagueFromRequest } from "@/lib/league";
 import fs from "node:fs";
 import path from "node:path";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 function maybeCsv(filePath: string): any[] {
   if (!fs.existsSync(filePath)) return [];

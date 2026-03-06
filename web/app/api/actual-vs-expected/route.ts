@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { runSqlJson } from "@/lib/db";
 import { leagueFromRequest } from "@/lib/league";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 function escapeSqlString(value: string): string {
   return value.replace(/'/g, "''");

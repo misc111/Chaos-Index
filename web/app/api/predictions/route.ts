@@ -3,7 +3,7 @@ import { runSqlJson } from "@/lib/db";
 import { leagueFromRequest } from "@/lib/league";
 import { orderPredictionModels, parseModelWinProbabilities, predictionTrustNote } from "@/lib/predictions-report";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
   const league = leagueFromRequest(request);
