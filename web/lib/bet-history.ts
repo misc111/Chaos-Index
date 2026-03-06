@@ -35,6 +35,16 @@ type RawMoneylineRow = {
   away_moneyline_book?: string | null;
 };
 
+type RawOver190Row = {
+  odds_snapshot_id?: string | null;
+  game_id?: number | null;
+  home_team?: string | null;
+  away_team?: string | null;
+  over_190_price?: number | null;
+  over_190_point?: number | null;
+  over_190_book?: string | null;
+};
+
 export type HistoricalReplayGameRow = {
   game_id: number;
   date_central: string;
@@ -52,6 +62,9 @@ export type HistoricalReplayGameRow = {
   away_moneyline: number;
   home_moneyline_book: string | null;
   away_moneyline_book: string | null;
+  over_190_price: number | null;
+  over_190_point: number | null;
+  over_190_book: string | null;
   home_win_probability: number;
 };
 
@@ -284,6 +297,45 @@ function moneylineSql(snapshotIds: string[]): string {
   `;
 }
 
+function over190Sql(snapshotIds: string[]): string {
+  const inList = snapshotIds.map((snapshotId) => `'${escapeSqlString(snapshotId)}'`).join(", ");
+
+  return `
+    WITH ranked AS (
+      SELECT
+        odds_snapshot_id,
+        game_id,
+        home_team,
+        away_team,
+        outcome_price,
+        outcome_point,
+        bookmaker_title,
+        ROW_NUMBER() OVER (
+          PARTITION BY
+            odds_snapshot_id,
+            COALESCE(CAST(game_id AS TEXT), home_team || '|' || away_team)
+          ORDER BY outcome_point ASC, DATETIME(bookmaker_last_update_utc) DESC, line_id DESC
+        ) AS rn
+      FROM odds_market_lines
+      WHERE odds_snapshot_id IN (${inList})
+        AND market_key = 'alternate_totals'
+        AND outcome_side = 'over'
+        AND outcome_point >= 190.0
+        AND outcome_price IS NOT NULL
+    )
+    SELECT
+      odds_snapshot_id,
+      game_id,
+      home_team,
+      away_team,
+      MAX(CASE WHEN rn = 1 THEN outcome_price END) AS over_190_price,
+      MAX(CASE WHEN rn = 1 THEN outcome_point END) AS over_190_point,
+      MAX(CASE WHEN rn = 1 THEN bookmaker_title END) AS over_190_book
+    FROM ranked
+    GROUP BY odds_snapshot_id, game_id, home_team, away_team
+  `;
+}
+
 function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDataset {
   // Maintainer note: this is the shared "pregame replay" source for both
   // Bet History and Games Today past-date navigation. Keep the core fields
@@ -295,6 +347,10 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
   const moneylineRows = uniqueSnapshotIds.length
     ? (runSqlJson(moneylineSql(uniqueSnapshotIds), { league }) as RawMoneylineRow[])
     : [];
+  const over190Rows =
+    uniqueSnapshotIds.length && league === "NBA"
+      ? (runSqlJson(over190Sql(uniqueSnapshotIds), { league }) as RawOver190Row[])
+      : [];
 
   const moneylineByGame = new Map<string, RawMoneylineRow>();
   const moneylineByTeams = new Map<string, RawMoneylineRow>();
@@ -312,6 +368,25 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
     const awayTeam = String(row.away_team || "").trim();
     if (homeTeam && awayTeam) {
       moneylineByTeams.set(snapshotTeamKey(snapshotId, homeTeam, awayTeam), row);
+    }
+  }
+
+  const over190ByGame = new Map<string, RawOver190Row>();
+  const over190ByTeams = new Map<string, RawOver190Row>();
+
+  for (const row of over190Rows) {
+    const snapshotId = String(row.odds_snapshot_id || "").trim();
+    if (!snapshotId) continue;
+
+    const gameId = numberOrNull(row.game_id);
+    if (gameId !== null) {
+      over190ByGame.set(snapshotGameKey(snapshotId, gameId), row);
+    }
+
+    const homeTeam = String(row.home_team || "").trim();
+    const awayTeam = String(row.away_team || "").trim();
+    if (homeTeam && awayTeam) {
+      over190ByTeams.set(snapshotTeamKey(snapshotId, homeTeam, awayTeam), row);
     }
   }
 
@@ -342,6 +417,9 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
     const moneylineMatch =
       moneylineByGame.get(snapshotGameKey(oddsSnapshotId, gameId)) ||
       moneylineByTeams.get(snapshotTeamKey(oddsSnapshotId, homeTeam, awayTeam));
+    const over190Match =
+      over190ByGame.get(snapshotGameKey(oddsSnapshotId, gameId)) ||
+      over190ByTeams.get(snapshotTeamKey(oddsSnapshotId, homeTeam, awayTeam));
 
     const homeMoneyline = numberOrNull(moneylineMatch?.home_moneyline);
     const awayMoneyline = numberOrNull(moneylineMatch?.away_moneyline);
@@ -369,6 +447,9 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
       away_moneyline: awayMoneyline,
       home_moneyline_book: moneylineMatch?.home_moneyline_book ? String(moneylineMatch.home_moneyline_book) : null,
       away_moneyline_book: moneylineMatch?.away_moneyline_book ? String(moneylineMatch.away_moneyline_book) : null,
+      over_190_price: numberOrNull(over190Match?.over_190_price),
+      over_190_point: numberOrNull(over190Match?.over_190_point),
+      over_190_book: over190Match?.over_190_book ? String(over190Match.over_190_book) : null,
       home_win_probability: normalizeProbability(row.home_win_probability),
     });
   }

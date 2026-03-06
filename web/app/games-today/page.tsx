@@ -21,6 +21,8 @@ type GamesTodayRow = {
   home_team: string;
   away_team: string;
   home_win_probability: number;
+  forecast_as_of_utc?: string | null;
+  odds_as_of_utc?: string | null;
   start_time_utc?: string | null;
   home_moneyline?: number | null;
   away_moneyline?: number | null;
@@ -87,6 +89,23 @@ function formatCentralTip(value?: string | null): string {
   });
 }
 
+function latestTimestamp(rows: GamesTodayRow[], field: "forecast_as_of_utc" | "odds_as_of_utc"): string {
+  let latestValue = "";
+  let latestMillis = Number.NEGATIVE_INFINITY;
+
+  for (const row of rows) {
+    const value = String(row[field] || "").trim();
+    if (!value) continue;
+    const parsed = new Date(value);
+    const millis = parsed.getTime();
+    if (Number.isNaN(millis) || millis <= latestMillis) continue;
+    latestMillis = millis;
+    latestValue = value;
+  }
+
+  return latestValue;
+}
+
 function GamesTodayPageContent() {
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
@@ -146,6 +165,8 @@ function GamesTodayPageContent() {
   // or past/future views. Add shared fields to both payload pools if needed.
   const sourceRows = isPastDate ? historicalRows : upcomingRows;
   const rows = sourceRows.filter((row) => dateKeyForScheduledGame(row) === activeDateKey);
+  const selectedForecastAsOf = latestTimestamp(rows, "forecast_as_of_utc") || latestAsOf;
+  const selectedOddsAsOf = latestTimestamp(rows, "odds_as_of_utc");
   const scheduleSummary = formatCentralDateSummary(activeDateKey);
   const dateLabel = formatCentralDateLabel(activeDateKey);
   const title = activeDateKey === todayKey ? "Games Today" : `Games on ${dateLabel}`;
@@ -238,8 +259,8 @@ function GamesTodayPageContent() {
           {refreshOddsStatus ? <p className={styles.refreshStatus}>{refreshOddsStatus}</p> : null}
           {refreshOddsError ? <p className={styles.refreshError}>{refreshOddsError}</p> : null}
         </div>
-        {latestAsOf ? <p className="small">Forecast snapshot as of {formatAsOfLabel(latestAsOf)}</p> : null}
-        {latestOddsAsOf ? <p className="small">Odds snapshot as of {formatAsOfLabel(latestOddsAsOf)}</p> : null}
+        {selectedForecastAsOf ? <p className="small">Forecast snapshot as of {formatAsOfLabel(selectedForecastAsOf)}</p> : null}
+        {selectedOddsAsOf ? <p className="small">Odds snapshot as of {formatAsOfLabel(selectedOddsAsOf)}</p> : null}
         {loading ? <p className="small">Loading games...</p> : null}
         {error ? <p className="small">Failed to load: {error}</p> : null}
 

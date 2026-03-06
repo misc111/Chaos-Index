@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getHistoricalReplayGames } from "@/lib/bet-history";
 import { runSqlJson } from "@/lib/db";
-import { centralTodayDateKey } from "@/lib/games-today";
+import { centralDateKeyFromTimestamp, centralTodayDateKey, dateKeyForScheduledGame } from "@/lib/games-today";
 import { leagueFromRequest } from "@/lib/league";
 
 // Maintainer note: this route reads the target league from ?league=...
@@ -15,10 +15,17 @@ type RawTodayGameRow = {
   home_team: string;
   away_team: string;
   home_win_probability: number;
+  forecast_as_of_utc?: string | null;
   start_time_utc?: string | null;
 };
 
+type RawSnapshotRow = {
+  odds_snapshot_id?: string | null;
+  as_of_utc?: string | null;
+};
+
 type RawMoneylineRow = {
+  odds_snapshot_id?: string | null;
   game_id?: number | null;
   home_team?: string | null;
   away_team?: string | null;
@@ -29,6 +36,7 @@ type RawMoneylineRow = {
 };
 
 type RawOver190Row = {
+  odds_snapshot_id?: string | null;
   game_id?: number | null;
   home_team?: string | null;
   away_team?: string | null;
@@ -45,6 +53,85 @@ function normalizeProbability(value: unknown): number {
   const numeric = Number(value);
   if (!Number.isFinite(numeric)) return 0.5;
   return Math.max(0, Math.min(1, numeric));
+}
+
+function moneylineSql(snapshotIds: string[]): string {
+  const inList = snapshotIds.map((snapshotId) => `'${escapeSqlString(snapshotId)}'`).join(", ");
+
+  return `
+    WITH ranked AS (
+      SELECT
+        odds_snapshot_id,
+        game_id,
+        home_team,
+        away_team,
+        outcome_side,
+        outcome_price,
+        bookmaker_title,
+        ROW_NUMBER() OVER (
+          PARTITION BY
+            odds_snapshot_id,
+            COALESCE(CAST(game_id AS TEXT), home_team || '|' || away_team),
+            outcome_side
+          ORDER BY outcome_price DESC, DATETIME(bookmaker_last_update_utc) DESC, line_id DESC
+        ) AS rn
+      FROM odds_market_lines
+      WHERE odds_snapshot_id IN (${inList})
+        AND market_key = 'h2h'
+        AND outcome_side IN ('home', 'away')
+        AND outcome_price IS NOT NULL
+    )
+    SELECT
+      odds_snapshot_id,
+      game_id,
+      home_team,
+      away_team,
+      MAX(CASE WHEN outcome_side = 'home' AND rn = 1 THEN outcome_price END) AS home_moneyline,
+      MAX(CASE WHEN outcome_side = 'away' AND rn = 1 THEN outcome_price END) AS away_moneyline,
+      MAX(CASE WHEN outcome_side = 'home' AND rn = 1 THEN bookmaker_title END) AS home_moneyline_book,
+      MAX(CASE WHEN outcome_side = 'away' AND rn = 1 THEN bookmaker_title END) AS away_moneyline_book
+    FROM ranked
+    GROUP BY odds_snapshot_id, game_id, home_team, away_team
+  `;
+}
+
+function over190Sql(snapshotIds: string[]): string {
+  const inList = snapshotIds.map((snapshotId) => `'${escapeSqlString(snapshotId)}'`).join(", ");
+
+  return `
+    WITH ranked AS (
+      SELECT
+        odds_snapshot_id,
+        game_id,
+        home_team,
+        away_team,
+        outcome_price,
+        outcome_point,
+        bookmaker_title,
+        ROW_NUMBER() OVER (
+          PARTITION BY
+            odds_snapshot_id,
+            COALESCE(CAST(game_id AS TEXT), home_team || '|' || away_team)
+          ORDER BY outcome_point ASC, DATETIME(bookmaker_last_update_utc) DESC, line_id DESC
+        ) AS rn
+      FROM odds_market_lines
+      WHERE odds_snapshot_id IN (${inList})
+        AND market_key = 'alternate_totals'
+        AND outcome_side = 'over'
+        AND outcome_point >= 190.0
+        AND outcome_price IS NOT NULL
+    )
+    SELECT
+      odds_snapshot_id,
+      game_id,
+      home_team,
+      away_team,
+      MAX(CASE WHEN rn = 1 THEN outcome_price END) AS over_190_price,
+      MAX(CASE WHEN rn = 1 THEN outcome_point END) AS over_190_point,
+      MAX(CASE WHEN rn = 1 THEN bookmaker_title END) AS over_190_book
+    FROM ranked
+    GROUP BY odds_snapshot_id, game_id, home_team, away_team
+  `;
 }
 
 export async function GET(request: Request) {
@@ -73,6 +160,7 @@ export async function GET(request: Request) {
       u.home_team,
       u.away_team,
       u.ensemble_prob_home_win AS home_win_probability,
+      u.as_of_utc AS forecast_as_of_utc,
       g.start_time_utc
     FROM upcoming_game_forecasts u
     LEFT JOIN games g ON g.game_id = u.game_id
@@ -93,136 +181,123 @@ export async function GET(request: Request) {
       home_win_probability: normalizeProbability(row.home_win_probability),
     }));
 
-  const latestOddsSnapshot = runSqlJson(
+  const snapshotRows = runSqlJson(
     `
     SELECT odds_snapshot_id, as_of_utc
     FROM odds_snapshots
     WHERE league = '${escapeSqlString(league)}'
     ORDER BY DATETIME(as_of_utc) DESC
-    LIMIT 1
     `,
     { league }
+  ) as RawSnapshotRow[];
+
+  const latestOddsSnapshotByDate = new Map<string, { odds_snapshot_id: string; as_of_utc: string }>();
+  for (const row of snapshotRows) {
+    const snapshotId = String(row.odds_snapshot_id || "").trim();
+    const asOfUtc = String(row.as_of_utc || "").trim();
+    const snapshotDateKey = centralDateKeyFromTimestamp(asOfUtc);
+    if (!snapshotId || !asOfUtc || !snapshotDateKey || latestOddsSnapshotByDate.has(snapshotDateKey)) {
+      continue;
+    }
+    latestOddsSnapshotByDate.set(snapshotDateKey, { odds_snapshot_id: snapshotId, as_of_utc: asOfUtc });
+  }
+
+  const neededSnapshotIds = Array.from(
+    new Set(
+      [
+        ...rows.map((row) => {
+          const rowDateKey = dateKeyForScheduledGame(row);
+          return rowDateKey ? latestOddsSnapshotByDate.get(rowDateKey)?.odds_snapshot_id || "" : "";
+        }),
+        ...historicalReplay.rows.map((row) => latestOddsSnapshotByDate.get(row.date_central)?.odds_snapshot_id || ""),
+      ].filter(Boolean)
+    )
   );
 
-  const oddsSnapshotId = typeof latestOddsSnapshot?.[0]?.odds_snapshot_id === "string" ? latestOddsSnapshot[0].odds_snapshot_id : "";
-  const oddsAsOfUtc = typeof latestOddsSnapshot?.[0]?.as_of_utc === "string" ? latestOddsSnapshot[0].as_of_utc : null;
-  const escapedSnapshotId = oddsSnapshotId ? escapeSqlString(oddsSnapshotId) : "";
-
-  const moneylineRows = escapedSnapshotId
-    ? (runSqlJson(
-        `
-        WITH ranked AS (
-          SELECT
-            game_id,
-            home_team,
-            away_team,
-            outcome_side,
-            outcome_price,
-            bookmaker_title,
-            ROW_NUMBER() OVER (
-              PARTITION BY
-                COALESCE(CAST(game_id AS TEXT), home_team || '|' || away_team),
-                outcome_side
-              ORDER BY outcome_price DESC, DATETIME(bookmaker_last_update_utc) DESC, line_id DESC
-            ) AS rn
-          FROM odds_market_lines
-          WHERE odds_snapshot_id = '${escapedSnapshotId}'
-            AND market_key = 'h2h'
-            AND outcome_side IN ('home', 'away')
-            AND outcome_price IS NOT NULL
-        )
-        SELECT
-          game_id,
-          home_team,
-          away_team,
-          MAX(CASE WHEN outcome_side = 'home' AND rn = 1 THEN outcome_price END) AS home_moneyline,
-          MAX(CASE WHEN outcome_side = 'away' AND rn = 1 THEN outcome_price END) AS away_moneyline,
-          MAX(CASE WHEN outcome_side = 'home' AND rn = 1 THEN bookmaker_title END) AS home_moneyline_book,
-          MAX(CASE WHEN outcome_side = 'away' AND rn = 1 THEN bookmaker_title END) AS away_moneyline_book
-        FROM ranked
-        GROUP BY game_id, home_team, away_team
-        `,
-        { league }
-      ) as RawMoneylineRow[])
+  const moneylineRows = neededSnapshotIds.length
+    ? (runSqlJson(moneylineSql(neededSnapshotIds), { league }) as RawMoneylineRow[])
     : [];
 
-  // Maintainer note: alternate totals are only surfaced on the NBA view today.
-  // If another league gets totals-based bet logic, extend this branch and keep
-  // the payload fields optional so the shared table shape still works.
+  // Maintainer note: Games Today uses the latest odds snapshot stored on the
+  // selected Central date. That intentionally leaves future dates blank until
+  // that day's own refresh exists, instead of carrying today's snapshot forward.
   const over190Rows =
-    escapedSnapshotId && league === "NBA"
-      ? (runSqlJson(
-          `
-          WITH ranked AS (
-            SELECT
-              game_id,
-              home_team,
-              away_team,
-              outcome_price,
-              outcome_point,
-              bookmaker_title,
-              ROW_NUMBER() OVER (
-                PARTITION BY COALESCE(CAST(game_id AS TEXT), home_team || '|' || away_team)
-                ORDER BY outcome_point ASC, DATETIME(bookmaker_last_update_utc) DESC, line_id DESC
-              ) AS rn
-            FROM odds_market_lines
-            WHERE odds_snapshot_id = '${escapedSnapshotId}'
-              AND market_key = 'alternate_totals'
-              AND outcome_side = 'over'
-              AND outcome_point >= 190.0
-              AND outcome_price IS NOT NULL
-            )
-          SELECT
-            game_id,
-            home_team,
-            away_team,
-            MAX(CASE WHEN rn = 1 THEN outcome_price END) AS over_190_price,
-            MAX(CASE WHEN rn = 1 THEN outcome_point END) AS over_190_point,
-            MAX(CASE WHEN rn = 1 THEN bookmaker_title END) AS over_190_book
-          FROM ranked
-          GROUP BY game_id, home_team, away_team
-          `,
-          { league }
-        ) as RawOver190Row[])
+    neededSnapshotIds.length && league === "NBA"
+      ? (runSqlJson(over190Sql(neededSnapshotIds), { league }) as RawOver190Row[])
       : [];
 
-  const moneylineByGameId = new Map<number, RawMoneylineRow>();
+  const moneylineByGameId = new Map<string, RawMoneylineRow>();
   const moneylineByTeamKey = new Map<string, RawMoneylineRow>();
   for (const row of moneylineRows) {
+    const snapshotId = String(row.odds_snapshot_id || "").trim();
     const gameId = Number(row.game_id);
-    if (Number.isFinite(gameId)) {
-      moneylineByGameId.set(gameId, row);
+    if (snapshotId && Number.isFinite(gameId)) {
+      moneylineByGameId.set(`${snapshotId}::${gameId}`, row);
     }
     const homeTeam = String(row.home_team || "").trim();
     const awayTeam = String(row.away_team || "").trim();
-    if (homeTeam && awayTeam) {
-      moneylineByTeamKey.set(`${homeTeam}|${awayTeam}`, row);
+    if (snapshotId && homeTeam && awayTeam) {
+      moneylineByTeamKey.set(`${snapshotId}::${homeTeam}|${awayTeam}`, row);
     }
   }
 
-  const over190ByGameId = new Map<number, RawOver190Row>();
+  const over190ByGameId = new Map<string, RawOver190Row>();
   const over190ByTeamKey = new Map<string, RawOver190Row>();
   for (const row of over190Rows) {
+    const snapshotId = String(row.odds_snapshot_id || "").trim();
     const gameId = Number(row.game_id);
-    if (Number.isFinite(gameId)) {
-      over190ByGameId.set(gameId, row);
+    if (snapshotId && Number.isFinite(gameId)) {
+      over190ByGameId.set(`${snapshotId}::${gameId}`, row);
     }
     const homeTeam = String(row.home_team || "").trim();
     const awayTeam = String(row.away_team || "").trim();
-    if (homeTeam && awayTeam) {
-      over190ByTeamKey.set(`${homeTeam}|${awayTeam}`, row);
+    if (snapshotId && homeTeam && awayTeam) {
+      over190ByTeamKey.set(`${snapshotId}::${homeTeam}|${awayTeam}`, row);
     }
+  }
+
+  function buildHistoricalRow(row: (typeof historicalReplay.rows)[number]) {
+    const daySnapshot = latestOddsSnapshotByDate.get(row.date_central);
+    const snapshotId = daySnapshot?.odds_snapshot_id || "";
+    const moneylineMatch =
+      moneylineByGameId.get(`${snapshotId}::${Number(row.game_id)}`) ||
+      moneylineByTeamKey.get(`${snapshotId}::${row.home_team}|${row.away_team}`);
+    const over190Match =
+      over190ByGameId.get(`${snapshotId}::${Number(row.game_id)}`) ||
+      over190ByTeamKey.get(`${snapshotId}::${row.home_team}|${row.away_team}`);
+
+    return {
+      game_id: row.game_id,
+      game_date_utc: row.date_central,
+      home_team: row.home_team,
+      away_team: row.away_team,
+      home_win_probability: row.home_win_probability,
+      forecast_as_of_utc: row.forecast_as_of_utc,
+      odds_as_of_utc: daySnapshot?.as_of_utc || null,
+      start_time_utc: row.start_time_utc,
+      home_moneyline: moneylineMatch?.home_moneyline ?? null,
+      away_moneyline: moneylineMatch?.away_moneyline ?? null,
+      home_moneyline_book: moneylineMatch?.home_moneyline_book ?? null,
+      away_moneyline_book: moneylineMatch?.away_moneyline_book ?? null,
+      over_190_price: over190Match?.over_190_price ?? null,
+      over_190_point: over190Match?.over_190_point ?? null,
+      over_190_book: over190Match?.over_190_book ?? null,
+    };
   }
 
   const enrichedRows = rows.map((row) => {
+    const rowDateKey = dateKeyForScheduledGame(row);
+    const daySnapshot = rowDateKey ? latestOddsSnapshotByDate.get(rowDateKey) : null;
+    const snapshotId = daySnapshot?.odds_snapshot_id || "";
     const moneylineMatch =
-      moneylineByGameId.get(Number(row.game_id)) ||
-      moneylineByTeamKey.get(`${row.home_team}|${row.away_team}`);
+      moneylineByGameId.get(`${snapshotId}::${Number(row.game_id)}`) ||
+      moneylineByTeamKey.get(`${snapshotId}::${row.home_team}|${row.away_team}`);
     const over190Match =
-      over190ByGameId.get(Number(row.game_id)) ||
-      over190ByTeamKey.get(`${row.home_team}|${row.away_team}`);
+      over190ByGameId.get(`${snapshotId}::${Number(row.game_id)}`) ||
+      over190ByTeamKey.get(`${snapshotId}::${row.home_team}|${row.away_team}`);
     return {
       ...row,
+      odds_as_of_utc: daySnapshot?.as_of_utc || null,
       home_moneyline: moneylineMatch?.home_moneyline ?? null,
       away_moneyline: moneylineMatch?.away_moneyline ?? null,
       home_moneyline_book: moneylineMatch?.home_moneyline_book ?? null,
@@ -241,22 +316,8 @@ export async function GET(request: Request) {
     // `rows` for the latest upcoming snapshot, `historical_rows` for past-date
     // replay navigation. That keeps one UI while supporting both NHL/NBA.
     historical_coverage_start_central: historicalReplay.coverage_start_central,
-    historical_rows: historicalReplay.rows.map((row) => ({
-      game_id: row.game_id,
-      game_date_utc: row.date_central,
-      home_team: row.home_team,
-      away_team: row.away_team,
-      home_win_probability: row.home_win_probability,
-      start_time_utc: row.start_time_utc,
-      home_moneyline: row.home_moneyline,
-      away_moneyline: row.away_moneyline,
-      home_moneyline_book: row.home_moneyline_book,
-      away_moneyline_book: row.away_moneyline_book,
-      over_190_price: null,
-      over_190_point: null,
-      over_190_book: null,
-    })),
-    odds_as_of_utc: oddsAsOfUtc,
+    historical_rows: historicalReplay.rows.map(buildHistoricalRow),
+    odds_as_of_utc: latestOddsSnapshotByDate.get(centralTodayDateKey())?.as_of_utc || null,
     rows: enrichedRows,
   });
 }
