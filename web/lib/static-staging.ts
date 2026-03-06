@@ -2,6 +2,7 @@ import { type LeagueCode, withLeague } from "@/lib/league";
 
 const STATIC_STAGING = process.env.NEXT_PUBLIC_STATIC_STAGING === "1";
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const STAGING_ASSET_VERSION = process.env.NEXT_PUBLIC_STAGING_ASSET_VERSION || "";
 
 const STAGING_FILES = {
   actualVsExpected: "actual-vs-expected.json",
@@ -21,7 +22,8 @@ export function isStaticStagingBuild(): boolean {
 }
 
 export function buildStaticStagingUrl(key: StagingDataKey, league: LeagueCode): string {
-  return `${BASE_PATH}/staging-data/${league.toLowerCase()}/${STAGING_FILES[key]}`;
+  const path = `${BASE_PATH}/staging-data/${league.toLowerCase()}/${STAGING_FILES[key]}`;
+  return STAGING_ASSET_VERSION ? `${path}?v=${encodeURIComponent(STAGING_ASSET_VERSION)}` : path;
 }
 
 export function buildDashboardDataUrl(key: StagingDataKey, livePath: string, league: LeagueCode): string {

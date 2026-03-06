@@ -39,6 +39,13 @@ if (!fs.existsSync(snapshotManifest)) {
   process.exit(1);
 }
 
+const manifest = JSON.parse(fs.readFileSync(snapshotManifest, "utf8"));
+const assetVersion =
+  process.env.NEXT_PUBLIC_STAGING_ASSET_VERSION ||
+  process.env.GITHUB_SHA ||
+  manifest.generated_at_utc ||
+  new Date().toISOString();
+
 fs.mkdirSync(path.dirname(parkedApiDir), { recursive: true });
 
 if (fs.existsSync(parkedApiDir)) {
@@ -62,6 +69,7 @@ try {
       NEXT_PUBLIC_STATIC_STAGING: "1",
       PAGES_BASE_PATH: basePath,
       NEXT_PUBLIC_BASE_PATH: basePath,
+      NEXT_PUBLIC_STAGING_ASSET_VERSION: assetVersion,
     },
     stdio: "inherit",
   });
