@@ -11,6 +11,7 @@ Use it for:
 
 Current notes:
 - [GLM model strategy](/Users/davidiruegas/Library/Application Support/SportsModeling/statistical_theory/glm-model-strategy.md)
+- [How to validate logistic regression](/Users/davidiruegas/Library/Application Support/SportsModeling/statistical_theory/logistic-regression-validation.md)
 
 Suggested note template:
 1. Theory or heuristic
