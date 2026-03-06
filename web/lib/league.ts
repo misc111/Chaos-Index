@@ -1,7 +1,7 @@
 export type LeagueCode = "NHL" | "NBA";
 
 export function normalizeLeague(value?: string | null): LeagueCode {
-  return String(value || "").trim().toUpperCase() === "NBA" ? "NBA" : "NHL";
+  return String(value || "").trim().toUpperCase() === "NHL" ? "NHL" : "NBA";
 }
 
 export function leagueFromRequest(request: Request): LeagueCode {

@@ -51,13 +51,13 @@ function formatRefreshTimestamp(value: string): string {
 function HeaderFallback() {
   return (
     <>
-      <h1 className="title app-title">NHL Win Probability Forecasting</h1>
+      <h1 className="title app-title">NBA Win Probability Forecasting</h1>
       <div className="league-toggle-row" aria-label="League selection">
-        <Link href="?league=NHL" className="league-toggle-btn active">
-          NHL
-        </Link>
-        <Link href="?league=NBA" className="league-toggle-btn">
+        <Link href="?league=NBA" className="league-toggle-btn active">
           NBA
+        </Link>
+        <Link href="?league=NHL" className="league-toggle-btn">
+          NHL
         </Link>
       </div>
       <div className="refresh-row">
@@ -67,7 +67,7 @@ function HeaderFallback() {
       </div>
       <div className="nav">
         {links.map(([href, label]) => (
-          <Link href={`${href}?league=NHL`} key={href} className="nav-link">
+          <Link href={`${href}?league=NBA`} key={href} className="nav-link">
             {label}
           </Link>
         ))}
@@ -129,7 +129,7 @@ function DashboardHeaderContent() {
       <h1 className="title app-title">{league} Win Probability Forecasting</h1>
 
       <div className="league-toggle-row" aria-label="League selection">
-        {(["NHL", "NBA"] as LeagueCode[]).map((code) => (
+        {(["NBA", "NHL"] as LeagueCode[]).map((code) => (
           <Link
             href={hrefWithLeague(pathname, code, search)}
             key={code}
