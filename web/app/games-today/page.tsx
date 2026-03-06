@@ -2,7 +2,13 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { computeBetDecision, expectedSide, expectedWinChance, formatBetLabel } from "@/lib/betting";
+import {
+  BET_PER_DOLLAR_LABEL,
+  computeBetDecision,
+  expectedSide,
+  expectedWinChance,
+  formatBetPerDollarRecommendation,
+} from "@/lib/betting";
 import {
   centralTodayDateKey,
   dateKeyForScheduledGame,
@@ -93,17 +99,11 @@ function formatCentralTip(value?: string | null): string {
 
 function displayBetPerDollar(row: GamesTodayRow): { label: string; reason: string } {
   if (row.replay_decision) {
-    return {
-      label: formatBetLabel(row.replay_decision.team, row.replay_decision.stake, { stakeScale: 100 }),
-      reason: row.replay_decision.reason,
-    };
+    return formatBetPerDollarRecommendation(row.replay_decision);
   }
 
   const decision = computeBetDecision(row);
-  return {
-    label: formatBetLabel(decision.team, decision.stake, { stakeScale: 100 }),
-    reason: decision.reason,
-  };
+  return formatBetPerDollarRecommendation(decision);
 }
 
 function latestTimestamp(rows: GamesTodayRow[], field: "forecast_as_of_utc" | "odds_as_of_utc"): string {
@@ -297,7 +297,7 @@ function GamesTodayPageContent() {
                     <th>Moneyline</th>
                     {/* Maintainer note: this is the one league-specific column in the shared table. */}
                     {league === "NBA" ? <th>Over Odds</th> : null}
-                    <th>Bet per $1</th>
+                    <th>{BET_PER_DOLLAR_LABEL}</th>
                     <th>Reason</th>
                   </tr>
                 </thead>
@@ -382,7 +382,7 @@ function GamesTodayPageContent() {
                           </div>
                         ) : null}
                         <div className={styles.mobileMetaItem}>
-                          <span className={styles.mobileMetaLabel}>Bet per $1</span>
+                          <span className={styles.mobileMetaLabel}>{BET_PER_DOLLAR_LABEL}</span>
                           <span className={styles.mobileMetaValue}>{bet.label}</span>
                         </div>
                         <div className={styles.mobileMetaItem}>

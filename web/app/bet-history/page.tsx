@@ -6,16 +6,9 @@ import BetHistoryChart from "@/components/BetHistoryChart";
 import styles from "@/components/BetHistory.module.css";
 import BetWeekCalendar from "@/components/BetWeekCalendar";
 import type { BetHistoryResponse } from "@/lib/bet-history-types";
+import { formatUsd } from "@/lib/currency";
 import { normalizeLeague } from "@/lib/league";
 import { fetchDashboardJson } from "@/lib/static-staging";
-
-function formatCurrency(value: number): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
 
 function formatPercent(value: number): string {
   return `${(value * 100).toFixed(1)}%`;
@@ -137,14 +130,18 @@ function BetHistoryPageContent() {
             <div className={styles.summaryGrid}>
               <article className={styles.summaryTile}>
                 <p className={styles.summaryLabel}>Net P/L</p>
-                <p className={valueClassName(summary.total_profit)}>{formatCurrency(summary.total_profit)}</p>
+                <p className={valueClassName(summary.total_profit)}>
+                  {formatUsd(summary.total_profit, { minimumFractionDigits: 2 })}
+                </p>
                 <p className={styles.summarySubtext}>Across {summary.suggested_bets} settled bets</p>
               </article>
 
               <article className={styles.summaryTile}>
                 <p className={styles.summaryLabel}>ROI</p>
                 <p className={styles.summaryValue}>{formatPercent(summary.roi)}</p>
-                <p className={styles.summarySubtext}>Risked {formatCurrency(summary.total_risked)}</p>
+                <p className={styles.summarySubtext}>
+                  Risked {formatUsd(summary.total_risked, { minimumFractionDigits: 2 })}
+                </p>
               </article>
 
               <article className={styles.summaryTile}>

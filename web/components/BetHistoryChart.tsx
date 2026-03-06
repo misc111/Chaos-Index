@@ -1,19 +1,12 @@
 "use client";
 
 import type { HistoricalDailyPoint } from "@/lib/bet-history-types";
+import { formatUsd } from "@/lib/currency";
 import styles from "./BetHistory.module.css";
 
 type Props = {
   points: HistoricalDailyPoint[];
 };
-
-function formatCurrency(value: number): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
 
 function formatDateShort(dateKey: string): string {
   const parsed = new Date(`${dateKey}T12:00:00Z`);
@@ -85,7 +78,7 @@ export default function BetHistoryChart({ points }: Props) {
               <g key={tick}>
                 <line x1={padLeft} y1={y} x2={width - padRight} y2={y} stroke="#e2e8f0" strokeWidth="1" />
                 <text x={padLeft - 10} y={y + 4} textAnchor="end" fill="#64748b" fontSize="11">
-                  {formatCurrency(tick)}
+                  {formatUsd(tick, { minimumFractionDigits: 2 })}
                 </text>
               </g>
             );
@@ -120,10 +113,14 @@ export default function BetHistoryChart({ points }: Props) {
 
       <div className={styles.chartMeta}>
         <span>
-          Latest net: <span className={styles.chartMetaStrong}>{formatCurrency(lastPoint.cumulative_profit)}</span>
+          Latest net:{" "}
+          <span className={styles.chartMetaStrong}>{formatUsd(lastPoint.cumulative_profit, { minimumFractionDigits: 2 })}</span>
         </span>
         <span>
-          Risked: <span className={styles.chartMetaStrong}>{formatCurrency(points.reduce((sum, point) => sum + point.risked, 0))}</span>
+          Risked:{" "}
+          <span className={styles.chartMetaStrong}>
+            {formatUsd(points.reduce((sum, point) => sum + point.risked, 0), { minimumFractionDigits: 2 })}
+          </span>
         </span>
         <span>
           Tracked days: <span className={styles.chartMetaStrong}>{points.length}</span>

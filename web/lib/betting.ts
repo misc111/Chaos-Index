@@ -27,9 +27,19 @@ export type BetSettlement = {
   payout: number;
 };
 
+export const BET_PER_DOLLAR_LABEL = "Bet per $1";
+
 type BetLabelOptions = {
   stakeScale?: number;
 };
+
+type BetDisplayRecommendation = {
+  team: string | null;
+  stake: number;
+  reason: string;
+};
+
+const BET_REFERENCE_BANKROLL_DOLLARS = 100;
 
 export function expectedSide(homeWinProbability: number): ExpectedSide {
   if (homeWinProbability > 0.55) return "home";
@@ -64,6 +74,24 @@ export function formatBetLabel(team: string | null, stake: number, options: BetL
   const normalizedStake = stake / scale;
   const fractionDigits = scale === 1 ? 0 : 2;
   return `$${normalizedStake.toFixed(fractionDigits)} ${team}`;
+}
+
+export function normalizeBetAmountPerDollar(value: number): number {
+  if (!Number.isFinite(value)) return 0;
+  return value / BET_REFERENCE_BANKROLL_DOLLARS;
+}
+
+export function formatBetPerDollarLabel(team: string | null, stake: number): string {
+  return formatBetLabel(team, stake, { stakeScale: BET_REFERENCE_BANKROLL_DOLLARS });
+}
+
+export function formatBetPerDollarRecommendation(
+  recommendation: BetDisplayRecommendation
+): { label: string; reason: string } {
+  return {
+    label: formatBetPerDollarLabel(recommendation.team, recommendation.stake),
+    reason: recommendation.reason,
+  };
 }
 
 function buildDecision(

@@ -1,5 +1,4 @@
 import fs from "node:fs/promises";
-import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { LeagueCode } from "../lib/league";
@@ -9,7 +8,6 @@ type JsonRecord = Record<string, unknown>;
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const appRoot = path.resolve(scriptDir, "..");
-const requireFromAppRoot = createRequire(`${appRoot}/`);
 // Maintainer note: this script is the bridge from the live local dashboard
 // data model to the committed GitHub Pages staging snapshot. If a local
 // dashboard/API change should be visible on staging, rerun this script and
@@ -57,7 +55,7 @@ async function writeJson(filePath: string, payload: unknown): Promise<void> {
 }
 
 async function loadRouteHandler(modulePath: string): Promise<JsonRouteHandler> {
-  const module = requireFromAppRoot(`./${modulePath}`) as { GET?: JsonRouteHandler };
+  const module = (await import(path.join(appRoot, modulePath))) as { GET?: JsonRouteHandler };
   if (typeof module.GET !== "function") {
     throw new Error(`Route module ${modulePath} does not export GET`);
   }

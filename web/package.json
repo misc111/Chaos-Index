@@ -6,7 +6,7 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "build:pages": "node scripts/build-pages.mjs",
-    "generate:staging-data": "tsx scripts/generate-staging-data.ts",
+    "generate:staging-data": "tsx --tsconfig ./tsconfig.json scripts/generate-staging-data.ts",
     "start": "next start -p 3000",
     "lint": "next lint"
   },

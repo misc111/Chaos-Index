@@ -1,6 +1,7 @@
 "use client";
 
 import type { HistoricalBetRow } from "@/lib/bet-history-types";
+import { formatSignedUsd, formatUsd } from "@/lib/currency";
 import styles from "./BetHistory.module.css";
 
 type Props = {
@@ -27,19 +28,6 @@ function formatDayLabel(dateKey: string): string {
     day: "numeric",
     year: "numeric",
   });
-}
-
-function formatCurrency(value: number): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
-
-function formatSignedCurrency(value: number): string {
-  const rounded = Math.round(value);
-  return `${rounded > 0 ? "+" : rounded < 0 ? "-" : ""}${formatCurrency(Math.abs(rounded))}`;
 }
 
 function formatScore(homeScore: number | null, awayScore: number | null): string {
@@ -92,9 +80,13 @@ export default function BetWeekCalendar({ weekStart, bets }: Props) {
             <header className={styles.dayHeader}>
               <div className={styles.dayTitleRow}>
                 <h3 className={styles.dayTitle}>{formatDayLabel(dateKey)}</h3>
-                <span className={netClassName(dayProfit)}>{formatSignedCurrency(dayProfit)}</span>
+                <span className={netClassName(dayProfit)}>{formatSignedUsd(dayProfit, { minimumFractionDigits: 2 })}</span>
               </div>
-              <p className={styles.daySubtext}>{dayBets.length ? `${dayBets.length} bet${dayBets.length === 1 ? "" : "s"} · Risked ${formatCurrency(dayRisked)}` : "No simulated bets."}</p>
+              <p className={styles.daySubtext}>
+                {dayBets.length
+                  ? `${dayBets.length} bet${dayBets.length === 1 ? "" : "s"} · Risked ${formatUsd(dayRisked, { minimumFractionDigits: 2 })}`
+                  : "No simulated bets."}
+              </p>
             </header>
 
             {dayBets.length ? (
@@ -106,7 +98,9 @@ export default function BetWeekCalendar({ weekStart, bets }: Props) {
                     <article key={bet.game_id} className={itemClassName}>
                       <div className={styles.betTop}>
                         <p className={styles.betMatchup}>{bet.away_team} at {bet.home_team}</p>
-                        <p className={`${styles.betAmount} ${amountClassName(bet.profit)}`}>{formatSignedCurrency(bet.profit)}</p>
+                        <p className={`${styles.betAmount} ${amountClassName(bet.profit)}`}>
+                          {formatSignedUsd(bet.profit, { minimumFractionDigits: 2 })}
+                        </p>
                       </div>
                       <p className={styles.betMeta}>
                         {bet.bet_label} at {bet.odds > 0 ? `+${Math.round(bet.odds)}` : Math.round(bet.odds)} · {formatScore(bet.home_score, bet.away_score)}
