@@ -33,6 +33,35 @@
   - if needed, verify with `cd web && npm run build:pages`
 - Do not assume pushing dashboard code alone updates staging; GitHub Pages serves the committed snapshot files, not live SQLite data.
 
+## Hard Refresh Contract
+- Treat the exact phrase `do a hard refresh` as a repository-level command alias for a full deterministic rebuild-and-publish cycle across both supported leagues.
+- A hard refresh always covers both leagues, even if the user names only one team or one league in the same message.
+- Run the hard refresh steps in this exact order, sequentially, with no league parallelism and no step reordering:
+  - `make init-db CONFIG=configs/nhl.yaml`
+  - `make init-db CONFIG=configs/nba.yaml`
+  - `make fetch CONFIG=configs/nhl.yaml`
+  - `make fetch CONFIG=configs/nba.yaml`
+  - `python3 -m src.cli fetch-odds --config configs/nhl.yaml`
+  - `python3 -m src.cli fetch-odds --config configs/nba.yaml`
+  - `make features CONFIG=configs/nhl.yaml`
+  - `make features CONFIG=configs/nba.yaml`
+  - `make train CONFIG=configs/nhl.yaml`
+  - `make train CONFIG=configs/nba.yaml`
+  - `cd web && npm run generate:staging-data`
+  - if dashboard or staging-build behavior changed, `cd web && npm run build:pages`
+  - commit all resulting tracked changes
+  - `git push origin main`
+  - watch the `Publish Sanitized Staging Site` GitHub Actions workflow for the pushed `HEAD`
+- The dedicated `fetch-odds` step is mandatory for hard refreshes. `fetch` already persists an odds snapshot, but hard refreshes must end data collection with an explicit final odds pull for each league before feature generation and training.
+- Hard refreshes must use the repository defaults for model coverage. Do not narrow `MODELS=` unless the user explicitly asks for a partial rebuild.
+- Hard refreshes must be fail-fast and deterministic in behavior:
+  - do not skip a league because its files look unchanged
+  - do not parallelize NHL and NBA runs
+  - do not silently rerun steps in a different order
+  - do not pass `APPROVE_FEATURE_CHANGES=1` unless the user explicitly asks to approve a feature-contract update
+  - if any required step fails, stop, report the failing command, and do not push partial results
+- When closing a successful hard refresh, report which commit was pushed, whether staging-data changed, and the final GitHub Actions workflow URL plus success/failure status.
+
 ## Git Workflow
 - Keep this repository on `main`. Do not create or push feature branches unless the user explicitly asks for one.
 - After completing repository edits, commit on `main` and push `main` to `origin` by default so the web app and staging publish can update. Only skip the push if the user explicitly says not to push yet.
