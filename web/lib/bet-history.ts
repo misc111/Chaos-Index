@@ -35,6 +35,36 @@ type RawMoneylineRow = {
   away_moneyline_book?: string | null;
 };
 
+export type HistoricalReplayGameRow = {
+  game_id: number;
+  date_central: string;
+  start_time_utc: string | null;
+  final_utc: string | null;
+  home_team: string;
+  away_team: string;
+  home_score: number | null;
+  away_score: number | null;
+  home_win: number | null;
+  forecast_as_of_utc: string;
+  odds_as_of_utc: string;
+  odds_snapshot_id: string;
+  home_moneyline: number;
+  away_moneyline: number;
+  home_moneyline_book: string | null;
+  away_moneyline_book: string | null;
+  home_win_probability: number;
+};
+
+type HistoricalReplayDataset = {
+  total_final_games: number;
+  games_with_forecast: number;
+  games_with_odds: number;
+  earliest_final_date: string | null;
+  coverage_start_central: string | null;
+  coverage_end_central: string | null;
+  rows: HistoricalReplayGameRow[];
+};
+
 function escapeSqlString(value: string): string {
   return value.replace(/'/g, "''");
 }
@@ -254,7 +284,7 @@ function moneylineSql(snapshotIds: string[]): string {
   `;
 }
 
-export function getBetHistory(league: LeagueCode): BetHistoryResponse {
+function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDataset {
   const rawGames = runSqlJson(historicalGamesSql(league), { league }) as RawHistoricalGameRow[];
   const uniqueSnapshotIds = Array.from(
     new Set(rawGames.map((row) => String(row.odds_snapshot_id || "").trim()).filter(Boolean))
@@ -284,17 +314,11 @@ export function getBetHistory(league: LeagueCode): BetHistoryResponse {
 
   let gamesWithForecast = 0;
   let gamesWithOdds = 0;
-  let analyzedGames = 0;
-  let wins = 0;
-  let losses = 0;
-  let totalRisked = 0;
-  let cumulativeProfit = 0;
-
   const earliestFinalDate = rawGames.length ? dateKeyForHistoricalRow(rawGames[0]) : null;
   let coverageStartDate: string | null = null;
   let coverageEndDate: string | null = null;
 
-  const bets: HistoricalBetRow[] = [];
+  const rows: HistoricalReplayGameRow[] = [];
 
   for (const row of rawGames) {
     const gameId = numberOrNull(row.game_id);
@@ -322,16 +346,73 @@ export function getBetHistory(league: LeagueCode): BetHistoryResponse {
       continue;
     }
 
-    analyzedGames += 1;
     if (!coverageStartDate || dateCentral < coverageStartDate) coverageStartDate = dateCentral;
     if (!coverageEndDate || dateCentral > coverageEndDate) coverageEndDate = dateCentral;
 
-    const decision = computeBetDecision({
+    rows.push({
+      game_id: gameId,
+      date_central: dateCentral,
+      start_time_utc: row.start_time_utc ? String(row.start_time_utc) : null,
+      final_utc: row.final_utc ? String(row.final_utc) : null,
       home_team: homeTeam,
       away_team: awayTeam,
-      home_win_probability: normalizeProbability(row.home_win_probability),
+      home_score: numberOrNull(row.home_score),
+      away_score: numberOrNull(row.away_score),
+      home_win: numberOrNull(row.home_win),
+      forecast_as_of_utc: forecastAsOf,
+      odds_as_of_utc: oddsAsOf,
+      odds_snapshot_id: oddsSnapshotId,
       home_moneyline: homeMoneyline,
       away_moneyline: awayMoneyline,
+      home_moneyline_book: moneylineMatch?.home_moneyline_book ? String(moneylineMatch.home_moneyline_book) : null,
+      away_moneyline_book: moneylineMatch?.away_moneyline_book ? String(moneylineMatch.away_moneyline_book) : null,
+      home_win_probability: normalizeProbability(row.home_win_probability),
+    });
+  }
+
+  return {
+    total_final_games: rawGames.length,
+    games_with_forecast: gamesWithForecast,
+    games_with_odds: gamesWithOdds,
+    earliest_final_date: earliestFinalDate,
+    coverage_start_central: coverageStartDate,
+    coverage_end_central: coverageEndDate,
+    rows,
+  };
+}
+
+export function getHistoricalReplayGames(league: LeagueCode): {
+  coverage_start_central: string | null;
+  coverage_end_central: string | null;
+  rows: HistoricalReplayGameRow[];
+} {
+  const dataset = buildHistoricalReplayDataset(league);
+  return {
+    coverage_start_central: dataset.coverage_start_central,
+    coverage_end_central: dataset.coverage_end_central,
+    rows: dataset.rows,
+  };
+}
+
+export function getBetHistory(league: LeagueCode): BetHistoryResponse {
+  const dataset = buildHistoricalReplayDataset(league);
+  let analyzedGames = 0;
+  let wins = 0;
+  let losses = 0;
+  let totalRisked = 0;
+  let cumulativeProfit = 0;
+
+  const bets: HistoricalBetRow[] = [];
+
+  for (const row of dataset.rows) {
+    analyzedGames += 1;
+
+    const decision = computeBetDecision({
+      home_team: row.home_team,
+      away_team: row.away_team,
+      home_win_probability: row.home_win_probability,
+      home_moneyline: row.home_moneyline,
+      away_moneyline: row.away_moneyline,
     });
 
     if (decision.stake <= 0 || decision.side === "none" || !decision.team || !Number.isFinite(decision.odds)) {
@@ -347,20 +428,20 @@ export function getBetHistory(league: LeagueCode): BetHistoryResponse {
     if (settlement.outcome === "loss") losses += 1;
 
     bets.push({
-      game_id: gameId,
-      date_central: dateCentral,
-      week_start_central: mondayOfWeek(dateCentral),
-      start_time_utc: row.start_time_utc ? String(row.start_time_utc) : null,
-      final_utc: row.final_utc ? String(row.final_utc) : null,
-      home_team: homeTeam,
-      away_team: awayTeam,
-      home_score: numberOrNull(row.home_score),
-      away_score: numberOrNull(row.away_score),
-      forecast_as_of_utc: forecastAsOf,
-      odds_as_of_utc: oddsAsOf,
-      odds_snapshot_id: oddsSnapshotId,
-      home_moneyline: homeMoneyline,
-      away_moneyline: awayMoneyline,
+      game_id: row.game_id,
+      date_central: row.date_central,
+      week_start_central: mondayOfWeek(row.date_central),
+      start_time_utc: row.start_time_utc,
+      final_utc: row.final_utc,
+      home_team: row.home_team,
+      away_team: row.away_team,
+      home_score: row.home_score,
+      away_score: row.away_score,
+      forecast_as_of_utc: row.forecast_as_of_utc,
+      odds_as_of_utc: row.odds_as_of_utc,
+      odds_snapshot_id: row.odds_snapshot_id,
+      home_moneyline: row.home_moneyline,
+      away_moneyline: row.away_moneyline,
       bet_label: decision.bet,
       reason: decision.reason,
       side: decision.side,
@@ -404,9 +485,9 @@ export function getBetHistory(league: LeagueCode): BetHistoryResponse {
   }
 
   const summary: BetHistorySummary = {
-    total_final_games: rawGames.length,
-    games_with_forecast: gamesWithForecast,
-    games_with_odds: gamesWithOdds,
+    total_final_games: dataset.total_final_games,
+    games_with_forecast: dataset.games_with_forecast,
+    games_with_odds: dataset.games_with_odds,
     analyzed_games: analyzedGames,
     suggested_bets: bets.length,
     wins,
@@ -414,9 +495,15 @@ export function getBetHistory(league: LeagueCode): BetHistoryResponse {
     total_risked: totalRisked,
     total_profit: cumulativeProfit,
     roi: totalRisked > 0 ? cumulativeProfit / totalRisked : 0,
-    coverage_start_central: coverageStartDate,
-    coverage_end_central: coverageEndDate,
-    note: buildNote(rawGames.length, analyzedGames, bets.length, earliestFinalDate, coverageStartDate),
+    coverage_start_central: dataset.coverage_start_central,
+    coverage_end_central: dataset.coverage_end_central,
+    note: buildNote(
+      dataset.total_final_games,
+      analyzedGames,
+      bets.length,
+      dataset.earliest_final_date,
+      dataset.coverage_start_central
+    ),
   };
 
   return {

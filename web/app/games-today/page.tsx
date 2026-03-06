@@ -6,6 +6,7 @@ import { computeBetDecision, expectedSide, expectedWinChance } from "@/lib/betti
 import {
   centralTodayDateKey,
   dateKeyForScheduledGame,
+  formatCentralDateLabel,
   formatCentralDateSummary,
   normalizeCentralDateKey,
   shiftCentralDateKey,
@@ -35,6 +36,8 @@ type GamesTodayResponse = {
   as_of_utc?: string | null;
   odds_as_of_utc?: string | null;
   date_central?: string;
+  historical_coverage_start_central?: string | null;
+  historical_rows?: GamesTodayRow[];
   rows?: GamesTodayRow[];
 };
 
@@ -88,9 +91,11 @@ function GamesTodayPageContent() {
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
   const staticStaging = isStaticStagingBuild();
-  const [allRows, setAllRows] = useState<GamesTodayRow[]>([]);
+  const [upcomingRows, setUpcomingRows] = useState<GamesTodayRow[]>([]);
+  const [historicalRows, setHistoricalRows] = useState<GamesTodayRow[]>([]);
   const [latestAsOf, setLatestAsOf] = useState<string>("");
   const [latestOddsAsOf, setLatestOddsAsOf] = useState<string>("");
+  const [historicalCoverageStart, setHistoricalCoverageStart] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [reloadKey, setReloadKey] = useState(0);
@@ -107,9 +112,13 @@ function GamesTodayPageContent() {
     fetchDashboardJson<GamesTodayResponse>("gamesToday", "/api/games-today", league)
       .then((payload) => {
         if (cancelled) return;
-        setAllRows(payload.rows || []);
+        setUpcomingRows(payload.rows || []);
+        setHistoricalRows(payload.historical_rows || []);
         setLatestAsOf(typeof payload.as_of_utc === "string" ? payload.as_of_utc : "");
         setLatestOddsAsOf(typeof payload.odds_as_of_utc === "string" ? payload.odds_as_of_utc : "");
+        setHistoricalCoverageStart(
+          typeof payload.historical_coverage_start_central === "string" ? payload.historical_coverage_start_central : ""
+        );
         setSelectedDateKey((current) => {
           if (current) return current;
           return normalizeCentralDateKey(payload.date_central) || centralTodayDateKey();
@@ -129,9 +138,23 @@ function GamesTodayPageContent() {
     };
   }, [league, reloadKey]);
 
-  const activeDateKey = selectedDateKey || centralTodayDateKey();
-  const rows = allRows.filter((row) => dateKeyForScheduledGame(row) === activeDateKey);
+  const todayKey = centralTodayDateKey();
+  const activeDateKey = selectedDateKey || todayKey;
+  const isPastDate = activeDateKey < todayKey;
+  const sourceRows = isPastDate ? historicalRows : upcomingRows;
+  const rows = sourceRows.filter((row) => dateKeyForScheduledGame(row) === activeDateKey);
   const scheduleSummary = formatCentralDateSummary(activeDateKey);
+  const dateLabel = formatCentralDateLabel(activeDateKey);
+  const title = activeDateKey === todayKey ? "Games Today" : `Games on ${dateLabel}`;
+  const description = isPastDate
+    ? `Stored pregame replay rows for ${dateLabel} (Central Time) are shown.`
+    : `Only games scheduled for ${scheduleSummary} (Central Time) are shown.`;
+  const emptyState =
+    isPastDate && historicalCoverageStart && activeDateKey < historicalCoverageStart
+      ? `No stored pregame replay data for ${dateLabel}. Replay coverage starts on ${formatCentralDateLabel(historicalCoverageStart)}.`
+      : isPastDate
+        ? `No replayable games available for ${dateLabel}.`
+        : `No games scheduled for ${scheduleSummary}.`;
 
   const handleRefreshOdds = async () => {
     if (staticStaging) {
@@ -176,7 +199,7 @@ function GamesTodayPageContent() {
   return (
     <div className="grid">
       <div className={`card ${styles.tableCard}`}>
-        <h2 className="title">Games Today</h2>
+        <h2 className="title">{title}</h2>
         <div className={styles.dayNavRow}>
           <button
             type="button"
@@ -197,7 +220,7 @@ function GamesTodayPageContent() {
             Next
           </button>
         </div>
-        <p className="small">Only games scheduled for {scheduleSummary} (Central Time) are shown.</p>
+        <p className="small">{description}</p>
         <p className="small">Anticipated winner threshold: win chance greater than 55%.</p>
         <div className={styles.actionsRow}>
           <button
@@ -218,7 +241,7 @@ function GamesTodayPageContent() {
         {error ? <p className="small">Failed to load: {error}</p> : null}
 
         {!loading && !error && rows.length === 0 ? (
-          <p className="small">No games scheduled for {scheduleSummary}.</p>
+          <p className="small">{emptyState}</p>
         ) : null}
 
         {!loading && !error && rows.length > 0 ? (

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getHistoricalReplayGames } from "@/lib/bet-history";
 import { runSqlJson } from "@/lib/db";
 import { centralTodayDateKey } from "@/lib/games-today";
 import { leagueFromRequest } from "@/lib/league";
@@ -45,11 +46,19 @@ function normalizeProbability(value: unknown): number {
 
 export async function GET(request: Request) {
   const league = leagueFromRequest(request);
+  const historicalReplay = getHistoricalReplayGames(league);
   const latest = runSqlJson("SELECT MAX(as_of_utc) AS as_of_utc FROM upcoming_game_forecasts", { league });
   const asOf = latest?.[0]?.as_of_utc;
 
   if (typeof asOf !== "string" || !asOf.trim()) {
-    return NextResponse.json({ league, as_of_utc: null, date_central: centralTodayDateKey(), rows: [] });
+    return NextResponse.json({
+      league,
+      as_of_utc: null,
+      date_central: centralTodayDateKey(),
+      historical_coverage_start_central: historicalReplay.coverage_start_central,
+      historical_rows: historicalReplay.rows,
+      rows: [],
+    });
   }
 
   const escapedAsOf = escapeSqlString(asOf);
@@ -222,6 +231,22 @@ export async function GET(request: Request) {
     league,
     as_of_utc: asOf,
     date_central: centralTodayDateKey(),
+    historical_coverage_start_central: historicalReplay.coverage_start_central,
+    historical_rows: historicalReplay.rows.map((row) => ({
+      game_id: row.game_id,
+      game_date_utc: row.date_central,
+      home_team: row.home_team,
+      away_team: row.away_team,
+      home_win_probability: row.home_win_probability,
+      start_time_utc: row.start_time_utc,
+      home_moneyline: row.home_moneyline,
+      away_moneyline: row.away_moneyline,
+      home_moneyline_book: row.home_moneyline_book,
+      away_moneyline_book: row.away_moneyline_book,
+      over_190_price: null,
+      over_190_point: null,
+      over_190_book: null,
+    })),
     odds_as_of_utc: oddsAsOfUtc,
     rows: enrichedRows,
   });
