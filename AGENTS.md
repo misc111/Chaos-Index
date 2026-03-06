@@ -32,5 +32,11 @@
 
 ## Git Workflow
 - Keep this repository on `main`. Do not create or push feature branches unless the user explicitly asks for one.
-- When the user asks to push, commit on `main` and push `main` to `origin`.
-- After every push to GitHub, watch the `Publish Sanitized Staging Site` GitHub Actions workflow and confirm whether it succeeded before closing out the task.
+- After completing repository edits, commit on `main` and push `main` to `origin` by default so the web app and staging publish can update. Only skip the push if the user explicitly says not to push yet.
+- Do not wait for a separate "push" request once the requested edits are complete; pushing is the default close-out step for this repo.
+- After every push to GitHub, watch the `Publish Sanitized Staging Site` GitHub Actions workflow before closing out the task.
+- The required workflow-watch step is:
+  - `gh run list --workflow "Publish Sanitized Staging Site" --limit 5 --json databaseId,headSha,status,conclusion,url,displayTitle`
+  - identify the run for the pushed `HEAD`
+  - `gh run watch <databaseId> --interval 5`
+  - confirm the final workflow URL and whether it succeeded
