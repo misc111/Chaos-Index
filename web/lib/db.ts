@@ -24,5 +24,10 @@ export function runSqlJson(sql: string, opts?: { league?: LeagueCode }): any[] {
   }
 }
 
+export function execSql(sql: string, opts?: { league?: LeagueCode }): string {
+  const dbPath = dbPathForLeague(opts?.league || envLeague);
+  return execFileSync("sqlite3", [dbPath, sql], { encoding: "utf8" });
+}
+
 const dbPath = dbPathForLeague(envLeague);
 export { dbPath };

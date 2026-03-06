@@ -282,6 +282,7 @@ export async function GET(request: Request) {
       over_190_price: over190Match?.over_190_price ?? null,
       over_190_point: over190Match?.over_190_point ?? null,
       over_190_book: over190Match?.over_190_book ?? null,
+      replay_decision: row.replay_decision ?? null,
     };
   }
 

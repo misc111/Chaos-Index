@@ -226,6 +226,31 @@ CREATE TABLE IF NOT EXISTS odds_market_lines (
   created_at_utc TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS historical_bet_decisions (
+  game_id INTEGER PRIMARY KEY,
+  date_central TEXT NOT NULL,
+  forecast_as_of_utc TEXT NOT NULL,
+  odds_as_of_utc TEXT NOT NULL,
+  odds_snapshot_id TEXT NOT NULL,
+  home_team TEXT NOT NULL,
+  away_team TEXT NOT NULL,
+  home_win_probability REAL NOT NULL,
+  home_moneyline REAL NOT NULL,
+  away_moneyline REAL NOT NULL,
+  bet_label TEXT NOT NULL,
+  reason TEXT NOT NULL,
+  side TEXT NOT NULL,
+  team TEXT,
+  stake REAL NOT NULL,
+  odds REAL,
+  model_probability REAL,
+  market_probability REAL,
+  edge REAL,
+  expected_value REAL,
+  decision_logic_version TEXT NOT NULL,
+  created_at_utc TEXT NOT NULL
+);
+
 CREATE INDEX IF NOT EXISTS idx_predictions_game_model ON predictions(game_id, model_name);
 CREATE INDEX IF NOT EXISTS idx_predictions_asof ON predictions(as_of_utc);
 CREATE INDEX IF NOT EXISTS idx_upcoming_asof ON upcoming_game_forecasts(as_of_utc);
@@ -243,4 +268,5 @@ CREATE INDEX IF NOT EXISTS idx_odds_snapshots_league_asof ON odds_snapshots(leag
 CREATE INDEX IF NOT EXISTS idx_odds_lines_snapshot ON odds_market_lines(odds_snapshot_id);
 CREATE INDEX IF NOT EXISTS idx_odds_lines_league_game_market ON odds_market_lines(league, game_id, market_key, odds_snapshot_id);
 CREATE INDEX IF NOT EXISTS idx_odds_lines_event_market_book ON odds_market_lines(odds_event_id, market_key, bookmaker_key);
+CREATE INDEX IF NOT EXISTS idx_historical_bet_decisions_date ON historical_bet_decisions(date_central);
 """

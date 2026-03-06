@@ -12,6 +12,7 @@ import {
   shiftCentralDateKey,
 } from "@/lib/games-today";
 import { normalizeLeague, withLeague } from "@/lib/league";
+import type { HistoricalReplayDecisionSnapshot } from "@/lib/replay-bets";
 import { fetchDashboardJson, isStaticStagingBuild } from "@/lib/static-staging";
 import styles from "./styles.module.css";
 
@@ -31,6 +32,7 @@ type GamesTodayRow = {
   over_190_price?: number | null;
   over_190_point?: number | null;
   over_190_book?: string | null;
+  replay_decision?: HistoricalReplayDecisionSnapshot | null;
 };
 
 type GamesTodayResponse = {
@@ -87,6 +89,21 @@ function formatCentralTip(value?: string | null): string {
     minute: "2-digit",
     timeZone: "America/Chicago",
   });
+}
+
+function displayBetPerDollar(row: GamesTodayRow): { label: string; reason: string } {
+  if (row.replay_decision) {
+    return {
+      label: formatBetLabel(row.replay_decision.team, row.replay_decision.stake, { stakeScale: 100 }),
+      reason: row.replay_decision.reason,
+    };
+  }
+
+  const decision = computeBetDecision(row);
+  return {
+    label: formatBetLabel(decision.team, decision.stake, { stakeScale: 100 }),
+    reason: decision.reason,
+  };
 }
 
 function latestTimestamp(rows: GamesTodayRow[], field: "forecast_as_of_utc" | "odds_as_of_utc"): string {
@@ -288,7 +305,7 @@ function GamesTodayPageContent() {
                   {rows.map((row) => {
                     const side = expectedSide(row.home_win_probability);
                     const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
-                    const bet = computeBetDecision(row);
+                    const bet = displayBetPerDollar(row);
                     return (
                       <tr key={row.game_id}>
                         <td className={side === "home" ? styles.teamWin : side === "away" ? styles.teamLoss : styles.teamNeutral}>
@@ -304,7 +321,7 @@ function GamesTodayPageContent() {
                         {league === "NBA" ? (
                           <td className={styles.over190Cell}>{formatOver190(row.over_190_price, row.over_190_point)}</td>
                         ) : null}
-                        <td className={styles.betCell}>{formatBetLabel(bet.team, bet.stake, { stakeScale: 100 })}</td>
+                        <td className={styles.betCell}>{bet.label}</td>
                         <td className={styles.reasonCell}>{bet.reason}</td>
                       </tr>
                     );
@@ -318,7 +335,7 @@ function GamesTodayPageContent() {
                 {rows.map((row) => {
                   const side = expectedSide(row.home_win_probability);
                   const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
-                  const bet = computeBetDecision(row);
+                  const bet = displayBetPerDollar(row);
                   const sideLabel =
                     side === "home" ? `${row.home_team} lean` : side === "away" ? `${row.away_team} lean` : "Toss-up";
                   return (
@@ -366,7 +383,7 @@ function GamesTodayPageContent() {
                         ) : null}
                         <div className={styles.mobileMetaItem}>
                           <span className={styles.mobileMetaLabel}>Bet per $1</span>
-                          <span className={styles.mobileMetaValue}>{formatBetLabel(bet.team, bet.stake, { stakeScale: 100 })}</span>
+                          <span className={styles.mobileMetaValue}>{bet.label}</span>
                         </div>
                         <div className={styles.mobileMetaItem}>
                           <span className={styles.mobileMetaLabel}>Reason</span>

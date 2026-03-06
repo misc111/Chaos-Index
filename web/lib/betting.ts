@@ -57,7 +57,7 @@ export function americanToDecimalOdds(odds: number): number | null {
 }
 
 export function formatBetLabel(team: string | null, stake: number, options: BetLabelOptions = {}): string {
-  const scale = Number(options.stakeScale);
+  const scale = options.stakeScale ?? 1;
   if (stake <= 0 || !team) return "$0";
   if (!Number.isFinite(stake) || !Number.isFinite(scale) || scale <= 0) return "$0";
 

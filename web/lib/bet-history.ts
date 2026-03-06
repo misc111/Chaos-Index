@@ -1,4 +1,4 @@
-import { computeBetDecision, settleBet } from "@/lib/betting";
+import { settleBet, type BetDecision } from "@/lib/betting";
 import type {
   BetHistoryResponse,
   BetHistorySummary,
@@ -7,6 +7,10 @@ import type {
 } from "@/lib/bet-history-types";
 import { runSqlJson } from "@/lib/db";
 import type { LeagueCode } from "@/lib/league";
+import {
+  loadOrCreateHistoricalReplayDecisions,
+  type HistoricalReplayDecisionSnapshot,
+} from "@/lib/replay-bets";
 
 type RawHistoricalGameRow = {
   game_id?: number | null;
@@ -66,6 +70,7 @@ export type HistoricalReplayGameRow = {
   over_190_point: number | null;
   over_190_book: string | null;
   home_win_probability: number;
+  replay_decision?: HistoricalReplayDecisionSnapshot;
 };
 
 type HistoricalReplayDataset = {
@@ -134,6 +139,7 @@ function normalizeProbability(value: unknown): number {
 }
 
 function numberOrNull(value: unknown): number | null {
+  if (value === null || value === undefined || value === "") return null;
   const numeric = Number(value);
   return Number.isFinite(numeric) ? numeric : null;
 }
@@ -181,6 +187,21 @@ function buildNote(
     return `Replay coverage starts on ${coverageStartDate} because older pregame forecast or odds snapshots are not stored in this database.`;
   }
   return "Replay results are based only on games with stored pregame forecast and odds snapshots.";
+}
+
+function betDecisionFromReplaySnapshot(snapshot: HistoricalReplayDecisionSnapshot): BetDecision {
+  return {
+    bet: snapshot.bet_label,
+    reason: snapshot.reason,
+    side: snapshot.side,
+    team: snapshot.team,
+    stake: snapshot.stake,
+    odds: snapshot.odds,
+    modelProbability: snapshot.model_probability,
+    marketProbability: snapshot.market_probability,
+    edge: snapshot.edge,
+    expectedValue: snapshot.expected_value,
+  };
 }
 
 function historicalGamesSql(league: LeagueCode): string {
@@ -454,6 +475,22 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
     });
   }
 
+  const replayDecisions = loadOrCreateHistoricalReplayDecisions(
+    rows.map((row) => ({
+      game_id: row.game_id,
+      date_central: row.date_central,
+      home_team: row.home_team,
+      away_team: row.away_team,
+      forecast_as_of_utc: row.forecast_as_of_utc,
+      odds_as_of_utc: row.odds_as_of_utc,
+      odds_snapshot_id: row.odds_snapshot_id,
+      home_moneyline: row.home_moneyline,
+      away_moneyline: row.away_moneyline,
+      home_win_probability: row.home_win_probability,
+    })),
+    league
+  );
+
   return {
     total_final_games: rawGames.length,
     games_with_forecast: gamesWithForecast,
@@ -461,7 +498,10 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
     earliest_final_date: earliestFinalDate,
     coverage_start_central: coverageStartDate,
     coverage_end_central: coverageEndDate,
-    rows,
+    rows: rows.map((row) => ({
+      ...row,
+      replay_decision: replayDecisions.get(row.game_id),
+    })),
   };
 }
 
@@ -491,13 +531,12 @@ export function getBetHistory(league: LeagueCode): BetHistoryResponse {
   for (const row of dataset.rows) {
     analyzedGames += 1;
 
-    const decision = computeBetDecision({
-      home_team: row.home_team,
-      away_team: row.away_team,
-      home_win_probability: row.home_win_probability,
-      home_moneyline: row.home_moneyline,
-      away_moneyline: row.away_moneyline,
-    });
+    const replayDecision = row.replay_decision;
+    if (!replayDecision) {
+      continue;
+    }
+
+    const decision = betDecisionFromReplaySnapshot(replayDecision);
 
     if (decision.stake <= 0 || decision.side === "none" || !decision.team || !Number.isFinite(decision.odds)) {
       continue;
@@ -526,16 +565,16 @@ export function getBetHistory(league: LeagueCode): BetHistoryResponse {
       odds_snapshot_id: row.odds_snapshot_id,
       home_moneyline: row.home_moneyline,
       away_moneyline: row.away_moneyline,
-      bet_label: decision.bet,
-      reason: decision.reason,
+      bet_label: replayDecision.bet_label,
+      reason: replayDecision.reason,
       side: decision.side,
       team: decision.team,
-      stake: decision.stake,
+      stake: replayDecision.stake,
       odds: Number(decision.odds),
-      expected_value: decision.expectedValue,
-      edge: decision.edge,
-      model_probability: decision.modelProbability,
-      market_probability: decision.marketProbability,
+      expected_value: replayDecision.expected_value,
+      edge: replayDecision.edge,
+      model_probability: replayDecision.model_probability,
+      market_probability: replayDecision.market_probability,
       outcome: settlement.outcome,
       profit: settlement.profit,
       payout: settlement.payout,
