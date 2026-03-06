@@ -6,7 +6,8 @@ import BetHistoryChart from "@/components/BetHistoryChart";
 import styles from "@/components/BetHistory.module.css";
 import BetWeekCalendar from "@/components/BetWeekCalendar";
 import type { BetHistoryResponse } from "@/lib/bet-history-types";
-import { normalizeLeague, withLeague } from "@/lib/league";
+import { normalizeLeague } from "@/lib/league";
+import { fetchDashboardJson } from "@/lib/static-staging";
 
 function formatCurrency(value: number): string {
   return new Intl.NumberFormat("en-US", {
@@ -73,14 +74,7 @@ function BetHistoryPageContent() {
     setLoading(true);
     setError("");
 
-    fetch(withLeague("/api/bet-history", league), { cache: "no-store" })
-      .then(async (response) => {
-        const payload = (await response.json().catch(() => null)) as BetHistoryResponse | null;
-        if (!response.ok || !payload) {
-          throw new Error(`Request failed: ${response.status}`);
-        }
-        return payload;
-      })
+    fetchDashboardJson<BetHistoryResponse>("betHistory", "/api/bet-history", league)
       .then((payload) => {
         if (cancelled) return;
         setData(payload);

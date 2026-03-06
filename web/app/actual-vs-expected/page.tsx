@@ -2,7 +2,8 @@
 
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { normalizeLeague, withLeague } from "@/lib/league";
+import { normalizeLeague } from "@/lib/league";
+import { fetchDashboardJson } from "@/lib/static-staging";
 
 type HistoricalRow = {
   game_id: number;
@@ -189,13 +190,7 @@ function ActualVsExpectedPageContent() {
     setLoading(true);
     setError("");
 
-    fetch(withLeague("/api/actual-vs-expected", league), { cache: "no-store" })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Request failed: ${res.status}`);
-        }
-        return res.json() as Promise<ApiResponse>;
-      })
+    fetchDashboardJson<ApiResponse>("actualVsExpected", "/api/actual-vs-expected", league)
       .then((payload) => {
         if (cancelled) return;
         setHistoricalRows(payload.historical_rows || []);

@@ -3,7 +3,8 @@
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import ModelTable from "@/components/ModelTable";
-import { normalizeLeague, withLeague } from "@/lib/league";
+import { normalizeLeague } from "@/lib/league";
+import { fetchDashboardJson } from "@/lib/static-staging";
 
 function CalibrationPageContent() {
   const [rows, setRows] = useState<Record<string, any>[]>([]);
@@ -11,8 +12,7 @@ function CalibrationPageContent() {
   const league = normalizeLeague(searchParams.get("league"));
 
   useEffect(() => {
-    fetch(withLeague("/api/metrics", league), { cache: "no-store" })
-      .then((r) => r.json())
+    fetchDashboardJson<{ calibration?: Record<string, any>[] }>("metrics", "/api/metrics", league)
       .then((d) => setRows(d.calibration || []));
   }, [league]);
 

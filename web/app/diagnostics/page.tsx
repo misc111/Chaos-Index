@@ -3,7 +3,8 @@
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import ModelTable from "@/components/ModelTable";
-import { normalizeLeague, withLeague } from "@/lib/league";
+import { normalizeLeague } from "@/lib/league";
+import { fetchDashboardJson } from "@/lib/static-staging";
 
 function DiagnosticsPageContent() {
   const [rows, setRows] = useState<Record<string, any>[]>([]);
@@ -11,8 +12,7 @@ function DiagnosticsPageContent() {
   const league = normalizeLeague(searchParams.get("league"));
 
   useEffect(() => {
-    fetch(withLeague("/api/validation", league), { cache: "no-store" })
-      .then((r) => r.json())
+    fetchDashboardJson<{ significance?: Record<string, any>[] }>("validation", "/api/validation", league)
       .then((d) => setRows(d.significance || []));
   }, [league]);
 

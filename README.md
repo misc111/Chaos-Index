@@ -114,6 +114,23 @@ make dashboard
 LEAGUE=NBA NBA_DB_PATH=data/processed/nba_forecast.db make dashboard
 ```
 
+Generate the GitHub Pages staging snapshot from your current local dashboard data:
+```bash
+cd web
+npm run generate:staging-data
+```
+
+Build the static GitHub Pages staging site locally:
+```bash
+cd web
+npm run build:pages
+```
+
+Deployment notes:
+- `.github/workflows/pages-staging.yml` deploys the staging site on every push to `main`.
+- The Pages build publishes the committed files under `web/public/staging-data/`; it does not rebuild live SQLite data on GitHub Actions.
+- When you want the staging site to reflect newer local forecasts, run `npm run generate:staging-data`, commit the updated JSON in `web/public/staging-data/`, and push.
+
 Deterministic local query command:
 ```bash
 make query Q="What's the chance the Leafs win their next game?"

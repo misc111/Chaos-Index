@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { runSqlJson } from "@/lib/db";
 import { leagueFromRequest } from "@/lib/league";
 
+export const dynamic = "force-static";
+
 type RawTodayGameRow = {
   game_id: number;
   game_date_utc?: string | null;

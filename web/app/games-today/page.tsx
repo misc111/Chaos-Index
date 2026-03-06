@@ -4,6 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { computeBetDecision, expectedSide, expectedWinChance } from "@/lib/betting";
 import { normalizeLeague, withLeague } from "@/lib/league";
+import { fetchDashboardJson, isStaticStagingBuild } from "@/lib/static-staging";
 import styles from "./styles.module.css";
 
 type GamesTodayRow = {
@@ -68,6 +69,7 @@ function formatOver190(value?: number | null, point?: number | null): string {
 function GamesTodayPageContent() {
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
+  const staticStaging = isStaticStagingBuild();
   const [rows, setRows] = useState<GamesTodayRow[]>([]);
   const [latestAsOf, setLatestAsOf] = useState<string>("");
   const [latestOddsAsOf, setLatestOddsAsOf] = useState<string>("");
@@ -83,13 +85,7 @@ function GamesTodayPageContent() {
     setLoading(true);
     setError("");
 
-    fetch(withLeague("/api/games-today", league), { cache: "no-store" })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Request failed: ${res.status}`);
-        }
-        return res.json() as Promise<GamesTodayResponse>;
-      })
+    fetchDashboardJson<GamesTodayResponse>("gamesToday", "/api/games-today", league)
       .then((payload) => {
         if (cancelled) return;
         setRows(payload.rows || []);
@@ -111,6 +107,12 @@ function GamesTodayPageContent() {
   }, [league, reloadKey]);
 
   const handleRefreshOdds = async () => {
+    if (staticStaging) {
+      setRefreshOddsStatus("Odds refresh is disabled in the GitHub Pages staging build.");
+      setRefreshOddsError("");
+      return;
+    }
+
     setRefreshingOdds(true);
     setRefreshOddsError("");
     setRefreshOddsStatus("");
@@ -155,10 +157,10 @@ function GamesTodayPageContent() {
             type="button"
             className={styles.refreshOddsButton}
             onClick={handleRefreshOdds}
-            disabled={refreshingOdds}
+            disabled={refreshingOdds || staticStaging}
             aria-busy={refreshingOdds}
           >
-            {refreshingOdds ? "Refreshing odds..." : "Refresh Odds"}
+            {staticStaging ? "Snapshot Only" : refreshingOdds ? "Refreshing odds..." : "Refresh Odds"}
           </button>
           {refreshOddsStatus ? <p className={styles.refreshStatus}>{refreshOddsStatus}</p> : null}
           {refreshOddsError ? <p className={styles.refreshError}>{refreshOddsError}</p> : null}

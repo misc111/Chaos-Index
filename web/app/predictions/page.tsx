@@ -3,13 +3,14 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { type ForecastRow, type PredictionsResponse } from "@/lib/types";
-import { normalizeLeague, withLeague } from "@/lib/league";
+import { normalizeLeague } from "@/lib/league";
 import {
   displayPredictionModel,
   formatPredictionAsOf,
   formatPredictionDate,
   formatPredictionProbability,
 } from "@/lib/predictions-report";
+import { fetchDashboardJson } from "@/lib/static-staging";
 import styles from "./predictions.module.css";
 
 function closestGame(rows: ForecastRow[]): ForecastRow | null {
@@ -65,12 +66,7 @@ function PredictionsPageContent() {
       setError("");
 
       try {
-        const response = await fetch(withLeague("/api/predictions", league), { cache: "no-store" });
-        const payload = (await response.json()) as Partial<PredictionsResponse>;
-
-        if (!response.ok) {
-          throw new Error(`Predictions request failed (${response.status}).`);
-        }
+        const payload = await fetchDashboardJson<Partial<PredictionsResponse>>("predictions", "/api/predictions", league);
 
         if (!cancelled) {
           setReport({

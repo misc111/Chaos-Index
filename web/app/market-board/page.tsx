@@ -3,7 +3,8 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { computeBetDecision } from "@/lib/betting";
-import { normalizeLeague, withLeague } from "@/lib/league";
+import { normalizeLeague } from "@/lib/league";
+import { fetchDashboardJson } from "@/lib/static-staging";
 import { type MarketBoardResponse, type MarketBoardRow } from "@/lib/types";
 import styles from "./styles.module.css";
 
@@ -159,11 +160,7 @@ function MarketBoardPageContent() {
       setError("");
 
       try {
-        const response = await fetch(withLeague("/api/market-board", league), { cache: "no-store" });
-        const payload = (await response.json()) as Partial<MarketBoardResponse>;
-        if (!response.ok) {
-          throw new Error(`Market board request failed (${response.status}).`);
-        }
+        const payload = await fetchDashboardJson<Partial<MarketBoardResponse>>("marketBoard", "/api/market-board", league);
 
         if (!cancelled) {
           setReport({

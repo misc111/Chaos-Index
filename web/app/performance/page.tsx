@@ -4,7 +4,8 @@ import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import ModelTable from "@/components/ModelTable";
 import PerformanceCharts from "@/components/PerformanceCharts";
-import { normalizeLeague, withLeague } from "@/lib/league";
+import { normalizeLeague } from "@/lib/league";
+import { fetchDashboardJson } from "@/lib/static-staging";
 
 function PerformancePageContent() {
   const [rows, setRows] = useState<Record<string, any>[]>([]);
@@ -13,8 +14,11 @@ function PerformancePageContent() {
   const league = normalizeLeague(searchParams.get("league"));
 
   useEffect(() => {
-    fetch(withLeague("/api/performance", league), { cache: "no-store" })
-      .then((r) => r.json())
+    fetchDashboardJson<{ scores?: Record<string, any>[]; change_points?: Record<string, any>[] }>(
+      "performance",
+      "/api/performance",
+      league
+    )
       .then((d) => {
         setRows(d.scores || []);
         setAlerts(d.change_points || []);

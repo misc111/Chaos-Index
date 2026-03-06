@@ -4,6 +4,7 @@ import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { normalizeLeague, withLeague } from "@/lib/league";
+import { isStaticStagingBuild } from "@/lib/static-staging";
 import styles from "./overview.module.css";
 
 type TrainEvent = {
@@ -182,11 +183,16 @@ function stageIsActive(keywords: string[], currentStage?: string): boolean {
 function HomePageContent() {
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
+  const staticStaging = isStaticStagingBuild();
   const [trainStatus, setTrainStatus] = useState<TrainStatusResponse | null>(null);
   const [startingModel, setStartingModel] = useState<string | null>(null);
   const [trainActionError, setTrainActionError] = useState("");
 
   const fetchTrainStatus = useCallback(async () => {
+    if (staticStaging) {
+      return null;
+    }
+
     try {
       const response = await fetch(withLeague("/api/train-models", league), { cache: "no-store" });
       const payload = (await response.json().catch(() => ({}))) as TrainStatusResponse;
@@ -201,13 +207,21 @@ function HomePageContent() {
       setTrainActionError(message);
       return null;
     }
-  }, [league]);
+  }, [league, staticStaging]);
 
   useEffect(() => {
+    if (staticStaging) {
+      return;
+    }
+
     void fetchTrainStatus();
-  }, [fetchTrainStatus]);
+  }, [fetchTrainStatus, staticStaging]);
 
   useEffect(() => {
+    if (staticStaging) {
+      return;
+    }
+
     if (!startingModel && !trainStatus?.running) return;
 
     let timer: number | null = null;
@@ -231,9 +245,14 @@ function HomePageContent() {
         window.clearTimeout(timer);
       }
     };
-  }, [fetchTrainStatus, startingModel, trainStatus?.running]);
+  }, [fetchTrainStatus, startingModel, staticStaging, trainStatus?.running]);
 
   const startTrainingRequest = async (marker: string, models?: string[]) => {
+    if (staticStaging) {
+      setTrainActionError("Training is disabled in the GitHub Pages staging build.");
+      return;
+    }
+
     setStartingModel(marker);
     setTrainActionError("");
 
@@ -281,43 +300,65 @@ function HomePageContent() {
   const isStartingSingleModel = Boolean(startingModel) && startingModel !== "__all__";
   const singleModelInFlight = isSingleModelRun || isStartingSingleModel;
   const activeModelKey = isSingleModelRun ? requestedModels[0] : isStartingSingleModel ? startingModel : null;
-  const latestStageLabel = latestEvent ? stageLabel(latestEvent.stage) : "No live stage yet";
+  const latestStageLabel = staticStaging
+    ? "Static snapshot"
+    : latestEvent
+      ? stageLabel(latestEvent.stage)
+      : "No live stage yet";
   const requestedSummary =
-    activeRequestedModels.length === 0
+    staticStaging
+      ? "Live controls disabled"
+      : activeRequestedModels.length === 0
       ? isTrainingActive
         ? "Preparing model list"
         : "Full suite or single model"
       : activeRequestedModels.length === 1
         ? modelNameLabel(activeRequestedModels[0])
         : `${activeRequestedModels.length} models selected`;
-  const trainingStatusTitle = runningOtherLeague
-    ? `Busy in ${trainStatus?.league}`
+  const trainingStatusTitle = staticStaging
+    ? "Snapshot only"
+    : runningOtherLeague
+      ? `Busy in ${trainStatus?.league}`
+      : isTrainingActive
+        ? "Training live"
+        : "Ready to run";
+  const trainingStatusDetail = staticStaging
+    ? "This staging build mirrors the dashboard layout with committed snapshot data and disabled pipeline controls."
+    : runningOtherLeague
+      ? `A ${trainStatus?.league} run is already active. Switch leagues if you want to follow that job instead.`
+      : isTrainingActive
+        ? activeRequestedModels.length > 1
+          ? `${activeRequestedModels.length} models are currently in scope for this run.`
+          : activeRequestedModels.length === 1
+            ? `${requestedSummary} is the active training target.`
+            : "The pipeline is preparing the selected model set."
+        : `Choose from ${MODEL_BUTTONS.length} training targets or launch the full suite.`;
+  const latestSummary = staticStaging
+    ? "Staging reflects the current dashboard UI, but live training and refresh actions stay in the full local app."
+    : latestEvent
+      ? eventSummary(latestEvent)
+      : isTrainingActive
+        ? "Waiting for first training update..."
+        : "No training has started in this session yet.";
+  const lastCompletedLabel = staticStaging
+    ? "Use the local dashboard"
+    : trainStatus?.finished_at_utc
+      ? formatTimestamp(trainStatus.finished_at_utc)
+      : "No completed run yet";
+  const progressSummary = staticStaging
+    ? "Static export profile"
     : isTrainingActive
-      ? "Training live"
-      : "Ready to run";
-  const trainingStatusDetail = runningOtherLeague
-    ? `A ${trainStatus?.league} run is already active. Switch leagues if you want to follow that job instead.`
-    : isTrainingActive
-      ? activeRequestedModels.length > 1
-        ? `${activeRequestedModels.length} models are currently in scope for this run.`
-        : activeRequestedModels.length === 1
-          ? `${requestedSummary} is the active training target.`
-          : "The pipeline is preparing the selected model set."
-      : `Choose from ${MODEL_BUTTONS.length} training targets or launch the full suite.`;
-  const latestSummary = latestEvent
-    ? eventSummary(latestEvent)
-    : isTrainingActive
-      ? "Waiting for first training update..."
-      : "No training has started in this session yet.";
-  const lastCompletedLabel = trainStatus?.finished_at_utc
-    ? formatTimestamp(trainStatus.finished_at_utc)
-    : "No completed run yet";
-  const progressSummary = isTrainingActive
-    ? modelTotal > 0
-      ? `${completedModels}/${modelTotal} models complete`
-      : "Preparing model list..."
-    : `${MODEL_BUTTONS.length} models available`;
-  const liveBadgeLabel = runningOtherLeague ? `Watching ${trainStatus?.league}` : trainStatus?.running ? "Live" : "Idle";
+      ? modelTotal > 0
+        ? `${completedModels}/${modelTotal} models complete`
+        : "Preparing model list..."
+      : `${MODEL_BUTTONS.length} models available`;
+  const liveBadgeLabel = staticStaging
+    ? "Snapshot"
+    : runningOtherLeague
+      ? `Watching ${trainStatus?.league}`
+      : trainStatus?.running
+        ? "Live"
+        : "Idle";
 
   return (
     <div className={styles.page}>
@@ -410,9 +451,11 @@ function HomePageContent() {
                 singleModelInFlight && styles.buttonMuted,
               )}
               onClick={onTrainAllModels}
-              disabled={isTrainingActive}
+              disabled={isTrainingActive || staticStaging}
             >
-              {startingModel === "__all__"
+              {staticStaging
+                ? "Unavailable in staging"
+                : startingModel === "__all__"
                 ? "Starting..."
                 : trainStatus?.running && requestedModels.length > 1
                   ? "Training All..."
@@ -434,9 +477,15 @@ function HomePageContent() {
                   type="button"
                   className={cx(styles.modelButton, isActiveModel && styles.buttonActive, isGreyedOut && styles.buttonMuted)}
                   onClick={() => onTrainModels(model.key)}
-                  disabled={isTrainingActive}
+                  disabled={isTrainingActive || staticStaging}
                 >
-                  {isStartingThis ? "Starting..." : isActiveModel && trainStatus?.running ? "Training..." : model.label}
+                  {staticStaging
+                    ? model.label
+                    : isStartingThis
+                      ? "Starting..."
+                      : isActiveModel && trainStatus?.running
+                        ? "Training..."
+                        : model.label}
                 </button>
               );
             })}
@@ -500,10 +549,12 @@ function HomePageContent() {
           </div>
         ) : null}
 
-        {latestEvent ? (
-          <p className={styles.stageNote}>
-            Latest update: <strong>{eventSummary(latestEvent)}</strong> ({stageLabel(latestEvent.stage)} {latestEvent.status})
-          </p>
+          {staticStaging ? (
+            <p className={styles.stageNote}>Live training telemetry is disabled in GitHub Pages staging.</p>
+          ) : latestEvent ? (
+            <p className={styles.stageNote}>
+              Latest update: <strong>{eventSummary(latestEvent)}</strong> ({stageLabel(latestEvent.stage)} {latestEvent.status})
+            </p>
         ) : trainStatus?.running ? (
           <p className={styles.stageNote}>Waiting for the first training update...</p>
         ) : (

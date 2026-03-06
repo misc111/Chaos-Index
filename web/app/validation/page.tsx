@@ -3,7 +3,8 @@
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import ValidationTabs from "@/components/ValidationTabs";
-import { normalizeLeague, withLeague } from "@/lib/league";
+import { normalizeLeague } from "@/lib/league";
+import { fetchDashboardJson } from "@/lib/static-staging";
 
 function ValidationPageContent() {
   const [sections, setSections] = useState<Record<string, Record<string, any>[]>>({});
@@ -11,8 +12,7 @@ function ValidationPageContent() {
   const league = normalizeLeague(searchParams.get("league"));
 
   useEffect(() => {
-    fetch(withLeague("/api/validation", league), { cache: "no-store" })
-      .then((r) => r.json())
+    fetchDashboardJson<{ sections?: Record<string, Record<string, any>[]> }>("validation", "/api/validation", league)
       .then((d) => setSections(d.sections || {}));
   }, [league]);
 

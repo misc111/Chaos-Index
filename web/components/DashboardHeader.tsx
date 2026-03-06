@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { type LeagueCode, normalizeLeague, withLeague } from "@/lib/league";
+import { isStaticStagingBuild } from "@/lib/static-staging";
 
 const links: Array<[string, string]> = [
   ["/", "Overview"],
@@ -82,6 +83,7 @@ function DashboardHeaderContent() {
   const searchParams = useSearchParams();
   const search = new URLSearchParams(searchParams.toString());
   const league = normalizeLeague(searchParams.get("league"));
+  const staticStaging = isStaticStagingBuild();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [refreshError, setRefreshError] = useState("");
   const refreshedAtRaw = searchParams.get("refreshedAt");
@@ -93,6 +95,10 @@ function DashboardHeaderContent() {
   const refreshedAtLabel = showRefreshedStamp ? formatRefreshTimestamp(refreshedAtRaw) : "";
 
   const handleRefresh = async () => {
+    if (staticStaging) {
+      return;
+    }
+
     setIsRefreshing(true);
     setRefreshError("");
 
@@ -141,10 +147,12 @@ function DashboardHeaderContent() {
           type="button"
           className="refresh-btn"
           onClick={handleRefresh}
-          disabled={isRefreshing}
+          disabled={isRefreshing || staticStaging}
           aria-busy={isRefreshing}
         >
-          {isRefreshing ? (
+          {staticStaging ? (
+            "Snapshot Only"
+          ) : isRefreshing ? (
             <>
               <span className="refresh-spinner" aria-hidden />
               Refreshing {league}...
@@ -154,6 +162,7 @@ function DashboardHeaderContent() {
           )}
         </button>
         <div className="refresh-meta" aria-live="polite">
+          {staticStaging ? <p className="small">GitHub Pages staging uses committed snapshot data.</p> : null}
           {isRefreshing ? (
             <>
               <p className="small">Refreshing {league} data...</p>

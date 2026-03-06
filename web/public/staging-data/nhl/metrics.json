@@ -1,0 +1,4008 @@
+{
+  "league": "NHL",
+  "leaderboard": [
+    {
+      "model_name": "elo_baseline",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6521139865502749,
+      "brier": 0.2298272700546817,
+      "accuracy": 0.6583333333333333,
+      "ece": 0.10306687201250501,
+      "calibration_alpha": 0.11631656261663599,
+      "calibration_beta": 1.733680494542943
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.657386444798474,
+      "brier": 0.23248481759259262,
+      "accuracy": 0.6416666666666667,
+      "ece": 0.08983055555555552,
+      "calibration_alpha": 0.16585471074040983,
+      "calibration_beta": 1.5325661419389203
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6628409558401631,
+      "brier": 0.2332282088435374,
+      "accuracy": 0.6333333333333333,
+      "ece": 0.07575714285714286,
+      "calibration_alpha": 0.2812291738836121,
+      "calibration_beta": 0.6535697786917194
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6631367342073401,
+      "brier": 0.2345243013736003,
+      "accuracy": 0.6083333333333333,
+      "ece": 0.05664639375256277,
+      "calibration_alpha": 0.22690852844767911,
+      "calibration_beta": 0.5895767144165641
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6654424743578505,
+      "brier": 0.23632167466666668,
+      "accuracy": 0.6,
+      "ece": 0.049433333333333385,
+      "calibration_alpha": 0.16525583406337488,
+      "calibration_beta": 1.2810300014213887
+    },
+    {
+      "model_name": "rf",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6890924435984375,
+      "brier": 0.24818551492587,
+      "accuracy": 0.55,
+      "ece": 0.1393586709192857,
+      "calibration_alpha": 0.5255480867133976,
+      "calibration_beta": 1.1046407132969054
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.7692625092885227,
+      "brier": 0.2825090336125376,
+      "accuracy": 0.5,
+      "ece": 0.17036099054641357,
+      "calibration_alpha": 0.29958389996242635,
+      "calibration_beta": -0.18327265242480517
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.7695195665282593,
+      "brier": 0.2743289540256669,
+      "accuracy": 0.55,
+      "ece": 0.19005421862127098,
+      "calibration_alpha": 0.3877438476583331,
+      "calibration_beta": 0.32948189926881555
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.7977302200148433,
+      "brier": 0.2873114031656467,
+      "accuracy": 0.4666666666666667,
+      "ece": 0.17835711868293186,
+      "calibration_alpha": 0.38701399317716106,
+      "calibration_beta": 0.17134712560217122
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.8650984674236566,
+      "brier": 0.31717062480344477,
+      "accuracy": 0.4583333333333333,
+      "ece": 0.271081494073267,
+      "calibration_alpha": 0.5934601299296057,
+      "calibration_beta": 0.3194887135641835
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6722389596984818,
+      "brier": 0.239657061596965,
+      "accuracy": 0.6107954545454546,
+      "ece": 0.057553654808551305,
+      "calibration_alpha": 0.040425592494279745,
+      "calibration_beta": 1.3837875378750633
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6769564982499848,
+      "brier": 0.24199323988636365,
+      "accuracy": 0.5625,
+      "ece": 0.014105113636363542,
+      "calibration_alpha": 0.03998993503990526,
+      "calibration_beta": 1.198519194676986
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6779867697341025,
+      "brier": 0.2423561616161616,
+      "accuracy": 0.5880681818181818,
+      "ece": 0.05258049242424246,
+      "calibration_alpha": 0.09659423062794044,
+      "calibration_beta": 1.0427539290782641
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6799511312967719,
+      "brier": 0.24265269770408163,
+      "accuracy": 0.5880681818181818,
+      "ece": 0.03614772727272727,
+      "calibration_alpha": 0.11259453099034442,
+      "calibration_beta": 0.6014244290961607
+    },
+    {
+      "model_name": "rf",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6921530419505967,
+      "brier": 0.24937715665684987,
+      "accuracy": 0.5823863636363636,
+      "ece": 0.06917557756991626,
+      "calibration_alpha": 0.19688639063581034,
+      "calibration_beta": 0.6030475657657751
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.7135620936101753,
+      "brier": 0.2566746546243493,
+      "accuracy": 0.5625,
+      "ece": 0.10252651374308075,
+      "calibration_alpha": 0.11365905480608655,
+      "calibration_beta": 0.3545818052830672
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.726429390376224,
+      "brier": 0.261510659011897,
+      "accuracy": 0.5255681818181818,
+      "ece": 0.07431355434627214,
+      "calibration_alpha": 0.1724900845840969,
+      "calibration_beta": 0.13791440658391324
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.7494322285721602,
+      "brier": 0.271810790125814,
+      "accuracy": 0.5028409090909091,
+      "ece": 0.10765771386076986,
+      "calibration_alpha": 0.17234914939588614,
+      "calibration_beta": 0.07492025693421413
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.7776690401770949,
+      "brier": 0.2815078348502661,
+      "accuracy": 0.5,
+      "ece": 0.14127494060087561,
+      "calibration_alpha": 0.15026705048448286,
+      "calibration_beta": -0.02587485393555954
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.8151542362138771,
+      "brier": 0.29012447849100403,
+      "accuracy": 0.5,
+      "ece": 0.20189881155815942,
+      "calibration_alpha": 0.14302068076725719,
+      "calibration_beta": 0.12850669824043887
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.651027132023874,
+      "brier": 0.22927248530429514,
+      "accuracy": 0.6981132075471698,
+      "ece": 0.13103141507405472,
+      "calibration_alpha": 0.15365758060837448,
+      "calibration_beta": 1.130770527574679
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.6590402745845774,
+      "brier": 0.23327630555555554,
+      "accuracy": 0.660377358490566,
+      "ece": 0.1072169811320755,
+      "calibration_alpha": 0.20354769734667547,
+      "calibration_beta": 1.016130415474014
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.6712359955488435,
+      "brier": 0.2392006633962264,
+      "accuracy": 0.6226415094339622,
+      "ece": 0.09469811320754723,
+      "calibration_alpha": 0.19325450222752205,
+      "calibration_beta": 0.6835120146508488
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.6916558027467828,
+      "brier": 0.2486065086140302,
+      "accuracy": 0.6037735849056604,
+      "ece": 0.15650356320579437,
+      "calibration_alpha": 0.23409310330383826,
+      "calibration_beta": 0.3036518423602403
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.693119788741777,
+      "brier": 0.24956208702348867,
+      "accuracy": 0.6037735849056604,
+      "ece": 0.07159568733153639,
+      "calibration_alpha": 0.25146793233218184,
+      "calibration_beta": 0.33357426629452663
+    },
+    {
+      "model_name": "rf",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.7073258591238175,
+      "brier": 0.2569587096242733,
+      "accuracy": 0.5094339622641509,
+      "ece": 0.12861298813780758,
+      "calibration_alpha": 0.4064444160719919,
+      "calibration_beta": 0.5383033289648855
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.717665934117689,
+      "brier": 0.2564520710604484,
+      "accuracy": 0.6226415094339622,
+      "ece": 0.17592698674316026,
+      "calibration_alpha": 0.2313098708556606,
+      "calibration_beta": 0.3206918118533109
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.8571576077747068,
+      "brier": 0.315739967230289,
+      "accuracy": 0.4528301886792453,
+      "ece": 0.2998112042337438,
+      "calibration_alpha": 0.6690495693652403,
+      "calibration_beta": 0.4178007093585721
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.8945168590726102,
+      "brier": 0.31799244841939456,
+      "accuracy": 0.4528301886792453,
+      "ece": 0.257803551742237,
+      "calibration_alpha": 0.496441651121311,
+      "calibration_beta": 0.23624551625469162
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.8992838193884755,
+      "brier": 0.326731684818319,
+      "accuracy": 0.4716981132075472,
+      "ece": 0.24711595466347758,
+      "calibration_alpha": 0.23534234717503827,
+      "calibration_beta": -0.17075238055146832
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6809861692899967,
+      "brier": 0.24400908187746484,
+      "accuracy": 0.5726795096322241,
+      "ece": 0.023202192589366278,
+      "calibration_alpha": 0.013002264772561507,
+      "calibration_beta": 1.0769627359697633
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6846969957907476,
+      "brier": 0.24585587222416813,
+      "accuracy": 0.5306479859894921,
+      "ece": 0.03739124343257443,
+      "calibration_alpha": 0.02547429246587687,
+      "calibration_beta": 0.8518080181803503
+    },
+    {
+      "model_name": "rf",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6871543145427044,
+      "brier": 0.2470621999550281,
+      "accuracy": 0.5709281961471103,
+      "ece": 0.04745562858865248,
+      "calibration_alpha": 0.14927765743932758,
+      "calibration_beta": 0.7668530916027707
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6882661859596306,
+      "brier": 0.2475586206946877,
+      "accuracy": 0.542907180385289,
+      "ece": 0.016025977816695892,
+      "calibration_alpha": 0.06935185207282679,
+      "calibration_beta": 0.6337622968628612
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6898944033402094,
+      "brier": 0.24768335297902,
+      "accuracy": 0.563922942206655,
+      "ece": 0.03209231923942955,
+      "calibration_alpha": 0.07798588976212752,
+      "calibration_beta": 0.5040405968755272
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.7132374201162122,
+      "brier": 0.2568861064374124,
+      "accuracy": 0.5288966725043783,
+      "ece": 0.04058639694741732,
+      "calibration_alpha": 0.11005287422982092,
+      "calibration_beta": 0.10778958595724436
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.7206947683966587,
+      "brier": 0.2601649471607855,
+      "accuracy": 0.5569176882661997,
+      "ece": 0.10666623312499664,
+      "calibration_alpha": 0.06768119127702812,
+      "calibration_beta": 0.3201398158309607
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.7279503787749103,
+      "brier": 0.26349824887949636,
+      "accuracy": 0.5043782837127846,
+      "ece": 0.06108579382371938,
+      "calibration_alpha": 0.10459677187882568,
+      "calibration_beta": 0.01737050359774311
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.7374504264895884,
+      "brier": 0.2658149831403133,
+      "accuracy": 0.5201401050788091,
+      "ece": 0.09736708773267058,
+      "calibration_alpha": 0.0919784568442865,
+      "calibration_beta": 0.10398446020745913
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.8284650867873511,
+      "brier": 0.2948919764740073,
+      "accuracy": 0.5061295971978984,
+      "ece": 0.1978670809553465,
+      "calibration_alpha": 0.09620131359416216,
+      "calibration_beta": 0.10080222995244147
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6847912288763927,
+      "brier": 0.24588437722875256,
+      "accuracy": 0.5565714285714286,
+      "ece": 0.011122762197643628,
+      "calibration_alpha": 0.026737794681034755,
+      "calibration_beta": 0.9536631314415365
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6859879190371453,
+      "brier": 0.2465008608914286,
+      "accuracy": 0.5371428571428571,
+      "ece": 0.03011474285714282,
+      "calibration_alpha": 0.03561880609465608,
+      "calibration_beta": 0.7605928409874081
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6893531987903057,
+      "brier": 0.2481275397142857,
+      "accuracy": 0.5314285714285715,
+      "ece": 0.03563066666666665,
+      "calibration_alpha": 0.07495837578528075,
+      "calibration_beta": 0.6024681779449781
+    },
+    {
+      "model_name": "rf",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6941302173859866,
+      "brier": 0.25038727137138406,
+      "accuracy": 0.5497142857142857,
+      "ece": 0.054407082527478036,
+      "calibration_alpha": 0.14395895269652167,
+      "calibration_beta": 0.5256065652332753
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6968892271426584,
+      "brier": 0.2513768947405248,
+      "accuracy": 0.5291428571428571,
+      "ece": 0.059420408163265284,
+      "calibration_alpha": 0.09013132425400873,
+      "calibration_beta": 0.39345005894868235
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.7087190854689621,
+      "brier": 0.2556912561471956,
+      "accuracy": 0.5177142857142857,
+      "ece": 0.04150537532335814,
+      "calibration_alpha": 0.10969234248897462,
+      "calibration_beta": 0.07487689247572908
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.7153964071270386,
+      "brier": 0.25711914223688104,
+      "accuracy": 0.5405714285714286,
+      "ece": 0.0685109325471342,
+      "calibration_alpha": 0.08269544719400056,
+      "calibration_beta": 0.24090017743120062
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.7186446611347216,
+      "brier": 0.26016797360813054,
+      "accuracy": 0.5017142857142857,
+      "ece": 0.055489052925424304,
+      "calibration_alpha": 0.10740339309481277,
+      "calibration_beta": -0.003870187719850424
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.7353757672793587,
+      "brier": 0.26666911386635705,
+      "accuracy": 0.5382857142857143,
+      "ece": 0.11874704773155943,
+      "calibration_alpha": 0.08315031741785178,
+      "calibration_beta": 0.22778127560298866
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.8723765406050928,
+      "brier": 0.30514410514750434,
+      "accuracy": 0.52,
+      "ece": 0.20618581885877663,
+      "calibration_alpha": 0.10726477719746283,
+      "calibration_beta": 0.06991254857980278
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6521139865502749,
+      "brier": 0.2298272700546817,
+      "accuracy": 0.6583333333333333,
+      "ece": 0.10306687201250501,
+      "calibration_alpha": 0.11631656261663599,
+      "calibration_beta": 1.733680494542943
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.657386444798474,
+      "brier": 0.23248481759259262,
+      "accuracy": 0.6416666666666667,
+      "ece": 0.08983055555555552,
+      "calibration_alpha": 0.16585471074040983,
+      "calibration_beta": 1.5325661419389203
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6628409558401631,
+      "brier": 0.2332282088435374,
+      "accuracy": 0.6333333333333333,
+      "ece": 0.07575714285714286,
+      "calibration_alpha": 0.2812291738836121,
+      "calibration_beta": 0.6535697786917194
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6631367342073401,
+      "brier": 0.2345243013736003,
+      "accuracy": 0.6083333333333333,
+      "ece": 0.05664639375256277,
+      "calibration_alpha": 0.22690852844767911,
+      "calibration_beta": 0.5895767144165641
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6654424743578505,
+      "brier": 0.23632167466666668,
+      "accuracy": 0.6,
+      "ece": 0.049433333333333385,
+      "calibration_alpha": 0.16525583406337488,
+      "calibration_beta": 1.2810300014213887
+    },
+    {
+      "model_name": "rf",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6890924435984375,
+      "brier": 0.24818551492587,
+      "accuracy": 0.55,
+      "ece": 0.1393586709192857,
+      "calibration_alpha": 0.5255480867133976,
+      "calibration_beta": 1.1046407132969054
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.7692625092885227,
+      "brier": 0.2825090336125376,
+      "accuracy": 0.5,
+      "ece": 0.17036099054641357,
+      "calibration_alpha": 0.29958389996242635,
+      "calibration_beta": -0.18327265242480517
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.7695195665282593,
+      "brier": 0.2743289540256669,
+      "accuracy": 0.55,
+      "ece": 0.19005421862127098,
+      "calibration_alpha": 0.3877438476583331,
+      "calibration_beta": 0.32948189926881555
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.7977302200148433,
+      "brier": 0.2873114031656467,
+      "accuracy": 0.4666666666666667,
+      "ece": 0.17835711868293186,
+      "calibration_alpha": 0.38701399317716106,
+      "calibration_beta": 0.17134712560217122
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.8650984674236566,
+      "brier": 0.31717062480344477,
+      "accuracy": 0.4583333333333333,
+      "ece": 0.271081494073267,
+      "calibration_alpha": 0.5934601299296057,
+      "calibration_beta": 0.3194887135641835
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6722389596984818,
+      "brier": 0.239657061596965,
+      "accuracy": 0.6107954545454546,
+      "ece": 0.057553654808551305,
+      "calibration_alpha": 0.040425592494279745,
+      "calibration_beta": 1.3837875378750633
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6769564982499848,
+      "brier": 0.24199323988636365,
+      "accuracy": 0.5625,
+      "ece": 0.014105113636363542,
+      "calibration_alpha": 0.03998993503990526,
+      "calibration_beta": 1.198519194676986
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6779867697341025,
+      "brier": 0.2423561616161616,
+      "accuracy": 0.5880681818181818,
+      "ece": 0.05258049242424246,
+      "calibration_alpha": 0.09659423062794044,
+      "calibration_beta": 1.0427539290782641
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6799511312967719,
+      "brier": 0.24265269770408163,
+      "accuracy": 0.5880681818181818,
+      "ece": 0.03614772727272727,
+      "calibration_alpha": 0.11259453099034442,
+      "calibration_beta": 0.6014244290961607
+    },
+    {
+      "model_name": "rf",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6921530419505967,
+      "brier": 0.24937715665684987,
+      "accuracy": 0.5823863636363636,
+      "ece": 0.06917557756991626,
+      "calibration_alpha": 0.19688639063581034,
+      "calibration_beta": 0.6030475657657751
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.7135620936101753,
+      "brier": 0.2566746546243493,
+      "accuracy": 0.5625,
+      "ece": 0.10252651374308075,
+      "calibration_alpha": 0.11365905480608655,
+      "calibration_beta": 0.3545818052830672
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.726429390376224,
+      "brier": 0.261510659011897,
+      "accuracy": 0.5255681818181818,
+      "ece": 0.07431355434627214,
+      "calibration_alpha": 0.1724900845840969,
+      "calibration_beta": 0.13791440658391324
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.7494322285721602,
+      "brier": 0.271810790125814,
+      "accuracy": 0.5028409090909091,
+      "ece": 0.10765771386076986,
+      "calibration_alpha": 0.17234914939588614,
+      "calibration_beta": 0.07492025693421413
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.7776690401770949,
+      "brier": 0.2815078348502661,
+      "accuracy": 0.5,
+      "ece": 0.14127494060087561,
+      "calibration_alpha": 0.15026705048448286,
+      "calibration_beta": -0.02587485393555954
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.8151542362138771,
+      "brier": 0.29012447849100403,
+      "accuracy": 0.5,
+      "ece": 0.20189881155815942,
+      "calibration_alpha": 0.14302068076725719,
+      "calibration_beta": 0.12850669824043887
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.651027132023874,
+      "brier": 0.22927248530429514,
+      "accuracy": 0.6981132075471698,
+      "ece": 0.13103141507405472,
+      "calibration_alpha": 0.15365758060837448,
+      "calibration_beta": 1.130770527574679
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.6590402745845774,
+      "brier": 0.23327630555555554,
+      "accuracy": 0.660377358490566,
+      "ece": 0.1072169811320755,
+      "calibration_alpha": 0.20354769734667547,
+      "calibration_beta": 1.016130415474014
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.6712359955488435,
+      "brier": 0.2392006633962264,
+      "accuracy": 0.6226415094339622,
+      "ece": 0.09469811320754723,
+      "calibration_alpha": 0.19325450222752205,
+      "calibration_beta": 0.6835120146508488
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.6916558027467828,
+      "brier": 0.2486065086140302,
+      "accuracy": 0.6037735849056604,
+      "ece": 0.15650356320579437,
+      "calibration_alpha": 0.23409310330383826,
+      "calibration_beta": 0.3036518423602403
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.693119788741777,
+      "brier": 0.24956208702348867,
+      "accuracy": 0.6037735849056604,
+      "ece": 0.07159568733153639,
+      "calibration_alpha": 0.25146793233218184,
+      "calibration_beta": 0.33357426629452663
+    },
+    {
+      "model_name": "rf",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.7073258591238175,
+      "brier": 0.2569587096242733,
+      "accuracy": 0.5094339622641509,
+      "ece": 0.12861298813780758,
+      "calibration_alpha": 0.4064444160719919,
+      "calibration_beta": 0.5383033289648855
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.717665934117689,
+      "brier": 0.2564520710604484,
+      "accuracy": 0.6226415094339622,
+      "ece": 0.17592698674316026,
+      "calibration_alpha": 0.2313098708556606,
+      "calibration_beta": 0.3206918118533109
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.8571576077747068,
+      "brier": 0.315739967230289,
+      "accuracy": 0.4528301886792453,
+      "ece": 0.2998112042337438,
+      "calibration_alpha": 0.6690495693652403,
+      "calibration_beta": 0.4178007093585721
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.8945168590726102,
+      "brier": 0.31799244841939456,
+      "accuracy": 0.4528301886792453,
+      "ece": 0.257803551742237,
+      "calibration_alpha": 0.496441651121311,
+      "calibration_beta": 0.23624551625469162
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.8992838193884755,
+      "brier": 0.326731684818319,
+      "accuracy": 0.4716981132075472,
+      "ece": 0.24711595466347758,
+      "calibration_alpha": 0.23534234717503827,
+      "calibration_beta": -0.17075238055146832
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6809861692899967,
+      "brier": 0.24400908187746484,
+      "accuracy": 0.5726795096322241,
+      "ece": 0.023202192589366278,
+      "calibration_alpha": 0.013002264772561507,
+      "calibration_beta": 1.0769627359697633
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6846969957907476,
+      "brier": 0.24585587222416813,
+      "accuracy": 0.5306479859894921,
+      "ece": 0.03739124343257443,
+      "calibration_alpha": 0.02547429246587687,
+      "calibration_beta": 0.8518080181803503
+    },
+    {
+      "model_name": "rf",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6871543145427044,
+      "brier": 0.2470621999550281,
+      "accuracy": 0.5709281961471103,
+      "ece": 0.04745562858865248,
+      "calibration_alpha": 0.14927765743932758,
+      "calibration_beta": 0.7668530916027707
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6882661859596306,
+      "brier": 0.2475586206946877,
+      "accuracy": 0.542907180385289,
+      "ece": 0.016025977816695892,
+      "calibration_alpha": 0.06935185207282679,
+      "calibration_beta": 0.6337622968628612
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6898944033402094,
+      "brier": 0.24768335297902,
+      "accuracy": 0.563922942206655,
+      "ece": 0.03209231923942955,
+      "calibration_alpha": 0.07798588976212752,
+      "calibration_beta": 0.5040405968755272
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.7132374201162122,
+      "brier": 0.2568861064374124,
+      "accuracy": 0.5288966725043783,
+      "ece": 0.04058639694741732,
+      "calibration_alpha": 0.11005287422982092,
+      "calibration_beta": 0.10778958595724436
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.7206947683966587,
+      "brier": 0.2601649471607855,
+      "accuracy": 0.5569176882661997,
+      "ece": 0.10666623312499664,
+      "calibration_alpha": 0.06768119127702812,
+      "calibration_beta": 0.3201398158309607
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.7279503787749103,
+      "brier": 0.26349824887949636,
+      "accuracy": 0.5043782837127846,
+      "ece": 0.06108579382371938,
+      "calibration_alpha": 0.10459677187882568,
+      "calibration_beta": 0.01737050359774311
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.7374504264895884,
+      "brier": 0.2658149831403133,
+      "accuracy": 0.5201401050788091,
+      "ece": 0.09736708773267058,
+      "calibration_alpha": 0.0919784568442865,
+      "calibration_beta": 0.10398446020745913
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.8284650867873511,
+      "brier": 0.2948919764740073,
+      "accuracy": 0.5061295971978984,
+      "ece": 0.1978670809553465,
+      "calibration_alpha": 0.09620131359416216,
+      "calibration_beta": 0.10080222995244147
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6847912288763927,
+      "brier": 0.24588437722875256,
+      "accuracy": 0.5565714285714286,
+      "ece": 0.011122762197643628,
+      "calibration_alpha": 0.026737794681034755,
+      "calibration_beta": 0.9536631314415365
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6859879190371453,
+      "brier": 0.2465008608914286,
+      "accuracy": 0.5371428571428571,
+      "ece": 0.03011474285714282,
+      "calibration_alpha": 0.03561880609465608,
+      "calibration_beta": 0.7605928409874081
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6893531987903057,
+      "brier": 0.2481275397142857,
+      "accuracy": 0.5314285714285715,
+      "ece": 0.03563066666666665,
+      "calibration_alpha": 0.07495837578528075,
+      "calibration_beta": 0.6024681779449781
+    },
+    {
+      "model_name": "rf",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6941302173859866,
+      "brier": 0.25038727137138406,
+      "accuracy": 0.5497142857142857,
+      "ece": 0.054407082527478036,
+      "calibration_alpha": 0.14395895269652167,
+      "calibration_beta": 0.5256065652332753
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6968892271426584,
+      "brier": 0.2513768947405248,
+      "accuracy": 0.5291428571428571,
+      "ece": 0.059420408163265284,
+      "calibration_alpha": 0.09013132425400873,
+      "calibration_beta": 0.39345005894868235
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.7087190854689621,
+      "brier": 0.2556912561471956,
+      "accuracy": 0.5177142857142857,
+      "ece": 0.04150537532335814,
+      "calibration_alpha": 0.10969234248897462,
+      "calibration_beta": 0.07487689247572908
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.7153964071270386,
+      "brier": 0.25711914223688104,
+      "accuracy": 0.5405714285714286,
+      "ece": 0.0685109325471342,
+      "calibration_alpha": 0.08269544719400056,
+      "calibration_beta": 0.24090017743120062
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.7186446611347216,
+      "brier": 0.26016797360813054,
+      "accuracy": 0.5017142857142857,
+      "ece": 0.055489052925424304,
+      "calibration_alpha": 0.10740339309481277,
+      "calibration_beta": -0.003870187719850424
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.7353757672793587,
+      "brier": 0.26666911386635705,
+      "accuracy": 0.5382857142857143,
+      "ece": 0.11874704773155943,
+      "calibration_alpha": 0.08315031741785178,
+      "calibration_beta": 0.22778127560298866
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.8723765406050928,
+      "brier": 0.30514410514750434,
+      "accuracy": 0.52,
+      "ece": 0.20618581885877663,
+      "calibration_alpha": 0.10726477719746283,
+      "calibration_beta": 0.06991254857980278
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6521139865502749,
+      "brier": 0.2298272700546817,
+      "accuracy": 0.6583333333333333,
+      "ece": 0.10306687201250501,
+      "calibration_alpha": 0.11631656261663599,
+      "calibration_beta": 1.733680494542943
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.657386444798474,
+      "brier": 0.23248481759259262,
+      "accuracy": 0.6416666666666667,
+      "ece": 0.08983055555555552,
+      "calibration_alpha": 0.16585471074040983,
+      "calibration_beta": 1.5325661419389203
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6628409558401631,
+      "brier": 0.2332282088435374,
+      "accuracy": 0.6333333333333333,
+      "ece": 0.07575714285714286,
+      "calibration_alpha": 0.2812291738836121,
+      "calibration_beta": 0.6535697786917194
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6631367342073401,
+      "brier": 0.2345243013736003,
+      "accuracy": 0.6083333333333333,
+      "ece": 0.05664639375256277,
+      "calibration_alpha": 0.22690852844767911,
+      "calibration_beta": 0.5895767144165641
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6638159584490441,
+      "brier": 0.23544490305170537,
+      "accuracy": 0.6416666666666667,
+      "ece": 0.10741344528313218,
+      "calibration_alpha": 0.2671621255277043,
+      "calibration_beta": 2.013324790473778
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6654424743578505,
+      "brier": 0.23632167466666668,
+      "accuracy": 0.6,
+      "ece": 0.049433333333333385,
+      "calibration_alpha": 0.16525583406337488,
+      "calibration_beta": 1.2810300014213887
+    },
+    {
+      "model_name": "rf",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6890924435984375,
+      "brier": 0.24818551492587002,
+      "accuracy": 0.55,
+      "ece": 0.13935867091928567,
+      "calibration_alpha": 0.5255480867133976,
+      "calibration_beta": 1.1046407132969056
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.7695195665282593,
+      "brier": 0.2743289540256669,
+      "accuracy": 0.55,
+      "ece": 0.19005421862127098,
+      "calibration_alpha": 0.3877438476583331,
+      "calibration_beta": 0.32948189926881555
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.7977302200148433,
+      "brier": 0.2873114031656467,
+      "accuracy": 0.4666666666666667,
+      "ece": 0.17835711868293186,
+      "calibration_alpha": 0.38701399317716106,
+      "calibration_beta": 0.17134712560217122
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 1.0492781657172994,
+      "brier": 0.35890190196742366,
+      "accuracy": 0.49166666666666664,
+      "ece": 0.31183856142064365,
+      "calibration_alpha": 0.3419340896654424,
+      "calibration_beta": 0.051674624111648366
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6722389596984818,
+      "brier": 0.239657061596965,
+      "accuracy": 0.6107954545454546,
+      "ece": 0.057553654808551305,
+      "calibration_alpha": 0.040425592494279745,
+      "calibration_beta": 1.3837875378750633
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6769564982499848,
+      "brier": 0.24199323988636365,
+      "accuracy": 0.5625,
+      "ece": 0.014105113636363542,
+      "calibration_alpha": 0.03998993503990526,
+      "calibration_beta": 1.198519194676986
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6779867697341025,
+      "brier": 0.2423561616161616,
+      "accuracy": 0.5880681818181818,
+      "ece": 0.05258049242424246,
+      "calibration_alpha": 0.09659423062794044,
+      "calibration_beta": 1.0427539290782641
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6790747564679787,
+      "brier": 0.2430045382013109,
+      "accuracy": 0.5710227272727273,
+      "ece": 0.04508327628746067,
+      "calibration_alpha": 0.058187230787295006,
+      "calibration_beta": 2.1154358778715054
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6799511312967719,
+      "brier": 0.24265269770408163,
+      "accuracy": 0.5880681818181818,
+      "ece": 0.03614772727272727,
+      "calibration_alpha": 0.11259453099034442,
+      "calibration_beta": 0.6014244290961607
+    },
+    {
+      "model_name": "rf",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6921530419505967,
+      "brier": 0.24937715665684979,
+      "accuracy": 0.5823863636363636,
+      "ece": 0.06917557756991616,
+      "calibration_alpha": 0.19688639063581037,
+      "calibration_beta": 0.6030475657657756
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.7135620936101753,
+      "brier": 0.2566746546243493,
+      "accuracy": 0.5625,
+      "ece": 0.10252651374308075,
+      "calibration_alpha": 0.11365905480608655,
+      "calibration_beta": 0.3545818052830672
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.726429390376224,
+      "brier": 0.261510659011897,
+      "accuracy": 0.5255681818181818,
+      "ece": 0.07431355434627214,
+      "calibration_alpha": 0.1724900845840969,
+      "calibration_beta": 0.13791440658391324
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.8151542362138771,
+      "brier": 0.29012447849100403,
+      "accuracy": 0.5,
+      "ece": 0.20189881155815942,
+      "calibration_alpha": 0.14302068076725719,
+      "calibration_beta": 0.12850669824043887
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 1.039555161400128,
+      "brier": 0.3458371775991541,
+      "accuracy": 0.4971590909090909,
+      "ece": 0.2707955234942471,
+      "calibration_alpha": 0.1516629654843066,
+      "calibration_beta": -0.01934617568816314
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.651027132023874,
+      "brier": 0.22927248530429514,
+      "accuracy": 0.6981132075471698,
+      "ece": 0.13103141507405472,
+      "calibration_alpha": 0.15365758060837448,
+      "calibration_beta": 1.130770527574679
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.6590402745845774,
+      "brier": 0.23327630555555554,
+      "accuracy": 0.660377358490566,
+      "ece": 0.1072169811320755,
+      "calibration_alpha": 0.20354769734667547,
+      "calibration_beta": 1.016130415474014
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.6644559801811207,
+      "brier": 0.23573138168641766,
+      "accuracy": 0.6226415094339622,
+      "ece": 0.08087958390022548,
+      "calibration_alpha": 0.2576330087026,
+      "calibration_beta": 1.1715900683325582
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.6712359955488435,
+      "brier": 0.2392006633962264,
+      "accuracy": 0.6226415094339622,
+      "ece": 0.09469811320754723,
+      "calibration_alpha": 0.19325450222752205,
+      "calibration_beta": 0.6835120146508488
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.693119788741777,
+      "brier": 0.24956208702348867,
+      "accuracy": 0.6037735849056604,
+      "ece": 0.07159568733153639,
+      "calibration_alpha": 0.25146793233218184,
+      "calibration_beta": 0.33357426629452663
+    },
+    {
+      "model_name": "rf",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.7073258591238174,
+      "brier": 0.25695870962427325,
+      "accuracy": 0.5094339622641509,
+      "ece": 0.12861298813780758,
+      "calibration_alpha": 0.40644441607199217,
+      "calibration_beta": 0.5383033289648865
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.717665934117689,
+      "brier": 0.2564520710604484,
+      "accuracy": 0.6226415094339622,
+      "ece": 0.17592698674316026,
+      "calibration_alpha": 0.2313098708556606,
+      "calibration_beta": 0.3206918118533109
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.8945168590726102,
+      "brier": 0.31799244841939456,
+      "accuracy": 0.4528301886792453,
+      "ece": 0.257803551742237,
+      "calibration_alpha": 0.496441651121311,
+      "calibration_beta": 0.23624551625469162
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.8992838193884755,
+      "brier": 0.326731684818319,
+      "accuracy": 0.4716981132075472,
+      "ece": 0.24711595466347758,
+      "calibration_alpha": 0.23534234717503827,
+      "calibration_beta": -0.17075238055146832
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 1.2286399416054787,
+      "brier": 0.41259495669151264,
+      "accuracy": 0.4339622641509434,
+      "ece": 0.4168732403738391,
+      "calibration_alpha": 0.22016739395047674,
+      "calibration_beta": -0.028754503477439793
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6809861692899967,
+      "brier": 0.24400908187746484,
+      "accuracy": 0.5726795096322241,
+      "ece": 0.023202192589366278,
+      "calibration_alpha": 0.013002264772561507,
+      "calibration_beta": 1.0769627359697633
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6845776464094604,
+      "brier": 0.24574027921675537,
+      "accuracy": 0.5464098073555166,
+      "ece": 0.022511009190085675,
+      "calibration_alpha": -0.014924230540054751,
+      "calibration_beta": 2.0038510809103465
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6846969957907476,
+      "brier": 0.24585587222416813,
+      "accuracy": 0.5306479859894921,
+      "ece": 0.03739124343257443,
+      "calibration_alpha": 0.02547429246587687,
+      "calibration_beta": 0.8518080181803503
+    },
+    {
+      "model_name": "rf",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6871543145427044,
+      "brier": 0.2470621999550281,
+      "accuracy": 0.5709281961471103,
+      "ece": 0.04745562858865248,
+      "calibration_alpha": 0.1492776574393276,
+      "calibration_beta": 0.7668530916027708
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6882661859596306,
+      "brier": 0.2475586206946877,
+      "accuracy": 0.542907180385289,
+      "ece": 0.016025977816695892,
+      "calibration_alpha": 0.06935185207282679,
+      "calibration_beta": 0.6337622968628612
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6898944033402094,
+      "brier": 0.24768335297902,
+      "accuracy": 0.563922942206655,
+      "ece": 0.03209231923942955,
+      "calibration_alpha": 0.07798588976212752,
+      "calibration_beta": 0.5040405968755272
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.7132374201162122,
+      "brier": 0.2568861064374124,
+      "accuracy": 0.5288966725043783,
+      "ece": 0.04058639694741732,
+      "calibration_alpha": 0.11005287422982092,
+      "calibration_beta": 0.10778958595724436
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.7206947683966587,
+      "brier": 0.2601649471607855,
+      "accuracy": 0.5569176882661997,
+      "ece": 0.10666623312499664,
+      "calibration_alpha": 0.06768119127702812,
+      "calibration_beta": 0.3201398158309607
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.8284650867873511,
+      "brier": 0.2948919764740073,
+      "accuracy": 0.5061295971978984,
+      "ece": 0.1978670809553465,
+      "calibration_alpha": 0.09620131359416216,
+      "calibration_beta": 0.10080222995244147
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.8981856050906362,
+      "brier": 0.30540606419525684,
+      "accuracy": 0.5183887915936952,
+      "ece": 0.18831927864658143,
+      "calibration_alpha": 0.09737094920336774,
+      "calibration_beta": 0.026224195748470472
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6847912288763927,
+      "brier": 0.24588437722875256,
+      "accuracy": 0.5565714285714286,
+      "ece": 0.011122762197643628,
+      "calibration_alpha": 0.026737794681034755,
+      "calibration_beta": 0.9536631314415365
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6859879190371453,
+      "brier": 0.2465008608914286,
+      "accuracy": 0.5371428571428571,
+      "ece": 0.03011474285714282,
+      "calibration_alpha": 0.03561880609465608,
+      "calibration_beta": 0.7605928409874081
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6893531987903057,
+      "brier": 0.2481275397142857,
+      "accuracy": 0.5314285714285715,
+      "ece": 0.03563066666666665,
+      "calibration_alpha": 0.07495837578528075,
+      "calibration_beta": 0.6024681779449781
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6903408552139525,
+      "brier": 0.2485796299767871,
+      "accuracy": 0.5291428571428571,
+      "ece": 0.012945835806573072,
+      "calibration_alpha": 0.06635894925143307,
+      "calibration_beta": 0.6383162407815827
+    },
+    {
+      "model_name": "rf",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6941302173859866,
+      "brier": 0.25038727137138406,
+      "accuracy": 0.5497142857142857,
+      "ece": 0.054407082527478036,
+      "calibration_alpha": 0.14395895269652167,
+      "calibration_beta": 0.5256065652332753
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6968892271426584,
+      "brier": 0.2513768947405248,
+      "accuracy": 0.5291428571428571,
+      "ece": 0.059420408163265284,
+      "calibration_alpha": 0.09013132425400873,
+      "calibration_beta": 0.39345005894868235
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.7087190854689621,
+      "brier": 0.2556912561471956,
+      "accuracy": 0.5177142857142857,
+      "ece": 0.04150537532335814,
+      "calibration_alpha": 0.10969234248897462,
+      "calibration_beta": 0.07487689247572908
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.7353757672793587,
+      "brier": 0.26666911386635705,
+      "accuracy": 0.5382857142857143,
+      "ece": 0.11874704773155943,
+      "calibration_alpha": 0.08315031741785178,
+      "calibration_beta": 0.22778127560298866
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.8481936598808275,
+      "brier": 0.2917971306166474,
+      "accuracy": 0.5291428571428571,
+      "ece": 0.16184261648956827,
+      "calibration_alpha": 0.09890402319169497,
+      "calibration_beta": 0.05754398213824531
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.8723765406050928,
+      "brier": 0.30514410514750434,
+      "accuracy": 0.52,
+      "ece": 0.20618581885877663,
+      "calibration_alpha": 0.10726477719746283,
+      "calibration_beta": 0.06991254857980278
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6521139865502749,
+      "brier": 0.2298272700546817,
+      "accuracy": 0.6583333333333333,
+      "ece": 0.10306687201250501,
+      "calibration_alpha": 0.11631656261663599,
+      "calibration_beta": 1.733680494542943
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.657386444798474,
+      "brier": 0.23248481759259262,
+      "accuracy": 0.6416666666666667,
+      "ece": 0.08983055555555552,
+      "calibration_alpha": 0.16585471074040983,
+      "calibration_beta": 1.5325661419389203
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6628409558401631,
+      "brier": 0.2332282088435374,
+      "accuracy": 0.6333333333333333,
+      "ece": 0.07575714285714286,
+      "calibration_alpha": 0.2812291738836121,
+      "calibration_beta": 0.6535697786917194
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6631367342073401,
+      "brier": 0.2345243013736003,
+      "accuracy": 0.6083333333333333,
+      "ece": 0.05664639375256277,
+      "calibration_alpha": 0.22690852844767911,
+      "calibration_beta": 0.5895767144165641
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6654424743578505,
+      "brier": 0.23632167466666668,
+      "accuracy": 0.6,
+      "ece": 0.049433333333333385,
+      "calibration_alpha": 0.16525583406337488,
+      "calibration_beta": 1.2810300014213887
+    },
+    {
+      "model_name": "rf",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.6890924435984375,
+      "brier": 0.24818551492587,
+      "accuracy": 0.55,
+      "ece": 0.13935867091928567,
+      "calibration_alpha": 0.5255480867133975,
+      "calibration_beta": 1.1046407132969054
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.7695195665282593,
+      "brier": 0.2743289540256669,
+      "accuracy": 0.55,
+      "ece": 0.19005421862127098,
+      "calibration_alpha": 0.3877438476583331,
+      "calibration_beta": 0.32948189926881555
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.7977302200148433,
+      "brier": 0.2873114031656467,
+      "accuracy": 0.4666666666666667,
+      "ece": 0.17835711868293186,
+      "calibration_alpha": 0.38701399317716106,
+      "calibration_beta": 0.17134712560217122
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 0.860523708115763,
+      "brier": 0.31555131656458085,
+      "accuracy": 0.4583333333333333,
+      "ece": 0.26858731903691796,
+      "calibration_alpha": 0.5981039453697162,
+      "calibration_beta": 0.3292830206192956
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "30d",
+      "n_games": 120,
+      "log_loss": 1.3502367314210206,
+      "brier": 0.40061324361505896,
+      "accuracy": 0.48333333333333334,
+      "ece": 0.3680298622335336,
+      "calibration_alpha": 0.42135330183950137,
+      "calibration_beta": 0.0732994810227974
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6722389596984818,
+      "brier": 0.239657061596965,
+      "accuracy": 0.6107954545454546,
+      "ece": 0.057553654808551305,
+      "calibration_alpha": 0.040425592494279745,
+      "calibration_beta": 1.3837875378750633
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6769564982499848,
+      "brier": 0.24199323988636365,
+      "accuracy": 0.5625,
+      "ece": 0.014105113636363542,
+      "calibration_alpha": 0.03998993503990526,
+      "calibration_beta": 1.198519194676986
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6779867697341025,
+      "brier": 0.2423561616161616,
+      "accuracy": 0.5880681818181818,
+      "ece": 0.05258049242424246,
+      "calibration_alpha": 0.09659423062794044,
+      "calibration_beta": 1.0427539290782641
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6799511312967719,
+      "brier": 0.24265269770408163,
+      "accuracy": 0.5880681818181818,
+      "ece": 0.03614772727272727,
+      "calibration_alpha": 0.11259453099034442,
+      "calibration_beta": 0.6014244290961607
+    },
+    {
+      "model_name": "rf",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.6921530419505967,
+      "brier": 0.24937715665684984,
+      "accuracy": 0.5823863636363636,
+      "ece": 0.06917557756991621,
+      "calibration_alpha": 0.1968863906358104,
+      "calibration_beta": 0.6030475657657758
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.7135620936101753,
+      "brier": 0.2566746546243493,
+      "accuracy": 0.5625,
+      "ece": 0.10252651374308075,
+      "calibration_alpha": 0.11365905480608655,
+      "calibration_beta": 0.3545818052830672
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.726429390376224,
+      "brier": 0.261510659011897,
+      "accuracy": 0.5255681818181818,
+      "ece": 0.07431355434627214,
+      "calibration_alpha": 0.1724900845840969,
+      "calibration_beta": 0.13791440658391324
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.7476737522631964,
+      "brier": 0.27116100232731866,
+      "accuracy": 0.5028409090909091,
+      "ece": 0.10652568387594555,
+      "calibration_alpha": 0.17424668722386957,
+      "calibration_beta": 0.08217554184041319
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 0.8151542362138771,
+      "brier": 0.29012447849100403,
+      "accuracy": 0.5,
+      "ece": 0.20189881155815942,
+      "calibration_alpha": 0.14302068076725719,
+      "calibration_beta": 0.12850669824043887
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "60d",
+      "n_games": 352,
+      "log_loss": 1.5629356166213204,
+      "brier": 0.39150758048897527,
+      "accuracy": 0.5028409090909091,
+      "ece": 0.34533257593341427,
+      "calibration_alpha": 0.1550199646553909,
+      "calibration_beta": -0.015892621051393097
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.651027132023874,
+      "brier": 0.22927248530429514,
+      "accuracy": 0.6981132075471698,
+      "ece": 0.13103141507405472,
+      "calibration_alpha": 0.15365758060837448,
+      "calibration_beta": 1.130770527574679
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.6590402745845774,
+      "brier": 0.23327630555555554,
+      "accuracy": 0.660377358490566,
+      "ece": 0.1072169811320755,
+      "calibration_alpha": 0.20354769734667547,
+      "calibration_beta": 1.016130415474014
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.6712359955488435,
+      "brier": 0.2392006633962264,
+      "accuracy": 0.6226415094339622,
+      "ece": 0.09469811320754723,
+      "calibration_alpha": 0.19325450222752205,
+      "calibration_beta": 0.6835120146508488
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.693119788741777,
+      "brier": 0.24956208702348867,
+      "accuracy": 0.6037735849056604,
+      "ece": 0.07159568733153639,
+      "calibration_alpha": 0.25146793233218184,
+      "calibration_beta": 0.33357426629452663
+    },
+    {
+      "model_name": "rf",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.7073258591238175,
+      "brier": 0.25695870962427325,
+      "accuracy": 0.5094339622641509,
+      "ece": 0.12861298813780758,
+      "calibration_alpha": 0.4064444160719919,
+      "calibration_beta": 0.5383033289648858
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.717665934117689,
+      "brier": 0.2564520710604484,
+      "accuracy": 0.6226415094339622,
+      "ece": 0.17592698674316026,
+      "calibration_alpha": 0.2313098708556606,
+      "calibration_beta": 0.3206918118533109
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.8522051101848982,
+      "brier": 0.3139555644601412,
+      "accuracy": 0.4528301886792453,
+      "ece": 0.283028069492974,
+      "calibration_alpha": 0.6724794827656755,
+      "calibration_beta": 0.42769965362671614
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.8945168590726102,
+      "brier": 0.31799244841939456,
+      "accuracy": 0.4528301886792453,
+      "ece": 0.257803551742237,
+      "calibration_alpha": 0.496441651121311,
+      "calibration_beta": 0.23624551625469162
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 0.8992838193884755,
+      "brier": 0.326731684818319,
+      "accuracy": 0.4716981132075472,
+      "ece": 0.24711595466347758,
+      "calibration_alpha": 0.23534234717503827,
+      "calibration_beta": -0.17075238055146832
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "7d",
+      "n_games": 53,
+      "log_loss": 1.7577370183419057,
+      "brier": 0.4915600541338181,
+      "accuracy": 0.39622641509433965,
+      "ece": 0.5253192966411763,
+      "calibration_alpha": 0.23996327699181766,
+      "calibration_beta": -0.009225057506093806
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6809861692899967,
+      "brier": 0.24400908187746484,
+      "accuracy": 0.5726795096322241,
+      "ece": 0.023202192589366278,
+      "calibration_alpha": 0.013002264772561507,
+      "calibration_beta": 1.0769627359697633
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6846969957907476,
+      "brier": 0.24585587222416813,
+      "accuracy": 0.5306479859894921,
+      "ece": 0.03739124343257443,
+      "calibration_alpha": 0.02547429246587687,
+      "calibration_beta": 0.8518080181803503
+    },
+    {
+      "model_name": "rf",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6871543145427044,
+      "brier": 0.2470621999550281,
+      "accuracy": 0.5709281961471103,
+      "ece": 0.04745562858865248,
+      "calibration_alpha": 0.14927765743932764,
+      "calibration_beta": 0.766853091602771
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6882661859596306,
+      "brier": 0.2475586206946877,
+      "accuracy": 0.542907180385289,
+      "ece": 0.016025977816695892,
+      "calibration_alpha": 0.06935185207282679,
+      "calibration_beta": 0.6337622968628612
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.6898944033402094,
+      "brier": 0.24768335297902,
+      "accuracy": 0.563922942206655,
+      "ece": 0.03209231923942955,
+      "calibration_alpha": 0.07798588976212752,
+      "calibration_beta": 0.5040405968755272
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.7132374201162122,
+      "brier": 0.2568861064374124,
+      "accuracy": 0.5288966725043783,
+      "ece": 0.04058639694741732,
+      "calibration_alpha": 0.11005287422982092,
+      "calibration_beta": 0.10778958595724436
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.7206947683966587,
+      "brier": 0.2601649471607855,
+      "accuracy": 0.5569176882661997,
+      "ece": 0.10666623312499664,
+      "calibration_alpha": 0.06768119127702812,
+      "calibration_beta": 0.3201398158309607
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.7268663443427645,
+      "brier": 0.2630976791683399,
+      "accuracy": 0.5043782837127846,
+      "ece": 0.06038793996267186,
+      "calibration_alpha": 0.10552916057948458,
+      "calibration_beta": 0.02337586170161238
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 0.8284650867873511,
+      "brier": 0.2948919764740073,
+      "accuracy": 0.5061295971978984,
+      "ece": 0.1978670809553465,
+      "calibration_alpha": 0.09620131359416216,
+      "calibration_beta": 0.10080222995244147
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "90d",
+      "n_games": 571,
+      "log_loss": 1.2226056441924467,
+      "brier": 0.33442418721380623,
+      "accuracy": 0.5271453590192644,
+      "ece": 0.23484592149384267,
+      "calibration_alpha": 0.1005366368859987,
+      "calibration_beta": 0.002983099469271765
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6847912288763927,
+      "brier": 0.24588437722875256,
+      "accuracy": 0.5565714285714286,
+      "ece": 0.011122762197643628,
+      "calibration_alpha": 0.026737794681034755,
+      "calibration_beta": 0.9536631314415365
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6859879190371453,
+      "brier": 0.2465008608914286,
+      "accuracy": 0.5371428571428571,
+      "ece": 0.03011474285714282,
+      "calibration_alpha": 0.03561880609465608,
+      "calibration_beta": 0.7605928409874081
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6893531987903057,
+      "brier": 0.2481275397142857,
+      "accuracy": 0.5314285714285715,
+      "ece": 0.03563066666666665,
+      "calibration_alpha": 0.07495837578528075,
+      "calibration_beta": 0.6024681779449781
+    },
+    {
+      "model_name": "rf",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6941302173859866,
+      "brier": 0.25038727137138406,
+      "accuracy": 0.5497142857142857,
+      "ece": 0.05440708252747799,
+      "calibration_alpha": 0.14395895269652167,
+      "calibration_beta": 0.5256065652332756
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.6968892271426584,
+      "brier": 0.2513768947405248,
+      "accuracy": 0.5291428571428571,
+      "ece": 0.059420408163265284,
+      "calibration_alpha": 0.09013132425400873,
+      "calibration_beta": 0.39345005894868235
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.7087190854689621,
+      "brier": 0.2556912561471956,
+      "accuracy": 0.5177142857142857,
+      "ece": 0.04150537532335814,
+      "calibration_alpha": 0.10969234248897462,
+      "calibration_beta": 0.07487689247572908
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.7179372512367138,
+      "brier": 0.25990657325947797,
+      "accuracy": 0.5017142857142857,
+      "ece": 0.05510728955336207,
+      "calibration_alpha": 0.10796282702619425,
+      "calibration_beta": 0.00044986107172858853
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.7353757672793587,
+      "brier": 0.26666911386635705,
+      "accuracy": 0.5382857142857143,
+      "ece": 0.11874704773155943,
+      "calibration_alpha": 0.08315031741785178,
+      "calibration_beta": 0.22778127560298866
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 0.8723765406050928,
+      "brier": 0.30514410514750434,
+      "accuracy": 0.52,
+      "ece": 0.20618581885877663,
+      "calibration_alpha": 0.10726477719746283,
+      "calibration_beta": 0.06991254857980278
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "cumulative",
+      "n_games": 875,
+      "log_loss": 1.0987813956067678,
+      "brier": 0.31887329250425067,
+      "accuracy": 0.5302857142857142,
+      "ece": 0.21557740751163415,
+      "calibration_alpha": 0.10181903003389467,
+      "calibration_beta": 0.016322788172410816
+    }
+  ],
+  "calibration": [
+    {
+      "model_name": "elo_baseline",
+      "window_label": "7d",
+      "calibration_alpha": 0.15365758060837448,
+      "calibration_beta": 1.130770527574679,
+      "ece": 0.13103141507405472,
+      "mce": 0.1428558802963632,
+      "n_games": 53
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "30d",
+      "calibration_alpha": 0.11631656261663599,
+      "calibration_beta": 1.733680494542943,
+      "ece": 0.10306687201250501,
+      "mce": 0.239340667916635,
+      "n_games": 120
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "30d",
+      "calibration_alpha": 0.16585471074040983,
+      "calibration_beta": 1.5325661419389203,
+      "ece": 0.08983055555555552,
+      "mce": 0.3607777777777778,
+      "n_games": 120
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "7d",
+      "calibration_alpha": 0.20354769734667547,
+      "calibration_beta": 1.016130415474014,
+      "ece": 0.1072169811320755,
+      "mce": 0.3607777777777778,
+      "n_games": 53
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "30d",
+      "calibration_alpha": 0.2812291738836121,
+      "calibration_beta": 0.6535697786917194,
+      "ece": 0.07575714285714286,
+      "mce": 0.26557142857142857,
+      "n_games": 120
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "30d",
+      "calibration_alpha": 0.22690852844767911,
+      "calibration_beta": 0.5895767144165641,
+      "ece": 0.05664639375256277,
+      "mce": 0.5143378076638007,
+      "n_games": 120
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "30d",
+      "calibration_alpha": 0.16525583406337488,
+      "calibration_beta": 1.2810300014213887,
+      "ece": 0.049433333333333385,
+      "mce": 0.06982857142857146,
+      "n_games": 120
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "7d",
+      "calibration_alpha": 0.19325450222752205,
+      "calibration_beta": 0.6835120146508488,
+      "ece": 0.09469811320754723,
+      "mce": 0.347,
+      "n_games": 53
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "60d",
+      "calibration_alpha": 0.040425592494279745,
+      "calibration_beta": 1.3837875378750633,
+      "ece": 0.057553654808551305,
+      "mce": 0.29782373603751344,
+      "n_games": 352
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "60d",
+      "calibration_alpha": 0.03998993503990526,
+      "calibration_beta": 1.198519194676986,
+      "ece": 0.014105113636363542,
+      "mce": 0.06479999999999997,
+      "n_games": 352
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "60d",
+      "calibration_alpha": 0.09659423062794044,
+      "calibration_beta": 1.0427539290782641,
+      "ece": 0.05258049242424246,
+      "mce": 0.7038333333333333,
+      "n_games": 352
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "60d",
+      "calibration_alpha": 0.11259453099034442,
+      "calibration_beta": 0.6014244290961607,
+      "ece": 0.03614772727272727,
+      "mce": 0.26557142857142857,
+      "n_games": 352
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "90d",
+      "calibration_alpha": 0.013002264772561507,
+      "calibration_beta": 1.0769627359697633,
+      "ece": 0.023202192589366278,
+      "mce": 0.2923128188968629,
+      "n_games": 571
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "90d",
+      "calibration_alpha": 0.02547429246587687,
+      "calibration_beta": 0.8518080181803503,
+      "ece": 0.03739124343257443,
+      "mce": 0.06857999999999986,
+      "n_games": 571
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.026737794681034755,
+      "calibration_beta": 0.9536631314415365,
+      "ece": 0.011122762197643628,
+      "mce": 0.2923128188968629,
+      "n_games": 875
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.03561880609465608,
+      "calibration_beta": 0.7605928409874081,
+      "ece": 0.03011474285714282,
+      "mce": 0.27173333333333327,
+      "n_games": 875
+    },
+    {
+      "model_name": "rf",
+      "window_label": "90d",
+      "calibration_alpha": 0.14927765743932758,
+      "calibration_beta": 0.7668530916027707,
+      "ece": 0.04745562858865248,
+      "mce": 0.12467719446258857,
+      "n_games": 571
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "90d",
+      "calibration_alpha": 0.06935185207282679,
+      "calibration_beta": 0.6337622968628612,
+      "ece": 0.016025977816695892,
+      "mce": 0.3761111111111111,
+      "n_games": 571
+    },
+    {
+      "model_name": "rf",
+      "window_label": "30d",
+      "calibration_alpha": 0.5255480867133976,
+      "calibration_beta": 1.1046407132969054,
+      "ece": 0.1393586709192857,
+      "mce": 0.175566472924778,
+      "n_games": 120
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.07495837578528075,
+      "calibration_beta": 0.6024681779449781,
+      "ece": 0.03563066666666665,
+      "mce": 0.3761111111111111,
+      "n_games": 875
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "90d",
+      "calibration_alpha": 0.07798588976212752,
+      "calibration_beta": 0.5040405968755272,
+      "ece": 0.03209231923942955,
+      "mce": 0.26557142857142857,
+      "n_games": 571
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "7d",
+      "calibration_alpha": 0.23409310330383826,
+      "calibration_beta": 0.3036518423602403,
+      "ece": 0.15650356320579437,
+      "mce": 0.7107403181554843,
+      "n_games": 53
+    },
+    {
+      "model_name": "rf",
+      "window_label": "60d",
+      "calibration_alpha": 0.19688639063581034,
+      "calibration_beta": 0.6030475657657751,
+      "ece": 0.06917557756991626,
+      "mce": 0.23721479061355533,
+      "n_games": 352
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "7d",
+      "calibration_alpha": 0.25146793233218184,
+      "calibration_beta": 0.33357426629452663,
+      "ece": 0.07159568733153639,
+      "mce": 0.2375,
+      "n_games": 53
+    },
+    {
+      "model_name": "rf",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.14395895269652167,
+      "calibration_beta": 0.5256065652332753,
+      "ece": 0.054407082527478036,
+      "mce": 0.12711609860238177,
+      "n_games": 875
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.09013132425400873,
+      "calibration_beta": 0.39345005894868235,
+      "ece": 0.059420408163265284,
+      "mce": 0.26557142857142857,
+      "n_games": 875
+    },
+    {
+      "model_name": "rf",
+      "window_label": "7d",
+      "calibration_alpha": 0.4064444160719919,
+      "calibration_beta": 0.5383033289648855,
+      "ece": 0.12861298813780758,
+      "mce": 0.17426582168778504,
+      "n_games": 53
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.10969234248897462,
+      "calibration_beta": 0.07487689247572908,
+      "ece": 0.04150537532335814,
+      "mce": 0.46439228621876194,
+      "n_games": 875
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "90d",
+      "calibration_alpha": 0.11005287422982092,
+      "calibration_beta": 0.10778958595724436,
+      "ece": 0.04058639694741732,
+      "mce": 0.46439228621876194,
+      "n_games": 571
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "60d",
+      "calibration_alpha": 0.11365905480608655,
+      "calibration_beta": 0.3545818052830672,
+      "ece": 0.10252651374308075,
+      "mce": 0.3675313239854575,
+      "n_games": 352
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.08269544719400056,
+      "calibration_beta": 0.24090017743120062,
+      "ece": 0.0685109325471342,
+      "mce": 0.6791634733627698,
+      "n_games": 875
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "7d",
+      "calibration_alpha": 0.2313098708556606,
+      "calibration_beta": 0.3206918118533109,
+      "ece": 0.17592698674316026,
+      "mce": 0.8391482152218703,
+      "n_games": 53
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.10740339309481277,
+      "calibration_beta": -0.003870187719850424,
+      "ece": 0.055489052925424304,
+      "mce": 0.4059612998125044,
+      "n_games": 875
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "90d",
+      "calibration_alpha": 0.06768119127702812,
+      "calibration_beta": 0.3201398158309607,
+      "ece": 0.10666623312499664,
+      "mce": 0.2963618191401886,
+      "n_games": 571
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "60d",
+      "calibration_alpha": 0.1724900845840969,
+      "calibration_beta": 0.13791440658391324,
+      "ece": 0.07431355434627214,
+      "mce": 0.46439228621876194,
+      "n_games": 352
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "90d",
+      "calibration_alpha": 0.10459677187882568,
+      "calibration_beta": 0.01737050359774311,
+      "ece": 0.06108579382371938,
+      "mce": 0.4059612998125044,
+      "n_games": 571
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.08315031741785178,
+      "calibration_beta": 0.22778127560298866,
+      "ece": 0.11874704773155943,
+      "mce": 0.30963864690579684,
+      "n_games": 875
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "90d",
+      "calibration_alpha": 0.0919784568442865,
+      "calibration_beta": 0.10398446020745913,
+      "ece": 0.09736708773267058,
+      "mce": 0.6791634733627698,
+      "n_games": 571
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "60d",
+      "calibration_alpha": 0.17234914939588614,
+      "calibration_beta": 0.07492025693421413,
+      "ece": 0.10765771386076986,
+      "mce": 0.4059612998125044,
+      "n_games": 352
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "30d",
+      "calibration_alpha": 0.29958389996242635,
+      "calibration_beta": -0.18327265242480517,
+      "ece": 0.17036099054641357,
+      "mce": 0.8025439616000063,
+      "n_games": 120
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "30d",
+      "calibration_alpha": 0.3877438476583331,
+      "calibration_beta": 0.32948189926881555,
+      "ece": 0.19005421862127098,
+      "mce": 0.5036819887530347,
+      "n_games": 120
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "60d",
+      "calibration_alpha": 0.15026705048448286,
+      "calibration_beta": -0.02587485393555954,
+      "ece": 0.14127494060087561,
+      "mce": 0.6791634733627698,
+      "n_games": 352
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "30d",
+      "calibration_alpha": 0.38701399317716106,
+      "calibration_beta": 0.17134712560217122,
+      "ece": 0.17835711868293186,
+      "mce": 0.444505230071293,
+      "n_games": 120
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "60d",
+      "calibration_alpha": 0.14302068076725719,
+      "calibration_beta": 0.12850669824043887,
+      "ece": 0.20189881155815942,
+      "mce": 0.4424944277489075,
+      "n_games": 352
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "90d",
+      "calibration_alpha": 0.09620131359416216,
+      "calibration_beta": 0.10080222995244147,
+      "ece": 0.1978670809553465,
+      "mce": 0.45746728357882716,
+      "n_games": 571
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "7d",
+      "calibration_alpha": 0.6690495693652403,
+      "calibration_beta": 0.4178007093585721,
+      "ece": 0.2998112042337438,
+      "mce": 0.4813209758521403,
+      "n_games": 53
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "30d",
+      "calibration_alpha": 0.5934601299296057,
+      "calibration_beta": 0.3194887135641835,
+      "ece": 0.271081494073267,
+      "mce": 0.4059612998125044,
+      "n_games": 120
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.10726477719746283,
+      "calibration_beta": 0.06991254857980278,
+      "ece": 0.20618581885877663,
+      "mce": 0.4234519605726034,
+      "n_games": 875
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "7d",
+      "calibration_alpha": 0.496441651121311,
+      "calibration_beta": 0.23624551625469162,
+      "ece": 0.257803551742237,
+      "mce": 0.4532555776244111,
+      "n_games": 53
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "7d",
+      "calibration_alpha": 0.23534234717503827,
+      "calibration_beta": -0.17075238055146832,
+      "ece": 0.24711595466347758,
+      "mce": 0.9141054021454046,
+      "n_games": 53
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "7d",
+      "calibration_alpha": 0.15365758060837448,
+      "calibration_beta": 1.130770527574679,
+      "ece": 0.13103141507405472,
+      "mce": 0.1428558802963632,
+      "n_games": 53
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "30d",
+      "calibration_alpha": 0.11631656261663599,
+      "calibration_beta": 1.733680494542943,
+      "ece": 0.10306687201250501,
+      "mce": 0.239340667916635,
+      "n_games": 120
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "30d",
+      "calibration_alpha": 0.16585471074040983,
+      "calibration_beta": 1.5325661419389203,
+      "ece": 0.08983055555555552,
+      "mce": 0.3607777777777778,
+      "n_games": 120
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "7d",
+      "calibration_alpha": 0.20354769734667547,
+      "calibration_beta": 1.016130415474014,
+      "ece": 0.1072169811320755,
+      "mce": 0.3607777777777778,
+      "n_games": 53
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "30d",
+      "calibration_alpha": 0.2812291738836121,
+      "calibration_beta": 0.6535697786917194,
+      "ece": 0.07575714285714286,
+      "mce": 0.26557142857142857,
+      "n_games": 120
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "30d",
+      "calibration_alpha": 0.22690852844767911,
+      "calibration_beta": 0.5895767144165641,
+      "ece": 0.05664639375256277,
+      "mce": 0.5143378076638007,
+      "n_games": 120
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "30d",
+      "calibration_alpha": 0.16525583406337488,
+      "calibration_beta": 1.2810300014213887,
+      "ece": 0.049433333333333385,
+      "mce": 0.06982857142857146,
+      "n_games": 120
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "7d",
+      "calibration_alpha": 0.19325450222752205,
+      "calibration_beta": 0.6835120146508488,
+      "ece": 0.09469811320754723,
+      "mce": 0.347,
+      "n_games": 53
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "60d",
+      "calibration_alpha": 0.040425592494279745,
+      "calibration_beta": 1.3837875378750633,
+      "ece": 0.057553654808551305,
+      "mce": 0.29782373603751344,
+      "n_games": 352
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "60d",
+      "calibration_alpha": 0.03998993503990526,
+      "calibration_beta": 1.198519194676986,
+      "ece": 0.014105113636363542,
+      "mce": 0.06479999999999997,
+      "n_games": 352
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "60d",
+      "calibration_alpha": 0.09659423062794044,
+      "calibration_beta": 1.0427539290782641,
+      "ece": 0.05258049242424246,
+      "mce": 0.7038333333333333,
+      "n_games": 352
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "60d",
+      "calibration_alpha": 0.11259453099034442,
+      "calibration_beta": 0.6014244290961607,
+      "ece": 0.03614772727272727,
+      "mce": 0.26557142857142857,
+      "n_games": 352
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "90d",
+      "calibration_alpha": 0.013002264772561507,
+      "calibration_beta": 1.0769627359697633,
+      "ece": 0.023202192589366278,
+      "mce": 0.2923128188968629,
+      "n_games": 571
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "90d",
+      "calibration_alpha": 0.02547429246587687,
+      "calibration_beta": 0.8518080181803503,
+      "ece": 0.03739124343257443,
+      "mce": 0.06857999999999986,
+      "n_games": 571
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.026737794681034755,
+      "calibration_beta": 0.9536631314415365,
+      "ece": 0.011122762197643628,
+      "mce": 0.2923128188968629,
+      "n_games": 875
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.03561880609465608,
+      "calibration_beta": 0.7605928409874081,
+      "ece": 0.03011474285714282,
+      "mce": 0.27173333333333327,
+      "n_games": 875
+    },
+    {
+      "model_name": "rf",
+      "window_label": "90d",
+      "calibration_alpha": 0.14927765743932758,
+      "calibration_beta": 0.7668530916027707,
+      "ece": 0.04745562858865248,
+      "mce": 0.12467719446258857,
+      "n_games": 571
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "90d",
+      "calibration_alpha": 0.06935185207282679,
+      "calibration_beta": 0.6337622968628612,
+      "ece": 0.016025977816695892,
+      "mce": 0.3761111111111111,
+      "n_games": 571
+    },
+    {
+      "model_name": "rf",
+      "window_label": "30d",
+      "calibration_alpha": 0.5255480867133976,
+      "calibration_beta": 1.1046407132969054,
+      "ece": 0.1393586709192857,
+      "mce": 0.175566472924778,
+      "n_games": 120
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.07495837578528075,
+      "calibration_beta": 0.6024681779449781,
+      "ece": 0.03563066666666665,
+      "mce": 0.3761111111111111,
+      "n_games": 875
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "90d",
+      "calibration_alpha": 0.07798588976212752,
+      "calibration_beta": 0.5040405968755272,
+      "ece": 0.03209231923942955,
+      "mce": 0.26557142857142857,
+      "n_games": 571
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "7d",
+      "calibration_alpha": 0.23409310330383826,
+      "calibration_beta": 0.3036518423602403,
+      "ece": 0.15650356320579437,
+      "mce": 0.7107403181554843,
+      "n_games": 53
+    },
+    {
+      "model_name": "rf",
+      "window_label": "60d",
+      "calibration_alpha": 0.19688639063581034,
+      "calibration_beta": 0.6030475657657751,
+      "ece": 0.06917557756991626,
+      "mce": 0.23721479061355533,
+      "n_games": 352
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "7d",
+      "calibration_alpha": 0.25146793233218184,
+      "calibration_beta": 0.33357426629452663,
+      "ece": 0.07159568733153639,
+      "mce": 0.2375,
+      "n_games": 53
+    },
+    {
+      "model_name": "rf",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.14395895269652167,
+      "calibration_beta": 0.5256065652332753,
+      "ece": 0.054407082527478036,
+      "mce": 0.12711609860238177,
+      "n_games": 875
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.09013132425400873,
+      "calibration_beta": 0.39345005894868235,
+      "ece": 0.059420408163265284,
+      "mce": 0.26557142857142857,
+      "n_games": 875
+    },
+    {
+      "model_name": "rf",
+      "window_label": "7d",
+      "calibration_alpha": 0.4064444160719919,
+      "calibration_beta": 0.5383033289648855,
+      "ece": 0.12861298813780758,
+      "mce": 0.17426582168778504,
+      "n_games": 53
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.10969234248897462,
+      "calibration_beta": 0.07487689247572908,
+      "ece": 0.04150537532335814,
+      "mce": 0.46439228621876194,
+      "n_games": 875
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "90d",
+      "calibration_alpha": 0.11005287422982092,
+      "calibration_beta": 0.10778958595724436,
+      "ece": 0.04058639694741732,
+      "mce": 0.46439228621876194,
+      "n_games": 571
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "60d",
+      "calibration_alpha": 0.11365905480608655,
+      "calibration_beta": 0.3545818052830672,
+      "ece": 0.10252651374308075,
+      "mce": 0.3675313239854575,
+      "n_games": 352
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.08269544719400056,
+      "calibration_beta": 0.24090017743120062,
+      "ece": 0.0685109325471342,
+      "mce": 0.6791634733627698,
+      "n_games": 875
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "7d",
+      "calibration_alpha": 0.2313098708556606,
+      "calibration_beta": 0.3206918118533109,
+      "ece": 0.17592698674316026,
+      "mce": 0.8391482152218703,
+      "n_games": 53
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.10740339309481277,
+      "calibration_beta": -0.003870187719850424,
+      "ece": 0.055489052925424304,
+      "mce": 0.4059612998125044,
+      "n_games": 875
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "90d",
+      "calibration_alpha": 0.06768119127702812,
+      "calibration_beta": 0.3201398158309607,
+      "ece": 0.10666623312499664,
+      "mce": 0.2963618191401886,
+      "n_games": 571
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "60d",
+      "calibration_alpha": 0.1724900845840969,
+      "calibration_beta": 0.13791440658391324,
+      "ece": 0.07431355434627214,
+      "mce": 0.46439228621876194,
+      "n_games": 352
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "90d",
+      "calibration_alpha": 0.10459677187882568,
+      "calibration_beta": 0.01737050359774311,
+      "ece": 0.06108579382371938,
+      "mce": 0.4059612998125044,
+      "n_games": 571
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.08315031741785178,
+      "calibration_beta": 0.22778127560298866,
+      "ece": 0.11874704773155943,
+      "mce": 0.30963864690579684,
+      "n_games": 875
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "90d",
+      "calibration_alpha": 0.0919784568442865,
+      "calibration_beta": 0.10398446020745913,
+      "ece": 0.09736708773267058,
+      "mce": 0.6791634733627698,
+      "n_games": 571
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "60d",
+      "calibration_alpha": 0.17234914939588614,
+      "calibration_beta": 0.07492025693421413,
+      "ece": 0.10765771386076986,
+      "mce": 0.4059612998125044,
+      "n_games": 352
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "30d",
+      "calibration_alpha": 0.29958389996242635,
+      "calibration_beta": -0.18327265242480517,
+      "ece": 0.17036099054641357,
+      "mce": 0.8025439616000063,
+      "n_games": 120
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "30d",
+      "calibration_alpha": 0.3877438476583331,
+      "calibration_beta": 0.32948189926881555,
+      "ece": 0.19005421862127098,
+      "mce": 0.5036819887530347,
+      "n_games": 120
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "60d",
+      "calibration_alpha": 0.15026705048448286,
+      "calibration_beta": -0.02587485393555954,
+      "ece": 0.14127494060087561,
+      "mce": 0.6791634733627698,
+      "n_games": 352
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "30d",
+      "calibration_alpha": 0.38701399317716106,
+      "calibration_beta": 0.17134712560217122,
+      "ece": 0.17835711868293186,
+      "mce": 0.444505230071293,
+      "n_games": 120
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "60d",
+      "calibration_alpha": 0.14302068076725719,
+      "calibration_beta": 0.12850669824043887,
+      "ece": 0.20189881155815942,
+      "mce": 0.4424944277489075,
+      "n_games": 352
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "90d",
+      "calibration_alpha": 0.09620131359416216,
+      "calibration_beta": 0.10080222995244147,
+      "ece": 0.1978670809553465,
+      "mce": 0.45746728357882716,
+      "n_games": 571
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "7d",
+      "calibration_alpha": 0.6690495693652403,
+      "calibration_beta": 0.4178007093585721,
+      "ece": 0.2998112042337438,
+      "mce": 0.4813209758521403,
+      "n_games": 53
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "30d",
+      "calibration_alpha": 0.5934601299296057,
+      "calibration_beta": 0.3194887135641835,
+      "ece": 0.271081494073267,
+      "mce": 0.4059612998125044,
+      "n_games": 120
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.10726477719746283,
+      "calibration_beta": 0.06991254857980278,
+      "ece": 0.20618581885877663,
+      "mce": 0.4234519605726034,
+      "n_games": 875
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "7d",
+      "calibration_alpha": 0.496441651121311,
+      "calibration_beta": 0.23624551625469162,
+      "ece": 0.257803551742237,
+      "mce": 0.4532555776244111,
+      "n_games": 53
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "7d",
+      "calibration_alpha": 0.23534234717503827,
+      "calibration_beta": -0.17075238055146832,
+      "ece": 0.24711595466347758,
+      "mce": 0.9141054021454046,
+      "n_games": 53
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "7d",
+      "calibration_alpha": 0.15365758060837448,
+      "calibration_beta": 1.130770527574679,
+      "ece": 0.13103141507405472,
+      "mce": 0.1428558802963632,
+      "n_games": 53
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "30d",
+      "calibration_alpha": 0.11631656261663599,
+      "calibration_beta": 1.733680494542943,
+      "ece": 0.10306687201250501,
+      "mce": 0.239340667916635,
+      "n_games": 120
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "30d",
+      "calibration_alpha": 0.16585471074040983,
+      "calibration_beta": 1.5325661419389203,
+      "ece": 0.08983055555555552,
+      "mce": 0.3607777777777778,
+      "n_games": 120
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "7d",
+      "calibration_alpha": 0.20354769734667547,
+      "calibration_beta": 1.016130415474014,
+      "ece": 0.1072169811320755,
+      "mce": 0.3607777777777778,
+      "n_games": 53
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "30d",
+      "calibration_alpha": 0.2812291738836121,
+      "calibration_beta": 0.6535697786917194,
+      "ece": 0.07575714285714286,
+      "mce": 0.26557142857142857,
+      "n_games": 120
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "30d",
+      "calibration_alpha": 0.22690852844767911,
+      "calibration_beta": 0.5895767144165641,
+      "ece": 0.05664639375256277,
+      "mce": 0.5143378076638007,
+      "n_games": 120
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "30d",
+      "calibration_alpha": 0.2671621255277043,
+      "calibration_beta": 2.013324790473778,
+      "ece": 0.10741344528313218,
+      "mce": 0.3719997197868139,
+      "n_games": 120
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "7d",
+      "calibration_alpha": 0.2576330087026,
+      "calibration_beta": 1.1715900683325582,
+      "ece": 0.08087958390022548,
+      "mce": 0.3921592503516543,
+      "n_games": 53
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "30d",
+      "calibration_alpha": 0.16525583406337488,
+      "calibration_beta": 1.2810300014213887,
+      "ece": 0.049433333333333385,
+      "mce": 0.06982857142857146,
+      "n_games": 120
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "7d",
+      "calibration_alpha": 0.19325450222752205,
+      "calibration_beta": 0.6835120146508488,
+      "ece": 0.09469811320754723,
+      "mce": 0.347,
+      "n_games": 53
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "60d",
+      "calibration_alpha": 0.040425592494279745,
+      "calibration_beta": 1.3837875378750633,
+      "ece": 0.057553654808551305,
+      "mce": 0.29782373603751344,
+      "n_games": 352
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "60d",
+      "calibration_alpha": 0.03998993503990526,
+      "calibration_beta": 1.198519194676986,
+      "ece": 0.014105113636363542,
+      "mce": 0.06479999999999997,
+      "n_games": 352
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "60d",
+      "calibration_alpha": 0.09659423062794044,
+      "calibration_beta": 1.0427539290782641,
+      "ece": 0.05258049242424246,
+      "mce": 0.7038333333333333,
+      "n_games": 352
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "60d",
+      "calibration_alpha": 0.058187230787295006,
+      "calibration_beta": 2.1154358778715054,
+      "ece": 0.04508327628746067,
+      "mce": 0.04951771169020852,
+      "n_games": 352
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "60d",
+      "calibration_alpha": 0.11259453099034442,
+      "calibration_beta": 0.6014244290961607,
+      "ece": 0.03614772727272727,
+      "mce": 0.26557142857142857,
+      "n_games": 352
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "90d",
+      "calibration_alpha": 0.013002264772561507,
+      "calibration_beta": 1.0769627359697633,
+      "ece": 0.023202192589366278,
+      "mce": 0.2923128188968629,
+      "n_games": 571
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "90d",
+      "calibration_alpha": -0.014924230540054751,
+      "calibration_beta": 2.0038510809103465,
+      "ece": 0.022511009190085675,
+      "mce": 0.04951771169020852,
+      "n_games": 571
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "90d",
+      "calibration_alpha": 0.02547429246587687,
+      "calibration_beta": 0.8518080181803503,
+      "ece": 0.03739124343257443,
+      "mce": 0.06857999999999986,
+      "n_games": 571
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.026737794681034755,
+      "calibration_beta": 0.9536631314415365,
+      "ece": 0.011122762197643628,
+      "mce": 0.2923128188968629,
+      "n_games": 875
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.03561880609465608,
+      "calibration_beta": 0.7605928409874081,
+      "ece": 0.03011474285714282,
+      "mce": 0.27173333333333327,
+      "n_games": 875
+    },
+    {
+      "model_name": "rf",
+      "window_label": "90d",
+      "calibration_alpha": 0.1492776574393276,
+      "calibration_beta": 0.7668530916027708,
+      "ece": 0.04745562858865248,
+      "mce": 0.12467719446258857,
+      "n_games": 571
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "90d",
+      "calibration_alpha": 0.06935185207282679,
+      "calibration_beta": 0.6337622968628612,
+      "ece": 0.016025977816695892,
+      "mce": 0.3761111111111111,
+      "n_games": 571
+    },
+    {
+      "model_name": "rf",
+      "window_label": "30d",
+      "calibration_alpha": 0.5255480867133976,
+      "calibration_beta": 1.1046407132969056,
+      "ece": 0.13935867091928567,
+      "mce": 0.175566472924778,
+      "n_games": 120
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.07495837578528075,
+      "calibration_beta": 0.6024681779449781,
+      "ece": 0.03563066666666665,
+      "mce": 0.3761111111111111,
+      "n_games": 875
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "90d",
+      "calibration_alpha": 0.07798588976212752,
+      "calibration_beta": 0.5040405968755272,
+      "ece": 0.03209231923942955,
+      "mce": 0.26557142857142857,
+      "n_games": 571
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.06635894925143307,
+      "calibration_beta": 0.6383162407815827,
+      "ece": 0.012945835806573072,
+      "mce": 0.2891915306189412,
+      "n_games": 875
+    },
+    {
+      "model_name": "rf",
+      "window_label": "60d",
+      "calibration_alpha": 0.19688639063581037,
+      "calibration_beta": 0.6030475657657756,
+      "ece": 0.06917557756991616,
+      "mce": 0.23721479061355544,
+      "n_games": 352
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "7d",
+      "calibration_alpha": 0.25146793233218184,
+      "calibration_beta": 0.33357426629452663,
+      "ece": 0.07159568733153639,
+      "mce": 0.2375,
+      "n_games": 53
+    },
+    {
+      "model_name": "rf",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.14395895269652167,
+      "calibration_beta": 0.5256065652332753,
+      "ece": 0.054407082527478036,
+      "mce": 0.12711609860238182,
+      "n_games": 875
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.09013132425400873,
+      "calibration_beta": 0.39345005894868235,
+      "ece": 0.059420408163265284,
+      "mce": 0.26557142857142857,
+      "n_games": 875
+    },
+    {
+      "model_name": "rf",
+      "window_label": "7d",
+      "calibration_alpha": 0.40644441607199217,
+      "calibration_beta": 0.5383033289648865,
+      "ece": 0.12861298813780758,
+      "mce": 0.17426582168778504,
+      "n_games": 53
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.10969234248897462,
+      "calibration_beta": 0.07487689247572908,
+      "ece": 0.04150537532335814,
+      "mce": 0.46439228621876194,
+      "n_games": 875
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "90d",
+      "calibration_alpha": 0.11005287422982092,
+      "calibration_beta": 0.10778958595724436,
+      "ece": 0.04058639694741732,
+      "mce": 0.46439228621876194,
+      "n_games": 571
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "60d",
+      "calibration_alpha": 0.11365905480608655,
+      "calibration_beta": 0.3545818052830672,
+      "ece": 0.10252651374308075,
+      "mce": 0.3675313239854575,
+      "n_games": 352
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "7d",
+      "calibration_alpha": 0.2313098708556606,
+      "calibration_beta": 0.3206918118533109,
+      "ece": 0.17592698674316026,
+      "mce": 0.8391482152218703,
+      "n_games": 53
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "90d",
+      "calibration_alpha": 0.06768119127702812,
+      "calibration_beta": 0.3201398158309607,
+      "ece": 0.10666623312499664,
+      "mce": 0.2963618191401886,
+      "n_games": 571
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "60d",
+      "calibration_alpha": 0.1724900845840969,
+      "calibration_beta": 0.13791440658391324,
+      "ece": 0.07431355434627214,
+      "mce": 0.46439228621876194,
+      "n_games": 352
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.08315031741785178,
+      "calibration_beta": 0.22778127560298866,
+      "ece": 0.11874704773155943,
+      "mce": 0.30963864690579684,
+      "n_games": 875
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "30d",
+      "calibration_alpha": 0.3877438476583331,
+      "calibration_beta": 0.32948189926881555,
+      "ece": 0.19005421862127098,
+      "mce": 0.5036819887530347,
+      "n_games": 120
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "30d",
+      "calibration_alpha": 0.38701399317716106,
+      "calibration_beta": 0.17134712560217122,
+      "ece": 0.17835711868293186,
+      "mce": 0.444505230071293,
+      "n_games": 120
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "60d",
+      "calibration_alpha": 0.14302068076725719,
+      "calibration_beta": 0.12850669824043887,
+      "ece": 0.20189881155815942,
+      "mce": 0.4424944277489075,
+      "n_games": 352
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "90d",
+      "calibration_alpha": 0.09620131359416216,
+      "calibration_beta": 0.10080222995244147,
+      "ece": 0.1978670809553465,
+      "mce": 0.45746728357882716,
+      "n_games": 571
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.09890402319169497,
+      "calibration_beta": 0.05754398213824531,
+      "ece": 0.16184261648956827,
+      "mce": 0.4680997925774045,
+      "n_games": 875
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.10726477719746283,
+      "calibration_beta": 0.06991254857980278,
+      "ece": 0.20618581885877663,
+      "mce": 0.4234519605726034,
+      "n_games": 875
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "7d",
+      "calibration_alpha": 0.496441651121311,
+      "calibration_beta": 0.23624551625469162,
+      "ece": 0.257803551742237,
+      "mce": 0.4532555776244111,
+      "n_games": 53
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "90d",
+      "calibration_alpha": 0.09737094920336774,
+      "calibration_beta": 0.026224195748470472,
+      "ece": 0.18831927864658143,
+      "mce": 0.4937000642481378,
+      "n_games": 571
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "7d",
+      "calibration_alpha": 0.23534234717503827,
+      "calibration_beta": -0.17075238055146832,
+      "ece": 0.24711595466347758,
+      "mce": 0.9141054021454046,
+      "n_games": 53
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "60d",
+      "calibration_alpha": 0.1516629654843066,
+      "calibration_beta": -0.01934617568816314,
+      "ece": 0.2707955234942471,
+      "mce": 0.4937000642481378,
+      "n_games": 352
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "30d",
+      "calibration_alpha": 0.3419340896654424,
+      "calibration_beta": 0.051674624111648366,
+      "ece": 0.31183856142064365,
+      "mce": 0.5192901685995801,
+      "n_games": 120
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "7d",
+      "calibration_alpha": 0.22016739395047674,
+      "calibration_beta": -0.028754503477439793,
+      "ece": 0.4168732403738391,
+      "mce": 0.8515629240259169,
+      "n_games": 53
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "7d",
+      "calibration_alpha": 0.15365758060837448,
+      "calibration_beta": 1.130770527574679,
+      "ece": 0.13103141507405472,
+      "mce": 0.1428558802963632,
+      "n_games": 53
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "30d",
+      "calibration_alpha": 0.11631656261663599,
+      "calibration_beta": 1.733680494542943,
+      "ece": 0.10306687201250501,
+      "mce": 0.239340667916635,
+      "n_games": 120
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "30d",
+      "calibration_alpha": 0.16585471074040983,
+      "calibration_beta": 1.5325661419389203,
+      "ece": 0.08983055555555552,
+      "mce": 0.3607777777777778,
+      "n_games": 120
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "7d",
+      "calibration_alpha": 0.20354769734667547,
+      "calibration_beta": 1.016130415474014,
+      "ece": 0.1072169811320755,
+      "mce": 0.3607777777777778,
+      "n_games": 53
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "30d",
+      "calibration_alpha": 0.2812291738836121,
+      "calibration_beta": 0.6535697786917194,
+      "ece": 0.07575714285714286,
+      "mce": 0.26557142857142857,
+      "n_games": 120
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "30d",
+      "calibration_alpha": 0.22690852844767911,
+      "calibration_beta": 0.5895767144165641,
+      "ece": 0.05664639375256277,
+      "mce": 0.5143378076638007,
+      "n_games": 120
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "30d",
+      "calibration_alpha": 0.16525583406337488,
+      "calibration_beta": 1.2810300014213887,
+      "ece": 0.049433333333333385,
+      "mce": 0.06982857142857146,
+      "n_games": 120
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "7d",
+      "calibration_alpha": 0.19325450222752205,
+      "calibration_beta": 0.6835120146508488,
+      "ece": 0.09469811320754723,
+      "mce": 0.347,
+      "n_games": 53
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "60d",
+      "calibration_alpha": 0.040425592494279745,
+      "calibration_beta": 1.3837875378750633,
+      "ece": 0.057553654808551305,
+      "mce": 0.29782373603751344,
+      "n_games": 352
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "60d",
+      "calibration_alpha": 0.03998993503990526,
+      "calibration_beta": 1.198519194676986,
+      "ece": 0.014105113636363542,
+      "mce": 0.06479999999999997,
+      "n_games": 352
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "60d",
+      "calibration_alpha": 0.09659423062794044,
+      "calibration_beta": 1.0427539290782641,
+      "ece": 0.05258049242424246,
+      "mce": 0.7038333333333333,
+      "n_games": 352
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "60d",
+      "calibration_alpha": 0.11259453099034442,
+      "calibration_beta": 0.6014244290961607,
+      "ece": 0.03614772727272727,
+      "mce": 0.26557142857142857,
+      "n_games": 352
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "90d",
+      "calibration_alpha": 0.013002264772561507,
+      "calibration_beta": 1.0769627359697633,
+      "ece": 0.023202192589366278,
+      "mce": 0.2923128188968629,
+      "n_games": 571
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "90d",
+      "calibration_alpha": 0.02547429246587687,
+      "calibration_beta": 0.8518080181803503,
+      "ece": 0.03739124343257443,
+      "mce": 0.06857999999999986,
+      "n_games": 571
+    },
+    {
+      "model_name": "elo_baseline",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.026737794681034755,
+      "calibration_beta": 0.9536631314415365,
+      "ece": 0.011122762197643628,
+      "mce": 0.2923128188968629,
+      "n_games": 875
+    },
+    {
+      "model_name": "bayes_goals",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.03561880609465608,
+      "calibration_beta": 0.7605928409874081,
+      "ece": 0.03011474285714282,
+      "mce": 0.27173333333333327,
+      "n_games": 875
+    },
+    {
+      "model_name": "rf",
+      "window_label": "90d",
+      "calibration_alpha": 0.14927765743932764,
+      "calibration_beta": 0.766853091602771,
+      "ece": 0.04745562858865248,
+      "mce": 0.12467719446258857,
+      "n_games": 571
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "90d",
+      "calibration_alpha": 0.06935185207282679,
+      "calibration_beta": 0.6337622968628612,
+      "ece": 0.016025977816695892,
+      "mce": 0.3761111111111111,
+      "n_games": 571
+    },
+    {
+      "model_name": "rf",
+      "window_label": "30d",
+      "calibration_alpha": 0.5255480867133975,
+      "calibration_beta": 1.1046407132969054,
+      "ece": 0.13935867091928567,
+      "mce": 0.175566472924778,
+      "n_games": 120
+    },
+    {
+      "model_name": "goals_poisson",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.07495837578528075,
+      "calibration_beta": 0.6024681779449781,
+      "ece": 0.03563066666666665,
+      "mce": 0.3761111111111111,
+      "n_games": 875
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "90d",
+      "calibration_alpha": 0.07798588976212752,
+      "calibration_beta": 0.5040405968755272,
+      "ece": 0.03209231923942955,
+      "mce": 0.26557142857142857,
+      "n_games": 571
+    },
+    {
+      "model_name": "rf",
+      "window_label": "60d",
+      "calibration_alpha": 0.1968863906358104,
+      "calibration_beta": 0.6030475657657758,
+      "ece": 0.06917557756991621,
+      "mce": 0.23721479061355544,
+      "n_games": 352
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "7d",
+      "calibration_alpha": 0.25146793233218184,
+      "calibration_beta": 0.33357426629452663,
+      "ece": 0.07159568733153639,
+      "mce": 0.2375,
+      "n_games": 53
+    },
+    {
+      "model_name": "rf",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.14395895269652167,
+      "calibration_beta": 0.5256065652332756,
+      "ece": 0.05440708252747799,
+      "mce": 0.12711609860238177,
+      "n_games": 875
+    },
+    {
+      "model_name": "simulation_first",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.09013132425400873,
+      "calibration_beta": 0.39345005894868235,
+      "ece": 0.059420408163265284,
+      "mce": 0.26557142857142857,
+      "n_games": 875
+    },
+    {
+      "model_name": "rf",
+      "window_label": "7d",
+      "calibration_alpha": 0.4064444160719919,
+      "calibration_beta": 0.5383033289648858,
+      "ece": 0.12861298813780758,
+      "mce": 0.17426582168778504,
+      "n_games": 53
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.10969234248897462,
+      "calibration_beta": 0.07487689247572908,
+      "ece": 0.04150537532335814,
+      "mce": 0.46439228621876194,
+      "n_games": 875
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "90d",
+      "calibration_alpha": 0.11005287422982092,
+      "calibration_beta": 0.10778958595724436,
+      "ece": 0.04058639694741732,
+      "mce": 0.46439228621876194,
+      "n_games": 571
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "60d",
+      "calibration_alpha": 0.11365905480608655,
+      "calibration_beta": 0.3545818052830672,
+      "ece": 0.10252651374308075,
+      "mce": 0.3675313239854575,
+      "n_games": 352
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "7d",
+      "calibration_alpha": 0.2313098708556606,
+      "calibration_beta": 0.3206918118533109,
+      "ece": 0.17592698674316026,
+      "mce": 0.8391482152218703,
+      "n_games": 53
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.10796282702619425,
+      "calibration_beta": 0.00044986107172858853,
+      "ece": 0.05510728955336207,
+      "mce": 0.42324864379645116,
+      "n_games": 875
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "90d",
+      "calibration_alpha": 0.06768119127702812,
+      "calibration_beta": 0.3201398158309607,
+      "ece": 0.10666623312499664,
+      "mce": 0.2963618191401886,
+      "n_games": 571
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "60d",
+      "calibration_alpha": 0.1724900845840969,
+      "calibration_beta": 0.13791440658391324,
+      "ece": 0.07431355434627214,
+      "mce": 0.46439228621876194,
+      "n_games": 352
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "90d",
+      "calibration_alpha": 0.10552916057948458,
+      "calibration_beta": 0.02337586170161238,
+      "ece": 0.06038793996267186,
+      "mce": 0.42324864379645116,
+      "n_games": 571
+    },
+    {
+      "model_name": "dynamic_rating",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.08315031741785178,
+      "calibration_beta": 0.22778127560298866,
+      "ece": 0.11874704773155943,
+      "mce": 0.30963864690579684,
+      "n_games": 875
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "60d",
+      "calibration_alpha": 0.17424668722386957,
+      "calibration_beta": 0.08217554184041319,
+      "ece": 0.10652568387594555,
+      "mce": 0.42324864379645116,
+      "n_games": 352
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "30d",
+      "calibration_alpha": 0.3877438476583331,
+      "calibration_beta": 0.32948189926881555,
+      "ece": 0.19005421862127098,
+      "mce": 0.5036819887530347,
+      "n_games": 120
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "30d",
+      "calibration_alpha": 0.38701399317716106,
+      "calibration_beta": 0.17134712560217122,
+      "ece": 0.17835711868293186,
+      "mce": 0.444505230071293,
+      "n_games": 120
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "60d",
+      "calibration_alpha": 0.14302068076725719,
+      "calibration_beta": 0.12850669824043887,
+      "ece": 0.20189881155815942,
+      "mce": 0.4424944277489075,
+      "n_games": 352
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "90d",
+      "calibration_alpha": 0.09620131359416216,
+      "calibration_beta": 0.10080222995244147,
+      "ece": 0.1978670809553465,
+      "mce": 0.45746728357882716,
+      "n_games": 571
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "7d",
+      "calibration_alpha": 0.6724794827656755,
+      "calibration_beta": 0.42769965362671614,
+      "ece": 0.283028069492974,
+      "mce": 0.4755827550721101,
+      "n_games": 53
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "30d",
+      "calibration_alpha": 0.5981039453697162,
+      "calibration_beta": 0.3292830206192956,
+      "ece": 0.26858731903691796,
+      "mce": 0.42324864379645116,
+      "n_games": 120
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.10726477719746283,
+      "calibration_beta": 0.06991254857980278,
+      "ece": 0.20618581885877663,
+      "mce": 0.4234519605726034,
+      "n_games": 875
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "window_label": "7d",
+      "calibration_alpha": 0.496441651121311,
+      "calibration_beta": 0.23624551625469162,
+      "ece": 0.257803551742237,
+      "mce": 0.4532555776244111,
+      "n_games": 53
+    },
+    {
+      "model_name": "gbdt",
+      "window_label": "7d",
+      "calibration_alpha": 0.23534234717503827,
+      "calibration_beta": -0.17075238055146832,
+      "ece": 0.24711595466347758,
+      "mce": 0.9141054021454046,
+      "n_games": 53
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.10181903003389467,
+      "calibration_beta": 0.016322788172410816,
+      "ece": 0.21557740751163415,
+      "mce": 0.5003510737704606,
+      "n_games": 875
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "90d",
+      "calibration_alpha": 0.1005366368859987,
+      "calibration_beta": 0.002983099469271765,
+      "ece": 0.23484592149384267,
+      "mce": 0.5126167446925518,
+      "n_games": 571
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "30d",
+      "calibration_alpha": 0.42135330183950137,
+      "calibration_beta": 0.0732994810227974,
+      "ece": 0.3680298622335336,
+      "mce": 0.5685870121938925,
+      "n_games": 120
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "60d",
+      "calibration_alpha": 0.1550199646553909,
+      "calibration_beta": -0.015892621051393097,
+      "ece": 0.34533257593341427,
+      "mce": 0.5126167446925518,
+      "n_games": 352
+    },
+    {
+      "model_name": "glm_logit",
+      "window_label": "7d",
+      "calibration_alpha": 0.23996327699181766,
+      "calibration_beta": -0.009225057506093806,
+      "ece": 0.5253192966411763,
+      "mce": 0.7750453572989835,
+      "n_games": 53
+    }
+  ],
+  "slices": []
+}

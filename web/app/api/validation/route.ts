@@ -3,6 +3,8 @@ import { leagueFromRequest } from "@/lib/league";
 import fs from "node:fs";
 import path from "node:path";
 
+export const dynamic = "force-static";
+
 function parseCsv(filePath: string): Record<string, any>[] {
   if (!fs.existsSync(filePath)) return [];
   const text = fs.readFileSync(filePath, "utf8").trim();
