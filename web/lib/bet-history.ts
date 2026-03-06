@@ -23,6 +23,7 @@ type RawHistoricalGameRow = {
   away_score?: number | null;
   home_win?: number | null;
   forecast_as_of_utc?: string | null;
+  forecast_model_run_id?: string | null;
   home_win_probability?: number | null;
   odds_snapshot_id?: string | null;
   odds_as_of_utc?: string | null;
@@ -60,6 +61,7 @@ export type HistoricalReplayGameRow = {
   away_score: number | null;
   home_win: number | null;
   forecast_as_of_utc: string;
+  forecast_model_run_id: string | null;
   odds_as_of_utc: string;
   odds_snapshot_id: string;
   home_moneyline: number;
@@ -206,48 +208,75 @@ function betDecisionFromReplaySnapshot(snapshot: HistoricalReplayDecisionSnapsho
 
 function historicalGamesSql(league: LeagueCode): string {
   const escapedLeague = escapeSqlString(league);
-  const cutoffExpr = "COALESCE(g.start_time_utc, r.final_utc, r.game_date_utc || 'T23:59:59Z')";
 
+  // Finalized-game replay must use immutable prediction history. The live
+  // `upcoming_game_forecasts` table is intentionally excluded here because
+  // retrains can replace rows in place for the same `as_of_utc`.
   return `
+    WITH finalized_games AS (
+      SELECT
+        r.game_id,
+        r.game_date_utc,
+        g.start_time_utc,
+        r.final_utc,
+        r.home_team,
+        r.away_team,
+        r.home_score,
+        r.away_score,
+        r.home_win,
+        COALESCE(g.start_time_utc, r.final_utc, r.game_date_utc || 'T23:59:59Z') AS replay_cutoff_utc
+      FROM results r
+      LEFT JOIN games g ON g.game_id = r.game_id
+      WHERE r.home_win IS NOT NULL
+    ),
+    ranked_forecasts AS (
+      SELECT
+        fg.game_id,
+        p.as_of_utc,
+        p.prob_home_win,
+        p.model_run_id,
+        ROW_NUMBER() OVER (
+          PARTITION BY fg.game_id
+          ORDER BY
+            DATETIME(p.as_of_utc) DESC,
+            DATETIME(COALESCE(mr.created_at_utc, p.as_of_utc)) DESC,
+            p.prediction_id DESC
+        ) AS rn
+      FROM finalized_games fg
+      JOIN predictions p
+        ON p.game_id = fg.game_id
+       AND p.model_name = 'ensemble'
+       AND DATETIME(p.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
+      LEFT JOIN model_runs mr
+        ON mr.model_run_id = p.model_run_id
+      WHERE DATETIME(COALESCE(mr.created_at_utc, p.as_of_utc)) <= DATETIME(fg.replay_cutoff_utc)
+    )
     SELECT
-      r.game_id,
-      r.game_date_utc,
-      g.start_time_utc,
-      r.final_utc,
-      r.home_team,
-      r.away_team,
-      r.home_score,
-      r.away_score,
-      r.home_win,
-      (
-        SELECT u.as_of_utc
-        FROM upcoming_game_forecasts u
-        WHERE u.game_id = r.game_id
-          AND DATETIME(u.as_of_utc) <= DATETIME(${cutoffExpr})
-        ORDER BY DATETIME(u.as_of_utc) DESC
-        LIMIT 1
-      ) AS forecast_as_of_utc,
-      (
-        SELECT u.ensemble_prob_home_win
-        FROM upcoming_game_forecasts u
-        WHERE u.game_id = r.game_id
-          AND DATETIME(u.as_of_utc) <= DATETIME(${cutoffExpr})
-        ORDER BY DATETIME(u.as_of_utc) DESC
-        LIMIT 1
-      ) AS home_win_probability,
+      fg.game_id,
+      fg.game_date_utc,
+      fg.start_time_utc,
+      fg.final_utc,
+      fg.home_team,
+      fg.away_team,
+      fg.home_score,
+      fg.away_score,
+      fg.home_win,
+      rf.as_of_utc AS forecast_as_of_utc,
+      rf.model_run_id AS forecast_model_run_id,
+      rf.prob_home_win AS home_win_probability,
       (
         SELECT s.odds_snapshot_id
         FROM odds_snapshots s
         WHERE s.league = '${escapedLeague}'
-          AND DATETIME(s.as_of_utc) <= DATETIME(${cutoffExpr})
+          AND DATETIME(s.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
           AND EXISTS (
             SELECT 1
             FROM odds_market_lines l
             WHERE l.odds_snapshot_id = s.odds_snapshot_id
               AND l.market_key = 'h2h'
               AND (
-                (l.game_id IS NOT NULL AND l.game_id = r.game_id)
-                OR (l.home_team = r.home_team AND l.away_team = r.away_team)
+                (l.game_id IS NOT NULL AND l.game_id = fg.game_id)
+                OR (l.home_team = fg.home_team AND l.away_team = fg.away_team)
               )
           )
         ORDER BY DATETIME(s.as_of_utc) DESC
@@ -257,24 +286,25 @@ function historicalGamesSql(league: LeagueCode): string {
         SELECT s.as_of_utc
         FROM odds_snapshots s
         WHERE s.league = '${escapedLeague}'
-          AND DATETIME(s.as_of_utc) <= DATETIME(${cutoffExpr})
+          AND DATETIME(s.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
           AND EXISTS (
             SELECT 1
             FROM odds_market_lines l
             WHERE l.odds_snapshot_id = s.odds_snapshot_id
               AND l.market_key = 'h2h'
               AND (
-                (l.game_id IS NOT NULL AND l.game_id = r.game_id)
-                OR (l.home_team = r.home_team AND l.away_team = r.away_team)
+                (l.game_id IS NOT NULL AND l.game_id = fg.game_id)
+                OR (l.home_team = fg.home_team AND l.away_team = fg.away_team)
               )
           )
         ORDER BY DATETIME(s.as_of_utc) DESC
         LIMIT 1
       ) AS odds_as_of_utc
-    FROM results r
-    LEFT JOIN games g ON g.game_id = r.game_id
-    WHERE r.home_win IS NOT NULL
-    ORDER BY DATETIME(${cutoffExpr}) ASC, r.game_id ASC
+    FROM finalized_games fg
+    LEFT JOIN ranked_forecasts rf
+      ON rf.game_id = fg.game_id
+     AND rf.rn = 1
+    ORDER BY DATETIME(fg.replay_cutoff_utc) ASC, fg.game_id ASC
   `;
 }
 
@@ -462,6 +492,7 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
       away_score: numberOrNull(row.away_score),
       home_win: numberOrNull(row.home_win),
       forecast_as_of_utc: forecastAsOf,
+      forecast_model_run_id: row.forecast_model_run_id ? String(row.forecast_model_run_id) : null,
       odds_as_of_utc: oddsAsOf,
       odds_snapshot_id: oddsSnapshotId,
       home_moneyline: homeMoneyline,
@@ -482,6 +513,7 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
       home_team: row.home_team,
       away_team: row.away_team,
       forecast_as_of_utc: row.forecast_as_of_utc,
+      forecast_model_run_id: row.forecast_model_run_id,
       odds_as_of_utc: row.odds_as_of_utc,
       odds_snapshot_id: row.odds_snapshot_id,
       home_moneyline: row.home_moneyline,

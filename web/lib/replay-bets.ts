@@ -3,6 +3,7 @@ import { execSql, runSqlJson } from "@/lib/db";
 import type { LeagueCode } from "@/lib/league";
 
 const REPLAY_DECISION_VERSION = "historical_replay_v1";
+const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v2";
 
 export type ReplayableHistoricalGame = {
   game_id: number;
@@ -10,6 +11,7 @@ export type ReplayableHistoricalGame = {
   home_team: string;
   away_team: string;
   forecast_as_of_utc: string;
+  forecast_model_run_id: string | null;
   odds_as_of_utc: string;
   odds_snapshot_id: string;
   home_moneyline: number;
@@ -21,6 +23,7 @@ type RawHistoricalReplayDecisionRow = {
   game_id?: number | null;
   date_central?: string | null;
   forecast_as_of_utc?: string | null;
+  forecast_model_run_id?: string | null;
   odds_as_of_utc?: string | null;
   odds_snapshot_id?: string | null;
   home_team?: string | null;
@@ -39,6 +42,7 @@ type RawHistoricalReplayDecisionRow = {
   edge?: number | null;
   expected_value?: number | null;
   decision_logic_version?: string | null;
+  materialization_version?: string | null;
   created_at_utc?: string | null;
 };
 
@@ -46,6 +50,7 @@ export type HistoricalReplayDecisionSnapshot = {
   game_id: number;
   date_central: string;
   forecast_as_of_utc: string;
+  forecast_model_run_id: string | null;
   odds_as_of_utc: string;
   odds_snapshot_id: string;
   home_team: string;
@@ -64,7 +69,12 @@ export type HistoricalReplayDecisionSnapshot = {
   edge: number | null;
   expected_value: number | null;
   decision_logic_version: string;
+  materialization_version: string | null;
   created_at_utc: string;
+};
+
+type RawSqliteTableInfoRow = {
+  name?: string | null;
 };
 
 function escapeSqlString(value: string): string {
@@ -93,14 +103,13 @@ function normalizeSide(value: unknown): ExpectedSide {
 }
 
 function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
-  // Historical bet rows should stop drifting once a final game's pregame
-  // recommendation has been materialized for the first time.
   execSql(
     `
     CREATE TABLE IF NOT EXISTS historical_bet_decisions (
       game_id INTEGER PRIMARY KEY,
       date_central TEXT NOT NULL,
       forecast_as_of_utc TEXT NOT NULL,
+      forecast_model_run_id TEXT,
       odds_as_of_utc TEXT NOT NULL,
       odds_snapshot_id TEXT NOT NULL,
       home_team TEXT NOT NULL,
@@ -119,9 +128,33 @@ function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
       edge REAL,
       expected_value REAL,
       decision_logic_version TEXT NOT NULL,
+      materialization_version TEXT,
       created_at_utc TEXT NOT NULL
     );
+    `,
+    { league }
+  );
 
+  const columns = new Set(
+    (runSqlJson("PRAGMA table_info(historical_bet_decisions)", { league }) as RawSqliteTableInfoRow[])
+      .map((row) => String(row.name || "").trim())
+      .filter(Boolean)
+  );
+
+  const alterStatements: string[] = [];
+  if (!columns.has("forecast_model_run_id")) {
+    alterStatements.push("ALTER TABLE historical_bet_decisions ADD COLUMN forecast_model_run_id TEXT;");
+  }
+  if (!columns.has("materialization_version")) {
+    alterStatements.push("ALTER TABLE historical_bet_decisions ADD COLUMN materialization_version TEXT;");
+  }
+
+  if (alterStatements.length) {
+    execSql(alterStatements.join("\n"), { league });
+  }
+
+  execSql(
+    `
     CREATE INDEX IF NOT EXISTS idx_historical_bet_decisions_date
       ON historical_bet_decisions(date_central);
     `,
@@ -144,6 +177,7 @@ function loadStoredHistoricalReplayDecisions(
       game_id,
       date_central,
       forecast_as_of_utc,
+      forecast_model_run_id,
       odds_as_of_utc,
       odds_snapshot_id,
       home_team,
@@ -162,6 +196,7 @@ function loadStoredHistoricalReplayDecisions(
       edge,
       expected_value,
       decision_logic_version,
+      materialization_version,
       created_at_utc
     FROM historical_bet_decisions
     WHERE game_id IN (${inList})
@@ -178,6 +213,7 @@ function loadStoredHistoricalReplayDecisions(
       game_id: gameId,
       date_central: String(row.date_central || ""),
       forecast_as_of_utc: String(row.forecast_as_of_utc || ""),
+      forecast_model_run_id: row.forecast_model_run_id ? String(row.forecast_model_run_id) : null,
       odds_as_of_utc: String(row.odds_as_of_utc || ""),
       odds_snapshot_id: String(row.odds_snapshot_id || ""),
       home_team: String(row.home_team || ""),
@@ -196,6 +232,7 @@ function loadStoredHistoricalReplayDecisions(
       edge: numberOrNull(row.edge),
       expected_value: numberOrNull(row.expected_value),
       decision_logic_version: String(row.decision_logic_version || REPLAY_DECISION_VERSION),
+      materialization_version: row.materialization_version ? String(row.materialization_version) : null,
       created_at_utc: String(row.created_at_utc || ""),
     });
   }
@@ -216,6 +253,7 @@ function buildHistoricalReplayDecision(row: ReplayableHistoricalGame): Historica
     game_id: row.game_id,
     date_central: row.date_central,
     forecast_as_of_utc: row.forecast_as_of_utc,
+    forecast_model_run_id: row.forecast_model_run_id,
     odds_as_of_utc: row.odds_as_of_utc,
     odds_snapshot_id: row.odds_snapshot_id,
     home_team: row.home_team,
@@ -234,11 +272,12 @@ function buildHistoricalReplayDecision(row: ReplayableHistoricalGame): Historica
     edge: decision.edge,
     expected_value: decision.expectedValue,
     decision_logic_version: REPLAY_DECISION_VERSION,
+    materialization_version: REPLAY_MATERIALIZATION_VERSION,
     created_at_utc: new Date().toISOString(),
   };
 }
 
-function insertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[], league: LeagueCode): void {
+function upsertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[], league: LeagueCode): void {
   if (!rows.length) return;
 
   const valuesSql = rows
@@ -247,6 +286,7 @@ function insertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[
         ${row.game_id},
         ${sqlText(row.date_central)},
         ${sqlText(row.forecast_as_of_utc)},
+        ${sqlText(row.forecast_model_run_id)},
         ${sqlText(row.odds_as_of_utc)},
         ${sqlText(row.odds_snapshot_id)},
         ${sqlText(row.home_team)},
@@ -265,6 +305,7 @@ function insertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[
         ${sqlNumber(row.edge)},
         ${sqlNumber(row.expected_value)},
         ${sqlText(row.decision_logic_version)},
+        ${sqlText(row.materialization_version)},
         ${sqlText(row.created_at_utc)}
       )`
     )
@@ -272,10 +313,11 @@ function insertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[
 
   execSql(
     `
-    INSERT OR IGNORE INTO historical_bet_decisions (
+    INSERT OR REPLACE INTO historical_bet_decisions (
       game_id,
       date_central,
       forecast_as_of_utc,
+      forecast_model_run_id,
       odds_as_of_utc,
       odds_snapshot_id,
       home_team,
@@ -294,6 +336,7 @@ function insertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[
       edge,
       expected_value,
       decision_logic_version,
+      materialization_version,
       created_at_utc
     ) VALUES ${valuesSql}
     `,
@@ -320,20 +363,28 @@ export function loadOrCreateHistoricalReplayDecisions(
     canPersist = false;
   }
 
-  const missing = rows.filter((row) => !snapshots.has(row.game_id)).map(buildHistoricalReplayDecision);
-  if (!missing.length) {
+  const rowsToMaterialize = rows
+    .filter((row) => {
+      const snapshot = snapshots.get(row.game_id);
+      // Materialization version gates one-time repair of legacy rows while
+      // still freezing the current replay decision against future retrains.
+      return !snapshot || snapshot.materialization_version !== REPLAY_MATERIALIZATION_VERSION;
+    })
+    .map(buildHistoricalReplayDecision);
+
+  if (!rowsToMaterialize.length) {
     return snapshots;
   }
 
   if (canPersist) {
     try {
-      insertHistoricalReplayDecisions(missing, league);
+      upsertHistoricalReplayDecisions(rowsToMaterialize, league);
     } catch {
       // Falling back to in-memory snapshots still keeps the current request stable.
     }
   }
 
-  for (const row of missing) {
+  for (const row of rowsToMaterialize) {
     snapshots.set(row.game_id, row);
   }
 

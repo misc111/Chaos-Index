@@ -230,6 +230,7 @@ CREATE TABLE IF NOT EXISTS historical_bet_decisions (
   game_id INTEGER PRIMARY KEY,
   date_central TEXT NOT NULL,
   forecast_as_of_utc TEXT NOT NULL,
+  forecast_model_run_id TEXT,
   odds_as_of_utc TEXT NOT NULL,
   odds_snapshot_id TEXT NOT NULL,
   home_team TEXT NOT NULL,
@@ -248,6 +249,7 @@ CREATE TABLE IF NOT EXISTS historical_bet_decisions (
   edge REAL,
   expected_value REAL,
   decision_logic_version TEXT NOT NULL,
+  materialization_version TEXT,
   created_at_utc TEXT NOT NULL
 );
 
