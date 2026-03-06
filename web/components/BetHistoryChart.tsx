@@ -1,5 +1,6 @@
 "use client";
 
+import { BET_UNIT_DOLLARS } from "@/lib/betting";
 import type { HistoricalDailyPoint } from "@/lib/bet-history-types";
 import { formatUsd } from "@/lib/currency";
 import styles from "./BetHistory.module.css";
@@ -58,7 +59,9 @@ export default function BetHistoryChart({ points }: Props) {
     <div className={`card ${styles.chartCard}`}>
       <div>
         <h2 className="title">Cumulative Bet Replay</h2>
-        <p className="small">Daily running P/L using the same bet rules as the live Games Today table.</p>
+        <p className="small">
+          Daily running P/L using the same bet rules and {formatUsd(BET_UNIT_DOLLARS)} base unit as the live Games Today table.
+        </p>
       </div>
 
       <div className={styles.chartWrap}>

@@ -1,6 +1,5 @@
 import {
-  formatBetPerDollarLabel,
-  normalizeBetAmountPerDollar,
+  formatBetUnitLabel,
   settleBet,
   type BetDecision,
 } from "@/lib/betting";
@@ -582,12 +581,8 @@ export function getBetHistory(league: LeagueCode): BetHistoryResponse {
     const settlement = settleBet(decision, row.home_win);
     if (settlement.outcome === "no_bet") continue;
 
-    const normalizedStake = normalizeBetAmountPerDollar(replayDecision.stake);
-    const normalizedProfit = normalizeBetAmountPerDollar(settlement.profit);
-    const normalizedPayout = normalizeBetAmountPerDollar(settlement.payout);
-
-    totalRisked += normalizedStake;
-    cumulativeProfit += normalizedProfit;
+    totalRisked += replayDecision.stake;
+    cumulativeProfit += settlement.profit;
     if (settlement.outcome === "win") wins += 1;
     if (settlement.outcome === "loss") losses += 1;
 
@@ -606,19 +601,19 @@ export function getBetHistory(league: LeagueCode): BetHistoryResponse {
       odds_snapshot_id: row.odds_snapshot_id,
       home_moneyline: row.home_moneyline,
       away_moneyline: row.away_moneyline,
-      bet_label: formatBetPerDollarLabel(decision.team, replayDecision.stake),
+      bet_label: formatBetUnitLabel(decision.team, replayDecision.stake),
       reason: replayDecision.reason,
       side: decision.side,
       team: decision.team,
-      stake: normalizedStake,
+      stake: replayDecision.stake,
       odds: Number(decision.odds),
       expected_value: replayDecision.expected_value,
       edge: replayDecision.edge,
       model_probability: replayDecision.model_probability,
       market_probability: replayDecision.market_probability,
       outcome: settlement.outcome,
-      profit: normalizedProfit,
-      payout: normalizedPayout,
+      profit: settlement.profit,
+      payout: settlement.payout,
       cumulative_profit: cumulativeProfit,
     });
   }

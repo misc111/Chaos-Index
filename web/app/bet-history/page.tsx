@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import BetHistoryChart from "@/components/BetHistoryChart";
 import styles from "@/components/BetHistory.module.css";
 import BetWeekCalendar from "@/components/BetWeekCalendar";
+import { BET_UNIT_DOLLARS } from "@/lib/betting";
 import type { BetHistoryResponse } from "@/lib/bet-history-types";
 import { formatUsd } from "@/lib/currency";
 import { normalizeLeague } from "@/lib/league";
@@ -120,6 +121,7 @@ function BetHistoryPageContent() {
           <p className={styles.heroText}>
             This screen replays the Games Today bet logic against finalized games whenever the database contains both a pregame forecast snapshot and a matching pregame moneyline snapshot.
           </p>
+          <p className={styles.heroText}>Displayed stake, risk, and P/L amounts use the same {formatUsd(BET_UNIT_DOLLARS)} base unit as Games Today.</p>
         </div>
 
         {loading ? <p className="small">Loading replay history...</p> : null}

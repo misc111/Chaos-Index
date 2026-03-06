@@ -3,11 +3,11 @@
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
-  BET_PER_DOLLAR_LABEL,
+  BET_UNIT_LABEL,
   computeBetDecision,
   expectedSide,
   expectedWinChance,
-  formatBetPerDollarRecommendation,
+  formatBetUnitRecommendation,
 } from "@/lib/betting";
 import {
   centralTodayDateKey,
@@ -97,13 +97,13 @@ function formatCentralTip(value?: string | null): string {
   });
 }
 
-function displayBetPerDollar(row: GamesTodayRow): { label: string; reason: string } {
+function displayBetRecommendation(row: GamesTodayRow): { label: string; reason: string } {
   if (row.replay_decision) {
-    return formatBetPerDollarRecommendation(row.replay_decision);
+    return formatBetUnitRecommendation(row.replay_decision);
   }
 
   const decision = computeBetDecision(row);
-  return formatBetPerDollarRecommendation(decision);
+  return formatBetUnitRecommendation(decision);
 }
 
 function latestTimestamp(rows: GamesTodayRow[], field: "forecast_as_of_utc" | "odds_as_of_utc"): string {
@@ -297,7 +297,7 @@ function GamesTodayPageContent() {
                     <th>Moneyline</th>
                     {/* Maintainer note: this is the one league-specific column in the shared table. */}
                     {league === "NBA" ? <th>Over Odds</th> : null}
-                    <th>{BET_PER_DOLLAR_LABEL}</th>
+                    <th>{BET_UNIT_LABEL}</th>
                     <th>Reason</th>
                   </tr>
                 </thead>
@@ -305,7 +305,7 @@ function GamesTodayPageContent() {
                   {rows.map((row) => {
                     const side = expectedSide(row.home_win_probability);
                     const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
-                    const bet = displayBetPerDollar(row);
+                    const bet = displayBetRecommendation(row);
                     return (
                       <tr key={row.game_id}>
                         <td className={side === "home" ? styles.teamWin : side === "away" ? styles.teamLoss : styles.teamNeutral}>
@@ -335,7 +335,7 @@ function GamesTodayPageContent() {
                 {rows.map((row) => {
                   const side = expectedSide(row.home_win_probability);
                   const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
-                  const bet = displayBetPerDollar(row);
+                  const bet = displayBetRecommendation(row);
                   const sideLabel =
                     side === "home" ? `${row.home_team} lean` : side === "away" ? `${row.away_team} lean` : "Toss-up";
                   return (
@@ -382,7 +382,7 @@ function GamesTodayPageContent() {
                           </div>
                         ) : null}
                         <div className={styles.mobileMetaItem}>
-                          <span className={styles.mobileMetaLabel}>{BET_PER_DOLLAR_LABEL}</span>
+                          <span className={styles.mobileMetaLabel}>{BET_UNIT_LABEL}</span>
                           <span className={styles.mobileMetaValue}>{bet.label}</span>
                         </div>
                         <div className={styles.mobileMetaItem}>

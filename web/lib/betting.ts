@@ -27,11 +27,8 @@ export type BetSettlement = {
   payout: number;
 };
 
-export const BET_PER_DOLLAR_LABEL = "Bet per $1";
-
-type BetLabelOptions = {
-  stakeScale?: number;
-};
+export const BET_UNIT_DOLLARS = 100;
+export const BET_UNIT_LABEL = `Bet per $${BET_UNIT_DOLLARS}`;
 
 type BetDisplayRecommendation = {
   team: string | null;
@@ -39,7 +36,13 @@ type BetDisplayRecommendation = {
   reason: string;
 };
 
-const BET_REFERENCE_BANKROLL_DOLLARS = 100;
+const SMALL_BET_UNITS = 0.5;
+const MEDIUM_BET_UNITS = 1;
+const LARGE_BET_UNITS = 1.5;
+
+function betAmountFromUnits(units: number): number {
+  return BET_UNIT_DOLLARS * units;
+}
 
 export function expectedSide(homeWinProbability: number): ExpectedSide {
   if (homeWinProbability > 0.55) return "home";
@@ -66,30 +69,21 @@ export function americanToDecimalOdds(odds: number): number | null {
   return 1 + 100 / Math.abs(odds);
 }
 
-export function formatBetLabel(team: string | null, stake: number, options: BetLabelOptions = {}): string {
-  const scale = options.stakeScale ?? 1;
+export function formatBetLabel(team: string | null, stake: number): string {
   if (stake <= 0 || !team) return "$0";
-  if (!Number.isFinite(stake) || !Number.isFinite(scale) || scale <= 0) return "$0";
+  if (!Number.isFinite(stake)) return "$0";
 
-  const normalizedStake = stake / scale;
-  const fractionDigits = scale === 1 ? 0 : 2;
-  return `$${normalizedStake.toFixed(fractionDigits)} ${team}`;
+  const fractionDigits = Number.isInteger(stake) ? 0 : 2;
+  return `$${stake.toFixed(fractionDigits)} ${team}`;
 }
 
-export function normalizeBetAmountPerDollar(value: number): number {
-  if (!Number.isFinite(value)) return 0;
-  return value / BET_REFERENCE_BANKROLL_DOLLARS;
+export function formatBetUnitLabel(team: string | null, stake: number): string {
+  return formatBetLabel(team, stake);
 }
 
-export function formatBetPerDollarLabel(team: string | null, stake: number): string {
-  return formatBetLabel(team, stake, { stakeScale: BET_REFERENCE_BANKROLL_DOLLARS });
-}
-
-export function formatBetPerDollarRecommendation(
-  recommendation: BetDisplayRecommendation
-): { label: string; reason: string } {
+export function formatBetUnitRecommendation(recommendation: BetDisplayRecommendation): { label: string; reason: string } {
   return {
-    label: formatBetPerDollarLabel(recommendation.team, recommendation.stake),
+    label: formatBetUnitLabel(recommendation.team, recommendation.stake),
     reason: recommendation.reason,
   };
 }
@@ -161,13 +155,21 @@ export function computeBetDecision(row: BetInput): BetDecision {
   const isUnderdog = sideOdds > 0;
 
   if (isUnderdog) {
-    if (edge >= 0.08 && ev >= 0.1) return buildDecision(row, side, 150, "Underdog underpriced", fairProb, ev, edge);
-    if (edge >= 0.05 && ev >= 0.05) return buildDecision(row, side, 100, "Underdog underpriced", fairProb, ev, edge);
-    return buildDecision(row, side, 50, "Underdog underpriced", fairProb, ev, edge);
+    if (edge >= 0.08 && ev >= 0.1) {
+      return buildDecision(row, side, betAmountFromUnits(LARGE_BET_UNITS), "Underdog underpriced", fairProb, ev, edge);
+    }
+    if (edge >= 0.05 && ev >= 0.05) {
+      return buildDecision(row, side, betAmountFromUnits(MEDIUM_BET_UNITS), "Underdog underpriced", fairProb, ev, edge);
+    }
+    return buildDecision(row, side, betAmountFromUnits(SMALL_BET_UNITS), "Underdog underpriced", fairProb, ev, edge);
   }
 
-  if (edge >= 0.08 && ev >= 0.1) return buildDecision(row, side, 100, "Favorite underpriced", fairProb, ev, edge);
-  if (edge >= 0.05 && ev >= 0.05) return buildDecision(row, side, 50, "Favorite underpriced", fairProb, ev, edge);
+  if (edge >= 0.08 && ev >= 0.1) {
+    return buildDecision(row, side, betAmountFromUnits(MEDIUM_BET_UNITS), "Favorite underpriced", fairProb, ev, edge);
+  }
+  if (edge >= 0.05 && ev >= 0.05) {
+    return buildDecision(row, side, betAmountFromUnits(SMALL_BET_UNITS), "Favorite underpriced", fairProb, ev, edge);
+  }
   return buildDecision(row, "none", 0, "Price fair");
 }
 

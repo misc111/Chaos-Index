@@ -1,9 +1,9 @@
-import { computeBetDecision, type ExpectedSide } from "@/lib/betting";
+import { BET_UNIT_DOLLARS, computeBetDecision, type ExpectedSide } from "@/lib/betting";
 import { execSql, runSqlJson } from "@/lib/db";
 import type { LeagueCode } from "@/lib/league";
 
-const REPLAY_DECISION_VERSION = "historical_replay_v1";
-const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v2";
+const REPLAY_DECISION_VERSION = "historical_replay_v2";
+const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v3";
 
 export type ReplayableHistoricalGame = {
   game_id: number;
@@ -41,6 +41,7 @@ type RawHistoricalReplayDecisionRow = {
   market_probability?: number | null;
   edge?: number | null;
   expected_value?: number | null;
+  stake_unit_dollars?: number | null;
   decision_logic_version?: string | null;
   materialization_version?: string | null;
   created_at_utc?: string | null;
@@ -68,6 +69,7 @@ export type HistoricalReplayDecisionSnapshot = {
   market_probability: number | null;
   edge: number | null;
   expected_value: number | null;
+  stake_unit_dollars: number;
   decision_logic_version: string;
   materialization_version: string | null;
   created_at_utc: string;
@@ -127,6 +129,7 @@ function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
       market_probability REAL,
       edge REAL,
       expected_value REAL,
+      stake_unit_dollars REAL NOT NULL DEFAULT 100,
       decision_logic_version TEXT NOT NULL,
       materialization_version TEXT,
       created_at_utc TEXT NOT NULL
@@ -147,6 +150,9 @@ function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
   }
   if (!columns.has("materialization_version")) {
     alterStatements.push("ALTER TABLE historical_bet_decisions ADD COLUMN materialization_version TEXT;");
+  }
+  if (!columns.has("stake_unit_dollars")) {
+    alterStatements.push("ALTER TABLE historical_bet_decisions ADD COLUMN stake_unit_dollars REAL NOT NULL DEFAULT 100;");
   }
 
   if (alterStatements.length) {
@@ -195,6 +201,7 @@ function loadStoredHistoricalReplayDecisions(
       market_probability,
       edge,
       expected_value,
+      stake_unit_dollars,
       decision_logic_version,
       materialization_version,
       created_at_utc
@@ -231,6 +238,7 @@ function loadStoredHistoricalReplayDecisions(
       market_probability: numberOrNull(row.market_probability),
       edge: numberOrNull(row.edge),
       expected_value: numberOrNull(row.expected_value),
+      stake_unit_dollars: numberOrNull(row.stake_unit_dollars) ?? 100,
       decision_logic_version: String(row.decision_logic_version || REPLAY_DECISION_VERSION),
       materialization_version: row.materialization_version ? String(row.materialization_version) : null,
       created_at_utc: String(row.created_at_utc || ""),
@@ -271,6 +279,7 @@ function buildHistoricalReplayDecision(row: ReplayableHistoricalGame): Historica
     market_probability: decision.marketProbability,
     edge: decision.edge,
     expected_value: decision.expectedValue,
+    stake_unit_dollars: BET_UNIT_DOLLARS,
     decision_logic_version: REPLAY_DECISION_VERSION,
     materialization_version: REPLAY_MATERIALIZATION_VERSION,
     created_at_utc: new Date().toISOString(),
@@ -304,6 +313,7 @@ function upsertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[
         ${sqlNumber(row.market_probability)},
         ${sqlNumber(row.edge)},
         ${sqlNumber(row.expected_value)},
+        ${sqlNumber(row.stake_unit_dollars)},
         ${sqlText(row.decision_logic_version)},
         ${sqlText(row.materialization_version)},
         ${sqlText(row.created_at_utc)}
@@ -335,6 +345,7 @@ function upsertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[
       market_probability,
       edge,
       expected_value,
+      stake_unit_dollars,
       decision_logic_version,
       materialization_version,
       created_at_utc
@@ -368,7 +379,11 @@ export function loadOrCreateHistoricalReplayDecisions(
       const snapshot = snapshots.get(row.game_id);
       // Materialization version gates one-time repair of legacy rows while
       // still freezing the current replay decision against future retrains.
-      return !snapshot || snapshot.materialization_version !== REPLAY_MATERIALIZATION_VERSION;
+      return (
+        !snapshot ||
+        snapshot.materialization_version !== REPLAY_MATERIALIZATION_VERSION ||
+        snapshot.stake_unit_dollars !== BET_UNIT_DOLLARS
+      );
     })
     .map(buildHistoricalReplayDecision);
 

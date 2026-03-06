@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import type { LeagueCode } from "../lib/league";
 
 type JsonRouteHandler = (request: Request) => Promise<Response>;
@@ -55,7 +55,8 @@ async function writeJson(filePath: string, payload: unknown): Promise<void> {
 }
 
 async function loadRouteHandler(modulePath: string): Promise<JsonRouteHandler> {
-  const module = (await import(path.join(appRoot, modulePath))) as { GET?: JsonRouteHandler };
+  const moduleUrl = pathToFileURL(path.join(appRoot, modulePath)).href;
+  const module = (await import(moduleUrl)) as { GET?: JsonRouteHandler };
   if (typeof module.GET !== "function") {
     throw new Error(`Route module ${modulePath} does not export GET`);
   }
