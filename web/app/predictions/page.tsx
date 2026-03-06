@@ -2,28 +2,15 @@
 
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { type ForecastRow, type PredictionsResponse } from "@/lib/types";
+import { type PredictionsResponse } from "@/lib/types";
 import { normalizeLeague } from "@/lib/league";
 import {
   displayPredictionModel,
-  formatPredictionAsOf,
   formatPredictionDate,
   formatPredictionProbability,
 } from "@/lib/predictions-report";
 import { fetchDashboardJson } from "@/lib/static-staging";
 import styles from "./predictions.module.css";
-
-function closestGame(rows: ForecastRow[]): ForecastRow | null {
-  if (!rows.length) {
-    return null;
-  }
-
-  return rows.reduce<ForecastRow>((closest, row) => {
-    const currentGap = Math.abs(row.ensemble_prob_home_win - 0.5);
-    const nextGap = Math.abs(closest.ensemble_prob_home_win - 0.5);
-    return currentGap < nextGap ? row : closest;
-  }, rows[0]);
-}
 
 function probabilityTone(value?: number | null): string {
   if (typeof value !== "number" || !Number.isFinite(value)) {
@@ -127,27 +114,6 @@ function PredictionsPageContent() {
     [report.rows, team]
   );
 
-  const strongestEdge = filteredRows[0] || null;
-  const closestMatchup = useMemo(() => closestGame(filteredRows), [filteredRows]);
-
-  const windowLabel = useMemo(() => {
-    const dates = filteredRows
-      .map((row) => {
-        const parsed = new Date(row.game_date_utc);
-        return Number.isNaN(parsed.getTime()) ? null : parsed;
-      })
-      .filter((value): value is Date => value instanceof Date)
-      .sort((a, b) => a.getTime() - b.getTime());
-
-    if (!dates.length) {
-      return "No scheduled games";
-    }
-
-    const first = formatPredictionDate(dates[0].toISOString());
-    const last = formatPredictionDate(dates[dates.length - 1].toISOString());
-    return first === last ? first : `${first} to ${last}`;
-  }, [filteredRows]);
-
   const modelEntries = report.model_columns.map((model) => ({
     key: model,
     label: displayPredictionModel(model),
@@ -155,65 +121,6 @@ function PredictionsPageContent() {
 
   return (
     <div className={styles.page}>
-      <section className={styles.hero}>
-        <div className={styles.heroLead}>
-          <p className={styles.eyebrow}>{league} report view</p>
-          <h2 className={styles.headline}>Predictions</h2>
-          <p className={styles.description}>
-            A compact report view for teams whose next scheduled game is at home. Every row belongs to the home side,
-            column two is the opponent, and every probability cell is interpreted from that home team&apos;s point of
-            view.
-          </p>
-          <div className={styles.heroHighlights}>
-            <span className={styles.heroHighlight}>
-              <strong>{report.model_columns.length || 0}</strong> active models
-            </span>
-            <span className={styles.heroHighlight}>
-              <strong>{filteredRows.length}</strong> visible home teams
-            </span>
-            <span className={styles.heroHighlight}>
-              <strong>Unique</strong> home rows
-            </span>
-          </div>
-        </div>
-
-        <div className={styles.summaryGrid}>
-          <article className={styles.summaryCard}>
-            <p className={styles.summaryLabel}>As Of</p>
-            <p className={`${styles.summaryValue} ${styles.summaryValueCompact}`}>
-              {formatPredictionAsOf(report.as_of_utc)}
-            </p>
-            <p className={styles.summaryHint}>Latest snapshot returned by the local forecast database.</p>
-          </article>
-
-          <article className={styles.summaryCard}>
-            <p className={styles.summaryLabel}>Window</p>
-            <p className={`${styles.summaryValue} ${styles.summaryValueCompact}`}>{windowLabel}</p>
-            <p className={styles.summaryHint}>Current visible game dates after filtering.</p>
-          </article>
-
-          <article className={styles.summaryCard}>
-            <p className={styles.summaryLabel}>Strongest Home Edge</p>
-            <p className={styles.summaryValue}>
-              {strongestEdge ? `${strongestEdge.home_team} ${formatPredictionProbability(strongestEdge.ensemble_prob_home_win)}` : "No data"}
-            </p>
-            <p className={styles.summaryHint}>
-              {strongestEdge ? `${strongestEdge.away_team} at ${strongestEdge.home_team}` : "No games are available in the current filter."}
-            </p>
-          </article>
-
-          <article className={styles.summaryCard}>
-            <p className={styles.summaryLabel}>Closest Matchup</p>
-            <p className={styles.summaryValue}>
-              {closestMatchup ? formatPredictionProbability(closestMatchup.ensemble_prob_home_win) : "No data"}
-            </p>
-            <p className={styles.summaryHint}>
-              {closestMatchup ? `${closestMatchup.away_team} at ${closestMatchup.home_team}` : "No games are available in the current filter."}
-            </p>
-          </article>
-        </div>
-      </section>
-
       <section className={styles.toolbar}>
         <div className={styles.filterCluster}>
           <div className={styles.filterField}>
@@ -240,10 +147,6 @@ function PredictionsPageContent() {
             </button>
           ) : null}
         </div>
-        <p className={styles.toolbarHint}>
-          Each row is the subset of teams whose next game is at home. Teams do not repeat, the away side is column two,
-          and every percentage is the home team&apos;s win probability.
-        </p>
       </section>
 
       <section className={styles.tableCard}>
