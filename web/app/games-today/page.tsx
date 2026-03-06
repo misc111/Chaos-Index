@@ -141,6 +141,9 @@ function GamesTodayPageContent() {
   const todayKey = centralTodayDateKey();
   const activeDateKey = selectedDateKey || todayKey;
   const isPastDate = activeDateKey < todayKey;
+  // Maintainer note: the page keeps one table/card layout across leagues.
+  // We swap the backing dataset by date instead of rendering separate NHL/NBA
+  // or past/future views. Add shared fields to both payload pools if needed.
   const sourceRows = isPastDate ? historicalRows : upcomingRows;
   const rows = sourceRows.filter((row) => dateKeyForScheduledGame(row) === activeDateKey);
   const scheduleSummary = formatCentralDateSummary(activeDateKey);
@@ -254,6 +257,7 @@ function GamesTodayPageContent() {
                     <th>Away Team</th>
                     <th>Win Chance</th>
                     <th>Moneyline</th>
+                    {/* Maintainer note: this is the one league-specific column in the shared table. */}
                     {league === "NBA" ? <th>Over Odds</th> : null}
                     <th>Bet per $100</th>
                     <th>Reason</th>

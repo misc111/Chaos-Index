@@ -4,6 +4,9 @@ import { runSqlJson } from "@/lib/db";
 import { centralTodayDateKey } from "@/lib/games-today";
 import { leagueFromRequest } from "@/lib/league";
 
+// Maintainer note: this route reads the target league from ?league=...
+// and must stay dynamic in the live dashboard. Making it static causes
+// Next.js to freeze one league's payload and serve it to both NHL/NBA.
 export const dynamic = "force-dynamic";
 
 type RawTodayGameRow = {
@@ -143,6 +146,9 @@ export async function GET(request: Request) {
       ) as RawMoneylineRow[])
     : [];
 
+  // Maintainer note: alternate totals are only surfaced on the NBA view today.
+  // If another league gets totals-based bet logic, extend this branch and keep
+  // the payload fields optional so the shared table shape still works.
   const over190Rows =
     escapedSnapshotId && league === "NBA"
       ? (runSqlJson(
@@ -231,6 +237,9 @@ export async function GET(request: Request) {
     league,
     as_of_utc: asOf,
     date_central: centralTodayDateKey(),
+    // Maintainer note: the client intentionally gets two row pools:
+    // `rows` for the latest upcoming snapshot, `historical_rows` for past-date
+    // replay navigation. That keeps one UI while supporting both NHL/NBA.
     historical_coverage_start_central: historicalReplay.coverage_start_central,
     historical_rows: historicalReplay.rows.map((row) => ({
       game_id: row.game_id,

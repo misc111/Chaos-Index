@@ -285,6 +285,9 @@ function moneylineSql(snapshotIds: string[]): string {
 }
 
 function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDataset {
+  // Maintainer note: this is the shared "pregame replay" source for both
+  // Bet History and Games Today past-date navigation. Keep the core fields
+  // league-agnostic here; league-specific extras should stay optional.
   const rawGames = runSqlJson(historicalGamesSql(league), { league }) as RawHistoricalGameRow[];
   const uniqueSnapshotIds = Array.from(
     new Set(rawGames.map((row) => String(row.odds_snapshot_id || "").trim()).filter(Boolean))
