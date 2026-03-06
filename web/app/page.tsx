@@ -12,9 +12,9 @@ export default function HomePage() {
         <p className={styles.body}>
           This page was created and is maintained by{" "}
           <a className={styles.link} href="https://www.linkedin.com/in/david-iruegas/" target="_blank" rel="noreferrer">
-            David Iruegas
+            David Iruegas, ACAS
           </a>
-          , ACAS. David is an{" "}
+          . David is an{" "}
           <a
             className={styles.link}
             href="https://en.wikipedia.org/wiki/Actuary"
