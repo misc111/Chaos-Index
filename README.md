@@ -14,6 +14,7 @@ Production-grade NHL/NBA home-win probability forecasting with:
 - `configs/` runtime configuration
 - `data/` cached raw snapshots + interim/processed outputs
 - `artifacts/` plots/reports/validation artifacts
+- `statistical_theory/` durable notes on modeling heuristics and theory
 - `tests/` smoke + unit tests
 
 ## Install
@@ -185,6 +186,9 @@ scripts/smoke_e2e.sh
 
 - Per-model research maps can be generated with `research-features`.
 - Promoted model maps are stored at `configs/model_feature_map_{league}.yaml`.
+- Guardrail logs live at `configs/model_feature_guardrails_{league}.yaml`.
+- `blocked_features` are enforced for the active map: research/save paths strip them out, and training/load fails fast if someone manually puts them back.
+- `watchlist_features` and `watchlist_pairs` are the persistent notebook for validation findings such as multicollinearity and non-linearity that do not yet justify removal.
 - The NBA path now uses a league-specific basketball feature builder and a promoted per-model feature map during training/backtesting.
 
 ## Forecast Outputs Per Upcoming Game
@@ -211,6 +215,7 @@ Generated under `artifacts/validation/` and surfaced in `/validation`:
 - blockwise nested model tests (LRT + OOS uplift + AME CI)
 - coefficient stability paths, trade-deadline break test
 - production multicollinearity suite: structural flags, pairwise correlation scan, VIF/tolerance, condition indices, variance decomposition, summary risk report
+- production non-linearity suite: spline-vs-linear and hinge-vs-linear holdout comparisons, per-feature curve outputs, GAM/MARS guidance
 - influence diagnostics (leverage/Cook's/dfbetas + refit impact)
 - calibration robustness + Brier decomposition
 - fragility tests (missingness + perturbation)

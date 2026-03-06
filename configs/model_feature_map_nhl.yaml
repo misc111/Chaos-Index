@@ -1,12 +1,10 @@
 version: 1
 league: NHL
-updated_at_utc: '2026-03-05T22:32:23+00:00'
+updated_at_utc: '2026-03-06T14:32:44+00:00'
 models:
   glm_logit:
     active_features:
     - diff_form_goal_diff
-    - diff_form_win_rate
-    - travel_diff
     - rest_diff
     - elo_home_prob
     - dyn_home_prob
@@ -15,10 +13,8 @@ models:
     - rink_shot_effect
     - dyn_home_mean
     - diff_xg_share
-    - elo_home_pre
     - goalie_uncertainty_diff
-    - elo_away_pre
-    feature_count: 14
+    feature_count: 10
   gbdt:
     active_features:
     - home_penalty_diff

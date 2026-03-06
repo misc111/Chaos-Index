@@ -49,13 +49,13 @@ def test_validation_pipeline_supports_custom_extension_tasks(tmp_path):
         "nonlinearity_probe_summary",
     ]
 
-    manifest = json.loads((tmp_path / "artifacts" / "validation" / "validation_manifest.json").read_text())
+    manifest = json.loads((tmp_path / "artifacts" / "validation" / "nhl" / "validation_manifest.json").read_text())
     assert [section["section"] for section in manifest["sections"]] == [
         "nonlinearity_probe_table",
         "nonlinearity_probe_summary",
     ]
-    assert (tmp_path / "artifacts" / "validation" / "validation_nonlinearity_probe.csv").exists()
-    assert (tmp_path / "artifacts" / "validation" / "validation_nonlinearity_probe_summary.json").exists()
+    assert (tmp_path / "artifacts" / "validation" / "nhl" / "validation_nonlinearity_probe.csv").exists()
+    assert (tmp_path / "artifacts" / "validation" / "nhl" / "validation_nonlinearity_probe_summary.json").exists()
 
 
 def test_validation_task_registry_allows_extension_without_touching_defaults():

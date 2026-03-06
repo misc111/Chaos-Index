@@ -9,6 +9,12 @@ import pandas as pd
 import yaml
 
 from src.common.time import utc_now_iso
+from src.training.model_feature_guardrails import (
+    apply_model_feature_guardrails,
+    default_guardrails_path_template,
+    find_model_feature_guardrail_conflicts,
+    resolve_model_feature_guardrails_path,
+)
 
 
 MODEL_FEATURE_MAP_PATH_TEMPLATE = "configs/model_feature_map_{league}.yaml"
@@ -31,10 +37,29 @@ def resolve_model_feature_map_path(path_template: str, league: str) -> Path:
     return Path(rendered)
 
 
-def load_model_feature_map(league: str, path_template: str = MODEL_FEATURE_MAP_PATH_TEMPLATE) -> dict[str, list[str]]:
+def load_model_feature_map(
+    league: str,
+    path_template: str = MODEL_FEATURE_MAP_PATH_TEMPLATE,
+    guardrails_path_template: str | None = None,
+) -> dict[str, list[str]]:
+    return load_model_feature_map_with_guardrails(
+        league,
+        path_template=path_template,
+        guardrails_path_template=guardrails_path_template,
+    )
+
+
+def load_model_feature_map_with_guardrails(
+    league: str,
+    *,
+    path_template: str = MODEL_FEATURE_MAP_PATH_TEMPLATE,
+    guardrails_path_template: str | None = None,
+) -> dict[str, list[str]]:
     path = resolve_model_feature_map_path(path_template, league=league)
     if not path.exists():
         return {}
+    guardrails_template = guardrails_path_template or default_guardrails_path_template(path_template)
+    guardrails_path = resolve_model_feature_guardrails_path(guardrails_template, league=league)
     raw = yaml.safe_load(path.read_text()) or {}
     models = raw.get("models", {})
     if not isinstance(models, dict):
@@ -42,7 +67,20 @@ def load_model_feature_map(league: str, path_template: str = MODEL_FEATURE_MAP_P
     out: dict[str, list[str]] = {}
     for model_name, payload in models.items():
         features = payload.get("active_features", []) if isinstance(payload, dict) else []
-        out[str(model_name)] = [str(col) for col in features if str(col).strip()]
+        ordered = [str(col) for col in features if str(col).strip()]
+        blocked_hits = find_model_feature_guardrail_conflicts(
+            ordered,
+            league=league,
+            model_name=str(model_name),
+            path_template=guardrails_template,
+        )
+        if blocked_hits:
+            raise RuntimeError(
+                "Blocked features found in active model feature map "
+                f"{path} for {str(league).upper()}/{model_name}: {blocked_hits}. "
+                f"Update {guardrails_path} if this reintroduction is intentional, or remove them from the active map."
+            )
+        out[str(model_name)] = ordered
     return out
 
 
@@ -51,10 +89,21 @@ def save_model_feature_map(
     model_features: dict[str, list[str]],
     *,
     path_template: str = MODEL_FEATURE_MAP_PATH_TEMPLATE,
+    guardrails_path_template: str | None = None,
 ) -> Path:
     league_code = str(league or "NHL").strip().upper()
     registry_path = resolve_model_feature_map_path(path_template, league=league_code)
     registry_path.parent.mkdir(parents=True, exist_ok=True)
+    guardrails_template = guardrails_path_template or default_guardrails_path_template(path_template)
+    sanitized_model_features = {
+        model_name: apply_model_feature_guardrails(
+            list(features),
+            league=league_code,
+            model_name=model_name,
+            path_template=guardrails_template,
+        )[0]
+        for model_name, features in model_features.items()
+    }
     payload = {
         "version": 1,
         "league": league_code,
@@ -64,7 +113,7 @@ def save_model_feature_map(
                 "active_features": list(features),
                 "feature_count": len(features),
             }
-            for model_name, features in model_features.items()
+            for model_name, features in sanitized_model_features.items()
         },
     }
     registry_path.write_text(yaml.safe_dump(payload, sort_keys=False))
@@ -190,14 +239,12 @@ def _anchor_features(model_name: str, league: str) -> list[str]:
         anchors = {
             "glm_logit": [
                 "diff_form_point_margin",
-                "diff_form_win_rate",
-                "travel_diff",
                 "rest_diff",
                 "discipline_free_throw_pressure_diff",
                 "discipline_foul_margin_diff",
                 "elo_home_prob",
-                "dyn_home_prob",
                 "arena_margin_effect",
+                "diff_shot_volume_share",
             ],
             "gbdt": [
                 "diff_form_point_margin",
@@ -246,7 +293,7 @@ def _anchor_features(model_name: str, league: str) -> list[str]:
         return anchors.get(model_name, [])
 
     anchors = {
-        "glm_logit": ["diff_form_goal_diff", "diff_form_win_rate", "travel_diff", "rest_diff", "elo_home_prob", "dyn_home_prob"],
+        "glm_logit": ["diff_form_goal_diff", "rest_diff", "elo_home_prob", "dyn_home_prob", "diff_xg_share"],
         "bayes_bt_state_space": ["diff_form_goal_diff", "travel_diff", "rest_diff", "elo_home_prob", "dyn_home_prob"],
     }
     return anchors.get(model_name, [])
@@ -299,9 +346,16 @@ def rank_model_features(
     model_name: str,
     feature_columns: list[str],
     league: str,
+    guardrails_path_template: str | None = None,
 ) -> list[dict[str, object]]:
     league_code = str(league or "NHL").strip().upper()
     eligible = [c for c in _eligible_features_for_model(model_name, feature_columns, league_code) if c in train_df.columns]
+    eligible, _ = apply_model_feature_guardrails(
+        eligible,
+        league=league_code,
+        model_name=model_name,
+        path_template=guardrails_path_template or default_guardrails_path_template(MODEL_FEATURE_MAP_PATH_TEMPLATE),
+    )
     if not eligible:
         return []
 
@@ -374,8 +428,10 @@ def research_model_feature_map(
     selected_models: list[str] | None = None,
     approve_changes: bool = False,
     path_template: str = MODEL_FEATURE_MAP_PATH_TEMPLATE,
+    guardrails_path_template: str | None = None,
 ) -> ModelFeatureResearchResult:
     league_code = str(league or "NHL").strip().upper()
+    guardrails_template = guardrails_path_template or default_guardrails_path_template(path_template)
     train_df = features_df[features_df["home_win"].notna()].copy().sort_values("start_time_utc")
     if train_df.empty:
         raise RuntimeError("Model feature research requires finalized games with non-null home_win.")
@@ -383,13 +439,24 @@ def research_model_feature_map(
     model_names = [m for m in (selected_models or RESEARCHABLE_MODELS) if m in RESEARCHABLE_MODELS]
     report_rows: list[dict[str, object]] = []
     approved_model_features: dict[str, list[str]] = {}
+    guardrail_exclusions: dict[str, list[str]] = {}
 
     for model_name in model_names:
+        _, blocked_candidate_hits = apply_model_feature_guardrails(
+            _eligible_features_for_model(model_name, feature_columns, league_code),
+            league=league_code,
+            model_name=model_name,
+            path_template=guardrails_template,
+        )
+        if blocked_candidate_hits:
+            guardrail_exclusions[model_name] = list(blocked_candidate_hits)
+
         scored_rows = rank_model_features(
             train_df,
             model_name=model_name,
             feature_columns=feature_columns,
             league=league_code,
+            guardrails_path_template=guardrails_template,
         )
         if not scored_rows:
             approved_model_features[model_name] = []
@@ -404,6 +471,15 @@ def research_model_feature_map(
             ranked_features=ranked_features,
             target_width=max_features,
         )
+        selected, blocked_hits = apply_model_feature_guardrails(
+            selected,
+            league=league_code,
+            model_name=model_name,
+            path_template=guardrails_template,
+        )
+        if blocked_hits:
+            existing = guardrail_exclusions.get(model_name, [])
+            guardrail_exclusions[model_name] = list(dict.fromkeys(existing + blocked_hits))
         approved_model_features[model_name] = selected
 
         selected_set = set(selected)
@@ -432,6 +508,8 @@ def research_model_feature_map(
         "created_at_utc": utc_now_iso(),
         "selected_models": model_names,
         "approved_model_features": approved_model_features,
+        "guardrail_exclusions": guardrail_exclusions,
+        "model_feature_guardrails_path": str(resolve_model_feature_guardrails_path(guardrails_template, league=league_code)),
         "score_table_path": str(score_table_path),
     }
     report_path.write_text(json.dumps(report_payload, indent=2, sort_keys=True))
@@ -439,9 +517,18 @@ def research_model_feature_map(
     registry_path = resolve_model_feature_map_path(path_template, league=league_code)
     registry_updated = False
     if approve_changes:
-        merged_model_features = load_model_feature_map(league_code, path_template=path_template)
+        merged_model_features = load_model_feature_map_with_guardrails(
+            league_code,
+            path_template=path_template,
+            guardrails_path_template=guardrails_template,
+        )
         merged_model_features.update(approved_model_features)
-        registry_path = save_model_feature_map(league_code, merged_model_features, path_template=path_template)
+        registry_path = save_model_feature_map(
+            league_code,
+            merged_model_features,
+            path_template=path_template,
+            guardrails_path_template=guardrails_template,
+        )
         registry_updated = True
 
     return ModelFeatureResearchResult(

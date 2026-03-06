@@ -15,6 +15,7 @@ from src.evaluation.diagnostics_glm import save_glm_diagnostics
 from src.evaluation.diagnostics_ml import permutation_importance_report
 from src.evaluation.validation_fragility import missingness_stress_test, perturbation_sensitivity
 from src.evaluation.validation_influence import influence_diagnostics
+from src.evaluation.validation_nonlinearity import assess_nonlinearity
 from src.evaluation.validation_significance import blockwise_nested_lrt
 from src.evaluation.validation_stability import assess_multicollinearity, break_test_trade_deadline, coefficient_paths
 
@@ -108,8 +109,9 @@ class ValidationContext:
         train_df = result["train_df"].copy()
         feature_cols = list(result["feature_columns"])
         models = result["models"]
-        out_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "validation")
-        plots_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "plots")
+        league = _canonical_league(cfg.data.league)
+        out_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "validation" / league.lower())
+        plots_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "plots" / league.lower())
         split = int(len(train_df) * 0.8)
         tr = train_df.iloc[:split].copy()
         va = train_df.iloc[split:].copy()
@@ -123,7 +125,7 @@ class ValidationContext:
             feature_cols=feature_cols,
             out_dir=out_dir,
             plots_dir=plots_dir,
-            league=_canonical_league(cfg.data.league),
+            league=league,
             tr=tr,
             va=va,
             glm=glm,
@@ -247,6 +249,31 @@ def _task_collinearity(ctx: ValidationContext) -> ValidationOutputs:
     return out
 
 
+def _task_nonlinearity(ctx: ValidationContext) -> ValidationOutputs:
+    report = assess_nonlinearity(
+        ctx.tr if not ctx.tr.empty else ctx.train_df,
+        ctx.va if not ctx.va.empty else ctx.train_df,
+        features=ctx.diagnostic_feature_cols,
+    )
+    out = ValidationOutputs()
+    out.add_json(
+        section="nonlinearity_summary",
+        file_name="validation_nonlinearity_summary.json",
+        payload=report["summary"],
+    )
+    out.add_csv(
+        section="nonlinearity_feature_summary",
+        file_name="validation_nonlinearity_feature_summary.csv",
+        rows=report["feature_summary"],
+    )
+    out.add_csv(
+        section="nonlinearity_curve_points",
+        file_name="validation_nonlinearity_curve_points.csv",
+        rows=report["curve_points"],
+    )
+    return out
+
+
 def _task_significance(ctx: ValidationContext) -> ValidationOutputs:
     sig = blockwise_nested_lrt(
         ctx.tr,
@@ -322,6 +349,7 @@ def build_validation_tasks(
         ValidationTask(name="glm_diagnostics", runner=_task_glm_diagnostics, enabled=lambda ctx: _has_glm(ctx) and _has_holdout(ctx)),
         ValidationTask(name="permutation_importance", runner=_task_permutation_importance, enabled=_has_holdout),
         ValidationTask(name="collinearity", runner=_task_collinearity),
+        ValidationTask(name="nonlinearity", runner=_task_nonlinearity, enabled=_has_holdout),
         ValidationTask(
             name="significance",
             runner=_task_significance,

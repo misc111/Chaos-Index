@@ -1,0 +1,119 @@
+version: 1
+league: NHL
+updated_at_utc: '2026-03-06T15:10:00+00:00'
+models:
+  glm_logit:
+    blocked_features:
+      travel_diff:
+        decision: blocked
+        categories:
+        - constant
+        - multicollinearity
+        rationale: Constant in the March 6, 2026 NHL GLM training sample and therefore unusable as a stable linear predictor.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          unique_values: 1
+          std: 0.0
+          included_in_matrix: false
+        reconsideration_requirements:
+        - travel feature engineering changes materially
+        - validation collinearity review shows non-constant behavior with acceptable VIF and condition metrics
+      diff_form_win_rate:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - redundancy
+        rationale: Removed from the active NHL GLM because it duplicated signal already carried by diff_form_goal_diff and dyn_home_prob.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          vif: 7.6258
+          corr_with_dyn_home_prob: 0.8567
+          corr_with_diff_form_goal_diff: 0.8545
+        related_features:
+        - diff_form_goal_diff
+        - dyn_home_prob
+        reconsideration_requirements:
+        - demonstrate a different formulation than the current rolling win-rate feature
+        - rerun collinearity validation and show acceptable VIF and pairwise correlation
+      elo_home_pre:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - redundant_rating_parameterization
+        rationale: Removed because the NHL GLM should not carry raw Elo state and Elo win probability at the same time.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          vif: 1998.6303
+          corr_with_dyn_home_mean: 0.8001
+          cluster: elo_home_prob | elo_home_pre | elo_away_pre
+        related_features:
+        - elo_home_prob
+        - elo_away_pre
+        reconsideration_requirements:
+        - replace elo_home_prob or reparameterize the rating block
+        - clear critical-condition and severe-VIF checks in validation
+      elo_away_pre:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - redundant_rating_parameterization
+        rationale: Removed because the current NHL GLM rating block became unstable when both raw away Elo and home Elo probability were active.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          vif: 1843.4632
+          cluster: elo_home_prob | elo_home_pre | elo_away_pre
+        related_features:
+        - elo_home_prob
+        - elo_home_pre
+        reconsideration_requirements:
+        - replace elo_home_prob or reparameterize the rating block
+        - clear critical-condition and severe-VIF checks in validation
+    watchlist_features:
+      diff_xg_share:
+        status: watch
+        categories:
+        - nonlinearity
+        rationale: Strong spline candidate in the current NHL GLM validation.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          best_shape: smooth
+          family_hint: gam
+          holdout_log_loss_gain_best: 0.0224
+          holdout_brier_gain_best: 0.0093
+        recommendation: consider_spline_transform_or_gam
+      diff_form_goal_diff:
+        status: watch
+        categories:
+        - nonlinearity
+        rationale: Strong hinge-style candidate in the current NHL GLM validation.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          best_shape: hinge
+          family_hint: mars
+          holdout_log_loss_gain_best: 0.0056
+          holdout_brier_gain_best: 0.0023
+        recommendation: consider_piecewise_transform_or_mars
+      dyn_home_prob:
+        status: watch
+        categories:
+        - nonlinearity
+        rationale: Moderate hinge signal remains after the GLM cleanup.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          best_shape: hinge
+          family_hint: mars
+          holdout_log_loss_gain_best: 0.0031
+          holdout_brier_gain_best: 0.0015
+        recommendation: consider_piecewise_transform_or_mars
+    watchlist_pairs:
+    - categories:
+      - multicollinearity
+      - retained_warning
+      feature_a: rink_goal_effect
+      feature_b: rink_shot_effect
+      rationale: Retained for now, but the pair still carries moderate collinearity in the active NHL GLM.
+      observed_on_utc: '2026-03-06T15:10:00+00:00'
+      evidence:
+        abs_corr: 0.8070
+        pair_severity: warning
+        max_vif_after_cleanup: 4.6035

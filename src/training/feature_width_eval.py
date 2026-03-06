@@ -19,6 +19,7 @@ from src.training.model_feature_research import (
     save_model_feature_map,
     select_model_features,
 )
+from src.training.model_feature_guardrails import default_guardrails_path_template
 from src.training.train import select_feature_columns
 
 
@@ -87,12 +88,14 @@ def run_feature_width_eval(
     feature_columns: list[str] | None = None,
     candidate_widths: list[int] | None = None,
     path_template: str = MODEL_FEATURE_MAP_PATH_TEMPLATE,
+    guardrails_path_template: str | None = None,
     approve_changes: bool = False,
 ) -> FeatureWidthEvalResult:
     league_code = str(league or "NHL").strip().upper()
     model_code = str(model_name or "").strip()
     if model_code not in RESEARCHABLE_MODELS:
         raise ValueError(f"Unsupported model_name '{model_name}'. Expected one of {RESEARCHABLE_MODELS}.")
+    guardrails_template = guardrails_path_template or default_guardrails_path_template(path_template)
 
     train_df = features_df[features_df["home_win"].notna()].copy().sort_values("start_time_utc")
     if train_df.empty:
@@ -104,12 +107,17 @@ def run_feature_width_eval(
         model_name=model_code,
         feature_columns=all_feature_columns,
         league=league_code,
+        guardrails_path_template=guardrails_template,
     )
     if not ranked_rows:
         raise RuntimeError(f"No eligible ranked features found for {model_code} in {league_code}.")
     ranked_features = [str(row["feature"]) for row in ranked_rows]
 
-    current_model_map = load_model_feature_map(league_code, path_template=path_template)
+    current_model_map = load_model_feature_map(
+        league_code,
+        path_template=path_template,
+        guardrails_path_template=guardrails_template,
+    )
     current_width = len(current_model_map.get(model_code, [])) or None
     widths = _normalize_width_candidates(model_code, candidate_widths, current_width=current_width)
 
@@ -186,9 +194,20 @@ def run_feature_width_eval(
     registry_path = str(Path(path_template.replace("{league}", league_code.lower())))
     registry_updated = False
     if approve_changes:
-        merged = load_model_feature_map(league_code, path_template=path_template)
+        merged = load_model_feature_map(
+            league_code,
+            path_template=path_template,
+            guardrails_path_template=guardrails_template,
+        )
         merged[model_code] = best_features
-        registry_path = str(save_model_feature_map(league_code, merged, path_template=path_template))
+        registry_path = str(
+            save_model_feature_map(
+                league_code,
+                merged,
+                path_template=path_template,
+                guardrails_path_template=guardrails_template,
+            )
+        )
         registry_updated = True
 
     return FeatureWidthEvalResult(

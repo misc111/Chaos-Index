@@ -1,24 +1,17 @@
 version: 1
 league: NBA
-updated_at_utc: '2026-03-05T22:17:44+00:00'
+updated_at_utc: '2026-03-06T14:32:44+00:00'
 models:
   glm_logit:
     active_features:
     - diff_form_point_margin
-    - diff_form_win_rate
-    - travel_diff
     - rest_diff
     - discipline_free_throw_pressure_diff
     - discipline_foul_margin_diff
     - elo_home_prob
-    - dyn_home_prob
     - arena_margin_effect
     - diff_shot_volume_share
-    - elo_away_pre
-    - dyn_away_mean
-    - elo_home_pre
-    - dyn_home_mean
-    feature_count: 14
+    feature_count: 7
   gbdt:
     active_features:
     - diff_form_point_margin

@@ -1,0 +1,190 @@
+version: 1
+league: NBA
+updated_at_utc: '2026-03-06T15:10:00+00:00'
+models:
+  glm_logit:
+    blocked_features:
+      travel_diff:
+        decision: blocked
+        categories:
+        - constant
+        - multicollinearity
+        rationale: Constant in the March 6, 2026 NBA GLM training sample and therefore unusable as a stable linear predictor.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          unique_values: 1
+          std: 0.0
+          included_in_matrix: false
+        reconsideration_requirements:
+        - travel feature engineering changes materially
+        - validation collinearity review shows non-constant behavior with acceptable VIF and condition metrics
+      diff_form_win_rate:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - redundancy
+        rationale: Removed from the active NBA GLM because it overlapped heavily with both diff_form_point_margin and dyn_home_prob.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          vif: 8.5714
+          corr_with_dyn_home_prob: 0.8818
+          corr_with_diff_form_point_margin: 0.8582
+        related_features:
+        - diff_form_point_margin
+        - dyn_home_prob
+        reconsideration_requirements:
+        - demonstrate a new win-rate formulation
+        - rerun collinearity validation and show acceptable VIF and pairwise correlation
+      elo_home_pre:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - redundant_rating_parameterization
+        rationale: Removed because the NBA GLM should not carry raw Elo state together with Elo win probability and dynamic state means.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          vif: 546.1457
+          corr_with_dyn_home_mean: 0.8544
+          cluster: elo_home_prob | elo_home_pre | elo_away_pre | dyn_home_mean | dyn_away_mean
+        related_features:
+        - elo_home_prob
+        - dyn_home_mean
+        reconsideration_requirements:
+        - replace elo_home_prob or reparameterize the entire rating-state block
+        - clear critical-condition and severe-VIF checks in validation
+      elo_away_pre:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - redundant_rating_parameterization
+        rationale: Removed because the NBA GLM rating block became unstable when raw away Elo and probability-scale rating signals were active together.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          vif: 555.5563
+          corr_with_dyn_away_mean: 0.8738
+          cluster: elo_home_prob | elo_home_pre | elo_away_pre | dyn_home_mean | dyn_away_mean
+        related_features:
+        - elo_home_prob
+        - dyn_away_mean
+        reconsideration_requirements:
+        - replace elo_home_prob or reparameterize the entire rating-state block
+        - clear critical-condition and severe-VIF checks in validation
+      dyn_home_mean:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - redundant_rating_parameterization
+        rationale: Removed because it traveled with the raw Elo state block and did not justify its own linear slot in the current NBA GLM.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          vif: 35.2880
+          corr_with_elo_home_pre: 0.8544
+        related_features:
+        - elo_home_pre
+        reconsideration_requirements:
+        - reparameterize the rating block
+        - show acceptable VIF and condition diagnostics
+      dyn_away_mean:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - redundant_rating_parameterization
+        rationale: Removed because it traveled with the raw Elo away state block and did not justify its own linear slot in the current NBA GLM.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          vif: 36.2259
+          corr_with_elo_away_pre: 0.8738
+        related_features:
+        - elo_away_pre
+        reconsideration_requirements:
+        - reparameterize the rating block
+        - show acceptable VIF and condition diagnostics
+      dyn_home_prob:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - duplicate_rating_signal
+        rationale: Removed so the NBA GLM keeps a single probability-scale rating signal. The current choice is elo_home_prob.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          vif: 67.7596
+          corr_with_elo_home_prob: 0.8562
+          corr_with_diff_form_win_rate: 0.8818
+        related_features:
+        - elo_home_prob
+        reconsideration_requirements:
+        - explicitly choose dyn_home_prob instead of elo_home_prob
+        - rerun the full multicollinearity review before promoting it
+    watchlist_features:
+      elo_home_prob:
+        status: watch
+        categories:
+        - nonlinearity
+        rationale: Strong smooth/GAM candidate in the current NBA GLM validation.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          best_shape: smooth
+          family_hint: gam
+          holdout_log_loss_gain_best: 0.0087
+          holdout_brier_gain_best: 0.0033
+        recommendation: consider_gam
+      diff_shot_volume_share:
+        status: watch
+        categories:
+        - nonlinearity
+        rationale: Strong hinge-style candidate in the current NBA GLM validation.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          best_shape: hinge
+          family_hint: mars
+          holdout_log_loss_gain_best: 0.0060
+          holdout_brier_gain_best: 0.0030
+        recommendation: consider_piecewise_transform_or_mars
+      discipline_foul_margin_diff:
+        status: watch
+        categories:
+        - nonlinearity
+        rationale: Strong hinge-style candidate in the current NBA GLM validation.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          best_shape: hinge
+          family_hint: mars
+          holdout_log_loss_gain_best: 0.0056
+          holdout_brier_gain_best: 0.0025
+        recommendation: consider_piecewise_transform_or_mars
+      diff_form_point_margin:
+        status: watch
+        categories:
+        - nonlinearity
+        rationale: Moderate hinge-style candidate in the current NBA GLM validation.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          best_shape: hinge
+          family_hint: mars
+          holdout_log_loss_gain_best: 0.0048
+          holdout_brier_gain_best: 0.0023
+        recommendation: consider_piecewise_transform_or_mars
+      discipline_free_throw_pressure_diff:
+        status: watch
+        categories:
+        - nonlinearity
+        rationale: Moderate smooth/GAM candidate in the current NBA GLM validation.
+        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        evidence:
+          best_shape: smooth
+          family_hint: gam
+          holdout_log_loss_gain_best: 0.0044
+          holdout_brier_gain_best: 0.0019
+        recommendation: consider_spline_transform_or_gam
+    watchlist_pairs:
+    - categories:
+      - multicollinearity
+      - retained_warning
+      feature_a: diff_form_point_margin
+      feature_b: diff_shot_volume_share
+      rationale: Retained for now, but the pair still carries moderate collinearity in the active NBA GLM.
+      observed_on_utc: '2026-03-06T15:10:00+00:00'
+      evidence:
+        abs_corr: 0.8252
+        pair_severity: warning
+        max_vif_after_cleanup: 4.8325
