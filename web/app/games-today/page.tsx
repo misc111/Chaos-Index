@@ -15,6 +15,7 @@ import {
   formatCentralDateLabel,
   formatCentralDateSummary,
   normalizeCentralDateKey,
+  normalizeUtcTimestamp,
   shiftCentralDateKey,
 } from "@/lib/games-today";
 import { normalizeLeague, withLeague } from "@/lib/league";
@@ -88,12 +89,13 @@ function formatOver190(value?: number | null, point?: number | null): string {
 
 function formatCentralTip(value?: string | null): string {
   if (!value) return "Time TBD";
-  const parsed = new Date(value);
+  const parsed = new Date(normalizeUtcTimestamp(value));
   if (Number.isNaN(parsed.getTime())) return value;
   return parsed.toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "2-digit",
     timeZone: "America/Chicago",
+    timeZoneName: "short",
   });
 }
 
@@ -291,6 +293,7 @@ function GamesTodayPageContent() {
                   <tr>
                     <th>Home Team</th>
                     <th>Away Team</th>
+                    <th>Time (CST/CDT)</th>
                     <th>Win Chance</th>
                     <th>Moneyline</th>
                     {/* Maintainer note: this is the one league-specific column in the shared table. */}
@@ -312,6 +315,7 @@ function GamesTodayPageContent() {
                         <td className={side === "away" ? styles.teamWin : side === "home" ? styles.teamLoss : styles.teamNeutral}>
                           {row.away_team}
                         </td>
+                        <td className={styles.timeCell}>{formatCentralTip(row.start_time_utc)}</td>
                         <td className={styles.winChanceCell}>{side === "none" ? `Toss-up (${chanceLabel})` : chanceLabel}</td>
                         <td className={styles.moneylineCell}>
                           {`H ${formatMoneyline(row.home_moneyline)} · A ${formatMoneyline(row.away_moneyline)}`}
@@ -356,7 +360,7 @@ function GamesTodayPageContent() {
 
                       <div className={styles.mobileMetaGrid}>
                         <div className={styles.mobileMetaItem}>
-                          <span className={styles.mobileMetaLabel}>Tip (CT)</span>
+                          <span className={styles.mobileMetaLabel}>Tip (CST/CDT)</span>
                           <span className={styles.mobileMetaValue}>{formatCentralTip(row.start_time_utc)}</span>
                         </div>
                         <div className={styles.mobileMetaItem}>
