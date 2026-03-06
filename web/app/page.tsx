@@ -5,7 +5,7 @@ export default function HomePage() {
     <div className={styles.page}>
       <section className={styles.card}>
         <p className={styles.eyebrow}>Overview</p>
-        <h1 className={styles.headline}>Why use this instead of a betting app?</h1>
+        <h1 className={styles.headline}>Betting with a Brain</h1>
         <p className={styles.body}>
           Most betting apps show the market. This page gives you independent win probabilities you can compare against it.
         </p>
