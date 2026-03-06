@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { runSqlJson } from "@/lib/db";
+import { centralTodayDateKey } from "@/lib/games-today";
 import { leagueFromRequest } from "@/lib/league";
 
 export const dynamic = "force-static";
@@ -34,70 +35,6 @@ type RawOver190Row = {
 
 function escapeSqlString(value: string): string {
   return value.replace(/'/g, "''");
-}
-
-function normalizeUtcTimestamp(value: string): string {
-  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}Z$/.test(value)) {
-    return value.replace("Z", ":00Z");
-  }
-  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(value)) {
-    return `${value}:00Z`;
-  }
-  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/.test(value)) {
-    return `${value}Z`;
-  }
-  return value;
-}
-
-function centralDateKeyFromTimestamp(value?: string | null): string | null {
-  if (!value) return null;
-  const parsed = new Date(normalizeUtcTimestamp(value));
-  if (Number.isNaN(parsed.getTime())) return null;
-
-  const parts = new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/Chicago",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).formatToParts(parsed);
-
-  const year = parts.find((part) => part.type === "year")?.value;
-  const month = parts.find((part) => part.type === "month")?.value;
-  const day = parts.find((part) => part.type === "day")?.value;
-  if (!year || !month || !day) return null;
-  return `${year}-${month}-${day}`;
-}
-
-function centralTodayDateKey(): string {
-  const now = new Date();
-  const parts = new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/Chicago",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).formatToParts(now);
-
-  const year = parts.find((part) => part.type === "year")?.value;
-  const month = parts.find((part) => part.type === "month")?.value;
-  const day = parts.find((part) => part.type === "day")?.value;
-  if (!year || !month || !day) {
-    return now.toISOString().slice(0, 10);
-  }
-  return `${year}-${month}-${day}`;
-}
-
-function dateKeyForRow(row: Pick<RawTodayGameRow, "start_time_utc" | "game_date_utc">): string | null {
-  const byStartTime = centralDateKeyFromTimestamp(row.start_time_utc);
-  if (byStartTime) return byStartTime;
-
-  const fallback = String(row.game_date_utc || "").trim();
-  if (!fallback) return null;
-  if (/^\d{4}-\d{2}-\d{2}$/.test(fallback)) return fallback;
-
-  const byGameDateTimestamp = centralDateKeyFromTimestamp(fallback);
-  if (byGameDateTimestamp) return byGameDateTimestamp;
-
-  return fallback.length >= 10 ? fallback.slice(0, 10) : null;
 }
 
 function normalizeProbability(value: unknown): number {
@@ -138,13 +75,11 @@ export async function GET(request: Request) {
     { league }
   ) as RawTodayGameRow[];
 
-  const todayKey = centralTodayDateKey();
   const rows = rawRows
     .map((row) => ({
       ...row,
       home_win_probability: normalizeProbability(row.home_win_probability),
-    }))
-    .filter((row) => dateKeyForRow(row) === todayKey);
+    }));
 
   const latestOddsSnapshot = runSqlJson(
     `
@@ -286,7 +221,7 @@ export async function GET(request: Request) {
   return NextResponse.json({
     league,
     as_of_utc: asOf,
-    date_central: todayKey,
+    date_central: centralTodayDateKey(),
     odds_as_of_utc: oddsAsOfUtc,
     rows: enrichedRows,
   });

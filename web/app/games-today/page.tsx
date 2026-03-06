@@ -3,6 +3,13 @@
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { computeBetDecision, expectedSide, expectedWinChance } from "@/lib/betting";
+import {
+  centralTodayDateKey,
+  dateKeyForScheduledGame,
+  formatCentralDateSummary,
+  normalizeCentralDateKey,
+  shiftCentralDateKey,
+} from "@/lib/games-today";
 import { normalizeLeague, withLeague } from "@/lib/league";
 import { fetchDashboardJson, isStaticStagingBuild } from "@/lib/static-staging";
 import styles from "./styles.module.css";
@@ -81,7 +88,7 @@ function GamesTodayPageContent() {
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
   const staticStaging = isStaticStagingBuild();
-  const [rows, setRows] = useState<GamesTodayRow[]>([]);
+  const [allRows, setAllRows] = useState<GamesTodayRow[]>([]);
   const [latestAsOf, setLatestAsOf] = useState<string>("");
   const [latestOddsAsOf, setLatestOddsAsOf] = useState<string>("");
   const [loading, setLoading] = useState(true);
@@ -90,6 +97,7 @@ function GamesTodayPageContent() {
   const [refreshingOdds, setRefreshingOdds] = useState(false);
   const [refreshOddsError, setRefreshOddsError] = useState("");
   const [refreshOddsStatus, setRefreshOddsStatus] = useState("");
+  const [selectedDateKey, setSelectedDateKey] = useState<string>("");
 
   useEffect(() => {
     let cancelled = false;
@@ -99,9 +107,13 @@ function GamesTodayPageContent() {
     fetchDashboardJson<GamesTodayResponse>("gamesToday", "/api/games-today", league)
       .then((payload) => {
         if (cancelled) return;
-        setRows(payload.rows || []);
+        setAllRows(payload.rows || []);
         setLatestAsOf(typeof payload.as_of_utc === "string" ? payload.as_of_utc : "");
         setLatestOddsAsOf(typeof payload.odds_as_of_utc === "string" ? payload.odds_as_of_utc : "");
+        setSelectedDateKey((current) => {
+          if (current) return current;
+          return normalizeCentralDateKey(payload.date_central) || centralTodayDateKey();
+        });
       })
       .catch((err: unknown) => {
         if (cancelled) return;
@@ -116,6 +128,10 @@ function GamesTodayPageContent() {
       cancelled = true;
     };
   }, [league, reloadKey]);
+
+  const activeDateKey = selectedDateKey || centralTodayDateKey();
+  const rows = allRows.filter((row) => dateKeyForScheduledGame(row) === activeDateKey);
+  const scheduleSummary = formatCentralDateSummary(activeDateKey);
 
   const handleRefreshOdds = async () => {
     if (staticStaging) {
@@ -161,7 +177,27 @@ function GamesTodayPageContent() {
     <div className="grid">
       <div className={`card ${styles.tableCard}`}>
         <h2 className="title">Games Today</h2>
-        <p className="small">Only games scheduled for today (Central Time) are shown.</p>
+        <div className={styles.dayNavRow}>
+          <button
+            type="button"
+            className={styles.dayNavButton}
+            onClick={() => setSelectedDateKey((current) => shiftCentralDateKey(current || centralTodayDateKey(), -1))}
+            disabled={loading}
+            aria-label="Show the previous day"
+          >
+            Previous
+          </button>
+          <button
+            type="button"
+            className={styles.dayNavButton}
+            onClick={() => setSelectedDateKey((current) => shiftCentralDateKey(current || centralTodayDateKey(), 1))}
+            disabled={loading}
+            aria-label="Show the next day"
+          >
+            Next
+          </button>
+        </div>
+        <p className="small">Only games scheduled for {scheduleSummary} (Central Time) are shown.</p>
         <p className="small">Anticipated winner threshold: win chance greater than 55%.</p>
         <div className={styles.actionsRow}>
           <button
@@ -182,7 +218,7 @@ function GamesTodayPageContent() {
         {error ? <p className="small">Failed to load: {error}</p> : null}
 
         {!loading && !error && rows.length === 0 ? (
-          <p className="small">No games scheduled today.</p>
+          <p className="small">No games scheduled for {scheduleSummary}.</p>
         ) : null}
 
         {!loading && !error && rows.length > 0 ? (
