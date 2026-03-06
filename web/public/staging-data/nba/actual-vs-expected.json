@@ -85,18 +85,20 @@
       "start_time_utc": "2026-03-05T03:30Z",
       "is_toss_up": 0,
       "model_correct": 1
-    }
-  ],
-  "upcoming_rows": [
+    },
     {
       "game_id": 401810754,
       "game_date_utc": "2026-03-06",
       "home_team": "ORL",
       "away_team": "DAL",
       "as_of_utc": "2026-03-05T20:00:34+00:00",
-      "ensemble_prob_home_win": 0.714888789233011,
+      "prob_home_win": 0.714888789233011,
       "predicted_winner": "ORL",
-      "start_time_utc": "2026-03-06T00:00Z"
+      "home_win": 1,
+      "final_utc": "2026-03-06T00:00Z",
+      "start_time_utc": "2026-03-06T00:00Z",
+      "is_toss_up": 0,
+      "model_correct": 1
     },
     {
       "game_id": 401810755,
@@ -104,9 +106,13 @@
       "home_team": "WSH",
       "away_team": "UTAH",
       "as_of_utc": "2026-03-05T20:00:34+00:00",
-      "ensemble_prob_home_win": 0.48299943784715016,
+      "prob_home_win": 0.48299943784715016,
       "predicted_winner": "UTAH",
-      "start_time_utc": "2026-03-06T00:00Z"
+      "home_win": 0,
+      "final_utc": "2026-03-06T00:00Z",
+      "start_time_utc": "2026-03-06T00:00Z",
+      "is_toss_up": 1,
+      "model_correct": null
     },
     {
       "game_id": 401810756,
@@ -114,9 +120,13 @@
       "home_team": "MIA",
       "away_team": "BKN",
       "as_of_utc": "2026-03-05T20:00:34+00:00",
-      "ensemble_prob_home_win": 0.8066668144817652,
+      "prob_home_win": 0.8066668144817652,
       "predicted_winner": "MIA",
-      "start_time_utc": "2026-03-06T00:30Z"
+      "home_win": 1,
+      "final_utc": "2026-03-06T00:30Z",
+      "start_time_utc": "2026-03-06T00:30Z",
+      "is_toss_up": 0,
+      "model_correct": 1
     },
     {
       "game_id": 401810757,
@@ -124,9 +134,13 @@
       "home_team": "HOU",
       "away_team": "GS",
       "as_of_utc": "2026-03-05T20:00:34+00:00",
-      "ensemble_prob_home_win": 0.6413323356705558,
+      "prob_home_win": 0.6413323356705558,
       "predicted_winner": "HOU",
-      "start_time_utc": "2026-03-06T00:30Z"
+      "home_win": 0,
+      "final_utc": "2026-03-06T00:30Z",
+      "start_time_utc": "2026-03-06T00:30Z",
+      "is_toss_up": 0,
+      "model_correct": 0
     },
     {
       "game_id": 401810758,
@@ -134,9 +148,13 @@
       "home_team": "MIN",
       "away_team": "TOR",
       "as_of_utc": "2026-03-05T20:00:34+00:00",
-      "ensemble_prob_home_win": 0.5797582316410483,
+      "prob_home_win": 0.5797582316410483,
       "predicted_winner": "MIN",
-      "start_time_utc": "2026-03-06T01:00Z"
+      "home_win": 1,
+      "final_utc": "2026-03-06T01:00Z",
+      "start_time_utc": "2026-03-06T01:00Z",
+      "is_toss_up": 0,
+      "model_correct": 1
     },
     {
       "game_id": 401810759,
@@ -144,9 +162,13 @@
       "home_team": "SA",
       "away_team": "DET",
       "as_of_utc": "2026-03-05T20:00:34+00:00",
-      "ensemble_prob_home_win": 0.46493283880151576,
+      "prob_home_win": 0.46493283880151576,
       "predicted_winner": "DET",
-      "start_time_utc": "2026-03-06T01:00Z"
+      "home_win": 1,
+      "final_utc": "2026-03-06T01:00Z",
+      "start_time_utc": "2026-03-06T01:00Z",
+      "is_toss_up": 1,
+      "model_correct": null
     },
     {
       "game_id": 401810760,
@@ -154,9 +176,13 @@
       "home_team": "PHX",
       "away_team": "CHI",
       "as_of_utc": "2026-03-05T20:00:34+00:00",
-      "ensemble_prob_home_win": 0.7358444252578495,
+      "prob_home_win": 0.7358444252578495,
       "predicted_winner": "PHX",
-      "start_time_utc": "2026-03-06T02:00Z"
+      "home_win": 0,
+      "final_utc": "2026-03-06T02:00Z",
+      "start_time_utc": "2026-03-06T02:00Z",
+      "is_toss_up": 0,
+      "model_correct": 0
     },
     {
       "game_id": 401810761,
@@ -164,9 +190,13 @@
       "home_team": "DEN",
       "away_team": "LAL",
       "as_of_utc": "2026-03-05T20:00:34+00:00",
-      "ensemble_prob_home_win": 0.4994971373909836,
+      "prob_home_win": 0.4994971373909836,
       "predicted_winner": "LAL",
-      "start_time_utc": "2026-03-06T03:00Z"
+      "home_win": 1,
+      "final_utc": "2026-03-06T03:00Z",
+      "start_time_utc": "2026-03-06T03:00Z",
+      "is_toss_up": 1,
+      "model_correct": null
     },
     {
       "game_id": 401810762,
@@ -174,10 +204,16 @@
       "home_team": "SAC",
       "away_team": "NO",
       "as_of_utc": "2026-03-05T20:00:34+00:00",
-      "ensemble_prob_home_win": 0.39750898760832154,
+      "prob_home_win": 0.39750898760832154,
       "predicted_winner": "NO",
-      "start_time_utc": "2026-03-06T03:00Z"
-    },
+      "home_win": 0,
+      "final_utc": "2026-03-06T03:00Z",
+      "start_time_utc": "2026-03-06T03:00Z",
+      "is_toss_up": 0,
+      "model_correct": 1
+    }
+  ],
+  "upcoming_rows": [
     {
       "game_id": 401810763,
       "game_date_utc": "2026-03-07",
