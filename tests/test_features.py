@@ -56,3 +56,10 @@ def test_feature_build_smoke(tmp_path: Path):
     out = build_features_from_interim(str(interim), str(processed))
     assert not out.dataframe.empty
     assert len(out.feature_columns) > 5
+    cols = set(out.feature_columns)
+    assert "diff_xg_share_cubic" in cols
+    assert "diff_form_goal_diff_hinge_m1" in cols
+    assert "diff_form_goal_diff_hinge_p1" in cols
+    assert "dyn_home_prob_hinge_055" in cols
+    assert "dyn_home_mean_hinge_000" in cols
+    assert "elo_home_prob_hinge_054" in cols

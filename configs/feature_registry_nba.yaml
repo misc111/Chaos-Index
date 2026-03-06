@@ -62,14 +62,19 @@ active_features:
 - diff_availability_reliability
 - diff_availability_uncertainty
 - diff_form_point_margin
+- diff_form_point_margin_hinge_000
 - diff_form_win_rate
 - diff_foul_margin
 - diff_roster_depth
 - diff_scoring_efficiency
 - diff_shot_volume_share
+- diff_shot_volume_share_hinge_001
 - discipline_foul_margin_diff
+- discipline_foul_margin_diff_hinge_000
 - discipline_foul_pressure_diff
 - discipline_free_throw_pressure_diff
+- discipline_free_throw_pressure_diff_hinge_000
+- discipline_free_throw_pressure_diff_is_zero
 - dyn_away_mean
 - dyn_home_mean
 - dyn_home_prob
@@ -77,6 +82,7 @@ active_features:
 - elo_away_pre
 - elo_home_pre
 - elo_home_prob
+- elo_home_prob_hinge_055
 - fallback_availability_proxy_used
 - fallback_shot_profile_proxy_used
 - home_3in4
@@ -135,4 +141,4 @@ active_features:
 - rest_diff
 - travel_diff
 candidate_features: []
-active_features_hash: a1f925b53a73a3cc
+active_features_hash: 97b45962c534e722

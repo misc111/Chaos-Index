@@ -17,6 +17,13 @@ from src.features.rink_adjustments import compute_rink_effects
 from src.features.special_teams import add_special_teams_features, combine_special_teams_game_features
 from src.features.travel import build_travel_features
 
+NHL_GLM_HINGE_KNOTS = {
+    "diff_form_goal_diff": (-1.0, 1.0),
+    "dyn_home_prob": 0.55,
+    "dyn_home_mean": 0.0,
+    "elo_home_prob": 0.54,
+}
+
 
 def _load(name: str, interim_dir: str) -> pd.DataFrame:
     p = Path(interim_dir) / f"{name}.parquet"
@@ -116,6 +123,35 @@ def _expand_team_games(games: pd.DataFrame, goalie_stats: pd.DataFrame) -> pd.Da
     team_games = team_games.merge(team_extra, on=["game_id", "team"], how="left")
     team_games["starter_status"] = team_games["starter_status"].fillna("unknown")
     return team_games
+
+
+def _positive_part(series: pd.Series, knot: float) -> pd.Series:
+    values = pd.to_numeric(series, errors="coerce")
+    return (values - float(knot)).clip(lower=0.0)
+
+
+def _add_nhl_glm_transforms(df: pd.DataFrame) -> pd.DataFrame:
+    out = df.copy()
+
+    if "diff_xg_share" in out.columns:
+        xg_share = pd.to_numeric(out["diff_xg_share"], errors="coerce")
+        out["diff_xg_share_cubic"] = xg_share.pow(3)
+
+    if "diff_form_goal_diff" in out.columns:
+        left_knot, right_knot = NHL_GLM_HINGE_KNOTS["diff_form_goal_diff"]
+        out["diff_form_goal_diff_hinge_m1"] = _positive_part(out["diff_form_goal_diff"], left_knot)
+        out["diff_form_goal_diff_hinge_p1"] = _positive_part(out["diff_form_goal_diff"], right_knot)
+
+    if "dyn_home_prob" in out.columns:
+        out["dyn_home_prob_hinge_055"] = _positive_part(out["dyn_home_prob"], NHL_GLM_HINGE_KNOTS["dyn_home_prob"])
+
+    if "dyn_home_mean" in out.columns:
+        out["dyn_home_mean_hinge_000"] = _positive_part(out["dyn_home_mean"], NHL_GLM_HINGE_KNOTS["dyn_home_mean"])
+
+    if "elo_home_prob" in out.columns:
+        out["elo_home_prob_hinge_054"] = _positive_part(out["elo_home_prob"], NHL_GLM_HINGE_KNOTS["elo_home_prob"])
+
+    return out
 
 
 def _team_rolling(team_games: pd.DataFrame, players_df: pd.DataFrame, injuries_df: pd.DataFrame) -> pd.DataFrame:
@@ -340,6 +376,7 @@ def build_features_from_interim(interim_dir: str, processed_dir: str, league: st
     elo = compute_elo_features(games)
     dyn = compute_dynamic_rating_features(games)
     game_features = game_features.merge(elo, on="game_id", how="left").merge(dyn, on="game_id", how="left")
+    game_features = _add_nhl_glm_transforms(game_features)
 
     # Feature columns exclude identifiers and labels.
     drop_cols = {

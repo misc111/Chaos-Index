@@ -216,6 +216,7 @@ Generated under `artifacts/validation/` and surfaced in `/validation`:
 - coefficient stability paths, trade-deadline break test
 - production multicollinearity suite: structural flags, pairwise correlation scan, VIF/tolerance, condition indices, variance decomposition, summary risk report
 - production non-linearity suite: spline-vs-linear and hinge-vs-linear holdout comparisons, per-feature curve outputs, GAM/MARS guidance
+- GLM residual diagnostics: deviance residuals, working residual plots, binned working residual summaries, and partial residual plots for all active `glm_logit` features
 - influence diagnostics (leverage/Cook's/dfbetas + refit impact)
 - calibration robustness + Brier decomposition
 - fragility tests (missingness + perturbation)

@@ -182,21 +182,43 @@ def _feature_blocks_for(ctx: ValidationContext) -> dict[str, list[str]]:
 
 
 def _task_glm_diagnostics(ctx: ValidationContext) -> ValidationOutputs:
-    if ctx.glm is None or ctx.va.empty:
+    if ctx.glm is None:
         return ValidationOutputs()
 
-    va = ctx.va.copy()
-    va["glm_prob"] = ctx.glm.predict_proba(va)
-    save_glm_diagnostics(
-        df=va,
-        p_col="glm_prob",
-        y_col="home_win",
-        feature_cols=ctx.diagnostic_feature_cols,
-        coefs=ctx.glm.model.coef_[0],
-        out_dir=str(ctx.plots_dir),
-        prefix="glm",
+    report = save_glm_diagnostics(
+        ctx.train_df,
+        glm=ctx.glm,
+        target_col="home_win",
+        out_dir=str(ensure_dir(ctx.out_dir / "plots")),
+        prefix="glm_validation",
     )
-    return ValidationOutputs()
+    out = ValidationOutputs()
+    out.add_json(
+        section="glm_residual_summary",
+        file_name="validation_glm_residual_summary.json",
+        payload=report["summary"],
+    )
+    out.add_csv(
+        section="glm_residual_feature_summary",
+        file_name="validation_glm_residual_feature_summary.csv",
+        rows=report["feature_summary"],
+    )
+    out.add_csv(
+        section="glm_working_residual_bins_linear_predictor",
+        file_name="validation_glm_working_residual_bins_linear_predictor.csv",
+        rows=report["linear_predictor_bins"],
+    )
+    out.add_csv(
+        section="glm_working_residual_bins_features",
+        file_name="validation_glm_working_residual_bins_features.csv",
+        rows=report["feature_working_bins"],
+    )
+    out.add_csv(
+        section="glm_partial_residual_bins",
+        file_name="validation_glm_partial_residual_bins.csv",
+        rows=report["partial_residual_bins"],
+    )
+    return out
 
 
 def _task_permutation_importance(ctx: ValidationContext) -> ValidationOutputs:
@@ -408,7 +430,7 @@ def build_validation_tasks(
     extra_tasks: Sequence[ValidationTask] | None = None,
 ) -> list[ValidationTask]:
     tasks = [
-        ValidationTask(name="glm_diagnostics", runner=_task_glm_diagnostics, enabled=lambda ctx: _has_glm(ctx) and _has_holdout(ctx)),
+        ValidationTask(name="glm_diagnostics", runner=_task_glm_diagnostics, enabled=_has_glm),
         ValidationTask(name="permutation_importance", runner=_task_permutation_importance, enabled=_has_holdout),
         ValidationTask(name="collinearity", runner=_task_collinearity),
         ValidationTask(name="nonlinearity", runner=_task_nonlinearity, enabled=_has_holdout),

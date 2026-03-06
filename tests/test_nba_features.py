@@ -67,7 +67,13 @@ def test_nba_feature_build_uses_basketball_feature_names(tmp_path: Path) -> None
     cols = set(out.feature_columns)
 
     assert "diff_form_point_margin" in cols
+    assert "diff_form_point_margin_hinge_000" in cols
     assert "discipline_free_throw_pressure_diff" in cols
+    assert "discipline_free_throw_pressure_diff_hinge_000" in cols
+    assert "discipline_free_throw_pressure_diff_is_zero" in cols
+    assert "discipline_foul_margin_diff_hinge_000" in cols
+    assert "elo_home_prob_hinge_055" in cols
+    assert "diff_shot_volume_share_hinge_001" in cols
     assert "availability_stress_diff" in cols
     assert "arena_margin_effect" in cols
     assert "travel_diff" in cols

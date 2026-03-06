@@ -5,13 +5,19 @@ models:
   glm_logit:
     active_features:
     - diff_form_point_margin
+    - diff_form_point_margin_hinge_000
     - rest_diff
     - discipline_free_throw_pressure_diff
+    - discipline_free_throw_pressure_diff_hinge_000
+    - discipline_free_throw_pressure_diff_is_zero
     - discipline_foul_margin_diff
+    - discipline_foul_margin_diff_hinge_000
     - elo_home_prob
+    - elo_home_prob_hinge_055
     - arena_margin_effect
     - diff_shot_volume_share
-    feature_count: 7
+    - diff_shot_volume_share_hinge_001
+    feature_count: 13
   gbdt:
     active_features:
     - diff_form_point_margin

@@ -12,6 +12,14 @@ from src.features.dynamic_ratings import compute_dynamic_rating_features
 from src.features.elo import compute_elo_features
 from src.features.travel import build_travel_features
 
+NBA_GLM_HINGE_KNOTS = {
+    "discipline_foul_margin_diff": 0.0,
+    "discipline_free_throw_pressure_diff": 0.0,
+    "diff_form_point_margin": 0.0,
+    "diff_shot_volume_share": 0.01,
+    "elo_home_prob": 0.55,
+}
+
 
 def _load(name: str, interim_dir: str) -> pd.DataFrame:
     parquet_path = Path(interim_dir) / f"{name}.parquet"
@@ -21,6 +29,46 @@ def _load(name: str, interim_dir: str) -> pd.DataFrame:
     if csv_path.exists():
         return pd.read_csv(csv_path)
     return pd.DataFrame()
+
+
+def _positive_part(series: pd.Series, knot: float) -> pd.Series:
+    values = pd.to_numeric(series, errors="coerce")
+    return (values - float(knot)).clip(lower=0.0)
+
+
+def _add_nba_glm_transforms(df: pd.DataFrame) -> pd.DataFrame:
+    out = df.copy()
+
+    if "discipline_foul_margin_diff" in out.columns:
+        out["discipline_foul_margin_diff_hinge_000"] = _positive_part(
+            out["discipline_foul_margin_diff"],
+            NBA_GLM_HINGE_KNOTS["discipline_foul_margin_diff"],
+        )
+
+    if "discipline_free_throw_pressure_diff" in out.columns:
+        pressure_diff = pd.to_numeric(out["discipline_free_throw_pressure_diff"], errors="coerce")
+        out["discipline_free_throw_pressure_diff_hinge_000"] = _positive_part(
+            pressure_diff,
+            NBA_GLM_HINGE_KNOTS["discipline_free_throw_pressure_diff"],
+        )
+        out["discipline_free_throw_pressure_diff_is_zero"] = pressure_diff.eq(0).astype(float)
+
+    if "elo_home_prob" in out.columns:
+        out["elo_home_prob_hinge_055"] = _positive_part(out["elo_home_prob"], NBA_GLM_HINGE_KNOTS["elo_home_prob"])
+
+    if "diff_shot_volume_share" in out.columns:
+        out["diff_shot_volume_share_hinge_001"] = _positive_part(
+            out["diff_shot_volume_share"],
+            NBA_GLM_HINGE_KNOTS["diff_shot_volume_share"],
+        )
+
+    if "diff_form_point_margin" in out.columns:
+        out["diff_form_point_margin_hinge_000"] = _positive_part(
+            out["diff_form_point_margin"],
+            NBA_GLM_HINGE_KNOTS["diff_form_point_margin"],
+        )
+
+    return out
 
 
 def _expand_team_games(games: pd.DataFrame, boxscore_stats: pd.DataFrame) -> pd.DataFrame:
@@ -394,6 +442,7 @@ def build_nba_features_from_interim(interim_dir: str, processed_dir: str) -> Fea
     elo = compute_elo_features(games)
     dyn = compute_dynamic_rating_features(games)
     game_features = game_features.merge(elo, on="game_id", how="left").merge(dyn, on="game_id", how="left")
+    game_features = _add_nba_glm_transforms(game_features)
 
     drop_cols = {
         "game_id",
