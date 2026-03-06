@@ -30,6 +30,10 @@ function detectRepoName() {
 const repoName = process.env.PAGES_REPO_NAME || detectRepoName();
 const basePath = process.env.PAGES_BASE_PATH || (repoName ? `/${repoName}` : "");
 const nextBin = path.resolve(appRoot, "node_modules", ".bin", process.platform === "win32" ? "next.cmd" : "next");
+// Maintainer note: the Pages build consumes the committed snapshot manifest
+// under web/public/staging-data/. It does not rebuild live SQLite-backed
+// dashboard data, so dashboard changes that affect staging must regenerate and
+// commit the snapshot before this build is meaningful.
 const snapshotManifest = path.join(appRoot, "public", "staging-data", "manifest.json");
 const apiDir = path.join(appRoot, "app", "api");
 const parkedApiDir = path.join(appRoot, ".pages-build", "api");

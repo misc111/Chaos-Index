@@ -16,6 +16,10 @@ type JsonRecord = Record<string, unknown>;
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const appRoot = path.resolve(scriptDir, "..");
+// Maintainer note: this script is the bridge from the live local dashboard
+// data model to the committed GitHub Pages staging snapshot. If a local
+// dashboard/API change should be visible on staging, rerun this script and
+// commit the resulting files under web/public/staging-data/.
 const outputRoot = path.join(appRoot, "public", "staging-data");
 const generatedAtUtc = new Date().toISOString();
 
@@ -80,6 +84,8 @@ async function generateLeagueSnapshot(league: LeagueCode): Promise<void> {
 async function main(): Promise<void> {
   await generateLeagueSnapshot("NHL");
   await generateLeagueSnapshot("NBA");
+  // Maintainer note: Pages publishes these committed artifacts directly.
+  // Regenerating without committing leaves the local dashboard and staging out of sync.
   await writeJson(path.join(outputRoot, "manifest.json"), {
     generated_at_utc: generatedAtUtc,
     leagues: ["NHL", "NBA"],

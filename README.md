@@ -114,6 +114,10 @@ make dashboard
 LEAGUE=NBA NBA_DB_PATH=data/processed/nba_forecast.db make dashboard
 ```
 
+Maintainer note:
+- Local dashboard changes do not automatically update the GitHub Pages staging site.
+- If a dashboard/API change affects what staging should show, you must regenerate and commit `web/public/staging-data/` before pushing.
+
 Generate the GitHub Pages staging snapshot from your current local dashboard data:
 ```bash
 cd web
@@ -130,6 +134,7 @@ Deployment notes:
 - `.github/workflows/pages-staging.yml` deploys the staging site on every push to `main`.
 - The Pages build publishes the committed files under `web/public/staging-data/`; it does not rebuild live SQLite data on GitHub Actions.
 - When you want the staging site to reflect newer local forecasts, run `npm run generate:staging-data`, commit the updated JSON in `web/public/staging-data/`, and push.
+- Treat this as part of dashboard maintenance: if you ship a local dashboard change that should appear on staging, update the committed staging snapshot in the same change.
 
 Deterministic local query command:
 ```bash

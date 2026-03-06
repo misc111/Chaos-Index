@@ -1,5 +1,9 @@
 import { type LeagueCode, withLeague } from "@/lib/league";
 
+// Maintainer note: GitHub Pages staging does not call the live API routes.
+// It reads committed JSON snapshots from web/public/staging-data/, so any
+// dashboard/API change that should show up on staging also needs a fresh
+// `npm run generate:staging-data` and committed snapshot files.
 const STATIC_STAGING = process.env.NEXT_PUBLIC_STATIC_STAGING === "1";
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const STAGING_ASSET_VERSION = process.env.NEXT_PUBLIC_STAGING_ASSET_VERSION || "";
