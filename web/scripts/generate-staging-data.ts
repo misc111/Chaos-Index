@@ -12,6 +12,7 @@ import { GET as getValidation } from "../app/api/validation/route";
 import type { LeagueCode } from "../lib/league";
 
 type JsonRouteHandler = (request: Request) => Promise<Response>;
+type JsonRecord = Record<string, unknown>;
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const appRoot = path.resolve(scriptDir, "..");
@@ -33,6 +34,26 @@ function requestForLeague(routePath: string, league: LeagueCode): Request {
   return new Request(`http://staging.local${routePath}?league=${league}`);
 }
 
+function sanitizePublicPayload(fileName: string, payload: unknown, league: LeagueCode): unknown {
+  if (fileName !== "validation.json") {
+    return payload;
+  }
+
+  const raw = (payload || {}) as JsonRecord;
+  return {
+    league,
+    significance: [],
+    sections: {
+      public_note: [
+        {
+          message: "Detailed validation artifacts remain private in the public GitHub Pages staging build.",
+        },
+      ],
+    },
+    as_of_utc: raw.as_of_utc ?? null,
+  };
+}
+
 async function writeJson(filePath: string, payload: unknown): Promise<void> {
   await fs.writeFile(filePath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
 }
@@ -44,7 +65,7 @@ async function generateLeagueSnapshot(league: LeagueCode): Promise<void> {
   for (const route of routes) {
     const response = await route.handler(requestForLeague(route.routePath, league));
     const payload = await response.json();
-    await writeJson(path.join(leagueDir, route.fileName), payload);
+    await writeJson(path.join(leagueDir, route.fileName), sanitizePublicPayload(route.fileName, payload, league));
   }
 
   await writeJson(path.join(leagueDir, "meta.json"), {

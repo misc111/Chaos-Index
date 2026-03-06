@@ -1,4 +1,4 @@
-name: Deploy Pages Staging
+name: Publish Sanitized Staging Site
 
 on:
   push:
@@ -8,22 +8,20 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: staging-site
   cancel-in-progress: true
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
+    env:
+      STAGING_REPO: misc111/chaos-index-staging
+      STAGING_REPO_NAME: chaos-index-staging
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -36,24 +34,43 @@ jobs:
         working-directory: web
         run: npm ci
 
+      - name: Generate sanitized staging snapshot
+        working-directory: web
+        run: npm run generate:staging-data
+
       - name: Build static staging site
         working-directory: web
         env:
-          GITHUB_REPOSITORY: ${{ github.repository }}
+          PAGES_REPO_NAME: ${{ env.STAGING_REPO_NAME }}
         run: npm run build:pages
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Start SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
         with:
-          path: web/out
+          ssh-private-key: ${{ secrets.STAGING_DEPLOY_KEY }}
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Add GitHub to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+      - name: Publish site to external repo
+        run: |
+          target_dir="$(mktemp -d)"
+          git clone "git@github.com:${STAGING_REPO}.git" "$target_dir"
+          rsync -a --delete --exclude '.git' web/out/ "$target_dir"/
+          touch "$target_dir/.nojekyll"
+          cd "$target_dir"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "No staging site changes to publish."
+            exit 0
+          fi
+          git add .
+          if git diff --cached --quiet; then
+            echo "No staged staging-site changes."
+            exit 0
+          fi
+          git commit -m "Publish sanitized staging site"
+          git push origin main
