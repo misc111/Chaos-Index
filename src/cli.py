@@ -16,15 +16,8 @@ from src.common.logging import get_logger, setup_logging
 from src.common.time import utc_now_iso
 from src.common.utils import ensure_dir, to_json
 from src.data_sources.base import HttpClient, SourceFetchResult
-from src.evaluation.brier_decomposition import brier_decompose
-from src.evaluation.calibration import calibration_alpha_beta, ece_mce
-from src.evaluation.diagnostics_glm import save_glm_diagnostics
-from src.evaluation.diagnostics_ml import permutation_importance_report
 from src.evaluation.validation_backtest_integrity import run_backtest_integrity_checks
-from src.evaluation.validation_fragility import missingness_stress_test, perturbation_sensitivity
-from src.evaluation.validation_influence import influence_diagnostics
-from src.evaluation.validation_significance import blockwise_nested_lrt
-from src.evaluation.validation_stability import break_test_trade_deadline, coefficient_paths, vif_table
+from src.evaluation.validation_pipeline import run_validation_pipeline
 from src.features.build_features import build_features_from_interim
 from src.storage.db import Database
 from src.storage.tracker import RunTracker
@@ -801,110 +794,7 @@ def _persist_predictions(
 
 
 def _run_validation_outputs(result: dict, cfg: AppConfig) -> None:
-    models = result["models"]
-    train_df = result["train_df"].copy()
-    feature_cols = result["feature_columns"]
-    out_val = ensure_dir(Path(cfg.paths.artifacts_dir) / "validation")
-    league = _canonical_league(cfg.data.league)
-
-    split = int(len(train_df) * 0.8)
-    tr = train_df.iloc[:split].copy()
-    va = train_df.iloc[split:].copy()
-
-    # GLM diagnostics.
-    glm = models.get("glm_logit")
-    diagnostic_feature_cols = list(getattr(glm, "feature_columns", []) or feature_cols[: min(40, len(feature_cols))])
-    if glm is not None and not va.empty:
-        va = va.copy()
-        va["glm_prob"] = glm.predict_proba(va)
-        save_glm_diagnostics(
-            df=va,
-            p_col="glm_prob",
-            y_col="home_win",
-            feature_cols=diagnostic_feature_cols,
-            coefs=glm.model.coef_[0],
-            out_dir=str(Path(cfg.paths.artifacts_dir) / "plots"),
-            prefix="glm",
-        )
-
-    # Permutation importance.
-    for model_name in ["gbdt", "rf"]:
-        m = models.get(model_name)
-        if m is not None and len(va) > 25:
-            model_feature_cols = getattr(m, "feature_columns", feature_cols) or feature_cols
-            permutation_importance_report(
-                m.model,
-                va[model_feature_cols],
-                va["home_win"].astype(int).to_numpy(),
-                out_dir=str(Path(cfg.paths.artifacts_dir) / "validation"),
-                model_name=model_name,
-            )
-
-    # The NBA rebuild now fits per-model feature maps. The heavyweight GLM-era validation suite
-    # is disproportionate at train time and can leave long-running duplicate jobs behind.
-    if league == "NBA":
-        if glm is not None:
-            stress = missingness_stress_test(glm, va if not va.empty else train_df, feature_cols=diagnostic_feature_cols)
-            stress.to_csv(out_val / "validation_fragility_missingness.csv", index=False)
-            pert = perturbation_sensitivity(glm, va if not va.empty else train_df, feature_cols=diagnostic_feature_cols)
-            (out_val / "validation_fragility_perturbation.json").write_text(json.dumps(pert, indent=2, sort_keys=True))
-
-            if not va.empty:
-                p = glm.predict_proba(va)
-                y = va["home_win"].astype(int).to_numpy()
-                cal = calibration_alpha_beta(y, p) | ece_mce(y, p)
-                cal |= brier_decompose(y, p)
-                (out_val / "validation_calibration_robustness.json").write_text(json.dumps(cal, indent=2, sort_keys=True))
-        return
-
-    # Significance blocks.
-    if league == "NBA":
-        feature_blocks = {
-            "availability_block": [c for c in diagnostic_feature_cols if "availability" in c or "absence" in c or "roster_depth" in c],
-            "shot_profile_block": [c for c in diagnostic_feature_cols if "shot" in c or "scoring_efficiency" in c],
-            "discipline_block": [c for c in diagnostic_feature_cols if "discipline" in c or "foul" in c or "free_throw" in c],
-            "travel_block": [c for c in diagnostic_feature_cols if "travel" in c or "rest" in c or "tz_" in c],
-            "arena_block": [c for c in diagnostic_feature_cols if "arena" in c],
-        }
-    else:
-        feature_blocks = {
-            "goalie_block": [c for c in diagnostic_feature_cols if "goalie" in c],
-            "xg_block": [c for c in diagnostic_feature_cols if "xg" in c],
-            "special_teams_block": [c for c in diagnostic_feature_cols if "special" in c or "penalty" in c or "pp_" in c],
-            "travel_block": [c for c in diagnostic_feature_cols if "travel" in c or "rest" in c or "tz_" in c],
-            "lineup_block": [c for c in diagnostic_feature_cols if "lineup" in c or "roster" in c or "man_games" in c],
-            "rink_block": [c for c in diagnostic_feature_cols if "rink" in c],
-        }
-    sig = blockwise_nested_lrt(tr, va, feature_blocks=feature_blocks, all_features=diagnostic_feature_cols)
-    sig.to_csv(out_val / "validation_significance.csv", index=False)
-
-    # Stability and multicollinearity.
-    coef_path = coefficient_paths(train_df, features=diagnostic_feature_cols)
-    coef_path.to_csv(out_val / "validation_coef_paths.csv", index=False)
-    vif = vif_table(train_df, features=diagnostic_feature_cols)
-    vif.to_csv(out_val / "validation_vif.csv", index=False)
-    break_test = break_test_trade_deadline(train_df, features=diagnostic_feature_cols)
-    (out_val / "validation_break_test.json").write_text(json.dumps(break_test, indent=2, sort_keys=True))
-
-    # Influence.
-    infl_df, infl_summary = influence_diagnostics(train_df, features=diagnostic_feature_cols, top_k=10)
-    infl_df.to_csv(out_val / "validation_influence_top.csv", index=False)
-    (out_val / "validation_influence_summary.json").write_text(json.dumps(infl_summary, indent=2, sort_keys=True))
-
-    # Fragility.
-    if glm is not None:
-        stress = missingness_stress_test(glm, va if not va.empty else train_df, feature_cols=diagnostic_feature_cols)
-        stress.to_csv(out_val / "validation_fragility_missingness.csv", index=False)
-        pert = perturbation_sensitivity(glm, va if not va.empty else train_df, feature_cols=diagnostic_feature_cols)
-        (out_val / "validation_fragility_perturbation.json").write_text(json.dumps(pert, indent=2, sort_keys=True))
-
-    # Calibration robustness outputs.
-    if glm is not None and not va.empty:
-        p = glm.predict_proba(va)
-        y = va["home_win"].astype(int).to_numpy()
-        cal = calibration_alpha_beta(y, p) | ece_mce(y, p)
-        cal |= brier_decompose(y, p)
-        (out_val / "validation_calibration_robustness.json").write_text(json.dumps(cal, indent=2, sort_keys=True))
+    run_validation_pipeline(result, cfg)
 
 
 

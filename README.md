@@ -207,8 +207,10 @@ Persisted in SQLite (`upcoming_game_forecasts`, `predictions`) with `as_of_utc`:
 ## Validation Artifacts
 
 Generated under `artifacts/validation/` and surfaced in `/validation`:
+- manifest-driven task pipeline so new validation directions can publish sections without growing `src/cli.py`
 - blockwise nested model tests (LRT + OOS uplift + AME CI)
-- coefficient stability paths, VIF/condition diagnostics, trade-deadline break test
+- coefficient stability paths, trade-deadline break test
+- production multicollinearity suite: structural flags, pairwise correlation scan, VIF/tolerance, condition indices, variance decomposition, summary risk report
 - influence diagnostics (leverage/Cook's/dfbetas + refit impact)
 - calibration robustness + Brier decomposition
 - fragility tests (missingness + perturbation)

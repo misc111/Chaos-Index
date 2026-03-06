@@ -1,9 +1,24 @@
 from __future__ import annotations
 
+from typing import Any
+import warnings
+
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 
+PAIRWISE_WARN_THRESHOLD = 0.80
+PAIRWISE_SEVERE_THRESHOLD = 0.95
+VIF_WARN_THRESHOLD = 5.0
+VIF_SEVERE_THRESHOLD = 10.0
+CONDITION_WARN_THRESHOLD = 10.0
+CONDITION_SEVERE_THRESHOLD = 30.0
+VARIANCE_PROP_THRESHOLD = 0.50
+DOMINANT_SHARE_THRESHOLD = 0.995
+RELATIVE_NEAR_CONSTANT_STD_THRESHOLD = 1e-4
+ABSOLUTE_NEAR_CONSTANT_STD_THRESHOLD = 1e-8
+ZERO_STD_THRESHOLD = 1e-12
+MIN_NON_MISSING = 3
 
 
 def coefficient_paths(
@@ -41,24 +56,548 @@ def coefficient_paths(
     return pd.DataFrame(out)
 
 
+def _safe_numeric_frame(df: pd.DataFrame, features: list[str]) -> pd.DataFrame:
+    if not features:
+        return pd.DataFrame(index=df.index)
+    return df[features].apply(pd.to_numeric, errors="coerce").replace([np.inf, -np.inf], np.nan)
+
+
+def _dominant_share(series: pd.Series) -> float:
+    non_missing = series.dropna()
+    if non_missing.empty:
+        return float("nan")
+    counts = non_missing.value_counts(normalize=True, dropna=True)
+    if counts.empty:
+        return float("nan")
+    return float(counts.iloc[0])
+
+
+def _series_key(series: pd.Series) -> tuple[Any, ...]:
+    return tuple(None if pd.isna(v) else float(v) for v in series.to_list())
+
+
+def _join_flags(flags: list[str]) -> str:
+    return " | ".join(dict.fromkeys(f for f in flags if f))
+
+
+def _status_from_flags(flags: list[str]) -> str:
+    critical_markers = {
+        "all_missing",
+        "insufficient_non_missing",
+        "constant",
+        "complete_case_constant",
+        "exact_duplicate",
+        "severe_vif",
+        "severe_pairwise_corr",
+        "critical_condition_cluster",
+    }
+    warning_markers = {
+        "near_constant",
+        "high_vif",
+        "high_pairwise_corr",
+        "warning_condition_cluster",
+    }
+    if any(flag in critical_markers for flag in flags):
+        return "critical"
+    if any(flag in warning_markers for flag in flags):
+        return "warning"
+    return "ok"
+
+
+def _status_rank(status: str) -> int:
+    return {"critical": 0, "warning": 1, "ok": 2}.get(status, 3)
+
+
+def _safe_float(value: Any) -> Any:
+    if value is None:
+        return None
+    if isinstance(value, (np.integer, int)):
+        return int(value)
+    if isinstance(value, (np.floating, float)):
+        if np.isnan(value):
+            return None
+        if np.isposinf(value):
+            return "inf"
+        if np.isneginf(value):
+            return "-inf"
+        return float(value)
+    return value
+
+
+def _max_finite_or_inf(values: list[float]) -> float:
+    if not values:
+        return float("nan")
+    if any(np.isposinf(v) for v in values):
+        return float("inf")
+    finite = [float(v) for v in values if np.isfinite(v)]
+    if not finite:
+        return float("nan")
+    return float(max(finite))
+
+
+def assess_multicollinearity(
+    df: pd.DataFrame,
+    features: list[str],
+) -> dict[str, pd.DataFrame | dict[str, Any]]:
+    structural_columns = [
+        "feature",
+        "non_missing_count",
+        "missing_count",
+        "missing_rate",
+        "unique_values",
+        "std",
+        "relative_std",
+        "dominant_share",
+        "duplicate_of",
+        "included_in_matrix",
+        "status",
+        "flags",
+    ]
+    vif_columns = [
+        "feature",
+        "vif",
+        "tolerance",
+        "max_abs_pairwise_corr",
+        "most_correlated_with",
+        "missing_rate",
+        "unique_values",
+        "included_in_matrix",
+        "condition_cluster_count",
+        "status",
+        "flags",
+        "condition_number",
+    ]
+    pairwise_columns = ["feature_a", "feature_b", "corr", "abs_corr", "direction", "severity"]
+    condition_columns = [
+        "dimension",
+        "eigenvalue",
+        "variance_share",
+        "condition_index",
+        "contributing_feature_count",
+        "contributing_features",
+        "severity",
+    ]
+    variance_columns = ["dimension", "feature", "variance_proportion", "condition_index", "severity"]
+
+    x = _safe_numeric_frame(df, features)
+    n_rows_total = int(len(x))
+
+    if not features:
+        return {
+            "summary": {
+                "status": "ok",
+                "headline": "No features supplied for multicollinearity assessment",
+                "n_rows_total": 0,
+                "n_features_requested": 0,
+                "n_features_analyzed": 0,
+                "n_complete_cases": 0,
+                "complete_case_rate": None,
+                "matrix_rank": 0,
+                "full_rank": True,
+                "max_vif": None,
+                "max_abs_pairwise_corr": None,
+                "max_condition_index": None,
+                "exact_duplicate_features": 0,
+                "constant_features": 0,
+                "near_constant_features": 0,
+                "high_corr_pairs": 0,
+                "severe_corr_pairs": 0,
+                "high_vif_features": 0,
+                "severe_vif_features": 0,
+                "warning_condition_dimensions": 0,
+                "critical_condition_dimensions": 0,
+                "flagged_feature_count": 0,
+                "flagged_features": "",
+                "recommended_actions": "None",
+            },
+            "structural": pd.DataFrame(columns=structural_columns),
+            "vif": pd.DataFrame(columns=vif_columns),
+            "pairwise": pd.DataFrame(columns=pairwise_columns),
+            "condition": pd.DataFrame(columns=condition_columns),
+            "variance_decomposition": pd.DataFrame(columns=variance_columns),
+        }
+
+    feature_meta: dict[str, dict[str, Any]] = {}
+    for col in features:
+        series = x[col]
+        non_missing = series.dropna()
+        non_missing_count = int(non_missing.shape[0])
+        missing_count = int(series.isna().sum())
+        unique_values = int(non_missing.nunique()) if non_missing_count else 0
+        std = float(non_missing.std(ddof=0)) if non_missing_count else float("nan")
+        mean_abs = float(non_missing.abs().mean()) if non_missing_count else float("nan")
+        relative_std = float(std / max(mean_abs, ZERO_STD_THRESHOLD)) if np.isfinite(std) else float("nan")
+        dominant_share = _dominant_share(series)
+        flags: list[str] = []
+
+        if non_missing_count == 0:
+            flags.append("all_missing")
+        elif non_missing_count < MIN_NON_MISSING:
+            flags.append("insufficient_non_missing")
+        elif unique_values <= 1 or (np.isfinite(std) and std <= ZERO_STD_THRESHOLD):
+            flags.append("constant")
+        else:
+            if (
+                (np.isfinite(std) and std <= ABSOLUTE_NEAR_CONSTANT_STD_THRESHOLD)
+                or (np.isfinite(relative_std) and relative_std <= RELATIVE_NEAR_CONSTANT_STD_THRESHOLD)
+                or (np.isfinite(dominant_share) and dominant_share >= DOMINANT_SHARE_THRESHOLD)
+            ):
+                flags.append("near_constant")
+
+        feature_meta[col] = {
+            "feature": col,
+            "non_missing_count": non_missing_count,
+            "missing_count": missing_count,
+            "missing_rate": float(missing_count / n_rows_total) if n_rows_total else float("nan"),
+            "unique_values": unique_values,
+            "std": std,
+            "relative_std": relative_std,
+            "dominant_share": dominant_share,
+            "duplicate_of": "",
+            "included_in_matrix": False,
+            "flags": flags,
+        }
+
+    seen_keys: dict[tuple[Any, ...], str] = {}
+    for col in features:
+        key = _series_key(x[col])
+        if key in seen_keys:
+            feature_meta[col]["duplicate_of"] = seen_keys[key]
+            feature_meta[col]["flags"].append("exact_duplicate")
+        else:
+            seen_keys[key] = col
+
+    excluded_structural_flags = {"all_missing", "insufficient_non_missing", "constant"}
+    analysis_features = [col for col in features if not excluded_structural_flags.intersection(feature_meta[col]["flags"])]
+
+    complete_cases = x[analysis_features].dropna().copy() if analysis_features else pd.DataFrame()
+    while analysis_features and not complete_cases.empty:
+        stds = complete_cases[analysis_features].std(ddof=0)
+        dropped = [col for col in analysis_features if not np.isfinite(stds[col]) or float(stds[col]) <= ZERO_STD_THRESHOLD]
+        if not dropped:
+            break
+        for col in dropped:
+            feature_meta[col]["flags"].append("complete_case_constant")
+        analysis_features = [col for col in analysis_features if col not in dropped]
+        complete_cases = x[analysis_features].dropna().copy() if analysis_features else pd.DataFrame()
+
+    for col in analysis_features:
+        feature_meta[col]["included_in_matrix"] = True
+
+    pairwise_rows: list[dict[str, Any]] = []
+    feature_pairwise_lookup: dict[str, dict[str, Any]] = {
+        col: {"max_abs_pairwise_corr": float("nan"), "most_correlated_with": ""} for col in features
+    }
+    if len(analysis_features) >= 2 and not complete_cases.empty:
+        corr = complete_cases[analysis_features].corr(method="pearson")
+        for i, col_a in enumerate(analysis_features):
+            for j in range(i + 1, len(analysis_features)):
+                col_b = analysis_features[j]
+                corr_val = float(corr.loc[col_a, col_b])
+                if not np.isfinite(corr_val):
+                    continue
+                abs_corr = abs(corr_val)
+                if abs_corr > feature_pairwise_lookup[col_a]["max_abs_pairwise_corr"] or not np.isfinite(
+                    feature_pairwise_lookup[col_a]["max_abs_pairwise_corr"]
+                ):
+                    feature_pairwise_lookup[col_a] = {
+                        "max_abs_pairwise_corr": abs_corr,
+                        "most_correlated_with": col_b,
+                    }
+                if abs_corr > feature_pairwise_lookup[col_b]["max_abs_pairwise_corr"] or not np.isfinite(
+                    feature_pairwise_lookup[col_b]["max_abs_pairwise_corr"]
+                ):
+                    feature_pairwise_lookup[col_b] = {
+                        "max_abs_pairwise_corr": abs_corr,
+                        "most_correlated_with": col_a,
+                    }
+                if abs_corr >= PAIRWISE_WARN_THRESHOLD:
+                    pairwise_rows.append(
+                        {
+                            "feature_a": col_a,
+                            "feature_b": col_b,
+                            "corr": corr_val,
+                            "abs_corr": abs_corr,
+                            "direction": "positive" if corr_val >= 0 else "negative",
+                            "severity": "severe" if abs_corr >= PAIRWISE_SEVERE_THRESHOLD else "warning",
+                        }
+                    )
+
+    pairwise_df = pd.DataFrame(pairwise_rows, columns=pairwise_columns).sort_values(
+        ["abs_corr", "feature_a", "feature_b"], ascending=[False, True, True]
+    )
+
+    vif_lookup: dict[str, float] = {}
+    if analysis_features and not complete_cases.empty:
+        import statsmodels.api as sm
+        from statsmodels.stats.outliers_influence import variance_inflation_factor
+
+        design = sm.add_constant(complete_cases[analysis_features], has_constant="add")
+        for i, col in enumerate(design.columns):
+            if col == "const":
+                continue
+            try:
+                with warnings.catch_warnings():
+                    warnings.simplefilter("ignore", category=RuntimeWarning)
+                    vif_val = float(variance_inflation_factor(design.values, i))
+                vif_lookup[col] = vif_val if np.isfinite(vif_val) or np.isposinf(vif_val) else float("inf")
+            except Exception:
+                vif_lookup[col] = float("inf")
+
+    matrix_rank = 0
+    design_condition_number = float("nan")
+    condition_rows: list[dict[str, Any]] = []
+    variance_rows: list[dict[str, Any]] = []
+    feature_condition_flags: dict[str, dict[str, Any]] = {
+        col: {"warning": 0, "critical": 0, "dimensions": []} for col in features
+    }
+    if analysis_features and not complete_cases.empty:
+        matrix = complete_cases[analysis_features].to_numpy(dtype=float)
+        centered = matrix - matrix.mean(axis=0, keepdims=True)
+        scaled = centered / matrix.std(axis=0, ddof=0, keepdims=True)
+        matrix_rank = int(np.linalg.matrix_rank(scaled))
+
+        xtx = scaled.T @ scaled
+        eigvals, eigvecs = np.linalg.eigh(xtx)
+        order = np.argsort(eigvals)[::-1]
+        eigvals = eigvals[order]
+        eigvecs = eigvecs[:, order]
+        max_eig = float(eigvals[0]) if eigvals.size else float("nan")
+        safe_eigvals = np.maximum(eigvals.astype(float), ZERO_STD_THRESHOLD)
+        cond_idx = np.sqrt(max_eig / safe_eigvals) if np.isfinite(max_eig) and max_eig > 0 else np.full_like(safe_eigvals, np.nan)
+        design_condition_number = float(np.nanmax(cond_idx)) if cond_idx.size else float("nan")
+        total_eig = float(np.sum(eigvals)) if eigvals.size else float("nan")
+        phi = (eigvecs ** 2) / safe_eigvals[np.newaxis, :]
+        phi_sum = phi.sum(axis=1, keepdims=True)
+        phi_sum[phi_sum == 0] = 1.0
+        variance_props = phi / phi_sum
+
+        for dim_idx in range(len(analysis_features)):
+            contributing = [
+                analysis_features[j]
+                for j in range(len(analysis_features))
+                if variance_props[j, dim_idx] >= VARIANCE_PROP_THRESHOLD
+            ]
+            severity = "ok"
+            if cond_idx[dim_idx] >= CONDITION_SEVERE_THRESHOLD and len(contributing) >= 2:
+                severity = "critical"
+            elif cond_idx[dim_idx] >= CONDITION_WARN_THRESHOLD and len(contributing) >= 2:
+                severity = "warning"
+            elif cond_idx[dim_idx] >= CONDITION_SEVERE_THRESHOLD:
+                severity = "warning"
+
+            if severity in {"warning", "critical"}:
+                for feature in contributing:
+                    feature_condition_flags[feature][severity] += 1
+                    feature_condition_flags[feature]["dimensions"].append(int(dim_idx + 1))
+
+            condition_rows.append(
+                {
+                    "dimension": int(dim_idx + 1),
+                    "eigenvalue": float(eigvals[dim_idx]),
+                    "variance_share": float(eigvals[dim_idx] / total_eig) if total_eig and np.isfinite(total_eig) else float("nan"),
+                    "condition_index": float(cond_idx[dim_idx]),
+                    "contributing_feature_count": int(len(contributing)),
+                    "contributing_features": " | ".join(contributing),
+                    "severity": severity,
+                }
+            )
+
+            for feature_idx, feature in enumerate(analysis_features):
+                prop = float(variance_props[feature_idx, dim_idx])
+                if cond_idx[dim_idx] >= CONDITION_WARN_THRESHOLD or prop >= VARIANCE_PROP_THRESHOLD:
+                    variance_severity = "ok"
+                    if cond_idx[dim_idx] >= CONDITION_SEVERE_THRESHOLD and prop >= VARIANCE_PROP_THRESHOLD:
+                        variance_severity = "critical"
+                    elif cond_idx[dim_idx] >= CONDITION_WARN_THRESHOLD and prop >= VARIANCE_PROP_THRESHOLD:
+                        variance_severity = "warning"
+                    variance_rows.append(
+                        {
+                            "dimension": int(dim_idx + 1),
+                            "feature": feature,
+                            "variance_proportion": prop,
+                            "condition_index": float(cond_idx[dim_idx]),
+                            "severity": variance_severity,
+                        }
+                    )
+
+    condition_df = pd.DataFrame(condition_rows, columns=condition_columns).sort_values(
+        ["condition_index", "dimension"], ascending=[False, True]
+    )
+    variance_df = pd.DataFrame(variance_rows, columns=variance_columns).sort_values(
+        ["condition_index", "variance_proportion", "feature"], ascending=[False, False, True]
+    )
+
+    structural_rows: list[dict[str, Any]] = []
+    vif_rows: list[dict[str, Any]] = []
+    for col in features:
+        base_flags = list(feature_meta[col]["flags"])
+        max_abs_corr = feature_pairwise_lookup[col]["max_abs_pairwise_corr"]
+        most_correlated_with = feature_pairwise_lookup[col]["most_correlated_with"]
+        vif_val = vif_lookup.get(col, float("nan"))
+        condition_cluster_count = int(feature_condition_flags[col]["warning"] + feature_condition_flags[col]["critical"])
+
+        feature_flags = list(base_flags)
+        if np.isfinite(max_abs_corr):
+            if max_abs_corr >= PAIRWISE_SEVERE_THRESHOLD:
+                feature_flags.append("severe_pairwise_corr")
+            elif max_abs_corr >= PAIRWISE_WARN_THRESHOLD:
+                feature_flags.append("high_pairwise_corr")
+        if np.isfinite(vif_val):
+            if vif_val >= VIF_SEVERE_THRESHOLD:
+                feature_flags.append("severe_vif")
+            elif vif_val >= VIF_WARN_THRESHOLD:
+                feature_flags.append("high_vif")
+        elif np.isposinf(vif_val):
+            feature_flags.append("severe_vif")
+
+        if feature_condition_flags[col]["critical"] > 0:
+            feature_flags.append("critical_condition_cluster")
+        elif feature_condition_flags[col]["warning"] > 0:
+            feature_flags.append("warning_condition_cluster")
+
+        status = _status_from_flags(feature_flags)
+        flags_text = _join_flags(feature_flags)
+
+        structural_rows.append(
+            {
+                "feature": col,
+                "non_missing_count": feature_meta[col]["non_missing_count"],
+                "missing_count": feature_meta[col]["missing_count"],
+                "missing_rate": feature_meta[col]["missing_rate"],
+                "unique_values": feature_meta[col]["unique_values"],
+                "std": feature_meta[col]["std"],
+                "relative_std": feature_meta[col]["relative_std"],
+                "dominant_share": feature_meta[col]["dominant_share"],
+                "duplicate_of": feature_meta[col]["duplicate_of"],
+                "included_in_matrix": bool(feature_meta[col]["included_in_matrix"]),
+                "status": status,
+                "flags": flags_text,
+            }
+        )
+
+        tolerance = float(1.0 / vif_val) if np.isfinite(vif_val) and vif_val != 0 else (0.0 if np.isposinf(vif_val) else float("nan"))
+        vif_rows.append(
+            {
+                "feature": col,
+                "vif": vif_val,
+                "tolerance": tolerance,
+                "max_abs_pairwise_corr": max_abs_corr,
+                "most_correlated_with": most_correlated_with,
+                "missing_rate": feature_meta[col]["missing_rate"],
+                "unique_values": feature_meta[col]["unique_values"],
+                "included_in_matrix": bool(feature_meta[col]["included_in_matrix"]),
+                "condition_cluster_count": condition_cluster_count,
+                "status": status,
+                "flags": flags_text,
+                "condition_number": design_condition_number,
+            }
+        )
+
+    structural_df = pd.DataFrame(structural_rows, columns=structural_columns).sort_values(
+        ["status", "missing_rate", "feature"],
+        ascending=[True, False, True],
+        key=lambda s: s.map(_status_rank) if s.name == "status" else s,
+    )
+    vif_df = pd.DataFrame(vif_rows, columns=vif_columns).sort_values(
+        ["status", "vif", "max_abs_pairwise_corr", "feature"],
+        ascending=[True, False, False, True],
+        key=lambda s: s.map(_status_rank) if s.name == "status" else s,
+    )
+
+    exact_duplicate_features = int(sum("exact_duplicate" in feature_meta[col]["flags"] for col in features))
+    constant_features = int(sum("constant" in feature_meta[col]["flags"] for col in features))
+    near_constant_features = int(sum("near_constant" in feature_meta[col]["flags"] for col in features))
+    high_corr_pairs = int(len(pairwise_df))
+    severe_corr_pairs = int((pairwise_df["abs_corr"] >= PAIRWISE_SEVERE_THRESHOLD).sum()) if not pairwise_df.empty else 0
+    high_vif_features = int(
+        sum(1 for col in analysis_features if np.isfinite(vif_lookup.get(col, float("nan"))) and vif_lookup[col] >= VIF_WARN_THRESHOLD)
+        + sum(1 for col in analysis_features if np.isposinf(vif_lookup.get(col, float("nan"))))
+    )
+    severe_vif_features = int(
+        sum(1 for col in analysis_features if np.isfinite(vif_lookup.get(col, float("nan"))) and vif_lookup[col] >= VIF_SEVERE_THRESHOLD)
+        + sum(1 for col in analysis_features if np.isposinf(vif_lookup.get(col, float("nan"))))
+    )
+    warning_condition_dimensions = int((condition_df["severity"] == "warning").sum()) if not condition_df.empty else 0
+    critical_condition_dimensions = int((condition_df["severity"] == "critical").sum()) if not condition_df.empty else 0
+    max_vif = _max_finite_or_inf(list(vif_lookup.values()))
+    max_abs_pairwise_corr = (
+        float(pairwise_df["abs_corr"].max()) if not pairwise_df.empty else float("nan")
+    )
+    max_condition_index = (
+        float(condition_df["condition_index"].max()) if not condition_df.empty else float("nan")
+    )
+    flagged_features = [row["feature"] for row in vif_rows if row["status"] != "ok"]
+
+    status = "ok"
+    headline = "No material multicollinearity detected"
+    if (
+        exact_duplicate_features > 0
+        or severe_corr_pairs > 0
+        or severe_vif_features > 0
+        or critical_condition_dimensions > 0
+        or (analysis_features and matrix_rank < len(analysis_features))
+    ):
+        status = "critical"
+        headline = "Severe multicollinearity detected"
+    elif near_constant_features > 0 or high_corr_pairs > 0 or high_vif_features > 0 or warning_condition_dimensions > 0:
+        status = "warning"
+        headline = "Moderate multicollinearity risk detected"
+
+    actions: list[str] = []
+    if exact_duplicate_features > 0:
+        actions.append("Remove one column from each exact duplicate feature set before interpreting GLM coefficients")
+    if severe_corr_pairs > 0:
+        actions.append("Collapse or residualize severe pairwise feature clusters instead of keeping both raw signals")
+    if severe_vif_features > 0 or critical_condition_dimensions > 0:
+        actions.append("Do not treat coefficient magnitudes as stable until the flagged collinearity cluster is reparameterized")
+    if near_constant_features > 0:
+        actions.append("Drop near-constant predictors unless they are required for business rules")
+    complete_case_rate = float(len(complete_cases) / n_rows_total) if n_rows_total else float("nan")
+    if np.isfinite(complete_case_rate) and complete_case_rate < 0.75:
+        actions.append("Review missing-data handling because complete-case diagnostics are using a reduced sample")
+    if not actions:
+        actions.append("None")
+
+    summary = {
+        "status": status,
+        "headline": headline,
+        "n_rows_total": n_rows_total,
+        "n_features_requested": len(features),
+        "n_features_analyzed": len(analysis_features),
+        "n_complete_cases": int(len(complete_cases)),
+        "complete_case_rate": _safe_float(complete_case_rate),
+        "matrix_rank": int(matrix_rank),
+        "full_rank": bool(not analysis_features or matrix_rank == len(analysis_features)),
+        "max_vif": _safe_float(max_vif),
+        "max_abs_pairwise_corr": _safe_float(max_abs_pairwise_corr),
+        "max_condition_index": _safe_float(max_condition_index),
+        "exact_duplicate_features": exact_duplicate_features,
+        "constant_features": constant_features,
+        "near_constant_features": near_constant_features,
+        "high_corr_pairs": high_corr_pairs,
+        "severe_corr_pairs": severe_corr_pairs,
+        "high_vif_features": high_vif_features,
+        "severe_vif_features": severe_vif_features,
+        "warning_condition_dimensions": warning_condition_dimensions,
+        "critical_condition_dimensions": critical_condition_dimensions,
+        "flagged_feature_count": len(flagged_features),
+        "flagged_features": " | ".join(flagged_features),
+        "recommended_actions": " | ".join(actions),
+    }
+
+    return {
+        "summary": summary,
+        "structural": structural_df,
+        "vif": vif_df,
+        "pairwise": pairwise_df,
+        "condition": condition_df,
+        "variance_decomposition": variance_df,
+    }
+
 
 def vif_table(df: pd.DataFrame, features: list[str]) -> pd.DataFrame:
-    import statsmodels.api as sm
-    from statsmodels.stats.outliers_influence import variance_inflation_factor
-
-    x = df[features].dropna().copy()
-    if x.empty:
-        return pd.DataFrame(columns=["feature", "vif"])
-    x = sm.add_constant(x)
-    vals = []
-    for i, col in enumerate(x.columns):
-        if col == "const":
-            continue
-        vals.append({"feature": col, "vif": float(variance_inflation_factor(x.values, i))})
-    out = pd.DataFrame(vals)
-    out["condition_number"] = float(np.linalg.cond(x.values))
-    return out
-
+    return assess_multicollinearity(df, features)["vif"]
 
 
 def break_test_trade_deadline(df: pd.DataFrame, features: list[str], target_col: str = "home_win") -> dict:
