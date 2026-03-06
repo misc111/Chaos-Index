@@ -1,6 +1,6 @@
 {
   "league": "NHL",
-  "as_of_utc": "2026-03-05T16:42:47+00:00",
+  "as_of_utc": "2026-03-06T12:06:33+00:00",
   "model_columns": [
     "ensemble",
     "glm_logit"
@@ -11,18 +11,33 @@
   },
   "rows": [
     {
-      "game_id": 2025020986,
-      "game_date_utc": "2026-03-06",
-      "home_team": "EDM",
-      "away_team": "CAR",
-      "ensemble_prob_home_win": 0.5989359095021722,
-      "predicted_winner": "EDM",
-      "spread_mean": 0.5989359095021722,
+      "game_id": 2025020992,
+      "game_date_utc": "2026-03-07",
+      "home_team": "BUF",
+      "away_team": "NSH",
+      "ensemble_prob_home_win": 0.6439064968837805,
+      "predicted_winner": "BUF",
+      "spread_mean": 0.6439064968837805,
       "spread_sd": 0,
       "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
       "model_win_probabilities": {
-        "ensemble": 0.5989359095021722,
-        "glm_logit": 0.5989359095021722
+        "ensemble": 0.6439064968837805,
+        "glm_logit": 0.6439064968837805
+      }
+    },
+    {
+      "game_id": 2025020990,
+      "game_date_utc": "2026-03-07",
+      "home_team": "BOS",
+      "away_team": "WSH",
+      "ensemble_prob_home_win": 0.6216655971373946,
+      "predicted_winner": "BOS",
+      "spread_mean": 0.6216655971373946,
+      "spread_sd": 0,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
+      "model_win_probabilities": {
+        "ensemble": 0.6216655971373946,
+        "glm_logit": 0.6216655971373946
       }
     },
     {
@@ -30,44 +45,29 @@
       "game_date_utc": "2026-03-06",
       "home_team": "DAL",
       "away_team": "COL",
-      "ensemble_prob_home_win": 0.5865944932023186,
+      "ensemble_prob_home_win": 0.6098901817945241,
       "predicted_winner": "DAL",
-      "spread_mean": 0.5865944932023186,
+      "spread_mean": 0.6098901817945241,
       "spread_sd": 0,
       "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
       "model_win_probabilities": {
-        "ensemble": 0.5865944932023186,
-        "glm_logit": 0.5865944932023186
+        "ensemble": 0.6098901817945241,
+        "glm_logit": 0.6098901817945241
       }
     },
     {
-      "game_id": 2025020977,
-      "game_date_utc": "2026-03-05",
-      "home_team": "PIT",
-      "away_team": "BUF",
-      "ensemble_prob_home_win": 0.5852066477418597,
-      "predicted_winner": "PIT",
-      "spread_mean": 0.5852066477418597,
-      "spread_sd": 0,
-      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
-      "model_win_probabilities": {
-        "ensemble": 0.5852066477418597,
-        "glm_logit": 0.5852066477418597
-      }
-    },
-    {
-      "game_id": 2025020988,
+      "game_id": 2025020986,
       "game_date_utc": "2026-03-06",
-      "home_team": "VGK",
-      "away_team": "MIN",
-      "ensemble_prob_home_win": 0.576969754951735,
-      "predicted_winner": "VGK",
-      "spread_mean": 0.576969754951735,
+      "home_team": "EDM",
+      "away_team": "CAR",
+      "ensemble_prob_home_win": 0.6082023296389982,
+      "predicted_winner": "EDM",
+      "spread_mean": 0.6082023296389982,
       "spread_sd": 0,
       "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
       "model_win_probabilities": {
-        "ensemble": 0.576969754951735,
-        "glm_logit": 0.576969754951735
+        "ensemble": 0.6082023296389982,
+        "glm_logit": 0.6082023296389982
       }
     },
     {
@@ -75,149 +75,74 @@
       "game_date_utc": "2026-03-06",
       "home_team": "ANA",
       "away_team": "MTL",
-      "ensemble_prob_home_win": 0.5614653474150159,
+      "ensemble_prob_home_win": 0.5897748620889023,
       "predicted_winner": "ANA",
-      "spread_mean": 0.5614653474150159,
+      "spread_mean": 0.5897748620889023,
       "spread_sd": 0,
       "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
       "model_win_probabilities": {
-        "ensemble": 0.5614653474150159,
-        "glm_logit": 0.5614653474150159
+        "ensemble": 0.5897748620889023,
+        "glm_logit": 0.5897748620889023
       }
     },
     {
-      "game_id": 2025020978,
-      "game_date_utc": "2026-03-05",
+      "game_id": 2025020988,
+      "game_date_utc": "2026-03-06",
+      "home_team": "VGK",
+      "away_team": "MIN",
+      "ensemble_prob_home_win": 0.5436826635632473,
+      "predicted_winner": "VGK",
+      "spread_mean": 0.5436826635632473,
+      "spread_sd": 0,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
+      "model_win_probabilities": {
+        "ensemble": 0.5436826635632473,
+        "glm_logit": 0.5436826635632473
+      }
+    },
+    {
+      "game_id": 2025020995,
+      "game_date_utc": "2026-03-07",
       "home_team": "CBJ",
-      "away_team": "FLA",
-      "ensemble_prob_home_win": 0.5317034323186727,
-      "predicted_winner": "CBJ",
-      "spread_mean": 0.5317034323186727,
-      "spread_sd": 0,
-      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
-      "model_win_probabilities": {
-        "ensemble": 0.5317034323186727,
-        "glm_logit": 0.5317034323186727
-      }
-    },
-    {
-      "game_id": 2025020980,
-      "game_date_utc": "2026-03-05",
-      "home_team": "WPG",
-      "away_team": "TBL",
-      "ensemble_prob_home_win": 0.5070326082696003,
-      "predicted_winner": "WPG",
-      "spread_mean": 0.5070326082696003,
-      "spread_sd": 0,
-      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
-      "model_win_probabilities": {
-        "ensemble": 0.5070326082696003,
-        "glm_logit": 0.5070326082696003
-      }
-    },
-    {
-      "game_id": 2025020989,
-      "game_date_utc": "2026-03-06",
-      "home_team": "SJS",
-      "away_team": "STL",
-      "ensemble_prob_home_win": 0.49894742942659387,
-      "predicted_winner": "STL",
-      "spread_mean": 0.4989474294265939,
-      "spread_sd": 0,
-      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
-      "model_win_probabilities": {
-        "ensemble": 0.49894742942659387,
-        "glm_logit": 0.4989474294265939
-      }
-    },
-    {
-      "game_id": 2025020979,
-      "game_date_utc": "2026-03-05",
-      "home_team": "NSH",
-      "away_team": "BOS",
-      "ensemble_prob_home_win": 0.49197588912940216,
-      "predicted_winner": "BOS",
-      "spread_mean": 0.49197588912940216,
-      "spread_sd": 0,
-      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
-      "model_win_probabilities": {
-        "ensemble": 0.49197588912940216,
-        "glm_logit": 0.49197588912940216
-      }
-    },
-    {
-      "game_id": 2025020976,
-      "game_date_utc": "2026-03-05",
-      "home_team": "PHI",
       "away_team": "UTA",
-      "ensemble_prob_home_win": 0.44877963232587137,
-      "predicted_winner": "UTA",
-      "spread_mean": 0.44877963232587137,
+      "ensemble_prob_home_win": 0.5365512466080439,
+      "predicted_winner": "CBJ",
+      "spread_mean": 0.5365512466080439,
       "spread_sd": 0,
       "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
       "model_win_probabilities": {
-        "ensemble": 0.44877963232587137,
-        "glm_logit": 0.44877963232587137
+        "ensemble": 0.5365512466080439,
+        "glm_logit": 0.5365512466080439
       }
     },
     {
-      "game_id": 2025020982,
-      "game_date_utc": "2026-03-05",
-      "home_team": "LAK",
-      "away_team": "NYI",
-      "ensemble_prob_home_win": 0.44737023623111194,
-      "predicted_winner": "NYI",
-      "spread_mean": 0.44737023623111194,
-      "spread_sd": 0,
-      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
-      "model_win_probabilities": {
-        "ensemble": 0.44737023623111194,
-        "glm_logit": 0.44737023623111194
-      }
-    },
-    {
-      "game_id": 2025020985,
-      "game_date_utc": "2026-03-06",
-      "home_team": "CHI",
-      "away_team": "VAN",
-      "ensemble_prob_home_win": 0.44611862725264284,
-      "predicted_winner": "VAN",
-      "spread_mean": 0.44611862725264284,
-      "spread_sd": 0,
-      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
-      "model_win_probabilities": {
-        "ensemble": 0.44611862725264284,
-        "glm_logit": 0.44611862725264284
-      }
-    },
-    {
-      "game_id": 2025020981,
-      "game_date_utc": "2026-03-05",
-      "home_team": "CGY",
-      "away_team": "OTT",
-      "ensemble_prob_home_win": 0.4082785966591768,
-      "predicted_winner": "OTT",
-      "spread_mean": 0.4082785966591768,
-      "spread_sd": 0,
-      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
-      "model_win_probabilities": {
-        "ensemble": 0.4082785966591768,
-        "glm_logit": 0.4082785966591768
-      }
-    },
-    {
-      "game_id": 2025020975,
-      "game_date_utc": "2026-03-05",
-      "home_team": "NYR",
-      "away_team": "TOR",
-      "ensemble_prob_home_win": 0.31724338202146857,
+      "game_id": 2025020994,
+      "game_date_utc": "2026-03-07",
+      "home_team": "TOR",
+      "away_team": "TBL",
+      "ensemble_prob_home_win": 0.5190971157782391,
       "predicted_winner": "TOR",
-      "spread_mean": 0.31724338202146857,
+      "spread_mean": 0.5190971157782391,
       "spread_sd": 0,
       "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
       "model_win_probabilities": {
-        "ensemble": 0.31724338202146857,
-        "glm_logit": 0.31724338202146857
+        "ensemble": 0.5190971157782391,
+        "glm_logit": 0.5190971157782391
+      }
+    },
+    {
+      "game_id": 2025020993,
+      "game_date_utc": "2026-03-07",
+      "home_team": "PIT",
+      "away_team": "PHI",
+      "ensemble_prob_home_win": 0.5001095680915028,
+      "predicted_winner": "PIT",
+      "spread_mean": 0.5001095680915028,
+      "spread_sd": 0,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
+      "model_win_probabilities": {
+        "ensemble": 0.5001095680915028,
+        "glm_logit": 0.5001095680915028
       }
     },
     {
@@ -225,14 +150,29 @@
       "game_date_utc": "2026-03-07",
       "home_team": "SEA",
       "away_team": "OTT",
-      "ensemble_prob_home_win": 0.15545326234975188,
+      "ensemble_prob_home_win": 0.49471541928317053,
       "predicted_winner": "OTT",
-      "spread_mean": 0.15545326234975188,
+      "spread_mean": 0.49471541928317053,
       "spread_sd": 0,
-      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": true, \"xg_unavailable\": true}",
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
       "model_win_probabilities": {
-        "ensemble": 0.15545326234975188,
-        "glm_logit": 0.15545326234975188
+        "ensemble": 0.49471541928317053,
+        "glm_logit": 0.49471541928317053
+      }
+    },
+    {
+      "game_id": 2025020985,
+      "game_date_utc": "2026-03-06",
+      "home_team": "CHI",
+      "away_team": "VAN",
+      "ensemble_prob_home_win": 0.4826853255491681,
+      "predicted_winner": "VAN",
+      "spread_mean": 0.4826853255491681,
+      "spread_sd": 0,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
+      "model_win_probabilities": {
+        "ensemble": 0.4826853255491681,
+        "glm_logit": 0.4826853255491681
       }
     },
     {
@@ -240,14 +180,29 @@
       "game_date_utc": "2026-03-07",
       "home_team": "NJD",
       "away_team": "NYR",
-      "ensemble_prob_home_win": 0.14623934526024773,
+      "ensemble_prob_home_win": 0.4652204733834825,
       "predicted_winner": "NYR",
-      "spread_mean": 0.14623934526024773,
+      "spread_mean": 0.4652204733834825,
       "spread_sd": 0,
-      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": true, \"xg_unavailable\": true}",
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
       "model_win_probabilities": {
-        "ensemble": 0.14623934526024773,
-        "glm_logit": 0.14623934526024773
+        "ensemble": 0.4652204733834825,
+        "glm_logit": 0.4652204733834825
+      }
+    },
+    {
+      "game_id": 2025020989,
+      "game_date_utc": "2026-03-06",
+      "home_team": "SJS",
+      "away_team": "STL",
+      "ensemble_prob_home_win": 0.4425019376493541,
+      "predicted_winner": "STL",
+      "spread_mean": 0.4425019376493541,
+      "spread_sd": 0,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
+      "model_win_probabilities": {
+        "ensemble": 0.4425019376493541,
+        "glm_logit": 0.4425019376493541
       }
     },
     {
@@ -255,14 +210,59 @@
       "game_date_utc": "2026-03-06",
       "home_team": "DET",
       "away_team": "FLA",
-      "ensemble_prob_home_win": 0.13719467626505827,
+      "ensemble_prob_home_win": 0.44132449134562185,
       "predicted_winner": "FLA",
-      "spread_mean": 0.13719467626505827,
+      "spread_mean": 0.44132449134562185,
+      "spread_sd": 0,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": false, \"xg_unavailable\": true}",
+      "model_win_probabilities": {
+        "ensemble": 0.44132449134562185,
+        "glm_logit": 0.44132449134562185
+      }
+    },
+    {
+      "game_id": 2025020996,
+      "game_date_utc": "2026-03-07",
+      "home_team": "WPG",
+      "away_team": "VAN",
+      "ensemble_prob_home_win": 0.3596602801312353,
+      "predicted_winner": "VAN",
+      "spread_mean": 0.3596602801312353,
       "spread_sd": 0,
       "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": true, \"xg_unavailable\": true}",
       "model_win_probabilities": {
-        "ensemble": 0.13719467626505827,
-        "glm_logit": 0.13719467626505827
+        "ensemble": 0.3596602801312353,
+        "glm_logit": 0.3596602801312353
+      }
+    },
+    {
+      "game_id": 2025020997,
+      "game_date_utc": "2026-03-07",
+      "home_team": "LAK",
+      "away_team": "MTL",
+      "ensemble_prob_home_win": 0.21939099660375824,
+      "predicted_winner": "MTL",
+      "spread_mean": 0.21939099660375824,
+      "spread_sd": 0,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": true, \"xg_unavailable\": true}",
+      "model_win_probabilities": {
+        "ensemble": 0.21939099660375824,
+        "glm_logit": 0.21939099660375824
+      }
+    },
+    {
+      "game_id": 2025020998,
+      "game_date_utc": "2026-03-07",
+      "home_team": "CGY",
+      "away_team": "CAR",
+      "ensemble_prob_home_win": 0.20142324583347507,
+      "predicted_winner": "CAR",
+      "spread_mean": 0.20142324583347507,
+      "spread_sd": 0,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": false, \"starter_unknown\": true, \"xg_unavailable\": true}",
+      "model_win_probabilities": {
+        "ensemble": 0.20142324583347507,
+        "glm_logit": 0.20142324583347507
       }
     }
   ]

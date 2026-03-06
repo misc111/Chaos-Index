@@ -1,14 +1,7 @@
 import fs from "node:fs/promises";
+import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { GET as getActualVsExpected } from "../app/api/actual-vs-expected/route";
-import { GET as getBetHistory } from "../app/api/bet-history/route";
-import { GET as getGamesToday } from "../app/api/games-today/route";
-import { GET as getMarketBoard } from "../app/api/market-board/route";
-import { GET as getMetrics } from "../app/api/metrics/route";
-import { GET as getPerformance } from "../app/api/performance/route";
-import { GET as getPredictions } from "../app/api/predictions/route";
-import { GET as getValidation } from "../app/api/validation/route";
 import type { LeagueCode } from "../lib/league";
 
 type JsonRouteHandler = (request: Request) => Promise<Response>;
@@ -16,6 +9,7 @@ type JsonRecord = Record<string, unknown>;
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const appRoot = path.resolve(scriptDir, "..");
+const requireFromScript = createRequire(import.meta.url);
 // Maintainer note: this script is the bridge from the live local dashboard
 // data model to the committed GitHub Pages staging snapshot. If a local
 // dashboard/API change should be visible on staging, rerun this script and
@@ -23,15 +17,15 @@ const appRoot = path.resolve(scriptDir, "..");
 const outputRoot = path.join(appRoot, "public", "staging-data");
 const generatedAtUtc = new Date().toISOString();
 
-const routes: Array<{ fileName: string; handler: JsonRouteHandler; routePath: string }> = [
-  { fileName: "actual-vs-expected.json", handler: getActualVsExpected, routePath: "/api/actual-vs-expected" },
-  { fileName: "bet-history.json", handler: getBetHistory, routePath: "/api/bet-history" },
-  { fileName: "games-today.json", handler: getGamesToday, routePath: "/api/games-today" },
-  { fileName: "market-board.json", handler: getMarketBoard, routePath: "/api/market-board" },
-  { fileName: "metrics.json", handler: getMetrics, routePath: "/api/metrics" },
-  { fileName: "performance.json", handler: getPerformance, routePath: "/api/performance" },
-  { fileName: "predictions.json", handler: getPredictions, routePath: "/api/predictions" },
-  { fileName: "validation.json", handler: getValidation, routePath: "/api/validation" },
+const routes: Array<{ fileName: string; modulePath: string; routePath: string }> = [
+  { fileName: "actual-vs-expected.json", modulePath: "app/api/actual-vs-expected/route.ts", routePath: "/api/actual-vs-expected" },
+  { fileName: "bet-history.json", modulePath: "app/api/bet-history/route.ts", routePath: "/api/bet-history" },
+  { fileName: "games-today.json", modulePath: "app/api/games-today/route.ts", routePath: "/api/games-today" },
+  { fileName: "market-board.json", modulePath: "app/api/market-board/route.ts", routePath: "/api/market-board" },
+  { fileName: "metrics.json", modulePath: "app/api/metrics/route.ts", routePath: "/api/metrics" },
+  { fileName: "performance.json", modulePath: "app/api/performance/route.ts", routePath: "/api/performance" },
+  { fileName: "predictions.json", modulePath: "app/api/predictions/route.ts", routePath: "/api/predictions" },
+  { fileName: "validation.json", modulePath: "app/api/validation/route.ts", routePath: "/api/validation" },
 ];
 
 function requestForLeague(routePath: string, league: LeagueCode): Request {
@@ -62,12 +56,22 @@ async function writeJson(filePath: string, payload: unknown): Promise<void> {
   await fs.writeFile(filePath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
 }
 
+async function loadRouteHandler(modulePath: string): Promise<JsonRouteHandler> {
+  const absoluteModulePath = path.join(appRoot, modulePath);
+  const module = requireFromScript(absoluteModulePath) as { GET?: JsonRouteHandler };
+  if (typeof module.GET !== "function") {
+    throw new Error(`Route module ${modulePath} does not export GET`);
+  }
+  return module.GET;
+}
+
 async function generateLeagueSnapshot(league: LeagueCode): Promise<void> {
   const leagueDir = path.join(outputRoot, league.toLowerCase());
   await fs.mkdir(leagueDir, { recursive: true });
 
   for (const route of routes) {
-    const response = await route.handler(requestForLeague(route.routePath, league));
+    const handler = await loadRouteHandler(route.modulePath);
+    const response = await handler(requestForLeague(route.routePath, league));
     const payload = await response.json();
     await writeJson(path.join(leagueDir, route.fileName), sanitizePublicPayload(route.fileName, payload, league));
   }

@@ -27,6 +27,10 @@ export type BetSettlement = {
   payout: number;
 };
 
+type BetLabelOptions = {
+  stakeScale?: number;
+};
+
 export function expectedSide(homeWinProbability: number): ExpectedSide {
   if (homeWinProbability > 0.55) return "home";
   if (homeWinProbability < 0.45) return "away";
@@ -52,6 +56,16 @@ export function americanToDecimalOdds(odds: number): number | null {
   return 1 + 100 / Math.abs(odds);
 }
 
+export function formatBetLabel(team: string | null, stake: number, options: BetLabelOptions = {}): string {
+  const scale = Number(options.stakeScale);
+  if (stake <= 0 || !team) return "$0";
+  if (!Number.isFinite(stake) || !Number.isFinite(scale) || scale <= 0) return "$0";
+
+  const normalizedStake = stake / scale;
+  const fractionDigits = scale === 1 ? 0 : 2;
+  return `$${normalizedStake.toFixed(fractionDigits)} ${team}`;
+}
+
 function buildDecision(
   row: BetInput,
   side: ExpectedSide,
@@ -65,7 +79,7 @@ function buildDecision(
   const odds = side === "home" ? Number(row.home_moneyline) : side === "away" ? Number(row.away_moneyline) : null;
 
   return {
-    bet: stake > 0 && team ? `$${stake} ${team}` : "$0",
+    bet: formatBetLabel(team, stake),
     reason,
     side,
     team,

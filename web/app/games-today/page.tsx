@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { computeBetDecision, expectedSide, expectedWinChance } from "@/lib/betting";
+import { computeBetDecision, expectedSide, expectedWinChance, formatBetLabel } from "@/lib/betting";
 import {
   centralTodayDateKey,
   dateKeyForScheduledGame,
@@ -280,7 +280,7 @@ function GamesTodayPageContent() {
                     <th>Moneyline</th>
                     {/* Maintainer note: this is the one league-specific column in the shared table. */}
                     {league === "NBA" ? <th>Over Odds</th> : null}
-                    <th>Bet per $100</th>
+                    <th>Bet per $1</th>
                     <th>Reason</th>
                   </tr>
                 </thead>
@@ -304,7 +304,7 @@ function GamesTodayPageContent() {
                         {league === "NBA" ? (
                           <td className={styles.over190Cell}>{formatOver190(row.over_190_price, row.over_190_point)}</td>
                         ) : null}
-                        <td className={styles.betCell}>{bet.bet}</td>
+                        <td className={styles.betCell}>{formatBetLabel(bet.team, bet.stake, { stakeScale: 100 })}</td>
                         <td className={styles.reasonCell}>{bet.reason}</td>
                       </tr>
                     );
@@ -365,8 +365,8 @@ function GamesTodayPageContent() {
                           </div>
                         ) : null}
                         <div className={styles.mobileMetaItem}>
-                          <span className={styles.mobileMetaLabel}>Bet per $100</span>
-                          <span className={styles.mobileMetaValue}>{bet.bet}</span>
+                          <span className={styles.mobileMetaLabel}>Bet per $1</span>
+                          <span className={styles.mobileMetaValue}>{formatBetLabel(bet.team, bet.stake, { stakeScale: 100 })}</span>
                         </div>
                         <div className={styles.mobileMetaItem}>
                           <span className={styles.mobileMetaLabel}>Reason</span>
