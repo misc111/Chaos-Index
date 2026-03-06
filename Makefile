@@ -6,6 +6,10 @@ MODELS ?=
 MODEL_ARGS := $(if $(MODELS),--models "$(MODELS)",)
 APPROVE_FEATURE_CHANGES ?= 0
 APPROVE_FEATURE_ARGS := $(if $(filter 1 true TRUE yes YES,$(APPROVE_FEATURE_CHANGES)),--approve-feature-changes,)
+PAGES_BUILD ?= 1
+PAGES_BUILD_ARGS := $(if $(filter 0 false FALSE no NO,$(PAGES_BUILD)),--skip-pages-build,)
+DRY_RUN ?= 0
+DRY_RUN_ARGS := $(if $(filter 1 true TRUE yes YES,$(DRY_RUN)),--dry-run,)
 CONFIG ?= configs/nhl.yaml
 
 .DEFAULT_GOAL := help
@@ -16,6 +20,7 @@ help:
 	@echo "  install-node        Install Node deps"
 	@echo "  init-db             Initialize SQLite schema"
 	@echo "  fetch               Fetch league data from CONFIG"
+	@echo "  fetch-odds          Fetch latest odds snapshot from CONFIG"
 	@echo "  features            Build feature tables"
 	@echo "  research-features   Score and promote per-model feature maps"
 	@echo "  train               Train models + predict upcoming games"
@@ -23,6 +28,8 @@ help:
 	@echo "                      Optional: MODELS=glm_logit,rf (default: all)"
 	@echo "                      Optional: APPROVE_FEATURE_CHANGES=1"
 	@echo "  run_daily           Daily pipeline end-to-end"
+	@echo "  hard_refresh        Deterministic NHL+NBA full refresh + staging snapshot"
+	@echo "                      Optional: MODELS=glm_logit,rf APPROVE_FEATURE_CHANGES=1 PAGES_BUILD=0 DRY_RUN=1"
 	@echo "  dashboard           Launch Next.js dashboard"
 	@echo "  query Q=...         Query local forecast/performance DB"
 	@echo "  smoke               End-to-end smoke run"
@@ -44,6 +51,9 @@ init-db:
 fetch:
 	$(PYTHON) -m src.cli fetch --config $(CONFIG)
 
+fetch-odds:
+	$(PYTHON) -m src.cli fetch-odds --config $(CONFIG)
+
 features:
 	$(PYTHON) -m src.cli features --config $(CONFIG)
 
@@ -58,6 +68,9 @@ backtest:
 
 run_daily:
 	$(PYTHON) -m src.cli run-daily --config $(CONFIG) $(MODEL_ARGS) $(APPROVE_FEATURE_ARGS)
+
+hard_refresh:
+	$(PYTHON) -m src.orchestration.hard_refresh $(MODEL_ARGS) $(APPROVE_FEATURE_ARGS) $(PAGES_BUILD_ARGS) $(DRY_RUN_ARGS)
 
 dashboard:
 	cd web && $(NPM) run dev

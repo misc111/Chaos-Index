@@ -35,6 +35,7 @@
 
 ## Hard Refresh Contract
 - Treat the exact phrase `do a hard refresh` as a repository-level command alias for a full deterministic rebuild-and-publish cycle across both supported leagues.
+- The canonical repository trigger for the executable refresh pipeline is `make hard_refresh`. After it succeeds, continue with the required commit/push/workflow-watch closeout steps below.
 - A hard refresh always covers both leagues, even if the user names only one team or one league in the same message.
 - Run the hard refresh steps in this exact order, sequentially, with no league parallelism and no step reordering:
   - `make init-db CONFIG=configs/nhl.yaml`

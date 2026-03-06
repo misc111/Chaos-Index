@@ -44,6 +44,14 @@ make fetch
 make fetch CONFIG=configs/nba.yaml
 ```
 
+Fetch the latest standalone odds snapshot for the configured league:
+```bash
+make fetch-odds
+```
+```bash
+make fetch-odds CONFIG=configs/nba.yaml
+```
+
 Build features with leakage checks/fallback metadata:
 ```bash
 make features
@@ -101,6 +109,19 @@ make run_daily MODELS=glm_logit
 make run_daily CONFIG=configs/nba.yaml MODELS=glm_logit
 ```
 
+Deterministic repo-wide hard refresh across NHL and NBA:
+```bash
+make hard_refresh
+```
+Preview the exact step plan without executing it:
+```bash
+make hard_refresh DRY_RUN=1
+```
+Run the full refresh but skip the static Pages build:
+```bash
+make hard_refresh PAGES_BUILD=0
+```
+
 NBA rebuild with explicit research phase:
 ```bash
 make fetch CONFIG=configs/nba.yaml
@@ -114,6 +135,11 @@ Launch dashboard:
 make dashboard
 LEAGUE=NBA NBA_DB_PATH=data/processed/nba_forecast.db make dashboard
 ```
+
+Execution architecture:
+- Atomic league-scoped commands stay independently runnable: `init-db`, `fetch`, `fetch-odds`, `features`, `research-features`, `train`, `backtest`, and `run_daily`.
+- Model-level execution remains available through `MODELS=...`, for example `make train MODELS=glm_logit`.
+- The repo-wide composite trigger is `make hard_refresh`, which runs a fixed sequential plan across NHL then NBA, regenerates `web/public/staging-data/`, and optionally builds the static Pages output.
 
 Maintainer note:
 - Local dashboard changes do not automatically update the GitHub Pages staging site.
