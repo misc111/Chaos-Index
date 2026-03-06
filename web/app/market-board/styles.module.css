@@ -1,35 +1,8 @@
 .page {
   display: grid;
-  gap: 20px;
-  padding: 8px 0 18px;
+  padding: 0 0 18px;
 }
 
-.hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 1fr);
-  gap: 20px;
-  align-items: stretch;
-}
-
-.heroLead,
-.summaryCard {
-  border: 1px solid rgba(217, 207, 186, 0.88);
-  border-radius: 28px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(252, 249, 241, 0.94));
-  box-shadow: 0 22px 54px rgba(31, 42, 52, 0.08);
-}
-
-.heroLead {
-  padding: 28px;
-  background:
-    radial-gradient(circle at top right, rgba(14, 116, 144, 0.18), transparent 42%),
-    radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.16), transparent 38%),
-    linear-gradient(145deg, rgba(255, 253, 250, 0.98), rgba(248, 245, 236, 0.96));
-}
-
-.eyebrow,
-.summaryLabel,
-.boardEyebrow,
 .marketLabel {
   margin: 0 0 10px;
   color: var(--accent);
@@ -37,67 +10,6 @@
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-}
-
-.headline {
-  margin: 0;
-  font-family: "Space Grotesk", "Avenir Next", sans-serif;
-  font-size: clamp(32px, 4vw, 46px);
-  line-height: 0.96;
-  letter-spacing: -0.04em;
-}
-
-.description {
-  max-width: 58ch;
-  margin: 16px 0 0;
-  color: #516574;
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-.heroNotes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 22px;
-}
-
-.heroNote {
-  display: inline-flex;
-  align-items: center;
-  min-height: 34px;
-  padding: 0 14px;
-  border: 1px solid rgba(15, 118, 110, 0.16);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.78);
-  color: #4f6472;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.summaryGrid {
-  display: grid;
-  gap: 12px;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.summaryCard {
-  padding: 20px;
-}
-
-.summaryValue {
-  margin: 0;
-  color: var(--ink);
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1.15;
-}
-
-.summaryHint {
-  margin: 10px 0 0;
-  color: #627483;
-  font-size: 12px;
-  line-height: 1.55;
 }
 
 .boardPanel {
@@ -111,36 +23,11 @@
   overflow: hidden;
 }
 
-.boardIntro {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: flex-end;
-  padding: 24px 24px 18px;
-}
-
-.boardTitle {
-  margin: 0;
-  font-family: "Space Grotesk", "Avenir Next", sans-serif;
-  font-size: 28px;
-  line-height: 1;
-  letter-spacing: -0.03em;
-}
-
-.boardHint {
-  max-width: 42ch;
-  margin: 0;
-  color: rgba(226, 232, 240, 0.82);
-  font-size: 13px;
-  line-height: 1.5;
-  text-align: right;
-}
-
 .boardHeader {
   display: grid;
   grid-template-columns: minmax(260px, 1.35fr) repeat(3, minmax(120px, 0.7fr)) minmax(250px, 1fr);
   gap: 12px;
-  padding: 0 24px 12px;
+  padding: 24px 24px 12px;
   color: rgba(226, 232, 240, 0.72);
   font-size: 11px;
   font-weight: 800;
@@ -279,20 +166,6 @@
 }
 
 @media (max-width: 1180px) {
-  .hero {
-    grid-template-columns: 1fr;
-  }
-
-  .boardIntro {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .boardHint {
-    max-width: 100%;
-    text-align: left;
-  }
-
   .boardHeader {
     display: none;
   }
@@ -307,31 +180,136 @@
 }
 
 @media (max-width: 760px) {
-  .summaryGrid {
-    grid-template-columns: 1fr;
-  }
-
   .boardPanel {
-    border-radius: 26px;
+    border-radius: 22px;
   }
 
-  .boardIntro,
+  .boardHeader,
   .boardRow {
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .boardHeader {
+    display: grid;
+    grid-template-columns: minmax(132px, 1.35fr) repeat(3, minmax(58px, 0.56fr));
+    gap: 0;
+    padding-top: 10px;
+    padding-bottom: 8px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    background: rgba(5, 14, 18, 0.2);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+  }
+
+  .boardHeader span:first-child {
+    padding-right: 10px;
+  }
+
+  .boardHeader span:not(:first-child) {
+    padding-left: 8px;
+    text-align: center;
+    border-left: 1px solid rgba(148, 163, 184, 0.14);
   }
 
   .boardRow {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(132px, 1.35fr) repeat(3, minmax(58px, 0.56fr));
+    gap: 0;
+    align-items: start;
   }
 
   .matchupCell,
   .marketCell,
   .signalCell {
-    border-radius: 18px;
+    min-height: auto;
+    border-radius: 0;
+    background: none;
+    border: 0;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .matchupCell {
+    gap: 8px;
+    padding-left: 0;
+    padding-right: 10px;
+  }
+
+  .marketCell {
+    gap: 6px;
+    padding-left: 8px;
+    padding-right: 0;
+    border-left: 1px solid rgba(148, 163, 184, 0.12);
+    align-content: start;
+  }
+
+  .marketCell .marketLabel,
+  .marketCell .marketMeta,
+  .signalCell .marketLabel,
+  .signalCell .signalText {
+    display: none;
+  }
+
+  .signalCell {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 10px;
+    padding: 8px 0 0;
+    border-top: 1px solid rgba(148, 163, 184, 0.12);
+  }
+
+  .signalCell .signalText:last-child {
+    display: block;
+    flex: 1 1 0;
+    min-width: 0;
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  .matchMeta {
+    gap: 6px;
+  }
+
+  .booksMeta {
+    display: none;
+  }
+
+  .tipBadge,
+  .signalBadge {
+    min-height: 20px;
+    padding: 0 8px;
+    font-size: 10px;
+  }
+
+  .teamsStack {
+    gap: 4px;
+  }
+
+  .teamLine {
+    align-items: center;
+    gap: 8px;
   }
 
   .teamName {
-    font-size: 16px;
+    font-size: 15px;
+  }
+
+  .teamCode {
+    display: none;
+  }
+
+  .quoteRow {
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    font-size: 11px;
+    line-height: 1.15;
+  }
+
+  .quoteRow strong {
+    font-size: 12px;
   }
 }

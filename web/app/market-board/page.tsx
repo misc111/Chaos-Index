@@ -24,18 +24,6 @@ type DerivedBoardRow = {
   edgeValue: number | null;
 };
 
-function formatAsOfLabel(value?: string | null): string {
-  if (!value) return "No snapshot";
-  const parsed = new Date(value);
-  if (Number.isNaN(parsed.getTime())) return value;
-  return parsed.toLocaleString(undefined, {
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  });
-}
-
 function formatCentralTip(value?: string | null): string {
   if (!value) return "Time TBD";
   const parsed = new Date(value);
@@ -199,81 +187,10 @@ function MarketBoardPageContent() {
   }, [league]);
 
   const derivedRows = useMemo(() => report.rows.map((row) => buildDerivedRow(row)), [report.rows]);
-  const strongestLean = useMemo(() => {
-    if (!derivedRows.length) return null;
-    return derivedRows.reduce((best, current) =>
-      current.modelWinnerProbability > best.modelWinnerProbability ? current : best
-    );
-  }, [derivedRows]);
-  const bestValue = useMemo(() => {
-    const candidates = derivedRows.filter((entry) => typeof entry.edgeValue === "number" && entry.edgeValue > 0);
-    if (!candidates.length) return null;
-    return candidates.reduce((best, current) => ((current.edgeValue || 0) > (best.edgeValue || 0) ? current : best));
-  }, [derivedRows]);
 
   return (
     <div className={styles.page}>
-      <section className={styles.hero}>
-        <div className={styles.heroLead}>
-          <p className={styles.eyebrow}>{league} sportsbook-style scan</p>
-          <h2 className={styles.headline}>Market Board</h2>
-          <p className={styles.description}>
-            A board-first view of today&apos;s slate. Spread, total, and moneyline mirror the book layout, while the model strip
-            adds fair price and value context that the sportsbook does not.
-          </p>
-          <div className={styles.heroNotes}>
-            <span className={styles.heroNote}>Today only</span>
-            <span className={styles.heroNote}>Consensus line, best current price</span>
-            <span className={styles.heroNote}>Model overlay built from ensemble win probability</span>
-          </div>
-        </div>
-
-        <div className={styles.summaryGrid}>
-          <article className={styles.summaryCard}>
-            <p className={styles.summaryLabel}>Forecast snapshot</p>
-            <p className={styles.summaryValue}>{formatAsOfLabel(report.as_of_utc)}</p>
-            <p className={styles.summaryHint}>Latest probability snapshot feeding the model overlay.</p>
-          </article>
-
-          <article className={styles.summaryCard}>
-            <p className={styles.summaryLabel}>Odds snapshot</p>
-            <p className={styles.summaryValue}>{formatAsOfLabel(report.odds_as_of_utc)}</p>
-            <p className={styles.summaryHint}>Current board lines pulled from the latest odds snapshot.</p>
-          </article>
-
-          <article className={styles.summaryCard}>
-            <p className={styles.summaryLabel}>Games on board</p>
-            <p className={styles.summaryValue}>{derivedRows.length}</p>
-            <p className={styles.summaryHint}>Only games scheduled today in Central Time are shown.</p>
-          </article>
-
-          <article className={styles.summaryCard}>
-            <p className={styles.summaryLabel}>Best current signal</p>
-            <p className={styles.summaryValue}>
-              {bestValue ? bestValue.bestSignalLabel : strongestLean ? strongestLean.modelWinner : "No signal"}
-            </p>
-            <p className={styles.summaryHint}>
-              {bestValue
-                ? `${bestValue.bestSignalReason}${bestValue.valueOdds ? ` · ${formatMoneyline(bestValue.valueOdds)}` : ""}`
-                : strongestLean
-                  ? `${formatPercent(strongestLean.modelWinnerProbability)} model win chance`
-                  : "No games are available in the current snapshot."}
-            </p>
-          </article>
-        </div>
-      </section>
-
       <section className={styles.boardPanel}>
-        <div className={styles.boardIntro}>
-          <div>
-            <p className={styles.boardEyebrow}>Board view</p>
-            <h3 className={styles.boardTitle}>Today&apos;s market board</h3>
-          </div>
-          <p className={styles.boardHint}>
-            Spread and total show the most common line across books. Prices show the best current number at that line.
-          </p>
-        </div>
-
         <div className={styles.boardHeader} aria-hidden="true">
           <span>Matchup</span>
           <span>Spread</span>
