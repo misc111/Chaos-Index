@@ -4,6 +4,9 @@
 - This project supports NHL and NBA forecasting.
 - Interpret user questions in the configured league context by default (`config.data.league`).
 - If no config context is available, default to NHL for ambiguous wording.
+- If a bug, regression, or data drift issue is found in one supported league, investigate the same failure mode in the other supported league before closing the task.
+- Cross-league investigation must cover the analogous pipeline stages that could share the bug: storage tables, model outputs, API payloads, dashboard views, and committed staging snapshots.
+- If the same bug exists in the other league, fix it in the shared or league-specific path as appropriate and regenerate any affected staging snapshot files for every impacted league.
 
 ## Team Interpretation
 - Treat city names, nicknames, mascots, and common shorthand as NHL/NBA clubs.
