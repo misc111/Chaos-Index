@@ -10,7 +10,11 @@ export default function HomePage() {
           Most betting apps show the market. This page gives you independent win probabilities you can compare against it.
         </p>
         <p className={styles.body}>
-          This page was created and is maintained by David Iruegas, ACAS. David is an{" "}
+          This page was created and is maintained by{" "}
+          <a className={styles.link} href="https://www.linkedin.com/in/david-iruegas/" target="_blank" rel="noreferrer">
+            David Iruegas
+          </a>
+          , ACAS. David is an{" "}
           <a
             className={styles.link}
             href="https://en.wikipedia.org/wiki/Actuary"
