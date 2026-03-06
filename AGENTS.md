@@ -29,3 +29,8 @@
   - commit the updated files in `web/public/staging-data/`
   - if needed, verify with `cd web && npm run build:pages`
 - Do not assume pushing dashboard code alone updates staging; GitHub Pages serves the committed snapshot files, not live SQLite data.
+
+## Git Workflow
+- Keep this repository on `main`. Do not create or push feature branches unless the user explicitly asks for one.
+- When the user asks to push, commit on `main` and push `main` to `origin`.
+- After every push to GitHub, watch the `Publish Sanitized Staging Site` GitHub Actions workflow and confirm whether it succeeded before closing out the task.
