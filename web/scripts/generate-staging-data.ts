@@ -56,11 +56,11 @@ async function writeJson(filePath: string, payload: unknown): Promise<void> {
 
 async function loadRouteHandler(modulePath: string): Promise<JsonRouteHandler> {
   const moduleUrl = pathToFileURL(path.join(appRoot, modulePath)).href;
-  const module = (await import(moduleUrl)) as { GET?: JsonRouteHandler };
-  if (typeof module.GET !== "function") {
+  const routeModule = (await import(moduleUrl)) as { GET?: JsonRouteHandler };
+  if (typeof routeModule.GET !== "function") {
     throw new Error(`Route module ${modulePath} does not export GET`);
   }
-  return module.GET;
+  return routeModule.GET;
 }
 
 async function generateLeagueSnapshot(league: LeagueCode): Promise<void> {

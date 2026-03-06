@@ -130,7 +130,6 @@ function GamesTodayPageContent() {
   const [upcomingRows, setUpcomingRows] = useState<GamesTodayRow[]>([]);
   const [historicalRows, setHistoricalRows] = useState<GamesTodayRow[]>([]);
   const [latestAsOf, setLatestAsOf] = useState<string>("");
-  const [latestOddsAsOf, setLatestOddsAsOf] = useState<string>("");
   const [historicalCoverageStart, setHistoricalCoverageStart] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -151,7 +150,6 @@ function GamesTodayPageContent() {
         setUpcomingRows(payload.rows || []);
         setHistoricalRows(payload.historical_rows || []);
         setLatestAsOf(typeof payload.as_of_utc === "string" ? payload.as_of_utc : "");
-        setLatestOddsAsOf(typeof payload.odds_as_of_utc === "string" ? payload.odds_as_of_utc : "");
         setHistoricalCoverageStart(
           typeof payload.historical_coverage_start_central === "string" ? payload.historical_coverage_start_central : ""
         );
