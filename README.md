@@ -238,13 +238,14 @@ Persisted in SQLite (`upcoming_game_forecasts`, `predictions`) with `as_of_utc`:
 
 Generated under `artifacts/validation/` and surfaced in `/validation`:
 - manifest-driven task pipeline so new validation directions can publish sections without growing `src/cli.py`
-- blockwise nested model tests (LRT + OOS uplift + AME CI)
-- coefficient stability paths, trade-deadline break test
+- train/validation/test split summaries plus holdout-first logistic validation outputs for both NHL and NBA
+- blockwise nested-model deviance F-tests + information-criteria candidate tables
+- coefficient stability paths, CV coefficient stability, bootstrap coefficient intervals, trade-deadline break test
 - production multicollinearity suite: structural flags, pairwise correlation scan, VIF/tolerance, condition indices, variance decomposition, summary risk report
 - production non-linearity suite: spline-vs-linear and hinge-vs-linear holdout comparisons, per-feature curve outputs, GAM/MARS guidance
-- GLM residual diagnostics: deviance residuals, working residual plots, binned working residual summaries, and partial residual plots for all active `glm_logit` features
+- GLM residual diagnostics: deviance residual distribution/Q-Q checks, randomized quantile residuals, working residual plots, binned working residual summaries, weight plots, and partial residual plots for all active `glm_logit` features
 - influence diagnostics (leverage/Cook's/dfbetas + refit impact)
-- calibration robustness + Brier decomposition
+- calibration robustness + Brier decomposition + actual-vs-predicted, lift, Lorenz/Gini, ROC/AUROC, and threshold operating points
 - fragility tests (missingness + perturbation)
 - backtest integrity checks
 

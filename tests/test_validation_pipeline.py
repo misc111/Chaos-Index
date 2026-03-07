@@ -113,6 +113,7 @@ def test_validation_pipeline_writes_glm_residual_artifacts(tmp_path):
         "glm_residual_feature_summary",
         "glm_working_residual_bins_linear_predictor",
         "glm_working_residual_bins_features",
+        "glm_working_residual_bins_weight",
         "glm_partial_residual_bins",
     ]
 
@@ -123,12 +124,14 @@ def test_validation_pipeline_writes_glm_residual_artifacts(tmp_path):
         "glm_residual_feature_summary",
         "glm_working_residual_bins_linear_predictor",
         "glm_working_residual_bins_features",
+        "glm_working_residual_bins_weight",
         "glm_partial_residual_bins",
     ]
     assert (root / "validation_glm_residual_summary.json").exists()
     assert (root / "validation_glm_residual_feature_summary.csv").exists()
     assert (root / "validation_glm_working_residual_bins_linear_predictor.csv").exists()
     assert (root / "validation_glm_working_residual_bins_features.csv").exists()
+    assert (root / "validation_glm_working_residual_bins_weight.csv").exists()
     assert (root / "validation_glm_partial_residual_bins.csv").exists()
 
     feature_summary = pd.read_csv(root / "validation_glm_residual_feature_summary.csv")
@@ -136,6 +139,81 @@ def test_validation_pipeline_writes_glm_residual_artifacts(tmp_path):
         assert (root / rel_path).exists()
     for rel_path in feature_summary["partial_residual_plot_file"].tolist():
         assert (root / rel_path).exists()
+
+
+def test_validation_pipeline_runs_significance_stability_and_influence_for_nba(tmp_path):
+    cfg = load_config("configs/default.yaml")
+    cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
+    cfg.data.league = "NBA"
+
+    rng = np.random.default_rng(19)
+    n = 260
+    availability_absence_diff = rng.normal(0.0, 1.0, n)
+    shot_margin = rng.normal(0.0, 1.0, n)
+    discipline_free_throw_pressure_diff = rng.normal(0.0, 1.0, n)
+    travel_diff = rng.normal(0.0, 1.0, n)
+    arena_altitude_diff = rng.normal(0.0, 1.0, n)
+    logits = (
+        1.0 * availability_absence_diff
+        + 0.8 * shot_margin
+        - 0.5 * discipline_free_throw_pressure_diff
+        - 0.4 * travel_diff
+        + 0.3 * arena_altitude_diff
+    )
+    prob = 1.0 / (1.0 + np.exp(-logits))
+    y = rng.binomial(1, prob)
+
+    feature_cols = [
+        "availability_absence_diff",
+        "shot_margin",
+        "discipline_free_throw_pressure_diff",
+        "travel_diff",
+        "arena_altitude_diff",
+    ]
+    train_df = pd.DataFrame(
+        {
+            "start_time_utc": pd.date_range("2025-01-01", periods=n, freq="D").astype(str),
+            "game_date_utc": pd.date_range("2025-01-01", periods=n, freq="D").astype(str),
+            "home_win": y,
+            "availability_absence_diff": availability_absence_diff,
+            "shot_margin": shot_margin,
+            "discipline_free_throw_pressure_diff": discipline_free_throw_pressure_diff,
+            "travel_diff": travel_diff,
+            "arena_altitude_diff": arena_altitude_diff,
+        }
+    )
+    glm = GLMLogitModel(c=1.0)
+    glm.fit(train_df, feature_columns=feature_cols)
+
+    result = {
+        "models": {"glm_logit": glm},
+        "train_df": train_df,
+        "feature_columns": feature_cols,
+        "run_payload": {
+            "selected_models": ["glm_logit"],
+            "model_feature_columns": {"glm_logit": feature_cols},
+        },
+    }
+    tasks = [task for task in build_validation_tasks() if task.name in {"split_summary", "significance", "stability", "influence"}]
+
+    outputs = run_validation_pipeline(result, cfg, tasks=tasks)
+    sections = [spec.section for spec in outputs.sections]
+
+    assert "split_summary" in sections
+    assert "significance" in sections
+    assert "information_criteria_summary" in sections
+    assert "information_criteria_candidates" in sections
+    assert "cv_summary" in sections
+    assert "bootstrap_summary" in sections
+    assert "influence_summary" in sections
+
+    root = tmp_path / "artifacts" / "validation" / "nba"
+    assert (root / "validation_significance.csv").exists()
+    assert (root / "validation_information_criteria_summary.json").exists()
+    assert (root / "validation_information_criteria_candidates.csv").exists()
+    assert (root / "validation_cv_summary.json").exists()
+    assert (root / "validation_bootstrap_summary.json").exists()
+    assert (root / "validation_influence_summary.json").exists()
 
 
 def test_validation_context_refits_holdout_models_instead_of_using_production_model(tmp_path):

@@ -17,12 +17,17 @@ from src.evaluation.diagnostics_ml import permutation_importance_report
 from src.evaluation.validation_fragility import missingness_stress_test, perturbation_sensitivity
 from src.evaluation.validation_influence import influence_diagnostics
 from src.evaluation.validation_nonlinearity import assess_nonlinearity
-from src.evaluation.validation_significance import blockwise_nested_lrt
-from src.evaluation.validation_stability import assess_multicollinearity, break_test_trade_deadline, coefficient_paths
+from src.evaluation.validation_significance import blockwise_nested_deviance_f_test, information_criteria_report
+from src.evaluation.validation_stability import (
+    assess_multicollinearity,
+    bootstrap_glm_coefficients,
+    break_test_trade_deadline,
+    coefficient_paths,
+    cv_glm_stability_report,
+)
 from src.models.gbdt import GBDTModel
 from src.models.glm_logit import GLMLogitModel
 from src.models.rf import RFModel
-from src.training.cv import time_series_splits
 from src.training.tune import quick_tune_glm
 
 ValidationTaskRunner = Callable[["ValidationContext"], "ValidationOutputs"]
@@ -107,6 +112,8 @@ class ValidationContext:
     league: str
     tr: pd.DataFrame
     va: pd.DataFrame
+    te: pd.DataFrame
+    fit_df: pd.DataFrame
     glm: object | None
     diagnostic_feature_cols: list[str]
 
@@ -116,9 +123,10 @@ class ValidationContext:
         feature_cols = list(result["feature_columns"])
         run_payload = result.get("run_payload", {})
         selected_models = _selected_validation_models(result, run_payload)
-        tr, va = _validation_split(train_df, cfg)
+        tr, va, te = _validation_split(train_df, cfg)
+        fit_df = _concat_frames(tr, va)
         models = _fit_validation_models(
-            tr,
+            fit_df,
             feature_cols=feature_cols,
             selected_models=selected_models,
             run_payload=run_payload,
@@ -143,6 +151,8 @@ class ValidationContext:
             league=league,
             tr=tr,
             va=va,
+            te=te,
+            fit_df=fit_df,
             glm=glm,
             diagnostic_feature_cols=diagnostic_feature_cols,
         )
@@ -162,35 +172,55 @@ def _selected_validation_models(result: dict[str, Any], run_payload: dict[str, A
     return []
 
 
-def _validation_split(train_df: pd.DataFrame, cfg: AppConfig) -> tuple[pd.DataFrame, pd.DataFrame]:
+def _sort_validation_rows(df: pd.DataFrame) -> pd.DataFrame:
+    work = df.copy()
+    for col in ("start_time_utc", "game_date_utc"):
+        if col in work.columns:
+            return work.sort_values(col)
+    return work.reset_index(drop=True)
+
+
+def _concat_frames(*frames: pd.DataFrame) -> pd.DataFrame:
+    non_empty = [frame for frame in frames if frame is not None and not frame.empty]
+    if not non_empty:
+        return pd.DataFrame()
+    out = pd.concat(non_empty, axis=0)
+    return _sort_validation_rows(out)
+
+
+def _validation_split(train_df: pd.DataFrame, cfg: AppConfig) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     work = train_df[train_df["home_win"].notna()].copy()
     if work.empty:
-        return work, work.copy()
+        return work, work.copy(), work.copy()
 
-    if "start_time_utc" not in work.columns:
-        split = int(len(work) * 0.8)
-        if split <= 0 or split >= len(work):
-            return work, work.iloc[0:0].copy()
-        return work.iloc[:split].copy(), work.iloc[split:].copy()
-
-    work = work.sort_values("start_time_utc")
-    resolved_min_train_size = min(220, max(80, len(work) // 2))
-    splits = time_series_splits(
-        work,
-        n_splits=max(2, int(getattr(cfg.modeling, "cv_splits", 5) or 5)),
-        min_train_size=resolved_min_train_size,
-    )
-    if splits:
-        tr_idx, va_idx = splits[-1]
+    work = _sort_validation_rows(work)
+    n_obs = len(work)
+    train_end = int(round(0.60 * n_obs))
+    valid_end = int(round(0.80 * n_obs))
+    if train_end >= 20 and (valid_end - train_end) >= 20 and (n_obs - valid_end) >= 20:
         return (
-            work.loc[tr_idx].copy().sort_values("start_time_utc"),
-            work.loc[va_idx].copy().sort_values("start_time_utc"),
+            work.iloc[:train_end].copy(),
+            work.iloc[train_end:valid_end].copy(),
+            work.iloc[valid_end:].copy(),
         )
 
-    split = int(len(work) * 0.8)
-    if split <= 0 or split >= len(work):
-        return work, work.iloc[0:0].copy()
-    return work.iloc[:split].copy(), work.iloc[split:].copy()
+    split = int(round(0.80 * n_obs))
+    if split <= 0 or split >= n_obs:
+        return work.copy(), work.iloc[0:0].copy(), work.iloc[0:0].copy()
+    return work.iloc[:split].copy(), work.iloc[0:0].copy(), work.iloc[split:].copy()
+
+
+def _holdout_df(ctx: ValidationContext) -> pd.DataFrame:
+    return ctx.te if not ctx.te.empty else ctx.va
+
+
+def _date_bounds(df: pd.DataFrame) -> tuple[str | None, str | None]:
+    if df.empty:
+        return None, None
+    for col in ("start_time_utc", "game_date_utc"):
+        if col in df.columns:
+            return str(df.iloc[0][col]), str(df.iloc[-1][col])
+    return None, None
 
 
 def _validation_feature_columns(
@@ -264,16 +294,12 @@ class ValidationTask:
         return True if self.enabled is None else bool(self.enabled(ctx))
 
 
-def _is_full_suite_league(ctx: ValidationContext) -> bool:
-    return ctx.league != "NBA"
-
-
 def _has_glm(ctx: ValidationContext) -> bool:
     return ctx.glm is not None
 
 
 def _has_holdout(ctx: ValidationContext) -> bool:
-    return not ctx.va.empty
+    return not _holdout_df(ctx).empty
 
 
 def _feature_blocks_for(ctx: ValidationContext) -> dict[str, list[str]]:
@@ -301,11 +327,35 @@ def _feature_blocks_for(ctx: ValidationContext) -> dict[str, list[str]]:
     }
 
 
+def _task_split_summary(ctx: ValidationContext) -> ValidationOutputs:
+    train_start, train_end = _date_bounds(ctx.tr)
+    valid_start, valid_end = _date_bounds(ctx.va)
+    holdout = _holdout_df(ctx)
+    holdout_start, holdout_end = _date_bounds(holdout)
+    payload = {
+        "status": "ok",
+        "split_mode": "train_validation_test" if not ctx.va.empty and not ctx.te.empty else "train_test",
+        "n_train": int(len(ctx.tr)),
+        "n_validation": int(len(ctx.va)),
+        "n_holdout": int(len(holdout)),
+        "n_fit": int(len(ctx.fit_df)),
+        "train_start": train_start,
+        "train_end": train_end,
+        "validation_start": valid_start,
+        "validation_end": valid_end,
+        "holdout_start": holdout_start,
+        "holdout_end": holdout_end,
+    }
+    out = ValidationOutputs()
+    out.add_json(section="split_summary", file_name="validation_split_summary.json", payload=payload)
+    return out
+
+
 def _task_glm_diagnostics(ctx: ValidationContext) -> ValidationOutputs:
     if ctx.glm is None:
         return ValidationOutputs()
 
-    diagnostic_df = ctx.va if not ctx.va.empty else (ctx.tr if not ctx.tr.empty else ctx.train_df)
+    diagnostic_df = ctx.fit_df if not ctx.fit_df.empty else (ctx.tr if not ctx.tr.empty else ctx.train_df)
     report = save_glm_diagnostics(
         diagnostic_df,
         glm=ctx.glm,
@@ -335,6 +385,11 @@ def _task_glm_diagnostics(ctx: ValidationContext) -> ValidationOutputs:
         rows=report["feature_working_bins"],
     )
     out.add_csv(
+        section="glm_working_residual_bins_weight",
+        file_name="validation_glm_working_residual_bins_weight.csv",
+        rows=report["weight_bins"],
+    )
+    out.add_csv(
         section="glm_partial_residual_bins",
         file_name="validation_glm_partial_residual_bins.csv",
         rows=report["partial_residual_bins"],
@@ -343,18 +398,19 @@ def _task_glm_diagnostics(ctx: ValidationContext) -> ValidationOutputs:
 
 
 def _task_permutation_importance(ctx: ValidationContext) -> ValidationOutputs:
-    if ctx.va.empty:
+    holdout = _holdout_df(ctx)
+    if holdout.empty:
         return ValidationOutputs()
 
     for model_name in ["gbdt", "rf"]:
         model = ctx.models.get(model_name)
-        if model is None or len(ctx.va) <= 25:
+        if model is None or len(holdout) <= 25:
             continue
         model_feature_cols = getattr(model, "feature_columns", ctx.feature_cols) or ctx.feature_cols
         permutation_importance_report(
             model.model,
-            ctx.va[model_feature_cols],
-            ctx.va["home_win"].astype(int).to_numpy(),
+            holdout[model_feature_cols],
+            holdout["home_win"].astype(int).to_numpy(),
             out_dir=str(ctx.out_dir),
             model_name=model_name,
         )
@@ -396,7 +452,7 @@ def _task_collinearity(ctx: ValidationContext) -> ValidationOutputs:
 def _task_nonlinearity(ctx: ValidationContext) -> ValidationOutputs:
     report = assess_nonlinearity(
         ctx.tr if not ctx.tr.empty else ctx.train_df,
-        ctx.va if not ctx.va.empty else ctx.train_df,
+        ctx.va if not ctx.va.empty else (_holdout_df(ctx) if not _holdout_df(ctx).empty else ctx.train_df),
         features=ctx.diagnostic_feature_cols,
     )
     out = ValidationOutputs()
@@ -419,18 +475,48 @@ def _task_nonlinearity(ctx: ValidationContext) -> ValidationOutputs:
 
 
 def _task_significance(ctx: ValidationContext) -> ValidationOutputs:
-    sig = blockwise_nested_lrt(
-        ctx.tr,
-        ctx.va,
+    holdout = _holdout_df(ctx)
+    fit_df = ctx.fit_df if not ctx.fit_df.empty else ctx.tr
+    sig = blockwise_nested_deviance_f_test(
+        fit_df,
+        holdout,
+        feature_blocks=_feature_blocks_for(ctx),
+        all_features=ctx.diagnostic_feature_cols,
+    )
+    ic = information_criteria_report(
+        fit_df,
+        holdout,
         feature_blocks=_feature_blocks_for(ctx),
         all_features=ctx.diagnostic_feature_cols,
     )
     out = ValidationOutputs()
     out.add_csv(section="significance", file_name="validation_significance.csv", rows=sig)
+    out.add_json(
+        section="information_criteria_summary",
+        file_name="validation_information_criteria_summary.json",
+        payload=ic["summary"],
+    )
+    out.add_csv(
+        section="information_criteria_candidates",
+        file_name="validation_information_criteria_candidates.csv",
+        rows=ic["candidates"],
+    )
     return out
 
 
 def _task_stability(ctx: ValidationContext) -> ValidationOutputs:
+    glm_c = float(getattr(ctx.glm, "c", 1.0)) if ctx.glm is not None else 1.0
+    cv_report = cv_glm_stability_report(
+        ctx.train_df,
+        features=ctx.diagnostic_feature_cols,
+        n_splits=max(2, int(getattr(ctx.cfg.modeling, "cv_splits", 5) or 5)),
+        c=glm_c,
+    )
+    bootstrap = bootstrap_glm_coefficients(
+        ctx.fit_df if not ctx.fit_df.empty else ctx.train_df,
+        features=ctx.diagnostic_feature_cols,
+        c=glm_c,
+    )
     out = ValidationOutputs()
     out.add_csv(
         section="coef_paths",
@@ -441,13 +527,52 @@ def _task_stability(ctx: ValidationContext) -> ValidationOutputs:
     out.add_json(
         section="break_test",
         file_name="validation_break_test.json",
-        payload=break_test_trade_deadline(ctx.train_df, features=ctx.diagnostic_feature_cols),
+        payload=break_test_trade_deadline(ctx.train_df, features=ctx.diagnostic_feature_cols, league=ctx.league),
+    )
+    out.add_json(
+        section="cv_summary",
+        file_name="validation_cv_summary.json",
+        payload=cv_report["summary"],
+    )
+    out.add_csv(
+        section="cv_fold_metrics",
+        file_name="validation_cv_fold_metrics.csv",
+        rows=cv_report["fold_metrics"],
+    )
+    out.add_csv(
+        section="cv_feature_stability",
+        file_name="validation_cv_feature_stability.csv",
+        rows=cv_report["feature_summary"],
+    )
+    out.add_csv(
+        section="cv_coefficients",
+        file_name="validation_cv_coefficients.csv",
+        rows=cv_report["coefficients"],
+    )
+    out.add_json(
+        section="bootstrap_summary",
+        file_name="validation_bootstrap_summary.json",
+        payload=bootstrap["summary"],
+    )
+    out.add_csv(
+        section="bootstrap_feature_summary",
+        file_name="validation_bootstrap_feature_summary.csv",
+        rows=bootstrap["feature_summary"],
+    )
+    out.add_csv(
+        section="bootstrap_coefficients",
+        file_name="validation_bootstrap_coefficients.csv",
+        rows=bootstrap["coefficients"],
     )
     return out
 
 
 def _task_influence(ctx: ValidationContext) -> ValidationOutputs:
-    infl_df, infl_summary = influence_diagnostics(ctx.train_df, features=ctx.diagnostic_feature_cols, top_k=10)
+    infl_df, infl_summary = influence_diagnostics(
+        ctx.fit_df if not ctx.fit_df.empty else ctx.train_df,
+        features=ctx.diagnostic_feature_cols,
+        top_k=10,
+    )
     out = ValidationOutputs()
     out.add_csv(section="influence_top", file_name="validation_influence_top.csv", rows=infl_df)
     out.add_json(section="influence_summary", file_name="validation_influence_summary.json", payload=infl_summary)
@@ -455,7 +580,7 @@ def _task_influence(ctx: ValidationContext) -> ValidationOutputs:
 
 
 def _task_fragility(ctx: ValidationContext) -> ValidationOutputs:
-    base_df = ctx.va if not ctx.va.empty else ctx.train_df
+    base_df = _holdout_df(ctx) if not _holdout_df(ctx).empty else ctx.train_df
     out = ValidationOutputs()
     out.add_csv(
         section="fragility_missingness",
@@ -471,8 +596,9 @@ def _task_fragility(ctx: ValidationContext) -> ValidationOutputs:
 
 
 def _task_calibration(ctx: ValidationContext) -> ValidationOutputs:
-    p = ctx.glm.predict_proba(ctx.va)
-    y = ctx.va["home_win"].astype(int).to_numpy()
+    holdout = _holdout_df(ctx)
+    p = ctx.glm.predict_proba(holdout)
+    y = holdout["home_win"].astype(int).to_numpy()
     payload = calibration_alpha_beta(y, p) | ece_mce(y, p)
     payload |= brier_decompose(y, p)
 
@@ -486,8 +612,9 @@ def _task_calibration(ctx: ValidationContext) -> ValidationOutputs:
 
 
 def _task_classification_curves(ctx: ValidationContext) -> ValidationOutputs:
-    p = ctx.glm.predict_proba(ctx.va)
-    y = ctx.va["home_win"].astype(int).to_numpy()
+    holdout = _holdout_df(ctx)
+    p = ctx.glm.predict_proba(holdout)
+    y = holdout["home_win"].astype(int).to_numpy()
     report = validate_logistic_probability_model(
         y,
         p,
@@ -507,6 +634,26 @@ def _task_classification_curves(ctx: ValidationContext) -> ValidationOutputs:
         section="logit_quantile_curve",
         file_name="validation_logit_quantile_curve.csv",
         rows=report["quantile_curve"],
+    )
+    out.add_json(
+        section="logit_actual_vs_predicted_summary",
+        file_name="validation_logit_actual_vs_predicted_summary.json",
+        payload=report["actual_vs_predicted_summary"],
+    )
+    out.add_csv(
+        section="logit_actual_vs_predicted_curve",
+        file_name="validation_logit_actual_vs_predicted_curve.csv",
+        rows=report["actual_vs_predicted_curve"],
+    )
+    out.add_json(
+        section="logit_lift_summary",
+        file_name="validation_logit_lift_summary.json",
+        payload=report["lift_summary"],
+    )
+    out.add_csv(
+        section="logit_lift_curve",
+        file_name="validation_logit_lift_curve.csv",
+        rows=report["lift_curve"],
     )
     out.add_json(
         section="logit_lorenz_summary",
@@ -551,6 +698,7 @@ def build_validation_tasks(
     extra_tasks: Sequence[ValidationTask] | None = None,
 ) -> list[ValidationTask]:
     tasks = [
+        ValidationTask(name="split_summary", runner=_task_split_summary),
         ValidationTask(name="glm_diagnostics", runner=_task_glm_diagnostics, enabled=_has_glm),
         ValidationTask(name="permutation_importance", runner=_task_permutation_importance, enabled=_has_holdout),
         ValidationTask(name="collinearity", runner=_task_collinearity),
@@ -558,10 +706,10 @@ def build_validation_tasks(
         ValidationTask(
             name="significance",
             runner=_task_significance,
-            enabled=lambda ctx: _is_full_suite_league(ctx) and _has_holdout(ctx) and not ctx.tr.empty,
+            enabled=lambda ctx: _has_holdout(ctx) and not (ctx.fit_df if not ctx.fit_df.empty else ctx.tr).empty,
         ),
-        ValidationTask(name="stability", runner=_task_stability, enabled=_is_full_suite_league),
-        ValidationTask(name="influence", runner=_task_influence, enabled=_is_full_suite_league),
+        ValidationTask(name="stability", runner=_task_stability, enabled=_has_glm),
+        ValidationTask(name="influence", runner=_task_influence, enabled=_has_glm),
         ValidationTask(name="fragility", runner=_task_fragility, enabled=_has_glm),
         ValidationTask(name="calibration", runner=_task_calibration, enabled=lambda ctx: _has_glm(ctx) and _has_holdout(ctx)),
         ValidationTask(

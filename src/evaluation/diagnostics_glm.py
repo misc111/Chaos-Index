@@ -7,6 +7,7 @@ from typing import Any
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from scipy.stats import norm, probplot
 
 from src.common.utils import ensure_dir
 
@@ -42,6 +43,15 @@ FEATURE_WORKING_BIN_COLUMNS = [
     "feature_value_mean",
     "feature_value_min",
     "feature_value_max",
+    "working_residual_mean",
+]
+WEIGHT_BIN_COLUMNS = [
+    "bin_index",
+    "n_obs",
+    "working_weight_sum",
+    "weight_value_mean",
+    "weight_value_min",
+    "weight_value_max",
     "working_residual_mean",
 ]
 PARTIAL_BIN_COLUMNS = [
@@ -104,6 +114,21 @@ def _deviance_residual_binary(y: np.ndarray, p: np.ndarray) -> np.ndarray:
     term = observed * np.log(np.clip(observed / fitted, 1e-6, None))
     term += (1.0 - observed) * np.log(np.clip((1.0 - observed) / (1.0 - fitted), 1e-6, None))
     return np.sign(observed - fitted) * np.sqrt(2.0 * term)
+
+
+def randomized_quantile_residual_binary(
+    y: np.ndarray,
+    p: np.ndarray,
+    *,
+    random_state: int = 42,
+) -> np.ndarray:
+    observed = np.asarray(y, dtype=float)
+    fitted = np.clip(np.asarray(p, dtype=float), 1e-6, 1 - 1e-6)
+    lower = np.where(observed >= 1.0, 1.0 - fitted, 0.0)
+    upper = np.where(observed >= 1.0, 1.0, 1.0 - fitted)
+    rng = np.random.default_rng(random_state)
+    u = rng.uniform(lower, upper)
+    return norm.ppf(np.clip(u, 1e-6, 1 - 1e-6))
 
 
 def _bin_count(n_obs: int, n_unique: int) -> int:
@@ -202,6 +227,64 @@ def _plot_working_residuals(
     plt.close()
 
 
+def _plot_histogram_with_normal(
+    values: np.ndarray,
+    *,
+    x_label: str,
+    title: str,
+    out_path: Path,
+) -> None:
+    sample = np.asarray(values, dtype=float)
+    sample = sample[np.isfinite(sample)]
+    if sample.size == 0:
+        return
+    mu = float(np.mean(sample))
+    sigma = float(np.std(sample, ddof=0))
+    plt.figure(figsize=(8, 4.5))
+    plt.hist(sample, bins=min(40, max(10, int(np.sqrt(sample.size)))), density=True, color="#cbd5e1", edgecolor="#94a3b8")
+    if sigma > 0:
+        xs = np.linspace(float(sample.min()), float(sample.max()), 200)
+        plt.plot(xs, norm.pdf(xs, loc=mu, scale=sigma), color="#0f172a", linewidth=1.6)
+    plt.xlabel(x_label)
+    plt.ylabel("Density")
+    plt.title(title)
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=140)
+    plt.close()
+
+
+def _plot_qq(
+    values: np.ndarray,
+    *,
+    title: str,
+    out_path: Path,
+) -> None:
+    sample = np.asarray(values, dtype=float)
+    sample = sample[np.isfinite(sample)]
+    if sample.size == 0:
+        return
+    theoretical, ordered = probplot(sample, dist="norm", fit=False)
+    slope, intercept = np.polyfit(np.asarray(theoretical, dtype=float), np.asarray(ordered, dtype=float), 1)
+    plt.figure(figsize=(8, 4.5))
+    plt.scatter(theoretical, ordered, s=14, alpha=0.7, color="#1d4ed8", edgecolors="none")
+    xs = np.linspace(float(np.min(theoretical)), float(np.max(theoretical)), 100)
+    plt.plot(xs, intercept + slope * xs, color="#b45309", linewidth=1.5)
+    plt.xlabel("Theoretical normal quantile")
+    plt.ylabel("Sample quantile")
+    plt.title(title)
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=140)
+    plt.close()
+
+
+def _weight_axis(df: pd.DataFrame) -> tuple[str, np.ndarray]:
+    for col in ("sample_weight", "weight", "weights", "exposure", "exposures"):
+        if col in df.columns:
+            values = pd.to_numeric(df[col], errors="coerce").replace([np.inf, -np.inf], np.nan).fillna(1.0).to_numpy(dtype=float)
+            return col, values
+    return "unit_weight", np.ones(len(df), dtype=float)
+
+
 def _plot_partial_residuals(
     axis_values: np.ndarray,
     partial_residuals: np.ndarray,
@@ -269,6 +352,7 @@ def save_glm_diagnostics(
         "feature_summary": pd.DataFrame(columns=FEATURE_SUMMARY_COLUMNS),
         "linear_predictor_bins": pd.DataFrame(columns=LINEAR_PREDICTOR_BIN_COLUMNS),
         "feature_working_bins": pd.DataFrame(columns=FEATURE_WORKING_BIN_COLUMNS),
+        "weight_bins": pd.DataFrame(columns=WEIGHT_BIN_COLUMNS),
         "partial_residual_bins": pd.DataFrame(columns=PARTIAL_BIN_COLUMNS),
     }
     if work.empty or glm is None or not feature_cols:
@@ -284,6 +368,8 @@ def save_glm_diagnostics(
     working_residual = working_residual_logit(y, fitted)
     working_weight = working_weight_logit(fitted)
     deviance_residual = _deviance_residual_binary(y, fitted)
+    randomized_quantile_residual = randomized_quantile_residual_binary(y, fitted)
+    weight_axis_name, weight_axis_values = _weight_axis(work)
 
     deviance_path = plot_root / f"{prefix}_deviance_residuals.png"
     _plot_working_residuals(
@@ -294,6 +380,32 @@ def save_glm_diagnostics(
         y_label="Deviance residual",
         title="Deviance residuals vs fitted probability",
         out_path=deviance_path,
+    )
+    deviance_hist_path = plot_root / f"{prefix}_deviance_residuals_histogram.png"
+    _plot_histogram_with_normal(
+        deviance_residual,
+        x_label="Deviance residual",
+        title="Deviance residual histogram",
+        out_path=deviance_hist_path,
+    )
+    deviance_qq_path = plot_root / f"{prefix}_deviance_residuals_qq.png"
+    _plot_qq(
+        deviance_residual,
+        title="Deviance residual normal Q-Q plot",
+        out_path=deviance_qq_path,
+    )
+    randomized_hist_path = plot_root / f"{prefix}_randomized_quantile_residuals_histogram.png"
+    _plot_histogram_with_normal(
+        randomized_quantile_residual,
+        x_label="Randomized quantile residual",
+        title="Randomized quantile residual histogram",
+        out_path=randomized_hist_path,
+    )
+    randomized_qq_path = plot_root / f"{prefix}_randomized_quantile_residuals_qq.png"
+    _plot_qq(
+        randomized_quantile_residual,
+        title="Randomized quantile residual normal Q-Q plot",
+        out_path=randomized_qq_path,
     )
 
     linear_bins = _aggregate_equal_weight_bins(
@@ -310,6 +422,21 @@ def save_glm_diagnostics(
         x_label="Linear predictor",
         title="Working residuals vs linear predictor",
         out_path=linear_plot_path,
+    )
+    weight_bins = _aggregate_equal_weight_bins(
+        weight_axis_values,
+        working_weight,
+        {"working_residual": working_residual},
+        n_bins=_bin_count(len(work), len(np.unique(np.round(weight_axis_values, 12)))),
+    )
+    weight_plot_path = plot_root / f"{prefix}_working_residuals_weight.png"
+    _plot_working_residuals(
+        weight_axis_values,
+        working_residual,
+        weight_bins,
+        x_label=weight_axis_name,
+        title=f"Working residuals vs {weight_axis_name}",
+        out_path=weight_plot_path,
     )
 
     coef_scaled = np.asarray(glm.model.coef_[0], dtype=float)
@@ -402,6 +529,13 @@ def save_glm_diagnostics(
             "axis_max": "linear_predictor_max",
         }
     )
+    weight_bins = weight_bins.rename(
+        columns={
+            "axis_mean": "weight_value_mean",
+            "axis_min": "weight_value_min",
+            "axis_max": "weight_value_max",
+        }
+    )
 
     summary = {
         "status": "ok",
@@ -413,10 +547,20 @@ def save_glm_diagnostics(
         "variance_rule_recommended_max_bins": int(np.floor(0.01 * float(working_weight.sum()))),
         "linear_predictor_plot_file": f"plots/{linear_plot_path.name}",
         "deviance_plot_file": f"plots/{deviance_path.name}",
+        "deviance_histogram_plot_file": f"plots/{deviance_hist_path.name}",
+        "deviance_qq_plot_file": f"plots/{deviance_qq_path.name}",
+        "randomized_quantile_histogram_plot_file": f"plots/{randomized_hist_path.name}",
+        "randomized_quantile_qq_plot_file": f"plots/{randomized_qq_path.name}",
+        "weight_plot_file": f"plots/{weight_plot_path.name}",
+        "weight_axis_name": weight_axis_name,
         "working_residual_definition": "wri = (y - m) / (m * (1 - m))",
         "partial_residual_definition": "partial = wri + beta_j * z_j",
         "binning_note": "Binned residual means use equal-working-weight bins and working-weighted averages.",
         "component_note": "beta_j * z_j uses the fitted standardized design-matrix column because glm_logit is trained on scaled predictors.",
+        "deviance_residual_mean": _safe_float(float(np.mean(deviance_residual))),
+        "deviance_residual_std": _safe_float(float(np.std(deviance_residual, ddof=0))),
+        "randomized_quantile_residual_mean": _safe_float(float(np.mean(randomized_quantile_residual))),
+        "randomized_quantile_residual_std": _safe_float(float(np.std(randomized_quantile_residual, ddof=0))),
     }
 
     return {
@@ -424,5 +568,6 @@ def save_glm_diagnostics(
         "feature_summary": pd.DataFrame(feature_rows, columns=FEATURE_SUMMARY_COLUMNS),
         "linear_predictor_bins": linear_predictor_bins.reindex(columns=LINEAR_PREDICTOR_BIN_COLUMNS),
         "feature_working_bins": pd.DataFrame(working_rows, columns=FEATURE_WORKING_BIN_COLUMNS),
+        "weight_bins": weight_bins.reindex(columns=WEIGHT_BIN_COLUMNS),
         "partial_residual_bins": pd.DataFrame(partial_rows, columns=PARTIAL_BIN_COLUMNS),
     }

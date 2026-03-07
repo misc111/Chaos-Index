@@ -48,6 +48,11 @@ def test_save_glm_diagnostics_creates_all_feature_residual_outputs(tmp_path):
     assert report["summary"]["n_features"] == 2
     assert (tmp_path / report["summary"]["linear_predictor_plot_file"]).exists()
     assert (tmp_path / report["summary"]["deviance_plot_file"]).exists()
+    assert (tmp_path / report["summary"]["deviance_histogram_plot_file"]).exists()
+    assert (tmp_path / report["summary"]["deviance_qq_plot_file"]).exists()
+    assert (tmp_path / report["summary"]["randomized_quantile_histogram_plot_file"]).exists()
+    assert (tmp_path / report["summary"]["randomized_quantile_qq_plot_file"]).exists()
+    assert (tmp_path / report["summary"]["weight_plot_file"]).exists()
 
     feature_summary = report["feature_summary"]
     assert feature_summary["feature"].tolist() == ["signal", "counter"]
@@ -62,7 +67,10 @@ def test_save_glm_diagnostics_creates_all_feature_residual_outputs(tmp_path):
     assert linear_bins["working_residual_mean"].notna().all()
 
     working_bins = report["feature_working_bins"]
+    weight_bins = report["weight_bins"]
     partial_bins = report["partial_residual_bins"]
     assert set(working_bins["feature"]) == {"signal", "counter"}
+    assert not weight_bins.empty
+    assert weight_bins["working_residual_mean"].notna().all()
     assert set(partial_bins["feature"]) == {"signal", "counter"}
     assert partial_bins["component_mean"].notna().all()

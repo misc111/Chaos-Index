@@ -18,7 +18,9 @@ def influence_diagnostics(df: pd.DataFrame, features: list[str], target_col: str
 
     y = work[target_col].astype(int)
     try:
-        x = sm.add_constant(work[valid_features].astype(float))
+        x_frame = work[valid_features].apply(pd.to_numeric, errors="coerce").replace([np.inf, -np.inf], np.nan)
+        x_frame = x_frame.fillna(x_frame.median(numeric_only=True)).fillna(0.0)
+        x = sm.add_constant(x_frame.astype(float))
         model = sm.GLM(y, x, family=sm.families.Binomial()).fit()
         infl = model.get_influence(observed=True)
     except Exception as exc:

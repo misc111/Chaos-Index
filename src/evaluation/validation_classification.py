@@ -122,6 +122,92 @@ def quantile_plot_report(y_true: np.ndarray, p_pred: np.ndarray, *, bins: int = 
     return {"summary": summary, "curve": curve[base_cols]}
 
 
+def actual_vs_predicted_report(y_true: np.ndarray, p_pred: np.ndarray, *, bins: int = 10) -> dict[str, Any]:
+    quantile = quantile_plot_report(y_true, p_pred, bins=bins)
+    curve = quantile["curve"].copy()
+    base_cols = [
+        "quantile",
+        "n_obs",
+        "share_obs",
+        "avg_pred",
+        "actual_rate",
+        "identity_gap",
+        "abs_identity_gap",
+    ]
+    if curve.empty:
+        return {
+            "summary": {
+                "n_obs": 0,
+                "bins_realized": 0,
+                "mean_abs_identity_gap": float("nan"),
+                "max_abs_identity_gap": float("nan"),
+                "rmse_identity_gap": float("nan"),
+            },
+            "curve": pd.DataFrame(columns=base_cols),
+        }
+
+    curve["identity_gap"] = curve["actual_rate"] - curve["avg_pred"]
+    curve["abs_identity_gap"] = curve["identity_gap"].abs()
+    summary = {
+        "n_obs": int(curve["n_obs"].sum()),
+        "bins_realized": int(len(curve)),
+        "mean_abs_identity_gap": _safe_float(curve["abs_identity_gap"].mean()),
+        "max_abs_identity_gap": _safe_float(curve["abs_identity_gap"].max()),
+        "rmse_identity_gap": _safe_float(np.sqrt(np.mean(np.square(curve["identity_gap"])))),
+    }
+    return {"summary": summary, "curve": curve[base_cols]}
+
+
+def lift_report(y_true: np.ndarray, p_pred: np.ndarray, *, bins: int = 10) -> dict[str, Any]:
+    quantile = quantile_plot_report(y_true, p_pred, bins=bins)
+    curve = quantile["curve"].copy()
+    base_cols = [
+        "quantile",
+        "n_obs",
+        "share_obs",
+        "avg_pred",
+        "actual_rate",
+        "predicted_rate_lift",
+        "actual_rate_lift",
+    ]
+    if curve.empty:
+        return {
+            "summary": {
+                "n_obs": 0,
+                "positive_rate": float("nan"),
+                "bins_realized": 0,
+                "top_quantile_actual_lift": float("nan"),
+                "bottom_quantile_actual_lift": float("nan"),
+                "top_vs_bottom_actual_lift_ratio": float("nan"),
+                "top_vs_bottom_actual_lift_diff": float("nan"),
+            },
+            "curve": pd.DataFrame(columns=base_cols),
+        }
+
+    positive_rate = _positive_share(np.asarray(y_true, dtype=float))
+    denom = positive_rate if np.isfinite(positive_rate) and positive_rate > 0 else float("nan")
+    curve["predicted_rate_lift"] = curve["avg_pred"] / denom if np.isfinite(denom) else float("nan")
+    curve["actual_rate_lift"] = curve["actual_rate"] / denom if np.isfinite(denom) else float("nan")
+    top = curve.iloc[-1]
+    bottom = curve.iloc[0]
+    top_actual = float(top["actual_rate_lift"])
+    bottom_actual = float(bottom["actual_rate_lift"])
+    summary = {
+        "n_obs": int(curve["n_obs"].sum()),
+        "positive_rate": _safe_float(positive_rate),
+        "bins_realized": int(len(curve)),
+        "top_quantile_actual_lift": _safe_float(top_actual),
+        "bottom_quantile_actual_lift": _safe_float(bottom_actual),
+        "top_vs_bottom_actual_lift_ratio": _safe_float(top_actual / bottom_actual)
+        if np.isfinite(top_actual) and np.isfinite(bottom_actual) and abs(bottom_actual) > 1e-12
+        else float("nan"),
+        "top_vs_bottom_actual_lift_diff": _safe_float(top_actual - bottom_actual)
+        if np.isfinite(top_actual) and np.isfinite(bottom_actual)
+        else float("nan"),
+    }
+    return {"summary": summary, "curve": curve[base_cols]}
+
+
 def lorenz_gini_report(y_true: np.ndarray, p_pred: np.ndarray) -> dict[str, Any]:
     y, p = _clean_binary_probability_inputs(y_true, p_pred)
     base_cols = [
@@ -483,6 +569,8 @@ def roc_report(
 def save_probability_validation_plots(
     *,
     quantile_curve: pd.DataFrame,
+    actual_vs_predicted_curve: pd.DataFrame,
+    lift_curve: pd.DataFrame,
     lorenz_curve: pd.DataFrame,
     roc_curve_df: pd.DataFrame,
     out_dir: str | Path,
@@ -506,6 +594,44 @@ def save_probability_validation_plots(
         plt.savefig(quantile_path, dpi=140)
         plt.close()
         paths["quantile_plot"] = str(quantile_path)
+
+    if not actual_vs_predicted_curve.empty:
+        plt.figure(figsize=(7, 4))
+        plt.plot([0, 1], [0, 1], linestyle="--", color="#94a3b8", label="Ideal")
+        plt.plot(
+            actual_vs_predicted_curve["avg_pred"],
+            actual_vs_predicted_curve["actual_rate"],
+            marker="o",
+            label="Bucketed holdout",
+        )
+        plt.xlabel("Average predicted probability")
+        plt.ylabel("Actual event rate")
+        plt.title("Logistic Holdout Actual vs Predicted")
+        plt.xlim(0, 1)
+        plt.ylim(0, 1)
+        plt.grid(alpha=0.2)
+        plt.legend()
+        plt.tight_layout()
+        actual_vs_predicted_path = out / f"{prefix}_actual_vs_predicted_plot.png"
+        plt.savefig(actual_vs_predicted_path, dpi=140)
+        plt.close()
+        paths["actual_vs_predicted_plot"] = str(actual_vs_predicted_path)
+
+    if not lift_curve.empty:
+        plt.figure(figsize=(7, 4))
+        plt.plot(lift_curve["quantile"], lift_curve["predicted_rate_lift"], marker="o", label="Predicted lift")
+        plt.plot(lift_curve["quantile"], lift_curve["actual_rate_lift"], marker="o", label="Actual lift")
+        plt.axhline(1.0, linestyle="--", color="#94a3b8")
+        plt.xlabel("Probability quantile")
+        plt.ylabel("Lift vs overall event rate")
+        plt.title("Logistic Holdout Lift Curve")
+        plt.grid(alpha=0.2)
+        plt.legend()
+        plt.tight_layout()
+        lift_path = out / f"{prefix}_lift_plot.png"
+        plt.savefig(lift_path, dpi=140)
+        plt.close()
+        paths["lift_plot"] = str(lift_path)
 
     if not lorenz_curve.empty:
         plt.figure(figsize=(7, 4))
@@ -556,6 +682,8 @@ def validate_logistic_probability_model(
     plot_prefix: str = "glm",
 ) -> dict[str, Any]:
     quantile = quantile_plot_report(y_true, p_pred, bins=bins)
+    actual_vs_predicted = actual_vs_predicted_report(y_true, p_pred, bins=bins)
+    lift = lift_report(y_true, p_pred, bins=bins)
     lorenz = lorenz_gini_report(y_true, p_pred)
     roc = roc_report(
         y_true,
@@ -567,6 +695,8 @@ def validate_logistic_probability_model(
     if plot_dir is not None:
         plot_paths = save_probability_validation_plots(
             quantile_curve=quantile["curve"],
+            actual_vs_predicted_curve=actual_vs_predicted["curve"],
+            lift_curve=lift["curve"],
             lorenz_curve=lorenz["curve"],
             roc_curve_df=roc["curve"],
             out_dir=plot_dir,
@@ -576,6 +706,10 @@ def validate_logistic_probability_model(
     return {
         "quantile_summary": quantile["summary"],
         "quantile_curve": quantile["curve"],
+        "actual_vs_predicted_summary": actual_vs_predicted["summary"],
+        "actual_vs_predicted_curve": actual_vs_predicted["curve"],
+        "lift_summary": lift["summary"],
+        "lift_curve": lift["curve"],
         "lorenz_summary": lorenz["summary"],
         "lorenz_curve": lorenz["curve"],
         "roc_summary": roc["summary"],

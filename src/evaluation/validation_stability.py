@@ -7,6 +7,10 @@ import numpy as np
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 
+from src.evaluation.metrics import metric_bundle
+from src.models.glm_logit import GLMLogitModel
+from src.training.cv import time_series_splits
+
 PAIRWISE_WARN_THRESHOLD = 0.80
 PAIRWISE_SEVERE_THRESHOLD = 0.95
 VIF_WARN_THRESHOLD = 5.0
@@ -41,7 +45,8 @@ def coefficient_paths(
             y = seg[target_col].astype(int).to_numpy()
             if len(np.unique(y)) < 2:
                 continue
-            x = seg[features].to_numpy(dtype=float)
+            x_frame = _safe_numeric_frame(seg, features)
+            x = x_frame.fillna(x_frame.median(numeric_only=True)).fillna(0.0).to_numpy(dtype=float)
             m = LogisticRegression(max_iter=1500, C=1.0)
             m.fit(x, y)
             for f, c in zip(features, m.coef_[0]):
@@ -600,7 +605,279 @@ def vif_table(df: pd.DataFrame, features: list[str]) -> pd.DataFrame:
     return assess_multicollinearity(df, features)["vif"]
 
 
-def break_test_trade_deadline(df: pd.DataFrame, features: list[str], target_col: str = "home_win") -> dict:
+def _ordered_games(df: pd.DataFrame, target_col: str = "home_win") -> pd.DataFrame:
+    work = df[df[target_col].notna()].copy()
+    if "start_time_utc" in work.columns:
+        return work.sort_values("start_time_utc")
+    if "game_date_utc" in work.columns:
+        return work.sort_values("game_date_utc")
+    return work.reset_index(drop=True)
+
+
+def _glm_original_coefficients(model: GLMLogitModel) -> pd.DataFrame:
+    coef_scaled = np.asarray(model.model.coef_[0], dtype=float)
+    scale = np.asarray(model.scaler.scale_, dtype=float)
+    coef_original = np.divide(
+        coef_scaled,
+        scale,
+        out=np.full_like(coef_scaled, np.nan, dtype=float),
+        where=np.isfinite(scale) & (np.abs(scale) > 0),
+    )
+    return pd.DataFrame(
+        {
+            "feature": list(model.feature_columns),
+            "coef_scaled": coef_scaled,
+            "coef_original": coef_original,
+        }
+    )
+
+
+def _cv_work_frame(df: pd.DataFrame, target_col: str) -> pd.DataFrame:
+    work = _ordered_games(df, target_col=target_col)
+    if "start_time_utc" not in work.columns and "game_date_utc" in work.columns:
+        work = work.copy()
+        work["start_time_utc"] = pd.to_datetime(work["game_date_utc"])
+    return work
+
+
+def cv_glm_stability_report(
+    df: pd.DataFrame,
+    features: list[str],
+    *,
+    target_col: str = "home_win",
+    n_splits: int = 5,
+    min_train_size: int | None = None,
+    c: float = 1.0,
+) -> dict[str, pd.DataFrame | dict[str, Any]]:
+    work = _cv_work_frame(df, target_col=target_col)
+    if work.empty or not features:
+        return {
+            "summary": {"status": "insufficient_data", "folds_used": 0, "feature_count": 0},
+            "fold_metrics": pd.DataFrame(),
+            "coefficients": pd.DataFrame(),
+            "feature_summary": pd.DataFrame(),
+        }
+
+    resolved_min_train = min(220, max(80, len(work) // 2)) if min_train_size is None else int(min_train_size)
+    splits = time_series_splits(work, n_splits=max(2, int(n_splits)), min_train_size=resolved_min_train)
+    if not splits:
+        return {
+            "summary": {"status": "insufficient_data", "folds_used": 0, "feature_count": len(features)},
+            "fold_metrics": pd.DataFrame(),
+            "coefficients": pd.DataFrame(),
+            "feature_summary": pd.DataFrame(),
+        }
+
+    fold_rows: list[dict[str, Any]] = []
+    coef_rows: list[dict[str, Any]] = []
+    for fold, (tr_idx, va_idx) in enumerate(splits, start=1):
+        tr = work.loc[tr_idx].copy().sort_values("start_time_utc")
+        va = work.loc[va_idx].copy().sort_values("start_time_utc")
+        if tr.empty or va.empty or tr[target_col].nunique() < 2:
+            continue
+
+        model = GLMLogitModel(c=float(c))
+        model.fit(tr, features, target_col=target_col)
+        p = model.predict_proba(va)
+        metrics = metric_bundle(va[target_col].astype(int).to_numpy(), p)
+        fold_rows.append(
+            {
+                "fold": int(fold),
+                "n_train": int(len(tr)),
+                "n_valid": int(len(va)),
+                "train_end": str(tr.iloc[-1]["start_time_utc"]),
+                "valid_end": str(va.iloc[-1]["start_time_utc"]),
+                "log_loss": float(metrics["log_loss"]),
+                "brier": float(metrics["brier"]),
+                "accuracy": float(metrics["accuracy"]),
+                "auc": float(metrics.get("auc", float("nan"))),
+            }
+        )
+        coef_frame = _glm_original_coefficients(model)
+        for row in coef_frame.itertuples(index=False):
+            coef_rows.append(
+                {
+                    "fold": int(fold),
+                    "train_end": str(tr.iloc[-1]["start_time_utc"]),
+                    "valid_end": str(va.iloc[-1]["start_time_utc"]),
+                    "feature": row.feature,
+                    "coef_scaled": float(row.coef_scaled),
+                    "coef_original": float(row.coef_original) if np.isfinite(row.coef_original) else float("nan"),
+                }
+            )
+
+    fold_metrics = pd.DataFrame(fold_rows)
+    coefficients = pd.DataFrame(coef_rows)
+    if coefficients.empty:
+        feature_summary = pd.DataFrame()
+    else:
+        feature_summary = (
+            coefficients.groupby("feature", as_index=False)
+            .agg(
+                fold_count=("coef_original", "count"),
+                coef_mean=("coef_original", "mean"),
+                coef_std=("coef_original", "std"),
+                coef_min=("coef_original", "min"),
+                coef_max=("coef_original", "max"),
+            )
+            .reset_index(drop=True)
+        )
+        p05 = coefficients.groupby("feature", as_index=False)["coef_original"].quantile(0.05).rename(
+            columns={"coef_original": "coef_p05"}
+        )
+        p95 = coefficients.groupby("feature", as_index=False)["coef_original"].quantile(0.95).rename(
+            columns={"coef_original": "coef_p95"}
+        )
+        sign_flip = (
+            coefficients.assign(sign=np.sign(coefficients["coef_original"]).replace(0.0, np.nan))
+            .groupby("feature")["sign"]
+            .agg(lambda s: int(s.dropna().nunique() > 1))
+            .rename("sign_flip_flag")
+        )
+        feature_summary = (
+            feature_summary.merge(p05, on="feature", how="left")
+            .merge(p95, on="feature", how="left")
+            .merge(sign_flip, on="feature", how="left")
+            .sort_values("coef_std", ascending=False, na_position="last")
+            .reset_index(drop=True)
+        )
+
+    summary = {
+        "status": "ok" if not fold_metrics.empty else "insufficient_data",
+        "folds_used": int(len(fold_metrics)),
+        "feature_count": int(len(features)),
+        "mean_holdout_log_loss": _safe_float(fold_metrics["log_loss"].mean()) if not fold_metrics.empty else None,
+        "mean_holdout_brier": _safe_float(fold_metrics["brier"].mean()) if not fold_metrics.empty else None,
+        "mean_holdout_auc": _safe_float(fold_metrics["auc"].mean()) if not fold_metrics.empty else None,
+        "sign_flip_features": int(feature_summary["sign_flip_flag"].fillna(0).sum()) if not feature_summary.empty else 0,
+    }
+    return {
+        "summary": summary,
+        "fold_metrics": fold_metrics,
+        "coefficients": coefficients,
+        "feature_summary": feature_summary,
+    }
+
+
+def bootstrap_glm_coefficients(
+    df: pd.DataFrame,
+    features: list[str],
+    *,
+    target_col: str = "home_win",
+    n_boot: int = 100,
+    c: float = 1.0,
+) -> dict[str, pd.DataFrame | dict[str, Any]]:
+    work = df[df[target_col].notna()].copy()
+    if work.empty or not features:
+        return {
+            "summary": {"status": "insufficient_data", "bootstrap_runs": 0, "feature_count": 0},
+            "coefficients": pd.DataFrame(),
+            "feature_summary": pd.DataFrame(),
+        }
+
+    base_model = GLMLogitModel(c=float(c))
+    base_model.fit(work, features, target_col=target_col)
+    base_frame = _glm_original_coefficients(base_model).rename(
+        columns={"coef_scaled": "base_coef_scaled", "coef_original": "base_coef_original"}
+    )
+
+    rng = np.random.default_rng(42)
+    rows: list[dict[str, Any]] = []
+    for boot in range(1, n_boot + 1):
+        ix = rng.choice(len(work), size=len(work), replace=True)
+        sample = work.iloc[ix].copy()
+        if sample[target_col].nunique() < 2:
+            continue
+        try:
+            model = GLMLogitModel(c=float(c))
+            model.fit(sample, features, target_col=target_col)
+        except Exception:
+            continue
+        coef_frame = _glm_original_coefficients(model)
+        for row in coef_frame.itertuples(index=False):
+            rows.append(
+                {
+                    "bootstrap_run": int(boot),
+                    "feature": row.feature,
+                    "coef_scaled": float(row.coef_scaled),
+                    "coef_original": float(row.coef_original) if np.isfinite(row.coef_original) else float("nan"),
+                }
+            )
+
+    coefficients = pd.DataFrame(rows)
+    if coefficients.empty:
+        feature_summary = pd.DataFrame()
+    else:
+        feature_summary = (
+            coefficients.groupby("feature", as_index=False)
+            .agg(
+                bootstrap_count=("coef_original", "count"),
+                coef_mean=("coef_original", "mean"),
+                coef_std=("coef_original", "std"),
+            )
+            .reset_index(drop=True)
+        )
+        ci_low = coefficients.groupby("feature", as_index=False)["coef_original"].quantile(0.05).rename(
+            columns={"coef_original": "coef_ci_low"}
+        )
+        ci_high = coefficients.groupby("feature", as_index=False)["coef_original"].quantile(0.95).rename(
+            columns={"coef_original": "coef_ci_high"}
+        )
+        sign_flip = (
+            coefficients.assign(sign=np.sign(coefficients["coef_original"]).replace(0.0, np.nan))
+            .groupby("feature")["sign"]
+            .agg(lambda s: int(s.dropna().nunique() > 1))
+            .reset_index(name="sign_flip_flag")
+        )
+        feature_summary = (
+            feature_summary.merge(ci_low, on="feature", how="left")
+            .merge(ci_high, on="feature", how="left")
+            .merge(base_frame[["feature", "base_coef_original"]], on="feature", how="left")
+            .merge(sign_flip, on="feature", how="left")
+            .sort_values("coef_std", ascending=False, na_position="last")
+            .reset_index(drop=True)
+        )
+
+    summary = {
+        "status": "ok" if not coefficients.empty else "insufficient_data",
+        "bootstrap_runs": int(coefficients["bootstrap_run"].nunique()) if not coefficients.empty else 0,
+        "feature_count": int(len(features)),
+        "sign_flip_features": int(feature_summary["sign_flip_flag"].fillna(0).sum()) if not feature_summary.empty else 0,
+    }
+    return {
+        "summary": summary,
+        "coefficients": coefficients,
+        "feature_summary": feature_summary,
+    }
+
+
+def break_test_trade_deadline(
+    df: pd.DataFrame,
+    features: list[str],
+    target_col: str = "home_win",
+    league: str = "NHL",
+) -> dict:
+    work = df[df[target_col].notna()].copy()
+    work["game_date_utc"] = pd.to_datetime(work["game_date_utc"])
+    if work.empty:
+        return {"delta_coef_l2": float("nan"), "n_pre": 0, "n_post": 0}
+
+    league_code = str(league or "NHL").strip().upper()
+    month, day = (2, 1) if league_code == "NBA" else (3, 7)
+    deadline = pd.Timestamp(year=work["game_date_utc"].dt.year.max(), month=month, day=day)
+    pre = work[work["game_date_utc"] < deadline]
+    post = work[work["game_date_utc"] >= deadline]
+    if len(pre) < 20 or len(post) < 20:
+        return {"delta_coef_l2": float("nan"), "n_pre": len(pre), "n_post": len(post), "deadline": str(deadline.date())}
+
+    pre_x = _safe_numeric_frame(pre, features)
+    post_x = _safe_numeric_frame(post, features)
+    pre_x = pre_x.fillna(pre_x.median(numeric_only=True)).fillna(0.0)
+    post_x = post_x.fillna(post_x.median(numeric_only=True)).fillna(0.0)
+    m1 = LogisticRegression(max_iter=1500).fit(pre_x, pre[target_col])
+    m2 = LogisticRegression(max_iter=1500).fit(post_x, post[target_col])
+    delta = float(np.linalg.norm(m1.coef_[0] - m2.coef_[0]))
+    return {"delta_coef_l2": delta, "n_pre": len(pre), "n_post": len(post), "deadline": str(deadline.date())}
     work = df[df[target_col].notna()].copy()
     work["game_date_utc"] = pd.to_datetime(work["game_date_utc"])
     if work.empty:

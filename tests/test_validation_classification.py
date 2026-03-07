@@ -56,6 +56,8 @@ def test_validate_logistic_probability_model_emits_expected_reports(tmp_path):
     )
 
     quantile_summary = report["quantile_summary"]
+    actual_vs_predicted_summary = report["actual_vs_predicted_summary"]
+    lift_summary = report["lift_summary"]
     lorenz_summary = report["lorenz_summary"]
     roc_summary = report["roc_summary"]
     tossup_summary = report["tossup_summary"]
@@ -64,6 +66,12 @@ def test_validate_logistic_probability_model_emits_expected_reports(tmp_path):
     assert quantile_summary["bins_realized"] == 5
     assert quantile_summary["last_bin_actual_rate"] > quantile_summary["first_bin_actual_rate"]
     assert quantile_summary["monotonicity_violations"] <= 2
+
+    assert actual_vs_predicted_summary["bins_realized"] == 5
+    assert actual_vs_predicted_summary["mean_abs_identity_gap"] >= 0
+
+    assert lift_summary["top_quantile_actual_lift"] > lift_summary["bottom_quantile_actual_lift"]
+    assert lift_summary["top_vs_bottom_actual_lift_diff"] > 0
 
     assert lorenz_summary["top_decile_event_capture"] > 0
     assert lorenz_summary["normalized_gini"] > 0
@@ -80,6 +88,8 @@ def test_validate_logistic_probability_model_emits_expected_reports(tmp_path):
     assert tossup_summary["decisive_share"] < 1.0
 
     assert (tmp_path / "unit_quantile_plot.png").exists()
+    assert (tmp_path / "unit_actual_vs_predicted_plot.png").exists()
+    assert (tmp_path / "unit_lift_plot.png").exists()
     assert (tmp_path / "unit_lorenz_curve.png").exists()
     assert (tmp_path / "unit_roc_curve.png").exists()
 
