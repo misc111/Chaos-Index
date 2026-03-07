@@ -109,6 +109,21 @@ make run_daily MODELS=glm_logit
 make run_daily CONFIG=configs/nba.yaml MODELS=glm_logit
 ```
 
+League-scoped data-only refresh:
+```bash
+make refresh-data CONFIG=configs/nhl.yaml
+make refresh-data CONFIG=configs/nba.yaml
+```
+
+Deterministic repo-wide data-only refresh across NHL and NBA:
+```bash
+make data_refresh
+```
+Preview the exact data-refresh step plan without executing it:
+```bash
+make data_refresh DRY_RUN=1
+```
+
 Deterministic repo-wide hard refresh across NHL and NBA:
 ```bash
 make hard_refresh
@@ -137,8 +152,9 @@ LEAGUE=NBA NBA_DB_PATH=data/processed/nba_forecast.db make dashboard
 ```
 
 Execution architecture:
-- Atomic league-scoped commands stay independently runnable: `init-db`, `fetch`, `fetch-odds`, `features`, `research-features`, `train`, `backtest`, and `run_daily`.
+- Atomic league-scoped commands stay independently runnable: `init-db`, `fetch`, `refresh-data`, `fetch-odds`, `features`, `research-features`, `train`, `backtest`, and `run_daily`.
 - Model-level execution remains available through `MODELS=...`, for example `make train MODELS=glm_logit`.
+- The repo-wide ingest-only trigger is `make data_refresh`, which runs the deterministic NHL then NBA data-collection sequence and stops before features, training, or staging snapshots.
 - The repo-wide composite trigger is `make hard_refresh`, which runs a fixed sequential plan across NHL then NBA, regenerates `web/public/staging-data/`, and optionally builds the static Pages output.
 
 Maintainer note:

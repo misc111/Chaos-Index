@@ -14,7 +14,6 @@ type RefreshState = {
 };
 
 declare global {
-  // eslint-disable-next-line no-var
   var __sportsModelingRefreshState: RefreshState | undefined;
 }
 
@@ -41,9 +40,9 @@ function configPathForLeague(league: LeagueCode): string {
   return path.resolve(repoRootPath(), envOverride || fallback);
 }
 
-function runDailyPipeline(configPath: string): Promise<{ code: number | null; stdout: string; stderr: string }> {
+function runDataRefreshPipeline(configPath: string): Promise<{ code: number | null; stdout: string; stderr: string }> {
   return new Promise((resolve, reject) => {
-    const child = spawn("python3", ["-m", "src.cli", "run-daily", "--config", configPath], {
+    const child = spawn("python3", ["-m", "src.cli", "refresh-data", "--config", configPath], {
       cwd: repoRootPath(),
       env: process.env,
       stdio: ["ignore", "pipe", "pipe"],
@@ -106,7 +105,7 @@ export async function POST(request: Request) {
   refreshState.startedAtUtc = new Date().toISOString();
 
   try {
-    const runResult = await runDailyPipeline(configPath);
+    const runResult = await runDataRefreshPipeline(configPath);
     if (runResult.code !== 0) {
       return NextResponse.json(
         {

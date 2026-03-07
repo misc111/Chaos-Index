@@ -587,6 +587,12 @@ def cmd_fetch(cfg: AppConfig) -> None:
 
 
 
+def cmd_refresh_data(cfg: AppConfig) -> None:
+    cmd_fetch(cfg)
+    cmd_fetch_odds(cfg)
+    logger.info("Data refresh complete | league=%s", _canonical_league(cfg.data.league))
+
+
 def cmd_fetch_odds(cfg: AppConfig) -> None:
     db = Database(cfg.paths.db_path)
     db.init_schema()
@@ -1081,7 +1087,18 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="NHL/NBA probabilistic forecasting pipeline")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    for cmd in ["init-db", "fetch", "fetch-odds", "features", "research-features", "train", "backtest", "run-daily", "smoke"]:
+    for cmd in [
+        "init-db",
+        "fetch",
+        "refresh-data",
+        "fetch-odds",
+        "features",
+        "research-features",
+        "train",
+        "backtest",
+        "run-daily",
+        "smoke",
+    ]:
         p = sub.add_parser(cmd)
         p.add_argument("--config", default="configs/nhl.yaml")
         if cmd in {"research-features", "train", "backtest", "run-daily"}:
@@ -1106,6 +1123,8 @@ def main() -> None:
         cmd_init_db(cfg)
     elif args.command == "fetch":
         cmd_fetch(cfg)
+    elif args.command == "refresh-data":
+        cmd_refresh_data(cfg)
     elif args.command == "fetch-odds":
         cmd_fetch_odds(cfg)
     elif args.command == "features":

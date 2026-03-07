@@ -20,6 +20,7 @@ help:
 	@echo "  install-node        Install Node deps"
 	@echo "  init-db             Initialize SQLite schema"
 	@echo "  fetch               Fetch league data from CONFIG"
+	@echo "  refresh-data        Fetch league data + final odds pull from CONFIG"
 	@echo "  fetch-odds          Fetch latest odds snapshot from CONFIG"
 	@echo "  features            Build feature tables"
 	@echo "  research-features   Score and promote per-model feature maps"
@@ -28,6 +29,8 @@ help:
 	@echo "                      Optional: MODELS=glm_logit,rf (default: all)"
 	@echo "                      Optional: APPROVE_FEATURE_CHANGES=1"
 	@echo "  run_daily           Daily pipeline end-to-end"
+	@echo "  data_refresh        Deterministic NHL+NBA data-only refresh"
+	@echo "                      Optional: DRY_RUN=1"
 	@echo "  hard_refresh        Deterministic NHL+NBA full refresh + staging snapshot"
 	@echo "                      Optional: MODELS=glm_logit,rf APPROVE_FEATURE_CHANGES=1 PAGES_BUILD=0 DRY_RUN=1"
 	@echo "  dashboard           Launch Next.js dashboard"
@@ -37,6 +40,8 @@ help:
 	@echo "  "
 	@echo "Usage:"
 	@echo "  make fetch CONFIG=configs/nba.yaml"
+	@echo "  make refresh-data CONFIG=configs/nba.yaml"
+	@echo "  make data_refresh DRY_RUN=1"
 	@echo "  make query CONFIG=configs/nba.yaml Q=\"What's the chance the Raptors win the next game?\""
 
 install-python:
@@ -50,6 +55,9 @@ init-db:
 
 fetch:
 	$(PYTHON) -m src.cli fetch --config $(CONFIG)
+
+refresh-data:
+	$(PYTHON) -m src.cli refresh-data --config $(CONFIG)
 
 fetch-odds:
 	$(PYTHON) -m src.cli fetch-odds --config $(CONFIG)
@@ -68,6 +76,9 @@ backtest:
 
 run_daily:
 	$(PYTHON) -m src.cli run-daily --config $(CONFIG) $(MODEL_ARGS) $(APPROVE_FEATURE_ARGS)
+
+data_refresh:
+	$(PYTHON) -m src.orchestration.data_refresh $(DRY_RUN_ARGS)
 
 hard_refresh:
 	$(PYTHON) -m src.orchestration.hard_refresh $(MODEL_ARGS) $(APPROVE_FEATURE_ARGS) $(PAGES_BUILD_ARGS) $(DRY_RUN_ARGS)

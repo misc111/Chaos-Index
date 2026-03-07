@@ -162,9 +162,12 @@ function DashboardHeaderContent() {
         </button>
         <div className="refresh-meta" aria-live="polite">
           {staticStaging ? <p className="small">GitHub Pages staging uses committed snapshot data.</p> : null}
+          {!staticStaging ? (
+            <p className="small">Ingest only. No feature rebuild and no retraining.</p>
+          ) : null}
           {isRefreshing ? (
             <>
-              <p className="small">Refreshing {league} data...</p>
+              <p className="small">Refreshing {league} data without rebuilding models...</p>
               <div className="refresh-progress-track">
                 <span className="refresh-progress-fill" />
               </div>

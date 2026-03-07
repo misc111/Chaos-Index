@@ -33,6 +33,22 @@
   - if needed, verify with `cd web && npm run build:pages`
 - Do not assume pushing dashboard code alone updates staging; GitHub Pages serves the committed snapshot files, not live SQLite data.
 
+## Data Refresh Contract
+- When the user asks to refresh data only, pull in data without rebuilding features, or refresh without training, treat that as the repository-level data-only pipeline.
+- The canonical repository trigger for the executable data-only pipeline is `make data_refresh`.
+- A data-only refresh always covers both leagues, even if the user names only one team or one league in the same message.
+- Run the data-only refresh steps in this exact order, sequentially, with no league parallelism and no step reordering:
+  - `make fetch CONFIG=configs/nhl.yaml`
+  - `make fetch CONFIG=configs/nba.yaml`
+  - `python3 -m src.cli fetch-odds --config configs/nhl.yaml`
+  - `python3 -m src.cli fetch-odds --config configs/nba.yaml`
+- Data-only refreshes stop after data ingestion:
+  - do not rebuild features
+  - do not train
+  - do not regenerate `web/public/staging-data/`
+  - do not build Pages just because a data-only refresh ran
+- The dedicated `fetch-odds` step is mandatory for data-only refreshes so the ingest cycle ends with the freshest odds snapshot for each league.
+
 ## Hard Refresh Contract
 - Treat the exact phrase `do a hard refresh` as a repository-level command alias for a full deterministic rebuild-and-publish cycle across both supported leagues.
 - The canonical repository trigger for the executable refresh pipeline is `make hard_refresh`. After it succeeds, continue with the required commit/push/workflow-watch closeout steps below.
