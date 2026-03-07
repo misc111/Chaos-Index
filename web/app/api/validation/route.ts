@@ -102,6 +102,20 @@ const DEFAULT_SECTION_SPECS: SectionSpec[] = [
   { section: "backtest_integrity", file_name: "backtest_integrity.json", kind: "json" },
 ];
 
+function isSectionSpec(value: unknown): value is SectionSpec {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const candidate = value as Partial<Record<keyof SectionSpec, unknown>>;
+  return (
+    typeof candidate.section === "string" &&
+    typeof candidate.file_name === "string" &&
+    (candidate.kind === "csv" || candidate.kind === "json") &&
+    (candidate.tail_rows === undefined || candidate.tail_rows === null || typeof candidate.tail_rows === "number")
+  );
+}
+
 function loadSectionSpecs(root: string): SectionSpec[] {
   const manifestPath = path.join(root, "validation_manifest.json");
   if (!fs.existsSync(manifestPath)) {
@@ -113,14 +127,7 @@ function loadSectionSpecs(root: string): SectionSpec[] {
     if (!Array.isArray(raw?.sections)) {
       return DEFAULT_SECTION_SPECS;
     }
-    const specs = raw.sections.filter(
-      (value: unknown): value is SectionSpec =>
-        value &&
-        typeof value === "object" &&
-        typeof value.section === "string" &&
-        typeof value.file_name === "string" &&
-        (value.kind === "csv" || value.kind === "json"),
-    );
+    const specs = raw.sections.filter(isSectionSpec);
     return specs.length ? specs : DEFAULT_SECTION_SPECS;
   } catch {
     return DEFAULT_SECTION_SPECS;

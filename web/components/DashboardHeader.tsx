@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { type LeagueCode, normalizeLeague, withLeague } from "@/lib/league";
 import { isStaticStagingBuild } from "@/lib/static-staging";
 
@@ -27,6 +27,38 @@ type RefreshResponse = {
   details?: string;
   refreshed_at_utc?: string;
 };
+
+type DashboardTheme = "light" | "market-board-dark";
+
+const DASHBOARD_THEME_KEY = "dashboard-theme";
+const DARK_THEME: DashboardTheme = "market-board-dark";
+const LIGHT_THEME: DashboardTheme = "light";
+
+function isDashboardTheme(value: string | null): value is DashboardTheme {
+  return value === DARK_THEME || value === LIGHT_THEME;
+}
+
+function applyDashboardTheme(theme: DashboardTheme): void {
+  document.documentElement.setAttribute("data-dashboard-theme", theme);
+}
+
+function resolveDashboardTheme(): DashboardTheme {
+  if (typeof document !== "undefined") {
+    const currentTheme = document.documentElement.getAttribute("data-dashboard-theme");
+    if (isDashboardTheme(currentTheme)) {
+      return currentTheme;
+    }
+  }
+
+  if (typeof window !== "undefined") {
+    const storedTheme = window.localStorage.getItem(DASHBOARD_THEME_KEY);
+    if (isDashboardTheme(storedTheme)) {
+      return storedTheme;
+    }
+  }
+
+  return DARK_THEME;
+}
 
 function hrefWithLeague(href: string, league: LeagueCode, searchParams: URLSearchParams): string {
   const params = new URLSearchParams(searchParams.toString());
@@ -53,13 +85,24 @@ function HeaderFallback() {
   return (
     <>
       <h1 className="title app-title">NBA Win Probability Forecasting</h1>
-      <div className="league-toggle-row" aria-label="League selection">
-        <Link href="?league=NBA" className="league-toggle-btn active">
-          NBA
-        </Link>
-        <Link href="?league=NHL" className="league-toggle-btn">
-          NHL
-        </Link>
+      <div className="header-control-row">
+        <div className="league-toggle-row" aria-label="League selection">
+          <Link href="?league=NBA" className="league-toggle-btn active">
+            NBA
+          </Link>
+          <Link href="?league=NHL" className="league-toggle-btn">
+            NHL
+          </Link>
+        </div>
+        <button type="button" className="theme-toggle-btn active" aria-pressed="true">
+          <span className="theme-toggle-copy">
+            <span className="theme-toggle-label">Dark Mode</span>
+            <span className="theme-toggle-state">On</span>
+          </span>
+          <span className="theme-toggle-track" aria-hidden>
+            <span className="theme-toggle-knob" />
+          </span>
+        </button>
       </div>
       <div className="refresh-row">
         <button type="button" className="refresh-btn" disabled>
@@ -85,6 +128,7 @@ function DashboardHeaderContent() {
   const staticStaging = isStaticStagingBuild();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [refreshError, setRefreshError] = useState("");
+  const [theme, setTheme] = useState<DashboardTheme>(DARK_THEME);
   const refreshedAtRaw = searchParams.get("refreshedAt");
   const refreshedLeague = searchParams.get("refreshedLeague");
 
@@ -92,6 +136,13 @@ function DashboardHeaderContent() {
     typeof refreshedAtRaw === "string" && refreshedAtRaw.length > 0 && refreshedLeague === league;
 
   const refreshedAtLabel = showRefreshedStamp ? formatRefreshTimestamp(refreshedAtRaw) : "";
+  const isDarkTheme = theme === DARK_THEME;
+
+  useEffect(() => {
+    const resolvedTheme = resolveDashboardTheme();
+    applyDashboardTheme(resolvedTheme);
+    setTheme(resolvedTheme);
+  }, []);
 
   const handleRefresh = async () => {
     if (staticStaging) {
@@ -125,20 +176,48 @@ function DashboardHeaderContent() {
     }
   };
 
+  const handleThemeToggle = () => {
+    const nextTheme = isDarkTheme ? LIGHT_THEME : DARK_THEME;
+    applyDashboardTheme(nextTheme);
+    setTheme(nextTheme);
+    try {
+      window.localStorage.setItem(DASHBOARD_THEME_KEY, nextTheme);
+    } catch {
+      // Ignore persistence failures and keep the in-memory toggle responsive.
+    }
+  };
+
   return (
     <>
       <h1 className="title app-title">{league} Win Probability Forecasting</h1>
 
-      <div className="league-toggle-row" aria-label="League selection">
-        {(["NBA", "NHL"] as LeagueCode[]).map((code) => (
-          <Link
-            href={hrefWithLeague(pathname, code, search)}
-            key={code}
-            className={`league-toggle-btn ${league === code ? "active" : ""}`}
-          >
-            {code}
-          </Link>
-        ))}
+      <div className="header-control-row">
+        <div className="league-toggle-row" aria-label="League selection">
+          {(["NBA", "NHL"] as LeagueCode[]).map((code) => (
+            <Link
+              href={hrefWithLeague(pathname, code, search)}
+              key={code}
+              className={`league-toggle-btn ${league === code ? "active" : ""}`}
+            >
+              {code}
+            </Link>
+          ))}
+        </div>
+        <button
+          type="button"
+          className={`theme-toggle-btn ${isDarkTheme ? "active" : ""}`}
+          onClick={handleThemeToggle}
+          aria-pressed={isDarkTheme}
+          aria-label={isDarkTheme ? "Switch to light mode" : "Switch to dark mode"}
+        >
+          <span className="theme-toggle-copy">
+            <span className="theme-toggle-label">Dark Mode</span>
+            <span className="theme-toggle-state">{isDarkTheme ? "On" : "Off"}</span>
+          </span>
+          <span className="theme-toggle-track" aria-hidden>
+            <span className="theme-toggle-knob" />
+          </span>
+        </button>
       </div>
 
       <div className="refresh-row">

@@ -32,17 +32,17 @@
   min-width: 110px;
   min-height: 38px;
   padding: 0 14px;
-  border: 1px solid rgba(36, 63, 86, 0.18);
+  border: 1px solid var(--border);
   border-radius: 999px;
-  background: rgba(247, 243, 233, 0.95);
-  color: #243f56;
+  background: var(--surface-field-muted);
+  color: var(--muted-strong);
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
 }
 
 .dayNavButton:hover:enabled {
-  background: rgba(240, 235, 222, 1);
+  background: var(--surface-card-hover);
 }
 
 .dayNavButton:disabled {
@@ -57,17 +57,17 @@
   min-width: 140px;
   min-height: 42px;
   padding: 0 16px;
-  border: 1px solid rgba(15, 118, 110, 0.28);
+  border: 1px solid var(--border-accent);
   border-radius: 999px;
-  background: linear-gradient(135deg, rgba(236, 254, 255, 0.95), rgba(209, 250, 229, 0.92));
-  color: #0f766e;
+  background: var(--surface-accent);
+  color: var(--accent-strong);
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
 }
 
 .refreshOddsButton:hover:enabled {
-  background: linear-gradient(135deg, rgba(207, 250, 254, 1), rgba(187, 247, 208, 0.98));
+  background: var(--surface-accent-hover);
 }
 
 .refreshOddsButton:disabled {
@@ -83,12 +83,12 @@
 }
 
 .refreshStatus {
-  color: #0f766e;
+  color: var(--accent-strong);
   font-weight: 600;
 }
 
 .refreshError {
-  color: #b91c1c;
+  color: var(--danger);
   font-weight: 600;
 }
 
@@ -143,22 +143,22 @@
 }
 
 .teamWin {
-  color: #0f5132;
-  background: #d1e7dd;
-  border-color: #badbcc;
+  color: var(--success);
+  background: var(--success-soft);
+  border-color: var(--success-border);
   font-weight: 700;
 }
 
 .teamLoss {
-  color: #842029;
-  background: #f8d7da;
-  border-color: #f5c2c7;
+  color: var(--danger);
+  background: var(--danger-soft);
+  border-color: var(--danger-border);
   font-weight: 700;
 }
 
 .teamNeutral {
   color: var(--ink);
-  background: #f8fafc;
+  background: var(--surface-chip-muted);
   font-weight: 600;
 }
 
@@ -179,7 +179,7 @@
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
   font-weight: 700;
-  color: #1e3a8a;
+  color: var(--info);
 }
 
 .betCell {
@@ -203,9 +203,9 @@
   display: grid;
   gap: 14px;
   padding: 16px;
-  border: 1px solid rgba(217, 207, 186, 0.92);
+  border: 1px solid var(--border);
   border-radius: 20px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(252, 249, 241, 0.94));
+  background: var(--surface-card-alt);
 }
 
 .mobileCardTop {
@@ -218,7 +218,7 @@
 
 .mobileCardEyebrow,
 .mobileMetaLabel {
-  color: #607281;
+  color: var(--muted);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -244,6 +244,8 @@
   padding: 0 12px;
   border: 1px solid var(--border);
   border-radius: 999px;
+  background: var(--surface-chip);
+  color: var(--ink-strong);
   font-size: 12px;
   font-weight: 700;
 }
@@ -257,9 +259,9 @@
   display: grid;
   gap: 6px;
   padding: 12px;
-  border: 1px solid rgba(217, 207, 186, 0.82);
+  border: 1px solid var(--border);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.78);
+  background: var(--surface-card-soft);
 }
 
 .mobileMetaValue {

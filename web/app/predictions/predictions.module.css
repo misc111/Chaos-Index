@@ -36,38 +36,37 @@
 .select {
   min-height: 44px;
   padding: 0 14px;
-  border: 1px solid rgba(148, 163, 184, 0.42);
+  border: 1px solid var(--border-strong);
   border-radius: 14px;
-  background: #fffefb;
+  background: var(--surface-field);
   color: var(--ink);
   font-size: 14px;
   font-weight: 600;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--ink-strong) 10%, transparent);
 }
 
 .clearButton {
   min-height: 44px;
   padding: 0 16px;
-  border: 1px solid rgba(15, 118, 110, 0.18);
+  border: 1px solid var(--border-accent);
   border-radius: 14px;
-  background: rgba(15, 118, 110, 0.08);
-  color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
 }
 
 .clearButton:hover {
-  background: rgba(15, 118, 110, 0.12);
+  background: var(--accent-soft-strong);
 }
 
 .tableCard {
   padding: 22px;
-  border: 1px solid rgba(217, 207, 186, 0.88);
+  border: 1px solid var(--border);
   border-radius: 26px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(252, 249, 241, 0.94));
-  box-shadow: 0 22px 54px rgba(31, 42, 52, 0.08);
+  background: var(--surface-card);
+  box-shadow: var(--shadow-card);
 }
 
 .tableHeader {
@@ -88,14 +87,14 @@
 
 .sectionSubtitle {
   margin: 8px 0 0;
-  color: #5d7181;
+  color: var(--muted-strong);
   font-size: 14px;
   line-height: 1.5;
 }
 
 .tableCount {
   margin: 0;
-  color: #5d7181;
+  color: var(--muted-strong);
   font-size: 13px;
   font-weight: 600;
 }
@@ -120,8 +119,8 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  background: #f1ece2;
-  color: #4f5e68;
+  background: var(--surface-table-head);
+  color: var(--muted-strong);
   text-align: left;
   font-size: 11px;
   font-weight: 700;
@@ -132,11 +131,11 @@
 .reportTable th,
 .reportTable td {
   padding: 12px 12px;
-  border-bottom: 1px solid rgba(217, 207, 186, 0.88);
+  border-bottom: 1px solid var(--border);
 }
 
 .reportTable tbody tr:hover {
-  background: rgba(255, 248, 235, 0.6);
+  background: var(--surface-row-hover);
 }
 
 .teamCell {
@@ -148,7 +147,7 @@
 .awayCell,
 .dateCell {
   white-space: nowrap;
-  color: #496170;
+  color: var(--muted-strong);
   font-size: 13px;
   font-weight: 600;
 }
@@ -170,58 +169,58 @@
 }
 
 .probDominant {
-  background: linear-gradient(135deg, rgba(22, 163, 74, 0.22), rgba(34, 197, 94, 0.38));
-  border-color: rgba(22, 163, 74, 0.42);
-  color: #166534;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 0 0 1px rgba(34, 197, 94, 0.12);
+  background: var(--success-surface);
+  border-color: var(--success-border);
+  color: var(--success);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--ink-strong) 28%, transparent), 0 0 0 1px color-mix(in srgb, var(--success-strong) 18%, transparent);
 }
 
 .probStrong {
-  background: rgba(15, 118, 110, 0.14);
-  border-color: rgba(15, 118, 110, 0.2);
-  color: #0f766e;
+  background: var(--accent-soft);
+  border-color: var(--border-accent);
+  color: var(--accent-strong);
 }
 
 .probLean {
-  background: rgba(14, 165, 233, 0.12);
-  border-color: rgba(14, 165, 233, 0.16);
-  color: #0f5e7a;
+  background: var(--info-soft);
+  border-color: var(--info-border);
+  color: var(--info);
 }
 
 .probTossup {
-  background: rgba(234, 179, 8, 0.14);
-  border-color: rgba(202, 138, 4, 0.16);
-  color: #8a5d00;
+  background: var(--warning-soft);
+  border-color: var(--warning-border);
+  color: var(--warning);
 }
 
 .probAgainst {
-  background: rgba(225, 29, 72, 0.1);
-  border-color: rgba(225, 29, 72, 0.14);
-  color: #a11445;
+  background: var(--danger-soft);
+  border-color: var(--danger-border);
+  color: var(--danger);
 }
 
 .probNeutral {
-  background: rgba(148, 163, 184, 0.12);
-  border-color: rgba(148, 163, 184, 0.16);
-  color: #51606d;
+  background: var(--neutral-soft);
+  border-color: var(--neutral-border);
+  color: var(--neutral);
 }
 
 .emptyState,
 .errorState,
 .loadingState {
   padding: 24px;
-  border: 1px dashed rgba(148, 163, 184, 0.34);
+  border: 1px dashed var(--neutral-border);
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.64);
-  color: #566978;
+  background: var(--surface-empty);
+  color: var(--muted-strong);
   font-size: 14px;
   line-height: 1.6;
 }
 
 .errorState {
-  border-color: rgba(185, 28, 28, 0.2);
-  color: #991b1b;
-  background: rgba(254, 242, 242, 0.8);
+  border-color: var(--danger-border);
+  color: var(--danger);
+  background: var(--danger-soft);
 }
 
 .notesSection {
@@ -244,9 +243,9 @@
   display: grid;
   gap: 14px;
   padding: 16px;
-  border: 1px solid rgba(217, 207, 186, 0.9);
+  border: 1px solid var(--border);
   border-radius: 20px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(252, 249, 241, 0.94));
+  background: var(--surface-card-alt);
 }
 
 .mobileCardTop {
@@ -260,7 +259,7 @@
 .mobileCardEyebrow,
 .mobileMetaLabel,
 .mobileModelLabel {
-  color: #607281;
+  color: var(--muted);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -289,9 +288,9 @@
   display: grid;
   gap: 6px;
   padding: 12px;
-  border: 1px solid rgba(217, 207, 186, 0.82);
+  border: 1px solid var(--border);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.78);
+  background: var(--surface-card-soft);
 }
 
 .mobileMetaValue {
@@ -315,16 +314,15 @@
   display: grid;
   gap: 12px;
   padding: 16px;
-  border: 1px solid rgba(217, 207, 186, 0.84);
+  border: 1px solid var(--border);
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 14px 36px rgba(31, 42, 52, 0.06);
+  background: var(--surface-card-soft);
+  box-shadow: var(--shadow-soft);
 }
 
 .noteCardFeatureMap {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 251, 248, 0.92));
-  border-color: rgba(15, 118, 110, 0.24);
+  background: var(--surface-card-hover);
+  border-color: var(--border-accent);
 }
 
 .noteHeader {
@@ -344,7 +342,7 @@
 
 .noteMetric,
 .featureLabel {
-  color: #607281;
+  color: var(--muted);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -353,15 +351,15 @@
 
 .noteMetric {
   padding: 5px 8px;
-  border: 1px solid rgba(15, 118, 110, 0.18);
+  border: 1px solid var(--border-accent);
   border-radius: 999px;
-  background: rgba(15, 118, 110, 0.08);
-  color: #0f766e;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
 }
 
 .noteHeadline {
   margin: 0;
-  color: #0f172a;
+  color: var(--ink-strong);
   font-size: 14px;
   font-weight: 700;
   line-height: 1.5;
@@ -369,7 +367,7 @@
 
 .noteText {
   margin: 0;
-  color: #5c6d7b;
+  color: var(--muted-strong);
   font-size: 13px;
   line-height: 1.55;
 }
@@ -401,17 +399,17 @@
 }
 
 .featureChip {
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  background: rgba(248, 250, 252, 0.9);
-  color: #1f2937;
+  border: 1px solid var(--neutral-border);
+  background: var(--surface-chip);
+  color: var(--ink);
   font-family: "SFMono-Regular", "SF Mono", "Roboto Mono", "Consolas", monospace;
   white-space: nowrap;
 }
 
 .featureOverflow {
-  border: 1px dashed rgba(15, 118, 110, 0.22);
-  background: rgba(15, 118, 110, 0.08);
-  color: #0f766e;
+  border: 1px dashed var(--border-accent);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
   font-weight: 700;
 }
 

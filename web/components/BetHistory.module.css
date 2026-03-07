@@ -1,10 +1,7 @@
 .heroCard {
   position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(120% 120% at 100% 0%, rgba(20, 184, 166, 0.14) 0%, transparent 46%),
-    radial-gradient(80% 80% at 0% 100%, rgba(37, 99, 235, 0.12) 0%, transparent 42%),
-    linear-gradient(180deg, rgba(255, 253, 250, 0.98) 0%, rgba(252, 250, 243, 0.98) 100%);
+  background: var(--surface-hero);
 }
 
 .heroTop {
@@ -14,7 +11,7 @@
 
 .eyebrow {
   margin: 0;
-  color: #0f766e;
+  color: var(--accent-strong);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -37,9 +34,9 @@
 
 .summaryTile {
   padding: 14px;
-  border: 1px solid rgba(217, 207, 186, 0.9);
+  border: 1px solid var(--border);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.68);
+  background: var(--panel-glass);
   backdrop-filter: blur(4px);
 }
 
@@ -61,11 +58,11 @@
 }
 
 .summaryValuePositive {
-  color: #166534;
+  color: var(--success);
 }
 
 .summaryValueNegative {
-  color: #b91c1c;
+  color: var(--danger);
 }
 
 .summarySubtext {
@@ -81,14 +78,14 @@
   gap: 10px;
   margin-top: 16px;
   padding: 12px 14px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--neutral-border);
   border-radius: 12px;
-  background: rgba(241, 245, 249, 0.72);
+  background: var(--surface-field-muted);
 }
 
 .coverageText {
   margin: 0;
-  color: #334155;
+  color: var(--muted-strong);
   font-size: 13px;
   line-height: 1.45;
 }
@@ -99,9 +96,9 @@
 }
 
 .chartWrap {
-  border: 1px solid rgba(217, 207, 186, 0.8);
+  border: 1px solid var(--border);
   border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(251, 249, 241, 0.9) 100%);
+  background: var(--surface-card-alt);
   padding: 12px;
 }
 
@@ -121,7 +118,7 @@
 }
 
 .chartMetaStrong {
-  color: var(--ink);
+  color: var(--ink-strong);
   font-weight: 700;
 }
 
@@ -178,16 +175,14 @@
   flex-direction: column;
   gap: 12px;
   padding: 14px;
-  border: 1px solid #d7cfbf;
+  border: 1px solid var(--border);
   border-radius: 16px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 245, 236, 0.95) 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  background: var(--surface-card);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--ink-strong) 10%, transparent);
 }
 
 .dayCardEmpty {
-  background:
-    linear-gradient(180deg, rgba(248, 250, 252, 0.95) 0%, rgba(241, 245, 249, 0.95) 100%);
+  background: var(--surface-calendar-past);
   border-style: dashed;
 }
 
@@ -230,21 +225,21 @@
 }
 
 .dayNetPositive {
-  color: #166534;
-  background: #ecfdf5;
-  border: 1px solid #86efac;
+  color: var(--success);
+  background: var(--success-soft);
+  border: 1px solid var(--success-border);
 }
 
 .dayNetNegative {
-  color: #b91c1c;
-  background: #fef2f2;
-  border: 1px solid #fca5a5;
+  color: var(--danger);
+  background: var(--danger-soft);
+  border: 1px solid var(--danger-border);
 }
 
 .dayNetNeutral {
-  color: #475569;
-  background: #f8fafc;
-  border: 1px solid #cbd5e1;
+  color: var(--neutral);
+  background: var(--neutral-soft);
+  border: 1px solid var(--neutral-border);
 }
 
 .betList {
@@ -255,18 +250,18 @@
 .betItem {
   padding: 10px 11px;
   border-radius: 12px;
-  border: 1px solid rgba(217, 207, 186, 0.9);
-  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid var(--border);
+  background: var(--surface-card-soft);
 }
 
 .betItemPositive {
-  border-color: #86efac;
-  background: linear-gradient(180deg, rgba(240, 253, 244, 0.94) 0%, rgba(236, 253, 245, 0.94) 100%);
+  border-color: var(--success-border);
+  background: var(--success-surface-soft);
 }
 
 .betItemNegative {
-  border-color: #fca5a5;
-  background: linear-gradient(180deg, rgba(254, 242, 242, 0.94) 0%, rgba(255, 241, 242, 0.94) 100%);
+  border-color: var(--danger-border);
+  background: var(--danger-surface-soft);
 }
 
 .betTop {
@@ -289,17 +284,17 @@
 }
 
 .betAmountPositive {
-  color: #166534;
+  color: var(--success);
 }
 
 .betAmountNegative {
-  color: #b91c1c;
+  color: var(--danger);
 }
 
 .betMeta,
 .betReason {
   margin: 4px 0 0;
-  color: #475569;
+  color: var(--muted-strong);
   font-size: 12px;
   line-height: 1.45;
 }

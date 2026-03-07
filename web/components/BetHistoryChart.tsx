@@ -68,8 +68,8 @@ export default function BetHistoryChart({ points }: Props) {
         <svg viewBox={`0 0 ${width} ${height}`} className={styles.chartSvg} role="img" aria-label="Cumulative bet replay line chart">
           <defs>
             <linearGradient id="bet-history-line" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#0f766e" />
-              <stop offset="100%" stopColor="#2563eb" />
+              <stop offset="0%" stopColor="var(--chart-line-start)" />
+              <stop offset="100%" stopColor="var(--chart-line-end)" />
             </linearGradient>
           </defs>
 
@@ -79,15 +79,15 @@ export default function BetHistoryChart({ points }: Props) {
             const y = padTop + (1 - (tick - minY) / span) * plotHeight;
             return (
               <g key={tick}>
-                <line x1={padLeft} y1={y} x2={width - padRight} y2={y} stroke="#e2e8f0" strokeWidth="1" />
-                <text x={padLeft - 10} y={y + 4} textAnchor="end" fill="#64748b" fontSize="11">
+                <line x1={padLeft} y1={y} x2={width - padRight} y2={y} stroke="var(--chart-grid)" strokeWidth="1" />
+                <text x={padLeft - 10} y={y + 4} textAnchor="end" fill="var(--chart-axis)" fontSize="11">
                   {formatUsd(tick, { minimumFractionDigits: 2 })}
                 </text>
               </g>
             );
           })}
 
-          <line x1={padLeft} y1={zeroY} x2={width - padRight} y2={zeroY} stroke="#94a3b8" strokeDasharray="5 4" />
+          <line x1={padLeft} y1={zeroY} x2={width - padRight} y2={zeroY} stroke="var(--chart-baseline)" strokeDasharray="5 4" />
 
           <path d={linePath} fill="none" stroke="url(#bet-history-line)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
 
@@ -97,8 +97,8 @@ export default function BetHistoryChart({ points }: Props) {
               cx={coord.x}
               cy={coord.y}
               r="4"
-              fill={coord.point.cumulative_profit >= 0 ? "#0f766e" : "#b91c1c"}
-              stroke="#ffffff"
+              fill={coord.point.cumulative_profit >= 0 ? "var(--chart-point-positive)" : "var(--chart-point-negative)"}
+              stroke="var(--chart-point-stroke)"
               strokeWidth="2"
             />
           ))}
@@ -106,7 +106,7 @@ export default function BetHistoryChart({ points }: Props) {
           {xTickIndexes.map((index) => {
             const coord = coords[index];
             return (
-              <text key={coord.point.date_central} x={coord.x} y={height - 12} textAnchor="middle" fill="#64748b" fontSize="11">
+              <text key={coord.point.date_central} x={coord.x} y={height - 12} textAnchor="middle" fill="var(--chart-axis)" fontSize="11">
                 {formatDateShort(coord.point.date_central)}
               </text>
             );

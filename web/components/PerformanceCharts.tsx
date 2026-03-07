@@ -18,7 +18,7 @@ export default function PerformanceCharts({ rows }: { rows: PerformanceScoreRow[
           key={model}
           title={`${model} log loss over time`}
           points={pts.map((p) => ({ x: p.game_date_utc, y: p.log_loss }))}
-          color="#8b5cf6"
+          color="var(--accent-2)"
         />
       ))}
     </div>

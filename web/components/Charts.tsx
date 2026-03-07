@@ -10,7 +10,7 @@ type Props = {
   color?: string;
 };
 
-export default function Charts({ title, points, color = "#0f766e" }: Props) {
+export default function Charts({ title, points, color = "var(--accent)" }: Props) {
   if (!points || points.length === 0) {
     return (
       <div className="card">
@@ -40,7 +40,7 @@ export default function Charts({ title, points, color = "#0f766e" }: Props) {
     <div className="card">
       <h3 className="title">{title}</h3>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", height: "clamp(180px, 42vw, 220px)" }}>
-        <rect x="0" y="0" width={w} height={h} fill="#fff" />
+        <rect x="0" y="0" width={w} height={h} rx="12" fill="var(--chart-surface)" />
         <path d={d} fill="none" stroke={color} strokeWidth="2.5" />
       </svg>
     </div>

@@ -1,0 +1,223 @@
+/* Update these tokens to reskin the live dashboard and GitHub Pages staging site together. */
+:root:not([data-dashboard-theme]),
+:root[data-dashboard-theme="market-board-dark"] {
+  color-scheme: dark;
+
+  --bg: #06131a;
+  --panel: rgba(8, 19, 27, 0.92);
+  --panel-elevated: rgba(10, 24, 31, 0.96);
+  --panel-muted: rgba(12, 26, 34, 0.78);
+  --panel-contrast: rgba(15, 30, 39, 0.92);
+  --panel-soft: rgba(15, 27, 34, 0.62);
+  --panel-glass: rgba(10, 18, 24, 0.68);
+
+  --ink: #eff7f6;
+  --ink-strong: #ffffff;
+  --muted: #93a9b5;
+  --muted-strong: #b8c9d2;
+  --muted-soft: rgba(226, 232, 240, 0.72);
+
+  --accent: #56d8c2;
+  --accent-strong: #88f5e1;
+  --accent-soft: rgba(86, 216, 194, 0.16);
+  --accent-soft-strong: rgba(86, 216, 194, 0.24);
+  --accent-2: #f3c96b;
+  --accent-2-strong: #ffd98a;
+  --accent-2-soft: rgba(243, 201, 107, 0.16);
+  --accent-blue: #8dd6ff;
+  --accent-blue-soft: rgba(56, 189, 248, 0.16);
+
+  --success: #9ef5d4;
+  --success-strong: #22c55e;
+  --success-soft: rgba(16, 185, 129, 0.16);
+  --success-surface: linear-gradient(180deg, rgba(22, 163, 74, 0.22), rgba(10, 43, 23, 0.92));
+  --success-surface-soft: linear-gradient(180deg, rgba(16, 185, 129, 0.16), rgba(9, 28, 21, 0.92));
+  --success-border: rgba(34, 197, 94, 0.42);
+
+  --danger: #ffb4b4;
+  --danger-strong: #fb7185;
+  --danger-soft: rgba(225, 29, 72, 0.16);
+  --danger-surface: linear-gradient(180deg, rgba(225, 29, 72, 0.18), rgba(64, 17, 28, 0.92));
+  --danger-surface-soft: linear-gradient(180deg, rgba(225, 29, 72, 0.16), rgba(39, 14, 20, 0.92));
+  --danger-border: rgba(251, 113, 133, 0.34);
+
+  --warning: #ffd48b;
+  --warning-soft: rgba(243, 201, 107, 0.16);
+  --warning-surface: linear-gradient(180deg, rgba(243, 201, 107, 0.18), rgba(67, 48, 16, 0.92));
+  --warning-border: rgba(250, 204, 21, 0.3);
+
+  --info: #90d7ff;
+  --info-soft: rgba(56, 189, 248, 0.14);
+  --info-border: rgba(125, 211, 252, 0.3);
+
+  --neutral: #d8dee8;
+  --neutral-soft: rgba(148, 163, 184, 0.16);
+  --neutral-border: rgba(148, 163, 184, 0.24);
+
+  --border: rgba(120, 150, 166, 0.28);
+  --border-strong: rgba(120, 150, 166, 0.42);
+  --border-subtle: rgba(148, 163, 184, 0.16);
+  --border-accent: rgba(86, 216, 194, 0.32);
+  --border-accent-strong: rgba(136, 245, 225, 0.5);
+  --border-secondary: rgba(243, 201, 107, 0.36);
+
+  --shadow-card: 0 18px 46px rgba(2, 8, 12, 0.28);
+  --shadow-elevated: 0 28px 72px rgba(2, 8, 12, 0.42);
+  --shadow-soft: 0 12px 28px rgba(2, 8, 12, 0.18);
+  --focus-ring: rgba(136, 245, 225, 0.32);
+
+  --page-background:
+    radial-gradient(1200px 600px at 0% 0%, rgba(20, 83, 45, 0.24) 0%, transparent 60%),
+    radial-gradient(900px 500px at 100% 100%, rgba(14, 165, 233, 0.18) 0%, transparent 60%),
+    linear-gradient(180deg, #041016 0%, #06131a 48%, #081923 100%);
+  --surface-card: linear-gradient(180deg, rgba(11, 27, 36, 0.96), rgba(8, 19, 27, 0.94));
+  --surface-card-alt: linear-gradient(180deg, rgba(12, 29, 38, 0.96), rgba(10, 23, 31, 0.94));
+  --surface-card-soft: rgba(11, 24, 31, 0.82);
+  --surface-card-hover: linear-gradient(135deg, rgba(13, 33, 38, 0.96), rgba(10, 24, 31, 0.94));
+  --surface-hero:
+    radial-gradient(circle at top right, rgba(86, 216, 194, 0.14), transparent 38%),
+    radial-gradient(circle at bottom left, rgba(63, 131, 248, 0.16), transparent 34%),
+    linear-gradient(145deg, rgba(10, 26, 34, 0.98), rgba(8, 19, 27, 0.96));
+  --surface-hero-orb: radial-gradient(circle, rgba(86, 216, 194, 0.22), transparent 70%);
+  --surface-accent: linear-gradient(135deg, rgba(86, 216, 194, 0.2), rgba(16, 52, 54, 0.92));
+  --surface-accent-hover: linear-gradient(135deg, rgba(120, 244, 226, 0.24), rgba(18, 60, 64, 0.94));
+  --surface-secondary: linear-gradient(135deg, rgba(243, 201, 107, 0.18), rgba(61, 44, 21, 0.9));
+  --surface-secondary-hover: linear-gradient(135deg, rgba(255, 219, 138, 0.22), rgba(71, 50, 20, 0.92));
+  --surface-table-head: rgba(15, 27, 34, 0.94);
+  --surface-row-hover: rgba(81, 215, 194, 0.08);
+  --surface-field: rgba(8, 18, 24, 0.88);
+  --surface-field-muted: rgba(15, 27, 34, 0.74);
+  --surface-empty: rgba(10, 18, 24, 0.64);
+  --surface-calendar-past: rgba(20, 30, 38, 0.92);
+  --surface-calendar-future: rgba(10, 33, 36, 0.88);
+  --surface-calendar-today: linear-gradient(180deg, rgb(14, 87, 82), rgb(11, 68, 64));
+  --surface-chip: rgba(12, 25, 32, 0.9);
+  --surface-chip-muted: rgba(17, 30, 38, 0.82);
+  --surface-board:
+    radial-gradient(circle at top left, rgba(20, 83, 45, 0.24), transparent 26%),
+    linear-gradient(180deg, rgba(6, 20, 24, 0.98), rgba(10, 34, 30, 0.98));
+  --surface-board-cell: rgba(10, 18, 24, 0.44);
+  --surface-board-header: rgba(5, 14, 18, 0.2);
+  --surface-progress-track: rgba(15, 27, 34, 0.92);
+
+  --chart-surface: rgba(7, 19, 25, 0.96);
+  --chart-grid: rgba(148, 163, 184, 0.18);
+  --chart-axis: #93a9b5;
+  --chart-baseline: rgba(148, 163, 184, 0.42);
+  --chart-line-start: var(--accent);
+  --chart-line-end: var(--accent-2);
+  --chart-point-positive: var(--accent);
+  --chart-point-negative: #ff9a9a;
+  --chart-point-stroke: rgba(6, 19, 25, 0.92);
+}
+
+:root[data-dashboard-theme="light"] {
+  color-scheme: light;
+
+  --bg: #f7f4ea;
+  --panel: rgba(255, 253, 250, 0.92);
+  --panel-elevated: rgba(255, 253, 250, 0.98);
+  --panel-muted: rgba(252, 248, 238, 0.96);
+  --panel-contrast: rgba(255, 255, 255, 0.92);
+  --panel-soft: rgba(241, 245, 249, 0.72);
+  --panel-glass: rgba(255, 255, 255, 0.74);
+
+  --ink: #1f2a34;
+  --ink-strong: #0f172a;
+  --muted: #64748b;
+  --muted-strong: #516574;
+  --muted-soft: rgba(31, 42, 52, 0.72);
+
+  --accent: #0f766e;
+  --accent-strong: #0b5e59;
+  --accent-soft: rgba(15, 118, 110, 0.08);
+  --accent-soft-strong: rgba(15, 118, 110, 0.12);
+  --accent-2: #7c3aed;
+  --accent-2-strong: #4c1d95;
+  --accent-2-soft: rgba(124, 58, 237, 0.12);
+  --accent-blue: #1d4ed8;
+  --accent-blue-soft: rgba(14, 165, 233, 0.12);
+
+  --success: #166534;
+  --success-strong: #22c55e;
+  --success-soft: rgba(22, 163, 74, 0.12);
+  --success-surface: linear-gradient(180deg, rgba(22, 163, 74, 0.22), rgba(34, 197, 94, 0.38));
+  --success-surface-soft: linear-gradient(180deg, rgba(240, 253, 244, 0.94), rgba(236, 253, 245, 0.94));
+  --success-border: rgba(22, 163, 74, 0.42);
+
+  --danger: #991b1b;
+  --danger-strong: #e11d48;
+  --danger-soft: rgba(225, 29, 72, 0.1);
+  --danger-surface: linear-gradient(180deg, rgba(225, 29, 72, 0.1), rgba(251, 113, 133, 0.2));
+  --danger-surface-soft: linear-gradient(180deg, rgba(254, 242, 242, 0.94), rgba(255, 241, 242, 0.94));
+  --danger-border: rgba(225, 29, 72, 0.14);
+
+  --warning: #8a5d00;
+  --warning-soft: rgba(234, 179, 8, 0.14);
+  --warning-surface: linear-gradient(180deg, rgba(243, 201, 107, 0.22), rgba(255, 251, 235, 0.98));
+  --warning-border: rgba(202, 138, 4, 0.18);
+
+  --info: #0f5e7a;
+  --info-soft: rgba(14, 165, 233, 0.12);
+  --info-border: rgba(14, 165, 233, 0.18);
+
+  --neutral: #475569;
+  --neutral-soft: rgba(148, 163, 184, 0.12);
+  --neutral-border: rgba(148, 163, 184, 0.24);
+
+  --border: rgba(217, 207, 186, 0.88);
+  --border-strong: rgba(148, 163, 184, 0.42);
+  --border-subtle: rgba(217, 207, 186, 0.78);
+  --border-accent: rgba(15, 118, 110, 0.24);
+  --border-accent-strong: rgba(103, 232, 249, 0.72);
+  --border-secondary: rgba(124, 58, 237, 0.36);
+
+  --shadow-card: 0 22px 54px rgba(31, 42, 52, 0.08);
+  --shadow-elevated: 0 28px 72px rgba(31, 42, 52, 0.12);
+  --shadow-soft: 0 12px 28px rgba(31, 42, 52, 0.1);
+  --focus-ring: rgba(15, 118, 110, 0.25);
+
+  --page-background:
+    radial-gradient(1200px 600px at 0% 0%, #fff2ce 0%, transparent 60%),
+    radial-gradient(900px 500px at 100% 100%, #dbeafe 0%, transparent 60%),
+    #f7f4ea;
+  --surface-card: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(252, 249, 241, 0.94));
+  --surface-card-alt: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(252, 248, 238, 0.96));
+  --surface-card-soft: rgba(255, 255, 255, 0.78);
+  --surface-card-hover: linear-gradient(135deg, rgba(240, 253, 250, 0.94), rgba(255, 255, 255, 0.92));
+  --surface-hero:
+    radial-gradient(circle at top right, rgba(15, 118, 110, 0.16), transparent 38%),
+    radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.1), transparent 34%),
+    linear-gradient(145deg, rgba(255, 253, 250, 0.98), rgba(252, 248, 238, 0.96));
+  --surface-hero-orb: radial-gradient(circle, rgba(217, 207, 186, 0.42), transparent 70%);
+  --surface-accent: linear-gradient(135deg, rgba(236, 254, 255, 0.95), rgba(209, 250, 229, 0.92));
+  --surface-accent-hover: linear-gradient(135deg, rgba(207, 250, 254, 1), rgba(187, 247, 208, 0.98));
+  --surface-secondary: linear-gradient(135deg, rgba(237, 233, 254, 0.98), rgba(245, 243, 255, 0.92));
+  --surface-secondary-hover: linear-gradient(135deg, rgba(216, 180, 254, 1), rgba(233, 213, 255, 0.96));
+  --surface-table-head: #f1ece2;
+  --surface-row-hover: rgba(255, 248, 235, 0.6);
+  --surface-field: #fffefb;
+  --surface-field-muted: rgba(241, 245, 249, 0.72);
+  --surface-empty: rgba(255, 255, 255, 0.64);
+  --surface-calendar-past: #eceff3;
+  --surface-calendar-future: #f0fdfa;
+  --surface-calendar-today: linear-gradient(180deg, var(--accent), var(--accent-strong));
+  --surface-chip: rgba(248, 250, 252, 0.9);
+  --surface-chip-muted: rgba(226, 232, 240, 0.92);
+  --surface-board:
+    radial-gradient(circle at top left, rgba(15, 118, 110, 0.14), transparent 26%),
+    linear-gradient(180deg, rgba(255, 253, 250, 0.98), rgba(248, 245, 236, 0.98));
+  --surface-board-cell: rgba(255, 255, 255, 0.82);
+  --surface-board-header: rgba(240, 235, 222, 0.5);
+  --surface-progress-track: #f5f3ff;
+
+  --chart-surface: #ffffff;
+  --chart-grid: #e2e8f0;
+  --chart-axis: #64748b;
+  --chart-baseline: #94a3b8;
+  --chart-line-start: var(--accent);
+  --chart-line-end: #2563eb;
+  --chart-point-positive: var(--accent);
+  --chart-point-negative: #b91c1c;
+  --chart-point-stroke: #ffffff;
+}
