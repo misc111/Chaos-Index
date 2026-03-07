@@ -1,8 +1,9 @@
 import React from "react";
+import type { TableRow } from "@/lib/types";
 
 type Props = {
   title: string;
-  rows: Record<string, any>[];
+  rows: TableRow[];
 };
 
 function formatCellValue(value: unknown): string {

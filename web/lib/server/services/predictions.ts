@@ -1,0 +1,87 @@
+import {
+  canonicalizePredictionModelProbabilities,
+  orderPredictionModels,
+  parseModelWinProbabilities,
+  predictionModelHeadline,
+  predictionTrustNote,
+} from "@/lib/predictions-report";
+import { type LeagueCode } from "@/lib/league";
+import { getLatestUpcomingAsOf, getPredictionRows } from "@/lib/server/repositories/forecasts";
+import { loadServerModelFeatureMap } from "@/lib/server/repositories/model-feature-map";
+
+export async function getPredictionsPayload(league: LeagueCode) {
+  const featureMap = await loadServerModelFeatureMap(league);
+  const asOf = getLatestUpcomingAsOf(league);
+  const rawRows = asOf ? getPredictionRows(league, asOf) : [];
+
+  const games = rawRows.map((row) => {
+    const modelWinProbabilities = canonicalizePredictionModelProbabilities({
+      ensemble: Number(row.ensemble_prob_home_win),
+      ...parseModelWinProbabilities(row.per_model_probs_json),
+    });
+
+    return {
+      game_id: Number(row.game_id),
+      game_date_utc: String(row.game_date_utc || ""),
+      home_team: String(row.home_team || ""),
+      away_team: String(row.away_team || ""),
+      ensemble_prob_home_win: Number(row.ensemble_prob_home_win),
+      predicted_winner: String(row.predicted_winner || ""),
+      spread_mean: row.spread_mean == null ? undefined : Number(row.spread_mean),
+      spread_sd: row.spread_sd == null ? undefined : Number(row.spread_sd),
+      bayes_ci_low: row.bayes_ci_low == null ? undefined : Number(row.bayes_ci_low),
+      bayes_ci_high: row.bayes_ci_high == null ? undefined : Number(row.bayes_ci_high),
+      uncertainty_flags_json: row.uncertainty_flags_json == null ? undefined : String(row.uncertainty_flags_json),
+      model_win_probabilities: modelWinProbabilities,
+    };
+  });
+
+  const nextGameByTeam = new Map<string, { row: (typeof games)[number]; isHome: boolean }>();
+  for (const row of games) {
+    const homeTeam = row.home_team.trim();
+    const awayTeam = row.away_team.trim();
+    if (homeTeam && !nextGameByTeam.has(homeTeam)) {
+      nextGameByTeam.set(homeTeam, { row, isHome: true });
+    }
+    if (awayTeam && !nextGameByTeam.has(awayTeam)) {
+      nextGameByTeam.set(awayTeam, { row, isHome: false });
+    }
+  }
+
+  const rows = Array.from(nextGameByTeam.values())
+    .filter((entry) => entry.isHome)
+    .map((entry) => entry.row)
+    .sort(
+      (left, right) =>
+        right.ensemble_prob_home_win - left.ensemble_prob_home_win ||
+        left.game_date_utc.localeCompare(right.game_date_utc) ||
+        left.game_id - right.game_id
+    );
+
+  const modelColumns = orderPredictionModels(rows.flatMap((row) => Object.keys(row.model_win_probabilities || {})));
+  const modelTrustNotes = Object.fromEntries(modelColumns.map((model) => [model, predictionTrustNote(model, league)]));
+  const modelSummaries = Object.fromEntries(
+    modelColumns.map((model) => {
+      const activeFeatures = featureMap.models[model] || [];
+      return [
+        model,
+        {
+          headline: predictionModelHeadline(model, league, activeFeatures),
+          trust_note: modelTrustNotes[model],
+          active_feature_count: activeFeatures.length || undefined,
+          active_features: activeFeatures,
+        },
+      ];
+    })
+  );
+
+  return {
+    league,
+    as_of_utc: asOf,
+    model_columns: modelColumns,
+    model_trust_notes: modelTrustNotes,
+    model_summaries: modelSummaries,
+    model_feature_map_updated_at_utc: featureMap.updated_at_utc,
+    rows,
+  };
+}

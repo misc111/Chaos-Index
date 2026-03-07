@@ -1,15 +1,14 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { Suspense, useMemo, useState } from "react";
 import BetHistoryChart from "@/components/BetHistoryChart";
 import styles from "@/components/BetHistory.module.css";
 import BetWeekCalendar from "@/components/BetWeekCalendar";
 import { BET_UNIT_DOLLARS } from "@/lib/betting";
 import type { BetHistoryResponse } from "@/lib/bet-history-types";
 import { formatUsd } from "@/lib/currency";
-import { normalizeLeague } from "@/lib/league";
-import { fetchDashboardJson } from "@/lib/static-staging";
+import { useDashboardData } from "@/lib/hooks/useDashboardData";
+import { useLeague } from "@/lib/hooks/useLeague";
 
 function formatPercent(value: number): string {
   return `${(value * 100).toFixed(1)}%`;
@@ -55,61 +54,49 @@ function valueClassName(value: number): string {
   return styles.summaryValue;
 }
 
+const EMPTY_BET_HISTORY: BetHistoryResponse = {
+  league: "NHL",
+  summary: {
+    total_final_games: 0,
+    games_with_forecast: 0,
+    games_with_odds: 0,
+    analyzed_games: 0,
+    suggested_bets: 0,
+    wins: 0,
+    losses: 0,
+    total_risked: 0,
+    total_profit: 0,
+    roi: 0,
+    coverage_start_central: null,
+    coverage_end_central: null,
+    note: "",
+  },
+  daily_points: [],
+  bets: [],
+};
+
 function BetHistoryPageContent() {
-  const searchParams = useSearchParams();
-  const league = normalizeLeague(searchParams.get("league"));
-  const [data, setData] = useState<BetHistoryResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [selectedWeekIndex, setSelectedWeekIndex] = useState(0);
-
-  useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    setError("");
-
-    fetchDashboardJson<BetHistoryResponse>("betHistory", "/api/bet-history", league)
-      .then((payload) => {
-        if (cancelled) return;
-        setData(payload);
-      })
-      .catch((err: unknown) => {
-        if (cancelled) return;
-        setError(err instanceof Error ? err.message : "Unknown error");
-      })
-      .finally(() => {
-        if (cancelled) return;
-        setLoading(false);
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [league]);
+  const league = useLeague();
+  const { data, isLoading: loading, error } = useDashboardData<BetHistoryResponse>(
+    "betHistory",
+    "/api/bet-history",
+    league,
+    EMPTY_BET_HISTORY
+  );
+  const [selectedWeekStart, setSelectedWeekStart] = useState<string | null>(null);
 
   const weekStarts = useMemo(() => {
-    if (!data) return [] as string[];
     return Array.from(new Set(data.bets.map((bet) => bet.week_start_central))).sort();
   }, [data]);
-
-  useEffect(() => {
-    if (!weekStarts.length) {
-      setSelectedWeekIndex(0);
-      return;
-    }
-    setSelectedWeekIndex((current) => {
-      if (current >= 0 && current < weekStarts.length) return current;
-      return weekStarts.length - 1;
-    });
-  }, [weekStarts]);
-
-  const selectedWeek = weekStarts[selectedWeekIndex] || null;
+  const selectedWeek =
+    selectedWeekStart && weekStarts.includes(selectedWeekStart) ? selectedWeekStart : (weekStarts[weekStarts.length - 1] ?? null);
+  const selectedWeekIndex = selectedWeek ? weekStarts.indexOf(selectedWeek) : 0;
   const selectedWeekBets = useMemo(() => {
-    if (!data || !selectedWeek) return [];
+    if (!selectedWeek) return [];
     return data.bets.filter((bet) => bet.week_start_central === selectedWeek);
   }, [data, selectedWeek]);
 
-  const summary = data?.summary;
+  const summary = data.summary;
   const coverageLabel = formatDateRange(summary?.coverage_start_central, summary?.coverage_end_central);
 
   return (
@@ -167,7 +154,7 @@ function BetHistoryPageContent() {
         ) : null}
       </section>
 
-      {!loading && !error && data ? <BetHistoryChart points={data.daily_points} /> : null}
+      {!loading && !error ? <BetHistoryChart points={data.daily_points} /> : null}
 
       <section className={`card ${styles.calendarCard}`}>
         <div className={styles.calendarHeader}>
@@ -180,7 +167,7 @@ function BetHistoryPageContent() {
             <button
               type="button"
               className={styles.weekButton}
-              onClick={() => setSelectedWeekIndex((current) => Math.max(0, current - 1))}
+              onClick={() => setSelectedWeekStart(weekStarts[Math.max(0, selectedWeekIndex - 1)] ?? null)}
               disabled={!weekStarts.length || selectedWeekIndex === 0}
             >
               Previous Week
@@ -189,7 +176,7 @@ function BetHistoryPageContent() {
             <button
               type="button"
               className={styles.weekButton}
-              onClick={() => setSelectedWeekIndex((current) => Math.min(weekStarts.length - 1, current + 1))}
+              onClick={() => setSelectedWeekStart(weekStarts[Math.min(weekStarts.length - 1, selectedWeekIndex + 1)] ?? null)}
               disabled={!weekStarts.length || selectedWeekIndex >= weekStarts.length - 1}
             >
               Next Week

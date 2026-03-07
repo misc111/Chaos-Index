@@ -1,17 +1,26 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { Suspense, useMemo, useState } from "react";
+import { useDashboardData } from "@/lib/hooks/useDashboardData";
+import { useLeague } from "@/lib/hooks/useLeague";
 import { type PredictionsResponse } from "@/lib/types";
-import { normalizeLeague } from "@/lib/league";
 import {
   displayPredictionModel,
   formatPredictionAsOf,
   formatPredictionDate,
   formatPredictionProbability,
 } from "@/lib/predictions-report";
-import { fetchDashboardJson } from "@/lib/static-staging";
 import styles from "./predictions.module.css";
+
+const EMPTY_REPORT: PredictionsResponse = {
+  league: "NHL",
+  as_of_utc: undefined,
+  model_columns: [],
+  model_trust_notes: {},
+  model_summaries: {},
+  model_feature_map_updated_at_utc: undefined,
+  rows: [],
+};
 
 function probabilityTone(value?: number | null): string {
   if (typeof value !== "number" || !Number.isFinite(value)) {
@@ -33,92 +42,24 @@ function probabilityTone(value?: number | null): string {
 }
 
 function PredictionsPageContent() {
-  const [report, setReport] = useState<PredictionsResponse>({
-    league: "NHL",
-    as_of_utc: undefined,
-    model_columns: [],
-    model_trust_notes: {},
-    model_summaries: {},
-    model_feature_map_updated_at_utc: undefined,
-    rows: [],
-  });
   const [team, setTeam] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
-  const searchParams = useSearchParams();
-  const league = normalizeLeague(searchParams.get("league"));
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function loadReport() {
-      setIsLoading(true);
-      setError("");
-
-      try {
-        const payload = await fetchDashboardJson<Partial<PredictionsResponse>>("predictions", "/api/predictions", league);
-
-        if (!cancelled) {
-          setReport({
-            league: String(payload.league || league),
-            as_of_utc: payload.as_of_utc,
-            model_columns: Array.isArray(payload.model_columns) ? payload.model_columns : [],
-            model_trust_notes: payload.model_trust_notes || {},
-            model_summaries: payload.model_summaries || {},
-            model_feature_map_updated_at_utc: payload.model_feature_map_updated_at_utc,
-            rows: Array.isArray(payload.rows) ? payload.rows : [],
-          });
-        }
-      } catch (fetchError) {
-        if (!cancelled) {
-          const message =
-            fetchError instanceof Error ? fetchError.message : "Unable to load the predictions report right now.";
-          setError(message);
-          setReport({
-            league,
-            as_of_utc: undefined,
-            model_columns: [],
-            model_trust_notes: {},
-            model_summaries: {},
-            model_feature_map_updated_at_utc: undefined,
-            rows: [],
-          });
-        }
-      } finally {
-        if (!cancelled) {
-          setIsLoading(false);
-        }
-      }
-    }
-
-    void loadReport();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [league]);
-
-  useEffect(() => {
-    setTeam("");
-  }, [league]);
+  const league = useLeague();
+  const { data: report, isLoading, error } = useDashboardData<PredictionsResponse>(
+    "predictions",
+    "/api/predictions",
+    league,
+    EMPTY_REPORT
+  );
 
   const teams = useMemo(
     () => Array.from(new Set(report.rows.map((row) => row.home_team))).sort(),
     [report.rows]
   );
-
-  useEffect(() => {
-    if (!team) {
-      return;
-    }
-    if (!teams.includes(team)) {
-      setTeam("");
-    }
-  }, [team, teams]);
+  const selectedTeam = team && teams.includes(team) ? team : "";
 
   const filteredRows = useMemo(
-    () => report.rows.filter((row) => !team || row.home_team === team),
-    [report.rows, team]
+    () => report.rows.filter((row) => !selectedTeam || row.home_team === selectedTeam),
+    [report.rows, selectedTeam]
   );
 
   const modelEntries = report.model_columns.map((model) => ({
@@ -138,7 +79,7 @@ function PredictionsPageContent() {
             <select
               id="predictions-team-filter"
               className={styles.select}
-              value={team}
+              value={selectedTeam}
               onChange={(event) => setTeam(event.target.value)}
             >
               <option value="">All home teams</option>
@@ -149,7 +90,7 @@ function PredictionsPageContent() {
               ))}
             </select>
           </div>
-          {team ? (
+          {selectedTeam ? (
             <button type="button" className={styles.clearButton} onClick={() => setTeam("")}>
               Clear filter
             </button>

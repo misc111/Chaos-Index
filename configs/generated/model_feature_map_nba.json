@@ -1,0 +1,59 @@
+{
+  "league": "NBA",
+  "models": {
+    "gbdt": {
+      "active_features": [
+        "diff_form_point_margin",
+        "travel_diff",
+        "rest_diff",
+        "elo_home_prob",
+        "dyn_home_prob",
+        "home_ewm_points_for",
+        "away_ewm_points_for",
+        "home_ewm_point_margin",
+        "away_ewm_point_margin",
+        "tree_signal_25",
+        "tree_signal_20",
+        "tree_signal_30",
+        "tree_signal_31",
+        "tree_signal_37",
+        "tree_signal_35",
+        "tree_signal_44",
+        "tree_signal_33",
+        "tree_signal_34",
+        "tree_signal_40",
+        "tree_signal_38",
+        "tree_signal_36",
+        "tree_signal_43",
+        "tree_signal_39",
+        "tree_signal_41",
+        "tree_signal_42",
+        "tree_signal_00",
+        "tree_signal_08",
+        "tree_signal_19",
+        "tree_signal_05",
+        "tree_signal_02",
+        "tree_signal_07",
+        "tree_signal_18",
+        "tree_signal_15",
+        "tree_signal_23",
+        "tree_signal_03",
+        "tree_signal_01",
+        "tree_signal_09",
+        "tree_signal_22",
+        "tree_signal_06",
+        "tree_signal_14"
+      ],
+      "feature_count": 40
+    },
+    "glm_ridge": {
+      "active_features": [
+        "diff_form_point_margin",
+        "elo_home_prob"
+      ],
+      "feature_count": 2
+    }
+  },
+  "updated_at_utc": "2026-03-07T16:00:10+00:00",
+  "version": 1
+}

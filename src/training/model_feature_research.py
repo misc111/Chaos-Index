@@ -18,6 +18,7 @@ from src.training.model_feature_guardrails import (
 
 
 MODEL_FEATURE_MAP_PATH_TEMPLATE = "configs/model_feature_map_{league}.yaml"
+MODEL_FEATURE_MAP_JSON_TEMPLATE = "configs/generated/model_feature_map_{league}.json"
 RESEARCHABLE_MODELS = ["glm_ridge", "gbdt", "rf", "two_stage", "bayes_bt_state_space", "nn_mlp"]
 
 
@@ -35,6 +36,30 @@ def resolve_model_feature_map_path(path_template: str, league: str) -> Path:
     league_token = str(league or "unknown").strip().lower()
     rendered = str(path_template).replace("{league}", league_token)
     return Path(rendered)
+
+
+def export_model_feature_map_json(
+    league: str,
+    model_features: dict[str, list[str]],
+    *,
+    path_template: str = MODEL_FEATURE_MAP_JSON_TEMPLATE,
+) -> Path:
+    path = resolve_model_feature_map_path(path_template, league=league)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "version": 1,
+        "league": str(league or "NHL").strip().upper(),
+        "updated_at_utc": utc_now_iso(),
+        "models": {
+            model_name: {
+                "active_features": list(features),
+                "feature_count": len(features),
+            }
+            for model_name, features in model_features.items()
+        },
+    }
+    path.write_text(json.dumps(payload, indent=2, sort_keys=True))
+    return path
 
 
 def load_model_feature_map(
@@ -117,6 +142,7 @@ def save_model_feature_map(
         },
     }
     registry_path.write_text(yaml.safe_dump(payload, sort_keys=False))
+    export_model_feature_map_json(league_code, sanitized_model_features)
     return registry_path
 
 

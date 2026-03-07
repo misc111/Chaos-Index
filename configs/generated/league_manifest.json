@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "generated_at_utc": "2026-03-07T00:00:00Z",
+  "leagues": {
+    "NHL": {
+      "code": "NHL",
+      "slug": "nhl",
+      "default_config_path": "configs/nhl.yaml",
+      "env_config_var": "NHL_CONFIG_PATH",
+      "project_name": "nhl_forecast",
+      "db_path": "data/processed/nhl_forecast.db",
+      "championship_name": "Stanley Cup",
+      "championship_probability_key": "stanley_cup_prob",
+      "uncertainty_policy_name": "nhl_goalie_rink"
+    },
+    "NBA": {
+      "code": "NBA",
+      "slug": "nba",
+      "default_config_path": "configs/nba.yaml",
+      "env_config_var": "NBA_CONFIG_PATH",
+      "project_name": "nba_forecast",
+      "db_path": "data/processed/nba_forecast.db",
+      "championship_name": "NBA Finals",
+      "championship_probability_key": "nba_finals_prob",
+      "uncertainty_policy_name": "nba_availability_market"
+    }
+  }
+}

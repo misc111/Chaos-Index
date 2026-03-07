@@ -1,25 +1,17 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import ModelTable from "@/components/ModelTable";
+import type { ValidationSections } from "@/lib/types";
 
 type Props = {
-  sections: Record<string, Record<string, any>[]>;
+  sections: ValidationSections;
 };
 
 export default function ValidationTabs({ sections }: Props) {
   const keys = useMemo(() => Object.keys(sections), [sections]);
-  const [active, setActive] = useState(keys[0] || "");
-
-  useEffect(() => {
-    if (!keys.length) {
-      setActive("");
-      return;
-    }
-    if (!active || !keys.includes(active)) {
-      setActive(keys[0]);
-    }
-  }, [active, keys]);
+  const [requestedActive, setRequestedActive] = useState("");
+  const active = requestedActive && keys.includes(requestedActive) ? requestedActive : (keys[0] ?? "");
 
   if (!keys.length) {
     return <div className="card">No validation artifacts yet.</div>;
@@ -35,7 +27,7 @@ export default function ValidationTabs({ sections }: Props) {
             role="tab"
             aria-selected={active === k}
             className={`tabButton ${active === k ? "active" : ""}`}
-            onClick={() => setActive(k)}
+            onClick={() => setRequestedActive(k)}
           >
             {k}
           </button>

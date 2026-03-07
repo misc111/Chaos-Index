@@ -1,113 +1,33 @@
-import { spawn } from "node:child_process";
-import fs from "node:fs";
-import path from "node:path";
 import { NextResponse } from "next/server";
 import { runSqlJson } from "@/lib/db";
-import { type LeagueCode, leagueFromRequest } from "@/lib/league";
+import { leagueFromRequest } from "@/lib/league";
+import { getRefreshState, runSimpleLeagueTask, trimLog } from "@/lib/server/services/process-tasks";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-type RefreshOddsState = {
-  running: boolean;
-  league?: LeagueCode;
-  startedAtUtc?: string;
-};
-
-declare global {
-  // eslint-disable-next-line no-var
-  var __sportsModelingRefreshOddsState: RefreshOddsState | undefined;
-}
-
-const refreshOddsState: RefreshOddsState = globalThis.__sportsModelingRefreshOddsState || { running: false };
-globalThis.__sportsModelingRefreshOddsState = refreshOddsState;
-
-const MAX_LOG_CHARS = 16000;
-
-function appendChunk(current: string, chunk: string): string {
-  const next = current + chunk;
-  if (next.length <= MAX_LOG_CHARS) {
-    return next;
-  }
-  return next.slice(next.length - MAX_LOG_CHARS);
-}
-
-function trimLog(log: string): string {
-  return log.trim().slice(-6000);
-}
-
-function repoRootPath(): string {
-  return path.resolve(process.cwd(), "..");
-}
-
-function configPathForLeague(league: LeagueCode): string {
-  const envOverride = league === "NBA" ? process.env.NBA_CONFIG_PATH : process.env.NHL_CONFIG_PATH;
-  const fallback = league === "NBA" ? "configs/nba.yaml" : "configs/nhl.yaml";
-  return path.resolve(repoRootPath(), envOverride || fallback);
-}
-
-function runOddsRefresh(configPath: string): Promise<{ code: number | null; stdout: string; stderr: string }> {
-  return new Promise((resolve, reject) => {
-    const child = spawn("python3", ["-m", "src.cli", "fetch-odds", "--config", configPath], {
-      cwd: repoRootPath(),
-      env: process.env,
-      stdio: ["ignore", "pipe", "pipe"],
-    });
-
-    let stdout = "";
-    let stderr = "";
-
-    child.stdout.on("data", (chunk: Buffer | string) => {
-      stdout = appendChunk(stdout, chunk.toString());
-    });
-
-    child.stderr.on("data", (chunk: Buffer | string) => {
-      stderr = appendChunk(stderr, chunk.toString());
-    });
-
-    child.on("error", (error) => {
-      reject(error);
-    });
-
-    child.on("close", (code) => {
-      resolve({ code, stdout, stderr });
-    });
-  });
-}
-
 export async function POST(request: Request) {
   const league = leagueFromRequest(request);
+  const refreshState = getRefreshState("__sportsModelingRefreshOddsState");
 
-  if (refreshOddsState.running) {
+  if (refreshState.running) {
     return NextResponse.json(
       {
         ok: false,
         league,
-        error: `An odds refresh is already running for ${refreshOddsState.league || "another league"}.`,
-        started_at_utc: refreshOddsState.startedAtUtc,
+        error: `An odds refresh is already running for ${refreshState.league || "another league"}.`,
+        started_at_utc: refreshState.startedAtUtc,
       },
       { status: 409 }
     );
   }
 
-  const configPath = configPathForLeague(league);
-  if (!fs.existsSync(configPath)) {
-    return NextResponse.json(
-      {
-        ok: false,
-        league,
-        error: `Config file not found: ${configPath}`,
-      },
-      { status: 500 }
-    );
-  }
-
-  refreshOddsState.running = true;
-  refreshOddsState.league = league;
-  refreshOddsState.startedAtUtc = new Date().toISOString();
+  refreshState.running = true;
+  refreshState.league = league;
+  refreshState.startedAtUtc = new Date().toISOString();
 
   try {
-    const runResult = await runOddsRefresh(configPath);
+    const runResult = await runSimpleLeagueTask("fetch-odds", league);
     if (runResult.code !== 0) {
       return NextResponse.json(
         {
@@ -134,7 +54,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       ok: true,
       league,
-      started_at_utc: refreshOddsState.startedAtUtc,
+      started_at_utc: refreshState.startedAtUtc,
       refreshed_at_utc: new Date().toISOString(),
       odds_snapshot_id: latestOddsSnapshot?.[0]?.odds_snapshot_id || null,
       odds_as_of_utc: latestOddsSnapshot?.[0]?.as_of_utc || null,
@@ -142,18 +62,17 @@ export async function POST(request: Request) {
       row_count: latestOddsSnapshot?.[0]?.row_count ?? null,
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json(
       {
         ok: false,
         league,
-        error: `Odds refresh failed: ${message}`,
+        error: `Odds refresh failed: ${error instanceof Error ? error.message : "Unknown error"}`,
       },
       { status: 500 }
     );
   } finally {
-    refreshOddsState.running = false;
-    refreshOddsState.league = undefined;
-    refreshOddsState.startedAtUtc = undefined;
+    refreshState.running = false;
+    refreshState.league = undefined;
+    refreshState.startedAtUtc = undefined;
   }
 }

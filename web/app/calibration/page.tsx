@@ -1,22 +1,29 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import ModelTable from "@/components/ModelTable";
-import { normalizeLeague } from "@/lib/league";
-import { fetchDashboardJson } from "@/lib/static-staging";
+import { useDashboardData } from "@/lib/hooks/useDashboardData";
+import { useLeague } from "@/lib/hooks/useLeague";
+import type { MetricsResponse } from "@/lib/types";
+
+const EMPTY_METRICS: MetricsResponse = {
+  leaderboard: [],
+  calibration: [],
+  slices: [],
+};
 
 function CalibrationPageContent() {
-  const [rows, setRows] = useState<Record<string, any>[]>([]);
-  const searchParams = useSearchParams();
-  const league = normalizeLeague(searchParams.get("league"));
+  const league = useLeague();
+  const { data, isLoading, error } = useDashboardData<MetricsResponse>("metrics", "/api/metrics", league, EMPTY_METRICS);
 
-  useEffect(() => {
-    fetchDashboardJson<{ calibration?: Record<string, any>[] }>("metrics", "/api/metrics", league)
-      .then((d) => setRows(d.calibration || []));
-  }, [league]);
+  if (error) {
+    return <div className="card">{error}</div>;
+  }
+  if (isLoading) {
+    return <p className="small">Loading calibration...</p>;
+  }
 
-  return <ModelTable title="Calibration Metrics (alpha/beta/ECE/MCE)" rows={rows} />;
+  return <ModelTable title="Calibration Metrics (alpha/beta/ECE/MCE)" rows={data.calibration} />;
 }
 
 export default function CalibrationPage() {

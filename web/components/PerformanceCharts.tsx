@@ -2,11 +2,10 @@
 
 import React from "react";
 import Charts from "@/components/Charts";
+import type { PerformanceScoreRow } from "@/lib/types";
 
-type Row = { game_date_utc: string; log_loss: number; model_name: string };
-
-export default function PerformanceCharts({ rows }: { rows: Row[] }) {
-  const byModel = rows.reduce<Record<string, Row[]>>((acc, r) => {
+export default function PerformanceCharts({ rows }: { rows: PerformanceScoreRow[] }) {
+  const byModel = rows.reduce<Record<string, PerformanceScoreRow[]>>((acc, r) => {
     acc[r.model_name] = acc[r.model_name] || [];
     acc[r.model_name].push(r);
     return acc;

@@ -7,13 +7,14 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Sequence
 
+from src.league_registry import get_league_metadata
 from src.training.train import normalize_selected_models
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
-LEAGUE_CONFIGS: tuple[tuple[str, str], ...] = (
-    ("nhl", "configs/nhl.yaml"),
-    ("nba", "configs/nba.yaml"),
+LEAGUE_CONFIGS: tuple[tuple[str, str], ...] = tuple(
+    (get_league_metadata(code).slug, get_league_metadata(code).default_config_path)
+    for code in ("NHL", "NBA")
 )
 
 

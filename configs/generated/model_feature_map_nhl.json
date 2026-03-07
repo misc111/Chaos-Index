@@ -1,0 +1,60 @@
+{
+  "league": "NHL",
+  "models": {
+    "bayes_bt_state_space": {
+      "active_features": [
+        "diff_form_goal_diff",
+        "travel_diff",
+        "rest_diff",
+        "elo_home_prob",
+        "dyn_home_prob",
+        "goalie_workload_diff_7",
+        "goalie_workload_diff_14",
+        "goalie_uncertainty_diff",
+        "rink_goal_effect",
+        "diff_lineup_uncertainty",
+        "rink_shot_effect",
+        "dyn_var_diff",
+        "elo_home_pre",
+        "elo_away_pre",
+        "goalie_quality_diff",
+        "diff_form_win_rate",
+        "diff_xg_share",
+        "diff_roster_strength",
+        "dyn_away_mean",
+        "dyn_home_mean"
+      ],
+      "feature_count": 20
+    },
+    "glm_ridge": {
+      "active_features": [
+        "diff_form_goal_diff",
+        "rest_diff",
+        "elo_home_prob",
+        "dyn_home_prob",
+        "diff_xg_share",
+        "goalie_workload_diff_7",
+        "goalie_workload_diff_14",
+        "goalie_uncertainty_diff",
+        "rink_goal_effect",
+        "diff_lineup_uncertainty",
+        "rink_shot_effect",
+        "travel_diff",
+        "dyn_var_diff",
+        "elo_home_pre",
+        "elo_away_pre",
+        "goalie_quality_diff",
+        "diff_form_win_rate",
+        "special_pp_diff",
+        "diff_roster_strength",
+        "special_pk_pressure_diff",
+        "dyn_away_mean",
+        "dyn_home_mean",
+        "diff_penalty_diff"
+      ],
+      "feature_count": 23
+    }
+  },
+  "updated_at_utc": "2026-03-07T16:00:10+00:00",
+  "version": 1
+}

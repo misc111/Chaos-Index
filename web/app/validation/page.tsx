@@ -1,22 +1,27 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import ValidationTabs from "@/components/ValidationTabs";
-import { normalizeLeague } from "@/lib/league";
-import { fetchDashboardJson } from "@/lib/static-staging";
+import { useDashboardData } from "@/lib/hooks/useDashboardData";
+import { useLeague } from "@/lib/hooks/useLeague";
+import type { ValidationResponse } from "@/lib/types";
+
+const EMPTY_VALIDATION: ValidationResponse = {
+  sections: {},
+};
 
 function ValidationPageContent() {
-  const [sections, setSections] = useState<Record<string, Record<string, any>[]>>({});
-  const searchParams = useSearchParams();
-  const league = normalizeLeague(searchParams.get("league"));
+  const league = useLeague();
+  const { data, isLoading, error } = useDashboardData<ValidationResponse>("validation", "/api/validation", league, EMPTY_VALIDATION);
 
-  useEffect(() => {
-    fetchDashboardJson<{ sections?: Record<string, Record<string, any>[]> }>("validation", "/api/validation", league)
-      .then((d) => setSections(d.sections || {}));
-  }, [league]);
+  if (error) {
+    return <div className="card">{error}</div>;
+  }
+  if (isLoading) {
+    return <p className="small">Loading validation...</p>;
+  }
 
-  return <ValidationTabs sections={sections} />;
+  return <ValidationTabs sections={data.sections} />;
 }
 
 export default function ValidationPage() {

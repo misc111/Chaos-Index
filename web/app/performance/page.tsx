@@ -1,34 +1,33 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import ModelTable from "@/components/ModelTable";
 import PerformanceCharts from "@/components/PerformanceCharts";
-import { normalizeLeague } from "@/lib/league";
-import { fetchDashboardJson } from "@/lib/static-staging";
+import { useDashboardData } from "@/lib/hooks/useDashboardData";
+import { useLeague } from "@/lib/hooks/useLeague";
+import type { PerformanceResponse } from "@/lib/types";
+
+const EMPTY_PERFORMANCE: PerformanceResponse = {
+  league: "NHL",
+  scores: [],
+  change_points: [],
+};
 
 function PerformancePageContent() {
-  const [rows, setRows] = useState<Record<string, any>[]>([]);
-  const [alerts, setAlerts] = useState<Record<string, any>[]>([]);
-  const searchParams = useSearchParams();
-  const league = normalizeLeague(searchParams.get("league"));
+  const league = useLeague();
+  const { data, isLoading, error } = useDashboardData<PerformanceResponse>("performance", "/api/performance", league, EMPTY_PERFORMANCE);
 
-  useEffect(() => {
-    fetchDashboardJson<{ scores?: Record<string, any>[]; change_points?: Record<string, any>[] }>(
-      "performance",
-      "/api/performance",
-      league
-    )
-      .then((d) => {
-        setRows(d.scores || []);
-        setAlerts(d.change_points || []);
-      });
-  }, [league]);
+  if (error) {
+    return <div className="card">{error}</div>;
+  }
+  if (isLoading) {
+    return <p className="small">Loading performance...</p>;
+  }
 
   return (
     <div className="grid">
-      <PerformanceCharts rows={rows as any} />
-      <ModelTable title="Change-Point Alerts" rows={alerts} />
+      <PerformanceCharts rows={data.scores} />
+      <ModelTable title="Change-Point Alerts" rows={data.change_points} />
     </div>
   );
 }

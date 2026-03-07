@@ -1,41 +1,10 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { normalizeLeague } from "@/lib/league";
-import { fetchDashboardJson } from "@/lib/static-staging";
-
-type HistoricalRow = {
-  game_id: number;
-  game_date_utc: string;
-  home_team: string;
-  away_team: string;
-  as_of_utc: string;
-  prob_home_win: number;
-  predicted_winner: string;
-  home_win: number;
-  final_utc?: string | null;
-  start_time_utc?: string | null;
-  is_toss_up?: number;
-  model_correct?: number | null;
-};
-
-type UpcomingRow = {
-  game_id: number;
-  game_date_utc: string;
-  home_team: string;
-  away_team: string;
-  as_of_utc: string;
-  ensemble_prob_home_win: number;
-  predicted_winner: string;
-  start_time_utc?: string | null;
-};
-
-type ApiResponse = {
-  as_of_utc?: string;
-  historical_rows?: HistoricalRow[];
-  upcoming_rows?: UpcomingRow[];
-};
+import { useDashboardData } from "@/lib/hooks/useDashboardData";
+import { useLeague } from "@/lib/hooks/useLeague";
+import type { ActualVsExpectedResponse } from "@/lib/types";
 
 type CalendarItem = {
   id: string;
@@ -139,19 +108,6 @@ function normalizeUtcTimestamp(value: string): string {
   return value;
 }
 
-function formatCentralTime(value?: string | null): string {
-  if (!value) return "Time TBD (CT)";
-  const normalized = normalizeUtcTimestamp(value);
-  const parsed = new Date(normalized);
-  if (Number.isNaN(parsed.getTime())) return `${value} CT`;
-  return parsed.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    timeZone: "America/Chicago",
-    timeZoneName: "short",
-  });
-}
-
 function daySuccessRateLabel(items: CalendarItem[] = []): string | null {
   const historical = items.filter((item) => item.kind === "historical");
   if (!historical.length) return null;
@@ -168,15 +124,25 @@ function daySuccessRateLabel(items: CalendarItem[] = []): string | null {
   return `Success Rate: ${pct}`;
 }
 
+const EMPTY_ACTUAL_VS_EXPECTED: ActualVsExpectedResponse = {
+  historical_rows: [],
+  upcoming_rows: [],
+};
+
 function ActualVsExpectedPageContent() {
-  const [historicalRows, setHistoricalRows] = useState<HistoricalRow[]>([]);
-  const [upcomingRows, setUpcomingRows] = useState<UpcomingRow[]>([]);
-  const [latestAsOf, setLatestAsOf] = useState<string>("");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string>("");
+  const league = useLeague();
   const searchParams = useSearchParams();
-  const league = normalizeLeague(searchParams.get("league"));
   const refreshNonce = searchParams.get("refreshNonce");
+  const { data, isLoading: loading, error } = useDashboardData<ActualVsExpectedResponse>(
+    "actualVsExpected",
+    "/api/actual-vs-expected",
+    league,
+    EMPTY_ACTUAL_VS_EXPECTED,
+    refreshNonce
+  );
+  const historicalRows = useMemo(() => data.historical_rows || [], [data.historical_rows]);
+  const upcomingRows = useMemo(() => data.upcoming_rows || [], [data.upcoming_rows]);
+  const latestAsOf = data.as_of_utc || "";
 
   const [monthCursor, setMonthCursor] = useState(() => {
     const now = new Date();
@@ -184,32 +150,6 @@ function ActualVsExpectedPageContent() {
   });
 
   const todayKey = useMemo(() => dateKeyFromLocalToday(), []);
-
-  useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    setError("");
-
-    fetchDashboardJson<ApiResponse>("actualVsExpected", "/api/actual-vs-expected", league)
-      .then((payload) => {
-        if (cancelled) return;
-        setHistoricalRows(payload.historical_rows || []);
-        setUpcomingRows(payload.upcoming_rows || []);
-        setLatestAsOf(payload.as_of_utc || "");
-      })
-      .catch((err: unknown) => {
-        if (cancelled) return;
-        setError(err instanceof Error ? err.message : "Unknown error");
-      })
-      .finally(() => {
-        if (cancelled) return;
-        setLoading(false);
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [league, refreshNonce]);
 
   const eventsByDate = useMemo(() => {
     const map: Record<string, CalendarItem[]> = {};

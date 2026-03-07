@@ -7,7 +7,7 @@ import path from "node:path";
 
 export const dynamic = "force-dynamic";
 
-function maybeCsv(filePath: string): any[] {
+function maybeCsv(filePath: string): Array<Record<string, string>> {
   if (!fs.existsSync(filePath)) return [];
   const text = fs.readFileSync(filePath, "utf8").trim();
   if (!text) return [];
