@@ -9,10 +9,10 @@ import { isStaticStagingBuild } from "@/lib/static-staging";
 const links: Array<[string, string]> = [
   ["/", "Overview"],
   ["/games-today", "Games Today"],
-  ["/predictions", "Model Summary"],
   ["/market-board", "Market Board"],
   ["/bet-history", "Bet History"],
   ["/actual-vs-expected", "Actual vs Expected"],
+  ["/predictions", "Model Summary"],
 ];
 
 function isActivePath(currentPath: string, href: string): boolean {
