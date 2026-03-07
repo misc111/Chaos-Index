@@ -1,7 +1,16 @@
 import numpy as np
 import pandas as pd
 
-from src.training.model_feature_research import load_model_feature_map, research_model_feature_map
+from src.training.model_feature_research import (
+    _model_feature_pruning_config,
+    load_model_feature_map,
+    research_model_feature_map,
+)
+
+
+def test_glm_pruning_config_is_league_specific() -> None:
+    assert _model_feature_pruning_config("glm_logit", league="NBA") == (6, 10, 0.92)
+    assert _model_feature_pruning_config("glm_logit", league="NHL") == (14, 24, 0.92)
 
 
 def test_nba_model_feature_research_promotes_per_model_feature_map(tmp_path) -> None:
@@ -57,7 +66,8 @@ def test_nba_model_feature_research_promotes_per_model_feature_map(tmp_path) -> 
     assert "glm_logit" in saved
     assert "two_stage" in saved
     assert "diff_form_point_margin" in saved["glm_logit"]
-    assert "discipline_free_throw_pressure_diff" in saved["glm_logit"]
+    assert "elo_home_prob" in saved["glm_logit"]
+    assert len(saved["glm_logit"]) <= 10
     assert "home_ewm_shot_volume_share" in saved["two_stage"]
 
 

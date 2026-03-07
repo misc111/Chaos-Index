@@ -1,23 +1,16 @@
 version: 1
 league: NBA
-updated_at_utc: '2026-03-06T14:32:44+00:00'
+updated_at_utc: '2026-03-07T02:45:00+00:00'
 models:
   glm_logit:
     active_features:
     - diff_form_point_margin
     - diff_form_point_margin_hinge_000
     - rest_diff
-    - discipline_free_throw_pressure_diff
-    - discipline_free_throw_pressure_diff_hinge_000
-    - discipline_free_throw_pressure_diff_is_zero
-    - discipline_foul_margin_diff
-    - discipline_foul_margin_diff_hinge_000
     - elo_home_prob
     - elo_home_prob_hinge_055
     - arena_margin_effect
-    - diff_shot_volume_share
-    - diff_shot_volume_share_hinge_001
-    feature_count: 13
+    feature_count: 6
   gbdt:
     active_features:
     - diff_form_point_margin

@@ -1,5 +1,6597 @@
 {
   "league": "NBA",
-  "scores": [],
-  "change_points": []
+  "scores": [
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-11",
+      "log_loss": 0.40981408790143575
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-11",
+      "log_loss": 0.5282274724237139
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-11",
+      "log_loss": 0.4079202076937535
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-11",
+      "log_loss": 0.627643387159247
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-11",
+      "log_loss": 0.6512028538430208
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-11",
+      "log_loss": 0.45347916045038245
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-11",
+      "log_loss": 0.5762862608363132
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-11",
+      "log_loss": 0.5185809077323976
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-11",
+      "log_loss": 0.6969289207181723
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-11",
+      "log_loss": 0.15774809798193742
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-12",
+      "log_loss": 0.445979899685177
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-12",
+      "log_loss": 0.5040902109038173
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-12",
+      "log_loss": 0.31753634544469983
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-12",
+      "log_loss": 0.5716705995663081
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-12",
+      "log_loss": 0.8213565808500429
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-12",
+      "log_loss": 0.4616790324617915
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-12",
+      "log_loss": 0.5028232295497653
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-12",
+      "log_loss": 0.45101099466079764
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-12",
+      "log_loss": 0.6733031840888852
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-12",
+      "log_loss": 0.7559358071894294
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-13",
+      "log_loss": 0.6977685980291198
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-13",
+      "log_loss": 0.6499909217085099
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-13",
+      "log_loss": 0.6597142131091074
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-13",
+      "log_loss": 0.6511815899129471
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-13",
+      "log_loss": 1.087685907255959
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-13",
+      "log_loss": 0.6850078922349331
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-13",
+      "log_loss": 0.6456411742877987
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-13",
+      "log_loss": 0.6554476770511816
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-13",
+      "log_loss": 0.6965062560282118
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-13",
+      "log_loss": 1.1092541505773066
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-14",
+      "log_loss": 0.5919229023658213
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-14",
+      "log_loss": 0.7482314263267167
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-14",
+      "log_loss": 0.4029875884551351
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-14",
+      "log_loss": 0.6109687589767335
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-14",
+      "log_loss": 0.6893459577472508
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-14",
+      "log_loss": 0.575346971047114
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-14",
+      "log_loss": 0.6525697772563095
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-14",
+      "log_loss": 0.548052343790274
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-14",
+      "log_loss": 0.6983536629798986
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-14",
+      "log_loss": 0.7787825502592775
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-15",
+      "log_loss": 0.43822918812067746
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-15",
+      "log_loss": 0.5934185164097997
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-15",
+      "log_loss": 0.4248742071288059
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-15",
+      "log_loss": 0.5884088343691032
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-15",
+      "log_loss": 0.33046622268795867
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-15",
+      "log_loss": 0.4564398047970263
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-15",
+      "log_loss": 0.5491690591772694
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-15",
+      "log_loss": 0.4286009304093999
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-15",
+      "log_loss": 0.6697888624945886
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-15",
+      "log_loss": 0.35076242089365395
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-16",
+      "log_loss": 0.5486028062052032
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-16",
+      "log_loss": 0.7876564632989264
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-16",
+      "log_loss": 0.35724847716686325
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-16",
+      "log_loss": 0.6011450138271784
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-16",
+      "log_loss": 0.8605535256466365
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-16",
+      "log_loss": 0.5136242744778647
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-16",
+      "log_loss": 0.6442230255668548
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-16",
+      "log_loss": 0.5646682167292082
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-16",
+      "log_loss": 0.7192720596032295
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-16",
+      "log_loss": 0.3216714304996958
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-17",
+      "log_loss": 0.956875983715251
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-17",
+      "log_loss": 0.7420489749071028
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-17",
+      "log_loss": 0.7562845437175694
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-17",
+      "log_loss": 0.6812564995988148
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-17",
+      "log_loss": 0.43058413106186705
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-17",
+      "log_loss": 0.748222287606661
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-17",
+      "log_loss": 0.6945770087265268
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-17",
+      "log_loss": 0.7431393945709048
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-17",
+      "log_loss": 0.6908487222820507
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-17",
+      "log_loss": 1.676896816855025
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-18",
+      "log_loss": 0.4855559932872921
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-18",
+      "log_loss": 0.4208270876804307
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-18",
+      "log_loss": 0.5092534859541329
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-18",
+      "log_loss": 0.6082185853054989
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-18",
+      "log_loss": 1.0161921010380242
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-18",
+      "log_loss": 0.5308839126606246
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-18",
+      "log_loss": 0.5778217759815237
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-18",
+      "log_loss": 0.5274015912027724
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-18",
+      "log_loss": 0.6617545997667256
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-18",
+      "log_loss": 0.6562563704385755
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-19",
+      "log_loss": 0.5592050794345483
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-19",
+      "log_loss": 0.726724176937374
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-19",
+      "log_loss": 0.398509362821765
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-19",
+      "log_loss": 0.577726358930687
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-19",
+      "log_loss": 0.7931298400182749
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-19",
+      "log_loss": 0.45406521262992766
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-19",
+      "log_loss": 0.5416546539691679
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-19",
+      "log_loss": 0.5109581295603248
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-19",
+      "log_loss": 0.6917432174519482
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-19",
+      "log_loss": 0.851342734155792
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-20",
+      "log_loss": 0.5978216052573149
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-20",
+      "log_loss": 0.6194196906504927
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-20",
+      "log_loss": 0.40254307831226754
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-20",
+      "log_loss": 0.5901927101969474
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-20",
+      "log_loss": 0.978058992739007
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-20",
+      "log_loss": 0.5271039053186412
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-20",
+      "log_loss": 0.5981980272179431
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-20",
+      "log_loss": 0.5633789316307471
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-20",
+      "log_loss": 0.6990903128245202
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-20",
+      "log_loss": 1.0664346028930503
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-21",
+      "log_loss": 0.5469785127267531
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-21",
+      "log_loss": 0.5073995039781969
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-21",
+      "log_loss": 0.5361108053634246
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-21",
+      "log_loss": 0.6240380175749236
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-21",
+      "log_loss": 0.9127359043815487
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-21",
+      "log_loss": 0.41485183679655047
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-21",
+      "log_loss": 0.5756305663778033
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-21",
+      "log_loss": 0.5713179224260492
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-21",
+      "log_loss": 0.6710052890116569
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-21",
+      "log_loss": 0.7301690288641359
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-22",
+      "log_loss": 0.8494323650731516
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-22",
+      "log_loss": 0.8086576237254572
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-22",
+      "log_loss": 0.6798027636110803
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-22",
+      "log_loss": 0.6636746942456305
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-22",
+      "log_loss": 1.301805604719978
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-22",
+      "log_loss": 0.8333191199538343
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-22",
+      "log_loss": 0.6870818703934339
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-22",
+      "log_loss": 0.7213736789666192
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-22",
+      "log_loss": 0.7021981720175604
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-22",
+      "log_loss": 2.357598920241177
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-23",
+      "log_loss": 0.5826962826014237
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-23",
+      "log_loss": 0.6549480913239714
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-23",
+      "log_loss": 0.6287971452555108
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-23",
+      "log_loss": 0.6492917956680528
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-23",
+      "log_loss": 1.1011385072677158
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-23",
+      "log_loss": 0.6486606005825915
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-23",
+      "log_loss": 0.7110466514883103
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-23",
+      "log_loss": 0.5641039353494828
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-23",
+      "log_loss": 0.6939726489992053
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-23",
+      "log_loss": 1.6064681150530546
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-24",
+      "log_loss": 0.1522408145145314
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-24",
+      "log_loss": 0.6999922701374074
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-24",
+      "log_loss": 0.342417315668115
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-24",
+      "log_loss": 0.5707507889517797
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-24",
+      "log_loss": 0.1876235670094691
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-24",
+      "log_loss": 0.2949212109953386
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-24",
+      "log_loss": 0.6243972167599103
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-24",
+      "log_loss": 0.3242045776999582
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-24",
+      "log_loss": 0.6865189391616733
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-24",
+      "log_loss": 0.7034664779907808
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-25",
+      "log_loss": 0.8657716413034461
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-25",
+      "log_loss": 0.6220338849574488
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-25",
+      "log_loss": 0.5868505695614767
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-25",
+      "log_loss": 0.6390694324327464
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-25",
+      "log_loss": 0.9123312628084248
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-25",
+      "log_loss": 0.6534842597340658
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-25",
+      "log_loss": 0.6188655800021415
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-25",
+      "log_loss": 0.6316658740483941
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-25",
+      "log_loss": 0.6960270964533735
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-25",
+      "log_loss": 0.9014040762166935
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-26",
+      "log_loss": 0.8650492950613925
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-26",
+      "log_loss": 0.5983833959988389
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-26",
+      "log_loss": 1.229865499625128
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-26",
+      "log_loss": 0.7336729607865066
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-26",
+      "log_loss": 0.3927966468901171
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-26",
+      "log_loss": 0.6399353124695735
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-26",
+      "log_loss": 0.6967998962839516
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-26",
+      "log_loss": 0.6751320834274889
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-26",
+      "log_loss": 0.6687992283774253
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-26",
+      "log_loss": 1.4293513158283704
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-27",
+      "log_loss": 0.4737800548738502
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-27",
+      "log_loss": 0.7383926673621601
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-27",
+      "log_loss": 0.2462303020074179
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-27",
+      "log_loss": 0.5382966530778661
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-27",
+      "log_loss": 0.960745520172774
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-27",
+      "log_loss": 0.45788560309980647
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-27",
+      "log_loss": 0.6100201041153399
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-27",
+      "log_loss": 0.4648881002769797
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-27",
+      "log_loss": 0.7084295378551629
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-27",
+      "log_loss": 1.6902771790496487
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-29",
+      "log_loss": 0.9129288289645494
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-29",
+      "log_loss": 0.516532645252335
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-29",
+      "log_loss": 0.8586506456763748
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-29",
+      "log_loss": 0.6844951969523685
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-29",
+      "log_loss": 0.7510545374236155
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-29",
+      "log_loss": 0.7218255477599469
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-29",
+      "log_loss": 0.637778982079053
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-29",
+      "log_loss": 0.6578535329544467
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-29",
+      "log_loss": 0.6797065682310632
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-29",
+      "log_loss": 0.7246398669377985
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-11-30",
+      "log_loss": 0.8926232544361248
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-11-30",
+      "log_loss": 0.8458592524480527
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-11-30",
+      "log_loss": 0.5946586432217104
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-11-30",
+      "log_loss": 0.6281284801143258
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-11-30",
+      "log_loss": 0.854960330254461
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-11-30",
+      "log_loss": 0.6901500445970314
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-11-30",
+      "log_loss": 0.6538047955521237
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-11-30",
+      "log_loss": 0.7210538199221525
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-11-30",
+      "log_loss": 0.7066418781551146
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-11-30",
+      "log_loss": 1.7849358316648165
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-01",
+      "log_loss": 0.28369345596026985
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-01",
+      "log_loss": 0.5587086513610514
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-01",
+      "log_loss": 0.6087844551270812
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-01",
+      "log_loss": 0.6318754964665596
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-01",
+      "log_loss": 0.24020546729221337
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-01",
+      "log_loss": 0.2528860173647766
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-01",
+      "log_loss": 0.664438162974326
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-01",
+      "log_loss": 0.426453762107388
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-01",
+      "log_loss": 0.6822266873718847
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-01",
+      "log_loss": 0.7385595068397267
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-02",
+      "log_loss": 0.8122813443926965
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-02",
+      "log_loss": 0.7682911720087896
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-02",
+      "log_loss": 0.9699132211832797
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-02",
+      "log_loss": 0.7258061125228252
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-02",
+      "log_loss": 1.3573559334798242
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-02",
+      "log_loss": 0.8987168466465126
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-02",
+      "log_loss": 0.7211547744566058
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-02",
+      "log_loss": 0.730516502564617
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-02",
+      "log_loss": 0.675455434750565
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-02",
+      "log_loss": 1.7695261606936243
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-03",
+      "log_loss": 0.33423218286976963
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-03",
+      "log_loss": 0.4860863779982609
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-03",
+      "log_loss": 0.3231994117506904
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-03",
+      "log_loss": 0.5231608253167769
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-03",
+      "log_loss": 1.059365397787855
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-03",
+      "log_loss": 0.3515285624341888
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-03",
+      "log_loss": 0.4467613375525827
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-03",
+      "log_loss": 0.4401989465238579
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-03",
+      "log_loss": 0.6822127026193486
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-03",
+      "log_loss": 0.9394054257125336
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-04",
+      "log_loss": 0.8079986474515107
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-04",
+      "log_loss": 0.8795534447829185
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-04",
+      "log_loss": 1.0427816078890033
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-04",
+      "log_loss": 0.7088212811034657
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-04",
+      "log_loss": 1.533403812707826
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-04",
+      "log_loss": 0.8059275655797165
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-04",
+      "log_loss": 0.6854357661548497
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-04",
+      "log_loss": 0.862544979172478
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-04",
+      "log_loss": 0.6987746177959299
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-04",
+      "log_loss": 2.0599831416294343
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-05",
+      "log_loss": 0.5202166257838072
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-05",
+      "log_loss": 0.7022919542939452
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-05",
+      "log_loss": 0.412617053686969
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-05",
+      "log_loss": 0.6193029835539496
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-05",
+      "log_loss": 1.0093031221355964
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-05",
+      "log_loss": 0.54249067679064
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-05",
+      "log_loss": 0.6273226031770232
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-05",
+      "log_loss": 0.589990435976867
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-05",
+      "log_loss": 0.7084791765437386
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-05",
+      "log_loss": 1.6924940412988654
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-06",
+      "log_loss": 0.5477265039641145
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-06",
+      "log_loss": 0.6575480716119586
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-06",
+      "log_loss": 0.6159105608894813
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-06",
+      "log_loss": 0.6447672265828832
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-06",
+      "log_loss": 0.45478213574266585
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-06",
+      "log_loss": 0.5545546255933419
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-06",
+      "log_loss": 0.6098439485755655
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-06",
+      "log_loss": 0.5440118853616045
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-06",
+      "log_loss": 0.6760480758259177
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-06",
+      "log_loss": 0.7714662329037298
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-07",
+      "log_loss": 0.6994341479514162
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-07",
+      "log_loss": 0.8470168818856747
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-07",
+      "log_loss": 0.6781027678416784
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-07",
+      "log_loss": 0.6639517526511806
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-07",
+      "log_loss": 0.9261368381890644
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-07",
+      "log_loss": 0.6766821728018364
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-07",
+      "log_loss": 0.694128840403419
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-07",
+      "log_loss": 0.747258028029075
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-07",
+      "log_loss": 0.69282711966459
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-07",
+      "log_loss": 2.3116229289188097
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-08",
+      "log_loss": 0.3471177897758156
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-08",
+      "log_loss": 1.12115866500475
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-08",
+      "log_loss": 0.2955917509341905
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-08",
+      "log_loss": 0.5672969070234216
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-08",
+      "log_loss": 0.5262438191247076
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-08",
+      "log_loss": 0.4087192808300366
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-08",
+      "log_loss": 0.5572196837817082
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-08",
+      "log_loss": 0.48522094011029254
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-08",
+      "log_loss": 0.7501383319017604
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-08",
+      "log_loss": 1.7282203448894338
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-09",
+      "log_loss": 0.5359317612480905
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-09",
+      "log_loss": 0.7250186461478157
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-09",
+      "log_loss": 0.47965777295040346
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-09",
+      "log_loss": 0.5761308776083761
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-09",
+      "log_loss": 1.0988809258068306
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-09",
+      "log_loss": 0.6618758495622891
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-09",
+      "log_loss": 0.5790493288363452
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-09",
+      "log_loss": 0.5983509076337615
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-09",
+      "log_loss": 0.6935673825939205
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-09",
+      "log_loss": 0.5048035577349897
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-10",
+      "log_loss": 0.4036594011498812
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-10",
+      "log_loss": 1.0665323952046981
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-10",
+      "log_loss": 0.2579895296468813
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-10",
+      "log_loss": 0.6523783527391479
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-10",
+      "log_loss": 0.034355996584126795
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-10",
+      "log_loss": 0.5877776395812057
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-10",
+      "log_loss": 0.7270487322356267
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-10",
+      "log_loss": 0.4067669555863296
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-10",
+      "log_loss": 0.7474525254174875
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-10",
+      "log_loss": 0.0242719951429046
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-11",
+      "log_loss": 0.3019109541634778
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-11",
+      "log_loss": 0.539707275081313
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-11",
+      "log_loss": 0.5074876198686664
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-11",
+      "log_loss": 0.5580089189155397
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-11",
+      "log_loss": 0.08072684177301853
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-11",
+      "log_loss": 0.3807517685157394
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-11",
+      "log_loss": 0.4895765145153991
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-11",
+      "log_loss": 0.43437676438653144
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-11",
+      "log_loss": 0.6878780623586924
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-11",
+      "log_loss": 0.06071406125140919
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-12",
+      "log_loss": 0.6921595513272827
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-12",
+      "log_loss": 0.4430172612702033
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-12",
+      "log_loss": 0.9640619222540056
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-12",
+      "log_loss": 0.622040826299285
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-12",
+      "log_loss": 1.4388910872093181
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-12",
+      "log_loss": 0.6174320707856428
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-12",
+      "log_loss": 0.5550667399810522
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-12",
+      "log_loss": 0.6701028978507683
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-12",
+      "log_loss": 0.6807135129388415
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-12",
+      "log_loss": 1.536734638167803
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-13",
+      "log_loss": 0.6279864784082517
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-13",
+      "log_loss": 0.6752343565461578
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-13",
+      "log_loss": 0.5726690534521072
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-13",
+      "log_loss": 0.6212865714726197
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-13",
+      "log_loss": 0.696426067912622
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-13",
+      "log_loss": 0.5620647295249738
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-13",
+      "log_loss": 0.6127465203135107
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-13",
+      "log_loss": 0.6798553459473747
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-13",
+      "log_loss": 0.7033834185772834
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-13",
+      "log_loss": 1.9535687546788068
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-14",
+      "log_loss": 1.0625813134063518
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-14",
+      "log_loss": 0.8624814015869668
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-14",
+      "log_loss": 1.3183779563469489
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-14",
+      "log_loss": 0.8214195538664498
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-14",
+      "log_loss": 1.9409595825636425
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-14",
+      "log_loss": 1.09983070046693
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-14",
+      "log_loss": 0.8342541772849117
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-14",
+      "log_loss": 1.144465916143708
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-14",
+      "log_loss": 0.6974120630326593
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-14",
+      "log_loss": 4.4794454568463085
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-15",
+      "log_loss": 0.7931403743514515
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-15",
+      "log_loss": 0.7949606785777965
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-15",
+      "log_loss": 0.7238142142967781
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-15",
+      "log_loss": 0.7138149056899349
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-15",
+      "log_loss": 1.770418313592539
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-15",
+      "log_loss": 0.7148950409594498
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-15",
+      "log_loss": 0.7222897008959344
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-15",
+      "log_loss": 0.7154663073931232
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-15",
+      "log_loss": 0.6951143768410895
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-15",
+      "log_loss": 1.1414569196735287
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-16",
+      "log_loss": 1.0318067999150233
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-16",
+      "log_loss": 0.7835035185314705
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-16",
+      "log_loss": 0.6375579070705872
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-16",
+      "log_loss": 0.66250581291699
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-16",
+      "log_loss": 1.4673210431779835
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-16",
+      "log_loss": 0.8706814730098751
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-16",
+      "log_loss": 0.766641730675061
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-16",
+      "log_loss": 0.7608592103510905
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-16",
+      "log_loss": 0.71483059225367
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-16",
+      "log_loss": 0.7510793234041369
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-17",
+      "log_loss": 1.3085551567851705
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-17",
+      "log_loss": 0.5395680926316447
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-17",
+      "log_loss": 0.6891955531066423
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-17",
+      "log_loss": 0.6741926485739387
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-17",
+      "log_loss": 3.559012986964555
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-17",
+      "log_loss": 0.7355947614870701
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-17",
+      "log_loss": 0.6472182486715455
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-17",
+      "log_loss": 0.628286485430165
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-17",
+      "log_loss": 0.6329932577401982
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-17",
+      "log_loss": 1.9574605461170527
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-18",
+      "log_loss": 1.2069270739574647
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-18",
+      "log_loss": 0.8864008346431322
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-18",
+      "log_loss": 1.2896489717953532
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-18",
+      "log_loss": 0.8384585767365637
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-18",
+      "log_loss": 1.3142887858622414
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-18",
+      "log_loss": 1.2983902329693249
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-18",
+      "log_loss": 0.9526843636126139
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-18",
+      "log_loss": 1.044905079463203
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-18",
+      "log_loss": 0.7084569085421744
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-18",
+      "log_loss": 3.441748724303818
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-19",
+      "log_loss": 0.5956706214401949
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-19",
+      "log_loss": 0.571212994364298
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-19",
+      "log_loss": 0.6155301473369111
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-19",
+      "log_loss": 0.6204493514959458
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-19",
+      "log_loss": 0.5717938779931272
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-19",
+      "log_loss": 0.5222181539402801
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-19",
+      "log_loss": 0.574965437641168
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-19",
+      "log_loss": 0.5619120011500167
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-19",
+      "log_loss": 0.6883602812799011
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-19",
+      "log_loss": 0.6873622288286253
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-20",
+      "log_loss": 0.9589496573778233
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-20",
+      "log_loss": 0.858533934531929
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-20",
+      "log_loss": 1.1134437777655182
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-20",
+      "log_loss": 0.7724993472397167
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-20",
+      "log_loss": 1.2294104444958232
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-20",
+      "log_loss": 0.971790627045574
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-20",
+      "log_loss": 0.80449700650757
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-20",
+      "log_loss": 0.794570932719107
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-20",
+      "log_loss": 0.7142989374603227
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-20",
+      "log_loss": 1.2204040744888598
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-21",
+      "log_loss": 0.6192466652161799
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-21",
+      "log_loss": 0.6987665732503355
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-21",
+      "log_loss": 0.9109186676036757
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-21",
+      "log_loss": 0.6997615299555112
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-21",
+      "log_loss": 0.9056347570171469
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-21",
+      "log_loss": 0.6205971904349494
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-21",
+      "log_loss": 0.6846272409568869
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-21",
+      "log_loss": 0.6903747759270877
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-21",
+      "log_loss": 0.68771129178833
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-21",
+      "log_loss": 1.3514873370574383
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-22",
+      "log_loss": 0.7956432117750741
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-22",
+      "log_loss": 0.6389054431372716
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-22",
+      "log_loss": 0.8009870334174715
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-22",
+      "log_loss": 0.6677093082921978
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-22",
+      "log_loss": 0.16342206423825922
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-22",
+      "log_loss": 0.7171202369866766
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-22",
+      "log_loss": 0.7124913312050377
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-22",
+      "log_loss": 0.6384931171277671
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-22",
+      "log_loss": 0.670134161951772
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-22",
+      "log_loss": 0.5777977552075299
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-23",
+      "log_loss": 0.4281399973300936
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-23",
+      "log_loss": 0.4981513128414146
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-23",
+      "log_loss": 0.5852084194607984
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-23",
+      "log_loss": 0.5328893854831692
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-23",
+      "log_loss": 0.6758281718767142
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-23",
+      "log_loss": 0.3428390642357466
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-23",
+      "log_loss": 0.4672080947475627
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-23",
+      "log_loss": 0.42538603968511357
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-23",
+      "log_loss": 0.6655809550699557
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-23",
+      "log_loss": 0.2504115456163417
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-24",
+      "log_loss": 0.6721902034080528
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-24",
+      "log_loss": 0.780644550103947
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-24",
+      "log_loss": 0.799166995793658
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-24",
+      "log_loss": 0.7028046749670865
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-24",
+      "log_loss": 0.964979434385366
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-24",
+      "log_loss": 0.6063091130274657
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-24",
+      "log_loss": 0.6658459817165386
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-24",
+      "log_loss": 0.6982211721025864
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-24",
+      "log_loss": 0.6982388692581234
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-24",
+      "log_loss": 1.498203282008966
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-25",
+      "log_loss": 0.444246095930396
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-25",
+      "log_loss": 0.6430992931730408
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-25",
+      "log_loss": 0.4795833372865317
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-25",
+      "log_loss": 0.619950783268052
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-25",
+      "log_loss": 0.2727399734659844
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-25",
+      "log_loss": 0.6903176446236676
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-25",
+      "log_loss": 0.6627481745948338
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-25",
+      "log_loss": 0.5358436348051464
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-25",
+      "log_loss": 0.68553486857799
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-25",
+      "log_loss": 0.10853453915180518
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-26",
+      "log_loss": 0.6063675803618044
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-26",
+      "log_loss": 0.5020646072288477
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-26",
+      "log_loss": 1.0208516980015432
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-26",
+      "log_loss": 0.6416386778090066
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-26",
+      "log_loss": 1.2427940869054694
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-26",
+      "log_loss": 0.513709111101776
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-26",
+      "log_loss": 0.5461719878276796
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-26",
+      "log_loss": 0.6071711716509366
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-26",
+      "log_loss": 0.6891052759493617
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-26",
+      "log_loss": 0.06169723494927065
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-27",
+      "log_loss": 1.035494108523301
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-27",
+      "log_loss": 0.7629604489130648
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-27",
+      "log_loss": 0.8923332896491141
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-27",
+      "log_loss": 0.7706619799891282
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-27",
+      "log_loss": 0.768856624193974
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-27",
+      "log_loss": 1.0182781514034096
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-27",
+      "log_loss": 0.8018752764608232
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-27",
+      "log_loss": 0.7421148102548227
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-27",
+      "log_loss": 0.6911724665994248
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-27",
+      "log_loss": 0.8609792621048482
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-28",
+      "log_loss": 0.7472239745955318
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-28",
+      "log_loss": 0.7234687694633012
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-28",
+      "log_loss": 0.9521705542423925
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-28",
+      "log_loss": 0.7184325355983439
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-28",
+      "log_loss": 1.3064085458100236
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-28",
+      "log_loss": 0.8774763719405946
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-28",
+      "log_loss": 0.7530252111156063
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-28",
+      "log_loss": 0.8079493915964785
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-28",
+      "log_loss": 0.6887395324421743
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-28",
+      "log_loss": 2.14774092901897
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-29",
+      "log_loss": 0.7477550861160793
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-29",
+      "log_loss": 0.5799465728799099
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-29",
+      "log_loss": 0.7788407900758259
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-29",
+      "log_loss": 0.7277224825438674
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-29",
+      "log_loss": 0.5162427318218487
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-29",
+      "log_loss": 0.5090479942897972
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-29",
+      "log_loss": 0.6337677527172401
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-29",
+      "log_loss": 0.7334612718094529
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-29",
+      "log_loss": 0.6559891178522244
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-29",
+      "log_loss": 0.31433255663960463
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-30",
+      "log_loss": 0.5380326441599181
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-30",
+      "log_loss": 0.7273729452101542
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-30",
+      "log_loss": 0.7474449695872547
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-30",
+      "log_loss": 0.6157206382729834
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-30",
+      "log_loss": 0.8856303457494176
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-30",
+      "log_loss": 0.6095765267155345
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-30",
+      "log_loss": 0.5897658054821621
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-30",
+      "log_loss": 0.6400847759934366
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-30",
+      "log_loss": 0.6944440059656697
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-30",
+      "log_loss": 1.6504902086983846
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2025-12-31",
+      "log_loss": 0.5769250481165694
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2025-12-31",
+      "log_loss": 0.7657528486916331
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2025-12-31",
+      "log_loss": 0.7865594567937889
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2025-12-31",
+      "log_loss": 0.6252955886408397
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2025-12-31",
+      "log_loss": 0.7570071564410527
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2025-12-31",
+      "log_loss": 0.5780905457719875
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2025-12-31",
+      "log_loss": 0.5734111940463216
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2025-12-31",
+      "log_loss": 0.6430383259308826
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2025-12-31",
+      "log_loss": 0.7020443385713577
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2025-12-31",
+      "log_loss": 1.1810361020622027
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-01",
+      "log_loss": 0.5973120384005882
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-01",
+      "log_loss": 0.5266119777577247
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-01",
+      "log_loss": 0.6407483776152684
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-01",
+      "log_loss": 0.5908073403431732
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-01",
+      "log_loss": 0.9304969960989
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-01",
+      "log_loss": 0.5009921182602346
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-01",
+      "log_loss": 0.5871189268657424
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-01",
+      "log_loss": 0.6084864084705626
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-01",
+      "log_loss": 0.6948950084799322
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-01",
+      "log_loss": 0.7948391643051735
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-02",
+      "log_loss": 0.6420519565026971
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-02",
+      "log_loss": 0.906330434402404
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-02",
+      "log_loss": 0.6114787525293857
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-02",
+      "log_loss": 0.668067734266842
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-02",
+      "log_loss": 0.8831083444544909
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-02",
+      "log_loss": 0.7469619697405454
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-02",
+      "log_loss": 0.6235945205028187
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-02",
+      "log_loss": 0.6764448957591056
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-02",
+      "log_loss": 0.7260145473979289
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-02",
+      "log_loss": 0.892076842245525
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-03",
+      "log_loss": 0.759849526946983
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-03",
+      "log_loss": 0.6504002754458504
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-03",
+      "log_loss": 0.6574679912976152
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-03",
+      "log_loss": 0.6288088239994998
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-03",
+      "log_loss": 1.0163655809989331
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-03",
+      "log_loss": 0.7641211833922648
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-03",
+      "log_loss": 0.6695970422116936
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-03",
+      "log_loss": 0.773113596402813
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-03",
+      "log_loss": 0.6894543191760975
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-03",
+      "log_loss": 2.057963020710817
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-04",
+      "log_loss": 0.7188418617790654
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-04",
+      "log_loss": 0.8484452964330651
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-04",
+      "log_loss": 0.7958919560252372
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-04",
+      "log_loss": 0.704379266758928
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-04",
+      "log_loss": 1.1248808919233333
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-04",
+      "log_loss": 0.82571693507962
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-04",
+      "log_loss": 0.6879119718659763
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-04",
+      "log_loss": 0.7448135788972253
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-04",
+      "log_loss": 0.6948396834703691
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-04",
+      "log_loss": 1.6994369554515265
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-05",
+      "log_loss": 0.526013309448003
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-05",
+      "log_loss": 0.6983036499001934
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-05",
+      "log_loss": 0.6216436825192053
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-05",
+      "log_loss": 0.645865666492332
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-05",
+      "log_loss": 0.7178361006300751
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-05",
+      "log_loss": 0.47230516380339777
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-05",
+      "log_loss": 0.7150133933662572
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-05",
+      "log_loss": 0.5986555236916415
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-05",
+      "log_loss": 0.6757227168456877
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-05",
+      "log_loss": 3.168856595621387
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-06",
+      "log_loss": 0.6301281845379902
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-06",
+      "log_loss": 0.6083188349721417
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-06",
+      "log_loss": 0.7863183548415058
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-06",
+      "log_loss": 0.6968234608306236
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-06",
+      "log_loss": 0.5395345900761588
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-06",
+      "log_loss": 0.7413058468395854
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-06",
+      "log_loss": 0.6524665979022801
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-06",
+      "log_loss": 0.6754218106769451
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-06",
+      "log_loss": 0.6699938861951426
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-06",
+      "log_loss": 1.1573461948960146
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-07",
+      "log_loss": 0.6392576901040609
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-07",
+      "log_loss": 0.7362087491396322
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-07",
+      "log_loss": 0.5585765194253909
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-07",
+      "log_loss": 0.6621328095945607
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-07",
+      "log_loss": 1.1581494233455032
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-07",
+      "log_loss": 0.6277938954912645
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-07",
+      "log_loss": 0.7223001325741397
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-07",
+      "log_loss": 0.6208420695454295
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-07",
+      "log_loss": 0.7034890822180987
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-07",
+      "log_loss": 1.8066183675133767
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-08",
+      "log_loss": 0.5440033678514716
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-08",
+      "log_loss": 0.5603035529128068
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-08",
+      "log_loss": 0.623649290698526
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-08",
+      "log_loss": 0.5493827197585418
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-08",
+      "log_loss": 0.8702330955949135
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-08",
+      "log_loss": 0.5120485019718298
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-08",
+      "log_loss": 0.5228977797751132
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-08",
+      "log_loss": 0.5802601316915662
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-08",
+      "log_loss": 0.681026763930463
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-08",
+      "log_loss": 1.115769309358859
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-09",
+      "log_loss": 0.9504866533965587
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-09",
+      "log_loss": 0.7187708907617457
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-09",
+      "log_loss": 1.1263486334577333
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-09",
+      "log_loss": 0.7475238738469973
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-09",
+      "log_loss": 0.7898024903130761
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-09",
+      "log_loss": 0.9451011353002285
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-09",
+      "log_loss": 0.7917468388729172
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-09",
+      "log_loss": 0.7924632676943496
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-09",
+      "log_loss": 0.6861055579058192
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-09",
+      "log_loss": 0.6404348638655467
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-10",
+      "log_loss": 0.5302952107885484
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-10",
+      "log_loss": 0.8040340700239895
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-10",
+      "log_loss": 0.7395801007375445
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-10",
+      "log_loss": 0.7149614805662325
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-10",
+      "log_loss": 0.5157113424367602
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-10",
+      "log_loss": 0.6100690408319533
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-10",
+      "log_loss": 0.7147282514124413
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-10",
+      "log_loss": 0.5987859875249724
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-10",
+      "log_loss": 0.698350825781744
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-10",
+      "log_loss": 0.5039539361517501
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-11",
+      "log_loss": 0.8526525956514491
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-11",
+      "log_loss": 0.7497716567399636
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-11",
+      "log_loss": 0.9486786878401708
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-11",
+      "log_loss": 0.7012565106947297
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-11",
+      "log_loss": 1.2619245213669477
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-11",
+      "log_loss": 0.8964187768450862
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-11",
+      "log_loss": 0.6625625872037464
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-11",
+      "log_loss": 0.8271595355880428
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-11",
+      "log_loss": 0.6866504716698218
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-11",
+      "log_loss": 1.3795497984512775
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-12",
+      "log_loss": 0.7298845261906749
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-12",
+      "log_loss": 0.5203413500914943
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-12",
+      "log_loss": 0.7452875967587351
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-12",
+      "log_loss": 0.6673447161330244
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-12",
+      "log_loss": 0.7701510659353626
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-12",
+      "log_loss": 0.6125501298829353
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-12",
+      "log_loss": 0.6593695753302565
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-12",
+      "log_loss": 0.6651951995077848
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-12",
+      "log_loss": 0.6654426413569744
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-12",
+      "log_loss": 1.517032525949651
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-13",
+      "log_loss": 0.9598403573079146
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-13",
+      "log_loss": 0.7083790895097762
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-13",
+      "log_loss": 0.9764799367910794
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-13",
+      "log_loss": 0.8547311300560511
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-13",
+      "log_loss": 1.1222488091960463
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-13",
+      "log_loss": 1.0471688385306452
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-13",
+      "log_loss": 0.8941866287810889
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-13",
+      "log_loss": 0.8762271318047703
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-13",
+      "log_loss": 0.6840028180653815
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-13",
+      "log_loss": 1.7491520637899873
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-14",
+      "log_loss": 0.5211676664900818
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-14",
+      "log_loss": 0.5096278449446833
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-14",
+      "log_loss": 0.762219157519193
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-14",
+      "log_loss": 0.5829101776217964
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-14",
+      "log_loss": 0.5277700723297865
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-14",
+      "log_loss": 0.4705820039562174
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-14",
+      "log_loss": 0.4949678467443691
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-14",
+      "log_loss": 0.6173478867761127
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-14",
+      "log_loss": 0.6724207940684711
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-14",
+      "log_loss": 0.7112579352315471
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-15",
+      "log_loss": 0.7141095638686361
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-15",
+      "log_loss": 0.5441282960345925
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-15",
+      "log_loss": 0.6946525906589652
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-15",
+      "log_loss": 0.6488920221385139
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-15",
+      "log_loss": 1.1058271267193902
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-15",
+      "log_loss": 0.6600023649036639
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-15",
+      "log_loss": 0.6083771727472681
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-15",
+      "log_loss": 0.7135477491362482
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-15",
+      "log_loss": 0.6809251652883064
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-15",
+      "log_loss": 0.9521830400539731
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-16",
+      "log_loss": 0.563439601723286
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-16",
+      "log_loss": 0.6906669926213055
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-16",
+      "log_loss": 0.560233606619428
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-16",
+      "log_loss": 0.6402003638465678
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-16",
+      "log_loss": 0.8099139214934999
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-16",
+      "log_loss": 0.65263300528049
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-16",
+      "log_loss": 0.5995096693722707
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-16",
+      "log_loss": 0.5805605122382508
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-16",
+      "log_loss": 0.691313940166824
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-16",
+      "log_loss": 0.4107279817024324
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-17",
+      "log_loss": 0.6343168164749793
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-17",
+      "log_loss": 0.7287617314193279
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-17",
+      "log_loss": 0.7541484549814079
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-17",
+      "log_loss": 0.7146565437681188
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-17",
+      "log_loss": 0.5389416255822725
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-17",
+      "log_loss": 0.7643760875541226
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-17",
+      "log_loss": 0.6392079668660539
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-17",
+      "log_loss": 0.6877008837866952
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-17",
+      "log_loss": 0.6713474079609806
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-17",
+      "log_loss": 0.3772664633023023
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-18",
+      "log_loss": 0.5624327052061353
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-18",
+      "log_loss": 0.572483612204794
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-18",
+      "log_loss": 0.60725653608742
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-18",
+      "log_loss": 0.6261943488158598
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-18",
+      "log_loss": 0.9675471077823072
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-18",
+      "log_loss": 0.5092748288988981
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-18",
+      "log_loss": 0.6150055718057643
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-18",
+      "log_loss": 0.6187742904203799
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-18",
+      "log_loss": 0.6756556873825457
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-18",
+      "log_loss": 0.9761035948693723
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-19",
+      "log_loss": 0.6869412578738525
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-19",
+      "log_loss": 0.8202406042301545
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-19",
+      "log_loss": 0.6173714701966339
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-19",
+      "log_loss": 0.6281897177968473
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-19",
+      "log_loss": 0.791529798317744
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-19",
+      "log_loss": 0.6420487914385342
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-19",
+      "log_loss": 0.6099296857409591
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-19",
+      "log_loss": 0.6261248864045907
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-19",
+      "log_loss": 0.709016861454368
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-19",
+      "log_loss": 1.1301259819997227
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-20",
+      "log_loss": 0.39782543915692903
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-20",
+      "log_loss": 0.4987236559767913
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-20",
+      "log_loss": 0.36510141975564286
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-20",
+      "log_loss": 0.49540199471383906
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-20",
+      "log_loss": 0.48354109494306796
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-20",
+      "log_loss": 0.37289622048831755
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-20",
+      "log_loss": 0.5063577331928445
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-20",
+      "log_loss": 0.4556418484568031
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-20",
+      "log_loss": 0.6751945515554318
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-20",
+      "log_loss": 0.23349638232160483
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-21",
+      "log_loss": 0.8118824701943745
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-21",
+      "log_loss": 0.7925647377989684
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-21",
+      "log_loss": 1.1406560409152413
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-21",
+      "log_loss": 0.7632582019251621
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-21",
+      "log_loss": 1.0268975629089083
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-21",
+      "log_loss": 0.8313373457902665
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-21",
+      "log_loss": 0.8069566988092534
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-21",
+      "log_loss": 0.7778300341459428
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-21",
+      "log_loss": 0.6957524732209838
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-21",
+      "log_loss": 1.1101034198951165
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-22",
+      "log_loss": 0.392684785762541
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-22",
+      "log_loss": 0.6582701747421318
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-22",
+      "log_loss": 0.42839123551534597
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-22",
+      "log_loss": 0.4596921158266282
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-22",
+      "log_loss": 0.4058091151925086
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-22",
+      "log_loss": 0.44261637045970353
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-22",
+      "log_loss": 0.4592691153262516
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-22",
+      "log_loss": 0.5304302991145019
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-22",
+      "log_loss": 0.7209411514124561
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-22",
+      "log_loss": 1.068961284685694
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-23",
+      "log_loss": 0.7183241684339329
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-23",
+      "log_loss": 0.7575345029837993
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-23",
+      "log_loss": 0.5888838709459805
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-23",
+      "log_loss": 0.6904277233296987
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-23",
+      "log_loss": 0.5095727787542905
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-23",
+      "log_loss": 0.6634150592593515
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-23",
+      "log_loss": 0.7055476379354099
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-23",
+      "log_loss": 0.7020485559403368
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-23",
+      "log_loss": 0.69614933026792
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-23",
+      "log_loss": 1.9765420725933431
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-24",
+      "log_loss": 0.8467074956245844
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-24",
+      "log_loss": 0.7740988718298578
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-24",
+      "log_loss": 0.9664681740240108
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-24",
+      "log_loss": 0.7513975691463921
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-24",
+      "log_loss": 1.02981456005043
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-24",
+      "log_loss": 0.8695012332745465
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-24",
+      "log_loss": 0.7355423312047098
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-24",
+      "log_loss": 0.7970386577240065
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-24",
+      "log_loss": 0.7092698543386369
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-24",
+      "log_loss": 1.2292915165877798
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-25",
+      "log_loss": 0.7790704898682596
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-25",
+      "log_loss": 0.8304762373259048
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-25",
+      "log_loss": 0.5410986600682605
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-25",
+      "log_loss": 0.6429038172639121
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-25",
+      "log_loss": 1.0919712890519013
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-25",
+      "log_loss": 0.6634052309371387
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-25",
+      "log_loss": 0.7156047883760929
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-25",
+      "log_loss": 0.6857664505919873
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-25",
+      "log_loss": 0.6992746264327737
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-25",
+      "log_loss": 1.4004470836742122
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-26",
+      "log_loss": 0.9359791472587973
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-26",
+      "log_loss": 0.7348423527065361
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-26",
+      "log_loss": 0.776241976866189
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-26",
+      "log_loss": 0.8368608612355216
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-26",
+      "log_loss": 1.2818094585831639
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-26",
+      "log_loss": 0.9778691558851298
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-26",
+      "log_loss": 0.8595244282021649
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-26",
+      "log_loss": 0.8259724141600194
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-26",
+      "log_loss": 0.6906259510486482
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-26",
+      "log_loss": 1.6957983323881114
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-27",
+      "log_loss": 0.39424226542077384
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-27",
+      "log_loss": 0.5156652343133619
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-27",
+      "log_loss": 0.6576058927433163
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-27",
+      "log_loss": 0.5769711780267761
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-27",
+      "log_loss": 0.1962747752543112
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-27",
+      "log_loss": 0.41317480288793407
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-27",
+      "log_loss": 0.5117931025060258
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-27",
+      "log_loss": 0.4955574324132467
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-27",
+      "log_loss": 0.6728454306297216
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-27",
+      "log_loss": 0.5561337851668079
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-28",
+      "log_loss": 0.41415301794676107
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-28",
+      "log_loss": 0.6583722854087606
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-28",
+      "log_loss": 0.539522989077785
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-28",
+      "log_loss": 0.5261696588672994
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-28",
+      "log_loss": 0.4119471840187275
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-28",
+      "log_loss": 0.511365858861631
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-28",
+      "log_loss": 0.48878061462311295
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-28",
+      "log_loss": 0.45188691186388974
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-28",
+      "log_loss": 0.6670344202111815
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-28",
+      "log_loss": 0.17950330600241093
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-29",
+      "log_loss": 0.7671288211898116
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-29",
+      "log_loss": 0.8808851251946194
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-29",
+      "log_loss": 0.8774518534583647
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-29",
+      "log_loss": 0.7153591455722986
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-29",
+      "log_loss": 1.0020007275089755
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-29",
+      "log_loss": 0.8263014539953523
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-29",
+      "log_loss": 0.7076459061614058
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-29",
+      "log_loss": 0.773107207772862
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-29",
+      "log_loss": 0.7141238782990129
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-29",
+      "log_loss": 1.0534474561473826
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-30",
+      "log_loss": 0.5388523363612567
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-30",
+      "log_loss": 0.5864614236937469
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-30",
+      "log_loss": 0.6179963804182957
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-30",
+      "log_loss": 0.6542620883327077
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-30",
+      "log_loss": 0.6189960270216088
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-30",
+      "log_loss": 0.5941160391914813
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-30",
+      "log_loss": 0.6337481054619564
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-30",
+      "log_loss": 0.5651047902986095
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-30",
+      "log_loss": 0.6919307626432584
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-30",
+      "log_loss": 0.6082715414723255
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-01-31",
+      "log_loss": 0.5658883320421366
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-01-31",
+      "log_loss": 0.6415076120421306
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-01-31",
+      "log_loss": 0.6848033307166954
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-01-31",
+      "log_loss": 0.6237998615647927
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-01-31",
+      "log_loss": 0.4524699970113035
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-01-31",
+      "log_loss": 0.5118146735822846
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-01-31",
+      "log_loss": 0.559382393975947
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-01-31",
+      "log_loss": 0.5940832269649184
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-01-31",
+      "log_loss": 0.6835092741654665
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-01-31",
+      "log_loss": 1.1341836473160476
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-01",
+      "log_loss": 0.5168839550158622
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-01",
+      "log_loss": 0.5436632004122366
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-01",
+      "log_loss": 0.43522335486650227
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-01",
+      "log_loss": 0.536573220935983
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-01",
+      "log_loss": 0.475466123927993
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-01",
+      "log_loss": 0.5314059960786195
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-01",
+      "log_loss": 0.5161584140365792
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-01",
+      "log_loss": 0.5000987168891451
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-01",
+      "log_loss": 0.6642367419200089
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-01",
+      "log_loss": 0.2153890001898789
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-02",
+      "log_loss": 0.6060355761879183
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-02",
+      "log_loss": 0.699911784796131
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-02",
+      "log_loss": 0.5677730865656228
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-02",
+      "log_loss": 0.6089627380354415
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-02",
+      "log_loss": 0.7976063616547409
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-02",
+      "log_loss": 0.5573675997323742
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-02",
+      "log_loss": 0.5705433708648445
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-02",
+      "log_loss": 0.5970139522266392
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-02",
+      "log_loss": 0.6902174204097732
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-02",
+      "log_loss": 0.36895613711881353
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-03",
+      "log_loss": 0.6987938675918879
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-03",
+      "log_loss": 0.7055156352341191
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-03",
+      "log_loss": 1.2336076497935178
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-03",
+      "log_loss": 0.7078511706801615
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-03",
+      "log_loss": 0.7748232221781874
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-03",
+      "log_loss": 0.7883316369986538
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-03",
+      "log_loss": 0.692253890247926
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-03",
+      "log_loss": 0.7476121567263475
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-03",
+      "log_loss": 0.7097891470222341
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-03",
+      "log_loss": 1.392692228515662
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-04",
+      "log_loss": 0.5955176627947142
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-04",
+      "log_loss": 0.7739564264869012
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-04",
+      "log_loss": 0.6178360984140517
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-04",
+      "log_loss": 0.5832252505146192
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-04",
+      "log_loss": 0.8136991389102219
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-04",
+      "log_loss": 0.5750357284095656
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-04",
+      "log_loss": 0.613554002645295
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-04",
+      "log_loss": 0.6694444671319562
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-04",
+      "log_loss": 0.7113380367964602
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-04",
+      "log_loss": 1.4036466731421098
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-05",
+      "log_loss": 0.4978508763744696
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-05",
+      "log_loss": 0.6948458359101022
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-05",
+      "log_loss": 0.6688870070729109
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-05",
+      "log_loss": 0.659032846882935
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-05",
+      "log_loss": 0.9090087001473257
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-05",
+      "log_loss": 0.593739182880363
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-05",
+      "log_loss": 0.6607196600870345
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-05",
+      "log_loss": 0.6395713845733593
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-05",
+      "log_loss": 0.7047368713911678
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-05",
+      "log_loss": 1.8350665382470261
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-06",
+      "log_loss": 0.9502831948169838
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-06",
+      "log_loss": 0.7635732743794551
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-06",
+      "log_loss": 0.7420492415549763
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-06",
+      "log_loss": 0.7186808649209334
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-06",
+      "log_loss": 1.2522347289751878
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-06",
+      "log_loss": 0.9369406837029913
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-06",
+      "log_loss": 0.7665235081079875
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-06",
+      "log_loss": 0.8232620847348123
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-06",
+      "log_loss": 0.6846263110220326
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-06",
+      "log_loss": 1.4188092421150327
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-07",
+      "log_loss": 0.6443611924201478
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-07",
+      "log_loss": 0.6589696869908935
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-07",
+      "log_loss": 0.7369257786343468
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-07",
+      "log_loss": 0.6409089360700384
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-07",
+      "log_loss": 0.5476126311647722
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-07",
+      "log_loss": 0.7316314462374728
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-07",
+      "log_loss": 0.6275433047568002
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-07",
+      "log_loss": 0.658195830292489
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-07",
+      "log_loss": 0.6814641682363675
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-07",
+      "log_loss": 1.5404813188488682
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-08",
+      "log_loss": 0.6104906238479875
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-08",
+      "log_loss": 0.7697063174896566
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-08",
+      "log_loss": 0.4507744100554809
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-08",
+      "log_loss": 0.591487893608191
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-08",
+      "log_loss": 0.5221985792337839
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-08",
+      "log_loss": 0.59977086331482
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-08",
+      "log_loss": 0.6269060639475428
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-08",
+      "log_loss": 0.5941415583075425
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-08",
+      "log_loss": 0.7027516584555926
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-08",
+      "log_loss": 0.592193646232979
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-10",
+      "log_loss": 0.5699456157201421
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-10",
+      "log_loss": 0.6607040895526567
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-10",
+      "log_loss": 0.7946100317577252
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-10",
+      "log_loss": 0.6585447679970227
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-10",
+      "log_loss": 0.6402426379316641
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-10",
+      "log_loss": 0.6897633000824573
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-10",
+      "log_loss": 0.6190901122079179
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-10",
+      "log_loss": 0.6322998241813298
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-10",
+      "log_loss": 0.6818950195112368
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-10",
+      "log_loss": 0.6916108993599076
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-11",
+      "log_loss": 0.7794813421345903
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-11",
+      "log_loss": 0.768835086373351
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-11",
+      "log_loss": 0.913935197009018
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-11",
+      "log_loss": 0.7209634416164405
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-11",
+      "log_loss": 1.1319760203760039
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-11",
+      "log_loss": 0.8305128986060295
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-11",
+      "log_loss": 0.720985257604889
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-11",
+      "log_loss": 0.6675043802993419
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-11",
+      "log_loss": 0.7013726155302303
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-11",
+      "log_loss": 0.8083184096991575
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-12",
+      "log_loss": 0.58398774703304
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-12",
+      "log_loss": 0.7048102311658822
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-12",
+      "log_loss": 0.5125478737023064
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-12",
+      "log_loss": 0.5894413878976845
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-12",
+      "log_loss": 0.7429440572458123
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-12",
+      "log_loss": 0.587083485383402
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-12",
+      "log_loss": 0.5731933310100681
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-12",
+      "log_loss": 0.6073007926803227
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-12",
+      "log_loss": 0.6940267488804646
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-12",
+      "log_loss": 0.5217875894992884
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-13",
+      "log_loss": 0.9752943147351182
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-13",
+      "log_loss": 1.089489170323511
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-13",
+      "log_loss": 0.6682191406047217
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-13",
+      "log_loss": 0.7475228337488327
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-13",
+      "log_loss": 0.4454157529711733
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-13",
+      "log_loss": 0.9396288564205579
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-13",
+      "log_loss": 0.8893000734664449
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-13",
+      "log_loss": 0.6743487843096849
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-13",
+      "log_loss": 0.7093690018150315
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-13",
+      "log_loss": 0.9235400771410595
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-15",
+      "log_loss": 0.7064113528629073
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-15",
+      "log_loss": 0.6575735345094887
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-15",
+      "log_loss": 0.5986421857049852
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-15",
+      "log_loss": 0.6458861476817249
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-15",
+      "log_loss": 1.1928577633272486
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-15",
+      "log_loss": 0.5627571123046057
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-15",
+      "log_loss": 0.5911107402944086
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-15",
+      "log_loss": 0.6821121244789715
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-15",
+      "log_loss": 0.6446045056305526
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-15",
+      "log_loss": 1.2597108019850403
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-16",
+      "log_loss": 0.6061175969715545
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-16",
+      "log_loss": 0.7652878583376278
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-16",
+      "log_loss": 1.1306162820626988
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-16",
+      "log_loss": 0.7694482477277281
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-16",
+      "log_loss": 0.13901009163009553
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-16",
+      "log_loss": 0.8579202589517557
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-16",
+      "log_loss": 0.7632120550082324
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-16",
+      "log_loss": 0.6277290365455701
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-16",
+      "log_loss": 0.755934854373231
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-16",
+      "log_loss": 0.35964561425367775
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-20",
+      "log_loss": 0.6557889993524509
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-20",
+      "log_loss": 0.7751341049587445
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-20",
+      "log_loss": 0.509529689793321
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-20",
+      "log_loss": 0.584798186491685
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-20",
+      "log_loss": 0.6017506467881258
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-20",
+      "log_loss": 0.6425886491293831
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-20",
+      "log_loss": 0.5942725633838956
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-20",
+      "log_loss": 0.6066552032538012
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-20",
+      "log_loss": 0.699057205018375
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-20",
+      "log_loss": 0.656726821565937
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-21",
+      "log_loss": 0.516416051183798
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-21",
+      "log_loss": 0.6188495678172077
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-21",
+      "log_loss": 0.604498410076145
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-21",
+      "log_loss": 0.5626565533000104
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-21",
+      "log_loss": 0.6687219910920693
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-21",
+      "log_loss": 0.5896271366141315
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-21",
+      "log_loss": 0.5619431495094926
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-21",
+      "log_loss": 0.5468664770715259
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-21",
+      "log_loss": 0.6850475762914033
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-21",
+      "log_loss": 0.4838071879168934
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-22",
+      "log_loss": 0.41145529430998645
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-22",
+      "log_loss": 0.6051802692960971
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-22",
+      "log_loss": 0.6234354374352287
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-22",
+      "log_loss": 0.5727446232848735
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-22",
+      "log_loss": 0.42484437604945025
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-22",
+      "log_loss": 0.4503057277592448
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-22",
+      "log_loss": 0.5052575846860045
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-22",
+      "log_loss": 0.5314353874598132
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-22",
+      "log_loss": 0.6830414903362082
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-22",
+      "log_loss": 0.4756588163417476
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-23",
+      "log_loss": 0.9888345212312638
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-23",
+      "log_loss": 1.027382179583941
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-23",
+      "log_loss": 0.9145476360170518
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-23",
+      "log_loss": 0.743980424821029
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-23",
+      "log_loss": 1.229782908253856
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-23",
+      "log_loss": 0.9425715992067294
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-23",
+      "log_loss": 0.827362067907593
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-23",
+      "log_loss": 0.775879874914326
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-23",
+      "log_loss": 0.736843119252873
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-23",
+      "log_loss": 1.1490073464328285
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-24",
+      "log_loss": 0.7662164182516834
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-24",
+      "log_loss": 0.9667797375099546
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-24",
+      "log_loss": 0.7924085381855938
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-24",
+      "log_loss": 0.6843183953456161
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-24",
+      "log_loss": 0.7216268624140113
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-24",
+      "log_loss": 0.7922185309475545
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-24",
+      "log_loss": 0.7428889146852549
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-24",
+      "log_loss": 0.7575776442424328
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-24",
+      "log_loss": 0.7229770467934351
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-24",
+      "log_loss": 0.6636300330027772
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-25",
+      "log_loss": 0.646480878634227
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-25",
+      "log_loss": 0.703069750037867
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-25",
+      "log_loss": 0.5778362074964949
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-25",
+      "log_loss": 0.638080398565232
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-25",
+      "log_loss": 0.7511214942316689
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-25",
+      "log_loss": 0.6052610004565333
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-25",
+      "log_loss": 0.6006781829468024
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-25",
+      "log_loss": 0.6513253204319299
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-25",
+      "log_loss": 0.7024949742001346
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-25",
+      "log_loss": 0.6240345455299686
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-26",
+      "log_loss": 0.6989213373231412
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-26",
+      "log_loss": 0.6104021805382766
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-26",
+      "log_loss": 0.6563415961152693
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-26",
+      "log_loss": 0.6082406338200066
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-26",
+      "log_loss": 0.6767269567658191
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-26",
+      "log_loss": 0.5580076942802102
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-26",
+      "log_loss": 0.6323261501140635
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-26",
+      "log_loss": 0.6068254808150578
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-26",
+      "log_loss": 0.6776440745747973
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-26",
+      "log_loss": 0.5901295142515887
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-27",
+      "log_loss": 0.5621387461973892
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-27",
+      "log_loss": 0.7715326993833019
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-27",
+      "log_loss": 0.5297403250083599
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-27",
+      "log_loss": 0.594941654523798
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-27",
+      "log_loss": 0.37357807145362004
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-27",
+      "log_loss": 0.5346942735173492
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-27",
+      "log_loss": 0.6070587267558579
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-27",
+      "log_loss": 0.5294058264506153
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-27",
+      "log_loss": 0.7113142381247645
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-27",
+      "log_loss": 0.5314950031467766
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-02-28",
+      "log_loss": 0.5881022955221386
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-02-28",
+      "log_loss": 0.5129439023919767
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-02-28",
+      "log_loss": 0.6370857404297451
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-02-28",
+      "log_loss": 0.5919155625599266
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-02-28",
+      "log_loss": 0.40401498248781004
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-02-28",
+      "log_loss": 0.47636694158962195
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-02-28",
+      "log_loss": 0.5221667345176788
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-02-28",
+      "log_loss": 0.5699497295813125
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-02-28",
+      "log_loss": 0.6780893802176594
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-02-28",
+      "log_loss": 0.6437270761229702
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-03-01",
+      "log_loss": 0.6446622533350682
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-03-01",
+      "log_loss": 0.7782390899549437
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-03-01",
+      "log_loss": 0.6757763742603331
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-03-01",
+      "log_loss": 0.6257589928015005
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-03-01",
+      "log_loss": 0.7832358548971808
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-03-01",
+      "log_loss": 0.5884969865917977
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-03-01",
+      "log_loss": 0.6128658925571523
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-03-01",
+      "log_loss": 0.6428082114423761
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-03-01",
+      "log_loss": 0.7046682523551092
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-03-01",
+      "log_loss": 0.6181396034605862
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-03-02",
+      "log_loss": 0.3695747358221566
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-03-02",
+      "log_loss": 0.524567114320114
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-03-02",
+      "log_loss": 0.33333305736307756
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-03-02",
+      "log_loss": 0.40175902736315494
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-03-02",
+      "log_loss": 0.48602883133893415
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-03-02",
+      "log_loss": 0.3529179235173954
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-03-02",
+      "log_loss": 0.37256833751702695
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-03-02",
+      "log_loss": 0.4541139042042415
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-03-02",
+      "log_loss": 0.68298545433457
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-03-02",
+      "log_loss": 0.3962893011600943
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-03-03",
+      "log_loss": 0.4606214447187882
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-03-03",
+      "log_loss": 0.9586697873312546
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-03-03",
+      "log_loss": 0.30954905884712436
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-03-03",
+      "log_loss": 0.47996146639000664
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-03-03",
+      "log_loss": 0.3842311356526971
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-03-03",
+      "log_loss": 0.44795986707722335
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-03-03",
+      "log_loss": 0.4963429408939298
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-03-03",
+      "log_loss": 0.4788294188407573
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-03-03",
+      "log_loss": 0.7410883077126236
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-03-03",
+      "log_loss": 0.4037749980858838
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-03-04",
+      "log_loss": 0.3837657863093065
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-03-04",
+      "log_loss": 0.5514107875902423
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-03-04",
+      "log_loss": 0.31844753239371554
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-03-04",
+      "log_loss": 0.46128110672084227
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-03-04",
+      "log_loss": 0.3743886783688382
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-03-04",
+      "log_loss": 0.3767228205614431
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-03-04",
+      "log_loss": 0.4707138340634357
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-03-04",
+      "log_loss": 0.4341160470726317
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-03-04",
+      "log_loss": 0.6810709581962036
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-03-04",
+      "log_loss": 0.3648896110992386
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-03-05",
+      "log_loss": 0.5349838455177749
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-03-05",
+      "log_loss": 0.7682968491385785
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-03-05",
+      "log_loss": 0.49386211095198534
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-03-05",
+      "log_loss": 0.5936048944908182
+    },
+    {
+      "model_name": "ensemble",
+      "game_date_utc": "2026-03-05",
+      "log_loss": 0.5635060052819647
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-03-05",
+      "log_loss": 0.6475708651966847
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-03-05",
+      "log_loss": 0.5687147416946183
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-03-05",
+      "log_loss": 0.6329823982971104
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-03-05",
+      "log_loss": 0.5360429692762391
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-03-05",
+      "log_loss": 0.6184488548820909
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-03-05",
+      "log_loss": 0.5094370442242498
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-03-06",
+      "log_loss": 0.7931533678385001
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-03-06",
+      "log_loss": 0.5247201534556573
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-03-06",
+      "log_loss": 0.739663024313804
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-03-06",
+      "log_loss": 0.6695149565291161
+    },
+    {
+      "model_name": "ensemble",
+      "game_date_utc": "2026-03-06",
+      "log_loss": 0.6801215740897064
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-03-06",
+      "log_loss": 1.0359134751086012
+    },
+    {
+      "model_name": "glm_logit",
+      "game_date_utc": "2026-03-06",
+      "log_loss": 0.6801215740897064
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-03-06",
+      "log_loss": 0.6257196713488055
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-03-06",
+      "log_loss": 0.733635797220004
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-03-06",
+      "log_loss": 0.6899378950998241
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-03-06",
+      "log_loss": 0.786534145521099
+    }
+  ],
+  "change_points": [
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.6474651946657196,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-11\", \"index\": 5, \"value\": 0.6474651946657196}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.2429519863694753,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-12\", \"index\": 8, \"value\": 1.2429519863694753}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.606264638179566,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-12\", \"index\": 11, \"value\": 0.606264638179566}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 2.1323026275710766,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-13\", \"index\": 13, \"value\": 2.1323026275710766}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 2.0750368141135582,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-13\", \"index\": 18, \"value\": 2.0750368141135582}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.7982407431018199,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-13\", \"index\": 20, \"value\": 0.7982407431018199}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.2003753795044048,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-13\", \"index\": 24, \"value\": 1.2003753795044048}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.3387111766705921,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-14\", \"index\": 26, \"value\": 1.3387111766705921}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.7510352865446972,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-15\", \"index\": 28, \"value\": 1.7510352865446972}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8350241340508013,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-16\", \"index\": 38, \"value\": 0.8350241340508013}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.5079245991838424,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-16\", \"index\": 40, \"value\": 1.5079245991838424}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.2584188590342373,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-17\", \"index\": 45, \"value\": 1.2584188590342373}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.0117729644420976,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-17\", \"index\": 46, \"value\": 1.0117729644420976}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 2.1316065717439256,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-17\", \"index\": 49, \"value\": 2.1316065717439256}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.6555896198047875,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-18\", \"index\": 56, \"value\": 1.6555896198047875}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.9039402675118349,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-19\", \"index\": 59, \"value\": 0.9039402675118349}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.9469275156851364,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-19\", \"index\": 62, \"value\": 0.9469275156851364}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.1192433415780507,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-20\", \"index\": 65, \"value\": 1.1192433415780507}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.3091901173359226,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-20\", \"index\": 66, \"value\": 1.3091901173359226}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.7596412257661028,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-20\", \"index\": 68, \"value\": 0.7596412257661028}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8061648603611186,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-20\", \"index\": 72, \"value\": 0.8061648603611186}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.7494736366038005,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-21\", \"index\": 74, \"value\": 0.7494736366038005}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.966068080663248,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-21\", \"index\": 75, \"value\": 0.966068080663248}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 2.198619899611594,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-22\", \"index\": 77, \"value\": 2.198619899611594}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.6716324845742057,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-22\", \"index\": 82, \"value\": 1.6716324845742057}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.0941027310843885,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-22\", \"index\": 83, \"value\": 1.0941027310843885}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.850920680012774,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-22\", \"index\": 86, \"value\": 1.850920680012774}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8018996723232545,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-23\", \"index\": 88, \"value\": 0.8018996723232545}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8336769486643396,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-23\", \"index\": 92, \"value\": 0.8336769486643396}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.5763168308789928,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-23\", \"index\": 93, \"value\": 1.5763168308789928}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 2.250040162140492,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-25\", \"index\": 101, \"value\": 2.250040162140492}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.6086549561070886,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-25\", \"index\": 105, \"value\": 1.6086549561070886}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.8773227840146747,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-25\", \"index\": 108, \"value\": 1.8773227840146747}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 2.002803553936997,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-26\", \"index\": 111, \"value\": 2.002803553936997}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.790332680615349,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-26\", \"index\": 113, \"value\": 0.790332680615349}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.9602079096296228,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-27\", \"index\": 116, \"value\": 0.9602079096296228}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.3232164246919926,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-27\", \"index\": 122, \"value\": 1.3232164246919926}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.2380009163049808,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-29\", \"index\": 125, \"value\": 1.2380009163049808}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.7789662511605417,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-29\", \"index\": 126, \"value\": 0.7789662511605417}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.4589902681459195,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-29\", \"index\": 127, \"value\": 1.4589902681459195}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.380867034758984,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-29\", \"index\": 130, \"value\": 1.380867034758984}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.998980881720113,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-29\", \"index\": 133, \"value\": 0.998980881720113}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.4678219765466076,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-29\", \"index\": 134, \"value\": 1.4678219765466076}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 2.6684105204201773,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-29\", \"index\": 135, \"value\": 2.6684105204201773}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.7918292504587875,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-30\", \"index\": 136, \"value\": 0.7918292504587875}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.4140813079288652,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-30\", \"index\": 137, \"value\": 1.4140813079288652}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.22120960449921,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-30\", \"index\": 138, \"value\": 1.22120960449921}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.2756065603675848,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-30\", \"index\": 142, \"value\": 1.2756065603675848}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8609092087537251,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-30\", \"index\": 144, \"value\": 0.8609092087537251}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 2.3359577546362194,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-11-30\", \"index\": 145, \"value\": 2.3359577546362194}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.7240344273969916,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-02\", \"index\": 152, \"value\": 1.7240344273969916}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.3366075648995288,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-02\", \"index\": 153, \"value\": 1.3366075648995288}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.4611700393930362,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-02\", \"index\": 156, \"value\": 1.4611700393930362}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.3815242232951497,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-02\", \"index\": 158, \"value\": 1.3815242232951497}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.3513296839291138,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-04\", \"index\": 167, \"value\": 1.3513296839291138}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.235909295123647,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-04\", \"index\": 168, \"value\": 1.235909295123647}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.3204147785823253,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-04\", \"index\": 169, \"value\": 1.3204147785823253}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.342634290819676,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-04\", \"index\": 172, \"value\": 1.342634290819676}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8774449093652982,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-05\", \"index\": 177, \"value\": 0.8774449093652982}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.9480761560269926,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-06\", \"index\": 183, \"value\": 0.9480761560269926}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.4355120849988603,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-06\", \"index\": 184, \"value\": 1.4355120849988603}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8665122645417721,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-06\", \"index\": 187, \"value\": 0.8665122645417721}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.81699629056999,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-07\", \"index\": 193, \"value\": 1.81699629056999}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.1575033983467422,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-07\", \"index\": 195, \"value\": 1.1575033983467422}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.661046591145621,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-07\", \"index\": 199, \"value\": 1.661046591145621}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.9771961833822453,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-09\", \"index\": 206, \"value\": 0.9771961833822453}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.063032596649941,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-12\", \"index\": 213, \"value\": 1.063032596649941}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.4587348910485716,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-12\", \"index\": 215, \"value\": 1.4587348910485716}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.9080654881570198,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-13\", \"index\": 220, \"value\": 0.9080654881570198}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.0524908658371601,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-13\", \"index\": 222, \"value\": 1.0524908658371601}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.4807989694629347,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-13\", \"index\": 223, \"value\": 1.4807989694629347}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.469963009615557,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-14\", \"index\": 224, \"value\": 1.469963009615557}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.835919115366313,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-14\", \"index\": 225, \"value\": 0.835919115366313}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.6377860212629698,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-14\", \"index\": 226, \"value\": 1.6377860212629698}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8215540517027458,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-14\", \"index\": 227, \"value\": 0.8215540517027458}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.9227162883431921,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-15\", \"index\": 230, \"value\": 0.9227162883431921}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.3575479638997783,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-15\", \"index\": 231, \"value\": 1.3575479638997783}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.9608031566602271,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-16\", \"index\": 233, \"value\": 0.9608031566602271}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.1546947465354866,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-16\", \"index\": 234, \"value\": 1.1546947465354866}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.815861110065734,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-16\", \"index\": 235, \"value\": 0.815861110065734}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8710068345710761,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-16\", \"index\": 236, \"value\": 0.8710068345710761}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.356668151742593,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-16\", \"index\": 237, \"value\": 1.356668151742593}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.3085551567851705,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-17\", \"index\": 238, \"value\": 1.3085551567851705}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.9460512781856167,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-18\", \"index\": 239, \"value\": 0.9460512781856167}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.4678028697293126,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-18\", \"index\": 240, \"value\": 1.4678028697293126}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.5305452833459667,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-19\", \"index\": 245, \"value\": 1.5305452833459667}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.9690749950130336,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-19\", \"index\": 250, \"value\": 0.9690749950130336}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.8321107120515931,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-19\", \"index\": 252, \"value\": 1.8321107120515931}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.998511843432989,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-20\", \"index\": 253, \"value\": 1.998511843432989}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.9785933390933959,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-20\", \"index\": 254, \"value\": 0.9785933390933959}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.4401043626753347,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-20\", \"index\": 255, \"value\": 1.4401043626753347}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8880931613080113,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-20\", \"index\": 257, \"value\": 0.8880931613080113}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.906634837097506,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-21\", \"index\": 262, \"value\": 0.906634837097506}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.1487417791950867,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-21\", \"index\": 263, \"value\": 1.1487417791950867}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.3373998341986664,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-21\", \"index\": 270, \"value\": 1.3373998341986664}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 2.143269217304563,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-22\", \"index\": 272, \"value\": 2.143269217304563}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.2048762388690684,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-23\", \"index\": 278, \"value\": 1.2048762388690684}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.335667590643614,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-24\", \"index\": 287, \"value\": 1.335667590643614}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.014670173915989,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-24\", \"index\": 288, \"value\": 1.014670173915989}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8475345392410416,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-24\", \"index\": 293, \"value\": 0.8475345392410416}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.1484087320061935,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-24\", \"index\": 294, \"value\": 1.1484087320061935}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8416988296012522,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-25\", \"index\": 296, \"value\": 0.8416988296012522}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.084149879355366,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-27\", \"index\": 300, \"value\": 1.084149879355366}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.9464558363104805,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-27\", \"index\": 302, \"value\": 0.9464558363104805}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.4919976279560445,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-27\", \"index\": 303, \"value\": 1.4919976279560445}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.517359842402563,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-27\", \"index\": 305, \"value\": 1.517359842402563}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.126661851790246,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-27\", \"index\": 306, \"value\": 1.126661851790246}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.0047946441184366,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-27\", \"index\": 307, \"value\": 1.0047946441184366}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 2.073436925305634,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-27\", \"index\": 309, \"value\": 2.073436925305634}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.9486500130233361,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-28\", \"index\": 310, \"value\": 0.9486500130233361}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8495013757516241,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-28\", \"index\": 315, \"value\": 0.8495013757516241}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8991359737010971,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-28\", \"index\": 317, \"value\": 0.8991359737010971}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.2156413566235815,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-28\", \"index\": 318, \"value\": 1.2156413566235815}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.4808086508299871,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-28\", \"index\": 320, \"value\": 1.4808086508299871}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.4978770208554977,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-28\", \"index\": 321, \"value\": 1.4978770208554977}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.858005504669475,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-29\", \"index\": 323, \"value\": 0.858005504669475}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8740396490732913,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-30\", \"index\": 325, \"value\": 0.8740396490732913}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.361733202321176,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-30\", \"index\": 333, \"value\": 1.361733202321176}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.0255973312579152,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2025-12-31\", \"index\": 340, \"value\": 1.0255973312579152}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8169785364869552,
+      "threshold": 0.15,
+      "details_json": "{\"date\": \"2026-01-01\", \"index\": 343, \"value\": 0.8169785364869552}",
+      "as_of_utc": "2026-03-07T03:10:39+00:00"
+    }
+  ]
 }

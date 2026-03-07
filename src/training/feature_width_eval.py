@@ -35,8 +35,14 @@ class FeatureWidthEvalResult:
     registry_updated: bool
 
 
-def default_width_candidates(model_name: str, *, current_width: int | None = None, step: int = 4) -> list[int]:
-    min_features, max_features, _ = _model_feature_pruning_config(model_name)
+def default_width_candidates(
+    model_name: str,
+    *,
+    league: str,
+    current_width: int | None = None,
+    step: int = 4,
+) -> list[int]:
+    min_features, max_features, _ = _model_feature_pruning_config(model_name, league=league)
     upper = max_features if current_width is None else max(min_features, min(int(current_width), max_features))
     widths = list(range(upper, min_features - 1, -abs(int(step or 4))))
     if widths[-1] != min_features:
@@ -44,14 +50,20 @@ def default_width_candidates(model_name: str, *, current_width: int | None = Non
     return list(dict.fromkeys(widths))
 
 
-def _normalize_width_candidates(model_name: str, candidate_widths: list[int] | None, *, current_width: int | None = None) -> list[int]:
-    min_features, max_features, _ = _model_feature_pruning_config(model_name)
+def _normalize_width_candidates(
+    model_name: str,
+    candidate_widths: list[int] | None,
+    *,
+    league: str,
+    current_width: int | None = None,
+) -> list[int]:
+    min_features, max_features, _ = _model_feature_pruning_config(model_name, league=league)
     if candidate_widths:
         widths = [max(min_features, min(int(width), max_features)) for width in candidate_widths]
         if current_width is not None:
             widths.append(max(min_features, min(int(current_width), max_features)))
         return sorted(set(widths), reverse=True)
-    return default_width_candidates(model_name, current_width=current_width)
+    return default_width_candidates(model_name, league=league, current_width=current_width)
 
 
 def _fold_metric_summary(oof: pd.DataFrame, model_name: str) -> dict[str, float]:
@@ -119,7 +131,7 @@ def run_feature_width_eval(
         guardrails_path_template=guardrails_template,
     )
     current_width = len(current_model_map.get(model_code, [])) or None
-    widths = _normalize_width_candidates(model_code, candidate_widths, current_width=current_width)
+    widths = _normalize_width_candidates(model_code, candidate_widths, league=league_code, current_width=current_width)
 
     timestamp = utc_now_iso().replace(":", "").replace("+00:00", "Z")
     eval_root = Path(artifacts_dir) / "research" / f"{model_code}_width_eval_{timestamp}"

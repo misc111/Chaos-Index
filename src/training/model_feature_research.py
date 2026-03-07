@@ -222,7 +222,8 @@ def _eligible_features_for_model(model_name: str, feature_columns: list[str], le
     return cols
 
 
-def _model_feature_pruning_config(model_name: str) -> tuple[int, int, float]:
+def _model_feature_pruning_config(model_name: str, league: str | None = None) -> tuple[int, int, float]:
+    league_code = str(league or "NHL").strip().upper()
     limits = {
         "glm_logit": (14, 24, 0.92),
         "gbdt": (24, 40, 0.88),
@@ -231,7 +232,17 @@ def _model_feature_pruning_config(model_name: str) -> tuple[int, int, float]:
         "bayes_bt_state_space": (12, 20, 0.92),
         "nn_mlp": (18, 34, 0.92),
     }
+    if league_code == "NBA" and model_name == "glm_logit":
+        return (6, 10, 0.92)
     return limits.get(model_name, (12, 24, 0.92))
+
+
+def _default_model_feature_target_width(model_name: str, league: str) -> int:
+    league_code = str(league or "NHL").strip().upper()
+    if league_code == "NBA" and model_name == "glm_logit":
+        return 6
+    _, max_features, _ = _model_feature_pruning_config(model_name, league=league_code)
+    return max_features
 
 
 def _anchor_features(model_name: str, league: str) -> list[str]:
@@ -239,12 +250,11 @@ def _anchor_features(model_name: str, league: str) -> list[str]:
         anchors = {
             "glm_logit": [
                 "diff_form_point_margin",
+                "diff_form_point_margin_hinge_000",
                 "rest_diff",
-                "discipline_free_throw_pressure_diff",
-                "discipline_foul_margin_diff",
                 "elo_home_prob",
+                "elo_home_prob_hinge_055",
                 "arena_margin_effect",
-                "diff_shot_volume_share",
             ],
             "gbdt": [
                 "diff_form_point_margin",
@@ -406,8 +416,8 @@ def select_model_features(
     target_width: int | None = None,
 ) -> list[str]:
     league_code = str(league or "NHL").strip().upper()
-    min_features, max_features, max_abs_corr = _model_feature_pruning_config(model_name)
-    width = max_features if target_width is None else int(target_width)
+    min_features, max_features, max_abs_corr = _model_feature_pruning_config(model_name, league=league_code)
+    width = _default_model_feature_target_width(model_name, league_code) if target_width is None else int(target_width)
     width = max(min_features, min(width, max_features))
     return _prune_correlated_features(
         train_df,
@@ -463,13 +473,13 @@ def research_model_feature_map(
             continue
 
         ranked_features = [str(row["feature"]) for row in scored_rows]
-        _, max_features, _ = _model_feature_pruning_config(model_name)
+        target_width = _default_model_feature_target_width(model_name, league_code)
         selected = select_model_features(
             train_df,
             model_name=model_name,
             league=league_code,
             ranked_features=ranked_features,
-            target_width=max_features,
+            target_width=target_width,
         )
         selected, blocked_hits = apply_model_feature_guardrails(
             selected,

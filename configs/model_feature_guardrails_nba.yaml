@@ -1,6 +1,6 @@
 version: 1
 league: NBA
-updated_at_utc: '2026-03-06T15:10:00+00:00'
+updated_at_utc: '2026-03-07T02:45:00+00:00'
 models:
   glm_logit:
     blocked_features:
@@ -115,6 +115,102 @@ models:
         reconsideration_requirements:
         - explicitly choose dyn_home_prob instead of elo_home_prob
         - rerun the full multicollinearity review before promoting it
+      diff_shot_volume_share:
+        decision: blocked
+        categories:
+        - out_of_sample_regression
+        - nonlinear_signal_better_left_to_tree_or_mars
+        rationale: Raw shot-volume share reduced current NBA GLM predictive power when added back to the winning six-feature base model.
+        observed_on_utc: '2026-03-07T02:45:00+00:00'
+        evidence:
+          base6_oof_log_loss: 0.6404
+          add_back_oof_log_loss: 0.6436
+          best_holdout_candidate: without_shot_profile_block
+        reconsideration_requirements:
+        - show a fresh walk-forward improvement from adding the raw shot feature alone
+        - do not pair it with the hinge transform unless that paired block also wins out of sample
+      diff_shot_volume_share_hinge_001:
+        decision: blocked
+        categories:
+        - out_of_sample_regression
+        - coefficient_instability
+        - multicollinearity
+        rationale: The shot-volume hinge term had the largest coefficient instability in CV and bootstrap diagnostics and hurt current NBA GLM out-of-sample performance.
+        observed_on_utc: '2026-03-07T02:45:00+00:00'
+        evidence:
+          cv_coef_std: 7.7564
+          cv_sign_flip_flag: 1
+          bootstrap_coef_std: 12.0262
+          bootstrap_sign_flip_flag: 1
+        reconsideration_requirements:
+        - replace with a validated spline or tree-side representation
+        - clear CV sign-flip and severe-VIF diagnostics before reintroduction
+      discipline_free_throw_pressure_diff:
+        decision: blocked
+        categories:
+        - out_of_sample_regression
+        - nonlinear_signal_better_left_to_tree_or_gam
+        rationale: The raw free-throw pressure feature did not improve the winning six-feature NBA GLM when added back by itself.
+        observed_on_utc: '2026-03-07T02:45:00+00:00'
+        evidence:
+          base6_oof_log_loss: 0.6404
+          add_back_oof_log_loss: 0.6410
+        reconsideration_requirements:
+        - show a walk-forward gain from the raw feature alone
+        - prefer a spline/GAM formulation over raw-plus-hinge bundles
+      discipline_free_throw_pressure_diff_hinge_000:
+        decision: blocked
+        categories:
+        - out_of_sample_regression
+        - coefficient_instability
+        rationale: The hinge transform amplified variance without producing a stable out-of-sample gain in the NBA GLM.
+        observed_on_utc: '2026-03-07T02:45:00+00:00'
+        evidence:
+          bootstrap_coef_std: 5.7662
+          bootstrap_sign_flip_flag: 1
+        reconsideration_requirements:
+        - replace with a validated spline or grouped nonlinear treatment
+        - clear bootstrap sign-flip diagnostics before reintroduction
+      discipline_free_throw_pressure_diff_is_zero:
+        decision: blocked
+        categories:
+        - low_information_indicator
+        - out_of_sample_regression
+        rationale: The zero-indicator variant increased complexity without improving current NBA GLM predictive power.
+        observed_on_utc: '2026-03-07T02:45:00+00:00'
+        evidence:
+          bootstrap_coef_std: 0.1974
+          bootstrap_sign_flip_flag: 1
+          n_unique_values: 2
+        reconsideration_requirements:
+        - only reintroduce if a future season produces materially different sparsity behavior
+        - require a positive walk-forward gain from the indicator alone
+      discipline_foul_margin_diff:
+        decision: blocked
+        categories:
+        - out_of_sample_regression
+        - nonlinear_signal_better_left_to_tree_or_mars
+        rationale: The raw foul-margin feature did not improve the winning six-feature NBA GLM when added back by itself.
+        observed_on_utc: '2026-03-07T02:45:00+00:00'
+        evidence:
+          base6_oof_log_loss: 0.6404
+          add_back_oof_log_loss: 0.6417
+        reconsideration_requirements:
+        - show a walk-forward gain from the raw feature alone
+        - do not pair it with the hinge transform unless that block wins out of sample
+      discipline_foul_margin_diff_hinge_000:
+        decision: blocked
+        categories:
+        - out_of_sample_regression
+        - coefficient_instability
+        rationale: The foul-margin hinge term contributed instability and did not survive the current NBA GLM rollback.
+        observed_on_utc: '2026-03-07T02:45:00+00:00'
+        evidence:
+          cv_sign_flip_flag: 1
+          bootstrap_sign_flip_flag: 1
+        reconsideration_requirements:
+        - replace with a validated nonlinear formulation
+        - clear sign-flip diagnostics before reintroduction
     watchlist_features:
       elo_home_prob:
         status: watch
@@ -128,30 +224,6 @@ models:
           holdout_log_loss_gain_best: 0.0087
           holdout_brier_gain_best: 0.0033
         recommendation: consider_gam
-      diff_shot_volume_share:
-        status: watch
-        categories:
-        - nonlinearity
-        rationale: Strong hinge-style candidate in the current NBA GLM validation.
-        observed_on_utc: '2026-03-06T15:10:00+00:00'
-        evidence:
-          best_shape: hinge
-          family_hint: mars
-          holdout_log_loss_gain_best: 0.0060
-          holdout_brier_gain_best: 0.0030
-        recommendation: consider_piecewise_transform_or_mars
-      discipline_foul_margin_diff:
-        status: watch
-        categories:
-        - nonlinearity
-        rationale: Strong hinge-style candidate in the current NBA GLM validation.
-        observed_on_utc: '2026-03-06T15:10:00+00:00'
-        evidence:
-          best_shape: hinge
-          family_hint: mars
-          holdout_log_loss_gain_best: 0.0056
-          holdout_brier_gain_best: 0.0025
-        recommendation: consider_piecewise_transform_or_mars
       diff_form_point_margin:
         status: watch
         categories:
@@ -164,27 +236,4 @@ models:
           holdout_log_loss_gain_best: 0.0048
           holdout_brier_gain_best: 0.0023
         recommendation: consider_piecewise_transform_or_mars
-      discipline_free_throw_pressure_diff:
-        status: watch
-        categories:
-        - nonlinearity
-        rationale: Moderate smooth/GAM candidate in the current NBA GLM validation.
-        observed_on_utc: '2026-03-06T15:10:00+00:00'
-        evidence:
-          best_shape: smooth
-          family_hint: gam
-          holdout_log_loss_gain_best: 0.0044
-          holdout_brier_gain_best: 0.0019
-        recommendation: consider_spline_transform_or_gam
-    watchlist_pairs:
-    - categories:
-      - multicollinearity
-      - retained_warning
-      feature_a: diff_form_point_margin
-      feature_b: diff_shot_volume_share
-      rationale: Retained for now, but the pair still carries moderate collinearity in the active NBA GLM.
-      observed_on_utc: '2026-03-06T15:10:00+00:00'
-      evidence:
-        abs_corr: 0.8252
-        pair_severity: warning
-        max_vif_after_cleanup: 4.8325
+    watchlist_pairs: []
