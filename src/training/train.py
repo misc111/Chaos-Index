@@ -479,16 +479,26 @@ def _fit_suite(
                 model_feature_columns=model_feature_columns,
                 fallback_columns=feature_cols,
             )
-            nn = NNModel()
-            nn.fit(tr, nn_cols)
+            gate_nn = NNModel()
+            gate_nn.fit(tr, nn_cols)
             include_nn = True
             if gbdt is not None:
-                nn_p = nn.predict_proba(va)
-                gbdt_p = gbdt.predict_proba(va)
+                gate_gbdt_cols = _resolve_model_feature_columns(
+                    feature_cols,
+                    model_name="gbdt",
+                    model_feature_columns=model_feature_columns,
+                    fallback_columns=feature_cols,
+                )
+                gate_gbdt = GBDTModel()
+                gate_gbdt.fit(tr, gate_gbdt_cols)
+                nn_p = gate_nn.predict_proba(va)
+                gbdt_p = gate_gbdt.predict_proba(va)
                 m_nn = metric_bundle(va["home_win"].to_numpy(), nn_p)
                 m_g = metric_bundle(va["home_win"].to_numpy(), gbdt_p)
                 include_nn = m_nn["log_loss"] + 0.001 < m_g["log_loss"]
             if include_nn:
+                nn = NNModel()
+                nn.fit(train_df, nn_cols)
                 models[nn.model_name] = nn
                 nn_included = True
                 used_feature_map[nn.model_name] = nn_cols

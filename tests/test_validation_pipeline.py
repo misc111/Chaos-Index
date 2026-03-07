@@ -5,7 +5,13 @@ import pandas as pd
 
 from src.common.config import load_config
 from src.models.glm_logit import GLMLogitModel
-from src.evaluation.validation_pipeline import ValidationOutputs, ValidationTask, build_validation_tasks, run_validation_pipeline
+from src.evaluation.validation_pipeline import (
+    ValidationContext,
+    ValidationOutputs,
+    ValidationTask,
+    build_validation_tasks,
+    run_validation_pipeline,
+)
 
 
 def test_validation_pipeline_supports_custom_extension_tasks(tmp_path):
@@ -130,3 +136,54 @@ def test_validation_pipeline_writes_glm_residual_artifacts(tmp_path):
         assert (root / rel_path).exists()
     for rel_path in feature_summary["partial_residual_plot_file"].tolist():
         assert (root / rel_path).exists()
+
+
+def test_validation_context_refits_holdout_models_instead_of_using_production_model(tmp_path):
+    cfg = load_config("configs/default.yaml")
+    cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
+    cfg.data.league = "NHL"
+    cfg.modeling.cv_splits = 4
+
+    rng = np.random.default_rng(17)
+    n = 260
+    start = pd.date_range("2025-01-01", periods=n, freq="D")
+    signal = rng.normal(0.0, 1.0, n)
+    counter = rng.normal(0.0, 1.0, n)
+    logits = 1.3 * signal - 0.8 * counter
+    prob = 1.0 / (1.0 + np.exp(-logits))
+    y = rng.binomial(1, prob)
+
+    train_df = pd.DataFrame(
+        {
+            "start_time_utc": start.astype(str),
+            "game_date_utc": start.date.astype(str),
+            "home_win": y,
+            "signal": signal,
+            "counter": counter,
+        }
+    )
+
+    class ConstantProductionModel:
+        feature_columns = ["signal", "counter"]
+
+        def predict_proba(self, df):
+            return np.full(len(df), 0.99)
+
+    production_glm = ConstantProductionModel()
+    result = {
+        "models": {"glm_logit": production_glm},
+        "train_df": train_df,
+        "feature_columns": ["signal", "counter"],
+        "run_payload": {
+            "selected_models": ["glm_logit"],
+            "glm_feature_columns": ["signal", "counter"],
+            "model_feature_columns": {"glm_logit": ["signal", "counter"]},
+        },
+    }
+
+    ctx = ValidationContext.from_result(result, cfg)
+
+    assert not ctx.va.empty
+    assert ctx.glm is not production_glm
+    assert max(pd.to_datetime(ctx.tr["start_time_utc"])) < min(pd.to_datetime(ctx.va["start_time_utc"]))
+    assert not np.allclose(ctx.glm.predict_proba(ctx.va), 0.99)

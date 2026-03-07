@@ -19,6 +19,11 @@ from src.evaluation.validation_influence import influence_diagnostics
 from src.evaluation.validation_nonlinearity import assess_nonlinearity
 from src.evaluation.validation_significance import blockwise_nested_lrt
 from src.evaluation.validation_stability import assess_multicollinearity, break_test_trade_deadline, coefficient_paths
+from src.models.gbdt import GBDTModel
+from src.models.glm_logit import GLMLogitModel
+from src.models.rf import RFModel
+from src.training.cv import time_series_splits
+from src.training.tune import quick_tune_glm
 
 ValidationTaskRunner = Callable[["ValidationContext"], "ValidationOutputs"]
 ValidationTaskPredicate = Callable[["ValidationContext"], bool]
@@ -109,15 +114,24 @@ class ValidationContext:
     def from_result(cls, result: dict[str, Any], cfg: AppConfig) -> "ValidationContext":
         train_df = result["train_df"].copy()
         feature_cols = list(result["feature_columns"])
-        models = result["models"]
+        run_payload = result.get("run_payload", {})
+        selected_models = _selected_validation_models(result, run_payload)
+        tr, va = _validation_split(train_df, cfg)
+        models = _fit_validation_models(
+            tr,
+            feature_cols=feature_cols,
+            selected_models=selected_models,
+            run_payload=run_payload,
+        )
         league = _canonical_league(cfg.data.league)
         out_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "validation" / league.lower())
         plots_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "plots" / league.lower())
-        split = int(len(train_df) * 0.8)
-        tr = train_df.iloc[:split].copy()
-        va = train_df.iloc[split:].copy()
         glm = models.get("glm_logit")
-        diagnostic_feature_cols = list(getattr(glm, "feature_columns", []) or feature_cols[: min(40, len(feature_cols))])
+        diagnostic_feature_cols = list(
+            getattr(glm, "feature_columns", [])
+            or _validation_feature_columns(feature_cols, run_payload, "glm_logit")
+            or feature_cols[: min(40, len(feature_cols))]
+        )
 
         return cls(
             cfg=cfg,
@@ -132,6 +146,112 @@ class ValidationContext:
             glm=glm,
             diagnostic_feature_cols=diagnostic_feature_cols,
         )
+
+
+def _selected_validation_models(result: dict[str, Any], run_payload: dict[str, Any]) -> list[str]:
+    payload_models = run_payload.get("selected_models", [])
+    if isinstance(payload_models, list):
+        selected = [str(model).strip() for model in payload_models if str(model).strip()]
+        if selected:
+            return selected
+
+    raw_models = result.get("models", {})
+    if isinstance(raw_models, dict):
+        return [str(model).strip() for model in raw_models.keys() if str(model).strip()]
+
+    return []
+
+
+def _validation_split(train_df: pd.DataFrame, cfg: AppConfig) -> tuple[pd.DataFrame, pd.DataFrame]:
+    work = train_df[train_df["home_win"].notna()].copy()
+    if work.empty:
+        return work, work.copy()
+
+    if "start_time_utc" not in work.columns:
+        split = int(len(work) * 0.8)
+        if split <= 0 or split >= len(work):
+            return work, work.iloc[0:0].copy()
+        return work.iloc[:split].copy(), work.iloc[split:].copy()
+
+    work = work.sort_values("start_time_utc")
+    resolved_min_train_size = min(220, max(80, len(work) // 2))
+    splits = time_series_splits(
+        work,
+        n_splits=max(2, int(getattr(cfg.modeling, "cv_splits", 5) or 5)),
+        min_train_size=resolved_min_train_size,
+    )
+    if splits:
+        tr_idx, va_idx = splits[-1]
+        return (
+            work.loc[tr_idx].copy().sort_values("start_time_utc"),
+            work.loc[va_idx].copy().sort_values("start_time_utc"),
+        )
+
+    split = int(len(work) * 0.8)
+    if split <= 0 or split >= len(work):
+        return work, work.iloc[0:0].copy()
+    return work.iloc[:split].copy(), work.iloc[split:].copy()
+
+
+def _validation_feature_columns(
+    feature_cols: list[str],
+    run_payload: dict[str, Any],
+    model_name: str,
+) -> list[str]:
+    model_feature_map = run_payload.get("model_feature_columns", {})
+    if isinstance(model_feature_map, dict):
+        requested = model_feature_map.get(model_name, [])
+        if isinstance(requested, list):
+            resolved = [str(col) for col in requested if str(col) in feature_cols]
+            if resolved:
+                return resolved
+
+    if model_name == "glm_logit":
+        glm_feature_columns = run_payload.get("glm_feature_columns", [])
+        if isinstance(glm_feature_columns, list):
+            resolved = [str(col) for col in glm_feature_columns if str(col) in feature_cols]
+            if resolved:
+                return resolved
+
+    return list(feature_cols)
+
+
+def _fit_validation_models(
+    tr: pd.DataFrame,
+    *,
+    feature_cols: list[str],
+    selected_models: list[str],
+    run_payload: dict[str, Any],
+) -> dict[str, object]:
+    if tr.empty:
+        return {}
+
+    selected = set(selected_models)
+    models: dict[str, object] = {}
+
+    if "glm_logit" in selected:
+        glm_cols = _validation_feature_columns(feature_cols, run_payload, "glm_logit")
+        glm_tune = {"best_c": 1.0}
+        if "start_time_utc" in tr.columns:
+            glm_tune = quick_tune_glm(
+                tr,
+                glm_cols,
+                n_splits=3,
+                min_train_size=min(140, max(70, len(tr) // 2)),
+            )
+        glm = GLMLogitModel(c=float(glm_tune.get("best_c", 1.0)))
+        glm.fit(tr, glm_cols)
+        models[glm.model_name] = glm
+
+    for model_name, model_cls in (("gbdt", GBDTModel), ("rf", RFModel)):
+        if model_name not in selected:
+            continue
+        model_cols = _validation_feature_columns(feature_cols, run_payload, model_name)
+        model = model_cls()
+        model.fit(tr, model_cols)
+        models[model_name] = model
+
+    return models
 
 
 @dataclass(frozen=True, slots=True)
@@ -185,8 +305,9 @@ def _task_glm_diagnostics(ctx: ValidationContext) -> ValidationOutputs:
     if ctx.glm is None:
         return ValidationOutputs()
 
+    diagnostic_df = ctx.va if not ctx.va.empty else (ctx.tr if not ctx.tr.empty else ctx.train_df)
     report = save_glm_diagnostics(
-        ctx.train_df,
+        diagnostic_df,
         glm=ctx.glm,
         target_col="home_win",
         out_dir=str(ensure_dir(ctx.out_dir / "plots")),

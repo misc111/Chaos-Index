@@ -4,6 +4,9 @@ import numpy as np
 import pandas as pd
 import pytest
 
+import src.training.train as train_module
+from src.models.gbdt import GBDTModel
+from src.models.nn import NNModel
 from src.training.train import normalize_selected_models, train_and_predict
 
 
@@ -93,3 +96,53 @@ def test_train_single_model_glm_only(tmp_path):
     per_model = json.loads(row["per_model_probs_json"])
     assert list(per_model.keys()) == ["glm_logit"]
     assert 0.0 < float(row["ensemble_prob_home_win"]) < 1.0
+
+
+def test_fit_suite_nn_gate_uses_preholdout_benchmark_and_refits_winner(monkeypatch, tmp_path):
+    n = 400
+    train_df = pd.DataFrame(
+        {
+            "home_win": [i % 2 for i in range(n)],
+            "feature": np.linspace(-1.0, 1.0, n),
+        }
+    )
+    gbdt_fit_sizes: list[int] = []
+    nn_fit_sizes: list[int] = []
+
+    def fake_gbdt_fit(self, df, feature_columns, target_col="home_win"):
+        self.feature_columns = list(feature_columns)
+        gbdt_fit_sizes.append(int(df[target_col].notna().sum()))
+
+    def fake_nn_fit(self, df, feature_columns, target_col="home_win"):
+        self.feature_columns = list(feature_columns)
+        nn_fit_sizes.append(int(df[target_col].notna().sum()))
+
+    def fake_gbdt_predict(self, df):
+        return np.full(len(df), 0.6)
+
+    def fake_nn_predict(self, df):
+        return np.full(len(df), 0.4)
+
+    def fake_metric_bundle(_y, p):
+        return {"log_loss": float(np.mean(p)), "brier": 0.0, "accuracy": 0.0, "auc": 0.0}
+
+    monkeypatch.setattr(GBDTModel, "fit", fake_gbdt_fit)
+    monkeypatch.setattr(GBDTModel, "predict_proba", fake_gbdt_predict)
+    monkeypatch.setattr(NNModel, "fit", fake_nn_fit)
+    monkeypatch.setattr(NNModel, "predict_proba", fake_nn_predict)
+    monkeypatch.setattr(train_module, "metric_bundle", fake_metric_bundle)
+
+    models, _, _, nn_included, used_feature_map = train_module._fit_suite(
+        train_df,
+        ["feature"],
+        artifacts_dir=str(tmp_path / "artifacts"),
+        bayes_cfg={},
+        selected_models=["gbdt", "nn_mlp"],
+        allow_nn=True,
+    )
+
+    assert nn_included is True
+    assert "nn_mlp" in models
+    assert used_feature_map["nn_mlp"] == ["feature"]
+    assert gbdt_fit_sizes == [n, int(n * 0.85)]
+    assert nn_fit_sizes == [int(n * 0.85), n]
