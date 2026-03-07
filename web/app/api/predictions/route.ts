@@ -1,12 +1,19 @@
 import { NextResponse } from "next/server";
 import { runSqlJson } from "@/lib/db";
 import { leagueFromRequest } from "@/lib/league";
-import { orderPredictionModels, parseModelWinProbabilities, predictionTrustNote } from "@/lib/predictions-report";
+import { loadModelFeatureMap } from "@/lib/model-feature-map";
+import {
+  orderPredictionModels,
+  parseModelWinProbabilities,
+  predictionModelHeadline,
+  predictionTrustNote,
+} from "@/lib/predictions-report";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
   const league = leagueFromRequest(request);
+  const featureMap = await loadModelFeatureMap(league);
   const latest = runSqlJson("SELECT MAX(as_of_utc) AS as_of_utc FROM upcoming_game_forecasts", { league });
   const asOf = latest?.[0]?.as_of_utc;
   const rawRows = asOf
@@ -72,8 +79,31 @@ export async function GET(request: Request) {
   );
 
   const modelTrustNotes = Object.fromEntries(
-    modelColumns.map((model) => [model, predictionTrustNote(model)])
+    modelColumns.map((model) => [model, predictionTrustNote(model, league)])
   );
 
-  return NextResponse.json({ league, as_of_utc: asOf, model_columns: modelColumns, model_trust_notes: modelTrustNotes, rows });
+  const modelSummaries = Object.fromEntries(
+    modelColumns.map((model) => {
+      const activeFeatures = featureMap.models[model] || [];
+      return [
+        model,
+        {
+          headline: predictionModelHeadline(model, league, activeFeatures),
+          trust_note: modelTrustNotes[model],
+          active_feature_count: activeFeatures.length || undefined,
+          active_features: activeFeatures,
+        },
+      ];
+    })
+  );
+
+  return NextResponse.json({
+    league,
+    as_of_utc: asOf,
+    model_columns: modelColumns,
+    model_trust_notes: modelTrustNotes,
+    model_summaries: modelSummaries,
+    model_feature_map_updated_at_utc: featureMap.updated_at_utc,
+    rows,
+  });
 }

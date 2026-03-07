@@ -17,7 +17,7 @@
   "model_trust_notes": {
     "ensemble": "All models combined. Best default pick. Can share the same blind spot.",
     "elo_baseline": "Standard sports betting baseline based on past wins/losses. Good long-run read. Slow on sudden changes.",
-    "glm_logit": "Statistical model that uses a checklist. Usually steady. Weird matchups can slip through.",
+    "glm_logit": "Linear pregame model anchored by projected rotation strength, matchup splits, rest, and absence pressure. It is only as good as the lineup view going into tipoff.",
     "dynamic_rating": "Hot/cold meter. Good for momentum. Can overreact to short streaks.",
     "rf": "Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups.",
     "goals_poisson": "Score-based model. Good for normal scoring games. Messy games hurt it.",
@@ -27,6 +27,192 @@
     "bayes_goals": "Scoring strength + confidence meter. Good trend read. Can lag sudden lineup changes.",
     "simulation_first": "Runs the matchup thousands of times using set assumptions (team strength, pace, and scoring). Good for seeing different paths. If those assumptions are off, this number can be off."
   },
+  "model_summaries": {
+    "ensemble": {
+      "headline": "Default forecast that blends the live model stack into one probability.",
+      "trust_note": "All models combined. Best default pick. Can share the same blind spot.",
+      "active_features": []
+    },
+    "elo_baseline": {
+      "headline": "Single-rating baseline built from historical results and home/away context.",
+      "trust_note": "Standard sports betting baseline based on past wins/losses. Good long-run read. Slow on sudden changes.",
+      "active_features": []
+    },
+    "glm_logit": {
+      "headline": "Now using DARKO-like projected rotation inputs before tipoff.",
+      "trust_note": "Linear pregame model anchored by projected rotation strength, matchup splits, rest, and absence pressure. It is only as good as the lineup view going into tipoff.",
+      "active_feature_count": 9,
+      "active_features": [
+        "diff_darko_like_total",
+        "diff_darko_like_total_hinge_000",
+        "darko_like_off_matchup",
+        "darko_like_def_matchup",
+        "diff_projected_absence_pressure",
+        "rest_diff",
+        "diff_rotation_stability",
+        "elo_home_prob",
+        "arena_margin_effect"
+      ]
+    },
+    "dynamic_rating": {
+      "headline": "Fast-moving strength estimate that reacts more quickly than Elo.",
+      "trust_note": "Hot/cold meter. Good for momentum. Can overreact to short streaks.",
+      "active_features": []
+    },
+    "rf": {
+      "headline": "24 active inputs from the current NBA feature map.",
+      "trust_note": "Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups.",
+      "active_feature_count": 24,
+      "active_features": [
+        "diff_form_point_margin",
+        "travel_diff",
+        "rest_diff",
+        "elo_home_prob",
+        "dyn_home_prob",
+        "arena_shot_volume_effect",
+        "diff_shot_volume_share",
+        "diff_form_win_rate",
+        "elo_away_pre",
+        "away_r14_point_margin",
+        "away_r14_field_goal_attempts_against",
+        "dyn_away_mean",
+        "home_ewm_shot_volume_share",
+        "home_ewm_point_margin",
+        "away_ewm_point_margin",
+        "home_r14_point_margin",
+        "elo_home_pre",
+        "away_r14_points_against",
+        "away_r5_field_goal_attempts_against",
+        "home_r14_shot_volume_share",
+        "home_r14_points_against",
+        "home_ewm_field_goal_attempts_for",
+        "away_r14_scoring_efficiency_proxy",
+        "home_r14_scoring_efficiency_proxy"
+      ]
+    },
+    "goals_poisson": {
+      "headline": "Score-rate model that turns projected offense and defense into a win probability.",
+      "trust_note": "Score-based model. Good for normal scoring games. Messy games hurt it.",
+      "active_features": []
+    },
+    "gbdt": {
+      "headline": "40 active inputs from the current NBA feature map.",
+      "trust_note": "Machine learning model that finds hidden combos. Sometimes too confident.",
+      "active_feature_count": 40,
+      "active_features": [
+        "diff_form_point_margin",
+        "travel_diff",
+        "rest_diff",
+        "elo_home_prob",
+        "dyn_home_prob",
+        "home_ewm_points_for",
+        "away_ewm_points_for",
+        "home_ewm_point_margin",
+        "away_ewm_point_margin",
+        "arena_shot_volume_effect",
+        "diff_shot_volume_share",
+        "elo_away_pre",
+        "away_r14_field_goal_attempts_against",
+        "dyn_away_mean",
+        "home_ewm_shot_volume_share",
+        "elo_home_pre",
+        "away_r14_points_against",
+        "away_r5_field_goal_attempts_against",
+        "home_r14_points_against",
+        "home_ewm_field_goal_attempts_for",
+        "away_r14_scoring_efficiency_proxy",
+        "home_r14_scoring_efficiency_proxy",
+        "away_r14_shot_volume_share",
+        "dyn_home_mean",
+        "home_r5_points_against",
+        "diff_roster_depth",
+        "away_games_played_prior",
+        "home_ewm_field_goal_attempts_against",
+        "away_ewm_possession_proxy",
+        "away_r5_shot_volume_share",
+        "away_r5_points_against",
+        "away_roster_depth_index",
+        "away_r5_field_goal_attempts_for",
+        "home_r5_possession_proxy",
+        "discipline_foul_pressure_diff",
+        "home_r14_possession_proxy",
+        "away_r14_field_goal_attempts_for",
+        "away_r14_points_for",
+        "home_r14_points_for",
+        "dyn_var_diff"
+      ]
+    },
+    "two_stage": {
+      "headline": "26 active inputs from the current NBA feature map.",
+      "trust_note": "Machine learning model with two steps: first predicts game type (fast/slow, close/lopsided), then predicts winner. Good when style matchups matter. If step 1 is wrong, final pick can be wrong.",
+      "active_feature_count": 26,
+      "active_features": [
+        "home_ewm_shot_volume_share",
+        "away_ewm_shot_volume_share",
+        "home_ewm_free_throw_pressure",
+        "away_ewm_free_throw_pressure",
+        "home_ewm_possession_proxy",
+        "away_ewm_possession_proxy",
+        "travel_diff",
+        "rest_diff",
+        "elo_home_prob",
+        "arena_shot_volume_effect",
+        "diff_form_point_margin",
+        "dyn_home_prob",
+        "diff_shot_volume_share",
+        "diff_form_win_rate",
+        "elo_away_pre",
+        "away_r14_point_margin",
+        "away_r14_field_goal_attempts_against",
+        "dyn_away_mean",
+        "home_ewm_point_margin",
+        "away_ewm_point_margin",
+        "home_r14_point_margin",
+        "elo_home_pre",
+        "away_r14_points_against",
+        "away_r5_field_goal_attempts_against",
+        "home_r14_shot_volume_share",
+        "home_r14_points_against"
+      ]
+    },
+    "bayes_bt_state_space": {
+      "headline": "Bayesian rating layer that tracks team strength with uncertainty over time.",
+      "trust_note": "Tracks team strength after every game and gives a range, not just one number. Good for spotting rising/falling teams with uncertainty shown. Can move fast after injuries, trades, or short weird stretches.",
+      "active_feature_count": 19,
+      "active_features": [
+        "diff_form_point_margin",
+        "diff_form_win_rate",
+        "travel_diff",
+        "rest_diff",
+        "elo_home_prob",
+        "dyn_home_prob",
+        "arena_shot_volume_effect",
+        "diff_shot_volume_share",
+        "elo_away_pre",
+        "dyn_away_mean",
+        "elo_home_pre",
+        "dyn_home_mean",
+        "diff_roster_depth",
+        "dyn_var_diff",
+        "diff_foul_margin",
+        "diff_scoring_efficiency",
+        "diff_availability_uncertainty",
+        "diff_availability_reliability",
+        "availability_stress_diff"
+      ]
+    },
+    "bayes_goals": {
+      "headline": "Bayesian scoring model that estimates team strength from expected scoring rates.",
+      "trust_note": "Scoring strength + confidence meter. Good trend read. Can lag sudden lineup changes.",
+      "active_features": []
+    },
+    "simulation_first": {
+      "headline": "Scenario simulator that turns repeated matchup draws into a probability estimate.",
+      "trust_note": "Runs the matchup thousands of times using set assumptions (team strength, pace, and scoring). Good for seeing different paths. If those assumptions are off, this number can be off.",
+      "active_features": []
+    }
+  },
+  "model_feature_map_updated_at_utc": "2026-03-07T04:53:44+00:00",
   "rows": [
     {
       "game_id": 401810771,

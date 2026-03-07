@@ -17,7 +17,7 @@
   "model_trust_notes": {
     "ensemble": "All models combined. Best default pick. Can share the same blind spot.",
     "elo_baseline": "Standard sports betting baseline based on past wins/losses. Good long-run read. Slow on sudden changes.",
-    "glm_logit": "Statistical model that uses a checklist. Usually steady. Weird matchups can slip through.",
+    "glm_logit": "Linear pregame model anchored by form, xG share, roster strength, and goalie uncertainty. It is strongest when starter and availability info are current.",
     "dynamic_rating": "Hot/cold meter. Good for momentum. Can overreact to short streaks.",
     "rf": "Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups.",
     "goals_poisson": "Score-based model. Good for normal scoring games. Messy games hurt it.",
@@ -27,6 +27,162 @@
     "bayes_goals": "Scoring strength + confidence meter. Good trend read. Can lag sudden lineup changes.",
     "simulation_first": "Runs the matchup thousands of times using set assumptions (team strength, pace, and scoring). Good for seeing different paths. If those assumptions are off, this number can be off."
   },
+  "model_summaries": {
+    "ensemble": {
+      "headline": "Default forecast that blends the live model stack into one probability.",
+      "trust_note": "All models combined. Best default pick. Can share the same blind spot.",
+      "active_features": []
+    },
+    "elo_baseline": {
+      "headline": "Single-rating baseline built from historical results and home/away context.",
+      "trust_note": "Standard sports betting baseline based on past wins/losses. Good long-run read. Slow on sudden changes.",
+      "active_features": []
+    },
+    "glm_logit": {
+      "headline": "Pregame logistic regression driven by form, roster, goalie, and xG context.",
+      "trust_note": "Linear pregame model anchored by form, xG share, roster strength, and goalie uncertainty. It is strongest when starter and availability info are current.",
+      "active_feature_count": 16,
+      "active_features": [
+        "diff_form_goal_diff",
+        "diff_form_goal_diff_hinge_m1",
+        "diff_form_goal_diff_hinge_p1",
+        "rest_diff",
+        "elo_home_prob",
+        "elo_home_prob_hinge_054",
+        "dyn_home_prob",
+        "dyn_home_prob_hinge_055",
+        "rink_goal_effect",
+        "diff_roster_strength",
+        "rink_shot_effect",
+        "dyn_home_mean",
+        "dyn_home_mean_hinge_000",
+        "diff_xg_share",
+        "diff_xg_share_cubic",
+        "goalie_uncertainty_diff"
+      ]
+    },
+    "dynamic_rating": {
+      "headline": "Fast-moving strength estimate that reacts more quickly than Elo.",
+      "trust_note": "Hot/cold meter. Good for momentum. Can overreact to short streaks.",
+      "active_features": []
+    },
+    "rf": {
+      "headline": "20 active inputs from the current NHL feature map.",
+      "trust_note": "Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups.",
+      "active_feature_count": 20,
+      "active_features": [
+        "home_penalty_diff",
+        "home_pp_eff",
+        "home_starter_known",
+        "rink_goal_effect",
+        "home_post_trade_deadline",
+        "away_pp_eff_ewm",
+        "diff_roster_strength",
+        "home_pp_eff_ewm",
+        "rink_shot_effect",
+        "home_r5_shots_against",
+        "away_r5_team_save_pct_proxy",
+        "home_days_into_season",
+        "away_r5_shots_for",
+        "home_season_phase_late",
+        "away_r14_shots_for",
+        "away_games_played_prior",
+        "home_r14_shots_against",
+        "home_r5_shots_for",
+        "away_r14_team_save_pct_proxy",
+        "away_ewm_shots_against"
+      ]
+    },
+    "goals_poisson": {
+      "headline": "Goal-rate model that turns projected scoring into a win probability.",
+      "trust_note": "Score-based model. Good for normal scoring games. Messy games hurt it.",
+      "active_features": []
+    },
+    "gbdt": {
+      "headline": "24 active inputs from the current NHL feature map.",
+      "trust_note": "Machine learning model that finds hidden combos. Sometimes too confident.",
+      "active_feature_count": 24,
+      "active_features": [
+        "home_penalty_diff",
+        "home_pp_eff",
+        "home_starter_known",
+        "rink_goal_effect",
+        "home_post_trade_deadline",
+        "away_pp_eff_ewm",
+        "diff_roster_strength",
+        "rink_shot_effect",
+        "home_r5_shots_against",
+        "away_r5_team_save_pct_proxy",
+        "home_days_into_season",
+        "away_r5_shots_for",
+        "home_season_phase_late",
+        "away_r14_shots_for",
+        "away_games_played_prior",
+        "home_r14_shots_against",
+        "home_r5_shots_for",
+        "away_r14_team_save_pct_proxy",
+        "away_ewm_shots_against",
+        "away_pp_eff",
+        "home_roster_strength_index",
+        "home_r14_team_save_pct_proxy",
+        "home_r5_team_save_pct_proxy",
+        "home_r14_shots_for"
+      ]
+    },
+    "two_stage": {
+      "headline": "16 active inputs from the current NHL feature map.",
+      "trust_note": "Machine learning model with two steps: first predicts game type (fast/slow, close/lopsided), then predicts winner. Good when style matchups matter. If step 1 is wrong, final pick can be wrong.",
+      "active_feature_count": 16,
+      "active_features": [
+        "rink_goal_effect",
+        "diff_roster_strength",
+        "rink_shot_effect",
+        "home_r5_shots_against",
+        "away_r5_team_save_pct_proxy",
+        "away_r5_shots_for",
+        "away_r14_shots_for",
+        "home_r14_shots_against",
+        "home_r5_shots_for",
+        "away_r14_team_save_pct_proxy",
+        "away_ewm_shots_against",
+        "home_r14_team_save_pct_proxy",
+        "away_r14_shots_against",
+        "home_r5_team_save_pct_proxy",
+        "home_r14_shots_for",
+        "elo_home_prob"
+      ]
+    },
+    "bayes_bt_state_space": {
+      "headline": "Bayesian rating layer that tracks team strength with uncertainty over time.",
+      "trust_note": "Tracks team strength after every game and gives a range, not just one number. Good for spotting rising/falling teams with uncertainty shown. Can move fast after injuries, trades, or short weird stretches.",
+      "active_feature_count": 12,
+      "active_features": [
+        "diff_form_goal_diff",
+        "travel_diff",
+        "rest_diff",
+        "elo_home_prob",
+        "dyn_home_prob",
+        "rink_goal_effect",
+        "diff_roster_strength",
+        "rink_shot_effect",
+        "diff_form_win_rate",
+        "dyn_home_mean",
+        "diff_xg_share",
+        "elo_home_pre"
+      ]
+    },
+    "bayes_goals": {
+      "headline": "Bayesian scoring model that estimates team strength from expected scoring rates.",
+      "trust_note": "Scoring strength + confidence meter. Good trend read. Can lag sudden lineup changes.",
+      "active_features": []
+    },
+    "simulation_first": {
+      "headline": "Scenario simulator that turns repeated matchup draws into a probability estimate.",
+      "trust_note": "Runs the matchup thousands of times using set assumptions (team strength, pace, and scoring). Good for seeing different paths. If those assumptions are off, this number can be off.",
+      "active_features": []
+    }
+  },
+  "model_feature_map_updated_at_utc": "2026-03-06T14:32:44+00:00",
   "rows": [
     {
       "game_id": 2025021004,

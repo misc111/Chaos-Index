@@ -6,6 +6,7 @@ import { type PredictionsResponse } from "@/lib/types";
 import { normalizeLeague } from "@/lib/league";
 import {
   displayPredictionModel,
+  formatPredictionAsOf,
   formatPredictionDate,
   formatPredictionProbability,
 } from "@/lib/predictions-report";
@@ -37,6 +38,8 @@ function PredictionsPageContent() {
     as_of_utc: undefined,
     model_columns: [],
     model_trust_notes: {},
+    model_summaries: {},
+    model_feature_map_updated_at_utc: undefined,
     rows: [],
   });
   const [team, setTeam] = useState("");
@@ -61,6 +64,8 @@ function PredictionsPageContent() {
             as_of_utc: payload.as_of_utc,
             model_columns: Array.isArray(payload.model_columns) ? payload.model_columns : [],
             model_trust_notes: payload.model_trust_notes || {},
+            model_summaries: payload.model_summaries || {},
+            model_feature_map_updated_at_utc: payload.model_feature_map_updated_at_utc,
             rows: Array.isArray(payload.rows) ? payload.rows : [],
           });
         }
@@ -74,6 +79,8 @@ function PredictionsPageContent() {
             as_of_utc: undefined,
             model_columns: [],
             model_trust_notes: {},
+            model_summaries: {},
+            model_feature_map_updated_at_utc: undefined,
             rows: [],
           });
         }
@@ -117,6 +124,7 @@ function PredictionsPageContent() {
   const modelEntries = report.model_columns.map((model) => ({
     key: model,
     label: displayPredictionModel(model),
+    summary: report.model_summaries[model],
   }));
 
   return (
@@ -260,14 +268,43 @@ function PredictionsPageContent() {
         <div>
           <h3 className={styles.sectionTitle}>Model guide</h3>
           <p className={styles.sectionSubtitle}>
-            Same explanations as the shareable report, turned into scan-friendly cards for the dashboard.
+            Live model notes plus the current active inputs from the {report.league} feature map
+            {report.model_feature_map_updated_at_utc
+              ? `, updated ${formatPredictionAsOf(report.model_feature_map_updated_at_utc)}.`
+              : "."}
           </p>
         </div>
         <div className={styles.notesGrid}>
-          {report.model_columns.map((model) => (
-            <article key={model} className={styles.noteCard}>
-              <p className={styles.noteLabel}>{displayPredictionModel(model)}</p>
-              <p className={styles.noteText}>{report.model_trust_notes[model]}</p>
+          {modelEntries.map((model) => (
+            <article
+              key={model.key}
+              className={`${styles.noteCard} ${model.summary?.active_feature_count ? styles.noteCardFeatureMap : ""}`}
+            >
+              <div className={styles.noteHeader}>
+                <p className={styles.noteLabel}>{model.label}</p>
+                {model.summary?.active_feature_count ? (
+                  <span className={styles.noteMetric}>{model.summary.active_feature_count} inputs</span>
+                ) : null}
+              </div>
+              {model.summary?.headline ? <p className={styles.noteHeadline}>{model.summary.headline}</p> : null}
+              <p className={styles.noteText}>{model.summary?.trust_note || report.model_trust_notes[model.key]}</p>
+              {model.summary?.active_features?.length ? (
+                <div className={styles.featureGroup}>
+                  <p className={styles.featureLabel}>Current inputs</p>
+                  <div className={styles.featureList}>
+                    {model.summary.active_features.slice(0, 8).map((feature) => (
+                      <code key={`${model.key}-${feature}`} className={styles.featureChip}>
+                        {feature}
+                      </code>
+                    ))}
+                    {model.summary.active_features.length > 8 ? (
+                      <span className={styles.featureOverflow}>
+                        +{model.summary.active_features.length - 8} more
+                      </span>
+                    ) : null}
+                  </div>
+                </div>
+              ) : null}
             </article>
           ))}
         </div>

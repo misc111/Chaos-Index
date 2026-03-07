@@ -58,11 +58,80 @@ export function displayPredictionModel(model: string): string {
   return MODEL_DISPLAY_LABELS[model] || titleCaseIdentifier(model);
 }
 
-export function predictionTrustNote(model: string): string {
+function normalizeLeagueLabel(league?: string | null): string {
+  const leagueCode = String(league || "").trim().toUpperCase();
+  return leagueCode === "NHL" ? "NHL" : leagueCode === "NBA" ? "NBA" : "";
+}
+
+export function predictionTrustNote(model: string, league?: string | null): string {
+  const leagueCode = normalizeLeagueLabel(league);
+
+  if (model === "glm_logit" && leagueCode === "NBA") {
+    return "Linear pregame model anchored by projected rotation strength, matchup splits, rest, and absence pressure. It is only as good as the lineup view going into tipoff.";
+  }
+
+  if (model === "glm_logit" && leagueCode === "NHL") {
+    return "Linear pregame model anchored by form, xG share, roster strength, and goalie uncertainty. It is strongest when starter and availability info are current.";
+  }
+
   return (
     MODEL_TRUST_NOTES[model] ||
     "Built on that model's own rule set. Good for a second opinion. Watch for large gaps versus the ensemble."
   );
+}
+
+export function predictionModelHeadline(model: string, league?: string | null, activeFeatures?: string[]): string | undefined {
+  const leagueCode = normalizeLeagueLabel(league);
+  const features = Array.isArray(activeFeatures) ? activeFeatures : [];
+  const hasDarkoInputs = features.some(
+    (feature) => feature.includes("darko_like") || feature.includes("projected_")
+  );
+
+  if (model === "ensemble") {
+    return "Default forecast that blends the live model stack into one probability.";
+  }
+
+  if (model === "elo_baseline") {
+    return "Single-rating baseline built from historical results and home/away context.";
+  }
+
+  if (model === "glm_logit" && leagueCode === "NBA") {
+    return hasDarkoInputs
+      ? "Now using DARKO-like projected rotation inputs before tipoff."
+      : "Pregame logistic regression driven by the current NBA feature map.";
+  }
+
+  if (model === "glm_logit" && leagueCode === "NHL") {
+    return "Pregame logistic regression driven by form, roster, goalie, and xG context.";
+  }
+
+  if (model === "dynamic_rating") {
+    return "Fast-moving strength estimate that reacts more quickly than Elo.";
+  }
+
+  if (model === "goals_poisson") {
+    return leagueCode === "NBA"
+      ? "Score-rate model that turns projected offense and defense into a win probability."
+      : "Goal-rate model that turns projected scoring into a win probability.";
+  }
+
+  if (model === "bayes_bt_state_space") {
+    return "Bayesian rating layer that tracks team strength with uncertainty over time.";
+  }
+
+  if (model === "bayes_goals") {
+    return "Bayesian scoring model that estimates team strength from expected scoring rates.";
+  }
+
+  if (model === "simulation_first") {
+    return "Scenario simulator that turns repeated matchup draws into a probability estimate.";
+  }
+
+  if (features.length > 0) {
+    return `${features.length} active inputs from the current ${leagueCode || "league"} feature map.`;
+  }
+
+  return undefined;
 }
 
 export function orderPredictionModels(models: Iterable<string>): string[] {

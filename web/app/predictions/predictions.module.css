@@ -312,11 +312,27 @@
 }
 
 .noteCard {
+  display: grid;
+  gap: 12px;
   padding: 16px;
   border: 1px solid rgba(217, 207, 186, 0.84);
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.82);
   box-shadow: 0 14px 36px rgba(31, 42, 52, 0.06);
+}
+
+.noteCardFeatureMap {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 251, 248, 0.92));
+  border-color: rgba(15, 118, 110, 0.24);
+}
+
+.noteHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .noteLabel {
@@ -326,11 +342,77 @@
   font-weight: 700;
 }
 
+.noteMetric,
+.featureLabel {
+  color: #607281;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.noteMetric {
+  padding: 5px 8px;
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  border-radius: 999px;
+  background: rgba(15, 118, 110, 0.08);
+  color: #0f766e;
+}
+
+.noteHeadline {
+  margin: 0;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
 .noteText {
-  margin: 8px 0 0;
+  margin: 0;
   color: #5c6d7b;
   font-size: 13px;
   line-height: 1.55;
+}
+
+.featureGroup {
+  display: grid;
+  gap: 8px;
+}
+
+.featureLabel {
+  margin: 0;
+}
+
+.featureList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.featureChip,
+.featureOverflow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.featureChip {
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  background: rgba(248, 250, 252, 0.9);
+  color: #1f2937;
+  font-family: "SFMono-Regular", "SF Mono", "Roboto Mono", "Consolas", monospace;
+  white-space: nowrap;
+}
+
+.featureOverflow {
+  border: 1px dashed rgba(15, 118, 110, 0.22);
+  background: rgba(15, 118, 110, 0.08);
+  color: #0f766e;
+  font-weight: 700;
 }
 
 @media (max-width: 960px) {

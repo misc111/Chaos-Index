@@ -13,11 +13,20 @@ export type ForecastRow = {
   model_win_probabilities?: Record<string, number | null>;
 };
 
+export type PredictionModelSummary = {
+  headline?: string;
+  trust_note: string;
+  active_feature_count?: number;
+  active_features?: string[];
+};
+
 export type PredictionsResponse = {
   league: string;
   as_of_utc?: string;
   model_columns: string[];
   model_trust_notes: Record<string, string>;
+  model_summaries: Record<string, PredictionModelSummary>;
+  model_feature_map_updated_at_utc?: string;
   rows: ForecastRow[];
 };
 
