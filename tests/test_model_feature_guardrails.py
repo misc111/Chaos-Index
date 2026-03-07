@@ -26,7 +26,7 @@ def _write_guardrails(tmp_path, league: str, blocked_features: dict[str, dict]) 
         "league": league,
         "updated_at_utc": "2026-03-06T15:10:00+00:00",
         "models": {
-            "glm_logit": {
+            "glm_ridge": {
                 "blocked_features": blocked_features,
                 "watchlist_features": {},
                 "watchlist_pairs": [],
@@ -69,7 +69,7 @@ version: 1
 league: NBA
 updated_at_utc: '2026-03-06T15:10:00+00:00'
 models:
-  glm_logit:
+  glm_ridge:
     active_features:
     - elo_home_prob
     - dyn_home_prob
@@ -90,14 +90,14 @@ def test_save_model_feature_map_filters_blocked_features(tmp_path) -> None:
 
     path = save_model_feature_map(
         "NBA",
-        {"glm_logit": ["elo_home_prob", "dyn_home_prob", "rest_diff"]},
+        {"glm_ridge": ["elo_home_prob", "dyn_home_prob", "rest_diff"]},
         path_template=_map_template(tmp_path),
         guardrails_path_template=_guardrails_template(tmp_path),
     )
 
     raw = yaml.safe_load(path.read_text())
-    assert raw["models"]["glm_logit"]["active_features"] == ["elo_home_prob", "rest_diff"]
-    assert raw["models"]["glm_logit"]["feature_count"] == 2
+    assert raw["models"]["glm_ridge"]["active_features"] == ["elo_home_prob", "rest_diff"]
+    assert raw["models"]["glm_ridge"]["feature_count"] == 2
 
 
 def test_research_model_feature_map_records_guardrail_exclusions(tmp_path) -> None:
@@ -109,7 +109,7 @@ def test_research_model_feature_map_records_guardrail_exclusions(tmp_path) -> No
         league="NBA",
         artifacts_dir=str(tmp_path / "artifacts"),
         feature_columns=[c for c in df.columns if c not in {"game_id", "start_time_utc", "game_date_utc", "home_win"}],
-        selected_models=["glm_logit"],
+        selected_models=["glm_ridge"],
         approve_changes=True,
         path_template=_map_template(tmp_path),
         guardrails_path_template=_guardrails_template(tmp_path),
@@ -123,7 +123,7 @@ def test_research_model_feature_map_records_guardrail_exclusions(tmp_path) -> No
     report_path = next((tmp_path / "artifacts" / "research").glob("nba_model_feature_research_*.json"))
     report = json.loads(report_path.read_text())
 
-    assert "dyn_home_prob" not in result.approved_model_features["glm_logit"]
-    assert "dyn_home_prob" not in saved["glm_logit"]
-    assert report["guardrail_exclusions"]["glm_logit"] == ["dyn_home_prob"]
+    assert "dyn_home_prob" not in result.approved_model_features["glm_ridge"]
+    assert "dyn_home_prob" not in saved["glm_ridge"]
+    assert report["guardrail_exclusions"]["glm_ridge"] == ["dyn_home_prob"]
     assert report["model_feature_guardrails_path"].endswith("model_feature_guardrails_nba.yaml")

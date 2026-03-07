@@ -2,7 +2,7 @@ version: 1
 league: NHL
 updated_at_utc: '2026-03-06T14:32:44+00:00'
 models:
-  glm_logit:
+  glm_ridge:
     active_features:
     - diff_form_goal_diff
     - diff_form_goal_diff_hinge_m1

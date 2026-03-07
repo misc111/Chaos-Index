@@ -18,7 +18,7 @@ from src.storage.db import Database
 MODEL_DISPLAY_LABELS = {
     "ensemble": "Ensemble",
     "elo_baseline": "Elo",
-    "glm_logit": "GLM",
+    "glm_ridge": "GLM Ridge",
     "dynamic_rating": "Dyn Rating",
     "gbdt": "GBDT",
     "rf": "RF",

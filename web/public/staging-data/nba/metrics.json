@@ -35,7 +35,7 @@
       "calibration_beta": 2.2270531533317053
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "30d",
       "n_games": 196,
       "log_loss": 0.6088644899506712,
@@ -167,7 +167,7 @@
       "calibration_beta": 1.3191215691671911
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "60d",
       "n_games": 415,
       "log_loss": 0.6326596818846886,
@@ -244,7 +244,7 @@
       "calibration_beta": 0.2083441645928117
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "7d",
       "n_games": 60,
       "log_loss": 0.5178433862864465,
@@ -420,7 +420,7 @@
       "calibration_beta": 0.9729776255196956
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "90d",
       "n_games": 612,
       "log_loss": 0.6500234679490302,
@@ -519,7 +519,7 @@
       "calibration_beta": 1.0638882430385723
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "cumulative",
       "n_games": 791,
       "log_loss": 0.6399160866809286,
@@ -609,7 +609,7 @@
   ],
   "calibration": [
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "7d",
       "calibration_alpha": -0.6094812066132639,
       "calibration_beta": 1.917236121539581,
@@ -708,7 +708,7 @@
       "n_games": 196
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "30d",
       "calibration_alpha": -0.48431183826186963,
       "calibration_beta": 1.2953026073404525,
@@ -771,7 +771,7 @@
       "n_games": 415
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "60d",
       "calibration_alpha": -0.16530416405695394,
       "calibration_beta": 0.9384473558917735,
@@ -852,7 +852,7 @@
       "n_games": 791
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "cumulative",
       "calibration_alpha": -0.16396077020918334,
       "calibration_beta": 0.7698468214548564,
@@ -906,7 +906,7 @@
       "n_games": 612
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "90d",
       "calibration_alpha": -0.10847603254473745,
       "calibration_beta": 0.7327028896193604,

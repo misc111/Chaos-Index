@@ -47,7 +47,7 @@ def test_build_hard_refresh_steps_models_and_approve_flag():
     train_steps = [step for step in steps if step.name.endswith(":train")]
     assert len(train_steps) == 2
     for step in train_steps:
-        assert step.command[-3:] == ("--models", "glm_logit,rf", "--approve-feature-changes")
+        assert step.command[-3:] == ("--models", "glm_ridge,rf", "--approve-feature-changes")
 
     assert [step.name for step in steps][-1] == "staging:generate-data"
 

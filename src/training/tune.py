@@ -3,7 +3,7 @@ from __future__ import annotations
 import pandas as pd
 
 from src.evaluation.metrics import metric_bundle
-from src.models.glm_logit import GLMLogitModel
+from src.models.glm_ridge import GLMRidgeModel
 from src.training.cv import time_series_splits
 
 
@@ -35,7 +35,7 @@ def quick_tune_glm(
             va = train.loc[va_idx].copy().sort_values("start_time_utc")
             if tr.empty or va.empty:
                 continue
-            model = GLMLogitModel(c=float(c))
+            model = GLMRidgeModel(c=float(c))
             model.fit(tr, feature_cols)
             p = model.predict_proba(va)
             met = metric_bundle(va["home_win"].astype(int).to_numpy(), p)

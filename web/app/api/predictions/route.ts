@@ -3,6 +3,7 @@ import { runSqlJson } from "@/lib/db";
 import { leagueFromRequest } from "@/lib/league";
 import { loadModelFeatureMap } from "@/lib/model-feature-map";
 import {
+  canonicalizePredictionModelProbabilities,
   orderPredictionModels,
   parseModelWinProbabilities,
   predictionModelHeadline,
@@ -28,10 +29,10 @@ export async function GET(request: Request) {
     : [];
 
   const games = rawRows.map((row) => {
-    const modelWinProbabilities = {
+    const modelWinProbabilities = canonicalizePredictionModelProbabilities({
       ensemble: Number(row.ensemble_prob_home_win),
       ...parseModelWinProbabilities(row.per_model_probs_json),
-    };
+    });
 
     return {
       game_id: Number(row.game_id),

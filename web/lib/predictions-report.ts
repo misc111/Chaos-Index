@@ -1,7 +1,7 @@
 const MODEL_REPORT_ORDER = [
   "ensemble",
   "elo_baseline",
-  "glm_logit",
+  "glm_ridge",
   "dynamic_rating",
   "rf",
   "goals_poisson",
@@ -16,7 +16,7 @@ const MODEL_REPORT_ORDER = [
 const MODEL_DISPLAY_LABELS: Record<string, string> = {
   ensemble: "Ensemble",
   elo_baseline: "Elo",
-  glm_logit: "GLM",
+  glm_ridge: "GLM Ridge",
   dynamic_rating: "Dyn Rating",
   rf: "RF",
   goals_poisson: "Goals Pois",
@@ -28,10 +28,14 @@ const MODEL_DISPLAY_LABELS: Record<string, string> = {
   nn_mlp: "NN",
 };
 
+const LEGACY_MODEL_ALIASES: Record<string, string> = {
+  glm_logit: "glm_ridge",
+};
+
 export const MODEL_TRUST_NOTES: Record<string, string> = {
   ensemble: "All models combined. Best default pick. Can share the same blind spot.",
   elo_baseline: "Standard sports betting baseline based on past wins/losses. Good long-run read. Slow on sudden changes.",
-  glm_logit: "Statistical model that uses a checklist. Usually steady. Weird matchups can slip through.",
+  glm_ridge: "Ridge-penalized logistic model. Usually steady. Weird matchups can slip through.",
   dynamic_rating: "Hot/cold meter. Good for momentum. Can overreact to short streaks.",
   rf: "Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups.",
   goals_poisson: "Score-based model. Good for normal scoring games. Messy games hurt it.",
@@ -54,8 +58,14 @@ function titleCaseIdentifier(value: string): string {
     .join(" ");
 }
 
+export function canonicalizePredictionModel(model: string): string {
+  const token = String(model || "").trim();
+  return LEGACY_MODEL_ALIASES[token] || token;
+}
+
 export function displayPredictionModel(model: string): string {
-  return MODEL_DISPLAY_LABELS[model] || titleCaseIdentifier(model);
+  const canonicalModel = canonicalizePredictionModel(model);
+  return MODEL_DISPLAY_LABELS[canonicalModel] || titleCaseIdentifier(canonicalModel);
 }
 
 function normalizeLeagueLabel(league?: string | null): string {
@@ -64,66 +74,68 @@ function normalizeLeagueLabel(league?: string | null): string {
 }
 
 export function predictionTrustNote(model: string, league?: string | null): string {
+  const canonicalModel = canonicalizePredictionModel(model);
   const leagueCode = normalizeLeagueLabel(league);
 
-  if (model === "glm_logit" && leagueCode === "NBA") {
+  if (canonicalModel === "glm_ridge" && leagueCode === "NBA") {
     return "Linear pregame model anchored by projected rotation strength, matchup splits, rest, and absence pressure. It is only as good as the lineup view going into tipoff.";
   }
 
-  if (model === "glm_logit" && leagueCode === "NHL") {
+  if (canonicalModel === "glm_ridge" && leagueCode === "NHL") {
     return "Linear pregame model anchored by form, xG share, roster strength, and goalie uncertainty. It is strongest when starter and availability info are current.";
   }
 
   return (
-    MODEL_TRUST_NOTES[model] ||
+    MODEL_TRUST_NOTES[canonicalModel] ||
     "Built on that model's own rule set. Good for a second opinion. Watch for large gaps versus the ensemble."
   );
 }
 
 export function predictionModelHeadline(model: string, league?: string | null, activeFeatures?: string[]): string | undefined {
+  const canonicalModel = canonicalizePredictionModel(model);
   const leagueCode = normalizeLeagueLabel(league);
   const features = Array.isArray(activeFeatures) ? activeFeatures : [];
   const hasDarkoInputs = features.some(
     (feature) => feature.includes("darko_like") || feature.includes("projected_")
   );
 
-  if (model === "ensemble") {
+  if (canonicalModel === "ensemble") {
     return "Default forecast that blends the live model stack into one probability.";
   }
 
-  if (model === "elo_baseline") {
+  if (canonicalModel === "elo_baseline") {
     return "Single-rating baseline built from historical results and home/away context.";
   }
 
-  if (model === "glm_logit" && leagueCode === "NBA") {
+  if (canonicalModel === "glm_ridge" && leagueCode === "NBA") {
     return hasDarkoInputs
       ? "Now using DARKO-like projected rotation inputs before tipoff."
-      : "Pregame logistic regression driven by the current NBA feature map.";
+      : "Pregame ridge logistic regression driven by the current NBA feature map.";
   }
 
-  if (model === "glm_logit" && leagueCode === "NHL") {
-    return "Pregame logistic regression driven by form, roster, goalie, and xG context.";
+  if (canonicalModel === "glm_ridge" && leagueCode === "NHL") {
+    return "Pregame ridge logistic regression driven by form, roster, goalie, and xG context.";
   }
 
-  if (model === "dynamic_rating") {
+  if (canonicalModel === "dynamic_rating") {
     return "Fast-moving strength estimate that reacts more quickly than Elo.";
   }
 
-  if (model === "goals_poisson") {
+  if (canonicalModel === "goals_poisson") {
     return leagueCode === "NBA"
       ? "Score-rate model that turns projected offense and defense into a win probability."
       : "Goal-rate model that turns projected scoring into a win probability.";
   }
 
-  if (model === "bayes_bt_state_space") {
+  if (canonicalModel === "bayes_bt_state_space") {
     return "Bayesian rating layer that tracks team strength with uncertainty over time.";
   }
 
-  if (model === "bayes_goals") {
+  if (canonicalModel === "bayes_goals") {
     return "Bayesian scoring model that estimates team strength from expected scoring rates.";
   }
 
-  if (model === "simulation_first") {
+  if (canonicalModel === "simulation_first") {
     return "Scenario simulator that turns repeated matchup draws into a probability estimate.";
   }
 
@@ -137,7 +149,7 @@ export function predictionModelHeadline(model: string, league?: string | null, a
 export function orderPredictionModels(models: Iterable<string>): string[] {
   const unique = new Set(
     Array.from(models)
-      .map((value) => String(value || "").trim())
+      .map((value) => canonicalizePredictionModel(String(value || "").trim()))
       .filter(Boolean)
   );
 
@@ -147,6 +159,22 @@ export function orderPredictionModels(models: Iterable<string>): string[] {
       .filter((model) => !MODEL_REPORT_ORDER.includes(model as (typeof MODEL_REPORT_ORDER)[number]))
       .sort(),
   ];
+}
+
+export function canonicalizePredictionModelProbabilities(
+  probabilities: Record<string, number | null>
+): Record<string, number | null> {
+  const out: Record<string, number | null> = {};
+  for (const [key, value] of Object.entries(probabilities)) {
+    const canonicalKey = canonicalizePredictionModel(key);
+    if (!canonicalKey) {
+      continue;
+    }
+    if (!(canonicalKey in out) || out[canonicalKey] == null) {
+      out[canonicalKey] = value;
+    }
+  }
+  return out;
 }
 
 export function parseModelWinProbabilities(raw: unknown): Record<string, number | null> {
@@ -160,11 +188,13 @@ export function parseModelWinProbabilities(raw: unknown): Record<string, number 
       return {};
     }
 
-    return Object.fromEntries(
-      Object.entries(parsed).map(([key, value]) => {
-        const numeric = typeof value === "number" ? value : Number(value);
-        return [key, Number.isFinite(numeric) ? numeric : null];
-      })
+    return canonicalizePredictionModelProbabilities(
+      Object.fromEntries(
+        Object.entries(parsed).map(([key, value]) => {
+          const numeric = typeof value === "number" ? value : Number(value);
+          return [key, Number.isFinite(numeric) ? numeric : null];
+        })
+      )
     );
   } catch {
     return {};

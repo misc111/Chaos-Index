@@ -539,7 +539,7 @@ def save_glm_diagnostics(
 
     summary = {
         "status": "ok",
-        "headline": "Generated working residual, binned working residual, and partial residual diagnostics for glm_logit",
+        "headline": "Generated working residual, binned working residual, and partial residual diagnostics for glm_ridge",
         "sample_name": "train_df",
         "n_observations": int(len(work)),
         "n_features": int(len(feature_cols)),
@@ -556,7 +556,7 @@ def save_glm_diagnostics(
         "working_residual_definition": "wri = (y - m) / (m * (1 - m))",
         "partial_residual_definition": "partial = wri + beta_j * z_j",
         "binning_note": "Binned residual means use equal-working-weight bins and working-weighted averages.",
-        "component_note": "beta_j * z_j uses the fitted standardized design-matrix column because glm_logit is trained on scaled predictors.",
+        "component_note": "beta_j * z_j uses the fitted standardized design-matrix column because glm_ridge is trained on scaled predictors.",
         "deviance_residual_mean": _safe_float(float(np.mean(deviance_residual))),
         "deviance_residual_std": _safe_float(float(np.std(deviance_residual, ddof=0))),
         "randomized_quantile_residual_mean": _safe_float(float(np.mean(randomized_quantile_residual))),

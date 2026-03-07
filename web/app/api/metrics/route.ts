@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { runSqlJson } from "@/lib/db";
 import { leagueFromRequest } from "@/lib/league";
+import { canonicalizePredictionModel } from "@/lib/predictions-report";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -28,7 +29,10 @@ export async function GET(request: Request) {
      ORDER BY as_of_utc DESC, window_label ASC, log_loss ASC
      LIMIT 200`,
     { league }
-  );
+  ).map((row) => ({
+    ...row,
+    model_name: canonicalizePredictionModel(String(row.model_name || "")),
+  }));
 
   const calibration = runSqlJson(
     `SELECT model_name, window_label, calibration_alpha, calibration_beta, ece, mce, n_games
@@ -36,7 +40,10 @@ export async function GET(request: Request) {
      ORDER BY as_of_utc DESC, log_loss ASC
      LIMIT 200`,
     { league }
-  );
+  ).map((row) => ({
+    ...row,
+    model_name: canonicalizePredictionModel(String(row.model_name || "")),
+  }));
 
   const validationRoot = path.resolve(process.cwd(), "..", "artifacts", "validation");
   const leagueSpecificSlicesPath = path.join(validationRoot, `slice_analysis_${league.toLowerCase()}.csv`);

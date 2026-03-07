@@ -56,8 +56,12 @@ def run_walk_forward_backtest(
             continue
 
         fold_glm_c = 1.0
-        fold_glm_cols = selected_model_feature_columns.get("glm_logit", glm_cols) if selected_model_feature_columns else glm_cols
-        if "glm_logit" in models_selected:
+        fold_glm_cols = (
+            selected_model_feature_columns.get("glm_ridge")
+            or selected_model_feature_columns.get("glm_logit")
+            or glm_cols
+        ) if selected_model_feature_columns else glm_cols
+        if "glm_ridge" in models_selected:
             tune = quick_tune_glm(
                 tr,
                 fold_glm_cols,

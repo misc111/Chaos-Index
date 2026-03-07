@@ -31,9 +31,9 @@ This is a useful counterweight to purely opportunistic feature inclusion. It enc
 - a documented tradeoff between predictive lift and interpretability
 - final refitting only after model structure has been chosen
 
-## Relation to current `glm_logit` work
+## Relation to current `glm_ridge` work
 
-We do not appear to have followed this exact textbook sequence when building `glm_logit`.
+We do not appear to have followed this exact textbook sequence when building `glm_ridge`.
 
 What the repo already does that is adjacent:
 - uses holdout and walk-forward evaluation extensively
@@ -43,15 +43,15 @@ What the repo already does that is adjacent:
 What is still different from the Exam 8 framing:
 - the current process is not organized as a clearly documented nested GLM ladder
 - feature growth is driven more by research rankings and guardrails than by sequential nested candidate models
-- the final `glm_logit` selection logic is distributed across research artifacts rather than written down as one theory-first strategy
+- the final `glm_ridge` selection logic is distributed across research artifacts rather than written down as one theory-first strategy
 
 ## Possible implementation path
 
-If we want to adopt this more literally for `glm_logit`, a practical version would be:
+If we want to adopt this more literally for `glm_ridge`, a practical version would be:
 
 1. Define ordered feature blocks for each league.
    Example: baseline ratings -> recent form -> roster/injury context -> schedule/travel -> market/context features.
-2. Fit nested `glm_logit` candidates by block.
+2. Fit nested `glm_ridge` candidates by block.
 3. Score each candidate on the same holdout or walk-forward slices.
 4. Choose the preferred block depth using both metrics and modeling judgment.
 5. Refit the selected block structure on all training data.

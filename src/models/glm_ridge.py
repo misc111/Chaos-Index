@@ -8,8 +8,8 @@ from sklearn.preprocessing import StandardScaler
 from src.models.base import BaseProbModel
 
 
-class GLMLogitModel(BaseProbModel):
-    model_name = "glm_logit"
+class GLMRidgeModel(BaseProbModel):
+    model_name = "glm_ridge"
 
     def __init__(self, c: float = 1.0, random_state: int = 42):
         super().__init__()

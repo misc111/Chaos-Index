@@ -9,8 +9,8 @@ from src.training.model_feature_research import (
 
 
 def test_glm_pruning_config_is_league_specific() -> None:
-    assert _model_feature_pruning_config("glm_logit", league="NBA") == (6, 10, 0.92)
-    assert _model_feature_pruning_config("glm_logit", league="NHL") == (14, 24, 0.92)
+    assert _model_feature_pruning_config("glm_ridge", league="NBA") == (6, 10, 0.92)
+    assert _model_feature_pruning_config("glm_ridge", league="NHL") == (14, 24, 0.92)
 
 
 def test_nba_model_feature_research_promotes_per_model_feature_map(tmp_path) -> None:
@@ -56,18 +56,18 @@ def test_nba_model_feature_research_promotes_per_model_feature_map(tmp_path) -> 
         league="NBA",
         artifacts_dir=str(tmp_path / "artifacts"),
         feature_columns=[c for c in df.columns if c not in {"game_id", "start_time_utc", "game_date_utc", "home_win"}],
-        selected_models=["glm_logit", "two_stage"],
+        selected_models=["glm_ridge", "two_stage"],
         approve_changes=True,
         path_template=str(tmp_path / "model_feature_map_{league}.yaml"),
     )
 
     saved = load_model_feature_map("NBA", path_template=str(tmp_path / "model_feature_map_{league}.yaml"))
     assert result.registry_updated is True
-    assert "glm_logit" in saved
+    assert "glm_ridge" in saved
     assert "two_stage" in saved
-    assert "diff_form_point_margin" in saved["glm_logit"]
-    assert "elo_home_prob" in saved["glm_logit"]
-    assert len(saved["glm_logit"]) <= 10
+    assert "diff_form_point_margin" in saved["glm_ridge"]
+    assert "elo_home_prob" in saved["glm_ridge"]
+    assert len(saved["glm_ridge"]) <= 10
     assert "home_ewm_shot_volume_share" in saved["two_stage"]
 
 
@@ -165,17 +165,17 @@ def test_nhl_model_feature_research_promotes_per_model_feature_map(tmp_path) -> 
         league="NHL",
         artifacts_dir=str(tmp_path / "artifacts"),
         feature_columns=[c for c in df.columns if c not in {"game_id", "start_time_utc", "game_date_utc", "home_win"}],
-        selected_models=["glm_logit", "bayes_bt_state_space"],
+        selected_models=["glm_ridge", "bayes_bt_state_space"],
         approve_changes=True,
         path_template=str(tmp_path / "model_feature_map_{league}.yaml"),
     )
 
     saved = load_model_feature_map("NHL", path_template=str(tmp_path / "model_feature_map_{league}.yaml"))
     assert result.registry_updated is True
-    assert "glm_logit" in saved
+    assert "glm_ridge" in saved
     assert "bayes_bt_state_space" in saved
-    assert "diff_form_goal_diff" in saved["glm_logit"]
-    assert "goalie_quality_diff" in saved["glm_logit"]
+    assert "diff_form_goal_diff" in saved["glm_ridge"]
+    assert "goalie_quality_diff" in saved["glm_ridge"]
     assert "travel_diff" in saved["bayes_bt_state_space"]
     assert "elo_home_prob" in saved["bayes_bt_state_space"]
 
@@ -188,7 +188,7 @@ version: 1
 league: NBA
 updated_at_utc: '2026-03-05T00:00:00+00:00'
 models:
-  glm_logit:
+  glm_ridge:
     active_features:
     - diff_form_point_margin
     - elo_home_prob
@@ -230,5 +230,5 @@ models:
     )
 
     saved = load_model_feature_map("NBA", path_template=str(tmp_path / "model_feature_map_{league}.yaml"))
-    assert saved["glm_logit"] == ["diff_form_point_margin", "elo_home_prob"]
+    assert saved["glm_ridge"] == ["diff_form_point_margin", "elo_home_prob"]
     assert "gbdt" in saved

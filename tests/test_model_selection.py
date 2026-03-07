@@ -71,8 +71,8 @@ def _synthetic_features(n_train: int = 260, n_upcoming: int = 20) -> pd.DataFram
 
 
 def test_normalize_selected_models_aliases_and_validation():
-    assert normalize_selected_models(["glm"]) == ["glm_logit"]
-    assert "glm_logit" in normalize_selected_models(["all"])
+    assert normalize_selected_models(["glm"]) == ["glm_ridge"]
+    assert "glm_ridge" in normalize_selected_models(["all"])
     with pytest.raises(ValueError):
         normalize_selected_models(["not_a_model"])
 
@@ -84,17 +84,17 @@ def test_train_single_model_glm_only(tmp_path):
         feature_set_version="test_feature_set",
         artifacts_dir=str(tmp_path / "artifacts"),
         bayes_cfg={},
-        selected_models=["glm_logit"],
+        selected_models=["glm_ridge"],
     )
 
     pred_cols = list(out["upcoming_model_probs"].columns)
-    assert pred_cols == ["game_id", "glm_logit"]
-    assert out["run_payload"]["selected_models"] == ["glm_logit"]
+    assert pred_cols == ["game_id", "glm_ridge"]
+    assert out["run_payload"]["selected_models"] == ["glm_ridge"]
     assert out["run_payload"]["glm_best_c"] in {0.1, 0.25, 0.5, 1.0, 2.0, 4.0}
 
     row = out["forecasts"].iloc[0]
     per_model = json.loads(row["per_model_probs_json"])
-    assert list(per_model.keys()) == ["glm_logit"]
+    assert list(per_model.keys()) == ["glm_ridge"]
     assert 0.0 < float(row["ensemble_prob_home_win"]) < 1.0
 
 

@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from src.models.glm_logit import GLMLogitModel
+from src.models.glm_ridge import GLMRidgeModel
 from src.training.train import glm_feature_subset
 from src.training.tune import quick_tune_glm
 
@@ -54,7 +54,7 @@ def test_glm_handles_missing_and_inf_values():
             "f2": [1.0, 0.0, 0.3, np.nan, 0.2, 0.1, 0.9, np.inf],
         }
     )
-    m = GLMLogitModel(c=0.5)
+    m = GLMRidgeModel(c=0.5)
     m.fit(df, feature_columns=["f1", "f2"])
     p = m.predict_proba(df)
     assert np.isfinite(p).all()

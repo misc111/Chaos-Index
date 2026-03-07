@@ -48,7 +48,7 @@ COMPETITION_NAME_BY_LEAGUE = {
 MODEL_REPORT_ORDER = [
     "ensemble",
     "elo_baseline",
-    "glm_logit",
+    "glm_ridge",
     "dynamic_rating",
     "rf",
     "goals_poisson",
@@ -67,7 +67,7 @@ MODEL_TRUST_NOTES = {
     "elo_baseline": (
         "Standard sports betting baseline based on past wins/losses. Good long-run read. Slow on sudden changes."
     ),
-    "glm_logit": (
+    "glm_ridge": (
         "Statistical model that uses a checklist. Usually steady. Weird matchups can slip through."
     ),
     "dynamic_rating": (
@@ -99,6 +99,10 @@ MODEL_TRUST_NOTES = {
     ),
 }
 
+LEGACY_MODEL_NAME_MAP = {
+    "glm_logit": "glm_ridge",
+}
+
 
 
 def _deep_update(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
@@ -108,6 +112,24 @@ def _deep_update(base: dict[str, Any], override: dict[str, Any]) -> dict[str, An
             out[key] = _deep_update(out[key], value)
         else:
             out[key] = value
+    return out
+
+
+def _canonical_model_name(model_name: Any) -> str:
+    token = str(model_name or "").strip()
+    return LEGACY_MODEL_NAME_MAP.get(token, token)
+
+
+def _canonicalize_model_probabilities(per_model: dict[str, Any]) -> dict[str, float]:
+    out: dict[str, float] = {}
+    for raw_name, raw_value in per_model.items():
+        model_name = _canonical_model_name(raw_name)
+        if not model_name:
+            continue
+        try:
+            out[model_name] = float(raw_value)
+        except (TypeError, ValueError):
+            continue
     return out
 
 
@@ -171,6 +193,7 @@ def _oriented_game_forecast(row: dict, team: str) -> dict:
     opp = row["away_team"] if is_home else row["home_team"]
 
     per_model = json.loads(row["per_model_probs_json"]) if row.get("per_model_probs_json") else {}
+    per_model = _canonicalize_model_probabilities(per_model)
     team_oriented = {}
     for k, v in per_model.items():
         team_oriented[k] = float(v) if is_home else float(1 - float(v))
@@ -219,9 +242,10 @@ def _bernoulli_sum_distribution(probs: list[float]) -> list[float]:
 
 
 def _ordered_model_names(model_names: set[str]) -> list[str]:
-    ordered = [name for name in MODEL_REPORT_ORDER if name in model_names]
+    canonical_names = {_canonical_model_name(name) for name in model_names if _canonical_model_name(name)}
+    ordered = [name for name in MODEL_REPORT_ORDER if name in canonical_names]
     seen = set(ordered)
-    ordered.extend(sorted(name for name in model_names if name not in seen))
+    ordered.extend(sorted(name for name in canonical_names if name not in seen))
     return ordered
 
 
@@ -761,14 +785,21 @@ def _answer_best_model(db: Queryable, window_days: int) -> tuple[str, dict]:
       SELECT
         score_id,
         game_id,
-        model_name,
+        CASE
+          WHEN model_name = 'glm_logit' THEN 'glm_ridge'
+          ELSE model_name
+        END AS model_name,
         log_loss,
         brier,
         accuracy,
         game_date_utc,
         scored_at_utc,
         ROW_NUMBER() OVER (
-          PARTITION BY game_id, model_name
+          PARTITION BY game_id,
+                       CASE
+                         WHEN model_name = 'glm_logit' THEN 'glm_ridge'
+                         ELSE model_name
+                       END
           ORDER BY scored_at_utc DESC, score_id DESC
         ) AS rn
       FROM model_scores

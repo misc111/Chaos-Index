@@ -25,7 +25,7 @@ type ProgressEvent = {
 const ALL_MODEL_NAMES = [
   "elo_baseline",
   "dynamic_rating",
-  "glm_logit",
+  "glm_ridge",
   "gbdt",
   "rf",
   "two_stage",
@@ -37,6 +37,11 @@ const ALL_MODEL_NAMES = [
 ] as const;
 
 type ModelName = (typeof ALL_MODEL_NAMES)[number];
+const MODEL_ALIASES: Record<string, ModelName> = {
+  glm_logit: "glm_ridge",
+  glm: "glm_ridge",
+  logit: "glm_ridge",
+};
 
 type TrainingState = {
   running: boolean;
@@ -81,7 +86,7 @@ function configPathForLeague(league: LeagueCode): string {
 function parseRequestedModels(raw: unknown): ModelName[] | null {
   if (!Array.isArray(raw)) return null;
   const cleaned = raw
-    .map((item) => String(item || "").trim().toLowerCase())
+    .map((item) => MODEL_ALIASES[String(item || "").trim().toLowerCase()] || String(item || "").trim().toLowerCase())
     .filter(Boolean)
     .map((item) => item as ModelName);
   if (!cleaned.length) return null;

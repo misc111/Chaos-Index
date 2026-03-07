@@ -1110,7 +1110,7 @@ def main() -> None:
             p.add_argument(
                 "--models",
                 default="all",
-                help="Comma-separated model list (e.g. glm_logit,rf) or 'all'",
+                help="Comma-separated model list (e.g. glm_ridge,rf) or 'all'",
             )
             p.add_argument(
                 "--approve-feature-changes",

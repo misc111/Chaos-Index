@@ -8,7 +8,7 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 
 from src.evaluation.metrics import metric_bundle
-from src.models.glm_logit import GLMLogitModel
+from src.models.glm_ridge import GLMRidgeModel
 from src.training.cv import time_series_splits
 
 PAIRWISE_WARN_THRESHOLD = 0.80
@@ -614,7 +614,7 @@ def _ordered_games(df: pd.DataFrame, target_col: str = "home_win") -> pd.DataFra
     return work.reset_index(drop=True)
 
 
-def _glm_original_coefficients(model: GLMLogitModel) -> pd.DataFrame:
+def _glm_original_coefficients(model: GLMRidgeModel) -> pd.DataFrame:
     coef_scaled = np.asarray(model.model.coef_[0], dtype=float)
     scale = np.asarray(model.scaler.scale_, dtype=float)
     coef_original = np.divide(
@@ -676,7 +676,7 @@ def cv_glm_stability_report(
         if tr.empty or va.empty or tr[target_col].nunique() < 2:
             continue
 
-        model = GLMLogitModel(c=float(c))
+        model = GLMRidgeModel(c=float(c))
         model.fit(tr, features, target_col=target_col)
         p = model.predict_proba(va)
         metrics = metric_bundle(va[target_col].astype(int).to_numpy(), p)
@@ -775,7 +775,7 @@ def bootstrap_glm_coefficients(
             "feature_summary": pd.DataFrame(),
         }
 
-    base_model = GLMLogitModel(c=float(c))
+    base_model = GLMRidgeModel(c=float(c))
     base_model.fit(work, features, target_col=target_col)
     base_frame = _glm_original_coefficients(base_model).rename(
         columns={"coef_scaled": "base_coef_scaled", "coef_original": "base_coef_original"}
@@ -789,7 +789,7 @@ def bootstrap_glm_coefficients(
         if sample[target_col].nunique() < 2:
             continue
         try:
-            model = GLMLogitModel(c=float(c))
+            model = GLMRidgeModel(c=float(c))
             model.fit(sample, features, target_col=target_col)
         except Exception:
             continue

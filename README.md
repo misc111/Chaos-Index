@@ -74,8 +74,8 @@ make train APPROVE_FEATURE_CHANGES=1
 
 Train only selected models (comma-separated):
 ```bash
-make train MODELS=glm_logit
-make train MODELS=glm_logit,rf
+make train MODELS=glm_ridge
+make train MODELS=glm_ridge,rf
 ```
 
 Walk-forward backtest + prequential scoring:
@@ -89,7 +89,7 @@ make backtest APPROVE_FEATURE_CHANGES=1
 
 Backtest only selected models:
 ```bash
-make backtest MODELS=glm_logit
+make backtest MODELS=glm_ridge
 ```
 
 Daily end-to-end:
@@ -103,10 +103,10 @@ make run_daily APPROVE_FEATURE_CHANGES=1
 
 Daily run with selected models:
 ```bash
-make run_daily MODELS=glm_logit
+make run_daily MODELS=glm_ridge
 ```
 ```bash
-make run_daily CONFIG=configs/nba.yaml MODELS=glm_logit
+make run_daily CONFIG=configs/nba.yaml MODELS=glm_ridge
 ```
 
 League-scoped data-only refresh:
@@ -153,7 +153,7 @@ LEAGUE=NBA NBA_DB_PATH=data/processed/nba_forecast.db make dashboard
 
 Execution architecture:
 - Atomic league-scoped commands stay independently runnable: `init-db`, `fetch`, `refresh-data`, `fetch-odds`, `features`, `research-features`, `train`, `backtest`, and `run_daily`.
-- Model-level execution remains available through `MODELS=...`, for example `make train MODELS=glm_logit`.
+- Model-level execution remains available through `MODELS=...`, for example `make train MODELS=glm_ridge`.
 - The repo-wide ingest-only trigger is `make data_refresh`, which runs the deterministic NHL then NBA data-collection sequence and stops before features, training, or staging snapshots.
 - The repo-wide composite trigger is `make hard_refresh`, which runs a fixed sequential plan across NHL then NBA, regenerates `web/public/staging-data/`, and optionally builds the static Pages output.
 
@@ -259,7 +259,7 @@ Generated under `artifacts/validation/` and surfaced in `/validation`:
 - coefficient stability paths, CV coefficient stability, bootstrap coefficient intervals, trade-deadline break test
 - production multicollinearity suite: structural flags, pairwise correlation scan, VIF/tolerance, condition indices, variance decomposition, summary risk report
 - production non-linearity suite: spline-vs-linear and hinge-vs-linear holdout comparisons, per-feature curve outputs, GAM/MARS guidance
-- GLM residual diagnostics: deviance residual distribution/Q-Q checks, randomized quantile residuals, working residual plots, binned working residual summaries, weight plots, and partial residual plots for all active `glm_logit` features
+- GLM residual diagnostics: deviance residual distribution/Q-Q checks, randomized quantile residuals, working residual plots, binned working residual summaries, weight plots, and partial residual plots for all active `glm_ridge` features
 - influence diagnostics (leverage/Cook's/dfbetas + refit impact)
 - calibration robustness + Brier decomposition + actual-vs-predicted, lift, Lorenz/Gini, ROC/AUROC, and threshold operating points
 - fragility tests (missingness + perturbation)

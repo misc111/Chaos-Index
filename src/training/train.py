@@ -18,7 +18,7 @@ from src.models.ensemble_stack import StackingEnsemble
 from src.models.ensemble_weighted import compute_weights, spread_stats, weighted_ensemble
 from src.models.gbdt import GBDTModel
 from src.models.glm_goals import GoalsPoissonModel
-from src.models.glm_logit import GLMLogitModel
+from src.models.glm_ridge import GLMRidgeModel
 from src.models.nn import NNModel
 from src.models.rf import RFModel
 from src.models.two_stage import TwoStageModel
@@ -29,7 +29,7 @@ from src.training.tune import quick_tune_glm
 ALL_MODEL_NAMES = [
     "elo_baseline",
     "dynamic_rating",
-    "glm_logit",
+    "glm_ridge",
     "gbdt",
     "rf",
     "two_stage",
@@ -44,8 +44,9 @@ MODEL_ALIASES = {
     "elo": "elo_baseline",
     "dyn": "dynamic_rating",
     "dynamic": "dynamic_rating",
-    "glm": "glm_logit",
-    "logit": "glm_logit",
+    "glm": "glm_ridge",
+    "logit": "glm_ridge",
+    "glm_logit": "glm_ridge",
     "gbm": "gbdt",
     "forest": "rf",
     "goals": "goals_poisson",
@@ -54,6 +55,10 @@ MODEL_ALIASES = {
     "bayes_bt": "bayes_bt_state_space",
     "bayes_goals_model": "bayes_goals",
     "nn": "nn_mlp",
+}
+
+LEGACY_MODEL_KEYS = {
+    "glm_ridge": ("glm_logit",),
 }
 
 
@@ -248,13 +253,20 @@ def _resolve_model_feature_columns(
     if not model_feature_columns:
         return list(fallback_columns)
 
-    requested = model_feature_columns.get(model_name, [])
+    requested_key = model_name
+    requested = model_feature_columns.get(requested_key, [])
+    if not requested:
+        for legacy_key in LEGACY_MODEL_KEYS.get(model_name, ()):
+            requested = model_feature_columns.get(legacy_key, [])
+            if requested:
+                requested_key = legacy_key
+                break
     if not requested:
         return list(fallback_columns)
 
     missing = [c for c in requested if c not in all_feature_cols]
     if missing:
-        raise ValueError(f"model_feature_columns[{model_name}] includes missing columns: {missing}")
+        raise ValueError(f"model_feature_columns[{requested_key}] includes missing columns: {missing}")
     return list(requested)
 
 
@@ -277,16 +289,16 @@ def _fit_suite(
 
     glm_cols = _resolve_model_feature_columns(
         feature_cols,
-        model_name="glm_logit",
+        model_name="glm_ridge",
         model_feature_columns=model_feature_columns,
         fallback_columns=glm_feature_cols if glm_feature_cols else feature_cols,
     )
-    if "glm_logit" in selected:
+    if "glm_ridge" in selected:
         _emit_progress(
             progress_callback,
-            {"kind": "model", "model": "glm_logit", "stage": "fit", "status": "started", "message": "Fitting glm_logit"},
+            {"kind": "model", "model": "glm_ridge", "stage": "fit", "status": "started", "message": "Fitting glm_ridge"},
         )
-        glm = GLMLogitModel(c=float(glm_c))
+        glm = GLMRidgeModel(c=float(glm_c))
         glm.fit(train_df, glm_cols)
         models[glm.model_name] = glm
         used_feature_map[glm.model_name] = glm_cols
@@ -294,10 +306,10 @@ def _fit_suite(
             progress_callback,
             {
                 "kind": "model",
-                "model": "glm_logit",
+                "model": "glm_ridge",
                 "stage": "fit",
                 "status": "completed",
-                "message": "Completed glm_logit fit",
+                "message": "Completed glm_ridge fit",
             },
         )
 
@@ -725,11 +737,11 @@ def _oof_predictions(
         fold_glm_c = 1.0
         fold_glm_cols = _resolve_model_feature_columns(
             feature_cols,
-            model_name="glm_logit",
+            model_name="glm_ridge",
             model_feature_columns=model_feature_columns,
             fallback_columns=glm_feature_cols,
         )
-        if "glm_logit" in selected:
+        if "glm_ridge" in selected:
             tune = quick_tune_glm(
                 tr,
                 fold_glm_cols,
@@ -846,7 +858,7 @@ def train_and_predict(
         feature_cols = list(selected_feature_columns)
     glm_cols = _resolve_model_feature_columns(
         feature_cols,
-        model_name="glm_logit",
+        model_name="glm_ridge",
         model_feature_columns=selected_model_feature_columns,
         fallback_columns=glm_feature_subset(feature_cols),
     )
@@ -887,7 +899,7 @@ def train_and_predict(
     model_dir = ensure_dir(Path(artifacts_dir) / "models" / model_run_prefix)
     glm_tune: dict = {"best_c": 1.0, "results": [], "fold_metrics": []}
     glm_best_c = 1.0
-    if "glm_logit" in models_selected:
+    if "glm_ridge" in models_selected:
         _emit_progress(
             progress_callback,
             {"kind": "pipeline", "stage": "glm_tuning", "status": "started", "message": "Running GLM hyperparameter tuning"},
@@ -973,7 +985,7 @@ def train_and_predict(
         for c in [
             "elo_baseline",
             "dynamic_rating",
-            "glm_logit",
+            "glm_ridge",
             "gbdt",
             "rf",
             "two_stage",

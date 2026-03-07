@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 from src.common.config import load_config
-from src.models.glm_logit import GLMLogitModel
+from src.models.glm_ridge import GLMRidgeModel
 from src.evaluation.validation_pipeline import (
     ValidationContext,
     ValidationOutputs,
@@ -96,11 +96,11 @@ def test_validation_pipeline_writes_glm_residual_artifacts(tmp_path):
             "counter": counter,
         }
     )
-    glm = GLMLogitModel(c=1.0)
+    glm = GLMRidgeModel(c=1.0)
     glm.fit(train_df, feature_columns=["signal", "counter"])
 
     result = {
-        "models": {"glm_logit": glm},
+        "models": {"glm_ridge": glm},
         "train_df": train_df,
         "feature_columns": ["signal", "counter"],
     }
@@ -182,16 +182,16 @@ def test_validation_pipeline_runs_significance_stability_and_influence_for_nba(t
             "arena_altitude_diff": arena_altitude_diff,
         }
     )
-    glm = GLMLogitModel(c=1.0)
+    glm = GLMRidgeModel(c=1.0)
     glm.fit(train_df, feature_columns=feature_cols)
 
     result = {
-        "models": {"glm_logit": glm},
+        "models": {"glm_ridge": glm},
         "train_df": train_df,
         "feature_columns": feature_cols,
         "run_payload": {
-            "selected_models": ["glm_logit"],
-            "model_feature_columns": {"glm_logit": feature_cols},
+            "selected_models": ["glm_ridge"],
+            "model_feature_columns": {"glm_ridge": feature_cols},
         },
     }
     tasks = [task for task in build_validation_tasks() if task.name in {"split_summary", "significance", "stability", "influence"}]
@@ -249,13 +249,13 @@ def test_validation_context_refits_holdout_models_instead_of_using_production_mo
 
     production_glm = ConstantProductionModel()
     result = {
-        "models": {"glm_logit": production_glm},
+        "models": {"glm_ridge": production_glm},
         "train_df": train_df,
         "feature_columns": ["signal", "counter"],
         "run_payload": {
-            "selected_models": ["glm_logit"],
+            "selected_models": ["glm_ridge"],
             "glm_feature_columns": ["signal", "counter"],
-            "model_feature_columns": {"glm_logit": ["signal", "counter"]},
+            "model_feature_columns": {"glm_ridge": ["signal", "counter"]},
         },
     }
 

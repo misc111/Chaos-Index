@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 from src.evaluation.diagnostics_glm import save_glm_diagnostics, working_residual_logit, working_weight_logit
-from src.models.glm_logit import GLMLogitModel
+from src.models.glm_ridge import GLMRidgeModel
 
 
 def test_logit_working_residual_and_weight_follow_paper_formula():
@@ -32,7 +32,7 @@ def test_save_glm_diagnostics_creates_all_feature_residual_outputs(tmp_path):
             "counter": counter,
         }
     )
-    glm = GLMLogitModel(c=1.0)
+    glm = GLMRidgeModel(c=1.0)
     glm.fit(df, feature_columns=["signal", "counter"])
 
     report = save_glm_diagnostics(

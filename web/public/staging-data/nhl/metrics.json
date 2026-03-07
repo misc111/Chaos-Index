@@ -68,7 +68,7 @@
       "calibration_beta": 1.1046407132969054
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "30d",
       "n_games": 120,
       "log_loss": 0.7692625092885227,
@@ -200,7 +200,7 @@
       "calibration_beta": 0.07492025693421413
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "60d",
       "n_games": 352,
       "log_loss": 0.7776690401770949,
@@ -255,7 +255,7 @@
       "calibration_beta": 0.6835120146508488
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "7d",
       "n_games": 53,
       "log_loss": 0.6916558027467828,
@@ -420,7 +420,7 @@
       "calibration_beta": 0.01737050359774311
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "90d",
       "n_games": 571,
       "log_loss": 0.7374504264895884,
@@ -508,7 +508,7 @@
       "calibration_beta": 0.07487689247572908
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "cumulative",
       "n_games": 875,
       "log_loss": 0.7153964071270386,
@@ -618,7 +618,7 @@
       "calibration_beta": 1.1046407132969054
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "30d",
       "n_games": 120,
       "log_loss": 0.7692625092885227,
@@ -750,7 +750,7 @@
       "calibration_beta": 0.07492025693421413
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "60d",
       "n_games": 352,
       "log_loss": 0.7776690401770949,
@@ -805,7 +805,7 @@
       "calibration_beta": 0.6835120146508488
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "7d",
       "n_games": 53,
       "log_loss": 0.6916558027467828,
@@ -970,7 +970,7 @@
       "calibration_beta": 0.01737050359774311
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "90d",
       "n_games": 571,
       "log_loss": 0.7374504264895884,
@@ -1058,7 +1058,7 @@
       "calibration_beta": 0.07487689247572908
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "cumulative",
       "n_games": 875,
       "log_loss": 0.7153964071270386,
@@ -1201,7 +1201,7 @@
       "calibration_beta": 0.17134712560217122
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "30d",
       "n_games": 120,
       "log_loss": 1.0492781657172994,
@@ -1311,7 +1311,7 @@
       "calibration_beta": 0.12850669824043887
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "60d",
       "n_games": 352,
       "log_loss": 1.039555161400128,
@@ -1421,7 +1421,7 @@
       "calibration_beta": -0.17075238055146832
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "7d",
       "n_games": 53,
       "log_loss": 1.2286399416054787,
@@ -1531,7 +1531,7 @@
       "calibration_beta": 0.10080222995244147
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "90d",
       "n_games": 571,
       "log_loss": 0.8981856050906362,
@@ -1630,7 +1630,7 @@
       "calibration_beta": 0.22778127560298866
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "cumulative",
       "n_games": 875,
       "log_loss": 0.8481936598808275,
@@ -1751,7 +1751,7 @@
       "calibration_beta": 0.3292830206192956
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "30d",
       "n_games": 120,
       "log_loss": 1.3502367314210206,
@@ -1861,7 +1861,7 @@
       "calibration_beta": 0.12850669824043887
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "60d",
       "n_games": 352,
       "log_loss": 1.5629356166213204,
@@ -1971,7 +1971,7 @@
       "calibration_beta": -0.17075238055146832
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "7d",
       "n_games": 53,
       "log_loss": 1.7577370183419057,
@@ -2081,7 +2081,7 @@
       "calibration_beta": 0.10080222995244147
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "90d",
       "n_games": 571,
       "log_loss": 1.2226056441924467,
@@ -2191,7 +2191,7 @@
       "calibration_beta": 0.06991254857980278
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "cumulative",
       "n_games": 875,
       "log_loss": 1.0987813956067678,
@@ -2393,7 +2393,7 @@
       "n_games": 571
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "7d",
       "calibration_alpha": 0.23409310330383826,
       "calibration_beta": 0.3036518423602403,
@@ -2474,7 +2474,7 @@
       "n_games": 352
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "cumulative",
       "calibration_alpha": 0.08269544719400056,
       "calibration_beta": 0.24090017743120062,
@@ -2537,7 +2537,7 @@
       "n_games": 875
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "90d",
       "calibration_alpha": 0.0919784568442865,
       "calibration_beta": 0.10398446020745913,
@@ -2555,7 +2555,7 @@
       "n_games": 352
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "30d",
       "calibration_alpha": 0.29958389996242635,
       "calibration_beta": -0.18327265242480517,
@@ -2573,7 +2573,7 @@
       "n_games": 120
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "60d",
       "calibration_alpha": 0.15026705048448286,
       "calibration_beta": -0.02587485393555954,
@@ -2843,7 +2843,7 @@
       "n_games": 571
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "7d",
       "calibration_alpha": 0.23409310330383826,
       "calibration_beta": 0.3036518423602403,
@@ -2924,7 +2924,7 @@
       "n_games": 352
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "cumulative",
       "calibration_alpha": 0.08269544719400056,
       "calibration_beta": 0.24090017743120062,
@@ -2987,7 +2987,7 @@
       "n_games": 875
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "90d",
       "calibration_alpha": 0.0919784568442865,
       "calibration_beta": 0.10398446020745913,
@@ -3005,7 +3005,7 @@
       "n_games": 352
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "30d",
       "calibration_alpha": 0.29958389996242635,
       "calibration_beta": -0.18327265242480517,
@@ -3023,7 +3023,7 @@
       "n_games": 120
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "60d",
       "calibration_alpha": 0.15026705048448286,
       "calibration_beta": -0.02587485393555954,
@@ -3482,7 +3482,7 @@
       "n_games": 571
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "cumulative",
       "calibration_alpha": 0.09890402319169497,
       "calibration_beta": 0.05754398213824531,
@@ -3509,7 +3509,7 @@
       "n_games": 53
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "90d",
       "calibration_alpha": 0.09737094920336774,
       "calibration_beta": 0.026224195748470472,
@@ -3527,7 +3527,7 @@
       "n_games": 53
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "60d",
       "calibration_alpha": 0.1516629654843066,
       "calibration_beta": -0.01934617568816314,
@@ -3536,7 +3536,7 @@
       "n_games": 352
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "30d",
       "calibration_alpha": 0.3419340896654424,
       "calibration_beta": 0.051674624111648366,
@@ -3545,7 +3545,7 @@
       "n_games": 120
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "7d",
       "calibration_alpha": 0.22016739395047674,
       "calibration_beta": -0.028754503477439793,
@@ -3959,7 +3959,7 @@
       "n_games": 53
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "cumulative",
       "calibration_alpha": 0.10181903003389467,
       "calibration_beta": 0.016322788172410816,
@@ -3968,7 +3968,7 @@
       "n_games": 875
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "90d",
       "calibration_alpha": 0.1005366368859987,
       "calibration_beta": 0.002983099469271765,
@@ -3977,7 +3977,7 @@
       "n_games": 571
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "30d",
       "calibration_alpha": 0.42135330183950137,
       "calibration_beta": 0.0732994810227974,
@@ -3986,7 +3986,7 @@
       "n_games": 120
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "60d",
       "calibration_alpha": 0.1550199646553909,
       "calibration_beta": -0.015892621051393097,
@@ -3995,7 +3995,7 @@
       "n_games": 352
     },
     {
-      "model_name": "glm_logit",
+      "model_name": "glm_ridge",
       "window_label": "7d",
       "calibration_alpha": 0.23996327699181766,
       "calibration_beta": -0.009225057506093806,

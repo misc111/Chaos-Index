@@ -26,7 +26,7 @@ from src.evaluation.validation_stability import (
     cv_glm_stability_report,
 )
 from src.models.gbdt import GBDTModel
-from src.models.glm_logit import GLMLogitModel
+from src.models.glm_ridge import GLMRidgeModel
 from src.models.rf import RFModel
 from src.training.tune import quick_tune_glm
 
@@ -134,10 +134,10 @@ class ValidationContext:
         league = _canonical_league(cfg.data.league)
         out_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "validation" / league.lower())
         plots_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "plots" / league.lower())
-        glm = models.get("glm_logit")
+        glm = models.get("glm_ridge")
         diagnostic_feature_cols = list(
             getattr(glm, "feature_columns", [])
-            or _validation_feature_columns(feature_cols, run_payload, "glm_logit")
+            or _validation_feature_columns(feature_cols, run_payload, "glm_ridge")
             or feature_cols[: min(40, len(feature_cols))]
         )
 
@@ -159,15 +159,21 @@ class ValidationContext:
 
 
 def _selected_validation_models(result: dict[str, Any], run_payload: dict[str, Any]) -> list[str]:
+    def _canonical_model_name(model_name: Any) -> str:
+        token = str(model_name).strip()
+        if token == "glm_logit":
+            return "glm_ridge"
+        return token
+
     payload_models = run_payload.get("selected_models", [])
     if isinstance(payload_models, list):
-        selected = [str(model).strip() for model in payload_models if str(model).strip()]
+        selected = [_canonical_model_name(model) for model in payload_models if str(model).strip()]
         if selected:
             return selected
 
     raw_models = result.get("models", {})
     if isinstance(raw_models, dict):
-        return [str(model).strip() for model in raw_models.keys() if str(model).strip()]
+        return [_canonical_model_name(model) for model in raw_models.keys() if str(model).strip()]
 
     return []
 
@@ -230,13 +236,17 @@ def _validation_feature_columns(
 ) -> list[str]:
     model_feature_map = run_payload.get("model_feature_columns", {})
     if isinstance(model_feature_map, dict):
-        requested = model_feature_map.get(model_name, [])
-        if isinstance(requested, list):
-            resolved = [str(col) for col in requested if str(col) in feature_cols]
-            if resolved:
-                return resolved
+        candidate_keys = [model_name]
+        if model_name == "glm_ridge":
+            candidate_keys.append("glm_logit")
+        for key in candidate_keys:
+            requested = model_feature_map.get(key, [])
+            if isinstance(requested, list):
+                resolved = [str(col) for col in requested if str(col) in feature_cols]
+                if resolved:
+                    return resolved
 
-    if model_name == "glm_logit":
+    if model_name == "glm_ridge":
         glm_feature_columns = run_payload.get("glm_feature_columns", [])
         if isinstance(glm_feature_columns, list):
             resolved = [str(col) for col in glm_feature_columns if str(col) in feature_cols]
@@ -259,8 +269,8 @@ def _fit_validation_models(
     selected = set(selected_models)
     models: dict[str, object] = {}
 
-    if "glm_logit" in selected:
-        glm_cols = _validation_feature_columns(feature_cols, run_payload, "glm_logit")
+    if "glm_ridge" in selected:
+        glm_cols = _validation_feature_columns(feature_cols, run_payload, "glm_ridge")
         glm_tune = {"best_c": 1.0}
         if "start_time_utc" in tr.columns:
             glm_tune = quick_tune_glm(
@@ -269,7 +279,7 @@ def _fit_validation_models(
                 n_splits=3,
                 min_train_size=min(140, max(70, len(tr) // 2)),
             )
-        glm = GLMLogitModel(c=float(glm_tune.get("best_c", 1.0)))
+        glm = GLMRidgeModel(c=float(glm_tune.get("best_c", 1.0)))
         glm.fit(tr, glm_cols)
         models[glm.model_name] = glm
 
