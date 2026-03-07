@@ -29,7 +29,12 @@ def _toi_to_minutes(toi: str | float | int | None) -> float | None:
     return float(text) / 60.0
 
 
-def fetch_players(client: HttpClient, team_abbrevs: list[str], season: int | str) -> SourceFetchResult:
+def fetch_players(
+    client: HttpClient,
+    team_abbrevs: list[str],
+    season: int | str,
+    games_df: pd.DataFrame | None = None,
+) -> SourceFetchResult:
     as_of_utc = utc_now_iso()
     season_str = str(season)
     rows: list[dict] = []

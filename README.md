@@ -207,7 +207,7 @@ scripts/smoke_e2e.sh
 
 ## Data + Temporal Integrity
 
-- Uses public NHL (`api-web.nhle.com`) and NBA (`site.api.espn.com`) endpoints with retries and caching.
+- Uses public NHL (`api-web.nhle.com`) and NBA public roster/schedule/summary endpoints (`site.api.espn.com`) with retries and caching.
 - Raw pulls cached under `data/raw/{source}/{YYYY-MM-DD}/...`.
 - Offline fallback uses latest cached payload when live fetch fails (or when `offline_mode: true`).
 - Features are generated with lagged/rolling calculations only; leakage checks run before training.

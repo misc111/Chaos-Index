@@ -550,7 +550,12 @@ def cmd_fetch(cfg: AppConfig) -> None:
         season_end_year = now.year + (1 if now.month >= 7 else 0)
         season_guess = f"{season_end_year - 1}{season_end_year}"
 
-    players_res = sources["fetch_players"](client, team_abbrevs=team_abbrevs, season=season_guess)
+    players_res = sources["fetch_players"](
+        client,
+        team_abbrevs=team_abbrevs,
+        season=season_guess,
+        games_df=games_res.dataframe,
+    )
     _save_interim(players_res.dataframe, cfg.paths.interim_dir, "players")
     _insert_snapshot(db, players_res)
 
