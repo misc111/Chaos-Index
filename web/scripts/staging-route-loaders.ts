@@ -1,21 +1,12 @@
-import { GET as actualVsExpectedGet } from "../app/api/actual-vs-expected/route.ts";
-import { GET as betHistoryGet } from "../app/api/bet-history/route.ts";
-import { GET as gamesTodayGet } from "../app/api/games-today/route.ts";
-import { GET as marketBoardGet } from "../app/api/market-board/route.ts";
-import { GET as metricsGet } from "../app/api/metrics/route.ts";
-import { GET as performanceGet } from "../app/api/performance/route.ts";
-import { GET as predictionsGet } from "../app/api/predictions/route.ts";
-import { GET as validationGet } from "../app/api/validation/route.ts";
-
 export type JsonRouteHandler = (request: Request) => Promise<Response>;
 
-export const STAGING_ROUTE_LOADERS: Record<string, JsonRouteHandler> = {
-  "app/api/actual-vs-expected/route.ts": actualVsExpectedGet,
-  "app/api/bet-history/route.ts": betHistoryGet,
-  "app/api/games-today/route.ts": gamesTodayGet,
-  "app/api/market-board/route.ts": marketBoardGet,
-  "app/api/metrics/route.ts": metricsGet,
-  "app/api/performance/route.ts": performanceGet,
-  "app/api/predictions/route.ts": predictionsGet,
-  "app/api/validation/route.ts": validationGet,
+export const STAGING_ROUTE_LOADERS: Record<string, () => Promise<JsonRouteHandler>> = {
+  "app/api/actual-vs-expected/route.ts": async () => (await import("../app/api/actual-vs-expected/route.ts")).GET,
+  "app/api/bet-history/route.ts": async () => (await import("../app/api/bet-history/route.ts")).GET,
+  "app/api/games-today/route.ts": async () => (await import("../app/api/games-today/route.ts")).GET,
+  "app/api/market-board/route.ts": async () => (await import("../app/api/market-board/route.ts")).GET,
+  "app/api/metrics/route.ts": async () => (await import("../app/api/metrics/route.ts")).GET,
+  "app/api/performance/route.ts": async () => (await import("../app/api/performance/route.ts")).GET,
+  "app/api/predictions/route.ts": async () => (await import("../app/api/predictions/route.ts")).GET,
+  "app/api/validation/route.ts": async () => (await import("../app/api/validation/route.ts")).GET,
 };

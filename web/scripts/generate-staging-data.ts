@@ -55,11 +55,11 @@ async function writeJson(filePath: string, payload: unknown): Promise<void> {
 }
 
 async function loadRouteHandler(modulePath: string): Promise<JsonRouteHandler> {
-  const routeHandler = STAGING_ROUTE_LOADERS[modulePath];
-  if (typeof routeHandler !== "function") {
+  const routeLoader = STAGING_ROUTE_LOADERS[modulePath];
+  if (typeof routeLoader !== "function") {
     throw new Error(`No route loader configured for ${modulePath}`);
   }
-  return routeHandler;
+  return await routeLoader();
 }
 
 async function generateLeagueSnapshot(league: LeagueCode): Promise<void> {

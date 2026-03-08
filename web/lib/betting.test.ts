@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { normalizeBetStrategy, type BetSizingStyle, type BetStrategy } from "./betting-strategy";
-import { computeBetDecision } from "./betting";
+import { computeBetDecision, explainBetDecision } from "./betting";
 
 function buildDecision(strategy?: BetStrategy, sizingStyle?: BetSizingStyle) {
   return computeBetDecision(
@@ -147,4 +147,48 @@ test("legacy strategy query params normalize to the new profiles", () => {
   assert.equal(normalizeBetStrategy("riskLoving"), "aggressive");
   assert.equal(normalizeBetStrategy("aggressiveEv"), "aggressive");
   assert.equal(normalizeBetStrategy("riskAverse"), "capitalPreservation");
+});
+
+test("explainBetDecision exposes the production sizing steps for a bet", () => {
+  const trace = explainBetDecision({
+    home_team: "SAC",
+    away_team: "CHI",
+    home_win_probability: 0.653,
+    home_moneyline: -135,
+    away_moneyline: 125,
+  });
+
+  assert.equal(trace.decision.team, "SAC");
+  assert.equal(trace.decision.stake, 90);
+  assert.equal(trace.candidateSide, "home");
+  assert.equal(trace.gates.confidence, true);
+  assert.equal(trace.gates.edge, true);
+  assert.equal(trace.gates.expectedValue, true);
+  assert.equal(trace.gates.underdogAllowed, true);
+  assert.ok((trace.kellyFraction ?? 0) > 0);
+  assert.ok((trace.rawKellyUnits ?? 0) >= (trace.cappedKellyUnits ?? 0));
+  assert.equal(trace.continuousStake, 90);
+  assert.equal(trace.bucketedStake, 100);
+  assert.equal(trace.finalStake, 90);
+});
+
+test("explainBetDecision keeps the failing gate visible for passes", () => {
+  const trace = explainBetDecision(
+    {
+      home_team: "NO",
+      away_team: "WSH",
+      home_win_probability: 0.61,
+      home_moneyline: -430,
+      away_moneyline: 360,
+    },
+    "capitalPreservation"
+  );
+
+  assert.equal(trace.decision.stake, 0);
+  assert.equal(trace.decision.reason, "Capital Preservation skips underdogs");
+  assert.equal(trace.candidateSide, "away");
+  assert.equal(trace.candidateIsUnderdog, true);
+  assert.equal(trace.gates.edge, true);
+  assert.equal(trace.gates.expectedValue, true);
+  assert.equal(trace.gates.underdogAllowed, false);
 });

@@ -1,0 +1,144 @@
+.card {
+  display: grid;
+  gap: 16px;
+  background:
+    radial-gradient(circle at top right, var(--accent-soft) 0%, transparent 34%),
+    var(--surface-card);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--accent-2-strong);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.legend {
+  display: inline-grid;
+  grid-template-columns: auto auto auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-field-muted);
+}
+
+.legendSwatchLow,
+.legendSwatchHigh {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.legendSwatchLow {
+  background: hsl(208 78% 52%);
+}
+
+.legendSwatchHigh {
+  background: hsl(52 78% 60%);
+}
+
+.chartWrap {
+  overflow-x: auto;
+}
+
+.chart {
+  width: 100%;
+  min-width: 720px;
+  height: auto;
+}
+
+.gridLine {
+  stroke: var(--chart-grid);
+  stroke-width: 1;
+}
+
+.frontierLine {
+  fill: none;
+  stroke: color-mix(in srgb, var(--accent) 70%, var(--accent-2));
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pointButton {
+  cursor: pointer;
+}
+
+.pointButton:focus-visible .pointHalo {
+  opacity: 0.95;
+}
+
+.pointHalo {
+  fill: color-mix(in srgb, var(--accent) 22%, transparent);
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.pointButton:hover .pointHalo,
+.pointButton:focus-visible .pointHalo {
+  opacity: 0.8;
+}
+
+.pointCore {
+  stroke: var(--chart-point-stroke);
+  stroke-width: 2;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease;
+  transform-origin: center;
+}
+
+.pointButton:hover .pointCore,
+.pointButton:focus-visible .pointCore {
+  transform: scale(1.08);
+}
+
+.pointLabel {
+  fill: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.axisText {
+  fill: var(--chart-axis);
+  font-size: 11px;
+}
+
+.axisTitle {
+  fill: var(--muted-strong);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.offFrontier,
+.offFrontierSelected {
+  fill: var(--accent-2);
+  stroke: var(--chart-point-stroke);
+  stroke-width: 2;
+}
+
+.offFrontierSelected {
+  stroke: var(--accent-strong);
+  stroke-width: 3;
+}
+
+@media (max-width: 720px) {
+  .legend {
+    grid-template-columns: auto auto;
+    justify-content: start;
+    border-radius: 18px;
+  }
+}

@@ -1,0 +1,473 @@
+.heroCard {
+  display: grid;
+  gap: 18px;
+  background: var(--surface-hero);
+  overflow: hidden;
+}
+
+.heroTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--accent-2-strong);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.heroText {
+  margin: 0;
+  max-width: 64ch;
+  color: var(--muted-strong);
+  line-height: 1.55;
+}
+
+.heroMeta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.heroPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid var(--border-accent);
+  border-radius: 999px;
+  background: var(--surface-field-muted);
+  color: var(--accent-strong);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.stageGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.stageCard {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--surface-card-soft) 84%, transparent);
+}
+
+.stageStep {
+  margin: 0;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.stageTitle {
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.stageBody {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.asOfRow {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.policyChooser {
+  display: grid;
+  gap: 16px;
+}
+
+.policyButtonRow {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.policyButton {
+  display: grid;
+  gap: 4px;
+  min-width: 170px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-field-muted);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.policyButton:hover {
+  transform: translateY(-1px);
+  background: var(--surface-card-hover);
+}
+
+.policyButtonActive {
+  border-color: var(--border-accent-strong);
+  background: var(--surface-accent);
+  color: var(--accent-strong);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.policyButtonLabel {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.policyButtonNote {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.metricCard {
+  display: grid;
+  gap: 16px;
+}
+
+.metricGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.metricTile {
+  display: grid;
+  gap: 4px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface-field-muted);
+}
+
+.metricLabel {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.metricValue {
+  color: var(--ink-strong);
+  font-family: "Space Grotesk", "Avenir Next", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.ruleGrid {
+  display: grid;
+  gap: 10px;
+}
+
+.ruleRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ruleRow:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.ruleLabel {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.ruleValue {
+  color: var(--ink-strong);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.formulaCard {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface-field-muted);
+  padding: 12px 14px;
+}
+
+.formulaCard summary {
+  cursor: pointer;
+  color: var(--ink-strong);
+  font-weight: 700;
+}
+
+.formulaBody {
+  display: grid;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.gamesCard {
+  display: grid;
+  gap: 16px;
+}
+
+.gamesHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.gameGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.gameButton {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-card-soft);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.gameButton:hover {
+  transform: translateY(-2px);
+  background: var(--surface-card-hover);
+}
+
+.gameButtonActive {
+  border-color: var(--border-accent-strong);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+  background:
+    radial-gradient(circle at top right, var(--accent-soft) 0%, transparent 30%),
+    var(--surface-card-hover);
+}
+
+.gameButtonTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.tipBadge,
+.stakeBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.tipBadge {
+  background: var(--surface-chip-muted);
+  color: var(--muted-strong);
+}
+
+.stakeBadge {
+  border: 1px solid transparent;
+}
+
+.stakePositive {
+  background: var(--success-soft);
+  border-color: var(--success-border);
+  color: var(--success);
+}
+
+.stakeNeutral {
+  background: var(--neutral-soft);
+  border-color: var(--neutral-border);
+  color: var(--neutral);
+}
+
+.matchup {
+  color: var(--ink-strong);
+}
+
+.gameButtonStats {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: var(--ink-strong);
+  font-family: "Space Grotesk", "Avenir Next", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.gameButtonReason {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.breakdownCard {
+  display: grid;
+  gap: 18px;
+}
+
+.breakdownHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.breakdownStake {
+  align-self: center;
+}
+
+.breakdownTop {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) minmax(240px, 1.2fr);
+  gap: 16px;
+}
+
+.selectedMatchupCard {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-field-muted);
+}
+
+.lineRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted-strong);
+  font-size: 13px;
+}
+
+.lineRow strong {
+  color: var(--ink-strong);
+}
+
+.gateGrid {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-content: start;
+}
+
+.gateChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.gatePass {
+  background: var(--success-soft);
+  border-color: var(--success-border);
+  color: var(--success);
+}
+
+.gateFail {
+  background: var(--danger-soft);
+  border-color: var(--danger-border);
+  color: var(--danger);
+}
+
+.storyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.storyCard {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-field-muted);
+}
+
+.storyStep {
+  margin: 0;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.storyTitle {
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.storyRows {
+  display: grid;
+  gap: 9px;
+}
+
+.storyRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted-strong);
+  font-size: 13px;
+}
+
+.storyRow strong {
+  color: var(--ink-strong);
+  text-align: right;
+}
+
+@media (max-width: 840px) {
+  .breakdownTop {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .metricGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .gameGrid,
+  .stageGrid,
+  .storyGrid {
+    grid-template-columns: 1fr;
+  }
+}
