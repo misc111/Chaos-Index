@@ -6,7 +6,7 @@ Layout:
 
 Each archived run contains:
 - the full contents of `artifacts/validation/<league>/`
-- `plots/` for GLM residual and partial-residual diagnostics
+- `glm/residuals/plots/` for GLM residual and partial-residual diagnostics
 - `performance/` for holdout summary curves copied from `artifacts/plots/<league>/glm/performance/`
 - `validation_run_metadata.json` with archive metadata and a full artifact inventory
 

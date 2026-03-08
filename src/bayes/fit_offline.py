@@ -38,7 +38,7 @@ def run_bayes_offline_fit(
     diag_paths = save_bayes_diagnostics(
         diagnostics=diagnostics,
         pit_values=pit_vals,
-        out_dir=str(Path(artifacts_dir) / "validation"),
+        out_dir=str(Path(artifacts_dir) / "validation" / "bayes" / "offline"),
         prefix="bayes_offline",
     )
     diagnostics["artifact_paths"] = diag_paths

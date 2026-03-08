@@ -132,7 +132,7 @@ def run_walk_forward_backtest(
         scores_df.to_csv(out_dir / "backtest_per_game_scores.csv", index=False)
 
     # Reliability tables
-    rel_dir = ensure_dir(Path(artifacts_dir) / "validation")
+    rel_dir = ensure_dir(Path(artifacts_dir) / "validation" / "backtest" / "reliability")
     for col in metrics_df["model_name"].tolist() if not metrics_df.empty else []:
         model_eval = oof[["home_win", col]].dropna().copy()
         rel = reliability_table(model_eval["home_win"].to_numpy(dtype=int), model_eval[col].to_numpy(dtype=float), n_bins=10)

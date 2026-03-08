@@ -337,8 +337,10 @@ def save_glm_diagnostics(
     target_col: str,
     out_dir: str,
     prefix: str = "glm",
+    relative_plot_dir: str = "plots",
 ) -> dict[str, Any]:
     plot_root = ensure_dir(Path(out_dir))
+    plot_rel = str(relative_plot_dir).strip("/").replace("\\", "/") or "plots"
     feature_cols = list(getattr(glm, "feature_columns", []) or [])
     work = df[df[target_col].notna()].copy()
 
@@ -498,8 +500,8 @@ def save_glm_diagnostics(
                 "n_imputed": int(numeric[feature].isna().sum()),
                 "n_unique_non_missing": int(non_missing.nunique()) if not non_missing.empty else 0,
                 "bin_count": int(len(binned)),
-                "working_residual_plot_file": f"plots/{working_plot_path.name}",
-                "partial_residual_plot_file": f"plots/{partial_plot_path.name}",
+                "working_residual_plot_file": f"{plot_rel}/{working_plot_path.name}",
+                "partial_residual_plot_file": f"{plot_rel}/{partial_plot_path.name}",
             }
         )
 
@@ -545,13 +547,13 @@ def save_glm_diagnostics(
         "n_features": int(len(feature_cols)),
         "working_weight_sum": _safe_float(float(working_weight.sum())),
         "variance_rule_recommended_max_bins": int(np.floor(0.01 * float(working_weight.sum()))),
-        "linear_predictor_plot_file": f"plots/{linear_plot_path.name}",
-        "deviance_plot_file": f"plots/{deviance_path.name}",
-        "deviance_histogram_plot_file": f"plots/{deviance_hist_path.name}",
-        "deviance_qq_plot_file": f"plots/{deviance_qq_path.name}",
-        "randomized_quantile_histogram_plot_file": f"plots/{randomized_hist_path.name}",
-        "randomized_quantile_qq_plot_file": f"plots/{randomized_qq_path.name}",
-        "weight_plot_file": f"plots/{weight_plot_path.name}",
+        "linear_predictor_plot_file": f"{plot_rel}/{linear_plot_path.name}",
+        "deviance_plot_file": f"{plot_rel}/{deviance_path.name}",
+        "deviance_histogram_plot_file": f"{plot_rel}/{deviance_hist_path.name}",
+        "deviance_qq_plot_file": f"{plot_rel}/{deviance_qq_path.name}",
+        "randomized_quantile_histogram_plot_file": f"{plot_rel}/{randomized_hist_path.name}",
+        "randomized_quantile_qq_plot_file": f"{plot_rel}/{randomized_qq_path.name}",
+        "weight_plot_file": f"{plot_rel}/{weight_plot_path.name}",
         "weight_axis_name": weight_axis_name,
         "working_residual_definition": "wri = (y - m) / (m * (1 - m))",
         "partial_residual_definition": "partial = wri + beta_j * z_j",

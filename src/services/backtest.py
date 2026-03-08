@@ -101,7 +101,7 @@ def run_backtest(cfg: AppConfig, models_arg: str | None = None, approve_feature_
     pred_df = pd.DataFrame(db.query("SELECT * FROM predictions"))
     res_df = pd.DataFrame(db.query("SELECT * FROM results"))
     integrity = run_backtest_integrity_checks(pred_df, res_df, embargo_days=cfg.runtime.embargo_days)
-    out_path = Path(cfg.paths.artifacts_dir) / "validation" / "backtest_integrity.json"
+    out_path = Path(cfg.paths.artifacts_dir) / "validation" / "backtest" / "backtest_integrity.json"
     ensure_dir(out_path.parent)
     out_path.write_text(json.dumps(integrity, indent=2, sort_keys=True))
 

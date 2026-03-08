@@ -127,14 +127,15 @@ def test_validation_pipeline_writes_glm_residual_artifacts(tmp_path):
         "glm_working_residual_bins_weight",
         "glm_partial_residual_bins",
     ]
-    assert (root / "validation_glm_residual_summary.json").exists()
-    assert (root / "validation_glm_residual_feature_summary.csv").exists()
-    assert (root / "validation_glm_working_residual_bins_linear_predictor.csv").exists()
-    assert (root / "validation_glm_working_residual_bins_features.csv").exists()
-    assert (root / "validation_glm_working_residual_bins_weight.csv").exists()
-    assert (root / "validation_glm_partial_residual_bins.csv").exists()
+    glm_root = root / "glm" / "residuals"
+    assert (glm_root / "validation_glm_residual_summary.json").exists()
+    assert (glm_root / "validation_glm_residual_feature_summary.csv").exists()
+    assert (glm_root / "validation_glm_working_residual_bins_linear_predictor.csv").exists()
+    assert (glm_root / "validation_glm_working_residual_bins_features.csv").exists()
+    assert (glm_root / "validation_glm_working_residual_bins_weight.csv").exists()
+    assert (glm_root / "validation_glm_partial_residual_bins.csv").exists()
 
-    feature_summary = pd.read_csv(root / "validation_glm_residual_feature_summary.csv")
+    feature_summary = pd.read_csv(glm_root / "validation_glm_residual_feature_summary.csv")
     for rel_path in feature_summary["working_residual_plot_file"].tolist():
         assert (root / rel_path).exists()
     for rel_path in feature_summary["partial_residual_plot_file"].tolist():
@@ -208,12 +209,17 @@ def test_validation_pipeline_runs_significance_stability_and_influence_for_nba(t
     assert "influence_summary" in sections
 
     root = tmp_path / "artifacts" / "validation" / "nba"
-    assert (root / "validation_significance.csv").exists()
-    assert (root / "validation_information_criteria_summary.json").exists()
-    assert (root / "validation_information_criteria_candidates.csv").exists()
-    assert (root / "validation_cv_summary.json").exists()
-    assert (root / "validation_bootstrap_summary.json").exists()
-    assert (root / "validation_influence_summary.json").exists()
+    significance_root = root / "diagnostics" / "significance"
+    stability_root = root / "diagnostics" / "stability"
+    influence_root = root / "diagnostics" / "influence"
+    split_root = root / "split"
+    assert (split_root / "validation_split_summary.json").exists()
+    assert (significance_root / "validation_significance.csv").exists()
+    assert (significance_root / "validation_information_criteria_summary.json").exists()
+    assert (significance_root / "validation_information_criteria_candidates.csv").exists()
+    assert (stability_root / "validation_cv_summary.json").exists()
+    assert (stability_root / "validation_bootstrap_summary.json").exists()
+    assert (influence_root / "validation_influence_summary.json").exists()
 
 
 def test_validation_pipeline_writes_classification_curves_to_structured_plot_dir(tmp_path):
@@ -320,7 +326,7 @@ def test_validation_pipeline_archives_clean_validation_run_snapshot(tmp_path):
 
     assert (archive_root / "validation_manifest.json").exists()
     assert (archive_root / "validation_run_metadata.json").exists()
-    assert (archive_root / "plots" / "glm_validation_deviance_residuals.png").exists()
+    assert (archive_root / "glm" / "residuals" / "plots" / "glm_validation_deviance_residuals.png").exists()
     assert (archive_root / "performance" / "roc.png").exists()
 
     metadata = json.loads((archive_root / "validation_run_metadata.json").read_text())

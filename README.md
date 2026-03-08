@@ -216,6 +216,15 @@ npm run playwright:install
 npm run test:smoke
 ```
 
+Validation artifact layout:
+- `artifacts/validation/<league>/` is the latest validation snapshot for that league.
+- `artifacts/validation/<league>/split/` stores split metadata.
+- `artifacts/validation/<league>/glm/residuals/` stores GLM residual tables plus `plots/`.
+- `artifacts/validation/<league>/diagnostics/` stores grouped classification, calibration, significance, stability, influence, fragility, nonlinearity, collinearity, and permutation-importance artifacts.
+- `artifacts/validation/backtest/` stores repo-level backtest integrity and reliability tables.
+- `artifacts/validation/bayes/offline/` stores offline Bayes diagnostics.
+- `artifacts/validation-runs/<league>/YYYY-MM-DD/<timestamp>_<model_run_id>/` stores archived validation snapshots.
+
 ## Data + Temporal Integrity
 
 - Uses public NHL (`api-web.nhle.com`) and NBA public roster/schedule/summary endpoints (`site.api.espn.com`) with retries and caching.

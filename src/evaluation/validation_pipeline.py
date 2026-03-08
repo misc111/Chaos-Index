@@ -83,6 +83,7 @@ class ValidationOutputs:
         root = ensure_dir(out_dir)
         for spec in self.sections:
             path = root / spec.file_name
+            ensure_dir(path.parent)
             if spec.kind == "csv":
                 self.csv_payloads[spec.section].to_csv(path, index=False)
             elif spec.kind == "json":
@@ -194,6 +195,15 @@ def _list_relative_files(root: Path, *, exclude: set[str] | None = None) -> list
     return files
 
 
+def _validation_path(*parts: Any) -> str:
+    cleaned: list[str] = []
+    for part in parts:
+        token = str(part).strip("/").replace("\\", "/")
+        if token:
+            cleaned.append(token)
+    return "/".join(cleaned)
+
+
 def _archive_root_for(ctx: ValidationContext, *, generated_at_utc: str) -> Path:
     date_bucket = generated_at_utc[:10]
     timestamp_slug = generated_at_utc.replace(":", "-").replace("+00:00", "Z")
@@ -220,11 +230,26 @@ def _validation_run_metadata(
     validation_files = _list_relative_files(ctx.out_dir, exclude={"validation_run_metadata.json"})
     performance_files = _list_relative_files(ctx.plots_dir)
     root_files = [rel for rel in validation_files if "/" not in rel]
-    plot_files = [rel for rel in validation_files if rel.startswith("plots/")]
-    extra_subdir_files = [rel for rel in validation_files if "/" in rel and not rel.startswith("plots/")]
+    grouped_validation_files: dict[str, list[str]] = {}
+    for rel in validation_files:
+        if "/" not in rel:
+            continue
+        top_level = rel.split("/", 1)[0]
+        grouped_validation_files.setdefault(top_level, []).append(rel)
     selected_models = ctx.run_payload.get("selected_models", [])
     if not isinstance(selected_models, list):
         selected_models = []
+
+    artifact_groups = [{"name": "validation_root", "relative_dir": ".", "files": root_files}]
+    for group_name in sorted(grouped_validation_files):
+        artifact_groups.append(
+            {
+                "name": group_name,
+                "relative_dir": group_name,
+                "files": grouped_validation_files[group_name],
+            }
+        )
+    artifact_groups.append({"name": "performance", "relative_dir": "performance", "files": performance_files})
 
     return {
         "league": ctx.league,
@@ -240,16 +265,11 @@ def _validation_run_metadata(
         "registered_sections": [asdict(spec) for spec in outputs.sections],
         "artifact_counts": {
             "validation_root_files": len(root_files),
-            "validation_plot_files": len(plot_files),
-            "validation_extra_subdir_files": len(extra_subdir_files),
+            "validation_subdir_groups": len(grouped_validation_files),
+            "validation_subdir_files": sum(len(files) for files in grouped_validation_files.values()),
             "performance_files": len(performance_files),
         },
-        "artifact_groups": [
-            {"name": "validation_root", "relative_dir": ".", "files": root_files},
-            {"name": "plots", "relative_dir": "plots", "files": plot_files},
-            {"name": "performance", "relative_dir": "performance", "files": performance_files},
-            {"name": "extra_validation_subdirs", "relative_dir": ".", "files": extra_subdir_files},
-        ],
+        "artifact_groups": artifact_groups,
     }
 
 
@@ -476,7 +496,7 @@ def _task_split_summary(ctx: ValidationContext) -> ValidationOutputs:
         "holdout_end": holdout_end,
     }
     out = ValidationOutputs()
-    out.add_json(section="split_summary", file_name="validation_split_summary.json", payload=payload)
+    out.add_json(section="split_summary", file_name=_validation_path("split", "validation_split_summary.json"), payload=payload)
     return out
 
 
@@ -489,38 +509,39 @@ def _task_glm_diagnostics(ctx: ValidationContext) -> ValidationOutputs:
         diagnostic_df,
         glm=ctx.glm,
         target_col="home_win",
-        out_dir=str(ensure_dir(ctx.out_dir / "plots")),
+        out_dir=str(ensure_dir(ctx.out_dir / "glm" / "residuals" / "plots")),
         prefix="glm_validation",
+        relative_plot_dir=_validation_path("glm", "residuals", "plots"),
     )
     out = ValidationOutputs()
     out.add_json(
         section="glm_residual_summary",
-        file_name="validation_glm_residual_summary.json",
+        file_name=_validation_path("glm", "residuals", "validation_glm_residual_summary.json"),
         payload=report["summary"],
     )
     out.add_csv(
         section="glm_residual_feature_summary",
-        file_name="validation_glm_residual_feature_summary.csv",
+        file_name=_validation_path("glm", "residuals", "validation_glm_residual_feature_summary.csv"),
         rows=report["feature_summary"],
     )
     out.add_csv(
         section="glm_working_residual_bins_linear_predictor",
-        file_name="validation_glm_working_residual_bins_linear_predictor.csv",
+        file_name=_validation_path("glm", "residuals", "validation_glm_working_residual_bins_linear_predictor.csv"),
         rows=report["linear_predictor_bins"],
     )
     out.add_csv(
         section="glm_working_residual_bins_features",
-        file_name="validation_glm_working_residual_bins_features.csv",
+        file_name=_validation_path("glm", "residuals", "validation_glm_working_residual_bins_features.csv"),
         rows=report["feature_working_bins"],
     )
     out.add_csv(
         section="glm_working_residual_bins_weight",
-        file_name="validation_glm_working_residual_bins_weight.csv",
+        file_name=_validation_path("glm", "residuals", "validation_glm_working_residual_bins_weight.csv"),
         rows=report["weight_bins"],
     )
     out.add_csv(
         section="glm_partial_residual_bins",
-        file_name="validation_glm_partial_residual_bins.csv",
+        file_name=_validation_path("glm", "residuals", "validation_glm_partial_residual_bins.csv"),
         rows=report["partial_residual_bins"],
     )
     return out
@@ -540,7 +561,7 @@ def _task_permutation_importance(ctx: ValidationContext) -> ValidationOutputs:
             model.model,
             holdout[model_feature_cols],
             holdout["home_win"].astype(int).to_numpy(),
-            out_dir=str(ctx.out_dir),
+            out_dir=str(ensure_dir(ctx.out_dir / "diagnostics" / "permutation_importance")),
             model_name=model_name,
         )
     return ValidationOutputs()
@@ -551,28 +572,32 @@ def _task_collinearity(ctx: ValidationContext) -> ValidationOutputs:
     out = ValidationOutputs()
     out.add_json(
         section="collinearity_summary",
-        file_name="validation_collinearity_summary.json",
+        file_name=_validation_path("diagnostics", "collinearity", "validation_collinearity_summary.json"),
         payload=report["summary"],
     )
-    out.add_csv(section="vif", file_name="validation_vif.csv", rows=report["vif"])
+    out.add_csv(
+        section="vif",
+        file_name=_validation_path("diagnostics", "collinearity", "validation_vif.csv"),
+        rows=report["vif"],
+    )
     out.add_csv(
         section="collinearity_structural",
-        file_name="validation_collinearity_structural.csv",
+        file_name=_validation_path("diagnostics", "collinearity", "validation_collinearity_structural.csv"),
         rows=report["structural"],
     )
     out.add_csv(
         section="collinearity_pairs",
-        file_name="validation_collinearity_pairs.csv",
+        file_name=_validation_path("diagnostics", "collinearity", "validation_collinearity_pairs.csv"),
         rows=report["pairwise"],
     )
     out.add_csv(
         section="collinearity_condition",
-        file_name="validation_collinearity_condition.csv",
+        file_name=_validation_path("diagnostics", "collinearity", "validation_collinearity_condition.csv"),
         rows=report["condition"],
     )
     out.add_csv(
         section="collinearity_variance_decomposition",
-        file_name="validation_collinearity_variance_decomposition.csv",
+        file_name=_validation_path("diagnostics", "collinearity", "validation_collinearity_variance_decomposition.csv"),
         rows=report["variance_decomposition"],
     )
     return out
@@ -587,17 +612,17 @@ def _task_nonlinearity(ctx: ValidationContext) -> ValidationOutputs:
     out = ValidationOutputs()
     out.add_json(
         section="nonlinearity_summary",
-        file_name="validation_nonlinearity_summary.json",
+        file_name=_validation_path("diagnostics", "nonlinearity", "validation_nonlinearity_summary.json"),
         payload=report["summary"],
     )
     out.add_csv(
         section="nonlinearity_feature_summary",
-        file_name="validation_nonlinearity_feature_summary.csv",
+        file_name=_validation_path("diagnostics", "nonlinearity", "validation_nonlinearity_feature_summary.csv"),
         rows=report["feature_summary"],
     )
     out.add_csv(
         section="nonlinearity_curve_points",
-        file_name="validation_nonlinearity_curve_points.csv",
+        file_name=_validation_path("diagnostics", "nonlinearity", "validation_nonlinearity_curve_points.csv"),
         rows=report["curve_points"],
     )
     return out
@@ -619,15 +644,19 @@ def _task_significance(ctx: ValidationContext) -> ValidationOutputs:
         all_features=ctx.diagnostic_feature_cols,
     )
     out = ValidationOutputs()
-    out.add_csv(section="significance", file_name="validation_significance.csv", rows=sig)
+    out.add_csv(
+        section="significance",
+        file_name=_validation_path("diagnostics", "significance", "validation_significance.csv"),
+        rows=sig,
+    )
     out.add_json(
         section="information_criteria_summary",
-        file_name="validation_information_criteria_summary.json",
+        file_name=_validation_path("diagnostics", "significance", "validation_information_criteria_summary.json"),
         payload=ic["summary"],
     )
     out.add_csv(
         section="information_criteria_candidates",
-        file_name="validation_information_criteria_candidates.csv",
+        file_name=_validation_path("diagnostics", "significance", "validation_information_criteria_candidates.csv"),
         rows=ic["candidates"],
     )
     return out
@@ -649,48 +678,48 @@ def _task_stability(ctx: ValidationContext) -> ValidationOutputs:
     out = ValidationOutputs()
     out.add_csv(
         section="coef_paths",
-        file_name="validation_coef_paths.csv",
+        file_name=_validation_path("diagnostics", "stability", "validation_coef_paths.csv"),
         rows=coefficient_paths(ctx.train_df, features=ctx.diagnostic_feature_cols),
         tail_rows=200,
     )
     out.add_json(
         section="break_test",
-        file_name="validation_break_test.json",
+        file_name=_validation_path("diagnostics", "stability", "validation_break_test.json"),
         payload=break_test_trade_deadline(ctx.train_df, features=ctx.diagnostic_feature_cols, league=ctx.league),
     )
     out.add_json(
         section="cv_summary",
-        file_name="validation_cv_summary.json",
+        file_name=_validation_path("diagnostics", "stability", "validation_cv_summary.json"),
         payload=cv_report["summary"],
     )
     out.add_csv(
         section="cv_fold_metrics",
-        file_name="validation_cv_fold_metrics.csv",
+        file_name=_validation_path("diagnostics", "stability", "validation_cv_fold_metrics.csv"),
         rows=cv_report["fold_metrics"],
     )
     out.add_csv(
         section="cv_feature_stability",
-        file_name="validation_cv_feature_stability.csv",
+        file_name=_validation_path("diagnostics", "stability", "validation_cv_feature_stability.csv"),
         rows=cv_report["feature_summary"],
     )
     out.add_csv(
         section="cv_coefficients",
-        file_name="validation_cv_coefficients.csv",
+        file_name=_validation_path("diagnostics", "stability", "validation_cv_coefficients.csv"),
         rows=cv_report["coefficients"],
     )
     out.add_json(
         section="bootstrap_summary",
-        file_name="validation_bootstrap_summary.json",
+        file_name=_validation_path("diagnostics", "stability", "validation_bootstrap_summary.json"),
         payload=bootstrap["summary"],
     )
     out.add_csv(
         section="bootstrap_feature_summary",
-        file_name="validation_bootstrap_feature_summary.csv",
+        file_name=_validation_path("diagnostics", "stability", "validation_bootstrap_feature_summary.csv"),
         rows=bootstrap["feature_summary"],
     )
     out.add_csv(
         section="bootstrap_coefficients",
-        file_name="validation_bootstrap_coefficients.csv",
+        file_name=_validation_path("diagnostics", "stability", "validation_bootstrap_coefficients.csv"),
         rows=bootstrap["coefficients"],
     )
     return out
@@ -703,8 +732,16 @@ def _task_influence(ctx: ValidationContext) -> ValidationOutputs:
         top_k=10,
     )
     out = ValidationOutputs()
-    out.add_csv(section="influence_top", file_name="validation_influence_top.csv", rows=infl_df)
-    out.add_json(section="influence_summary", file_name="validation_influence_summary.json", payload=infl_summary)
+    out.add_csv(
+        section="influence_top",
+        file_name=_validation_path("diagnostics", "influence", "validation_influence_top.csv"),
+        rows=infl_df,
+    )
+    out.add_json(
+        section="influence_summary",
+        file_name=_validation_path("diagnostics", "influence", "validation_influence_summary.json"),
+        payload=infl_summary,
+    )
     return out
 
 
@@ -713,12 +750,12 @@ def _task_fragility(ctx: ValidationContext) -> ValidationOutputs:
     out = ValidationOutputs()
     out.add_csv(
         section="fragility_missingness",
-        file_name="validation_fragility_missingness.csv",
+        file_name=_validation_path("diagnostics", "fragility", "validation_fragility_missingness.csv"),
         rows=missingness_stress_test(ctx.glm, base_df, feature_cols=ctx.diagnostic_feature_cols),
     )
     out.add_json(
         section="fragility_perturbation",
-        file_name="validation_fragility_perturbation.json",
+        file_name=_validation_path("diagnostics", "fragility", "validation_fragility_perturbation.json"),
         payload=perturbation_sensitivity(ctx.glm, base_df, feature_cols=ctx.diagnostic_feature_cols),
     )
     return out
@@ -734,7 +771,7 @@ def _task_calibration(ctx: ValidationContext) -> ValidationOutputs:
     out = ValidationOutputs()
     out.add_json(
         section="calibration_robustness",
-        file_name="validation_calibration_robustness.json",
+        file_name=_validation_path("diagnostics", "calibration", "validation_calibration_robustness.json"),
         payload=payload,
     )
     return out
@@ -756,67 +793,67 @@ def _task_classification_curves(ctx: ValidationContext) -> ValidationOutputs:
     out = ValidationOutputs()
     out.add_json(
         section="logit_quantile_summary",
-        file_name="validation_logit_quantile_summary.json",
+        file_name=_validation_path("diagnostics", "classification", "validation_logit_quantile_summary.json"),
         payload=report["quantile_summary"],
     )
     out.add_csv(
         section="logit_quantile_curve",
-        file_name="validation_logit_quantile_curve.csv",
+        file_name=_validation_path("diagnostics", "classification", "validation_logit_quantile_curve.csv"),
         rows=report["quantile_curve"],
     )
     out.add_json(
         section="logit_actual_vs_predicted_summary",
-        file_name="validation_logit_actual_vs_predicted_summary.json",
+        file_name=_validation_path("diagnostics", "classification", "validation_logit_actual_vs_predicted_summary.json"),
         payload=report["actual_vs_predicted_summary"],
     )
     out.add_csv(
         section="logit_actual_vs_predicted_curve",
-        file_name="validation_logit_actual_vs_predicted_curve.csv",
+        file_name=_validation_path("diagnostics", "classification", "validation_logit_actual_vs_predicted_curve.csv"),
         rows=report["actual_vs_predicted_curve"],
     )
     out.add_json(
         section="logit_lift_summary",
-        file_name="validation_logit_lift_summary.json",
+        file_name=_validation_path("diagnostics", "classification", "validation_logit_lift_summary.json"),
         payload=report["lift_summary"],
     )
     out.add_csv(
         section="logit_lift_curve",
-        file_name="validation_logit_lift_curve.csv",
+        file_name=_validation_path("diagnostics", "classification", "validation_logit_lift_curve.csv"),
         rows=report["lift_curve"],
     )
     out.add_json(
         section="logit_lorenz_summary",
-        file_name="validation_logit_lorenz_summary.json",
+        file_name=_validation_path("diagnostics", "classification", "validation_logit_lorenz_summary.json"),
         payload=report["lorenz_summary"],
     )
     out.add_csv(
         section="logit_lorenz_curve",
-        file_name="validation_logit_lorenz_curve.csv",
+        file_name=_validation_path("diagnostics", "classification", "validation_logit_lorenz_curve.csv"),
         rows=report["lorenz_curve"],
     )
     out.add_json(
         section="logit_roc_summary",
-        file_name="validation_logit_roc_summary.json",
+        file_name=_validation_path("diagnostics", "classification", "validation_logit_roc_summary.json"),
         payload=report["roc_summary"],
     )
     out.add_csv(
         section="logit_roc_curve",
-        file_name="validation_logit_roc_curve.csv",
+        file_name=_validation_path("diagnostics", "classification", "validation_logit_roc_curve.csv"),
         rows=report["roc_curve"],
     )
     out.add_csv(
         section="logit_operating_points",
-        file_name="validation_logit_operating_points.csv",
+        file_name=_validation_path("diagnostics", "classification", "validation_logit_operating_points.csv"),
         rows=report["operating_points"],
     )
     out.add_json(
         section="logit_tossup_summary",
-        file_name="validation_logit_tossup_summary.json",
+        file_name=_validation_path("diagnostics", "classification", "validation_logit_tossup_summary.json"),
         payload=report["tossup_summary"],
     )
     out.add_csv(
         section="logit_tossup_sweep",
-        file_name="validation_logit_tossup_sweep.csv",
+        file_name=_validation_path("diagnostics", "classification", "validation_logit_tossup_sweep.csv"),
         rows=report["tossup_sweep"],
     )
     return out

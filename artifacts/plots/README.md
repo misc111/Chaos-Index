@@ -6,8 +6,8 @@ Current layout:
 - `_legacy/`: historical plot outputs preserved from older layouts
 
 Canonical full diagnostic suites live under:
-- `artifacts/validation/nba/plots/`
-- `artifacts/validation/nhl/plots/`
+- `artifacts/validation/nba/glm/residuals/plots/`
+- `artifacts/validation/nhl/glm/residuals/plots/`
 - archived snapshots of those validation suites live under `artifacts/validation-runs/`
 
 Those validation plot directories are the source of truth for:

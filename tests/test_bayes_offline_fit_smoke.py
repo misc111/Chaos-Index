@@ -25,3 +25,6 @@ def test_bayes_offline_fit_smoke(tmp_path: Path):
     )
     assert len(model.team_to_ix) == 2
     assert "ppc" in diag
+    artifact_paths = diag["artifact_paths"]
+    assert Path(artifact_paths["diagnostics_json"]).is_file()
+    assert "/validation/bayes/offline/" in artifact_paths["diagnostics_json"]
