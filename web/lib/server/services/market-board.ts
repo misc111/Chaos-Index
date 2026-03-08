@@ -1,3 +1,4 @@
+import { getHistoricalReplayGames } from "@/lib/bet-history";
 import { centralTodayDateKey, dateKeyForScheduledGame } from "@/lib/games-today";
 import { type LeagueCode } from "@/lib/league";
 import { getLatestUpcomingAsOf, getLatestTeamNames, getScheduledTodayRows } from "@/lib/server/repositories/forecasts";
@@ -117,9 +118,17 @@ function pickTotalBoard(rows: RawOddsLine[]) {
 }
 
 export async function getMarketBoardPayload(league: LeagueCode) {
+  const historicalReplay = getHistoricalReplayGames(league);
   const asOf = getLatestUpcomingAsOf(league);
   if (!asOf) {
-    return { league, as_of_utc: null, odds_as_of_utc: null, date_central: centralTodayDateKey(), rows: [] };
+    return {
+      league,
+      as_of_utc: null,
+      odds_as_of_utc: null,
+      date_central: centralTodayDateKey(),
+      strategy_configs: historicalReplay.strategy_configs,
+      rows: [],
+    };
   }
 
   const todayKey = centralTodayDateKey();
@@ -185,6 +194,7 @@ export async function getMarketBoardPayload(league: LeagueCode) {
     as_of_utc: asOf,
     odds_as_of_utc: oddsAsOfUtc,
     date_central: todayKey,
+    strategy_configs: historicalReplay.strategy_configs,
     rows: enrichedRows,
   };
 }

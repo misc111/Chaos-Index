@@ -3,6 +3,86 @@
   "as_of_utc": "2026-03-08T12:55:33+00:00",
   "odds_as_of_utc": "2026-03-08T13:04:47+00:00",
   "date_central": "2026-03-08",
+  "strategy_configs": {
+    "riskAdjusted": {
+      "label": "Risk-Adjusted Optimal",
+      "shortLabel": "Tangency",
+      "description": "Selected from the historical replay frontier at the highest zero-rate Sharpe ratio under continuous sizing.",
+      "allowUnderdogs": false,
+      "minEdge": 0.025,
+      "minExpectedValue": 0.015,
+      "sizeMultiplier": 0.35,
+      "maxBetUnits": 0.5,
+      "config_signature": "bet_strategy_frontier_v1|favorites|0.025|0.015|0.350|0.500",
+      "optimization_objective": "Maximum zero-rate Sharpe ratio on the historical replay frontier",
+      "optimization_source": "historical_frontier",
+      "metrics": {
+        "mean_daily_profit_units": 0.280793,
+        "daily_volatility_units": 0.249724,
+        "downside_deviation_units": 0.002706,
+        "sharpe_ratio": 1.124412,
+        "max_drawdown_units": 0.004687,
+        "total_profit": 84.237761,
+        "total_risked": 135,
+        "roi": 0.623983,
+        "settled_bets": 4,
+        "active_days": 3,
+        "total_days": 3
+      }
+    },
+    "aggressive": {
+      "label": "Aggressive",
+      "shortLabel": "Higher Return",
+      "description": "Selected from the same replay frontier at a higher-return, higher-volatility point than the tangency choice.",
+      "allowUnderdogs": false,
+      "minEdge": 0.025,
+      "minExpectedValue": 0.015,
+      "sizeMultiplier": 1.6,
+      "maxBetUnits": 2.5,
+      "config_signature": "bet_strategy_frontier_v1|favorites|0.025|0.015|1.600|2.500",
+      "optimization_objective": "Higher-return point on the historical replay frontier than the tangency solution",
+      "optimization_source": "historical_frontier",
+      "metrics": {
+        "mean_daily_profit_units": 1.195411,
+        "daily_volatility_units": 1.198542,
+        "downside_deviation_units": 0.103743,
+        "sharpe_ratio": 0.997388,
+        "max_drawdown_units": 0.179688,
+        "total_profit": 358.623394,
+        "total_risked": 605,
+        "roi": 0.592766,
+        "settled_bets": 4,
+        "active_days": 3,
+        "total_days": 3
+      }
+    },
+    "capitalPreservation": {
+      "label": "Capital Preservation",
+      "shortLabel": "Hates losses",
+      "description": "Selected from replay to minimize downside volatility and drawdown while maintaining a positive realized return.",
+      "allowUnderdogs": false,
+      "minEdge": 0.025,
+      "minExpectedValue": 0.015,
+      "sizeMultiplier": 0.35,
+      "maxBetUnits": 0.5,
+      "config_signature": "bet_strategy_frontier_v1|favorites|0.025|0.015|0.350|0.500",
+      "optimization_objective": "Minimum downside volatility and drawdown among positive-return conservative replay candidates",
+      "optimization_source": "historical_downside",
+      "metrics": {
+        "mean_daily_profit_units": 0.280793,
+        "daily_volatility_units": 0.249724,
+        "downside_deviation_units": 0.002706,
+        "sharpe_ratio": 1.124412,
+        "max_drawdown_units": 0.004687,
+        "total_profit": 84.237761,
+        "total_risked": 135,
+        "roi": 0.623983,
+        "settled_bets": 4,
+        "active_days": 3,
+        "total_days": 3
+      }
+    }
+  },
   "rows": [
     {
       "game_id": 2025021001,

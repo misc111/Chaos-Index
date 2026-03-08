@@ -14,6 +14,7 @@ import {
   type BetStrategy,
 } from "@/lib/betting-strategy";
 import { BET_UNIT_DOLLARS } from "@/lib/betting";
+import type { BetStrategyOptimizationSummary, ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
 import type { BetHistoryResponse, BetHistorySizingBundle, BetHistoryStrategyBundle } from "@/lib/bet-history-types";
 import { formatUsd } from "@/lib/currency";
 import { useBetSizingStyle } from "@/lib/hooks/useBetSizingStyle";
@@ -99,10 +100,40 @@ function buildEmptyBetHistoryStrategies(): Record<BetStrategy, BetHistorySizingB
   }, {} as Record<BetStrategy, BetHistorySizingBundle>);
 }
 
+function buildEmptyResolvedStrategyConfigs(): Record<BetStrategy, ResolvedBetStrategyConfig> {
+  return BET_STRATEGIES.reduce((acc, strategy) => {
+    acc[strategy] = {
+      ...getBetStrategyConfig(strategy),
+      config_signature: `empty|${strategy}`,
+      optimization_objective: "Unavailable",
+      optimization_source: "static_fallback",
+      metrics: null,
+    };
+    return acc;
+  }, {} as Record<BetStrategy, ResolvedBetStrategyConfig>);
+}
+
+function buildEmptyOptimizationSummary(): BetStrategyOptimizationSummary {
+  return {
+    method: "",
+    sizing_style: "continuous",
+    risk_free_rate: 0,
+    candidate_count: 0,
+    frontier_point_count: 0,
+    frontier: [],
+    selected: BET_STRATEGIES.reduce((acc, strategy) => {
+      acc[strategy] = null;
+      return acc;
+    }, {} as BetStrategyOptimizationSummary["selected"]),
+  };
+}
+
 const EMPTY_BET_HISTORY: BetHistoryResponse = {
   league: "NHL",
   default_strategy: DEFAULT_BET_STRATEGY,
   default_sizing_style: DEFAULT_BET_SIZING_STYLE,
+  strategy_configs: buildEmptyResolvedStrategyConfigs(),
+  strategy_optimization: buildEmptyOptimizationSummary(),
   strategies: buildEmptyBetHistoryStrategies(),
 };
 

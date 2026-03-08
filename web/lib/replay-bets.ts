@@ -1,4 +1,5 @@
 import {
+  type BetStrategyRuleConfig,
   type BetSizingStyle,
   type BetStrategy,
   DEFAULT_BET_SIZING_STYLE,
@@ -8,7 +9,7 @@ import { BET_UNIT_DOLLARS, computeBetDecision, type ExpectedSide } from "@/lib/b
 import { execSql, runSqlJson } from "@/lib/db";
 import type { LeagueCode } from "@/lib/league";
 
-const REPLAY_DECISION_VERSION = "historical_replay_v5";
+const REPLAY_DECISION_VERSION = "historical_replay_v6";
 const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v4";
 const REPLAY_DECISION_TABLE = "historical_bet_decisions_by_profile";
 
@@ -51,6 +52,7 @@ type RawHistoricalReplayDecisionRow = {
   edge?: number | null;
   expected_value?: number | null;
   stake_unit_dollars?: number | null;
+  strategy_config_signature?: string | null;
   decision_logic_version?: string | null;
   materialization_version?: string | null;
   created_at_utc?: string | null;
@@ -81,6 +83,7 @@ export type HistoricalReplayDecisionSnapshot = {
   edge: number | null;
   expected_value: number | null;
   stake_unit_dollars: number;
+  strategy_config_signature: string;
   decision_logic_version: string;
   materialization_version: string | null;
   created_at_utc: string;
@@ -120,11 +123,11 @@ function normalizeSide(value: unknown): ExpectedSide {
 
 function normalizeStrategy(value: unknown): BetStrategy {
   const strategy = String(value || "").trim();
-  if (strategy === "riskAdjusted" || strategy === "aggressiveEv" || strategy === "capitalPreservation") {
+  if (strategy === "riskAdjusted" || strategy === "aggressive" || strategy === "capitalPreservation") {
     return strategy;
   }
   if (strategy === "balanced") return "riskAdjusted";
-  if (strategy === "riskLoving") return "aggressiveEv";
+  if (strategy === "aggressiveEv" || strategy === "riskLoving") return "aggressive";
   if (strategy === "riskAverse") return "capitalPreservation";
   return DEFAULT_BET_STRATEGY;
 }
@@ -163,6 +166,7 @@ function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
       edge REAL,
       expected_value REAL,
       stake_unit_dollars REAL NOT NULL DEFAULT 100,
+      strategy_config_signature TEXT,
       decision_logic_version TEXT NOT NULL,
       materialization_version TEXT,
       created_at_utc TEXT NOT NULL,
@@ -192,6 +196,9 @@ function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
     alterStatements.push(
       `ALTER TABLE ${REPLAY_DECISION_TABLE} ADD COLUMN stake_unit_dollars REAL NOT NULL DEFAULT 100;`
     );
+  }
+  if (!columns.has("strategy_config_signature")) {
+    alterStatements.push(`ALTER TABLE ${REPLAY_DECISION_TABLE} ADD COLUMN strategy_config_signature TEXT;`);
   }
 
   if (alterStatements.length) {
@@ -245,6 +252,7 @@ function loadStoredHistoricalReplayDecisions(
       edge,
       expected_value,
       stake_unit_dollars,
+      strategy_config_signature,
       decision_logic_version,
       materialization_version,
       created_at_utc
@@ -286,6 +294,7 @@ function loadStoredHistoricalReplayDecisions(
       edge: numberOrNull(row.edge),
       expected_value: numberOrNull(row.expected_value),
       stake_unit_dollars: numberOrNull(row.stake_unit_dollars) ?? 100,
+      strategy_config_signature: String(row.strategy_config_signature || ""),
       decision_logic_version: String(row.decision_logic_version || REPLAY_DECISION_VERSION),
       materialization_version: row.materialization_version ? String(row.materialization_version) : null,
       created_at_utc: String(row.created_at_utc || ""),
@@ -298,7 +307,9 @@ function loadStoredHistoricalReplayDecisions(
 function buildHistoricalReplayDecision(
   row: ReplayableHistoricalGame,
   strategy: BetStrategy,
-  sizingStyle: BetSizingStyle
+  sizingStyle: BetSizingStyle,
+  strategyConfig: BetStrategyRuleConfig,
+  strategyConfigSignature: string
 ): HistoricalReplayDecisionSnapshot {
   const decision = computeBetDecision(
     {
@@ -309,7 +320,8 @@ function buildHistoricalReplayDecision(
       away_moneyline: row.away_moneyline,
     },
     strategy,
-    sizingStyle
+    sizingStyle,
+    strategyConfig
   );
 
   return {
@@ -337,6 +349,7 @@ function buildHistoricalReplayDecision(
     edge: decision.edge,
     expected_value: decision.expectedValue,
     stake_unit_dollars: BET_UNIT_DOLLARS,
+    strategy_config_signature: strategyConfigSignature,
     decision_logic_version: REPLAY_DECISION_VERSION,
     materialization_version: REPLAY_MATERIALIZATION_VERSION,
     created_at_utc: new Date().toISOString(),
@@ -373,6 +386,7 @@ function upsertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[
         ${sqlNumber(row.edge)},
         ${sqlNumber(row.expected_value)},
         ${sqlNumber(row.stake_unit_dollars)},
+        ${sqlText(row.strategy_config_signature)},
         ${sqlText(row.decision_logic_version)},
         ${sqlText(row.materialization_version)},
         ${sqlText(row.created_at_utc)}
@@ -407,6 +421,7 @@ function upsertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[
       edge,
       expected_value,
       stake_unit_dollars,
+      strategy_config_signature,
       decision_logic_version,
       materialization_version,
       created_at_utc
@@ -420,7 +435,9 @@ export function loadOrCreateHistoricalReplayDecisions(
   rows: ReplayableHistoricalGame[],
   league: LeagueCode,
   strategy: BetStrategy = DEFAULT_BET_STRATEGY,
-  sizingStyle: BetSizingStyle = DEFAULT_BET_SIZING_STYLE
+  sizingStyle: BetSizingStyle = DEFAULT_BET_SIZING_STYLE,
+  strategyConfig: BetStrategyRuleConfig,
+  strategyConfigSignature: string
 ): Map<number, HistoricalReplayDecisionSnapshot> {
   if (!rows.length) return new Map();
 
@@ -448,10 +465,11 @@ export function loadOrCreateHistoricalReplayDecisions(
         !snapshot ||
         snapshot.decision_logic_version !== REPLAY_DECISION_VERSION ||
         snapshot.materialization_version !== REPLAY_MATERIALIZATION_VERSION ||
-        snapshot.stake_unit_dollars !== BET_UNIT_DOLLARS
+        snapshot.stake_unit_dollars !== BET_UNIT_DOLLARS ||
+        snapshot.strategy_config_signature !== strategyConfigSignature
       );
     })
-    .map((row) => buildHistoricalReplayDecision(row, strategy, sizingStyle));
+    .map((row) => buildHistoricalReplayDecision(row, strategy, sizingStyle, strategyConfig, strategyConfigSignature));
 
   if (!rowsToMaterialize.length) {
     return snapshots;

@@ -26,6 +26,8 @@ export async function getGamesTodayPayload(league: LeagueCode) {
       as_of_utc: null,
       date_central: centralTodayDateKey(),
       historical_coverage_start_central: historicalReplay.coverage_start_central,
+      strategy_configs: historicalReplay.strategy_configs,
+      strategy_optimization: historicalReplay.strategy_optimization,
       historical_rows: historicalReplay.rows,
       rows: [],
     };
@@ -141,6 +143,8 @@ export async function getGamesTodayPayload(league: LeagueCode) {
     as_of_utc: asOf,
     date_central: centralTodayDateKey(),
     historical_coverage_start_central: historicalReplay.coverage_start_central,
+    strategy_configs: historicalReplay.strategy_configs,
+    strategy_optimization: historicalReplay.strategy_optimization,
     historical_rows: historicalReplay.rows.map(buildHistoricalRow),
     rows: enrichedRows,
   };

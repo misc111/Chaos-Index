@@ -2,8 +2,15 @@
 
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { normalizeBetSizingStyle, normalizeBetStrategy, type BetSizingStyle, type BetStrategy } from "@/lib/betting-strategy";
+import {
+  getBetStrategyConfig,
+  normalizeBetSizingStyle,
+  normalizeBetStrategy,
+  type BetSizingStyle,
+  type BetStrategy,
+} from "@/lib/betting-strategy";
 import { computeBetDecision } from "@/lib/betting";
+import type { ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
 import { normalizeLeague } from "@/lib/league";
 import { fetchDashboardJson } from "@/lib/static-staging";
 import { type MarketBoardResponse, type MarketBoardRow } from "@/lib/types";
@@ -74,7 +81,12 @@ function booksLabel(count?: number): string {
   return `${numeric} ${numeric === 1 ? "book" : "books"}`;
 }
 
-function buildDerivedRow(row: MarketBoardRow, strategy: BetStrategy, sizingStyle: BetSizingStyle): DerivedBoardRow {
+function buildDerivedRow(
+  row: MarketBoardRow,
+  strategy: BetStrategy,
+  sizingStyle: BetSizingStyle,
+  strategyConfigs?: Record<BetStrategy, ResolvedBetStrategyConfig>
+): DerivedBoardRow {
   const modelWinnerIsHome = row.home_win_probability >= 0.5;
   const modelWinner = modelWinnerIsHome ? row.home_team_name : row.away_team_name;
   const modelWinnerCode = modelWinnerIsHome ? row.home_team : row.away_team;
@@ -83,6 +95,7 @@ function buildDerivedRow(row: MarketBoardRow, strategy: BetStrategy, sizingStyle
   const fairAwayMoneyline = probabilityToAmericanOdds(1 - row.home_win_probability);
   const fairWinnerMoneyline = modelWinnerIsHome ? fairHomeMoneyline : fairAwayMoneyline;
 
+  const resolvedConfig = strategyConfigs?.[strategy] || getBetStrategyConfig(strategy);
   const decision = computeBetDecision(
     {
       home_team: row.home_team_name,
@@ -92,7 +105,8 @@ function buildDerivedRow(row: MarketBoardRow, strategy: BetStrategy, sizingStyle
       away_moneyline: row.moneyline.away_price,
     },
     strategy,
-    sizingStyle
+    sizingStyle,
+    resolvedConfig
   );
 
   const edgeValue = typeof decision.edge === "number" && Number.isFinite(decision.edge) ? decision.edge : null;
@@ -200,8 +214,8 @@ function MarketBoardPageContent() {
   }, [league]);
 
   const derivedRows = useMemo(
-    () => report.rows.map((row) => buildDerivedRow(row, strategy, sizingStyle)),
-    [report.rows, strategy, sizingStyle]
+    () => report.rows.map((row) => buildDerivedRow(row, strategy, sizingStyle, report.strategy_configs)),
+    [report.rows, report.strategy_configs, strategy, sizingStyle]
   );
 
   return (

@@ -1,4 +1,5 @@
 import type { BetSizingStyle, BetStrategy } from "@/lib/betting-strategy";
+import type { BetStrategyOptimizationSummary, ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
 import type { LeagueCode } from "@/lib/league";
 
 export type HistoricalBetRow = {
@@ -68,5 +69,7 @@ export type BetHistoryResponse = {
   league: LeagueCode;
   default_strategy: BetStrategy;
   default_sizing_style: BetSizingStyle;
+  strategy_configs: Record<BetStrategy, ResolvedBetStrategyConfig>;
+  strategy_optimization: BetStrategyOptimizationSummary;
   strategies: Record<BetStrategy, BetHistorySizingBundle>;
 };

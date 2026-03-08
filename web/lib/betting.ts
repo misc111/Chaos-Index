@@ -2,6 +2,7 @@ import {
   DEFAULT_BET_SIZING_STYLE,
   DEFAULT_BET_STRATEGY,
   getBetStrategyConfig,
+  type BetStrategyRuleConfig,
   type BetSizingStyle,
   type BetStrategy,
 } from "@/lib/betting-strategy";
@@ -165,9 +166,11 @@ function buildDecision(
 export function computeBetDecision(
   row: BetInput,
   strategy: BetStrategy = DEFAULT_BET_STRATEGY,
-  sizingStyle: BetSizingStyle = DEFAULT_BET_SIZING_STYLE
+  sizingStyle: BetSizingStyle = DEFAULT_BET_SIZING_STYLE,
+  strategyConfigOverride?: BetStrategyRuleConfig
 ): BetDecision {
-  const strategyConfig = getBetStrategyConfig(strategy);
+  const strategyConfig = strategyConfigOverride || getBetStrategyConfig(strategy);
+  const strategyLabel = getBetStrategyConfig(strategy).label;
   const homeOdds = Number(row.home_moneyline);
   const awayOdds = Number(row.away_moneyline);
   if (!Number.isFinite(homeOdds) || !Number.isFinite(awayOdds) || homeOdds === 0 || awayOdds === 0) {
@@ -208,7 +211,7 @@ export function computeBetDecision(
 
   const sideOdds = side === "home" ? homeOdds : awayOdds;
   if (!strategyConfig.allowUnderdogs && sideOdds > 0) {
-    return buildDecision(row, "none", 0, `${strategyConfig.label} skips underdogs`, fairProb, ev, edge);
+    return buildDecision(row, "none", 0, `${strategyLabel} skips underdogs`, fairProb, ev, edge);
   }
   const sideDecimalOdds = side === "home" ? decHome : decAway;
   const kellyFraction = decimalOddsToKellyFraction(modelProb, sideDecimalOdds);

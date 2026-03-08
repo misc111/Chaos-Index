@@ -124,26 +124,27 @@ test("capital preservation skips underdogs entirely", () => {
   assert.equal(decision.reason, "Capital Preservation skips underdogs");
 });
 
-test("aggressive EV sizes larger than risk-adjusted on the same edge", () => {
+test("aggressive sizes larger than risk-adjusted on the same edge", () => {
   const riskAdjusted = buildDecision("riskAdjusted");
-  const aggressiveEv = buildDecision("aggressiveEv");
+  const aggressive = buildDecision("aggressive");
 
   assert.equal(riskAdjusted.team, "NYK");
-  assert.equal(aggressiveEv.team, "NYK");
-  assert.ok(aggressiveEv.stake > riskAdjusted.stake);
+  assert.equal(aggressive.team, "NYK");
+  assert.ok(aggressive.stake > riskAdjusted.stake);
 });
 
 test("bucketed sizing preserves profile differences through bucket selection", () => {
   const riskAdjusted = buildDecision("riskAdjusted", "bucketed");
-  const aggressiveEv = buildDecision("aggressiveEv", "bucketed");
+  const aggressive = buildDecision("aggressive", "bucketed");
 
   assert.equal(riskAdjusted.team, "NYK");
-  assert.equal(aggressiveEv.team, "NYK");
-  assert.ok(aggressiveEv.stake >= riskAdjusted.stake);
+  assert.equal(aggressive.team, "NYK");
+  assert.ok(aggressive.stake >= riskAdjusted.stake);
 });
 
 test("legacy strategy query params normalize to the new profiles", () => {
   assert.equal(normalizeBetStrategy("balanced"), "riskAdjusted");
-  assert.equal(normalizeBetStrategy("riskLoving"), "aggressiveEv");
+  assert.equal(normalizeBetStrategy("riskLoving"), "aggressive");
+  assert.equal(normalizeBetStrategy("aggressiveEv"), "aggressive");
   assert.equal(normalizeBetStrategy("riskAverse"), "capitalPreservation");
 });

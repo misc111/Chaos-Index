@@ -7,6 +7,12 @@ import {
   type BetStrategy,
 } from "@/lib/betting-strategy";
 import {
+  resolveBetStrategyConfigs,
+  type BetStrategyOptimizationSummary,
+  type OptimizableHistoricalBetRow,
+  type ResolvedBetStrategyConfig,
+} from "@/lib/betting-optimizer";
+import {
   formatBetUnitLabel,
   settleBet,
   type BetDecision,
@@ -97,6 +103,8 @@ type HistoricalReplayDataset = {
   earliest_final_date: string | null;
   coverage_start_central: string | null;
   coverage_end_central: string | null;
+  strategy_configs: Record<BetStrategy, ResolvedBetStrategyConfig>;
+  strategy_optimization: BetStrategyOptimizationSummary;
   rows: HistoricalReplayGameRow[];
 };
 
@@ -418,6 +426,19 @@ function toReplayableHistoricalGames(rows: HistoricalReplayGameRow[]) {
   }));
 }
 
+function toOptimizableHistoricalBetRows(rows: HistoricalReplayGameRow[]): OptimizableHistoricalBetRow[] {
+  return rows.map((row) => ({
+    game_id: row.game_id,
+    date_central: row.date_central,
+    home_team: row.home_team,
+    away_team: row.away_team,
+    home_win_probability: row.home_win_probability,
+    home_moneyline: row.home_moneyline,
+    away_moneyline: row.away_moneyline,
+    home_win: row.home_win,
+  }));
+}
+
 function buildEmptyReplayDecisionSet(): HistoricalReplayDecisionSet {
   return BET_STRATEGIES.reduce((strategyAcc, strategy) => {
     strategyAcc[strategy] = BET_SIZING_STYLES.reduce((sizingAcc, sizingStyle) => {
@@ -548,12 +569,21 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
   }
 
   const replayableRows = toReplayableHistoricalGames(rows);
+  const { strategyConfigs, optimizationSummary } = resolveBetStrategyConfigs(toOptimizableHistoricalBetRows(rows));
   const replayDecisionsByProfile = new Map<string, Map<number, HistoricalReplayDecisionSnapshot>>();
   for (const strategy of BET_STRATEGIES) {
     for (const sizingStyle of BET_SIZING_STYLES) {
+      const resolvedConfig = strategyConfigs[strategy];
       replayDecisionsByProfile.set(
         `${strategy}:${sizingStyle}`,
-        loadOrCreateHistoricalReplayDecisions(replayableRows, league, strategy, sizingStyle)
+        loadOrCreateHistoricalReplayDecisions(
+          replayableRows,
+          league,
+          strategy,
+          sizingStyle,
+          resolvedConfig,
+          resolvedConfig.config_signature
+        )
       );
     }
   }
@@ -565,6 +595,8 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
     earliest_final_date: earliestFinalDate,
     coverage_start_central: coverageStartDate,
     coverage_end_central: coverageEndDate,
+    strategy_configs: strategyConfigs,
+    strategy_optimization: optimizationSummary,
     rows: rows.map((row) => ({
       ...row,
       replay_decisions: BET_STRATEGIES.reduce((strategyAcc, strategy) => {
@@ -581,12 +613,16 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
 export function getHistoricalReplayGames(league: LeagueCode): {
   coverage_start_central: string | null;
   coverage_end_central: string | null;
+  strategy_configs: Record<BetStrategy, ResolvedBetStrategyConfig>;
+  strategy_optimization: BetStrategyOptimizationSummary;
   rows: HistoricalReplayGameRow[];
 } {
   const dataset = buildHistoricalReplayDataset(league);
   return {
     coverage_start_central: dataset.coverage_start_central,
     coverage_end_central: dataset.coverage_end_central,
+    strategy_configs: dataset.strategy_configs,
+    strategy_optimization: dataset.strategy_optimization,
     rows: dataset.rows,
   };
 }
@@ -719,6 +755,8 @@ export function getBetHistory(league: LeagueCode): BetHistoryResponse {
     league,
     default_strategy: DEFAULT_BET_STRATEGY,
     default_sizing_style: DEFAULT_BET_SIZING_STYLE,
+    strategy_configs: dataset.strategy_configs,
+    strategy_optimization: dataset.strategy_optimization,
     strategies: BET_STRATEGIES.reduce((strategyAcc, strategy) => {
       strategyAcc[strategy] = BET_SIZING_STYLES.reduce((sizingAcc, sizingStyle) => {
         sizingAcc[sizingStyle] = buildBetHistoryStrategyBundle(dataset, strategy, sizingStyle);

@@ -1,4 +1,6 @@
 import type { HistoricalReplayDecisionSet } from "@/lib/replay-bets";
+import type { BetStrategyOptimizationSummary, ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
+import type { BetStrategy } from "@/lib/betting-strategy";
 
 export type TableRow = Record<string, unknown>;
 
@@ -79,6 +81,7 @@ export type MarketBoardResponse = {
   as_of_utc?: string | null;
   odds_as_of_utc?: string | null;
   date_central?: string;
+  strategy_configs?: Record<BetStrategy, ResolvedBetStrategyConfig>;
   rows: MarketBoardRow[];
 };
 
@@ -156,6 +159,8 @@ export type GamesTodayResponse = {
   odds_as_of_utc?: string | null;
   date_central?: string;
   historical_coverage_start_central?: string | null;
+  strategy_configs?: Record<BetStrategy, ResolvedBetStrategyConfig>;
+  strategy_optimization?: BetStrategyOptimizationSummary;
   historical_rows?: GamesTodayRow[];
   rows?: GamesTodayRow[];
 };
