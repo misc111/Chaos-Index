@@ -226,6 +226,37 @@
   color: var(--neutral);
 }
 
+.dayNet {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.dayNetPositive {
+  color: var(--success);
+  background: var(--success-soft);
+  border: 1px solid var(--success-border);
+}
+
+.dayNetNegative {
+  color: var(--danger);
+  background: var(--danger-soft);
+  border: 1px solid var(--danger-border);
+}
+
+.dayNetNeutral {
+  color: var(--neutral);
+  background: var(--neutral-soft);
+  border: 1px solid var(--neutral-border);
+}
+
 .riskBadge {
   display: inline-flex;
   align-items: center;
@@ -272,9 +303,24 @@
   font-weight: 800;
 }
 
+.betRisk {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
 .betTeams {
   display: grid;
   gap: 2px;
+  min-width: 0;
+}
+
+.betTeamRow {
+  min-width: 0;
+}
+
+.betTeamText {
   color: var(--ink-strong);
   font-size: 13px;
   font-weight: 800;
@@ -284,6 +330,8 @@
 .betTeamsSeparator {
   color: var(--muted);
   font-weight: 700;
+  font-size: 13px;
+  line-height: 1.15;
 }
 
 .emptyState {

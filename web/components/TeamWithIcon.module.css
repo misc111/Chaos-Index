@@ -1,13 +1,9 @@
 .teamWithIcon {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: var(--team-icon-gap, 0.4rem);
   min-width: 0;
   vertical-align: middle;
-}
-
-.sizeSm {
-  gap: 0.4rem;
 }
 
 .iconFrame {
@@ -23,6 +19,8 @@
   border-radius: 0;
   background: transparent;
   box-shadow: none;
+  width: var(--team-logo-box-size, 1.4rem);
+  height: var(--team-logo-box-size, 1.4rem);
 }
 
 .fallbackFrame {
@@ -31,26 +29,8 @@
   border: 1px solid var(--team-icon-border, var(--border));
   background: var(--team-icon-background, var(--surface-field-muted));
   box-shadow: inset 0 1px 0 color-mix(in srgb, white 55%, transparent);
-}
-
-.sizeSm .logoBox {
-  width: 1.4rem;
-  height: 1.4rem;
-}
-
-.sizeMd .logoBox {
-  width: 1.7rem;
-  height: 1.7rem;
-}
-
-.sizeSm .fallbackFrame {
-  width: 1.2rem;
-  height: 1.2rem;
-}
-
-.sizeMd .fallbackFrame {
-  width: 1.45rem;
-  height: 1.45rem;
+  width: var(--team-fallback-box-size, 1.2rem);
+  height: var(--team-fallback-box-size, 1.2rem);
 }
 
 .iconImage {
@@ -62,16 +42,9 @@
 .fallbackText {
   color: var(--team-icon-text, var(--muted-strong));
   font-weight: 800;
+  font-size: var(--team-fallback-font-size, 0.54rem);
   line-height: 1;
   letter-spacing: 0.04em;
-}
-
-.sizeSm .fallbackText {
-  font-size: 0.54rem;
-}
-
-.sizeMd .fallbackText {
-  font-size: 0.62rem;
 }
 
 .teamText {

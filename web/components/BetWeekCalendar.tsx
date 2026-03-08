@@ -1,5 +1,6 @@
 "use client";
 
+import TeamWithIcon from "@/components/TeamWithIcon";
 import type { HistoricalBetRow } from "@/lib/bet-history-types";
 import { formatSignedUsd, formatUsd } from "@/lib/currency";
 import type { LeagueCode } from "@/lib/league";
@@ -48,12 +49,12 @@ function amountClassName(value: number): string {
 }
 
 function netClassName(value: number): string {
-  if (value > 0) return `${styles.amountValue} ${styles.amountPositive}`;
-  if (value < 0) return `${styles.amountValue} ${styles.amountNegative}`;
-  return `${styles.amountValue} ${styles.amountNeutral}`;
+  if (value > 0) return `${styles.dayNet} ${styles.dayNetPositive}`;
+  if (value < 0) return `${styles.dayNet} ${styles.dayNetNegative}`;
+  return `${styles.dayNet} ${styles.dayNetNeutral}`;
 }
 
-export default function BetWeekCalendar({ weekStart, bets }: Props) {
+export default function BetWeekCalendar({ league, weekStart, bets }: Props) {
   if (!weekStart) {
     return (
       <div className={`card ${styles.calendarCard}`}>
@@ -105,11 +106,23 @@ export default function BetWeekCalendar({ weekStart, bets }: Props) {
                       <p className={`${styles.amountValue} ${styles.betAmount} ${amountClassName(bet.profit)}`}>
                         {formatSignedUsd(bet.profit, { minimumFractionDigits: 2 })}
                       </p>
-                      <p className={styles.riskBadge}>Risked {formatRisked(bet.stake)}</p>
+                      <p className={styles.betRisk}>Risked {formatRisked(bet.stake)}</p>
                       <div className={styles.betTeams} aria-label={`${formatTeamCode(bet.away_team)} at ${formatTeamCode(bet.home_team)}`}>
-                        <span>{formatTeamCode(bet.away_team)}</span>
+                        <TeamWithIcon
+                          league={league}
+                          teamCode={bet.away_team}
+                          label={formatTeamCode(bet.away_team)}
+                          className={styles.betTeamRow}
+                          textClassName={styles.betTeamText}
+                        />
                         <span className={styles.betTeamsSeparator}>@</span>
-                        <span>{formatTeamCode(bet.home_team)}</span>
+                        <TeamWithIcon
+                          league={league}
+                          teamCode={bet.home_team}
+                          label={formatTeamCode(bet.home_team)}
+                          className={styles.betTeamRow}
+                          textClassName={styles.betTeamText}
+                        />
                       </div>
                     </article>
                   );

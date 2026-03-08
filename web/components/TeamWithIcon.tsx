@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import type { LeagueCode } from "@/lib/league";
+import { TEAM_ICON_SIZE_TOKENS, type TeamIconSize } from "@/lib/team-icon-size-tokens";
 import { getTeamIconDefinition, normalizeTeamCode, resolveTeamIconSrc } from "@/lib/team-icons";
 import styles from "./TeamWithIcon.module.css";
 
@@ -8,7 +9,7 @@ type TeamWithIconProps = {
   league: LeagueCode;
   teamCode?: string | null;
   label?: string | null;
-  size?: "sm" | "md";
+  size?: TeamIconSize;
   className?: string;
   textClassName?: string;
 };
@@ -20,7 +21,7 @@ type TeamMatchupProps = {
   awayLabel?: string | null;
   homeLabel?: string | null;
   separator?: string;
-  size?: "sm" | "md";
+  size?: TeamIconSize;
   className?: string;
 };
 
@@ -29,7 +30,7 @@ type BetStakeWithIconProps = {
   teamCode?: string | null;
   label?: string | null;
   stake: number;
-  size?: "sm" | "md";
+  size?: TeamIconSize;
   zeroLabel?: string;
   className?: string;
 };
@@ -62,19 +63,23 @@ export default function TeamWithIcon({
   const displayLabel = String(label || teamCode || "").trim() || "Unknown team";
   const normalizedCode = normalizeTeamCode(teamCode, displayLabel);
   const icon = getTeamIconDefinition(league, normalizedCode);
-  const iconSize = size === "md" ? 28 : 24;
+  const sizeTokens = TEAM_ICON_SIZE_TOKENS[size];
+  const iconSize = sizeTokens.imagePx;
   const iconSrc = resolveTeamIconSrc(icon.src);
-  const frameStyle = {
+  const wrapperStyle = {
+    "--team-icon-gap": `${sizeTokens.gapRem}rem`,
+    "--team-logo-box-size": `${sizeTokens.logoBoxRem}rem`,
+    "--team-fallback-box-size": `${sizeTokens.fallbackBoxRem}rem`,
+    "--team-fallback-font-size": `${sizeTokens.fallbackFontRem}rem`,
     "--team-icon-background": icon.background,
     "--team-icon-border": icon.border,
     "--team-icon-text": icon.text,
   } as CSSProperties;
 
   return (
-    <span className={joinClassNames(styles.teamWithIcon, size === "md" ? styles.sizeMd : styles.sizeSm, className)}>
+    <span className={joinClassNames(styles.teamWithIcon, className)} style={wrapperStyle}>
       <span
         className={joinClassNames(styles.iconFrame, iconSrc ? styles.logoBox : styles.fallbackFrame)}
-        style={iconSrc ? undefined : frameStyle}
         aria-hidden="true"
       >
         {iconSrc ? (
