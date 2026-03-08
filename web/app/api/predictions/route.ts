@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from "next/server.js";
 import { leagueFromRequest } from "@/lib/league";
 import { getPredictionsPayload } from "@/lib/server/services/predictions";
 

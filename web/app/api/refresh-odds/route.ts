@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from "next/server.js";
 import { runSqlJson } from "@/lib/db";
 import { leagueFromRequest } from "@/lib/league";
 import { getRefreshState, runSimpleLeagueTask, trimLog } from "@/lib/server/services/process-tasks";

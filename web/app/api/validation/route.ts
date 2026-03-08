@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from "next/server.js";
 import { leagueFromRequest } from "@/lib/league";
 import fs from "node:fs";
 import path from "node:path";

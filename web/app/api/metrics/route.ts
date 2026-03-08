@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from "next/server.js";
 import { runSqlJson } from "@/lib/db";
 import { leagueFromRequest } from "@/lib/league";
 import { canonicalizePredictionModel } from "@/lib/predictions-report";

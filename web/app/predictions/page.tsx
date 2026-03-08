@@ -10,6 +10,7 @@ import {
   formatPredictionDate,
   formatPredictionProbability,
 } from "@/lib/predictions-report";
+import TeamWithIcon, { TeamMatchup } from "@/components/TeamWithIcon";
 import styles from "./predictions.module.css";
 
 const EMPTY_REPORT: PredictionsResponse = {
@@ -134,8 +135,12 @@ function PredictionsPageContent() {
                 <tbody>
                   {filteredRows.map((row) => (
                     <tr key={`${row.game_id}-${row.game_date_utc}`}>
-                      <td className={styles.teamCell}>{row.home_team}</td>
-                      <td className={styles.awayCell}>{row.away_team}</td>
+                      <td className={styles.teamCell}>
+                        <TeamWithIcon league={league} teamCode={row.home_team} label={row.home_team} />
+                      </td>
+                      <td className={styles.awayCell}>
+                        <TeamWithIcon league={league} teamCode={row.away_team} label={row.away_team} />
+                      </td>
                       <td className={styles.dateCell}>{formatPredictionDate(row.game_date_utc)}</td>
                       {modelEntries.map((model) => {
                         const value = row.model_win_probabilities?.[model.key];
@@ -161,7 +166,14 @@ function PredictionsPageContent() {
                       <div>
                         <p className={styles.mobileCardEyebrow}>Matchup</p>
                         <h4 className={styles.mobileCardTitle}>
-                          {row.away_team} at {row.home_team}
+                          <TeamMatchup
+                            league={league}
+                            awayTeamCode={row.away_team}
+                            homeTeamCode={row.home_team}
+                            awayLabel={row.away_team}
+                            homeLabel={row.home_team}
+                            size="md"
+                          />
                         </h4>
                       </div>
                       <span className={`${styles.probPill} ${probabilityTone(row.ensemble_prob_home_win)}`}>
@@ -176,11 +188,15 @@ function PredictionsPageContent() {
                       </div>
                       <div className={styles.mobileMetaItem}>
                         <span className={styles.mobileMetaLabel}>Home</span>
-                        <span className={styles.mobileMetaValue}>{row.home_team}</span>
+                        <span className={styles.mobileMetaValue}>
+                          <TeamWithIcon league={league} teamCode={row.home_team} label={row.home_team} />
+                        </span>
                       </div>
                       <div className={styles.mobileMetaItem}>
                         <span className={styles.mobileMetaLabel}>Away</span>
-                        <span className={styles.mobileMetaValue}>{row.away_team}</span>
+                        <span className={styles.mobileMetaValue}>
+                          <TeamWithIcon league={league} teamCode={row.away_team} label={row.away_team} />
+                        </span>
                       </div>
                     </div>
 

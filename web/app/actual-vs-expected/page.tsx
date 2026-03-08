@@ -2,13 +2,15 @@
 
 import { Suspense, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { TeamMatchup } from "@/components/TeamWithIcon";
 import { useDashboardData } from "@/lib/hooks/useDashboardData";
 import { useLeague } from "@/lib/hooks/useLeague";
 import type { ActualVsExpectedResponse } from "@/lib/types";
 
 type CalendarItem = {
   id: string;
-  matchup: string;
+  primaryTeam: string;
+  secondaryTeam: string;
   status: string;
   detail?: string;
   dotClass: "dot-correct" | "dot-incorrect" | "dot-upcoming" | "dot-tossup";
@@ -162,7 +164,8 @@ function ActualVsExpectedPageContent() {
       const isCorrect = Number(row.model_correct) === 1;
       map[key].push({
         id: `hist-${row.game_id}`,
-        matchup: `${row.home_team} vs ${row.away_team}`,
+        primaryTeam: row.home_team,
+        secondaryTeam: row.away_team,
         status: isTossUp ? "Model Toss-up" : isCorrect ? "Model Correct" : "Model Incorrect",
         detail: `Modeled win %: ${modeledWinPctLabel(
           Number(row.prob_home_win),
@@ -184,7 +187,8 @@ function ActualVsExpectedPageContent() {
 
       map[key].push({
         id: `future-${row.game_id}`,
-        matchup: `${row.home_team} vs ${row.away_team}`,
+        primaryTeam: row.home_team,
+        secondaryTeam: row.away_team,
         status: `${(homeWinProb * 100).toFixed(1)}%`,
         dotClass: homeWinProb >= 0.5 ? "dot-correct" : "dot-incorrect",
         kind: "upcoming",
@@ -292,7 +296,16 @@ function ActualVsExpectedPageContent() {
                       <div key={item.id} className="calendar-event">
                         {item.kind === "upcoming" ? (
                           <>
-                            <div className="calendar-event-matchup">{item.matchup}</div>
+                            <div className="calendar-event-matchup">
+                              <TeamMatchup
+                                league={league}
+                                awayTeamCode={item.primaryTeam}
+                                homeTeamCode={item.secondaryTeam}
+                                awayLabel={item.primaryTeam}
+                                homeLabel={item.secondaryTeam}
+                                separator="vs"
+                              />
+                            </div>
                             <div className="calendar-event-status">
                               <span className={`status-dot ${item.dotClass}`} />
                               <span>{item.status}</span>
@@ -304,7 +317,16 @@ function ActualVsExpectedPageContent() {
                               <span className={`status-dot ${item.dotClass}`} />
                               <span>{item.status}</span>
                             </div>
-                            <div className="calendar-event-matchup">{item.matchup}</div>
+                            <div className="calendar-event-matchup">
+                              <TeamMatchup
+                                league={league}
+                                awayTeamCode={item.primaryTeam}
+                                homeTeamCode={item.secondaryTeam}
+                                awayLabel={item.primaryTeam}
+                                homeLabel={item.secondaryTeam}
+                                separator="vs"
+                              />
+                            </div>
                           </>
                         )}
                         {item.detail ? <div className="calendar-event-detail">{item.detail}</div> : null}

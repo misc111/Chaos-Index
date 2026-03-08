@@ -1,10 +1,13 @@
 "use client";
 
+import { BetStakeWithIcon, TeamMatchup } from "@/components/TeamWithIcon";
 import type { HistoricalBetRow } from "@/lib/bet-history-types";
 import { formatSignedUsd, formatUsd } from "@/lib/currency";
+import type { LeagueCode } from "@/lib/league";
 import styles from "./BetHistory.module.css";
 
 type Props = {
+  league: LeagueCode;
   weekStart: string | null;
   bets: HistoricalBetRow[];
 };
@@ -45,7 +48,7 @@ function netClassName(value: number): string {
   return `${styles.dayNet} ${styles.dayNetNeutral}`;
 }
 
-export default function BetWeekCalendar({ weekStart, bets }: Props) {
+export default function BetWeekCalendar({ league, weekStart, bets }: Props) {
   if (!weekStart) {
     return (
       <div className={`card ${styles.calendarCard}`}>
@@ -97,13 +100,23 @@ export default function BetWeekCalendar({ weekStart, bets }: Props) {
                   return (
                     <article key={bet.game_id} className={itemClassName}>
                       <div className={styles.betTop}>
-                        <p className={styles.betMatchup}>{bet.away_team} at {bet.home_team}</p>
+                        <p className={styles.betMatchup}>
+                          <TeamMatchup
+                            league={league}
+                            awayTeamCode={bet.away_team}
+                            homeTeamCode={bet.home_team}
+                            awayLabel={bet.away_team}
+                            homeLabel={bet.home_team}
+                          />
+                        </p>
                         <p className={`${styles.betAmount} ${amountClassName(bet.profit)}`}>
                           {formatSignedUsd(bet.profit, { minimumFractionDigits: 2 })}
                         </p>
                       </div>
                       <p className={styles.betMeta}>
-                        {bet.bet_label} at {bet.odds > 0 ? `+${Math.round(bet.odds)}` : Math.round(bet.odds)} · {formatScore(bet.home_score, bet.away_score)}
+                        <BetStakeWithIcon league={league} teamCode={bet.team} label={bet.team} stake={bet.stake} /> at{" "}
+                        {bet.odds > 0 ? `+${Math.round(bet.odds)}` : Math.round(bet.odds)} ·{" "}
+                        {formatScore(bet.home_score, bet.away_score)}
                       </p>
                       <p className={styles.betReason}>{bet.reason}</p>
                     </article>

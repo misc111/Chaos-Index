@@ -226,7 +226,7 @@ function BetHistoryPageContent() {
         </div>
 
         {loading ? <p className="small">Loading weekly replay calendar...</p> : null}
-        {!loading && !error ? <BetWeekCalendar weekStart={selectedWeek} bets={selectedWeekBets} /> : null}
+        {!loading && !error ? <BetWeekCalendar league={league} weekStart={selectedWeek} bets={selectedWeekBets} /> : null}
       </section>
     </div>
   );

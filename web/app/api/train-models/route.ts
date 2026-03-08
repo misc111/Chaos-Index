@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from "next/server.js";
 import { leagueFromRequest } from "@/lib/league";
 import { getTrainingState, parseRequestedModels, startTrainingTask, summarizeTrainingState } from "@/lib/server/services/process-tasks";
 

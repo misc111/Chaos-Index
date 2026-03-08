@@ -10,6 +10,7 @@ import {
   expectedWinChance,
   formatBetUnitRecommendation,
 } from "@/lib/betting";
+import TeamWithIcon, { BetStakeWithIcon, TeamMatchup } from "@/components/TeamWithIcon";
 import {
   centralTodayDateKey,
   dateKeyForScheduledGame,
@@ -51,6 +52,13 @@ type GamesTodayResponse = {
   historical_coverage_start_central?: string | null;
   historical_rows?: GamesTodayRow[];
   rows?: GamesTodayRow[];
+};
+
+type BetRecommendationDisplay = {
+  label: string;
+  reason: string;
+  team: string | null;
+  stake: number;
 };
 
 type RefreshOddsResponse = {
@@ -104,14 +112,22 @@ function displayBetRecommendation(
   row: GamesTodayRow,
   strategy: BetStrategy,
   sizingStyle: BetSizingStyle
-): { label: string; reason: string } {
+): BetRecommendationDisplay {
   const replayDecision = row.replay_decisions?.[strategy]?.[sizingStyle];
   if (replayDecision) {
-    return formatBetUnitRecommendation(replayDecision);
+    return {
+      ...formatBetUnitRecommendation(replayDecision),
+      team: replayDecision.team,
+      stake: replayDecision.stake,
+    };
   }
 
   const decision = computeBetDecision(row, strategy, sizingStyle);
-  return formatBetUnitRecommendation(decision);
+  return {
+    ...formatBetUnitRecommendation(decision),
+    team: decision.team,
+    stake: decision.stake,
+  };
 }
 
 function latestTimestamp(rows: GamesTodayRow[], field: "forecast_as_of_utc" | "odds_as_of_utc"): string {
@@ -318,10 +334,10 @@ function GamesTodayPageContent() {
                     return (
                       <tr key={row.game_id}>
                         <td className={side === "home" ? styles.teamWin : side === "away" ? styles.teamLoss : styles.teamNeutral}>
-                          {row.home_team}
+                          <TeamWithIcon league={league} teamCode={row.home_team} label={row.home_team} />
                         </td>
                         <td className={side === "away" ? styles.teamWin : side === "home" ? styles.teamLoss : styles.teamNeutral}>
-                          {row.away_team}
+                          <TeamWithIcon league={league} teamCode={row.away_team} label={row.away_team} />
                         </td>
                         <td className={styles.timeCell}>{formatCentralTip(row.start_time_utc)}</td>
                         <td className={styles.winChanceCell}>{side === "none" ? `Toss-up (${chanceLabel})` : chanceLabel}</td>
@@ -331,7 +347,9 @@ function GamesTodayPageContent() {
                         {league === "NBA" ? (
                           <td className={styles.over190Cell}>{formatOver190(row.over_190_price, row.over_190_point)}</td>
                         ) : null}
-                        <td className={styles.betCell}>{bet.label}</td>
+                        <td className={styles.betCell}>
+                          <BetStakeWithIcon league={league} teamCode={bet.team} label={bet.team} stake={bet.stake} />
+                        </td>
                         <td className={styles.reasonCell}>{bet.reason}</td>
                       </tr>
                     );
@@ -346,15 +364,20 @@ function GamesTodayPageContent() {
                   const side = expectedSide(row.home_win_probability);
                   const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
                   const bet = displayBetRecommendation(row, strategy, sizingStyle);
-                  const sideLabel =
-                    side === "home" ? `${row.home_team} lean` : side === "away" ? `${row.away_team} lean` : "Toss-up";
                   return (
                     <article key={`${row.game_id}-mobile`} className={styles.mobileCard}>
                       <div className={styles.mobileCardTop}>
                         <div>
                           <p className={styles.mobileCardEyebrow}>Matchup</p>
                           <h3 className={styles.mobileCardTitle}>
-                            {row.away_team} at {row.home_team}
+                            <TeamMatchup
+                              league={league}
+                              awayTeamCode={row.away_team}
+                              homeTeamCode={row.home_team}
+                              awayLabel={row.away_team}
+                              homeLabel={row.home_team}
+                              size="md"
+                            />
                           </h3>
                         </div>
                         <span
@@ -362,7 +385,19 @@ function GamesTodayPageContent() {
                             side === "home" ? styles.teamWin : side === "away" ? styles.teamLoss : styles.teamNeutral
                           }`}
                         >
-                          {sideLabel}
+                          {side === "home" ? (
+                            <span className={styles.mobileSideContent}>
+                              <TeamWithIcon league={league} teamCode={row.home_team} label={row.home_team} />
+                              <span>lean</span>
+                            </span>
+                          ) : side === "away" ? (
+                            <span className={styles.mobileSideContent}>
+                              <TeamWithIcon league={league} teamCode={row.away_team} label={row.away_team} />
+                              <span>lean</span>
+                            </span>
+                          ) : (
+                            "Toss-up"
+                          )}
                         </span>
                       </div>
 
@@ -393,7 +428,9 @@ function GamesTodayPageContent() {
                         ) : null}
                         <div className={styles.mobileMetaItem}>
                           <span className={styles.mobileMetaLabel}>{BET_UNIT_LABEL}</span>
-                          <span className={styles.mobileMetaValue}>{bet.label}</span>
+                          <span className={styles.mobileMetaValue}>
+                            <BetStakeWithIcon league={league} teamCode={bet.team} label={bet.team} stake={bet.stake} />
+                          </span>
                         </div>
                         <div className={styles.mobileMetaItem}>
                           <span className={styles.mobileMetaLabel}>Reason</span>

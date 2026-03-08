@@ -7,20 +7,22 @@ import { computeBetDecision } from "@/lib/betting";
 import { normalizeLeague } from "@/lib/league";
 import { fetchDashboardJson } from "@/lib/static-staging";
 import { type MarketBoardResponse, type MarketBoardRow } from "@/lib/types";
+import TeamWithIcon from "@/components/TeamWithIcon";
 import styles from "./styles.module.css";
 
 type DerivedBoardRow = {
   row: MarketBoardRow;
   modelWinner: string;
+  modelWinnerCode: string;
   modelWinnerProbability: number;
   fairHomeMoneyline: number | null;
   fairAwayMoneyline: number | null;
   fairWinnerMoneyline: number | null;
-  bestSignalLabel: string;
   bestSignalReason: string;
   bestSignalClass: string;
   edgeLabel: string;
   valueTeam: string | null;
+  valueTeamCode: string | null;
   valueOdds: number | null;
   edgeValue: number | null;
 };
@@ -75,6 +77,7 @@ function booksLabel(count?: number): string {
 function buildDerivedRow(row: MarketBoardRow, strategy: BetStrategy, sizingStyle: BetSizingStyle): DerivedBoardRow {
   const modelWinnerIsHome = row.home_win_probability >= 0.5;
   const modelWinner = modelWinnerIsHome ? row.home_team_name : row.away_team_name;
+  const modelWinnerCode = modelWinnerIsHome ? row.home_team : row.away_team;
   const modelWinnerProbability = modelWinnerIsHome ? row.home_win_probability : 1 - row.home_win_probability;
   const fairHomeMoneyline = probabilityToAmericanOdds(row.home_win_probability);
   const fairAwayMoneyline = probabilityToAmericanOdds(1 - row.home_win_probability);
@@ -95,21 +98,23 @@ function buildDerivedRow(row: MarketBoardRow, strategy: BetStrategy, sizingStyle
   const edgeValue = typeof decision.edge === "number" && Number.isFinite(decision.edge) ? decision.edge : null;
   const edgeLabel = edgeValue === null ? "No edge" : `${edgeValue > 0 ? "+" : ""}${(edgeValue * 100).toFixed(1)} pts`;
   const valueTeam = decision.stake > 0 ? decision.team : null;
+  const valueTeamCode = decision.side === "home" ? row.home_team : decision.side === "away" ? row.away_team : null;
   const valueOdds = decision.stake > 0 && typeof decision.odds === "number" ? decision.odds : null;
 
   if (decision.stake > 0 && decision.team) {
     return {
       row,
       modelWinner,
+      modelWinnerCode,
       modelWinnerProbability,
       fairHomeMoneyline,
       fairAwayMoneyline,
       fairWinnerMoneyline,
-      bestSignalLabel: `Value on ${decision.team}`,
       bestSignalReason: `${decision.reason} · ${edgeLabel}`,
       bestSignalClass: styles.signalPositive,
       edgeLabel,
       valueTeam,
+      valueTeamCode,
       valueOdds,
       edgeValue,
     };
@@ -118,15 +123,16 @@ function buildDerivedRow(row: MarketBoardRow, strategy: BetStrategy, sizingStyle
   return {
     row,
     modelWinner,
+    modelWinnerCode,
     modelWinnerProbability,
     fairHomeMoneyline,
     fairAwayMoneyline,
     fairWinnerMoneyline,
-    bestSignalLabel: `Likeliest winner: ${modelWinner}`,
     bestSignalReason: `Fair ML ${formatMoneyline(fairWinnerMoneyline)} · ${decision.reason}`,
     bestSignalClass: styles.signalNeutral,
     edgeLabel,
     valueTeam: null,
+    valueTeamCode: null,
     valueOdds: null,
     edgeValue,
   };
@@ -228,11 +234,23 @@ function MarketBoardPageContent() {
 
                     <div className={styles.teamsStack}>
                       <div className={styles.teamLine}>
-                        <span className={styles.teamName}>{row.away_team_name}</span>
+                        <TeamWithIcon
+                          league={league}
+                          teamCode={row.away_team}
+                          label={row.away_team_name}
+                          size="md"
+                          textClassName={styles.teamName}
+                        />
                         <span className={styles.teamCode}>{row.away_team}</span>
                       </div>
                       <div className={styles.teamLine}>
-                        <span className={styles.teamName}>{row.home_team_name}</span>
+                        <TeamWithIcon
+                          league={league}
+                          teamCode={row.home_team}
+                          label={row.home_team_name}
+                          size="md"
+                          textClassName={styles.teamName}
+                        />
                         <span className={styles.teamCode}>{row.home_team}</span>
                       </div>
                     </div>
@@ -267,11 +285,11 @@ function MarketBoardPageContent() {
                   <div className={styles.marketCell}>
                     <p className={styles.marketLabel}>Money</p>
                     <div className={styles.quoteRow}>
-                      <span>{row.away_team}</span>
+                      <TeamWithIcon league={league} teamCode={row.away_team} label={row.away_team} />
                       <strong>{formatMoneyline(row.moneyline.away_price)}</strong>
                     </div>
                     <div className={styles.quoteRow}>
-                      <span>{row.home_team}</span>
+                      <TeamWithIcon league={league} teamCode={row.home_team} label={row.home_team} />
                       <strong>{formatMoneyline(row.moneyline.home_price)}</strong>
                     </div>
                     <p className={styles.marketMeta}>Best current moneyline by side</p>
@@ -279,9 +297,22 @@ function MarketBoardPageContent() {
 
                   <div className={styles.signalCell}>
                     <p className={styles.marketLabel}>Model signal</p>
-                    <div className={`${styles.signalBadge} ${entry.bestSignalClass}`}>{entry.bestSignalLabel}</div>
+                    <div className={`${styles.signalBadge} ${entry.bestSignalClass}`}>
+                      {entry.valueTeam && entry.valueTeamCode ? (
+                        <>
+                          <span>Value on</span>
+                          <TeamWithIcon league={league} teamCode={entry.valueTeamCode} label={entry.valueTeam} />
+                        </>
+                      ) : (
+                        <>
+                          <span>Likeliest winner:</span>
+                          <TeamWithIcon league={league} teamCode={entry.modelWinnerCode} label={entry.modelWinner} />
+                        </>
+                      )}
+                    </div>
                     <p className={styles.signalText}>
-                      {entry.modelWinner} {formatPercent(entry.modelWinnerProbability)} likely winner
+                      <TeamWithIcon league={league} teamCode={entry.modelWinnerCode} label={entry.modelWinner} />{" "}
+                      {formatPercent(entry.modelWinnerProbability)} likely winner
                     </p>
                     <p className={styles.signalText}>
                       Fair ML H {formatMoneyline(entry.fairHomeMoneyline)} · A {formatMoneyline(entry.fairAwayMoneyline)}
