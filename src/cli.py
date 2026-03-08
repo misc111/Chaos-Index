@@ -60,6 +60,25 @@ def build_parser() -> argparse.ArgumentParser:
                 default=None if cmd == "validate" else "all",
                 help="Comma-separated model list (e.g. glm_ridge,rf) or 'all'",
             )
+        if cmd in {"train", "validate", "run-daily"}:
+            p.add_argument(
+                "--validation-split-mode",
+                choices=["train_test", "train_validation_test"],
+                default=None,
+                help="Validation split layout: 70/30 train-test or 40/30/30 train-validation-test.",
+            )
+            p.add_argument(
+                "--validation-split-method",
+                choices=["time", "random"],
+                default=None,
+                help="Validation split method: out-of-time or random-by-record.",
+            )
+            p.add_argument(
+                "--validation-split-seed",
+                type=int,
+                default=None,
+                help="Optional random seed for random-by-record validation splits.",
+            )
         if cmd == "validate":
             p.add_argument(
                 "--model-run-id",

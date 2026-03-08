@@ -39,6 +39,20 @@ class ModelingConfig(BaseModel):
     calibration_bins: int = 10
 
 
+class ValidationSplitConfig(BaseModel):
+    mode: Literal["train_test", "train_validation_test"] = "train_test"
+    method: Literal["time", "random"] = "time"
+    random_seed: int | None = None
+
+    def fractions(self) -> tuple[float, float, float]:
+        if self.mode == "train_validation_test":
+            return 0.4, 0.3, 0.3
+        return 0.7, 0.0, 0.3
+
+    def normalized_random_seed(self, *, fallback_seed: int) -> int:
+        return fallback_seed if self.random_seed is None else int(self.random_seed)
+
+
 class BayesConfig(BaseModel):
     process_variance: float = 0.08
     prior_variance: float = 1.5
@@ -63,6 +77,7 @@ class AppConfig(BaseModel):
     paths: PathsConfig
     data: DataConfig
     modeling: ModelingConfig
+    validation_split: ValidationSplitConfig = Field(default_factory=ValidationSplitConfig)
     bayes: BayesConfig
     runtime: RuntimeConfig
     feature_policy: FeaturePolicyConfig = Field(default_factory=FeaturePolicyConfig)

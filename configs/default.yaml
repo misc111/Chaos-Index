@@ -26,6 +26,11 @@ modeling:
   rolling_windows_days: [7, 30, 60, 90]
   calibration_bins: 10
 
+validation_split:
+  mode: train_test
+  method: time
+  random_seed:
+
 bayes:
   process_variance: 0.08
   prior_variance: 1.5

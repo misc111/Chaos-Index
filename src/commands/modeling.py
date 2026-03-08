@@ -19,7 +19,20 @@ from src.training.prequential import score_predictions
 logger = get_logger(__name__)
 
 
+def _apply_validation_split_overrides(cfg: AppConfig, args: Namespace) -> None:
+    split_mode = getattr(args, "validation_split_mode", None)
+    split_method = getattr(args, "validation_split_method", None)
+    split_seed = getattr(args, "validation_split_seed", None)
+    if split_mode is not None:
+        cfg.validation_split.mode = split_mode
+    if split_method is not None:
+        cfg.validation_split.method = split_method
+    if split_seed is not None:
+        cfg.validation_split.random_seed = int(split_seed)
+
+
 def train(cfg: AppConfig, args: Namespace) -> None:
+    _apply_validation_split_overrides(cfg, args)
     train_service.train_models(
         cfg,
         models_arg=getattr(args, "models", None),
@@ -36,6 +49,7 @@ def backtest(cfg: AppConfig, args: Namespace) -> None:
 
 
 def validate(cfg: AppConfig, args: Namespace) -> None:
+    _apply_validation_split_overrides(cfg, args)
     validate_service.run_saved_validation(
         cfg,
         models_arg=getattr(args, "models", None),

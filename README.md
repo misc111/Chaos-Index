@@ -225,7 +225,7 @@ npm run test:smoke
 
 Validation artifact layout:
 - `artifacts/validation/<league>/` is the latest validation snapshot for that league.
-- `artifacts/validation/<league>/split/` stores split metadata.
+- `artifacts/validation/<league>/split/` stores split metadata, including whether validation used `70/30` train/holdout or `40/30/30` train/validation/holdout, and whether the split was `time`-based or `random` by record.
 - `artifacts/validation/<league>/glm/residuals/` stores GLM residual tables plus `plots/`.
 - `artifacts/validation/<league>/diagnostics/` stores grouped classification, calibration, significance, stability, influence, fragility, nonlinearity, collinearity, and permutation-importance artifacts.
 - `artifacts/validation/backtest/` stores repo-level backtest integrity and reliability tables.

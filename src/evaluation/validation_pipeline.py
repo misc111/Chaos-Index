@@ -118,6 +118,7 @@ class ValidationContext:
     tr: pd.DataFrame
     va: pd.DataFrame
     te: pd.DataFrame
+    split_plan: "ValidationSplitPlan"
     fit_df: pd.DataFrame
     glm: object | None
     diagnostic_feature_cols: list[str]
@@ -128,7 +129,7 @@ class ValidationContext:
         feature_cols = list(result["feature_columns"])
         run_payload = result.get("run_payload", {})
         selected_models = _selected_validation_models(result, run_payload)
-        tr, va, te = _validation_split(train_df, cfg)
+        split_plan, tr, va, te = _validation_split(train_df, cfg)
         fit_df = _concat_frames(tr, va)
         models = _fit_validation_models(
             fit_df,
@@ -158,6 +159,7 @@ class ValidationContext:
             tr=tr,
             va=va,
             te=te,
+            split_plan=split_plan,
             fit_df=fit_df,
             glm=glm,
             diagnostic_feature_cols=diagnostic_feature_cols,
@@ -333,26 +335,101 @@ def _concat_frames(*frames: pd.DataFrame) -> pd.DataFrame:
     return _sort_validation_rows(out)
 
 
-def _validation_split(train_df: pd.DataFrame, cfg: AppConfig) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    work = train_df[train_df["home_win"].notna()].copy()
-    if work.empty:
-        return work, work.copy(), work.copy()
+@dataclass(frozen=True, slots=True)
+class ValidationSplitPlan:
+    requested_mode: str
+    requested_method: str
+    resolved_mode: str
+    resolved_method: str
+    train_fraction: float
+    validation_fraction: float
+    holdout_fraction: float
+    random_seed: int | None
+    note: str | None = None
 
-    work = _sort_validation_rows(work)
+
+def _slice_train_test(work: pd.DataFrame, *, train_fraction: float) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     n_obs = len(work)
-    train_end = int(round(0.60 * n_obs))
-    valid_end = int(round(0.80 * n_obs))
-    if train_end >= 20 and (valid_end - train_end) >= 20 and (n_obs - valid_end) >= 20:
-        return (
-            work.iloc[:train_end].copy(),
-            work.iloc[train_end:valid_end].copy(),
-            work.iloc[valid_end:].copy(),
-        )
-
-    split = int(round(0.80 * n_obs))
+    split = int(round(train_fraction * n_obs))
     if split <= 0 or split >= n_obs:
         return work.copy(), work.iloc[0:0].copy(), work.iloc[0:0].copy()
     return work.iloc[:split].copy(), work.iloc[0:0].copy(), work.iloc[split:].copy()
+
+
+def _slice_train_validation_test(
+    work: pd.DataFrame,
+    *,
+    train_fraction: float,
+    validation_fraction: float,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    n_obs = len(work)
+    train_end = int(round(train_fraction * n_obs))
+    valid_end = int(round((train_fraction + validation_fraction) * n_obs))
+    if train_end <= 0 or valid_end <= train_end or valid_end >= n_obs:
+        return work.copy(), work.iloc[0:0].copy(), work.iloc[0:0].copy()
+    return (
+        work.iloc[:train_end].copy(),
+        work.iloc[train_end:valid_end].copy(),
+        work.iloc[valid_end:].copy(),
+    )
+
+
+def _validation_split(train_df: pd.DataFrame, cfg: AppConfig) -> tuple[ValidationSplitPlan, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    work = train_df[train_df["home_win"].notna()].copy()
+    split_cfg = cfg.validation_split
+    train_fraction, validation_fraction, holdout_fraction = split_cfg.fractions()
+    random_seed = None
+    note: str | None = None
+    if work.empty:
+        plan = ValidationSplitPlan(
+            requested_mode=split_cfg.mode,
+            requested_method=split_cfg.method,
+            resolved_mode=split_cfg.mode,
+            resolved_method=split_cfg.method,
+            train_fraction=train_fraction,
+            validation_fraction=validation_fraction,
+            holdout_fraction=holdout_fraction,
+            random_seed=None,
+            note="no_finalized_rows",
+        )
+        return plan, work, work.copy(), work.copy()
+
+    if split_cfg.method == "random":
+        random_seed = split_cfg.normalized_random_seed(fallback_seed=int(cfg.modeling.random_seed))
+        work = work.sample(frac=1.0, random_state=random_seed).reset_index(drop=True)
+    else:
+        work = _sort_validation_rows(work).reset_index(drop=True)
+
+    resolved_mode = split_cfg.mode
+    if split_cfg.mode == "train_validation_test":
+        tr, va, te = _slice_train_validation_test(
+            work,
+            train_fraction=train_fraction,
+            validation_fraction=validation_fraction,
+        )
+        if min(len(tr), len(va), len(te)) < 20:
+            resolved_mode = "train_test"
+            train_fraction, validation_fraction, holdout_fraction = 0.7, 0.0, 0.3
+            tr, va, te = _slice_train_test(work, train_fraction=train_fraction)
+            note = "requested_train_validation_test_was_too_thin_so_train_test_was_used"
+    else:
+        tr, va, te = _slice_train_test(work, train_fraction=train_fraction)
+
+    tr = _sort_validation_rows(tr)
+    va = _sort_validation_rows(va)
+    te = _sort_validation_rows(te)
+    plan = ValidationSplitPlan(
+        requested_mode=split_cfg.mode,
+        requested_method=split_cfg.method,
+        resolved_mode=resolved_mode,
+        resolved_method=split_cfg.method,
+        train_fraction=train_fraction,
+        validation_fraction=validation_fraction,
+        holdout_fraction=holdout_fraction,
+        random_seed=random_seed,
+        note=note,
+    )
+    return plan, tr, va, te
 
 
 def _holdout_df(ctx: ValidationContext) -> pd.DataFrame:
@@ -364,7 +441,9 @@ def _date_bounds(df: pd.DataFrame) -> tuple[str | None, str | None]:
         return None, None
     for col in ("start_time_utc", "game_date_utc"):
         if col in df.columns:
-            return str(df.iloc[0][col]), str(df.iloc[-1][col])
+            values = df[col].dropna().astype(str)
+            if not values.empty:
+                return str(values.min()), str(values.max())
     return None, None
 
 
@@ -483,7 +562,15 @@ def _task_split_summary(ctx: ValidationContext) -> ValidationOutputs:
     holdout_start, holdout_end = _date_bounds(holdout)
     payload = {
         "status": "ok",
-        "split_mode": "train_validation_test" if not ctx.va.empty and not ctx.te.empty else "train_test",
+        "split_mode": ctx.split_plan.resolved_mode,
+        "split_method": ctx.split_plan.resolved_method,
+        "requested_split_mode": ctx.split_plan.requested_mode,
+        "requested_split_method": ctx.split_plan.requested_method,
+        "train_fraction": ctx.split_plan.train_fraction,
+        "validation_fraction": ctx.split_plan.validation_fraction,
+        "holdout_fraction": ctx.split_plan.holdout_fraction,
+        "random_seed": ctx.split_plan.random_seed,
+        "split_note": ctx.split_plan.note,
         "n_train": int(len(ctx.tr)),
         "n_validation": int(len(ctx.va)),
         "n_holdout": int(len(holdout)),

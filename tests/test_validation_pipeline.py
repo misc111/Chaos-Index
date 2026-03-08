@@ -6,6 +6,7 @@ import pandas as pd
 from src.common.config import load_config
 from src.models.glm_ridge import GLMRidgeModel
 from src.evaluation.validation_pipeline import (
+    _validation_split,
     ValidationContext,
     ValidationOutputs,
     ValidationTask,
@@ -74,6 +75,83 @@ def test_validation_task_registry_allows_extension_without_touching_defaults():
     assert "significance" in task_names
     assert "fragility" in task_names
     assert task_names[-1] == "nonlinearity_probe"
+
+
+def test_validation_split_defaults_to_time_based_70_30_train_test(tmp_path):
+    cfg = load_config("configs/default.yaml")
+    cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
+    cfg.data.league = "NBA"
+
+    n = 100
+    dates = pd.date_range("2025-01-01", periods=n, freq="D")
+    train_df = pd.DataFrame(
+        {
+            "game_id": np.arange(n),
+            "start_time_utc": dates.astype(str),
+            "game_date_utc": dates.date.astype(str),
+            "home_win": ([0, 1] * 50),
+            "signal": np.linspace(-1.0, 1.0, n),
+        }
+    )
+
+    plan, tr, va, te = _validation_split(train_df, cfg)
+
+    assert plan.requested_mode == "train_test"
+    assert plan.resolved_mode == "train_test"
+    assert plan.requested_method == "time"
+    assert plan.resolved_method == "time"
+    assert plan.train_fraction == 0.7
+    assert plan.validation_fraction == 0.0
+    assert plan.holdout_fraction == 0.3
+    assert plan.random_seed is None
+    assert len(tr) == 70
+    assert len(va) == 0
+    assert len(te) == 30
+    assert tr["game_id"].tolist() == list(range(70))
+    assert te["game_id"].tolist() == list(range(70, 100))
+
+
+def test_validation_split_supports_reproducible_random_40_30_30():
+    cfg = load_config("configs/default.yaml")
+    cfg.data.league = "NHL"
+    cfg.validation_split.mode = "train_validation_test"
+    cfg.validation_split.method = "random"
+    cfg.validation_split.random_seed = 17
+
+    n = 100
+    dates = pd.date_range("2025-01-01", periods=n, freq="D")
+    train_df = pd.DataFrame(
+        {
+            "game_id": np.arange(n),
+            "start_time_utc": dates.astype(str),
+            "game_date_utc": dates.date.astype(str),
+            "home_win": ([0, 1] * 50),
+            "signal": np.linspace(-1.0, 1.0, n),
+        }
+    )
+
+    plan_a, tr_a, va_a, te_a = _validation_split(train_df, cfg)
+    plan_b, tr_b, va_b, te_b = _validation_split(train_df, cfg)
+
+    assert plan_a.requested_mode == "train_validation_test"
+    assert plan_a.resolved_mode == "train_validation_test"
+    assert plan_a.requested_method == "random"
+    assert plan_a.resolved_method == "random"
+    assert plan_a.train_fraction == 0.4
+    assert plan_a.validation_fraction == 0.3
+    assert plan_a.holdout_fraction == 0.3
+    assert plan_a.random_seed == 17
+    assert len(tr_a) == 40
+    assert len(va_a) == 30
+    assert len(te_a) == 30
+    assert set(tr_a["game_id"]).isdisjoint(set(va_a["game_id"]))
+    assert set(tr_a["game_id"]).isdisjoint(set(te_a["game_id"]))
+    assert set(va_a["game_id"]).isdisjoint(set(te_a["game_id"]))
+    assert set(pd.concat([tr_a["game_id"], va_a["game_id"], te_a["game_id"]])) == set(range(n))
+    assert tr_a["game_id"].tolist() == tr_b["game_id"].tolist()
+    assert va_a["game_id"].tolist() == va_b["game_id"].tolist()
+    assert te_a["game_id"].tolist() == te_b["game_id"].tolist()
+    assert tr_a["game_id"].tolist() != list(range(40))
 
 
 def test_validation_pipeline_writes_glm_residual_artifacts(tmp_path):
@@ -214,6 +292,14 @@ def test_validation_pipeline_runs_significance_stability_and_influence_for_nba(t
     influence_root = root / "diagnostics" / "influence"
     split_root = root / "split"
     assert (split_root / "validation_split_summary.json").exists()
+    split_summary = json.loads((split_root / "validation_split_summary.json").read_text())
+    assert split_summary["split_mode"] == "train_test"
+    assert split_summary["split_method"] == "time"
+    assert split_summary["requested_split_mode"] == "train_test"
+    assert split_summary["requested_split_method"] == "time"
+    assert split_summary["train_fraction"] == 0.7
+    assert split_summary["validation_fraction"] == 0.0
+    assert split_summary["holdout_fraction"] == 0.3
     assert (significance_root / "validation_significance.csv").exists()
     assert (significance_root / "validation_information_criteria_summary.json").exists()
     assert (significance_root / "validation_information_criteria_candidates.csv").exists()
@@ -341,6 +427,7 @@ def test_validation_context_refits_holdout_models_instead_of_using_production_mo
     cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
     cfg.data.league = "NHL"
     cfg.modeling.cv_splits = 4
+    cfg.validation_split.mode = "train_validation_test"
 
     rng = np.random.default_rng(17)
     n = 260
