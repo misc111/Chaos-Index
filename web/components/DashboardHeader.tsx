@@ -19,11 +19,11 @@ import { isStaticStagingBuild } from "@/lib/static-staging";
 const links: Array<[string, string]> = [
   ["/", "Overview"],
   ["/games-today", "Games Today"],
-  ["/bet-sizing", "Bet Sizing"],
   ["/market-board", "Market Board"],
   ["/bet-history", "Bet History"],
   ["/actual-vs-expected", "Actual vs Expected"],
   ["/predictions", "Model Summary"],
+  ["/bet-sizing", "Bet Sizing"],
 ];
 
 const DEFAULT_QUERY = "?league=NBA&strategy=riskAdjusted&sizingStyle=continuous";
