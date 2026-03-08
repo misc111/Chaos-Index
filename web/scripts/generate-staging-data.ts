@@ -2,8 +2,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { LeagueCode } from "../lib/league";
+import { STAGING_ROUTE_LOADERS, type JsonRouteHandler } from "./staging-route-loaders";
 
-type JsonRouteHandler = (request: Request) => Promise<Response>;
 type JsonRecord = Record<string, unknown>;
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
@@ -55,12 +55,11 @@ async function writeJson(filePath: string, payload: unknown): Promise<void> {
 }
 
 async function loadRouteHandler(modulePath: string): Promise<JsonRouteHandler> {
-  const routeEntryPoint = new URL(`../${modulePath}`, import.meta.url);
-  const routeModule = (await import(routeEntryPoint.href)) as { GET?: JsonRouteHandler };
-  if (typeof routeModule.GET !== "function") {
-    throw new Error(`Route module ${modulePath} does not export GET`);
+  const routeHandler = STAGING_ROUTE_LOADERS[modulePath];
+  if (typeof routeHandler !== "function") {
+    throw new Error(`No route loader configured for ${modulePath}`);
   }
-  return routeModule.GET;
+  return routeHandler;
 }
 
 async function generateLeagueSnapshot(league: LeagueCode): Promise<void> {

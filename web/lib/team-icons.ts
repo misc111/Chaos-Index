@@ -37,6 +37,15 @@ export function normalizeTeamCode(teamCode?: string | null, label?: string | nul
   return compact.slice(0, 3);
 }
 
+export function resolveTeamIconSrc(src?: string): string | undefined {
+  if (!src) return undefined;
+  if (/^(?:https?:|data:)/.test(src)) return src;
+
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const normalized = src.startsWith("/") ? src : `/${src}`;
+  return `${basePath}${normalized}`;
+}
+
 export function getTeamIconDefinition(league: LeagueCode, teamCode?: string | null): TeamIconDefinition {
   const normalized = String(teamCode || "").trim().toUpperCase();
   return TEAM_ICONS[league]?.[normalized] || DEFAULT_ICON;

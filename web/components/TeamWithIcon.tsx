@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import type { LeagueCode } from "@/lib/league";
-import { getTeamIconDefinition, normalizeTeamCode } from "@/lib/team-icons";
+import { getTeamIconDefinition, normalizeTeamCode, resolveTeamIconSrc } from "@/lib/team-icons";
 import styles from "./TeamWithIcon.module.css";
 
 type TeamWithIconProps = {
@@ -63,6 +63,7 @@ export default function TeamWithIcon({
   const normalizedCode = normalizeTeamCode(teamCode, displayLabel);
   const icon = getTeamIconDefinition(league, normalizedCode);
   const iconSize = size === "md" ? 20 : 16;
+  const iconSrc = resolveTeamIconSrc(icon.src);
   const frameStyle = {
     "--team-icon-background": icon.background,
     "--team-icon-border": icon.border,
@@ -72,9 +73,9 @@ export default function TeamWithIcon({
   return (
     <span className={joinClassNames(styles.teamWithIcon, size === "md" ? styles.sizeMd : styles.sizeSm, className)}>
       <span className={styles.iconFrame} style={frameStyle} aria-hidden="true">
-        {icon.src ? (
+        {iconSrc ? (
           <Image
-            src={icon.src}
+            src={iconSrc}
             alt=""
             width={iconSize}
             height={iconSize}
