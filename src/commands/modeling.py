@@ -11,7 +11,7 @@ from src.common.config import AppConfig
 from src.common.logging import get_logger
 from src.common.utils import ensure_dir
 from src.services import backtest as backtest_service
-from src.services import ingest, train as train_service
+from src.services import ingest, model_compare as model_compare_service, train as train_service
 from src.services import validate as validate_service
 from src.storage.db import Database
 from src.training.prequential import score_predictions
@@ -54,6 +54,18 @@ def validate(cfg: AppConfig, args: Namespace) -> None:
         cfg,
         models_arg=getattr(args, "models", None),
         model_run_id=getattr(args, "model_run_id", None),
+    )
+
+
+def compare_candidates(cfg: AppConfig, args: Namespace) -> None:
+    result = model_compare_service.compare_candidate_models(
+        cfg,
+        report_slug=getattr(args, "report_slug", None),
+        bootstrap_samples=int(getattr(args, "bootstrap_samples", 1000)),
+    )
+    print(
+        f"CANDIDATE_MODEL_COMPARISON::{result.league}::{result.recommendation_model}::{result.report_path}",
+        flush=True,
     )
 
 

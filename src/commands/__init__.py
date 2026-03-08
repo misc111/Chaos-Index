@@ -26,6 +26,7 @@ def dispatch(command: str, cfg: AppConfig, args: Namespace) -> None:
         "research-features": data.research_features,
         "train": modeling.train,
         "validate": modeling.validate,
+        "compare-candidates": modeling.compare_candidates,
         "backtest": modeling.backtest,
         "run-daily": modeling.run_daily,
         "smoke": smoke.run,

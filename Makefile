@@ -32,6 +32,8 @@ help:
 	@echo "  validate            Regenerate validation artifacts from the latest saved trained run"
 	@echo "                      Optional: MODELS=glm_ridge,rf (default: saved run selection)"
 	@echo "                      Optional: MODEL_RUN_ID=run_abc123"
+	@echo "  compare-candidates  Run the research-only candidate model comparison suite"
+	@echo "                      Optional: CONFIG=configs/nba.yaml"
 	@echo "  backtest            Walk-forward backtest + artifacts"
 	@echo "                      Optional: MODELS=glm_ridge,rf (default: all)"
 	@echo "                      Optional: APPROVE_FEATURE_CHANGES=1"
@@ -81,6 +83,9 @@ train:
 
 validate:
 	$(PYTHON) -m src.cli validate --config $(CONFIG) $(MODEL_ARGS) $(MODEL_RUN_ARGS)
+
+compare-candidates:
+	$(PYTHON) -m src.cli compare-candidates --config $(CONFIG)
 
 backtest:
 	$(PYTHON) -m src.cli backtest --config $(CONFIG) $(MODEL_ARGS) $(APPROVE_FEATURE_ARGS)

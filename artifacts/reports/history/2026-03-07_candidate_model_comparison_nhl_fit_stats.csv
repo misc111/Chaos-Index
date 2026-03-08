@@ -1,0 +1,19 @@
+model_name,display_name,parameter_count,active_parameter_count,n_features,train_log_likelihood,train_deviance,train_aic,train_bic,notes,split,params
+intercept_only,Intercept Only,1,1,0,-310.63373931412065,,,,Empirical home-win base rate on the fit window,validation,p_home_win=0.525612
+glm_ridge,GLM Ridge,86,86,85,-279.7977571613087,559.5955143226174,,,penalty=l2; solver=lbfgs,validation,c=0.05
+glm_elastic_net,Elastic Net GLM,86,11,85,-292.99725732674204,585.9945146534841,,,penalty=elasticnet; solver=saga,validation,c=0.05; l1_ratio=0.5
+glm_lasso,Lasso GLM,86,10,85,-292.25470819603527,584.5094163920705,,,penalty=l1; solver=saga,validation,c=0.1
+glm_vanilla,Vanilla GLM,86,86,85,,16578.61266955713,,,statsmodels.GLM(Binomial),validation,{}
+glmm_logit,GLMM Logit,77,11,10,,,,,fit=laplace_map; home_random_sd=0.0000; away_random_sd=0.0000,validation,feature_cap=10
+dglm_margin,DGLM Margin,30,30,14,-2173.8707314772773,3361.6094340868344,4407.741462954555,4530.952149586822,iterations=1,validation,feature_cap=14; iterations=1
+gam_spline,GAM Spline,21,21,8,-290.8642938938037,581.7285877876074,,,spline_features=3; n_knots=4,validation,c=0.25; feature_cap=3; n_knots=4
+mars_hinge,MARS Hinge,31,4,10,-295.91438747274645,591.8287749454929,,,hinge_features=4; knots_per_feature=3; interaction_degree=1,validation,c=0.1; feature_cap=4; interaction_degree=1; knots_per_feature=3
+intercept_only,Intercept Only,1,1,0,-543.5082756343926,,,,Empirical home-win base rate on the fit window,test,p_home_win=0.519745
+glm_ridge,GLM Ridge,96,96,95,-491.68150374140316,983.3630074828063,,,penalty=l2; solver=lbfgs,test,c=0.05
+glm_elastic_net,Elastic Net GLM,96,16,95,-516.9218175430219,1033.8436350860438,,,penalty=elasticnet; solver=saga,test,c=0.05; l1_ratio=0.75
+glm_lasso,Lasso GLM,96,18,95,-510.5139983940215,1021.027996788043,,,penalty=l1; solver=saga,test,c=0.1
+glm_vanilla,Vanilla GLM,96,96,95,,31223.053860999258,,,statsmodels.GLM(Binomial),test,{}
+glmm_logit,GLMM Logit,73,7,6,,,,,fit=laplace_map; home_random_sd=0.0000; away_random_sd=0.0000,test,feature_cap=6
+dglm_margin,DGLM Margin,14,14,6,-4101.588291428607,6099.485499988798,8231.176582857213,8296.496154906166,iterations=1,test,feature_cap=6; iterations=1
+gam_spline,GAM Spline,21,21,8,-533.466985512387,1066.933971024774,,,spline_features=3; n_knots=4,test,c=0.25; feature_cap=3; n_knots=4
+mars_hinge,MARS Hinge,17,5,6,-540.4121267398909,1080.8242534797819,,,hinge_features=2; knots_per_feature=3; interaction_degree=1,test,c=0.1; feature_cap=2; interaction_degree=1; knots_per_feature=3

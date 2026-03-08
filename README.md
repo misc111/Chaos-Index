@@ -85,6 +85,13 @@ make validate CONFIG=configs/nba.yaml MODELS=glm_ridge
 make validate CONFIG=configs/nba.yaml MODELS=glm_ridge MODEL_RUN_ID=run_1eb998e42080fd86
 ```
 
+Run the research-only candidate model comparison suite against the current local feature table:
+```bash
+make compare-candidates
+make compare-candidates CONFIG=configs/nba.yaml
+```
+Outputs are written to `artifacts/reports/history/`.
+
 Walk-forward backtest + prequential scoring:
 ```bash
 make backtest

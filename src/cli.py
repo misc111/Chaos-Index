@@ -48,6 +48,7 @@ def build_parser() -> argparse.ArgumentParser:
         "research-features",
         "train",
         "validate",
+        "compare-candidates",
         "backtest",
         "run-daily",
         "smoke",
@@ -59,6 +60,18 @@ def build_parser() -> argparse.ArgumentParser:
                 "--models",
                 default=None if cmd == "validate" else "all",
                 help="Comma-separated model list (e.g. glm_ridge,rf) or 'all'",
+            )
+        if cmd == "compare-candidates":
+            p.add_argument(
+                "--report-slug",
+                default=None,
+                help="Optional report slug prefix for artifacts/reports/history outputs.",
+            )
+            p.add_argument(
+                "--bootstrap-samples",
+                type=int,
+                default=1000,
+                help="Number of paired bootstrap samples for the final holdout comparison.",
             )
         if cmd in {"train", "validate", "run-daily"}:
             p.add_argument(
