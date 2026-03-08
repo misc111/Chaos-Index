@@ -62,7 +62,7 @@ export default function TeamWithIcon({
   const displayLabel = String(label || teamCode || "").trim() || "Unknown team";
   const normalizedCode = normalizeTeamCode(teamCode, displayLabel);
   const icon = getTeamIconDefinition(league, normalizedCode);
-  const iconSize = size === "md" ? 24 : 20;
+  const iconSize = size === "md" ? 28 : 24;
   const iconSrc = resolveTeamIconSrc(icon.src);
   const frameStyle = {
     "--team-icon-background": icon.background,
