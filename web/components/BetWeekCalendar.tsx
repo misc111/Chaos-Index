@@ -90,7 +90,7 @@ export default function BetWeekCalendar({ league, weekStart, bets }: Props) {
               <h3 className={styles.dayTitle}>{formatDayLabel(dateKey)}</h3>
               <p className={netClassName(dayProfit)}>{formatSignedUsd(dayProfit, { minimumFractionDigits: 2 })}</p>
               {dayBets.length ? (
-                <p className={styles.riskBadge}>Risked {formatRisked(dayRisked)}</p>
+                <p className={styles.riskText}>Risked {formatRisked(dayRisked)}</p>
               ) : (
                 <p className={styles.emptyState}>No bets.</p>
               )}
@@ -106,7 +106,7 @@ export default function BetWeekCalendar({ league, weekStart, bets }: Props) {
                       <p className={`${styles.amountValue} ${styles.betAmount} ${amountClassName(bet.profit)}`}>
                         {formatSignedUsd(bet.profit, { minimumFractionDigits: 2 })}
                       </p>
-                      <p className={styles.betRisk}>Risked {formatRisked(bet.stake)}</p>
+                      <p className={styles.riskText}>Risked {formatRisked(bet.stake)}</p>
                       <div className={styles.betTeams} aria-label={`${formatTeamCode(bet.away_team)} at ${formatTeamCode(bet.home_team)}`}>
                         <TeamWithIcon
                           league={league}

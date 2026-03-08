@@ -257,21 +257,6 @@
   border: 1px solid var(--neutral-border);
 }
 
-.riskBadge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 8px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  text-align: center;
-  white-space: normal;
-  color: var(--warning);
-  background: var(--warning-soft);
-  border: 1px solid var(--warning-border);
-}
-
 .betList {
   display: grid;
   gap: 8px;
@@ -303,7 +288,7 @@
   font-weight: 800;
 }
 
-.betRisk {
+.riskText {
   margin: 0;
   color: var(--muted);
   font-size: 12px;
