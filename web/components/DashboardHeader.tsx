@@ -25,11 +25,7 @@ const links: Array<[string, string]> = [
   ["/predictions", "Model Summary"],
 ];
 
-function isActivePath(currentPath: string, href: string): boolean {
-  const normalizedCurrentPath = currentPath !== "/" ? currentPath.replace(/\/+$/, "") : currentPath;
-  const normalizedHref = href !== "/" ? href.replace(/\/+$/, "") : href;
-  return normalizedCurrentPath === normalizedHref;
-}
+const DEFAULT_QUERY = "?league=NBA&strategy=balanced&sizingStyle=continuous";
 
 type RefreshResponse = {
   ok?: boolean;
@@ -40,9 +36,31 @@ type RefreshResponse = {
 
 type DashboardTheme = "light" | "market-board-dark";
 
+type SidebarControlsProps = {
+  isRefreshing: boolean;
+  league: LeagueCode;
+  onRefresh?: () => void;
+  onThemeToggle?: () => void;
+  pathname: string;
+  refreshError: string;
+  refreshedAtLabel: string;
+  search: URLSearchParams;
+  showRefreshedStamp: boolean;
+  sizingStyle: BetSizingStyle;
+  staticStaging: boolean;
+  strategy: BetStrategy;
+  theme: DashboardTheme;
+};
+
 const DASHBOARD_THEME_KEY = "dashboard-theme";
 const DARK_THEME: DashboardTheme = "market-board-dark";
 const LIGHT_THEME: DashboardTheme = "light";
+
+function isActivePath(currentPath: string, href: string): boolean {
+  const normalizedCurrentPath = currentPath !== "/" ? currentPath.replace(/\/+$/, "") : currentPath;
+  const normalizedHref = href !== "/" ? href.replace(/\/+$/, "") : href;
+  return normalizedCurrentPath === normalizedHref;
+}
 
 function isDashboardTheme(value: string | null): value is DashboardTheme {
   return value === DARK_THEME || value === LIGHT_THEME;
@@ -105,86 +123,182 @@ function formatRefreshTimestamp(value: string): string {
   });
 }
 
-function HeaderFallback() {
+function SidebarControls({
+  isRefreshing,
+  league,
+  onRefresh,
+  onThemeToggle,
+  pathname,
+  refreshError,
+  refreshedAtLabel,
+  search,
+  showRefreshedStamp,
+  sizingStyle,
+  staticStaging,
+  strategy,
+  theme,
+}: SidebarControlsProps) {
+  const isDarkTheme = theme === DARK_THEME;
+  const strategyConfig = getBetStrategyConfig(strategy);
+  const sizingStyleConfig = getBetSizingStyleConfig(sizingStyle);
+
   return (
     <>
-      <h1 className="title app-title">NBA Win Probability Forecasting</h1>
-      <div className="header-control-row">
-        <div className="header-selection-stack">
-          <div className="league-toggle-row" aria-label="League selection">
-            <Link href="?league=NBA&strategy=balanced&sizingStyle=continuous" className="league-toggle-btn active">
-              NBA
+      <div className="sidebar-brand card">
+        <p className="sidebar-eyebrow">Control Center</p>
+        <h2 className="sidebar-title">Dashboard Inputs</h2>
+        <p className="small sidebar-copy">
+          Switch leagues and stake assumptions without leaving the current view.
+        </p>
+      </div>
+
+      <section className="sidebar-card card" aria-labelledby="sidebar-league-title">
+        <span className="strategy-toggle-label" id="sidebar-league-title">
+          League
+        </span>
+        <div className="league-toggle-row" aria-label="League selection">
+          {(["NBA", "NHL"] as LeagueCode[]).map((code) => (
+            <Link
+              href={hrefWithLeague(pathname, code, search)}
+              key={code}
+              className={`league-toggle-btn ${league === code ? "active" : ""}`}
+            >
+              {code}
             </Link>
-            <Link href="?league=NHL&strategy=balanced&sizingStyle=continuous" className="league-toggle-btn">
-              NHL
+          ))}
+        </div>
+      </section>
+
+      <section className="sidebar-card card" aria-labelledby="sidebar-profile-title">
+        <span className="strategy-toggle-label" id="sidebar-profile-title">
+          Bet Profile
+        </span>
+        <div className="strategy-toggle-row" aria-label="Bet strategy selection">
+          {BET_STRATEGIES.map((code) => (
+            <Link
+              href={hrefWithStrategy(pathname, code, search)}
+              key={code}
+              className={`strategy-toggle-btn ${strategy === code ? "active" : ""}`}
+            >
+              <span className="strategy-toggle-title">{getBetStrategyConfig(code).label}</span>
+              <span className="strategy-toggle-note">{getBetStrategyConfig(code).shortLabel}</span>
             </Link>
-          </div>
-          <div className="strategy-toggle-stack">
-            <span className="strategy-toggle-label">Bet Profile</span>
-            <div className="strategy-toggle-row" aria-label="Bet strategy selection">
-              <Link href="?league=NBA&strategy=balanced&sizingStyle=continuous" className="strategy-toggle-btn active">
-                <span className="strategy-toggle-title">Balanced</span>
-                <span className="strategy-toggle-note">Standard sizing</span>
-              </Link>
-              <Link href="?league=NBA&strategy=riskAverse&sizingStyle=continuous" className="strategy-toggle-btn">
-                <span className="strategy-toggle-title">Risk Averse</span>
-                <span className="strategy-toggle-note">Favorites only</span>
-              </Link>
-              <Link href="?league=NBA&strategy=riskLoving&sizingStyle=continuous" className="strategy-toggle-btn">
-                <span className="strategy-toggle-title">Risk Loving</span>
-                <span className="strategy-toggle-note">Bigger swings</span>
-              </Link>
-            </div>
-          </div>
-          <div className="strategy-toggle-stack">
-            <span className="strategy-toggle-label">Amount Bet</span>
-            <div className="strategy-toggle-row" aria-label="Bet sizing style selection">
-              <Link href="?league=NBA&strategy=balanced&sizingStyle=continuous" className="strategy-toggle-btn active">
-                <span className="strategy-toggle-title">Continuous</span>
-                <span className="strategy-toggle-note">Kelly scaled</span>
-              </Link>
-              <Link href="?league=NBA&strategy=balanced&sizingStyle=bucketed" className="strategy-toggle-btn">
-                <span className="strategy-toggle-title">Bucketed</span>
-                <span className="strategy-toggle-note">Legacy buckets</span>
-              </Link>
-            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="sidebar-card card" aria-labelledby="sidebar-sizing-title">
+        <span className="strategy-toggle-label" id="sidebar-sizing-title">
+          Amount Bet
+        </span>
+        <div className="strategy-toggle-row" aria-label="Bet sizing style selection">
+          {BET_SIZING_STYLES.map((code) => (
+            <Link
+              href={hrefWithSizingStyle(pathname, code, search)}
+              key={code}
+              className={`strategy-toggle-btn ${sizingStyle === code ? "active" : ""}`}
+            >
+              <span className="strategy-toggle-title">{getBetSizingStyleConfig(code).label}</span>
+              <span className="strategy-toggle-note">{getBetSizingStyleConfig(code).shortLabel}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="sidebar-card card" aria-labelledby="sidebar-utilities-title">
+        <span className="strategy-toggle-label" id="sidebar-utilities-title">
+          Utilities
+        </span>
+        <div className="refresh-row">
+          <button
+            type="button"
+            className="refresh-btn"
+            onClick={onRefresh}
+            disabled={isRefreshing || staticStaging}
+            aria-busy={isRefreshing}
+          >
+            {staticStaging ? (
+              "Snapshot Only"
+            ) : isRefreshing ? (
+              <>
+                <span className="refresh-spinner" aria-hidden />
+                Refreshing {league}...
+              </>
+            ) : (
+              "Refresh Data"
+            )}
+          </button>
+          <div className="refresh-meta" aria-live="polite">
+            <p className="small">
+              Active bet profile: {strategyConfig.label}. {strategyConfig.description}
+            </p>
+            <p className="small">
+              Amount bet mode: {sizingStyleConfig.label}. {sizingStyleConfig.description}
+            </p>
+            {staticStaging ? <p className="small">GitHub Pages staging uses committed snapshot data.</p> : null}
+            {!staticStaging ? <p className="small">Ingest only. No feature rebuild and no retraining.</p> : null}
+            {isRefreshing ? (
+              <>
+                <p className="small">Refreshing {league} data without rebuilding models...</p>
+                <div className="refresh-progress-track">
+                  <span className="refresh-progress-fill" />
+                </div>
+              </>
+            ) : null}
+            {!isRefreshing && showRefreshedStamp ? <p className="small">Data refreshed as of {refreshedAtLabel}</p> : null}
+            {refreshError ? <p className="small refresh-error">{refreshError}</p> : null}
           </div>
         </div>
-        <button type="button" className="theme-toggle-btn active" aria-pressed="true">
+
+        <button
+          type="button"
+          className={`theme-toggle-btn ${isDarkTheme ? "active" : ""}`}
+          onClick={onThemeToggle}
+          aria-pressed={isDarkTheme}
+          aria-label={isDarkTheme ? "Switch to light mode" : "Switch to dark mode"}
+        >
           <span className="theme-toggle-copy">
             <span className="theme-toggle-label">Dark Mode</span>
-            <span className="theme-toggle-state">On</span>
+            <span className="theme-toggle-state">{isDarkTheme ? "On" : "Off"}</span>
           </span>
           <span className="theme-toggle-track" aria-hidden>
             <span className="theme-toggle-knob" />
           </span>
         </button>
-      </div>
-      <div className="refresh-row">
-        <button type="button" className="refresh-btn" disabled>
-          Refresh Data
-        </button>
-      </div>
-        <div className="nav">
-        {links.map(([href, label]) => (
-          <Link href={`${href}?league=NBA&strategy=balanced&sizingStyle=continuous`} key={href} className="nav-link">
-            {label}
-          </Link>
-        ))}
-      </div>
+      </section>
     </>
   );
 }
 
-function DashboardHeaderContent() {
+function DashboardSidebarFallback() {
+  return (
+    <aside className="dashboard-sidebar" aria-label="Dashboard controls">
+      <div className="dashboard-sidebar-inner">
+        <SidebarControls
+          isRefreshing={false}
+          league="NBA"
+          pathname="/"
+          refreshError=""
+          refreshedAtLabel=""
+          search={new URLSearchParams("league=NBA&strategy=balanced&sizingStyle=continuous")}
+          showRefreshedStamp={false}
+          sizingStyle="continuous"
+          staticStaging={false}
+          strategy="balanced"
+          theme={DARK_THEME}
+        />
+      </div>
+    </aside>
+  );
+}
+
+function DashboardSidebarContent() {
   const pathname = usePathname() || "/";
   const searchParams = useSearchParams();
   const search = new URLSearchParams(searchParams.toString());
   const league = normalizeLeague(searchParams.get("league"));
   const strategy = normalizeBetStrategy(searchParams.get("strategy"));
   const sizingStyle = normalizeBetSizingStyle(searchParams.get("sizingStyle"));
-  const strategyConfig = getBetStrategyConfig(strategy);
-  const sizingStyleConfig = getBetSizingStyleConfig(sizingStyle);
   const staticStaging = isStaticStagingBuild();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [refreshError, setRefreshError] = useState("");
@@ -248,112 +362,71 @@ function DashboardHeaderContent() {
   };
 
   return (
+    <aside className="dashboard-sidebar" aria-label="Dashboard controls">
+      <div className="dashboard-sidebar-inner">
+        <SidebarControls
+          isRefreshing={isRefreshing}
+          league={league}
+          onRefresh={handleRefresh}
+          onThemeToggle={handleThemeToggle}
+          pathname={pathname}
+          refreshError={refreshError}
+          refreshedAtLabel={refreshedAtLabel}
+          search={search}
+          showRefreshedStamp={showRefreshedStamp}
+          sizingStyle={sizingStyle}
+          staticStaging={staticStaging}
+          strategy={strategy}
+          theme={theme}
+        />
+      </div>
+    </aside>
+  );
+}
+
+function HeaderFallback() {
+  return (
     <>
-      <h1 className="title app-title">{league} Win Probability Forecasting</h1>
-
-      <div className="header-control-row">
-        <div className="header-selection-stack">
-          <div className="league-toggle-row" aria-label="League selection">
-            {(["NBA", "NHL"] as LeagueCode[]).map((code) => (
-              <Link
-                href={hrefWithLeague(pathname, code, search)}
-                key={code}
-                className={`league-toggle-btn ${league === code ? "active" : ""}`}
-              >
-                {code}
-              </Link>
-            ))}
-          </div>
-          <div className="strategy-toggle-stack">
-            <span className="strategy-toggle-label">Bet Profile</span>
-            <div className="strategy-toggle-row" aria-label="Bet strategy selection">
-              {BET_STRATEGIES.map((code) => (
-                <Link
-                  href={hrefWithStrategy(pathname, code, search)}
-                  key={code}
-                  className={`strategy-toggle-btn ${strategy === code ? "active" : ""}`}
-                >
-                  <span className="strategy-toggle-title">{getBetStrategyConfig(code).label}</span>
-                  <span className="strategy-toggle-note">{getBetStrategyConfig(code).shortLabel}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div className="strategy-toggle-stack">
-            <span className="strategy-toggle-label">Amount Bet</span>
-            <div className="strategy-toggle-row" aria-label="Bet sizing style selection">
-              {BET_SIZING_STYLES.map((code) => (
-                <Link
-                  href={hrefWithSizingStyle(pathname, code, search)}
-                  key={code}
-                  className={`strategy-toggle-btn ${sizingStyle === code ? "active" : ""}`}
-                >
-                  <span className="strategy-toggle-title">{getBetSizingStyleConfig(code).label}</span>
-                  <span className="strategy-toggle-note">{getBetSizingStyleConfig(code).shortLabel}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-        <button
-          type="button"
-          className={`theme-toggle-btn ${isDarkTheme ? "active" : ""}`}
-          onClick={handleThemeToggle}
-          aria-pressed={isDarkTheme}
-          aria-label={isDarkTheme ? "Switch to light mode" : "Switch to dark mode"}
-        >
-          <span className="theme-toggle-copy">
-            <span className="theme-toggle-label">Dark Mode</span>
-            <span className="theme-toggle-state">{isDarkTheme ? "On" : "Off"}</span>
-          </span>
-          <span className="theme-toggle-track" aria-hidden>
-            <span className="theme-toggle-knob" />
-          </span>
-        </button>
-      </div>
-
-      <div className="refresh-row">
-        <button
-          type="button"
-          className="refresh-btn"
-          onClick={handleRefresh}
-          disabled={isRefreshing || staticStaging}
-          aria-busy={isRefreshing}
-        >
-          {staticStaging ? (
-            "Snapshot Only"
-          ) : isRefreshing ? (
-            <>
-              <span className="refresh-spinner" aria-hidden />
-              Refreshing {league}...
-            </>
-          ) : (
-            "Refresh Data"
-          )}
-        </button>
-        <div className="refresh-meta" aria-live="polite">
-          <p className="small">Active bet profile: {strategyConfig.label}. {strategyConfig.description}</p>
-          <p className="small">Amount bet mode: {sizingStyleConfig.label}. {sizingStyleConfig.description}</p>
-          {staticStaging ? <p className="small">GitHub Pages staging uses committed snapshot data.</p> : null}
-          {!staticStaging ? (
-            <p className="small">Ingest only. No feature rebuild and no retraining.</p>
-          ) : null}
-          {isRefreshing ? (
-            <>
-              <p className="small">Refreshing {league} data without rebuilding models...</p>
-              <div className="refresh-progress-track">
-                <span className="refresh-progress-fill" />
-              </div>
-            </>
-          ) : null}
-          {!isRefreshing && showRefreshedStamp ? (
-            <p className="small">Data refreshed as of {refreshedAtLabel}</p>
-          ) : null}
-          {refreshError ? <p className="small refresh-error">{refreshError}</p> : null}
+      <div className="dashboard-topbar">
+        <div className="dashboard-title-block">
+          <p className="sidebar-eyebrow dashboard-eyebrow">Chaos Index</p>
+          <h1 className="title app-title">NBA Win Probability Forecasting</h1>
+          <p className="small dashboard-subtitle">
+            Independent win probabilities you can compare against the market.
+          </p>
         </div>
       </div>
 
-      <div className="nav">
+      <nav className="nav dashboard-nav" aria-label="Primary dashboard navigation">
+        {links.map(([href, label]) => (
+          <Link href={`${href}${DEFAULT_QUERY}`} key={href} className="nav-link">
+            {label}
+          </Link>
+        ))}
+      </nav>
+    </>
+  );
+}
+
+function DashboardHeaderContent() {
+  const pathname = usePathname() || "/";
+  const searchParams = useSearchParams();
+  const search = new URLSearchParams(searchParams.toString());
+  const league = normalizeLeague(searchParams.get("league"));
+
+  return (
+    <>
+      <div className="dashboard-topbar">
+        <div className="dashboard-title-block">
+          <p className="sidebar-eyebrow dashboard-eyebrow">Chaos Index</p>
+          <h1 className="title app-title">{league} Win Probability Forecasting</h1>
+          <p className="small dashboard-subtitle">
+            Independent win probabilities you can compare against the market.
+          </p>
+        </div>
+      </div>
+
+      <nav className="nav dashboard-nav" aria-label="Primary dashboard navigation">
         {links.map(([href, label]) => {
           const isActive = isActivePath(pathname, href);
           return (
@@ -367,8 +440,16 @@ function DashboardHeaderContent() {
             </Link>
           );
         })}
-      </div>
+      </nav>
     </>
+  );
+}
+
+export function DashboardSidebar() {
+  return (
+    <Suspense fallback={<DashboardSidebarFallback />}>
+      <DashboardSidebarContent />
+    </Suspense>
   );
 }
 

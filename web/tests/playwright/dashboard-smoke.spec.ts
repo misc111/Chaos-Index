@@ -222,11 +222,24 @@ async function settle(page: Page) {
 
 async function expectDashboardShell(page: Page, league: LeagueCode) {
   await expect(page.locator("h1.app-title")).toHaveText(`${league} Win Probability Forecasting`);
+  await expect(page.locator("aside.dashboard-sidebar")).toContainText(/Bet Profile/i);
+  await expect(page.locator("aside.dashboard-sidebar")).toContainText(/Amount Bet/i);
+  await expect(page.locator("nav.dashboard-nav")).toContainText(/Overview/i);
   const layoutMetrics = await page.evaluate(() => ({
     scrollWidth: document.documentElement.scrollWidth,
     viewportWidth: window.innerWidth,
+    sidebarRight: document.querySelector("aside.dashboard-sidebar")?.getBoundingClientRect().right ?? null,
+    mainLeft: document.querySelector("main")?.getBoundingClientRect().left ?? null,
+    navBottom: document.querySelector("nav.dashboard-nav")?.getBoundingClientRect().bottom ?? null,
+    mainTop: document.querySelector("main")?.getBoundingClientRect().top ?? null,
   }));
   expect(layoutMetrics.scrollWidth).toBeLessThanOrEqual(layoutMetrics.viewportWidth + 32);
+  if (layoutMetrics.sidebarRight !== null && layoutMetrics.mainLeft !== null) {
+    expect(layoutMetrics.sidebarRight).toBeLessThan(layoutMetrics.mainLeft);
+  }
+  if (layoutMetrics.navBottom !== null && layoutMetrics.mainTop !== null) {
+    expect(layoutMetrics.navBottom).toBeLessThan(layoutMetrics.mainTop + 1);
+  }
 }
 
 async function expectHealthyRoute(

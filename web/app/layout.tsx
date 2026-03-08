@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
-import DashboardHeader from "@/components/DashboardHeader";
+import DashboardHeader, { DashboardSidebar } from "@/components/DashboardHeader";
 
 const DEFAULT_DASHBOARD_THEME = "market-board-dark";
 const THEME_STORAGE_KEY = "dashboard-theme";
@@ -33,8 +33,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <script dangerouslySetInnerHTML={{ __html: themeInitializer }} />
         <div className="container">
-          <DashboardHeader />
-          <main style={{ paddingBottom: 48 }}>{children}</main>
+          <div className="dashboard-shell">
+            <DashboardSidebar />
+            <div className="dashboard-main">
+              <DashboardHeader />
+              <main style={{ paddingBottom: 48 }}>{children}</main>
+            </div>
+          </div>
         </div>
       </body>
     </html>
