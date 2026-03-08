@@ -1,11 +1,16 @@
-import { type BetStrategy, DEFAULT_BET_STRATEGY } from "@/lib/betting-strategy";
+import {
+  type BetSizingStyle,
+  type BetStrategy,
+  DEFAULT_BET_SIZING_STYLE,
+  DEFAULT_BET_STRATEGY,
+} from "@/lib/betting-strategy";
 import { BET_UNIT_DOLLARS, computeBetDecision, type ExpectedSide } from "@/lib/betting";
 import { execSql, runSqlJson } from "@/lib/db";
 import type { LeagueCode } from "@/lib/league";
 
-const REPLAY_DECISION_VERSION = "historical_replay_v4";
-const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v3";
-const REPLAY_DECISION_TABLE = "historical_bet_decisions_by_strategy";
+const REPLAY_DECISION_VERSION = "historical_replay_v5";
+const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v4";
+const REPLAY_DECISION_TABLE = "historical_bet_decisions_by_profile";
 
 export type ReplayableHistoricalGame = {
   game_id: number;
@@ -23,6 +28,7 @@ export type ReplayableHistoricalGame = {
 
 type RawHistoricalReplayDecisionRow = {
   strategy?: string | null;
+  sizing_style?: string | null;
   game_id?: number | null;
   date_central?: string | null;
   forecast_as_of_utc?: string | null;
@@ -52,6 +58,7 @@ type RawHistoricalReplayDecisionRow = {
 
 export type HistoricalReplayDecisionSnapshot = {
   strategy: BetStrategy;
+  sizing_style: BetSizingStyle;
   game_id: number;
   date_central: string;
   forecast_as_of_utc: string;
@@ -79,7 +86,8 @@ export type HistoricalReplayDecisionSnapshot = {
   created_at_utc: string;
 };
 
-export type HistoricalReplayDecisionSet = Record<BetStrategy, HistoricalReplayDecisionSnapshot | null>;
+export type HistoricalReplayDecisionSizingSet = Record<BetSizingStyle, HistoricalReplayDecisionSnapshot | null>;
+export type HistoricalReplayDecisionSet = Record<BetStrategy, HistoricalReplayDecisionSizingSet>;
 
 type RawSqliteTableInfoRow = {
   name?: string | null;
@@ -116,11 +124,18 @@ function normalizeStrategy(value: unknown): BetStrategy {
   return DEFAULT_BET_STRATEGY;
 }
 
+function normalizeSizingStyle(value: unknown): BetSizingStyle {
+  const sizingStyle = String(value || "").trim();
+  if (sizingStyle === "bucketed") return sizingStyle;
+  return DEFAULT_BET_SIZING_STYLE;
+}
+
 function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
   execSql(
     `
     CREATE TABLE IF NOT EXISTS ${REPLAY_DECISION_TABLE} (
       strategy TEXT NOT NULL,
+      sizing_style TEXT NOT NULL,
       game_id INTEGER NOT NULL,
       date_central TEXT NOT NULL,
       forecast_as_of_utc TEXT NOT NULL,
@@ -146,7 +161,7 @@ function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
       decision_logic_version TEXT NOT NULL,
       materialization_version TEXT,
       created_at_utc TEXT NOT NULL,
-      PRIMARY KEY (strategy, game_id)
+      PRIMARY KEY (strategy, sizing_style, game_id)
     );
     `,
     { league }
@@ -159,6 +174,9 @@ function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
   );
 
   const alterStatements: string[] = [];
+  if (!columns.has("sizing_style")) {
+    alterStatements.push(`ALTER TABLE ${REPLAY_DECISION_TABLE} ADD COLUMN sizing_style TEXT NOT NULL DEFAULT 'continuous';`);
+  }
   if (!columns.has("forecast_model_run_id")) {
     alterStatements.push(`ALTER TABLE ${REPLAY_DECISION_TABLE} ADD COLUMN forecast_model_run_id TEXT;`);
   }
@@ -177,8 +195,8 @@ function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
 
   execSql(
     `
-    CREATE INDEX IF NOT EXISTS idx_historical_bet_decisions_by_strategy_date
-      ON ${REPLAY_DECISION_TABLE}(strategy, date_central);
+    CREATE INDEX IF NOT EXISTS idx_historical_bet_decisions_by_profile_date
+      ON ${REPLAY_DECISION_TABLE}(strategy, sizing_style, date_central);
     `,
     { league }
   );
@@ -187,7 +205,8 @@ function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
 function loadStoredHistoricalReplayDecisions(
   gameIds: number[],
   league: LeagueCode,
-  strategy: BetStrategy
+  strategy: BetStrategy,
+  sizingStyle: BetSizingStyle
 ): Map<number, HistoricalReplayDecisionSnapshot> {
   if (!gameIds.length) return new Map();
 
@@ -198,6 +217,7 @@ function loadStoredHistoricalReplayDecisions(
     `
     SELECT
       strategy,
+      sizing_style,
       game_id,
       date_central,
       forecast_as_of_utc,
@@ -225,6 +245,7 @@ function loadStoredHistoricalReplayDecisions(
       created_at_utc
     FROM ${REPLAY_DECISION_TABLE}
     WHERE strategy = '${escapeSqlString(strategy)}'
+      AND sizing_style = '${escapeSqlString(sizingStyle)}'
       AND game_id IN (${inList})
     `,
     { league }
@@ -237,6 +258,7 @@ function loadStoredHistoricalReplayDecisions(
 
     snapshots.set(gameId, {
       strategy: normalizeStrategy(row.strategy),
+      sizing_style: normalizeSizingStyle(row.sizing_style),
       game_id: gameId,
       date_central: String(row.date_central || ""),
       forecast_as_of_utc: String(row.forecast_as_of_utc || ""),
@@ -268,7 +290,11 @@ function loadStoredHistoricalReplayDecisions(
   return snapshots;
 }
 
-function buildHistoricalReplayDecision(row: ReplayableHistoricalGame, strategy: BetStrategy): HistoricalReplayDecisionSnapshot {
+function buildHistoricalReplayDecision(
+  row: ReplayableHistoricalGame,
+  strategy: BetStrategy,
+  sizingStyle: BetSizingStyle
+): HistoricalReplayDecisionSnapshot {
   const decision = computeBetDecision(
     {
       home_team: row.home_team,
@@ -277,11 +303,13 @@ function buildHistoricalReplayDecision(row: ReplayableHistoricalGame, strategy: 
       home_moneyline: row.home_moneyline,
       away_moneyline: row.away_moneyline,
     },
-    strategy
+    strategy,
+    sizingStyle
   );
 
   return {
     strategy,
+    sizing_style: sizingStyle,
     game_id: row.game_id,
     date_central: row.date_central,
     forecast_as_of_utc: row.forecast_as_of_utc,
@@ -317,6 +345,7 @@ function upsertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[
     .map(
       (row) => `(
         ${sqlText(row.strategy)},
+        ${sqlText(row.sizing_style)},
         ${row.game_id},
         ${sqlText(row.date_central)},
         ${sqlText(row.forecast_as_of_utc)},
@@ -350,6 +379,7 @@ function upsertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[
     `
     INSERT OR REPLACE INTO ${REPLAY_DECISION_TABLE} (
       strategy,
+      sizing_style,
       game_id,
       date_central,
       forecast_as_of_utc,
@@ -384,7 +414,8 @@ function upsertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[
 export function loadOrCreateHistoricalReplayDecisions(
   rows: ReplayableHistoricalGame[],
   league: LeagueCode,
-  strategy: BetStrategy = DEFAULT_BET_STRATEGY
+  strategy: BetStrategy = DEFAULT_BET_STRATEGY,
+  sizingStyle: BetSizingStyle = DEFAULT_BET_SIZING_STYLE
 ): Map<number, HistoricalReplayDecisionSnapshot> {
   if (!rows.length) return new Map();
 
@@ -396,7 +427,8 @@ export function loadOrCreateHistoricalReplayDecisions(
     snapshots = loadStoredHistoricalReplayDecisions(
       rows.map((row) => row.game_id),
       league,
-      strategy
+      strategy,
+      sizingStyle
     );
   } catch {
     canPersist = false;
@@ -414,7 +446,7 @@ export function loadOrCreateHistoricalReplayDecisions(
         snapshot.stake_unit_dollars !== BET_UNIT_DOLLARS
       );
     })
-    .map((row) => buildHistoricalReplayDecision(row, strategy));
+    .map((row) => buildHistoricalReplayDecision(row, strategy, sizingStyle));
 
   if (!rowsToMaterialize.length) {
     return snapshots;

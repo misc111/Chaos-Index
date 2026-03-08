@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { normalizeBetStrategy, type BetStrategy } from "@/lib/betting-strategy";
+import { normalizeBetSizingStyle, normalizeBetStrategy, type BetSizingStyle, type BetStrategy } from "@/lib/betting-strategy";
 import { computeBetDecision } from "@/lib/betting";
 import { normalizeLeague } from "@/lib/league";
 import { fetchDashboardJson } from "@/lib/static-staging";
@@ -72,7 +72,7 @@ function booksLabel(count?: number): string {
   return `${numeric} ${numeric === 1 ? "book" : "books"}`;
 }
 
-function buildDerivedRow(row: MarketBoardRow, strategy: BetStrategy): DerivedBoardRow {
+function buildDerivedRow(row: MarketBoardRow, strategy: BetStrategy, sizingStyle: BetSizingStyle): DerivedBoardRow {
   const modelWinnerIsHome = row.home_win_probability >= 0.5;
   const modelWinner = modelWinnerIsHome ? row.home_team_name : row.away_team_name;
   const modelWinnerProbability = modelWinnerIsHome ? row.home_win_probability : 1 - row.home_win_probability;
@@ -88,7 +88,8 @@ function buildDerivedRow(row: MarketBoardRow, strategy: BetStrategy): DerivedBoa
       home_moneyline: row.moneyline.home_price,
       away_moneyline: row.moneyline.away_price,
     },
-    strategy
+    strategy,
+    sizingStyle
   );
 
   const edgeValue = typeof decision.edge === "number" && Number.isFinite(decision.edge) ? decision.edge : null;
@@ -135,6 +136,7 @@ function MarketBoardPageContent() {
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
   const strategy = normalizeBetStrategy(searchParams.get("strategy"));
+  const sizingStyle = normalizeBetSizingStyle(searchParams.get("sizingStyle"));
   const [report, setReport] = useState<MarketBoardResponse>({
     league,
     as_of_utc: null,
@@ -191,7 +193,10 @@ function MarketBoardPageContent() {
     };
   }, [league]);
 
-  const derivedRows = useMemo(() => report.rows.map((row) => buildDerivedRow(row, strategy)), [report.rows, strategy]);
+  const derivedRows = useMemo(
+    () => report.rows.map((row) => buildDerivedRow(row, strategy, sizingStyle)),
+    [report.rows, strategy, sizingStyle]
+  );
 
   return (
     <div className={styles.page}>

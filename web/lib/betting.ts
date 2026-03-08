@@ -1,4 +1,10 @@
-import { DEFAULT_BET_STRATEGY, getBetStrategyConfig, type BetStrategy } from "@/lib/betting-strategy";
+import {
+  DEFAULT_BET_SIZING_STYLE,
+  DEFAULT_BET_STRATEGY,
+  getBetStrategyConfig,
+  type BetSizingStyle,
+  type BetStrategy,
+} from "@/lib/betting-strategy";
 
 export type ExpectedSide = "home" | "away" | "none";
 
@@ -40,6 +46,7 @@ type BetDisplayRecommendation = {
 
 const KELLY_FRACTION_PER_UNIT = 0.15;
 const STAKE_ROUNDING_DOLLARS = 5;
+const LEGACY_BUCKET_STAKES = [0, 50, 100, 150] as const;
 
 function betAmountFromUnits(units: number): number {
   return BET_UNIT_DOLLARS * units;
@@ -65,6 +72,24 @@ function continuousStakeFromKelly(kellyFraction: number, sizeMultiplier: number,
 
   const units = Math.min(maxBetUnits, Math.max(0, (kellyFraction / KELLY_FRACTION_PER_UNIT) * sizeMultiplier));
   return roundStakeAmount(betAmountFromUnits(units));
+}
+
+function bucketedStakeFromAmount(amount: number): number {
+  if (!Number.isFinite(amount) || amount <= 0) return 0;
+
+  const cappedAmount = Math.min(amount, LEGACY_BUCKET_STAKES[LEGACY_BUCKET_STAKES.length - 1]);
+  let closestStake: number = LEGACY_BUCKET_STAKES[0];
+  let closestDistance = Math.abs(cappedAmount - closestStake);
+
+  for (const candidate of LEGACY_BUCKET_STAKES.slice(1)) {
+    const distance = Math.abs(cappedAmount - candidate);
+    if (distance < closestDistance) {
+      closestStake = candidate;
+      closestDistance = distance;
+    }
+  }
+
+  return closestStake;
 }
 
 export function expectedSide(homeWinProbability: number): ExpectedSide {
@@ -137,7 +162,11 @@ function buildDecision(
   };
 }
 
-export function computeBetDecision(row: BetInput, strategy: BetStrategy = DEFAULT_BET_STRATEGY): BetDecision {
+export function computeBetDecision(
+  row: BetInput,
+  strategy: BetStrategy = DEFAULT_BET_STRATEGY,
+  sizingStyle: BetSizingStyle = DEFAULT_BET_SIZING_STYLE
+): BetDecision {
   const strategyConfig = getBetStrategyConfig(strategy);
   const homeOdds = Number(row.home_moneyline);
   const awayOdds = Number(row.away_moneyline);
@@ -183,8 +212,9 @@ export function computeBetDecision(row: BetInput, strategy: BetStrategy = DEFAUL
   }
   const sideDecimalOdds = side === "home" ? decHome : decAway;
   const kellyFraction = decimalOddsToKellyFraction(modelProb, sideDecimalOdds);
-  const stake =
+  const continuousStake =
     kellyFraction === null ? 0 : continuousStakeFromKelly(kellyFraction, strategyConfig.sizeMultiplier, strategyConfig.maxBetUnits);
+  const stake = sizingStyle === "bucketed" ? bucketedStakeFromAmount(continuousStake) : continuousStake;
   if (stake <= 0) return buildDecision(row, "none", 0, "Price fair");
 
   const isUnderdog = sideOdds > 0;

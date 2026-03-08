@@ -1,4 +1,4 @@
-import type { BetStrategy } from "@/lib/betting-strategy";
+import type { BetSizingStyle, BetStrategy } from "@/lib/betting-strategy";
 import type { LeagueCode } from "@/lib/league";
 
 export type HistoricalBetRow = {
@@ -62,8 +62,11 @@ export type BetHistoryStrategyBundle = {
   bets: HistoricalBetRow[];
 };
 
+export type BetHistorySizingBundle = Record<BetSizingStyle, BetHistoryStrategyBundle>;
+
 export type BetHistoryResponse = {
   league: LeagueCode;
   default_strategy: BetStrategy;
-  strategies: Record<BetStrategy, BetHistoryStrategyBundle>;
+  default_sizing_style: BetSizingStyle;
+  strategies: Record<BetStrategy, BetHistorySizingBundle>;
 };

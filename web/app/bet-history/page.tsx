@@ -4,10 +4,16 @@ import { Suspense, useMemo, useState } from "react";
 import BetHistoryChart from "@/components/BetHistoryChart";
 import styles from "@/components/BetHistory.module.css";
 import BetWeekCalendar from "@/components/BetWeekCalendar";
-import { DEFAULT_BET_STRATEGY, getBetStrategyConfig } from "@/lib/betting-strategy";
+import {
+  DEFAULT_BET_SIZING_STYLE,
+  DEFAULT_BET_STRATEGY,
+  getBetSizingStyleConfig,
+  getBetStrategyConfig,
+} from "@/lib/betting-strategy";
 import { BET_UNIT_DOLLARS } from "@/lib/betting";
-import type { BetHistoryResponse, BetHistoryStrategyBundle } from "@/lib/bet-history-types";
+import type { BetHistoryResponse, BetHistorySizingBundle, BetHistoryStrategyBundle } from "@/lib/bet-history-types";
 import { formatUsd } from "@/lib/currency";
+import { useBetSizingStyle } from "@/lib/hooks/useBetSizingStyle";
 import { useBetStrategy } from "@/lib/hooks/useBetStrategy";
 import { useDashboardData } from "@/lib/hooks/useDashboardData";
 import { useLeague } from "@/lib/hooks/useLeague";
@@ -79,17 +85,29 @@ const EMPTY_BET_HISTORY_STRATEGY: BetHistoryStrategyBundle = {
 const EMPTY_BET_HISTORY: BetHistoryResponse = {
   league: "NHL",
   default_strategy: DEFAULT_BET_STRATEGY,
+  default_sizing_style: DEFAULT_BET_SIZING_STYLE,
   strategies: {
-    balanced: EMPTY_BET_HISTORY_STRATEGY,
-    riskAverse: EMPTY_BET_HISTORY_STRATEGY,
-    riskLoving: EMPTY_BET_HISTORY_STRATEGY,
+    balanced: {
+      continuous: EMPTY_BET_HISTORY_STRATEGY,
+      bucketed: EMPTY_BET_HISTORY_STRATEGY,
+    },
+    riskAverse: {
+      continuous: EMPTY_BET_HISTORY_STRATEGY,
+      bucketed: EMPTY_BET_HISTORY_STRATEGY,
+    },
+    riskLoving: {
+      continuous: EMPTY_BET_HISTORY_STRATEGY,
+      bucketed: EMPTY_BET_HISTORY_STRATEGY,
+    },
   },
 };
 
 function BetHistoryPageContent() {
   const league = useLeague();
   const strategy = useBetStrategy();
+  const sizingStyle = useBetSizingStyle();
   const strategyConfig = getBetStrategyConfig(strategy);
+  const sizingStyleConfig = getBetSizingStyleConfig(sizingStyle);
   const { data, isLoading: loading, error } = useDashboardData<BetHistoryResponse>(
     "betHistory",
     "/api/bet-history",
@@ -97,7 +115,14 @@ function BetHistoryPageContent() {
     EMPTY_BET_HISTORY
   );
   const [selectedWeekStart, setSelectedWeekStart] = useState<string | null>(null);
-  const activeHistory = data.strategies[strategy] || data.strategies[data.default_strategy] || EMPTY_BET_HISTORY_STRATEGY;
+  const activeStrategyBundle: BetHistorySizingBundle =
+    data.strategies[strategy] || data.strategies[data.default_strategy] || EMPTY_BET_HISTORY.strategies.balanced;
+  const fallbackStrategyBundle: BetHistorySizingBundle =
+    data.strategies[data.default_strategy] || EMPTY_BET_HISTORY.strategies.balanced;
+  const activeHistory =
+    activeStrategyBundle[sizingStyle] ||
+    fallbackStrategyBundle[data.default_sizing_style] ||
+    EMPTY_BET_HISTORY_STRATEGY;
 
   const weekStarts = useMemo(() => {
     return Array.from(new Set(activeHistory.bets.map((bet) => bet.week_start_central))).sort();
@@ -120,9 +145,10 @@ function BetHistoryPageContent() {
           <p className={styles.eyebrow}>Historical Replay</p>
           <h2 className="title">Bet History</h2>
           <p className={styles.heroText}>
-            This screen replays the {strategyConfig.label.toLowerCase()} Games Today bet logic against finalized games whenever the database contains both a pregame forecast snapshot and a matching pregame moneyline snapshot.
+            This screen replays the {strategyConfig.label.toLowerCase()} Games Today bet logic with {sizingStyleConfig.label.toLowerCase()} stake sizing against finalized games whenever the database contains both a pregame forecast snapshot and a matching pregame moneyline snapshot.
           </p>
           <p className={styles.heroText}>{strategyConfig.description}</p>
+          <p className={styles.heroText}>{sizingStyleConfig.description}</p>
           <p className={styles.heroText}>Displayed stake, risk, and P/L amounts use the same {formatUsd(BET_UNIT_DOLLARS)} base unit as Games Today.</p>
         </div>
 
@@ -137,7 +163,7 @@ function BetHistoryPageContent() {
                 <p className={valueClassName(summary.total_profit)}>
                   {formatUsd(summary.total_profit, { minimumFractionDigits: 2 })}
                 </p>
-                <p className={styles.summarySubtext}>Across {summary.suggested_bets} settled {strategyConfig.shortLabel.toLowerCase()} bets</p>
+                <p className={styles.summarySubtext}>Across {summary.suggested_bets} settled bets under the current profile</p>
               </article>
 
               <article className={styles.summaryTile}>

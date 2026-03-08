@@ -1,7 +1,10 @@
 export type BetStrategy = "balanced" | "riskAverse" | "riskLoving";
+export type BetSizingStyle = "continuous" | "bucketed";
 
 export const BET_STRATEGIES = ["balanced", "riskAverse", "riskLoving"] as const;
+export const BET_SIZING_STYLES = ["continuous", "bucketed"] as const;
 export const DEFAULT_BET_STRATEGY: BetStrategy = "balanced";
+export const DEFAULT_BET_SIZING_STYLE: BetSizingStyle = "continuous";
 
 export type BetStrategyConfig = {
   label: string;
@@ -12,6 +15,12 @@ export type BetStrategyConfig = {
   minExpectedValue: number;
   sizeMultiplier: number;
   maxBetUnits: number;
+};
+
+export type BetSizingStyleConfig = {
+  label: string;
+  shortLabel: string;
+  description: string;
 };
 
 const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
@@ -47,6 +56,19 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
   },
 };
 
+const BET_SIZING_STYLE_CONFIG: Record<BetSizingStyle, BetSizingStyleConfig> = {
+  continuous: {
+    label: "Continuous",
+    shortLabel: "Kelly scaled",
+    description: "Lets the stake scale continuously with the model edge and market price.",
+  },
+  bucketed: {
+    label: "Bucketed",
+    shortLabel: "Legacy buckets",
+    description: "Snaps the stake into the legacy $0, $50, $100, or $150 buckets.",
+  },
+};
+
 export function normalizeBetStrategy(value?: string | null): BetStrategy {
   const normalized = String(value || "").trim().toLowerCase();
   switch (normalized) {
@@ -72,10 +94,36 @@ export function strategyFromRequest(request: Request): BetStrategy {
   return normalizeBetStrategy(url.searchParams.get("strategy"));
 }
 
+export function normalizeBetSizingStyle(value?: string | null): BetSizingStyle {
+  const normalized = String(value || "").trim().toLowerCase();
+  switch (normalized) {
+    case "bucketed":
+    case "bucket":
+    case "legacy":
+    case "legacybucket":
+    case "legacy-bucket":
+    case "legacy_bucket":
+      return "bucketed";
+    case "continuous":
+    case "kelly":
+    default:
+      return DEFAULT_BET_SIZING_STYLE;
+  }
+}
+
+export function sizingStyleFromRequest(request: Request): BetSizingStyle {
+  const url = new URL(request.url);
+  return normalizeBetSizingStyle(url.searchParams.get("sizingStyle"));
+}
+
 export function getBetStrategyConfig(strategy: BetStrategy): BetStrategyConfig {
   return BET_STRATEGY_CONFIG[strategy];
 }
 
 export function getBetStrategyLabel(strategy: BetStrategy): string {
   return BET_STRATEGY_CONFIG[strategy].label;
+}
+
+export function getBetSizingStyleConfig(sizingStyle: BetSizingStyle): BetSizingStyleConfig {
+  return BET_SIZING_STYLE_CONFIG[sizingStyle];
 }

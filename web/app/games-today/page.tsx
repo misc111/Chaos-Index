@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { normalizeBetStrategy, type BetStrategy } from "@/lib/betting-strategy";
+import { normalizeBetSizingStyle, normalizeBetStrategy, type BetSizingStyle, type BetStrategy } from "@/lib/betting-strategy";
 import {
   BET_UNIT_LABEL,
   computeBetDecision,
@@ -100,13 +100,17 @@ function formatCentralTip(value?: string | null): string {
   });
 }
 
-function displayBetRecommendation(row: GamesTodayRow, strategy: BetStrategy): { label: string; reason: string } {
-  const replayDecision = row.replay_decisions?.[strategy];
+function displayBetRecommendation(
+  row: GamesTodayRow,
+  strategy: BetStrategy,
+  sizingStyle: BetSizingStyle
+): { label: string; reason: string } {
+  const replayDecision = row.replay_decisions?.[strategy]?.[sizingStyle];
   if (replayDecision) {
     return formatBetUnitRecommendation(replayDecision);
   }
 
-  const decision = computeBetDecision(row, strategy);
+  const decision = computeBetDecision(row, strategy, sizingStyle);
   return formatBetUnitRecommendation(decision);
 }
 
@@ -131,6 +135,7 @@ function GamesTodayPageContent() {
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
   const strategy = normalizeBetStrategy(searchParams.get("strategy"));
+  const sizingStyle = normalizeBetSizingStyle(searchParams.get("sizingStyle"));
   const staticStaging = isStaticStagingBuild();
   const [upcomingRows, setUpcomingRows] = useState<GamesTodayRow[]>([]);
   const [historicalRows, setHistoricalRows] = useState<GamesTodayRow[]>([]);
@@ -309,7 +314,7 @@ function GamesTodayPageContent() {
                   {rows.map((row) => {
                     const side = expectedSide(row.home_win_probability);
                     const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
-                    const bet = displayBetRecommendation(row, strategy);
+                    const bet = displayBetRecommendation(row, strategy, sizingStyle);
                     return (
                       <tr key={row.game_id}>
                         <td className={side === "home" ? styles.teamWin : side === "away" ? styles.teamLoss : styles.teamNeutral}>
@@ -340,7 +345,7 @@ function GamesTodayPageContent() {
                 {rows.map((row) => {
                   const side = expectedSide(row.home_win_probability);
                   const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
-                  const bet = displayBetRecommendation(row, strategy);
+                  const bet = displayBetRecommendation(row, strategy, sizingStyle);
                   const sideLabel =
                     side === "home" ? `${row.home_team} lean` : side === "away" ? `${row.away_team} lean` : "Toss-up";
                   return (

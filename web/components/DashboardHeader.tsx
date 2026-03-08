@@ -3,7 +3,16 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import { BET_STRATEGIES, getBetStrategyConfig, normalizeBetStrategy, type BetStrategy } from "@/lib/betting-strategy";
+import {
+  BET_SIZING_STYLES,
+  BET_STRATEGIES,
+  getBetSizingStyleConfig,
+  getBetStrategyConfig,
+  normalizeBetSizingStyle,
+  normalizeBetStrategy,
+  type BetSizingStyle,
+  type BetStrategy,
+} from "@/lib/betting-strategy";
 import { type LeagueCode, normalizeLeague, withLeague } from "@/lib/league";
 import { isStaticStagingBuild } from "@/lib/static-staging";
 
@@ -69,6 +78,10 @@ function hrefWithStrategy(href: string, strategy: BetStrategy, searchParams: URL
   return hrefWithParams(href, searchParams, { strategy });
 }
 
+function hrefWithSizingStyle(href: string, sizingStyle: BetSizingStyle, searchParams: URLSearchParams): string {
+  return hrefWithParams(href, searchParams, { sizingStyle });
+}
+
 function hrefWithParams(href: string, searchParams: URLSearchParams, updates: Record<string, string>): string {
   const params = new URLSearchParams(searchParams.toString());
   for (const [key, value] of Object.entries(updates)) {
@@ -99,27 +112,40 @@ function HeaderFallback() {
       <div className="header-control-row">
         <div className="header-selection-stack">
           <div className="league-toggle-row" aria-label="League selection">
-            <Link href="?league=NBA&strategy=balanced" className="league-toggle-btn active">
+            <Link href="?league=NBA&strategy=balanced&sizingStyle=continuous" className="league-toggle-btn active">
               NBA
             </Link>
-            <Link href="?league=NHL&strategy=balanced" className="league-toggle-btn">
+            <Link href="?league=NHL&strategy=balanced&sizingStyle=continuous" className="league-toggle-btn">
               NHL
             </Link>
           </div>
           <div className="strategy-toggle-stack">
             <span className="strategy-toggle-label">Bet Profile</span>
             <div className="strategy-toggle-row" aria-label="Bet strategy selection">
-              <Link href="?league=NBA&strategy=balanced" className="strategy-toggle-btn active">
+              <Link href="?league=NBA&strategy=balanced&sizingStyle=continuous" className="strategy-toggle-btn active">
                 <span className="strategy-toggle-title">Balanced</span>
                 <span className="strategy-toggle-note">Standard sizing</span>
               </Link>
-              <Link href="?league=NBA&strategy=riskAverse" className="strategy-toggle-btn">
+              <Link href="?league=NBA&strategy=riskAverse&sizingStyle=continuous" className="strategy-toggle-btn">
                 <span className="strategy-toggle-title">Risk Averse</span>
                 <span className="strategy-toggle-note">Favorites only</span>
               </Link>
-              <Link href="?league=NBA&strategy=riskLoving" className="strategy-toggle-btn">
+              <Link href="?league=NBA&strategy=riskLoving&sizingStyle=continuous" className="strategy-toggle-btn">
                 <span className="strategy-toggle-title">Risk Loving</span>
                 <span className="strategy-toggle-note">Bigger swings</span>
+              </Link>
+            </div>
+          </div>
+          <div className="strategy-toggle-stack">
+            <span className="strategy-toggle-label">Amount Bet</span>
+            <div className="strategy-toggle-row" aria-label="Bet sizing style selection">
+              <Link href="?league=NBA&strategy=balanced&sizingStyle=continuous" className="strategy-toggle-btn active">
+                <span className="strategy-toggle-title">Continuous</span>
+                <span className="strategy-toggle-note">Kelly scaled</span>
+              </Link>
+              <Link href="?league=NBA&strategy=balanced&sizingStyle=bucketed" className="strategy-toggle-btn">
+                <span className="strategy-toggle-title">Bucketed</span>
+                <span className="strategy-toggle-note">Legacy buckets</span>
               </Link>
             </div>
           </div>
@@ -141,7 +167,7 @@ function HeaderFallback() {
       </div>
         <div className="nav">
         {links.map(([href, label]) => (
-          <Link href={`${href}?league=NBA&strategy=balanced`} key={href} className="nav-link">
+          <Link href={`${href}?league=NBA&strategy=balanced&sizingStyle=continuous`} key={href} className="nav-link">
             {label}
           </Link>
         ))}
@@ -156,7 +182,9 @@ function DashboardHeaderContent() {
   const search = new URLSearchParams(searchParams.toString());
   const league = normalizeLeague(searchParams.get("league"));
   const strategy = normalizeBetStrategy(searchParams.get("strategy"));
+  const sizingStyle = normalizeBetSizingStyle(searchParams.get("sizingStyle"));
   const strategyConfig = getBetStrategyConfig(strategy);
+  const sizingStyleConfig = getBetSizingStyleConfig(sizingStyle);
   const staticStaging = isStaticStagingBuild();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [refreshError, setRefreshError] = useState("");
@@ -251,6 +279,21 @@ function DashboardHeaderContent() {
               ))}
             </div>
           </div>
+          <div className="strategy-toggle-stack">
+            <span className="strategy-toggle-label">Amount Bet</span>
+            <div className="strategy-toggle-row" aria-label="Bet sizing style selection">
+              {BET_SIZING_STYLES.map((code) => (
+                <Link
+                  href={hrefWithSizingStyle(pathname, code, search)}
+                  key={code}
+                  className={`strategy-toggle-btn ${sizingStyle === code ? "active" : ""}`}
+                >
+                  <span className="strategy-toggle-title">{getBetSizingStyleConfig(code).label}</span>
+                  <span className="strategy-toggle-note">{getBetSizingStyleConfig(code).shortLabel}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
         <button
           type="button"
@@ -290,6 +333,7 @@ function DashboardHeaderContent() {
         </button>
         <div className="refresh-meta" aria-live="polite">
           <p className="small">Active bet profile: {strategyConfig.label}. {strategyConfig.description}</p>
+          <p className="small">Amount bet mode: {sizingStyleConfig.label}. {sizingStyleConfig.description}</p>
           {staticStaging ? <p className="small">GitHub Pages staging uses committed snapshot data.</p> : null}
           {!staticStaging ? (
             <p className="small">Ingest only. No feature rebuild and no retraining.</p>

@@ -1,10 +1,18 @@
-import { BET_STRATEGIES, DEFAULT_BET_STRATEGY, type BetStrategy } from "@/lib/betting-strategy";
+import {
+  BET_SIZING_STYLES,
+  BET_STRATEGIES,
+  DEFAULT_BET_SIZING_STYLE,
+  DEFAULT_BET_STRATEGY,
+  type BetSizingStyle,
+  type BetStrategy,
+} from "@/lib/betting-strategy";
 import {
   formatBetUnitLabel,
   settleBet,
   type BetDecision,
 } from "@/lib/betting";
 import type {
+  BetHistorySizingBundle,
   BetHistoryStrategyBundle,
   BetHistoryResponse,
   BetHistorySummary,
@@ -410,6 +418,16 @@ function toReplayableHistoricalGames(rows: HistoricalReplayGameRow[]) {
   }));
 }
 
+function buildEmptyReplayDecisionSet(): HistoricalReplayDecisionSet {
+  return BET_STRATEGIES.reduce((strategyAcc, strategy) => {
+    strategyAcc[strategy] = BET_SIZING_STYLES.reduce((sizingAcc, sizingStyle) => {
+      sizingAcc[sizingStyle] = null;
+      return sizingAcc;
+    }, {} as HistoricalReplayDecisionSet[BetStrategy]);
+    return strategyAcc;
+  }, {} as HistoricalReplayDecisionSet);
+}
+
 function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDataset {
   // Maintainer note: this is the shared "pregame replay" source for both
   // Bet History and Games Today past-date navigation. Keep the core fields
@@ -530,9 +548,14 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
   }
 
   const replayableRows = toReplayableHistoricalGames(rows);
-  const replayDecisionsByStrategy = new Map<BetStrategy, Map<number, HistoricalReplayDecisionSnapshot>>();
+  const replayDecisionsByProfile = new Map<string, Map<number, HistoricalReplayDecisionSnapshot>>();
   for (const strategy of BET_STRATEGIES) {
-    replayDecisionsByStrategy.set(strategy, loadOrCreateHistoricalReplayDecisions(replayableRows, league, strategy));
+    for (const sizingStyle of BET_SIZING_STYLES) {
+      replayDecisionsByProfile.set(
+        `${strategy}:${sizingStyle}`,
+        loadOrCreateHistoricalReplayDecisions(replayableRows, league, strategy, sizingStyle)
+      );
+    }
   }
 
   return {
@@ -544,10 +567,13 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
     coverage_end_central: coverageEndDate,
     rows: rows.map((row) => ({
       ...row,
-      replay_decisions: BET_STRATEGIES.reduce((acc, strategy) => {
-        acc[strategy] = replayDecisionsByStrategy.get(strategy)?.get(row.game_id) ?? null;
-        return acc;
-      }, {} as HistoricalReplayDecisionSet),
+      replay_decisions: BET_STRATEGIES.reduce((strategyAcc, strategy) => {
+        strategyAcc[strategy] = BET_SIZING_STYLES.reduce((sizingAcc, sizingStyle) => {
+          sizingAcc[sizingStyle] = replayDecisionsByProfile.get(`${strategy}:${sizingStyle}`)?.get(row.game_id) ?? null;
+          return sizingAcc;
+        }, {} as HistoricalReplayDecisionSet[BetStrategy]);
+        return strategyAcc;
+      }, buildEmptyReplayDecisionSet()),
     })),
   };
 }
@@ -567,7 +593,8 @@ export function getHistoricalReplayGames(league: LeagueCode): {
 
 function buildBetHistoryStrategyBundle(
   dataset: HistoricalReplayDataset,
-  strategy: BetStrategy
+  strategy: BetStrategy,
+  sizingStyle: BetSizingStyle
 ): BetHistoryStrategyBundle {
   let analyzedGames = 0;
   let wins = 0;
@@ -580,7 +607,7 @@ function buildBetHistoryStrategyBundle(
   for (const row of dataset.rows) {
     analyzedGames += 1;
 
-    const replayDecision = row.replay_decisions?.[strategy];
+    const replayDecision = row.replay_decisions?.[strategy]?.[sizingStyle];
     if (!replayDecision) {
       continue;
     }
@@ -691,10 +718,13 @@ export function getBetHistory(league: LeagueCode): BetHistoryResponse {
   return {
     league,
     default_strategy: DEFAULT_BET_STRATEGY,
-    strategies: {
-      balanced: buildBetHistoryStrategyBundle(dataset, "balanced"),
-      riskAverse: buildBetHistoryStrategyBundle(dataset, "riskAverse"),
-      riskLoving: buildBetHistoryStrategyBundle(dataset, "riskLoving"),
-    },
+    default_sizing_style: DEFAULT_BET_SIZING_STYLE,
+    strategies: BET_STRATEGIES.reduce((strategyAcc, strategy) => {
+      strategyAcc[strategy] = BET_SIZING_STYLES.reduce((sizingAcc, sizingStyle) => {
+        sizingAcc[sizingStyle] = buildBetHistoryStrategyBundle(dataset, strategy, sizingStyle);
+        return sizingAcc;
+      }, {} as BetHistorySizingBundle);
+      return strategyAcc;
+    }, {} as Record<BetStrategy, BetHistorySizingBundle>),
   };
 }

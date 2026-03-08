@@ -1,3 +1,5 @@
+import type { HistoricalReplayDecisionSet } from "@/lib/replay-bets";
+
 export type TableRow = Record<string, unknown>;
 
 export type ForecastRow = {
@@ -145,7 +147,7 @@ export type GamesTodayRow = {
   over_190_price?: number | null;
   over_190_point?: number | null;
   over_190_book?: string | null;
-  replay_decisions?: Record<string, unknown> | null;
+  replay_decisions?: HistoricalReplayDecisionSet | null;
 };
 
 export type GamesTodayResponse = {

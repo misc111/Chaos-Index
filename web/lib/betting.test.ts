@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import type { BetStrategy } from "./betting-strategy";
+import type { BetSizingStyle, BetStrategy } from "./betting-strategy";
 import { computeBetDecision } from "./betting";
 
-function buildDecision(strategy?: BetStrategy) {
+function buildDecision(strategy?: BetStrategy, sizingStyle?: BetSizingStyle) {
   return computeBetDecision(
     {
       home_team: "LAL",
@@ -13,7 +13,8 @@ function buildDecision(strategy?: BetStrategy) {
       home_moneyline: 135,
       away_moneyline: -145,
     },
-    strategy
+    strategy,
+    sizingStyle
   );
 }
 
@@ -32,6 +33,25 @@ test("computeBetDecision sizes favorites with a continuous Kelly stake", () => {
   assert.equal(decision.stake, 125);
 });
 
+test("computeBetDecision can snap favorite stakes into legacy buckets", () => {
+  const decision = computeBetDecision(
+    {
+      home_team: "SAC",
+      away_team: "CHI",
+      home_win_probability: 0.653,
+      home_moneyline: -135,
+      away_moneyline: 125,
+    },
+    "balanced",
+    "bucketed"
+  );
+
+  assert.equal(decision.side, "home");
+  assert.equal(decision.team, "SAC");
+  assert.equal(decision.reason, "Favorite underpriced");
+  assert.equal(decision.stake, 100);
+});
+
 test("computeBetDecision sizes underdogs with a continuous Kelly stake", () => {
   const decision = computeBetDecision({
     home_team: "BOS",
@@ -45,6 +65,25 @@ test("computeBetDecision sizes underdogs with a continuous Kelly stake", () => {
   assert.equal(decision.team, "DAL");
   assert.equal(decision.reason, "Underdog underpriced");
   assert.equal(decision.stake, 55);
+});
+
+test("computeBetDecision can snap underdog stakes into legacy buckets", () => {
+  const decision = computeBetDecision(
+    {
+      home_team: "BOS",
+      away_team: "DAL",
+      home_win_probability: 0.71,
+      home_moneyline: -430,
+      away_moneyline: 340,
+    },
+    "balanced",
+    "bucketed"
+  );
+
+  assert.equal(decision.side, "away");
+  assert.equal(decision.team, "DAL");
+  assert.equal(decision.reason, "Underdog underpriced");
+  assert.equal(decision.stake, 50);
 });
 
 test("computeBetDecision increases stake when the same side gets a better price", () => {
@@ -92,4 +131,13 @@ test("risk-loving strategy sizes larger than balanced on the same edge", () => {
   assert.equal(balanced.team, "NYK");
   assert.equal(riskLoving.team, "NYK");
   assert.ok(riskLoving.stake > balanced.stake);
+});
+
+test("bucketed sizing preserves profile differences through bucket selection", () => {
+  const balanced = buildDecision("balanced", "bucketed");
+  const riskLoving = buildDecision("riskLoving", "bucketed");
+
+  assert.equal(balanced.team, "NYK");
+  assert.equal(riskLoving.team, "NYK");
+  assert.ok(riskLoving.stake >= balanced.stake);
 });
