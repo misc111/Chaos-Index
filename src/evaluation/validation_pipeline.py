@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import re
+import shutil
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Sequence
@@ -8,6 +10,7 @@ from typing import Any, Callable, Sequence
 import pandas as pd
 
 from src.common.config import AppConfig
+from src.common.time import utc_now_iso
 from src.common.utils import ensure_dir
 from src.evaluation.brier_decomposition import brier_decompose
 from src.evaluation.calibration import calibration_alpha_beta, ece_mce
@@ -104,6 +107,7 @@ class ValidationOutputs:
 @dataclass(slots=True)
 class ValidationContext:
     cfg: AppConfig
+    run_payload: dict[str, Any]
     models: dict[str, object]
     train_df: pd.DataFrame
     feature_cols: list[str]
@@ -143,6 +147,7 @@ class ValidationContext:
 
         return cls(
             cfg=cfg,
+            run_payload=run_payload,
             models=models,
             train_df=train_df,
             feature_cols=feature_cols,
@@ -156,6 +161,120 @@ class ValidationContext:
             glm=glm,
             diagnostic_feature_cols=diagnostic_feature_cols,
         )
+
+
+def _safe_archive_token(value: Any) -> str:
+    cleaned = re.sub(r"[^A-Za-z0-9._-]+", "_", str(value or "")).strip("_")
+    return cleaned or "adhoc_validation"
+
+
+def _artifacts_root(cfg: AppConfig) -> Path:
+    return Path(cfg.paths.artifacts_dir)
+
+
+def _relative_artifact_path(path: Path, *, cfg: AppConfig) -> str:
+    try:
+        return str(path.relative_to(_artifacts_root(cfg)))
+    except ValueError:
+        return str(path)
+
+
+def _list_relative_files(root: Path, *, exclude: set[str] | None = None) -> list[str]:
+    if not root.exists():
+        return []
+    excluded = exclude or set()
+    files: list[str] = []
+    for path in sorted(root.rglob("*")):
+        if not path.is_file():
+            continue
+        rel = str(path.relative_to(root))
+        if rel in excluded:
+            continue
+        files.append(rel)
+    return files
+
+
+def _archive_root_for(ctx: ValidationContext, *, generated_at_utc: str) -> Path:
+    date_bucket = generated_at_utc[:10]
+    timestamp_slug = generated_at_utc.replace(":", "-").replace("+00:00", "Z")
+    model_run_id = _safe_archive_token(ctx.run_payload.get("model_run_id"))
+    base = ensure_dir(_artifacts_root(ctx.cfg) / "validation-runs" / ctx.league.lower() / date_bucket)
+    candidate = base / f"{timestamp_slug}_{model_run_id}"
+    if not candidate.exists():
+        return candidate
+    suffix = 2
+    while True:
+        alt = base / f"{timestamp_slug}_{model_run_id}_{suffix:02d}"
+        if not alt.exists():
+            return alt
+        suffix += 1
+
+
+def _validation_run_metadata(
+    ctx: ValidationContext,
+    outputs: ValidationOutputs,
+    *,
+    generated_at_utc: str,
+    archive_root: Path,
+) -> dict[str, Any]:
+    validation_files = _list_relative_files(ctx.out_dir, exclude={"validation_run_metadata.json"})
+    performance_files = _list_relative_files(ctx.plots_dir)
+    root_files = [rel for rel in validation_files if "/" not in rel]
+    plot_files = [rel for rel in validation_files if rel.startswith("plots/")]
+    extra_subdir_files = [rel for rel in validation_files if "/" in rel and not rel.startswith("plots/")]
+    selected_models = ctx.run_payload.get("selected_models", [])
+    if not isinstance(selected_models, list):
+        selected_models = []
+
+    return {
+        "league": ctx.league,
+        "generated_at_utc": generated_at_utc,
+        "archive_id": archive_root.name,
+        "archive_date": generated_at_utc[:10],
+        "model_run_id": ctx.run_payload.get("model_run_id"),
+        "feature_set_version": ctx.run_payload.get("feature_set_version"),
+        "selected_models": [str(model) for model in selected_models if str(model).strip()],
+        "latest_validation_dir": _relative_artifact_path(ctx.out_dir, cfg=ctx.cfg),
+        "latest_performance_dir": _relative_artifact_path(ctx.plots_dir, cfg=ctx.cfg),
+        "archive_dir": _relative_artifact_path(archive_root, cfg=ctx.cfg),
+        "registered_sections": [asdict(spec) for spec in outputs.sections],
+        "artifact_counts": {
+            "validation_root_files": len(root_files),
+            "validation_plot_files": len(plot_files),
+            "validation_extra_subdir_files": len(extra_subdir_files),
+            "performance_files": len(performance_files),
+        },
+        "artifact_groups": [
+            {"name": "validation_root", "relative_dir": ".", "files": root_files},
+            {"name": "plots", "relative_dir": "plots", "files": plot_files},
+            {"name": "performance", "relative_dir": "performance", "files": performance_files},
+            {"name": "extra_validation_subdirs", "relative_dir": ".", "files": extra_subdir_files},
+        ],
+    }
+
+
+def _reset_validation_output_dirs(ctx: ValidationContext) -> None:
+    if ctx.out_dir.exists():
+        shutil.rmtree(ctx.out_dir)
+    ensure_dir(ctx.out_dir)
+    if ctx.plots_dir.exists():
+        shutil.rmtree(ctx.plots_dir)
+    ensure_dir(ctx.plots_dir)
+
+
+def _archive_validation_outputs(ctx: ValidationContext, outputs: ValidationOutputs) -> None:
+    generated_at_utc = utc_now_iso()
+    archive_root = _archive_root_for(ctx, generated_at_utc=generated_at_utc)
+    metadata = _validation_run_metadata(ctx, outputs, generated_at_utc=generated_at_utc, archive_root=archive_root)
+    (ctx.out_dir / "validation_run_metadata.json").write_text(json.dumps(metadata, indent=2, sort_keys=True))
+
+    ensure_dir(archive_root.parent)
+    shutil.copytree(ctx.out_dir, archive_root)
+    if archive_root.exists():
+        performance_root = archive_root / "performance"
+        if performance_root.exists():
+            shutil.rmtree(performance_root)
+        shutil.copytree(ctx.plots_dir, performance_root)
 
 
 def _selected_validation_models(result: dict[str, Any], run_payload: dict[str, Any]) -> list[str]:
@@ -741,6 +860,7 @@ def run_validation_pipeline(
     extra_tasks: Sequence[ValidationTask] | None = None,
 ) -> ValidationOutputs:
     ctx = ValidationContext.from_result(result, cfg)
+    _reset_validation_output_dirs(ctx)
     outputs = ValidationOutputs()
     selected_tasks = list(tasks) if tasks is not None else build_validation_tasks(extra_tasks=extra_tasks)
 
@@ -750,4 +870,5 @@ def run_validation_pipeline(
         outputs.merge(task.runner(ctx))
 
     outputs.write(ctx.out_dir, league=ctx.league)
+    _archive_validation_outputs(ctx, outputs)
     return outputs

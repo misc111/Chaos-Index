@@ -13,7 +13,7 @@ Production-grade NHL/NBA home-win probability forecasting with:
 - `web/` Next.js dashboard + API routes
 - `configs/` runtime configuration
 - `data/` cached raw snapshots + interim/processed outputs
-- `artifacts/` plots/reports/validation artifacts
+- `artifacts/` plots/reports/validation artifacts, plus archived validation runs under `validation-runs/`
 - `statistical_theory/` durable notes on modeling heuristics and theory
 - `tests/` smoke + unit tests
 

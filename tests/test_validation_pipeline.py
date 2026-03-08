@@ -262,6 +262,74 @@ def test_validation_pipeline_writes_classification_curves_to_structured_plot_dir
     assert (performance_root / "roc.png").exists()
 
 
+def test_validation_pipeline_archives_clean_validation_run_snapshot(tmp_path):
+    cfg = load_config("configs/default.yaml")
+    cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
+    cfg.data.league = "NBA"
+
+    rng = np.random.default_rng(29)
+    n = 240
+    signal = rng.normal(0.0, 1.0, n)
+    counter = rng.normal(0.0, 1.0, n)
+    logits = 1.0 * signal - 0.8 * counter
+    prob = 1.0 / (1.0 + np.exp(-logits))
+    y = rng.binomial(1, prob)
+
+    train_df = pd.DataFrame(
+        {
+            "start_time_utc": pd.date_range("2025-01-01", periods=n, freq="D").astype(str),
+            "game_date_utc": pd.date_range("2025-01-01", periods=n, freq="D").astype(str),
+            "home_win": y,
+            "signal": signal,
+            "counter": counter,
+        }
+    )
+    glm = GLMRidgeModel(c=1.0)
+    glm.fit(train_df, feature_columns=["signal", "counter"])
+
+    validation_root = tmp_path / "artifacts" / "validation" / "nba"
+    performance_root = tmp_path / "artifacts" / "plots" / "nba" / "glm" / "performance"
+    validation_root.mkdir(parents=True, exist_ok=True)
+    performance_root.mkdir(parents=True, exist_ok=True)
+    (validation_root / "stale.txt").write_text("stale")
+    (performance_root / "stale.png").write_text("stale")
+
+    result = {
+        "models": {"glm_ridge": glm},
+        "train_df": train_df,
+        "feature_columns": ["signal", "counter"],
+        "run_payload": {
+            "model_run_id": "run_test_archive",
+            "feature_set_version": "fset_test_archive",
+            "selected_models": ["glm_ridge"],
+            "model_feature_columns": {"glm_ridge": ["signal", "counter"]},
+        },
+    }
+    tasks = [task for task in build_validation_tasks() if task.name in {"glm_diagnostics", "classification_curves"}]
+
+    run_validation_pipeline(result, cfg, tasks=tasks)
+
+    assert not (validation_root / "stale.txt").exists()
+    assert not (performance_root / "stale.png").exists()
+    assert (validation_root / "validation_run_metadata.json").exists()
+    assert (performance_root / "roc.png").exists()
+
+    archive_roots = list((tmp_path / "artifacts" / "validation-runs" / "nba").glob("*/*"))
+    assert len(archive_roots) == 1
+    archive_root = archive_roots[0]
+
+    assert (archive_root / "validation_manifest.json").exists()
+    assert (archive_root / "validation_run_metadata.json").exists()
+    assert (archive_root / "plots" / "glm_validation_deviance_residuals.png").exists()
+    assert (archive_root / "performance" / "roc.png").exists()
+
+    metadata = json.loads((archive_root / "validation_run_metadata.json").read_text())
+    assert metadata["model_run_id"] == "run_test_archive"
+    assert metadata["feature_set_version"] == "fset_test_archive"
+    assert metadata["artifact_counts"]["performance_files"] == 5
+    assert "validation_manifest.json" in metadata["artifact_groups"][0]["files"]
+
+
 def test_validation_context_refits_holdout_models_instead_of_using_production_model(tmp_path):
     cfg = load_config("configs/default.yaml")
     cfg.paths.artifacts_dir = str(tmp_path / "artifacts")

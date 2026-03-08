@@ -8,6 +8,7 @@ Current layout:
 Canonical full diagnostic suites live under:
 - `artifacts/validation/nba/plots/`
 - `artifacts/validation/nhl/plots/`
+- archived snapshots of those validation suites live under `artifacts/validation-runs/`
 
 Those validation plot directories are the source of truth for:
 - GLM residual diagnostics
