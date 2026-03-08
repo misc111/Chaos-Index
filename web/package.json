@@ -8,7 +8,9 @@
     "build:pages": "node scripts/build-pages.mjs",
     "generate:staging-data": "tsx --tsconfig ./tsconfig.json scripts/generate-staging-data.ts",
     "start": "next start -H 127.0.0.1 -p 3000",
-    "lint": "eslint . --max-warnings=0"
+    "lint": "eslint . --max-warnings=0",
+    "playwright:install": "playwright install chromium",
+    "test:smoke": "playwright test"
   },
   "dependencies": {
     "next": "16.1.6",
@@ -16,6 +18,7 @@
     "react-dom": "18.3.1"
   },
   "devDependencies": {
+    "@playwright/test": "1.58.2",
     "@types/node": "20.11.30",
     "@types/react": "18.2.74",
     "@types/react-dom": "18.2.24",

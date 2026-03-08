@@ -34,6 +34,7 @@ help:
 	@echo "  hard_refresh        Deterministic NHL+NBA full refresh + staging snapshot"
 	@echo "                      Optional: MODELS=glm_ridge,rf APPROVE_FEATURE_CHANGES=1 PAGES_BUILD=0 DRY_RUN=1"
 	@echo "  dashboard           Launch Next.js dashboard"
+	@echo "  smoke-dashboard     Playwright smoke test for the Next.js dashboard"
 	@echo "  query Q=...         Query local forecast/performance DB"
 	@echo "  smoke               End-to-end smoke run"
 	@echo "  test                Run tests"
@@ -85,6 +86,9 @@ hard_refresh:
 
 dashboard:
 	cd web && $(NPM) run dev
+
+smoke-dashboard:
+	cd web && $(NPM) run playwright:install && $(NPM) run test:smoke
 
 query:
 	$(PYTHON) -m src.query.answer --config $(CONFIG) --question "$(Q)"

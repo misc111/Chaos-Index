@@ -205,6 +205,17 @@ make smoke
 scripts/smoke_e2e.sh
 ```
 
+Run the reusable Playwright dashboard smoke:
+```bash
+make smoke-dashboard
+```
+Equivalent manual commands:
+```bash
+cd web
+npm run playwright:install
+npm run test:smoke
+```
+
 ## Data + Temporal Integrity
 
 - Uses public NHL (`api-web.nhle.com`) and NBA public roster/schedule/summary endpoints (`site.api.espn.com`) with retries and caching.
