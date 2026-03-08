@@ -208,7 +208,7 @@ export function computeBetDecision(
 
   const sideOdds = side === "home" ? homeOdds : awayOdds;
   if (!strategyConfig.allowUnderdogs && sideOdds > 0) {
-    return buildDecision(row, "none", 0, "Risk-averse profile skips underdogs", fairProb, ev, edge);
+    return buildDecision(row, "none", 0, `${strategyConfig.label} skips underdogs`, fairProb, ev, edge);
   }
   const sideDecimalOdds = side === "home" ? decHome : decAway;
   const kellyFraction = decimalOddsToKellyFraction(modelProb, sideDecimalOdds);

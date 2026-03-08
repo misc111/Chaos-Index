@@ -120,7 +120,12 @@ function normalizeSide(value: unknown): ExpectedSide {
 
 function normalizeStrategy(value: unknown): BetStrategy {
   const strategy = String(value || "").trim();
-  if (strategy === "riskAverse" || strategy === "riskLoving") return strategy;
+  if (strategy === "riskAdjusted" || strategy === "aggressiveEv" || strategy === "capitalPreservation") {
+    return strategy;
+  }
+  if (strategy === "balanced") return "riskAdjusted";
+  if (strategy === "riskLoving") return "aggressiveEv";
+  if (strategy === "riskAverse") return "capitalPreservation";
   return DEFAULT_BET_STRATEGY;
 }
 

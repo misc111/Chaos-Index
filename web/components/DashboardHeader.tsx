@@ -25,7 +25,7 @@ const links: Array<[string, string]> = [
   ["/predictions", "Model Summary"],
 ];
 
-const DEFAULT_QUERY = "?league=NBA&strategy=balanced&sizingStyle=continuous";
+const DEFAULT_QUERY = "?league=NBA&strategy=riskAdjusted&sizingStyle=continuous";
 
 type RefreshResponse = {
   ok?: boolean;
@@ -171,9 +171,9 @@ function SidebarControls({
 
       <section className="sidebar-card card" aria-labelledby="sidebar-profile-title">
         <span className="strategy-toggle-label" id="sidebar-profile-title">
-          Bet Profile
+          Bet Objective
         </span>
-        <div className="strategy-toggle-row" aria-label="Bet strategy selection">
+        <div className="strategy-toggle-row" aria-label="Bet objective selection">
           {BET_STRATEGIES.map((code) => (
             <Link
               href={hrefWithStrategy(pathname, code, search)}
@@ -230,7 +230,7 @@ function SidebarControls({
           </button>
           <div className="refresh-meta" aria-live="polite">
             <p className="small">
-              Active bet profile: {strategyConfig.label}. {strategyConfig.description}
+              Active bet objective: {strategyConfig.label}. {strategyConfig.description}
             </p>
             <p className="small">
               Amount bet mode: {sizingStyleConfig.label}. {sizingStyleConfig.description}
@@ -280,11 +280,11 @@ function DashboardSidebarFallback() {
           pathname="/"
           refreshError=""
           refreshedAtLabel=""
-          search={new URLSearchParams("league=NBA&strategy=balanced&sizingStyle=continuous")}
+          search={new URLSearchParams("league=NBA&strategy=riskAdjusted&sizingStyle=continuous")}
           showRefreshedStamp={false}
           sizingStyle="continuous"
           staticStaging={false}
-          strategy="balanced"
+          strategy="riskAdjusted"
           theme={DARK_THEME}
         />
       </div>

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import type { BetSizingStyle, BetStrategy } from "./betting-strategy";
+import { normalizeBetStrategy, type BetSizingStyle, type BetStrategy } from "./betting-strategy";
 import { computeBetDecision } from "./betting";
 
 function buildDecision(strategy?: BetStrategy, sizingStyle?: BetSizingStyle) {
@@ -30,7 +30,7 @@ test("computeBetDecision sizes favorites with a continuous Kelly stake", () => {
   assert.equal(decision.side, "home");
   assert.equal(decision.team, "SAC");
   assert.equal(decision.reason, "Favorite underpriced");
-  assert.equal(decision.stake, 125);
+  assert.equal(decision.stake, 90);
 });
 
 test("computeBetDecision can snap favorite stakes into legacy buckets", () => {
@@ -42,7 +42,7 @@ test("computeBetDecision can snap favorite stakes into legacy buckets", () => {
       home_moneyline: -135,
       away_moneyline: 125,
     },
-    "balanced",
+    "riskAdjusted",
     "bucketed"
   );
 
@@ -64,7 +64,7 @@ test("computeBetDecision sizes underdogs with a continuous Kelly stake", () => {
   assert.equal(decision.side, "away");
   assert.equal(decision.team, "DAL");
   assert.equal(decision.reason, "Underdog underpriced");
-  assert.equal(decision.stake, 55);
+  assert.equal(decision.stake, 40);
 });
 
 test("computeBetDecision can snap underdog stakes into legacy buckets", () => {
@@ -76,7 +76,7 @@ test("computeBetDecision can snap underdog stakes into legacy buckets", () => {
       home_moneyline: -430,
       away_moneyline: 340,
     },
-    "balanced",
+    "riskAdjusted",
     "bucketed"
   );
 
@@ -107,7 +107,7 @@ test("computeBetDecision increases stake when the same side gets a better price"
   assert.ok(betterPrice.stake > shorterPrice.stake);
 });
 
-test("risk-averse strategy skips underdogs entirely", () => {
+test("capital preservation skips underdogs entirely", () => {
   const decision = computeBetDecision(
     {
       home_team: "NO",
@@ -116,28 +116,34 @@ test("risk-averse strategy skips underdogs entirely", () => {
       home_moneyline: -430,
       away_moneyline: 360,
     },
-    "riskAverse"
+    "capitalPreservation"
   );
 
   assert.equal(decision.side, "none");
   assert.equal(decision.stake, 0);
-  assert.equal(decision.reason, "Risk-averse profile skips underdogs");
+  assert.equal(decision.reason, "Capital Preservation skips underdogs");
 });
 
-test("risk-loving strategy sizes larger than balanced on the same edge", () => {
-  const balanced = buildDecision("balanced");
-  const riskLoving = buildDecision("riskLoving");
+test("aggressive EV sizes larger than risk-adjusted on the same edge", () => {
+  const riskAdjusted = buildDecision("riskAdjusted");
+  const aggressiveEv = buildDecision("aggressiveEv");
 
-  assert.equal(balanced.team, "NYK");
-  assert.equal(riskLoving.team, "NYK");
-  assert.ok(riskLoving.stake > balanced.stake);
+  assert.equal(riskAdjusted.team, "NYK");
+  assert.equal(aggressiveEv.team, "NYK");
+  assert.ok(aggressiveEv.stake > riskAdjusted.stake);
 });
 
 test("bucketed sizing preserves profile differences through bucket selection", () => {
-  const balanced = buildDecision("balanced", "bucketed");
-  const riskLoving = buildDecision("riskLoving", "bucketed");
+  const riskAdjusted = buildDecision("riskAdjusted", "bucketed");
+  const aggressiveEv = buildDecision("aggressiveEv", "bucketed");
 
-  assert.equal(balanced.team, "NYK");
-  assert.equal(riskLoving.team, "NYK");
-  assert.ok(riskLoving.stake >= balanced.stake);
+  assert.equal(riskAdjusted.team, "NYK");
+  assert.equal(aggressiveEv.team, "NYK");
+  assert.ok(aggressiveEv.stake >= riskAdjusted.stake);
+});
+
+test("legacy strategy query params normalize to the new profiles", () => {
+  assert.equal(normalizeBetStrategy("balanced"), "riskAdjusted");
+  assert.equal(normalizeBetStrategy("riskLoving"), "aggressiveEv");
+  assert.equal(normalizeBetStrategy("riskAverse"), "capitalPreservation");
 });

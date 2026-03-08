@@ -21,9 +21,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020975,
             "date_central": "2026-03-05",
@@ -36,11 +36,11 @@
             "home_win_probability": 0.4294886181405523,
             "home_moneyline": -127,
             "away_moneyline": 115,
-            "bet_label": "$130 TOR",
+            "bet_label": "$100 TOR",
             "reason": "Underdog underpriced",
             "side": "away",
             "team": "TOR",
-            "stake": 130,
+            "stake": 100,
             "odds": 115,
             "model_probability": 0.5705113818594477,
             "market_probability": 0.453954604539546,
@@ -49,10 +49,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020975,
             "date_central": "2026-03-05",
@@ -65,11 +65,11 @@
             "home_win_probability": 0.4294886181405523,
             "home_moneyline": -127,
             "away_moneyline": 115,
-            "bet_label": "$150 TOR",
+            "bet_label": "$100 TOR",
             "reason": "Underdog underpriced",
             "side": "away",
             "team": "TOR",
-            "stake": 150,
+            "stake": 100,
             "odds": 115,
             "model_probability": 0.5705113818594477,
             "market_probability": 0.453954604539546,
@@ -78,72 +78,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
-            "sizing_style": "continuous",
-            "game_id": 2025020975,
-            "date_central": "2026-03-05",
-            "forecast_as_of_utc": "2026-03-05T16:42:47+00:00",
-            "forecast_model_run_id": "run_30b4b6ac5add600c__ensemble",
-            "odds_as_of_utc": "2026-03-05T16:46:34+00:00",
-            "odds_snapshot_id": "nhl_odds_1a8e0529a50348a6",
-            "home_team": "NYR",
-            "away_team": "TOR",
-            "home_win_probability": 0.4294886181405523,
-            "home_moneyline": -127,
-            "away_moneyline": 115,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.453954604539546,
-            "edge": 0.11655677731990172,
-            "expected_value": 0.22659947099781252,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
-          },
-          "bucketed": {
-            "strategy": "riskAverse",
-            "sizing_style": "bucketed",
-            "game_id": 2025020975,
-            "date_central": "2026-03-05",
-            "forecast_as_of_utc": "2026-03-05T16:42:47+00:00",
-            "forecast_model_run_id": "run_30b4b6ac5add600c__ensemble",
-            "odds_as_of_utc": "2026-03-05T16:46:34+00:00",
-            "odds_snapshot_id": "nhl_odds_1a8e0529a50348a6",
-            "home_team": "NYR",
-            "away_team": "TOR",
-            "home_win_probability": 0.4294886181405523,
-            "home_moneyline": -127,
-            "away_moneyline": 115,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.453954604539546,
-            "edge": 0.11655677731990172,
-            "expected_value": 0.22659947099781252,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
-          }
-        },
-        "riskLoving": {
-          "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020975,
             "date_central": "2026-03-05",
@@ -169,10 +109,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020975,
             "date_central": "2026-03-05",
@@ -198,7 +138,67 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
+          }
+        },
+        "capitalPreservation": {
+          "continuous": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "continuous",
+            "game_id": 2025020975,
+            "date_central": "2026-03-05",
+            "forecast_as_of_utc": "2026-03-05T16:42:47+00:00",
+            "forecast_model_run_id": "run_30b4b6ac5add600c__ensemble",
+            "odds_as_of_utc": "2026-03-05T16:46:34+00:00",
+            "odds_snapshot_id": "nhl_odds_1a8e0529a50348a6",
+            "home_team": "NYR",
+            "away_team": "TOR",
+            "home_win_probability": 0.4294886181405523,
+            "home_moneyline": -127,
+            "away_moneyline": 115,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.453954604539546,
+            "edge": 0.11655677731990172,
+            "expected_value": 0.22659947099781252,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
+          },
+          "bucketed": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "bucketed",
+            "game_id": 2025020975,
+            "date_central": "2026-03-05",
+            "forecast_as_of_utc": "2026-03-05T16:42:47+00:00",
+            "forecast_model_run_id": "run_30b4b6ac5add600c__ensemble",
+            "odds_as_of_utc": "2026-03-05T16:46:34+00:00",
+            "odds_snapshot_id": "nhl_odds_1a8e0529a50348a6",
+            "home_team": "NYR",
+            "away_team": "TOR",
+            "home_win_probability": 0.4294886181405523,
+            "home_moneyline": -127,
+            "away_moneyline": 115,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.453954604539546,
+            "edge": 0.11655677731990172,
+            "expected_value": 0.22659947099781252,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -220,9 +220,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020976,
             "date_central": "2026-03-05",
@@ -248,10 +248,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020976,
             "date_central": "2026-03-05",
@@ -277,12 +277,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020976,
             "date_central": "2026-03-05",
@@ -308,10 +308,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020976,
             "date_central": "2026-03-05",
@@ -337,12 +337,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
           }
         },
-        "riskLoving": {
+        "capitalPreservation": {
           "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "continuous",
             "game_id": 2025020976,
             "date_central": "2026-03-05",
@@ -368,10 +368,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "bucketed",
             "game_id": 2025020976,
             "date_central": "2026-03-05",
@@ -397,7 +397,7 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -419,9 +419,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020977,
             "date_central": "2026-03-05",
@@ -447,10 +447,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020977,
             "date_central": "2026-03-05",
@@ -476,12 +476,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020977,
             "date_central": "2026-03-05",
@@ -507,10 +507,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020977,
             "date_central": "2026-03-05",
@@ -536,12 +536,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
           }
         },
-        "riskLoving": {
+        "capitalPreservation": {
           "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "continuous",
             "game_id": 2025020977,
             "date_central": "2026-03-05",
@@ -567,10 +567,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "bucketed",
             "game_id": 2025020977,
             "date_central": "2026-03-05",
@@ -596,7 +596,7 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -618,9 +618,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020978,
             "date_central": "2026-03-05",
@@ -633,11 +633,11 @@
             "home_win_probability": 0.6206441028258611,
             "home_moneyline": -109,
             "away_moneyline": -105,
-            "bet_label": "$140 CBJ",
+            "bet_label": "$105 CBJ",
             "reason": "Favorite underpriced",
             "side": "home",
             "team": "CBJ",
-            "stake": 140,
+            "stake": 105,
             "odds": -109,
             "model_probability": 0.6206441028258611,
             "market_probability": 0.5045156920298035,
@@ -646,70 +646,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
-            "sizing_style": "bucketed",
-            "game_id": 2025020978,
-            "date_central": "2026-03-05",
-            "forecast_as_of_utc": "2026-03-05T16:42:47+00:00",
-            "forecast_model_run_id": "run_30b4b6ac5add600c__ensemble",
-            "odds_as_of_utc": "2026-03-05T16:46:34+00:00",
-            "odds_snapshot_id": "nhl_odds_1a8e0529a50348a6",
-            "home_team": "CBJ",
-            "away_team": "FLA",
-            "home_win_probability": 0.6206441028258611,
-            "home_moneyline": -109,
-            "away_moneyline": -105,
-            "bet_label": "$150 CBJ",
-            "reason": "Favorite underpriced",
-            "side": "home",
-            "team": "CBJ",
-            "stake": 150,
-            "odds": -109,
-            "model_probability": 0.6206441028258611,
-            "market_probability": 0.5045156920298035,
-            "edge": 0.11612841079605762,
-            "expected_value": 0.1900423622991283,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
-          }
-        },
-        "riskAverse": {
-          "continuous": {
-            "strategy": "riskAverse",
-            "sizing_style": "continuous",
-            "game_id": 2025020978,
-            "date_central": "2026-03-05",
-            "forecast_as_of_utc": "2026-03-05T16:42:47+00:00",
-            "forecast_model_run_id": "run_30b4b6ac5add600c__ensemble",
-            "odds_as_of_utc": "2026-03-05T16:46:34+00:00",
-            "odds_snapshot_id": "nhl_odds_1a8e0529a50348a6",
-            "home_team": "CBJ",
-            "away_team": "FLA",
-            "home_win_probability": 0.6206441028258611,
-            "home_moneyline": -109,
-            "away_moneyline": -105,
-            "bet_label": "$85 CBJ",
-            "reason": "Favorite underpriced",
-            "side": "home",
-            "team": "CBJ",
-            "stake": 85,
-            "odds": -109,
-            "model_probability": 0.6206441028258611,
-            "market_probability": 0.5045156920298035,
-            "edge": 0.11612841079605762,
-            "expected_value": 0.1900423622991283,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
-          },
-          "bucketed": {
-            "strategy": "riskAverse",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020978,
             "date_central": "2026-03-05",
@@ -735,12 +675,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskLoving": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020978,
             "date_central": "2026-03-05",
@@ -766,10 +706,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020978,
             "date_central": "2026-03-05",
@@ -795,7 +735,67 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
+          }
+        },
+        "capitalPreservation": {
+          "continuous": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "continuous",
+            "game_id": 2025020978,
+            "date_central": "2026-03-05",
+            "forecast_as_of_utc": "2026-03-05T16:42:47+00:00",
+            "forecast_model_run_id": "run_30b4b6ac5add600c__ensemble",
+            "odds_as_of_utc": "2026-03-05T16:46:34+00:00",
+            "odds_snapshot_id": "nhl_odds_1a8e0529a50348a6",
+            "home_team": "CBJ",
+            "away_team": "FLA",
+            "home_win_probability": 0.6206441028258611,
+            "home_moneyline": -109,
+            "away_moneyline": -105,
+            "bet_label": "$60 CBJ",
+            "reason": "Favorite underpriced",
+            "side": "home",
+            "team": "CBJ",
+            "stake": 60,
+            "odds": -109,
+            "model_probability": 0.6206441028258611,
+            "market_probability": 0.5045156920298035,
+            "edge": 0.11612841079605762,
+            "expected_value": 0.1900423622991283,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
+          },
+          "bucketed": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "bucketed",
+            "game_id": 2025020978,
+            "date_central": "2026-03-05",
+            "forecast_as_of_utc": "2026-03-05T16:42:47+00:00",
+            "forecast_model_run_id": "run_30b4b6ac5add600c__ensemble",
+            "odds_as_of_utc": "2026-03-05T16:46:34+00:00",
+            "odds_snapshot_id": "nhl_odds_1a8e0529a50348a6",
+            "home_team": "CBJ",
+            "away_team": "FLA",
+            "home_win_probability": 0.6206441028258611,
+            "home_moneyline": -109,
+            "away_moneyline": -105,
+            "bet_label": "$50 CBJ",
+            "reason": "Favorite underpriced",
+            "side": "home",
+            "team": "CBJ",
+            "stake": 50,
+            "odds": -109,
+            "model_probability": 0.6206441028258611,
+            "market_probability": 0.5045156920298035,
+            "edge": 0.11612841079605762,
+            "expected_value": 0.1900423622991283,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -817,9 +817,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020979,
             "date_central": "2026-03-05",
@@ -845,10 +845,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020979,
             "date_central": "2026-03-05",
@@ -874,12 +874,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020979,
             "date_central": "2026-03-05",
@@ -905,10 +905,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020979,
             "date_central": "2026-03-05",
@@ -934,12 +934,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
           }
         },
-        "riskLoving": {
+        "capitalPreservation": {
           "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "continuous",
             "game_id": 2025020979,
             "date_central": "2026-03-05",
@@ -965,10 +965,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "bucketed",
             "game_id": 2025020979,
             "date_central": "2026-03-05",
@@ -994,7 +994,7 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -1016,9 +1016,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020980,
             "date_central": "2026-03-05",
@@ -1044,10 +1044,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020980,
             "date_central": "2026-03-05",
@@ -1073,12 +1073,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020980,
             "date_central": "2026-03-05",
@@ -1104,10 +1104,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020980,
             "date_central": "2026-03-05",
@@ -1133,12 +1133,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
           }
         },
-        "riskLoving": {
+        "capitalPreservation": {
           "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "continuous",
             "game_id": 2025020980,
             "date_central": "2026-03-05",
@@ -1164,10 +1164,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "bucketed",
             "game_id": 2025020980,
             "date_central": "2026-03-05",
@@ -1193,7 +1193,7 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -1215,9 +1215,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020981,
             "date_central": "2026-03-05",
@@ -1243,10 +1243,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020981,
             "date_central": "2026-03-05",
@@ -1272,12 +1272,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020981,
             "date_central": "2026-03-05",
@@ -1303,10 +1303,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020981,
             "date_central": "2026-03-05",
@@ -1332,12 +1332,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
           }
         },
-        "riskLoving": {
+        "capitalPreservation": {
           "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "continuous",
             "game_id": 2025020981,
             "date_central": "2026-03-05",
@@ -1363,10 +1363,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "bucketed",
             "game_id": 2025020981,
             "date_central": "2026-03-05",
@@ -1392,7 +1392,7 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -1414,9 +1414,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020982,
             "date_central": "2026-03-05",
@@ -1429,11 +1429,11 @@
             "home_win_probability": 0.4218267953314095,
             "home_moneyline": -128,
             "away_moneyline": 116,
-            "bet_label": "$145 NYI",
+            "bet_label": "$105 NYI",
             "reason": "Underdog underpriced",
             "side": "away",
             "team": "NYI",
-            "stake": 145,
+            "stake": 105,
             "odds": 116,
             "model_probability": 0.5781732046685906,
             "market_probability": 0.4519505233111322,
@@ -1442,10 +1442,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020982,
             "date_central": "2026-03-05",
@@ -1458,11 +1458,11 @@
             "home_win_probability": 0.4218267953314095,
             "home_moneyline": -128,
             "away_moneyline": 116,
-            "bet_label": "$150 NYI",
+            "bet_label": "$100 NYI",
             "reason": "Underdog underpriced",
             "side": "away",
             "team": "NYI",
-            "stake": 150,
+            "stake": 100,
             "odds": 116,
             "model_probability": 0.5781732046685906,
             "market_probability": 0.4519505233111322,
@@ -1471,72 +1471,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
-            "sizing_style": "continuous",
-            "game_id": 2025020982,
-            "date_central": "2026-03-05",
-            "forecast_as_of_utc": "2026-03-05T16:42:47+00:00",
-            "forecast_model_run_id": "run_30b4b6ac5add600c__ensemble",
-            "odds_as_of_utc": "2026-03-05T16:46:34+00:00",
-            "odds_snapshot_id": "nhl_odds_1a8e0529a50348a6",
-            "home_team": "LAK",
-            "away_team": "NYI",
-            "home_win_probability": 0.4218267953314095,
-            "home_moneyline": -128,
-            "away_moneyline": 116,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.4519505233111322,
-            "edge": 0.12622268135745834,
-            "expected_value": 0.2488541220841558,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
-          },
-          "bucketed": {
-            "strategy": "riskAverse",
-            "sizing_style": "bucketed",
-            "game_id": 2025020982,
-            "date_central": "2026-03-05",
-            "forecast_as_of_utc": "2026-03-05T16:42:47+00:00",
-            "forecast_model_run_id": "run_30b4b6ac5add600c__ensemble",
-            "odds_as_of_utc": "2026-03-05T16:46:34+00:00",
-            "odds_snapshot_id": "nhl_odds_1a8e0529a50348a6",
-            "home_team": "LAK",
-            "away_team": "NYI",
-            "home_win_probability": 0.4218267953314095,
-            "home_moneyline": -128,
-            "away_moneyline": 116,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.4519505233111322,
-            "edge": 0.12622268135745834,
-            "expected_value": 0.2488541220841558,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
-          }
-        },
-        "riskLoving": {
-          "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020982,
             "date_central": "2026-03-05",
@@ -1562,10 +1502,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020982,
             "date_central": "2026-03-05",
@@ -1591,7 +1531,67 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
+          }
+        },
+        "capitalPreservation": {
+          "continuous": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "continuous",
+            "game_id": 2025020982,
+            "date_central": "2026-03-05",
+            "forecast_as_of_utc": "2026-03-05T16:42:47+00:00",
+            "forecast_model_run_id": "run_30b4b6ac5add600c__ensemble",
+            "odds_as_of_utc": "2026-03-05T16:46:34+00:00",
+            "odds_snapshot_id": "nhl_odds_1a8e0529a50348a6",
+            "home_team": "LAK",
+            "away_team": "NYI",
+            "home_win_probability": 0.4218267953314095,
+            "home_moneyline": -128,
+            "away_moneyline": 116,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.4519505233111322,
+            "edge": 0.12622268135745834,
+            "expected_value": 0.2488541220841558,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
+          },
+          "bucketed": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "bucketed",
+            "game_id": 2025020982,
+            "date_central": "2026-03-05",
+            "forecast_as_of_utc": "2026-03-05T16:42:47+00:00",
+            "forecast_model_run_id": "run_30b4b6ac5add600c__ensemble",
+            "odds_as_of_utc": "2026-03-05T16:46:34+00:00",
+            "odds_snapshot_id": "nhl_odds_1a8e0529a50348a6",
+            "home_team": "LAK",
+            "away_team": "NYI",
+            "home_win_probability": 0.4218267953314095,
+            "home_moneyline": -128,
+            "away_moneyline": 116,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.4519505233111322,
+            "edge": 0.12622268135745834,
+            "expected_value": 0.2488541220841558,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -1613,9 +1613,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020983,
             "date_central": "2026-03-06",
@@ -1628,11 +1628,11 @@
             "home_win_probability": 0.44132449134562185,
             "home_moneyline": -147,
             "away_moneyline": 138,
-            "bet_label": "$160 FLA",
+            "bet_label": "$120 FLA",
             "reason": "Underdog underpriced",
             "side": "away",
             "team": "FLA",
-            "stake": 160,
+            "stake": 120,
             "odds": 138,
             "model_probability": 0.5586755086543782,
             "market_probability": 0.41383238950507656,
@@ -1641,10 +1641,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020983,
             "date_central": "2026-03-06",
@@ -1657,11 +1657,11 @@
             "home_win_probability": 0.44132449134562185,
             "home_moneyline": -147,
             "away_moneyline": 138,
-            "bet_label": "$150 FLA",
+            "bet_label": "$100 FLA",
             "reason": "Underdog underpriced",
             "side": "away",
             "team": "FLA",
-            "stake": 150,
+            "stake": 100,
             "odds": 138,
             "model_probability": 0.5586755086543782,
             "market_probability": 0.41383238950507656,
@@ -1670,72 +1670,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
-            "sizing_style": "continuous",
-            "game_id": 2025020983,
-            "date_central": "2026-03-06",
-            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
-            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
-            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
-            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
-            "home_team": "DET",
-            "away_team": "FLA",
-            "home_win_probability": 0.44132449134562185,
-            "home_moneyline": -147,
-            "away_moneyline": 138,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.41383238950507656,
-            "edge": 0.14484311914930165,
-            "expected_value": 0.32964771059742004,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
-          },
-          "bucketed": {
-            "strategy": "riskAverse",
-            "sizing_style": "bucketed",
-            "game_id": 2025020983,
-            "date_central": "2026-03-06",
-            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
-            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
-            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
-            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
-            "home_team": "DET",
-            "away_team": "FLA",
-            "home_win_probability": 0.44132449134562185,
-            "home_moneyline": -147,
-            "away_moneyline": 138,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.41383238950507656,
-            "edge": 0.14484311914930165,
-            "expected_value": 0.32964771059742004,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
-          }
-        },
-        "riskLoving": {
-          "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020983,
             "date_central": "2026-03-06",
@@ -1761,10 +1701,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020983,
             "date_central": "2026-03-06",
@@ -1790,7 +1730,67 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
+          }
+        },
+        "capitalPreservation": {
+          "continuous": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "continuous",
+            "game_id": 2025020983,
+            "date_central": "2026-03-06",
+            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
+            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
+            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
+            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
+            "home_team": "DET",
+            "away_team": "FLA",
+            "home_win_probability": 0.44132449134562185,
+            "home_moneyline": -147,
+            "away_moneyline": 138,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.41383238950507656,
+            "edge": 0.14484311914930165,
+            "expected_value": 0.32964771059742004,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
+          },
+          "bucketed": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "bucketed",
+            "game_id": 2025020983,
+            "date_central": "2026-03-06",
+            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
+            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
+            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
+            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
+            "home_team": "DET",
+            "away_team": "FLA",
+            "home_win_probability": 0.44132449134562185,
+            "home_moneyline": -147,
+            "away_moneyline": 138,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.41383238950507656,
+            "edge": 0.14484311914930165,
+            "expected_value": 0.32964771059742004,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -1812,9 +1812,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020984,
             "date_central": "2026-03-06",
@@ -1827,11 +1827,11 @@
             "home_win_probability": 0.6098901817945241,
             "home_moneyline": 105,
             "away_moneyline": -115,
-            "bet_label": "$160 DAL",
+            "bet_label": "$120 DAL",
             "reason": "Underdog underpriced",
             "side": "home",
             "team": "DAL",
-            "stake": 160,
+            "stake": 120,
             "odds": 105,
             "model_probability": 0.6098901817945241,
             "market_probability": 0.47698280643372154,
@@ -1840,10 +1840,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020984,
             "date_central": "2026-03-06",
@@ -1856,11 +1856,11 @@
             "home_win_probability": 0.6098901817945241,
             "home_moneyline": 105,
             "away_moneyline": -115,
-            "bet_label": "$150 DAL",
+            "bet_label": "$100 DAL",
             "reason": "Underdog underpriced",
             "side": "home",
             "team": "DAL",
-            "stake": 150,
+            "stake": 100,
             "odds": 105,
             "model_probability": 0.6098901817945241,
             "market_probability": 0.47698280643372154,
@@ -1869,72 +1869,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
-            "sizing_style": "continuous",
-            "game_id": 2025020984,
-            "date_central": "2026-03-06",
-            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
-            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
-            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
-            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
-            "home_team": "DAL",
-            "away_team": "COL",
-            "home_win_probability": 0.6098901817945241,
-            "home_moneyline": 105,
-            "away_moneyline": -115,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.47698280643372154,
-            "edge": 0.1329073753608026,
-            "expected_value": 0.25027487267877446,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
-          },
-          "bucketed": {
-            "strategy": "riskAverse",
-            "sizing_style": "bucketed",
-            "game_id": 2025020984,
-            "date_central": "2026-03-06",
-            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
-            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
-            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
-            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
-            "home_team": "DAL",
-            "away_team": "COL",
-            "home_win_probability": 0.6098901817945241,
-            "home_moneyline": 105,
-            "away_moneyline": -115,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.47698280643372154,
-            "edge": 0.1329073753608026,
-            "expected_value": 0.25027487267877446,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
-          }
-        },
-        "riskLoving": {
-          "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020984,
             "date_central": "2026-03-06",
@@ -1960,10 +1900,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020984,
             "date_central": "2026-03-06",
@@ -1989,7 +1929,67 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
+          }
+        },
+        "capitalPreservation": {
+          "continuous": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "continuous",
+            "game_id": 2025020984,
+            "date_central": "2026-03-06",
+            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
+            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
+            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
+            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
+            "home_team": "DAL",
+            "away_team": "COL",
+            "home_win_probability": 0.6098901817945241,
+            "home_moneyline": 105,
+            "away_moneyline": -115,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.47698280643372154,
+            "edge": 0.1329073753608026,
+            "expected_value": 0.25027487267877446,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
+          },
+          "bucketed": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "bucketed",
+            "game_id": 2025020984,
+            "date_central": "2026-03-06",
+            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
+            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
+            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
+            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
+            "home_team": "DAL",
+            "away_team": "COL",
+            "home_win_probability": 0.6098901817945241,
+            "home_moneyline": 105,
+            "away_moneyline": -115,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.47698280643372154,
+            "edge": 0.1329073753608026,
+            "expected_value": 0.25027487267877446,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -2011,9 +2011,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020985,
             "date_central": "2026-03-06",
@@ -2039,10 +2039,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020985,
             "date_central": "2026-03-06",
@@ -2068,12 +2068,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020985,
             "date_central": "2026-03-06",
@@ -2099,10 +2099,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020985,
             "date_central": "2026-03-06",
@@ -2128,12 +2128,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
           }
         },
-        "riskLoving": {
+        "capitalPreservation": {
           "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "continuous",
             "game_id": 2025020985,
             "date_central": "2026-03-06",
@@ -2159,10 +2159,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "bucketed",
             "game_id": 2025020985,
             "date_central": "2026-03-06",
@@ -2188,7 +2188,7 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -2210,9 +2210,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020986,
             "date_central": "2026-03-06",
@@ -2225,11 +2225,11 @@
             "home_win_probability": 0.6082023296389982,
             "home_moneyline": 103,
             "away_moneyline": -115,
-            "bet_label": "$150 EDM",
+            "bet_label": "$115 EDM",
             "reason": "Underdog underpriced",
             "side": "home",
             "team": "EDM",
-            "stake": 150,
+            "stake": 115,
             "odds": 103,
             "model_probability": 0.6082023296389982,
             "market_probability": 0.47942914483219984,
@@ -2238,10 +2238,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020986,
             "date_central": "2026-03-06",
@@ -2254,11 +2254,11 @@
             "home_win_probability": 0.6082023296389982,
             "home_moneyline": 103,
             "away_moneyline": -115,
-            "bet_label": "$150 EDM",
+            "bet_label": "$100 EDM",
             "reason": "Underdog underpriced",
             "side": "home",
             "team": "EDM",
-            "stake": 150,
+            "stake": 100,
             "odds": 103,
             "model_probability": 0.6082023296389982,
             "market_probability": 0.47942914483219984,
@@ -2267,72 +2267,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
-            "sizing_style": "continuous",
-            "game_id": 2025020986,
-            "date_central": "2026-03-06",
-            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
-            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
-            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
-            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
-            "home_team": "EDM",
-            "away_team": "CAR",
-            "home_win_probability": 0.6082023296389982,
-            "home_moneyline": 103,
-            "away_moneyline": -115,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.47942914483219984,
-            "edge": 0.1287731848067984,
-            "expected_value": 0.23465072916716645,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
-          },
-          "bucketed": {
-            "strategy": "riskAverse",
-            "sizing_style": "bucketed",
-            "game_id": 2025020986,
-            "date_central": "2026-03-06",
-            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
-            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
-            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
-            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
-            "home_team": "EDM",
-            "away_team": "CAR",
-            "home_win_probability": 0.6082023296389982,
-            "home_moneyline": 103,
-            "away_moneyline": -115,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.47942914483219984,
-            "edge": 0.1287731848067984,
-            "expected_value": 0.23465072916716645,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
-          }
-        },
-        "riskLoving": {
-          "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020986,
             "date_central": "2026-03-06",
@@ -2358,10 +2298,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020986,
             "date_central": "2026-03-06",
@@ -2387,7 +2327,67 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
+          }
+        },
+        "capitalPreservation": {
+          "continuous": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "continuous",
+            "game_id": 2025020986,
+            "date_central": "2026-03-06",
+            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
+            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
+            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
+            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
+            "home_team": "EDM",
+            "away_team": "CAR",
+            "home_win_probability": 0.6082023296389982,
+            "home_moneyline": 103,
+            "away_moneyline": -115,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.47942914483219984,
+            "edge": 0.1287731848067984,
+            "expected_value": 0.23465072916716645,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
+          },
+          "bucketed": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "bucketed",
+            "game_id": 2025020986,
+            "date_central": "2026-03-06",
+            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
+            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
+            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
+            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
+            "home_team": "EDM",
+            "away_team": "CAR",
+            "home_win_probability": 0.6082023296389982,
+            "home_moneyline": 103,
+            "away_moneyline": -115,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.47942914483219984,
+            "edge": 0.1287731848067984,
+            "expected_value": 0.23465072916716645,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -2409,9 +2409,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020987,
             "date_central": "2026-03-06",
@@ -2424,11 +2424,11 @@
             "home_win_probability": 0.5897748620889023,
             "home_moneyline": -103,
             "away_moneyline": -108,
-            "bet_label": "$110 ANA",
+            "bet_label": "$85 ANA",
             "reason": "Favorite underpriced",
             "side": "home",
             "team": "ANA",
-            "stake": 110,
+            "stake": 85,
             "odds": -103,
             "model_probability": 0.5897748620889023,
             "market_probability": 0.49423272123281353,
@@ -2437,10 +2437,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020987,
             "date_central": "2026-03-06",
@@ -2466,72 +2466,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
-            "sizing_style": "continuous",
-            "game_id": 2025020987,
-            "date_central": "2026-03-06",
-            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
-            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
-            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
-            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
-            "home_team": "ANA",
-            "away_team": "MTL",
-            "home_win_probability": 0.5897748620889023,
-            "home_moneyline": -103,
-            "away_moneyline": -108,
-            "bet_label": "$65 ANA",
-            "reason": "Favorite underpriced",
-            "side": "home",
-            "team": "ANA",
-            "stake": 65,
-            "odds": -103,
-            "model_probability": 0.5897748620889023,
-            "market_probability": 0.49423272123281353,
-            "edge": 0.09554214085608875,
-            "expected_value": 0.1623718155732734,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
-          },
-          "bucketed": {
-            "strategy": "riskAverse",
-            "sizing_style": "bucketed",
-            "game_id": 2025020987,
-            "date_central": "2026-03-06",
-            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
-            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
-            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
-            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
-            "home_team": "ANA",
-            "away_team": "MTL",
-            "home_win_probability": 0.5897748620889023,
-            "home_moneyline": -103,
-            "away_moneyline": -108,
-            "bet_label": "$50 ANA",
-            "reason": "Favorite underpriced",
-            "side": "home",
-            "team": "ANA",
-            "stake": 50,
-            "odds": -103,
-            "model_probability": 0.5897748620889023,
-            "market_probability": 0.49423272123281353,
-            "edge": 0.09554214085608875,
-            "expected_value": 0.1623718155732734,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
-          }
-        },
-        "riskLoving": {
-          "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020987,
             "date_central": "2026-03-06",
@@ -2557,10 +2497,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020987,
             "date_central": "2026-03-06",
@@ -2586,7 +2526,67 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
+          }
+        },
+        "capitalPreservation": {
+          "continuous": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "continuous",
+            "game_id": 2025020987,
+            "date_central": "2026-03-06",
+            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
+            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
+            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
+            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
+            "home_team": "ANA",
+            "away_team": "MTL",
+            "home_win_probability": 0.5897748620889023,
+            "home_moneyline": -103,
+            "away_moneyline": -108,
+            "bet_label": "$50 ANA",
+            "reason": "Favorite underpriced",
+            "side": "home",
+            "team": "ANA",
+            "stake": 50,
+            "odds": -103,
+            "model_probability": 0.5897748620889023,
+            "market_probability": 0.49423272123281353,
+            "edge": 0.09554214085608875,
+            "expected_value": 0.1623718155732734,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
+          },
+          "bucketed": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "bucketed",
+            "game_id": 2025020987,
+            "date_central": "2026-03-06",
+            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
+            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
+            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
+            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
+            "home_team": "ANA",
+            "away_team": "MTL",
+            "home_win_probability": 0.5897748620889023,
+            "home_moneyline": -103,
+            "away_moneyline": -108,
+            "bet_label": "$50 ANA",
+            "reason": "Favorite underpriced",
+            "side": "home",
+            "team": "ANA",
+            "stake": 50,
+            "odds": -103,
+            "model_probability": 0.5897748620889023,
+            "market_probability": 0.49423272123281353,
+            "edge": 0.09554214085608875,
+            "expected_value": 0.1623718155732734,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -2608,9 +2608,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020988,
             "date_central": "2026-03-06",
@@ -2636,10 +2636,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020988,
             "date_central": "2026-03-06",
@@ -2665,12 +2665,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020988,
             "date_central": "2026-03-06",
@@ -2696,10 +2696,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020988,
             "date_central": "2026-03-06",
@@ -2725,12 +2725,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
           }
         },
-        "riskLoving": {
+        "capitalPreservation": {
           "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "continuous",
             "game_id": 2025020988,
             "date_central": "2026-03-06",
@@ -2756,10 +2756,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "bucketed",
             "game_id": 2025020988,
             "date_central": "2026-03-06",
@@ -2785,7 +2785,7 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -2807,9 +2807,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020989,
             "date_central": "2026-03-06",
@@ -2822,11 +2822,11 @@
             "home_win_probability": 0.4425019376493541,
             "home_moneyline": -140,
             "away_moneyline": 125,
-            "bet_label": "$135 STL",
+            "bet_label": "$100 STL",
             "reason": "Underdog underpriced",
             "side": "away",
             "team": "STL",
-            "stake": 135,
+            "stake": 100,
             "odds": 125,
             "model_probability": 0.5574980623506459,
             "market_probability": 0.43243243243243246,
@@ -2835,10 +2835,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020989,
             "date_central": "2026-03-06",
@@ -2851,11 +2851,11 @@
             "home_win_probability": 0.4425019376493541,
             "home_moneyline": -140,
             "away_moneyline": 125,
-            "bet_label": "$150 STL",
+            "bet_label": "$100 STL",
             "reason": "Underdog underpriced",
             "side": "away",
             "team": "STL",
-            "stake": 150,
+            "stake": 100,
             "odds": 125,
             "model_probability": 0.5574980623506459,
             "market_probability": 0.43243243243243246,
@@ -2864,72 +2864,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
-            "sizing_style": "continuous",
-            "game_id": 2025020989,
-            "date_central": "2026-03-06",
-            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
-            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
-            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
-            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
-            "home_team": "SJS",
-            "away_team": "STL",
-            "home_win_probability": 0.4425019376493541,
-            "home_moneyline": -140,
-            "away_moneyline": 125,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.43243243243243246,
-            "edge": 0.12506562991821346,
-            "expected_value": 0.2543706402889534,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
-          },
-          "bucketed": {
-            "strategy": "riskAverse",
-            "sizing_style": "bucketed",
-            "game_id": 2025020989,
-            "date_central": "2026-03-06",
-            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
-            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
-            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
-            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
-            "home_team": "SJS",
-            "away_team": "STL",
-            "home_win_probability": 0.4425019376493541,
-            "home_moneyline": -140,
-            "away_moneyline": 125,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.43243243243243246,
-            "edge": 0.12506562991821346,
-            "expected_value": 0.2543706402889534,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
-          }
-        },
-        "riskLoving": {
-          "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020989,
             "date_central": "2026-03-06",
@@ -2955,10 +2895,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020989,
             "date_central": "2026-03-06",
@@ -2984,7 +2924,67 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
+          }
+        },
+        "capitalPreservation": {
+          "continuous": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "continuous",
+            "game_id": 2025020989,
+            "date_central": "2026-03-06",
+            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
+            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
+            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
+            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
+            "home_team": "SJS",
+            "away_team": "STL",
+            "home_win_probability": 0.4425019376493541,
+            "home_moneyline": -140,
+            "away_moneyline": 125,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.43243243243243246,
+            "edge": 0.12506562991821346,
+            "expected_value": 0.2543706402889534,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
+          },
+          "bucketed": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "bucketed",
+            "game_id": 2025020989,
+            "date_central": "2026-03-06",
+            "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
+            "forecast_model_run_id": "run_08b34a55107a67a9__ensemble",
+            "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
+            "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
+            "home_team": "SJS",
+            "away_team": "STL",
+            "home_win_probability": 0.4425019376493541,
+            "home_moneyline": -140,
+            "away_moneyline": 125,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.43243243243243246,
+            "edge": 0.12506562991821346,
+            "expected_value": 0.2543706402889534,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -3006,9 +3006,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020990,
             "date_central": "2026-03-07",
@@ -3021,11 +3021,11 @@
             "home_win_probability": 0.6053362498052901,
             "home_moneyline": -128,
             "away_moneyline": 115,
-            "bet_label": "$65 BOS",
+            "bet_label": "$50 BOS",
             "reason": "Favorite underpriced",
             "side": "home",
             "team": "BOS",
-            "stake": 65,
+            "stake": 50,
             "odds": -128,
             "model_probability": 0.6053362498052901,
             "market_probability": 0.5468998410174881,
@@ -3034,10 +3034,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020990,
             "date_central": "2026-03-07",
@@ -3063,72 +3063,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
-            "sizing_style": "continuous",
-            "game_id": 2025020990,
-            "date_central": "2026-03-07",
-            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
-            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
-            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
-            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
-            "home_team": "BOS",
-            "away_team": "WSH",
-            "home_win_probability": 0.6053362498052901,
-            "home_moneyline": -128,
-            "away_moneyline": 115,
-            "bet_label": "$40 BOS",
-            "reason": "Favorite underpriced",
-            "side": "home",
-            "team": "BOS",
-            "stake": 40,
-            "odds": -128,
-            "model_probability": 0.6053362498052901,
-            "market_probability": 0.5468998410174881,
-            "edge": 0.058436408787801986,
-            "expected_value": 0.0782551949656729,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
-          },
-          "bucketed": {
-            "strategy": "riskAverse",
-            "sizing_style": "bucketed",
-            "game_id": 2025020990,
-            "date_central": "2026-03-07",
-            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
-            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
-            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
-            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
-            "home_team": "BOS",
-            "away_team": "WSH",
-            "home_win_probability": 0.6053362498052901,
-            "home_moneyline": -128,
-            "away_moneyline": 115,
-            "bet_label": "$50 BOS",
-            "reason": "Favorite underpriced",
-            "side": "home",
-            "team": "BOS",
-            "stake": 50,
-            "odds": -128,
-            "model_probability": 0.6053362498052901,
-            "market_probability": 0.5468998410174881,
-            "edge": 0.058436408787801986,
-            "expected_value": 0.0782551949656729,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
-          }
-        },
-        "riskLoving": {
-          "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020990,
             "date_central": "2026-03-07",
@@ -3154,10 +3094,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020990,
             "date_central": "2026-03-07",
@@ -3183,7 +3123,67 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
+          }
+        },
+        "capitalPreservation": {
+          "continuous": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "continuous",
+            "game_id": 2025020990,
+            "date_central": "2026-03-07",
+            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
+            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
+            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
+            "home_team": "BOS",
+            "away_team": "WSH",
+            "home_win_probability": 0.6053362498052901,
+            "home_moneyline": -128,
+            "away_moneyline": 115,
+            "bet_label": "$30 BOS",
+            "reason": "Favorite underpriced",
+            "side": "home",
+            "team": "BOS",
+            "stake": 30,
+            "odds": -128,
+            "model_probability": 0.6053362498052901,
+            "market_probability": 0.5468998410174881,
+            "edge": 0.058436408787801986,
+            "expected_value": 0.0782551949656729,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
+          },
+          "bucketed": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "bucketed",
+            "game_id": 2025020990,
+            "date_central": "2026-03-07",
+            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
+            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
+            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
+            "home_team": "BOS",
+            "away_team": "WSH",
+            "home_win_probability": 0.6053362498052901,
+            "home_moneyline": -128,
+            "away_moneyline": 115,
+            "bet_label": "$50 BOS",
+            "reason": "Favorite underpriced",
+            "side": "home",
+            "team": "BOS",
+            "stake": 50,
+            "odds": -128,
+            "model_probability": 0.6053362498052901,
+            "market_probability": 0.5468998410174881,
+            "edge": 0.058436408787801986,
+            "expected_value": 0.0782551949656729,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -3205,9 +3205,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020991,
             "date_central": "2026-03-07",
@@ -3220,11 +3220,11 @@
             "home_win_probability": 0.5530656905638911,
             "home_moneyline": -165,
             "away_moneyline": 146,
-            "bet_label": "$45 NYR",
+            "bet_label": "$35 NYR",
             "reason": "Underdog underpriced",
             "side": "away",
             "team": "NYR",
-            "stake": 45,
+            "stake": 35,
             "odds": 146,
             "model_probability": 0.4469343094361089,
             "market_probability": 0.3949918020569385,
@@ -3233,10 +3233,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020991,
             "date_central": "2026-03-07",
@@ -3262,72 +3262,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
-            "sizing_style": "continuous",
-            "game_id": 2025020991,
-            "date_central": "2026-03-07",
-            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
-            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
-            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
-            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
-            "home_team": "NJD",
-            "away_team": "NYR",
-            "home_win_probability": 0.5530656905638911,
-            "home_moneyline": -165,
-            "away_moneyline": 146,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.3949918020569385,
-            "edge": 0.05194250737917039,
-            "expected_value": 0.0994584012128279,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
-          },
-          "bucketed": {
-            "strategy": "riskAverse",
-            "sizing_style": "bucketed",
-            "game_id": 2025020991,
-            "date_central": "2026-03-07",
-            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
-            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
-            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
-            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
-            "home_team": "NJD",
-            "away_team": "NYR",
-            "home_win_probability": 0.5530656905638911,
-            "home_moneyline": -165,
-            "away_moneyline": 146,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.3949918020569385,
-            "edge": 0.05194250737917039,
-            "expected_value": 0.0994584012128279,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
-          }
-        },
-        "riskLoving": {
-          "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020991,
             "date_central": "2026-03-07",
@@ -3353,10 +3293,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020991,
             "date_central": "2026-03-07",
@@ -3382,7 +3322,67 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
+          }
+        },
+        "capitalPreservation": {
+          "continuous": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "continuous",
+            "game_id": 2025020991,
+            "date_central": "2026-03-07",
+            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
+            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
+            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
+            "home_team": "NJD",
+            "away_team": "NYR",
+            "home_win_probability": 0.5530656905638911,
+            "home_moneyline": -165,
+            "away_moneyline": 146,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.3949918020569385,
+            "edge": 0.05194250737917039,
+            "expected_value": 0.0994584012128279,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
+          },
+          "bucketed": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "bucketed",
+            "game_id": 2025020991,
+            "date_central": "2026-03-07",
+            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
+            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
+            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
+            "home_team": "NJD",
+            "away_team": "NYR",
+            "home_win_probability": 0.5530656905638911,
+            "home_moneyline": -165,
+            "away_moneyline": 146,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.3949918020569385,
+            "edge": 0.05194250737917039,
+            "expected_value": 0.0994584012128279,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -3404,9 +3404,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020992,
             "date_central": "2026-03-07",
@@ -3432,10 +3432,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020992,
             "date_central": "2026-03-07",
@@ -3461,12 +3461,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020992,
             "date_central": "2026-03-07",
@@ -3492,10 +3492,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020992,
             "date_central": "2026-03-07",
@@ -3521,12 +3521,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
           }
         },
-        "riskLoving": {
+        "capitalPreservation": {
           "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "continuous",
             "game_id": 2025020992,
             "date_central": "2026-03-07",
@@ -3552,10 +3552,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "bucketed",
             "game_id": 2025020992,
             "date_central": "2026-03-07",
@@ -3581,7 +3581,7 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -3603,9 +3603,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020993,
             "date_central": "2026-03-07",
@@ -3631,10 +3631,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020993,
             "date_central": "2026-03-07",
@@ -3660,12 +3660,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020993,
             "date_central": "2026-03-07",
@@ -3691,10 +3691,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
+            "created_at_utc": "2026-03-08T15:55:52.064Z"
           },
           "bucketed": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020993,
             "date_central": "2026-03-07",
@@ -3720,12 +3720,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
           }
         },
-        "riskLoving": {
+        "capitalPreservation": {
           "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "continuous",
             "game_id": 2025020993,
             "date_central": "2026-03-07",
@@ -3751,10 +3751,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "bucketed",
             "game_id": 2025020993,
             "date_central": "2026-03-07",
@@ -3780,7 +3780,7 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -3802,9 +3802,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020994,
             "date_central": "2026-03-07",
@@ -3817,11 +3817,11 @@
             "home_win_probability": 0.4422627290720862,
             "home_moneyline": 160,
             "away_moneyline": -176,
-            "bet_label": "$60 TOR",
+            "bet_label": "$45 TOR",
             "reason": "Underdog underpriced",
             "side": "home",
             "team": "TOR",
-            "stake": 60,
+            "stake": 45,
             "odds": 160,
             "model_probability": 0.4422627290720862,
             "market_probability": 0.37622682660850604,
@@ -3830,10 +3830,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020994,
             "date_central": "2026-03-07",
@@ -3859,72 +3859,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
-            "sizing_style": "continuous",
-            "game_id": 2025020994,
-            "date_central": "2026-03-07",
-            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
-            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
-            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
-            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
-            "home_team": "TOR",
-            "away_team": "TBL",
-            "home_win_probability": 0.4422627290720862,
-            "home_moneyline": 160,
-            "away_moneyline": -176,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.37622682660850604,
-            "edge": 0.06603590246358015,
-            "expected_value": 0.1498830955874242,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
-          },
-          "bucketed": {
-            "strategy": "riskAverse",
-            "sizing_style": "bucketed",
-            "game_id": 2025020994,
-            "date_central": "2026-03-07",
-            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
-            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
-            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
-            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
-            "home_team": "TOR",
-            "away_team": "TBL",
-            "home_win_probability": 0.4422627290720862,
-            "home_moneyline": 160,
-            "away_moneyline": -176,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.37622682660850604,
-            "edge": 0.06603590246358015,
-            "expected_value": 0.1498830955874242,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
-          }
-        },
-        "riskLoving": {
-          "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020994,
             "date_central": "2026-03-07",
@@ -3950,10 +3890,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.065Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020994,
             "date_central": "2026-03-07",
@@ -3979,7 +3919,67 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
+          }
+        },
+        "capitalPreservation": {
+          "continuous": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "continuous",
+            "game_id": 2025020994,
+            "date_central": "2026-03-07",
+            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
+            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
+            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
+            "home_team": "TOR",
+            "away_team": "TBL",
+            "home_win_probability": 0.4422627290720862,
+            "home_moneyline": 160,
+            "away_moneyline": -176,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.37622682660850604,
+            "edge": 0.06603590246358015,
+            "expected_value": 0.1498830955874242,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
+          },
+          "bucketed": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "bucketed",
+            "game_id": 2025020994,
+            "date_central": "2026-03-07",
+            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
+            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
+            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
+            "home_team": "TOR",
+            "away_team": "TBL",
+            "home_win_probability": 0.4422627290720862,
+            "home_moneyline": 160,
+            "away_moneyline": -176,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.37622682660850604,
+            "edge": 0.06603590246358015,
+            "expected_value": 0.1498830955874242,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -4001,9 +4001,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020995,
             "date_central": "2026-03-07",
@@ -4029,10 +4029,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020995,
             "date_central": "2026-03-07",
@@ -4058,12 +4058,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020995,
             "date_central": "2026-03-07",
@@ -4089,10 +4089,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
+            "created_at_utc": "2026-03-08T15:55:52.065Z"
           },
           "bucketed": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020995,
             "date_central": "2026-03-07",
@@ -4118,12 +4118,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
           }
         },
-        "riskLoving": {
+        "capitalPreservation": {
           "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "continuous",
             "game_id": 2025020995,
             "date_central": "2026-03-07",
@@ -4149,10 +4149,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "bucketed",
             "game_id": 2025020995,
             "date_central": "2026-03-07",
@@ -4178,7 +4178,7 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -4200,9 +4200,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020996,
             "date_central": "2026-03-07",
@@ -4215,11 +4215,11 @@
             "home_win_probability": 0.6398156868170393,
             "home_moneyline": -265,
             "away_moneyline": 228,
-            "bet_label": "$55 VAN",
+            "bet_label": "$40 VAN",
             "reason": "Underdog underpriced",
             "side": "away",
             "team": "VAN",
-            "stake": 55,
+            "stake": 40,
             "odds": 228,
             "model_probability": 0.36018431318296074,
             "market_probability": 0.29573812996272886,
@@ -4228,10 +4228,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020996,
             "date_central": "2026-03-07",
@@ -4257,72 +4257,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
-            "sizing_style": "continuous",
-            "game_id": 2025020996,
-            "date_central": "2026-03-07",
-            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
-            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
-            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
-            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
-            "home_team": "WPG",
-            "away_team": "VAN",
-            "home_win_probability": 0.6398156868170393,
-            "home_moneyline": -265,
-            "away_moneyline": 228,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.29573812996272886,
-            "edge": 0.06444618322023188,
-            "expected_value": 0.18140454724011112,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
-          },
-          "bucketed": {
-            "strategy": "riskAverse",
-            "sizing_style": "bucketed",
-            "game_id": 2025020996,
-            "date_central": "2026-03-07",
-            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
-            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
-            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
-            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
-            "home_team": "WPG",
-            "away_team": "VAN",
-            "home_win_probability": 0.6398156868170393,
-            "home_moneyline": -265,
-            "away_moneyline": 228,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.29573812996272886,
-            "edge": 0.06444618322023188,
-            "expected_value": 0.18140454724011112,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
-          }
-        },
-        "riskLoving": {
-          "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020996,
             "date_central": "2026-03-07",
@@ -4348,10 +4288,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.065Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020996,
             "date_central": "2026-03-07",
@@ -4377,7 +4317,67 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
+          }
+        },
+        "capitalPreservation": {
+          "continuous": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "continuous",
+            "game_id": 2025020996,
+            "date_central": "2026-03-07",
+            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
+            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
+            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
+            "home_team": "WPG",
+            "away_team": "VAN",
+            "home_win_probability": 0.6398156868170393,
+            "home_moneyline": -265,
+            "away_moneyline": 228,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.29573812996272886,
+            "edge": 0.06444618322023188,
+            "expected_value": 0.18140454724011112,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
+          },
+          "bucketed": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "bucketed",
+            "game_id": 2025020996,
+            "date_central": "2026-03-07",
+            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
+            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
+            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
+            "home_team": "WPG",
+            "away_team": "VAN",
+            "home_win_probability": 0.6398156868170393,
+            "home_moneyline": -265,
+            "away_moneyline": 228,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.29573812996272886,
+            "edge": 0.06444618322023188,
+            "expected_value": 0.18140454724011112,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -4399,9 +4399,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020997,
             "date_central": "2026-03-07",
@@ -4414,11 +4414,11 @@
             "home_win_probability": 0.43928144223089305,
             "home_moneyline": -118,
             "away_moneyline": 110,
-            "bet_label": "$110 MTL",
+            "bet_label": "$80 MTL",
             "reason": "Underdog underpriced",
             "side": "away",
             "team": "MTL",
-            "stake": 110,
+            "stake": 80,
             "odds": 110,
             "model_probability": 0.560718557769107,
             "market_probability": 0.46801202232717903,
@@ -4427,10 +4427,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020997,
             "date_central": "2026-03-07",
@@ -4456,72 +4456,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
-            "sizing_style": "continuous",
-            "game_id": 2025020997,
-            "date_central": "2026-03-07",
-            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
-            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
-            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
-            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
-            "home_team": "LAK",
-            "away_team": "MTL",
-            "home_win_probability": 0.43928144223089305,
-            "home_moneyline": -118,
-            "away_moneyline": 110,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.46801202232717903,
-            "edge": 0.09270653544192792,
-            "expected_value": 0.17750897131512455,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
-          },
-          "bucketed": {
-            "strategy": "riskAverse",
-            "sizing_style": "bucketed",
-            "game_id": 2025020997,
-            "date_central": "2026-03-07",
-            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
-            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
-            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
-            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
-            "home_team": "LAK",
-            "away_team": "MTL",
-            "home_win_probability": 0.43928144223089305,
-            "home_moneyline": -118,
-            "away_moneyline": 110,
-            "bet_label": "$0",
-            "reason": "Risk-averse profile skips underdogs",
-            "side": "none",
-            "team": null,
-            "stake": 0,
-            "odds": null,
-            "model_probability": null,
-            "market_probability": 0.46801202232717903,
-            "edge": 0.09270653544192792,
-            "expected_value": 0.17750897131512455,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
-          }
-        },
-        "riskLoving": {
-          "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020997,
             "date_central": "2026-03-07",
@@ -4547,10 +4487,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.065Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020997,
             "date_central": "2026-03-07",
@@ -4576,7 +4516,67 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
+          }
+        },
+        "capitalPreservation": {
+          "continuous": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "continuous",
+            "game_id": 2025020997,
+            "date_central": "2026-03-07",
+            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
+            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
+            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
+            "home_team": "LAK",
+            "away_team": "MTL",
+            "home_win_probability": 0.43928144223089305,
+            "home_moneyline": -118,
+            "away_moneyline": 110,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.46801202232717903,
+            "edge": 0.09270653544192792,
+            "expected_value": 0.17750897131512455,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
+          },
+          "bucketed": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "bucketed",
+            "game_id": 2025020997,
+            "date_central": "2026-03-07",
+            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
+            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
+            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
+            "home_team": "LAK",
+            "away_team": "MTL",
+            "home_win_probability": 0.43928144223089305,
+            "home_moneyline": -118,
+            "away_moneyline": 110,
+            "bet_label": "$0",
+            "reason": "Capital Preservation skips underdogs",
+            "side": "none",
+            "team": null,
+            "stake": 0,
+            "odds": null,
+            "model_probability": null,
+            "market_probability": 0.46801202232717903,
+            "edge": 0.09270653544192792,
+            "expected_value": 0.17750897131512455,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -4598,9 +4598,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020998,
             "date_central": "2026-03-07",
@@ -4613,11 +4613,11 @@
             "home_win_probability": 0.3241148044446237,
             "home_moneyline": 160,
             "away_moneyline": -180,
-            "bet_label": "$60 CAR",
+            "bet_label": "$45 CAR",
             "reason": "Favorite underpriced",
             "side": "away",
             "team": "CAR",
-            "stake": 60,
+            "stake": 45,
             "odds": -180,
             "model_probability": 0.6758851955553763,
             "market_probability": 0.6256684491978609,
@@ -4626,10 +4626,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020998,
             "date_central": "2026-03-07",
@@ -4655,72 +4655,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
-            "sizing_style": "continuous",
-            "game_id": 2025020998,
-            "date_central": "2026-03-07",
-            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
-            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
-            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
-            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
-            "home_team": "CGY",
-            "away_team": "CAR",
-            "home_win_probability": 0.3241148044446237,
-            "home_moneyline": 160,
-            "away_moneyline": -180,
-            "bet_label": "$35 CAR",
-            "reason": "Favorite underpriced",
-            "side": "away",
-            "team": "CAR",
-            "stake": 35,
-            "odds": -180,
-            "model_probability": 0.6758851955553763,
-            "market_probability": 0.6256684491978609,
-            "edge": 0.050216746357515385,
-            "expected_value": 0.05137697086391868,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
-          },
-          "bucketed": {
-            "strategy": "riskAverse",
-            "sizing_style": "bucketed",
-            "game_id": 2025020998,
-            "date_central": "2026-03-07",
-            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
-            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
-            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
-            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
-            "home_team": "CGY",
-            "away_team": "CAR",
-            "home_win_probability": 0.3241148044446237,
-            "home_moneyline": 160,
-            "away_moneyline": -180,
-            "bet_label": "$50 CAR",
-            "reason": "Favorite underpriced",
-            "side": "away",
-            "team": "CAR",
-            "stake": 50,
-            "odds": -180,
-            "model_probability": 0.6758851955553763,
-            "market_probability": 0.6256684491978609,
-            "edge": 0.050216746357515385,
-            "expected_value": 0.05137697086391868,
-            "stake_unit_dollars": 100,
-            "decision_logic_version": "historical_replay_v5",
-            "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
-          }
-        },
-        "riskLoving": {
-          "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020998,
             "date_central": "2026-03-07",
@@ -4746,10 +4686,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.065Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020998,
             "date_central": "2026-03-07",
@@ -4775,7 +4715,67 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
+          }
+        },
+        "capitalPreservation": {
+          "continuous": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "continuous",
+            "game_id": 2025020998,
+            "date_central": "2026-03-07",
+            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
+            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
+            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
+            "home_team": "CGY",
+            "away_team": "CAR",
+            "home_win_probability": 0.3241148044446237,
+            "home_moneyline": 160,
+            "away_moneyline": -180,
+            "bet_label": "$30 CAR",
+            "reason": "Favorite underpriced",
+            "side": "away",
+            "team": "CAR",
+            "stake": 30,
+            "odds": -180,
+            "model_probability": 0.6758851955553763,
+            "market_probability": 0.6256684491978609,
+            "edge": 0.050216746357515385,
+            "expected_value": 0.05137697086391868,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
+          },
+          "bucketed": {
+            "strategy": "capitalPreservation",
+            "sizing_style": "bucketed",
+            "game_id": 2025020998,
+            "date_central": "2026-03-07",
+            "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+            "forecast_model_run_id": "run_5344c99a8c9cbc8e__ensemble",
+            "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
+            "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
+            "home_team": "CGY",
+            "away_team": "CAR",
+            "home_win_probability": 0.3241148044446237,
+            "home_moneyline": 160,
+            "away_moneyline": -180,
+            "bet_label": "$50 CAR",
+            "reason": "Favorite underpriced",
+            "side": "away",
+            "team": "CAR",
+            "stake": 50,
+            "odds": -180,
+            "model_probability": 0.6758851955553763,
+            "market_probability": 0.6256684491978609,
+            "edge": 0.050216746357515385,
+            "expected_value": 0.05137697086391868,
+            "stake_unit_dollars": 100,
+            "decision_logic_version": "historical_replay_v5",
+            "materialization_version": "historical_prediction_history_v4",
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -4797,9 +4797,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025020999,
             "date_central": "2026-03-07",
@@ -4825,10 +4825,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025020999,
             "date_central": "2026-03-07",
@@ -4854,12 +4854,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025020999,
             "date_central": "2026-03-07",
@@ -4885,10 +4885,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
+            "created_at_utc": "2026-03-08T15:55:52.065Z"
           },
           "bucketed": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025020999,
             "date_central": "2026-03-07",
@@ -4914,12 +4914,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
           }
         },
-        "riskLoving": {
+        "capitalPreservation": {
           "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "continuous",
             "game_id": 2025020999,
             "date_central": "2026-03-07",
@@ -4945,10 +4945,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "bucketed",
             "game_id": 2025020999,
             "date_central": "2026-03-07",
@@ -4974,7 +4974,7 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }
@@ -4996,9 +4996,9 @@
       "over_190_point": null,
       "over_190_book": null,
       "replay_decisions": {
-        "balanced": {
+        "riskAdjusted": {
           "continuous": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "continuous",
             "game_id": 2025021000,
             "date_central": "2026-03-07",
@@ -5024,10 +5024,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.960Z"
+            "created_at_utc": "2026-03-08T15:55:52.022Z"
           },
           "bucketed": {
-            "strategy": "balanced",
+            "strategy": "riskAdjusted",
             "sizing_style": "bucketed",
             "game_id": 2025021000,
             "date_central": "2026-03-07",
@@ -5053,12 +5053,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.977Z"
+            "created_at_utc": "2026-03-08T15:55:52.044Z"
           }
         },
-        "riskAverse": {
+        "aggressiveEv": {
           "continuous": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "continuous",
             "game_id": 2025021000,
             "date_central": "2026-03-07",
@@ -5084,10 +5084,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:12.992Z"
+            "created_at_utc": "2026-03-08T15:55:52.065Z"
           },
           "bucketed": {
-            "strategy": "riskAverse",
+            "strategy": "aggressiveEv",
             "sizing_style": "bucketed",
             "game_id": 2025021000,
             "date_central": "2026-03-07",
@@ -5113,12 +5113,12 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.008Z"
+            "created_at_utc": "2026-03-08T15:55:52.085Z"
           }
         },
-        "riskLoving": {
+        "capitalPreservation": {
           "continuous": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "continuous",
             "game_id": 2025021000,
             "date_central": "2026-03-07",
@@ -5144,10 +5144,10 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.023Z"
+            "created_at_utc": "2026-03-08T15:55:52.105Z"
           },
           "bucketed": {
-            "strategy": "riskLoving",
+            "strategy": "capitalPreservation",
             "sizing_style": "bucketed",
             "game_id": 2025021000,
             "date_central": "2026-03-07",
@@ -5173,7 +5173,7 @@
             "stake_unit_dollars": 100,
             "decision_logic_version": "historical_replay_v5",
             "materialization_version": "historical_prediction_history_v4",
-            "created_at_utc": "2026-03-08T13:47:13.039Z"
+            "created_at_utc": "2026-03-08T15:55:52.129Z"
           }
         }
       }

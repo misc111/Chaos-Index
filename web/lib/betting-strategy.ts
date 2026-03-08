@@ -1,9 +1,9 @@
-export type BetStrategy = "balanced" | "riskAverse" | "riskLoving";
+export type BetStrategy = "riskAdjusted" | "aggressiveEv" | "capitalPreservation";
 export type BetSizingStyle = "continuous" | "bucketed";
 
-export const BET_STRATEGIES = ["balanced", "riskAverse", "riskLoving"] as const;
+export const BET_STRATEGIES = ["riskAdjusted", "aggressiveEv", "capitalPreservation"] as const;
 export const BET_SIZING_STYLES = ["continuous", "bucketed"] as const;
-export const DEFAULT_BET_STRATEGY: BetStrategy = "balanced";
+export const DEFAULT_BET_STRATEGY: BetStrategy = "riskAdjusted";
 export const DEFAULT_BET_SIZING_STYLE: BetSizingStyle = "continuous";
 
 export type BetStrategyConfig = {
@@ -24,35 +24,35 @@ export type BetSizingStyleConfig = {
 };
 
 const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
-  balanced: {
-    label: "Balanced",
-    shortLabel: "Balanced",
-    description: "Bets favorites and underdogs with the standard edge filter and stake sizing.",
+  riskAdjusted: {
+    label: "Risk-Adjusted Optimal",
+    shortLabel: "Best Sharpe-like",
+    description: "Targets the strongest return per unit of volatility with a tighter edge filter and reduced fractional-Kelly sizing.",
     allowUnderdogs: true,
-    minEdge: 0.03,
-    minExpectedValue: 0.02,
-    sizeMultiplier: 1,
-    maxBetUnits: 2,
+    minEdge: 0.035,
+    minExpectedValue: 0.025,
+    sizeMultiplier: 0.75,
+    maxBetUnits: 1.5,
   },
-  riskAverse: {
-    label: "Risk Averse",
-    shortLabel: "Conservative",
-    description: "Skips underdogs, demands a stronger edge, and sizes smaller to reduce drawdowns.",
-    allowUnderdogs: false,
-    minEdge: 0.04,
-    minExpectedValue: 0.03,
-    sizeMultiplier: 0.6,
-    maxBetUnits: 1,
-  },
-  riskLoving: {
-    label: "Risk Loving",
-    shortLabel: "Aggressive",
-    description: "Accepts thinner edges and sizes up more aggressively when the market looks wrong.",
+  aggressiveEv: {
+    label: "Aggressive EV",
+    shortLabel: "Higher EV",
+    description: "Pushes toward expected value by accepting thinner edges and sizing up more aggressively, with higher variance.",
     allowUnderdogs: true,
     minEdge: 0.025,
     minExpectedValue: 0.015,
     sizeMultiplier: 1.4,
     maxBetUnits: 3,
+  },
+  capitalPreservation: {
+    label: "Capital Preservation",
+    shortLabel: "Hates losses",
+    description: "Protects bankroll by skipping underdogs, demanding a larger cushion, and sizing down hard to reduce drawdowns.",
+    allowUnderdogs: false,
+    minEdge: 0.05,
+    minExpectedValue: 0.035,
+    sizeMultiplier: 0.45,
+    maxBetUnits: 0.75,
   },
 };
 
@@ -72,18 +72,37 @@ const BET_SIZING_STYLE_CONFIG: Record<BetSizingStyle, BetSizingStyleConfig> = {
 export function normalizeBetStrategy(value?: string | null): BetStrategy {
   const normalized = String(value || "").trim().toLowerCase();
   switch (normalized) {
+    case "riskadjusted":
+    case "risk-adjusted":
+    case "risk_adjusted":
+    case "optimal":
+    case "sharpe":
+    case "sharpe-like":
     case "balanced":
-      return "balanced";
-    case "riskaverse":
-    case "risk-averse":
-    case "risk_averse":
-    case "conservative":
-      return "riskAverse";
+      return "riskAdjusted";
+    case "aggressiveev":
+    case "aggressive-ev":
+    case "aggressive_ev":
+    case "highev":
+    case "high-ev":
+    case "high_ev":
     case "riskloving":
     case "risk-loving":
     case "risk_loving":
     case "aggressive":
-      return "riskLoving";
+      return "aggressiveEv";
+    case "capitalpreservation":
+    case "capital-preservation":
+    case "capital_preservation":
+    case "preservation":
+    case "lowrisk":
+    case "low-risk":
+    case "low_risk":
+    case "riskaverse":
+    case "risk-averse":
+    case "risk_averse":
+    case "conservative":
+      return "capitalPreservation";
     default:
       return DEFAULT_BET_STRATEGY;
   }

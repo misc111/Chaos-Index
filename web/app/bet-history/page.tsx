@@ -5,10 +5,13 @@ import BetHistoryChart from "@/components/BetHistoryChart";
 import styles from "@/components/BetHistory.module.css";
 import BetWeekCalendar from "@/components/BetWeekCalendar";
 import {
+  BET_SIZING_STYLES,
+  BET_STRATEGIES,
   DEFAULT_BET_SIZING_STYLE,
   DEFAULT_BET_STRATEGY,
   getBetSizingStyleConfig,
   getBetStrategyConfig,
+  type BetStrategy,
 } from "@/lib/betting-strategy";
 import { BET_UNIT_DOLLARS } from "@/lib/betting";
 import type { BetHistoryResponse, BetHistorySizingBundle, BetHistoryStrategyBundle } from "@/lib/bet-history-types";
@@ -82,24 +85,25 @@ const EMPTY_BET_HISTORY_STRATEGY: BetHistoryStrategyBundle = {
   bets: [],
 };
 
+function buildEmptySizingBundle(): BetHistorySizingBundle {
+  return BET_SIZING_STYLES.reduce((acc, sizingStyle) => {
+    acc[sizingStyle] = EMPTY_BET_HISTORY_STRATEGY;
+    return acc;
+  }, {} as BetHistorySizingBundle);
+}
+
+function buildEmptyBetHistoryStrategies(): Record<BetStrategy, BetHistorySizingBundle> {
+  return BET_STRATEGIES.reduce((acc, strategy) => {
+    acc[strategy] = buildEmptySizingBundle();
+    return acc;
+  }, {} as Record<BetStrategy, BetHistorySizingBundle>);
+}
+
 const EMPTY_BET_HISTORY: BetHistoryResponse = {
   league: "NHL",
   default_strategy: DEFAULT_BET_STRATEGY,
   default_sizing_style: DEFAULT_BET_SIZING_STYLE,
-  strategies: {
-    balanced: {
-      continuous: EMPTY_BET_HISTORY_STRATEGY,
-      bucketed: EMPTY_BET_HISTORY_STRATEGY,
-    },
-    riskAverse: {
-      continuous: EMPTY_BET_HISTORY_STRATEGY,
-      bucketed: EMPTY_BET_HISTORY_STRATEGY,
-    },
-    riskLoving: {
-      continuous: EMPTY_BET_HISTORY_STRATEGY,
-      bucketed: EMPTY_BET_HISTORY_STRATEGY,
-    },
-  },
+  strategies: buildEmptyBetHistoryStrategies(),
 };
 
 function BetHistoryPageContent() {
@@ -116,9 +120,9 @@ function BetHistoryPageContent() {
   );
   const [selectedWeekStart, setSelectedWeekStart] = useState<string | null>(null);
   const activeStrategyBundle: BetHistorySizingBundle =
-    data.strategies[strategy] || data.strategies[data.default_strategy] || EMPTY_BET_HISTORY.strategies.balanced;
+    data.strategies[strategy] || data.strategies[data.default_strategy] || EMPTY_BET_HISTORY.strategies.riskAdjusted;
   const fallbackStrategyBundle: BetHistorySizingBundle =
-    data.strategies[data.default_strategy] || EMPTY_BET_HISTORY.strategies.balanced;
+    data.strategies[data.default_strategy] || EMPTY_BET_HISTORY.strategies.riskAdjusted;
   const activeHistory =
     activeStrategyBundle[sizingStyle] ||
     fallbackStrategyBundle[data.default_sizing_style] ||
@@ -163,7 +167,7 @@ function BetHistoryPageContent() {
                 <p className={valueClassName(summary.total_profit)}>
                   {formatUsd(summary.total_profit, { minimumFractionDigits: 2 })}
                 </p>
-                <p className={styles.summarySubtext}>Across {summary.suggested_bets} settled bets under the current profile</p>
+                <p className={styles.summarySubtext}>Across {summary.suggested_bets} settled bets under the current objective</p>
               </article>
 
               <article className={styles.summaryTile}>
