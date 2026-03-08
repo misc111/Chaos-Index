@@ -50,13 +50,12 @@ export async function getGamesTodayPayload(league: LeagueCode) {
 
   const neededSnapshotIds = Array.from(
     new Set(
-      [
-        ...rows.map((row) => {
+      rows
+        .map((row) => {
           const rowDateKey = dateKeyForScheduledGame(row);
           return rowDateKey ? latestOddsSnapshotByDate.get(rowDateKey)?.odds_snapshot_id || "" : "";
-        }),
-        ...historicalReplay.rows.map((row) => latestOddsSnapshotByDate.get(row.date_central)?.odds_snapshot_id || ""),
-      ].filter(Boolean)
+        })
+        .filter(Boolean)
     )
   );
 
@@ -94,15 +93,6 @@ export async function getGamesTodayPayload(league: LeagueCode) {
   }
 
   function buildHistoricalRow(row: (typeof historicalReplay.rows)[number]) {
-    const daySnapshot = latestOddsSnapshotByDate.get(row.date_central);
-    const snapshotId = daySnapshot?.odds_snapshot_id || "";
-    const moneylineMatch =
-      moneylineByGameId.get(`${snapshotId}::${Number(row.game_id)}`) ||
-      moneylineByTeamKey.get(`${snapshotId}::${row.home_team}|${row.away_team}`);
-    const over190Match =
-      over190ByGameId.get(`${snapshotId}::${Number(row.game_id)}`) ||
-      over190ByTeamKey.get(`${snapshotId}::${row.home_team}|${row.away_team}`);
-
     return {
       game_id: row.game_id,
       game_date_utc: row.date_central,
@@ -110,16 +100,16 @@ export async function getGamesTodayPayload(league: LeagueCode) {
       away_team: row.away_team,
       home_win_probability: row.home_win_probability,
       forecast_as_of_utc: row.forecast_as_of_utc,
-      odds_as_of_utc: daySnapshot?.as_of_utc || null,
+      odds_as_of_utc: row.odds_as_of_utc,
       start_time_utc: row.start_time_utc,
-      home_moneyline: moneylineMatch?.home_moneyline ?? null,
-      away_moneyline: moneylineMatch?.away_moneyline ?? null,
-      home_moneyline_book: moneylineMatch?.home_moneyline_book ?? null,
-      away_moneyline_book: moneylineMatch?.away_moneyline_book ?? null,
-      over_190_price: over190Match?.over_190_price ?? null,
-      over_190_point: over190Match?.over_190_point ?? null,
-      over_190_book: over190Match?.over_190_book ?? null,
-      replay_decision: row.replay_decision ?? null,
+      home_moneyline: row.home_moneyline,
+      away_moneyline: row.away_moneyline,
+      home_moneyline_book: row.home_moneyline_book,
+      away_moneyline_book: row.away_moneyline_book,
+      over_190_price: row.over_190_price,
+      over_190_point: row.over_190_point,
+      over_190_book: row.over_190_book,
+      replay_decisions: row.replay_decisions ?? null,
     };
   }
 

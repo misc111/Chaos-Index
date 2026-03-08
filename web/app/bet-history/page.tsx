@@ -4,9 +4,11 @@ import { Suspense, useMemo, useState } from "react";
 import BetHistoryChart from "@/components/BetHistoryChart";
 import styles from "@/components/BetHistory.module.css";
 import BetWeekCalendar from "@/components/BetWeekCalendar";
+import { DEFAULT_BET_STRATEGY, getBetStrategyConfig } from "@/lib/betting-strategy";
 import { BET_UNIT_DOLLARS } from "@/lib/betting";
-import type { BetHistoryResponse } from "@/lib/bet-history-types";
+import type { BetHistoryResponse, BetHistoryStrategyBundle } from "@/lib/bet-history-types";
 import { formatUsd } from "@/lib/currency";
+import { useBetStrategy } from "@/lib/hooks/useBetStrategy";
 import { useDashboardData } from "@/lib/hooks/useDashboardData";
 import { useLeague } from "@/lib/hooks/useLeague";
 
@@ -54,8 +56,7 @@ function valueClassName(value: number): string {
   return styles.summaryValue;
 }
 
-const EMPTY_BET_HISTORY: BetHistoryResponse = {
-  league: "NHL",
+const EMPTY_BET_HISTORY_STRATEGY: BetHistoryStrategyBundle = {
   summary: {
     total_final_games: 0,
     games_with_forecast: 0,
@@ -75,8 +76,20 @@ const EMPTY_BET_HISTORY: BetHistoryResponse = {
   bets: [],
 };
 
+const EMPTY_BET_HISTORY: BetHistoryResponse = {
+  league: "NHL",
+  default_strategy: DEFAULT_BET_STRATEGY,
+  strategies: {
+    balanced: EMPTY_BET_HISTORY_STRATEGY,
+    riskAverse: EMPTY_BET_HISTORY_STRATEGY,
+    riskLoving: EMPTY_BET_HISTORY_STRATEGY,
+  },
+};
+
 function BetHistoryPageContent() {
   const league = useLeague();
+  const strategy = useBetStrategy();
+  const strategyConfig = getBetStrategyConfig(strategy);
   const { data, isLoading: loading, error } = useDashboardData<BetHistoryResponse>(
     "betHistory",
     "/api/bet-history",
@@ -84,19 +97,20 @@ function BetHistoryPageContent() {
     EMPTY_BET_HISTORY
   );
   const [selectedWeekStart, setSelectedWeekStart] = useState<string | null>(null);
+  const activeHistory = data.strategies[strategy] || data.strategies[data.default_strategy] || EMPTY_BET_HISTORY_STRATEGY;
 
   const weekStarts = useMemo(() => {
-    return Array.from(new Set(data.bets.map((bet) => bet.week_start_central))).sort();
-  }, [data]);
+    return Array.from(new Set(activeHistory.bets.map((bet) => bet.week_start_central))).sort();
+  }, [activeHistory]);
   const selectedWeek =
     selectedWeekStart && weekStarts.includes(selectedWeekStart) ? selectedWeekStart : (weekStarts[weekStarts.length - 1] ?? null);
   const selectedWeekIndex = selectedWeek ? weekStarts.indexOf(selectedWeek) : 0;
   const selectedWeekBets = useMemo(() => {
     if (!selectedWeek) return [];
-    return data.bets.filter((bet) => bet.week_start_central === selectedWeek);
-  }, [data, selectedWeek]);
+    return activeHistory.bets.filter((bet) => bet.week_start_central === selectedWeek);
+  }, [activeHistory, selectedWeek]);
 
-  const summary = data.summary;
+  const summary = activeHistory.summary;
   const coverageLabel = formatDateRange(summary?.coverage_start_central, summary?.coverage_end_central);
 
   return (
@@ -106,8 +120,9 @@ function BetHistoryPageContent() {
           <p className={styles.eyebrow}>Historical Replay</p>
           <h2 className="title">Bet History</h2>
           <p className={styles.heroText}>
-            This screen replays the Games Today bet logic against finalized games whenever the database contains both a pregame forecast snapshot and a matching pregame moneyline snapshot.
+            This screen replays the {strategyConfig.label.toLowerCase()} Games Today bet logic against finalized games whenever the database contains both a pregame forecast snapshot and a matching pregame moneyline snapshot.
           </p>
+          <p className={styles.heroText}>{strategyConfig.description}</p>
           <p className={styles.heroText}>Displayed stake, risk, and P/L amounts use the same {formatUsd(BET_UNIT_DOLLARS)} base unit as Games Today.</p>
         </div>
 
@@ -122,7 +137,7 @@ function BetHistoryPageContent() {
                 <p className={valueClassName(summary.total_profit)}>
                   {formatUsd(summary.total_profit, { minimumFractionDigits: 2 })}
                 </p>
-                <p className={styles.summarySubtext}>Across {summary.suggested_bets} settled bets</p>
+                <p className={styles.summarySubtext}>Across {summary.suggested_bets} settled {strategyConfig.shortLabel.toLowerCase()} bets</p>
               </article>
 
               <article className={styles.summaryTile}>
@@ -154,7 +169,7 @@ function BetHistoryPageContent() {
         ) : null}
       </section>
 
-      {!loading && !error ? <BetHistoryChart points={data.daily_points} /> : null}
+      {!loading && !error ? <BetHistoryChart points={activeHistory.daily_points} /> : null}
 
       <section className={`card ${styles.calendarCard}`}>
         <div className={styles.calendarHeader}>

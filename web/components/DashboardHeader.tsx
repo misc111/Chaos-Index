@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
+import { BET_STRATEGIES, getBetStrategyConfig, normalizeBetStrategy, type BetStrategy } from "@/lib/betting-strategy";
 import { type LeagueCode, normalizeLeague, withLeague } from "@/lib/league";
 import { isStaticStagingBuild } from "@/lib/static-staging";
 
@@ -61,8 +62,18 @@ function resolveDashboardTheme(): DashboardTheme {
 }
 
 function hrefWithLeague(href: string, league: LeagueCode, searchParams: URLSearchParams): string {
+  return hrefWithParams(href, searchParams, { league });
+}
+
+function hrefWithStrategy(href: string, strategy: BetStrategy, searchParams: URLSearchParams): string {
+  return hrefWithParams(href, searchParams, { strategy });
+}
+
+function hrefWithParams(href: string, searchParams: URLSearchParams, updates: Record<string, string>): string {
   const params = new URLSearchParams(searchParams.toString());
-  params.set("league", league);
+  for (const [key, value] of Object.entries(updates)) {
+    params.set(key, value);
+  }
   const query = params.toString();
   return query ? `${href}?${query}` : href;
 }
@@ -86,13 +97,32 @@ function HeaderFallback() {
     <>
       <h1 className="title app-title">NBA Win Probability Forecasting</h1>
       <div className="header-control-row">
-        <div className="league-toggle-row" aria-label="League selection">
-          <Link href="?league=NBA" className="league-toggle-btn active">
-            NBA
-          </Link>
-          <Link href="?league=NHL" className="league-toggle-btn">
-            NHL
-          </Link>
+        <div className="header-selection-stack">
+          <div className="league-toggle-row" aria-label="League selection">
+            <Link href="?league=NBA&strategy=balanced" className="league-toggle-btn active">
+              NBA
+            </Link>
+            <Link href="?league=NHL&strategy=balanced" className="league-toggle-btn">
+              NHL
+            </Link>
+          </div>
+          <div className="strategy-toggle-stack">
+            <span className="strategy-toggle-label">Bet Profile</span>
+            <div className="strategy-toggle-row" aria-label="Bet strategy selection">
+              <Link href="?league=NBA&strategy=balanced" className="strategy-toggle-btn active">
+                <span className="strategy-toggle-title">Balanced</span>
+                <span className="strategy-toggle-note">Standard sizing</span>
+              </Link>
+              <Link href="?league=NBA&strategy=riskAverse" className="strategy-toggle-btn">
+                <span className="strategy-toggle-title">Risk Averse</span>
+                <span className="strategy-toggle-note">Favorites only</span>
+              </Link>
+              <Link href="?league=NBA&strategy=riskLoving" className="strategy-toggle-btn">
+                <span className="strategy-toggle-title">Risk Loving</span>
+                <span className="strategy-toggle-note">Bigger swings</span>
+              </Link>
+            </div>
+          </div>
         </div>
         <button type="button" className="theme-toggle-btn active" aria-pressed="true">
           <span className="theme-toggle-copy">
@@ -109,9 +139,9 @@ function HeaderFallback() {
           Refresh Data
         </button>
       </div>
-      <div className="nav">
+        <div className="nav">
         {links.map(([href, label]) => (
-          <Link href={`${href}?league=NBA`} key={href} className="nav-link">
+          <Link href={`${href}?league=NBA&strategy=balanced`} key={href} className="nav-link">
             {label}
           </Link>
         ))}
@@ -125,6 +155,8 @@ function DashboardHeaderContent() {
   const searchParams = useSearchParams();
   const search = new URLSearchParams(searchParams.toString());
   const league = normalizeLeague(searchParams.get("league"));
+  const strategy = normalizeBetStrategy(searchParams.get("strategy"));
+  const strategyConfig = getBetStrategyConfig(strategy);
   const staticStaging = isStaticStagingBuild();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [refreshError, setRefreshError] = useState("");
@@ -192,16 +224,33 @@ function DashboardHeaderContent() {
       <h1 className="title app-title">{league} Win Probability Forecasting</h1>
 
       <div className="header-control-row">
-        <div className="league-toggle-row" aria-label="League selection">
-          {(["NBA", "NHL"] as LeagueCode[]).map((code) => (
-            <Link
-              href={hrefWithLeague(pathname, code, search)}
-              key={code}
-              className={`league-toggle-btn ${league === code ? "active" : ""}`}
-            >
-              {code}
-            </Link>
-          ))}
+        <div className="header-selection-stack">
+          <div className="league-toggle-row" aria-label="League selection">
+            {(["NBA", "NHL"] as LeagueCode[]).map((code) => (
+              <Link
+                href={hrefWithLeague(pathname, code, search)}
+                key={code}
+                className={`league-toggle-btn ${league === code ? "active" : ""}`}
+              >
+                {code}
+              </Link>
+            ))}
+          </div>
+          <div className="strategy-toggle-stack">
+            <span className="strategy-toggle-label">Bet Profile</span>
+            <div className="strategy-toggle-row" aria-label="Bet strategy selection">
+              {BET_STRATEGIES.map((code) => (
+                <Link
+                  href={hrefWithStrategy(pathname, code, search)}
+                  key={code}
+                  className={`strategy-toggle-btn ${strategy === code ? "active" : ""}`}
+                >
+                  <span className="strategy-toggle-title">{getBetStrategyConfig(code).label}</span>
+                  <span className="strategy-toggle-note">{getBetStrategyConfig(code).shortLabel}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
         <button
           type="button"
@@ -240,6 +289,7 @@ function DashboardHeaderContent() {
           )}
         </button>
         <div className="refresh-meta" aria-live="polite">
+          <p className="small">Active bet profile: {strategyConfig.label}. {strategyConfig.description}</p>
           {staticStaging ? <p className="small">GitHub Pages staging uses committed snapshot data.</p> : null}
           {!staticStaging ? (
             <p className="small">Ingest only. No feature rebuild and no retraining.</p>

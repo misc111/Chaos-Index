@@ -1,9 +1,11 @@
+import { BET_STRATEGIES, DEFAULT_BET_STRATEGY, type BetStrategy } from "@/lib/betting-strategy";
 import {
   formatBetUnitLabel,
   settleBet,
   type BetDecision,
 } from "@/lib/betting";
 import type {
+  BetHistoryStrategyBundle,
   BetHistoryResponse,
   BetHistorySummary,
   HistoricalBetRow,
@@ -13,6 +15,7 @@ import { runSqlJson } from "@/lib/db";
 import type { LeagueCode } from "@/lib/league";
 import {
   loadOrCreateHistoricalReplayDecisions,
+  type HistoricalReplayDecisionSet,
   type HistoricalReplayDecisionSnapshot,
 } from "@/lib/replay-bets";
 
@@ -76,7 +79,7 @@ export type HistoricalReplayGameRow = {
   over_190_point: number | null;
   over_190_book: string | null;
   home_win_probability: number;
-  replay_decision?: HistoricalReplayDecisionSnapshot;
+  replay_decisions?: HistoricalReplayDecisionSet;
 };
 
 type HistoricalReplayDataset = {
@@ -391,6 +394,22 @@ function over190Sql(snapshotIds: string[]): string {
   `;
 }
 
+function toReplayableHistoricalGames(rows: HistoricalReplayGameRow[]) {
+  return rows.map((row) => ({
+    game_id: row.game_id,
+    date_central: row.date_central,
+    home_team: row.home_team,
+    away_team: row.away_team,
+    forecast_as_of_utc: row.forecast_as_of_utc,
+    forecast_model_run_id: row.forecast_model_run_id,
+    odds_as_of_utc: row.odds_as_of_utc,
+    odds_snapshot_id: row.odds_snapshot_id,
+    home_moneyline: row.home_moneyline,
+    away_moneyline: row.away_moneyline,
+    home_win_probability: row.home_win_probability,
+  }));
+}
+
 function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDataset {
   // Maintainer note: this is the shared "pregame replay" source for both
   // Bet History and Games Today past-date navigation. Keep the core fields
@@ -510,22 +529,11 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
     });
   }
 
-  const replayDecisions = loadOrCreateHistoricalReplayDecisions(
-    rows.map((row) => ({
-      game_id: row.game_id,
-      date_central: row.date_central,
-      home_team: row.home_team,
-      away_team: row.away_team,
-      forecast_as_of_utc: row.forecast_as_of_utc,
-      forecast_model_run_id: row.forecast_model_run_id,
-      odds_as_of_utc: row.odds_as_of_utc,
-      odds_snapshot_id: row.odds_snapshot_id,
-      home_moneyline: row.home_moneyline,
-      away_moneyline: row.away_moneyline,
-      home_win_probability: row.home_win_probability,
-    })),
-    league
-  );
+  const replayableRows = toReplayableHistoricalGames(rows);
+  const replayDecisionsByStrategy = new Map<BetStrategy, Map<number, HistoricalReplayDecisionSnapshot>>();
+  for (const strategy of BET_STRATEGIES) {
+    replayDecisionsByStrategy.set(strategy, loadOrCreateHistoricalReplayDecisions(replayableRows, league, strategy));
+  }
 
   return {
     total_final_games: rawGames.length,
@@ -536,7 +544,10 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
     coverage_end_central: coverageEndDate,
     rows: rows.map((row) => ({
       ...row,
-      replay_decision: replayDecisions.get(row.game_id),
+      replay_decisions: BET_STRATEGIES.reduce((acc, strategy) => {
+        acc[strategy] = replayDecisionsByStrategy.get(strategy)?.get(row.game_id) ?? null;
+        return acc;
+      }, {} as HistoricalReplayDecisionSet),
     })),
   };
 }
@@ -554,8 +565,10 @@ export function getHistoricalReplayGames(league: LeagueCode): {
   };
 }
 
-export function getBetHistory(league: LeagueCode): BetHistoryResponse {
-  const dataset = buildHistoricalReplayDataset(league);
+function buildBetHistoryStrategyBundle(
+  dataset: HistoricalReplayDataset,
+  strategy: BetStrategy
+): BetHistoryStrategyBundle {
   let analyzedGames = 0;
   let wins = 0;
   let losses = 0;
@@ -567,7 +580,7 @@ export function getBetHistory(league: LeagueCode): BetHistoryResponse {
   for (const row of dataset.rows) {
     analyzedGames += 1;
 
-    const replayDecision = row.replay_decision;
+    const replayDecision = row.replay_decisions?.[strategy];
     if (!replayDecision) {
       continue;
     }
@@ -666,9 +679,22 @@ export function getBetHistory(league: LeagueCode): BetHistoryResponse {
   };
 
   return {
-    league,
     summary,
     daily_points: dailyPoints,
     bets,
+  };
+}
+
+export function getBetHistory(league: LeagueCode): BetHistoryResponse {
+  const dataset = buildHistoricalReplayDataset(league);
+
+  return {
+    league,
+    default_strategy: DEFAULT_BET_STRATEGY,
+    strategies: {
+      balanced: buildBetHistoryStrategyBundle(dataset, "balanced"),
+      riskAverse: buildBetHistoryStrategyBundle(dataset, "riskAverse"),
+      riskLoving: buildBetHistoryStrategyBundle(dataset, "riskLoving"),
+    },
   };
 }

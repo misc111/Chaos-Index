@@ -1,3 +1,4 @@
+import type { BetStrategy } from "@/lib/betting-strategy";
 import type { LeagueCode } from "@/lib/league";
 
 export type HistoricalBetRow = {
@@ -55,9 +56,14 @@ export type BetHistorySummary = {
   note: string;
 };
 
-export type BetHistoryResponse = {
-  league: LeagueCode;
+export type BetHistoryStrategyBundle = {
   summary: BetHistorySummary;
   daily_points: HistoricalDailyPoint[];
   bets: HistoricalBetRow[];
+};
+
+export type BetHistoryResponse = {
+  league: LeagueCode;
+  default_strategy: BetStrategy;
+  strategies: Record<BetStrategy, BetHistoryStrategyBundle>;
 };

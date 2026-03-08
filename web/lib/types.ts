@@ -145,7 +145,7 @@ export type GamesTodayRow = {
   over_190_price?: number | null;
   over_190_point?: number | null;
   over_190_book?: string | null;
-  replay_decision?: Record<string, unknown> | null;
+  replay_decisions?: Record<string, unknown> | null;
 };
 
 export type GamesTodayResponse = {

@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { normalizeBetStrategy, type BetStrategy } from "@/lib/betting-strategy";
 import { computeBetDecision } from "@/lib/betting";
 import { normalizeLeague } from "@/lib/league";
 import { fetchDashboardJson } from "@/lib/static-staging";
@@ -71,7 +72,7 @@ function booksLabel(count?: number): string {
   return `${numeric} ${numeric === 1 ? "book" : "books"}`;
 }
 
-function buildDerivedRow(row: MarketBoardRow): DerivedBoardRow {
+function buildDerivedRow(row: MarketBoardRow, strategy: BetStrategy): DerivedBoardRow {
   const modelWinnerIsHome = row.home_win_probability >= 0.5;
   const modelWinner = modelWinnerIsHome ? row.home_team_name : row.away_team_name;
   const modelWinnerProbability = modelWinnerIsHome ? row.home_win_probability : 1 - row.home_win_probability;
@@ -79,13 +80,16 @@ function buildDerivedRow(row: MarketBoardRow): DerivedBoardRow {
   const fairAwayMoneyline = probabilityToAmericanOdds(1 - row.home_win_probability);
   const fairWinnerMoneyline = modelWinnerIsHome ? fairHomeMoneyline : fairAwayMoneyline;
 
-  const decision = computeBetDecision({
-    home_team: row.home_team_name,
-    away_team: row.away_team_name,
-    home_win_probability: row.home_win_probability,
-    home_moneyline: row.moneyline.home_price,
-    away_moneyline: row.moneyline.away_price,
-  });
+  const decision = computeBetDecision(
+    {
+      home_team: row.home_team_name,
+      away_team: row.away_team_name,
+      home_win_probability: row.home_win_probability,
+      home_moneyline: row.moneyline.home_price,
+      away_moneyline: row.moneyline.away_price,
+    },
+    strategy
+  );
 
   const edgeValue = typeof decision.edge === "number" && Number.isFinite(decision.edge) ? decision.edge : null;
   const edgeLabel = edgeValue === null ? "No edge" : `${edgeValue > 0 ? "+" : ""}${(edgeValue * 100).toFixed(1)} pts`;
@@ -130,6 +134,7 @@ function buildDerivedRow(row: MarketBoardRow): DerivedBoardRow {
 function MarketBoardPageContent() {
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
+  const strategy = normalizeBetStrategy(searchParams.get("strategy"));
   const [report, setReport] = useState<MarketBoardResponse>({
     league,
     as_of_utc: null,
@@ -186,7 +191,7 @@ function MarketBoardPageContent() {
     };
   }, [league]);
 
-  const derivedRows = useMemo(() => report.rows.map((row) => buildDerivedRow(row)), [report.rows]);
+  const derivedRows = useMemo(() => report.rows.map((row) => buildDerivedRow(row, strategy)), [report.rows, strategy]);
 
   return (
     <div className={styles.page}>

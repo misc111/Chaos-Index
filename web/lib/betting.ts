@@ -1,3 +1,5 @@
+import { DEFAULT_BET_STRATEGY, getBetStrategyConfig, type BetStrategy } from "@/lib/betting-strategy";
+
 export type ExpectedSide = "home" | "away" | "none";
 
 export type BetInput = {
@@ -36,10 +38,7 @@ type BetDisplayRecommendation = {
   reason: string;
 };
 
-const MIN_EDGE = 0.03;
-const MIN_EXPECTED_VALUE = 0.02;
 const KELLY_FRACTION_PER_UNIT = 0.15;
-const MAX_BET_UNITS = 2;
 const STAKE_ROUNDING_DOLLARS = 5;
 
 function betAmountFromUnits(units: number): number {
@@ -61,10 +60,10 @@ function decimalOddsToKellyFraction(probability: number, decimalOdds: number): n
   return Number.isFinite(fraction) ? fraction : null;
 }
 
-function continuousStakeFromKelly(kellyFraction: number): number {
+function continuousStakeFromKelly(kellyFraction: number, sizeMultiplier: number, maxBetUnits: number): number {
   if (!Number.isFinite(kellyFraction) || kellyFraction <= 0) return 0;
 
-  const units = Math.min(MAX_BET_UNITS, Math.max(0, kellyFraction / KELLY_FRACTION_PER_UNIT));
+  const units = Math.min(maxBetUnits, Math.max(0, (kellyFraction / KELLY_FRACTION_PER_UNIT) * sizeMultiplier));
   return roundStakeAmount(betAmountFromUnits(units));
 }
 
@@ -138,7 +137,8 @@ function buildDecision(
   };
 }
 
-export function computeBetDecision(row: BetInput): BetDecision {
+export function computeBetDecision(row: BetInput, strategy: BetStrategy = DEFAULT_BET_STRATEGY): BetDecision {
+  const strategyConfig = getBetStrategyConfig(strategy);
   const homeOdds = Number(row.home_moneyline);
   const awayOdds = Number(row.away_moneyline);
   if (!Number.isFinite(homeOdds) || !Number.isFinite(awayOdds) || homeOdds === 0 || awayOdds === 0) {
@@ -173,12 +173,18 @@ export function computeBetDecision(row: BetInput): BetDecision {
   const fairProb = side === "home" ? fairHome : fairAway;
   const edge = modelProb - fairProb;
   const ev = side === "home" ? evHome : evAway;
-  if (edge < MIN_EDGE || ev < MIN_EXPECTED_VALUE) return buildDecision(row, "none", 0, "Price fair");
+  if (edge < strategyConfig.minEdge || ev < strategyConfig.minExpectedValue) {
+    return buildDecision(row, "none", 0, "Price fair");
+  }
 
   const sideOdds = side === "home" ? homeOdds : awayOdds;
+  if (!strategyConfig.allowUnderdogs && sideOdds > 0) {
+    return buildDecision(row, "none", 0, "Risk-averse profile skips underdogs", fairProb, ev, edge);
+  }
   const sideDecimalOdds = side === "home" ? decHome : decAway;
   const kellyFraction = decimalOddsToKellyFraction(modelProb, sideDecimalOdds);
-  const stake = kellyFraction === null ? 0 : continuousStakeFromKelly(kellyFraction);
+  const stake =
+    kellyFraction === null ? 0 : continuousStakeFromKelly(kellyFraction, strategyConfig.sizeMultiplier, strategyConfig.maxBetUnits);
   if (stake <= 0) return buildDecision(row, "none", 0, "Price fair");
 
   const isUnderdog = sideOdds > 0;

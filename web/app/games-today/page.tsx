@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { normalizeBetStrategy, type BetStrategy } from "@/lib/betting-strategy";
 import {
   BET_UNIT_LABEL,
   computeBetDecision,
@@ -19,7 +20,7 @@ import {
   shiftCentralDateKey,
 } from "@/lib/games-today";
 import { normalizeLeague, withLeague } from "@/lib/league";
-import type { HistoricalReplayDecisionSnapshot } from "@/lib/replay-bets";
+import type { HistoricalReplayDecisionSet } from "@/lib/replay-bets";
 import { fetchDashboardJson, isStaticStagingBuild } from "@/lib/static-staging";
 import styles from "./styles.module.css";
 
@@ -39,7 +40,7 @@ type GamesTodayRow = {
   over_190_price?: number | null;
   over_190_point?: number | null;
   over_190_book?: string | null;
-  replay_decision?: HistoricalReplayDecisionSnapshot | null;
+  replay_decisions?: HistoricalReplayDecisionSet | null;
 };
 
 type GamesTodayResponse = {
@@ -99,12 +100,13 @@ function formatCentralTip(value?: string | null): string {
   });
 }
 
-function displayBetRecommendation(row: GamesTodayRow): { label: string; reason: string } {
-  if (row.replay_decision) {
-    return formatBetUnitRecommendation(row.replay_decision);
+function displayBetRecommendation(row: GamesTodayRow, strategy: BetStrategy): { label: string; reason: string } {
+  const replayDecision = row.replay_decisions?.[strategy];
+  if (replayDecision) {
+    return formatBetUnitRecommendation(replayDecision);
   }
 
-  const decision = computeBetDecision(row);
+  const decision = computeBetDecision(row, strategy);
   return formatBetUnitRecommendation(decision);
 }
 
@@ -128,6 +130,7 @@ function latestTimestamp(rows: GamesTodayRow[], field: "forecast_as_of_utc" | "o
 function GamesTodayPageContent() {
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
+  const strategy = normalizeBetStrategy(searchParams.get("strategy"));
   const staticStaging = isStaticStagingBuild();
   const [upcomingRows, setUpcomingRows] = useState<GamesTodayRow[]>([]);
   const [historicalRows, setHistoricalRows] = useState<GamesTodayRow[]>([]);
@@ -306,7 +309,7 @@ function GamesTodayPageContent() {
                   {rows.map((row) => {
                     const side = expectedSide(row.home_win_probability);
                     const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
-                    const bet = displayBetRecommendation(row);
+                    const bet = displayBetRecommendation(row, strategy);
                     return (
                       <tr key={row.game_id}>
                         <td className={side === "home" ? styles.teamWin : side === "away" ? styles.teamLoss : styles.teamNeutral}>
@@ -337,7 +340,7 @@ function GamesTodayPageContent() {
                 {rows.map((row) => {
                   const side = expectedSide(row.home_win_probability);
                   const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
-                  const bet = displayBetRecommendation(row);
+                  const bet = displayBetRecommendation(row, strategy);
                   const sideLabel =
                     side === "home" ? `${row.home_team} lean` : side === "away" ? `${row.away_team} lean` : "Toss-up";
                   return (
