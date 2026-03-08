@@ -579,6 +579,10 @@ def save_probability_validation_plots(
     out = ensure_dir(Path(out_dir))
     paths: dict[str, str] = {}
 
+    def plot_path(stem: str) -> Path:
+        file_name = f"{prefix}_{stem}.png" if prefix else f"{stem}.png"
+        return out / file_name
+
     if not quantile_curve.empty:
         plt.figure(figsize=(7, 4))
         plt.plot(quantile_curve["quantile"], quantile_curve["avg_pred"], marker="o", label="Average predicted probability")
@@ -590,7 +594,7 @@ def save_probability_validation_plots(
         plt.grid(alpha=0.2)
         plt.legend()
         plt.tight_layout()
-        quantile_path = out / f"{prefix}_quantile_plot.png"
+        quantile_path = plot_path("quantile")
         plt.savefig(quantile_path, dpi=140)
         plt.close()
         paths["quantile_plot"] = str(quantile_path)
@@ -612,7 +616,7 @@ def save_probability_validation_plots(
         plt.grid(alpha=0.2)
         plt.legend()
         plt.tight_layout()
-        actual_vs_predicted_path = out / f"{prefix}_actual_vs_predicted_plot.png"
+        actual_vs_predicted_path = plot_path("actual_vs_predicted")
         plt.savefig(actual_vs_predicted_path, dpi=140)
         plt.close()
         paths["actual_vs_predicted_plot"] = str(actual_vs_predicted_path)
@@ -628,7 +632,7 @@ def save_probability_validation_plots(
         plt.grid(alpha=0.2)
         plt.legend()
         plt.tight_layout()
-        lift_path = out / f"{prefix}_lift_plot.png"
+        lift_path = plot_path("lift")
         plt.savefig(lift_path, dpi=140)
         plt.close()
         paths["lift_plot"] = str(lift_path)
@@ -646,7 +650,7 @@ def save_probability_validation_plots(
         plt.grid(alpha=0.2)
         plt.legend()
         plt.tight_layout()
-        lorenz_path = out / f"{prefix}_lorenz_curve.png"
+        lorenz_path = plot_path("lorenz")
         plt.savefig(lorenz_path, dpi=140)
         plt.close()
         paths["lorenz_curve"] = str(lorenz_path)
@@ -663,7 +667,7 @@ def save_probability_validation_plots(
         plt.grid(alpha=0.2)
         plt.legend()
         plt.tight_layout()
-        roc_path = out / f"{prefix}_roc_curve.png"
+        roc_path = plot_path("roc")
         plt.savefig(roc_path, dpi=140)
         plt.close()
         paths["roc_curve"] = str(roc_path)

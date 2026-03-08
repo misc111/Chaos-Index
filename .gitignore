@@ -80,7 +80,8 @@ data/**/*.duckdb
 
 # Generated model / report artifacts
 artifacts/models/
-artifacts/plots/
+artifacts/plots/*
+!artifacts/plots/README.md
 artifacts/validation/
 artifacts/research/
 artifacts/reports/*

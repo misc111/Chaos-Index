@@ -133,7 +133,7 @@ class ValidationContext:
         )
         league = _canonical_league(cfg.data.league)
         out_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "validation" / league.lower())
-        plots_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "plots" / league.lower())
+        plots_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "plots" / league.lower() / "glm" / "performance")
         glm = models.get("glm_ridge")
         diagnostic_feature_cols = list(
             getattr(glm, "feature_columns", [])
@@ -631,7 +631,7 @@ def _task_classification_curves(ctx: ValidationContext) -> ValidationOutputs:
         bins=max(2, int(ctx.cfg.modeling.calibration_bins)),
         current_tossup_half_width=0.05,
         plot_dir=ctx.plots_dir,
-        plot_prefix="glm_validation",
+        plot_prefix="",
     )
 
     out = ValidationOutputs()

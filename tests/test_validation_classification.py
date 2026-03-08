@@ -87,11 +87,11 @@ def test_validate_logistic_probability_model_emits_expected_reports(tmp_path):
     assert math.isclose(tossup_summary["tossup_actual_rate"], 0.5, rel_tol=1e-9)
     assert tossup_summary["decisive_share"] < 1.0
 
-    assert (tmp_path / "unit_quantile_plot.png").exists()
-    assert (tmp_path / "unit_actual_vs_predicted_plot.png").exists()
-    assert (tmp_path / "unit_lift_plot.png").exists()
-    assert (tmp_path / "unit_lorenz_curve.png").exists()
-    assert (tmp_path / "unit_roc_curve.png").exists()
+    assert (tmp_path / "unit_quantile.png").exists()
+    assert (tmp_path / "unit_actual_vs_predicted.png").exists()
+    assert (tmp_path / "unit_lift.png").exists()
+    assert (tmp_path / "unit_lorenz.png").exists()
+    assert (tmp_path / "unit_roc.png").exists()
 
 
 def test_validation_task_registry_includes_classification_curves():

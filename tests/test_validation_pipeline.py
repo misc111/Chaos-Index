@@ -216,6 +216,52 @@ def test_validation_pipeline_runs_significance_stability_and_influence_for_nba(t
     assert (root / "validation_influence_summary.json").exists()
 
 
+def test_validation_pipeline_writes_classification_curves_to_structured_plot_dir(tmp_path):
+    cfg = load_config("configs/default.yaml")
+    cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
+    cfg.data.league = "NBA"
+
+    rng = np.random.default_rng(23)
+    n = 220
+    signal = rng.normal(0.0, 1.0, n)
+    counter = rng.normal(0.0, 1.0, n)
+    logits = 1.1 * signal - 0.7 * counter
+    prob = 1.0 / (1.0 + np.exp(-logits))
+    y = rng.binomial(1, prob)
+
+    train_df = pd.DataFrame(
+        {
+            "start_time_utc": pd.date_range("2025-01-01", periods=n, freq="D").astype(str),
+            "game_date_utc": pd.date_range("2025-01-01", periods=n, freq="D").astype(str),
+            "home_win": y,
+            "signal": signal,
+            "counter": counter,
+        }
+    )
+    glm = GLMRidgeModel(c=1.0)
+    glm.fit(train_df, feature_columns=["signal", "counter"])
+
+    result = {
+        "models": {"glm_ridge": glm},
+        "train_df": train_df,
+        "feature_columns": ["signal", "counter"],
+        "run_payload": {
+            "selected_models": ["glm_ridge"],
+            "model_feature_columns": {"glm_ridge": ["signal", "counter"]},
+        },
+    }
+    tasks = [task for task in build_validation_tasks() if task.name == "classification_curves"]
+
+    run_validation_pipeline(result, cfg, tasks=tasks)
+
+    performance_root = tmp_path / "artifacts" / "plots" / "nba" / "glm" / "performance"
+    assert (performance_root / "quantile.png").exists()
+    assert (performance_root / "actual_vs_predicted.png").exists()
+    assert (performance_root / "lift.png").exists()
+    assert (performance_root / "lorenz.png").exists()
+    assert (performance_root / "roc.png").exists()
+
+
 def test_validation_context_refits_holdout_models_instead_of_using_production_model(tmp_path):
     cfg = load_config("configs/default.yaml")
     cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
