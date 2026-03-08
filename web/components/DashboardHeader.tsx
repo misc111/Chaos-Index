@@ -235,7 +235,6 @@ function SidebarControls({
             <p className="small">
               Amount bet mode: {sizingStyleConfig.label}. {sizingStyleConfig.description}
             </p>
-            {staticStaging ? <p className="small">GitHub Pages staging uses committed snapshot data.</p> : null}
             {!staticStaging ? <p className="small">Ingest only. No feature rebuild and no retraining.</p> : null}
             {isRefreshing ? (
               <>

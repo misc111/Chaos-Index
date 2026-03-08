@@ -197,9 +197,7 @@ function snapshotTeamKey(snapshotId: string, homeTeam: string, awayTeam: string)
 function buildNote(
   totalFinalGames: number,
   analyzedGames: number,
-  suggestedBets: number,
-  earliestFinalDate: string | null,
-  coverageStartDate: string | null
+  suggestedBets: number
 ): string {
   if (totalFinalGames === 0) return "No finalized games are available yet.";
   if (analyzedGames === 0) {
@@ -208,10 +206,7 @@ function buildNote(
   if (suggestedBets === 0) {
     return "The replay window is available, but none of the covered games cleared the current bet threshold.";
   }
-  if (earliestFinalDate && coverageStartDate && coverageStartDate > earliestFinalDate) {
-    return `Replay coverage starts on ${coverageStartDate} because older pregame forecast or odds snapshots are not stored in this database.`;
-  }
-  return "Replay results are based only on games with stored pregame forecast and odds snapshots.";
+  return "Replay results use only games with stored pregame forecast and odds snapshots.";
 }
 
 function betDecisionFromReplaySnapshot(snapshot: HistoricalReplayDecisionSnapshot): BetDecision {
@@ -732,13 +727,7 @@ function buildBetHistoryStrategyBundle(
     roi: totalRisked > 0 ? cumulativeProfit / totalRisked : 0,
     coverage_start_central: dataset.coverage_start_central,
     coverage_end_central: dataset.coverage_end_central,
-    note: buildNote(
-      dataset.total_final_games,
-      analyzedGames,
-      bets.length,
-      dataset.earliest_final_date,
-      dataset.coverage_start_central
-    ),
+    note: buildNote(dataset.total_final_games, analyzedGames, bets.length),
   };
 
   return {

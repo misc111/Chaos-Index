@@ -13,7 +13,6 @@ import {
   getBetStrategyConfig,
   type BetStrategy,
 } from "@/lib/betting-strategy";
-import { BET_UNIT_DOLLARS } from "@/lib/betting";
 import type { BetStrategyOptimizationSummary, ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
 import type { BetHistoryResponse, BetHistorySizingBundle, BetHistoryStrategyBundle } from "@/lib/bet-history-types";
 import { formatUsd } from "@/lib/currency";
@@ -180,11 +179,11 @@ function BetHistoryPageContent() {
           <p className={styles.eyebrow}>Historical Replay</p>
           <h2 className="title">Bet History</h2>
           <p className={styles.heroText}>
-            This screen replays the {strategyConfig.label.toLowerCase()} Games Today bet logic with {sizingStyleConfig.label.toLowerCase()} stake sizing against finalized games whenever the database contains both a pregame forecast snapshot and a matching pregame moneyline snapshot.
+            Replays settled games with stored pregame forecast and moneyline snapshots.
           </p>
-          <p className={styles.heroText}>{strategyConfig.description}</p>
-          <p className={styles.heroText}>{sizingStyleConfig.description}</p>
-          <p className={styles.heroText}>Displayed stake, risk, and P/L amounts use the same {formatUsd(BET_UNIT_DOLLARS)} base unit as Games Today.</p>
+          <p className={styles.heroText}>
+            {strategyConfig.label} strategy with {sizingStyleConfig.label.toLowerCase()} stake sizing.
+          </p>
         </div>
 
         {loading ? <p className="small">Loading replay history...</p> : null}
