@@ -1,9 +1,64 @@
 version: 1
 league: NBA
-updated_at_utc: '2026-03-07T02:45:00+00:00'
+updated_at_utc: '2026-03-08T00:22:54+00:00'
 models:
   glm_ridge:
     blocked_features:
+      darko_like_off_matchup:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - coefficient_instability
+        - darko_block_reduction
+        rationale: Removed so the NBA GLM keeps a single DARKO summary signal instead of a critically collinear offense-defense matchup split.
+        observed_on_utc: '2026-03-08T00:22:54+00:00'
+        evidence:
+          vif: 30.7366
+          condition_index: 16.8882
+          cv_sign_flip_flag: 1
+          bootstrap_sign_flip_flag: 1
+        related_features:
+        - diff_darko_like_total
+        - darko_like_def_matchup
+        reconsideration_requirements:
+        - reparameterize the DARKO block so this matchup term is not in the critical-VIF cluster
+        - clear CV and bootstrap sign-flip diagnostics before reintroduction
+      darko_like_def_matchup:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - coefficient_instability
+        - darko_block_reduction
+        rationale: Removed so the NBA GLM keeps a single DARKO summary signal instead of a critically collinear offense-defense matchup split.
+        observed_on_utc: '2026-03-08T00:22:54+00:00'
+        evidence:
+          vif: 30.3563
+          condition_index: 16.8882
+          cv_sign_flip_flag: 1
+          bootstrap_sign_flip_flag: 1
+        related_features:
+        - diff_darko_like_total
+        - darko_like_off_matchup
+        reconsideration_requirements:
+        - reparameterize the DARKO block so this matchup term is not in the critical-VIF cluster
+        - clear CV and bootstrap sign-flip diagnostics before reintroduction
+      diff_darko_like_total_hinge_000:
+        decision: blocked
+        categories:
+        - redundancy
+        - coefficient_instability
+        - darko_block_reduction
+        rationale: Removed so the NBA GLM keeps the raw DARKO total differential as the lone retained DARKO feature instead of splitting the block into raw-plus-hinge terms.
+        observed_on_utc: '2026-03-08T00:22:54+00:00'
+        evidence:
+          related_feature: diff_darko_like_total
+          cv_coef_std: 0.0106
+          bootstrap_sign_flip_flag: 1
+        related_features:
+        - diff_darko_like_total
+        reconsideration_requirements:
+        - show a fresh out-of-sample gain from adding the hinge on top of diff_darko_like_total
+        - clear bootstrap sign-flip diagnostics before reintroduction
       travel_diff:
         decision: blocked
         categories:
