@@ -62,7 +62,7 @@ export default function TeamWithIcon({
   const displayLabel = String(label || teamCode || "").trim() || "Unknown team";
   const normalizedCode = normalizeTeamCode(teamCode, displayLabel);
   const icon = getTeamIconDefinition(league, normalizedCode);
-  const iconSize = size === "md" ? 20 : 16;
+  const iconSize = size === "md" ? 24 : 20;
   const iconSrc = resolveTeamIconSrc(icon.src);
   const frameStyle = {
     "--team-icon-background": icon.background,
@@ -72,7 +72,11 @@ export default function TeamWithIcon({
 
   return (
     <span className={joinClassNames(styles.teamWithIcon, size === "md" ? styles.sizeMd : styles.sizeSm, className)}>
-      <span className={styles.iconFrame} style={frameStyle} aria-hidden="true">
+      <span
+        className={joinClassNames(styles.iconFrame, iconSrc ? styles.logoBox : styles.fallbackFrame)}
+        style={iconSrc ? undefined : frameStyle}
+        aria-hidden="true"
+      >
         {iconSrc ? (
           <Image
             src={iconSrc}
