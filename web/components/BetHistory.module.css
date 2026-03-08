@@ -163,26 +163,18 @@
   font-weight: 700;
 }
 
-.calendarScroll {
-  overflow-x: auto;
-  padding-bottom: 4px;
-  scrollbar-gutter: stable both-edges;
-}
-
 .calendarGrid {
   display: grid;
   gap: 12px;
-  grid-template-columns: repeat(7, minmax(160px, 1fr));
-  min-width: max(100%, 1260px);
-  align-items: start;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
 .dayCard {
-  min-height: 340px;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 14px;
+  gap: 10px;
+  padding: 12px;
   border: 1px solid var(--border);
   border-radius: 16px;
   background: var(--surface-card);
@@ -197,15 +189,8 @@
 .dayHeader {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  min-width: 0;
-}
-
-.dayTitleRow {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 12px;
   align-items: flex-start;
+  gap: 6px;
   min-width: 0;
 }
 
@@ -215,54 +200,57 @@
   font-size: 0.98rem;
   line-height: 1.2;
   min-width: 0;
-}
-
-.daySubtext {
-  margin: 0;
-  color: var(--muted);
-  font-size: 12px;
   overflow-wrap: anywhere;
 }
 
-.dayNet {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 72px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 800;
-  text-align: center;
+.amountValue {
+  margin: 0;
+  font-family: "Space Grotesk", "Avenir Next", sans-serif;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
-.dayNetPositive {
+.amountPositive {
   color: var(--success);
-  background: var(--success-soft);
-  border: 1px solid var(--success-border);
 }
 
-.dayNetNegative {
+.amountNegative {
   color: var(--danger);
-  background: var(--danger-soft);
-  border: 1px solid var(--danger-border);
 }
 
-.dayNetNeutral {
+.amountNeutral {
   color: var(--neutral);
-  background: var(--neutral-soft);
-  border: 1px solid var(--neutral-border);
+}
+
+.riskBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  white-space: normal;
+  color: var(--warning);
+  background: var(--warning-soft);
+  border: 1px solid var(--warning-border);
 }
 
 .betList {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   min-width: 0;
 }
 
 .betItem {
-  padding: 10px 11px;
+  display: grid;
+  gap: 6px;
+  padding: 10px;
   border-radius: 12px;
   border: 1px solid var(--border);
   background: var(--surface-card-soft);
@@ -279,43 +267,23 @@
   background: var(--danger-surface-soft);
 }
 
-.betTop {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 10px;
-  align-items: flex-start;
-  min-width: 0;
-}
-
-.betMatchup {
-  margin: 0;
-  font-size: 13px;
-  font-weight: 800;
-  min-width: 0;
-}
-
 .betAmount {
-  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.betTeams {
+  display: grid;
+  gap: 2px;
+  color: var(--ink-strong);
   font-size: 13px;
   font-weight: 800;
-  white-space: nowrap;
+  line-height: 1.15;
 }
 
-.betAmountPositive {
-  color: var(--success);
-}
-
-.betAmountNegative {
-  color: var(--danger);
-}
-
-.betMeta,
-.betReason {
-  margin: 4px 0 0;
-  color: var(--muted-strong);
-  font-size: 12px;
-  line-height: 1.45;
-  overflow-wrap: anywhere;
+.betTeamsSeparator {
+  color: var(--muted);
+  font-weight: 700;
 }
 
 .emptyState {
@@ -326,15 +294,8 @@
 }
 
 @media (max-width: 1100px) {
-  .calendarScroll {
-    overflow-x: visible;
-    padding-bottom: 0;
-    scrollbar-gutter: auto;
-  }
-
   .calendarGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    min-width: 0;
   }
 }
 
