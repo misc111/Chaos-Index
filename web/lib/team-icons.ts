@@ -13,16 +13,89 @@ const DEFAULT_ICON: TeamIconDefinition = {
   text: "var(--muted-strong)",
 };
 
+const NBA_TEAM_ICON_CODES = [
+  "ATL",
+  "BKN",
+  "BOS",
+  "CHA",
+  "CHI",
+  "CLE",
+  "DAL",
+  "DEN",
+  "DET",
+  "GS",
+  "HOU",
+  "IND",
+  "LAC",
+  "LAL",
+  "MEM",
+  "MIA",
+  "MIL",
+  "MIN",
+  "NO",
+  "NY",
+  "OKC",
+  "ORL",
+  "PHI",
+  "PHX",
+  "POR",
+  "SA",
+  "SAC",
+  "TOR",
+  "UTAH",
+  "WSH",
+] as const;
+
+const NHL_TEAM_ICON_CODES = [
+  "ANA",
+  "BOS",
+  "BUF",
+  "CAR",
+  "CBJ",
+  "CGY",
+  "CHI",
+  "COL",
+  "DAL",
+  "DET",
+  "EDM",
+  "FLA",
+  "LAK",
+  "MIN",
+  "MTL",
+  "NJD",
+  "NSH",
+  "NYI",
+  "NYR",
+  "OTT",
+  "PHI",
+  "PIT",
+  "SEA",
+  "SJS",
+  "STL",
+  "TBL",
+  "TOR",
+  "UTA",
+  "VAN",
+  "VGK",
+  "WPG",
+  "WSH",
+] as const;
+
+function buildTeamIconMap(pathPrefix: string, extension: "png" | "svg", codes: readonly string[]): Record<string, TeamIconDefinition> {
+  return Object.fromEntries(
+    codes.map((code) => [
+      code,
+      {
+        ...DEFAULT_ICON,
+        src: `${pathPrefix}/${code.toLowerCase()}.${extension}`,
+      },
+    ])
+  );
+}
+
 const TEAM_ICONS: Record<LeagueCode, Record<string, TeamIconDefinition>> = {
-  NBA: {
-    TOR: {
-      src: "/team-icons/nba/toronto-raptors.svg",
-      background: "color-mix(in srgb, #ce1141 18%, white 82%)",
-      border: "color-mix(in srgb, #000000 72%, white 28%)",
-      text: "#7a0c28",
-    },
-  },
-  NHL: {},
+  NBA: buildTeamIconMap("/team-icons/nba", "png", NBA_TEAM_ICON_CODES),
+  NHL: buildTeamIconMap("/team-icons/nhl", "svg", NHL_TEAM_ICON_CODES),
 };
 
 export function normalizeTeamCode(teamCode?: string | null, label?: string | null): string {
