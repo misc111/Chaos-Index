@@ -4,6 +4,8 @@ PIP ?= pip3
 NPM ?= npm
 MODELS ?=
 MODEL_ARGS := $(if $(MODELS),--models "$(MODELS)",)
+MODEL_RUN_ID ?=
+MODEL_RUN_ARGS := $(if $(MODEL_RUN_ID),--model-run-id "$(MODEL_RUN_ID)",)
 APPROVE_FEATURE_CHANGES ?= 0
 APPROVE_FEATURE_ARGS := $(if $(filter 1 true TRUE yes YES,$(APPROVE_FEATURE_CHANGES)),--approve-feature-changes,)
 PAGES_BUILD ?= 1
@@ -25,6 +27,11 @@ help:
 	@echo "  features            Build feature tables"
 	@echo "  research-features   Score and promote per-model feature maps"
 	@echo "  train               Train models + predict upcoming games"
+	@echo "                      Optional: MODELS=glm_ridge,rf (default: all)"
+	@echo "                      Optional: APPROVE_FEATURE_CHANGES=1"
+	@echo "  validate            Regenerate validation artifacts from the latest saved trained run"
+	@echo "                      Optional: MODELS=glm_ridge,rf (default: saved run selection)"
+	@echo "                      Optional: MODEL_RUN_ID=run_abc123"
 	@echo "  backtest            Walk-forward backtest + artifacts"
 	@echo "                      Optional: MODELS=glm_ridge,rf (default: all)"
 	@echo "                      Optional: APPROVE_FEATURE_CHANGES=1"
@@ -71,6 +78,9 @@ research-features:
 
 train:
 	$(PYTHON) -m src.cli train --config $(CONFIG) $(MODEL_ARGS) $(APPROVE_FEATURE_ARGS)
+
+validate:
+	$(PYTHON) -m src.cli validate --config $(CONFIG) $(MODEL_ARGS) $(MODEL_RUN_ARGS)
 
 backtest:
 	$(PYTHON) -m src.cli backtest --config $(CONFIG) $(MODEL_ARGS) $(APPROVE_FEATURE_ARGS)

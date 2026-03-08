@@ -78,6 +78,13 @@ make train MODELS=glm_ridge
 make train MODELS=glm_ridge,rf
 ```
 
+Regenerate validation artifacts from the latest saved trained run without retraining:
+```bash
+make validate
+make validate CONFIG=configs/nba.yaml MODELS=glm_ridge
+make validate CONFIG=configs/nba.yaml MODELS=glm_ridge MODEL_RUN_ID=run_1eb998e42080fd86
+```
+
 Walk-forward backtest + prequential scoring:
 ```bash
 make backtest

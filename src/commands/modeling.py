@@ -12,6 +12,7 @@ from src.common.logging import get_logger
 from src.common.utils import ensure_dir
 from src.services import backtest as backtest_service
 from src.services import ingest, train as train_service
+from src.services import validate as validate_service
 from src.storage.db import Database
 from src.training.prequential import score_predictions
 
@@ -31,6 +32,14 @@ def backtest(cfg: AppConfig, args: Namespace) -> None:
         cfg,
         models_arg=getattr(args, "models", None),
         approve_feature_changes=bool(getattr(args, "approve_feature_changes", False)),
+    )
+
+
+def validate(cfg: AppConfig, args: Namespace) -> None:
+    validate_service.run_saved_validation(
+        cfg,
+        models_arg=getattr(args, "models", None),
+        model_run_id=getattr(args, "model_run_id", None),
     )
 
 

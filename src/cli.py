@@ -47,18 +47,26 @@ def build_parser() -> argparse.ArgumentParser:
         "features",
         "research-features",
         "train",
+        "validate",
         "backtest",
         "run-daily",
         "smoke",
     ]:
         p = sub.add_parser(cmd)
         p.add_argument("--config", default="configs/nhl.yaml")
-        if cmd in {"research-features", "train", "backtest", "run-daily"}:
+        if cmd in {"research-features", "train", "validate", "backtest", "run-daily"}:
             p.add_argument(
                 "--models",
-                default="all",
+                default=None if cmd == "validate" else "all",
                 help="Comma-separated model list (e.g. glm_ridge,rf) or 'all'",
             )
+        if cmd == "validate":
+            p.add_argument(
+                "--model-run-id",
+                default=None,
+                help="Optional saved base model run id to validate (e.g. run_abc123). Defaults to the latest daily_train run.",
+            )
+        if cmd in {"research-features", "train", "backtest", "run-daily"}:
             p.add_argument(
                 "--approve-feature-changes",
                 action="store_true",
