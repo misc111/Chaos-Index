@@ -67,68 +67,70 @@ export default function BetWeekCalendar({ league, weekStart, bets }: Props) {
   }
 
   return (
-    <div className={styles.calendarGrid}>
-      {days.map((dateKey) => {
-        const dayBets = (betsByDate.get(dateKey) || []).slice().sort((left, right) => {
-          const leftValue = left.start_time_utc || left.final_utc || "";
-          const rightValue = right.start_time_utc || right.final_utc || "";
-          return leftValue.localeCompare(rightValue) || left.game_id - right.game_id;
-        });
-        const dayProfit = dayBets.reduce((sum, bet) => sum + bet.profit, 0);
-        const dayRisked = dayBets.reduce((sum, bet) => sum + bet.stake, 0);
-        const dayClassName = dayBets.length ? styles.dayCard : `${styles.dayCard} ${styles.dayCardEmpty}`;
+    <div className={styles.calendarScroll}>
+      <div className={styles.calendarGrid}>
+        {days.map((dateKey) => {
+          const dayBets = (betsByDate.get(dateKey) || []).slice().sort((left, right) => {
+            const leftValue = left.start_time_utc || left.final_utc || "";
+            const rightValue = right.start_time_utc || right.final_utc || "";
+            return leftValue.localeCompare(rightValue) || left.game_id - right.game_id;
+          });
+          const dayProfit = dayBets.reduce((sum, bet) => sum + bet.profit, 0);
+          const dayRisked = dayBets.reduce((sum, bet) => sum + bet.stake, 0);
+          const dayClassName = dayBets.length ? styles.dayCard : `${styles.dayCard} ${styles.dayCardEmpty}`;
 
-        return (
-          <section key={dateKey} className={dayClassName}>
-            <header className={styles.dayHeader}>
-              <div className={styles.dayTitleRow}>
-                <h3 className={styles.dayTitle}>{formatDayLabel(dateKey)}</h3>
-                <span className={netClassName(dayProfit)}>{formatSignedUsd(dayProfit, { minimumFractionDigits: 2 })}</span>
-              </div>
-              <p className={styles.daySubtext}>
-                {dayBets.length
-                  ? `${dayBets.length} bet${dayBets.length === 1 ? "" : "s"} · Risked ${formatUsd(dayRisked, { minimumFractionDigits: 2 })}`
-                  : "No simulated bets."}
-              </p>
-            </header>
+          return (
+            <section key={dateKey} className={dayClassName}>
+              <header className={styles.dayHeader}>
+                <div className={styles.dayTitleRow}>
+                  <h3 className={styles.dayTitle}>{formatDayLabel(dateKey)}</h3>
+                  <span className={netClassName(dayProfit)}>{formatSignedUsd(dayProfit, { minimumFractionDigits: 2 })}</span>
+                </div>
+                <p className={styles.daySubtext}>
+                  {dayBets.length
+                    ? `${dayBets.length} bet${dayBets.length === 1 ? "" : "s"} · Risked ${formatUsd(dayRisked, { minimumFractionDigits: 2 })}`
+                    : "No simulated bets."}
+                </p>
+              </header>
 
-            {dayBets.length ? (
-              <div className={styles.betList}>
-                {dayBets.map((bet) => {
-                  const itemClassName =
-                    bet.profit >= 0 ? `${styles.betItem} ${styles.betItemPositive}` : `${styles.betItem} ${styles.betItemNegative}`;
-                  return (
-                    <article key={bet.game_id} className={itemClassName}>
-                      <div className={styles.betTop}>
-                        <p className={styles.betMatchup}>
-                          <TeamMatchup
-                            league={league}
-                            awayTeamCode={bet.away_team}
-                            homeTeamCode={bet.home_team}
-                            awayLabel={bet.away_team}
-                            homeLabel={bet.home_team}
-                          />
+              {dayBets.length ? (
+                <div className={styles.betList}>
+                  {dayBets.map((bet) => {
+                    const itemClassName =
+                      bet.profit >= 0 ? `${styles.betItem} ${styles.betItemPositive}` : `${styles.betItem} ${styles.betItemNegative}`;
+                    return (
+                      <article key={bet.game_id} className={itemClassName}>
+                        <div className={styles.betTop}>
+                          <p className={styles.betMatchup}>
+                            <TeamMatchup
+                              league={league}
+                              awayTeamCode={bet.away_team}
+                              homeTeamCode={bet.home_team}
+                              awayLabel={bet.away_team}
+                              homeLabel={bet.home_team}
+                            />
+                          </p>
+                          <p className={`${styles.betAmount} ${amountClassName(bet.profit)}`}>
+                            {formatSignedUsd(bet.profit, { minimumFractionDigits: 2 })}
+                          </p>
+                        </div>
+                        <p className={styles.betMeta}>
+                          <BetStakeWithIcon league={league} teamCode={bet.team} label={bet.team} stake={bet.stake} /> at{" "}
+                          {bet.odds > 0 ? `+${Math.round(bet.odds)}` : Math.round(bet.odds)} ·{" "}
+                          {formatScore(bet.home_score, bet.away_score)}
                         </p>
-                        <p className={`${styles.betAmount} ${amountClassName(bet.profit)}`}>
-                          {formatSignedUsd(bet.profit, { minimumFractionDigits: 2 })}
-                        </p>
-                      </div>
-                      <p className={styles.betMeta}>
-                        <BetStakeWithIcon league={league} teamCode={bet.team} label={bet.team} stake={bet.stake} /> at{" "}
-                        {bet.odds > 0 ? `+${Math.round(bet.odds)}` : Math.round(bet.odds)} ·{" "}
-                        {formatScore(bet.home_score, bet.away_score)}
-                      </p>
-                      <p className={styles.betReason}>{bet.reason}</p>
-                    </article>
-                  );
-                })}
-              </div>
-            ) : (
-              <p className={styles.emptyState}>No bets landed on this day in the current replay window.</p>
-            )}
-          </section>
-        );
-      })}
+                        <p className={styles.betReason}>{bet.reason}</p>
+                      </article>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className={styles.emptyState}>No bets landed on this day in the current replay window.</p>
+              )}
+            </section>
+          );
+        })}
+      </div>
     </div>
   );
 }
