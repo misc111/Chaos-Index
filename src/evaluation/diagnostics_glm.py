@@ -425,21 +425,26 @@ def save_glm_diagnostics(
         title="Working residuals vs linear predictor",
         out_path=linear_plot_path,
     )
-    weight_bins = _aggregate_equal_weight_bins(
-        weight_axis_values,
-        working_weight,
-        {"working_residual": working_residual},
-        n_bins=_bin_count(len(work), len(np.unique(np.round(weight_axis_values, 12)))),
-    )
-    weight_plot_path = plot_root / f"{prefix}_working_residuals_weight.png"
-    _plot_working_residuals(
-        weight_axis_values,
-        working_residual,
-        weight_bins,
-        x_label=weight_axis_name,
-        title=f"Working residuals vs {weight_axis_name}",
-        out_path=weight_plot_path,
-    )
+    weight_unique_count = int(len(np.unique(np.round(weight_axis_values, 12))))
+    weight_plot_path: Path | None = None
+    if weight_unique_count >= 2:
+        weight_bins = _aggregate_equal_weight_bins(
+            weight_axis_values,
+            working_weight,
+            {"working_residual": working_residual},
+            n_bins=_bin_count(len(work), weight_unique_count),
+        )
+        weight_plot_path = plot_root / f"{prefix}_working_residuals_weight.png"
+        _plot_working_residuals(
+            weight_axis_values,
+            working_residual,
+            weight_bins,
+            x_label=weight_axis_name,
+            title=f"Working residuals vs {weight_axis_name}",
+            out_path=weight_plot_path,
+        )
+    else:
+        weight_bins = pd.DataFrame(columns=["bin_index", "n_obs", "working_weight_sum", "axis_mean", "axis_min", "axis_max", "working_residual_mean"])
 
     coef_scaled = np.asarray(glm.model.coef_[0], dtype=float)
     scale = np.asarray(glm.scaler.scale_, dtype=float)
@@ -553,7 +558,8 @@ def save_glm_diagnostics(
         "deviance_qq_plot_file": f"{plot_rel}/{deviance_qq_path.name}",
         "randomized_quantile_histogram_plot_file": f"{plot_rel}/{randomized_hist_path.name}",
         "randomized_quantile_qq_plot_file": f"{plot_rel}/{randomized_qq_path.name}",
-        "weight_plot_file": f"{plot_rel}/{weight_plot_path.name}",
+        "weight_plot_file": f"{plot_rel}/{weight_plot_path.name}" if weight_plot_path is not None else None,
+        "weight_plot_status": "ok" if weight_plot_path is not None else "skipped_constant_axis",
         "weight_axis_name": weight_axis_name,
         "working_residual_definition": "wri = (y - m) / (m * (1 - m))",
         "partial_residual_definition": "partial = wri + beta_j * z_j",

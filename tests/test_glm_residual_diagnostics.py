@@ -30,6 +30,7 @@ def test_save_glm_diagnostics_creates_all_feature_residual_outputs(tmp_path):
             "home_win": y,
             "signal": signal,
             "counter": counter,
+            "sample_weight": np.linspace(0.5, 1.5, n),
         }
     )
     glm = GLMRidgeModel(c=1.0)
@@ -52,6 +53,7 @@ def test_save_glm_diagnostics_creates_all_feature_residual_outputs(tmp_path):
     assert (tmp_path / report["summary"]["deviance_qq_plot_file"]).exists()
     assert (tmp_path / report["summary"]["randomized_quantile_histogram_plot_file"]).exists()
     assert (tmp_path / report["summary"]["randomized_quantile_qq_plot_file"]).exists()
+    assert report["summary"]["weight_plot_status"] == "ok"
     assert (tmp_path / report["summary"]["weight_plot_file"]).exists()
 
     feature_summary = report["feature_summary"]
@@ -74,3 +76,35 @@ def test_save_glm_diagnostics_creates_all_feature_residual_outputs(tmp_path):
     assert weight_bins["working_residual_mean"].notna().all()
     assert set(partial_bins["feature"]) == {"signal", "counter"}
     assert partial_bins["component_mean"].notna().all()
+
+
+def test_save_glm_diagnostics_skips_constant_weight_axis(tmp_path):
+    rng = np.random.default_rng(7)
+    n = 240
+    signal = rng.normal(0.0, 1.0, n)
+    logits = 0.9 * signal
+    prob = 1.0 / (1.0 + np.exp(-logits))
+    y = rng.binomial(1, prob)
+
+    df = pd.DataFrame(
+        {
+            "home_win": y,
+            "signal": signal,
+        }
+    )
+    glm = GLMRidgeModel(c=1.0)
+    glm.fit(df, feature_columns=["signal"])
+
+    report = save_glm_diagnostics(
+        df,
+        glm=glm,
+        target_col="home_win",
+        out_dir=str(tmp_path / "plots"),
+        prefix="unit_glm",
+    )
+
+    assert report["summary"]["status"] == "ok"
+    assert report["summary"]["weight_axis_name"] == "unit_weight"
+    assert report["summary"]["weight_plot_status"] == "skipped_constant_axis"
+    assert report["summary"]["weight_plot_file"] is None
+    assert report["weight_bins"].empty
