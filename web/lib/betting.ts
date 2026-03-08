@@ -36,12 +36,36 @@ type BetDisplayRecommendation = {
   reason: string;
 };
 
-const SMALL_BET_UNITS = 0.5;
-const MEDIUM_BET_UNITS = 1;
-const LARGE_BET_UNITS = 1.5;
+const MIN_EDGE = 0.03;
+const MIN_EXPECTED_VALUE = 0.02;
+const KELLY_FRACTION_PER_UNIT = 0.15;
+const MAX_BET_UNITS = 2;
+const STAKE_ROUNDING_DOLLARS = 5;
 
 function betAmountFromUnits(units: number): number {
   return BET_UNIT_DOLLARS * units;
+}
+
+function roundStakeAmount(amount: number): number {
+  if (!Number.isFinite(amount) || amount <= 0) return 0;
+  const rounded = Math.round(amount / STAKE_ROUNDING_DOLLARS) * STAKE_ROUNDING_DOLLARS;
+  return rounded >= STAKE_ROUNDING_DOLLARS ? rounded : 0;
+}
+
+function decimalOddsToKellyFraction(probability: number, decimalOdds: number): number | null {
+  if (!Number.isFinite(probability) || probability <= 0 || probability >= 1) return null;
+  if (!Number.isFinite(decimalOdds) || decimalOdds <= 1) return null;
+
+  const netOdds = decimalOdds - 1;
+  const fraction = (probability * decimalOdds - 1) / netOdds;
+  return Number.isFinite(fraction) ? fraction : null;
+}
+
+function continuousStakeFromKelly(kellyFraction: number): number {
+  if (!Number.isFinite(kellyFraction) || kellyFraction <= 0) return 0;
+
+  const units = Math.min(MAX_BET_UNITS, Math.max(0, kellyFraction / KELLY_FRACTION_PER_UNIT));
+  return roundStakeAmount(betAmountFromUnits(units));
 }
 
 export function expectedSide(homeWinProbability: number): ExpectedSide {
@@ -149,28 +173,16 @@ export function computeBetDecision(row: BetInput): BetDecision {
   const fairProb = side === "home" ? fairHome : fairAway;
   const edge = modelProb - fairProb;
   const ev = side === "home" ? evHome : evAway;
-  if (edge < 0.03 || ev < 0.02) return buildDecision(row, "none", 0, "Price fair");
+  if (edge < MIN_EDGE || ev < MIN_EXPECTED_VALUE) return buildDecision(row, "none", 0, "Price fair");
 
   const sideOdds = side === "home" ? homeOdds : awayOdds;
+  const sideDecimalOdds = side === "home" ? decHome : decAway;
+  const kellyFraction = decimalOddsToKellyFraction(modelProb, sideDecimalOdds);
+  const stake = kellyFraction === null ? 0 : continuousStakeFromKelly(kellyFraction);
+  if (stake <= 0) return buildDecision(row, "none", 0, "Price fair");
+
   const isUnderdog = sideOdds > 0;
-
-  if (isUnderdog) {
-    if (edge >= 0.08 && ev >= 0.1) {
-      return buildDecision(row, side, betAmountFromUnits(LARGE_BET_UNITS), "Underdog underpriced", fairProb, ev, edge);
-    }
-    if (edge >= 0.05 && ev >= 0.05) {
-      return buildDecision(row, side, betAmountFromUnits(MEDIUM_BET_UNITS), "Underdog underpriced", fairProb, ev, edge);
-    }
-    return buildDecision(row, side, betAmountFromUnits(SMALL_BET_UNITS), "Underdog underpriced", fairProb, ev, edge);
-  }
-
-  if (edge >= 0.08 && ev >= 0.1) {
-    return buildDecision(row, side, betAmountFromUnits(MEDIUM_BET_UNITS), "Favorite underpriced", fairProb, ev, edge);
-  }
-  if (edge >= 0.05 && ev >= 0.05) {
-    return buildDecision(row, side, betAmountFromUnits(SMALL_BET_UNITS), "Favorite underpriced", fairProb, ev, edge);
-  }
-  return buildDecision(row, "none", 0, "Price fair");
+  return buildDecision(row, side, stake, isUnderdog ? "Underdog underpriced" : "Favorite underpriced", fairProb, ev, edge);
 }
 
 export function settleBet(decision: BetDecision, outcomeHomeWin?: number | boolean | null): BetSettlement {

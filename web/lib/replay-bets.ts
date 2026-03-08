@@ -2,7 +2,7 @@ import { BET_UNIT_DOLLARS, computeBetDecision, type ExpectedSide } from "@/lib/b
 import { execSql, runSqlJson } from "@/lib/db";
 import type { LeagueCode } from "@/lib/league";
 
-const REPLAY_DECISION_VERSION = "historical_replay_v2";
+const REPLAY_DECISION_VERSION = "historical_replay_v3";
 const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v3";
 
 export type ReplayableHistoricalGame = {
@@ -381,6 +381,7 @@ export function loadOrCreateHistoricalReplayDecisions(
       // still freezing the current replay decision against future retrains.
       return (
         !snapshot ||
+        snapshot.decision_logic_version !== REPLAY_DECISION_VERSION ||
         snapshot.materialization_version !== REPLAY_MATERIALIZATION_VERSION ||
         snapshot.stake_unit_dollars !== BET_UNIT_DOLLARS
       );
