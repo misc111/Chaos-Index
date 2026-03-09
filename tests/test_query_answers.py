@@ -246,3 +246,12 @@ def test_query_answers_bet_history_summary_and_cumulative(tmp_path: Path):
     assert round(cumulative_payload["summary"]["total_profit"], 2) == 116.49
     assert cumulative_payload["games"] == []
     assert "since tracking started" in cumulative_answer
+
+    recap_answer, recap_payload = answer_question(
+        db,
+        "How'd I do last night on my bets?",
+    )
+    assert recap_payload["intent"] == "bet_history_summary"
+    assert recap_payload["period"] == "yesterday"
+    assert recap_answer.startswith(f"NBA last night ({yesterday}): +$80.13 net, $100.00 risked, 2-0 on 2 bets.")
+    assert "| Game | Bet on | Winner | P/L | Bet rationale |" in recap_answer

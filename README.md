@@ -198,6 +198,8 @@ Deterministic local query command:
 ```bash
 make query Q="Tell me how much money I won or lost from last night's games. both in total and by games."
 make query Q="How much money did I win/lose last night?"
+make query Q="How'd I do last night on my bets?"
+make query Q="Recap my bets from yesterday."
 make query Q="What are my cumulative net profits or losses since the beginning of tracking?"
 make query Q="How much have I risked since the beginning of tracking?"
 make query CONFIG=configs/nba.yaml Q="What's the chance the Raptors win their next game?"
@@ -209,6 +211,7 @@ Python entrypoint equivalent:
 ```bash
 python3 -m src.query.answer --config configs/nba.yaml --question "Tell me how much money I won or lost from last night's games. both in total and by games."
 python3 -m src.query.answer --config configs/nba.yaml --question "How much money did I win/lose last night?"
+python3 -m src.query.answer --config configs/nba.yaml --question "How'd I do last night on my bets?"
 python3 -m src.query.answer --config configs/nba.yaml --question "What's the chance the Raptors win their next game?"
 ```
 

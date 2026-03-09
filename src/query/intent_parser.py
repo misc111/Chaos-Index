@@ -207,6 +207,54 @@ def is_league_report_request(question: str) -> bool:
     return has_reportish and (has_scope or has_schedule_context)
 
 
+def _has_bet_history_time_scope(normalized: str) -> bool:
+    return any(
+        term in normalized
+        for term in (
+            "last night",
+            "yesterday",
+            "since the beginning",
+            "since beginning",
+            "since the start",
+            "since start",
+            "since the beginning of tracking",
+            "since the beginning of the tracking",
+            "tracking",
+            "all time",
+            "cumulative",
+            "to date",
+            "so far",
+        )
+    )
+
+
+def _is_casual_last_night_bet_recap(normalized: str) -> bool:
+    has_last_night_scope = "last night" in normalized or "yesterday" in normalized
+    if not has_last_night_scope:
+        return False
+
+    direct_phrases = (
+        "how did i do",
+        "how d i do",
+        "howd i do",
+        "how did my bets do",
+        "how d my bets do",
+        "howd my bets do",
+        "recap my bets",
+        "bet recap",
+        "betting recap",
+        "last night recap",
+        "yesterday recap",
+        "what happened with my bets",
+    )
+    if any(term in normalized for term in direct_phrases):
+        return True
+
+    has_bet_context = any(term in normalized for term in ("bet", "bets", "betting", "wager", "wagers", "pick", "picks"))
+    has_recap_context = any(term in normalized for term in ("recap", "summary", "breakdown", "results", "result"))
+    return has_bet_context and has_recap_context
+
+
 def is_bet_history_request(question: str) -> bool:
     normalized = normalize_question(question)
     money_terms = (
@@ -235,28 +283,13 @@ def is_bet_history_request(question: str) -> bool:
         "didnt bet",
         "no bet",
     )
-    time_terms = (
-        "last night",
-        "yesterday",
-        "since the beginning",
-        "since beginning",
-        "since the start",
-        "since start",
-        "since the beginning of tracking",
-        "since the beginning of the tracking",
-        "tracking",
-        "all time",
-        "cumulative",
-        "to date",
-        "so far",
-    )
     has_money_term = any(term in normalized for term in money_terms)
-    has_time_term = any(term in normalized for term in time_terms)
+    has_time_term = _has_bet_history_time_scope(normalized)
     has_history_scope = any(
         term in normalized
         for term in ("bet history", "betting history", "specific games", "which games", "those bets were related")
     )
-    return has_money_term and (has_time_term or has_history_scope)
+    return (has_money_term and (has_time_term or has_history_scope)) or _is_casual_last_night_bet_recap(normalized)
 
 
 def parse_bet_history_period(question: str) -> str:
@@ -294,7 +327,7 @@ def parse_bet_history_include_games(question: str) -> bool:
         term in normalized
         for term in ("money i won or lost", "money did i win", "money did i lose", "won or lost", "win lose")
     )
-    return has_last_night_scope and has_win_loss_summary
+    return (has_last_night_scope and has_win_loss_summary) or _is_casual_last_night_bet_recap(normalized)
 
 
 def parse_question(question: str, default_league: str | None = "NBA") -> QueryIntent:

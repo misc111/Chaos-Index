@@ -113,6 +113,18 @@ def test_parse_question_bet_history_defaults_to_nba_and_tracks_game_breakdown():
     assert shorthand.history_period == "yesterday"
     assert shorthand.include_games is True
 
+    recap = parse_question("How'd I do last night on my bets?")
+    assert recap.intent_type == "bet_history_summary"
+    assert recap.league == "NBA"
+    assert recap.history_period == "yesterday"
+    assert recap.include_games is True
+
+    recap2 = parse_question("Recap my bets from yesterday")
+    assert recap2.intent_type == "bet_history_summary"
+    assert recap2.league == "NBA"
+    assert recap2.history_period == "yesterday"
+    assert recap2.include_games is True
+
     cumulative = parse_question("What are my cumulative net profits or losses and how much have I risked since the beginning of tracking?")
     assert cumulative.intent_type == "bet_history_summary"
     assert cumulative.league == "NBA"
