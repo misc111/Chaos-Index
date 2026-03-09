@@ -21,7 +21,7 @@ const mainRoutes: ReadonlyArray<RouteExpectation> = [
   {
     label: "Games Today",
     path: "/games-today",
-    readyText: /fractional Kelly/i,
+    readyText: /uncertainty-adjusted edge/i,
     interaction: async (page) => {
       const pageTitle = page.getByRole("heading", { name: /Games Today|Games on/i }).first();
       const previousButton = page.getByRole("button", { name: "Previous" }).first();
@@ -41,7 +41,7 @@ const mainRoutes: ReadonlyArray<RouteExpectation> = [
     path: "/bet-sizing",
     readyText: /How the App Picks a Bet Amount/i,
     interaction: async (page) => {
-      const firstSavedObjective = page.getByRole("button", { name: /Balanced|Risk-Adjusted Optimal|Aggressive|Capital Preservation/i }).first();
+      const firstSavedObjective = page.getByRole("button", { name: /Balanced|Risk-Adjusted Optimal|Aggressive|Conservative/i }).first();
       await firstSavedObjective.click();
       await settle(page);
       await expect(page.locator("main")).toContainText(/Why This Game Becomes|No games are available to preview yet\./i);

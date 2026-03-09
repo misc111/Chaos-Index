@@ -35,9 +35,9 @@ const SHARED_MIN_EXPECTED_VALUE = 0.02;
 const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
   riskAdjusted: {
     label: "Balanced",
-    shortLabel: "0.50 Kelly",
+    shortLabel: "Standard risk",
     description:
-      "Half-Kelly baseline with the shared value screen, a 1.25-unit per-bet cap, and a 4-unit daily budget.",
+      "Balanced baseline with the shared value screen, a 1.25-unit per-bet cap, and a 4-unit daily budget.",
     allowUnderdogs: true,
     minEdge: SHARED_MIN_EDGE,
     minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
@@ -47,8 +47,8 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
   },
   aggressive: {
     label: "Aggressive",
-    shortLabel: "0.75 Kelly",
-    description: "Three-quarter Kelly with the same value screen, a 1.75-unit per-bet cap, and a 6-unit daily budget.",
+    shortLabel: "Wider caps",
+    description: "Higher-variance sizing with the same value screen, a 1.75-unit per-bet cap, and a 6-unit daily budget.",
     allowUnderdogs: true,
     minEdge: SHARED_MIN_EDGE,
     minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
@@ -57,9 +57,9 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
     maxDailyUnits: 6,
   },
   capitalPreservation: {
-    label: "Capital Preservation",
-    shortLabel: "0.25 Kelly",
-    description: "Quarter-Kelly sizing, favorites only, a 0.75-unit per-bet cap, and a 2.5-unit daily budget.",
+    label: "Conservative",
+    shortLabel: "Favorites only",
+    description: "Lower-variance sizing, favorites only, a 0.75-unit per-bet cap, and a 2.5-unit daily budget.",
     allowUnderdogs: false,
     minEdge: SHARED_MIN_EDGE,
     minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
@@ -72,7 +72,7 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
 const BET_SIZING_STYLE_CONFIG: Record<BetSizingStyle, BetSizingStyleConfig> = {
   continuous: {
     label: "Continuous",
-    shortLabel: "Fractional Kelly",
+    shortLabel: "Edge-scaled",
     description: "Lets the stake scale continuously with the uncertainty-adjusted edge and market price.",
   },
   bucketed: {

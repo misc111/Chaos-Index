@@ -71,7 +71,7 @@ function buildPolicyFromFrontierPoint(point: FrontierPointSummary): BetSizingPol
   return {
     key: point.config_signature,
     label: point.allowUnderdogs ? "Replay Preview: Dogs Allowed" : "Replay Preview: Favorites Only",
-    shortLabel: `${point.fractionalKelly.toFixed(2)} Kelly · ${point.maxBetUnits.toFixed(2)}u`,
+    shortLabel: `${point.fractionalKelly.toFixed(2)}x scale · ${point.maxBetUnits.toFixed(2)}u`,
     description: "Preview a different replay-tested policy without changing the saved defaults.",
     matchingStrategies: [],
     configSignature: point.config_signature,

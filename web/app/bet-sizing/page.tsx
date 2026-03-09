@@ -273,7 +273,7 @@ function BetSizingPageContent() {
           <article className={styles.stageCard}>
             <p className={styles.stageStep}>1. Choose</p>
             <p className={styles.stageTitle}>Pick an overall risk style</p>
-            <p className={styles.stageBody}>Risk styles now share one value screen. They mainly differ by fractional Kelly, per-bet caps, and daily risk budget.</p>
+            <p className={styles.stageBody}>Risk styles now share one value screen. They mainly differ by stake scale, per-bet caps, and daily risk budget.</p>
           </article>
           <article className={styles.stageCard}>
             <p className={styles.stageStep}>2. Price</p>
@@ -284,7 +284,7 @@ function BetSizingPageContent() {
             <p className={styles.stageStep}>3. Size</p>
             <p className={styles.stageTitle}>Scale the final stake</p>
             <p className={styles.stageBody}>
-              Stakes use fractional Kelly on a ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()} reference bankroll, cap each bet in units, then enforce the daily risk budget.
+              Stakes use an edge-scaled bankroll fraction on a ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()} reference bankroll, cap each bet in units, then enforce the daily risk budget.
             </p>
           </article>
         </div>
@@ -386,7 +386,7 @@ function BetSizingPageContent() {
                   <span className={styles.ruleValue}>{formatExpectedValue(selectedPolicy.minExpectedValue)}</span>
                 </div>
                 <div className={styles.ruleRow}>
-                  <span className={styles.ruleLabel}>Fractional Kelly</span>
+                  <span className={styles.ruleLabel}>Stake scale</span>
                   <span className={styles.ruleValue}>{selectedPolicy.fractionalKelly.toFixed(2)}x</span>
                 </div>
                 <div className={styles.ruleRow}>
@@ -442,9 +442,9 @@ function BetSizingPageContent() {
                   <p className="small">Adjusted probability = reference probability + confidence weight × (raw model probability - reference probability)</p>
                   <p className="small">Edge = adjusted probability - market fair probability</p>
                   <p className="small">EV = adjusted probability × decimal odds - 1</p>
-                  <p className="small">Kelly = (adjusted probability × decimal odds - 1) / (decimal odds - 1)</p>
+                  <p className="small">Base stake fraction = (adjusted probability × decimal odds - 1) / (decimal odds - 1)</p>
                   <p className="small">
-                    Stake = round(min(max bet units × ${BET_UNIT_DOLLARS}, fractional Kelly × Kelly × ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()}))
+                    Stake = round(min(max bet units × ${BET_UNIT_DOLLARS}, stake scale × base stake fraction × ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()}))
                   </p>
                   <p className="small">The slate then trims lower-ranked bets if the day would exceed the selected daily risk budget.</p>
                   <p className="small">Bucketed mode rounds the continuous result into $0, $50, $100, or $150.</p>
@@ -595,14 +595,14 @@ function BetSizingPageContent() {
 
                 <article className={styles.storyCard}>
                   <p className={styles.storyStep}>B. Scale</p>
-                  <h3 className={styles.storyTitle}>Fractional Kelly with policy controls</h3>
+                  <h3 className={styles.storyTitle}>Base stake signal with policy controls</h3>
                   <div className={styles.storyRows}>
                     <div className={styles.storyRow}>
-                      <span>Raw Kelly fraction</span>
+                      <span>Base stake fraction</span>
                       <strong>{formatExpectedValue(selectedGame.trace.kellyFraction)}</strong>
                     </div>
                     <div className={styles.storyRow}>
-                      <span>Raw Kelly units</span>
+                      <span>Base stake units</span>
                       <strong>{formatUnits(selectedGame.trace.rawKellyUnits)}</strong>
                     </div>
                     <div className={styles.storyRow}>
@@ -610,7 +610,7 @@ function BetSizingPageContent() {
                       <strong>{formatUnits(selectedGame.trace.cappedKellyUnits)}</strong>
                     </div>
                     <div className={styles.storyRow}>
-                      <span>Fractional Kelly</span>
+                      <span>Stake scale</span>
                       <strong>{selectedPolicy.fractionalKelly.toFixed(2)}x</strong>
                     </div>
                     <div className={styles.storyRow}>

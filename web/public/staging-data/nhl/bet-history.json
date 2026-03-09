@@ -5,8 +5,8 @@
   "strategy_configs": {
     "riskAdjusted": {
       "label": "Balanced",
-      "shortLabel": "0.50 Kelly",
-      "description": "Half-Kelly baseline with the shared value screen, a 1.25-unit per-bet cap, and a 4-unit daily budget.",
+      "shortLabel": "Standard risk",
+      "description": "Balanced baseline with the shared value screen, a 1.25-unit per-bet cap, and a 4-unit daily budget.",
       "allowUnderdogs": true,
       "minEdge": 0.03,
       "minExpectedValue": 0.02,
@@ -20,8 +20,8 @@
     },
     "aggressive": {
       "label": "Aggressive",
-      "shortLabel": "0.75 Kelly",
-      "description": "Three-quarter Kelly with the same value screen, a 1.75-unit per-bet cap, and a 6-unit daily budget.",
+      "shortLabel": "Wider caps",
+      "description": "Higher-variance sizing with the same value screen, a 1.75-unit per-bet cap, and a 6-unit daily budget.",
       "allowUnderdogs": true,
       "minEdge": 0.03,
       "minExpectedValue": 0.02,
@@ -34,9 +34,9 @@
       "metrics": null
     },
     "capitalPreservation": {
-      "label": "Capital Preservation",
-      "shortLabel": "0.25 Kelly",
-      "description": "Quarter-Kelly sizing, favorites only, a 0.75-unit per-bet cap, and a 2.5-unit daily budget.",
+      "label": "Conservative",
+      "shortLabel": "Favorites only",
+      "description": "Lower-variance sizing, favorites only, a 0.75-unit per-bet cap, and a 2.5-unit daily budget.",
       "allowUnderdogs": false,
       "minEdge": 0.03,
       "minExpectedValue": 0.02,

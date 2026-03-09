@@ -287,7 +287,7 @@ function GamesTodayPageContent() {
         </div>
         <p className="small">{description}</p>
         <p className="small">
-          Stakes use uncertainty-adjusted edge and fractional Kelly. One unit is ${BET_UNIT_DOLLARS}, tied to a ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()} reference bankroll.
+          Stakes use uncertainty-adjusted edge and an edge-scaled bankroll fraction. One unit is ${BET_UNIT_DOLLARS}, tied to a ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()} reference bankroll.
         </p>
         <div className={styles.actionsRow}>
           <button

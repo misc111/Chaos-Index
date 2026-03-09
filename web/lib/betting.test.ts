@@ -120,7 +120,7 @@ test("capital preservation skips underdogs entirely", () => {
 
   assert.equal(decision.side, "none");
   assert.equal(decision.stake, 0);
-  assert.equal(decision.reason, "Capital Preservation skips underdogs");
+  assert.equal(decision.reason, "Conservative skips underdogs");
 });
 
 test("aggressive sizes larger than risk-adjusted on the same edge", () => {
