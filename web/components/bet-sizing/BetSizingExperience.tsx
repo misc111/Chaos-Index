@@ -36,13 +36,9 @@ function formatPercent(value: number | null | undefined): string {
   return `${(value * 100).toFixed(1)}%`;
 }
 
-function unitsToDollars(value: number): number {
-  return value * BET_UNIT_DOLLARS;
-}
-
-function formatDollarMetric(value: number | null | undefined): string {
+function formatUnits(value: number | null | undefined): string {
   if (typeof value !== "number" || !Number.isFinite(value)) return "—";
-  return formatUsd(unitsToDollars(value), { minimumFractionDigits: 2 });
+  return `${value.toFixed(2)}u`;
 }
 
 function formatBankrollShare(value: number | null | undefined): string {
@@ -567,7 +563,7 @@ export default function BetSizingExperience() {
                     </div>
                     <div className={styles.storyTile}>
                       <span className={styles.storyLabel}>Scale after policy</span>
-                      <strong className={styles.storyValue}>{formatDollarMetric(selectedGame.scaledKellyUnits)}</strong>
+                      <strong className={styles.storyValue}>{formatUnits(selectedGame.scaledKellyUnits)}</strong>
                     </div>
                     <div className={styles.storyTile}>
                       <span className={styles.storyLabel}>Budget rank</span>
