@@ -1,8 +1,10 @@
 "use client";
 
+import { useId, useState } from "react";
+
 import { BET_UNIT_DOLLARS } from "@/lib/betting";
 import type { HistoricalDailyPoint } from "@/lib/bet-history-types";
-import { formatUsd } from "@/lib/currency";
+import { formatSignedUsd, formatUsd } from "@/lib/currency";
 import styles from "./BetHistory.module.css";
 
 type Props = {
@@ -19,6 +21,9 @@ function formatDateShort(dateKey: string): string {
 }
 
 export default function BetHistoryChart({ points }: Props) {
+  const [activePointIndex, setActivePointIndex] = useState<number | null>(null);
+  const chartId = useId().replace(/:/g, "");
+
   if (!points.length) {
     return (
       <div className={`card ${styles.chartCard}`}>
@@ -54,6 +59,9 @@ export default function BetHistoryChart({ points }: Props) {
     (index) => index >= 0 && index < points.length
   );
   const lastPoint = points[points.length - 1];
+  const activeCoord = activePointIndex === null ? null : coords[activePointIndex];
+  const tooltipBelow = activeCoord ? activeCoord.y < padTop + 34 : false;
+  const gradientId = `bet-history-line-${chartId}`;
 
   return (
     <div className={`card ${styles.chartCard}`}>
@@ -65,9 +73,33 @@ export default function BetHistoryChart({ points }: Props) {
       </div>
 
       <div className={styles.chartWrap}>
-        <svg viewBox={`0 0 ${width} ${height}`} className={styles.chartSvg} role="img" aria-label="Cumulative bet replay line chart">
+        {activeCoord ? (
+          <div
+            className={`${styles.chartTooltip} ${tooltipBelow ? styles.chartTooltipBelow : ""}`}
+            style={{
+              left: `${(activeCoord.x / width) * 100}%`,
+              top: `${(activeCoord.y / height) * 100}%`,
+            }}
+          >
+            <p className={styles.chartTooltipDate}>{formatDateShort(activeCoord.point.date_central)}</p>
+            <p className={styles.chartTooltipValue}>
+              Net {formatSignedUsd(activeCoord.point.cumulative_profit, { minimumFractionDigits: 2 })}
+            </p>
+            <p className={styles.chartTooltipDetail}>
+              Day {formatSignedUsd(activeCoord.point.daily_profit, { minimumFractionDigits: 2 })}
+            </p>
+          </div>
+        ) : null}
+
+        <svg
+          viewBox={`0 0 ${width} ${height}`}
+          className={styles.chartSvg}
+          role="img"
+          aria-label="Cumulative bet replay line chart"
+          onPointerLeave={() => setActivePointIndex(null)}
+        >
           <defs>
-            <linearGradient id="bet-history-line" x1="0%" y1="0%" x2="100%" y2="0%">
+            <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="var(--chart-line-start)" />
               <stop offset="100%" stopColor="var(--chart-line-end)" />
             </linearGradient>
@@ -89,18 +121,35 @@ export default function BetHistoryChart({ points }: Props) {
 
           <line x1={padLeft} y1={zeroY} x2={width - padRight} y2={zeroY} stroke="var(--chart-baseline)" strokeDasharray="5 4" />
 
-          <path d={linePath} fill="none" stroke="url(#bet-history-line)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d={linePath} fill="none" stroke={`url(#${gradientId})`} strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
 
-          {coords.map((coord) => (
-            <circle
-              key={coord.point.date_central}
-              cx={coord.x}
-              cy={coord.y}
-              r="4"
-              fill={coord.point.cumulative_profit >= 0 ? "var(--chart-point-positive)" : "var(--chart-point-negative)"}
-              stroke="var(--chart-point-stroke)"
-              strokeWidth="2"
-            />
+          {coords.map((coord, index) => (
+            <g key={coord.point.date_central}>
+              <circle
+                cx={coord.x}
+                cy={coord.y}
+                r="14"
+                fill="transparent"
+                className={styles.chartPointHit}
+                tabIndex={0}
+                aria-label={`${formatDateShort(coord.point.date_central)} cumulative net ${formatSignedUsd(coord.point.cumulative_profit, {
+                  minimumFractionDigits: 2,
+                })}`}
+                onPointerEnter={() => setActivePointIndex(index)}
+                onPointerDown={() => setActivePointIndex(index)}
+                onFocus={() => setActivePointIndex(index)}
+                onBlur={() => setActivePointIndex((currentIndex) => (currentIndex === index ? null : currentIndex))}
+              />
+              <circle
+                cx={coord.x}
+                cy={coord.y}
+                r={activePointIndex === index ? 5.5 : 4}
+                fill={coord.point.cumulative_profit >= 0 ? "var(--chart-point-positive)" : "var(--chart-point-negative)"}
+                stroke="var(--chart-point-stroke)"
+                strokeWidth={activePointIndex === index ? "2.5" : "2"}
+                className={activePointIndex === index ? styles.chartPointActive : undefined}
+              />
+            </g>
           ))}
 
           {xTickIndexes.map((index) => {
