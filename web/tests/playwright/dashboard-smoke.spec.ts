@@ -21,7 +21,7 @@ const mainRoutes: ReadonlyArray<RouteExpectation> = [
   {
     label: "Games Today",
     path: "/games-today",
-    readyText: /Anticipated winner threshold/i,
+    readyText: /fractional Kelly/i,
     interaction: async (page) => {
       const pageTitle = page.getByRole("heading", { name: /Games Today|Games on/i }).first();
       const previousButton = page.getByRole("button", { name: "Previous" }).first();
@@ -77,7 +77,7 @@ const mainRoutes: ReadonlyArray<RouteExpectation> = [
   {
     label: "Actual vs Expected",
     path: "/actual-vs-expected",
-    readyText: /Toss-up band: 45%-55% modeled home-win probability\./i,
+    readyText: /Near-even markers are a raw prediction diagnostic only/i,
     interaction: async (page) => {
       const monthLabel = page.locator(".calendar-month-label");
       const previousButton = page.getByRole("button", { name: "Previous" }).first();
@@ -233,7 +233,7 @@ async function settle(page: Page) {
 
 async function expectDashboardShell(page: Page, league: LeagueCode) {
   await expect(page.locator("h1.app-title")).toHaveText(`${league} Win Probability Forecasting`);
-  await expect(page.locator("aside.dashboard-sidebar")).toContainText(/Bet Profile/i);
+  await expect(page.locator("aside.dashboard-sidebar")).toContainText(/Bet Objective/i);
   await expect(page.locator("aside.dashboard-sidebar")).toContainText(/Amount Bet/i);
   await expect(page.locator("nav.dashboard-nav")).toContainText(/Overview/i);
   const layoutMetrics = await page.evaluate(() => ({

@@ -9,7 +9,7 @@ import {
   type BetSizingStyle,
   type BetStrategy,
 } from "@/lib/betting-strategy";
-import { computeBetDecision } from "@/lib/betting";
+import { computeBetDecisionsForSlate, type BetDecision } from "@/lib/betting";
 import type { ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
 import { normalizeLeague } from "@/lib/league";
 import { fetchDashboardJson } from "@/lib/static-staging";
@@ -83,9 +83,7 @@ function booksLabel(count?: number): string {
 
 function buildDerivedRow(
   row: MarketBoardRow,
-  strategy: BetStrategy,
-  sizingStyle: BetSizingStyle,
-  strategyConfigs?: Record<BetStrategy, ResolvedBetStrategyConfig>
+  decision: BetDecision
 ): DerivedBoardRow {
   const modelWinnerIsHome = row.home_win_probability >= 0.5;
   const modelWinner = modelWinnerIsHome ? row.home_team_name : row.away_team_name;
@@ -94,22 +92,6 @@ function buildDerivedRow(
   const fairHomeMoneyline = probabilityToAmericanOdds(row.home_win_probability);
   const fairAwayMoneyline = probabilityToAmericanOdds(1 - row.home_win_probability);
   const fairWinnerMoneyline = modelWinnerIsHome ? fairHomeMoneyline : fairAwayMoneyline;
-
-  const resolvedConfig = strategyConfigs?.[strategy] || getBetStrategyConfig(strategy);
-  const decision = computeBetDecision(
-    {
-      home_team: row.home_team_name,
-      away_team: row.away_team_name,
-      home_win_probability: row.home_win_probability,
-      home_moneyline: row.moneyline.home_price,
-      away_moneyline: row.moneyline.away_price,
-      betting_model_name: row.betting_model_name,
-      model_win_probabilities: row.model_win_probabilities,
-    },
-    strategy,
-    sizingStyle,
-    resolvedConfig
-  );
 
   const edgeValue = typeof decision.edge === "number" && Number.isFinite(decision.edge) ? decision.edge : null;
   const edgeLabel = edgeValue === null ? "No edge" : `${edgeValue > 0 ? "+" : ""}${(edgeValue * 100).toFixed(1)} pts`;
@@ -218,7 +200,25 @@ function MarketBoardPageContent() {
   }, [league]);
 
   const derivedRows = useMemo(
-    () => report.rows.map((row) => buildDerivedRow(row, strategy, sizingStyle, report.strategy_configs)),
+    () => {
+      const resolvedConfig = report.strategy_configs?.[strategy] || getBetStrategyConfig(strategy);
+      const decisions = computeBetDecisionsForSlate(
+        report.rows.map((row) => ({
+          home_team: row.home_team_name,
+          away_team: row.away_team_name,
+          home_win_probability: row.home_win_probability,
+          home_moneyline: row.moneyline.home_price,
+          away_moneyline: row.moneyline.away_price,
+          betting_model_name: row.betting_model_name,
+          model_win_probabilities: row.model_win_probabilities,
+        })),
+        strategy,
+        sizingStyle,
+        resolvedConfig
+      );
+
+      return report.rows.map((row, index) => buildDerivedRow(row, decisions[index]));
+    },
     [report.rows, report.strategy_configs, strategy, sizingStyle]
   );
 

@@ -15,7 +15,7 @@ import {
   type BetSizingGamePreview,
   type BetSizingPolicyPreview,
 } from "@/lib/bet-sizing-view";
-import { BET_UNIT_DOLLARS } from "@/lib/betting";
+import { BET_UNIT_BANKROLL_FRACTION, BET_UNIT_DOLLARS, REFERENCE_BANKROLL_DOLLARS } from "@/lib/betting";
 import { formatUsd } from "@/lib/currency";
 import { useBetSizingStyle } from "@/lib/hooks/useBetSizingStyle";
 import { useBetStrategy } from "@/lib/hooks/useBetStrategy";
@@ -34,9 +34,9 @@ function formatUnits(value: number | null | undefined): string {
   return `${value.toFixed(2)}u`;
 }
 
-function formatSharpe(value: number | null | undefined): string {
+function formatLogGrowth(value: number | null | undefined): string {
   if (typeof value !== "number" || !Number.isFinite(value)) return "—";
-  return value.toFixed(2);
+  return value.toFixed(4);
 }
 
 function formatProbabilityPoints(value: number | null | undefined): string {
@@ -264,18 +264,18 @@ function BetSizingPageContent() {
           <article className={styles.stageCard}>
             <p className={styles.stageStep}>1. Choose</p>
             <p className={styles.stageTitle}>Pick an overall risk style</p>
-            <p className={styles.stageBody}>Replay-tested policies are compared on average return versus day-to-day swinginess, but only once the replay sample is large enough.</p>
+            <p className={styles.stageBody}>Risk styles now share one value screen. They mainly differ by fractional Kelly, per-bet caps, and daily risk budget.</p>
           </article>
           <article className={styles.stageCard}>
             <p className={styles.stageStep}>2. Price</p>
             <p className={styles.stageTitle}>Compare model vs market</p>
-            <p className={styles.stageBody}>We only keep a game if the edge and expected value clear the selected policy thresholds.</p>
+            <p className={styles.stageBody}>The app shrinks the raw model probability toward market fair odds and peer-model consensus, then only keeps edges that still clear the shared floors.</p>
           </article>
           <article className={styles.stageCard}>
             <p className={styles.stageStep}>3. Size</p>
             <p className={styles.stageTitle}>Scale the final stake</p>
             <p className={styles.stageBody}>
-              The chosen policy scales Kelly, caps the bet in units of ${BET_UNIT_DOLLARS}, then uses {sizingStyleConfig.label.toLowerCase()} sizing.
+              Stakes use fractional Kelly on a ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()} reference bankroll, cap each bet in units, then enforce the daily risk budget.
             </p>
           </article>
         </div>
@@ -350,9 +350,9 @@ function BetSizingPageContent() {
                   </span>
                 </div>
                 <div className={styles.metricTile}>
-                  <span className={styles.metricLabel}>Risk-adjusted score</span>
+                  <span className={styles.metricLabel}>Log growth / bet</span>
                   <span className={styles.metricValue}>
-                    {metricOrDash(selectedPolicy.metrics, (metrics) => metrics.sharpe_ratio, formatSharpe)}
+                    {metricOrDash(selectedPolicy.metrics, (metrics) => metrics.expected_log_growth_per_bet, formatLogGrowth)}
                   </span>
                 </div>
                 <div className={styles.metricTile}>
@@ -377,12 +377,16 @@ function BetSizingPageContent() {
                   <span className={styles.ruleValue}>{formatExpectedValue(selectedPolicy.minExpectedValue)}</span>
                 </div>
                 <div className={styles.ruleRow}>
-                  <span className={styles.ruleLabel}>Size multiplier</span>
-                  <span className={styles.ruleValue}>{selectedPolicy.sizeMultiplier.toFixed(2)}x</span>
+                  <span className={styles.ruleLabel}>Fractional Kelly</span>
+                  <span className={styles.ruleValue}>{selectedPolicy.fractionalKelly.toFixed(2)}x</span>
                 </div>
                 <div className={styles.ruleRow}>
                   <span className={styles.ruleLabel}>Max bet size</span>
                   <span className={styles.ruleValue}>{selectedPolicy.maxBetUnits.toFixed(2)} units</span>
+                </div>
+                <div className={styles.ruleRow}>
+                  <span className={styles.ruleLabel}>Daily risk budget</span>
+                  <span className={styles.ruleValue}>{selectedPolicy.maxDailyUnits.toFixed(2)} units</span>
                 </div>
                 <div className={styles.ruleRow}>
                   <span className={styles.ruleLabel}>Status</span>
@@ -396,8 +400,8 @@ function BetSizingPageContent() {
               <h2 className="title">Why Replay Is Only One Input</h2>
               <p className="small">
                 {replayRankingAvailable
-                  ? "The replay score is a Sharpe-style heuristic on matched historical replay. It helps compare sampled policies, but it is not proof of a theoretically optimal betting frontier."
-                  : "The replay score is intentionally de-emphasized until the app has enough matched odds history to compare policies with more confidence."}
+                  ? "The replay map is a provisional replay view. Expected log growth, ROI, and drawdown are more meaningful than a single Sharpe-style number, especially on sparse coverage."
+                  : "Replay policy ranking stays de-emphasized until the app has enough matched odds history to compare bankroll paths with more confidence."}
               </p>
               <p className="small">{slate.label}</p>
               <div className={styles.metricGrid}>
@@ -418,17 +422,23 @@ function BetSizingPageContent() {
                   <span className={styles.metricValue}>{formatUsd(BET_UNIT_DOLLARS)}</span>
                 </div>
               </div>
+              <p className="small">
+                One unit is {formatUsd(BET_UNIT_DOLLARS)} because the sizing model uses a {formatUsd(REFERENCE_BANKROLL_DOLLARS)} reference bankroll and defines 1u as {(BET_UNIT_BANKROLL_FRACTION * 100).toFixed(0)}% of bankroll.
+              </p>
 
               <details className={styles.formulaCard}>
                 <summary>Show the exact sizing formulas</summary>
                 <div className={styles.formulaBody}>
-                  <p className="small">Edge = model win probability - market fair probability</p>
-                  <p className="small">EV = model win probability × decimal odds - 1</p>
-                  <p className="small">Kelly = (model win probability × decimal odds - 1) / (decimal odds - 1)</p>
+                  <p className="small">Reference probability = 70% market fair probability + 30% peer-model consensus (when peer models exist)</p>
+                  <p className="small">Adjusted probability = reference probability + confidence weight × (raw model probability - reference probability)</p>
+                  <p className="small">Edge = adjusted probability - market fair probability</p>
+                  <p className="small">EV = adjusted probability × decimal odds - 1</p>
+                  <p className="small">Kelly = (adjusted probability × decimal odds - 1) / (decimal odds - 1)</p>
                   <p className="small">
-                    Stake = round(${BET_UNIT_DOLLARS} × min(max bet units, Kelly / 0.15 × size multiplier))
+                    Stake = round(min(max bet units × ${BET_UNIT_DOLLARS}, fractional Kelly × Kelly × ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()}))
                   </p>
-                  <p className="small">Bucketed mode then snaps the result into $0, $50, $100, or $150.</p>
+                  <p className="small">The slate then trims lower-ranked bets if the day would exceed the selected daily risk budget.</p>
+                  <p className="small">Bucketed mode rounds the continuous result into $0, $50, $100, or $150.</p>
                 </div>
               </details>
             </article>
@@ -517,7 +527,7 @@ function BetSizingPageContent() {
                   />
                   <div className={styles.lineRow}>
                     <span>Home model win %</span>
-                    <strong>{formatPercent(selectedGame.trace.homeModelProbability)}</strong>
+                    <strong>{formatPercent(selectedGame.trace.homeRawModelProbability)}</strong>
                   </div>
                   <div className={styles.lineRow}>
                     <span>Home moneyline</span>
@@ -530,11 +540,11 @@ function BetSizingPageContent() {
                 </div>
 
                 <div className={styles.gateGrid}>
-                  <div className={`${styles.gateChip} ${gateTone(selectedGame.trace.gates.confidence)}`}>Confidence screen</div>
                   <div className={`${styles.gateChip} ${gateTone(selectedGame.trace.gates.positiveExpectedValue)}`}>Positive EV somewhere</div>
                   <div className={`${styles.gateChip} ${gateTone(selectedGame.trace.gates.edge)}`}>Edge clears floor</div>
                   <div className={`${styles.gateChip} ${gateTone(selectedGame.trace.gates.expectedValue)}`}>EV clears floor</div>
                   <div className={`${styles.gateChip} ${gateTone(selectedGame.trace.gates.underdogAllowed)}`}>Underdog rule</div>
+                  <div className={`${styles.gateChip} ${gateTone(selectedGame.trace.gates.dailyBudget)}`}>Daily budget</div>
                 </div>
               </div>
 
@@ -548,8 +558,16 @@ function BetSizingPageContent() {
                       <strong>{selectedGame.trace.decision.team || "No side"}</strong>
                     </div>
                     <div className={styles.storyRow}>
-                      <span>Model win probability</span>
-                      <strong>{formatPercent(selectedGame.trace.candidateModelProbability)}</strong>
+                      <span>Raw model win probability</span>
+                      <strong>{formatPercent(selectedGame.trace.candidateRawModelProbability)}</strong>
+                    </div>
+                    <div className={styles.storyRow}>
+                      <span>Adjusted win probability</span>
+                      <strong>{formatPercent(selectedGame.trace.candidateAdjustedProbability)}</strong>
+                    </div>
+                    <div className={styles.storyRow}>
+                      <span>Reference probability</span>
+                      <strong>{formatPercent(selectedGame.trace.candidateReferenceProbability)}</strong>
                     </div>
                     <div className={styles.storyRow}>
                       <span>Market fair probability</span>
@@ -568,7 +586,7 @@ function BetSizingPageContent() {
 
                 <article className={styles.storyCard}>
                   <p className={styles.storyStep}>B. Scale</p>
-                  <h3 className={styles.storyTitle}>Kelly with policy controls</h3>
+                  <h3 className={styles.storyTitle}>Fractional Kelly with policy controls</h3>
                   <div className={styles.storyRows}>
                     <div className={styles.storyRow}>
                       <span>Raw Kelly fraction</span>
@@ -583,12 +601,16 @@ function BetSizingPageContent() {
                       <strong>{formatUnits(selectedGame.trace.cappedKellyUnits)}</strong>
                     </div>
                     <div className={styles.storyRow}>
-                      <span>Size multiplier</span>
-                      <strong>{selectedPolicy.sizeMultiplier.toFixed(2)}x</strong>
+                      <span>Fractional Kelly</span>
+                      <strong>{selectedPolicy.fractionalKelly.toFixed(2)}x</strong>
                     </div>
                     <div className={styles.storyRow}>
                       <span>Max bet size</span>
                       <strong>{selectedPolicy.maxBetUnits.toFixed(2)} units</strong>
+                    </div>
+                    <div className={styles.storyRow}>
+                      <span>Daily risk budget</span>
+                      <strong>{selectedPolicy.maxDailyUnits.toFixed(2)} units</strong>
                     </div>
                   </div>
                 </article>
@@ -608,6 +630,10 @@ function BetSizingPageContent() {
                     <div className={styles.storyRow}>
                       <span>Current sizing mode</span>
                       <strong>{sizingStyleConfig.label}</strong>
+                    </div>
+                    <div className={styles.storyRow}>
+                      <span>Pre-cap stake</span>
+                      <strong>{formatUsd(selectedGame.trace.preDailyCapStake ?? selectedGame.trace.finalStake)}</strong>
                     </div>
                     <div className={styles.storyRow}>
                       <span>Final stake</span>

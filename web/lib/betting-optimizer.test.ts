@@ -11,7 +11,7 @@ const DAY_PATTERNS = [
   { favoriteProb: 0.67, favoriteMoneyline: -112, favoriteWin: 1, dogProb: 0.38, dogMoneyline: 160, dogWin: 0 },
 ];
 
-const SAMPLE_ROWS: OptimizableHistoricalBetRow[] = Array.from({ length: 10 }, (_, index) => {
+const SAMPLE_ROWS: OptimizableHistoricalBetRow[] = Array.from({ length: 30 }, (_, index) => {
   const pattern = DAY_PATTERNS[index % DAY_PATTERNS.length];
   const day = String(index + 1).padStart(2, "0");
 
@@ -39,7 +39,7 @@ const SAMPLE_ROWS: OptimizableHistoricalBetRow[] = Array.from({ length: 10 }, (_
   ];
 }).flat();
 
-const THIN_SAMPLE_ROWS = SAMPLE_ROWS.filter((row) => row.date_central <= "2026-01-04");
+const THIN_SAMPLE_ROWS = SAMPLE_ROWS.filter((row) => row.date_central <= "2026-01-10");
 
 test("resolveBetStrategyConfigs derives objective-based profiles from replay history", () => {
   const { strategyConfigs, optimizationSummary } = resolveBetStrategyConfigs(SAMPLE_ROWS);
@@ -61,8 +61,10 @@ test("resolveBetStrategyConfigs derives objective-based profiles from replay his
       strategyConfigs.riskAdjusted.metrics!.mean_daily_profit_units
   );
   assert.ok(
-    strategyConfigs.riskAdjusted.metrics!.sharpe_ratio >= strategyConfigs.aggressive.metrics!.sharpe_ratio
+    strategyConfigs.riskAdjusted.metrics!.expected_log_growth_per_bet >=
+      strategyConfigs.capitalPreservation.metrics!.expected_log_growth_per_bet
   );
+  assert.ok(strategyConfigs.riskAdjusted.maxDailyUnits > strategyConfigs.capitalPreservation.maxDailyUnits);
 });
 
 test("resolveBetStrategyConfigs falls back to static defaults when replay coverage is thin", () => {

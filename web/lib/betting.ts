@@ -44,8 +44,12 @@ export type BetDecisionTrace = {
   strategyLabel: string;
   sizingStyle: BetSizingStyle;
   strategyConfig: BetStrategyRuleConfig;
-  homeModelProbability: number | null;
-  awayModelProbability: number | null;
+  homeRawModelProbability: number | null;
+  awayRawModelProbability: number | null;
+  homeAdjustedProbability: number | null;
+  awayAdjustedProbability: number | null;
+  homeReferenceProbability: number | null;
+  awayReferenceProbability: number | null;
   homeFairProbability: number | null;
   awayFairProbability: number | null;
   homeExpectedValue: number | null;
@@ -54,10 +58,13 @@ export type BetDecisionTrace = {
   candidateTeam: string | null;
   candidateOdds: number | null;
   candidateIsUnderdog: boolean | null;
-  candidateModelProbability: number | null;
+  candidateRawModelProbability: number | null;
+  candidateAdjustedProbability: number | null;
+  candidateReferenceProbability: number | null;
   candidateMarketProbability: number | null;
   candidateEdge: number | null;
   candidateExpectedValue: number | null;
+  candidateConfidenceWeight: number | null;
   kellyFraction: number | null;
   rawKellyUnits: number | null;
   cappedKellyUnits: number | null;
@@ -66,21 +73,31 @@ export type BetDecisionTrace = {
   finalStake: number;
   peerConsensusProbability?: number | null;
   consensusGap?: number | null;
-  preAdjustmentContinuousStake?: number;
-  temporaryConsensusHaircutApplied?: boolean;
-  temporaryTopEdgeCapApplied?: boolean;
+  preDailyCapStake?: number | null;
+  dailyRiskCapApplied?: boolean;
   gates: {
     oddsAvailable: boolean;
-    confidence: boolean;
     positiveExpectedValue: boolean;
     edge: boolean;
     expectedValue: boolean;
     underdogAllowed: boolean;
+    dailyBudget: boolean;
   };
 };
 
-export const BET_UNIT_DOLLARS = 100;
-export const BET_UNIT_LABEL = `Bet per $${BET_UNIT_DOLLARS}`;
+export const REFERENCE_BANKROLL_DOLLARS = 10_000;
+export const BET_UNIT_BANKROLL_FRACTION = 0.01;
+export const BET_UNIT_DOLLARS = Math.round(REFERENCE_BANKROLL_DOLLARS * BET_UNIT_BANKROLL_FRACTION);
+export const BET_UNIT_LABEL = `Stake (1u = $${BET_UNIT_DOLLARS})`;
+
+const STAKE_ROUNDING_DOLLARS = 5;
+const LEGACY_BUCKET_STAKES = [0, 50, 100, 150] as const;
+const REFERENCE_MARKET_WEIGHT = 0.7;
+const REFERENCE_PEER_WEIGHT = 0.3;
+const MIN_MODEL_CONFIDENCE_WEIGHT = 0.25;
+const FULL_MARGIN_FOR_FULL_WEIGHT = 0.2;
+const MIN_PEER_AGREEMENT_WEIGHT = 0.55;
+const PEER_DISAGREEMENT_FOR_MIN_WEIGHT = 0.2;
 
 type BetDisplayRecommendation = {
   team: string | null;
@@ -88,29 +105,19 @@ type BetDisplayRecommendation = {
   reason: string;
 };
 
-const KELLY_FRACTION_PER_UNIT = 0.15;
-const STAKE_ROUNDING_DOLLARS = 5;
-const LEGACY_BUCKET_STAKES = [0, 50, 100, 150] as const;
-// Temporary stake guardrails, added after the March 8, 2026 NBA review and
-// applied in the shared betting path so NHL/NBA stay behaviorally aligned:
-// 1. If the chosen betting driver is materially more bullish than the peer
-//    models on the same side, we cut the stake before sizing.
-// 2. If a selected edge is extremely large, we cap the stake at a single
-//    half-unit instead of letting Kelly scale up unchecked.
-//
-// This is intentionally a temporary safety rail, not a permanent betting
-// philosophy change. Future Codex threads should explicitly ask whether these
-// controls are still earning their keep. The removal checklist is:
-// - each league has at least 50 settled post-change bets
-// - the worst top-edge bucket is no longer showing clear overconfidence
-// - the betting driver is no longer routinely outrunning the peer-model mean on
-//   losing bets
-// If those checks pass, prefer deleting these constants and simplifying the
-// stake path rather than letting the temporary logic become invisible policy.
-const TEMPORARY_CONSENSUS_GAP_THRESHOLD = 0.05;
-const TEMPORARY_CONSENSUS_HAIRCUT_FACTOR = 0.5;
-const TEMPORARY_HIGH_EDGE_THRESHOLD = 0.15;
-const TEMPORARY_HIGH_EDGE_STAKE_CAP = 50;
+type ProbabilityAdjustment = {
+  referenceProbability: number;
+  adjustedProbability: number;
+  confidenceWeight: number;
+  peerConsensusProbability: number | null;
+  consensusGap: number | null;
+};
+
+type TraceContext = {
+  strategyLabel: string;
+  sizingStyle: BetSizingStyle;
+  strategyConfig: BetStrategyRuleConfig;
+};
 
 function betAmountFromUnits(units: number): number {
   return BET_UNIT_DOLLARS * units;
@@ -127,6 +134,11 @@ function clampProbability(value: number): number {
   return Math.max(0, Math.min(1, value));
 }
 
+function clampUnitCount(value: number): number {
+  if (!Number.isFinite(value)) return 0;
+  return Math.max(0, value);
+}
+
 function decimalOddsToKellyFraction(probability: number, decimalOdds: number): number | null {
   if (!Number.isFinite(probability) || probability <= 0 || probability >= 1) return null;
   if (!Number.isFinite(decimalOdds) || decimalOdds <= 1) return null;
@@ -136,17 +148,23 @@ function decimalOddsToKellyFraction(probability: number, decimalOdds: number): n
   return Number.isFinite(fraction) ? fraction : null;
 }
 
-function continuousStakeFromKelly(kellyFraction: number, sizeMultiplier: number, maxBetUnits: number): number {
+function continuousStakeFromKelly(kellyFraction: number, fractionalKelly: number, maxBetUnits: number): number {
   if (!Number.isFinite(kellyFraction) || kellyFraction <= 0) return 0;
+  if (!Number.isFinite(fractionalKelly) || fractionalKelly <= 0) return 0;
 
-  const units = Math.min(maxBetUnits, Math.max(0, (kellyFraction / KELLY_FRACTION_PER_UNIT) * sizeMultiplier));
+  const requestedUnits = (fractionalKelly * kellyFraction) / BET_UNIT_BANKROLL_FRACTION;
+  const units = Math.min(maxBetUnits, clampUnitCount(requestedUnits));
   return roundStakeAmount(betAmountFromUnits(units));
 }
 
-function bucketedStakeFromAmount(amount: number): number {
+function bucketedStakeFromAmount(amount: number, mode: "nearest" | "floor" = "nearest"): number {
   if (!Number.isFinite(amount) || amount <= 0) return 0;
 
   const cappedAmount = Math.min(amount, LEGACY_BUCKET_STAKES[LEGACY_BUCKET_STAKES.length - 1]);
+  if (mode === "floor") {
+    return [...LEGACY_BUCKET_STAKES].reverse().find((candidate) => candidate <= cappedAmount) || 0;
+  }
+
   let closestStake: number = LEGACY_BUCKET_STAKES[0];
   let closestDistance = Math.abs(cappedAmount - closestStake);
 
@@ -167,15 +185,14 @@ function sideProbabilityFromHomeProbability(homeProbability: number, side: Expec
   return 0.5;
 }
 
-function resolveConsensusMetrics(
+function resolvePeerConsensusProbability(
   row: BetInput,
   side: ExpectedSide
-): { peerConsensusProbability: number | null; consensusGap: number | null; temporaryConsensusHaircutApplied: boolean } {
+): { peerConsensusProbability: number | null; consensusGap: number | null } {
   if (side === "none") {
     return {
       peerConsensusProbability: null,
       consensusGap: null,
-      temporaryConsensusHaircutApplied: false,
     };
   }
 
@@ -185,7 +202,6 @@ function resolveConsensusMetrics(
     return {
       peerConsensusProbability: null,
       consensusGap: null,
-      temporaryConsensusHaircutApplied: false,
     };
   }
 
@@ -202,7 +218,6 @@ function resolveConsensusMetrics(
     return {
       peerConsensusProbability: null,
       consensusGap: null,
-      temporaryConsensusHaircutApplied: false,
     };
   }
 
@@ -211,32 +226,558 @@ function resolveConsensusMetrics(
   return {
     peerConsensusProbability,
     consensusGap,
-    temporaryConsensusHaircutApplied: consensusGap >= TEMPORARY_CONSENSUS_GAP_THRESHOLD,
   };
 }
 
-function buildPricedBetReason(
-  candidateIsUnderdog: boolean,
-  temporaryConsensusHaircutApplied: boolean,
-  temporaryTopEdgeCapApplied: boolean
-): string {
-  const baseReason = candidateIsUnderdog ? "Underdog underpriced" : "Favorite underpriced";
-  const adjustments: string[] = [];
-  if (temporaryConsensusHaircutApplied) adjustments.push("temporary consensus haircut");
-  if (temporaryTopEdgeCapApplied) adjustments.push("temporary top-edge cap");
-  return adjustments.length ? `${baseReason}; ${adjustments.join(", ")}` : baseReason;
+function buildProbabilityAdjustment(
+  rawProbability: number,
+  fairProbability: number,
+  peerConsensusProbability: number | null
+): ProbabilityAdjustment {
+  const normalizedRaw = clampProbability(rawProbability);
+  const normalizedFair = clampProbability(fairProbability);
+  const normalizedPeer =
+    typeof peerConsensusProbability === "number" && Number.isFinite(peerConsensusProbability)
+      ? clampProbability(peerConsensusProbability)
+      : null;
+
+  const referenceProbability =
+    normalizedPeer === null
+      ? normalizedFair
+      : clampProbability(normalizedFair * REFERENCE_MARKET_WEIGHT + normalizedPeer * REFERENCE_PEER_WEIGHT);
+
+  const margin = Math.abs(normalizedRaw - 0.5);
+  const marginWeight =
+    margin >= FULL_MARGIN_FOR_FULL_WEIGHT
+      ? 1
+      : MIN_MODEL_CONFIDENCE_WEIGHT +
+        ((1 - MIN_MODEL_CONFIDENCE_WEIGHT) * margin) / FULL_MARGIN_FOR_FULL_WEIGHT;
+
+  const peerAgreementWeight =
+    normalizedPeer === null
+      ? 1
+      : Math.max(
+          MIN_PEER_AGREEMENT_WEIGHT,
+          1 - Math.abs(normalizedRaw - normalizedPeer) / PEER_DISAGREEMENT_FOR_MIN_WEIGHT
+        );
+
+  const confidenceWeight = Math.max(
+    MIN_MODEL_CONFIDENCE_WEIGHT,
+    Math.min(1, marginWeight * peerAgreementWeight)
+  );
+  const adjustedProbability = clampProbability(
+    referenceProbability + confidenceWeight * (normalizedRaw - referenceProbability)
+  );
+
+  return {
+    referenceProbability,
+    adjustedProbability,
+    confidenceWeight,
+    peerConsensusProbability: normalizedPeer,
+    consensusGap: normalizedPeer === null ? null : normalizedRaw - normalizedPeer,
+  };
+}
+
+function buildPricedBetReason(candidateIsUnderdog: boolean): string {
+  return candidateIsUnderdog ? "Underdog underpriced after uncertainty adjustment" : "Favorite underpriced after uncertainty adjustment";
+}
+
+function formatStakeForDecision(team: string | null, stake: number): string {
+  if (stake <= 0 || !team) return "$0";
+  if (!Number.isFinite(stake)) return "$0";
+  const fractionDigits = Number.isInteger(stake) ? 0 : 2;
+  return `$${stake.toFixed(fractionDigits)} ${team}`;
+}
+
+function buildDecision(
+  row: BetInput,
+  side: ExpectedSide,
+  stake: number,
+  reason: string,
+  adjustedProb?: number | null,
+  fairProb?: number | null,
+  ev?: number | null,
+  edge?: number | null
+): BetDecision {
+  const team = side === "home" ? row.home_team : side === "away" ? row.away_team : null;
+  const odds = side === "home" ? Number(row.home_moneyline) : side === "away" ? Number(row.away_moneyline) : null;
+
+  return {
+    bet: formatStakeForDecision(team, stake),
+    reason,
+    side,
+    team,
+    stake,
+    odds: Number.isFinite(odds) ? odds : null,
+    modelProbability: typeof adjustedProb === "number" && Number.isFinite(adjustedProb) ? adjustedProb : null,
+    marketProbability: typeof fairProb === "number" && Number.isFinite(fairProb) ? fairProb : null,
+    edge: typeof edge === "number" && Number.isFinite(edge) ? edge : null,
+    expectedValue: typeof ev === "number" && Number.isFinite(ev) ? ev : null,
+  };
+}
+
+function buildDefaultTraceFields(): Omit<
+  BetDecisionTrace,
+  "decision" | "strategyLabel" | "sizingStyle" | "strategyConfig" | "gates"
+> {
+  return {
+    homeRawModelProbability: null,
+    awayRawModelProbability: null,
+    homeAdjustedProbability: null,
+    awayAdjustedProbability: null,
+    homeReferenceProbability: null,
+    awayReferenceProbability: null,
+    homeFairProbability: null,
+    awayFairProbability: null,
+    homeExpectedValue: null,
+    awayExpectedValue: null,
+    candidateSide: "none",
+    candidateTeam: null,
+    candidateOdds: null,
+    candidateIsUnderdog: null,
+    candidateRawModelProbability: null,
+    candidateAdjustedProbability: null,
+    candidateReferenceProbability: null,
+    candidateMarketProbability: null,
+    candidateEdge: null,
+    candidateExpectedValue: null,
+    candidateConfidenceWeight: null,
+    kellyFraction: null,
+    rawKellyUnits: null,
+    cappedKellyUnits: null,
+    continuousStake: 0,
+    bucketedStake: 0,
+    finalStake: 0,
+    peerConsensusProbability: null,
+    consensusGap: null,
+    preDailyCapStake: null,
+    dailyRiskCapApplied: false,
+  };
+}
+
+function buildTrace(
+  context: TraceContext,
+  decision: BetDecision,
+  gates: BetDecisionTrace["gates"],
+  overrides: Partial<Omit<BetDecisionTrace, "decision" | "strategyLabel" | "sizingStyle" | "strategyConfig" | "gates">> = {}
+): BetDecisionTrace {
+  return {
+    ...buildDefaultTraceFields(),
+    ...overrides,
+    decision,
+    strategyLabel: context.strategyLabel,
+    sizingStyle: context.sizingStyle,
+    strategyConfig: context.strategyConfig,
+    gates,
+  };
+}
+
+function applyStakeOverride(trace: BetDecisionTrace, stake: number, reason: string, dailyRiskCapApplied: boolean): BetDecisionTrace {
+  const adjustedStake = roundStakeAmount(stake);
+  const team = trace.decision.team;
+  const nextDecision = {
+    ...trace.decision,
+    stake: adjustedStake,
+    bet: formatStakeForDecision(team, adjustedStake),
+    reason,
+  };
+
+  return {
+    ...trace,
+    decision: nextDecision,
+    continuousStake: trace.sizingStyle === "continuous" ? adjustedStake : Math.min(trace.continuousStake, adjustedStake),
+    bucketedStake: trace.sizingStyle === "bucketed" ? adjustedStake : bucketedStakeFromAmount(adjustedStake, "floor"),
+    finalStake: adjustedStake,
+    preDailyCapStake: trace.finalStake,
+    dailyRiskCapApplied,
+    gates: {
+      ...trace.gates,
+      dailyBudget: adjustedStake > 0,
+    },
+  };
+}
+
+function capStakeToRemainingBudget(trace: BetDecisionTrace, remainingBudget: number): number {
+  if (remainingBudget <= 0) return 0;
+  if (trace.sizingStyle === "bucketed") {
+    return bucketedStakeFromAmount(Math.min(trace.finalStake, remainingBudget), "floor");
+  }
+  return roundStakeAmount(Math.min(trace.finalStake, remainingBudget));
+}
+
+function compareByExpectedValue(left: BetDecisionTrace, right: BetDecisionTrace): number {
+  return (
+    (right.candidateExpectedValue ?? Number.NEGATIVE_INFINITY) - (left.candidateExpectedValue ?? Number.NEGATIVE_INFINITY) ||
+    (right.candidateEdge ?? Number.NEGATIVE_INFINITY) - (left.candidateEdge ?? Number.NEGATIVE_INFINITY) ||
+    (right.finalStake ?? 0) - (left.finalStake ?? 0) ||
+    String(left.decision.team || "").localeCompare(String(right.decision.team || ""))
+  );
+}
+
+export function applyDailyRiskCapToDecisionTraces(traces: BetDecisionTrace[]): BetDecisionTrace[] {
+  if (!traces.length) return traces;
+
+  const strategyConfig = traces[0]?.strategyConfig;
+  const maxDailyUnits = strategyConfig?.maxDailyUnits;
+  if (!Number.isFinite(maxDailyUnits) || maxDailyUnits <= 0) {
+    return traces.map((trace) => ({
+      ...trace,
+      gates: {
+        ...trace.gates,
+        dailyBudget: trace.finalStake > 0,
+      },
+    }));
+  }
+
+  const budgetDollars = betAmountFromUnits(maxDailyUnits);
+  let usedDollars = 0;
+  const next = [...traces];
+
+  const ranked = traces
+    .map((trace, index) => ({ trace, index }))
+    .filter(({ trace }) => trace.finalStake > 0)
+    .sort((left, right) => compareByExpectedValue(left.trace, right.trace));
+
+  for (const { index } of ranked) {
+    const trace = next[index];
+    const remainingBudget = budgetDollars - usedDollars;
+    const cappedStake = capStakeToRemainingBudget(trace, remainingBudget);
+
+    if (cappedStake <= 0) {
+      next[index] = applyStakeOverride(trace, 0, "Daily risk budget exhausted", true);
+      continue;
+    }
+
+    if (cappedStake < trace.finalStake) {
+      next[index] = applyStakeOverride(trace, cappedStake, `${trace.decision.reason}; daily risk cap`, true);
+    } else {
+      next[index] = {
+        ...trace,
+        gates: {
+          ...trace.gates,
+          dailyBudget: true,
+        },
+      };
+    }
+
+    usedDollars += next[index].finalStake;
+  }
+
+  return next.map((trace) =>
+    trace.finalStake > 0
+      ? trace
+      : {
+          ...trace,
+          gates: {
+            ...trace.gates,
+            dailyBudget: trace.gates.dailyBudget,
+          },
+        }
+  );
+}
+
+export function explainBetDecision(
+  row: BetInput,
+  strategy: BetStrategy = DEFAULT_BET_STRATEGY,
+  sizingStyle: BetSizingStyle = DEFAULT_BET_SIZING_STYLE,
+  strategyConfigOverride?: BetStrategyRuleConfig,
+  strategyLabelOverride?: string
+): BetDecisionTrace {
+  const strategyConfig = strategyConfigOverride || getBetStrategyConfig(strategy);
+  const strategyLabel = strategyLabelOverride || getBetStrategyConfig(strategy).label;
+  const context: TraceContext = { strategyLabel, sizingStyle, strategyConfig };
+  const homeOdds = Number(row.home_moneyline);
+  const awayOdds = Number(row.away_moneyline);
+  const oddsAvailable = Number.isFinite(homeOdds) && Number.isFinite(awayOdds) && homeOdds !== 0 && awayOdds !== 0;
+
+  const baseGates: BetDecisionTrace["gates"] = {
+    oddsAvailable,
+    positiveExpectedValue: false,
+    edge: false,
+    expectedValue: false,
+    underdogAllowed: false,
+    dailyBudget: true,
+  };
+
+  if (!oddsAvailable) {
+    return buildTrace(context, buildDecision(row, "none", 0, "Missing odds"), baseGates);
+  }
+
+  const pHomeRaw = clampProbability(Number(row.home_win_probability));
+  const pAwayRaw = 1 - pHomeRaw;
+  const impHome = americanToImpliedProbability(homeOdds);
+  const impAway = americanToImpliedProbability(awayOdds);
+  if (impHome === null || impAway === null) {
+    return buildTrace(
+      context,
+      buildDecision(row, "none", 0, "Missing odds"),
+      baseGates,
+      {
+        homeRawModelProbability: pHomeRaw,
+        awayRawModelProbability: pAwayRaw,
+      }
+    );
+  }
+
+  const impTotal = impHome + impAway;
+  if (!Number.isFinite(impTotal) || impTotal <= 0) {
+    return buildTrace(
+      context,
+      buildDecision(row, "none", 0, "Missing odds"),
+      baseGates,
+      {
+        homeRawModelProbability: pHomeRaw,
+        awayRawModelProbability: pAwayRaw,
+      }
+    );
+  }
+
+  const fairHome = impHome / impTotal;
+  const fairAway = impAway / impTotal;
+  const homeConsensus = resolvePeerConsensusProbability(row, "home");
+  const homeAdjustment = buildProbabilityAdjustment(pHomeRaw, fairHome, homeConsensus.peerConsensusProbability);
+  const awayAdjustment = {
+    referenceProbability: clampProbability(1 - homeAdjustment.referenceProbability),
+    adjustedProbability: clampProbability(1 - homeAdjustment.adjustedProbability),
+    confidenceWeight: homeAdjustment.confidenceWeight,
+    peerConsensusProbability:
+      typeof homeAdjustment.peerConsensusProbability === "number"
+        ? clampProbability(1 - homeAdjustment.peerConsensusProbability)
+        : null,
+    consensusGap: homeConsensus.consensusGap === null ? null : -homeConsensus.consensusGap,
+  };
+
+  const decHome = americanToDecimalOdds(homeOdds);
+  const decAway = americanToDecimalOdds(awayOdds);
+  if (decHome === null || decAway === null) {
+    return buildTrace(
+      context,
+      buildDecision(row, "none", 0, "Missing odds"),
+      baseGates,
+      {
+        homeRawModelProbability: pHomeRaw,
+        awayRawModelProbability: pAwayRaw,
+        homeAdjustedProbability: homeAdjustment.adjustedProbability,
+        awayAdjustedProbability: awayAdjustment.adjustedProbability,
+        homeReferenceProbability: homeAdjustment.referenceProbability,
+        awayReferenceProbability: awayAdjustment.referenceProbability,
+        homeFairProbability: fairHome,
+        awayFairProbability: fairAway,
+        peerConsensusProbability: homeConsensus.peerConsensusProbability,
+        consensusGap: homeConsensus.consensusGap,
+      }
+    );
+  }
+
+  const evHome = homeAdjustment.adjustedProbability * decHome - 1;
+  const evAway = awayAdjustment.adjustedProbability * decAway - 1;
+  const positiveExpectedValue = evHome > 0 || evAway > 0;
+  if (!positiveExpectedValue) {
+    return buildTrace(
+      context,
+      buildDecision(row, "none", 0, "Adjusted price fair"),
+      {
+        ...baseGates,
+        positiveExpectedValue,
+      },
+      {
+        homeRawModelProbability: pHomeRaw,
+        awayRawModelProbability: pAwayRaw,
+        homeAdjustedProbability: homeAdjustment.adjustedProbability,
+        awayAdjustedProbability: awayAdjustment.adjustedProbability,
+        homeReferenceProbability: homeAdjustment.referenceProbability,
+        awayReferenceProbability: awayAdjustment.referenceProbability,
+        homeFairProbability: fairHome,
+        awayFairProbability: fairAway,
+        homeExpectedValue: evHome,
+        awayExpectedValue: evAway,
+        peerConsensusProbability: homeConsensus.peerConsensusProbability,
+        consensusGap: homeConsensus.consensusGap,
+      }
+    );
+  }
+
+  const side = evHome > evAway ? "home" : evAway > evHome ? "away" : homeAdjustment.adjustedProbability >= awayAdjustment.adjustedProbability ? "home" : "away";
+  const rawModelProb = side === "home" ? pHomeRaw : pAwayRaw;
+  const adjustedProb = side === "home" ? homeAdjustment.adjustedProbability : awayAdjustment.adjustedProbability;
+  const referenceProb = side === "home" ? homeAdjustment.referenceProbability : awayAdjustment.referenceProbability;
+  const fairProb = side === "home" ? fairHome : fairAway;
+  const edge = adjustedProb - fairProb;
+  const ev = side === "home" ? evHome : evAway;
+  const candidateTeam = side === "home" ? row.home_team : row.away_team;
+  const candidateOdds = side === "home" ? homeOdds : awayOdds;
+  const candidateIsUnderdog = candidateOdds > 0;
+  const edgeGate = edge >= strategyConfig.minEdge;
+  const expectedValueGate = ev >= strategyConfig.minExpectedValue;
+  const underdogAllowed = strategyConfig.allowUnderdogs || !candidateIsUnderdog;
+
+  const traceOverrides: Partial<Omit<BetDecisionTrace, "decision" | "strategyLabel" | "sizingStyle" | "strategyConfig" | "gates">> = {
+    homeRawModelProbability: pHomeRaw,
+    awayRawModelProbability: pAwayRaw,
+    homeAdjustedProbability: homeAdjustment.adjustedProbability,
+    awayAdjustedProbability: awayAdjustment.adjustedProbability,
+    homeReferenceProbability: homeAdjustment.referenceProbability,
+    awayReferenceProbability: awayAdjustment.referenceProbability,
+    homeFairProbability: fairHome,
+    awayFairProbability: fairAway,
+    homeExpectedValue: evHome,
+    awayExpectedValue: evAway,
+    candidateSide: side,
+    candidateTeam,
+    candidateOdds,
+    candidateIsUnderdog,
+    candidateRawModelProbability: rawModelProb,
+    candidateAdjustedProbability: adjustedProb,
+    candidateReferenceProbability: referenceProb,
+    candidateMarketProbability: fairProb,
+    candidateEdge: edge,
+    candidateExpectedValue: ev,
+    candidateConfidenceWeight: side === "home" ? homeAdjustment.confidenceWeight : awayAdjustment.confidenceWeight,
+    peerConsensusProbability: side === "home" ? homeConsensus.peerConsensusProbability : awayAdjustment.peerConsensusProbability,
+    consensusGap: side === "home" ? homeConsensus.consensusGap : awayAdjustment.consensusGap,
+  };
+
+  if (!edgeGate || !expectedValueGate) {
+    return buildTrace(
+      context,
+      buildDecision(row, "none", 0, "Adjusted price fair"),
+      {
+        ...baseGates,
+        positiveExpectedValue,
+        edge: edgeGate,
+        expectedValue: expectedValueGate,
+        underdogAllowed,
+      },
+      traceOverrides
+    );
+  }
+
+  if (!underdogAllowed) {
+    return buildTrace(
+      context,
+      buildDecision(row, "none", 0, `${strategyLabel} skips underdogs`, adjustedProb, fairProb, ev, edge),
+      {
+        ...baseGates,
+        positiveExpectedValue,
+        edge: edgeGate,
+        expectedValue: expectedValueGate,
+        underdogAllowed,
+      },
+      traceOverrides
+    );
+  }
+
+  const sideDecimalOdds = side === "home" ? decHome : decAway;
+  const kellyFraction = decimalOddsToKellyFraction(adjustedProb, sideDecimalOdds);
+  const rawKellyUnits =
+    kellyFraction === null
+      ? null
+      : clampUnitCount((strategyConfig.fractionalKelly * kellyFraction) / BET_UNIT_BANKROLL_FRACTION);
+  const cappedKellyUnits =
+    rawKellyUnits === null ? null : Math.min(strategyConfig.maxBetUnits, rawKellyUnits);
+  const continuousStake =
+    kellyFraction === null ? 0 : continuousStakeFromKelly(kellyFraction, strategyConfig.fractionalKelly, strategyConfig.maxBetUnits);
+  const bucketedStake = bucketedStakeFromAmount(continuousStake);
+  const stake = sizingStyle === "bucketed" ? bucketedStake : continuousStake;
+
+  if (stake <= 0) {
+    return buildTrace(
+      context,
+      buildDecision(row, "none", 0, "Adjusted price fair"),
+      {
+        ...baseGates,
+        positiveExpectedValue,
+        edge: edgeGate,
+        expectedValue: expectedValueGate,
+        underdogAllowed,
+      },
+      {
+        ...traceOverrides,
+        kellyFraction,
+        rawKellyUnits,
+        cappedKellyUnits,
+        continuousStake,
+        bucketedStake,
+      }
+    );
+  }
+
+  const decision = buildDecision(
+    row,
+    side,
+    stake,
+    buildPricedBetReason(candidateIsUnderdog),
+    adjustedProb,
+    fairProb,
+    ev,
+    edge
+  );
+
+  return buildTrace(
+    context,
+    decision,
+    {
+      ...baseGates,
+      positiveExpectedValue,
+      edge: edgeGate,
+      expectedValue: expectedValueGate,
+      underdogAllowed,
+    },
+    {
+      ...traceOverrides,
+      kellyFraction,
+      rawKellyUnits,
+      cappedKellyUnits,
+      continuousStake,
+      bucketedStake,
+      finalStake: stake,
+    }
+  );
+}
+
+export function explainBetDecisionsForSlate(
+  rows: BetInput[],
+  strategy: BetStrategy = DEFAULT_BET_STRATEGY,
+  sizingStyle: BetSizingStyle = DEFAULT_BET_SIZING_STYLE,
+  strategyConfigOverride?: BetStrategyRuleConfig,
+  strategyLabelOverride?: string
+): BetDecisionTrace[] {
+  return applyDailyRiskCapToDecisionTraces(
+    rows.map((row) => explainBetDecision(row, strategy, sizingStyle, strategyConfigOverride, strategyLabelOverride))
+  );
+}
+
+export function computeBetDecision(
+  row: BetInput,
+  strategy: BetStrategy = DEFAULT_BET_STRATEGY,
+  sizingStyle: BetSizingStyle = DEFAULT_BET_SIZING_STYLE,
+  strategyConfigOverride?: BetStrategyRuleConfig
+): BetDecision {
+  return explainBetDecision(row, strategy, sizingStyle, strategyConfigOverride).decision;
+}
+
+export function computeBetDecisionsForSlate(
+  rows: BetInput[],
+  strategy: BetStrategy = DEFAULT_BET_STRATEGY,
+  sizingStyle: BetSizingStyle = DEFAULT_BET_SIZING_STYLE,
+  strategyConfigOverride?: BetStrategyRuleConfig,
+  strategyLabelOverride?: string
+): BetDecision[] {
+  return explainBetDecisionsForSlate(rows, strategy, sizingStyle, strategyConfigOverride, strategyLabelOverride).map(
+    (trace) => trace.decision
+  );
 }
 
 export function expectedSide(homeWinProbability: number): ExpectedSide {
-  if (homeWinProbability > 0.55) return "home";
-  if (homeWinProbability < 0.45) return "away";
+  if (homeWinProbability > 0.5) return "home";
+  if (homeWinProbability < 0.5) return "away";
   return "none";
 }
 
 export function expectedWinChance(homeWinProbability: number, side: ExpectedSide): number {
-  if (side === "home") return homeWinProbability;
-  if (side === "away") return 1 - homeWinProbability;
-  return Math.max(homeWinProbability, 1 - homeWinProbability);
+  if (side === "home") return clampProbability(homeWinProbability);
+  if (side === "away") return clampProbability(1 - homeWinProbability);
+  return 0.5;
 }
 
 export function americanToImpliedProbability(odds: number): number | null {
@@ -253,11 +794,7 @@ export function americanToDecimalOdds(odds: number): number | null {
 }
 
 export function formatBetLabel(team: string | null, stake: number): string {
-  if (stake <= 0 || !team) return "$0";
-  if (!Number.isFinite(stake)) return "$0";
-
-  const fractionDigits = Number.isInteger(stake) ? 0 : 2;
-  return `$${stake.toFixed(fractionDigits)} ${team}`;
+  return formatStakeForDecision(team, stake);
 }
 
 export function formatBetUnitLabel(team: string | null, stake: number): string {
@@ -268,528 +805,6 @@ export function formatBetUnitRecommendation(recommendation: BetDisplayRecommenda
   return {
     label: formatBetUnitLabel(recommendation.team, recommendation.stake),
     reason: recommendation.reason,
-  };
-}
-
-function buildDecision(
-  row: BetInput,
-  side: ExpectedSide,
-  stake: number,
-  reason: string,
-  fairProb?: number | null,
-  ev?: number | null,
-  edge?: number | null
-): BetDecision {
-  const team = side === "home" ? row.home_team : side === "away" ? row.away_team : null;
-  const odds = side === "home" ? Number(row.home_moneyline) : side === "away" ? Number(row.away_moneyline) : null;
-
-  return {
-    bet: formatBetLabel(team, stake),
-    reason,
-    side,
-    team,
-    stake,
-    odds: Number.isFinite(odds) ? odds : null,
-    modelProbability: team ? (side === "home" ? row.home_win_probability : 1 - row.home_win_probability) : null,
-    marketProbability: typeof fairProb === "number" && Number.isFinite(fairProb) ? fairProb : null,
-    edge: typeof edge === "number" && Number.isFinite(edge) ? edge : null,
-    expectedValue: typeof ev === "number" && Number.isFinite(ev) ? ev : null,
-  };
-}
-
-export function computeBetDecision(
-  row: BetInput,
-  strategy: BetStrategy = DEFAULT_BET_STRATEGY,
-  sizingStyle: BetSizingStyle = DEFAULT_BET_SIZING_STYLE,
-  strategyConfigOverride?: BetStrategyRuleConfig
-): BetDecision {
-  return explainBetDecision(row, strategy, sizingStyle, strategyConfigOverride).decision;
-}
-
-export function explainBetDecision(
-  row: BetInput,
-  strategy: BetStrategy = DEFAULT_BET_STRATEGY,
-  sizingStyle: BetSizingStyle = DEFAULT_BET_SIZING_STYLE,
-  strategyConfigOverride?: BetStrategyRuleConfig,
-  strategyLabelOverride?: string
-): BetDecisionTrace {
-  const strategyConfig = strategyConfigOverride || getBetStrategyConfig(strategy);
-  const strategyLabel = strategyLabelOverride || getBetStrategyConfig(strategy).label;
-  const homeOdds = Number(row.home_moneyline);
-  const awayOdds = Number(row.away_moneyline);
-  const oddsAvailable = Number.isFinite(homeOdds) && Number.isFinite(awayOdds) && homeOdds !== 0 && awayOdds !== 0;
-  const baseGates = {
-    oddsAvailable,
-    confidence: false,
-    positiveExpectedValue: false,
-    edge: false,
-    expectedValue: false,
-    underdogAllowed: false,
-  };
-
-  if (!oddsAvailable) {
-    return {
-      decision: buildDecision(row, "none", 0, "Missing odds"),
-      strategyLabel,
-      sizingStyle,
-      strategyConfig,
-      homeModelProbability: null,
-      awayModelProbability: null,
-      homeFairProbability: null,
-      awayFairProbability: null,
-      homeExpectedValue: null,
-      awayExpectedValue: null,
-      candidateSide: "none",
-      candidateTeam: null,
-      candidateOdds: null,
-      candidateIsUnderdog: null,
-      candidateModelProbability: null,
-      candidateMarketProbability: null,
-      candidateEdge: null,
-      candidateExpectedValue: null,
-      kellyFraction: null,
-      rawKellyUnits: null,
-      cappedKellyUnits: null,
-      continuousStake: 0,
-      bucketedStake: 0,
-      finalStake: 0,
-      gates: baseGates,
-    };
-  }
-
-  if (!Number.isFinite(homeOdds) || !Number.isFinite(awayOdds) || homeOdds === 0 || awayOdds === 0) {
-    return {
-      decision: buildDecision(row, "none", 0, "Missing odds"),
-      strategyLabel,
-      sizingStyle,
-      strategyConfig,
-      homeModelProbability: null,
-      awayModelProbability: null,
-      homeFairProbability: null,
-      awayFairProbability: null,
-      homeExpectedValue: null,
-      awayExpectedValue: null,
-      candidateSide: "none",
-      candidateTeam: null,
-      candidateOdds: null,
-      candidateIsUnderdog: null,
-      candidateModelProbability: null,
-      candidateMarketProbability: null,
-      candidateEdge: null,
-      candidateExpectedValue: null,
-      kellyFraction: null,
-      rawKellyUnits: null,
-      cappedKellyUnits: null,
-      continuousStake: 0,
-      bucketedStake: 0,
-      finalStake: 0,
-      gates: baseGates,
-    };
-  }
-
-  const pHomeRaw = Number(row.home_win_probability);
-  if (!Number.isFinite(pHomeRaw)) {
-    return {
-      decision: buildDecision(row, "none", 0, "Missing odds"),
-      strategyLabel,
-      sizingStyle,
-      strategyConfig,
-      homeModelProbability: null,
-      awayModelProbability: null,
-      homeFairProbability: null,
-      awayFairProbability: null,
-      homeExpectedValue: null,
-      awayExpectedValue: null,
-      candidateSide: "none",
-      candidateTeam: null,
-      candidateOdds: null,
-      candidateIsUnderdog: null,
-      candidateModelProbability: null,
-      candidateMarketProbability: null,
-      candidateEdge: null,
-      candidateExpectedValue: null,
-      kellyFraction: null,
-      rawKellyUnits: null,
-      cappedKellyUnits: null,
-      continuousStake: 0,
-      bucketedStake: 0,
-      finalStake: 0,
-      gates: baseGates,
-    };
-  }
-  const pHome = clampProbability(pHomeRaw);
-  const pAway = 1 - pHome;
-  const confidence = Math.max(pHome, pAway) >= 0.55;
-  if (!confidence) {
-    return {
-      decision: buildDecision(row, "none", 0, "Too close"),
-      strategyLabel,
-      sizingStyle,
-      strategyConfig,
-      homeModelProbability: pHome,
-      awayModelProbability: pAway,
-      homeFairProbability: null,
-      awayFairProbability: null,
-      homeExpectedValue: null,
-      awayExpectedValue: null,
-      candidateSide: "none",
-      candidateTeam: null,
-      candidateOdds: null,
-      candidateIsUnderdog: null,
-      candidateModelProbability: null,
-      candidateMarketProbability: null,
-      candidateEdge: null,
-      candidateExpectedValue: null,
-      kellyFraction: null,
-      rawKellyUnits: null,
-      cappedKellyUnits: null,
-      continuousStake: 0,
-      bucketedStake: 0,
-      finalStake: 0,
-      gates: {
-        ...baseGates,
-        confidence,
-      },
-    };
-  }
-
-  const impHome = americanToImpliedProbability(homeOdds);
-  const impAway = americanToImpliedProbability(awayOdds);
-  if (impHome === null || impAway === null) {
-    return {
-      decision: buildDecision(row, "none", 0, "Missing odds"),
-      strategyLabel,
-      sizingStyle,
-      strategyConfig,
-      homeModelProbability: pHome,
-      awayModelProbability: pAway,
-      homeFairProbability: null,
-      awayFairProbability: null,
-      homeExpectedValue: null,
-      awayExpectedValue: null,
-      candidateSide: "none",
-      candidateTeam: null,
-      candidateOdds: null,
-      candidateIsUnderdog: null,
-      candidateModelProbability: null,
-      candidateMarketProbability: null,
-      candidateEdge: null,
-      candidateExpectedValue: null,
-      kellyFraction: null,
-      rawKellyUnits: null,
-      cappedKellyUnits: null,
-      continuousStake: 0,
-      bucketedStake: 0,
-      finalStake: 0,
-      gates: {
-        ...baseGates,
-        confidence,
-      },
-    };
-  }
-  const impTotal = impHome + impAway;
-  if (!Number.isFinite(impTotal) || impTotal <= 0) {
-    return {
-      decision: buildDecision(row, "none", 0, "Missing odds"),
-      strategyLabel,
-      sizingStyle,
-      strategyConfig,
-      homeModelProbability: pHome,
-      awayModelProbability: pAway,
-      homeFairProbability: null,
-      awayFairProbability: null,
-      homeExpectedValue: null,
-      awayExpectedValue: null,
-      candidateSide: "none",
-      candidateTeam: null,
-      candidateOdds: null,
-      candidateIsUnderdog: null,
-      candidateModelProbability: null,
-      candidateMarketProbability: null,
-      candidateEdge: null,
-      candidateExpectedValue: null,
-      kellyFraction: null,
-      rawKellyUnits: null,
-      cappedKellyUnits: null,
-      continuousStake: 0,
-      bucketedStake: 0,
-      finalStake: 0,
-      gates: {
-        ...baseGates,
-        confidence,
-      },
-    };
-  }
-
-  const fairHome = impHome / impTotal;
-  const fairAway = impAway / impTotal;
-
-  const decHome = americanToDecimalOdds(homeOdds);
-  const decAway = americanToDecimalOdds(awayOdds);
-  if (decHome === null || decAway === null) {
-    return {
-      decision: buildDecision(row, "none", 0, "Missing odds"),
-      strategyLabel,
-      sizingStyle,
-      strategyConfig,
-      homeModelProbability: pHome,
-      awayModelProbability: pAway,
-      homeFairProbability: fairHome,
-      awayFairProbability: fairAway,
-      homeExpectedValue: null,
-      awayExpectedValue: null,
-      candidateSide: "none",
-      candidateTeam: null,
-      candidateOdds: null,
-      candidateIsUnderdog: null,
-      candidateModelProbability: null,
-      candidateMarketProbability: null,
-      candidateEdge: null,
-      candidateExpectedValue: null,
-      kellyFraction: null,
-      rawKellyUnits: null,
-      cappedKellyUnits: null,
-      continuousStake: 0,
-      bucketedStake: 0,
-      finalStake: 0,
-      gates: {
-        ...baseGates,
-        confidence,
-      },
-    };
-  }
-
-  const evHome = pHome * decHome - 1;
-  const evAway = pAway * decAway - 1;
-  const positiveExpectedValue = evHome > 0 || evAway > 0;
-  if (!positiveExpectedValue) {
-    return {
-      decision: buildDecision(row, "none", 0, "Price fair"),
-      strategyLabel,
-      sizingStyle,
-      strategyConfig,
-      homeModelProbability: pHome,
-      awayModelProbability: pAway,
-      homeFairProbability: fairHome,
-      awayFairProbability: fairAway,
-      homeExpectedValue: evHome,
-      awayExpectedValue: evAway,
-      candidateSide: "none",
-      candidateTeam: null,
-      candidateOdds: null,
-      candidateIsUnderdog: null,
-      candidateModelProbability: null,
-      candidateMarketProbability: null,
-      candidateEdge: null,
-      candidateExpectedValue: null,
-      kellyFraction: null,
-      rawKellyUnits: null,
-      cappedKellyUnits: null,
-      continuousStake: 0,
-      bucketedStake: 0,
-      finalStake: 0,
-      gates: {
-        ...baseGates,
-        confidence,
-        positiveExpectedValue,
-      },
-    };
-  }
-
-  const side = evHome > evAway ? "home" : evAway > evHome ? "away" : pHome >= pAway ? "home" : "away";
-  const modelProb = side === "home" ? pHome : pAway;
-  const fairProb = side === "home" ? fairHome : fairAway;
-  const edge = modelProb - fairProb;
-  const ev = side === "home" ? evHome : evAway;
-  const candidateTeam = side === "home" ? row.home_team : row.away_team;
-  const candidateOdds = side === "home" ? homeOdds : awayOdds;
-  const candidateIsUnderdog = candidateOdds > 0;
-  const edgeGate = edge >= strategyConfig.minEdge;
-  const expectedValueGate = ev >= strategyConfig.minExpectedValue;
-  const underdogAllowed = strategyConfig.allowUnderdogs || !candidateIsUnderdog;
-
-  if (!edgeGate || !expectedValueGate) {
-    return {
-      decision: buildDecision(row, "none", 0, "Price fair"),
-      strategyLabel,
-      sizingStyle,
-      strategyConfig,
-      homeModelProbability: pHome,
-      awayModelProbability: pAway,
-      homeFairProbability: fairHome,
-      awayFairProbability: fairAway,
-      homeExpectedValue: evHome,
-      awayExpectedValue: evAway,
-      candidateSide: side,
-      candidateTeam,
-      candidateOdds,
-      candidateIsUnderdog,
-      candidateModelProbability: modelProb,
-      candidateMarketProbability: fairProb,
-      candidateEdge: edge,
-      candidateExpectedValue: ev,
-      kellyFraction: null,
-      rawKellyUnits: null,
-      cappedKellyUnits: null,
-      continuousStake: 0,
-      bucketedStake: 0,
-      finalStake: 0,
-      gates: {
-        ...baseGates,
-        confidence,
-        positiveExpectedValue,
-        edge: edgeGate,
-        expectedValue: expectedValueGate,
-        underdogAllowed,
-      },
-    };
-  }
-
-  if (!underdogAllowed) {
-    return {
-      decision: buildDecision(row, "none", 0, `${strategyLabel} skips underdogs`, fairProb, ev, edge),
-      strategyLabel,
-      sizingStyle,
-      strategyConfig,
-      homeModelProbability: pHome,
-      awayModelProbability: pAway,
-      homeFairProbability: fairHome,
-      awayFairProbability: fairAway,
-      homeExpectedValue: evHome,
-      awayExpectedValue: evAway,
-      candidateSide: side,
-      candidateTeam,
-      candidateOdds,
-      candidateIsUnderdog,
-      candidateModelProbability: modelProb,
-      candidateMarketProbability: fairProb,
-      candidateEdge: edge,
-      candidateExpectedValue: ev,
-      kellyFraction: null,
-      rawKellyUnits: null,
-      cappedKellyUnits: null,
-      continuousStake: 0,
-      bucketedStake: 0,
-      finalStake: 0,
-      gates: {
-        ...baseGates,
-        confidence,
-        positiveExpectedValue,
-        edge: edgeGate,
-        expectedValue: expectedValueGate,
-        underdogAllowed,
-      },
-    };
-  }
-  const sideDecimalOdds = side === "home" ? decHome : decAway;
-  const { peerConsensusProbability, consensusGap, temporaryConsensusHaircutApplied } = resolveConsensusMetrics(row, side);
-  const kellyFraction = decimalOddsToKellyFraction(modelProb, sideDecimalOdds);
-  const rawKellyUnits =
-    kellyFraction === null ? null : Math.max(0, (kellyFraction / KELLY_FRACTION_PER_UNIT) * strategyConfig.sizeMultiplier);
-  const cappedKellyUnits =
-    rawKellyUnits === null ? null : Math.min(strategyConfig.maxBetUnits, Math.max(0, rawKellyUnits));
-  const preAdjustmentContinuousStake =
-    kellyFraction === null ? 0 : continuousStakeFromKelly(kellyFraction, strategyConfig.sizeMultiplier, strategyConfig.maxBetUnits);
-  const consensusAdjustedContinuousStake = temporaryConsensusHaircutApplied
-    ? roundStakeAmount(preAdjustmentContinuousStake * TEMPORARY_CONSENSUS_HAIRCUT_FACTOR)
-    : preAdjustmentContinuousStake;
-  const temporaryTopEdgeCapApplied =
-    edge >= TEMPORARY_HIGH_EDGE_THRESHOLD && consensusAdjustedContinuousStake > TEMPORARY_HIGH_EDGE_STAKE_CAP;
-  const continuousStake = temporaryTopEdgeCapApplied
-    ? TEMPORARY_HIGH_EDGE_STAKE_CAP
-    : consensusAdjustedContinuousStake;
-  const bucketedStake = bucketedStakeFromAmount(continuousStake);
-  const stake = sizingStyle === "bucketed" ? bucketedStake : continuousStake;
-  if (stake <= 0) {
-    return {
-      decision: buildDecision(row, "none", 0, "Price fair"),
-      strategyLabel,
-      sizingStyle,
-      strategyConfig,
-      homeModelProbability: pHome,
-      awayModelProbability: pAway,
-      homeFairProbability: fairHome,
-      awayFairProbability: fairAway,
-      homeExpectedValue: evHome,
-      awayExpectedValue: evAway,
-      candidateSide: side,
-      candidateTeam,
-      candidateOdds,
-      candidateIsUnderdog,
-      candidateModelProbability: modelProb,
-      candidateMarketProbability: fairProb,
-      candidateEdge: edge,
-      candidateExpectedValue: ev,
-      kellyFraction,
-      rawKellyUnits,
-      cappedKellyUnits,
-      continuousStake,
-      bucketedStake,
-      finalStake: 0,
-      peerConsensusProbability,
-      consensusGap,
-      preAdjustmentContinuousStake,
-      temporaryConsensusHaircutApplied,
-      temporaryTopEdgeCapApplied,
-      gates: {
-        ...baseGates,
-        confidence,
-        positiveExpectedValue,
-        edge: edgeGate,
-        expectedValue: expectedValueGate,
-        underdogAllowed,
-      },
-    };
-  }
-
-  const decision = buildDecision(
-    row,
-    side,
-    stake,
-    buildPricedBetReason(candidateIsUnderdog, temporaryConsensusHaircutApplied, temporaryTopEdgeCapApplied),
-    fairProb,
-    ev,
-    edge
-  );
-
-  return {
-    decision,
-    strategyLabel,
-    sizingStyle,
-    strategyConfig,
-    homeModelProbability: pHome,
-    awayModelProbability: pAway,
-    homeFairProbability: fairHome,
-    awayFairProbability: fairAway,
-    homeExpectedValue: evHome,
-    awayExpectedValue: evAway,
-    candidateSide: side,
-    candidateTeam,
-    candidateOdds,
-    candidateIsUnderdog,
-    candidateModelProbability: modelProb,
-    candidateMarketProbability: fairProb,
-    candidateEdge: edge,
-    candidateExpectedValue: ev,
-    kellyFraction,
-    rawKellyUnits,
-    cappedKellyUnits,
-    continuousStake,
-    bucketedStake,
-    finalStake: stake,
-    peerConsensusProbability,
-    consensusGap,
-    preAdjustmentContinuousStake,
-    temporaryConsensusHaircutApplied,
-    temporaryTopEdgeCapApplied,
-    gates: {
-      ...baseGates,
-      confidence,
-      positiveExpectedValue,
-      edge: edgeGate,
-      expectedValue: expectedValueGate,
-      underdogAllowed,
-    },
   };
 }
 

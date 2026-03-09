@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   getBetStrategyConfig,
@@ -11,7 +11,9 @@ import {
 } from "@/lib/betting-strategy";
 import {
   BET_UNIT_LABEL,
-  computeBetDecision,
+  BET_UNIT_DOLLARS,
+  REFERENCE_BANKROLL_DOLLARS,
+  computeBetDecisionsForSlate,
   expectedSide,
   expectedWinChance,
   formatBetUnitRecommendation,
@@ -88,6 +90,7 @@ function formatCentralTip(value?: string | null): string {
 
 function displayBetRecommendation(
   row: GamesTodayRow,
+  liveDecisionMap: Map<number, BetRecommendationDisplay>,
   strategy: BetStrategy,
   sizingStyle: BetSizingStyle,
   strategyConfigs?: Record<BetStrategy, ResolvedBetStrategyConfig>
@@ -100,13 +103,11 @@ function displayBetRecommendation(
       stake: replayDecision.stake,
     };
   }
-
-  const resolvedConfig = strategyConfigs?.[strategy] || getBetStrategyConfig(strategy);
-  const decision = computeBetDecision(row, strategy, sizingStyle, resolvedConfig);
-  return {
-    ...formatBetUnitRecommendation(decision),
-    team: decision.team,
-    stake: decision.stake,
+  return liveDecisionMap.get(row.game_id) || {
+    label: "$0",
+    reason: "Missing odds",
+    team: null,
+    stake: 0,
   };
 }
 
@@ -190,6 +191,23 @@ function GamesTodayPageContent() {
   const rows = sourceRows.filter((row) => dateKeyForScheduledGame(row) === activeDateKey);
   const selectedForecastAsOf = latestTimestamp(rows, "forecast_as_of_utc") || latestAsOf;
   const selectedOddsAsOf = latestTimestamp(rows, "odds_as_of_utc");
+  const liveDecisionMap = useMemo(() => {
+    const liveRows = rows.filter((row) => !row.replay_decisions?.[strategy]?.[sizingStyle]);
+    if (!liveRows.length) return new Map<number, BetRecommendationDisplay>();
+
+    const resolvedConfig = strategyConfigs?.[strategy] || getBetStrategyConfig(strategy);
+    const decisions = computeBetDecisionsForSlate(liveRows, strategy, sizingStyle, resolvedConfig);
+    return new Map(
+      liveRows.map((row, index) => [
+        row.game_id,
+        {
+          ...formatBetUnitRecommendation(decisions[index]),
+          team: decisions[index]?.team ?? null,
+          stake: decisions[index]?.stake ?? 0,
+        },
+      ])
+    );
+  }, [rows, sizingStyle, strategy, strategyConfigs]);
   const scheduleSummary = formatCentralDateSummary(activeDateKey);
   const dateLabel = formatCentralDateLabel(activeDateKey);
   const title = activeDateKey === todayKey ? "Games Today" : `Games on ${dateLabel}`;
@@ -268,7 +286,9 @@ function GamesTodayPageContent() {
           </button>
         </div>
         <p className="small">{description}</p>
-        <p className="small">Anticipated winner threshold: win chance greater than 55%.</p>
+        <p className="small">
+          Stakes use uncertainty-adjusted edge and fractional Kelly. One unit is ${BET_UNIT_DOLLARS}, tied to a ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()} reference bankroll.
+        </p>
         <div className={styles.actionsRow}>
           <button
             type="button"
@@ -312,7 +332,7 @@ function GamesTodayPageContent() {
                   {rows.map((row) => {
                     const side = expectedSide(row.home_win_probability);
                     const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
-                    const bet = displayBetRecommendation(row, strategy, sizingStyle, strategyConfigs);
+                    const bet = displayBetRecommendation(row, liveDecisionMap, strategy, sizingStyle, strategyConfigs);
                     return (
                       <tr key={row.game_id}>
                         <td className={side === "home" ? styles.teamWin : side === "away" ? styles.teamLoss : styles.teamNeutral}>
@@ -322,7 +342,7 @@ function GamesTodayPageContent() {
                           <TeamWithIcon league={league} teamCode={row.away_team} label={row.away_team} />
                         </td>
                         <td className={styles.timeCell}>{formatCentralTip(row.start_time_utc)}</td>
-                        <td className={styles.winChanceCell}>{side === "none" ? `Toss-up (${chanceLabel})` : chanceLabel}</td>
+                        <td className={styles.winChanceCell}>{chanceLabel}</td>
                         <td className={styles.moneylineCell}>
                           {`H ${formatMoneyline(row.home_moneyline)} · A ${formatMoneyline(row.away_moneyline)}`}
                         </td>
@@ -345,7 +365,7 @@ function GamesTodayPageContent() {
                 {rows.map((row) => {
                   const side = expectedSide(row.home_win_probability);
                   const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
-                  const bet = displayBetRecommendation(row, strategy, sizingStyle, strategyConfigs);
+                  const bet = displayBetRecommendation(row, liveDecisionMap, strategy, sizingStyle, strategyConfigs);
                   return (
                     <article key={`${row.game_id}-mobile`} className={styles.mobileCard}>
                       <div className={styles.mobileCardTop}>
@@ -378,7 +398,7 @@ function GamesTodayPageContent() {
                               <span>lean</span>
                             </span>
                           ) : (
-                            "Toss-up"
+                            "Even"
                           )}
                         </span>
                       </div>
@@ -390,9 +410,7 @@ function GamesTodayPageContent() {
                         </div>
                         <div className={styles.mobileMetaItem}>
                           <span className={styles.mobileMetaLabel}>Win chance</span>
-                          <span className={styles.mobileMetaValue}>
-                            {side === "none" ? `Toss-up (${chanceLabel})` : chanceLabel}
-                          </span>
+                          <span className={styles.mobileMetaValue}>{chanceLabel}</span>
                         </div>
                         <div className={styles.mobileMetaItem}>
                           <span className={styles.mobileMetaLabel}>Moneyline</span>

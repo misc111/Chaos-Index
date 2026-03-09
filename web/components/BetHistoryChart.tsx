@@ -2,7 +2,7 @@
 
 import { useId, useState } from "react";
 
-import { BET_UNIT_DOLLARS } from "@/lib/betting";
+import { BET_UNIT_DOLLARS, REFERENCE_BANKROLL_DOLLARS } from "@/lib/betting";
 import type { HistoricalDailyPoint } from "@/lib/bet-history-types";
 import { formatSignedUsd, formatUsd } from "@/lib/currency";
 import styles from "./BetHistory.module.css";
@@ -68,7 +68,7 @@ export default function BetHistoryChart({ points }: Props) {
       <div>
         <h2 className="title">Cumulative Bet Replay</h2>
         <p className="small">
-          Daily running P/L using the same bet rules and {formatUsd(BET_UNIT_DOLLARS)} base unit as the live Games Today table.
+          Daily running P/L using the same rules as the live Games Today table. One unit is {formatUsd(BET_UNIT_DOLLARS)} on a {formatUsd(REFERENCE_BANKROLL_DOLLARS)} reference bankroll.
         </p>
       </div>
 

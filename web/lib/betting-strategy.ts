@@ -13,8 +13,9 @@ export type BetStrategyConfig = {
   allowUnderdogs: boolean;
   minEdge: number;
   minExpectedValue: number;
-  sizeMultiplier: number;
+  fractionalKelly: number;
   maxBetUnits: number;
+  maxDailyUnits: number;
 };
 
 export type BetSizingStyleConfig = {
@@ -25,53 +26,59 @@ export type BetSizingStyleConfig = {
 
 export type BetStrategyRuleConfig = Pick<
   BetStrategyConfig,
-  "allowUnderdogs" | "minEdge" | "minExpectedValue" | "sizeMultiplier" | "maxBetUnits"
+  "allowUnderdogs" | "minEdge" | "minExpectedValue" | "fractionalKelly" | "maxBetUnits" | "maxDailyUnits"
 >;
+
+const SHARED_MIN_EDGE = 0.03;
+const SHARED_MIN_EXPECTED_VALUE = 0.02;
 
 const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
   riskAdjusted: {
     label: "Balanced",
-    shortLabel: "Default",
+    shortLabel: "0.50 Kelly",
     description:
-      "House default policy. When matched replay coverage is deep enough, the app can re-rank this profile against the other saved policies; until then it stays on fixed settings.",
+      "Half-Kelly baseline with the shared value screen, a 1.25-unit per-bet cap, and a 4-unit daily budget.",
     allowUnderdogs: true,
-    minEdge: 0.035,
-    minExpectedValue: 0.025,
-    sizeMultiplier: 0.75,
-    maxBetUnits: 1.5,
+    minEdge: SHARED_MIN_EDGE,
+    minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
+    fractionalKelly: 0.5,
+    maxBetUnits: 1.25,
+    maxDailyUnits: 4,
   },
   aggressive: {
     label: "Aggressive",
-    shortLabel: "Higher Risk",
-    description: "Looser thresholds and larger Kelly scaling for a higher-variance house policy.",
+    shortLabel: "0.75 Kelly",
+    description: "Three-quarter Kelly with the same value screen, a 1.75-unit per-bet cap, and a 6-unit daily budget.",
     allowUnderdogs: true,
-    minEdge: 0.025,
-    minExpectedValue: 0.015,
-    sizeMultiplier: 1.4,
-    maxBetUnits: 3,
+    minEdge: SHARED_MIN_EDGE,
+    minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
+    fractionalKelly: 0.75,
+    maxBetUnits: 1.75,
+    maxDailyUnits: 6,
   },
   capitalPreservation: {
     label: "Capital Preservation",
-    shortLabel: "Conservative",
-    description: "Smaller capped stakes, no underdogs, and a focus on downside control.",
+    shortLabel: "0.25 Kelly",
+    description: "Quarter-Kelly sizing, favorites only, a 0.75-unit per-bet cap, and a 2.5-unit daily budget.",
     allowUnderdogs: false,
-    minEdge: 0.05,
-    minExpectedValue: 0.035,
-    sizeMultiplier: 0.45,
+    minEdge: SHARED_MIN_EDGE,
+    minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
+    fractionalKelly: 0.25,
     maxBetUnits: 0.75,
+    maxDailyUnits: 2.5,
   },
 };
 
 const BET_SIZING_STYLE_CONFIG: Record<BetSizingStyle, BetSizingStyleConfig> = {
   continuous: {
     label: "Continuous",
-    shortLabel: "Kelly scaled",
-    description: "Lets the stake scale continuously with the model edge and market price.",
+    shortLabel: "Fractional Kelly",
+    description: "Lets the stake scale continuously with the uncertainty-adjusted edge and market price.",
   },
   bucketed: {
     label: "Bucketed",
-    shortLabel: "Legacy buckets",
-    description: "Snaps the stake into the legacy $0, $50, $100, or $150 buckets.",
+    shortLabel: "Rounded units",
+    description: "Rounds the continuous recommendation into the legacy $0, $50, $100, or $150 buckets.",
   },
 };
 
@@ -150,8 +157,9 @@ export function toBetStrategyRuleConfig(strategyConfig: BetStrategyConfig): BetS
     allowUnderdogs: strategyConfig.allowUnderdogs,
     minEdge: strategyConfig.minEdge,
     minExpectedValue: strategyConfig.minExpectedValue,
-    sizeMultiplier: strategyConfig.sizeMultiplier,
+    fractionalKelly: strategyConfig.fractionalKelly,
     maxBetUnits: strategyConfig.maxBetUnits,
+    maxDailyUnits: strategyConfig.maxDailyUnits,
   };
 }
 

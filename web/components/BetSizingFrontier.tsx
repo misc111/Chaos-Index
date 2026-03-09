@@ -62,22 +62,22 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
 
   const volValues = plottedPoints.map((point) => point.metrics?.daily_volatility_units ?? 0);
   const returnValues = plottedPoints.map((point) => point.metrics?.mean_daily_profit_units ?? 0);
-  const sharpeValues = plottedPoints.map((point) => point.metrics?.sharpe_ratio ?? 0);
+  const growthValues = plottedPoints.map((point) => point.metrics?.expected_log_growth_per_bet ?? 0);
   const offFrontierMetrics =
     officialPolicy && !officialPolicy.isFrontierPoint && officialPolicy.metrics ? officialPolicy.metrics : null;
 
   if (offFrontierMetrics) {
     volValues.push(offFrontierMetrics.daily_volatility_units);
     returnValues.push(offFrontierMetrics.mean_daily_profit_units);
-    sharpeValues.push(offFrontierMetrics.sharpe_ratio);
+    growthValues.push(offFrontierMetrics.expected_log_growth_per_bet);
   }
 
   const minX = Math.min(...volValues);
   const maxX = Math.max(...volValues);
   const minY = Math.min(0, ...returnValues);
   const maxY = Math.max(...returnValues);
-  const minSharpe = Math.min(...sharpeValues);
-  const maxSharpe = Math.max(...sharpeValues);
+  const minGrowth = Math.min(...growthValues);
+  const maxGrowth = Math.max(...growthValues);
   const spanX = Math.max(maxX - minX, 1e-6);
   const spanY = Math.max(maxY - minY, 1e-6);
 
@@ -111,9 +111,9 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
         </div>
         <div className={styles.legend}>
           <span className={styles.legendSwatchLow} />
-          <span className="small">Lower risk-adjusted score</span>
+          <span className="small">Lower log growth</span>
           <span className={styles.legendSwatchHigh} />
-          <span className="small">Higher risk-adjusted score</span>
+          <span className="small">Higher log growth</span>
         </div>
       </div>
 
@@ -148,7 +148,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
           {coords.map(({ point, x, y }) => {
             const metrics = point.metrics!;
             const isSelected = point.configSignature === selectedKey;
-            const color = scoreColor(metrics.sharpe_ratio, minSharpe, maxSharpe);
+            const color = scoreColor(metrics.expected_log_growth_per_bet, minGrowth, maxGrowth);
 
             return (
               <g
@@ -158,7 +158,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
                 className={styles.pointButton}
                 onClick={() => onSelect(point.configSignature)}
                 onKeyDown={(event) => handleKey(event, point.configSignature, onSelect)}
-                aria-label={`${point.label}. Volatility ${formatUnits(metrics.daily_volatility_units)}, return ${formatUnits(metrics.mean_daily_profit_units)}, risk-adjusted score ${formatScore(metrics.sharpe_ratio)}.`}
+                aria-label={`${point.label}. Volatility ${formatUnits(metrics.daily_volatility_units)}, return ${formatUnits(metrics.mean_daily_profit_units)}, log growth ${formatScore(metrics.expected_log_growth_per_bet)}.`}
               >
                 <circle cx={x} cy={y} r={isSelected ? 14 : 10} className={styles.pointHalo} />
                 <circle cx={x} cy={y} r={isSelected ? 8.5 : 6.5} fill={color} className={styles.pointCore} />
@@ -167,7 +167,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
                     {point.matchingStrategies.join(" / ")}
                   </text>
                 ) : null}
-                <title>{`${point.label}: volatility ${formatUnits(metrics.daily_volatility_units)}, return ${formatUnits(metrics.mean_daily_profit_units)}, risk-adjusted score ${formatScore(metrics.sharpe_ratio)}`}</title>
+                <title>{`${point.label}: volatility ${formatUnits(metrics.daily_volatility_units)}, return ${formatUnits(metrics.mean_daily_profit_units)}, log growth ${formatScore(metrics.expected_log_growth_per_bet)}`}</title>
               </g>
             );
           })}
@@ -208,7 +208,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
       </div>
 
       <p className="small">
-        This replay map is a heuristic ranking built from matched historical replay using continuous sizing. Click a dot to preview how a different risk point would size the slate.
+        This replay map is a provisional ranking built from matched historical replay using continuous sizing. Click a dot to preview how a different risk point would size the slate.
       </p>
     </div>
   );

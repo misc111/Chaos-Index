@@ -1,4 +1,4 @@
-import { explainBetDecision, type BetDecisionTrace } from "@/lib/betting";
+import { explainBetDecisionsForSlate, type BetDecisionTrace } from "@/lib/betting";
 import type { BetStrategyPerformanceSnapshot, FrontierPointSummary, ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
 import { dateKeyForScheduledGame } from "@/lib/games-today";
 import { formatCentralDateLabel, formatCentralDateSummary } from "@/lib/games-today";
@@ -15,8 +15,9 @@ export type BetSizingPolicyPreview = {
   allowUnderdogs: boolean;
   minEdge: number;
   minExpectedValue: number;
-  sizeMultiplier: number;
+  fractionalKelly: number;
   maxBetUnits: number;
+  maxDailyUnits: number;
   optimizationSource: "historical_frontier" | "historical_downside" | "static_fallback" | "frontier_preview";
   metrics: BetStrategyPerformanceSnapshot | null;
   frontierPoint: FrontierPointSummary | null;
@@ -56,8 +57,9 @@ function buildPolicyFromStrategy(strategy: BetStrategy, config: ResolvedBetStrat
     allowUnderdogs: config.allowUnderdogs,
     minEdge: config.minEdge,
     minExpectedValue: config.minExpectedValue,
-    sizeMultiplier: config.sizeMultiplier,
+    fractionalKelly: config.fractionalKelly,
     maxBetUnits: config.maxBetUnits,
+    maxDailyUnits: config.maxDailyUnits,
     optimizationSource: config.optimization_source,
     metrics: config.metrics,
     frontierPoint: null,
@@ -69,15 +71,16 @@ function buildPolicyFromFrontierPoint(point: FrontierPointSummary): BetSizingPol
   return {
     key: point.config_signature,
     label: point.allowUnderdogs ? "Replay Preview: Dogs Allowed" : "Replay Preview: Favorites Only",
-    shortLabel: `${point.sizeMultiplier.toFixed(2)}x · ${point.maxBetUnits.toFixed(2)}u`,
+    shortLabel: `${point.fractionalKelly.toFixed(2)} Kelly · ${point.maxBetUnits.toFixed(2)}u`,
     description: "Preview a different replay-tested policy without changing the saved defaults.",
     matchingStrategies: [],
     configSignature: point.config_signature,
     allowUnderdogs: point.allowUnderdogs,
     minEdge: point.minEdge,
     minExpectedValue: point.minExpectedValue,
-    sizeMultiplier: point.sizeMultiplier,
+    fractionalKelly: point.fractionalKelly,
     maxBetUnits: point.maxBetUnits,
+    maxDailyUnits: point.maxDailyUnits,
     optimizationSource: "frontier_preview",
     metrics: point,
     frontierPoint: point,
@@ -206,28 +209,33 @@ export function buildBetSizingGamePreviews(
   sizingStyle: BetSizingStyle,
   policy: BetSizingPolicyPreview
 ): BetSizingGamePreview[] {
+  const traces = explainBetDecisionsForSlate(
+    rows.map((row) => ({
+      home_team: row.home_team,
+      away_team: row.away_team,
+      home_win_probability: row.home_win_probability,
+      home_moneyline: row.home_moneyline,
+      away_moneyline: row.away_moneyline,
+      betting_model_name: row.betting_model_name,
+      model_win_probabilities: row.model_win_probabilities,
+    })),
+    strategy,
+    sizingStyle,
+    {
+      allowUnderdogs: policy.allowUnderdogs,
+      minEdge: policy.minEdge,
+      minExpectedValue: policy.minExpectedValue,
+      fractionalKelly: policy.fractionalKelly,
+      maxBetUnits: policy.maxBetUnits,
+      maxDailyUnits: policy.maxDailyUnits,
+    },
+    policy.label
+  );
+
   return rows
-    .map((row) => ({
+    .map((row, index) => ({
       row,
-      trace: explainBetDecision(
-        {
-          home_team: row.home_team,
-          away_team: row.away_team,
-          home_win_probability: row.home_win_probability,
-          home_moneyline: row.home_moneyline,
-          away_moneyline: row.away_moneyline,
-        },
-        strategy,
-        sizingStyle,
-        {
-          allowUnderdogs: policy.allowUnderdogs,
-          minEdge: policy.minEdge,
-          minExpectedValue: policy.minExpectedValue,
-          sizeMultiplier: policy.sizeMultiplier,
-          maxBetUnits: policy.maxBetUnits,
-        },
-        policy.label
-      ),
+      trace: traces[index],
     }))
     .sort(compareGameRows);
 }

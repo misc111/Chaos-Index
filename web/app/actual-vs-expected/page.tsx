@@ -166,7 +166,7 @@ function ActualVsExpectedPageContent() {
         id: `hist-${row.game_id}`,
         primaryTeam: row.home_team,
         secondaryTeam: row.away_team,
-        status: isTossUp ? "Model Toss-up" : isCorrect ? "Model Correct" : "Model Incorrect",
+        status: isTossUp ? "Near-Even Call" : isCorrect ? "Model Correct" : "Model Incorrect",
         detail: `Modeled win %: ${modeledWinPctLabel(
           Number(row.prob_home_win),
           row.home_team,
@@ -247,7 +247,7 @@ function ActualVsExpectedPageContent() {
         <p className="small">
           Past game markers use the historical ensemble snapshot timestamp recorded before each game finalized.
         </p>
-        <p className="small">Toss-up band: 45%-55% modeled home-win probability.</p>
+        <p className="small">Near-even markers are a raw prediction diagnostic only. Betting now uses uncertainty-adjusted edge instead of a hard 45%-55% band.</p>
         {latestAsOf ? <p className="small">Upcoming snapshot as of {formatAsOfLabel(latestAsOf)}</p> : null}
         {loading ? <p className="small">Loading calendar...</p> : null}
         {error ? <p className="small">Failed to load: {error}</p> : null}

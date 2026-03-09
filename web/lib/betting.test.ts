@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { normalizeBetStrategy, type BetSizingStyle, type BetStrategy } from "./betting-strategy";
-import { computeBetDecision, explainBetDecision } from "./betting";
+import { computeBetDecision, computeBetDecisionsForSlate, explainBetDecision, explainBetDecisionsForSlate } from "./betting";
 
 function buildDecision(strategy?: BetStrategy, sizingStyle?: BetSizingStyle) {
   return computeBetDecision(
@@ -18,7 +18,7 @@ function buildDecision(strategy?: BetStrategy, sizingStyle?: BetSizingStyle) {
   );
 }
 
-test("computeBetDecision sizes favorites with a continuous Kelly stake", () => {
+test("computeBetDecision sizes favorites with a continuous fractional-Kelly stake", () => {
   const decision = computeBetDecision({
     home_team: "SAC",
     away_team: "CHI",
@@ -29,8 +29,8 @@ test("computeBetDecision sizes favorites with a continuous Kelly stake", () => {
 
   assert.equal(decision.side, "home");
   assert.equal(decision.team, "SAC");
-  assert.equal(decision.reason, "Favorite underpriced");
-  assert.equal(decision.stake, 90);
+  assert.match(decision.reason, /underpriced after uncertainty adjustment/);
+  assert.equal(decision.stake, 125);
 });
 
 test("computeBetDecision can snap favorite stakes into legacy buckets", () => {
@@ -48,11 +48,10 @@ test("computeBetDecision can snap favorite stakes into legacy buckets", () => {
 
   assert.equal(decision.side, "home");
   assert.equal(decision.team, "SAC");
-  assert.equal(decision.reason, "Favorite underpriced");
   assert.equal(decision.stake, 100);
 });
 
-test("computeBetDecision sizes underdogs with a continuous Kelly stake", () => {
+test("computeBetDecision sizes underdogs with the shared value screen", () => {
   const decision = computeBetDecision({
     home_team: "BOS",
     away_team: "DAL",
@@ -63,27 +62,7 @@ test("computeBetDecision sizes underdogs with a continuous Kelly stake", () => {
 
   assert.equal(decision.side, "away");
   assert.equal(decision.team, "DAL");
-  assert.equal(decision.reason, "Underdog underpriced");
-  assert.equal(decision.stake, 40);
-});
-
-test("computeBetDecision can snap underdog stakes into legacy buckets", () => {
-  const decision = computeBetDecision(
-    {
-      home_team: "BOS",
-      away_team: "DAL",
-      home_win_probability: 0.71,
-      home_moneyline: -430,
-      away_moneyline: 340,
-    },
-    "riskAdjusted",
-    "bucketed"
-  );
-
-  assert.equal(decision.side, "away");
-  assert.equal(decision.team, "DAL");
-  assert.equal(decision.reason, "Underdog underpriced");
-  assert.equal(decision.stake, 50);
+  assert.equal(decision.stake, 125);
 });
 
 test("computeBetDecision increases stake when the same side gets a better price", () => {
@@ -104,11 +83,11 @@ test("computeBetDecision increases stake when the same side gets a better price"
 
   assert.equal(shorterPrice.side, "home");
   assert.equal(betterPrice.side, "home");
-  assert.ok(betterPrice.stake > shorterPrice.stake);
+  assert.ok(betterPrice.stake >= shorterPrice.stake);
 });
 
-test("computeBetDecision applies the temporary consensus haircut when the driver outruns peers", () => {
-  const decision = computeBetDecision({
+test("uncertainty adjustment shrinks the raw probability toward market and peers", () => {
+  const trace = explainBetDecision({
     home_team: "SAC",
     away_team: "CHI",
     home_win_probability: 0.653,
@@ -122,25 +101,9 @@ test("computeBetDecision applies the temporary consensus haircut when the driver
     },
   });
 
-  assert.equal(decision.side, "home");
-  assert.equal(decision.team, "SAC");
-  assert.equal(decision.stake, 45);
-  assert.match(decision.reason, /temporary consensus haircut/);
-});
-
-test("computeBetDecision caps very large edges at the temporary top-edge ceiling", () => {
-  const decision = computeBetDecision({
-    home_team: "SAC",
-    away_team: "CHI",
-    home_win_probability: 0.78,
-    home_moneyline: -135,
-    away_moneyline: 125,
-  });
-
-  assert.equal(decision.side, "home");
-  assert.equal(decision.team, "SAC");
-  assert.equal(decision.stake, 50);
-  assert.match(decision.reason, /temporary top-edge cap/);
+  assert.equal(trace.decision.side, "home");
+  assert.ok((trace.candidateAdjustedProbability ?? 0) < (trace.candidateRawModelProbability ?? 1));
+  assert.ok((trace.candidateAdjustedProbability ?? 0) > (trace.candidateMarketProbability ?? 0));
 });
 
 test("capital preservation skips underdogs entirely", () => {
@@ -185,7 +148,7 @@ test("legacy strategy query params normalize to the new profiles", () => {
   assert.equal(normalizeBetStrategy("riskAverse"), "capitalPreservation");
 });
 
-test("explainBetDecision exposes the production sizing steps for a bet", () => {
+test("explainBetDecision exposes raw and adjusted sizing steps for a bet", () => {
   const trace = explainBetDecision({
     home_team: "SAC",
     away_team: "CHI",
@@ -195,36 +158,84 @@ test("explainBetDecision exposes the production sizing steps for a bet", () => {
   });
 
   assert.equal(trace.decision.team, "SAC");
-  assert.equal(trace.decision.stake, 90);
+  assert.equal(trace.decision.stake, 125);
   assert.equal(trace.candidateSide, "home");
-  assert.equal(trace.gates.confidence, true);
   assert.equal(trace.gates.edge, true);
   assert.equal(trace.gates.expectedValue, true);
   assert.equal(trace.gates.underdogAllowed, true);
+  assert.equal(trace.gates.dailyBudget, true);
+  assert.ok((trace.candidateRawModelProbability ?? 0) > (trace.candidateAdjustedProbability ?? 0));
   assert.ok((trace.kellyFraction ?? 0) > 0);
   assert.ok((trace.rawKellyUnits ?? 0) >= (trace.cappedKellyUnits ?? 0));
-  assert.equal(trace.continuousStake, 90);
+  assert.equal(trace.continuousStake, 125);
   assert.equal(trace.bucketedStake, 100);
-  assert.equal(trace.finalStake, 90);
+  assert.equal(trace.finalStake, 125);
 });
 
-test("explainBetDecision keeps the failing gate visible for passes", () => {
-  const trace = explainBetDecision(
-    {
-      home_team: "NO",
-      away_team: "WSH",
-      home_win_probability: 0.61,
-      home_moneyline: -430,
-      away_moneyline: 360,
-    },
-    "capitalPreservation"
+test("slate-level sizing enforces the daily risk budget", () => {
+  const traces = explainBetDecisionsForSlate(
+    [
+      {
+        home_team: "SAC",
+        away_team: "CHI",
+        home_win_probability: 0.653,
+        home_moneyline: -135,
+        away_moneyline: 125,
+      },
+      {
+        home_team: "PHI",
+        away_team: "ATL",
+        home_win_probability: 0.67,
+        home_moneyline: -140,
+        away_moneyline: 128,
+      },
+      {
+        home_team: "NYK",
+        away_team: "MIA",
+        home_win_probability: 0.64,
+        home_moneyline: -132,
+        away_moneyline: 122,
+      },
+      {
+        home_team: "DEN",
+        away_team: "UTA",
+        home_win_probability: 0.69,
+        home_moneyline: -142,
+        away_moneyline: 130,
+      },
+    ],
+    "capitalPreservation",
+    "continuous"
   );
 
-  assert.equal(trace.decision.stake, 0);
-  assert.equal(trace.decision.reason, "Capital Preservation skips underdogs");
-  assert.equal(trace.candidateSide, "away");
-  assert.equal(trace.candidateIsUnderdog, true);
-  assert.equal(trace.gates.edge, true);
-  assert.equal(trace.gates.expectedValue, true);
-  assert.equal(trace.gates.underdogAllowed, false);
+  const totalRisked = traces.reduce((sum, trace) => sum + trace.finalStake, 0);
+  assert.ok(totalRisked <= 250);
+  assert.ok(traces.some((trace) => trace.dailyRiskCapApplied));
+});
+
+test("computeBetDecisionsForSlate returns decisions in row order", () => {
+  const decisions = computeBetDecisionsForSlate(
+    [
+      {
+        home_team: "LAL",
+        away_team: "NYK",
+        home_win_probability: 0.347,
+        home_moneyline: 135,
+        away_moneyline: -145,
+      },
+      {
+        home_team: "SAC",
+        away_team: "CHI",
+        home_win_probability: 0.653,
+        home_moneyline: -135,
+        away_moneyline: 125,
+      },
+    ],
+    "riskAdjusted",
+    "continuous"
+  );
+
+  assert.equal(decisions.length, 2);
+  assert.equal(decisions[0].team, "NYK");
+  assert.equal(decisions[1].team, "SAC");
 });
