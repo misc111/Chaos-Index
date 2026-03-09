@@ -15,7 +15,13 @@ import {
   type BetSizingGamePreview,
   type BetSizingPolicyPreview,
 } from "@/lib/bet-sizing-view";
-import { BET_UNIT_BANKROLL_FRACTION, BET_UNIT_DOLLARS, REFERENCE_BANKROLL_DOLLARS } from "@/lib/betting";
+import {
+  BET_UNIT_BANKROLL_FRACTION,
+  BET_UNIT_DOLLARS,
+  HISTORICAL_BANKROLL_START_DATE_CENTRAL,
+  HISTORICAL_BANKROLL_START_DOLLARS,
+  REFERENCE_BANKROLL_DOLLARS,
+} from "@/lib/betting";
 import { formatUsd } from "@/lib/currency";
 import { useBetSizingStyle } from "@/lib/hooks/useBetSizingStyle";
 import { useBetStrategy } from "@/lib/hooks/useBetStrategy";
@@ -144,6 +150,9 @@ const EMPTY_BET_HISTORY_STRATEGY: BetHistoryStrategyBundle = {
     total_risked: 0,
     total_profit: 0,
     roi: 0,
+    starting_bankroll: HISTORICAL_BANKROLL_START_DOLLARS,
+    current_bankroll: HISTORICAL_BANKROLL_START_DOLLARS,
+    bankroll_start_central: HISTORICAL_BANKROLL_START_DATE_CENTRAL,
     coverage_start_central: null,
     coverage_end_central: null,
     note: "",

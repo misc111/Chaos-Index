@@ -13,6 +13,8 @@ import {
   type ResolvedBetStrategyConfig,
 } from "@/lib/betting-optimizer";
 import {
+  HISTORICAL_BANKROLL_START_DATE_CENTRAL,
+  HISTORICAL_BANKROLL_START_DOLLARS,
   formatBetUnitLabel,
   settleBet,
   type BetDecision,
@@ -696,6 +698,7 @@ function buildBetHistoryStrategyBundle(
   strategy: BetStrategy,
   sizingStyle: BetSizingStyle
 ): BetHistoryStrategyBundle {
+  const replayRows = dataset.rows.filter((row) => row.date_central >= HISTORICAL_BANKROLL_START_DATE_CENTRAL);
   let analyzedGames = 0;
   let wins = 0;
   let losses = 0;
@@ -704,7 +707,7 @@ function buildBetHistoryStrategyBundle(
 
   const bets: HistoricalBetRow[] = [];
 
-  for (const row of dataset.rows) {
+  for (const row of replayRows) {
     analyzedGames += 1;
 
     const replayDecision = row.replay_decisions?.[strategy]?.[sizingStyle];
@@ -770,19 +773,26 @@ function buildBetHistoryStrategyBundle(
 
   const dailyPoints: HistoricalDailyPoint[] = [];
   let dailyCumulative = 0;
+  let bankroll = HISTORICAL_BANKROLL_START_DOLLARS;
   for (const dateCentral of Array.from(dailyTotals.keys()).sort()) {
     const current = dailyTotals.get(dateCentral);
     if (!current) continue;
     dailyCumulative += current.daily_profit;
+    bankroll += current.daily_profit;
     dailyPoints.push({
       date_central: dateCentral,
       risked: current.risked,
       daily_profit: current.daily_profit,
       cumulative_profit: dailyCumulative,
+      cumulative_bankroll: bankroll,
       bet_count: current.bet_count,
     });
   }
 
+  const replayCoverageStart =
+    dataset.coverage_start_central && dataset.coverage_start_central > HISTORICAL_BANKROLL_START_DATE_CENTRAL
+      ? dataset.coverage_start_central
+      : HISTORICAL_BANKROLL_START_DATE_CENTRAL;
   const summary: BetHistorySummary = {
     total_final_games: dataset.total_final_games,
     games_with_forecast: dataset.games_with_forecast,
@@ -794,7 +804,10 @@ function buildBetHistoryStrategyBundle(
     total_risked: totalRisked,
     total_profit: cumulativeProfit,
     roi: totalRisked > 0 ? cumulativeProfit / totalRisked : 0,
-    coverage_start_central: dataset.coverage_start_central,
+    starting_bankroll: HISTORICAL_BANKROLL_START_DOLLARS,
+    current_bankroll: HISTORICAL_BANKROLL_START_DOLLARS + cumulativeProfit,
+    bankroll_start_central: HISTORICAL_BANKROLL_START_DATE_CENTRAL,
+    coverage_start_central: replayCoverageStart,
     coverage_end_central: dataset.coverage_end_central,
     note: buildNote(dataset.total_final_games, analyzedGames, bets.length),
   };

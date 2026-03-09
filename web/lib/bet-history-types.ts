@@ -38,6 +38,7 @@ export type HistoricalDailyPoint = {
   risked: number;
   daily_profit: number;
   cumulative_profit: number;
+  cumulative_bankroll: number;
   bet_count: number;
 };
 
@@ -52,6 +53,9 @@ export type BetHistorySummary = {
   total_risked: number;
   total_profit: number;
   roi: number;
+  starting_bankroll: number;
+  current_bankroll: number;
+  bankroll_start_central: string | null;
   coverage_start_central: string | null;
   coverage_end_central: string | null;
   note: string;

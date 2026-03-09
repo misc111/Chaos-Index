@@ -15,6 +15,7 @@ import {
 } from "@/lib/betting-strategy";
 import type { BetStrategyOptimizationSummary, ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
 import type { BetHistoryResponse, BetHistorySizingBundle, BetHistoryStrategyBundle } from "@/lib/bet-history-types";
+import { HISTORICAL_BANKROLL_START_DATE_CENTRAL, HISTORICAL_BANKROLL_START_DOLLARS } from "@/lib/betting";
 import { formatUsd } from "@/lib/currency";
 import { useBetSizingStyle } from "@/lib/hooks/useBetSizingStyle";
 import { useBetStrategy } from "@/lib/hooks/useBetStrategy";
@@ -41,6 +42,17 @@ function formatDateRange(startDate?: string | null, endDate?: string | null): st
   });
 
   return `${formatter.format(start)} through ${formatter.format(end)}`;
+}
+
+function formatDateLabel(dateKey?: string | null): string {
+  if (!dateKey) return "Replay start";
+  const parsed = new Date(`${dateKey}T12:00:00Z`);
+  if (Number.isNaN(parsed.getTime())) return dateKey;
+  return parsed.toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
 function formatWeekLabel(weekStart: string | null): string {
@@ -77,6 +89,9 @@ const EMPTY_BET_HISTORY_STRATEGY: BetHistoryStrategyBundle = {
     total_risked: 0,
     total_profit: 0,
     roi: 0,
+    starting_bankroll: HISTORICAL_BANKROLL_START_DOLLARS,
+    current_bankroll: HISTORICAL_BANKROLL_START_DOLLARS,
+    bankroll_start_central: HISTORICAL_BANKROLL_START_DATE_CENTRAL,
     coverage_start_central: null,
     coverage_end_central: null,
     note: "",
@@ -171,6 +186,7 @@ function BetHistoryPageContent() {
 
   const summary = activeHistory.summary;
   const coverageLabel = formatDateRange(summary?.coverage_start_central, summary?.coverage_end_central);
+  const bankrollStartLabel = formatDateLabel(summary?.bankroll_start_central);
 
   return (
     <div className="grid">
@@ -222,6 +238,9 @@ function BetHistoryPageContent() {
             </div>
 
             <div className={styles.coverageBar}>
+              <p className={styles.coverageText}>
+                Bankroll path: {formatUsd(summary.starting_bankroll)} start on {bankrollStartLabel}
+              </p>
               <p className={styles.coverageText}>Window: {coverageLabel}</p>
               <p className={styles.coverageText}>{summary.note}</p>
             </div>

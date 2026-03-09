@@ -1,4 +1,9 @@
-import { BET_UNIT_DOLLARS, REFERENCE_BANKROLL_DOLLARS, explainBetDecisionsForSlate, settleBet } from "@/lib/betting";
+import {
+  BET_UNIT_DOLLARS,
+  HISTORICAL_BANKROLL_START_DOLLARS,
+  explainBetDecisionsForSlate,
+  settleBet,
+} from "@/lib/betting";
 import type { ModelWinProbabilities } from "@/lib/betting-model";
 import type { LeagueCode } from "@/lib/league";
 import {
@@ -129,7 +134,7 @@ function maxDrawdown(values: number[]): number {
 function expectedLogGrowthPerBet(dailyProfits: number[], settledBets: number): number {
   if (!dailyProfits.length || settledBets <= 0) return 0;
 
-  let bankroll = REFERENCE_BANKROLL_DOLLARS;
+  let bankroll = HISTORICAL_BANKROLL_START_DOLLARS;
   let totalLogGrowth = 0;
 
   for (const profit of dailyProfits) {

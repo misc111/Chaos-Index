@@ -2,7 +2,12 @@
 
 import { useId, useState } from "react";
 
-import { BET_UNIT_DOLLARS, REFERENCE_BANKROLL_DOLLARS } from "@/lib/betting";
+import {
+  BET_UNIT_DOLLARS,
+  HISTORICAL_BANKROLL_START_DATE_CENTRAL,
+  HISTORICAL_BANKROLL_START_DOLLARS,
+  REFERENCE_BANKROLL_DOLLARS,
+} from "@/lib/betting";
 import type { HistoricalDailyPoint } from "@/lib/bet-history-types";
 import { formatSignedUsd, formatUsd } from "@/lib/currency";
 import styles from "./BetHistory.module.css";
@@ -27,7 +32,7 @@ export default function BetHistoryChart({ points }: Props) {
   if (!points.length) {
     return (
       <div className={`card ${styles.chartCard}`}>
-        <h2 className="title">Cumulative Bet Replay</h2>
+        <h2 className="title">Cumulative Bankroll</h2>
         <p className={styles.emptyState}>No settled simulated bets are available yet.</p>
       </div>
     );
@@ -39,21 +44,21 @@ export default function BetHistoryChart({ points }: Props) {
   const padRight = 20;
   const padTop = 20;
   const padBottom = 38;
-  const plottedValues = points.map((point) => point.cumulative_profit);
-  const minY = Math.min(0, ...plottedValues);
-  const maxY = Math.max(0, ...plottedValues);
+  const plottedValues = points.map((point) => point.cumulative_bankroll);
+  const minY = Math.min(HISTORICAL_BANKROLL_START_DOLLARS, ...plottedValues);
+  const maxY = Math.max(HISTORICAL_BANKROLL_START_DOLLARS, ...plottedValues);
   const span = Math.max(maxY - minY, 1);
   const plotWidth = width - padLeft - padRight;
   const plotHeight = height - padTop - padBottom;
 
   const coords = points.map((point, index) => {
     const x = padLeft + (index / Math.max(points.length - 1, 1)) * plotWidth;
-    const y = padTop + (1 - (point.cumulative_profit - minY) / span) * plotHeight;
+    const y = padTop + (1 - (point.cumulative_bankroll - minY) / span) * plotHeight;
     return { x, y, point };
   });
 
   const linePath = coords.map((coord, index) => `${index === 0 ? "M" : "L"}${coord.x},${coord.y}`).join(" ");
-  const zeroY = padTop + (1 - (0 - minY) / span) * plotHeight;
+  const startingBankrollY = padTop + (1 - (HISTORICAL_BANKROLL_START_DOLLARS - minY) / span) * plotHeight;
   const yTicks = Array.from({ length: 5 }, (_, index) => minY + (span * index) / 4);
   const xTickIndexes = Array.from(new Set([0, Math.floor((points.length - 1) / 2), points.length - 1])).filter(
     (index) => index >= 0 && index < points.length
@@ -66,9 +71,11 @@ export default function BetHistoryChart({ points }: Props) {
   return (
     <div className={`card ${styles.chartCard}`}>
       <div>
-        <h2 className="title">Cumulative Bet Replay</h2>
+        <h2 className="title">Cumulative Bankroll</h2>
         <p className="small">
-          Daily running P/L using the same rules as the live Games Today table. One unit is {formatUsd(BET_UNIT_DOLLARS)} on a {formatUsd(REFERENCE_BANKROLL_DOLLARS)} reference bankroll.
+          Bankroll starts at {formatUsd(HISTORICAL_BANKROLL_START_DOLLARS)} on {formatDateShort(HISTORICAL_BANKROLL_START_DATE_CENTRAL)}.
+          {" "}Net P/L and ROI above still summarize the same replayed bets. One unit remains {formatUsd(BET_UNIT_DOLLARS)} on a{" "}
+          {formatUsd(REFERENCE_BANKROLL_DOLLARS)} sizing reference bankroll.
         </p>
       </div>
 
@@ -83,6 +90,9 @@ export default function BetHistoryChart({ points }: Props) {
           >
             <p className={styles.chartTooltipDate}>{formatDateShort(activeCoord.point.date_central)}</p>
             <p className={styles.chartTooltipValue}>
+              Bankroll {formatUsd(activeCoord.point.cumulative_bankroll, { minimumFractionDigits: 2 })}
+            </p>
+            <p className={styles.chartTooltipDetail}>
               Net {formatSignedUsd(activeCoord.point.cumulative_profit, { minimumFractionDigits: 2 })}
             </p>
             <p className={styles.chartTooltipDetail}>
@@ -95,7 +105,7 @@ export default function BetHistoryChart({ points }: Props) {
           viewBox={`0 0 ${width} ${height}`}
           className={styles.chartSvg}
           role="img"
-          aria-label="Cumulative bet replay line chart"
+          aria-label="Cumulative bankroll line chart"
           onPointerLeave={() => setActivePointIndex(null)}
         >
           <defs>
@@ -119,7 +129,14 @@ export default function BetHistoryChart({ points }: Props) {
             );
           })}
 
-          <line x1={padLeft} y1={zeroY} x2={width - padRight} y2={zeroY} stroke="var(--chart-baseline)" strokeDasharray="5 4" />
+          <line
+            x1={padLeft}
+            y1={startingBankrollY}
+            x2={width - padRight}
+            y2={startingBankrollY}
+            stroke="var(--chart-baseline)"
+            strokeDasharray="5 4"
+          />
 
           <path d={linePath} fill="none" stroke={`url(#${gradientId})`} strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
 
@@ -132,9 +149,9 @@ export default function BetHistoryChart({ points }: Props) {
                 fill="transparent"
                 className={styles.chartPointHit}
                 tabIndex={0}
-                aria-label={`${formatDateShort(coord.point.date_central)} cumulative net ${formatSignedUsd(coord.point.cumulative_profit, {
+                aria-label={`${formatDateShort(coord.point.date_central)} bankroll ${formatUsd(coord.point.cumulative_bankroll, {
                   minimumFractionDigits: 2,
-                })}`}
+                })} cumulative net ${formatSignedUsd(coord.point.cumulative_profit, { minimumFractionDigits: 2 })}`}
                 onPointerEnter={() => setActivePointIndex(index)}
                 onPointerDown={() => setActivePointIndex(index)}
                 onFocus={() => setActivePointIndex(index)}
@@ -165,8 +182,16 @@ export default function BetHistoryChart({ points }: Props) {
 
       <div className={styles.chartMeta}>
         <span>
+          Start bankroll:{" "}
+          <span className={styles.chartMetaStrong}>{formatUsd(HISTORICAL_BANKROLL_START_DOLLARS, { minimumFractionDigits: 2 })}</span>
+        </span>
+        <span>
+          Latest bankroll:{" "}
+          <span className={styles.chartMetaStrong}>{formatUsd(lastPoint.cumulative_bankroll, { minimumFractionDigits: 2 })}</span>
+        </span>
+        <span>
           Latest net:{" "}
-          <span className={styles.chartMetaStrong}>{formatUsd(lastPoint.cumulative_profit, { minimumFractionDigits: 2 })}</span>
+          <span className={styles.chartMetaStrong}>{formatSignedUsd(lastPoint.cumulative_profit, { minimumFractionDigits: 2 })}</span>
         </span>
         <span>
           Risked:{" "}
