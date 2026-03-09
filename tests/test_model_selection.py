@@ -72,6 +72,7 @@ def _synthetic_features(n_train: int = 260, n_upcoming: int = 20) -> pd.DataFram
 
 def test_normalize_selected_models_aliases_and_validation():
     assert normalize_selected_models(["glm"]) == ["glm_ridge"]
+    assert normalize_selected_models(["lasso"]) == ["glm_lasso"]
     assert "glm_ridge" in normalize_selected_models(["all"])
     with pytest.raises(ValueError):
         normalize_selected_models(["not_a_model"])
@@ -117,6 +118,29 @@ def test_train_single_model_elastic_net_only(tmp_path):
     row = out["forecasts"].iloc[0]
     per_model = json.loads(row["per_model_probs_json"])
     assert list(per_model.keys()) == ["glm_elastic_net"]
+    assert 0.0 < float(row["ensemble_prob_home_win"]) < 1.0
+
+
+def test_train_single_model_lasso_only(tmp_path):
+    df = _synthetic_features()
+    out = train_and_predict(
+        features_df=df,
+        feature_set_version="test_feature_set",
+        artifacts_dir=str(tmp_path / "artifacts"),
+        bayes_cfg={},
+        selected_models=["glm_lasso"],
+    )
+
+    pred_cols = list(out["upcoming_model_probs"].columns)
+    assert pred_cols == ["game_id", "glm_lasso"]
+    assert out["run_payload"]["selected_models"] == ["glm_lasso"]
+    assert out["run_payload"]["glm_primary_model"] == "glm_lasso"
+    assert out["run_payload"]["glm_lasso_best_c"] in {0.05, 0.1, 0.25, 0.5, 1.0}
+    assert out["run_payload"]["glm_best_c"] == out["run_payload"]["glm_lasso_best_c"]
+
+    row = out["forecasts"].iloc[0]
+    per_model = json.loads(row["per_model_probs_json"])
+    assert list(per_model.keys()) == ["glm_lasso"]
     assert 0.0 < float(row["ensemble_prob_home_win"]) < 1.0
 
 

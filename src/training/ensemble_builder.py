@@ -31,6 +31,7 @@ def fit_stacker(
                 "dynamic_rating",
                 "glm_ridge",
                 "glm_elastic_net",
+                "glm_lasso",
                 "gbdt",
                 "rf",
                 "two_stage",

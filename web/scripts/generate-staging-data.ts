@@ -26,8 +26,29 @@ const routes: Array<{ fileName: string; modulePath: string; routePath: string }>
   { fileName: "validation.json", modulePath: "app/api/validation/route.ts", routePath: "/api/validation" },
 ];
 
+const PUBLIC_VALIDATION_SECTIONS = [
+  "split_summary",
+  "glm_residual_summary",
+  "significance",
+  "information_criteria_summary",
+  "cv_summary",
+  "collinearity_summary",
+  "nonlinearity_summary",
+  "calibration_robustness",
+  "logit_quantile_summary",
+  "logit_lift_summary",
+  "logit_roc_summary",
+] as const;
+
 function requestForLeague(routePath: string, league: LeagueCode): Request {
   return new Request(`http://staging.local${routePath}?league=${league}`);
+}
+
+function asRecordArray(value: unknown): JsonRecord[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  return value.filter((row): row is JsonRecord => Boolean(row) && typeof row === "object" && !Array.isArray(row));
 }
 
 function sanitizePublicPayload(fileName: string, payload: unknown, league: LeagueCode): unknown {
@@ -36,16 +57,21 @@ function sanitizePublicPayload(fileName: string, payload: unknown, league: Leagu
   }
 
   const raw = (payload || {}) as JsonRecord;
+  const rawSections = ((raw.sections as JsonRecord | undefined) || {}) as JsonRecord;
+  const sections = Object.fromEntries(
+    PUBLIC_VALIDATION_SECTIONS.map((section) => [section, asRecordArray(rawSections[section])]).filter(([, rows]) => rows.length > 0)
+  ) as Record<string, JsonRecord[]>;
+  sections.public_note = [
+    {
+      message:
+        "Compact public validation digest published from the local artifact set. Detailed coefficient paths, residual bins, and other high-volume tables stay private in GitHub Pages staging.",
+    },
+  ];
+
   return {
     league,
-    significance: [],
-    sections: {
-      public_note: [
-        {
-          message: "Detailed validation artifacts remain private in the public GitHub Pages staging build.",
-        },
-      ],
-    },
+    significance: asRecordArray(raw.significance).length ? asRecordArray(raw.significance) : asRecordArray(rawSections.significance),
+    sections,
     as_of_utc: raw.as_of_utc ?? null,
   };
 }

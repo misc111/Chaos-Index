@@ -27,6 +27,12 @@ PENALIZED_GLM_CONFIGS: dict[str, PenalizedGLMConfig] = {
         solver="lbfgs",
         default_c=1.0,
     ),
+    "glm_lasso": PenalizedGLMConfig(
+        model_name="glm_lasso",
+        penalty="l1",
+        solver="saga",
+        default_c=1.0,
+    ),
     "glm_elastic_net": PenalizedGLMConfig(
         model_name="glm_elastic_net",
         penalty="elasticnet",
@@ -128,6 +134,13 @@ class GLMElasticNetModel(PenalizedGLMModel):
         )
 
 
+class GLMLassoModel(PenalizedGLMModel):
+    model_name = "glm_lasso"
+
+    def __init__(self, c: float = 1.0, random_state: int = 42):
+        super().__init__(model_name=self.model_name, c=c, random_state=random_state)
+
+
 def build_penalized_glm(
     model_name: str,
     *,
@@ -138,6 +151,8 @@ def build_penalized_glm(
     config = penalized_glm_config(model_name)
     if config.model_name == "glm_ridge":
         return GLMRidgeModel(c=config.default_c if c is None else c, random_state=random_state)
+    if config.model_name == "glm_lasso":
+        return GLMLassoModel(c=config.default_c if c is None else c, random_state=random_state)
     if config.model_name == "glm_elastic_net":
         return GLMElasticNetModel(
             c=config.default_c if c is None else c,

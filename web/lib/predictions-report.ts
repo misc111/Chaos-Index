@@ -3,6 +3,7 @@ const MODEL_REPORT_ORDER = [
   "elo_baseline",
   "glm_ridge",
   "glm_elastic_net",
+  "glm_lasso",
   "dynamic_rating",
   "rf",
   "goals_poisson",
@@ -19,6 +20,7 @@ const MODEL_DISPLAY_LABELS: Record<string, string> = {
   elo_baseline: "Elo",
   glm_ridge: "GLM Ridge",
   glm_elastic_net: "GLM ENet",
+  glm_lasso: "GLM Lasso",
   dynamic_rating: "Dyn Rating",
   rf: "RF",
   goals_poisson: "Goals Pois",
@@ -32,12 +34,15 @@ const MODEL_DISPLAY_LABELS: Record<string, string> = {
 
 const LEGACY_MODEL_ALIASES: Record<string, string> = {
   glm_logit: "glm_ridge",
+  lasso: "glm_lasso",
 };
 
 export const MODEL_TRUST_NOTES: Record<string, string> = {
   ensemble: "All models combined. Best default pick. Can share the same blind spot.",
   elo_baseline: "Standard sports betting baseline based on past wins/losses. Good long-run read. Slow on sudden changes.",
   glm_ridge: "Ridge-penalized logistic model. Usually steady. Weird matchups can slip through.",
+  glm_lasso:
+    "Lasso-penalized logistic model. Good for pruning weak or redundant inputs. Can zero out small but real shared effects.",
   glm_elastic_net:
     "Elastic-net logistic model. Good when related signals travel in packs. Can still mute smaller edges if the penalty is too strong.",
   dynamic_rating: "Hot/cold meter. Good for momentum. Can overreact to short streaks.",
@@ -97,6 +102,14 @@ export function predictionTrustNote(model: string, league?: string | null): stri
     return "Elastic-net pregame model using the NHL linear feature map with added sparsity pressure on overlapping form, rating, and goalie signals.";
   }
 
+  if (canonicalModel === "glm_lasso" && leagueCode === "NBA") {
+    return "Lasso pregame model using the NBA linear feature map with stronger pruning on overlapping lineup, rating, and availability signals.";
+  }
+
+  if (canonicalModel === "glm_lasso" && leagueCode === "NHL") {
+    return "Lasso pregame model using the NHL linear feature map with stronger pruning on overlapping form, rating, and goalie signals.";
+  }
+
   return (
     MODEL_TRUST_NOTES[canonicalModel] ||
     "Built on that model's own rule set. Good for a second opinion. Watch for large gaps versus the ensemble."
@@ -137,6 +150,16 @@ export function predictionModelHeadline(model: string, league?: string | null, a
 
   if (canonicalModel === "glm_elastic_net" && leagueCode === "NHL") {
     return "Pregame elastic-net logistic regression driven by form, roster, goalie, and xG context.";
+  }
+
+  if (canonicalModel === "glm_lasso" && leagueCode === "NBA") {
+    return hasDarkoInputs
+      ? "Lasso version of the NBA pregame GLM using DARKO-like projected rotation inputs with more aggressive feature pruning."
+      : "Pregame lasso logistic regression driven by the current NBA feature map.";
+  }
+
+  if (canonicalModel === "glm_lasso" && leagueCode === "NHL") {
+    return "Pregame lasso logistic regression driven by form, roster, goalie, and xG context.";
   }
 
   if (canonicalModel === "dynamic_rating") {

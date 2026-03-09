@@ -142,3 +142,18 @@ def test_elastic_net_guardrails_fall_back_to_ridge_rules(tmp_path) -> None:
     raw = yaml.safe_load(path.read_text())
     assert raw["models"]["glm_elastic_net"]["active_features"] == ["elo_home_prob", "rest_diff"]
     assert raw["models"]["glm_elastic_net"]["feature_count"] == 2
+
+
+def test_lasso_guardrails_fall_back_to_ridge_rules(tmp_path) -> None:
+    _write_guardrails(tmp_path, "NBA", {"dyn_home_prob": {"decision": "blocked"}})
+
+    path = save_model_feature_map(
+        "NBA",
+        {"glm_lasso": ["elo_home_prob", "dyn_home_prob", "rest_diff"]},
+        path_template=_map_template(tmp_path),
+        guardrails_path_template=_guardrails_template(tmp_path),
+    )
+
+    raw = yaml.safe_load(path.read_text())
+    assert raw["models"]["glm_lasso"]["active_features"] == ["elo_home_prob", "rest_diff"]
+    assert raw["models"]["glm_lasso"]["feature_count"] == 2

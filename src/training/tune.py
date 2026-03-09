@@ -8,7 +8,7 @@ from src.training.cv import time_series_splits
 
 
 def _default_c_grid(model_name: str) -> list[float]:
-    if model_name == "glm_elastic_net":
+    if model_name in {"glm_elastic_net", "glm_lasso"}:
         return [0.05, 0.1, 0.25, 0.5, 1.0]
     return [0.1, 0.25, 0.5, 1.0, 2.0, 4.0]
 

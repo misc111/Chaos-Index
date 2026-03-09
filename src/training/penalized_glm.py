@@ -4,7 +4,7 @@ from src.models.glm_penalized import PENALIZED_GLM_MODEL_NAMES
 from src.training.feature_selection import glm_feature_subset, resolve_model_feature_columns
 from src.training.tune import quick_tune_penalized_glm
 
-PREFERRED_VALIDATION_PENALIZED_GLM_MODELS = ("glm_elastic_net", "glm_ridge")
+PREFERRED_VALIDATION_PENALIZED_GLM_MODELS = ("glm_elastic_net", "glm_lasso", "glm_ridge")
 
 
 def selected_penalized_glm_models(selected_models: list[str] | None) -> list[str]:

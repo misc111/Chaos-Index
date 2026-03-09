@@ -6,6 +6,7 @@
     "dynamic_rating",
     "glm_ridge",
     "glm_elastic_net",
+    "glm_lasso",
     "gbdt",
     "rf",
     "two_stage",
@@ -25,6 +26,7 @@
     "elastic": "glm_elastic_net",
     "enet": "glm_elastic_net",
     "glm_enet": "glm_elastic_net",
+    "lasso": "glm_lasso",
     "gbm": "gbdt",
     "forest": "rf",
     "goals": "goals_poisson",
@@ -41,6 +43,10 @@
     "glm_elastic_net": [
       "glm_ridge",
       "glm_logit"
+    ],
+    "glm_lasso": [
+      "glm_ridge",
+      "glm_logit"
     ]
   },
   "prediction_report_order": [
@@ -48,6 +54,7 @@
     "elo_baseline",
     "glm_ridge",
     "glm_elastic_net",
+    "glm_lasso",
     "dynamic_rating",
     "rf",
     "goals_poisson",
@@ -63,6 +70,7 @@
     "elo_baseline": "Elo",
     "glm_ridge": "GLM Ridge",
     "glm_elastic_net": "GLM ENet",
+    "glm_lasso": "GLM Lasso",
     "dynamic_rating": "Dyn Rating",
     "rf": "RF",
     "goals_poisson": "Goals Pois",

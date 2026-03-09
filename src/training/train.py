@@ -28,7 +28,12 @@ from src.training.feature_selection import (
 )
 from src.training.fit_runner import fit_model_suite
 from src.training.model_catalog import ALL_MODEL_NAMES, MODEL_ALIASES, normalize_selected_models
-from src.training.penalized_glm import resolve_penalized_glm_feature_columns, selected_penalized_glm_models, tune_penalized_glm_models
+from src.training.penalized_glm import (
+    PREFERRED_VALIDATION_PENALIZED_GLM_MODELS,
+    resolve_penalized_glm_feature_columns,
+    selected_penalized_glm_models,
+    tune_penalized_glm_models,
+)
 from src.training.predict_runner import generate_oof_predictions, predict_model_suite
 from src.training.progress import ProgressCallback, emit_progress
 from src.training.uncertainty_policy import build_uncertainty_flags
@@ -94,7 +99,12 @@ def train_and_predict(
         model_feature_columns=selected_model_feature_columns,
         fallback_columns=glm_feature_subset(feature_cols),
     )
-    glm_cols = penalized_glm_feature_cols.get("glm_ridge", glm_feature_subset(feature_cols))
+    glm_cols = (
+        penalized_glm_feature_cols.get("glm_ridge")
+        or penalized_glm_feature_cols.get("glm_elastic_net")
+        or penalized_glm_feature_cols.get("glm_lasso")
+        or glm_feature_subset(feature_cols)
+    )
     emit_progress(
         progress_callback,
         {
@@ -134,6 +144,7 @@ def train_and_predict(
     glm_tune: dict = {"best_c": 1.0, "results": [], "fold_metrics": []}
     glm_best_c = 1.0
     glm_tuning_by_model: dict[str, dict] = {}
+    primary_penalized_glm = None
     penalized_models = selected_penalized_glm_models(models_selected)
     if penalized_models:
         emit_progress(
@@ -147,7 +158,11 @@ def train_and_predict(
             n_splits=4,
             min_train_size=min(220, max(100, len(train_df) // 2)),
         )
-        glm_tune = dict(glm_tuning_by_model.get("glm_ridge", glm_tune))
+        primary_penalized_glm = next(
+            (model_name for model_name in PREFERRED_VALIDATION_PENALIZED_GLM_MODELS if model_name in glm_tuning_by_model),
+            penalized_models[0],
+        )
+        glm_tune = dict(glm_tuning_by_model.get(primary_penalized_glm, glm_tune))
         glm_best_c = float(glm_tune.get("best_c", 1.0))
         emit_progress(
             progress_callback,
@@ -157,6 +172,7 @@ def train_and_predict(
                 "status": "completed",
                 "message": "Completed GLM hyperparameter tuning",
                 "glm_best_c": glm_best_c,
+                "glm_primary_model": primary_penalized_glm,
                 "glm_models_tuned": penalized_models,
             },
         )
@@ -275,7 +291,9 @@ def train_and_predict(
         "model_feature_columns": used_feature_map,
         "glm_tuning": glm_tune,
         "glm_tuning_by_model": glm_tuning_by_model,
+        "glm_primary_model": primary_penalized_glm,
         "glm_best_c": glm_best_c,
+        "glm_lasso_best_c": float(glm_tuning_by_model["glm_lasso"]["best_c"]) if "glm_lasso" in glm_tuning_by_model else None,
         "glm_elastic_net_best_c": (
             float(glm_tuning_by_model["glm_elastic_net"]["best_c"]) if "glm_elastic_net" in glm_tuning_by_model else None
         ),

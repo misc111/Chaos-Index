@@ -19,7 +19,7 @@ from src.training.model_feature_guardrails import (
 
 MODEL_FEATURE_MAP_PATH_TEMPLATE = "configs/model_feature_map_{league}.yaml"
 MODEL_FEATURE_MAP_JSON_TEMPLATE = "configs/generated/model_feature_map_{league}.json"
-RESEARCHABLE_MODELS = ["glm_ridge", "glm_elastic_net", "gbdt", "rf", "two_stage", "bayes_bt_state_space", "nn_mlp"]
+RESEARCHABLE_MODELS = ["glm_ridge", "glm_elastic_net", "glm_lasso", "gbdt", "rf", "two_stage", "bayes_bt_state_space", "nn_mlp"]
 
 
 @dataclass(frozen=True)
@@ -214,7 +214,7 @@ def _eligible_features_for_model(model_name: str, feature_columns: list[str], le
             and not c.endswith(("_team", "_name"))
         ]
 
-        if model_name in {"glm_ridge", "glm_elastic_net"}:
+        if model_name in {"glm_ridge", "glm_elastic_net", "glm_lasso"}:
             return glm_pool
         if model_name == "bayes_bt_state_space":
             return bayes_pool
@@ -224,7 +224,7 @@ def _eligible_features_for_model(model_name: str, feature_columns: list[str], le
             return tree_pool
         return cols
 
-    if model_name in {"glm_ridge", "glm_elastic_net"}:
+    if model_name in {"glm_ridge", "glm_elastic_net", "glm_lasso"}:
         return [
             c
             for c in cols
@@ -253,20 +253,21 @@ def _model_feature_pruning_config(model_name: str, league: str | None = None) ->
     limits = {
         "glm_ridge": (14, 24, 0.92),
         "glm_elastic_net": (14, 24, 0.92),
+        "glm_lasso": (14, 24, 0.92),
         "gbdt": (24, 40, 0.88),
         "rf": (20, 44, 0.92),
         "two_stage": (16, 30, 0.92),
         "bayes_bt_state_space": (12, 20, 0.92),
         "nn_mlp": (18, 34, 0.92),
     }
-    if league_code == "NBA" and model_name in {"glm_ridge", "glm_elastic_net"}:
+    if league_code == "NBA" and model_name in {"glm_ridge", "glm_elastic_net", "glm_lasso"}:
         return (6, 10, 0.92)
     return limits.get(model_name, (12, 24, 0.92))
 
 
 def _default_model_feature_target_width(model_name: str, league: str) -> int:
     league_code = str(league or "NHL").strip().upper()
-    if league_code == "NBA" and model_name in {"glm_ridge", "glm_elastic_net"}:
+    if league_code == "NBA" and model_name in {"glm_ridge", "glm_elastic_net", "glm_lasso"}:
         return 6
     _, max_features, _ = _model_feature_pruning_config(model_name, league=league_code)
     return max_features
@@ -284,6 +285,14 @@ def _anchor_features(model_name: str, league: str) -> list[str]:
                 "arena_margin_effect",
             ],
             "glm_elastic_net": [
+                "diff_form_point_margin",
+                "diff_form_point_margin_hinge_000",
+                "rest_diff",
+                "elo_home_prob",
+                "elo_home_prob_hinge_055",
+                "arena_margin_effect",
+            ],
+            "glm_lasso": [
                 "diff_form_point_margin",
                 "diff_form_point_margin_hinge_000",
                 "rest_diff",
@@ -340,6 +349,7 @@ def _anchor_features(model_name: str, league: str) -> list[str]:
     anchors = {
         "glm_ridge": ["diff_form_goal_diff", "rest_diff", "elo_home_prob", "dyn_home_prob", "diff_xg_share"],
         "glm_elastic_net": ["diff_form_goal_diff", "rest_diff", "elo_home_prob", "dyn_home_prob", "diff_xg_share"],
+        "glm_lasso": ["diff_form_goal_diff", "rest_diff", "elo_home_prob", "dyn_home_prob", "diff_xg_share"],
         "bayes_bt_state_space": ["diff_form_goal_diff", "travel_diff", "rest_diff", "elo_home_prob", "dyn_home_prob"],
     }
     return anchors.get(model_name, [])
