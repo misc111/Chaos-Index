@@ -14,11 +14,17 @@ def compare_candidate_models(
     *,
     report_slug: str | None = None,
     bootstrap_samples: int = 1000,
+    candidate_models: list[str] | None = None,
+    feature_pool: str = "full_screened",
+    feature_map_model: str = "glm_ridge",
 ):
     result = run_candidate_model_comparison(
         cfg,
         report_slug=report_slug,
         bootstrap_samples=bootstrap_samples,
+        candidate_models=candidate_models,
+        feature_pool=feature_pool,
+        feature_map_model=feature_map_model,
     )
     logger.info(
         "Candidate model comparison complete | league=%s recommendation=%s report=%s",

@@ -34,6 +34,7 @@ help:
 	@echo "                      Optional: MODEL_RUN_ID=run_abc123"
 	@echo "  compare-candidates  Run the research-only candidate model comparison suite"
 	@echo "                      Optional: CONFIG=configs/nba.yaml"
+	@echo "                      Optional: CANDIDATE_MODELS=glm_ridge,glm_lasso,glm_elastic_net,glm_vanilla FEATURE_POOL=production_model_map FEATURE_MAP_MODEL=glm_ridge"
 	@echo "  backtest            Walk-forward backtest + artifacts"
 	@echo "                      Optional: MODELS=glm_ridge,rf (default: all)"
 	@echo "                      Optional: APPROVE_FEATURE_CHANGES=1"
@@ -86,7 +87,7 @@ validate:
 	$(PYTHON) -m src.cli validate --config $(CONFIG) $(MODEL_ARGS) $(MODEL_RUN_ARGS)
 
 compare-candidates:
-	$(PYTHON) -m src.cli compare-candidates --config $(CONFIG)
+	$(PYTHON) -m src.cli compare-candidates --config $(CONFIG) $(if $(CANDIDATE_MODELS),--candidate-models "$(CANDIDATE_MODELS)",) $(if $(FEATURE_POOL),--feature-pool "$(FEATURE_POOL)",) $(if $(FEATURE_MAP_MODEL),--feature-map-model "$(FEATURE_MAP_MODEL)",)
 
 backtest:
 	$(PYTHON) -m src.cli backtest --config $(CONFIG) $(MODEL_ARGS) $(APPROVE_FEATURE_ARGS)

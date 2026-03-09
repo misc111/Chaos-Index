@@ -1,0 +1,11 @@
+model_name,display_name,parameter_count,active_parameter_count,n_features,train_log_likelihood,train_deviance,train_aic,train_bic,notes,split,params
+intercept_only,Intercept Only,1,1,0,-284.4020927112919,,,,Empirical home-win base rate on the fit window,validation,p_home_win=0.555556
+glm_ridge,GLM Ridge,7,7,6,-246.60722944016902,493.21445888033804,,,penalty=l2; solver=lbfgs,validation,c=0.1
+glm_elastic_net,Elastic Net GLM,7,7,6,-246.7116090508282,493.4232181016564,,,penalty=elasticnet; solver=saga,validation,c=0.1; l1_ratio=0.1
+glm_lasso,Lasso GLM,7,7,6,-246.39746264534577,492.79492529069154,,,penalty=l1; solver=saga,validation,c=1
+glm_vanilla,Vanilla GLM,7,7,6,-246.33768707661312,492.67537415322624,506.67537415322624,534.8564359700034,statsmodels.GLM(Binomial),validation,{}
+intercept_only,Intercept Only,1,1,0,-496.9546387369469,,,,Empirical home-win base rate on the fit window,test,p_home_win=0.558011
+glm_ridge,GLM Ridge,7,7,6,-455.38714971196146,910.7742994239229,,,penalty=l2; solver=lbfgs,test,c=0.05
+glm_elastic_net,Elastic Net GLM,7,7,6,-455.5623830164873,911.1247660329745,,,penalty=elasticnet; solver=saga,test,c=0.05; l1_ratio=0.1
+glm_lasso,Lasso GLM,7,5,6,-456.51750018611534,913.0350003722307,,,penalty=l1; solver=saga,test,c=0.1
+glm_vanilla,Vanilla GLM,7,7,6,-455.0778072160996,910.1556144321992,924.1556144321992,956.2491541788992,statsmodels.GLM(Binomial),test,{}

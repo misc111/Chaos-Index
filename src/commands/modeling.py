@@ -58,10 +58,17 @@ def validate(cfg: AppConfig, args: Namespace) -> None:
 
 
 def compare_candidates(cfg: AppConfig, args: Namespace) -> None:
+    raw_candidate_models = str(getattr(args, "candidate_models", "all") or "all").strip()
+    candidate_models = None if raw_candidate_models.lower() in {"all", "*"} else [
+        token.strip() for token in raw_candidate_models.split(",") if token.strip()
+    ]
     result = model_compare_service.compare_candidate_models(
         cfg,
         report_slug=getattr(args, "report_slug", None),
         bootstrap_samples=int(getattr(args, "bootstrap_samples", 1000)),
+        candidate_models=candidate_models,
+        feature_pool=str(getattr(args, "feature_pool", "full_screened")),
+        feature_map_model=str(getattr(args, "feature_map_model", "glm_ridge")),
     )
     print(
         f"CANDIDATE_MODEL_COMPARISON::{result.league}::{result.recommendation_model}::{result.report_path}",

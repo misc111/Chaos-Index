@@ -73,6 +73,25 @@ def build_parser() -> argparse.ArgumentParser:
                 default=1000,
                 help="Number of paired bootstrap samples for the final holdout comparison.",
             )
+            p.add_argument(
+                "--candidate-models",
+                default="all",
+                help=(
+                    "Comma-separated candidate model list for the research suite "
+                    "(e.g. glm_ridge,glm_lasso,glm_elastic_net,glm_vanilla) or 'all'."
+                ),
+            )
+            p.add_argument(
+                "--feature-pool",
+                choices=["full_screened", "production_model_map"],
+                default="full_screened",
+                help="Feature pool for the comparison: full screened pool or a production model feature map.",
+            )
+            p.add_argument(
+                "--feature-map-model",
+                default="glm_ridge",
+                help="Model key to read from the production feature map when --feature-pool=production_model_map.",
+            )
         if cmd in {"train", "validate", "run-daily"}:
             p.add_argument(
                 "--validation-split-mode",

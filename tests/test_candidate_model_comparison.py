@@ -116,8 +116,8 @@ def test_candidate_model_comparison_writes_report_bundle(tmp_path, monkeypatch):
     processed_dir.mkdir(parents=True, exist_ok=True)
     df.to_csv(processed_dir / "features.csv", index=False)
 
-    def small_specs(feature_sets):
-        return [
+    def small_specs(feature_sets, *, selected_models=None):
+        specs = [
             CandidateSpec(
                 model_name="glm_ridge",
                 display_name="GLM Ridge",
@@ -178,6 +178,9 @@ def test_candidate_model_comparison_writes_report_bundle(tmp_path, monkeypatch):
                 ),
             ),
         ]
+        if not selected_models:
+            return specs
+        return [spec for spec in specs if spec.model_name in selected_models]
 
     monkeypatch.setattr("src.research.model_comparison._candidate_specs", small_specs)
 
@@ -193,3 +196,101 @@ def test_candidate_model_comparison_writes_report_bundle(tmp_path, monkeypatch):
     assert result.bootstrap_path.exists()
     assert result.recommendation_model in result.test_metrics["model_name"].tolist()
     assert "GLM Ridge" in result.report_path.read_text()
+
+
+def test_candidate_model_comparison_can_use_production_feature_map_for_penalized_glms(tmp_path, monkeypatch):
+    df = _synthetic_candidate_frame(210)
+    cfg = load_config("configs/default.yaml")
+    cfg.data.league = "NBA"
+    cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
+    cfg.paths.processed_dir = str(tmp_path / "processed")
+    cfg.paths.db_path = str(tmp_path / "processed" / "nba_forecast.db")
+    cfg.modeling.cv_splits = 2
+
+    processed_dir = tmp_path / "processed"
+    processed_dir.mkdir(parents=True, exist_ok=True)
+    df.to_csv(processed_dir / "features.csv", index=False)
+
+    def small_penalized_specs(feature_sets, *, selected_models=None):
+        specs = [
+            CandidateSpec(
+                model_name="glm_ridge",
+                display_name="GLM Ridge",
+                param_grid=[{"c": 0.5}],
+                builder=lambda fs, params: PenalizedLogitCandidate(
+                    model_name="glm_ridge",
+                    display_name="GLM Ridge",
+                    features=fs.screened_features,
+                    penalty="l2",
+                    c=float(params["c"]),
+                    solver="lbfgs",
+                ),
+            ),
+            CandidateSpec(
+                model_name="glm_elastic_net",
+                display_name="Elastic Net GLM",
+                param_grid=[{"c": 0.25, "l1_ratio": 0.5}],
+                builder=lambda fs, params: PenalizedLogitCandidate(
+                    model_name="glm_elastic_net",
+                    display_name="Elastic Net GLM",
+                    features=fs.screened_features,
+                    penalty="elasticnet",
+                    c=float(params["c"]),
+                    l1_ratio=float(params["l1_ratio"]),
+                    solver="saga",
+                ),
+            ),
+            CandidateSpec(
+                model_name="glm_lasso",
+                display_name="Lasso GLM",
+                param_grid=[{"c": 0.25}],
+                builder=lambda fs, params: PenalizedLogitCandidate(
+                    model_name="glm_lasso",
+                    display_name="Lasso GLM",
+                    features=fs.screened_features,
+                    penalty="l1",
+                    c=float(params["c"]),
+                    solver="saga",
+                ),
+            ),
+            CandidateSpec(
+                model_name="glm_vanilla",
+                display_name="Vanilla GLM",
+                param_grid=[{}],
+                builder=lambda fs, params: VanillaGLMBinomialCandidate(features=fs.screened_features),
+            ),
+        ]
+        if not selected_models:
+            return specs
+        return [spec for spec in specs if spec.model_name in selected_models]
+
+    monkeypatch.setattr("src.research.model_comparison._candidate_specs", small_penalized_specs)
+    monkeypatch.setattr(
+        "src.research.model_comparison.load_model_feature_map",
+        lambda league: {"glm_ridge": ["diff_signal_linear", "rest_diff"]},
+    )
+
+    result = run_candidate_model_comparison(
+        cfg,
+        report_slug="unit_candidate_compare_production_map",
+        bootstrap_samples=40,
+        candidate_models=["glm_ridge", "glm_lasso", "glm_elastic_net", "glm_vanilla"],
+        feature_pool="production_model_map",
+        feature_map_model="glm_ridge",
+    )
+
+    metric_models = set(result.test_metrics["model_name"].tolist())
+    assert metric_models == {
+        "intercept_only",
+        "glm_ridge",
+        "glm_lasso",
+        "glm_elastic_net",
+        "glm_vanilla",
+    }
+
+    fit_stats = pd.read_csv(result.report_path.with_name("unit_candidate_compare_production_map_nba_fit_stats.csv"))
+    penalized_rows = fit_stats[fit_stats["model_name"].isin(["glm_ridge", "glm_lasso", "glm_elastic_net"])]
+    assert set(penalized_rows["n_features"].tolist()) == {2}
+
+    report_text = result.report_path.read_text()
+    assert "Restricted to the production model feature map for `glm_ridge`" in report_text

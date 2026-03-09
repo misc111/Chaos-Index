@@ -30,10 +30,23 @@ from src.research.candidate_models import (
 from src.services.train import load_features_dataframe
 from src.training.cv import time_series_splits
 from src.training.feature_selection import select_feature_columns
+from src.training.model_feature_research import load_model_feature_map
 from statsmodels.tools.sm_exceptions import PerfectSeparationWarning
 
 CORRELATION_SCREEN_THRESHOLD = 0.999
 DEFAULT_BOOTSTRAP_SAMPLES = 1000
+CANDIDATE_MODEL_NAMES = {
+    "glm_ridge",
+    "glm_elastic_net",
+    "glm_lasso",
+    "glm_vanilla",
+    "glmm_logit",
+    "dglm_margin",
+    "gam_spline",
+    "mars_hinge",
+}
+FEATURE_POOL_FULL_SCREENED = "full_screened"
+FEATURE_POOL_PRODUCTION_MODEL_MAP = "production_model_map"
 
 
 def _safe_numeric_frame(df: pd.DataFrame, features: list[str]) -> pd.DataFrame:
@@ -290,7 +303,11 @@ def _structured_linear_features(core_features: list[str], nonlinear_features: li
     return [feature for feature in core_features if feature not in nonlinear_features][:cap]
 
 
-def _candidate_specs(feature_sets: CandidateFeatureSets) -> list[CandidateSpec]:
+def _candidate_specs(
+    feature_sets: CandidateFeatureSets,
+    *,
+    selected_models: set[str] | None = None,
+) -> list[CandidateSpec]:
     specs = [
         CandidateSpec(
             model_name="glm_ridge",
@@ -414,7 +431,9 @@ def _candidate_specs(feature_sets: CandidateFeatureSets) -> list[CandidateSpec]:
         )
     )
 
-    return specs
+    if not selected_models:
+        return specs
+    return [spec for spec in specs if spec.model_name in selected_models]
 
 
 def _candidate_cv_tune(
@@ -609,9 +628,10 @@ def _phase_evaluation(
     eval_df: pd.DataFrame,
     raw_features: list[str],
     cv_splits: int,
+    candidate_models: set[str] | None,
 ) -> tuple[CandidateFeatureSets, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     feature_sets = _select_feature_sets(fit_df, raw_features)
-    specs = _candidate_specs(feature_sets)
+    specs = _candidate_specs(feature_sets, selected_models=candidate_models)
     metric_rows: list[dict[str, Any]] = []
     fit_stat_rows: list[dict[str, Any]] = []
     cv_summary_frames: list[pd.DataFrame] = []
@@ -843,6 +863,8 @@ def _write_report(
     validation_metrics: pd.DataFrame,
     test_metrics: pd.DataFrame,
     bootstrap_summary: pd.DataFrame,
+    candidate_scope_note: str,
+    feature_pool_note: str,
 ) -> tuple[str, str]:
     best_validation = _best_model_row(validation_metrics)
     best_test = _best_model_row(test_metrics)
@@ -861,7 +883,8 @@ def _write_report(
         "- Guidance followed from the local CAS monograph sections on train/validation/test splitting (4.3), deviance and penalized fit comparisons (6.1-6.2), residual/nonlinearity/stability checks (6.3-6.4), holdout actual-vs-predicted/lift/ROC validation (7.1-7.3), and extension candidates (10.1-10.5).",
         "- Outer split: 40% train, 30% validation, 30% final test, ordered by `start_time_utc`.",
         "- Hyperparameters were tuned with rolling time-series CV inside the fit window for each phase.",
-        "- Candidate models were built from the full numeric feature pool after leakage bans, not from the repo's production `glm_feature_subset` or per-model feature map.",
+        f"- Candidate scope: {candidate_scope_note}",
+        f"- Feature pool: {feature_pool_note}",
         "",
         "Data",
         f"- League: {cfg.data.league}",
@@ -932,12 +955,61 @@ def run_candidate_model_comparison(
     *,
     report_slug: str | None = None,
     bootstrap_samples: int = DEFAULT_BOOTSTRAP_SAMPLES,
+    candidate_models: list[str] | None = None,
+    feature_pool: str = FEATURE_POOL_FULL_SCREENED,
+    feature_map_model: str = "glm_ridge",
 ) -> ComparisonRunResult:
     features_df = load_features_dataframe(cfg.paths.processed_dir)
-    raw_features = select_feature_columns(features_df)
-    leakage_issues = run_leakage_checks(features_df, feature_columns=raw_features)
+    all_raw_features = select_feature_columns(features_df)
+    leakage_issues = run_leakage_checks(features_df, feature_columns=all_raw_features)
     if leakage_issues:
         raise RuntimeError(f"Leakage checks failed before model comparison: {leakage_issues}")
+
+    candidate_model_set: set[str] | None = None
+    if candidate_models:
+        normalized = {str(model).strip() for model in candidate_models if str(model).strip()}
+        bad = sorted(normalized - CANDIDATE_MODEL_NAMES)
+        if bad:
+            raise ValueError(f"Unknown candidate model names: {bad}. Valid={sorted(CANDIDATE_MODEL_NAMES)}")
+        if not normalized:
+            raise ValueError("candidate_models must include at least one valid model name")
+        candidate_model_set = normalized
+
+    feature_pool_token = str(feature_pool or FEATURE_POOL_FULL_SCREENED).strip().lower()
+    if feature_pool_token not in {FEATURE_POOL_FULL_SCREENED, FEATURE_POOL_PRODUCTION_MODEL_MAP}:
+        raise ValueError(
+            f"Unknown feature_pool='{feature_pool}'. "
+            f"Valid={[FEATURE_POOL_FULL_SCREENED, FEATURE_POOL_PRODUCTION_MODEL_MAP]}"
+        )
+
+    if feature_pool_token == FEATURE_POOL_PRODUCTION_MODEL_MAP:
+        model_feature_map = load_model_feature_map(cfg.data.league)
+        requested_features = [str(col) for col in model_feature_map.get(str(feature_map_model), []) if str(col).strip()]
+        if not requested_features:
+            raise ValueError(
+                f"Production model feature map for league={cfg.data.league} does not contain '{feature_map_model}'"
+            )
+        missing = [feature for feature in requested_features if feature not in all_raw_features]
+        if missing:
+            raise ValueError(
+                f"Production feature map '{feature_map_model}' includes columns not available after leakage bans: {missing}"
+            )
+        raw_features = requested_features
+        feature_pool_note = (
+            f"Restricted to the production model feature map for `{feature_map_model}` "
+            f"after leakage bans ({len(raw_features)} raw features)."
+        )
+    else:
+        raw_features = all_raw_features
+        feature_pool_note = (
+            "Built from the full numeric feature pool after leakage bans, not from the repo's "
+            "production `glm_feature_subset` or per-model feature map."
+        )
+
+    if candidate_model_set:
+        candidate_scope_note = ", ".join(sorted(candidate_model_set))
+    else:
+        candidate_scope_note = "all registered candidate families"
 
     historical_df = features_df[features_df["home_win"].notna()].copy().sort_values("start_time_utc").reset_index(drop=True)
     train_df, validation_df, test_df = _time_ordered_split(
@@ -960,6 +1032,7 @@ def run_candidate_model_comparison(
             eval_df=validation_df,
             raw_features=raw_features,
             cv_splits=max(2, int(cfg.modeling.cv_splits)),
+            candidate_models=candidate_model_set,
         )
         fit_plus_validation = pd.concat([train_df, validation_df], ignore_index=True).sort_values("start_time_utc").reset_index(drop=True)
         final_features, test_metrics, test_predictions, test_fit_stats, final_cv = _phase_evaluation(
@@ -968,6 +1041,7 @@ def run_candidate_model_comparison(
             eval_df=test_df,
             raw_features=raw_features,
             cv_splits=max(2, int(cfg.modeling.cv_splits)),
+            candidate_models=candidate_model_set,
         )
 
     bootstrap_summary = _bootstrap_against_best(
@@ -1028,6 +1102,8 @@ def run_candidate_model_comparison(
         validation_metrics=validation_metrics,
         test_metrics=test_metrics,
         bootstrap_summary=bootstrap_summary,
+        candidate_scope_note=candidate_scope_note,
+        feature_pool_note=feature_pool_note,
     )
 
     return ComparisonRunResult(

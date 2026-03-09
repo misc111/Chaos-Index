@@ -89,6 +89,10 @@ Run the research-only candidate model comparison suite against the current local
 ```bash
 make compare-candidates
 make compare-candidates CONFIG=configs/nba.yaml
+make compare-candidates CONFIG=configs/nba.yaml \
+  CANDIDATE_MODELS=glm_ridge,glm_lasso,glm_elastic_net,glm_vanilla \
+  FEATURE_POOL=production_model_map \
+  FEATURE_MAP_MODEL=glm_ridge
 ```
 Outputs are written to `artifacts/reports/history/`.
 
