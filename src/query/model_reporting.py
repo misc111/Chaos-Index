@@ -11,6 +11,7 @@ MODEL_TRUST_NOTES = {
     "ensemble": "All models combined. Best default pick. Can share the same blind spot.",
     "elo_baseline": "Standard sports betting baseline based on past wins/losses. Good long-run read. Slow on sudden changes.",
     "glm_ridge": "Statistical model that uses a checklist. Usually steady. Weird matchups can slip through.",
+    "glm_elastic_net": "Statistical model that mixes ridge-style shrinkage with lasso-style pruning. Good when signals travel in clusters. Can still mute small but real effects.",
     "dynamic_rating": "Hot/cold meter. Good for momentum. Can overreact to short streaks.",
     "gbdt": "Machine learning model that finds hidden combos. Sometimes too confident.",
     "rf": "Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups.",

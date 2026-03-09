@@ -30,6 +30,7 @@ def fit_stacker(
                 "elo_baseline",
                 "dynamic_rating",
                 "glm_ridge",
+                "glm_elastic_net",
                 "gbdt",
                 "rf",
                 "two_stage",

@@ -28,9 +28,9 @@ from src.training.feature_selection import (
 )
 from src.training.fit_runner import fit_model_suite
 from src.training.model_catalog import ALL_MODEL_NAMES, MODEL_ALIASES, normalize_selected_models
+from src.training.penalized_glm import resolve_penalized_glm_feature_columns, selected_penalized_glm_models, tune_penalized_glm_models
 from src.training.predict_runner import generate_oof_predictions, predict_model_suite
 from src.training.progress import ProgressCallback, emit_progress
-from src.training.tune import quick_tune_glm
 from src.training.uncertainty_policy import build_uncertainty_flags
 
 _predict_suite = predict_model_suite
@@ -88,12 +88,13 @@ def train_and_predict(
         if non_numeric:
             raise ValueError(f"selected_feature_columns includes non-numeric columns: {non_numeric}")
         feature_cols = list(selected_feature_columns)
-    glm_cols = resolve_model_feature_columns(
+    penalized_glm_feature_cols = resolve_penalized_glm_feature_columns(
         feature_cols,
-        model_name="glm_ridge",
+        selected_models=models_selected,
         model_feature_columns=selected_model_feature_columns,
         fallback_columns=glm_feature_subset(feature_cols),
     )
+    glm_cols = penalized_glm_feature_cols.get("glm_ridge", glm_feature_subset(feature_cols))
     emit_progress(
         progress_callback,
         {
@@ -132,12 +133,21 @@ def train_and_predict(
 
     glm_tune: dict = {"best_c": 1.0, "results": [], "fold_metrics": []}
     glm_best_c = 1.0
-    if "glm_ridge" in models_selected:
+    glm_tuning_by_model: dict[str, dict] = {}
+    penalized_models = selected_penalized_glm_models(models_selected)
+    if penalized_models:
         emit_progress(
             progress_callback,
             {"kind": "pipeline", "stage": "glm_tuning", "status": "started", "message": "Running GLM hyperparameter tuning"},
         )
-        glm_tune = quick_tune_glm(train_df, glm_cols, n_splits=4, min_train_size=min(220, max(100, len(train_df) // 2)))
+        glm_tuning_by_model = tune_penalized_glm_models(
+            train_df,
+            selected_models=models_selected,
+            feature_columns_by_model=penalized_glm_feature_cols,
+            n_splits=4,
+            min_train_size=min(220, max(100, len(train_df) // 2)),
+        )
+        glm_tune = dict(glm_tuning_by_model.get("glm_ridge", glm_tune))
         glm_best_c = float(glm_tune.get("best_c", 1.0))
         emit_progress(
             progress_callback,
@@ -147,6 +157,7 @@ def train_and_predict(
                 "status": "completed",
                 "message": "Completed GLM hyperparameter tuning",
                 "glm_best_c": glm_best_c,
+                "glm_models_tuned": penalized_models,
             },
         )
 
@@ -164,6 +175,7 @@ def train_and_predict(
         allow_nn=True,
         glm_feature_cols=glm_cols,
         glm_c=glm_best_c,
+        glm_params_by_model=glm_tuning_by_model,
         model_feature_columns=selected_model_feature_columns,
         metric_bundle_fn=metric_bundle,
     )
@@ -187,6 +199,7 @@ def train_and_predict(
         bayes_cfg=bayes_cfg,
         selected_models=models_selected,
         progress_callback=progress_callback,
+        glm_params_by_model=glm_tuning_by_model,
         model_feature_columns=selected_model_feature_columns,
     )
     stacker, stack_ready, stack_base_cols = fit_stacker(oof, league=league, progress_callback=progress_callback)
@@ -261,7 +274,16 @@ def train_and_predict(
         "glm_feature_columns": glm_cols,
         "model_feature_columns": used_feature_map,
         "glm_tuning": glm_tune,
+        "glm_tuning_by_model": glm_tuning_by_model,
         "glm_best_c": glm_best_c,
+        "glm_elastic_net_best_c": (
+            float(glm_tuning_by_model["glm_elastic_net"]["best_c"]) if "glm_elastic_net" in glm_tuning_by_model else None
+        ),
+        "glm_elastic_net_best_l1_ratio": (
+            float(glm_tuning_by_model["glm_elastic_net"]["best_l1_ratio"])
+            if glm_tuning_by_model.get("glm_elastic_net", {}).get("best_l1_ratio") is not None
+            else None
+        ),
         "bayes_feature_columns": bayes_cols,
         "ensemble_component_columns": ensemble_component_cols,
         "ensemble_demoted_models": [m for m in demoted_ensemble_models(league=league) if m in models_selected],

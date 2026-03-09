@@ -127,3 +127,18 @@ def test_research_model_feature_map_records_guardrail_exclusions(tmp_path) -> No
     assert "dyn_home_prob" not in saved["glm_ridge"]
     assert report["guardrail_exclusions"]["glm_ridge"] == ["dyn_home_prob"]
     assert report["model_feature_guardrails_path"].endswith("model_feature_guardrails_nba.yaml")
+
+
+def test_elastic_net_guardrails_fall_back_to_ridge_rules(tmp_path) -> None:
+    _write_guardrails(tmp_path, "NBA", {"dyn_home_prob": {"decision": "blocked"}})
+
+    path = save_model_feature_map(
+        "NBA",
+        {"glm_elastic_net": ["elo_home_prob", "dyn_home_prob", "rest_diff"]},
+        path_template=_map_template(tmp_path),
+        guardrails_path_template=_guardrails_template(tmp_path),
+    )
+
+    raw = yaml.safe_load(path.read_text())
+    assert raw["models"]["glm_elastic_net"]["active_features"] == ["elo_home_prob", "rest_diff"]
+    assert raw["models"]["glm_elastic_net"]["feature_count"] == 2

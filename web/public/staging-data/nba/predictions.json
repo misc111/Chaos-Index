@@ -3,29 +3,13 @@
   "as_of_utc": "2026-03-09T11:56:18+00:00",
   "model_columns": [
     "ensemble",
-    "elo_baseline",
     "glm_ridge",
-    "dynamic_rating",
-    "rf",
-    "goals_poisson",
-    "gbdt",
-    "two_stage",
-    "bayes_bt_state_space",
-    "bayes_goals",
-    "simulation_first"
+    "glm_elastic_net"
   ],
   "model_trust_notes": {
     "ensemble": "All models combined. Best default pick. Can share the same blind spot.",
-    "elo_baseline": "Standard sports betting baseline based on past wins/losses. Good long-run read. Slow on sudden changes.",
     "glm_ridge": "Linear pregame model anchored by projected rotation strength, matchup splits, rest, and absence pressure. It is only as good as the lineup view going into tipoff.",
-    "dynamic_rating": "Hot/cold meter. Good for momentum. Can overreact to short streaks.",
-    "rf": "Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups.",
-    "goals_poisson": "Score-based model. Good for normal scoring games. Messy games hurt it.",
-    "gbdt": "Machine learning model that finds hidden combos. Sometimes too confident.",
-    "two_stage": "Machine learning model with two steps: first predicts game type (fast/slow, close/lopsided), then predicts winner. Good when style matchups matter. If step 1 is wrong, final pick can be wrong.",
-    "bayes_bt_state_space": "Tracks team strength after every game and gives a range, not just one number. Good for spotting rising/falling teams with uncertainty shown. Can move fast after injuries, trades, or short weird stretches.",
-    "bayes_goals": "Scoring strength + confidence meter. Good trend read. Can lag sudden lineup changes.",
-    "simulation_first": "Runs the matchup thousands of times using set assumptions (team strength, pace, and scoring). Good for seeing different paths. If those assumptions are off, this number can be off."
+    "glm_elastic_net": "Elastic-net pregame model using the same NBA linear feature map as ridge while allowing extra shrinkage on overlapping lineup and rating signals."
   },
   "model_summaries": {
     "ensemble": {
@@ -33,179 +17,49 @@
       "trust_note": "All models combined. Best default pick. Can share the same blind spot.",
       "active_features": []
     },
-    "elo_baseline": {
-      "headline": "Single-rating baseline built from historical results and home/away context.",
-      "trust_note": "Standard sports betting baseline based on past wins/losses. Good long-run read. Slow on sudden changes.",
-      "active_features": []
-    },
     "glm_ridge": {
-      "headline": "Pregame ridge logistic regression driven by the current NBA feature map.",
+      "headline": "Now using DARKO-like projected rotation inputs before tipoff.",
       "trust_note": "Linear pregame model anchored by projected rotation strength, matchup splits, rest, and absence pressure. It is only as good as the lineup view going into tipoff.",
-      "active_feature_count": 2,
+      "active_feature_count": 6,
       "active_features": [
-        "diff_form_point_margin",
-        "elo_home_prob"
-      ]
-    },
-    "dynamic_rating": {
-      "headline": "Fast-moving strength estimate that reacts more quickly than Elo.",
-      "trust_note": "Hot/cold meter. Good for momentum. Can overreact to short streaks.",
-      "active_features": []
-    },
-    "rf": {
-      "trust_note": "Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups.",
-      "active_features": []
-    },
-    "goals_poisson": {
-      "headline": "Score-rate model that turns projected offense and defense into a win probability.",
-      "trust_note": "Score-based model. Good for normal scoring games. Messy games hurt it.",
-      "active_features": []
-    },
-    "gbdt": {
-      "headline": "40 active inputs from the current NBA feature map.",
-      "trust_note": "Machine learning model that finds hidden combos. Sometimes too confident.",
-      "active_feature_count": 40,
-      "active_features": [
-        "diff_form_point_margin",
-        "travel_diff",
+        "diff_darko_like_total",
+        "diff_projected_absence_pressure",
         "rest_diff",
+        "diff_rotation_stability",
         "elo_home_prob",
-        "dyn_home_prob",
-        "home_ewm_points_for",
-        "away_ewm_points_for",
-        "home_ewm_point_margin",
-        "away_ewm_point_margin",
-        "tree_signal_25",
-        "tree_signal_20",
-        "tree_signal_30",
-        "tree_signal_31",
-        "tree_signal_37",
-        "tree_signal_35",
-        "tree_signal_44",
-        "tree_signal_33",
-        "tree_signal_34",
-        "tree_signal_40",
-        "tree_signal_38",
-        "tree_signal_36",
-        "tree_signal_43",
-        "tree_signal_39",
-        "tree_signal_41",
-        "tree_signal_42",
-        "tree_signal_00",
-        "tree_signal_08",
-        "tree_signal_19",
-        "tree_signal_05",
-        "tree_signal_02",
-        "tree_signal_07",
-        "tree_signal_18",
-        "tree_signal_15",
-        "tree_signal_23",
-        "tree_signal_03",
-        "tree_signal_01",
-        "tree_signal_09",
-        "tree_signal_22",
-        "tree_signal_06",
-        "tree_signal_14"
+        "arena_margin_effect"
       ]
     },
-    "two_stage": {
-      "trust_note": "Machine learning model with two steps: first predicts game type (fast/slow, close/lopsided), then predicts winner. Good when style matchups matter. If step 1 is wrong, final pick can be wrong.",
-      "active_features": []
-    },
-    "bayes_bt_state_space": {
-      "headline": "Bayesian rating layer that tracks team strength with uncertainty over time.",
-      "trust_note": "Tracks team strength after every game and gives a range, not just one number. Good for spotting rising/falling teams with uncertainty shown. Can move fast after injuries, trades, or short weird stretches.",
-      "active_features": []
-    },
-    "bayes_goals": {
-      "headline": "Bayesian scoring model that estimates team strength from expected scoring rates.",
-      "trust_note": "Scoring strength + confidence meter. Good trend read. Can lag sudden lineup changes.",
-      "active_features": []
-    },
-    "simulation_first": {
-      "headline": "Scenario simulator that turns repeated matchup draws into a probability estimate.",
-      "trust_note": "Runs the matchup thousands of times using set assumptions (team strength, pace, and scoring). Good for seeing different paths. If those assumptions are off, this number can be off.",
-      "active_features": []
+    "glm_elastic_net": {
+      "headline": "Elastic-net version of the NBA pregame GLM using DARKO-like projected rotation inputs.",
+      "trust_note": "Elastic-net pregame model using the same NBA linear feature map as ridge while allowing extra shrinkage on overlapping lineup and rating signals.",
+      "active_feature_count": 6,
+      "active_features": [
+        "diff_darko_like_total",
+        "diff_projected_absence_pressure",
+        "rest_diff",
+        "diff_rotation_stability",
+        "elo_home_prob",
+        "arena_margin_effect"
+      ]
     }
   },
-  "model_feature_map_updated_at_utc": "2026-03-08T04:17:51+00:00",
+  "model_feature_map_updated_at_utc": "2026-03-09T14:30:48+00:00",
   "rows": [
-    {
-      "game_id": 401810794,
-      "game_date_utc": "2026-03-10",
-      "home_team": "ATL",
-      "away_team": "DAL",
-      "ensemble_prob_home_win": 0.7234594987501863,
-      "predicted_winner": "ATL",
-      "spread_mean": 0.7507498608876857,
-      "spread_sd": 0.13311595543797775,
-      "bayes_ci_low": 0.686157406423871,
-      "bayes_ci_high": 0.8410026716874605,
-      "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
-      "model_win_probabilities": {
-        "ensemble": 0.7234594987501863,
-        "bayes_bt_state_space": 0.7693462906167838,
-        "bayes_goals": 0.7464,
-        "dynamic_rating": 0.9357197926970168,
-        "elo_baseline": 0.6579846316737514,
-        "gbdt": 0.9779226814109406,
-        "glm_ridge": 0.7279723110611499,
-        "goals_poisson": 0.6106666666666667,
-        "rf": 0.8401033951975188,
-        "simulation_first": 0.5195714285714286,
-        "two_stage": 0.7218114109815996
-      }
-    },
     {
       "game_id": 401810788,
       "game_date_utc": "2026-03-09",
       "home_team": "OKC",
       "away_team": "DEN",
-      "ensemble_prob_home_win": 0.7174608972707215,
+      "ensemble_prob_home_win": 0.8244608655334976,
       "predicted_winner": "OKC",
-      "spread_mean": 0.7082771056932614,
-      "spread_sd": 0.10083596610425363,
-      "bayes_ci_low": 0.6721975486165122,
-      "bayes_ci_high": 0.8241657699189933,
+      "spread_mean": 0.8244527504053989,
+      "spread_sd": 0.004690033146948436,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.7174608972707215,
-        "bayes_bt_state_space": 0.7535421151054681,
-        "bayes_goals": 0.5998,
-        "dynamic_rating": 0.8229987309143414,
-        "elo_baseline": 0.6409060576664637,
-        "gbdt": 0.6904676028131839,
-        "glm_ridge": 0.8291427835523474,
-        "goals_poisson": 0.6706666666666666,
-        "rf": 0.71357847415847,
-        "simulation_first": 0.5191428571428571,
-        "two_stage": 0.8425257689128169
-      }
-    },
-    {
-      "game_id": 401810786,
-      "game_date_utc": "2026-03-09",
-      "home_team": "CLE",
-      "away_team": "PHI",
-      "ensemble_prob_home_win": 0.6445421962776572,
-      "predicted_winner": "CLE",
-      "spread_mean": 0.6261818948909328,
-      "spread_sd": 0.0912894794885285,
-      "bayes_ci_low": 0.554632253499668,
-      "bayes_ci_high": 0.7379620659472262,
-      "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
-      "model_win_probabilities": {
-        "ensemble": 0.6445421962776572,
-        "bayes_bt_state_space": 0.6486905969508979,
-        "bayes_goals": 0.7256,
-        "dynamic_rating": 0.7687814325669157,
-        "elo_baseline": 0.5938510143057116,
-        "gbdt": 0.4687899911228662,
-        "glm_ridge": 0.7221114430402082,
-        "goals_poisson": 0.6301666666666667,
-        "rf": 0.6374539631727979,
-        "simulation_first": 0.5244285714285715,
-        "two_stage": 0.5419452696546925
+        "ensemble": 0.8244608655334976,
+        "glm_elastic_net": 0.8197627172584505,
+        "glm_ridge": 0.8291427835523474
       }
     },
     {
@@ -213,25 +67,47 @@
       "game_date_utc": "2026-03-11",
       "home_team": "SA",
       "away_team": "BOS",
-      "ensemble_prob_home_win": 0.5891113812722046,
+      "ensemble_prob_home_win": 0.7410945547597646,
       "predicted_winner": "SA",
-      "spread_mean": 0.6162674334862419,
-      "spread_sd": 0.11324106379710906,
-      "bayes_ci_low": 0.4139713023731271,
-      "bayes_ci_high": 0.623861559035364,
+      "spread_mean": 0.7410876846392898,
+      "spread_sd": 0.003970497120740213,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.5891113812722046,
-        "bayes_bt_state_space": 0.5146157273168482,
-        "bayes_goals": 0.7418,
-        "dynamic_rating": 0.6997977487324667,
-        "elo_baseline": 0.5783401768908654,
-        "gbdt": 0.7893169559950003,
-        "glm_ridge": 0.74505818176003,
-        "goals_poisson": 0.5266666666666667,
-        "rf": 0.6077547468389294,
-        "simulation_first": 0.5094285714285715,
-        "two_stage": 0.44989555923303925
+        "ensemble": 0.7410945547597646,
+        "glm_elastic_net": 0.7371171875185496,
+        "glm_ridge": 0.74505818176003
+      }
+    },
+    {
+      "game_id": 401810794,
+      "game_date_utc": "2026-03-10",
+      "home_team": "ATL",
+      "away_team": "DAL",
+      "ensemble_prob_home_win": 0.7222454187275125,
+      "predicted_winner": "ATL",
+      "spread_mean": 0.7222354923544518,
+      "spread_sd": 0.005736818706698121,
+      "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
+      "model_win_probabilities": {
+        "ensemble": 0.7222454187275125,
+        "glm_elastic_net": 0.7164986736477537,
+        "glm_ridge": 0.7279723110611499
+      }
+    },
+    {
+      "game_id": 401810786,
+      "game_date_utc": "2026-03-09",
+      "home_team": "CLE",
+      "away_team": "PHI",
+      "ensemble_prob_home_win": 0.7182910267877917,
+      "predicted_winner": "CLE",
+      "spread_mean": 0.7182844048932704,
+      "spread_sd": 0.003827038146937911,
+      "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
+      "model_win_probabilities": {
+        "ensemble": 0.7182910267877917,
+        "glm_elastic_net": 0.7144573667463324,
+        "glm_ridge": 0.7221114430402082
       }
     },
     {
@@ -239,25 +115,15 @@
       "game_date_utc": "2026-03-11",
       "home_team": "HOU",
       "away_team": "TOR",
-      "ensemble_prob_home_win": 0.5794870444060025,
+      "ensemble_prob_home_win": 0.6939604455553859,
       "predicted_winner": "HOU",
-      "spread_mean": 0.5423834376287425,
-      "spread_sd": 0.13985049512694162,
-      "bayes_ci_low": 0.45038849122199964,
-      "bayes_ci_high": 0.6477036008683377,
+      "spread_mean": 0.6939546858367192,
+      "spread_sd": 0.003328754781902421,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.5794870444060025,
-        "bayes_bt_state_space": 0.5518732765233559,
-        "bayes_goals": 0.6912,
-        "dynamic_rating": 0.5814508401768856,
-        "elo_baseline": 0.5689413555886048,
-        "gbdt": 0.16897515437006552,
-        "glm_ridge": 0.6972834406186216,
-        "goals_poisson": 0.6066666666666667,
-        "rf": 0.4832843846163363,
-        "simulation_first": 0.5355714285714286,
-        "two_stage": 0.538587829155459
+        "ensemble": 0.6939604455553859,
+        "glm_elastic_net": 0.6906259310548167,
+        "glm_ridge": 0.6972834406186216
       }
     },
     {
@@ -265,77 +131,15 @@
       "game_date_utc": "2026-01-24",
       "home_team": "MIN",
       "away_team": "GS",
-      "ensemble_prob_home_win": 0.5714847681388493,
+      "ensemble_prob_home_win": 0.6231770004967786,
       "predicted_winner": "MIN",
-      "spread_mean": 0.5382700046473412,
-      "spread_sd": 0.14261135805975655,
-      "bayes_ci_low": 0.5853297978881611,
-      "bayes_ci_high": 0.7431696371475384,
+      "spread_mean": 0.6231777267057317,
+      "spread_sd": 0.00041970305582889056,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": true, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.5714847681388493,
-        "bayes_bt_state_space": 0.6655765048699154,
-        "bayes_goals": 0.7324,
-        "dynamic_rating": 0.3986775460537725,
-        "elo_baseline": 0.5309905901993863,
-        "gbdt": 0.19661105307066748,
-        "glm_ridge": 0.6227580236499027,
-        "goals_poisson": 0.611,
-        "rf": 0.5399003239704556,
-        "simulation_first": 0.523,
-        "two_stage": 0.5617860046593113
-      }
-    },
-    {
-      "game_id": 401810802,
-      "game_date_utc": "2026-03-11",
-      "home_team": "ORL",
-      "away_team": "CLE",
-      "ensemble_prob_home_win": 0.5176636146937764,
-      "predicted_winner": "ORL",
-      "spread_mean": 0.5466750852096752,
-      "spread_sd": 0.07964758935948768,
-      "bayes_ci_low": 0.44319528797325125,
-      "bayes_ci_high": 0.6287719170075107,
-      "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": true}",
-      "model_win_probabilities": {
-        "ensemble": 0.5176636146937764,
-        "bayes_bt_state_space": 0.5387080497155009,
-        "bayes_goals": 0.5664,
-        "dynamic_rating": 0.48459416514969683,
-        "elo_baseline": 0.4781648890319241,
-        "gbdt": 0.574773868156197,
-        "glm_ridge": 0.5408419764580775,
-        "goals_poisson": 0.5118333333333334,
-        "rf": 0.4942958570354997,
-        "simulation_first": 0.5105714285714286,
-        "two_stage": 0.7665672846450948
-      }
-    },
-    {
-      "game_id": 401810800,
-      "game_date_utc": "2026-03-11",
-      "home_team": "SAC",
-      "away_team": "IND",
-      "ensemble_prob_home_win": 0.514180490909054,
-      "predicted_winner": "SAC",
-      "spread_mean": 0.5205233520647832,
-      "spread_sd": 0.1301540215580709,
-      "bayes_ci_low": 0.5535510350589373,
-      "bayes_ci_high": 0.7330451240558331,
-      "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
-      "model_win_probabilities": {
-        "ensemble": 0.514180490909054,
-        "bayes_bt_state_space": 0.6480596902931859,
-        "bayes_goals": 0.6182,
-        "dynamic_rating": 0.665938008524297,
-        "elo_baseline": 0.5135278561985037,
-        "gbdt": 0.21271470336380846,
-        "glm_ridge": 0.38796841145202304,
-        "goals_poisson": 0.4751666666666667,
-        "rf": 0.5720158414384949,
-        "simulation_first": 0.5178571428571429,
-        "two_stage": 0.5937851998537081
+        "ensemble": 0.6231770004967786,
+        "glm_elastic_net": 0.6235974297615605,
+        "glm_ridge": 0.6227580236499027
       }
     },
     {
@@ -343,103 +147,31 @@
       "game_date_utc": "2026-03-11",
       "home_team": "LAL",
       "away_team": "MIN",
-      "ensemble_prob_home_win": 0.47573508700515094,
-      "predicted_winner": "MIN",
-      "spread_mean": 0.4802518005332253,
-      "spread_sd": 0.09966577641231353,
-      "bayes_ci_low": 0.4433074113381551,
-      "bayes_ci_high": 0.6367992799949068,
+      "ensemble_prob_home_win": 0.5566880939057177,
+      "predicted_winner": "LAL",
+      "spread_mean": 0.5566850289293552,
+      "spread_sd": 0.0017713633795874428,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.47573508700515094,
-        "bayes_bt_state_space": 0.5381619742993892,
-        "bayes_goals": 0.5312,
-        "dynamic_rating": 0.5273779324358939,
-        "elo_baseline": 0.4971631383022877,
-        "gbdt": 0.19613879809563245,
-        "glm_ridge": 0.5584563923089426,
-        "goals_poisson": 0.44399999999999995,
-        "rf": 0.4759600544580993,
-        "simulation_first": 0.5181428571428571,
-        "two_stage": 0.51591685828915
+        "ensemble": 0.5566880939057177,
+        "glm_elastic_net": 0.5549136655497677,
+        "glm_ridge": 0.5584563923089426
       }
     },
     {
-      "game_id": 401810507,
-      "game_date_utc": "2026-01-26",
-      "home_team": "MIL",
-      "away_team": "DAL",
-      "ensemble_prob_home_win": 0.46344350927334793,
-      "predicted_winner": "DAL",
-      "spread_mean": 0.4624849084290242,
-      "spread_sd": 0.09469311218111465,
-      "bayes_ci_low": 0.4312478616690636,
-      "bayes_ci_high": 0.6372938478266577,
-      "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
-      "model_win_probabilities": {
-        "ensemble": 0.46344350927334793,
-        "bayes_bt_state_space": 0.5376897902199894,
-        "bayes_goals": 0.6036,
-        "dynamic_rating": 0.38777943365603273,
-        "elo_baseline": 0.5111954725798014,
-        "gbdt": 0.25082804062239994,
-        "glm_ridge": 0.44167467428013996,
-        "goals_poisson": 0.522,
-        "rf": 0.3916486391866239,
-        "simulation_first": 0.5107142857142857,
-        "two_stage": 0.46771874803096886
-      }
-    },
-    {
-      "game_id": 401810787,
-      "game_date_utc": "2026-03-09",
-      "home_team": "BKN",
-      "away_team": "MEM",
-      "ensemble_prob_home_win": 0.4246793438065481,
-      "predicted_winner": "MEM",
-      "spread_mean": 0.45330678538173463,
-      "spread_sd": 0.08391857167988287,
-      "bayes_ci_low": 0.43087275029826994,
-      "bayes_ci_high": 0.6347255632647323,
-      "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
-      "model_win_probabilities": {
-        "ensemble": 0.4246793438065481,
-        "bayes_bt_state_space": 0.5267415747228312,
-        "bayes_goals": 0.44,
-        "dynamic_rating": 0.6066343028053556,
-        "elo_baseline": 0.4717352559681231,
-        "gbdt": 0.2902080552220644,
-        "glm_ridge": 0.36501980607322004,
-        "goals_poisson": 0.4181666666666667,
-        "rf": 0.45144013380640435,
-        "simulation_first": 0.525,
-        "two_stage": 0.4381220585526807
-      }
-    },
-    {
-      "game_id": 401810799,
+      "game_id": 401810802,
       "game_date_utc": "2026-03-11",
-      "home_team": "POR",
-      "away_team": "CHA",
-      "ensemble_prob_home_win": 0.42285550525092724,
-      "predicted_winner": "CHA",
-      "spread_mean": 0.4422075015968446,
-      "spread_sd": 0.10325158392214669,
-      "bayes_ci_low": 0.45577520004118427,
-      "bayes_ci_high": 0.6435150524097957,
-      "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
+      "home_team": "ORL",
+      "away_team": "CLE",
+      "ensemble_prob_home_win": 0.5394364167807872,
+      "predicted_winner": "ORL",
+      "spread_mean": 0.5394339805363282,
+      "spread_sd": 0.0014079959217493943,
+      "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": true}",
       "model_win_probabilities": {
-        "ensemble": 0.42285550525092724,
-        "bayes_bt_state_space": 0.5510106271588406,
-        "bayes_goals": 0.6316,
-        "dynamic_rating": 0.32637695555160934,
-        "elo_baseline": 0.47585437190869756,
-        "gbdt": 0.25833028854131285,
-        "glm_ridge": 0.4227538300448132,
-        "goals_poisson": 0.4285,
-        "rf": 0.3836878732975028,
-        "simulation_first": 0.5208571428571429,
-        "two_stage": 0.42310392660852636
+        "ensemble": 0.5394364167807872,
+        "glm_elastic_net": 0.5380259846145787,
+        "glm_ridge": 0.5408419764580775
       }
     },
     {
@@ -447,25 +179,31 @@
       "game_date_utc": "2026-03-10",
       "home_team": "LAC",
       "away_team": "NY",
-      "ensemble_prob_home_win": 0.3949617504786037,
+      "ensemble_prob_home_win": 0.44166058031275246,
       "predicted_winner": "NY",
-      "spread_mean": 0.4376135818758146,
-      "spread_sd": 0.05718503233030311,
-      "bayes_ci_low": 0.28503572955732975,
-      "bayes_ci_high": 0.47409659811668375,
+      "spread_mean": 0.4416658643647541,
+      "spread_sd": 0.0030538493954193058,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.3949617504786037,
-        "bayes_bt_state_space": 0.37982476357674055,
-        "bayes_goals": 0.5304,
-        "dynamic_rating": 0.3985050764377844,
-        "elo_baseline": 0.4449999230417794,
-        "gbdt": 0.4815230518435866,
-        "glm_ridge": 0.4386120149693348,
-        "goals_poisson": 0.43283333333333335,
-        "rf": 0.3792127238904068,
-        "simulation_first": 0.5278571428571428,
-        "two_stage": 0.36236778880803694
+        "ensemble": 0.44166058031275246,
+        "glm_elastic_net": 0.4447197137601734,
+        "glm_ridge": 0.4386120149693348
+      }
+    },
+    {
+      "game_id": 401810507,
+      "game_date_utc": "2026-01-26",
+      "home_team": "MIL",
+      "away_team": "DAL",
+      "ensemble_prob_home_win": 0.4412630436964676,
+      "predicted_winner": "DAL",
+      "spread_mean": 0.44126233022072914,
+      "spread_sd": 0.00041234405941081853,
+      "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
+      "model_win_probabilities": {
+        "ensemble": 0.4412630436964676,
+        "glm_elastic_net": 0.4408499861613183,
+        "glm_ridge": 0.44167467428013996
       }
     },
     {
@@ -473,51 +211,63 @@
       "game_date_utc": "2026-01-09",
       "home_team": "CHI",
       "away_team": "MIA",
-      "ensemble_prob_home_win": 0.38356402022314684,
+      "ensemble_prob_home_win": 0.4361130143604912,
       "predicted_winner": "MIA",
-      "spread_mean": 0.4181584808682988,
-      "spread_sd": 0.08179519158745223,
-      "bayes_ci_low": 0.22028544794307878,
-      "bayes_ci_high": 0.4034508843255772,
+      "spread_mean": 0.4361216787005823,
+      "spread_sd": 0.005007443102548248,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": true, \"shot_profile_proxy_used\": true}",
       "model_win_probabilities": {
-        "ensemble": 0.38356402022314684,
-        "bayes_bt_state_space": 0.3111303692405859,
-        "bayes_goals": 0.5556,
-        "dynamic_rating": 0.397036125623759,
-        "elo_baseline": 0.4983456408046426,
-        "gbdt": 0.344003183705445,
-        "glm_ridge": 0.4311142355980341,
-        "goals_poisson": 0.38916666666666666,
-        "rf": 0.43393590544908606,
-        "simulation_first": 0.5174285714285715,
-        "two_stage": 0.3038241101661973
+        "ensemble": 0.4361130143604912,
+        "glm_elastic_net": 0.4411291218031306,
+        "glm_ridge": 0.4311142355980341
       }
     },
     {
-      "game_id": 401810803,
-      "game_date_utc": "2026-03-12",
-      "home_team": "NO",
-      "away_team": "TOR",
-      "ensemble_prob_home_win": 0.3675105097697356,
-      "predicted_winner": "TOR",
-      "spread_mean": 0.44529070748096833,
-      "spread_sd": 0.14570224386675473,
-      "bayes_ci_low": 0.175479596075789,
-      "bayes_ci_high": 0.3082036108321387,
-      "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": true}",
+      "game_id": 401810799,
+      "game_date_utc": "2026-03-11",
+      "home_team": "POR",
+      "away_team": "CHA",
+      "ensemble_prob_home_win": 0.4267142225276324,
+      "predicted_winner": "CHA",
+      "spread_mean": 0.42672108704174594,
+      "spread_sd": 0.003967256996932761,
+      "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.3675105097697356,
-        "bayes_bt_state_space": 0.2343087786261349,
-        "bayes_goals": 0.6948,
-        "dynamic_rating": 0.40713891442952127,
-        "elo_baseline": 0.3807141258572929,
-        "gbdt": 0.6951225522307134,
-        "glm_ridge": 0.3179032151112825,
-        "goals_poisson": 0.41650000000000004,
-        "rf": 0.3275037640797675,
-        "simulation_first": 0.5258571428571429,
-        "two_stage": 0.45305858161782797
+        "ensemble": 0.4267142225276324,
+        "glm_elastic_net": 0.4306883440386787,
+        "glm_ridge": 0.4227538300448132
+      }
+    },
+    {
+      "game_id": 401810800,
+      "game_date_utc": "2026-03-11",
+      "home_team": "SAC",
+      "away_team": "IND",
+      "ensemble_prob_home_win": 0.3905388059549169,
+      "predicted_winner": "IND",
+      "spread_mean": 0.3905432611975271,
+      "spread_sd": 0.0025748497455040376,
+      "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
+      "model_win_probabilities": {
+        "ensemble": 0.3905388059549169,
+        "glm_elastic_net": 0.3931181109430311,
+        "glm_ridge": 0.38796841145202304
+      }
+    },
+    {
+      "game_id": 401810787,
+      "game_date_utc": "2026-03-09",
+      "home_team": "BKN",
+      "away_team": "MEM",
+      "ensemble_prob_home_win": 0.36985666583178967,
+      "predicted_winner": "MEM",
+      "spread_mean": 0.3698650495190686,
+      "spread_sd": 0.004845243445848607,
+      "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
+      "model_win_probabilities": {
+        "ensemble": 0.36985666583178967,
+        "glm_elastic_net": 0.37471029296491726,
+        "glm_ridge": 0.36501980607322004
       }
     },
     {
@@ -525,25 +275,31 @@
       "game_date_utc": "2026-01-25",
       "home_team": "MEM",
       "away_team": "DEN",
-      "ensemble_prob_home_win": 0.3338848437533163,
+      "ensemble_prob_home_win": 0.32188572500827206,
       "predicted_winner": "DEN",
-      "spread_mean": 0.37310802447146274,
-      "spread_sd": 0.09499086343962122,
-      "bayes_ci_low": 0.27452644201972215,
-      "bayes_ci_high": 0.45109412523647646,
+      "spread_mean": 0.3218924712595283,
+      "spread_sd": 0.0038989085107400956,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.3338848437533163,
-        "bayes_bt_state_space": 0.3579021456733965,
-        "bayes_goals": 0.5628,
-        "dynamic_rating": 0.2378261627992934,
-        "elo_baseline": 0.3755715253785493,
-        "gbdt": 0.2851373152371984,
-        "glm_ridge": 0.3179935627487882,
-        "goals_poisson": 0.39233333333333337,
-        "rf": 0.3605178794914773,
-        "simulation_first": 0.5202857142857142,
-        "two_stage": 0.3207126057668774
+        "ensemble": 0.32188572500827206,
+        "glm_elastic_net": 0.3257913797702684,
+        "glm_ridge": 0.3179935627487882
+      }
+    },
+    {
+      "game_id": 401810803,
+      "game_date_utc": "2026-03-12",
+      "home_team": "NO",
+      "away_team": "TOR",
+      "ensemble_prob_home_win": 0.3217087076326342,
+      "predicted_winner": "TOR",
+      "spread_mean": 0.32171530365998124,
+      "spread_sd": 0.003812088548698772,
+      "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": true}",
+      "model_win_probabilities": {
+        "ensemble": 0.3217087076326342,
+        "glm_elastic_net": 0.32552739220868004,
+        "glm_ridge": 0.3179032151112825
       }
     },
     {
@@ -551,25 +307,15 @@
       "game_date_utc": "2026-03-10",
       "home_team": "UTAH",
       "away_team": "GS",
-      "ensemble_prob_home_win": 0.31626112896178793,
+      "ensemble_prob_home_win": 0.23391483619940256,
       "predicted_winner": "GS",
-      "spread_mean": 0.35292999064632896,
-      "spread_sd": 0.1546074657206848,
-      "bayes_ci_low": 0.285894983701036,
-      "bayes_ci_high": 0.4647499411195316,
+      "spread_mean": 0.2339260360452915,
+      "spread_sd": 0.00647280582899222,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.31626112896178793,
-        "bayes_bt_state_space": 0.3731762655444592,
-        "bayes_goals": 0.7122,
-        "dynamic_rating": 0.23247006607986676,
-        "elo_baseline": 0.362592148897525,
-        "gbdt": 0.19034003996198295,
-        "glm_ridge": 0.22745323021629926,
-        "goals_poisson": 0.37533333333333335,
-        "rf": 0.3410576729289239,
-        "simulation_first": 0.5187142857142857,
-        "two_stage": 0.19596286378661384
+        "ensemble": 0.23391483619940256,
+        "glm_elastic_net": 0.2403988418742837,
+        "glm_ridge": 0.22745323021629926
       }
     }
   ]

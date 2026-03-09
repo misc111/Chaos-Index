@@ -5,8 +5,14 @@ from typing import Any
 
 import yaml
 
+from src.common.manifests import load_model_manifest
+
 
 MODEL_FEATURE_GUARDRAILS_PATH_TEMPLATE = "configs/model_feature_guardrails_{league}.yaml"
+MODEL_GUARDRAIL_FALLBACKS = {
+    str(model_name): tuple(str(item) for item in values)
+    for model_name, values in dict(load_model_manifest().get("legacy_model_keys", {})).items()
+}
 
 
 def default_guardrails_path_template(path_template: str) -> str:
@@ -75,11 +81,13 @@ def blocked_features_for_model(
     path_template: str = MODEL_FEATURE_GUARDRAILS_PATH_TEMPLATE,
 ) -> set[str]:
     guardrails = load_model_feature_guardrails(league, path_template=path_template)
-    payload = guardrails.get(str(model_name), {})
-    blocked = payload.get("blocked_features", {})
-    if not isinstance(blocked, dict):
-        return set()
-    return set(blocked.keys())
+    candidate_keys = [str(model_name)] + list(MODEL_GUARDRAIL_FALLBACKS.get(str(model_name), ()))
+    for key in candidate_keys:
+        payload = guardrails.get(key, {})
+        blocked = payload.get("blocked_features", {})
+        if isinstance(blocked, dict) and blocked:
+            return set(blocked.keys())
+    return set()
 
 
 def apply_model_feature_guardrails(

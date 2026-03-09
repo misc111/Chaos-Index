@@ -1,10 +1,11 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-03-07T00:00:00Z",
+  "generated_at_utc": "2026-03-09T00:00:00Z",
   "trainable_models": [
     "elo_baseline",
     "dynamic_rating",
     "glm_ridge",
+    "glm_elastic_net",
     "gbdt",
     "rf",
     "two_stage",
@@ -21,6 +22,9 @@
     "glm": "glm_ridge",
     "logit": "glm_ridge",
     "glm_logit": "glm_ridge",
+    "elastic": "glm_elastic_net",
+    "enet": "glm_elastic_net",
+    "glm_enet": "glm_elastic_net",
     "gbm": "gbdt",
     "forest": "rf",
     "goals": "goals_poisson",
@@ -33,12 +37,17 @@
   "legacy_model_keys": {
     "glm_ridge": [
       "glm_logit"
+    ],
+    "glm_elastic_net": [
+      "glm_ridge",
+      "glm_logit"
     ]
   },
   "prediction_report_order": [
     "ensemble",
     "elo_baseline",
     "glm_ridge",
+    "glm_elastic_net",
     "dynamic_rating",
     "rf",
     "goals_poisson",
@@ -53,6 +62,7 @@
     "ensemble": "Ensemble",
     "elo_baseline": "Elo",
     "glm_ridge": "GLM Ridge",
+    "glm_elastic_net": "GLM ENet",
     "dynamic_rating": "Dyn Rating",
     "rf": "RF",
     "goals_poisson": "Goals Pois",

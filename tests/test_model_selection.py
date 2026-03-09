@@ -98,6 +98,28 @@ def test_train_single_model_glm_only(tmp_path):
     assert 0.0 < float(row["ensemble_prob_home_win"]) < 1.0
 
 
+def test_train_single_model_elastic_net_only(tmp_path):
+    df = _synthetic_features()
+    out = train_and_predict(
+        features_df=df,
+        feature_set_version="test_feature_set",
+        artifacts_dir=str(tmp_path / "artifacts"),
+        bayes_cfg={},
+        selected_models=["glm_elastic_net"],
+    )
+
+    pred_cols = list(out["upcoming_model_probs"].columns)
+    assert pred_cols == ["game_id", "glm_elastic_net"]
+    assert out["run_payload"]["selected_models"] == ["glm_elastic_net"]
+    assert out["run_payload"]["glm_elastic_net_best_c"] in {0.05, 0.1, 0.25, 0.5, 1.0}
+    assert out["run_payload"]["glm_elastic_net_best_l1_ratio"] in {0.1, 0.25, 0.5, 0.75}
+
+    row = out["forecasts"].iloc[0]
+    per_model = json.loads(row["per_model_probs_json"])
+    assert list(per_model.keys()) == ["glm_elastic_net"]
+    assert 0.0 < float(row["ensemble_prob_home_win"]) < 1.0
+
+
 def test_fit_suite_nn_gate_uses_preholdout_benchmark_and_refits_winner(monkeypatch, tmp_path):
     n = 400
     train_df = pd.DataFrame(

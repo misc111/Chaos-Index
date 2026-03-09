@@ -5,10 +5,9 @@ import warnings
 
 import numpy as np
 import pandas as pd
-from sklearn.linear_model import LogisticRegression
 
 from src.evaluation.metrics import metric_bundle
-from src.models.glm_ridge import GLMRidgeModel
+from src.models.glm_penalized import build_penalized_glm
 from src.training.cv import time_series_splits
 
 PAIRWISE_WARN_THRESHOLD = 0.80
@@ -30,6 +29,9 @@ def coefficient_paths(
     features: list[str],
     target_col: str = "home_win",
     windows: list[int] | None = None,
+    model_name: str = "glm_ridge",
+    c: float = 1.0,
+    l1_ratio: float | None = None,
 ) -> pd.DataFrame:
     if windows is None:
         windows = [30, 60, 90]
@@ -45,17 +47,15 @@ def coefficient_paths(
             y = seg[target_col].astype(int).to_numpy()
             if len(np.unique(y)) < 2:
                 continue
-            x_frame = _safe_numeric_frame(seg, features)
-            x = x_frame.fillna(x_frame.median(numeric_only=True)).fillna(0.0).to_numpy(dtype=float)
-            m = LogisticRegression(max_iter=1500, C=1.0)
-            m.fit(x, y)
-            for f, c in zip(features, m.coef_[0]):
+            model = build_penalized_glm(model_name, c=c, l1_ratio=l1_ratio)
+            model.fit(seg, features, target_col=target_col)
+            for row in _glm_original_coefficients(model).itertuples(index=False):
                 out.append(
                     {
                         "window": w,
                         "as_of": seg.iloc[-1]["game_date_utc"],
-                        "feature": f,
-                        "coef": float(c),
+                        "feature": row.feature,
+                        "coef": float(row.coef_original) if np.isfinite(row.coef_original) else float("nan"),
                     }
                 )
     return pd.DataFrame(out)
@@ -614,7 +614,7 @@ def _ordered_games(df: pd.DataFrame, target_col: str = "home_win") -> pd.DataFra
     return work.reset_index(drop=True)
 
 
-def _glm_original_coefficients(model: GLMRidgeModel) -> pd.DataFrame:
+def _glm_original_coefficients(model) -> pd.DataFrame:
     coef_scaled = np.asarray(model.model.coef_[0], dtype=float)
     scale = np.asarray(model.scaler.scale_, dtype=float)
     coef_original = np.divide(
@@ -647,7 +647,9 @@ def cv_glm_stability_report(
     target_col: str = "home_win",
     n_splits: int = 5,
     min_train_size: int | None = None,
+    model_name: str = "glm_ridge",
     c: float = 1.0,
+    l1_ratio: float | None = None,
 ) -> dict[str, pd.DataFrame | dict[str, Any]]:
     work = _cv_work_frame(df, target_col=target_col)
     if work.empty or not features:
@@ -676,7 +678,7 @@ def cv_glm_stability_report(
         if tr.empty or va.empty or tr[target_col].nunique() < 2:
             continue
 
-        model = GLMRidgeModel(c=float(c))
+        model = build_penalized_glm(model_name, c=float(c), l1_ratio=l1_ratio)
         model.fit(tr, features, target_col=target_col)
         p = model.predict_proba(va)
         metrics = metric_bundle(va[target_col].astype(int).to_numpy(), p)
@@ -765,7 +767,9 @@ def bootstrap_glm_coefficients(
     *,
     target_col: str = "home_win",
     n_boot: int = 100,
+    model_name: str = "glm_ridge",
     c: float = 1.0,
+    l1_ratio: float | None = None,
 ) -> dict[str, pd.DataFrame | dict[str, Any]]:
     work = df[df[target_col].notna()].copy()
     if work.empty or not features:
@@ -775,7 +779,7 @@ def bootstrap_glm_coefficients(
             "feature_summary": pd.DataFrame(),
         }
 
-    base_model = GLMRidgeModel(c=float(c))
+    base_model = build_penalized_glm(model_name, c=float(c), l1_ratio=l1_ratio)
     base_model.fit(work, features, target_col=target_col)
     base_frame = _glm_original_coefficients(base_model).rename(
         columns={"coef_scaled": "base_coef_scaled", "coef_original": "base_coef_original"}
@@ -789,7 +793,7 @@ def bootstrap_glm_coefficients(
         if sample[target_col].nunique() < 2:
             continue
         try:
-            model = GLMRidgeModel(c=float(c))
+            model = build_penalized_glm(model_name, c=float(c), l1_ratio=l1_ratio)
             model.fit(sample, features, target_col=target_col)
         except Exception:
             continue
@@ -856,6 +860,9 @@ def break_test_trade_deadline(
     features: list[str],
     target_col: str = "home_win",
     league: str = "NHL",
+    model_name: str = "glm_ridge",
+    c: float = 1.0,
+    l1_ratio: float | None = None,
 ) -> dict:
     work = df[df[target_col].notna()].copy()
     work["game_date_utc"] = pd.to_datetime(work["game_date_utc"])
@@ -870,26 +877,12 @@ def break_test_trade_deadline(
     if len(pre) < 20 or len(post) < 20:
         return {"delta_coef_l2": float("nan"), "n_pre": len(pre), "n_post": len(post), "deadline": str(deadline.date())}
 
-    pre_x = _safe_numeric_frame(pre, features)
-    post_x = _safe_numeric_frame(post, features)
-    pre_x = pre_x.fillna(pre_x.median(numeric_only=True)).fillna(0.0)
-    post_x = post_x.fillna(post_x.median(numeric_only=True)).fillna(0.0)
-    m1 = LogisticRegression(max_iter=1500).fit(pre_x, pre[target_col])
-    m2 = LogisticRegression(max_iter=1500).fit(post_x, post[target_col])
-    delta = float(np.linalg.norm(m1.coef_[0] - m2.coef_[0]))
+    pre_model = build_penalized_glm(model_name, c=float(c), l1_ratio=l1_ratio)
+    post_model = build_penalized_glm(model_name, c=float(c), l1_ratio=l1_ratio)
+    pre_model.fit(pre, features, target_col=target_col)
+    post_model.fit(post, features, target_col=target_col)
+    pre_coef = _glm_original_coefficients(pre_model).set_index("feature")["coef_original"]
+    post_coef = _glm_original_coefficients(post_model).set_index("feature")["coef_original"]
+    aligned = pd.concat([pre_coef.rename("pre"), post_coef.rename("post")], axis=1).fillna(0.0)
+    delta = float(np.linalg.norm(aligned["pre"].to_numpy(dtype=float) - aligned["post"].to_numpy(dtype=float)))
     return {"delta_coef_l2": delta, "n_pre": len(pre), "n_post": len(post), "deadline": str(deadline.date())}
-    work = df[df[target_col].notna()].copy()
-    work["game_date_utc"] = pd.to_datetime(work["game_date_utc"])
-    if work.empty:
-        return {"delta_coef_l2": float("nan"), "n_pre": 0, "n_post": 0}
-
-    deadline = pd.Timestamp(year=work["game_date_utc"].dt.year.max(), month=3, day=7)
-    pre = work[work["game_date_utc"] < deadline]
-    post = work[work["game_date_utc"] >= deadline]
-    if len(pre) < 20 or len(post) < 20:
-        return {"delta_coef_l2": float("nan"), "n_pre": len(pre), "n_post": len(post)}
-
-    m1 = LogisticRegression(max_iter=1500).fit(pre[features], pre[target_col])
-    m2 = LogisticRegression(max_iter=1500).fit(post[features], post[target_col])
-    delta = float(np.linalg.norm(m1.coef_[0] - m2.coef_[0]))
-    return {"delta_coef_l2": delta, "n_pre": len(pre), "n_post": len(post)}

@@ -74,3 +74,21 @@ def test_build_ensemble_outputs_excludes_nba_simulation_first_from_weights_and_s
     assert "simulation_first" in nhl_weights
     assert nba_spread.loc[0, "spread_mean"] == pytest.approx(np.mean([0.65, 0.62, 0.6]))
     assert nhl_spread.loc[0, "spread_mean"] == pytest.approx(np.mean([0.65, 0.62, 0.6, 0.51]))
+
+
+def test_fit_stacker_includes_elastic_net_when_present():
+    oof = pd.DataFrame(
+        {
+            "home_win": [0, 1, 0, 1, 0, 1, 0, 1],
+            "elo_baseline": [0.32, 0.68, 0.35, 0.66, 0.4, 0.6, 0.38, 0.7],
+            "glm_ridge": [0.3, 0.7, 0.34, 0.64, 0.41, 0.61, 0.36, 0.72],
+            "glm_elastic_net": [0.31, 0.71, 0.35, 0.65, 0.42, 0.62, 0.37, 0.73],
+            "rf": [0.33, 0.69, 0.37, 0.67, 0.42, 0.58, 0.39, 0.71],
+        }
+    )
+
+    stacker, stack_ready, stack_base_cols = fit_stacker(oof, league="NHL")
+
+    assert stack_ready is True
+    assert stack_base_cols == ["elo_baseline", "glm_ridge", "glm_elastic_net", "rf"]
+    assert stacker.base_columns == ["elo_baseline", "glm_ridge", "glm_elastic_net", "rf"]

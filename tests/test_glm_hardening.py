@@ -1,9 +1,10 @@
 import numpy as np
 import pandas as pd
 
+from src.models.glm_elastic_net import GLMElasticNetModel
 from src.models.glm_ridge import GLMRidgeModel
 from src.training.train import glm_feature_subset
-from src.training.tune import quick_tune_glm
+from src.training.tune import quick_tune_glm, quick_tune_penalized_glm
 
 
 def test_glm_feature_subset_drops_identifier_features():
@@ -55,6 +56,53 @@ def test_glm_handles_missing_and_inf_values():
         }
     )
     m = GLMRidgeModel(c=0.5)
+    m.fit(df, feature_columns=["f1", "f2"])
+    p = m.predict_proba(df)
+    assert np.isfinite(p).all()
+    assert (p > 0).all()
+    assert (p < 1).all()
+
+
+def test_quick_tune_elastic_net_returns_l1_ratio_choice():
+    n = 320
+    rng = np.random.default_rng(5)
+    x = rng.normal(0, 1, n)
+    noise = rng.normal(0, 1, n)
+    y = (1.2 * x - 0.3 * noise > 0).astype(int)
+    df = pd.DataFrame(
+        {
+            "start_time_utc": pd.date_range("2025-01-01", periods=n, freq="D").astype(str),
+            "home_win": y,
+            "signal": x,
+            "noise": noise,
+        }
+    )
+
+    out = quick_tune_penalized_glm(
+        df,
+        feature_cols=["signal", "noise"],
+        model_name="glm_elastic_net",
+        c_grid=[0.1, 0.5],
+        l1_ratio_grid=[0.25, 0.75],
+        n_splits=4,
+        min_train_size=140,
+    )
+
+    assert out["best_c"] in {0.1, 0.5}
+    assert out["best_l1_ratio"] in {0.25, 0.75}
+    assert out["best_params"]["l1_ratio"] in {0.25, 0.75}
+    assert len(out["results"]) >= 1
+
+
+def test_elastic_net_handles_missing_and_inf_values():
+    df = pd.DataFrame(
+        {
+            "home_win": [0, 1, 0, 1, 0, 1, 1, 0],
+            "f1": [0.1, 0.2, np.nan, 0.8, np.inf, 0.5, -np.inf, 0.4],
+            "f2": [1.0, 0.0, 0.3, np.nan, 0.2, 0.1, 0.9, np.inf],
+        }
+    )
+    m = GLMElasticNetModel(c=0.5, l1_ratio=0.5)
     m.fit(df, feature_columns=["f1", "f2"])
     p = m.predict_proba(df)
     assert np.isfinite(p).all()

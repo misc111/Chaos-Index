@@ -29,9 +29,11 @@ from src.evaluation.validation_stability import (
     cv_glm_stability_report,
 )
 from src.models.gbdt import GBDTModel
-from src.models.glm_ridge import GLMRidgeModel
+from src.models.glm_penalized import build_penalized_glm
 from src.models.rf import RFModel
-from src.training.tune import quick_tune_glm
+from src.training.model_catalog import LEGACY_MODEL_KEYS, MODEL_ALIASES
+from src.training.penalized_glm import primary_penalized_glm_name, selected_penalized_glm_models
+from src.training.tune import quick_tune_penalized_glm
 
 ValidationTaskRunner = Callable[["ValidationContext"], "ValidationOutputs"]
 ValidationTaskPredicate = Callable[["ValidationContext"], bool]
@@ -140,10 +142,11 @@ class ValidationContext:
         league = _canonical_league(cfg.data.league)
         out_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "validation" / league.lower())
         plots_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "plots" / league.lower() / "glm" / "performance")
-        glm = models.get("glm_ridge")
+        glm_name = primary_penalized_glm_name(selected_models, models)
+        glm = models.get(glm_name) if glm_name else None
         diagnostic_feature_cols = list(
             getattr(glm, "feature_columns", [])
-            or _validation_feature_columns(feature_cols, run_payload, "glm_ridge")
+            or _validation_feature_columns(feature_cols, run_payload, glm_name or "glm_ridge")
             or feature_cols[: min(40, len(feature_cols))]
         )
 
@@ -301,9 +304,13 @@ def _archive_validation_outputs(ctx: ValidationContext, outputs: ValidationOutpu
 
 def _selected_validation_models(result: dict[str, Any], run_payload: dict[str, Any]) -> list[str]:
     def _canonical_model_name(model_name: Any) -> str:
-        token = str(model_name).strip()
-        if token == "glm_logit":
-            return "glm_ridge"
+        token = str(model_name).strip().lower()
+        if not token:
+            return ""
+        canonical = MODEL_ALIASES.get(token, token)
+        if not canonical:
+            return ""
+        token = str(canonical).strip()
         return token
 
     payload_models = run_payload.get("selected_models", [])
@@ -455,8 +462,7 @@ def _validation_feature_columns(
     model_feature_map = run_payload.get("model_feature_columns", {})
     if isinstance(model_feature_map, dict):
         candidate_keys = [model_name]
-        if model_name == "glm_ridge":
-            candidate_keys.append("glm_logit")
+        candidate_keys.extend(LEGACY_MODEL_KEYS.get(model_name, ()))
         for key in candidate_keys:
             requested = model_feature_map.get(key, [])
             if isinstance(requested, list):
@@ -487,17 +493,24 @@ def _fit_validation_models(
     selected = set(selected_models)
     models: dict[str, object] = {}
 
-    if "glm_ridge" in selected:
-        glm_cols = _validation_feature_columns(feature_cols, run_payload, "glm_ridge")
-        glm_tune = {"best_c": 1.0}
+    for model_name in selected_penalized_glm_models(selected_models):
+        if model_name not in selected:
+            continue
+        glm_cols = _validation_feature_columns(feature_cols, run_payload, model_name)
+        glm_tune = dict(run_payload.get("glm_tuning_by_model", {}).get(model_name, {}))
         if "start_time_utc" in tr.columns:
-            glm_tune = quick_tune_glm(
+            glm_tune = quick_tune_penalized_glm(
                 tr,
                 glm_cols,
+                model_name=model_name,
                 n_splits=3,
                 min_train_size=min(140, max(70, len(tr) // 2)),
             )
-        glm = GLMRidgeModel(c=float(glm_tune.get("best_c", 1.0)))
+        glm = build_penalized_glm(
+            model_name,
+            c=float(glm_tune.get("best_c", 1.0)),
+            l1_ratio=glm_tune.get("best_l1_ratio"),
+        )
         glm.fit(tr, glm_cols)
         models[glm.model_name] = glm
 
@@ -751,28 +764,47 @@ def _task_significance(ctx: ValidationContext) -> ValidationOutputs:
 
 def _task_stability(ctx: ValidationContext) -> ValidationOutputs:
     glm_c = float(getattr(ctx.glm, "c", 1.0)) if ctx.glm is not None else 1.0
+    glm_model_name = str(getattr(ctx.glm, "model_name", "glm_ridge")) if ctx.glm is not None else "glm_ridge"
+    glm_l1_ratio = getattr(ctx.glm, "l1_ratio", None) if ctx.glm is not None else None
     cv_report = cv_glm_stability_report(
         ctx.train_df,
         features=ctx.diagnostic_feature_cols,
         n_splits=max(2, int(getattr(ctx.cfg.modeling, "cv_splits", 5) or 5)),
+        model_name=glm_model_name,
         c=glm_c,
+        l1_ratio=glm_l1_ratio,
     )
     bootstrap = bootstrap_glm_coefficients(
         ctx.fit_df if not ctx.fit_df.empty else ctx.train_df,
         features=ctx.diagnostic_feature_cols,
+        model_name=glm_model_name,
         c=glm_c,
+        l1_ratio=glm_l1_ratio,
     )
     out = ValidationOutputs()
     out.add_csv(
         section="coef_paths",
         file_name=_validation_path("diagnostics", "stability", "validation_coef_paths.csv"),
-        rows=coefficient_paths(ctx.train_df, features=ctx.diagnostic_feature_cols),
+        rows=coefficient_paths(
+            ctx.train_df,
+            features=ctx.diagnostic_feature_cols,
+            model_name=glm_model_name,
+            c=glm_c,
+            l1_ratio=glm_l1_ratio,
+        ),
         tail_rows=200,
     )
     out.add_json(
         section="break_test",
         file_name=_validation_path("diagnostics", "stability", "validation_break_test.json"),
-        payload=break_test_trade_deadline(ctx.train_df, features=ctx.diagnostic_feature_cols, league=ctx.league),
+        payload=break_test_trade_deadline(
+            ctx.train_df,
+            features=ctx.diagnostic_feature_cols,
+            league=ctx.league,
+            model_name=glm_model_name,
+            c=glm_c,
+            l1_ratio=glm_l1_ratio,
+        ),
     )
     out.add_json(
         section="cv_summary",

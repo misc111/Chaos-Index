@@ -17,7 +17,7 @@ from src.training.train import (
     normalize_selected_models,
     select_feature_columns,
 )
-from src.training.tune import quick_tune_glm
+from src.training.penalized_glm import resolve_penalized_glm_feature_columns, selected_penalized_glm_models, tune_penalized_glm_models
 
 
 
@@ -55,20 +55,21 @@ def run_walk_forward_backtest(
         if tr.empty or va.empty:
             continue
 
-        fold_glm_c = 1.0
-        fold_glm_cols = (
-            selected_model_feature_columns.get("glm_ridge")
-            or selected_model_feature_columns.get("glm_logit")
-            or glm_cols
-        ) if selected_model_feature_columns else glm_cols
-        if "glm_ridge" in models_selected:
-            tune = quick_tune_glm(
+        fold_glm_tuning: dict[str, dict] = {}
+        if selected_penalized_glm_models(models_selected):
+            fold_glm_cols_by_model = resolve_penalized_glm_feature_columns(
+                feature_cols,
+                selected_models=models_selected,
+                model_feature_columns=selected_model_feature_columns,
+                fallback_columns=glm_cols,
+            )
+            fold_glm_tuning = tune_penalized_glm_models(
                 tr,
-                fold_glm_cols,
+                selected_models=models_selected,
+                feature_columns_by_model=fold_glm_cols_by_model,
                 n_splits=3,
                 min_train_size=min(140, max(70, len(tr) // 2)),
             )
-            fold_glm_c = float(tune.get("best_c", 1.0))
         models, _, _, _, _ = _fit_suite(
             tr,
             feature_cols,
@@ -76,8 +77,8 @@ def run_walk_forward_backtest(
             bayes_cfg=bayes_cfg,
             selected_models=models_selected,
             allow_nn=allow_nn,
-            glm_feature_cols=fold_glm_cols,
-            glm_c=fold_glm_c,
+            glm_feature_cols=glm_cols,
+            glm_params_by_model=fold_glm_tuning,
             model_feature_columns=selected_model_feature_columns,
         )
         pred_df, _ = _predict_suite(models, va, feature_cols, selected_models=models_selected)

@@ -11,6 +11,8 @@ from src.training.model_feature_research import (
 def test_glm_pruning_config_is_league_specific() -> None:
     assert _model_feature_pruning_config("glm_ridge", league="NBA") == (6, 10, 0.92)
     assert _model_feature_pruning_config("glm_ridge", league="NHL") == (14, 24, 0.92)
+    assert _model_feature_pruning_config("glm_elastic_net", league="NBA") == (6, 10, 0.92)
+    assert _model_feature_pruning_config("glm_elastic_net", league="NHL") == (14, 24, 0.92)
 
 
 def test_nba_model_feature_research_promotes_per_model_feature_map(tmp_path) -> None:

@@ -11,6 +11,15 @@ models:
     - elo_home_prob
     - arena_margin_effect
     feature_count: 6
+  glm_elastic_net:
+    active_features:
+    - diff_darko_like_total
+    - diff_projected_absence_pressure
+    - rest_diff
+    - diff_rotation_stability
+    - elo_home_prob
+    - arena_margin_effect
+    feature_count: 6
   gbdt:
     active_features:
     - diff_form_point_margin

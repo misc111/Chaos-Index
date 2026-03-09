@@ -11,11 +11,12 @@ from src.evaluation.metrics import metric_bundle
 from src.models.bayes_state_space_goals import BayesGoalsModel
 from src.models.gbdt import GBDTModel
 from src.models.glm_goals import GoalsPoissonModel
-from src.models.glm_ridge import GLMRidgeModel
+from src.models.glm_penalized import build_penalized_glm
 from src.models.nn import NNModel
 from src.models.rf import RFModel
 from src.models.two_stage import TwoStageModel
 from src.training.feature_selection import bayes_feature_subset, resolve_model_feature_columns
+from src.training.penalized_glm import selected_penalized_glm_models
 from src.training.progress import ProgressCallback, emit_progress
 
 
@@ -29,6 +30,7 @@ def fit_model_suite(
     allow_nn: bool = True,
     glm_feature_cols: list[str] | None = None,
     glm_c: float = 1.0,
+    glm_params_by_model: dict[str, dict[str, Any]] | None = None,
     model_feature_columns: dict[str, list[str]] | None = None,
     metric_bundle_fn=metric_bundle,
 ):
@@ -36,18 +38,27 @@ def fit_model_suite(
     selected = set(selected_models)
     used_feature_map: dict[str, list[str]] = {}
 
-    glm_cols = resolve_model_feature_columns(
-        feature_cols,
-        model_name="glm_ridge",
-        model_feature_columns=model_feature_columns,
-        fallback_columns=glm_feature_cols if glm_feature_cols else feature_cols,
-    )
-    if "glm_ridge" in selected:
+    glm_params = dict(glm_params_by_model or {})
+    glm_params.setdefault("glm_ridge", {"best_c": float(glm_c)})
+    for model_name in selected_penalized_glm_models(selected_models):
+        glm_cols = resolve_model_feature_columns(
+            feature_cols,
+            model_name=model_name,
+            model_feature_columns=model_feature_columns,
+            fallback_columns=glm_feature_cols if glm_feature_cols else feature_cols,
+        )
+        params = dict(glm_params.get(model_name, {}))
+        glm_c_value = float(params.get("best_c", params.get("c", 1.0)))
+        glm_l1_ratio = params.get("best_l1_ratio", params.get("l1_ratio"))
         emit_progress(
             progress_callback,
-            {"kind": "model", "model": "glm_ridge", "stage": "fit", "status": "started", "message": "Fitting glm_ridge"},
+            {"kind": "model", "model": model_name, "stage": "fit", "status": "started", "message": f"Fitting {model_name}"},
         )
-        glm = GLMRidgeModel(c=float(glm_c))
+        glm = build_penalized_glm(
+            model_name,
+            c=glm_c_value,
+            l1_ratio=None if glm_l1_ratio is None else float(glm_l1_ratio),
+        )
         glm.fit(train_df, glm_cols)
         models[glm.model_name] = glm
         used_feature_map[glm.model_name] = glm_cols
@@ -55,10 +66,10 @@ def fit_model_suite(
             progress_callback,
             {
                 "kind": "model",
-                "model": "glm_ridge",
+                "model": model_name,
                 "stage": "fit",
                 "status": "completed",
-                "message": "Completed glm_ridge fit",
+                "message": f"Completed {model_name} fit",
             },
         )
 
