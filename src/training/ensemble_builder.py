@@ -8,32 +8,41 @@ import pandas as pd
 from src.evaluation.metrics import metric_bundle
 from src.models.ensemble_stack import StackingEnsemble
 from src.models.ensemble_weighted import compute_weights, spread_stats, weighted_ensemble
+from src.training.ensemble_policy import ensemble_component_columns
 from src.training.progress import ProgressCallback, emit_progress
 
 
-def fit_stacker(oof: pd.DataFrame, *, progress_callback: ProgressCallback | None = None) -> tuple[StackingEnsemble, bool, list[str]]:
+def fit_stacker(
+    oof: pd.DataFrame,
+    *,
+    league: str | None = None,
+    progress_callback: ProgressCallback | None = None,
+) -> tuple[StackingEnsemble, bool, list[str]]:
     emit_progress(
         progress_callback,
         {"kind": "pipeline", "stage": "stacking", "status": "started", "message": "Preparing stacking ensemble"},
     )
     stacker = StackingEnsemble()
-    stack_base_cols = [
-        c
-        for c in [
-            "elo_baseline",
-            "dynamic_rating",
-            "glm_ridge",
-            "gbdt",
-            "rf",
-            "two_stage",
-            "goals_poisson",
-            "simulation_first",
-            "bayes_bt_state_space",
-            "bayes_goals",
-            "nn_mlp",
-        ]
-        if c in oof.columns
-    ]
+    stack_base_cols = ensemble_component_columns(
+        [
+            c
+            for c in [
+                "elo_baseline",
+                "dynamic_rating",
+                "glm_ridge",
+                "gbdt",
+                "rf",
+                "two_stage",
+                "goals_poisson",
+                "simulation_first",
+                "bayes_bt_state_space",
+                "bayes_goals",
+                "nn_mlp",
+            ]
+            if c in oof.columns
+        ],
+        league=league,
+    )
     stack_ready = False
     if not oof.empty and len(stack_base_cols) >= 3:
         stacker.fit(oof.dropna(subset=["home_win"]), base_columns=stack_base_cols, target_col="home_win")
@@ -77,25 +86,29 @@ def build_ensemble_outputs(
     stacker: StackingEnsemble,
     stack_ready: bool,
     *,
+    league: str | None = None,
     progress_callback: ProgressCallback | None = None,
 ) -> tuple[np.ndarray, dict[str, float], pd.DataFrame]:
     model_cols = [c for c in upcoming_preds.columns if c != "game_id"]
-    if not model_cols:
+    ensemble_cols = ensemble_component_columns(model_cols, league=league)
+    if not ensemble_cols:
         raise RuntimeError("No model predictions were produced for ensemble construction.")
 
-    weights = compute_weights(pd.DataFrame(oof_metrics))
+    ensemble_set = set(ensemble_cols)
+    filtered_metrics = [row for row in oof_metrics if str(row.get("model_name")) in ensemble_set]
+    weights = compute_weights(pd.DataFrame(filtered_metrics))
     if not weights:
-        weights = {c: 1.0 for c in model_cols}
+        weights = {c: 1.0 for c in ensemble_cols}
 
     if stack_ready:
         stack_prob = stacker.predict_proba(upcoming_preds)
     else:
-        stack_prob = weighted_ensemble(upcoming_preds, weights)
+        stack_prob = weighted_ensemble(upcoming_preds[ensemble_cols], weights)
 
-    weight_prob = weighted_ensemble(upcoming_preds, weights)
+    weight_prob = weighted_ensemble(upcoming_preds[ensemble_cols], weights)
     ensemble_prob = np.clip(0.6 * stack_prob + 0.4 * weight_prob, 1e-6, 1 - 1e-6)
     emit_progress(
         progress_callback,
         {"kind": "pipeline", "stage": "ensemble", "status": "completed", "message": "Built ensemble probabilities"},
     )
-    return ensemble_prob, weights, spread_stats(upcoming_preds, model_cols)
+    return ensemble_prob, weights, spread_stats(upcoming_preds, ensemble_cols)

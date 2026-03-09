@@ -259,6 +259,7 @@ def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_
         progress_callback=emit_train_progress,
         selected_feature_columns=approved_feature_columns,
         selected_model_feature_columns=model_feature_columns,
+        league=cfg.data.league,
     )
     tracker.log_metrics(
         run_id,

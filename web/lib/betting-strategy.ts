@@ -30,9 +30,10 @@ export type BetStrategyRuleConfig = Pick<
 
 const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
   riskAdjusted: {
-    label: "Risk-Adjusted Optimal",
-    shortLabel: "Tangency",
-    description: "Selected from the historical replay frontier at the highest zero-rate Sharpe ratio under continuous sizing.",
+    label: "Balanced",
+    shortLabel: "Default",
+    description:
+      "House default policy. When matched replay coverage is deep enough, the app can re-rank this profile against the other saved policies; until then it stays on fixed settings.",
     allowUnderdogs: true,
     minEdge: 0.035,
     minExpectedValue: 0.025,
@@ -41,8 +42,8 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
   },
   aggressive: {
     label: "Aggressive",
-    shortLabel: "Higher Return",
-    description: "Selected from the same replay frontier at a higher-return, higher-volatility point than the tangency choice.",
+    shortLabel: "Higher Risk",
+    description: "Looser thresholds and larger Kelly scaling for a higher-variance house policy.",
     allowUnderdogs: true,
     minEdge: 0.025,
     minExpectedValue: 0.015,
@@ -51,8 +52,8 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
   },
   capitalPreservation: {
     label: "Capital Preservation",
-    shortLabel: "Hates losses",
-    description: "Selected from replay to minimize downside volatility and drawdown while maintaining a positive realized return.",
+    shortLabel: "Conservative",
+    description: "Smaller capped stakes, no underdogs, and a focus on downside control.",
     allowUnderdogs: false,
     minEdge: 0.05,
     minExpectedValue: 0.035,

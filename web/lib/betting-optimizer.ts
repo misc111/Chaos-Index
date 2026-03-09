@@ -73,6 +73,8 @@ const MIN_EDGE_GRID = [0.025, 0.03, 0.035, 0.04, 0.045, 0.05];
 const MIN_EXPECTED_VALUE_GRID = [0.015, 0.02, 0.025, 0.03, 0.035];
 const SIZE_MULTIPLIER_GRID = [0.35, 0.45, 0.5, 0.65, 0.8, 1, 1.2, 1.4, 1.6];
 const MAX_BET_UNITS_GRID = [0.5, 0.75, 1, 1.25, 1.5, 2, 2.5, 3];
+const MIN_REPLAY_GAMES_FOR_POLICY_RANKING = 20;
+const MIN_REPLAY_DAYS_FOR_POLICY_RANKING = 10;
 
 function roundNumber(value: number, digits = 6): number {
   const factor = 10 ** digits;
@@ -167,6 +169,19 @@ function buildCandidateGrid(): BetStrategyRuleConfig[] {
   }
 
   return candidates;
+}
+
+function summarizeReplayCoverage(rows: OptimizableHistoricalBetRow[]): { settledGames: number; replayDays: number } {
+  const settledRows = rows.filter((row) => row.home_win !== null);
+  const replayDays = new Set(settledRows.map((row) => row.date_central).filter(Boolean)).size;
+  return {
+    settledGames: settledRows.length,
+    replayDays,
+  };
+}
+
+function replayCoverageGateMessage(settledGames: number, replayDays: number): string {
+  return `Static defaults active until matched replay coverage reaches at least ${MIN_REPLAY_GAMES_FOR_POLICY_RANKING} settled games across ${MIN_REPLAY_DAYS_FOR_POLICY_RANKING} replay days (current sample: ${settledGames} games across ${replayDays} days).`;
 }
 
 function evaluateCandidate(rows: OptimizableHistoricalBetRow[], config: BetStrategyRuleConfig): CandidateEvaluation | null {
@@ -315,25 +330,70 @@ export function resolveBetStrategyConfigs(rows: OptimizableHistoricalBetRow[]): 
   strategyConfigs: Record<BetStrategy, ResolvedBetStrategyConfig>;
   optimizationSummary: BetStrategyOptimizationSummary;
 } {
+  const replayCoverage = summarizeReplayCoverage(rows);
+  const hasReplayCoverageForRanking =
+    replayCoverage.settledGames >= MIN_REPLAY_GAMES_FOR_POLICY_RANKING &&
+    replayCoverage.replayDays >= MIN_REPLAY_DAYS_FOR_POLICY_RANKING;
+
+  if (!hasReplayCoverageForRanking) {
+    return {
+      strategyConfigs: {
+        riskAdjusted: toResolvedConfig(
+          "riskAdjusted",
+          null,
+          "static_fallback",
+          "Static balanced default while matched replay coverage remains limited"
+        ),
+        aggressive: toResolvedConfig(
+          "aggressive",
+          null,
+          "static_fallback",
+          "Static aggressive default while matched replay coverage remains limited"
+        ),
+        capitalPreservation: toResolvedConfig(
+          "capitalPreservation",
+          null,
+          "static_fallback",
+          "Static conservative default while matched replay coverage remains limited"
+        ),
+      },
+      optimizationSummary: {
+        method: replayCoverageGateMessage(replayCoverage.settledGames, replayCoverage.replayDays),
+        sizing_style: "continuous",
+        risk_free_rate: 0,
+        candidate_count: 0,
+        frontier_point_count: 0,
+        frontier: [],
+        selected: {
+          riskAdjusted: null,
+          aggressive: null,
+          capitalPreservation: null,
+        },
+      },
+    };
+  }
+
   const evaluatedCandidates = buildCandidateGrid()
     .map((config) => evaluateCandidate(rows, config))
     .filter((candidate): candidate is CandidateEvaluation => candidate !== null);
 
   const positiveMeanCandidates = evaluatedCandidates.filter((candidate) => candidate.metrics.mean_daily_profit_units > 0);
   const frontier = buildEfficientFrontier(positiveMeanCandidates);
-  const tangencyCandidate = [...frontier].sort(compareBySharpe)[0] || null;
+  const bestRiskAdjustedCandidate = [...frontier].sort(compareBySharpe)[0] || null;
 
   const aggressivePool = frontier.filter(
     (candidate) =>
-      tangencyCandidate !== null &&
-      candidate.configSignature !== tangencyCandidate.configSignature &&
-      candidate.metrics.mean_daily_profit_units >= tangencyCandidate.metrics.mean_daily_profit_units &&
-      candidate.metrics.daily_volatility_units >= tangencyCandidate.metrics.daily_volatility_units
+      bestRiskAdjustedCandidate !== null &&
+      candidate.configSignature !== bestRiskAdjustedCandidate.configSignature &&
+      candidate.metrics.mean_daily_profit_units >= bestRiskAdjustedCandidate.metrics.mean_daily_profit_units &&
+      candidate.metrics.daily_volatility_units >= bestRiskAdjustedCandidate.metrics.daily_volatility_units
   );
   const aggressiveCandidate =
     [...aggressivePool].sort(compareByReturn)[0] ||
     [...positiveMeanCandidates]
-      .filter((candidate) => tangencyCandidate !== null && candidate.configSignature !== tangencyCandidate.configSignature)
+      .filter(
+        (candidate) => bestRiskAdjustedCandidate !== null && candidate.configSignature !== bestRiskAdjustedCandidate.configSignature
+      )
       .sort(compareByReturn)[0] ||
     null;
 
@@ -343,7 +403,7 @@ export function resolveBetStrategyConfigs(rows: OptimizableHistoricalBetRow[]): 
       .sort(compareByCapitalProtection)[0] || null;
 
   const selected: Record<BetStrategy, CandidateEvaluation | null> = {
-    riskAdjusted: tangencyCandidate,
+    riskAdjusted: bestRiskAdjustedCandidate,
     aggressive: aggressiveCandidate,
     capitalPreservation: capitalPreservationCandidate,
   };
@@ -351,15 +411,15 @@ export function resolveBetStrategyConfigs(rows: OptimizableHistoricalBetRow[]): 
   const strategyConfigs: Record<BetStrategy, ResolvedBetStrategyConfig> = {
     riskAdjusted: toResolvedConfig(
       "riskAdjusted",
-      tangencyCandidate,
-      tangencyCandidate ? "historical_frontier" : "static_fallback",
-      "Maximum zero-rate Sharpe ratio on the historical replay frontier"
+      bestRiskAdjustedCandidate,
+      bestRiskAdjustedCandidate ? "historical_frontier" : "static_fallback",
+      "Best replay risk-adjusted score among sampled policies"
     ),
     aggressive: toResolvedConfig(
       "aggressive",
       aggressiveCandidate,
       aggressiveCandidate ? "historical_frontier" : "static_fallback",
-      "Higher-return point on the historical replay frontier than the tangency solution"
+      "Higher-return replay policy than the balanced selection"
     ),
     capitalPreservation: toResolvedConfig(
       "capitalPreservation",
@@ -372,7 +432,7 @@ export function resolveBetStrategyConfigs(rows: OptimizableHistoricalBetRow[]): 
   return {
     strategyConfigs,
     optimizationSummary: {
-      method: "Historical replay candidate sweep with efficient-frontier tangency selection",
+      method: "Historical replay candidate sweep ranked by daily return and volatility",
       sizing_style: "continuous",
       risk_free_rate: 0,
       candidate_count: evaluatedCandidates.length,

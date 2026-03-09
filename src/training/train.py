@@ -19,6 +19,7 @@ from src.evaluation.metrics import metric_bundle
 from src.features.leakage_checks import run_leakage_checks
 from src.training.artifact_writer import save_model_artifacts, save_training_outputs
 from src.training.ensemble_builder import build_ensemble_outputs, build_oof_metrics, fit_stacker
+from src.training.ensemble_policy import demoted_ensemble_models, ensemble_component_columns
 from src.training.feature_selection import (
     bayes_feature_subset,
     glm_feature_subset,
@@ -49,6 +50,7 @@ def train_and_predict(
     progress_callback: ProgressCallback | None = None,
     selected_feature_columns: list[str] | None = None,
     selected_model_feature_columns: dict[str, list[str]] | None = None,
+    league: str | None = None,
 ) -> dict:
     emit_progress(
         progress_callback,
@@ -187,7 +189,7 @@ def train_and_predict(
         progress_callback=progress_callback,
         model_feature_columns=selected_model_feature_columns,
     )
-    stacker, stack_ready, stack_base_cols = fit_stacker(oof, progress_callback=progress_callback)
+    stacker, stack_ready, stack_base_cols = fit_stacker(oof, league=league, progress_callback=progress_callback)
     oof_metrics = build_oof_metrics(oof)
 
     emit_progress(
@@ -228,6 +230,7 @@ def train_and_predict(
         oof_metrics,
         stacker,
         stack_ready,
+        league=league,
         progress_callback=progress_callback,
     )
 
@@ -240,6 +243,7 @@ def train_and_predict(
     forecasts["uncertainty_flags_json"] = build_uncertainty_flags(upcoming_df)
 
     model_cols = [c for c in upcoming_preds.columns if c != "game_id"]
+    ensemble_component_cols = ensemble_component_columns(model_cols, league=league)
     per_model_rows = []
     for _, forecast_row in forecasts.iterrows():
         gid = forecast_row["game_id"]
@@ -250,6 +254,7 @@ def train_and_predict(
 
     run_payload = {
         "model_run_id": f"run_{model_run_prefix}",
+        "league": league,
         "feature_set_version": feature_set_version,
         "selected_models": models_selected,
         "feature_columns": feature_cols,
@@ -258,6 +263,8 @@ def train_and_predict(
         "glm_tuning": glm_tune,
         "glm_best_c": glm_best_c,
         "bayes_feature_columns": bayes_cols,
+        "ensemble_component_columns": ensemble_component_cols,
+        "ensemble_demoted_models": [m for m in demoted_ensemble_models(league=league) if m in models_selected],
         "stack_base_columns": stack_base_cols,
         "weights": weights,
         "nn_included": nn_included,

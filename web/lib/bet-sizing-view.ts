@@ -68,9 +68,9 @@ function buildPolicyFromStrategy(strategy: BetStrategy, config: ResolvedBetStrat
 function buildPolicyFromFrontierPoint(point: FrontierPointSummary): BetSizingPolicyPreview {
   return {
     key: point.config_signature,
-    label: point.allowUnderdogs ? "Frontier Preview: Dogs Allowed" : "Frontier Preview: Favorites Only",
+    label: point.allowUnderdogs ? "Replay Preview: Dogs Allowed" : "Replay Preview: Favorites Only",
     shortLabel: `${point.sizeMultiplier.toFixed(2)}x · ${point.maxBetUnits.toFixed(2)}u`,
-    description: "Preview a different replay-tested risk point without changing the saved objective.",
+    description: "Preview a different replay-tested policy without changing the saved defaults.",
     matchingStrategies: [],
     configSignature: point.config_signature,
     allowUnderdogs: point.allowUnderdogs,

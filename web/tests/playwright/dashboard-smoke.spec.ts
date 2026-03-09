@@ -41,7 +41,7 @@ const mainRoutes: ReadonlyArray<RouteExpectation> = [
     path: "/bet-sizing",
     readyText: /How the App Picks a Bet Amount/i,
     interaction: async (page) => {
-      const firstSavedObjective = page.getByRole("button", { name: /Risk-Adjusted Optimal|Aggressive|Capital Preservation/i }).first();
+      const firstSavedObjective = page.getByRole("button", { name: /Balanced|Risk-Adjusted Optimal|Aggressive|Capital Preservation/i }).first();
       await firstSavedObjective.click();
       await settle(page);
       await expect(page.locator("main")).toContainText(/Why This Game Becomes|No games are available to preview yet\./i);

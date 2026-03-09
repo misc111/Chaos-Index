@@ -92,13 +92,13 @@ function metricOrDash(
 function sourceLabel(value: BetSizingPolicyPreview["optimizationSource"]): string {
   switch (value) {
     case "historical_frontier":
-      return "Saved frontier pick";
+      return "Replay-ranked";
     case "historical_downside":
-      return "Saved downside pick";
+      return "Downside-ranked";
     case "static_fallback":
-      return "Static fallback";
+      return "Static default";
     default:
-      return "Frontier preview";
+      return "Replay preview";
   }
 }
 
@@ -221,6 +221,7 @@ function BetSizingPageContent() {
   const selectedPolicy = byKey.get(effectiveSelectedPolicyKey) || byKey.get(defaultPolicyKey) || policies[0] || null;
   const officialPolicyKey = betHistory.data.strategy_configs[strategy]?.config_signature || null;
   const officialPolicy = officialPolicyKey ? byKey.get(officialPolicyKey) || null : null;
+  const replayRankingAvailable = frontierPolicies.length > 0;
   const slate = useMemo(() => selectBetSizingSlate(gamesToday.data), [gamesToday.data]);
 
   const gamePreviews = useMemo(
@@ -249,7 +250,7 @@ function BetSizingPageContent() {
             <p className={styles.eyebrow}>Bet Sizing</p>
             <h2 className="title">How the App Picks a Bet Amount</h2>
             <p className={styles.heroText}>
-              First we choose a risk style from historical replay. Then we turn that style into a dollar amount for each game.
+              First we choose a house policy. If replay coverage is deep enough, the app can re-rank those policies; otherwise it sticks with the defaults. Then we turn that style into a dollar amount for each game.
             </p>
           </div>
           <div className={styles.heroMeta}>
@@ -263,7 +264,7 @@ function BetSizingPageContent() {
           <article className={styles.stageCard}>
             <p className={styles.stageStep}>1. Choose</p>
             <p className={styles.stageTitle}>Pick an overall risk style</p>
-            <p className={styles.stageBody}>Replay-tested policies sit on a frontier of average return versus day-to-day swinginess.</p>
+            <p className={styles.stageBody}>Replay-tested policies are compared on average return versus day-to-day swinginess, but only once the replay sample is large enough.</p>
           </article>
           <article className={styles.stageCard}>
             <p className={styles.stageStep}>2. Price</p>
@@ -292,9 +293,13 @@ function BetSizingPageContent() {
         <>
           <section className={`card ${styles.policyChooser}`}>
             <div>
-              <p className={styles.eyebrow}>Saved Objectives</p>
+              <p className={styles.eyebrow}>Saved Policies</p>
               <h2 className="title">Official Policies</h2>
-              <p className="small">Start with the saved objectives, then click any frontier dot below to preview a different risk point.</p>
+              <p className="small">
+                {replayRankingAvailable
+                  ? "Start with the saved policies, then click any replay point below to preview a different tradeoff."
+                  : "Replay coverage is still too thin to rank alternative policies confidently, so the app is using the saved defaults for now."}
+              </p>
             </div>
             <div className={styles.policyButtonRow}>
               {BET_STRATEGIES.map((code) => {
@@ -327,6 +332,9 @@ function BetSizingPageContent() {
               <p className={styles.eyebrow}>Selected Policy</p>
               <h2 className="title">{selectedPolicy.label}</h2>
               <p className="small">{selectedPolicy.description}</p>
+              {selectedPolicy.optimizationSource === "static_fallback" ? (
+                <p className="small">Matched replay coverage is still limited, so this profile is currently using its fixed default rules.</p>
+              ) : null}
 
               <div className={styles.metricGrid}>
                 <div className={styles.metricTile}>
@@ -342,7 +350,7 @@ function BetSizingPageContent() {
                   </span>
                 </div>
                 <div className={styles.metricTile}>
-                  <span className={styles.metricLabel}>Sharpe</span>
+                  <span className={styles.metricLabel}>Risk-adjusted score</span>
                   <span className={styles.metricValue}>
                     {metricOrDash(selectedPolicy.metrics, (metrics) => metrics.sharpe_ratio, formatSharpe)}
                   </span>
@@ -385,7 +393,12 @@ function BetSizingPageContent() {
 
             <article className={`card ${styles.metricCard}`}>
               <p className={styles.eyebrow}>Sample Notes</p>
-              <h2 className="title">Why the Frontier Is Only Step One</h2>
+              <h2 className="title">Why Replay Is Only One Input</h2>
+              <p className="small">
+                {replayRankingAvailable
+                  ? "The replay score is a Sharpe-style heuristic on matched historical replay. It helps compare sampled policies, but it is not proof of a theoretically optimal betting frontier."
+                  : "The replay score is intentionally de-emphasized until the app has enough matched odds history to compare policies with more confidence."}
+              </p>
               <p className="small">{slate.label}</p>
               <div className={styles.metricGrid}>
                 <div className={styles.metricTile}>
@@ -393,7 +406,7 @@ function BetSizingPageContent() {
                   <span className={styles.metricValue}>{betHistory.data.strategy_optimization.candidate_count}</span>
                 </div>
                 <div className={styles.metricTile}>
-                  <span className={styles.metricLabel}>Frontier points</span>
+                  <span className={styles.metricLabel}>Replay points</span>
                   <span className={styles.metricValue}>{betHistory.data.strategy_optimization.frontier_point_count}</span>
                 </div>
                 <div className={styles.metricTile}>

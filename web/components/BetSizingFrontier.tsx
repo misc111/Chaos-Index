@@ -15,7 +15,7 @@ function formatUnits(value: number): string {
   return value.toFixed(2);
 }
 
-function formatSharpe(value: number): string {
+function formatScore(value: number): string {
   return value.toFixed(2);
 }
 
@@ -41,12 +41,12 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
   if (!plottedPoints.length) {
     return (
       <div className={`card ${styles.card}`}>
-        <div className={styles.header}>
-          <div>
-            <h2 className="title">Risk Style Frontier</h2>
-            <p className="small">Replay frontier points appear here once enough historical replay data is available.</p>
-          </div>
+      <div className={styles.header}>
+        <div>
+          <h2 className="title">Replay Policy Map</h2>
+          <p className="small">Replay-tested policy comparisons appear here once enough matched replay data is available.</p>
         </div>
+      </div>
       </div>
     );
   }
@@ -111,14 +111,14 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
         </div>
         <div className={styles.legend}>
           <span className={styles.legendSwatchLow} />
-          <span className="small">Lower Sharpe</span>
+          <span className="small">Lower risk-adjusted score</span>
           <span className={styles.legendSwatchHigh} />
-          <span className="small">Higher Sharpe</span>
+          <span className="small">Higher risk-adjusted score</span>
         </div>
       </div>
 
       <div className={styles.chartWrap}>
-        <svg viewBox={`0 0 ${width} ${height}`} className={styles.chart} role="img" aria-label="Historical replay risk frontier">
+        <svg viewBox={`0 0 ${width} ${height}`} className={styles.chart} role="img" aria-label="Historical replay policy map">
           {yTicks.map((tick) => {
             const y = padTop + (1 - (tick - minY) / spanY) * plotHeight;
             return (
@@ -158,7 +158,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
                 className={styles.pointButton}
                 onClick={() => onSelect(point.configSignature)}
                 onKeyDown={(event) => handleKey(event, point.configSignature, onSelect)}
-                aria-label={`${point.label}. Volatility ${formatUnits(metrics.daily_volatility_units)}, return ${formatUnits(metrics.mean_daily_profit_units)}, Sharpe ${formatSharpe(metrics.sharpe_ratio)}.`}
+                aria-label={`${point.label}. Volatility ${formatUnits(metrics.daily_volatility_units)}, return ${formatUnits(metrics.mean_daily_profit_units)}, risk-adjusted score ${formatScore(metrics.sharpe_ratio)}.`}
               >
                 <circle cx={x} cy={y} r={isSelected ? 14 : 10} className={styles.pointHalo} />
                 <circle cx={x} cy={y} r={isSelected ? 8.5 : 6.5} fill={color} className={styles.pointCore} />
@@ -167,9 +167,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
                     {point.matchingStrategies.join(" / ")}
                   </text>
                 ) : null}
-                <title>
-                  {`${point.label}: volatility ${formatUnits(metrics.daily_volatility_units)}, return ${formatUnits(metrics.mean_daily_profit_units)}, Sharpe ${formatSharpe(metrics.sharpe_ratio)}`}
-                </title>
+                <title>{`${point.label}: volatility ${formatUnits(metrics.daily_volatility_units)}, return ${formatUnits(metrics.mean_daily_profit_units)}, risk-adjusted score ${formatScore(metrics.sharpe_ratio)}`}</title>
               </g>
             );
           })}
@@ -190,7 +188,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
               <text x={offFrontierCoord.x} y={offFrontierCoord.y - 18} textAnchor="middle" className={styles.pointLabel}>
                 Saved profile
               </text>
-              <title>{`${officialPolicy.label}: selected outside the main frontier using downside criteria.`}</title>
+              <title>{`${officialPolicy.label}: selected outside the main replay map using downside criteria.`}</title>
             </g>
           ) : null}
 
@@ -210,7 +208,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
       </div>
 
       <p className="small">
-        The frontier is built from historical replay using continuous sizing. Click a dot to preview how a different risk point would size the slate.
+        This replay map is a heuristic ranking built from matched historical replay using continuous sizing. Click a dot to preview how a different risk point would size the slate.
       </p>
     </div>
   );
