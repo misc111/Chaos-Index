@@ -255,3 +255,11 @@ def test_query_answers_bet_history_summary_and_cumulative(tmp_path: Path):
     assert recap_payload["period"] == "yesterday"
     assert recap_answer.startswith(f"NBA last night ({yesterday}): +$80.13 net, $100.00 risked, 2-0 on 2 bets.")
     assert "| Game | Bet on | Winner | P/L | Bet rationale |" in recap_answer
+
+    net_profit_answer, net_profit_payload = answer_question(
+        db,
+        "What was my net profit last night?",
+    )
+    assert net_profit_payload["intent"] == "bet_history_summary"
+    assert net_profit_payload["period"] == "yesterday"
+    assert "| Game | Bet on | Winner | P/L | Bet rationale |" in net_profit_answer

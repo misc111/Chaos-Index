@@ -323,11 +323,7 @@ def parse_bet_history_include_games(question: str) -> bool:
         return True
 
     has_last_night_scope = "last night" in normalized or "yesterday" in normalized
-    has_win_loss_summary = any(
-        term in normalized
-        for term in ("money i won or lost", "money did i win", "money did i lose", "won or lost", "win lose")
-    )
-    return (has_last_night_scope and has_win_loss_summary) or _is_casual_last_night_bet_recap(normalized)
+    return has_last_night_scope or _is_casual_last_night_bet_recap(normalized)
 
 
 def parse_question(question: str, default_league: str | None = "NBA") -> QueryIntent:
