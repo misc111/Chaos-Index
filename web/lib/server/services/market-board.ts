@@ -1,8 +1,10 @@
 import { getHistoricalReplayGames } from "@/lib/bet-history";
+import { parseModelWinProbabilities, selectBettingModelProbability } from "@/lib/betting-model";
 import { centralTodayDateKey, dateKeyForScheduledGame } from "@/lib/games-today";
 import { type LeagueCode } from "@/lib/league";
 import { getLatestUpcomingAsOf, getLatestTeamNames, getScheduledTodayRows } from "@/lib/server/repositories/forecasts";
 import { getLatestOddsSnapshot, getMarketLinesForSnapshot, type RawOddsLine } from "@/lib/server/repositories/odds";
+import { getPreferredBettingModelName } from "@/lib/server/services/betting-driver";
 
 function normalizeProbability(value: unknown): number {
   const numeric = Number(value);
@@ -120,6 +122,7 @@ function pickTotalBoard(rows: RawOddsLine[]) {
 export async function getMarketBoardPayload(league: LeagueCode) {
   const historicalReplay = getHistoricalReplayGames(league);
   const asOf = getLatestUpcomingAsOf(league);
+  const preferredBettingModelName = getPreferredBettingModelName(league);
   if (!asOf) {
     return {
       league,
@@ -133,7 +136,14 @@ export async function getMarketBoardPayload(league: LeagueCode) {
 
   const todayKey = centralTodayDateKey();
   const rows = getScheduledTodayRows(league, asOf)
-    .map((row) => ({ ...row, home_win_probability: normalizeProbability(row.home_win_probability) }))
+    .map((row) => ({
+      ...row,
+      ...selectBettingModelProbability(
+        normalizeProbability(row.home_win_probability),
+        parseModelWinProbabilities(row.per_model_probs_json),
+        preferredBettingModelName
+      ),
+    }))
     .filter((row) => dateKeyForScheduledGame(row) === todayKey);
 
   const latestOddsSnapshot = getLatestOddsSnapshot(league);
@@ -183,6 +193,8 @@ export async function getMarketBoardPayload(league: LeagueCode) {
       home_team_name: teamNames.get(row.home_team) || row.home_team,
       away_team_name: teamNames.get(row.away_team) || row.away_team,
       home_win_probability: row.home_win_probability,
+      betting_model_name: row.betting_model_name,
+      model_win_probabilities: row.model_win_probabilities,
       moneyline: pickMoneylineBoard(moneylineRows),
       spread: pickSpreadBoard(spreadRows),
       total: pickTotalBoard(totalRows),

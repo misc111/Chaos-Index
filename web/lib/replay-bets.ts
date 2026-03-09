@@ -6,15 +6,17 @@ import {
   DEFAULT_BET_STRATEGY,
 } from "@/lib/betting-strategy";
 import { BET_UNIT_DOLLARS, computeBetDecision, type ExpectedSide } from "@/lib/betting";
+import type { ModelWinProbabilities } from "@/lib/betting-model";
 import { execSql, runSqlJson } from "@/lib/db";
 import type { LeagueCode } from "@/lib/league";
 
-const REPLAY_DECISION_VERSION = "historical_replay_v6";
-const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v4";
+const REPLAY_DECISION_VERSION = "historical_replay_v7";
+const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v5";
 const REPLAY_DECISION_TABLE = "historical_bet_decisions_by_profile";
 
 export type ReplayableHistoricalGame = {
   game_id: number;
+  league?: LeagueCode | null;
   date_central: string;
   home_team: string;
   away_team: string;
@@ -25,6 +27,8 @@ export type ReplayableHistoricalGame = {
   home_moneyline: number;
   away_moneyline: number;
   home_win_probability: number;
+  betting_model_name?: string | null;
+  model_win_probabilities?: ModelWinProbabilities | null;
 };
 
 type RawHistoricalReplayDecisionRow = {
@@ -318,6 +322,8 @@ function buildHistoricalReplayDecision(
       home_win_probability: row.home_win_probability,
       home_moneyline: row.home_moneyline,
       away_moneyline: row.away_moneyline,
+      betting_model_name: row.betting_model_name,
+      model_win_probabilities: row.model_win_probabilities,
     },
     strategy,
     sizingStyle,

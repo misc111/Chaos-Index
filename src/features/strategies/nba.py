@@ -395,6 +395,11 @@ class NbaFeatureStrategy(BaseFeatureStrategy):
         meta = _player_projection_meta(team_games=team_games, players_df=players_df)
         df = df.merge(meta, on=["game_id", "team"], how="left")
         df["point_margin"] = df["points_for"].fillna(0) - df["points_against"].fillna(0)
+        current_shot_profile_proxy_used = (
+            pd.to_numeric(df.get("field_goal_attempts_for", pd.Series(index=df.index, dtype=float)), errors="coerce").isna()
+            | pd.to_numeric(df.get("field_goal_attempts_against", pd.Series(index=df.index, dtype=float)), errors="coerce").isna()
+            | pd.to_numeric(df.get("free_throws_made", pd.Series(index=df.index, dtype=float)), errors="coerce").isna()
+        ).astype(int)
         df["field_goal_attempts_for"] = df["field_goal_attempts_for"].fillna(df["points_for"] * 0.85)
         df["field_goal_attempts_against"] = df["field_goal_attempts_against"].fillna(df["points_against"] * 0.85)
         df["fouls_committed"] = df["fouls_committed"].fillna(20)
@@ -423,6 +428,7 @@ class NbaFeatureStrategy(BaseFeatureStrategy):
             "player_projection_confidence",
         ]:
             df[col] = pd.to_numeric(df.get(col, pd.Series(index=df.index, dtype=float)), errors="coerce").fillna(0.0 if col != "availability_uncertainty" else 1.0)
+        df["shot_profile_proxy_used"] = current_shot_profile_proxy_used.groupby(df["team"], sort=False).shift(1).fillna(0).astype(int)
         return df
 
     def finalize_team_games(self, team_games: pd.DataFrame) -> pd.DataFrame:
@@ -437,7 +443,9 @@ class NbaFeatureStrategy(BaseFeatureStrategy):
         df["season_phase_late"] = (df["season_phase"] == "late").astype(int)
         df["post_all_star_break"] = (season_dates.dt.month >= 2).astype(int)
         df["post_trade_deadline"] = (season_dates.dt.month >= 2).astype(int)
-        df["shot_profile_proxy_used"] = 1
+        df["shot_profile_proxy_used"] = (
+            pd.to_numeric(df.get("shot_profile_proxy_used", pd.Series(index=df.index, dtype=float)), errors="coerce").fillna(0).clip(lower=0, upper=1).astype(int)
+        )
         return df
 
     def enrich_game_level(self, merged: pd.DataFrame, games_df: pd.DataFrame, team_games: pd.DataFrame) -> pd.DataFrame:
@@ -483,7 +491,15 @@ class NbaFeatureStrategy(BaseFeatureStrategy):
         out = out.merge(arena, on="venue", how="left")
         out["arena_margin_effect"] = out["arena_margin_effect"].fillna(0)
         out["arena_shot_volume_effect"] = out["arena_shot_volume_effect"].fillna(0)
-        out["fallback_shot_profile_proxy_used"] = 1
+        home_shot_profile_proxy = pd.to_numeric(
+            out.get("home_shot_profile_proxy_used", pd.Series(index=out.index, dtype=float)),
+            errors="coerce",
+        ).fillna(0)
+        away_shot_profile_proxy = pd.to_numeric(
+            out.get("away_shot_profile_proxy_used", pd.Series(index=out.index, dtype=float)),
+            errors="coerce",
+        ).fillna(0)
+        out["fallback_shot_profile_proxy_used"] = ((home_shot_profile_proxy > 0) | (away_shot_profile_proxy > 0)).astype(int)
         out["fallback_availability_proxy_used"] = (
             (out.get("home_player_projection_confidence", pd.Series(index=out.index, dtype=float)).fillna(0)
             + out.get("away_player_projection_confidence", pd.Series(index=out.index, dtype=float)).fillna(0))

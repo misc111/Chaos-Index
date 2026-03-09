@@ -107,6 +107,42 @@ test("computeBetDecision increases stake when the same side gets a better price"
   assert.ok(betterPrice.stake > shorterPrice.stake);
 });
 
+test("computeBetDecision applies the temporary consensus haircut when the driver outruns peers", () => {
+  const decision = computeBetDecision({
+    home_team: "SAC",
+    away_team: "CHI",
+    home_win_probability: 0.653,
+    home_moneyline: -135,
+    away_moneyline: 125,
+    betting_model_name: "rf",
+    model_win_probabilities: {
+      rf: 0.653,
+      ensemble: 0.58,
+      glm_logit: 0.6,
+    },
+  });
+
+  assert.equal(decision.side, "home");
+  assert.equal(decision.team, "SAC");
+  assert.equal(decision.stake, 45);
+  assert.match(decision.reason, /temporary consensus haircut/);
+});
+
+test("computeBetDecision caps very large edges at the temporary top-edge ceiling", () => {
+  const decision = computeBetDecision({
+    home_team: "SAC",
+    away_team: "CHI",
+    home_win_probability: 0.78,
+    home_moneyline: -135,
+    away_moneyline: 125,
+  });
+
+  assert.equal(decision.side, "home");
+  assert.equal(decision.team, "SAC");
+  assert.equal(decision.stake, 50);
+  assert.match(decision.reason, /temporary top-edge cap/);
+});
+
 test("capital preservation skips underdogs entirely", () => {
   const decision = computeBetDecision(
     {

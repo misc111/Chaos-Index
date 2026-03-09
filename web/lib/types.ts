@@ -1,6 +1,7 @@
 import type { HistoricalReplayDecisionSet } from "@/lib/replay-bets";
 import type { BetStrategyOptimizationSummary, ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
 import type { BetStrategy } from "@/lib/betting-strategy";
+import type { ModelWinProbabilities } from "@/lib/betting-model";
 
 export type TableRow = Record<string, unknown>;
 
@@ -71,6 +72,8 @@ export type MarketBoardRow = {
   home_team_name: string;
   away_team_name: string;
   home_win_probability: number;
+  betting_model_name?: string | null;
+  model_win_probabilities?: ModelWinProbabilities | null;
   moneyline: MarketMoneylineQuote;
   spread: MarketSpreadQuote;
   total: MarketTotalQuote;
@@ -140,6 +143,8 @@ export type GamesTodayRow = {
   home_team: string;
   away_team: string;
   home_win_probability: number;
+  betting_model_name?: string | null;
+  model_win_probabilities?: ModelWinProbabilities | null;
   forecast_as_of_utc?: string | null;
   odds_as_of_utc?: string | null;
   start_time_utc?: string | null;

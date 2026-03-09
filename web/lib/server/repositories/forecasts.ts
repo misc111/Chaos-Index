@@ -25,6 +25,7 @@ export type RawTodayGameRow = {
   home_win_probability: number;
   forecast_as_of_utc?: string | null;
   start_time_utc?: string | null;
+  per_model_probs_json?: string | null;
 };
 
 export type RawTeamNameRow = {
@@ -58,7 +59,8 @@ export function getScheduledTodayRows(league: LeagueCode, asOf: string): RawToda
       u.away_team,
       u.ensemble_prob_home_win AS home_win_probability,
       u.as_of_utc AS forecast_as_of_utc,
-      g.start_time_utc
+      g.start_time_utc,
+      u.per_model_probs_json
     FROM upcoming_game_forecasts u
     LEFT JOIN games g ON g.game_id = u.game_id
     WHERE u.as_of_utc = '${escapeSqlString(asOf)}'

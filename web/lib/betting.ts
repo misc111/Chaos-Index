@@ -6,6 +6,7 @@ import {
   type BetSizingStyle,
   type BetStrategy,
 } from "@/lib/betting-strategy";
+import type { ModelWinProbabilities } from "@/lib/betting-model";
 
 export type ExpectedSide = "home" | "away" | "none";
 
@@ -15,6 +16,8 @@ export type BetInput = {
   home_win_probability: number;
   home_moneyline?: number | null;
   away_moneyline?: number | null;
+  betting_model_name?: string | null;
+  model_win_probabilities?: ModelWinProbabilities | null;
 };
 
 export type BetDecision = {
@@ -61,6 +64,11 @@ export type BetDecisionTrace = {
   continuousStake: number;
   bucketedStake: number;
   finalStake: number;
+  peerConsensusProbability?: number | null;
+  consensusGap?: number | null;
+  preAdjustmentContinuousStake?: number;
+  temporaryConsensusHaircutApplied?: boolean;
+  temporaryTopEdgeCapApplied?: boolean;
   gates: {
     oddsAvailable: boolean;
     confidence: boolean;
@@ -83,6 +91,26 @@ type BetDisplayRecommendation = {
 const KELLY_FRACTION_PER_UNIT = 0.15;
 const STAKE_ROUNDING_DOLLARS = 5;
 const LEGACY_BUCKET_STAKES = [0, 50, 100, 150] as const;
+// Temporary stake guardrails, added after the March 8, 2026 NBA review and
+// applied in the shared betting path so NHL/NBA stay behaviorally aligned:
+// 1. If the chosen betting driver is materially more bullish than the peer
+//    models on the same side, we cut the stake before sizing.
+// 2. If a selected edge is extremely large, we cap the stake at a single
+//    half-unit instead of letting Kelly scale up unchecked.
+//
+// This is intentionally a temporary safety rail, not a permanent betting
+// philosophy change. Future Codex threads should explicitly ask whether these
+// controls are still earning their keep. The removal checklist is:
+// - each league has at least 50 settled post-change bets
+// - the worst top-edge bucket is no longer showing clear overconfidence
+// - the betting driver is no longer routinely outrunning the peer-model mean on
+//   losing bets
+// If those checks pass, prefer deleting these constants and simplifying the
+// stake path rather than letting the temporary logic become invisible policy.
+const TEMPORARY_CONSENSUS_GAP_THRESHOLD = 0.05;
+const TEMPORARY_CONSENSUS_HAIRCUT_FACTOR = 0.5;
+const TEMPORARY_HIGH_EDGE_THRESHOLD = 0.15;
+const TEMPORARY_HIGH_EDGE_STAKE_CAP = 50;
 
 function betAmountFromUnits(units: number): number {
   return BET_UNIT_DOLLARS * units;
@@ -92,6 +120,11 @@ function roundStakeAmount(amount: number): number {
   if (!Number.isFinite(amount) || amount <= 0) return 0;
   const rounded = Math.round(amount / STAKE_ROUNDING_DOLLARS) * STAKE_ROUNDING_DOLLARS;
   return rounded >= STAKE_ROUNDING_DOLLARS ? rounded : 0;
+}
+
+function clampProbability(value: number): number {
+  if (!Number.isFinite(value)) return 0.5;
+  return Math.max(0, Math.min(1, value));
 }
 
 function decimalOddsToKellyFraction(probability: number, decimalOdds: number): number | null {
@@ -126,6 +159,72 @@ function bucketedStakeFromAmount(amount: number): number {
   }
 
   return closestStake;
+}
+
+function sideProbabilityFromHomeProbability(homeProbability: number, side: ExpectedSide): number {
+  if (side === "home") return clampProbability(homeProbability);
+  if (side === "away") return clampProbability(1 - homeProbability);
+  return 0.5;
+}
+
+function resolveConsensusMetrics(
+  row: BetInput,
+  side: ExpectedSide
+): { peerConsensusProbability: number | null; consensusGap: number | null; temporaryConsensusHaircutApplied: boolean } {
+  if (side === "none") {
+    return {
+      peerConsensusProbability: null,
+      consensusGap: null,
+      temporaryConsensusHaircutApplied: false,
+    };
+  }
+
+  const bettingModelName = String(row.betting_model_name || "").trim();
+  const modelProbabilities = row.model_win_probabilities || {};
+  if (!bettingModelName) {
+    return {
+      peerConsensusProbability: null,
+      consensusGap: null,
+      temporaryConsensusHaircutApplied: false,
+    };
+  }
+
+  const selectedHomeProbability =
+    typeof modelProbabilities[bettingModelName] === "number"
+      ? clampProbability(Number(modelProbabilities[bettingModelName]))
+      : clampProbability(Number(row.home_win_probability));
+
+  const peerSideProbabilities = Object.entries(modelProbabilities)
+    .filter(([modelName, probability]) => modelName !== bettingModelName && typeof probability === "number" && Number.isFinite(probability))
+    .map(([, probability]) => sideProbabilityFromHomeProbability(Number(probability), side));
+
+  if (!peerSideProbabilities.length) {
+    return {
+      peerConsensusProbability: null,
+      consensusGap: null,
+      temporaryConsensusHaircutApplied: false,
+    };
+  }
+
+  const peerConsensusProbability = peerSideProbabilities.reduce((sum, probability) => sum + probability, 0) / peerSideProbabilities.length;
+  const consensusGap = sideProbabilityFromHomeProbability(selectedHomeProbability, side) - peerConsensusProbability;
+  return {
+    peerConsensusProbability,
+    consensusGap,
+    temporaryConsensusHaircutApplied: consensusGap >= TEMPORARY_CONSENSUS_GAP_THRESHOLD,
+  };
+}
+
+function buildPricedBetReason(
+  candidateIsUnderdog: boolean,
+  temporaryConsensusHaircutApplied: boolean,
+  temporaryTopEdgeCapApplied: boolean
+): string {
+  const baseReason = candidateIsUnderdog ? "Underdog underpriced" : "Favorite underpriced";
+  const adjustments: string[] = [];
+  if (temporaryConsensusHaircutApplied) adjustments.push("temporary consensus haircut");
+  if (temporaryTopEdgeCapApplied) adjustments.push("temporary top-edge cap");
+  return adjustments.length ? `${baseReason}; ${adjustments.join(", ")}` : baseReason;
 }
 
 export function expectedSide(homeWinProbability: number): ExpectedSide {
@@ -318,7 +417,7 @@ export function explainBetDecision(
       gates: baseGates,
     };
   }
-  const pHome = Math.min(1, Math.max(0, pHomeRaw));
+  const pHome = clampProbability(pHomeRaw);
   const pAway = 1 - pHome;
   const confidence = Math.max(pHome, pAway) >= 0.55;
   if (!confidence) {
@@ -583,15 +682,24 @@ export function explainBetDecision(
     };
   }
   const sideDecimalOdds = side === "home" ? decHome : decAway;
+  const { peerConsensusProbability, consensusGap, temporaryConsensusHaircutApplied } = resolveConsensusMetrics(row, side);
   const kellyFraction = decimalOddsToKellyFraction(modelProb, sideDecimalOdds);
   const rawKellyUnits =
     kellyFraction === null ? null : Math.max(0, (kellyFraction / KELLY_FRACTION_PER_UNIT) * strategyConfig.sizeMultiplier);
   const cappedKellyUnits =
     rawKellyUnits === null ? null : Math.min(strategyConfig.maxBetUnits, Math.max(0, rawKellyUnits));
-  const continuousStake =
+  const preAdjustmentContinuousStake =
     kellyFraction === null ? 0 : continuousStakeFromKelly(kellyFraction, strategyConfig.sizeMultiplier, strategyConfig.maxBetUnits);
+  const consensusAdjustedContinuousStake = temporaryConsensusHaircutApplied
+    ? roundStakeAmount(preAdjustmentContinuousStake * TEMPORARY_CONSENSUS_HAIRCUT_FACTOR)
+    : preAdjustmentContinuousStake;
+  const temporaryTopEdgeCapApplied =
+    edge >= TEMPORARY_HIGH_EDGE_THRESHOLD && consensusAdjustedContinuousStake > TEMPORARY_HIGH_EDGE_STAKE_CAP;
+  const continuousStake = temporaryTopEdgeCapApplied
+    ? TEMPORARY_HIGH_EDGE_STAKE_CAP
+    : consensusAdjustedContinuousStake;
   const bucketedStake = bucketedStakeFromAmount(continuousStake);
-  const stake = sizingStyle === "bucketed" ? bucketedStakeFromAmount(continuousStake) : continuousStake;
+  const stake = sizingStyle === "bucketed" ? bucketedStake : continuousStake;
   if (stake <= 0) {
     return {
       decision: buildDecision(row, "none", 0, "Price fair"),
@@ -618,6 +726,11 @@ export function explainBetDecision(
       continuousStake,
       bucketedStake,
       finalStake: 0,
+      peerConsensusProbability,
+      consensusGap,
+      preAdjustmentContinuousStake,
+      temporaryConsensusHaircutApplied,
+      temporaryTopEdgeCapApplied,
       gates: {
         ...baseGates,
         confidence,
@@ -633,7 +746,7 @@ export function explainBetDecision(
     row,
     side,
     stake,
-    candidateIsUnderdog ? "Underdog underpriced" : "Favorite underpriced",
+    buildPricedBetReason(candidateIsUnderdog, temporaryConsensusHaircutApplied, temporaryTopEdgeCapApplied),
     fairProb,
     ev,
     edge
@@ -664,6 +777,11 @@ export function explainBetDecision(
     continuousStake,
     bucketedStake,
     finalStake: stake,
+    peerConsensusProbability,
+    consensusGap,
+    preAdjustmentContinuousStake,
+    temporaryConsensusHaircutApplied,
+    temporaryTopEdgeCapApplied,
     gates: {
       ...baseGates,
       confidence,

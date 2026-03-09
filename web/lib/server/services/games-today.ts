@@ -1,7 +1,9 @@
 import { getHistoricalReplayGames } from "@/lib/bet-history";
+import { parseModelWinProbabilities, selectBettingModelProbability } from "@/lib/betting-model";
 import { centralDateKeyFromTimestamp, centralTodayDateKey, dateKeyForScheduledGame } from "@/lib/games-today";
 import { type LeagueCode } from "@/lib/league";
 import { getLatestUpcomingAsOf, getScheduledTodayRows } from "@/lib/server/repositories/forecasts";
+import { getPreferredBettingModelName } from "@/lib/server/services/betting-driver";
 import {
   getMoneylineRowsForSnapshots,
   getOddsSnapshots,
@@ -19,6 +21,7 @@ function normalizeProbability(value: unknown): number {
 export async function getGamesTodayPayload(league: LeagueCode) {
   const historicalReplay = getHistoricalReplayGames(league);
   const asOf = getLatestUpcomingAsOf(league);
+  const preferredBettingModelName = getPreferredBettingModelName(league);
 
   if (!asOf) {
     return {
@@ -34,9 +37,13 @@ export async function getGamesTodayPayload(league: LeagueCode) {
   }
 
   const rows = getScheduledTodayRows(league, asOf).map((row) => ({
-    ...row,
-    home_win_probability: normalizeProbability(row.home_win_probability),
-  }));
+      ...row,
+      ...selectBettingModelProbability(
+        normalizeProbability(row.home_win_probability),
+        parseModelWinProbabilities(row.per_model_probs_json),
+        preferredBettingModelName
+      ),
+    }));
 
   const snapshotRows = getOddsSnapshots(league);
   const latestOddsSnapshotByDate = new Map<string, { odds_snapshot_id: string; as_of_utc: string }>();
@@ -101,6 +108,8 @@ export async function getGamesTodayPayload(league: LeagueCode) {
       home_team: row.home_team,
       away_team: row.away_team,
       home_win_probability: row.home_win_probability,
+      betting_model_name: row.betting_model_name,
+      model_win_probabilities: row.model_win_probabilities,
       forecast_as_of_utc: row.forecast_as_of_utc,
       odds_as_of_utc: row.odds_as_of_utc,
       start_time_utc: row.start_time_utc,
@@ -126,7 +135,15 @@ export async function getGamesTodayPayload(league: LeagueCode) {
       over190ByGameId.get(`${snapshotId}::${Number(row.game_id)}`) ||
       over190ByTeamKey.get(`${snapshotId}::${row.home_team}|${row.away_team}`);
     return {
-      ...row,
+      game_id: row.game_id,
+      game_date_utc: row.game_date_utc,
+      home_team: row.home_team,
+      away_team: row.away_team,
+      home_win_probability: row.home_win_probability,
+      betting_model_name: row.betting_model_name,
+      model_win_probabilities: row.model_win_probabilities,
+      forecast_as_of_utc: row.forecast_as_of_utc,
+      start_time_utc: row.start_time_utc,
       odds_as_of_utc: daySnapshot?.as_of_utc || null,
       home_moneyline: moneylineMatch?.home_moneyline ?? null,
       away_moneyline: moneylineMatch?.away_moneyline ?? null,

@@ -17,6 +17,7 @@ import {
   settleBet,
   type BetDecision,
 } from "@/lib/betting";
+import type { ModelWinProbabilities } from "@/lib/betting-model";
 import type {
   BetHistorySizingBundle,
   BetHistoryStrategyBundle,
@@ -27,6 +28,7 @@ import type {
 } from "@/lib/bet-history-types";
 import { runSqlJson } from "@/lib/db";
 import type { LeagueCode } from "@/lib/league";
+import { getPreferredBettingModelName } from "@/lib/server/services/betting-driver";
 import {
   loadOrCreateHistoricalReplayDecisions,
   type HistoricalReplayDecisionSet,
@@ -48,6 +50,12 @@ type RawHistoricalGameRow = {
   home_win_probability?: number | null;
   odds_snapshot_id?: string | null;
   odds_as_of_utc?: string | null;
+};
+
+type RawHistoricalModelProbabilityRow = {
+  game_id?: number | null;
+  model_name?: string | null;
+  prob_home_win?: number | null;
 };
 
 type RawMoneylineRow = {
@@ -73,6 +81,7 @@ type RawOver190Row = {
 
 export type HistoricalReplayGameRow = {
   game_id: number;
+  league: LeagueCode;
   date_central: string;
   start_time_utc: string | null;
   final_utc: string | null;
@@ -93,6 +102,8 @@ export type HistoricalReplayGameRow = {
   over_190_point: number | null;
   over_190_book: string | null;
   home_win_probability: number;
+  betting_model_name: string;
+  model_win_probabilities: ModelWinProbabilities;
   replay_decisions?: HistoricalReplayDecisionSet;
 };
 
@@ -224,8 +235,9 @@ function betDecisionFromReplaySnapshot(snapshot: HistoricalReplayDecisionSnapsho
   };
 }
 
-function historicalGamesSql(league: LeagueCode): string {
+function historicalGamesSql(league: LeagueCode, modelName: string): string {
   const escapedLeague = escapeSqlString(league);
+  const escapedModelName = escapeSqlString(modelName);
 
   // Finalized-game replay must use immutable prediction history. The live
   // `upcoming_game_forecasts` table is intentionally excluded here because
@@ -263,7 +275,7 @@ function historicalGamesSql(league: LeagueCode): string {
       FROM finalized_games fg
       JOIN predictions p
         ON p.game_id = fg.game_id
-       AND p.model_name = 'ensemble'
+       AND p.model_name = '${escapedModelName}'
        AND DATETIME(p.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
       LEFT JOIN model_runs mr
         ON mr.model_run_id = p.model_run_id
@@ -323,6 +335,42 @@ function historicalGamesSql(league: LeagueCode): string {
       ON rf.game_id = fg.game_id
      AND rf.rn = 1
     ORDER BY DATETIME(fg.replay_cutoff_utc) ASC, fg.game_id ASC
+  `;
+}
+
+function historicalModelProbabilitiesSql(): string {
+  return `
+    WITH finalized_games AS (
+      SELECT
+        r.game_id,
+        COALESCE(g.start_time_utc, r.final_utc, r.game_date_utc || 'T23:59:59Z') AS replay_cutoff_utc
+      FROM results r
+      LEFT JOIN games g ON g.game_id = r.game_id
+      WHERE r.home_win IS NOT NULL
+    ),
+    ranked_forecasts AS (
+      SELECT
+        fg.game_id,
+        p.model_name,
+        p.prob_home_win,
+        ROW_NUMBER() OVER (
+          PARTITION BY fg.game_id, p.model_name
+          ORDER BY
+            DATETIME(p.as_of_utc) DESC,
+            DATETIME(COALESCE(mr.created_at_utc, p.as_of_utc)) DESC,
+            p.prediction_id DESC
+        ) AS rn
+      FROM finalized_games fg
+      JOIN predictions p
+        ON p.game_id = fg.game_id
+       AND DATETIME(p.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
+      LEFT JOIN model_runs mr
+        ON mr.model_run_id = p.model_run_id
+      WHERE DATETIME(COALESCE(mr.created_at_utc, p.as_of_utc)) <= DATETIME(fg.replay_cutoff_utc)
+    )
+    SELECT game_id, model_name, prob_home_win
+    FROM ranked_forecasts
+    WHERE rn = 1
   `;
 }
 
@@ -408,6 +456,7 @@ function over190Sql(snapshotIds: string[]): string {
 function toReplayableHistoricalGames(rows: HistoricalReplayGameRow[]) {
   return rows.map((row) => ({
     game_id: row.game_id,
+    league: row.league,
     date_central: row.date_central,
     home_team: row.home_team,
     away_team: row.away_team,
@@ -418,12 +467,15 @@ function toReplayableHistoricalGames(rows: HistoricalReplayGameRow[]) {
     home_moneyline: row.home_moneyline,
     away_moneyline: row.away_moneyline,
     home_win_probability: row.home_win_probability,
+    betting_model_name: row.betting_model_name,
+    model_win_probabilities: row.model_win_probabilities,
   }));
 }
 
 function toOptimizableHistoricalBetRows(rows: HistoricalReplayGameRow[]): OptimizableHistoricalBetRow[] {
   return rows.map((row) => ({
     game_id: row.game_id,
+    league: row.league,
     date_central: row.date_central,
     home_team: row.home_team,
     away_team: row.away_team,
@@ -431,6 +483,8 @@ function toOptimizableHistoricalBetRows(rows: HistoricalReplayGameRow[]): Optimi
     home_moneyline: row.home_moneyline,
     away_moneyline: row.away_moneyline,
     home_win: row.home_win,
+    betting_model_name: row.betting_model_name,
+    model_win_probabilities: row.model_win_probabilities,
   }));
 }
 
@@ -448,7 +502,19 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
   // Maintainer note: this is the shared "pregame replay" source for both
   // Bet History and Games Today past-date navigation. Keep the core fields
   // league-agnostic here; league-specific extras should stay optional.
-  const rawGames = runSqlJson(historicalGamesSql(league), { league }) as RawHistoricalGameRow[];
+  const preferredBettingModelName = getPreferredBettingModelName(league);
+  const rawGames = runSqlJson(historicalGamesSql(league, preferredBettingModelName), { league }) as RawHistoricalGameRow[];
+  const modelProbabilityRows = runSqlJson(historicalModelProbabilitiesSql(), { league }) as RawHistoricalModelProbabilityRow[];
+  const modelProbabilitiesByGame = new Map<number, ModelWinProbabilities>();
+  for (const row of modelProbabilityRows) {
+    const gameId = numberOrNull(row.game_id);
+    const modelName = String(row.model_name || "").trim();
+    const probability = numberOrNull(row.prob_home_win);
+    if (gameId === null || !modelName) continue;
+    const current = modelProbabilitiesByGame.get(gameId) || {};
+    current[modelName] = probability;
+    modelProbabilitiesByGame.set(gameId, current);
+  }
   const uniqueSnapshotIds = Array.from(
     new Set(rawGames.map((row) => String(row.odds_snapshot_id || "").trim()).filter(Boolean))
   );
@@ -540,6 +606,7 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
 
     rows.push({
       game_id: gameId,
+      league,
       date_central: dateCentral,
       start_time_utc: row.start_time_utc ? String(row.start_time_utc) : null,
       final_utc: row.final_utc ? String(row.final_utc) : null,
@@ -560,6 +627,8 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
       over_190_point: numberOrNull(over190Match?.over_190_point),
       over_190_book: over190Match?.over_190_book ? String(over190Match.over_190_book) : null,
       home_win_probability: normalizeProbability(row.home_win_probability),
+      betting_model_name: preferredBettingModelName,
+      model_win_probabilities: modelProbabilitiesByGame.get(gameId) || { [preferredBettingModelName]: normalizeProbability(row.home_win_probability) },
     });
   }
 

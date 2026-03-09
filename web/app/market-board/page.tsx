@@ -103,6 +103,8 @@ function buildDerivedRow(
       home_win_probability: row.home_win_probability,
       home_moneyline: row.moneyline.home_price,
       away_moneyline: row.moneyline.away_price,
+      betting_model_name: row.betting_model_name,
+      model_win_probabilities: row.model_win_probabilities,
     },
     strategy,
     sizingStyle,
@@ -183,6 +185,7 @@ function MarketBoardPageContent() {
             as_of_utc: payload.as_of_utc ?? null,
             odds_as_of_utc: payload.odds_as_of_utc ?? null,
             date_central: payload.date_central,
+            strategy_configs: payload.strategy_configs,
             rows: Array.isArray(payload.rows) ? payload.rows : [],
           });
         }
@@ -196,6 +199,7 @@ function MarketBoardPageContent() {
             as_of_utc: null,
             odds_as_of_utc: null,
             date_central: undefined,
+            strategy_configs: undefined,
             rows: [],
           });
         }

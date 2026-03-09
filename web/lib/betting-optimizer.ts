@@ -1,4 +1,6 @@
 import { BET_UNIT_DOLLARS, computeBetDecision, settleBet } from "@/lib/betting";
+import type { ModelWinProbabilities } from "@/lib/betting-model";
+import type { LeagueCode } from "@/lib/league";
 import {
   BET_STRATEGIES,
   getBetStrategyConfig,
@@ -10,6 +12,7 @@ import {
 
 export type OptimizableHistoricalBetRow = {
   game_id: number;
+  league?: LeagueCode | null;
   date_central: string;
   home_team: string;
   away_team: string;
@@ -17,6 +20,8 @@ export type OptimizableHistoricalBetRow = {
   home_moneyline: number;
   away_moneyline: number;
   home_win: number | null;
+  betting_model_name?: string | null;
+  model_win_probabilities?: ModelWinProbabilities | null;
 };
 
 export type BetStrategyPerformanceSnapshot = {
@@ -183,6 +188,8 @@ function evaluateCandidate(rows: OptimizableHistoricalBetRow[], config: BetStrat
         home_win_probability: row.home_win_probability,
         home_moneyline: row.home_moneyline,
         away_moneyline: row.away_moneyline,
+        betting_model_name: row.betting_model_name,
+        model_win_probabilities: row.model_win_probabilities,
       },
       "riskAdjusted",
       "continuous",

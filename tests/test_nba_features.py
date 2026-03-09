@@ -139,3 +139,6 @@ def test_nba_feature_build_uses_basketball_feature_names(tmp_path: Path) -> None
     upcoming = out.dataframe[out.dataframe["game_id"] == 4].iloc[0]
     assert abs(float(upcoming["diff_darko_like_total"])) > 0
     assert int(upcoming["fallback_availability_proxy_used"]) == 0
+    assert int(upcoming["home_shot_profile_proxy_used"]) == 0
+    assert int(upcoming["away_shot_profile_proxy_used"]) == 0
+    assert int(upcoming["fallback_shot_profile_proxy_used"]) == 0
