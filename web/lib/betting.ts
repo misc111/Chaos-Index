@@ -1,9 +1,7 @@
 import {
-  DEFAULT_BET_SIZING_STYLE,
   DEFAULT_BET_STRATEGY,
   getBetStrategyConfig,
   type BetStrategyRuleConfig,
-  type BetSizingStyle,
   type BetStrategy,
 } from "@/lib/betting-strategy";
 import type { ModelWinProbabilities } from "@/lib/betting-model";
@@ -42,7 +40,6 @@ export type BetSettlement = {
 export type BetDecisionTrace = {
   decision: BetDecision;
   strategyLabel: string;
-  sizingStyle: BetSizingStyle;
   strategyConfig: BetStrategyRuleConfig;
   homeRawModelProbability: number | null;
   awayRawModelProbability: number | null;
@@ -65,10 +62,10 @@ export type BetDecisionTrace = {
   candidateEdge: number | null;
   candidateExpectedValue: number | null;
   candidateConfidenceWeight: number | null;
-  kellyFraction: number | null;
-  rawKellyUnits: number | null;
-  cappedKellyUnits: number | null;
-  continuousStake: number;
+  baseStakeShareOfBankroll: number | null;
+  scaledStakeShareOfBankroll: number | null;
+  cappedStakeShareOfBankroll: number | null;
+  quotedStake: number;
   finalStake: number;
   peerConsensusProbability?: number | null;
   consensusGap?: number | null;
@@ -85,8 +82,8 @@ export type BetDecisionTrace = {
 };
 
 export const REFERENCE_BANKROLL_DOLLARS = 10_000;
-export const BET_UNIT_BANKROLL_FRACTION = 0.01;
-export const BET_UNIT_DOLLARS = Math.round(REFERENCE_BANKROLL_DOLLARS * BET_UNIT_BANKROLL_FRACTION);
+export const REFERENCE_STAKE_BANKROLL_FRACTION = 0.01;
+export const REFERENCE_STAKE_DOLLARS = Math.round(REFERENCE_BANKROLL_DOLLARS * REFERENCE_STAKE_BANKROLL_FRACTION);
 export const HISTORICAL_BANKROLL_START_DOLLARS = 5_000;
 export const HISTORICAL_BANKROLL_START_DATE_CENTRAL = "2026-03-05";
 
@@ -114,12 +111,11 @@ type ProbabilityAdjustment = {
 
 type TraceContext = {
   strategyLabel: string;
-  sizingStyle: BetSizingStyle;
   strategyConfig: BetStrategyRuleConfig;
 };
 
-function betAmountFromUnits(units: number): number {
-  return BET_UNIT_DOLLARS * units;
+function dollarsFromBankrollShare(share: number): number {
+  return REFERENCE_BANKROLL_DOLLARS * share;
 }
 
 function roundStakeAmount(amount: number): number {
@@ -133,12 +129,12 @@ function clampProbability(value: number): number {
   return Math.max(0, Math.min(1, value));
 }
 
-function clampUnitCount(value: number): number {
+function clampPositive(value: number): number {
   if (!Number.isFinite(value)) return 0;
   return Math.max(0, value);
 }
 
-function decimalOddsToKellyFraction(probability: number, decimalOdds: number): number | null {
+function decimalOddsToBaseStakeShare(probability: number, decimalOdds: number): number | null {
   if (!Number.isFinite(probability) || probability <= 0 || probability >= 1) return null;
   if (!Number.isFinite(decimalOdds) || decimalOdds <= 1) return null;
 
@@ -147,13 +143,13 @@ function decimalOddsToKellyFraction(probability: number, decimalOdds: number): n
   return Number.isFinite(fraction) ? fraction : null;
 }
 
-function continuousStakeFromKelly(kellyFraction: number, fractionalKelly: number, maxBetUnits: number): number {
-  if (!Number.isFinite(kellyFraction) || kellyFraction <= 0) return 0;
-  if (!Number.isFinite(fractionalKelly) || fractionalKelly <= 0) return 0;
+function quotedStakeFromBaseShare(baseStakeShare: number, stakeScale: number, maxBetBankrollPercent: number): number {
+  if (!Number.isFinite(baseStakeShare) || baseStakeShare <= 0) return 0;
+  if (!Number.isFinite(stakeScale) || stakeScale <= 0) return 0;
 
-  const requestedUnits = (fractionalKelly * kellyFraction) / BET_UNIT_BANKROLL_FRACTION;
-  const units = Math.min(maxBetUnits, clampUnitCount(requestedUnits));
-  return roundStakeAmount(betAmountFromUnits(units));
+  const scaledShare = clampPositive(baseStakeShare * stakeScale);
+  const cappedShare = Math.min(maxBetBankrollPercent / 100, scaledShare);
+  return roundStakeAmount(dollarsFromBankrollShare(cappedShare));
 }
 
 function sideProbabilityFromHomeProbability(homeProbability: number, side: ExpectedSide): number {
@@ -295,7 +291,7 @@ function buildDecision(
 
 function buildDefaultTraceFields(): Omit<
   BetDecisionTrace,
-  "decision" | "strategyLabel" | "sizingStyle" | "strategyConfig" | "gates"
+  "decision" | "strategyLabel" | "strategyConfig" | "gates"
 > {
   return {
     homeRawModelProbability: null,
@@ -319,10 +315,10 @@ function buildDefaultTraceFields(): Omit<
     candidateEdge: null,
     candidateExpectedValue: null,
     candidateConfidenceWeight: null,
-    kellyFraction: null,
-    rawKellyUnits: null,
-    cappedKellyUnits: null,
-    continuousStake: 0,
+    baseStakeShareOfBankroll: null,
+    scaledStakeShareOfBankroll: null,
+    cappedStakeShareOfBankroll: null,
+    quotedStake: 0,
     finalStake: 0,
     peerConsensusProbability: null,
     consensusGap: null,
@@ -335,14 +331,13 @@ function buildTrace(
   context: TraceContext,
   decision: BetDecision,
   gates: BetDecisionTrace["gates"],
-  overrides: Partial<Omit<BetDecisionTrace, "decision" | "strategyLabel" | "sizingStyle" | "strategyConfig" | "gates">> = {}
+  overrides: Partial<Omit<BetDecisionTrace, "decision" | "strategyLabel" | "strategyConfig" | "gates">> = {}
 ): BetDecisionTrace {
   return {
     ...buildDefaultTraceFields(),
     ...overrides,
     decision,
     strategyLabel: context.strategyLabel,
-    sizingStyle: context.sizingStyle,
     strategyConfig: context.strategyConfig,
     gates,
   };
@@ -361,9 +356,8 @@ function applyStakeOverride(trace: BetDecisionTrace, stake: number, reason: stri
   return {
     ...trace,
     decision: nextDecision,
-    continuousStake: adjustedStake,
     finalStake: adjustedStake,
-    preDailyCapStake: trace.finalStake,
+    preDailyCapStake: trace.quotedStake,
     dailyRiskCapApplied,
     gates: {
       ...trace.gates,
@@ -390,8 +384,8 @@ export function applyDailyRiskCapToDecisionTraces(traces: BetDecisionTrace[]): B
   if (!traces.length) return traces;
 
   const strategyConfig = traces[0]?.strategyConfig;
-  const maxDailyUnits = strategyConfig?.maxDailyUnits;
-  if (!Number.isFinite(maxDailyUnits) || maxDailyUnits <= 0) {
+  const maxDailyBankrollPercent = strategyConfig?.maxDailyBankrollPercent;
+  if (!Number.isFinite(maxDailyBankrollPercent) || maxDailyBankrollPercent <= 0) {
     return traces.map((trace) => ({
       ...trace,
       gates: {
@@ -401,7 +395,7 @@ export function applyDailyRiskCapToDecisionTraces(traces: BetDecisionTrace[]): B
     }));
   }
 
-  const budgetDollars = betAmountFromUnits(maxDailyUnits);
+  const budgetDollars = dollarsFromBankrollShare(maxDailyBankrollPercent / 100);
   let usedDollars = 0;
   const next = [...traces];
 
@@ -451,13 +445,12 @@ export function applyDailyRiskCapToDecisionTraces(traces: BetDecisionTrace[]): B
 export function explainBetDecision(
   row: BetInput,
   strategy: BetStrategy = DEFAULT_BET_STRATEGY,
-  sizingStyle: BetSizingStyle = DEFAULT_BET_SIZING_STYLE,
   strategyConfigOverride?: BetStrategyRuleConfig,
   strategyLabelOverride?: string
 ): BetDecisionTrace {
   const strategyConfig = strategyConfigOverride || getBetStrategyConfig(strategy);
   const strategyLabel = strategyLabelOverride || getBetStrategyConfig(strategy).label;
-  const context: TraceContext = { strategyLabel, sizingStyle, strategyConfig };
+  const context: TraceContext = { strategyLabel, strategyConfig };
   const homeOdds = Number(row.home_moneyline);
   const awayOdds = Number(row.away_moneyline);
   const oddsAvailable = Number.isFinite(homeOdds) && Number.isFinite(awayOdds) && homeOdds !== 0 && awayOdds !== 0;
@@ -583,7 +576,7 @@ export function explainBetDecision(
   const expectedValueGate = ev >= strategyConfig.minExpectedValue;
   const underdogAllowed = strategyConfig.allowUnderdogs || !candidateIsUnderdog;
 
-  const traceOverrides: Partial<Omit<BetDecisionTrace, "decision" | "strategyLabel" | "sizingStyle" | "strategyConfig" | "gates">> = {
+  const traceOverrides: Partial<Omit<BetDecisionTrace, "decision" | "strategyLabel" | "strategyConfig" | "gates">> = {
     homeRawModelProbability: pHomeRaw,
     awayRawModelProbability: pAwayRaw,
     homeAdjustedProbability: homeAdjustment.adjustedProbability,
@@ -640,16 +633,18 @@ export function explainBetDecision(
   }
 
   const sideDecimalOdds = side === "home" ? decHome : decAway;
-  const kellyFraction = decimalOddsToKellyFraction(adjustedProb, sideDecimalOdds);
-  const rawKellyUnits =
-    kellyFraction === null
+  const baseStakeShareOfBankroll = decimalOddsToBaseStakeShare(adjustedProb, sideDecimalOdds);
+  const scaledStakeShareOfBankroll =
+    baseStakeShareOfBankroll === null ? null : clampPositive(strategyConfig.stakeScale * baseStakeShareOfBankroll);
+  const cappedStakeShareOfBankroll =
+    scaledStakeShareOfBankroll === null
       ? null
-      : clampUnitCount((strategyConfig.fractionalKelly * kellyFraction) / BET_UNIT_BANKROLL_FRACTION);
-  const cappedKellyUnits =
-    rawKellyUnits === null ? null : Math.min(strategyConfig.maxBetUnits, rawKellyUnits);
-  const continuousStake =
-    kellyFraction === null ? 0 : continuousStakeFromKelly(kellyFraction, strategyConfig.fractionalKelly, strategyConfig.maxBetUnits);
-  const stake = continuousStake;
+      : Math.min(strategyConfig.maxBetBankrollPercent / 100, scaledStakeShareOfBankroll);
+  const quotedStake =
+    baseStakeShareOfBankroll === null
+      ? 0
+      : quotedStakeFromBaseShare(baseStakeShareOfBankroll, strategyConfig.stakeScale, strategyConfig.maxBetBankrollPercent);
+  const stake = quotedStake;
 
   if (stake <= 0) {
     return buildTrace(
@@ -664,10 +659,10 @@ export function explainBetDecision(
       },
       {
         ...traceOverrides,
-        kellyFraction,
-        rawKellyUnits,
-        cappedKellyUnits,
-        continuousStake,
+        baseStakeShareOfBankroll,
+        scaledStakeShareOfBankroll,
+        cappedStakeShareOfBankroll,
+        quotedStake,
       }
     );
   }
@@ -695,10 +690,10 @@ export function explainBetDecision(
     },
     {
       ...traceOverrides,
-      kellyFraction,
-      rawKellyUnits,
-      cappedKellyUnits,
-      continuousStake,
+      baseStakeShareOfBankroll,
+      scaledStakeShareOfBankroll,
+      cappedStakeShareOfBankroll,
+      quotedStake,
       finalStake: stake,
     }
   );
@@ -707,32 +702,29 @@ export function explainBetDecision(
 export function explainBetDecisionsForSlate(
   rows: BetInput[],
   strategy: BetStrategy = DEFAULT_BET_STRATEGY,
-  sizingStyle: BetSizingStyle = DEFAULT_BET_SIZING_STYLE,
   strategyConfigOverride?: BetStrategyRuleConfig,
   strategyLabelOverride?: string
 ): BetDecisionTrace[] {
   return applyDailyRiskCapToDecisionTraces(
-    rows.map((row) => explainBetDecision(row, strategy, sizingStyle, strategyConfigOverride, strategyLabelOverride))
+    rows.map((row) => explainBetDecision(row, strategy, strategyConfigOverride, strategyLabelOverride))
   );
 }
 
 export function computeBetDecision(
   row: BetInput,
   strategy: BetStrategy = DEFAULT_BET_STRATEGY,
-  sizingStyle: BetSizingStyle = DEFAULT_BET_SIZING_STYLE,
   strategyConfigOverride?: BetStrategyRuleConfig
 ): BetDecision {
-  return explainBetDecision(row, strategy, sizingStyle, strategyConfigOverride).decision;
+  return explainBetDecision(row, strategy, strategyConfigOverride).decision;
 }
 
 export function computeBetDecisionsForSlate(
   rows: BetInput[],
   strategy: BetStrategy = DEFAULT_BET_STRATEGY,
-  sizingStyle: BetSizingStyle = DEFAULT_BET_SIZING_STYLE,
   strategyConfigOverride?: BetStrategyRuleConfig,
   strategyLabelOverride?: string
 ): BetDecision[] {
-  return explainBetDecisionsForSlate(rows, strategy, sizingStyle, strategyConfigOverride, strategyLabelOverride).map(
+  return explainBetDecisionsForSlate(rows, strategy, strategyConfigOverride, strategyLabelOverride).map(
     (trace) => trace.decision
   );
 }
@@ -766,13 +758,13 @@ export function formatBetLabel(team: string | null, stake: number): string {
   return formatStakeForDecision(team, stake);
 }
 
-export function formatBetUnitLabel(team: string | null, stake: number): string {
+export function formatBetRecommendationLabel(team: string | null, stake: number): string {
   return formatBetLabel(team, stake);
 }
 
-export function formatBetUnitRecommendation(recommendation: BetDisplayRecommendation): { label: string; reason: string } {
+export function formatBetRecommendation(recommendation: BetDisplayRecommendation): { label: string; reason: string } {
   return {
-    label: formatBetUnitLabel(recommendation.team, recommendation.stake),
+    label: formatBetRecommendationLabel(recommendation.team, recommendation.stake),
     reason: recommendation.reason,
   };
 }

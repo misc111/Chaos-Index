@@ -1,5 +1,4 @@
 import {
-  BET_UNIT_DOLLARS,
   HISTORICAL_BANKROLL_START_DOLLARS,
   explainBetDecisionsForSlate,
   settleBet,
@@ -30,12 +29,12 @@ export type OptimizableHistoricalBetRow = {
 };
 
 export type BetStrategyPerformanceSnapshot = {
-  mean_daily_profit_units: number;
-  daily_volatility_units: number;
-  downside_deviation_units: number;
+  mean_daily_profit_dollars: number;
+  daily_volatility_dollars: number;
+  downside_deviation_dollars: number;
   sharpe_ratio: number;
   expected_log_growth_per_bet: number;
-  max_drawdown_units: number;
+  max_drawdown_dollars: number;
   total_profit: number;
   total_risked: number;
   roi: number;
@@ -76,9 +75,9 @@ const MIN_SETTLED_BETS = 3;
 const MIN_ACTIVE_DAYS = 2;
 const MIN_EDGE_GRID = [0.025, 0.03, 0.035];
 const MIN_EXPECTED_VALUE_GRID = [0.015, 0.02, 0.025];
-const FRACTIONAL_KELLY_GRID = [0.2, 0.25, 0.33, 0.5, 0.6, 0.75, 1];
-const MAX_BET_UNITS_GRID = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
-const MAX_DAILY_UNITS_GRID = [1.5, 2, 2.5, 3, 4, 5, 6];
+const STAKE_SCALE_GRID = [0.2, 0.25, 0.33, 0.5, 0.6, 0.75, 1];
+const MAX_BET_BANKROLL_PERCENT_GRID = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
+const MAX_DAILY_BANKROLL_PERCENT_GRID = [1.5, 2, 2.5, 3, 4, 5, 6];
 const MIN_REPLAY_GAMES_FOR_POLICY_RANKING = 60;
 const MIN_REPLAY_DAYS_FOR_POLICY_RANKING = 20;
 
@@ -154,9 +153,9 @@ function strategyConfigSignature(config: BetStrategyRuleConfig): string {
     config.allowUnderdogs ? "dogs" : "favorites",
     roundNumber(config.minEdge, 3).toFixed(3),
     roundNumber(config.minExpectedValue, 3).toFixed(3),
-    roundNumber(config.fractionalKelly, 3).toFixed(3),
-    roundNumber(config.maxBetUnits, 3).toFixed(3),
-    roundNumber(config.maxDailyUnits, 3).toFixed(3),
+    roundNumber(config.stakeScale, 3).toFixed(3),
+    roundNumber(config.maxBetBankrollPercent, 3).toFixed(3),
+    roundNumber(config.maxDailyBankrollPercent, 3).toFixed(3),
   ].join("|");
 }
 
@@ -166,9 +165,9 @@ function strategyConfigSummary(config: BetStrategyRuleConfig, metrics: BetStrate
     allowUnderdogs: config.allowUnderdogs,
     minEdge: config.minEdge,
     minExpectedValue: config.minExpectedValue,
-    fractionalKelly: config.fractionalKelly,
-    maxBetUnits: config.maxBetUnits,
-    maxDailyUnits: config.maxDailyUnits,
+    stakeScale: config.stakeScale,
+    maxBetBankrollPercent: config.maxBetBankrollPercent,
+    maxDailyBankrollPercent: config.maxDailyBankrollPercent,
     ...metrics,
   };
 }
@@ -179,16 +178,16 @@ function buildCandidateGrid(): BetStrategyRuleConfig[] {
   for (const allowUnderdogs of [true, false]) {
     for (const minEdge of MIN_EDGE_GRID) {
       for (const minExpectedValue of MIN_EXPECTED_VALUE_GRID) {
-        for (const fractionalKelly of FRACTIONAL_KELLY_GRID) {
-          for (const maxBetUnits of MAX_BET_UNITS_GRID) {
-            for (const maxDailyUnits of MAX_DAILY_UNITS_GRID) {
+        for (const stakeScale of STAKE_SCALE_GRID) {
+          for (const maxBetBankrollPercent of MAX_BET_BANKROLL_PERCENT_GRID) {
+            for (const maxDailyBankrollPercent of MAX_DAILY_BANKROLL_PERCENT_GRID) {
               candidates.push({
                 allowUnderdogs,
                 minEdge,
                 minExpectedValue,
-                fractionalKelly,
-                maxBetUnits,
-                maxDailyUnits,
+                stakeScale,
+                maxBetBankrollPercent,
+                maxDailyBankrollPercent,
               });
             }
           }
@@ -239,7 +238,6 @@ function evaluateCandidate(rows: OptimizableHistoricalBetRow[], config: BetStrat
         model_win_probabilities: row.model_win_probabilities,
       })),
       "riskAdjusted",
-      "continuous",
       config
     );
 
@@ -259,35 +257,33 @@ function evaluateCandidate(rows: OptimizableHistoricalBetRow[], config: BetStrat
   const dailyProfitEntries = Array.from(dailyProfitByDate.entries())
     .sort(([left], [right]) => left.localeCompare(right))
     .map(([, profit]) => profit);
-  const dailyProfitUnits = dailyProfitEntries.map((profit) => profit / BET_UNIT_DOLLARS);
-
-  const activeDays = dailyProfitUnits.filter((value) => value !== 0).length;
-  const dailyVolatilityUnits = sampleStandardDeviation(dailyProfitUnits);
-  const meanDailyProfitUnits = mean(dailyProfitUnits);
-  const sharpeRatio = dailyVolatilityUnits > 0 ? meanDailyProfitUnits / dailyVolatilityUnits : 0;
+  const activeDays = dailyProfitEntries.filter((value) => value !== 0).length;
+  const dailyVolatilityDollars = sampleStandardDeviation(dailyProfitEntries);
+  const meanDailyProfitDollars = mean(dailyProfitEntries);
+  const sharpeRatio = dailyVolatilityDollars > 0 ? meanDailyProfitDollars / dailyVolatilityDollars : 0;
   const logGrowth = expectedLogGrowthPerBet(dailyProfitEntries, settledBets);
 
   const metrics: BetStrategyPerformanceSnapshot = {
-    mean_daily_profit_units: roundNumber(meanDailyProfitUnits),
-    daily_volatility_units: roundNumber(dailyVolatilityUnits),
-    downside_deviation_units: roundNumber(downsideDeviation(dailyProfitUnits)),
+    mean_daily_profit_dollars: roundNumber(meanDailyProfitDollars),
+    daily_volatility_dollars: roundNumber(dailyVolatilityDollars),
+    downside_deviation_dollars: roundNumber(downsideDeviation(dailyProfitEntries)),
     sharpe_ratio: roundNumber(sharpeRatio),
     expected_log_growth_per_bet: roundNumber(logGrowth),
-    max_drawdown_units: roundNumber(maxDrawdown(dailyProfitUnits)),
+    max_drawdown_dollars: roundNumber(maxDrawdown(dailyProfitEntries)),
     total_profit: roundNumber(totalProfit),
     total_risked: roundNumber(totalRisked),
     roi: roundNumber(totalRisked > 0 ? totalProfit / totalRisked : 0),
     settled_bets: settledBets,
     active_days: activeDays,
-    total_days: dailyProfitUnits.length,
+    total_days: dailyProfitEntries.length,
   };
 
   if (
     settledBets < MIN_SETTLED_BETS ||
     activeDays < MIN_ACTIVE_DAYS ||
     totalRisked <= 0 ||
-    dailyProfitUnits.length < 2 ||
-    !Number.isFinite(metrics.daily_volatility_units)
+    dailyProfitEntries.length < 2 ||
+    !Number.isFinite(metrics.daily_volatility_dollars)
   ) {
     return null;
   }
@@ -302,8 +298,8 @@ function evaluateCandidate(rows: OptimizableHistoricalBetRow[], config: BetStrat
 function buildEfficientFrontier(candidates: CandidateEvaluation[]): CandidateEvaluation[] {
   const sorted = [...candidates].sort(
     (left, right) =>
-      left.metrics.daily_volatility_units - right.metrics.daily_volatility_units ||
-      right.metrics.mean_daily_profit_units - left.metrics.mean_daily_profit_units ||
+      left.metrics.daily_volatility_dollars - right.metrics.daily_volatility_dollars ||
+      right.metrics.mean_daily_profit_dollars - left.metrics.mean_daily_profit_dollars ||
       right.metrics.sharpe_ratio - left.metrics.sharpe_ratio
   );
 
@@ -311,11 +307,11 @@ function buildEfficientFrontier(candidates: CandidateEvaluation[]): CandidateEva
   let bestMean = Number.NEGATIVE_INFINITY;
 
   for (const candidate of sorted) {
-    if (candidate.metrics.mean_daily_profit_units <= bestMean) {
+    if (candidate.metrics.mean_daily_profit_dollars <= bestMean) {
       continue;
     }
     frontier.push(candidate);
-    bestMean = candidate.metrics.mean_daily_profit_units;
+    bestMean = candidate.metrics.mean_daily_profit_dollars;
   }
 
   return frontier;
@@ -325,14 +321,14 @@ function compareBySharpe(left: CandidateEvaluation, right: CandidateEvaluation):
   return (
     right.metrics.expected_log_growth_per_bet - left.metrics.expected_log_growth_per_bet ||
     right.metrics.sharpe_ratio - left.metrics.sharpe_ratio ||
-    right.metrics.mean_daily_profit_units - left.metrics.mean_daily_profit_units ||
-    left.metrics.daily_volatility_units - right.metrics.daily_volatility_units
+    right.metrics.mean_daily_profit_dollars - left.metrics.mean_daily_profit_dollars ||
+    left.metrics.daily_volatility_dollars - right.metrics.daily_volatility_dollars
   );
 }
 
 function compareByReturn(left: CandidateEvaluation, right: CandidateEvaluation): number {
   return (
-    right.metrics.mean_daily_profit_units - left.metrics.mean_daily_profit_units ||
+    right.metrics.mean_daily_profit_dollars - left.metrics.mean_daily_profit_dollars ||
     right.metrics.total_profit - left.metrics.total_profit ||
     right.metrics.sharpe_ratio - left.metrics.sharpe_ratio
   );
@@ -340,10 +336,10 @@ function compareByReturn(left: CandidateEvaluation, right: CandidateEvaluation):
 
 function compareByCapitalProtection(left: CandidateEvaluation, right: CandidateEvaluation): number {
   return (
-    left.metrics.downside_deviation_units - right.metrics.downside_deviation_units ||
-    left.metrics.max_drawdown_units - right.metrics.max_drawdown_units ||
-    left.metrics.daily_volatility_units - right.metrics.daily_volatility_units ||
-    right.metrics.mean_daily_profit_units - left.metrics.mean_daily_profit_units
+    left.metrics.downside_deviation_dollars - right.metrics.downside_deviation_dollars ||
+    left.metrics.max_drawdown_dollars - right.metrics.max_drawdown_dollars ||
+    left.metrics.daily_volatility_dollars - right.metrics.daily_volatility_dollars ||
+    right.metrics.mean_daily_profit_dollars - left.metrics.mean_daily_profit_dollars
   );
 }
 
@@ -418,7 +414,7 @@ export function resolveBetStrategyConfigs(rows: OptimizableHistoricalBetRow[]): 
 
   const positiveMeanCandidates = evaluatedCandidates.filter(
     (candidate) =>
-      candidate.metrics.mean_daily_profit_units > 0 && candidate.metrics.expected_log_growth_per_bet > Number.NEGATIVE_INFINITY
+      candidate.metrics.mean_daily_profit_dollars > 0 && candidate.metrics.expected_log_growth_per_bet > Number.NEGATIVE_INFINITY
   );
   const frontier = buildEfficientFrontier(positiveMeanCandidates);
   const bestRiskAdjustedCandidate = [...frontier].sort(compareBySharpe)[0] || null;
@@ -427,8 +423,8 @@ export function resolveBetStrategyConfigs(rows: OptimizableHistoricalBetRow[]): 
     (candidate) =>
       bestRiskAdjustedCandidate !== null &&
       candidate.configSignature !== bestRiskAdjustedCandidate.configSignature &&
-      candidate.metrics.mean_daily_profit_units >= bestRiskAdjustedCandidate.metrics.mean_daily_profit_units &&
-      candidate.metrics.daily_volatility_units >= bestRiskAdjustedCandidate.metrics.daily_volatility_units
+      candidate.metrics.mean_daily_profit_dollars >= bestRiskAdjustedCandidate.metrics.mean_daily_profit_dollars &&
+      candidate.metrics.daily_volatility_dollars >= bestRiskAdjustedCandidate.metrics.daily_volatility_dollars
   );
   const aggressiveCandidate =
     [...aggressivePool].sort(compareByReturn)[0] ||

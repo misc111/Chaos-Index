@@ -1,4 +1,4 @@
-import { BET_UNIT_BANKROLL_FRACTION, BET_UNIT_DOLLARS } from "@/lib/betting";
+import { REFERENCE_BANKROLL_DOLLARS } from "@/lib/betting";
 import { formatUsd } from "@/lib/currency";
 import type { BetSizingGamePreview, BetSizingPolicyPreview, BetSizingSlate } from "@/lib/bet-sizing-view";
 
@@ -36,10 +36,10 @@ export type BetSizingExplainerGame = {
   allocationRank: number | null;
   shareOfBudget: number;
   wasTrimmedByBudget: boolean;
-  fullKellyUnits: number | null;
-  scaledKellyUnits: number | null;
-  cappedKellyUnits: number | null;
-  finalUnits: number | null;
+  baseStakeShareOfBankroll: number | null;
+  scaledStakeShareOfBankroll: number | null;
+  cappedStakeShareOfBankroll: number | null;
+  finalStakeShareOfBankroll: number | null;
   laymanSummary: string;
 };
 
@@ -149,9 +149,9 @@ function laymanSummaryForGame(
   return "This game does not receive any of today's budget.";
 }
 
-function unitsFromDollars(amount: number | null | undefined): number | null {
+function bankrollShareFromDollars(amount: number | null | undefined): number | null {
   if (typeof amount !== "number" || !Number.isFinite(amount) || amount <= 0) return null;
-  return amount / BET_UNIT_DOLLARS;
+  return amount / REFERENCE_BANKROLL_DOLLARS;
 }
 
 export function buildBetSizingExplainerModel(
@@ -160,8 +160,8 @@ export function buildBetSizingExplainerModel(
   slate: BetSizingSlate,
   selectedGameId: number | null
 ): BetSizingExplainerModel {
-  const totalBudget = policy.maxDailyUnits * BET_UNIT_DOLLARS;
-  const maxBetSize = policy.maxBetUnits * BET_UNIT_DOLLARS;
+  const totalBudget = (policy.maxDailyBankrollPercent / 100) * REFERENCE_BANKROLL_DOLLARS;
+  const maxBetSize = (policy.maxBetBankrollPercent / 100) * REFERENCE_BANKROLL_DOLLARS;
 
   const screening: BetSizingScreeningStep[] = [
     {
@@ -238,10 +238,6 @@ export function buildBetSizingExplainerModel(
   const games = previews.map((preview) => {
     const requestedStake = requestedStakeForPreview(preview);
     const allocation = allocationByGameId.get(preview.row.game_id) || null;
-    const fullKellyUnits =
-      typeof preview.trace.kellyFraction === "number" && Number.isFinite(preview.trace.kellyFraction)
-        ? preview.trace.kellyFraction / BET_UNIT_BANKROLL_FRACTION
-        : null;
 
     const game: BetSizingExplainerGame = {
       preview,
@@ -256,10 +252,10 @@ export function buildBetSizingExplainerModel(
       allocationRank: allocation?.allocationRank ?? null,
       shareOfBudget: totalBudget > 0 ? preview.trace.finalStake / totalBudget : 0,
       wasTrimmedByBudget: Boolean(allocation?.wasTrimmedByBudget),
-      fullKellyUnits,
-      scaledKellyUnits: preview.trace.rawKellyUnits,
-      cappedKellyUnits: preview.trace.cappedKellyUnits,
-      finalUnits: unitsFromDollars(preview.trace.finalStake),
+      baseStakeShareOfBankroll: preview.trace.baseStakeShareOfBankroll,
+      scaledStakeShareOfBankroll: preview.trace.scaledStakeShareOfBankroll,
+      cappedStakeShareOfBankroll: preview.trace.cappedStakeShareOfBankroll,
+      finalStakeShareOfBankroll: bankrollShareFromDollars(preview.trace.finalStake),
       laymanSummary: "",
     };
 

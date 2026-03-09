@@ -1,4 +1,3 @@
-import { DEFAULT_BET_SIZING_STYLE } from "@/lib/betting-strategy";
 import { explainBetDecisionsForSlate, type BetDecisionTrace } from "@/lib/betting";
 import type { BetStrategyPerformanceSnapshot, FrontierPointSummary, ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
 import { dateKeyForScheduledGame } from "@/lib/games-today";
@@ -16,9 +15,9 @@ export type BetSizingPolicyPreview = {
   allowUnderdogs: boolean;
   minEdge: number;
   minExpectedValue: number;
-  fractionalKelly: number;
-  maxBetUnits: number;
-  maxDailyUnits: number;
+  stakeScale: number;
+  maxBetBankrollPercent: number;
+  maxDailyBankrollPercent: number;
   optimizationSource: "historical_frontier" | "historical_downside" | "static_fallback" | "frontier_preview";
   metrics: BetStrategyPerformanceSnapshot | null;
   frontierPoint: FrontierPointSummary | null;
@@ -58,9 +57,9 @@ function buildPolicyFromStrategy(strategy: BetStrategy, config: ResolvedBetStrat
     allowUnderdogs: config.allowUnderdogs,
     minEdge: config.minEdge,
     minExpectedValue: config.minExpectedValue,
-    fractionalKelly: config.fractionalKelly,
-    maxBetUnits: config.maxBetUnits,
-    maxDailyUnits: config.maxDailyUnits,
+    stakeScale: config.stakeScale,
+    maxBetBankrollPercent: config.maxBetBankrollPercent,
+    maxDailyBankrollPercent: config.maxDailyBankrollPercent,
     optimizationSource: config.optimization_source,
     metrics: config.metrics,
     frontierPoint: null,
@@ -72,16 +71,16 @@ function buildPolicyFromFrontierPoint(point: FrontierPointSummary): BetSizingPol
   return {
     key: point.config_signature,
     label: point.allowUnderdogs ? "Replay Preview: Dogs Allowed" : "Replay Preview: Favorites Only",
-    shortLabel: `${point.fractionalKelly.toFixed(2)}x scale · ${point.maxBetUnits.toFixed(2)}u`,
+    shortLabel: `${point.maxBetBankrollPercent.toFixed(2)}% max bet · ${point.maxDailyBankrollPercent.toFixed(1)}% nightly`,
     description: "Preview a different replay-tested policy without changing the saved defaults.",
     matchingStrategies: [],
     configSignature: point.config_signature,
     allowUnderdogs: point.allowUnderdogs,
     minEdge: point.minEdge,
     minExpectedValue: point.minExpectedValue,
-    fractionalKelly: point.fractionalKelly,
-    maxBetUnits: point.maxBetUnits,
-    maxDailyUnits: point.maxDailyUnits,
+    stakeScale: point.stakeScale,
+    maxBetBankrollPercent: point.maxBetBankrollPercent,
+    maxDailyBankrollPercent: point.maxDailyBankrollPercent,
     optimizationSource: "frontier_preview",
     metrics: point,
     frontierPoint: point,
@@ -226,14 +225,13 @@ export function buildBetSizingGamePreviews(
       model_win_probabilities: row.model_win_probabilities,
     })),
     strategy,
-    DEFAULT_BET_SIZING_STYLE,
     {
       allowUnderdogs: policy.allowUnderdogs,
       minEdge: policy.minEdge,
       minExpectedValue: policy.minExpectedValue,
-      fractionalKelly: policy.fractionalKelly,
-      maxBetUnits: policy.maxBetUnits,
-      maxDailyUnits: policy.maxDailyUnits,
+      stakeScale: policy.stakeScale,
+      maxBetBankrollPercent: policy.maxBetBankrollPercent,
+      maxDailyBankrollPercent: policy.maxDailyBankrollPercent,
     },
     policy.label
   );

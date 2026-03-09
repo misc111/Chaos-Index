@@ -1,7 +1,6 @@
 "use client";
 
 import type { KeyboardEvent } from "react";
-import { BET_UNIT_DOLLARS } from "@/lib/betting";
 import type { BetSizingPolicyPreview } from "@/lib/bet-sizing-view";
 import styles from "./BetSizingFrontier.module.css";
 
@@ -13,7 +12,7 @@ type Props = {
 };
 
 function formatDollarMetric(value: number): string {
-  return `$${(value * BET_UNIT_DOLLARS).toFixed(0)}`;
+  return `$${value.toFixed(0)}`;
 }
 
 function formatScore(value: number): string {
@@ -61,15 +60,15 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
   const plotWidth = width - padLeft - padRight;
   const plotHeight = height - padTop - padBottom;
 
-  const volValues = plottedPoints.map((point) => point.metrics?.daily_volatility_units ?? 0);
-  const returnValues = plottedPoints.map((point) => point.metrics?.mean_daily_profit_units ?? 0);
+  const volValues = plottedPoints.map((point) => point.metrics?.daily_volatility_dollars ?? 0);
+  const returnValues = plottedPoints.map((point) => point.metrics?.mean_daily_profit_dollars ?? 0);
   const growthValues = plottedPoints.map((point) => point.metrics?.expected_log_growth_per_bet ?? 0);
   const offFrontierMetrics =
     officialPolicy && !officialPolicy.isFrontierPoint && officialPolicy.metrics ? officialPolicy.metrics : null;
 
   if (offFrontierMetrics) {
-    volValues.push(offFrontierMetrics.daily_volatility_units);
-    returnValues.push(offFrontierMetrics.mean_daily_profit_units);
+    volValues.push(offFrontierMetrics.daily_volatility_dollars);
+    returnValues.push(offFrontierMetrics.mean_daily_profit_dollars);
     growthValues.push(offFrontierMetrics.expected_log_growth_per_bet);
   }
 
@@ -84,8 +83,8 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
 
   const coords = plottedPoints.map((point) => {
     const metrics = point.metrics!;
-    const x = padLeft + ((metrics.daily_volatility_units - minX) / spanX) * plotWidth;
-    const y = padTop + (1 - (metrics.mean_daily_profit_units - minY) / spanY) * plotHeight;
+    const x = padLeft + ((metrics.daily_volatility_dollars - minX) / spanX) * plotWidth;
+    const y = padTop + (1 - (metrics.mean_daily_profit_dollars - minY) / spanY) * plotHeight;
     return { point, x, y };
   });
 
@@ -95,8 +94,8 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
 
   const offFrontierCoord = offFrontierMetrics
     ? {
-        x: padLeft + ((offFrontierMetrics.daily_volatility_units - minX) / spanX) * plotWidth,
-        y: padTop + (1 - (offFrontierMetrics.mean_daily_profit_units - minY) / spanY) * plotHeight,
+        x: padLeft + ((offFrontierMetrics.daily_volatility_dollars - minX) / spanX) * plotWidth,
+        y: padTop + (1 - (offFrontierMetrics.mean_daily_profit_dollars - minY) / spanY) * plotHeight,
       }
     : null;
 
@@ -159,7 +158,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
                 className={styles.pointButton}
                 onClick={() => onSelect(point.configSignature)}
                 onKeyDown={(event) => handleKey(event, point.configSignature, onSelect)}
-                aria-label={`${point.label}. Volatility ${formatDollarMetric(metrics.daily_volatility_units)}, return ${formatDollarMetric(metrics.mean_daily_profit_units)}, log growth ${formatScore(metrics.expected_log_growth_per_bet)}.`}
+                aria-label={`${point.label}. Volatility ${formatDollarMetric(metrics.daily_volatility_dollars)}, return ${formatDollarMetric(metrics.mean_daily_profit_dollars)}, log growth ${formatScore(metrics.expected_log_growth_per_bet)}.`}
               >
                 <circle cx={x} cy={y} r={isSelected ? 14 : 10} className={styles.pointHalo} />
                 <circle cx={x} cy={y} r={isSelected ? 8.5 : 6.5} fill={color} className={styles.pointCore} />
@@ -168,7 +167,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
                     {point.matchingStrategies.join(" / ")}
                   </text>
                 ) : null}
-                <title>{`${point.label}: volatility ${formatDollarMetric(metrics.daily_volatility_units)}, return ${formatDollarMetric(metrics.mean_daily_profit_units)}, log growth ${formatScore(metrics.expected_log_growth_per_bet)}`}</title>
+                <title>{`${point.label}: volatility ${formatDollarMetric(metrics.daily_volatility_dollars)}, return ${formatDollarMetric(metrics.mean_daily_profit_dollars)}, log growth ${formatScore(metrics.expected_log_growth_per_bet)}`}</title>
               </g>
             );
           })}
@@ -180,7 +179,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
               className={styles.pointButton}
               onClick={() => onSelect(officialPolicy.configSignature)}
               onKeyDown={(event) => handleKey(event, officialPolicy.configSignature, onSelect)}
-              aria-label={`${officialPolicy.label}. Off-frontier profile with volatility ${formatDollarMetric(officialPolicy.metrics.daily_volatility_units)}, return ${formatDollarMetric(officialPolicy.metrics.mean_daily_profit_units)}.`}
+              aria-label={`${officialPolicy.label}. Off-frontier profile with volatility ${formatDollarMetric(officialPolicy.metrics.daily_volatility_dollars)}, return ${formatDollarMetric(officialPolicy.metrics.mean_daily_profit_dollars)}.`}
             >
               <path
                 d={`M ${offFrontierCoord.x} ${offFrontierCoord.y - 10} L ${offFrontierCoord.x + 10} ${offFrontierCoord.y} L ${offFrontierCoord.x} ${offFrontierCoord.y + 10} L ${offFrontierCoord.x - 10} ${offFrontierCoord.y} Z`}

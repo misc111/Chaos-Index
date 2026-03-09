@@ -12,7 +12,7 @@ import {
 import {
   HISTORICAL_BANKROLL_START_DATE_CENTRAL,
   HISTORICAL_BANKROLL_START_DOLLARS,
-  formatBetUnitLabel,
+  formatBetRecommendationLabel,
   settleBet,
   type BetDecision,
 } from "@/lib/betting";
@@ -638,7 +638,6 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
         replayableRows,
         league,
         strategy,
-        undefined,
         resolvedConfig,
         resolvedConfig.config_signature
       )
@@ -731,7 +730,7 @@ function buildBetHistoryStrategyBundle(
       odds_snapshot_id: row.odds_snapshot_id,
       home_moneyline: row.home_moneyline,
       away_moneyline: row.away_moneyline,
-      bet_label: formatBetUnitLabel(decision.team, replayDecision.stake),
+      bet_label: formatBetRecommendationLabel(decision.team, replayDecision.stake),
       reason: replayDecision.reason,
       side: decision.side,
       team: decision.team,

@@ -3,7 +3,6 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
-  DEFAULT_BET_SIZING_STYLE,
   getBetStrategyConfig,
   normalizeBetStrategy,
 } from "@/lib/betting-strategy";
@@ -209,7 +208,6 @@ function MarketBoardPageContent() {
           model_win_probabilities: row.model_win_probabilities,
         })),
         strategy,
-        DEFAULT_BET_SIZING_STYLE,
         resolvedConfig
       );
 

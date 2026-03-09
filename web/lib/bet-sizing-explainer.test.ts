@@ -17,9 +17,9 @@ const POLICY: BetSizingPolicyPreview = {
   allowUnderdogs: true,
   minEdge: 0.03,
   minExpectedValue: 0.02,
-  fractionalKelly: 0.5,
-  maxBetUnits: 1.25,
-  maxDailyUnits: 4,
+  stakeScale: 0.5,
+  maxBetBankrollPercent: 1.25,
+  maxDailyBankrollPercent: 4,
   optimizationSource: "static_fallback" as const,
   metrics: null,
   frontierPoint: null,
@@ -99,7 +99,7 @@ test("buildBetSizingExplainerModel tracks requested versus funded stake through 
     null
   );
 
-  assert.equal(model.totalBudget, getBetStrategyConfig("riskAdjusted").maxDailyUnits * 100);
+  assert.equal(model.totalBudget, (getBetStrategyConfig("riskAdjusted").maxDailyBankrollPercent / 100) * 10_000);
   assert.equal(model.allocatedBudget, 375);
   assert.equal(model.remainingBudget, 25);
   assert.equal(model.fundedBetCount, 3);

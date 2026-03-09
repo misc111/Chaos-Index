@@ -57,14 +57,16 @@ test("resolveBetStrategyConfigs derives objective-based profiles from replay his
   assert.ok(strategyConfigs.capitalPreservation.metrics);
 
   assert.ok(
-    strategyConfigs.aggressive.metrics!.mean_daily_profit_units >=
-      strategyConfigs.riskAdjusted.metrics!.mean_daily_profit_units
+    strategyConfigs.aggressive.metrics!.mean_daily_profit_dollars >=
+      strategyConfigs.riskAdjusted.metrics!.mean_daily_profit_dollars
   );
   assert.ok(
     strategyConfigs.riskAdjusted.metrics!.expected_log_growth_per_bet >=
       strategyConfigs.capitalPreservation.metrics!.expected_log_growth_per_bet
   );
-  assert.ok(strategyConfigs.riskAdjusted.maxDailyUnits > strategyConfigs.capitalPreservation.maxDailyUnits);
+  assert.ok(
+    strategyConfigs.riskAdjusted.maxDailyBankrollPercent > strategyConfigs.capitalPreservation.maxDailyBankrollPercent
+  );
 });
 
 test("resolveBetStrategyConfigs falls back to static defaults when replay coverage is thin", () => {

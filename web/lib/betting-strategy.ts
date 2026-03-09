@@ -1,10 +1,7 @@
 export type BetStrategy = "riskAdjusted" | "aggressive" | "capitalPreservation";
-export type BetSizingStyle = "continuous";
 
 export const BET_STRATEGIES = ["riskAdjusted", "aggressive", "capitalPreservation"] as const;
-export const BET_SIZING_STYLES = ["continuous"] as const;
 export const DEFAULT_BET_STRATEGY: BetStrategy = "riskAdjusted";
-export const DEFAULT_BET_SIZING_STYLE: BetSizingStyle = "continuous";
 
 export type BetStrategyConfig = {
   label: string;
@@ -13,20 +10,14 @@ export type BetStrategyConfig = {
   allowUnderdogs: boolean;
   minEdge: number;
   minExpectedValue: number;
-  fractionalKelly: number;
-  maxBetUnits: number;
-  maxDailyUnits: number;
-};
-
-export type BetSizingStyleConfig = {
-  label: string;
-  shortLabel: string;
-  description: string;
+  stakeScale: number;
+  maxBetBankrollPercent: number;
+  maxDailyBankrollPercent: number;
 };
 
 export type BetStrategyRuleConfig = Pick<
   BetStrategyConfig,
-  "allowUnderdogs" | "minEdge" | "minExpectedValue" | "fractionalKelly" | "maxBetUnits" | "maxDailyUnits"
+  "allowUnderdogs" | "minEdge" | "minExpectedValue" | "stakeScale" | "maxBetBankrollPercent" | "maxDailyBankrollPercent"
 >;
 
 const SHARED_MIN_EDGE = 0.03;
@@ -41,9 +32,9 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
     allowUnderdogs: true,
     minEdge: SHARED_MIN_EDGE,
     minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
-    fractionalKelly: 0.5,
-    maxBetUnits: 1.25,
-    maxDailyUnits: 4,
+    stakeScale: 0.5,
+    maxBetBankrollPercent: 1.25,
+    maxDailyBankrollPercent: 4,
   },
   aggressive: {
     label: "Aggressive",
@@ -52,9 +43,9 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
     allowUnderdogs: true,
     minEdge: SHARED_MIN_EDGE,
     minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
-    fractionalKelly: 0.75,
-    maxBetUnits: 1.75,
-    maxDailyUnits: 6,
+    stakeScale: 0.75,
+    maxBetBankrollPercent: 1.75,
+    maxDailyBankrollPercent: 6,
   },
   capitalPreservation: {
     label: "Conservative",
@@ -63,17 +54,9 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
     allowUnderdogs: false,
     minEdge: SHARED_MIN_EDGE,
     minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
-    fractionalKelly: 0.25,
-    maxBetUnits: 0.75,
-    maxDailyUnits: 2.5,
-  },
-};
-
-const BET_SIZING_STYLE_CONFIG: Record<BetSizingStyle, BetSizingStyleConfig> = {
-  continuous: {
-    label: "Default",
-    shortLabel: "Edge-scaled",
-    description: "Lets the stake scale continuously with the uncertainty-adjusted edge and market price.",
+    stakeScale: 0.25,
+    maxBetBankrollPercent: 0.75,
+    maxDailyBankrollPercent: 2.5,
   },
 };
 
@@ -121,16 +104,6 @@ export function strategyFromRequest(request: Request): BetStrategy {
   return normalizeBetStrategy(url.searchParams.get("strategy"));
 }
 
-export function normalizeBetSizingStyle(value?: string | null): BetSizingStyle {
-  void value;
-  return DEFAULT_BET_SIZING_STYLE;
-}
-
-export function sizingStyleFromRequest(request: Request): BetSizingStyle {
-  const url = new URL(request.url);
-  return normalizeBetSizingStyle(url.searchParams.get("sizingStyle"));
-}
-
 export function getBetStrategyConfig(strategy: BetStrategy): BetStrategyConfig {
   return BET_STRATEGY_CONFIG[strategy];
 }
@@ -140,16 +113,12 @@ export function toBetStrategyRuleConfig(strategyConfig: BetStrategyConfig): BetS
     allowUnderdogs: strategyConfig.allowUnderdogs,
     minEdge: strategyConfig.minEdge,
     minExpectedValue: strategyConfig.minExpectedValue,
-    fractionalKelly: strategyConfig.fractionalKelly,
-    maxBetUnits: strategyConfig.maxBetUnits,
-    maxDailyUnits: strategyConfig.maxDailyUnits,
+    stakeScale: strategyConfig.stakeScale,
+    maxBetBankrollPercent: strategyConfig.maxBetBankrollPercent,
+    maxDailyBankrollPercent: strategyConfig.maxDailyBankrollPercent,
   };
 }
 
 export function getBetStrategyLabel(strategy: BetStrategy): string {
   return BET_STRATEGY_CONFIG[strategy].label;
-}
-
-export function getBetSizingStyleConfig(sizingStyle: BetSizingStyle): BetSizingStyleConfig {
-  return BET_SIZING_STYLE_CONFIG[sizingStyle];
 }

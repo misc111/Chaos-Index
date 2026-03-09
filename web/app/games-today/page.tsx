@@ -8,12 +8,12 @@ import {
   type BetStrategy,
 } from "@/lib/betting-strategy";
 import {
-  BET_UNIT_DOLLARS,
+  REFERENCE_STAKE_DOLLARS,
   REFERENCE_BANKROLL_DOLLARS,
   computeBetDecisionsForSlate,
   expectedSide,
   expectedWinChance,
-  formatBetUnitRecommendation,
+  formatBetRecommendation,
 } from "@/lib/betting";
 import type { ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
 import TeamWithIcon, { BetStakeWithIcon, TeamMatchup } from "@/components/TeamWithIcon";
@@ -94,7 +94,7 @@ function displayBetRecommendation(
   const replayDecision = row.replay_decisions?.[strategy];
   if (replayDecision) {
     return {
-      ...formatBetUnitRecommendation(replayDecision),
+      ...formatBetRecommendation(replayDecision),
       team: replayDecision.team,
       stake: replayDecision.stake,
     };
@@ -191,12 +191,12 @@ function GamesTodayPageContent() {
     if (!liveRows.length) return new Map<number, BetRecommendationDisplay>();
 
     const resolvedConfig = strategyConfigs?.[strategy] || getBetStrategyConfig(strategy);
-    const decisions = computeBetDecisionsForSlate(liveRows, strategy, undefined, resolvedConfig);
+    const decisions = computeBetDecisionsForSlate(liveRows, strategy, resolvedConfig);
     return new Map(
       liveRows.map((row, index) => [
         row.game_id,
         {
-          ...formatBetUnitRecommendation(decisions[index]),
+          ...formatBetRecommendation(decisions[index]),
           team: decisions[index]?.team ?? null,
           stake: decisions[index]?.stake ?? 0,
         },
@@ -282,7 +282,7 @@ function GamesTodayPageContent() {
         </div>
         <p className="small">{description}</p>
         <p className="small">
-          Stakes use uncertainty-adjusted edge and a bankroll-linked scale. A {formatUsd(BET_UNIT_DOLLARS)} recommendation corresponds to 1% of the ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()} reference bankroll.
+          Stakes use uncertainty-adjusted edge and a bankroll-linked scale. A {formatUsd(REFERENCE_STAKE_DOLLARS)} recommendation corresponds to 1% of the ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()} reference bankroll.
         </p>
         <div className={styles.actionsRow}>
           <button

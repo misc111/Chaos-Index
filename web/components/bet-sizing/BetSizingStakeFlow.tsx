@@ -1,24 +1,20 @@
 import { formatUsd } from "@/lib/currency";
 import type { BetSizingExplainerGame } from "@/lib/bet-sizing-explainer";
-import type { BetSizingStyle } from "@/lib/betting-strategy";
 import type { BetSizingPolicyPreview } from "@/lib/bet-sizing-view";
 import styles from "./BetSizingStakeFlow.module.css";
 
 type Props = {
   game: BetSizingExplainerGame;
   policy: BetSizingPolicyPreview;
-  sizingStyle: BetSizingStyle;
   totalBudget: number;
 };
 
-function formatUnits(value: number | null | undefined): string {
+function formatBankrollPercent(value: number | null | undefined): string {
   if (typeof value !== "number" || !Number.isFinite(value)) return "—";
-  return `${value.toFixed(2)}u`;
+  return `${(value * 100).toFixed(2)}%`;
 }
 
-export default function BetSizingStakeFlow({ game, policy, sizingStyle, totalBudget }: Props) {
-  void sizingStyle;
-
+export default function BetSizingStakeFlow({ game, policy, totalBudget }: Props) {
   if (game.requestedStake <= 0 && game.finalStake <= 0) {
     return (
       <article className={`card ${styles.card}`}>
@@ -31,26 +27,25 @@ export default function BetSizingStakeFlow({ game, policy, sizingStyle, totalBud
     );
   }
 
-  const quotedStake = game.preview.trace.continuousStake;
   const steps = [
     {
-      label: "Full Kelly ask",
-      value: formatUnits(game.fullKellyUnits),
-      note: "The raw bankroll fraction implied by the adjusted edge and the market price.",
+      label: "Base bankroll share",
+      value: formatBankrollPercent(game.baseStakeShareOfBankroll),
+      note: "This is the raw bankroll share implied by the adjusted edge and the market price.",
     },
     {
       label: `${policy.label} scale`,
-      value: formatUnits(game.scaledKellyUnits),
-      note: `${policy.fractionalKelly.toFixed(2)}x Kelly scale keeps the profile from betting the raw Kelly amount.`,
+      value: formatBankrollPercent(game.scaledStakeShareOfBankroll),
+      note: `${policy.label} uses a ${policy.stakeScale.toFixed(2)}x sizing multiplier before the hard caps kick in.`,
     },
     {
       label: "Per-bet cap",
-      value: formatUnits(game.cappedKellyUnits),
-      note: `No single bet can exceed ${policy.maxBetUnits.toFixed(2)}u under this profile.`,
+      value: formatBankrollPercent(game.cappedStakeShareOfBankroll),
+      note: `No single bet can exceed ${policy.maxBetBankrollPercent.toFixed(2)}% of the reference bankroll under this profile.`,
     },
     {
       label: "Quoted stake",
-      value: formatUsd(quotedStake),
+      value: formatUsd(game.preview.trace.quotedStake),
       note: "This is the per-game quote before the daily budget decides how much is still available.",
     },
     {

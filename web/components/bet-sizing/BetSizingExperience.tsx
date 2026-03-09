@@ -15,11 +15,11 @@ import {
   selectDefaultPolicyKey,
 } from "@/lib/bet-sizing-view";
 import {
-  BET_UNIT_BANKROLL_FRACTION,
-  BET_UNIT_DOLLARS,
   HISTORICAL_BANKROLL_START_DATE_CENTRAL,
   HISTORICAL_BANKROLL_START_DOLLARS,
   REFERENCE_BANKROLL_DOLLARS,
+  REFERENCE_STAKE_BANKROLL_FRACTION,
+  REFERENCE_STAKE_DOLLARS,
 } from "@/lib/betting";
 import type { BetStrategyPerformanceSnapshot, FrontierPointSummary, ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
 import type { BetHistoryResponse, BetHistoryStrategyBundle } from "@/lib/bet-history-types";
@@ -36,14 +36,9 @@ function formatPercent(value: number | null | undefined): string {
   return `${(value * 100).toFixed(1)}%`;
 }
 
-function formatUnits(value: number | null | undefined): string {
+function formatBankrollPercent(value: number | null | undefined): string {
   if (typeof value !== "number" || !Number.isFinite(value)) return "—";
-  return `${value.toFixed(2)}u`;
-}
-
-function formatBankrollShare(value: number | null | undefined): string {
-  if (typeof value !== "number" || !Number.isFinite(value)) return "—";
-  return `${(value * BET_UNIT_BANKROLL_FRACTION * 100).toFixed(2)}%`;
+  return `${(value * 100).toFixed(2)}%`;
 }
 
 function formatProbabilityPoints(value: number | null | undefined): string {
@@ -368,23 +363,27 @@ export default function BetSizingExperience() {
                 <div className={styles.ruleGrid}>
                   <div className={styles.ruleTile}>
                     <span className={styles.ruleLabel}>Daily budget</span>
-                    <strong className={styles.ruleValue}>{formatUsd(selectedPolicy.maxDailyUnits * BET_UNIT_DOLLARS)}</strong>
+                    <strong className={styles.ruleValue}>
+                      {formatUsd((selectedPolicy.maxDailyBankrollPercent / 100) * REFERENCE_BANKROLL_DOLLARS)}
+                    </strong>
                   </div>
                   <div className={styles.ruleTile}>
                     <span className={styles.ruleLabel}>Per-game cap</span>
-                    <strong className={styles.ruleValue}>{formatUsd(selectedPolicy.maxBetUnits * BET_UNIT_DOLLARS)}</strong>
+                    <strong className={styles.ruleValue}>
+                      {formatUsd((selectedPolicy.maxBetBankrollPercent / 100) * REFERENCE_BANKROLL_DOLLARS)}
+                    </strong>
                   </div>
                   <div className={styles.ruleTile}>
                     <span className={styles.ruleLabel}>Value floor</span>
                     <strong className={styles.ruleValue}>{formatProbabilityPoints(selectedPolicy.minEdge)}</strong>
                   </div>
                   <div className={styles.ruleTile}>
-                    <span className={styles.ruleLabel}>Stake scale</span>
-                    <strong className={styles.ruleValue}>{selectedPolicy.fractionalKelly.toFixed(2)}x</strong>
+                    <span className={styles.ruleLabel}>Sizing scale</span>
+                    <strong className={styles.ruleValue}>{selectedPolicy.stakeScale.toFixed(2)}x</strong>
                   </div>
                 </div>
                 <p className={styles.ruleFootnote}>
-                  Dollar amounts are anchored to a {formatUsd(REFERENCE_BANKROLL_DOLLARS)} reference bankroll. For example, a {formatBankrollShare(1)} position is {formatUsd(BET_UNIT_DOLLARS)}.
+                  Dollar amounts are anchored to a {formatUsd(REFERENCE_BANKROLL_DOLLARS)} reference bankroll. For example, a {formatBankrollPercent(REFERENCE_STAKE_BANKROLL_FRACTION)} bankroll share is {formatUsd(REFERENCE_STAKE_DOLLARS)}.
                 </p>
                 {selectedPolicy.optimizationSource === "static_fallback" ? (
                   <p className={styles.ruleFootnote}>
@@ -541,7 +540,7 @@ export default function BetSizingExperience() {
                   edge={selectedGame.preview.trace.candidateEdge}
                 />
 
-                <BetSizingStakeFlow game={selectedGame} policy={selectedPolicy} sizingStyle="continuous" totalBudget={explainer.totalBudget} />
+                <BetSizingStakeFlow game={selectedGame} policy={selectedPolicy} totalBudget={explainer.totalBudget} />
 
                 <section className={`card ${styles.storyCard}`}>
                   <div>
@@ -562,8 +561,10 @@ export default function BetSizingExperience() {
                       <strong className={styles.storyValue}>{formatExpectedValue(selectedGame.preview.trace.candidateExpectedValue)}</strong>
                     </div>
                     <div className={styles.storyTile}>
-                      <span className={styles.storyLabel}>Scale after policy</span>
-                      <strong className={styles.storyValue}>{formatUnits(selectedGame.scaledKellyUnits)}</strong>
+                      <span className={styles.storyLabel}>Requested bankroll share</span>
+                      <strong className={styles.storyValue}>
+                        {formatBankrollPercent(selectedGame.scaledStakeShareOfBankroll)}
+                      </strong>
                     </div>
                     <div className={styles.storyTile}>
                       <span className={styles.storyLabel}>Budget rank</span>

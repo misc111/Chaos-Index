@@ -17,7 +17,7 @@ function buildDecision(strategy?: BetStrategy) {
   );
 }
 
-test("computeBetDecision sizes favorites with a continuous fractional-Kelly stake", () => {
+test("computeBetDecision sizes favorites with the bankroll-linked formula", () => {
   const decision = computeBetDecision({
     home_team: "SAC",
     away_team: "CHI",
@@ -137,9 +137,9 @@ test("explainBetDecision exposes raw and adjusted sizing steps for a bet", () =>
   assert.equal(trace.gates.underdogAllowed, true);
   assert.equal(trace.gates.dailyBudget, true);
   assert.ok((trace.candidateRawModelProbability ?? 0) > (trace.candidateAdjustedProbability ?? 0));
-  assert.ok((trace.kellyFraction ?? 0) > 0);
-  assert.ok((trace.rawKellyUnits ?? 0) >= (trace.cappedKellyUnits ?? 0));
-  assert.equal(trace.continuousStake, 125);
+  assert.ok((trace.baseStakeShareOfBankroll ?? 0) > 0);
+  assert.ok((trace.scaledStakeShareOfBankroll ?? 0) >= (trace.cappedStakeShareOfBankroll ?? 0));
+  assert.equal(trace.quotedStake, 125);
   assert.equal(trace.finalStake, 125);
 });
 
@@ -175,8 +175,7 @@ test("slate-level sizing enforces the daily risk budget", () => {
         away_moneyline: 130,
       },
     ],
-    "capitalPreservation",
-    "continuous"
+    "capitalPreservation"
   );
 
   const totalRisked = traces.reduce((sum, trace) => sum + trace.finalStake, 0);
@@ -202,8 +201,7 @@ test("computeBetDecisionsForSlate returns decisions in row order", () => {
         away_moneyline: 125,
       },
     ],
-    "riskAdjusted",
-    "continuous"
+    "riskAdjusted"
   );
 
   assert.equal(decisions.length, 2);

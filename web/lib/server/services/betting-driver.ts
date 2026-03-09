@@ -19,11 +19,11 @@ const BETTABLE_DRIVER_LOOKBACK_DAYS = 60;
 // of games that actually cleared the betting gates. This should not become
 // permanent folklore. Future Codex threads should explicitly revisit whether
 // this reranker is still needed once each league has a healthier post-change
-// replay sample. A good removal test is: at least 50 settled
-// `riskAdjusted`/`continuous` bets for the league after this change, plus the
-// ensemble once again matching or beating the reranked driver on recent
-// bettable-game log loss and Brier. If those checks pass, prefer deleting this
-// reranker and returning to the simpler ensemble-first policy.
+// replay sample. A good removal test is: at least 50 settled risk-adjusted
+// bets for the league after this change, plus the ensemble once again matching
+// or beating the reranked driver on recent bettable-game log loss and Brier.
+// If those checks pass, prefer deleting this reranker and returning to the
+// simpler ensemble-first policy.
 const TEMPORARY_MIN_BETTABLE_DRIVER_GAMES = 10;
 
 function clampProbability(value: number): number {
@@ -36,7 +36,6 @@ function modelDriverSql(lookbackDays: number): string {
       SELECT MAX(date_central) AS max_date
       FROM historical_bet_decisions_by_profile
       WHERE strategy = 'riskAdjusted'
-        AND sizing_style = 'continuous'
         AND stake > 0
     ),
     target_games AS (
@@ -52,7 +51,6 @@ function modelDriverSql(lookbackDays: number): string {
       LEFT JOIN games g
         ON g.game_id = d.game_id
       WHERE d.strategy = 'riskAdjusted'
-        AND d.sizing_style = 'continuous'
         AND d.stake > 0
         AND r.home_win IS NOT NULL
         AND d.date_central >= DATE(ld.max_date, '-${lookbackDays - 1} days')

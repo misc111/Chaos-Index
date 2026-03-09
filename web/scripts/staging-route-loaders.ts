@@ -1,11 +1,11 @@
-import * as actualVsExpectedRoute from "../app/api/actual-vs-expected/route";
-import * as betHistoryRoute from "../app/api/bet-history/route";
-import * as gamesTodayRoute from "../app/api/games-today/route";
-import * as marketBoardRoute from "../app/api/market-board/route";
-import * as metricsRoute from "../app/api/metrics/route";
-import * as performanceRoute from "../app/api/performance/route";
-import * as predictionsRoute from "../app/api/predictions/route";
-import * as validationRoute from "../app/api/validation/route";
+import * as actualVsExpectedRoute from "../app/api/actual-vs-expected/route.ts";
+import * as betHistoryRoute from "../app/api/bet-history/route.ts";
+import * as gamesTodayRoute from "../app/api/games-today/route.ts";
+import * as marketBoardRoute from "../app/api/market-board/route.ts";
+import * as metricsRoute from "../app/api/metrics/route.ts";
+import * as performanceRoute from "../app/api/performance/route.ts";
+import * as predictionsRoute from "../app/api/predictions/route.ts";
+import * as validationRoute from "../app/api/validation/route.ts";
 
 export type JsonRouteHandler = (request: Request) => Promise<Response>;
 

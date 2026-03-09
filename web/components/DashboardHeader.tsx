@@ -94,7 +94,6 @@ function hrefWithStrategy(href: string, strategy: BetStrategy, searchParams: URL
 
 function hrefWithParams(href: string, searchParams: URLSearchParams, updates: Record<string, string>): string {
   const params = new URLSearchParams(searchParams.toString());
-  params.delete("sizingStyle");
   for (const [key, value] of Object.entries(updates)) {
     params.set(key, value);
   }

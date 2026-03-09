@@ -11,9 +11,9 @@
       "allowUnderdogs": true,
       "minEdge": 0.03,
       "minExpectedValue": 0.02,
-      "fractionalKelly": 0.5,
-      "maxBetUnits": 1.25,
-      "maxDailyUnits": 4,
+      "stakeScale": 0.5,
+      "maxBetBankrollPercent": 1.25,
+      "maxDailyBankrollPercent": 4,
       "config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
       "optimization_objective": "Static balanced default while matched replay coverage remains limited",
       "optimization_source": "static_fallback",
@@ -26,9 +26,9 @@
       "allowUnderdogs": true,
       "minEdge": 0.03,
       "minExpectedValue": 0.02,
-      "fractionalKelly": 0.75,
-      "maxBetUnits": 1.75,
-      "maxDailyUnits": 6,
+      "stakeScale": 0.75,
+      "maxBetBankrollPercent": 1.75,
+      "maxDailyBankrollPercent": 6,
       "config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
       "optimization_objective": "Static aggressive default while matched replay coverage remains limited",
       "optimization_source": "static_fallback",
@@ -41,9 +41,9 @@
       "allowUnderdogs": false,
       "minEdge": 0.03,
       "minExpectedValue": 0.02,
-      "fractionalKelly": 0.25,
-      "maxBetUnits": 0.75,
-      "maxDailyUnits": 2.5,
+      "stakeScale": 0.25,
+      "maxBetBankrollPercent": 0.75,
+      "maxDailyBankrollPercent": 2.5,
       "config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
       "optimization_objective": "Static conservative default while matched replay coverage remains limited",
       "optimization_source": "static_fallback",
@@ -117,11 +117,11 @@
           "market_probability": 0.2397401526087853,
           "edge": 0.04464823437763968,
           "expected_value": 0.14892908342515687,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -146,11 +146,11 @@
           "market_probability": 0.2397401526087853,
           "edge": 0.04464823437763968,
           "expected_value": 0.14892908342515687,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -175,11 +175,11 @@
           "market_probability": 0.2397401526087853,
           "edge": 0.04464823437763968,
           "expected_value": 0.14892908342515687,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -237,11 +237,11 @@
           "market_probability": 0.38103302286198143,
           "edge": 0.06546145838344058,
           "expected_value": 0.1519557616131888,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -266,11 +266,11 @@
           "market_probability": 0.38103302286198143,
           "edge": 0.06546145838344058,
           "expected_value": 0.1519557616131888,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -295,11 +295,11 @@
           "market_probability": 0.38103302286198143,
           "edge": 0.06546145838344058,
           "expected_value": 0.1519557616131888,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -347,21 +347,21 @@
           "home_win_probability": 0.8066668144817652,
           "home_moneyline": -786,
           "away_moneyline": 610,
-          "bet_label": "$125 BKN",
+          "bet_label": "$100 BKN",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "BKN",
-          "stake": 125,
+          "stake": 100,
           "odds": 610,
           "model_probability": 0.1909258764990025,
           "market_probability": 0.13701172177032755,
           "edge": 0.053914154728674946,
           "expected_value": 0.3555737231429177,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -376,21 +376,21 @@
           "home_win_probability": 0.8066668144817652,
           "home_moneyline": -786,
           "away_moneyline": 610,
-          "bet_label": "$175 BKN",
+          "bet_label": "$150 BKN",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "BKN",
-          "stake": 175,
+          "stake": 150,
           "odds": 610,
           "model_probability": 0.1909258764990025,
           "market_probability": 0.13701172177032755,
           "edge": 0.053914154728674946,
           "expected_value": 0.3555737231429177,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -415,11 +415,11 @@
           "market_probability": 0.13701172177032755,
           "edge": 0.053914154728674946,
           "expected_value": 0.3555737231429177,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -467,21 +467,21 @@
           "home_win_probability": 0.6413323356705558,
           "home_moneyline": -345,
           "away_moneyline": 301,
-          "bet_label": "$125 GS",
+          "bet_label": "$100 GS",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "GS",
-          "stake": 125,
+          "stake": 100,
           "odds": 301,
           "model_probability": 0.34086536732759176,
           "market_probability": 0.24337553665673115,
           "edge": 0.09748983067086062,
           "expected_value": 0.36687012298364285,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -496,21 +496,21 @@
           "home_win_probability": 0.6413323356705558,
           "home_moneyline": -345,
           "away_moneyline": 301,
-          "bet_label": "$175 GS",
+          "bet_label": "$150 GS",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "GS",
-          "stake": 175,
+          "stake": 150,
           "odds": 301,
           "model_probability": 0.34086536732759176,
           "market_probability": 0.24337553665673115,
           "edge": 0.09748983067086062,
           "expected_value": 0.36687012298364285,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -535,11 +535,11 @@
           "market_probability": 0.24337553665673115,
           "edge": 0.09748983067086062,
           "expected_value": 0.36687012298364285,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -597,11 +597,11 @@
           "market_probability": 0.35158810559561404,
           "edge": 0.04644039742231598,
           "expected_value": 0.11049952342002478,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -626,11 +626,11 @@
           "market_probability": 0.35158810559561404,
           "edge": 0.04644039742231598,
           "expected_value": 0.11049952342002478,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -655,11 +655,11 @@
           "market_probability": 0.35158810559561404,
           "edge": 0.04644039742231598,
           "expected_value": 0.11049952342002478,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -717,11 +717,11 @@
           "market_probability": 0.4056956487152972,
           "edge": 0.06932332223181648,
           "expected_value": 0.14479571998254404,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -746,11 +746,11 @@
           "market_probability": 0.4056956487152972,
           "edge": 0.06932332223181648,
           "expected_value": 0.14479571998254404,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -775,11 +775,11 @@
           "market_probability": 0.4056956487152972,
           "edge": 0.06932332223181648,
           "expected_value": 0.14479571998254404,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -827,21 +827,21 @@
           "home_win_probability": 0.7358444252578495,
           "home_moneyline": -480,
           "away_moneyline": 400,
-          "bet_label": "$125 CHI",
+          "bet_label": "$100 CHI",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "CHI",
-          "stake": 125,
+          "stake": 100,
           "odds": 400,
           "model_probability": 0.26020603784427776,
           "market_probability": 0.19463087248322147,
           "edge": 0.06557516536105629,
           "expected_value": 0.3010301892213887,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -856,21 +856,21 @@
           "home_win_probability": 0.7358444252578495,
           "home_moneyline": -480,
           "away_moneyline": 400,
-          "bet_label": "$175 CHI",
+          "bet_label": "$150 CHI",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "CHI",
-          "stake": 175,
+          "stake": 150,
           "odds": 400,
           "model_probability": 0.26020603784427776,
           "market_probability": 0.19463087248322147,
           "edge": 0.06557516536105629,
           "expected_value": 0.3010301892213887,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -895,11 +895,11 @@
           "market_probability": 0.19463087248322147,
           "edge": 0.06557516536105629,
           "expected_value": 0.3010301892213887,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -947,21 +947,21 @@
           "home_win_probability": 0.4994971373909836,
           "home_moneyline": -185,
           "away_moneyline": 170,
-          "bet_label": "$25 LAL",
-          "reason": "Underdog underpriced after uncertainty adjustment; daily risk cap",
+          "bet_label": "$100 LAL",
+          "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "LAL",
-          "stake": 25,
+          "stake": 100,
           "odds": 170,
           "model_probability": 0.42857717921168603,
           "market_probability": 0.36328871892925424,
           "edge": 0.06528846028243179,
           "expected_value": 0.15715838387155245,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -976,21 +976,21 @@
           "home_win_probability": 0.4994971373909836,
           "home_moneyline": -185,
           "away_moneyline": 170,
-          "bet_label": "$75 LAL",
-          "reason": "Underdog underpriced after uncertainty adjustment; daily risk cap",
+          "bet_label": "$150 LAL",
+          "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "LAL",
-          "stake": 75,
+          "stake": 150,
           "odds": 170,
           "model_probability": 0.42857717921168603,
           "market_probability": 0.36328871892925424,
           "edge": 0.06528846028243179,
           "expected_value": 0.15715838387155245,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -1015,11 +1015,11 @@
           "market_probability": 0.36328871892925424,
           "edge": 0.06528846028243179,
           "expected_value": 0.15715838387155245,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -1077,11 +1077,11 @@
           "market_probability": 0.34334763948497854,
           "edge": 0.0413696310958247,
           "expected_value": 0.09644422115528917,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -1106,11 +1106,11 @@
           "market_probability": 0.34334763948497854,
           "edge": 0.0413696310958247,
           "expected_value": 0.09644422115528917,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -1135,11 +1135,11 @@
           "market_probability": 0.34334763948497854,
           "edge": 0.0413696310958247,
           "expected_value": 0.09644422115528917,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -1187,21 +1187,21 @@
           "home_win_probability": 0.7997735201701583,
           "home_moneyline": -979,
           "away_moneyline": 683,
-          "bet_label": "$125 DAL",
+          "bet_label": "$100 DAL",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "DAL",
-          "stake": 125,
+          "stake": 100,
           "odds": 683,
           "model_probability": 0.19998288923393237,
           "market_probability": 0.12339085855565225,
           "edge": 0.07659203067828012,
           "expected_value": 0.5658660227016905,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -1216,21 +1216,21 @@
           "home_win_probability": 0.7997735201701583,
           "home_moneyline": -979,
           "away_moneyline": 683,
-          "bet_label": "$175 DAL",
+          "bet_label": "$150 DAL",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "DAL",
-          "stake": 175,
+          "stake": 150,
           "odds": 683,
           "model_probability": 0.19998288923393237,
           "market_probability": 0.12339085855565225,
           "edge": 0.07659203067828012,
           "expected_value": 0.5658660227016905,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -1255,11 +1255,11 @@
           "market_probability": 0.12339085855565225,
           "edge": 0.07659203067828012,
           "expected_value": 0.5658660227016905,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -1307,21 +1307,21 @@
           "home_win_probability": 0.5472283805863503,
           "home_moneyline": -285,
           "away_moneyline": 241,
-          "bet_label": "$125 MIA",
+          "bet_label": "$100 MIA",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "MIA",
-          "stake": 125,
+          "stake": 100,
           "odds": 241,
           "model_probability": 0.351230062886706,
           "market_probability": 0.2837454398054317,
           "edge": 0.06748462308127429,
           "expected_value": 0.19769451444366748,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -1336,21 +1336,21 @@
           "home_win_probability": 0.5472283805863503,
           "home_moneyline": -285,
           "away_moneyline": 241,
-          "bet_label": "$175 MIA",
+          "bet_label": "$150 MIA",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "MIA",
-          "stake": 175,
+          "stake": 150,
           "odds": 241,
           "model_probability": 0.351230062886706,
           "market_probability": 0.2837454398054317,
           "edge": 0.06748462308127429,
           "expected_value": 0.19769451444366748,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -1375,11 +1375,11 @@
           "market_probability": 0.2837454398054317,
           "edge": 0.06748462308127429,
           "expected_value": 0.19769451444366748,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -1437,11 +1437,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -1466,11 +1466,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -1495,11 +1495,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -1547,21 +1547,21 @@
           "home_win_probability": 0.40717447403794205,
           "home_moneyline": 100,
           "away_moneyline": -106,
-          "bet_label": "$25 NY",
-          "reason": "Favorite underpriced after uncertainty adjustment; daily risk cap",
+          "bet_label": "$100 NY",
+          "reason": "Favorite underpriced after uncertainty adjustment",
           "side": "away",
           "team": "NY",
-          "stake": 25,
+          "stake": 100,
           "odds": -106,
           "model_probability": 0.5680860654462496,
           "market_probability": 0.507177033492823,
           "edge": 0.06090903195342667,
           "expected_value": 0.1040163158672398,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -1576,21 +1576,21 @@
           "home_win_probability": 0.40717447403794205,
           "home_moneyline": 100,
           "away_moneyline": -106,
-          "bet_label": "$75 NY",
-          "reason": "Favorite underpriced after uncertainty adjustment; daily risk cap",
+          "bet_label": "$150 NY",
+          "reason": "Favorite underpriced after uncertainty adjustment",
           "side": "away",
           "team": "NY",
-          "stake": 75,
+          "stake": 150,
           "odds": -106,
           "model_probability": 0.5680860654462496,
           "market_probability": 0.507177033492823,
           "edge": 0.06090903195342667,
           "expected_value": 0.1040163158672398,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -1605,21 +1605,21 @@
           "home_win_probability": 0.40717447403794205,
           "home_moneyline": 100,
           "away_moneyline": -106,
-          "bet_label": "$75 NY",
+          "bet_label": "$50 NY",
           "reason": "Favorite underpriced after uncertainty adjustment",
           "side": "away",
           "team": "NY",
-          "stake": 75,
+          "stake": 50,
           "odds": -106,
           "model_probability": 0.5680860654462496,
           "market_probability": 0.507177033492823,
           "edge": 0.06090903195342667,
           "expected_value": 0.1040163158672398,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -1667,21 +1667,21 @@
           "home_win_probability": 0.7236834567737486,
           "home_moneyline": -175,
           "away_moneyline": 158,
-          "bet_label": "$125 PHX",
+          "bet_label": "$100 PHX",
           "reason": "Favorite underpriced after uncertainty adjustment",
           "side": "home",
           "team": "PHX",
-          "stake": 125,
+          "stake": 100,
           "odds": -175,
           "model_probability": 0.7219727001203984,
           "market_probability": 0.6214728148657949,
           "edge": 0.10049988525460352,
           "expected_value": 0.13452852876062593,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -1696,21 +1696,21 @@
           "home_win_probability": 0.7236834567737486,
           "home_moneyline": -175,
           "away_moneyline": 158,
-          "bet_label": "$175 PHX",
+          "bet_label": "$150 PHX",
           "reason": "Favorite underpriced after uncertainty adjustment",
           "side": "home",
           "team": "PHX",
-          "stake": 175,
+          "stake": 150,
           "odds": -175,
           "model_probability": 0.7219727001203984,
           "market_probability": 0.6214728148657949,
           "edge": 0.10049988525460352,
           "expected_value": 0.13452852876062593,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -1725,21 +1725,21 @@
           "home_win_probability": 0.7236834567737486,
           "home_moneyline": -175,
           "away_moneyline": 158,
-          "bet_label": "$75 PHX",
+          "bet_label": "$50 PHX",
           "reason": "Favorite underpriced after uncertainty adjustment",
           "side": "home",
           "team": "PHX",
-          "stake": 75,
+          "stake": 50,
           "odds": -175,
           "model_probability": 0.7219727001203984,
           "market_probability": 0.6214728148657949,
           "edge": 0.10049988525460352,
           "expected_value": 0.13452852876062593,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -1797,11 +1797,11 @@
           "market_probability": 0.7044334975369457,
           "edge": 0.05104299450085281,
           "expected_value": 0.04604437359079805,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -1826,11 +1826,11 @@
           "market_probability": 0.7044334975369457,
           "edge": 0.05104299450085281,
           "expected_value": 0.04604437359079805,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -1845,21 +1845,21 @@
           "home_win_probability": 0.8040535442981768,
           "home_moneyline": -260,
           "away_moneyline": 230,
-          "bet_label": "$75 SA",
+          "bet_label": "$50 SA",
           "reason": "Favorite underpriced after uncertainty adjustment",
           "side": "home",
           "team": "SA",
-          "stake": 75,
+          "stake": 50,
           "odds": -260,
           "model_probability": 0.7554764920377985,
           "market_probability": 0.7044334975369457,
           "edge": 0.05104299450085281,
           "expected_value": 0.04604437359079805,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -1917,11 +1917,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -1946,11 +1946,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -1975,11 +1975,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -2027,21 +2027,21 @@
           "home_win_probability": 0.6426832627019796,
           "home_moneyline": -245,
           "away_moneyline": 218,
-          "bet_label": "$25 ORL",
-          "reason": "Underdog underpriced after uncertainty adjustment; daily risk cap",
+          "bet_label": "$100 ORL",
+          "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "ORL",
-          "stake": 25,
+          "stake": 100,
           "odds": 218,
           "model_probability": 0.34893441291532656,
           "market_probability": 0.3069121964238057,
           "edge": 0.04202221649152088,
           "expected_value": 0.1096114330707385,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -2056,21 +2056,21 @@
           "home_win_probability": 0.6426832627019796,
           "home_moneyline": -245,
           "away_moneyline": 218,
-          "bet_label": "$75 ORL",
-          "reason": "Underdog underpriced after uncertainty adjustment; daily risk cap",
+          "bet_label": "$150 ORL",
+          "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "ORL",
-          "stake": 75,
+          "stake": 150,
           "odds": 218,
           "model_probability": 0.34893441291532656,
           "market_probability": 0.3069121964238057,
           "edge": 0.04202221649152088,
           "expected_value": 0.1096114330707385,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -2095,11 +2095,11 @@
           "market_probability": 0.3069121964238057,
           "edge": 0.04202221649152088,
           "expected_value": 0.1096114330707385,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -2157,11 +2157,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -2186,11 +2186,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -2215,11 +2215,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -2267,21 +2267,21 @@
           "home_win_probability": 0.5386866808495779,
           "home_moneyline": -255,
           "away_moneyline": 225,
-          "bet_label": "$125 PHI",
+          "bet_label": "$100 PHI",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "PHI",
-          "stake": 125,
+          "stake": 100,
           "odds": 225,
           "model_probability": 0.38955654727411926,
           "market_probability": 0.29989440337909185,
           "edge": 0.08966214389502741,
           "expected_value": 0.26605877864088767,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -2296,21 +2296,21 @@
           "home_win_probability": 0.5386866808495779,
           "home_moneyline": -255,
           "away_moneyline": 225,
-          "bet_label": "$175 PHI",
+          "bet_label": "$150 PHI",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "PHI",
-          "stake": 175,
+          "stake": 150,
           "odds": 225,
           "model_probability": 0.38955654727411926,
           "market_probability": 0.29989440337909185,
           "edge": 0.08966214389502741,
           "expected_value": 0.26605877864088767,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -2335,11 +2335,11 @@
           "market_probability": 0.29989440337909185,
           "edge": 0.08966214389502741,
           "expected_value": 0.26605877864088767,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -2397,11 +2397,11 @@
           "market_probability": 0.30685920577617326,
           "edge": 0.03117061474943733,
           "expected_value": 0.08169542568195398,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -2426,11 +2426,11 @@
           "market_probability": 0.30685920577617326,
           "edge": 0.03117061474943733,
           "expected_value": 0.08169542568195398,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -2455,11 +2455,11 @@
           "market_probability": 0.30685920577617326,
           "edge": 0.03117061474943733,
           "expected_value": 0.08169542568195398,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -2507,21 +2507,21 @@
           "home_win_probability": 0.5781421564621936,
           "home_moneyline": -455,
           "away_moneyline": 390,
-          "bet_label": "$125 UTAH",
+          "bet_label": "$100 UTAH",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "UTAH",
-          "stake": 125,
+          "stake": 100,
           "odds": 390,
           "model_probability": 0.3472776254322,
           "market_probability": 0.199317651283893,
           "edge": 0.14795997414830697,
           "expected_value": 0.7016603646177799,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -2536,21 +2536,21 @@
           "home_win_probability": 0.5781421564621936,
           "home_moneyline": -455,
           "away_moneyline": 390,
-          "bet_label": "$175 UTAH",
+          "bet_label": "$150 UTAH",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "UTAH",
-          "stake": 175,
+          "stake": 150,
           "odds": 390,
           "model_probability": 0.3472776254322,
           "market_probability": 0.199317651283893,
           "edge": 0.14795997414830697,
           "expected_value": 0.7016603646177799,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -2575,11 +2575,11 @@
           "market_probability": 0.199317651283893,
           "edge": 0.14795997414830697,
           "expected_value": 0.7016603646177799,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -2627,21 +2627,21 @@
           "home_win_probability": 0.7197226524876782,
           "home_moneyline": -750,
           "away_moneyline": 600,
-          "bet_label": "$125 GS",
+          "bet_label": "$100 GS",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "GS",
-          "stake": 125,
+          "stake": 100,
           "odds": 600,
           "model_probability": 0.26811019622596144,
           "market_probability": 0.13934426229508198,
           "edge": 0.12876593393087946,
           "expected_value": 0.8767713735817302,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.948Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -2656,21 +2656,21 @@
           "home_win_probability": 0.7197226524876782,
           "home_moneyline": -750,
           "away_moneyline": 600,
-          "bet_label": "$175 GS",
+          "bet_label": "$150 GS",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "GS",
-          "stake": 175,
+          "stake": 150,
           "odds": 600,
           "model_probability": 0.26811019622596144,
           "market_probability": 0.13934426229508198,
           "edge": 0.12876593393087946,
           "expected_value": 0.8767713735817302,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -2695,11 +2695,11 @@
           "market_probability": 0.13934426229508198,
           "edge": 0.12876593393087946,
           "expected_value": 0.8767713735817302,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.001Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -2758,11 +2758,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.949Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -2787,11 +2787,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -2816,11 +2816,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.002Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -2879,11 +2879,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.949Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -2908,11 +2908,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -2937,11 +2937,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.002Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -3000,11 +3000,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.949Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -3029,11 +3029,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -3058,11 +3058,11 @@
           "market_probability": null,
           "edge": null,
           "expected_value": null,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.002Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -3111,21 +3111,21 @@
           "home_win_probability": 0.7090938520596993,
           "home_moneyline": -400,
           "away_moneyline": 340,
-          "bet_label": "$125 DAL",
+          "bet_label": "$100 DAL",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "DAL",
-          "stake": 125,
+          "stake": 100,
           "odds": 340,
           "model_probability": 0.28915774545343675,
           "market_probability": 0.22123893805309733,
           "edge": 0.06791880740033943,
           "expected_value": 0.2722940799951219,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.949Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -3140,21 +3140,21 @@
           "home_win_probability": 0.7090938520596993,
           "home_moneyline": -400,
           "away_moneyline": 340,
-          "bet_label": "$175 DAL",
+          "bet_label": "$150 DAL",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "DAL",
-          "stake": 175,
+          "stake": 150,
           "odds": 340,
           "model_probability": 0.28915774545343675,
           "market_probability": 0.22123893805309733,
           "edge": 0.06791880740033943,
           "expected_value": 0.2722940799951219,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -3179,11 +3179,11 @@
           "market_probability": 0.22123893805309733,
           "edge": 0.06791880740033943,
           "expected_value": 0.2722940799951219,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.002Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -3232,21 +3232,21 @@
           "home_win_probability": 0.524581670930838,
           "home_moneyline": -430,
           "away_moneyline": 360,
-          "bet_label": "$125 WSH",
+          "bet_label": "$100 WSH",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "WSH",
-          "stake": 125,
+          "stake": 100,
           "odds": 360,
           "model_probability": 0.3221915904559387,
           "market_probability": 0.21132376395534289,
           "edge": 0.11086782650059582,
           "expected_value": 0.48208131609731786,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.949Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -3261,21 +3261,21 @@
           "home_win_probability": 0.524581670930838,
           "home_moneyline": -430,
           "away_moneyline": 360,
-          "bet_label": "$175 WSH",
+          "bet_label": "$150 WSH",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "WSH",
-          "stake": 175,
+          "stake": 150,
           "odds": 360,
           "model_probability": 0.3221915904559387,
           "market_probability": 0.21132376395534289,
           "edge": 0.11086782650059582,
           "expected_value": 0.48208131609731786,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -3300,11 +3300,11 @@
           "market_probability": 0.21132376395534289,
           "edge": 0.11086782650059582,
           "expected_value": 0.48208131609731786,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.002Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -3363,11 +3363,11 @@
           "market_probability": 0.5892396907216495,
           "edge": 0.03917837167496163,
           "expected_value": 0.03384907039442475,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.949Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -3392,11 +3392,11 @@
           "market_probability": 0.5892396907216495,
           "edge": 0.03917837167496163,
           "expected_value": 0.03384907039442475,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -3411,21 +3411,21 @@
           "home_win_probability": 0.3502603573435967,
           "home_moneyline": 136,
           "away_moneyline": -155,
-          "bet_label": "$75 ORL",
+          "bet_label": "$50 ORL",
           "reason": "Favorite underpriced after uncertainty adjustment",
           "side": "away",
           "team": "ORL",
-          "stake": 75,
+          "stake": 50,
           "odds": -155,
           "model_probability": 0.6284180623966111,
           "market_probability": 0.5892396907216495,
           "edge": 0.03917837167496163,
           "expected_value": 0.03384907039442475,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.002Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -3484,11 +3484,11 @@
           "market_probability": 0.655859445752581,
           "edge": 0.07090241350952886,
           "expected_value": 0.08301767262588933,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.949Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -3513,11 +3513,11 @@
           "market_probability": 0.655859445752581,
           "edge": 0.07090241350952886,
           "expected_value": 0.08301767262588933,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -3532,21 +3532,21 @@
           "home_win_probability": 0.7802993229640887,
           "home_moneyline": -204,
           "away_moneyline": 184,
-          "bet_label": "$75 SA",
+          "bet_label": "$50 SA",
           "reason": "Favorite underpriced after uncertainty adjustment",
           "side": "home",
           "team": "SA",
-          "stake": 75,
+          "stake": 50,
           "odds": -204,
           "model_probability": 0.7267618592621099,
           "market_probability": 0.655859445752581,
           "edge": 0.07090241350952886,
           "expected_value": 0.08301767262588933,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.002Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -3595,21 +3595,21 @@
           "home_win_probability": 0.6461043240653243,
           "home_moneyline": -375,
           "away_moneyline": 311,
-          "bet_label": "$125 IND",
+          "bet_label": "$100 IND",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "IND",
-          "stake": 125,
+          "stake": 100,
           "odds": 311,
           "model_probability": 0.31417666479662554,
           "market_probability": 0.23558586484810914,
           "edge": 0.0785907999485164,
           "expected_value": 0.2912660923141308,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.949Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -3624,21 +3624,21 @@
           "home_win_probability": 0.6461043240653243,
           "home_moneyline": -375,
           "away_moneyline": 311,
-          "bet_label": "$175 IND",
+          "bet_label": "$150 IND",
           "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "away",
           "team": "IND",
-          "stake": 175,
+          "stake": 150,
           "odds": 311,
           "model_probability": 0.31417666479662554,
           "market_probability": 0.23558586484810914,
           "edge": 0.0785907999485164,
           "expected_value": 0.2912660923141308,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -3663,11 +3663,11 @@
           "market_probability": 0.23558586484810914,
           "edge": 0.0785907999485164,
           "expected_value": 0.2912660923141308,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.002Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -3726,11 +3726,11 @@
           "market_probability": 0.5605012156349355,
           "edge": 0.10924597672785008,
           "expected_value": 0.16585622374262665,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.949Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -3755,11 +3755,11 @@
           "market_probability": 0.5605012156349355,
           "edge": 0.10924597672785008,
           "expected_value": 0.16585622374262665,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -3774,21 +3774,21 @@
           "home_win_probability": 0.25869827609449797,
           "home_moneyline": 122,
           "away_moneyline": -135,
-          "bet_label": "$75 CHI",
+          "bet_label": "$50 CHI",
           "reason": "Favorite underpriced after uncertainty adjustment",
           "side": "away",
           "team": "CHI",
-          "stake": 75,
+          "stake": 50,
           "odds": -135,
           "model_probability": 0.6697471923627856,
           "market_probability": 0.5605012156349355,
           "edge": 0.10924597672785008,
           "expected_value": 0.16585622374262665,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.002Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     },
@@ -3837,21 +3837,21 @@
           "home_win_probability": 0.5586520508162313,
           "home_moneyline": 160,
           "away_moneyline": -180,
-          "bet_label": "$25 PHX",
-          "reason": "Underdog underpriced after uncertainty adjustment; daily risk cap",
+          "bet_label": "$100 PHX",
+          "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "home",
           "team": "PHX",
-          "stake": 25,
+          "stake": 100,
           "odds": 160,
           "model_probability": 0.47789905668802607,
           "market_probability": 0.37433155080213903,
           "edge": 0.10356750588588703,
           "expected_value": 0.2425375473888678,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.931Z"
+          "created_at_utc": "2026-03-09T16:51:05.949Z"
         },
         "aggressive": {
           "strategy": "aggressive",
@@ -3866,21 +3866,21 @@
           "home_win_probability": 0.5586520508162313,
           "home_moneyline": 160,
           "away_moneyline": -180,
-          "bet_label": "$75 PHX",
-          "reason": "Underdog underpriced after uncertainty adjustment; daily risk cap",
+          "bet_label": "$150 PHX",
+          "reason": "Underdog underpriced after uncertainty adjustment",
           "side": "home",
           "team": "PHX",
-          "stake": 75,
+          "stake": 150,
           "odds": 160,
           "model_probability": 0.47789905668802607,
           "market_probability": 0.37433155080213903,
           "edge": 0.10356750588588703,
           "expected_value": 0.2425375473888678,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:05.966Z"
+          "created_at_utc": "2026-03-09T16:51:05.984Z"
         },
         "capitalPreservation": {
           "strategy": "capitalPreservation",
@@ -3905,11 +3905,11 @@
           "market_probability": 0.37433155080213903,
           "edge": 0.10356750588588703,
           "expected_value": 0.2425375473888678,
-          "stake_unit_dollars": 100,
+          "reference_stake_dollars": 100,
           "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
           "decision_logic_version": "historical_replay_v8",
           "materialization_version": "historical_prediction_history_v5",
-          "created_at_utc": "2026-03-09T16:51:06.002Z"
+          "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
     }
