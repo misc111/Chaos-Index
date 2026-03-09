@@ -12,7 +12,7 @@ PAGES_BUILD ?= 1
 PAGES_BUILD_ARGS := $(if $(filter 0 false FALSE no NO,$(PAGES_BUILD)),--skip-pages-build,)
 DRY_RUN ?= 0
 DRY_RUN_ARGS := $(if $(filter 1 true TRUE yes YES,$(DRY_RUN)),--dry-run,)
-CONFIG ?= configs/nhl.yaml
+CONFIG ?= configs/nba.yaml
 
 .DEFAULT_GOAL := help
 

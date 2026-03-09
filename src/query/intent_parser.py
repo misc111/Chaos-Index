@@ -22,6 +22,8 @@ class QueryIntent:
     competition: str | None = None
     window_days: int = 60
     n_games: int = 1
+    history_period: str | None = None
+    include_games: bool = False
     team_candidates: tuple[tuple[str, str], ...] = field(default_factory=tuple)
 
 
@@ -152,12 +154,12 @@ def resolve_team(question: str, default_league: str | None) -> tuple[str | None,
         league, team, _ = strongest[0]
         return team, league, pair_candidates
 
-    preferred = canonical_league(default_league) or "NHL"
+    preferred = canonical_league(default_league) or "NBA"
     preferred_hits = [c for c in strongest if c[0] == preferred]
     if len(preferred_hits) == 1:
         league, team, _ = preferred_hits[0]
         return team, league, pair_candidates
-    if preferred == "NHL" and preferred_hits:
+    if preferred_hits:
         league, team, _ = preferred_hits[0]
         return team, league, pair_candidates
     return None, preferred, pair_candidates
@@ -187,7 +189,7 @@ def competition_for_question(
         "finals",
     ]
     if any(signal in normalized for signal in championship_signals):
-        league = team_league or explicit_league_hint(question) or canonical_league(default_league) or "NHL"
+        league = team_league or explicit_league_hint(question) or canonical_league(default_league) or "NBA"
         return ("NBA", "NBA Finals") if league == "NBA" else ("NHL", "Stanley Cup")
 
     return None, None
@@ -205,10 +207,97 @@ def is_league_report_request(question: str) -> bool:
     return has_reportish and (has_scope or has_schedule_context)
 
 
-def parse_question(question: str, default_league: str | None = "NHL") -> QueryIntent:
+def is_bet_history_request(question: str) -> bool:
+    normalized = normalize_question(question)
+    money_terms = (
+        "money i won or lost",
+        "won or lost",
+        "bets",
+        "net profit",
+        "net profits",
+        "net loss",
+        "net losses",
+        "cumulative net",
+        "profit",
+        "profits",
+        "pnl",
+        "risked",
+        "amount bet",
+        "bet history",
+        "betting history",
+        "won on",
+        "lost on",
+        "bet on",
+        "didn t bet",
+        "didnt bet",
+        "no bet",
+    )
+    time_terms = (
+        "last night",
+        "yesterday",
+        "since the beginning",
+        "since beginning",
+        "since the start",
+        "since start",
+        "since the beginning of tracking",
+        "since the beginning of the tracking",
+        "tracking",
+        "all time",
+        "cumulative",
+        "to date",
+        "so far",
+    )
+    has_money_term = any(term in normalized for term in money_terms)
+    has_time_term = any(term in normalized for term in time_terms)
+    has_history_scope = any(
+        term in normalized
+        for term in ("bet history", "betting history", "specific games", "which games", "those bets were related")
+    )
+    return has_money_term and (has_time_term or has_history_scope)
+
+
+def parse_bet_history_period(question: str) -> str:
+    normalized = normalize_question(question)
+    if "last night" in normalized or "yesterday" in normalized:
+        return "yesterday"
+    return "all_time"
+
+
+def parse_bet_history_include_games(question: str) -> bool:
+    normalized = normalize_question(question)
+    detail_terms = (
+        "by game",
+        "by games",
+        "per game",
+        "game by game",
+        "each game",
+        "specific games",
+        "won on",
+        "lost on",
+        "bet on",
+        "didn t bet",
+        "didnt bet",
+        "no bet",
+        "why we bet",
+        "why did we bet",
+        "why we didn t bet",
+        "why we didnt bet",
+    )
+    return any(term in normalized for term in detail_terms)
+
+
+def parse_question(question: str, default_league: str | None = "NBA") -> QueryIntent:
     lowered = question.lower().strip()
-    canonical_default = canonical_league(default_league) or "NHL"
+    canonical_default = canonical_league(default_league) or "NBA"
     league_hint = explicit_league_hint(question) or canonical_default
+
+    if is_bet_history_request(question):
+        return QueryIntent(
+            intent_type="bet_history_summary",
+            league=league_hint,
+            history_period=parse_bet_history_period(question),
+            include_games=parse_bet_history_include_games(question),
+        )
 
     if is_league_report_request(question):
         return QueryIntent(intent_type="league_report", league=league_hint)

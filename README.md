@@ -31,7 +31,7 @@ make install-node
 
 ## Core Commands
 
-Initialize DB schema (defaults to NHL config):
+Initialize DB schema (defaults to NBA config):
 ```bash
 make init-db
 ```
@@ -196,7 +196,9 @@ Deployment notes:
 
 Deterministic local query command:
 ```bash
-make query Q="What's the chance the Leafs win their next game?"
+make query Q="Tell me how much money I won or lost from last night's games. both in total and by games."
+make query Q="What are my cumulative net profits or losses since the beginning of tracking?"
+make query Q="How much have I risked since the beginning of tracking?"
 make query CONFIG=configs/nba.yaml Q="What's the chance the Raptors win their next game?"
 make query Q="Which model has performed best the last 60 days?"
 make query Q="Give me the report of all teams in a table."
@@ -204,7 +206,7 @@ make query Q="Give me the report of all teams in a table."
 
 Python entrypoint equivalent:
 ```bash
-python3 -m src.query.answer --config configs/nhl.yaml --question "What's the chance the Leafs win their next game?"
+python3 -m src.query.answer --config configs/nba.yaml --question "Tell me how much money I won or lost from last night's games. both in total and by games."
 python3 -m src.query.answer --config configs/nba.yaml --question "What's the chance the Raptors win their next game?"
 ```
 

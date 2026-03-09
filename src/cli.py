@@ -54,7 +54,7 @@ def build_parser() -> argparse.ArgumentParser:
         "smoke",
     ]:
         p = sub.add_parser(cmd)
-        p.add_argument("--config", default="configs/nhl.yaml")
+        p.add_argument("--config", default="configs/nba.yaml")
         if cmd in {"research-features", "train", "validate", "backtest", "run-daily"}:
             p.add_argument(
                 "--models",

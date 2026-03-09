@@ -50,6 +50,9 @@ def best_model_answer(model: str, window_days: int, log_loss: float) -> str:
 def help_answer() -> str:
     return (
         "I can answer forecast and performance questions from local SQLite data, for example: "
+        "'Tell me how much money I won or lost from last night's games, both in total and by games.', "
+        "'What are my cumulative net profits or losses since the beginning of tracking?', "
+        "'How much have I risked since the beginning of tracking?', "
         "'What's the chance the Leafs win their next game?', "
         "'What's the chance the Raptors win their next game?', "
         "'Give me the all-teams report table for this league.', "

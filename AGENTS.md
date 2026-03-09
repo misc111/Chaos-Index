@@ -3,7 +3,7 @@
 ## Scope Contract
 - This project supports NHL and NBA forecasting.
 - Interpret user questions in the configured league context by default (`config.data.league`).
-- If no config context is available, default to NHL for ambiguous wording.
+- If no config context is available, default to NBA for ambiguous wording.
 - If a bug, regression, or data drift issue is found in one supported league, investigate the same failure mode in the other supported league before closing the task.
 - Cross-league investigation must cover the analogous pipeline stages that could share the bug: storage tables, model outputs, API payloads, dashboard views, and committed staging snapshots.
 - If the same bug exists in the other league, fix it in the shared or league-specific path as appropriate and regenerate any affected staging snapshot files for every impacted league.
@@ -20,6 +20,13 @@
   - NHL: Stanley Cup
   - NBA: NBA Finals
 - Championship answers should be probabilistic heuristic estimates with explicit caveats.
+- Betting-history questions should be supported. This includes:
+  - last-night profit/loss summaries
+  - cumulative net profit/loss
+  - total amount risked
+  - game-by-game bet/no-bet breakdowns
+  - why a team was bet or skipped for a given tracked game
+- Ambiguous betting-history questions should default to NBA unless the user explicitly says NHL.
 
 ## Out-of-Scope Requests
 - If a user asks about leagues outside NHL/NBA (MLB, MLS, NFL, etc.), respond that this project currently supports NHL and NBA forecasting and ask for an NHL/NBA-framed question.
@@ -32,6 +39,27 @@
   - commit the updated files in `web/public/staging-data/`
   - if needed, verify with `cd web && npm run build:pages`
 - Do not assume pushing dashboard code alone updates staging; GitHub Pages serves the committed snapshot files, not live SQLite data.
+
+## Betting History Fast Path
+- For user questions about betting history, use the deterministic local query command first instead of manual repo exploration whenever possible:
+  - `make query Q="<user question>"`
+- This applies to:
+  - money won or lost last night
+  - cumulative net profit/loss
+  - total amount risked
+  - game-by-game bet/no-bet breakdowns
+  - reasons a team was bet or skipped
+- Ambiguous betting-history questions default to NBA unless the user explicitly says NHL.
+
+## Model Analysis Fast Path
+- Treat model-analysis questions as first-class product questions, not side investigations.
+- If the user asks why predictions went right or wrong, what model issues might explain outcomes, or which model behavior should be improved, inspect the local performance/validation surfaces before giving a conclusion.
+- Default NBA unless the user explicitly says NHL or the config context is already league-specific.
+- Start from the narrowest relevant local evidence source:
+  - `make query Q="<user question>"` for leaderboard-style or recent-best-model questions
+  - `performance_aggregates`, `model_scores`, `validation_results`, `change_points`, and `model_runs` tables for causal follow-up
+  - validation artifacts under `artifacts/validation/<league>/`
+  - committed staging snapshots under `web/public/staging-data/<league>/` when the user is asking about the shipped dashboard view
 
 ## Data Refresh Contract
 - When the user asks to refresh data only, pull in data without rebuilding features, or refresh without training, treat that as the repository-level data-only pipeline.

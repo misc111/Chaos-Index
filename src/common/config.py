@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 
 
 class ProjectConfig(BaseModel):
-    name: str = "nhl_forecast"
+    name: str = "nba_forecast"
     timezone: str = "America/Chicago"
 
 
@@ -17,11 +17,11 @@ class PathsConfig(BaseModel):
     interim_dir: str = "data/interim"
     processed_dir: str = "data/processed"
     artifacts_dir: str = "artifacts"
-    db_path: str = "data/processed/nhl_forecast.db"
+    db_path: str = "data/processed/nba_forecast.db"
 
 
 class DataConfig(BaseModel):
-    league: str = "NHL"
+    league: str = "NBA"
     season_start: str
     season_end: str
     history_days: int = 220

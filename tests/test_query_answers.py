@@ -1,4 +1,6 @@
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from src.query.answer import answer_question
 from src.storage.db import Database
@@ -96,7 +98,7 @@ def test_query_answers(tmp_path: Path):
     assert payload1["team"] == "TOR"
     assert payload1["league"] == "NHL"
 
-    ans1b, payload1b = answer_question(db, "What's the chance that Toronto wins the next game?")
+    ans1b, payload1b = answer_question(db, "What's the chance that Toronto wins the next game?", default_league="NHL")
     assert "TOR" in ans1b
     assert payload1b["intent"] == "team_next_game"
     assert payload1b["team"] == "TOR"
@@ -111,7 +113,7 @@ def test_query_answers(tmp_path: Path):
     assert payload1d["intent"] == "team_next_game"
     assert payload1d["team"] == "TBL"
 
-    _, payload1e = answer_question(db, "What's the probability Toronto wins the next three games?")
+    _, payload1e = answer_question(db, "What's the probability the Leafs win the next three games?")
     assert payload1e["intent"] == "team_next_n_games"
     assert payload1e["team"] == "TOR"
     assert payload1e["n_games_requested"] == 3
@@ -150,21 +152,93 @@ def test_query_answers(tmp_path: Path):
 
     report_answer, report_payload = answer_question(db, "Give me the report of all teams in a table")
     assert report_payload["intent"] == "league_report"
-    assert report_payload["league"] == "NHL"
+    assert report_payload["league"] == "NBA"
     assert report_payload["as_of_utc"] == "2026-03-01T00:00:00Z"
     assert report_payload["model_columns"][:2] == ["ensemble", "glm_ridge"]
     assert "Model trust guide (super brief)" in report_answer
     assert "Home Team | Away Team | Date" in report_answer
-    assert report_answer.count("| TOR | MTL | 2026-03-05 | 62.0% | 61.0% |") == 1
+    assert report_answer.count("| NYK | CHI | 2026-03-05 | 59.0% | 60.0% |") == 1
 
-    tor_row = next(r for r in report_payload["rows"] if r["team"] == "TOR")
-    assert tor_row["division"] == "Atlantic"
-    assert tor_row["next_opponent"] == "MTL"
-    assert tor_row["home_team"] == "TOR"
-    assert tor_row["away_team"] == "MTL"
-    assert tor_row["next_game_date_utc"] == "2026-03-05"
-    assert tor_row["home_or_away"] == "Home"
-    assert 0 < tor_row["model_win_probabilities"]["ensemble"] < 1
+    nyk_row = next(r for r in report_payload["rows"] if r["team"] == "NYK")
+    assert nyk_row["division"] == "Atlantic"
+    assert nyk_row["next_opponent"] == "CHI"
+    assert nyk_row["home_team"] == "NYK"
+    assert nyk_row["away_team"] == "CHI"
+    assert nyk_row["next_game_date_utc"] == "2026-03-05"
+    assert nyk_row["home_or_away"] == "Home"
+    assert 0 < nyk_row["model_win_probabilities"]["ensemble"] < 1
 
-    wpg_row = next(r for r in report_payload["rows"] if r["team"] == "WPG")
-    assert wpg_row["next_opponent"] is None
+    bos_row = next(r for r in report_payload["rows"] if r["team"] == "BOS")
+    assert bos_row["next_opponent"] is None
+
+
+def test_query_answers_bet_history_summary_and_cumulative(tmp_path: Path):
+    db = Database(str(tmp_path / "bets.db"))
+    db.init_schema()
+
+    today_central = datetime.now(timezone.utc).astimezone(ZoneInfo("America/Chicago")).date()
+    yesterday = (today_central - timedelta(days=1)).isoformat()
+    two_days_ago = (today_central - timedelta(days=2)).isoformat()
+
+    db.executemany(
+        """
+        INSERT INTO results(
+          game_id, season, game_date_utc, final_utc, home_team, away_team,
+          home_score, away_score, home_win, ingested_at_utc
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        [
+            (1, 20252026, yesterday, f"{yesterday}T05:00:00Z", "NYK", "CHI", 108, 101, 1, f"{yesterday}T06:00:00Z"),
+            (2, 20252026, yesterday, f"{yesterday}T05:30:00Z", "MIA", "BOS", 104, 109, 0, f"{yesterday}T06:30:00Z"),
+            (3, 20252026, yesterday, f"{yesterday}T06:00:00Z", "LAL", "DEN", 99, 105, 0, f"{yesterday}T07:00:00Z"),
+            (4, 20252026, two_days_ago, f"{two_days_ago}T05:00:00Z", "DAL", "PHX", 112, 108, 1, f"{two_days_ago}T06:00:00Z"),
+        ],
+    )
+    db.executemany(
+        """
+        INSERT INTO historical_bet_decisions_by_profile(
+          strategy, sizing_style, game_id, date_central, forecast_as_of_utc, forecast_model_run_id,
+          odds_as_of_utc, odds_snapshot_id, home_team, away_team, home_win_probability,
+          home_moneyline, away_moneyline, bet_label, reason, side, team, stake, odds,
+          model_probability, market_probability, edge, expected_value, stake_unit_dollars,
+          strategy_config_signature, decision_logic_version, materialization_version, created_at_utc
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        [
+            ("riskAdjusted", "continuous", 1, yesterday, f"{yesterday}T00:00:00Z", "r1", f"{yesterday}T00:10:00Z", "s1", "NYK", "CHI", 0.59, -120, 105, "$50 NYK", "Favorite underpriced", "home", "NYK", 50.0, -120.0, 0.59, 0.5455, 0.0445, 0.031, 100.0, "sig1", "v1", "m1", f"{yesterday}T00:20:00Z"),
+            ("riskAdjusted", "continuous", 2, yesterday, f"{yesterday}T00:00:00Z", "r1", f"{yesterday}T00:10:00Z", "s1", "MIA", "BOS", 0.44, 110, -130, "$50 BOS", "Underdog underpriced", "away", "BOS", 50.0, -130.0, 0.56, 0.4348, 0.1252, 0.062, 100.0, "sig1", "v1", "m1", f"{yesterday}T00:20:00Z"),
+            ("riskAdjusted", "continuous", 3, yesterday, f"{yesterday}T00:00:00Z", "r1", f"{yesterday}T00:10:00Z", "s1", "LAL", "DEN", 0.51, -105, -105, "$0", "Too close", "none", None, 0.0, None, None, None, None, None, 100.0, "sig1", "v1", "m1", f"{yesterday}T00:20:00Z"),
+            ("riskAdjusted", "continuous", 4, two_days_ago, f"{two_days_ago}T00:00:00Z", "r1", f"{two_days_ago}T00:10:00Z", "s1", "DAL", "PHX", 0.57, -110, 100, "$40 DAL", "Favorite underpriced", "home", "DAL", 40.0, -110.0, 0.57, 0.5238, 0.0462, 0.028, 100.0, "sig1", "v1", "m1", f"{two_days_ago}T00:20:00Z"),
+        ],
+    )
+
+    answer, payload = answer_question(
+        db,
+        "Tell me how much money I won or lost from last night's games. both in total and by games. Be brief in your summary.",
+    )
+    assert payload["intent"] == "bet_history_summary"
+    assert payload["league"] == "NBA"
+    assert payload["period"] == "yesterday"
+    assert payload["strategy"] == "riskAdjusted"
+    assert payload["sizing_style"] == "continuous"
+    assert payload["summary"]["tracked_games"] == 3
+    assert payload["summary"]["settled_bets"] == 2
+    assert payload["summary"]["wins"] == 2
+    assert payload["summary"]["losses"] == 0
+    assert round(payload["summary"]["total_risked"], 2) == 100.00
+    assert round(payload["summary"]["total_profit"], 2) == 80.13
+    assert len(payload["games"]) == 3
+    assert "By game:" in answer
+    assert any(game["reason"] == "Too close" and game["outcome"] == "no_bet" for game in payload["games"])
+
+    cumulative_answer, cumulative_payload = answer_question(
+        db,
+        "What are my cumulative net profits or losses and how much have I risked since the beginning of tracking?",
+    )
+    assert cumulative_payload["intent"] == "bet_history_summary"
+    assert cumulative_payload["league"] == "NBA"
+    assert cumulative_payload["period"] == "all_time"
+    assert round(cumulative_payload["summary"]["total_risked"], 2) == 140.00
+    assert round(cumulative_payload["summary"]["total_profit"], 2) == 116.49
+    assert cumulative_payload["games"] == []
+    assert "since tracking started" in cumulative_answer
