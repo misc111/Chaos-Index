@@ -1,0 +1,179 @@
+.card {
+  display: grid;
+  gap: 18px;
+  background:
+    radial-gradient(circle at top right, rgba(86, 216, 194, 0.16), transparent 38%),
+    var(--surface-card);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--accent-2-strong);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.summaryPills {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.summaryPill {
+  padding: 8px 12px;
+  border: 1px solid var(--border-accent);
+  border-radius: 999px;
+  background: var(--surface-field-muted);
+  color: var(--accent-strong);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.stackBar {
+  display: flex;
+  min-height: 22px;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-progress-track);
+}
+
+.stackSegment,
+.stackRemainder {
+  min-width: 6px;
+}
+
+.stackSegment {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+
+.stackSegment:nth-child(3n + 2) {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent));
+}
+
+.stackSegment:nth-child(3n + 3) {
+  background: linear-gradient(135deg, var(--accent-2), var(--accent-blue));
+}
+
+.stackRemainder {
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(148, 163, 184, 0.18) 0,
+      rgba(148, 163, 184, 0.18) 10px,
+      rgba(148, 163, 184, 0.08) 10px,
+      rgba(148, 163, 184, 0.08) 20px
+    );
+}
+
+.list {
+  display: grid;
+  gap: 14px;
+}
+
+.row {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface-field-muted);
+}
+
+.rowTop {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.rankBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: var(--surface-accent);
+  color: var(--accent-strong);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.matchupWrap {
+  min-width: 0;
+}
+
+.stakeLabel {
+  justify-self: end;
+  font-weight: 700;
+}
+
+.rowTrack {
+  position: relative;
+  min-height: 18px;
+}
+
+.trackBase,
+.trackUsed,
+.trackAllocation {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+}
+
+.trackBase {
+  width: 100%;
+  border: 1px solid var(--border-subtle);
+  background: color-mix(in srgb, var(--surface-progress-track) 74%, transparent);
+}
+
+.trackUsed {
+  background: linear-gradient(90deg, rgba(13, 148, 136, 0.28), rgba(125, 211, 252, 0.24));
+}
+
+.trackAllocation {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.trackAllocationTrimmed {
+  background: linear-gradient(90deg, var(--warning), var(--accent-2));
+}
+
+.rowMeta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.note {
+  margin: 0;
+  color: var(--muted-strong);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+@media (max-width: 720px) {
+  .rowTop {
+    grid-template-columns: auto 1fr;
+  }
+
+  .stakeLabel {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}

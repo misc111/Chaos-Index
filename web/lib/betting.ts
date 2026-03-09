@@ -69,7 +69,6 @@ export type BetDecisionTrace = {
   rawKellyUnits: number | null;
   cappedKellyUnits: number | null;
   continuousStake: number;
-  bucketedStake: number;
   finalStake: number;
   peerConsensusProbability?: number | null;
   consensusGap?: number | null;
@@ -88,12 +87,10 @@ export type BetDecisionTrace = {
 export const REFERENCE_BANKROLL_DOLLARS = 10_000;
 export const BET_UNIT_BANKROLL_FRACTION = 0.01;
 export const BET_UNIT_DOLLARS = Math.round(REFERENCE_BANKROLL_DOLLARS * BET_UNIT_BANKROLL_FRACTION);
-export const BET_UNIT_LABEL = `Stake (1u = $${BET_UNIT_DOLLARS})`;
 export const HISTORICAL_BANKROLL_START_DOLLARS = 5_000;
 export const HISTORICAL_BANKROLL_START_DATE_CENTRAL = "2026-03-05";
 
 const STAKE_ROUNDING_DOLLARS = 5;
-const LEGACY_BUCKET_STAKES = [0, 50, 100, 150] as const;
 const REFERENCE_MARKET_WEIGHT = 0.7;
 const REFERENCE_PEER_WEIGHT = 0.3;
 const MIN_MODEL_CONFIDENCE_WEIGHT = 0.25;
@@ -157,28 +154,6 @@ function continuousStakeFromKelly(kellyFraction: number, fractionalKelly: number
   const requestedUnits = (fractionalKelly * kellyFraction) / BET_UNIT_BANKROLL_FRACTION;
   const units = Math.min(maxBetUnits, clampUnitCount(requestedUnits));
   return roundStakeAmount(betAmountFromUnits(units));
-}
-
-function bucketedStakeFromAmount(amount: number, mode: "nearest" | "floor" = "nearest"): number {
-  if (!Number.isFinite(amount) || amount <= 0) return 0;
-
-  const cappedAmount = Math.min(amount, LEGACY_BUCKET_STAKES[LEGACY_BUCKET_STAKES.length - 1]);
-  if (mode === "floor") {
-    return [...LEGACY_BUCKET_STAKES].reverse().find((candidate) => candidate <= cappedAmount) || 0;
-  }
-
-  let closestStake: number = LEGACY_BUCKET_STAKES[0];
-  let closestDistance = Math.abs(cappedAmount - closestStake);
-
-  for (const candidate of LEGACY_BUCKET_STAKES.slice(1)) {
-    const distance = Math.abs(cappedAmount - candidate);
-    if (distance < closestDistance) {
-      closestStake = candidate;
-      closestDistance = distance;
-    }
-  }
-
-  return closestStake;
 }
 
 function sideProbabilityFromHomeProbability(homeProbability: number, side: ExpectedSide): number {
@@ -348,7 +323,6 @@ function buildDefaultTraceFields(): Omit<
     rawKellyUnits: null,
     cappedKellyUnits: null,
     continuousStake: 0,
-    bucketedStake: 0,
     finalStake: 0,
     peerConsensusProbability: null,
     consensusGap: null,
@@ -387,8 +361,7 @@ function applyStakeOverride(trace: BetDecisionTrace, stake: number, reason: stri
   return {
     ...trace,
     decision: nextDecision,
-    continuousStake: trace.sizingStyle === "continuous" ? adjustedStake : Math.min(trace.continuousStake, adjustedStake),
-    bucketedStake: trace.sizingStyle === "bucketed" ? adjustedStake : bucketedStakeFromAmount(adjustedStake, "floor"),
+    continuousStake: adjustedStake,
     finalStake: adjustedStake,
     preDailyCapStake: trace.finalStake,
     dailyRiskCapApplied,
@@ -401,9 +374,6 @@ function applyStakeOverride(trace: BetDecisionTrace, stake: number, reason: stri
 
 function capStakeToRemainingBudget(trace: BetDecisionTrace, remainingBudget: number): number {
   if (remainingBudget <= 0) return 0;
-  if (trace.sizingStyle === "bucketed") {
-    return bucketedStakeFromAmount(Math.min(trace.finalStake, remainingBudget), "floor");
-  }
   return roundStakeAmount(Math.min(trace.finalStake, remainingBudget));
 }
 
@@ -679,8 +649,7 @@ export function explainBetDecision(
     rawKellyUnits === null ? null : Math.min(strategyConfig.maxBetUnits, rawKellyUnits);
   const continuousStake =
     kellyFraction === null ? 0 : continuousStakeFromKelly(kellyFraction, strategyConfig.fractionalKelly, strategyConfig.maxBetUnits);
-  const bucketedStake = bucketedStakeFromAmount(continuousStake);
-  const stake = sizingStyle === "bucketed" ? bucketedStake : continuousStake;
+  const stake = continuousStake;
 
   if (stake <= 0) {
     return buildTrace(
@@ -699,7 +668,6 @@ export function explainBetDecision(
         rawKellyUnits,
         cappedKellyUnits,
         continuousStake,
-        bucketedStake,
       }
     );
   }
@@ -731,7 +699,6 @@ export function explainBetDecision(
       rawKellyUnits,
       cappedKellyUnits,
       continuousStake,
-      bucketedStake,
       finalStake: stake,
     }
   );

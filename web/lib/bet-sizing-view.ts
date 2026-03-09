@@ -1,8 +1,9 @@
+import { DEFAULT_BET_SIZING_STYLE } from "@/lib/betting-strategy";
 import { explainBetDecisionsForSlate, type BetDecisionTrace } from "@/lib/betting";
 import type { BetStrategyPerformanceSnapshot, FrontierPointSummary, ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
 import { dateKeyForScheduledGame } from "@/lib/games-today";
 import { formatCentralDateLabel, formatCentralDateSummary } from "@/lib/games-today";
-import type { BetSizingStyle, BetStrategy } from "@/lib/betting-strategy";
+import type { BetStrategy } from "@/lib/betting-strategy";
 import type { GamesTodayResponse, GamesTodayRow } from "@/lib/types";
 
 export type BetSizingPolicyPreview = {
@@ -156,7 +157,13 @@ export function selectDefaultPolicyKey(
 }
 
 export function selectBetSizingSlate(gamesData: GamesTodayResponse): BetSizingSlate {
-  const upcomingRows = Array.isArray(gamesData.rows) ? gamesData.rows : [];
+  const allUpcomingRows = Array.isArray(gamesData.rows) ? gamesData.rows : [];
+  const activeDateKey = gamesData.date_central || null;
+  const upcomingRows =
+    activeDateKey && allUpcomingRows.length > 0
+      ? allUpcomingRows.filter((row) => dateKeyForScheduledGame(row) === activeDateKey)
+      : allUpcomingRows;
+
   if (upcomingRows.length > 0) {
     const dateSummary = gamesData.date_central ? formatCentralDateSummary(gamesData.date_central) : "the current slate";
     return {
@@ -206,7 +213,6 @@ function compareGameRows(left: BetSizingGamePreview, right: BetSizingGamePreview
 export function buildBetSizingGamePreviews(
   rows: GamesTodayRow[],
   strategy: BetStrategy,
-  sizingStyle: BetSizingStyle,
   policy: BetSizingPolicyPreview
 ): BetSizingGamePreview[] {
   const traces = explainBetDecisionsForSlate(
@@ -220,7 +226,7 @@ export function buildBetSizingGamePreviews(
       model_win_probabilities: row.model_win_probabilities,
     })),
     strategy,
-    sizingStyle,
+    DEFAULT_BET_SIZING_STYLE,
     {
       allowUnderdogs: policy.allowUnderdogs,
       minEdge: policy.minEdge,

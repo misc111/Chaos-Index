@@ -1,6 +1,7 @@
 "use client";
 
 import type { KeyboardEvent } from "react";
+import { BET_UNIT_DOLLARS } from "@/lib/betting";
 import type { BetSizingPolicyPreview } from "@/lib/bet-sizing-view";
 import styles from "./BetSizingFrontier.module.css";
 
@@ -11,8 +12,8 @@ type Props = {
   onSelect: (key: string) => void;
 };
 
-function formatUnits(value: number): string {
-  return value.toFixed(2);
+function formatDollarMetric(value: number): string {
+  return `$${(value * BET_UNIT_DOLLARS).toFixed(0)}`;
 }
 
 function formatScore(value: number): string {
@@ -125,7 +126,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
               <g key={`y-${tick.toFixed(4)}`}>
                 <line x1={padLeft} y1={y} x2={width - padRight} y2={y} className={styles.gridLine} />
                 <text x={padLeft - 10} y={y + 4} textAnchor="end" className={styles.axisText}>
-                  {formatUnits(tick)}
+                  {formatDollarMetric(tick)}
                 </text>
               </g>
             );
@@ -137,7 +138,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
               <g key={`x-${tick.toFixed(4)}`}>
                 <line x1={x} y1={padTop} x2={x} y2={height - padBottom} className={styles.gridLine} />
                 <text x={x} y={height - padBottom + 20} textAnchor="middle" className={styles.axisText}>
-                  {formatUnits(tick)}
+                  {formatDollarMetric(tick)}
                 </text>
               </g>
             );
@@ -158,7 +159,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
                 className={styles.pointButton}
                 onClick={() => onSelect(point.configSignature)}
                 onKeyDown={(event) => handleKey(event, point.configSignature, onSelect)}
-                aria-label={`${point.label}. Volatility ${formatUnits(metrics.daily_volatility_units)}, return ${formatUnits(metrics.mean_daily_profit_units)}, log growth ${formatScore(metrics.expected_log_growth_per_bet)}.`}
+                aria-label={`${point.label}. Volatility ${formatDollarMetric(metrics.daily_volatility_units)}, return ${formatDollarMetric(metrics.mean_daily_profit_units)}, log growth ${formatScore(metrics.expected_log_growth_per_bet)}.`}
               >
                 <circle cx={x} cy={y} r={isSelected ? 14 : 10} className={styles.pointHalo} />
                 <circle cx={x} cy={y} r={isSelected ? 8.5 : 6.5} fill={color} className={styles.pointCore} />
@@ -167,7 +168,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
                     {point.matchingStrategies.join(" / ")}
                   </text>
                 ) : null}
-                <title>{`${point.label}: volatility ${formatUnits(metrics.daily_volatility_units)}, return ${formatUnits(metrics.mean_daily_profit_units)}, log growth ${formatScore(metrics.expected_log_growth_per_bet)}`}</title>
+                <title>{`${point.label}: volatility ${formatDollarMetric(metrics.daily_volatility_units)}, return ${formatDollarMetric(metrics.mean_daily_profit_units)}, log growth ${formatScore(metrics.expected_log_growth_per_bet)}`}</title>
               </g>
             );
           })}
@@ -179,7 +180,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
               className={styles.pointButton}
               onClick={() => onSelect(officialPolicy.configSignature)}
               onKeyDown={(event) => handleKey(event, officialPolicy.configSignature, onSelect)}
-              aria-label={`${officialPolicy.label}. Off-frontier profile with volatility ${formatUnits(officialPolicy.metrics.daily_volatility_units)}, return ${formatUnits(officialPolicy.metrics.mean_daily_profit_units)}.`}
+              aria-label={`${officialPolicy.label}. Off-frontier profile with volatility ${formatDollarMetric(officialPolicy.metrics.daily_volatility_units)}, return ${formatDollarMetric(officialPolicy.metrics.mean_daily_profit_units)}.`}
             >
               <path
                 d={`M ${offFrontierCoord.x} ${offFrontierCoord.y - 10} L ${offFrontierCoord.x + 10} ${offFrontierCoord.y} L ${offFrontierCoord.x} ${offFrontierCoord.y + 10} L ${offFrontierCoord.x - 10} ${offFrontierCoord.y} Z`}
@@ -193,7 +194,7 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
           ) : null}
 
           <text x={padLeft + plotWidth / 2} y={height - 12} textAnchor="middle" className={styles.axisTitle}>
-            Daily volatility (bet units)
+            Daily volatility ($)
           </text>
           <text
             x={18}
@@ -202,13 +203,13 @@ export default function BetSizingFrontier({ points, selectedKey, officialPolicy,
             textAnchor="middle"
             className={styles.axisTitle}
           >
-            Mean daily profit (bet units)
+            Mean daily profit ($)
           </text>
         </svg>
       </div>
 
       <p className="small">
-        This replay map is a provisional ranking built from matched historical replay using continuous sizing. Click a dot to preview how a different risk point would size the slate.
+        This replay map is a provisional ranking built from matched historical replay. Click a dot to preview how a different risk point would size the slate.
       </p>
     </div>
   );

@@ -1,9 +1,6 @@
 import {
-  BET_SIZING_STYLES,
   BET_STRATEGIES,
-  DEFAULT_BET_SIZING_STYLE,
   DEFAULT_BET_STRATEGY,
-  type BetSizingStyle,
   type BetStrategy,
 } from "@/lib/betting-strategy";
 import {
@@ -21,7 +18,6 @@ import {
 } from "@/lib/betting";
 import type { ModelWinProbabilities } from "@/lib/betting-model";
 import type {
-  BetHistorySizingBundle,
   BetHistoryStrategyBundle,
   BetHistoryResponse,
   BetHistorySummary,
@@ -492,10 +488,7 @@ function toOptimizableHistoricalBetRows(rows: HistoricalReplayGameRow[]): Optimi
 
 function buildEmptyReplayDecisionSet(): HistoricalReplayDecisionSet {
   return BET_STRATEGIES.reduce((strategyAcc, strategy) => {
-    strategyAcc[strategy] = BET_SIZING_STYLES.reduce((sizingAcc, sizingStyle) => {
-      sizingAcc[sizingStyle] = null;
-      return sizingAcc;
-    }, {} as HistoricalReplayDecisionSet[BetStrategy]);
+    strategyAcc[strategy] = null;
     return strategyAcc;
   }, {} as HistoricalReplayDecisionSet);
 }
@@ -638,20 +631,18 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
   const { strategyConfigs, optimizationSummary } = resolveBetStrategyConfigs(toOptimizableHistoricalBetRows(rows));
   const replayDecisionsByProfile = new Map<string, Map<number, HistoricalReplayDecisionSnapshot>>();
   for (const strategy of BET_STRATEGIES) {
-    for (const sizingStyle of BET_SIZING_STYLES) {
-      const resolvedConfig = strategyConfigs[strategy];
-      replayDecisionsByProfile.set(
-        `${strategy}:${sizingStyle}`,
-        loadOrCreateHistoricalReplayDecisions(
-          replayableRows,
-          league,
-          strategy,
-          sizingStyle,
-          resolvedConfig,
-          resolvedConfig.config_signature
-        )
-      );
-    }
+    const resolvedConfig = strategyConfigs[strategy];
+    replayDecisionsByProfile.set(
+      strategy,
+      loadOrCreateHistoricalReplayDecisions(
+        replayableRows,
+        league,
+        strategy,
+        undefined,
+        resolvedConfig,
+        resolvedConfig.config_signature
+      )
+    );
   }
 
   return {
@@ -666,10 +657,7 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
     rows: rows.map((row) => ({
       ...row,
       replay_decisions: BET_STRATEGIES.reduce((strategyAcc, strategy) => {
-        strategyAcc[strategy] = BET_SIZING_STYLES.reduce((sizingAcc, sizingStyle) => {
-          sizingAcc[sizingStyle] = replayDecisionsByProfile.get(`${strategy}:${sizingStyle}`)?.get(row.game_id) ?? null;
-          return sizingAcc;
-        }, {} as HistoricalReplayDecisionSet[BetStrategy]);
+        strategyAcc[strategy] = replayDecisionsByProfile.get(strategy)?.get(row.game_id) ?? null;
         return strategyAcc;
       }, buildEmptyReplayDecisionSet()),
     })),
@@ -695,8 +683,7 @@ export function getHistoricalReplayGames(league: LeagueCode): {
 
 function buildBetHistoryStrategyBundle(
   dataset: HistoricalReplayDataset,
-  strategy: BetStrategy,
-  sizingStyle: BetSizingStyle
+  strategy: BetStrategy
 ): BetHistoryStrategyBundle {
   const replayRows = dataset.rows.filter((row) => row.date_central >= HISTORICAL_BANKROLL_START_DATE_CENTRAL);
   let analyzedGames = 0;
@@ -710,7 +697,7 @@ function buildBetHistoryStrategyBundle(
   for (const row of replayRows) {
     analyzedGames += 1;
 
-    const replayDecision = row.replay_decisions?.[strategy]?.[sizingStyle];
+    const replayDecision = row.replay_decisions?.[strategy];
     if (!replayDecision) {
       continue;
     }
@@ -825,15 +812,11 @@ export function getBetHistory(league: LeagueCode): BetHistoryResponse {
   return {
     league,
     default_strategy: DEFAULT_BET_STRATEGY,
-    default_sizing_style: DEFAULT_BET_SIZING_STYLE,
     strategy_configs: dataset.strategy_configs,
     strategy_optimization: dataset.strategy_optimization,
     strategies: BET_STRATEGIES.reduce((strategyAcc, strategy) => {
-      strategyAcc[strategy] = BET_SIZING_STYLES.reduce((sizingAcc, sizingStyle) => {
-        sizingAcc[sizingStyle] = buildBetHistoryStrategyBundle(dataset, strategy, sizingStyle);
-        return sizingAcc;
-      }, {} as BetHistorySizingBundle);
+      strategyAcc[strategy] = buildBetHistoryStrategyBundle(dataset, strategy);
       return strategyAcc;
-    }, {} as Record<BetStrategy, BetHistorySizingBundle>),
+    }, {} as Record<BetStrategy, BetHistoryStrategyBundle>),
   };
 }

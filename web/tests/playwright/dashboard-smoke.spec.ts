@@ -39,12 +39,12 @@ const mainRoutes: ReadonlyArray<RouteExpectation> = [
   {
     label: "Bet Sizing",
     path: "/bet-sizing",
-    readyText: /How the App Picks a Bet Amount/i,
+    readyText: /How .*budget turns into|Pick the House Rules/i,
     interaction: async (page) => {
       const firstSavedObjective = page.getByRole("button", { name: /Balanced|Risk-Adjusted Optimal|Aggressive|Conservative/i }).first();
       await firstSavedObjective.click();
       await settle(page);
-      await expect(page.locator("main")).toContainText(/Why This Game Becomes|No games are available to preview yet\./i);
+      await expect(page.locator("main")).toContainText(/Selected game summary|No games are available to preview yet\./i);
     },
   },
   {
@@ -234,7 +234,6 @@ async function settle(page: Page) {
 async function expectDashboardShell(page: Page, league: LeagueCode) {
   await expect(page.locator("h1.app-title")).toHaveText(`${league} Win Probability Forecasting`);
   await expect(page.locator("aside.dashboard-sidebar")).toContainText(/Bet Objective/i);
-  await expect(page.locator("aside.dashboard-sidebar")).toContainText(/Amount Bet/i);
   await expect(page.locator("nav.dashboard-nav")).toContainText(/Overview/i);
   const layoutMetrics = await page.evaluate(() => ({
     scrollWidth: document.documentElement.scrollWidth,

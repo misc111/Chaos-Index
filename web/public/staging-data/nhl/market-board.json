@@ -7,7 +7,7 @@
     "riskAdjusted": {
       "label": "Balanced",
       "shortLabel": "Standard risk",
-      "description": "Balanced baseline with the shared value screen, a 1.25-unit per-bet cap, and a 4-unit daily budget.",
+      "description": "Balanced baseline with the shared value screen, a 1.25% per-bet cap, and a 4% nightly budget on the reference bankroll.",
       "allowUnderdogs": true,
       "minEdge": 0.03,
       "minExpectedValue": 0.02,
@@ -22,7 +22,7 @@
     "aggressive": {
       "label": "Aggressive",
       "shortLabel": "Wider caps",
-      "description": "Higher-variance sizing with the same value screen, a 1.75-unit per-bet cap, and a 6-unit daily budget.",
+      "description": "Higher-variance sizing with the same value screen, a 1.75% per-bet cap, and a 6% nightly budget on the reference bankroll.",
       "allowUnderdogs": true,
       "minEdge": 0.03,
       "minExpectedValue": 0.02,
@@ -37,7 +37,7 @@
     "capitalPreservation": {
       "label": "Conservative",
       "shortLabel": "Favorites only",
-      "description": "Lower-variance sizing, favorites only, a 0.75-unit per-bet cap, and a 2.5-unit daily budget.",
+      "description": "Lower-variance sizing, favorites only, a 0.75% per-bet cap, and a 2.5% nightly budget on the reference bankroll.",
       "allowUnderdogs": false,
       "minEdge": 0.03,
       "minExpectedValue": 0.02,

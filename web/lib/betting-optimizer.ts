@@ -58,7 +58,6 @@ export type FrontierPointSummary = BetStrategyPerformanceSnapshot &
 
 export type BetStrategyOptimizationSummary = {
   method: string;
-  sizing_style: "continuous";
   risk_free_rate: number;
   candidate_count: number;
   frontier_point_count: number;
@@ -400,7 +399,6 @@ export function resolveBetStrategyConfigs(rows: OptimizableHistoricalBetRow[]): 
       },
       optimizationSummary: {
         method: replayCoverageGateMessage(replayCoverage.settledGames, replayCoverage.replayDays),
-        sizing_style: "continuous",
         risk_free_rate: 0,
         candidate_count: 0,
         frontier_point_count: 0,
@@ -477,7 +475,6 @@ export function resolveBetStrategyConfigs(rows: OptimizableHistoricalBetRow[]): 
     strategyConfigs,
       optimizationSummary: {
       method: "Historical replay candidate sweep ranked by expected log growth, return, and drawdown",
-      sizing_style: "continuous",
       risk_free_rate: 0,
       candidate_count: evaluatedCandidates.length,
       frontier_point_count: frontier.length,

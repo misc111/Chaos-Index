@@ -4,13 +4,9 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import {
-  BET_SIZING_STYLES,
   BET_STRATEGIES,
-  getBetSizingStyleConfig,
   getBetStrategyConfig,
-  normalizeBetSizingStyle,
   normalizeBetStrategy,
-  type BetSizingStyle,
   type BetStrategy,
 } from "@/lib/betting-strategy";
 import { type LeagueCode, normalizeLeague, withLeague } from "@/lib/league";
@@ -26,7 +22,7 @@ const links: Array<[string, string]> = [
   ["/bet-sizing", "Bet Sizing"],
 ];
 
-const DEFAULT_QUERY = "?league=NBA&strategy=riskAdjusted&sizingStyle=continuous";
+const DEFAULT_QUERY = "?league=NBA&strategy=riskAdjusted";
 
 type RefreshResponse = {
   ok?: boolean;
@@ -47,7 +43,6 @@ type SidebarControlsProps = {
   refreshedAtLabel: string;
   search: URLSearchParams;
   showRefreshedStamp: boolean;
-  sizingStyle: BetSizingStyle;
   staticStaging: boolean;
   strategy: BetStrategy;
   theme: DashboardTheme;
@@ -97,12 +92,9 @@ function hrefWithStrategy(href: string, strategy: BetStrategy, searchParams: URL
   return hrefWithParams(href, searchParams, { strategy });
 }
 
-function hrefWithSizingStyle(href: string, sizingStyle: BetSizingStyle, searchParams: URLSearchParams): string {
-  return hrefWithParams(href, searchParams, { sizingStyle });
-}
-
 function hrefWithParams(href: string, searchParams: URLSearchParams, updates: Record<string, string>): string {
   const params = new URLSearchParams(searchParams.toString());
+  params.delete("sizingStyle");
   for (const [key, value] of Object.entries(updates)) {
     params.set(key, value);
   }
@@ -134,14 +126,12 @@ function SidebarControls({
   refreshedAtLabel,
   search,
   showRefreshedStamp,
-  sizingStyle,
   staticStaging,
   strategy,
   theme,
 }: SidebarControlsProps) {
   const isDarkTheme = theme === DARK_THEME;
   const strategyConfig = getBetStrategyConfig(strategy);
-  const sizingStyleConfig = getBetSizingStyleConfig(sizingStyle);
 
   return (
     <>
@@ -149,7 +139,7 @@ function SidebarControls({
         <p className="sidebar-eyebrow">Control Center</p>
         <h2 className="sidebar-title">Dashboard Inputs</h2>
         <p className="small sidebar-copy">
-          Switch leagues and stake assumptions without leaving the current view.
+          Switch leagues and risk assumptions without leaving the current view.
         </p>
       </div>
 
@@ -188,24 +178,6 @@ function SidebarControls({
         </div>
       </section>
 
-      <section className="sidebar-card card" aria-labelledby="sidebar-sizing-title">
-        <span className="strategy-toggle-label" id="sidebar-sizing-title">
-          Amount Bet
-        </span>
-        <div className="strategy-toggle-row" aria-label="Bet sizing style selection">
-          {BET_SIZING_STYLES.map((code) => (
-            <Link
-              href={hrefWithSizingStyle(pathname, code, search)}
-              key={code}
-              className={`strategy-toggle-btn ${sizingStyle === code ? "active" : ""}`}
-            >
-              <span className="strategy-toggle-title">{getBetSizingStyleConfig(code).label}</span>
-              <span className="strategy-toggle-note">{getBetSizingStyleConfig(code).shortLabel}</span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
       <section className="sidebar-card card" aria-labelledby="sidebar-utilities-title">
         <span className="strategy-toggle-label" id="sidebar-utilities-title">
           Utilities
@@ -232,9 +204,6 @@ function SidebarControls({
           <div className="refresh-meta" aria-live="polite">
             <p className="small">
               Active bet objective: {strategyConfig.label}. {strategyConfig.description}
-            </p>
-            <p className="small">
-              Amount bet mode: {sizingStyleConfig.label}. {sizingStyleConfig.description}
             </p>
             {!staticStaging ? <p className="small">Ingest only. No feature rebuild and no retraining.</p> : null}
             {isRefreshing ? (
@@ -280,9 +249,8 @@ function DashboardSidebarFallback() {
           pathname="/"
           refreshError=""
           refreshedAtLabel=""
-          search={new URLSearchParams("league=NBA&strategy=riskAdjusted&sizingStyle=continuous")}
+          search={new URLSearchParams("league=NBA&strategy=riskAdjusted")}
           showRefreshedStamp={false}
-          sizingStyle="continuous"
           staticStaging={false}
           strategy="riskAdjusted"
           theme={DARK_THEME}
@@ -298,7 +266,6 @@ function DashboardSidebarContent() {
   const search = new URLSearchParams(searchParams.toString());
   const league = normalizeLeague(searchParams.get("league"));
   const strategy = normalizeBetStrategy(searchParams.get("strategy"));
-  const sizingStyle = normalizeBetSizingStyle(searchParams.get("sizingStyle"));
   const staticStaging = isStaticStagingBuild();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [refreshError, setRefreshError] = useState("");
@@ -374,7 +341,6 @@ function DashboardSidebarContent() {
           refreshedAtLabel={refreshedAtLabel}
           search={search}
           showRefreshedStamp={showRefreshedStamp}
-          sizingStyle={sizingStyle}
           staticStaging={staticStaging}
           strategy={strategy}
           theme={theme}

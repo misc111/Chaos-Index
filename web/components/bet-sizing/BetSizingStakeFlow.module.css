@@ -1,0 +1,78 @@
+.card {
+  display: grid;
+  gap: 16px;
+  background:
+    radial-gradient(circle at top right, rgba(243, 201, 107, 0.16), transparent 36%),
+    var(--surface-card);
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--accent-2-strong);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.stepCard {
+  display: grid;
+  gap: 8px;
+  min-height: 154px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface-field-muted) 88%, transparent), color-mix(in srgb, var(--surface-card-soft) 92%, transparent));
+}
+
+.stepTop {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.stepIndex {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--surface-accent);
+  color: var(--accent-strong);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.stepLabel {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.stepValue {
+  color: var(--ink-strong);
+  font-family: "Space Grotesk", "Avenir Next", sans-serif;
+  font-size: 1.25rem;
+}
+
+.stepNote {
+  margin: 0;
+  color: var(--muted-strong);
+  font-size: 13px;
+  line-height: 1.5;
+}

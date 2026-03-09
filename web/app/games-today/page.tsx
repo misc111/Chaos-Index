@@ -4,13 +4,10 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   getBetStrategyConfig,
-  normalizeBetSizingStyle,
   normalizeBetStrategy,
-  type BetSizingStyle,
   type BetStrategy,
 } from "@/lib/betting-strategy";
 import {
-  BET_UNIT_LABEL,
   BET_UNIT_DOLLARS,
   REFERENCE_BANKROLL_DOLLARS,
   computeBetDecisionsForSlate,
@@ -32,6 +29,7 @@ import {
 import { normalizeLeague, withLeague } from "@/lib/league";
 import { fetchDashboardJson, isStaticStagingBuild } from "@/lib/static-staging";
 import type { GamesTodayResponse, GamesTodayRow } from "@/lib/types";
+import { formatUsd } from "@/lib/currency";
 import styles from "./styles.module.css";
 
 type BetRecommendationDisplay = {
@@ -91,11 +89,9 @@ function formatCentralTip(value?: string | null): string {
 function displayBetRecommendation(
   row: GamesTodayRow,
   liveDecisionMap: Map<number, BetRecommendationDisplay>,
-  strategy: BetStrategy,
-  sizingStyle: BetSizingStyle,
-  strategyConfigs?: Record<BetStrategy, ResolvedBetStrategyConfig>
+  strategy: BetStrategy
 ): BetRecommendationDisplay {
-  const replayDecision = row.replay_decisions?.[strategy]?.[sizingStyle];
+  const replayDecision = row.replay_decisions?.[strategy];
   if (replayDecision) {
     return {
       ...formatBetUnitRecommendation(replayDecision),
@@ -132,7 +128,6 @@ function GamesTodayPageContent() {
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
   const strategy = normalizeBetStrategy(searchParams.get("strategy"));
-  const sizingStyle = normalizeBetSizingStyle(searchParams.get("sizingStyle"));
   const staticStaging = isStaticStagingBuild();
   const [upcomingRows, setUpcomingRows] = useState<GamesTodayRow[]>([]);
   const [historicalRows, setHistoricalRows] = useState<GamesTodayRow[]>([]);
@@ -192,11 +187,11 @@ function GamesTodayPageContent() {
   const selectedForecastAsOf = latestTimestamp(rows, "forecast_as_of_utc") || latestAsOf;
   const selectedOddsAsOf = latestTimestamp(rows, "odds_as_of_utc");
   const liveDecisionMap = useMemo(() => {
-    const liveRows = rows.filter((row) => !row.replay_decisions?.[strategy]?.[sizingStyle]);
+    const liveRows = rows.filter((row) => !row.replay_decisions?.[strategy]);
     if (!liveRows.length) return new Map<number, BetRecommendationDisplay>();
 
     const resolvedConfig = strategyConfigs?.[strategy] || getBetStrategyConfig(strategy);
-    const decisions = computeBetDecisionsForSlate(liveRows, strategy, sizingStyle, resolvedConfig);
+    const decisions = computeBetDecisionsForSlate(liveRows, strategy, undefined, resolvedConfig);
     return new Map(
       liveRows.map((row, index) => [
         row.game_id,
@@ -207,7 +202,7 @@ function GamesTodayPageContent() {
         },
       ])
     );
-  }, [rows, sizingStyle, strategy, strategyConfigs]);
+  }, [rows, strategy, strategyConfigs]);
   const scheduleSummary = formatCentralDateSummary(activeDateKey);
   const dateLabel = formatCentralDateLabel(activeDateKey);
   const title = activeDateKey === todayKey ? "Games Today" : `Games on ${dateLabel}`;
@@ -287,7 +282,7 @@ function GamesTodayPageContent() {
         </div>
         <p className="small">{description}</p>
         <p className="small">
-          Stakes use uncertainty-adjusted edge and an edge-scaled bankroll fraction. One unit is ${BET_UNIT_DOLLARS}, tied to a ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()} reference bankroll.
+          Stakes use uncertainty-adjusted edge and a bankroll-linked scale. A {formatUsd(BET_UNIT_DOLLARS)} recommendation corresponds to 1% of the ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()} reference bankroll.
         </p>
         <div className={styles.actionsRow}>
           <button
@@ -324,7 +319,7 @@ function GamesTodayPageContent() {
                     <th>Moneyline</th>
                     {/* Maintainer note: this is the one league-specific column in the shared table. */}
                     {league === "NBA" ? <th>Over Odds</th> : null}
-                    <th>{BET_UNIT_LABEL}</th>
+                    <th>Suggested Bet</th>
                     <th>Reason</th>
                   </tr>
                 </thead>
@@ -332,7 +327,7 @@ function GamesTodayPageContent() {
                   {rows.map((row) => {
                     const side = expectedSide(row.home_win_probability);
                     const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
-                    const bet = displayBetRecommendation(row, liveDecisionMap, strategy, sizingStyle, strategyConfigs);
+                    const bet = displayBetRecommendation(row, liveDecisionMap, strategy);
                     return (
                       <tr key={row.game_id}>
                         <td className={side === "home" ? styles.teamWin : side === "away" ? styles.teamLoss : styles.teamNeutral}>
@@ -365,7 +360,7 @@ function GamesTodayPageContent() {
                 {rows.map((row) => {
                   const side = expectedSide(row.home_win_probability);
                   const chanceLabel = `${(expectedWinChance(row.home_win_probability, side) * 100).toFixed(1)}%`;
-                  const bet = displayBetRecommendation(row, liveDecisionMap, strategy, sizingStyle, strategyConfigs);
+                  const bet = displayBetRecommendation(row, liveDecisionMap, strategy);
                   return (
                     <article key={`${row.game_id}-mobile`} className={styles.mobileCard}>
                       <div className={styles.mobileCardTop}>
@@ -427,7 +422,7 @@ function GamesTodayPageContent() {
                           </div>
                         ) : null}
                         <div className={styles.mobileMetaItem}>
-                          <span className={styles.mobileMetaLabel}>{BET_UNIT_LABEL}</span>
+                          <span className={styles.mobileMetaLabel}>Suggested Bet</span>
                           <span className={styles.mobileMetaValue}>
                             <BetStakeWithIcon league={league} teamCode={bet.team} label={bet.team} stake={bet.stake} />
                           </span>

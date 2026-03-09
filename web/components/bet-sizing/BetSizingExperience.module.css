@@ -1,0 +1,450 @@
+.heroCard,
+.policyCard,
+.advancedCard,
+.gamesCard,
+.selectedCard,
+.storyCard,
+.metricCard,
+.ruleCard,
+.screeningCard {
+  display: grid;
+  gap: 18px;
+}
+
+.heroCard {
+  background: var(--surface-hero);
+  overflow: hidden;
+}
+
+.heroTop,
+.policyHeader,
+.gamesHeader,
+.selectedTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.eyebrow,
+.ruleEyebrow {
+  margin: 0 0 6px;
+  color: var(--accent-2-strong);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.heroText,
+.ruleBody {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--muted-strong);
+  line-height: 1.6;
+}
+
+.heroMeta,
+.gamesPills,
+.policyButtonRow,
+.asOfRow,
+.heroMetrics,
+.summaryGrid,
+.factGrid,
+.storyGrid,
+.advancedGrid {
+  display: grid;
+}
+
+.heroMeta,
+.gamesPills,
+.policyButtonRow,
+.asOfRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.heroPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid var(--border-accent);
+  border-radius: 999px;
+  background: var(--surface-field-muted);
+  color: var(--accent-strong);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.heroMetrics {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.heroMetric,
+.ruleTile,
+.factTile,
+.storyTile {
+  display: grid;
+  gap: 4px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--surface-field-muted) 84%, transparent);
+}
+
+.heroMetricLabel,
+.ruleLabel,
+.factLabel,
+.storyLabel {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.heroMetricValue,
+.ruleValue,
+.factValue,
+.storyValue {
+  color: var(--ink-strong);
+  font-family: "Space Grotesk", "Avenir Next", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.heroBudgetBar {
+  display: flex;
+  min-height: 20px;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface-progress-track);
+}
+
+.heroBudgetSegment {
+  min-width: 6px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+
+.heroBudgetSegment:nth-child(3n + 2) {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent));
+}
+
+.heroBudgetSegment:nth-child(3n + 3) {
+  background: linear-gradient(135deg, var(--accent-2), var(--accent-blue));
+}
+
+.heroBudgetRemainder {
+  min-width: 6px;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(148, 163, 184, 0.18) 0,
+      rgba(148, 163, 184, 0.18) 10px,
+      rgba(148, 163, 184, 0.08) 10px,
+      rgba(148, 163, 184, 0.08) 20px
+    );
+}
+
+.stageGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.stageCard {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--surface-card-soft) 84%, transparent);
+}
+
+.stageStep {
+  margin: 0;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.stageTitle,
+.ruleTitle {
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.stageBody,
+.ruleFootnote {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.policyCard,
+.advancedCard,
+.gamesCard,
+.selectedCard,
+.storyCard,
+.metricCard,
+.ruleCard,
+.screeningCard {
+  background:
+    radial-gradient(circle at top right, rgba(86, 216, 194, 0.12), transparent 36%),
+    var(--surface-card);
+}
+
+.policyButton {
+  display: grid;
+  gap: 4px;
+  min-width: 170px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-field-muted);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.policyButton:hover {
+  transform: translateY(-1px);
+  background: var(--surface-card-hover);
+}
+
+.policyButtonActive {
+  border-color: var(--border-accent-strong);
+  background: var(--surface-accent);
+  color: var(--accent-strong);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.policyButtonLabel {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.policyButtonNote {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.summaryGrid,
+.advancedGrid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.ruleGrid,
+.factGrid,
+.storyGrid {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.screeningSteps {
+  display: grid;
+  gap: 12px;
+}
+
+.screeningRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 220px);
+  gap: 12px;
+  align-items: center;
+}
+
+.screeningCopy {
+  display: grid;
+  gap: 3px;
+}
+
+.screeningLabel {
+  color: var(--ink-strong);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.screeningDesc {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.screeningBarWrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.screeningTrack {
+  min-height: 14px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--surface-progress-track);
+  border: 1px solid var(--border-subtle);
+}
+
+.screeningBar {
+  display: block;
+  min-height: 14px;
+  border-radius: 999px;
+}
+
+.screenStepActive {
+  background: linear-gradient(90deg, var(--accent), var(--accent-blue));
+}
+
+.screenStepStable {
+  background: linear-gradient(90deg, var(--accent-2), var(--accent));
+}
+
+.screenStepEmpty {
+  background: linear-gradient(90deg, var(--danger-strong), var(--warning));
+}
+
+.screeningCount {
+  color: var(--ink-strong);
+  font-size: 14px;
+}
+
+.explorerGrid {
+  display: grid;
+  grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.detailColumn {
+  display: grid;
+  gap: 18px;
+}
+
+.gameList {
+  display: grid;
+  gap: 12px;
+}
+
+.gameButton {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-card-soft);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.gameButton:hover {
+  transform: translateY(-1px);
+  background: var(--surface-card-hover);
+}
+
+.gameButtonActive {
+  border-color: var(--border-accent-strong);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.gameButtonTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.tipBadge,
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tipBadge {
+  background: var(--surface-field-muted);
+  color: var(--muted-strong);
+}
+
+.statusBet {
+  background: var(--success-surface-soft);
+  color: var(--success);
+}
+
+.statusPass {
+  background: var(--warning-surface);
+  color: var(--warning);
+}
+
+.gameStats {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.gameSummary {
+  margin: 0;
+  color: var(--muted-strong);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.matchupDetails {
+  display: grid;
+  gap: 14px;
+}
+
+.breakdownStake {
+  font-weight: 700;
+}
+
+.formulaBody,
+.advancedBody {
+  display: grid;
+  gap: 16px;
+}
+
+.advancedSummary {
+  cursor: pointer;
+  color: var(--ink-strong);
+  font-weight: 700;
+}
+
+@media (max-width: 1100px) {
+  .explorerGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .screeningRow {
+    grid-template-columns: 1fr;
+  }
+}

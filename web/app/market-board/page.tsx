@@ -3,14 +3,11 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
+  DEFAULT_BET_SIZING_STYLE,
   getBetStrategyConfig,
-  normalizeBetSizingStyle,
   normalizeBetStrategy,
-  type BetSizingStyle,
-  type BetStrategy,
 } from "@/lib/betting-strategy";
 import { computeBetDecisionsForSlate, type BetDecision } from "@/lib/betting";
-import type { ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
 import { normalizeLeague } from "@/lib/league";
 import { fetchDashboardJson } from "@/lib/static-staging";
 import { type MarketBoardResponse, type MarketBoardRow } from "@/lib/types";
@@ -140,7 +137,6 @@ function MarketBoardPageContent() {
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
   const strategy = normalizeBetStrategy(searchParams.get("strategy"));
-  const sizingStyle = normalizeBetSizingStyle(searchParams.get("sizingStyle"));
   const [report, setReport] = useState<MarketBoardResponse>({
     league,
     as_of_utc: null,
@@ -213,13 +209,13 @@ function MarketBoardPageContent() {
           model_win_probabilities: row.model_win_probabilities,
         })),
         strategy,
-        sizingStyle,
+        DEFAULT_BET_SIZING_STYLE,
         resolvedConfig
       );
 
       return report.rows.map((row, index) => buildDerivedRow(row, decisions[index]));
     },
-    [report.rows, report.strategy_configs, strategy, sizingStyle]
+    [report.rows, report.strategy_configs, strategy]
   );
 
   return (

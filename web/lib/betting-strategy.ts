@@ -1,8 +1,8 @@
 export type BetStrategy = "riskAdjusted" | "aggressive" | "capitalPreservation";
-export type BetSizingStyle = "continuous" | "bucketed";
+export type BetSizingStyle = "continuous";
 
 export const BET_STRATEGIES = ["riskAdjusted", "aggressive", "capitalPreservation"] as const;
-export const BET_SIZING_STYLES = ["continuous", "bucketed"] as const;
+export const BET_SIZING_STYLES = ["continuous"] as const;
 export const DEFAULT_BET_STRATEGY: BetStrategy = "riskAdjusted";
 export const DEFAULT_BET_SIZING_STYLE: BetSizingStyle = "continuous";
 
@@ -37,7 +37,7 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
     label: "Balanced",
     shortLabel: "Standard risk",
     description:
-      "Balanced baseline with the shared value screen, a 1.25-unit per-bet cap, and a 4-unit daily budget.",
+      "Balanced baseline with the shared value screen, a 1.25% per-bet cap, and a 4% nightly budget on the reference bankroll.",
     allowUnderdogs: true,
     minEdge: SHARED_MIN_EDGE,
     minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
@@ -48,7 +48,7 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
   aggressive: {
     label: "Aggressive",
     shortLabel: "Wider caps",
-    description: "Higher-variance sizing with the same value screen, a 1.75-unit per-bet cap, and a 6-unit daily budget.",
+    description: "Higher-variance sizing with the same value screen, a 1.75% per-bet cap, and a 6% nightly budget on the reference bankroll.",
     allowUnderdogs: true,
     minEdge: SHARED_MIN_EDGE,
     minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
@@ -59,7 +59,7 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
   capitalPreservation: {
     label: "Conservative",
     shortLabel: "Favorites only",
-    description: "Lower-variance sizing, favorites only, a 0.75-unit per-bet cap, and a 2.5-unit daily budget.",
+    description: "Lower-variance sizing, favorites only, a 0.75% per-bet cap, and a 2.5% nightly budget on the reference bankroll.",
     allowUnderdogs: false,
     minEdge: SHARED_MIN_EDGE,
     minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
@@ -71,14 +71,9 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
 
 const BET_SIZING_STYLE_CONFIG: Record<BetSizingStyle, BetSizingStyleConfig> = {
   continuous: {
-    label: "Continuous",
+    label: "Default",
     shortLabel: "Edge-scaled",
     description: "Lets the stake scale continuously with the uncertainty-adjusted edge and market price.",
-  },
-  bucketed: {
-    label: "Bucketed",
-    shortLabel: "Rounded units",
-    description: "Rounds the continuous recommendation into the legacy $0, $50, $100, or $150 buckets.",
   },
 };
 
@@ -127,20 +122,8 @@ export function strategyFromRequest(request: Request): BetStrategy {
 }
 
 export function normalizeBetSizingStyle(value?: string | null): BetSizingStyle {
-  const normalized = String(value || "").trim().toLowerCase();
-  switch (normalized) {
-    case "bucketed":
-    case "bucket":
-    case "legacy":
-    case "legacybucket":
-    case "legacy-bucket":
-    case "legacy_bucket":
-      return "bucketed";
-    case "continuous":
-    case "kelly":
-    default:
-      return DEFAULT_BET_SIZING_STYLE;
-  }
+  void value;
+  return DEFAULT_BET_SIZING_STYLE;
 }
 
 export function sizingStyleFromRequest(request: Request): BetSizingStyle {

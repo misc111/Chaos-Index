@@ -4,20 +4,11 @@ import { Suspense, useMemo, useState } from "react";
 import BetHistoryChart from "@/components/BetHistoryChart";
 import styles from "@/components/BetHistory.module.css";
 import BetWeekCalendar from "@/components/BetWeekCalendar";
-import {
-  BET_SIZING_STYLES,
-  BET_STRATEGIES,
-  DEFAULT_BET_SIZING_STYLE,
-  DEFAULT_BET_STRATEGY,
-  getBetSizingStyleConfig,
-  getBetStrategyConfig,
-  type BetStrategy,
-} from "@/lib/betting-strategy";
+import { BET_STRATEGIES, DEFAULT_BET_STRATEGY, getBetStrategyConfig, type BetStrategy } from "@/lib/betting-strategy";
 import type { BetStrategyOptimizationSummary, ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
-import type { BetHistoryResponse, BetHistorySizingBundle, BetHistoryStrategyBundle } from "@/lib/bet-history-types";
+import type { BetHistoryResponse, BetHistoryStrategyBundle } from "@/lib/bet-history-types";
 import { HISTORICAL_BANKROLL_START_DATE_CENTRAL, HISTORICAL_BANKROLL_START_DOLLARS } from "@/lib/betting";
 import { formatUsd } from "@/lib/currency";
-import { useBetSizingStyle } from "@/lib/hooks/useBetSizingStyle";
 import { useBetStrategy } from "@/lib/hooks/useBetStrategy";
 import { useDashboardData } from "@/lib/hooks/useDashboardData";
 import { useLeague } from "@/lib/hooks/useLeague";
@@ -100,18 +91,11 @@ const EMPTY_BET_HISTORY_STRATEGY: BetHistoryStrategyBundle = {
   bets: [],
 };
 
-function buildEmptySizingBundle(): BetHistorySizingBundle {
-  return BET_SIZING_STYLES.reduce((acc, sizingStyle) => {
-    acc[sizingStyle] = EMPTY_BET_HISTORY_STRATEGY;
-    return acc;
-  }, {} as BetHistorySizingBundle);
-}
-
-function buildEmptyBetHistoryStrategies(): Record<BetStrategy, BetHistorySizingBundle> {
+function buildEmptyBetHistoryStrategies(): Record<BetStrategy, BetHistoryStrategyBundle> {
   return BET_STRATEGIES.reduce((acc, strategy) => {
-    acc[strategy] = buildEmptySizingBundle();
+    acc[strategy] = EMPTY_BET_HISTORY_STRATEGY;
     return acc;
-  }, {} as Record<BetStrategy, BetHistorySizingBundle>);
+  }, {} as Record<BetStrategy, BetHistoryStrategyBundle>);
 }
 
 function buildEmptyResolvedStrategyConfigs(): Record<BetStrategy, ResolvedBetStrategyConfig> {
@@ -130,7 +114,6 @@ function buildEmptyResolvedStrategyConfigs(): Record<BetStrategy, ResolvedBetStr
 function buildEmptyOptimizationSummary(): BetStrategyOptimizationSummary {
   return {
     method: "",
-    sizing_style: "continuous",
     risk_free_rate: 0,
     candidate_count: 0,
     frontier_point_count: 0,
@@ -145,7 +128,6 @@ function buildEmptyOptimizationSummary(): BetStrategyOptimizationSummary {
 const EMPTY_BET_HISTORY: BetHistoryResponse = {
   league: "NHL",
   default_strategy: DEFAULT_BET_STRATEGY,
-  default_sizing_style: DEFAULT_BET_SIZING_STYLE,
   strategy_configs: buildEmptyResolvedStrategyConfigs(),
   strategy_optimization: buildEmptyOptimizationSummary(),
   strategies: buildEmptyBetHistoryStrategies(),
@@ -154,9 +136,7 @@ const EMPTY_BET_HISTORY: BetHistoryResponse = {
 function BetHistoryPageContent() {
   const league = useLeague();
   const strategy = useBetStrategy();
-  const sizingStyle = useBetSizingStyle();
   const strategyConfig = getBetStrategyConfig(strategy);
-  const sizingStyleConfig = getBetSizingStyleConfig(sizingStyle);
   const { data, isLoading: loading, error } = useDashboardData<BetHistoryResponse>(
     "betHistory",
     "/api/bet-history",
@@ -164,14 +144,8 @@ function BetHistoryPageContent() {
     EMPTY_BET_HISTORY
   );
   const [selectedWeekStart, setSelectedWeekStart] = useState<string | null>(null);
-  const activeStrategyBundle: BetHistorySizingBundle =
-    data.strategies[strategy] || data.strategies[data.default_strategy] || EMPTY_BET_HISTORY.strategies.riskAdjusted;
-  const fallbackStrategyBundle: BetHistorySizingBundle =
-    data.strategies[data.default_strategy] || EMPTY_BET_HISTORY.strategies.riskAdjusted;
   const activeHistory =
-    activeStrategyBundle[sizingStyle] ||
-    fallbackStrategyBundle[data.default_sizing_style] ||
-    EMPTY_BET_HISTORY_STRATEGY;
+    data.strategies[strategy] || data.strategies[data.default_strategy] || EMPTY_BET_HISTORY.strategies.riskAdjusted;
 
   const weekStarts = useMemo(() => {
     return Array.from(new Set(activeHistory.bets.map((bet) => bet.week_start_central))).sort();
@@ -197,9 +171,7 @@ function BetHistoryPageContent() {
           <p className={styles.heroText}>
             Replays settled games with stored pregame forecast and moneyline snapshots.
           </p>
-          <p className={styles.heroText}>
-            {strategyConfig.label} strategy with {sizingStyleConfig.label.toLowerCase()} stake sizing.
-          </p>
+          <p className={styles.heroText}>{strategyConfig.label} strategy.</p>
         </div>
 
         {loading ? <p className="small">Loading replay history...</p> : null}

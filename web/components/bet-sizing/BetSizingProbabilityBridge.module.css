@@ -1,0 +1,130 @@
+.card {
+  display: grid;
+  gap: 16px;
+  background:
+    radial-gradient(circle at top right, rgba(99, 102, 241, 0.14), transparent 34%),
+    var(--surface-card);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--accent-2-strong);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.metricPills {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.metricPill {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-field-muted);
+  color: var(--ink-strong);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.chartWrap {
+  overflow-x: auto;
+}
+
+.chart {
+  width: 100%;
+  min-width: 700px;
+  height: auto;
+}
+
+.axis {
+  stroke: var(--chart-baseline);
+  stroke-width: 2;
+}
+
+.tick {
+  stroke: var(--chart-grid);
+  stroke-width: 1;
+}
+
+.tickLabel {
+  fill: var(--chart-axis);
+  font-size: 11px;
+}
+
+.bridgeLine {
+  fill: none;
+  stroke: color-mix(in srgb, var(--accent) 68%, var(--accent-blue));
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rawGuide {
+  stroke: var(--accent-2);
+  stroke-dasharray: 5 5;
+  stroke-width: 2;
+  opacity: 0.8;
+}
+
+.markerLabel {
+  fill: var(--muted-strong);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.markerValue {
+  fill: var(--ink-strong);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.markerMarket {
+  fill: var(--neutral);
+  stroke: var(--chart-point-stroke);
+  stroke-width: 2;
+}
+
+.markerReference {
+  fill: var(--accent-blue);
+  stroke: var(--chart-point-stroke);
+  stroke-width: 2;
+}
+
+.markerAdjusted {
+  fill: var(--accent);
+  stroke: var(--chart-point-stroke);
+  stroke-width: 2;
+}
+
+.markerRaw {
+  fill: var(--accent-2);
+  stroke: var(--chart-point-stroke);
+  stroke-width: 2;
+}
+
+.note {
+  margin: 0;
+  color: var(--muted-strong);
+  font-size: 13px;
+  line-height: 1.5;
+}

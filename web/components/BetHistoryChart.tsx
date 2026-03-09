@@ -3,10 +3,8 @@
 import { useId, useState } from "react";
 
 import {
-  BET_UNIT_DOLLARS,
   HISTORICAL_BANKROLL_START_DATE_CENTRAL,
   HISTORICAL_BANKROLL_START_DOLLARS,
-  REFERENCE_BANKROLL_DOLLARS,
 } from "@/lib/betting";
 import type { HistoricalDailyPoint } from "@/lib/bet-history-types";
 import { formatSignedUsd, formatUsd } from "@/lib/currency";
@@ -74,8 +72,7 @@ export default function BetHistoryChart({ points }: Props) {
         <h2 className="title">Cumulative Bankroll</h2>
         <p className="small">
           Bankroll starts at {formatUsd(HISTORICAL_BANKROLL_START_DOLLARS)} on {formatDateShort(HISTORICAL_BANKROLL_START_DATE_CENTRAL)}.
-          {" "}Net P/L and ROI above still summarize the same replayed bets. One unit remains {formatUsd(BET_UNIT_DOLLARS)} on a{" "}
-          {formatUsd(REFERENCE_BANKROLL_DOLLARS)} sizing reference bankroll.
+          {" "}Net P/L and ROI above still summarize the same replayed bets.
         </p>
       </div>
 

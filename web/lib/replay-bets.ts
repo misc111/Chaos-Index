@@ -64,7 +64,6 @@ type RawHistoricalReplayDecisionRow = {
 
 export type HistoricalReplayDecisionSnapshot = {
   strategy: BetStrategy;
-  sizing_style: BetSizingStyle;
   game_id: number;
   date_central: string;
   forecast_as_of_utc: string;
@@ -93,8 +92,7 @@ export type HistoricalReplayDecisionSnapshot = {
   created_at_utc: string;
 };
 
-export type HistoricalReplayDecisionSizingSet = Record<BetSizingStyle, HistoricalReplayDecisionSnapshot | null>;
-export type HistoricalReplayDecisionSet = Record<BetStrategy, HistoricalReplayDecisionSizingSet>;
+export type HistoricalReplayDecisionSet = Record<BetStrategy, HistoricalReplayDecisionSnapshot | null>;
 
 type RawSqliteTableInfoRow = {
   name?: string | null;
@@ -134,12 +132,6 @@ function normalizeStrategy(value: unknown): BetStrategy {
   if (strategy === "aggressiveEv" || strategy === "riskLoving") return "aggressive";
   if (strategy === "riskAverse") return "capitalPreservation";
   return DEFAULT_BET_STRATEGY;
-}
-
-function normalizeSizingStyle(value: unknown): BetSizingStyle {
-  const sizingStyle = String(value || "").trim();
-  if (sizingStyle === "bucketed") return sizingStyle;
-  return DEFAULT_BET_SIZING_STYLE;
 }
 
 function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
@@ -275,7 +267,6 @@ function loadStoredHistoricalReplayDecisions(
 
     snapshots.set(gameId, {
       strategy: normalizeStrategy(row.strategy),
-      sizing_style: normalizeSizingStyle(row.sizing_style),
       game_id: gameId,
       date_central: String(row.date_central || ""),
       forecast_as_of_utc: String(row.forecast_as_of_utc || ""),
@@ -317,7 +308,6 @@ function buildHistoricalReplayDecision(
 ): HistoricalReplayDecisionSnapshot {
   return {
     strategy,
-    sizing_style: sizingStyle,
     game_id: row.game_id,
     date_central: row.date_central,
     forecast_as_of_utc: row.forecast_as_of_utc,
@@ -354,7 +344,7 @@ function upsertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[
     .map(
       (row) => `(
         ${sqlText(row.strategy)},
-        ${sqlText(row.sizing_style)},
+        ${sqlText(DEFAULT_BET_SIZING_STYLE)},
         ${row.game_id},
         ${sqlText(row.date_central)},
         ${sqlText(row.forecast_as_of_utc)},

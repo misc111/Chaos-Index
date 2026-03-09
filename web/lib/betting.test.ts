@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { normalizeBetStrategy, type BetSizingStyle, type BetStrategy } from "./betting-strategy";
+import { normalizeBetStrategy, type BetStrategy } from "./betting-strategy";
 import { computeBetDecision, computeBetDecisionsForSlate, explainBetDecision, explainBetDecisionsForSlate } from "./betting";
 
-function buildDecision(strategy?: BetStrategy, sizingStyle?: BetSizingStyle) {
+function buildDecision(strategy?: BetStrategy) {
   return computeBetDecision(
     {
       home_team: "LAL",
@@ -13,8 +13,7 @@ function buildDecision(strategy?: BetStrategy, sizingStyle?: BetSizingStyle) {
       home_moneyline: 135,
       away_moneyline: -145,
     },
-    strategy,
-    sizingStyle
+    strategy
   );
 }
 
@@ -31,24 +30,6 @@ test("computeBetDecision sizes favorites with a continuous fractional-Kelly stak
   assert.equal(decision.team, "SAC");
   assert.match(decision.reason, /underpriced after uncertainty adjustment/);
   assert.equal(decision.stake, 125);
-});
-
-test("computeBetDecision can snap favorite stakes into legacy buckets", () => {
-  const decision = computeBetDecision(
-    {
-      home_team: "SAC",
-      away_team: "CHI",
-      home_win_probability: 0.653,
-      home_moneyline: -135,
-      away_moneyline: 125,
-    },
-    "riskAdjusted",
-    "bucketed"
-  );
-
-  assert.equal(decision.side, "home");
-  assert.equal(decision.team, "SAC");
-  assert.equal(decision.stake, 100);
 });
 
 test("computeBetDecision sizes underdogs with the shared value screen", () => {
@@ -132,15 +113,6 @@ test("aggressive sizes larger than risk-adjusted on the same edge", () => {
   assert.ok(aggressive.stake > riskAdjusted.stake);
 });
 
-test("bucketed sizing preserves profile differences through bucket selection", () => {
-  const riskAdjusted = buildDecision("riskAdjusted", "bucketed");
-  const aggressive = buildDecision("aggressive", "bucketed");
-
-  assert.equal(riskAdjusted.team, "NYK");
-  assert.equal(aggressive.team, "NYK");
-  assert.ok(aggressive.stake >= riskAdjusted.stake);
-});
-
 test("legacy strategy query params normalize to the new profiles", () => {
   assert.equal(normalizeBetStrategy("balanced"), "riskAdjusted");
   assert.equal(normalizeBetStrategy("riskLoving"), "aggressive");
@@ -168,7 +140,6 @@ test("explainBetDecision exposes raw and adjusted sizing steps for a bet", () =>
   assert.ok((trace.kellyFraction ?? 0) > 0);
   assert.ok((trace.rawKellyUnits ?? 0) >= (trace.cappedKellyUnits ?? 0));
   assert.equal(trace.continuousStake, 125);
-  assert.equal(trace.bucketedStake, 100);
   assert.equal(trace.finalStake, 125);
 });
 
