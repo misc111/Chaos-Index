@@ -211,7 +211,10 @@ def is_bet_history_request(question: str) -> bool:
     normalized = normalize_question(question)
     money_terms = (
         "money i won or lost",
+        "money did i win",
+        "money did i lose",
         "won or lost",
+        "win lose",
         "bets",
         "net profit",
         "net profits",
@@ -283,7 +286,15 @@ def parse_bet_history_include_games(question: str) -> bool:
         "why we didn t bet",
         "why we didnt bet",
     )
-    return any(term in normalized for term in detail_terms)
+    if any(term in normalized for term in detail_terms):
+        return True
+
+    has_last_night_scope = "last night" in normalized or "yesterday" in normalized
+    has_win_loss_summary = any(
+        term in normalized
+        for term in ("money i won or lost", "money did i win", "money did i lose", "won or lost", "win lose")
+    )
+    return has_last_night_scope and has_win_loss_summary
 
 
 def parse_question(question: str, default_league: str | None = "NBA") -> QueryIntent:

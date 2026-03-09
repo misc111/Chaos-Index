@@ -6,6 +6,7 @@ from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 from src.query.contracts import Queryable
+from src.query.team_aliases import TEAM_ALIAS_GROUPS_BY_LEAGUE, canonical_league, canonical_team_code
 
 DEFAULT_PROFILE_PREFERENCES: tuple[tuple[str, str], ...] = (
     ("riskAdjusted", "continuous"),
@@ -23,6 +24,70 @@ def _format_signed_usd(amount: float) -> str:
 
 def _format_usd(amount: float) -> str:
     return f"${float(amount):.2f}"
+
+
+def _bet_role(odds: float | None) -> str | None:
+    if odds is None:
+        return None
+    if odds < 0:
+        return "favorite"
+    if odds > 0:
+        return "underdog"
+    return None
+
+
+def _winner_for_row(row: dict) -> str | None:
+    home_team = row.get("home_team")
+    away_team = row.get("away_team")
+    home_score = row.get("home_score")
+    away_score = row.get("away_score")
+    if home_team is None or away_team is None or home_score is None or away_score is None:
+        return None
+    return str(home_team) if int(home_score) > int(away_score) else str(away_team)
+
+
+def _display_team_name(team: str | None, league: str) -> str | None:
+    if not team:
+        return None
+    league_code = canonical_league(league) or "NBA"
+    team_code = canonical_team_code(team, league_code)
+    aliases = TEAM_ALIAS_GROUPS_BY_LEAGUE.get(league_code, {}).get(team_code, ())
+    if not aliases:
+        return str(team)
+    display = aliases[0]
+    if display.startswith("la "):
+        return f"LA {display[3:].title()}"
+    if display == "okc":
+        return "OKC"
+    return display.title()
+
+
+def _bet_rationale(row: dict, *, league: str) -> str:
+    reason = str(row.get("reason") or "").strip()
+    team = row.get("team")
+    if not team:
+        return "No bet because the game was too close." if reason.lower() == "too close" else "No bet."
+
+    display_team = _display_team_name(str(team), league) or str(team)
+    role = _bet_role(float(row["odds"])) if row.get("odds") is not None else None
+    lowered_reason = reason.lower()
+    if "underpriced" in lowered_reason and role:
+        return f"{display_team} was the {role} but underpriced."
+    if reason:
+        return f"{display_team} was bet because the model flagged: {lowered_reason}."
+    return f"{display_team} was the selected side."
+
+
+def _render_bet_history_table(rows: list[dict]) -> str:
+    header = [
+        "| Game | Bet on | Winner | P/L | Bet rationale |",
+        "|---|---|---|---:|---|",
+    ]
+    body = [
+        f"| {row['away_team']} @ {row['home_team']} | {row['bet_on'] or '-'} | {row['winner'] or '-'} | {_format_signed_usd(row['profit'])} | {row['bet_rationale']} |"
+        for row in rows
+    ]
+    return "\n".join([*header, *body])
 
 
 def _central_date_key(dt: datetime | None = None) -> str:
@@ -270,13 +335,18 @@ def answer_bet_history_summary(
         }
         for row in rows
     ]
+    for row in game_rows:
+        row["bet_on"] = row["team"]
+        row["winner"] = _winner_for_row(row)
+        row["bet_role"] = _bet_role(row["odds"])
+        row["bet_rationale"] = _bet_rationale(row, league=league)
 
     if include_games:
-        details = "; ".join(
-            f"{row['away_team']} @ {row['home_team']} {row['bet_label']} {_format_signed_usd(row['profit'])} ({row['reason']})"
-            for row in game_rows
-        )
-        answer = f"{summary_line} By game: {details}."
+        settled_game_rows = [row for row in game_rows if row["outcome"] != "no_bet"]
+        if settled_game_rows:
+            answer = f"{summary_line}\n\n{_render_bet_history_table(settled_game_rows)}"
+        else:
+            answer = summary_line
     else:
         answer = summary_line
 

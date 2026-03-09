@@ -214,7 +214,7 @@ def test_query_answers_bet_history_summary_and_cumulative(tmp_path: Path):
 
     answer, payload = answer_question(
         db,
-        "Tell me how much money I won or lost from last night's games. both in total and by games. Be brief in your summary.",
+        "How much money did I win/lose last night? Be brief in your summary.",
     )
     assert payload["intent"] == "bet_history_summary"
     assert payload["league"] == "NBA"
@@ -228,8 +228,12 @@ def test_query_answers_bet_history_summary_and_cumulative(tmp_path: Path):
     assert round(payload["summary"]["total_risked"], 2) == 100.00
     assert round(payload["summary"]["total_profit"], 2) == 80.13
     assert len(payload["games"]) == 3
-    assert "By game:" in answer
+    assert answer.startswith(f"NBA last night ({yesterday}): +$80.13 net, $100.00 risked, 2-0 on 2 bets.")
+    assert "| Game | Bet on | Winner | P/L | Bet rationale |" in answer
+    assert f"| CHI @ NYK | NYK | NYK | +$41.67 | New York was the favorite but underpriced. |" in answer
+    assert f"| BOS @ MIA | BOS | BOS | +$38.46 | Boston was the favorite but underpriced. |" in answer
     assert any(game["reason"] == "Too close" and game["outcome"] == "no_bet" for game in payload["games"])
+    assert any(game["bet_rationale"] == "No bet because the game was too close." for game in payload["games"])
 
     cumulative_answer, cumulative_payload = answer_question(
         db,
