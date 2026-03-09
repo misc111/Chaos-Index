@@ -142,6 +142,7 @@ Deterministic repo-wide hard refresh across NHL and NBA:
 ```bash
 make hard_refresh
 ```
+This retrains from the current processed feature snapshot and does not run `make features`.
 Preview the exact step plan without executing it:
 ```bash
 make hard_refresh DRY_RUN=1
@@ -169,7 +170,7 @@ Execution architecture:
 - Atomic league-scoped commands stay independently runnable: `init-db`, `fetch`, `refresh-data`, `fetch-odds`, `features`, `research-features`, `train`, `backtest`, and `run_daily`.
 - Model-level execution remains available through `MODELS=...`, for example `make train MODELS=glm_ridge`.
 - The repo-wide ingest-only trigger is `make data_refresh`, which runs the deterministic NHL then NBA data-collection sequence and stops before features, training, or staging snapshots.
-- The repo-wide composite trigger is `make hard_refresh`, which runs a fixed sequential plan across NHL then NBA, regenerates `web/public/staging-data/`, and optionally builds the static Pages output.
+- The repo-wide composite trigger is `make hard_refresh`, which runs a fixed sequential plan across NHL then NBA, retrains from the existing processed feature snapshot without rebuilding features, regenerates `web/public/staging-data/`, and optionally builds the static Pages output.
 
 Maintainer note:
 - Local dashboard changes do not automatically update the GitHub Pages staging site.

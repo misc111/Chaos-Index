@@ -435,18 +435,20 @@
       "start_time_utc": "2026-03-08T03:00:00Z",
       "is_toss_up": 1,
       "model_correct": null
-    }
-  ],
-  "upcoming_rows": [
+    },
     {
       "game_id": 2025021001,
       "game_date_utc": "2026-03-08",
       "home_team": "COL",
       "away_team": "MIN",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6552126640643972,
+      "prob_home_win": 0.6550986557566038,
       "predicted_winner": "COL",
-      "start_time_utc": "2026-03-08T18:00:00Z"
+      "home_win": 1,
+      "final_utc": "2026-03-08T18:00:00Z",
+      "start_time_utc": "2026-03-08T18:00:00Z",
+      "is_toss_up": 0,
+      "model_correct": 1
     },
     {
       "game_id": 2025021002,
@@ -454,9 +456,13 @@
       "home_team": "PIT",
       "away_team": "BOS",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4972095761022992,
+      "prob_home_win": 0.4968399321612794,
       "predicted_winner": "BOS",
-      "start_time_utc": "2026-03-08T20:30:00Z"
+      "home_win": 1,
+      "final_utc": "2026-03-08T20:30:00Z",
+      "start_time_utc": "2026-03-08T20:30:00Z",
+      "is_toss_up": 1,
+      "model_correct": null
     },
     {
       "game_id": 2025021003,
@@ -464,9 +470,13 @@
       "home_team": "BUF",
       "away_team": "TBL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5792300515483485,
+      "prob_home_win": 0.5788796803305999,
       "predicted_winner": "BUF",
-      "start_time_utc": "2026-03-08T22:00:00Z"
+      "home_win": 1,
+      "final_utc": "2026-03-08T22:00:00Z",
+      "start_time_utc": "2026-03-08T22:00:00Z",
+      "is_toss_up": 0,
+      "model_correct": 1
     },
     {
       "game_id": 2025021004,
@@ -474,9 +484,13 @@
       "home_team": "DAL",
       "away_team": "CHI",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.7084692886944721,
+      "prob_home_win": 0.70822070392983,
       "predicted_winner": "DAL",
-      "start_time_utc": "2026-03-08T22:00:00Z"
+      "home_win": 1,
+      "final_utc": "2026-03-08T22:00:00Z",
+      "start_time_utc": "2026-03-08T22:00:00Z",
+      "is_toss_up": 0,
+      "model_correct": 1
     },
     {
       "game_id": 2025021005,
@@ -484,9 +498,13 @@
       "home_team": "NJD",
       "away_team": "DET",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5060460120589871,
+      "prob_home_win": 0.5056443083472627,
       "predicted_winner": "NJD",
-      "start_time_utc": "2026-03-08T23:00:00Z"
+      "home_win": 0,
+      "final_utc": "2026-03-08T23:00:00Z",
+      "start_time_utc": "2026-03-08T23:00:00Z",
+      "is_toss_up": 1,
+      "model_correct": null
     },
     {
       "game_id": 2025021006,
@@ -494,9 +512,13 @@
       "home_team": "ANA",
       "away_team": "STL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6450320355253222,
+      "prob_home_win": 0.6448126946459445,
       "predicted_winner": "ANA",
-      "start_time_utc": "2026-03-09T01:00:00Z"
+      "home_win": 0,
+      "final_utc": "2026-03-09T01:00:00Z",
+      "start_time_utc": "2026-03-09T01:00:00Z",
+      "is_toss_up": 0,
+      "model_correct": 0
     },
     {
       "game_id": 2025021007,
@@ -504,17 +526,23 @@
       "home_team": "VGK",
       "away_team": "EDM",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5243089269347153,
+      "prob_home_win": 0.5242058732910023,
       "predicted_winner": "VGK",
-      "start_time_utc": "2026-03-09T01:30:00Z"
-    },
+      "home_win": 0,
+      "final_utc": "2026-03-09T01:30:00Z",
+      "start_time_utc": "2026-03-09T01:30:00Z",
+      "is_toss_up": 1,
+      "model_correct": null
+    }
+  ],
+  "upcoming_rows": [
     {
       "game_id": 2025020828,
       "game_date_utc": "2026-03-09",
       "home_team": "CBJ",
       "away_team": "LAK",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.639237474760328,
+      "ensemble_prob_home_win": 0.6389762111171163,
       "predicted_winner": "CBJ",
       "start_time_utc": "2026-03-09T20:00:00Z"
     },
@@ -524,7 +552,7 @@
       "home_team": "PHI",
       "away_team": "NYR",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5294648121792117,
+      "ensemble_prob_home_win": 0.5292560450681894,
       "predicted_winner": "PHI",
       "start_time_utc": "2026-03-09T23:00:00Z"
     },
@@ -534,7 +562,7 @@
       "home_team": "WSH",
       "away_team": "CGY",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.628151793412128,
+      "ensemble_prob_home_win": 0.628046747050077,
       "predicted_winner": "WSH",
       "start_time_utc": "2026-03-09T23:00:00Z"
     },
@@ -544,7 +572,7 @@
       "home_team": "CHI",
       "away_team": "UTA",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.32654889882677346,
+      "ensemble_prob_home_win": 0.32631780468884863,
       "predicted_winner": "UTA",
       "start_time_utc": "2026-03-10T00:30:00Z"
     },
@@ -554,7 +582,7 @@
       "home_team": "VAN",
       "away_team": "OTT",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.2823736085394955,
+      "ensemble_prob_home_win": 0.28223854880588073,
       "predicted_winner": "OTT",
       "start_time_utc": "2026-03-10T01:00:00Z"
     },
@@ -564,7 +592,7 @@
       "home_team": "BOS",
       "away_team": "LAK",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6633677130474875,
+      "ensemble_prob_home_win": 0.663128206066957,
       "predicted_winner": "BOS",
       "start_time_utc": "2026-03-10T23:00:00Z"
     },
@@ -574,7 +602,7 @@
       "home_team": "BUF",
       "away_team": "SJS",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6583481977765802,
+      "ensemble_prob_home_win": 0.658145384859181,
       "predicted_winner": "BUF",
       "start_time_utc": "2026-03-10T23:00:00Z"
     },
@@ -584,7 +612,7 @@
       "home_team": "MTL",
       "away_team": "TOR",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5924301628464846,
+      "ensemble_prob_home_win": 0.5922401259802035,
       "predicted_winner": "MTL",
       "start_time_utc": "2026-03-10T23:00:00Z"
     },
@@ -594,7 +622,7 @@
       "home_team": "TBL",
       "away_team": "CBJ",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5994143519219156,
+      "ensemble_prob_home_win": 0.5992900762500685,
       "predicted_winner": "TBL",
       "start_time_utc": "2026-03-10T23:00:00Z"
     },
@@ -604,7 +632,7 @@
       "home_team": "FLA",
       "away_team": "DET",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5461716622333117,
+      "ensemble_prob_home_win": 0.54586653496036,
       "predicted_winner": "FLA",
       "start_time_utc": "2026-03-10T23:00:00Z"
     },
@@ -614,7 +642,7 @@
       "home_team": "NYR",
       "away_team": "CGY",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.447812403533284,
+      "ensemble_prob_home_win": 0.44755943141028665,
       "predicted_winner": "CGY",
       "start_time_utc": "2026-03-10T23:00:00Z"
     },
@@ -624,7 +652,7 @@
       "home_team": "CAR",
       "away_team": "PIT",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.619791722615838,
+      "ensemble_prob_home_win": 0.6196052013754993,
       "predicted_winner": "CAR",
       "start_time_utc": "2026-03-10T23:00:00Z"
     },
@@ -634,7 +662,7 @@
       "home_team": "STL",
       "away_team": "NYI",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4335717492728157,
+      "ensemble_prob_home_win": 0.4331935470860999,
       "predicted_winner": "NYI",
       "start_time_utc": "2026-03-10T23:30:00Z"
     },
@@ -644,7 +672,7 @@
       "home_team": "DAL",
       "away_team": "VGK",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6249983067509939,
+      "ensemble_prob_home_win": 0.6247055098821974,
       "predicted_winner": "DAL",
       "start_time_utc": "2026-03-11T00:00:00Z"
     },
@@ -654,7 +682,7 @@
       "home_team": "MIN",
       "away_team": "UTA",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.48920385138042083,
+      "ensemble_prob_home_win": 0.48885283328118545,
       "predicted_winner": "UTA",
       "start_time_utc": "2026-03-11T00:00:00Z"
     },
@@ -664,7 +692,7 @@
       "home_team": "WPG",
       "away_team": "ANA",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5362863696086444,
+      "ensemble_prob_home_win": 0.5358643469164278,
       "predicted_winner": "WPG",
       "start_time_utc": "2026-03-11T00:30:00Z"
     },
@@ -674,7 +702,7 @@
       "home_team": "COL",
       "away_team": "EDM",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.7087261260643927,
+      "ensemble_prob_home_win": 0.7087478254424229,
       "predicted_winner": "COL",
       "start_time_utc": "2026-03-11T02:00:00Z"
     },
@@ -684,7 +712,7 @@
       "home_team": "SEA",
       "away_team": "NSH",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5358922857378727,
+      "ensemble_prob_home_win": 0.5355024809569373,
       "predicted_winner": "SEA",
       "start_time_utc": "2026-03-11T02:00:00Z"
     },
@@ -694,7 +722,7 @@
       "home_team": "OTT",
       "away_team": "MTL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5627438634634491,
+      "ensemble_prob_home_win": 0.5624691880278407,
       "predicted_winner": "OTT",
       "start_time_utc": "2026-03-11T23:30:00Z"
     },
@@ -704,7 +732,7 @@
       "home_team": "PHI",
       "away_team": "WSH",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4737539739554958,
+      "ensemble_prob_home_win": 0.4735469125412347,
       "predicted_winner": "WSH",
       "start_time_utc": "2026-03-11T23:30:00Z"
     },
@@ -714,7 +742,7 @@
       "home_team": "BOS",
       "away_team": "SJS",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6397609519410603,
+      "ensemble_prob_home_win": 0.6395092150667825,
       "predicted_winner": "BOS",
       "start_time_utc": "2026-03-12T23:00:00Z"
     },
@@ -724,7 +752,7 @@
       "home_team": "BUF",
       "away_team": "WSH",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6445853943353992,
+      "ensemble_prob_home_win": 0.6443364775662699,
       "predicted_winner": "BUF",
       "start_time_utc": "2026-03-12T23:00:00Z"
     },
@@ -734,7 +762,7 @@
       "home_team": "TOR",
       "away_team": "ANA",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4352253670113615,
+      "ensemble_prob_home_win": 0.43498857878201846,
       "predicted_winner": "ANA",
       "start_time_utc": "2026-03-12T23:00:00Z"
     },
@@ -744,7 +772,7 @@
       "home_team": "TBL",
       "away_team": "DET",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6401847116632757,
+      "ensemble_prob_home_win": 0.640039070313937,
       "predicted_winner": "TBL",
       "start_time_utc": "2026-03-12T23:00:00Z"
     },
@@ -754,7 +782,7 @@
       "home_team": "FLA",
       "away_team": "CBJ",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.49623382995530235,
+      "ensemble_prob_home_win": 0.495935237706547,
       "predicted_winner": "CBJ",
       "start_time_utc": "2026-03-12T23:00:00Z"
     },
@@ -764,7 +792,7 @@
       "home_team": "NJD",
       "away_team": "CGY",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5985993824746875,
+      "ensemble_prob_home_win": 0.5984801054744034,
       "predicted_winner": "NJD",
       "start_time_utc": "2026-03-12T23:00:00Z"
     },
@@ -774,7 +802,7 @@
       "home_team": "CAR",
       "away_team": "STL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6391448330452718,
+      "ensemble_prob_home_win": 0.6389947518357078,
       "predicted_winner": "CAR",
       "start_time_utc": "2026-03-12T23:00:00Z"
     },
@@ -784,7 +812,7 @@
       "home_team": "DAL",
       "away_team": "EDM",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6100579145045546,
+      "ensemble_prob_home_win": 0.6098993499646185,
       "predicted_winner": "DAL",
       "start_time_utc": "2026-03-13T00:00:00Z"
     },
@@ -794,7 +822,7 @@
       "home_team": "MIN",
       "away_team": "PHI",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5522328806485015,
+      "ensemble_prob_home_win": 0.5517793587341098,
       "predicted_winner": "MIN",
       "start_time_utc": "2026-03-13T00:00:00Z"
     },
@@ -804,7 +832,7 @@
       "home_team": "WPG",
       "away_team": "NYR",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6115186020493637,
+      "ensemble_prob_home_win": 0.6112103991498257,
       "predicted_winner": "WPG",
       "start_time_utc": "2026-03-13T00:00:00Z"
     },
@@ -814,7 +842,7 @@
       "home_team": "UTA",
       "away_team": "CHI",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.684217434172744,
+      "ensemble_prob_home_win": 0.6838987866984902,
       "predicted_winner": "UTA",
       "start_time_utc": "2026-03-13T01:00:00Z"
     },
@@ -824,7 +852,7 @@
       "home_team": "VAN",
       "away_team": "NSH",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.34328369010886817,
+      "ensemble_prob_home_win": 0.3431204271064809,
       "predicted_winner": "NSH",
       "start_time_utc": "2026-03-13T02:00:00Z"
     },
@@ -834,7 +862,7 @@
       "home_team": "VGK",
       "away_team": "PIT",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5268182425025763,
+      "ensemble_prob_home_win": 0.526612610173647,
       "predicted_winner": "VGK",
       "start_time_utc": "2026-03-13T02:00:00Z"
     },
@@ -844,7 +872,7 @@
       "home_team": "SEA",
       "away_team": "COL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.38190770610617325,
+      "ensemble_prob_home_win": 0.3812997024541753,
       "predicted_winner": "COL",
       "start_time_utc": "2026-03-13T02:00:00Z"
     },
@@ -854,7 +882,7 @@
       "home_team": "NYI",
       "away_team": "LAK",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5467060697132731,
+      "ensemble_prob_home_win": 0.5464435841171753,
       "predicted_winner": "NYI",
       "start_time_utc": "2026-03-13T23:00:00Z"
     },
@@ -864,7 +892,7 @@
       "home_team": "STL",
       "away_team": "EDM",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4096661530891288,
+      "ensemble_prob_home_win": 0.4094227960704476,
       "predicted_winner": "EDM",
       "start_time_utc": "2026-03-14T00:00:00Z"
     },
@@ -874,7 +902,7 @@
       "home_team": "OTT",
       "away_team": "ANA",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5412098832273045,
+      "ensemble_prob_home_win": 0.5409124828218064,
       "predicted_winner": "OTT",
       "start_time_utc": "2026-03-14T17:00:00Z"
     },
@@ -884,7 +912,7 @@
       "home_team": "WSH",
       "away_team": "BOS",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5251622008899617,
+      "ensemble_prob_home_win": 0.5249077608891447,
       "predicted_winner": "WSH",
       "start_time_utc": "2026-03-14T19:00:00Z"
     },
@@ -894,7 +922,7 @@
       "home_team": "WPG",
       "away_team": "COL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4210237850081588,
+      "ensemble_prob_home_win": 0.4205299171805142,
       "predicted_winner": "COL",
       "start_time_utc": "2026-03-14T20:00:00Z"
     },
@@ -904,7 +932,7 @@
       "home_team": "MIN",
       "away_team": "NYR",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5979808874241328,
+      "ensemble_prob_home_win": 0.5977325572386406,
       "predicted_winner": "MIN",
       "start_time_utc": "2026-03-14T22:00:00Z"
     },
@@ -914,7 +942,7 @@
       "home_team": "BUF",
       "away_team": "TOR",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6620075056635029,
+      "ensemble_prob_home_win": 0.6617643075614457,
       "predicted_winner": "BUF",
       "start_time_utc": "2026-03-14T23:00:00Z"
     },
@@ -924,7 +952,7 @@
       "home_team": "MTL",
       "away_team": "SJS",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5411931437216522,
+      "ensemble_prob_home_win": 0.5409079819987945,
       "predicted_winner": "MTL",
       "start_time_utc": "2026-03-14T23:00:00Z"
     },
@@ -934,7 +962,7 @@
       "home_team": "TBL",
       "away_team": "CAR",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5773122531601769,
+      "ensemble_prob_home_win": 0.5772343887910951,
       "predicted_winner": "TBL",
       "start_time_utc": "2026-03-14T23:00:00Z"
     },
@@ -944,7 +972,7 @@
       "home_team": "NJD",
       "away_team": "LAK",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5682516104324877,
+      "ensemble_prob_home_win": 0.5680027605872151,
       "predicted_winner": "NJD",
       "start_time_utc": "2026-03-14T23:00:00Z"
     },
@@ -954,7 +982,7 @@
       "home_team": "NYI",
       "away_team": "CGY",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6046057908788387,
+      "ensemble_prob_home_win": 0.6046167700441477,
       "predicted_winner": "NYI",
       "start_time_utc": "2026-03-14T23:00:00Z"
     },
@@ -964,7 +992,7 @@
       "home_team": "PHI",
       "away_team": "CBJ",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4386584951095404,
+      "ensemble_prob_home_win": 0.4384075335581244,
       "predicted_winner": "CBJ",
       "start_time_utc": "2026-03-14T23:30:00Z"
     },
@@ -974,7 +1002,7 @@
       "home_team": "DAL",
       "away_team": "DET",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6533848264812501,
+      "ensemble_prob_home_win": 0.6531106013273804,
       "predicted_winner": "DAL",
       "start_time_utc": "2026-03-15T00:00:00Z"
     },
@@ -984,7 +1012,7 @@
       "home_team": "UTA",
       "away_team": "PIT",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6230858491297417,
+      "ensemble_prob_home_win": 0.6227625041620947,
       "predicted_winner": "UTA",
       "start_time_utc": "2026-03-15T01:00:00Z"
     },
@@ -994,7 +1022,7 @@
       "home_team": "VAN",
       "away_team": "SEA",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.3769447684606638,
+      "ensemble_prob_home_win": 0.37668786026965995,
       "predicted_winner": "SEA",
       "start_time_utc": "2026-03-15T02:00:00Z"
     },
@@ -1004,7 +1032,7 @@
       "home_team": "VGK",
       "away_team": "CHI",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6257620359560461,
+      "ensemble_prob_home_win": 0.6255322229477961,
       "predicted_winner": "VGK",
       "start_time_utc": "2026-03-15T02:00:00Z"
     },
@@ -1014,7 +1042,7 @@
       "home_team": "WPG",
       "away_team": "STL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5812605734906856,
+      "ensemble_prob_home_win": 0.5810040936405703,
       "predicted_winner": "WPG",
       "start_time_utc": "2026-03-15T19:00:00Z"
     },
@@ -1024,7 +1052,7 @@
       "home_team": "OTT",
       "away_team": "SJS",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6073152777562254,
+      "ensemble_prob_home_win": 0.6070664809524433,
       "predicted_winner": "OTT",
       "start_time_utc": "2026-03-15T21:00:00Z"
     },
@@ -1034,7 +1062,7 @@
       "home_team": "MTL",
       "away_team": "ANA",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.48900197800944933,
+      "ensemble_prob_home_win": 0.4886761086852809,
       "predicted_winner": "ANA",
       "start_time_utc": "2026-03-15T23:00:00Z"
     },
@@ -1044,7 +1072,7 @@
       "home_team": "MIN",
       "away_team": "TOR",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.596276562142364,
+      "ensemble_prob_home_win": 0.5960694743398602,
       "predicted_winner": "MIN",
       "start_time_utc": "2026-03-15T23:30:00Z"
     },
@@ -1054,7 +1082,7 @@
       "home_team": "EDM",
       "away_team": "NSH",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5597698166301877,
+      "ensemble_prob_home_win": 0.5597550114402292,
       "predicted_winner": "EDM",
       "start_time_utc": "2026-03-16T00:00:00Z"
     },
@@ -1064,7 +1092,7 @@
       "home_team": "SEA",
       "away_team": "FLA",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5189770473850572,
+      "ensemble_prob_home_win": 0.5185323708335543,
       "predicted_winner": "SEA",
       "start_time_utc": "2026-03-16T00:00:00Z"
     },
@@ -1074,7 +1102,7 @@
       "home_team": "DET",
       "away_team": "CGY",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5342294184362819,
+      "ensemble_prob_home_win": 0.5340596929595196,
       "predicted_winner": "DET",
       "start_time_utc": "2026-03-16T23:00:00Z"
     },
@@ -1084,7 +1112,7 @@
       "home_team": "NJD",
       "away_team": "BOS",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.46330275276086885,
+      "ensemble_prob_home_win": 0.4629326795306513,
       "predicted_winner": "BOS",
       "start_time_utc": "2026-03-16T23:00:00Z"
     },
@@ -1094,7 +1122,7 @@
       "home_team": "NYR",
       "away_team": "LAK",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.40646866129896747,
+      "ensemble_prob_home_win": 0.40609746566894345,
       "predicted_winner": "LAK",
       "start_time_utc": "2026-03-16T23:00:00Z"
     },
@@ -1104,7 +1132,7 @@
       "home_team": "DAL",
       "away_team": "UTA",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5758888971989854,
+      "ensemble_prob_home_win": 0.5755658809192635,
       "predicted_winner": "DAL",
       "start_time_utc": "2026-03-17T00:00:00Z"
     },
@@ -1114,7 +1142,7 @@
       "home_team": "COL",
       "away_team": "PIT",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.7226902494463305,
+      "ensemble_prob_home_win": 0.722748635075327,
       "predicted_winner": "COL",
       "start_time_utc": "2026-03-17T01:30:00Z"
     },
@@ -1124,7 +1152,7 @@
       "home_team": "TOR",
       "away_team": "NYI",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4795007895147342,
+      "ensemble_prob_home_win": 0.47922295418570926,
       "predicted_winner": "NYI",
       "start_time_utc": "2026-03-17T23:00:00Z"
     },
@@ -1134,7 +1162,7 @@
       "home_team": "MTL",
       "away_team": "BOS",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5150956732133349,
+      "ensemble_prob_home_win": 0.5147811720691183,
       "predicted_winner": "MTL",
       "start_time_utc": "2026-03-17T23:00:00Z"
     },
@@ -1144,7 +1172,7 @@
       "home_team": "CBJ",
       "away_team": "CAR",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4848598725058978,
+      "ensemble_prob_home_win": 0.4845459044980841,
       "predicted_winner": "CAR",
       "start_time_utc": "2026-03-17T23:00:00Z"
     },
@@ -1154,7 +1182,7 @@
       "home_team": "WPG",
       "away_team": "NSH",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5697182246234956,
+      "ensemble_prob_home_win": 0.5694617743672836,
       "predicted_winner": "WPG",
       "start_time_utc": "2026-03-18T00:00:00Z"
     },
@@ -1164,7 +1192,7 @@
       "home_team": "CHI",
       "away_team": "MIN",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.34493568652529627,
+      "ensemble_prob_home_win": 0.34459208206021097,
       "predicted_winner": "MIN",
       "start_time_utc": "2026-03-17T23:30:00Z"
     },
@@ -1174,7 +1202,7 @@
       "home_team": "EDM",
       "away_team": "SJS",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.555836553729623,
+      "ensemble_prob_home_win": 0.5556747540906974,
       "predicted_winner": "EDM",
       "start_time_utc": "2026-03-18T01:00:00Z"
     },
@@ -1184,7 +1212,7 @@
       "home_team": "VAN",
       "away_team": "FLA",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.3321482939422643,
+      "ensemble_prob_home_win": 0.3318845912728116,
       "predicted_winner": "FLA",
       "start_time_utc": "2026-03-18T02:00:00Z"
     },
@@ -1194,7 +1222,7 @@
       "home_team": "VGK",
       "away_team": "BUF",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4771801081292533,
+      "ensemble_prob_home_win": 0.4768043558785351,
       "predicted_winner": "BUF",
       "start_time_utc": "2026-03-18T02:00:00Z"
     },
@@ -1204,7 +1232,7 @@
       "home_team": "SEA",
       "away_team": "TBL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4170811161574661,
+      "ensemble_prob_home_win": 0.41646556783824806,
       "predicted_winner": "TBL",
       "start_time_utc": "2026-03-18T02:00:00Z"
     },
@@ -1214,7 +1242,7 @@
       "home_team": "NYR",
       "away_team": "NJD",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.36924188672511016,
+      "ensemble_prob_home_win": 0.36910253857495956,
       "predicted_winner": "NJD",
       "start_time_utc": "2026-03-18T23:00:00Z"
     },
@@ -1224,7 +1252,7 @@
       "home_team": "CAR",
       "away_team": "PIT",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.608797674912937,
+      "ensemble_prob_home_win": 0.6084929400341035,
       "predicted_winner": "CAR",
       "start_time_utc": "2026-03-18T23:00:00Z"
     },
@@ -1234,7 +1262,7 @@
       "home_team": "WSH",
       "away_team": "OTT",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5115367787076299,
+      "ensemble_prob_home_win": 0.5113125137337174,
       "predicted_winner": "WSH",
       "start_time_utc": "2026-03-18T23:30:00Z"
     },
@@ -1244,7 +1272,7 @@
       "home_team": "COL",
       "away_team": "DAL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6678983925856924,
+      "ensemble_prob_home_win": 0.6677792139057657,
       "predicted_winner": "COL",
       "start_time_utc": "2026-03-19T01:30:00Z"
     },
@@ -1254,7 +1282,7 @@
       "home_team": "CGY",
       "away_team": "STL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.45770293318172106,
+      "ensemble_prob_home_win": 0.45731883202426893,
       "predicted_winner": "STL",
       "start_time_utc": "2026-03-19T01:30:00Z"
     },
@@ -1264,7 +1292,7 @@
       "home_team": "ANA",
       "away_team": "PHI",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6203225069967683,
+      "ensemble_prob_home_win": 0.6197978253706021,
       "predicted_winner": "ANA",
       "start_time_utc": "2026-03-19T02:00:00Z"
     },
@@ -1274,7 +1302,7 @@
       "home_team": "BOS",
       "away_team": "WPG",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6188431223376293,
+      "ensemble_prob_home_win": 0.618528450458231,
       "predicted_winner": "BOS",
       "start_time_utc": "2026-03-19T23:00:00Z"
     },
@@ -1284,7 +1312,7 @@
       "home_team": "OTT",
       "away_team": "NYI",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5800126100484282,
+      "ensemble_prob_home_win": 0.5796267796597512,
       "predicted_winner": "OTT",
       "start_time_utc": "2026-03-19T23:00:00Z"
     },
@@ -1294,7 +1322,7 @@
       "home_team": "DET",
       "away_team": "MTL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4471970718638346,
+      "ensemble_prob_home_win": 0.44688206028652633,
       "predicted_winner": "MTL",
       "start_time_utc": "2026-03-19T23:00:00Z"
     },
@@ -1304,7 +1332,7 @@
       "home_team": "CBJ",
       "away_team": "NYR",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6245222078221272,
+      "ensemble_prob_home_win": 0.6241447723130025,
       "predicted_winner": "CBJ",
       "start_time_utc": "2026-03-19T23:00:00Z"
     },
@@ -1314,7 +1342,7 @@
       "home_team": "NSH",
       "away_team": "SEA",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5316681714517846,
+      "ensemble_prob_home_win": 0.5313365247678071,
       "predicted_winner": "NSH",
       "start_time_utc": "2026-03-20T00:00:00Z"
     },
@@ -1324,7 +1352,7 @@
       "home_team": "MIN",
       "away_team": "CHI",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6189714888089526,
+      "ensemble_prob_home_win": 0.6185360546420189,
       "predicted_winner": "MIN",
       "start_time_utc": "2026-03-19T23:30:00Z"
     },
@@ -1334,7 +1362,7 @@
       "home_team": "EDM",
       "away_team": "FLA",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5467728111880685,
+      "ensemble_prob_home_win": 0.546676109944048,
       "predicted_winner": "EDM",
       "start_time_utc": "2026-03-20T01:00:00Z"
     },
@@ -1344,7 +1372,7 @@
       "home_team": "VAN",
       "away_team": "TBL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.2852481428777294,
+      "ensemble_prob_home_win": 0.28495639262731115,
       "predicted_winner": "TBL",
       "start_time_utc": "2026-03-20T02:00:00Z"
     },
@@ -1354,7 +1382,7 @@
       "home_team": "VGK",
       "away_team": "UTA",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.484958429215506,
+      "ensemble_prob_home_win": 0.48438855283833465,
       "predicted_winner": "UTA",
       "start_time_utc": "2026-03-20T02:00:00Z"
     },
@@ -1364,7 +1392,7 @@
       "home_team": "SJS",
       "away_team": "BUF",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.3989427953745426,
+      "ensemble_prob_home_win": 0.3985205525943425,
       "predicted_winner": "BUF",
       "start_time_utc": "2026-03-20T02:00:00Z"
     },
@@ -1374,7 +1402,7 @@
       "home_team": "LAK",
       "away_team": "PHI",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.42588188065778243,
+      "ensemble_prob_home_win": 0.4253006179285098,
       "predicted_winner": "PHI",
       "start_time_utc": "2026-03-20T02:30:00Z"
     },
@@ -1384,7 +1412,7 @@
       "home_team": "TOR",
       "away_team": "CAR",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.40636423006109623,
+      "ensemble_prob_home_win": 0.406146771496186,
       "predicted_winner": "CAR",
       "start_time_utc": "2026-03-20T23:00:00Z"
     },
@@ -1394,7 +1422,7 @@
       "home_team": "WSH",
       "away_team": "NJD",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5636855265050937,
+      "ensemble_prob_home_win": 0.5634589980282834,
       "predicted_winner": "WSH",
       "start_time_utc": "2026-03-20T23:00:00Z"
     },
@@ -1404,7 +1432,7 @@
       "home_team": "CHI",
       "away_team": "COL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.295039785244349,
+      "ensemble_prob_home_win": 0.294847379605627,
       "predicted_winner": "COL",
       "start_time_utc": "2026-03-21T00:30:00Z"
     },
@@ -1414,7 +1442,7 @@
       "home_team": "CGY",
       "away_team": "FLA",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4429870307367065,
+      "ensemble_prob_home_win": 0.4426188148025987,
       "predicted_winner": "FLA",
       "start_time_utc": "2026-03-21T01:00:00Z"
     },
@@ -1424,7 +1452,7 @@
       "home_team": "UTA",
       "away_team": "ANA",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.600085992517581,
+      "ensemble_prob_home_win": 0.5997025393330955,
       "predicted_winner": "UTA",
       "start_time_utc": "2026-03-21T02:00:00Z"
     },
@@ -1434,7 +1462,7 @@
       "home_team": "PIT",
       "away_team": "WPG",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5246041341901992,
+      "ensemble_prob_home_win": 0.5242918091881064,
       "predicted_winner": "PIT",
       "start_time_utc": "2026-03-21T17:00:00Z"
     },
@@ -1444,7 +1472,7 @@
       "home_team": "NSH",
       "away_team": "VGK",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.48655425572110833,
+      "ensemble_prob_home_win": 0.48607623851432613,
       "predicted_winner": "VGK",
       "start_time_utc": "2026-03-21T18:00:00Z"
     },
@@ -1454,7 +1482,7 @@
       "home_team": "MIN",
       "away_team": "DAL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4682430981817314,
+      "ensemble_prob_home_win": 0.46787215268075866,
       "predicted_winner": "DAL",
       "start_time_utc": "2026-03-21T20:00:00Z"
     },
@@ -1464,7 +1492,7 @@
       "home_team": "LAK",
       "away_team": "BUF",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.37404417849332783,
+      "ensemble_prob_home_win": 0.37369627676207295,
       "predicted_winner": "BUF",
       "start_time_utc": "2026-03-21T20:00:00Z"
     },
@@ -1474,7 +1502,7 @@
       "home_team": "SJS",
       "away_team": "PHI",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4681889922081016,
+      "ensemble_prob_home_win": 0.4675393929203763,
       "predicted_winner": "PHI",
       "start_time_utc": "2026-03-21T20:00:00Z"
     },
@@ -1484,7 +1512,7 @@
       "home_team": "CBJ",
       "away_team": "SEA",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6164416511256234,
+      "ensemble_prob_home_win": 0.6160822754005834,
       "predicted_winner": "CBJ",
       "start_time_utc": "2026-03-21T21:00:00Z"
     },
@@ -1494,7 +1522,7 @@
       "home_team": "MTL",
       "away_team": "NYI",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.552124152443717,
+      "ensemble_prob_home_win": 0.5518157877746176,
       "predicted_winner": "MTL",
       "start_time_utc": "2026-03-21T23:00:00Z"
     },
@@ -1504,7 +1532,7 @@
       "home_team": "OTT",
       "away_team": "TOR",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6427960575923513,
+      "ensemble_prob_home_win": 0.6424530086869453,
       "predicted_winner": "OTT",
       "start_time_utc": "2026-03-21T23:00:00Z"
     },
@@ -1514,7 +1542,7 @@
       "home_team": "VAN",
       "away_team": "STL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.37637551916293605,
+      "ensemble_prob_home_win": 0.3760334878690973,
       "predicted_winner": "STL",
       "start_time_utc": "2026-03-21T23:00:00Z"
     },
@@ -1524,7 +1552,7 @@
       "home_team": "DET",
       "away_team": "BOS",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4527937715448517,
+      "ensemble_prob_home_win": 0.4525273662213476,
       "predicted_winner": "BOS",
       "start_time_utc": "2026-03-22T00:00:00Z"
     },
@@ -1534,7 +1562,7 @@
       "home_team": "EDM",
       "away_team": "TBL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4725724495565522,
+      "ensemble_prob_home_win": 0.47223509178350276,
       "predicted_winner": "TBL",
       "start_time_utc": "2026-03-22T02:00:00Z"
     },
@@ -1544,7 +1572,7 @@
       "home_team": "NYR",
       "away_team": "WPG",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.36634959774969184,
+      "ensemble_prob_home_win": 0.36602063704345944,
       "predicted_winner": "WPG",
       "start_time_utc": "2026-03-22T16:00:00Z"
     },
@@ -1554,7 +1582,7 @@
       "home_team": "WSH",
       "away_team": "COL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4339120401207746,
+      "ensemble_prob_home_win": 0.43353019909269297,
       "predicted_winner": "COL",
       "start_time_utc": "2026-03-22T16:30:00Z"
     },
@@ -1564,7 +1592,7 @@
       "home_team": "PIT",
       "away_team": "CAR",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.46735012060205605,
+      "ensemble_prob_home_win": 0.4669819710269152,
       "predicted_winner": "CAR",
       "start_time_utc": "2026-03-22T19:00:00Z"
     },
@@ -1574,7 +1602,7 @@
       "home_team": "CHI",
       "away_team": "NSH",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.4296734610473777,
+      "ensemble_prob_home_win": 0.4295180522197122,
       "predicted_winner": "NSH",
       "start_time_utc": "2026-03-22T19:00:00Z"
     },
@@ -1584,7 +1612,7 @@
       "home_team": "NYI",
       "away_team": "CBJ",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.47506115408728145,
+      "ensemble_prob_home_win": 0.4746275319599693,
       "predicted_winner": "CBJ",
       "start_time_utc": "2026-03-22T23:00:00Z"
     },
@@ -1594,7 +1622,7 @@
       "home_team": "DAL",
       "away_team": "VGK",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6033492387859019,
+      "ensemble_prob_home_win": 0.602907447387659,
       "predicted_winner": "DAL",
       "start_time_utc": "2026-03-22T23:00:00Z"
     },
@@ -1604,7 +1632,7 @@
       "home_team": "CGY",
       "away_team": "TBL",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.3764954055887547,
+      "ensemble_prob_home_win": 0.376077560490571,
       "predicted_winner": "TBL",
       "start_time_utc": "2026-03-23T00:00:00Z"
     },
@@ -1614,7 +1642,7 @@
       "home_team": "ANA",
       "away_team": "BUF",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.5565664142403365,
+      "ensemble_prob_home_win": 0.556265909992442,
       "predicted_winner": "ANA",
       "start_time_utc": "2026-03-23T00:00:00Z"
     },
@@ -1624,7 +1652,7 @@
       "home_team": "UTA",
       "away_team": "LAK",
       "as_of_utc": "2026-03-08T12:55:33+00:00",
-      "ensemble_prob_home_win": 0.6837838736929334,
+      "ensemble_prob_home_win": 0.6834538345951159,
       "predicted_winner": "UTA",
       "start_time_utc": "2026-03-23T01:00:00Z"
     }

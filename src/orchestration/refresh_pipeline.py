@@ -100,15 +100,6 @@ def build_hard_refresh_steps(
     for league, config_path in LEAGUE_CONFIGS:
         steps.append(
             OrchestrationStep(
-                name=f"{league}:features",
-                command=_cli_command("features", "--config", config_path),
-                cwd=resolved_root,
-            )
-        )
-
-    for league, config_path in LEAGUE_CONFIGS:
-        steps.append(
-            OrchestrationStep(
                 name=f"{league}:train",
                 command=_cli_command(
                     "train",

@@ -3,7 +3,9 @@ from src.orchestration.refresh_pipeline import ROOT_DIR, build_hard_refresh_step
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run the deterministic full hard-refresh pipeline across NHL and NBA.")
+    parser = argparse.ArgumentParser(
+        description="Run the deterministic NHL/NBA hard-refresh pipeline without rebuilding features."
+    )
     parser.add_argument(
         "--models",
         default=None,

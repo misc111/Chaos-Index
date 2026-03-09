@@ -50,7 +50,7 @@
 - The dedicated `fetch-odds` step is mandatory for data-only refreshes so the ingest cycle ends with the freshest odds snapshot for each league.
 
 ## Hard Refresh Contract
-- Treat the exact phrase `do a hard refresh` as a repository-level command alias for a full deterministic rebuild-and-publish cycle across both supported leagues.
+- Treat the exact phrase `do a hard refresh` as a repository-level command alias for a full deterministic refresh/train/publish cycle across both supported leagues without rebuilding features.
 - The canonical repository trigger for the executable refresh pipeline is `make hard_refresh`. After it succeeds, continue with the required commit/push/workflow-watch closeout steps below.
 - A hard refresh always covers both leagues, even if the user names only one team or one league in the same message.
 - Run the hard refresh steps in this exact order, sequentially, with no league parallelism and no step reordering:
@@ -60,8 +60,6 @@
   - `make fetch CONFIG=configs/nba.yaml`
   - `python3 -m src.cli fetch-odds --config configs/nhl.yaml`
   - `python3 -m src.cli fetch-odds --config configs/nba.yaml`
-  - `make features CONFIG=configs/nhl.yaml`
-  - `make features CONFIG=configs/nba.yaml`
   - `make train CONFIG=configs/nhl.yaml`
   - `make train CONFIG=configs/nba.yaml`
   - `cd web && npm run generate:staging-data`
@@ -69,7 +67,8 @@
   - commit all resulting tracked changes
   - `git push origin main`
   - watch the `Publish Sanitized Staging Site` GitHub Actions workflow for the pushed `HEAD`
-- The dedicated `fetch-odds` step is mandatory for hard refreshes. `fetch` already persists an odds snapshot, but hard refreshes must end data collection with an explicit final odds pull for each league before feature generation and training.
+- The dedicated `fetch-odds` step is mandatory for hard refreshes. `fetch` already persists an odds snapshot, but hard refreshes must end data collection with an explicit final odds pull for each league before training.
+- Hard refreshes reuse the current processed feature snapshot for each league. They do not run `make features`.
 - Hard refreshes must use the repository defaults for model coverage. Do not narrow `MODELS=` unless the user explicitly asks for a partial rebuild.
 - Hard refreshes must be fail-fast and deterministic in behavior:
   - do not skip a league because its files look unchanged

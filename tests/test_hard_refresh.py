@@ -29,16 +29,15 @@ def test_build_hard_refresh_steps_default_sequence():
         "nba:fetch",
         "nhl:fetch-odds",
         "nba:fetch-odds",
-        "nhl:features",
-        "nba:features",
         "nhl:train",
         "nba:train",
         "staging:generate-data",
         "staging:build-pages",
     ]
     assert steps[0].command == (sys.executable, "-m", "src.cli", "init-db", "--config", "configs/nhl.yaml")
-    assert steps[8].command == (sys.executable, "-m", "src.cli", "train", "--config", "configs/nhl.yaml")
-    assert steps[10].cwd == ROOT_DIR / "web"
+    assert steps[6].command == (sys.executable, "-m", "src.cli", "train", "--config", "configs/nhl.yaml")
+    assert steps[8].cwd == ROOT_DIR / "web"
+    assert all(not step.name.endswith(":features") for step in steps)
 
 
 def test_build_hard_refresh_steps_models_and_approve_flag():
