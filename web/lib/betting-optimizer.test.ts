@@ -64,9 +64,10 @@ test("resolveBetStrategyConfigs derives objective-based profiles from replay his
     strategyConfigs.riskAdjusted.metrics!.expected_log_growth_per_bet >=
       strategyConfigs.capitalPreservation.metrics!.expected_log_growth_per_bet
   );
-  assert.ok(
-    strategyConfigs.riskAdjusted.maxDailyBankrollPercent > strategyConfigs.capitalPreservation.maxDailyBankrollPercent
-  );
+  assert.equal(strategyConfigs.aggressive.maxDailyBankrollPercent, null);
+  assert.equal(strategyConfigs.aggressive.description.includes("no nightly budget cap"), true);
+  assert.ok(strategyConfigs.riskAdjusted.maxDailyBankrollPercent !== null);
+  assert.ok(strategyConfigs.capitalPreservation.maxDailyBankrollPercent !== null);
 });
 
 test("resolveBetStrategyConfigs falls back to static defaults when replay coverage is thin", () => {
@@ -76,6 +77,7 @@ test("resolveBetStrategyConfigs falls back to static defaults when replay covera
   assert.equal(strategyConfigs.aggressive.optimization_source, "static_fallback");
   assert.equal(strategyConfigs.capitalPreservation.optimization_source, "static_fallback");
   assert.equal(strategyConfigs.riskAdjusted.metrics, null);
+  assert.equal(strategyConfigs.aggressive.maxDailyBankrollPercent, null);
   assert.equal(optimizationSummary.candidate_count, 0);
   assert.equal(optimizationSummary.frontier_point_count, 0);
   assert.match(optimizationSummary.method, /Static defaults active/);

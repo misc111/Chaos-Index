@@ -99,7 +99,7 @@ test("buildBetSizingExplainerModel tracks requested versus funded stake through 
     null
   );
 
-  assert.equal(model.totalBudget, (getBetStrategyConfig("riskAdjusted").maxDailyBankrollPercent / 100) * 10_000);
+  assert.equal(model.totalBudget, ((getBetStrategyConfig("riskAdjusted").maxDailyBankrollPercent ?? 0) / 100) * 10_000);
   assert.equal(model.allocatedBudget, 375);
   assert.equal(model.remainingBudget, 25);
   assert.equal(model.fundedBetCount, 3);
@@ -107,4 +107,52 @@ test("buildBetSizingExplainerModel tracks requested versus funded stake through 
   assert.equal(model.allocationSteps[0]?.budgetBefore, 400);
   assert.equal(model.allocationSteps[2]?.budgetAfter, 25);
   assert.equal(model.games.every((game) => game.requestedStake >= game.finalStake), true);
+});
+
+test("buildBetSizingExplainerModel handles policies without a daily risk cap", () => {
+  const noCapPolicy: BetSizingPolicyPreview = {
+    ...POLICY,
+    key: "aggressive",
+    label: "Aggressive",
+    configSignature: "aggressive-no-cap",
+    maxDailyBankrollPercent: null,
+  };
+
+  const previews = buildBetSizingGamePreviews(
+    [
+      {
+        game_id: 1,
+        home_team: "CLE",
+        away_team: "PHI",
+        home_win_probability: 0.7182910267877917,
+        home_moneyline: -542,
+        away_moneyline: 460,
+      },
+      {
+        game_id: 2,
+        home_team: "BKN",
+        away_team: "MEM",
+        home_win_probability: 0.36985666583178967,
+        home_moneyline: 105,
+        away_moneyline: -113,
+      },
+    ],
+    "aggressive",
+    noCapPolicy
+  );
+
+  const model = buildBetSizingExplainerModel(
+    previews,
+    noCapPolicy,
+    {
+      label: "Using today to explain the sizing flow.",
+      rows: [],
+      source: "upcoming",
+    },
+    null
+  );
+
+  assert.equal(model.hasDailyRiskLimit, false);
+  assert.equal(model.remainingBudget, 0);
+  assert.equal(model.allocationSteps.every((step) => step.budgetBefore === null && step.budgetAfter === null), true);
 });

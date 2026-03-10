@@ -6,6 +6,7 @@ import {
 import type { ModelWinProbabilities } from "@/lib/betting-model";
 import type { LeagueCode } from "@/lib/league";
 import {
+  applyBetStrategyExperimentOverrides,
   BET_STRATEGIES,
   getBetStrategyConfig,
   toBetStrategyRuleConfig,
@@ -155,7 +156,9 @@ function strategyConfigSignature(config: BetStrategyRuleConfig): string {
     roundNumber(config.minExpectedValue, 3).toFixed(3),
     roundNumber(config.stakeScale, 3).toFixed(3),
     roundNumber(config.maxBetBankrollPercent, 3).toFixed(3),
-    roundNumber(config.maxDailyBankrollPercent, 3).toFixed(3),
+    typeof config.maxDailyBankrollPercent === "number" && Number.isFinite(config.maxDailyBankrollPercent)
+      ? roundNumber(config.maxDailyBankrollPercent, 3).toFixed(3)
+      : "none",
   ].join("|");
 }
 
@@ -351,11 +354,15 @@ function toResolvedConfig(
 ): ResolvedBetStrategyConfig {
   const fallback = getBetStrategyConfig(strategy);
   const resolvedRules = candidate?.config || toBetStrategyRuleConfig(fallback);
-
-  return {
+  const baseConfig = {
     ...fallback,
     ...resolvedRules,
-    config_signature: candidate?.configSignature || strategyConfigSignature(resolvedRules),
+  };
+  const finalConfig = applyBetStrategyExperimentOverrides(strategy, baseConfig);
+
+  return {
+    ...finalConfig,
+    config_signature: strategyConfigSignature(toBetStrategyRuleConfig(finalConfig)),
     optimization_objective: optimizationObjective,
     optimization_source: optimizationSource,
     metrics: candidate?.metrics || null,

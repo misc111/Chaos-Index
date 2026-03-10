@@ -17,7 +17,7 @@ export type BetSizingPolicyPreview = {
   minExpectedValue: number;
   stakeScale: number;
   maxBetBankrollPercent: number;
-  maxDailyBankrollPercent: number;
+  maxDailyBankrollPercent: number | null;
   optimizationSource: "historical_frontier" | "historical_downside" | "static_fallback" | "frontier_preview";
   metrics: BetStrategyPerformanceSnapshot | null;
   frontierPoint: FrontierPointSummary | null;
@@ -71,7 +71,10 @@ function buildPolicyFromFrontierPoint(point: FrontierPointSummary): BetSizingPol
   return {
     key: point.config_signature,
     label: point.allowUnderdogs ? "Replay Preview: Dogs Allowed" : "Replay Preview: Favorites Only",
-    shortLabel: `${point.maxBetBankrollPercent.toFixed(2)}% max bet · ${point.maxDailyBankrollPercent.toFixed(1)}% nightly`,
+    shortLabel:
+      typeof point.maxDailyBankrollPercent === "number"
+        ? `${point.maxBetBankrollPercent.toFixed(2)}% max bet · ${point.maxDailyBankrollPercent.toFixed(1)}% nightly`
+        : `${point.maxBetBankrollPercent.toFixed(2)}% max bet · no daily cap`,
     description: "Preview a different replay-tested policy without changing the saved defaults.",
     matchingStrategies: [],
     configSignature: point.config_signature,

@@ -6,6 +6,7 @@ import styles from "./BetSizingStakeFlow.module.css";
 type Props = {
   game: BetSizingExplainerGame;
   policy: BetSizingPolicyPreview;
+  hasDailyRiskLimit: boolean;
   totalBudget: number;
 };
 
@@ -14,7 +15,7 @@ function formatBankrollPercent(value: number | null | undefined): string {
   return `${(value * 100).toFixed(2)}%`;
 }
 
-export default function BetSizingStakeFlow({ game, policy, totalBudget }: Props) {
+export default function BetSizingStakeFlow({ game, policy, hasDailyRiskLimit, totalBudget }: Props) {
   if (game.requestedStake <= 0 && game.finalStake <= 0) {
     return (
       <article className={`card ${styles.card}`}>
@@ -46,14 +47,18 @@ export default function BetSizingStakeFlow({ game, policy, totalBudget }: Props)
     {
       label: "Quoted stake",
       value: formatUsd(game.preview.trace.quotedStake),
-      note: "This is the per-game quote before the daily budget decides how much is still available.",
+      note: hasDailyRiskLimit
+        ? "This is the per-game quote before the daily budget decides how much is still available."
+        : "This is the per-game quote after the strategy scale and per-bet cap, with no daily cap applied.",
     },
     {
       label: "Final ticket",
       value: formatUsd(game.finalStake),
       note: game.wasTrimmedByBudget
         ? `The daily budget had only ${formatUsd(game.finalStake)} left for this game.`
-        : `This is ${Math.round((game.finalStake / totalBudget) * 100)}% of today's maximum budget.`,
+        : hasDailyRiskLimit
+          ? `This is ${Math.round((game.finalStake / totalBudget) * 100)}% of today's maximum budget.`
+          : "No daily risk cap applies under this profile.",
     },
   ];
 

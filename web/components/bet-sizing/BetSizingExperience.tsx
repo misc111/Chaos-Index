@@ -260,8 +260,10 @@ export default function BetSizingExperience() {
           <>
             <div className={styles.heroMetrics}>
               <div className={styles.heroMetric}>
-                <span className={styles.heroMetricLabel}>Daily budget</span>
-                <strong className={styles.heroMetricValue}>{formatUsd(explainer.totalBudget)}</strong>
+                <span className={styles.heroMetricLabel}>{explainer.hasDailyRiskLimit ? "Daily budget" : "Daily cap"}</span>
+                <strong className={styles.heroMetricValue}>
+                  {explainer.hasDailyRiskLimit ? formatUsd(explainer.totalBudget) : "None"}
+                </strong>
               </div>
               <div className={styles.heroMetric}>
                 <span className={styles.heroMetricLabel}>Max per game</span>
@@ -273,7 +275,9 @@ export default function BetSizingExperience() {
               </div>
               <div className={styles.heroMetric}>
                 <span className={styles.heroMetricLabel}>Budget left</span>
-                <strong className={styles.heroMetricValue}>{formatUsd(explainer.remainingBudget)}</strong>
+                <strong className={styles.heroMetricValue}>
+                  {explainer.hasDailyRiskLimit ? formatUsd(explainer.remainingBudget) : "No cap"}
+                </strong>
               </div>
             </div>
 
@@ -310,8 +314,16 @@ export default function BetSizingExperience() {
           </article>
           <article className={styles.stageCard}>
             <p className={styles.stageStep}>3. Allocate</p>
-            <p className={styles.stageTitle}>Spend today&apos;s budget on the best asks first</p>
-            <p className={styles.stageBody}>Higher-value bets receive budget first until the day&apos;s max risk is reached.</p>
+            <p className={styles.stageTitle}>
+              {(explainer?.hasDailyRiskLimit ?? true)
+                ? "Spend today&apos;s budget on the best asks first"
+                : "Fund every surviving ask"}
+            </p>
+            <p className={styles.stageBody}>
+              {(explainer?.hasDailyRiskLimit ?? true)
+                ? "Higher-value bets receive budget first until the day&apos;s max risk is reached."
+                : "Without a daily cap, the slate only applies the value screens and the per-game cap."}
+            </p>
           </article>
         </div>
 
@@ -364,7 +376,9 @@ export default function BetSizingExperience() {
                   <div className={styles.ruleTile}>
                     <span className={styles.ruleLabel}>Daily budget</span>
                     <strong className={styles.ruleValue}>
-                      {formatUsd((selectedPolicy.maxDailyBankrollPercent / 100) * REFERENCE_BANKROLL_DOLLARS)}
+                      {typeof selectedPolicy.maxDailyBankrollPercent === "number"
+                        ? formatUsd((selectedPolicy.maxDailyBankrollPercent / 100) * REFERENCE_BANKROLL_DOLLARS)
+                        : "No cap"}
                     </strong>
                   </div>
                   <div className={styles.ruleTile}>
@@ -425,6 +439,7 @@ export default function BetSizingExperience() {
 
           <BetSizingBudgetFlow
             league={league}
+            hasDailyRiskLimit={explainer.hasDailyRiskLimit}
             totalBudget={explainer.totalBudget}
             allocatedBudget={explainer.allocatedBudget}
             remainingBudget={explainer.remainingBudget}
@@ -540,7 +555,12 @@ export default function BetSizingExperience() {
                   edge={selectedGame.preview.trace.candidateEdge}
                 />
 
-                <BetSizingStakeFlow game={selectedGame} policy={selectedPolicy} totalBudget={explainer.totalBudget} />
+                <BetSizingStakeFlow
+                  game={selectedGame}
+                  policy={selectedPolicy}
+                  hasDailyRiskLimit={explainer.hasDailyRiskLimit}
+                  totalBudget={explainer.totalBudget}
+                />
 
                 <section className={`card ${styles.storyCard}`}>
                   <div>
@@ -627,7 +647,11 @@ export default function BetSizingExperience() {
                     <p className="small">Edge = adjusted probability - market fair probability.</p>
                     <p className="small">Expected value = adjusted probability × decimal odds - 1.</p>
                     <p className="small">Base stake fraction = (adjusted probability × decimal odds - 1) / (decimal odds - 1).</p>
-                    <p className="small">Final stake = scaled base amount, capped per game, then capped again by the daily budget.</p>
+                    <p className="small">
+                      {explainer.hasDailyRiskLimit
+                        ? "Final stake = scaled base amount, capped per game, then capped again by the daily budget."
+                        : "Final stake = scaled base amount, then capped per game because this profile has no daily budget limit."}
+                    </p>
                   </div>
                 </article>
               </div>

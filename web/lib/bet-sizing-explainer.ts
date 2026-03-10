@@ -15,8 +15,8 @@ export type BetSizingAllocationStep = {
   team: string | null;
   requestedStake: number;
   finalStake: number;
-  budgetBefore: number;
-  budgetAfter: number;
+  budgetBefore: number | null;
+  budgetAfter: number | null;
   allocationRank: number;
   wasTrimmedByBudget: boolean;
   shareOfBudget: number;
@@ -44,6 +44,7 @@ export type BetSizingExplainerGame = {
 };
 
 export type BetSizingExplainerModel = {
+  hasDailyRiskLimit: boolean;
   headline: string;
   dek: string;
   totalBudget: number;
@@ -105,6 +106,7 @@ function requestedStakeForPreview(preview: BetSizingGamePreview): number {
 function laymanSummaryForGame(
   preview: BetSizingGamePreview,
   requestedStake: number,
+  hasDailyRiskLimit: boolean,
   totalBudget: number,
   budgetBefore: number | null,
   budgetAfter: number | null,
@@ -118,6 +120,10 @@ function laymanSummaryForGame(
   }
 
   if (trace.finalStake > 0) {
+    if (!hasDailyRiskLimit) {
+      const rankText = allocationRank ? ` It ranked #${allocationRank} among today's funded bets.` : "";
+      return `${team} receives ${formatUsd(trace.finalStake)} after clearing the value screens and the per-bet cap.${rankText}`;
+    }
     const share = totalBudget > 0 ? Math.round((trace.finalStake / totalBudget) * 100) : 0;
     const rankText = allocationRank ? ` It ranked #${allocationRank} among today's funded bets.` : "";
     const afterText =
@@ -160,7 +166,11 @@ export function buildBetSizingExplainerModel(
   slate: BetSizingSlate,
   selectedGameId: number | null
 ): BetSizingExplainerModel {
-  const totalBudget = (policy.maxDailyBankrollPercent / 100) * REFERENCE_BANKROLL_DOLLARS;
+  const hasDailyRiskLimit =
+    typeof policy.maxDailyBankrollPercent === "number" &&
+    Number.isFinite(policy.maxDailyBankrollPercent) &&
+    policy.maxDailyBankrollPercent > 0;
+  const configuredBudget = hasDailyRiskLimit ? (policy.maxDailyBankrollPercent! / 100) * REFERENCE_BANKROLL_DOLLARS : 0;
   const maxBetSize = (policy.maxBetBankrollPercent / 100) * REFERENCE_BANKROLL_DOLLARS;
 
   const screening: BetSizingScreeningStep[] = [
@@ -196,8 +206,10 @@ export function buildBetSizingExplainerModel(
     },
     {
       key: "budget",
-      label: "Receive budget",
-      description: "The daily cap funds the best surviving opportunities first.",
+      label: hasDailyRiskLimit ? "Receive budget" : "Receive stake",
+      description: hasDailyRiskLimit
+        ? "The daily cap funds the best surviving opportunities first."
+        : "With no daily cap, every surviving ask is funded at its quoted size.",
       count: previews.filter((preview) => preview.trace.finalStake > 0).length,
     },
   ];
@@ -206,14 +218,14 @@ export function buildBetSizingExplainerModel(
     .filter((preview) => requestedStakeForPreview(preview) > 0)
     .sort(compareByAllocationPriority);
 
-  let budgetAfterPrevious = totalBudget;
+  let budgetAfterPrevious = configuredBudget;
   const allocationByGameId = new Map<number, BetSizingAllocationStep>();
   const allocationSteps: BetSizingAllocationStep[] = allocationCandidates.map((preview, index) => {
     const requestedStake = requestedStakeForPreview(preview);
     const finalStake = preview.trace.finalStake;
-    const budgetBefore = budgetAfterPrevious;
-    const budgetAfter = Math.max(0, budgetBefore - finalStake);
-    budgetAfterPrevious = budgetAfter;
+    const budgetBefore = hasDailyRiskLimit ? budgetAfterPrevious : null;
+    const budgetAfter = hasDailyRiskLimit && budgetBefore !== null ? Math.max(0, budgetBefore - finalStake) : null;
+    budgetAfterPrevious = budgetAfter ?? budgetAfterPrevious;
 
     const step: BetSizingAllocationStep = {
       gameId: preview.row.game_id,
@@ -225,15 +237,20 @@ export function buildBetSizingExplainerModel(
       budgetAfter,
       allocationRank: index + 1,
       wasTrimmedByBudget: Boolean(preview.trace.dailyRiskCapApplied && requestedStake > finalStake),
-      shareOfBudget: totalBudget > 0 ? finalStake / totalBudget : 0,
+      shareOfBudget: configuredBudget > 0 ? finalStake / configuredBudget : 0,
       note:
         finalStake > 0
           ? `${preview.trace.decision.team || "This side"} receives ${formatUsd(finalStake)}.`
-          : `${preview.trace.decision.team || "This side"} asked for ${formatUsd(requestedStake)} but the budget was already exhausted.`,
+          : hasDailyRiskLimit
+            ? `${preview.trace.decision.team || "This side"} asked for ${formatUsd(requestedStake)} but the budget was already exhausted.`
+            : `${preview.trace.decision.team || "This side"} did not survive the earlier value screens.`,
     };
     allocationByGameId.set(step.gameId, step);
     return step;
   });
+
+  const allocatedBudget = previews.reduce((sum, preview) => sum + preview.trace.finalStake, 0);
+  const totalBudget = hasDailyRiskLimit ? configuredBudget : allocatedBudget;
 
   const games = previews.map((preview) => {
     const requestedStake = requestedStakeForPreview(preview);
@@ -262,6 +279,7 @@ export function buildBetSizingExplainerModel(
     game.laymanSummary = laymanSummaryForGame(
       preview,
       requestedStake,
+      hasDailyRiskLimit,
       totalBudget,
       game.budgetBefore,
       game.budgetAfter,
@@ -274,8 +292,7 @@ export function buildBetSizingExplainerModel(
   const fundedBetCount = games.filter((game) => game.finalStake > 0).length;
   const requestedBetCount = games.filter((game) => game.requestedStake > 0).length;
   const trimmedBetCount = games.filter((game) => game.wasTrimmedByBudget).length;
-  const allocatedBudget = games.reduce((sum, game) => sum + game.finalStake, 0);
-  const remainingBudget = Math.max(0, totalBudget - allocatedBudget);
+  const remainingBudget = hasDailyRiskLimit ? Math.max(0, totalBudget - allocatedBudget) : 0;
   const passCount = games.length - fundedBetCount;
   const selectedGame =
     games.find((game) => game.preview.row.game_id === selectedGameId) ||
@@ -284,14 +301,23 @@ export function buildBetSizingExplainerModel(
     null;
 
   const headline =
-    slate.source === "upcoming"
-      ? `How ${formatUsd(totalBudget)} turns into ${fundedBetCount} ${fundedBetCount === 1 ? "bet" : "bets"} today`
-      : `How ${formatUsd(totalBudget)} would have been allocated on this replay slate`;
-  const dek = `The ${policy.label.toLowerCase()} profile lets each surviving game ask for a stake, caps each bet at ${formatUsd(
-    maxBetSize
-  )}, then allocates up to ${formatUsd(totalBudget)} across the slate.`;
+    hasDailyRiskLimit
+      ? slate.source === "upcoming"
+        ? `How ${formatUsd(totalBudget)} turns into ${fundedBetCount} ${fundedBetCount === 1 ? "bet" : "bets"} today`
+        : `How ${formatUsd(totalBudget)} would have been allocated on this replay slate`
+      : slate.source === "upcoming"
+        ? `How the uncapped ${policy.label.toLowerCase()} profile funds ${fundedBetCount} ${fundedBetCount === 1 ? "bet" : "bets"} today`
+        : `How the uncapped ${policy.label.toLowerCase()} profile would have funded this replay slate`;
+  const dek = hasDailyRiskLimit
+    ? `The ${policy.label.toLowerCase()} profile lets each surviving game ask for a stake, caps each bet at ${formatUsd(
+        maxBetSize
+      )}, then allocates up to ${formatUsd(totalBudget)} across the slate.`
+    : `The ${policy.label.toLowerCase()} profile lets each surviving game ask for a stake and caps each bet at ${formatUsd(
+        maxBetSize
+      )}, with no daily risk cap on the slate.`;
 
   return {
+    hasDailyRiskLimit,
     headline,
     dek,
     totalBudget,

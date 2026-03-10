@@ -12,7 +12,7 @@ export type BetStrategyConfig = {
   minExpectedValue: number;
   stakeScale: number;
   maxBetBankrollPercent: number;
-  maxDailyBankrollPercent: number;
+  maxDailyBankrollPercent: number | null;
 };
 
 export type BetStrategyRuleConfig = Pick<
@@ -23,12 +23,25 @@ export type BetStrategyRuleConfig = Pick<
 const SHARED_MIN_EDGE = 0.03;
 const SHARED_MIN_EXPECTED_VALUE = 0.02;
 
-const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
+type BetStrategyTuning = Omit<BetStrategyConfig, "description">;
+type BetStrategyExperimentOverride = Partial<Pick<BetStrategyConfig, "stakeScale" | "maxBetBankrollPercent" | "maxDailyBankrollPercent">>;
+
+function formatPercent(value: number): string {
+  return Number.isInteger(value) ? `${value}%` : `${value.toFixed(2)}%`;
+}
+
+function buildStrategyDescription(config: BetStrategyTuning): string {
+  const dailyBudgetText =
+    typeof config.maxDailyBankrollPercent === "number" && Number.isFinite(config.maxDailyBankrollPercent) && config.maxDailyBankrollPercent > 0
+      ? `a ${formatPercent(config.maxDailyBankrollPercent)} nightly budget on the reference bankroll`
+      : "no nightly budget cap";
+  return `${config.label} baseline with the shared value screen, a ${formatPercent(config.maxBetBankrollPercent)} per-bet cap, and ${dailyBudgetText}.`;
+}
+
+export const BETTING_STRATEGY_TUNING: Record<BetStrategy, BetStrategyTuning> = {
   riskAdjusted: {
     label: "Balanced",
     shortLabel: "Standard risk",
-    description:
-      "Balanced baseline with the shared value screen, a 1.25% per-bet cap, and a 4% nightly budget on the reference bankroll.",
     allowUnderdogs: true,
     minEdge: SHARED_MIN_EDGE,
     minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
@@ -39,7 +52,6 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
   aggressive: {
     label: "Aggressive",
     shortLabel: "Wider caps",
-    description: "Higher-variance sizing with the same value screen, a 1.75% per-bet cap, and a 6% nightly budget on the reference bankroll.",
     allowUnderdogs: true,
     minEdge: SHARED_MIN_EDGE,
     minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
@@ -50,7 +62,6 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
   capitalPreservation: {
     label: "Conservative",
     shortLabel: "Favorites only",
-    description: "Lower-variance sizing, favorites only, a 0.75% per-bet cap, and a 2.5% nightly budget on the reference bankroll.",
     allowUnderdogs: false,
     minEdge: SHARED_MIN_EDGE,
     minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
@@ -59,6 +70,51 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = {
     maxDailyBankrollPercent: 2.5,
   },
 };
+
+const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = Object.fromEntries(
+  (Object.entries(BETTING_STRATEGY_TUNING) as [BetStrategy, BetStrategyTuning][]).map(([strategy, config]) => [
+    strategy,
+    {
+      ...config,
+      description: buildStrategyDescription(config),
+    },
+  ])
+) as Record<BetStrategy, BetStrategyConfig>;
+
+export const BETTING_STRATEGY_EXPERIMENT_OVERRIDES: Record<BetStrategy, BetStrategyExperimentOverride> = {
+  riskAdjusted: {},
+  aggressive: {
+    maxDailyBankrollPercent: null,
+  },
+  capitalPreservation: {},
+};
+
+export function applyBetStrategyExperimentOverrides(strategy: BetStrategy, config: BetStrategyConfig): BetStrategyConfig {
+  const overrides = BETTING_STRATEGY_EXPERIMENT_OVERRIDES[strategy];
+  if (!overrides || Object.keys(overrides).length === 0) {
+    return config;
+  }
+
+  const merged: BetStrategyTuning = {
+    label: config.label,
+    shortLabel: config.shortLabel,
+    allowUnderdogs: config.allowUnderdogs,
+    minEdge: config.minEdge,
+    minExpectedValue: config.minExpectedValue,
+    stakeScale: overrides.stakeScale ?? config.stakeScale,
+    maxBetBankrollPercent: overrides.maxBetBankrollPercent ?? config.maxBetBankrollPercent,
+    maxDailyBankrollPercent:
+      Object.prototype.hasOwnProperty.call(overrides, "maxDailyBankrollPercent")
+        ? overrides.maxDailyBankrollPercent ?? null
+        : config.maxDailyBankrollPercent,
+  };
+
+  return {
+    ...config,
+    ...merged,
+    description: buildStrategyDescription(merged),
+  };
+}
 
 export function normalizeBetStrategy(value?: string | null): BetStrategy {
   const normalized = String(value || "").trim().toLowerCase();
@@ -105,7 +161,7 @@ export function strategyFromRequest(request: Request): BetStrategy {
 }
 
 export function getBetStrategyConfig(strategy: BetStrategy): BetStrategyConfig {
-  return BET_STRATEGY_CONFIG[strategy];
+  return applyBetStrategyExperimentOverrides(strategy, BET_STRATEGY_CONFIG[strategy]);
 }
 
 export function toBetStrategyRuleConfig(strategyConfig: BetStrategyConfig): BetStrategyRuleConfig {

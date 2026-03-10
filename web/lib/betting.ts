@@ -385,7 +385,11 @@ export function applyDailyRiskCapToDecisionTraces(traces: BetDecisionTrace[]): B
 
   const strategyConfig = traces[0]?.strategyConfig;
   const maxDailyBankrollPercent = strategyConfig?.maxDailyBankrollPercent;
-  if (!Number.isFinite(maxDailyBankrollPercent) || maxDailyBankrollPercent <= 0) {
+  if (
+    typeof maxDailyBankrollPercent !== "number" ||
+    !Number.isFinite(maxDailyBankrollPercent) ||
+    maxDailyBankrollPercent <= 0
+  ) {
     return traces.map((trace) => ({
       ...trace,
       gates: {

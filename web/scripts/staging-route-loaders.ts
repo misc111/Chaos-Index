@@ -1,11 +1,5 @@
-import * as actualVsExpectedRoute from "../app/api/actual-vs-expected/route.ts";
-import * as betHistoryRoute from "../app/api/bet-history/route.ts";
-import * as gamesTodayRoute from "../app/api/games-today/route.ts";
-import * as marketBoardRoute from "../app/api/market-board/route.ts";
-import * as metricsRoute from "../app/api/metrics/route.ts";
-import * as performanceRoute from "../app/api/performance/route.ts";
-import * as predictionsRoute from "../app/api/predictions/route.ts";
-import * as validationRoute from "../app/api/validation/route.ts";
+import path from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 export type JsonRouteHandler = (request: Request) => Promise<Response>;
 
@@ -24,14 +18,27 @@ function resolveGetHandler(path: string, mod: RouteModule): JsonRouteHandler {
   return handler;
 }
 
+async function loadRouteModule(routePath: string): Promise<RouteModule> {
+  const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+  const modulePath = path.resolve(scriptDir, "..", routePath);
+  return import(pathToFileURL(modulePath).href);
+}
+
 export const STAGING_ROUTE_LOADERS: Record<string, () => Promise<JsonRouteHandler>> = {
   "app/api/actual-vs-expected/route.ts": async () =>
-    resolveGetHandler("app/api/actual-vs-expected/route.ts", actualVsExpectedRoute),
-  "app/api/bet-history/route.ts": async () => resolveGetHandler("app/api/bet-history/route.ts", betHistoryRoute),
-  "app/api/games-today/route.ts": async () => resolveGetHandler("app/api/games-today/route.ts", gamesTodayRoute),
-  "app/api/market-board/route.ts": async () => resolveGetHandler("app/api/market-board/route.ts", marketBoardRoute),
-  "app/api/metrics/route.ts": async () => resolveGetHandler("app/api/metrics/route.ts", metricsRoute),
-  "app/api/performance/route.ts": async () => resolveGetHandler("app/api/performance/route.ts", performanceRoute),
-  "app/api/predictions/route.ts": async () => resolveGetHandler("app/api/predictions/route.ts", predictionsRoute),
-  "app/api/validation/route.ts": async () => resolveGetHandler("app/api/validation/route.ts", validationRoute),
+    resolveGetHandler("app/api/actual-vs-expected/route.ts", await loadRouteModule("app/api/actual-vs-expected/route.ts")),
+  "app/api/bet-history/route.ts": async () =>
+    resolveGetHandler("app/api/bet-history/route.ts", await loadRouteModule("app/api/bet-history/route.ts")),
+  "app/api/games-today/route.ts": async () =>
+    resolveGetHandler("app/api/games-today/route.ts", await loadRouteModule("app/api/games-today/route.ts")),
+  "app/api/market-board/route.ts": async () =>
+    resolveGetHandler("app/api/market-board/route.ts", await loadRouteModule("app/api/market-board/route.ts")),
+  "app/api/metrics/route.ts": async () =>
+    resolveGetHandler("app/api/metrics/route.ts", await loadRouteModule("app/api/metrics/route.ts")),
+  "app/api/performance/route.ts": async () =>
+    resolveGetHandler("app/api/performance/route.ts", await loadRouteModule("app/api/performance/route.ts")),
+  "app/api/predictions/route.ts": async () =>
+    resolveGetHandler("app/api/predictions/route.ts", await loadRouteModule("app/api/predictions/route.ts")),
+  "app/api/validation/route.ts": async () =>
+    resolveGetHandler("app/api/validation/route.ts", await loadRouteModule("app/api/validation/route.ts")),
 };

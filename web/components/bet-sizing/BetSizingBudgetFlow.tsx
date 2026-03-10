@@ -7,6 +7,7 @@ import styles from "./BetSizingBudgetFlow.module.css";
 
 type Props = {
   league: LeagueCode;
+  hasDailyRiskLimit: boolean;
   totalBudget: number;
   allocatedBudget: number;
   remainingBudget: number;
@@ -21,6 +22,7 @@ function widthStyle(widthPercent: number): CSSProperties {
 
 export default function BetSizingBudgetFlow({
   league,
+  hasDailyRiskLimit,
   totalBudget,
   allocatedBudget,
   remainingBudget,
@@ -47,12 +49,14 @@ export default function BetSizingBudgetFlow({
           <p className={styles.eyebrow}>Stage 3</p>
           <h2 className="title">Watch the Budget Move Across the Slate</h2>
           <p className="small">
-            The best surviving bets draw from the same daily pool. Higher-value bets are funded first until the budget runs out.
+            {hasDailyRiskLimit
+              ? "The best surviving bets draw from the same daily pool. Higher-value bets are funded first until the budget runs out."
+              : "This profile has no daily cap, so every surviving bet keeps its full quoted size after the per-game cap."}
           </p>
         </div>
         <div className={styles.summaryPills}>
           <span className={styles.summaryPill}>Committed {formatUsd(allocatedBudget)}</span>
-          <span className={styles.summaryPill}>Unused {formatUsd(remainingBudget)}</span>
+          <span className={styles.summaryPill}>{hasDailyRiskLimit ? `Unused ${formatUsd(remainingBudget)}` : "Daily cap none"}</span>
         </div>
       </div>
 
@@ -67,7 +71,7 @@ export default function BetSizingBudgetFlow({
               title={`${step.matchupLabel}: ${formatUsd(step.finalStake)}`}
             />
           ))}
-        {remainingBudget > 0 ? (
+        {hasDailyRiskLimit && remainingBudget > 0 ? (
           <span className={styles.stackRemainder} style={widthStyle((remainingBudget / totalBudget) * 100)} title="Unused budget" />
         ) : null}
       </div>
@@ -75,10 +79,15 @@ export default function BetSizingBudgetFlow({
       <div className={styles.list}>
         {steps.map((step) => {
           const [awayTeam, homeTeam] = step.matchupLabel.split(" at ");
-          const usedBefore = Math.max(0, totalBudget - step.budgetBefore);
+          const usedBefore = step.budgetBefore === null ? 0 : Math.max(0, totalBudget - step.budgetBefore);
           const overlayLeft = totalBudget > 0 ? (usedBefore / totalBudget) * 100 : 0;
           const overlayWidth = totalBudget > 0 ? (step.finalStake / totalBudget) * 100 : 0;
-          const usedAfter = totalBudget > 0 ? ((totalBudget - step.budgetAfter) / totalBudget) * 100 : 0;
+          const usedAfter =
+            totalBudget > 0
+              ? step.budgetAfter === null
+                ? overlayWidth
+                : ((totalBudget - step.budgetAfter) / totalBudget) * 100
+              : 0;
 
           return (
             <div key={step.gameId} className={styles.row}>
@@ -120,10 +129,10 @@ export default function BetSizingBudgetFlow({
               </div>
 
               <div className={styles.rowMeta}>
-                <span>Before: {formatUsd(step.budgetBefore)}</span>
+                <span>Before: {step.budgetBefore === null ? "No daily cap" : formatUsd(step.budgetBefore)}</span>
                 <span>Asked: {formatUsd(step.requestedStake)}</span>
                 <span>Funded: {formatUsd(step.finalStake)}</span>
-                <span>After: {formatUsd(step.budgetAfter)}</span>
+                <span>After: {step.budgetAfter === null ? "No daily cap" : formatUsd(step.budgetAfter)}</span>
               </div>
 
               <p className={styles.note}>
