@@ -100,6 +100,12 @@ function easeOutCubic(progress: number): number {
   return 1 - Math.pow(1 - progress, 3);
 }
 
+function canAnimateTransition(previousCoords: ChartCoord[], nextCoords: ChartCoord[]): boolean {
+  if (!previousCoords.length || !nextCoords.length) return false;
+  if (previousCoords.length !== nextCoords.length) return false;
+  return previousCoords.every((coord, index) => coord.point.date_central === nextCoords[index]?.point.date_central);
+}
+
 export default function BetHistoryChart({ points }: Props) {
   const [activePointIndex, setActivePointIndex] = useState<number | null>(null);
   const chartId = useId().replace(/:/g, "");
@@ -127,18 +133,13 @@ export default function BetHistoryChart({ points }: Props) {
 
   useEffect(() => {
     const previousCoords = displayedCoordsRef.current;
-    const previousCoordByDate = new Map(previousCoords.map((coord) => [coord.point.date_central, coord]));
-    const alignedStartCoords = geometry.coords.map((coord, index) => {
-      const matchedCoord = previousCoordByDate.get(coord.point.date_central) ?? previousCoords[Math.min(index, previousCoords.length - 1)];
-      return matchedCoord ? { ...matchedCoord, point: coord.point } : coord;
-    });
 
     if (animationFrameRef.current !== null) {
       window.cancelAnimationFrame(animationFrameRef.current);
       animationFrameRef.current = null;
     }
 
-    if (reducedMotionRef.current || !previousCoords.length || !geometry.coords.length) {
+    if (reducedMotionRef.current || !canAnimateTransition(previousCoords, geometry.coords)) {
       displayedCoordsRef.current = geometry.coords;
       displayedStartingBankrollYRef.current = geometry.startingBankrollY;
       animationFrameRef.current = window.requestAnimationFrame(() => {
@@ -152,7 +153,7 @@ export default function BetHistoryChart({ points }: Props) {
     const startBaselineY = displayedStartingBankrollYRef.current;
     let startTime: number | null = null;
 
-    displayedCoordsRef.current = alignedStartCoords;
+    displayedCoordsRef.current = previousCoords;
     displayedStartingBankrollYRef.current = startBaselineY;
 
     const animate = (timestamp: number) => {
@@ -160,7 +161,7 @@ export default function BetHistoryChart({ points }: Props) {
       const rawProgress = Math.min((timestamp - startTime) / CHART_ANIMATION_DURATION_MS, 1);
       const progress = easeOutCubic(rawProgress);
       const nextCoords = geometry.coords.map((coord, index) => {
-        const startCoord = alignedStartCoords[index] ?? coord;
+        const startCoord = previousCoords[index] ?? coord;
         return {
           x: interpolateNumber(startCoord.x, coord.x, progress),
           y: interpolateNumber(startCoord.y, coord.y, progress),
@@ -198,6 +199,7 @@ export default function BetHistoryChart({ points }: Props) {
   const linePath = buildLinePath(coords);
   const startingBankrollY = displayedStartingBankrollY;
   const { minY, plotHeight, span, xTickIndexes, yTicks } = geometry;
+  const displayedXTickIndexes = xTickIndexes.filter((index) => index < coords.length);
   const lastPoint = points[points.length - 1];
   const safeActivePointIndex = activePointIndex !== null && activePointIndex < coords.length ? activePointIndex : null;
   const activeCoord = safeActivePointIndex === null ? null : coords[safeActivePointIndex];
@@ -318,7 +320,7 @@ export default function BetHistoryChart({ points }: Props) {
             </g>
           ))}
 
-          {xTickIndexes.map((index) => {
+          {displayedXTickIndexes.map((index) => {
             const coord = coords[index];
             return (
               <text
