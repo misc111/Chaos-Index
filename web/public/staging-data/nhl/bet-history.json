@@ -25,9 +25,9 @@
       "minExpectedValue": 0.02,
       "stakeScale": 0.75,
       "maxBetBankrollPercent": 1.75,
-      "maxDailyBankrollPercent": null,
-      "description": "Aggressive baseline with the shared value screen, a 1.75% per-bet cap, and no nightly budget cap.",
-      "config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|none",
+      "maxDailyBankrollPercent": 6,
+      "description": "Aggressive baseline with the shared value screen, a 1.75% per-bet cap, and a 6% nightly budget on the reference bankroll.",
+      "config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
       "optimization_objective": "Static aggressive default while matched replay coverage remains limited",
       "optimization_source": "static_fallback",
       "metrics": null
@@ -701,14 +701,14 @@
         "games_with_forecast": 43,
         "games_with_odds": 38,
         "analyzed_games": 38,
-        "suggested_bets": 24,
-        "wins": 13,
-        "losses": 11,
-        "total_risked": 4200,
-        "total_profit": 635.3294199232271,
-        "roi": 0.15126890950553026,
+        "suggested_bets": 18,
+        "wins": 10,
+        "losses": 8,
+        "total_risked": 2850,
+        "total_profit": 598.6106699232271,
+        "roi": 0.2100388315520095,
         "starting_bankroll": 5000,
-        "current_bankroll": 5635.329419923227,
+        "current_bankroll": 5598.610669923227,
         "bankroll_start_central": "2026-03-05",
         "coverage_start_central": "2026-03-05",
         "coverage_end_central": "2026-03-09",
@@ -717,42 +717,42 @@
       "daily_points": [
         {
           "date_central": "2026-03-05",
-          "risked": 875,
-          "daily_profit": -66.94954128440367,
-          "cumulative_profit": -66.94954128440367,
-          "cumulative_bankroll": 4933.0504587155965,
-          "bet_count": 5
+          "risked": 600,
+          "daily_profit": -61.949541284403665,
+          "cumulative_profit": -61.949541284403665,
+          "cumulative_bankroll": 4938.0504587155965,
+          "bet_count": 4
         },
         {
           "date_central": "2026-03-06",
-          "risked": 1050,
-          "daily_profit": 516.4029126213593,
-          "cumulative_profit": 449.4533713369556,
-          "cumulative_bankroll": 5449.453371336956,
-          "bet_count": 6
+          "risked": 600,
+          "daily_profit": 161.4029126213592,
+          "cumulative_profit": 99.45337133695554,
+          "cumulative_bankroll": 5099.453371336956,
+          "bet_count": 4
         },
         {
           "date_central": "2026-03-07",
-          "risked": 1225,
-          "daily_profit": -545.78125,
-          "cumulative_profit": -96.32787866304437,
-          "cumulative_bankroll": 4903.672121336956,
-          "bet_count": 7
+          "risked": 600,
+          "daily_profit": -232.49999999999997,
+          "cumulative_profit": -133.04662866304443,
+          "cumulative_bankroll": 4866.953371336956,
+          "bet_count": 4
         },
         {
           "date_central": "2026-03-08",
           "risked": 525,
           "daily_profit": 94.90291262135923,
-          "cumulative_profit": -1.4249660416851384,
-          "cumulative_bankroll": 4998.575033958315,
+          "cumulative_profit": -38.143716041685195,
+          "cumulative_bankroll": 4961.856283958315,
           "bet_count": 3
         },
         {
           "date_central": "2026-03-09",
           "risked": 525,
           "daily_profit": 636.7543859649122,
-          "cumulative_profit": 635.3294199232271,
-          "cumulative_bankroll": 5635.329419923227,
+          "cumulative_profit": 598.6106699232271,
+          "cumulative_bankroll": 5598.610669923227,
           "bet_count": 3
         }
       ],
@@ -818,36 +818,6 @@
           "cumulative_profit": -14.449541284403665
         },
         {
-          "game_id": 2025020979,
-          "date_central": "2026-03-05",
-          "week_start_central": "2026-03-02",
-          "start_time_utc": "2026-03-06T01:00:00Z",
-          "final_utc": "2026-03-06T01:00:00Z",
-          "home_team": "NSH",
-          "away_team": "BOS",
-          "home_score": 6,
-          "away_score": 3,
-          "forecast_as_of_utc": "2026-03-05T16:42:47+00:00",
-          "odds_as_of_utc": "2026-03-05T16:46:34+00:00",
-          "odds_snapshot_id": "nhl_odds_1a8e0529a50348a6",
-          "home_moneyline": -111,
-          "away_moneyline": -103,
-          "bet_label": "$175 BOS",
-          "reason": "Favorite underpriced after uncertainty adjustment",
-          "side": "away",
-          "team": "BOS",
-          "stake": 175,
-          "odds": -103,
-          "expected_value": 0.038027009363093,
-          "edge": 0.03571993566391485,
-          "model_probability": 0.5266836549970373,
-          "market_probability": 0.49096371933312244,
-          "outcome": "loss",
-          "profit": -175,
-          "payout": 0,
-          "cumulative_profit": -189.44954128440367
-        },
-        {
           "game_id": 2025020980,
           "date_central": "2026-03-05",
           "week_start_central": "2026-03-02",
@@ -862,20 +832,20 @@
           "odds_snapshot_id": "nhl_odds_1a8e0529a50348a6",
           "home_moneyline": 170,
           "away_moneyline": -186,
-          "bet_label": "$175 WPG",
-          "reason": "Underdog underpriced after uncertainty adjustment",
+          "bet_label": "$75 WPG",
+          "reason": "Underdog underpriced after uncertainty adjustment; daily risk cap",
           "side": "home",
           "team": "WPG",
-          "stake": 175,
+          "stake": 75,
           "odds": 170,
           "expected_value": 0.12469893992959036,
           "edge": 0.0537030949338404,
           "model_probability": 0.4165551629368853,
           "market_probability": 0.3628520680030449,
           "outcome": "win",
-          "profit": 297.5,
-          "payout": 472.5,
-          "cumulative_profit": 108.05045871559633
+          "profit": 127.5,
+          "payout": 202.5,
+          "cumulative_profit": 113.05045871559633
         },
         {
           "game_id": 2025020982,
@@ -905,7 +875,7 @@
           "outcome": "loss",
           "profit": -175,
           "payout": 0,
-          "cumulative_profit": -66.94954128440367
+          "cumulative_profit": -61.949541284403665
         },
         {
           "game_id": 2025020983,
@@ -935,7 +905,7 @@
           "outcome": "win",
           "profit": 241.49999999999997,
           "payout": 416.5,
-          "cumulative_profit": 174.5504587155963
+          "cumulative_profit": 179.5504587155963
         },
         {
           "game_id": 2025020984,
@@ -965,37 +935,7 @@
           "outcome": "loss",
           "profit": -175,
           "payout": 0,
-          "cumulative_profit": -0.44954128440369345
-        },
-        {
-          "game_id": 2025020985,
-          "date_central": "2026-03-06",
-          "week_start_central": "2026-03-02",
-          "start_time_utc": "2026-03-07T01:30:00Z",
-          "final_utc": "2026-03-07T01:30:00Z",
-          "home_team": "CHI",
-          "away_team": "VAN",
-          "home_score": 3,
-          "away_score": 6,
-          "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
-          "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
-          "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
-          "home_moneyline": -152,
-          "away_moneyline": 135,
-          "bet_label": "$175 VAN",
-          "reason": "Underdog underpriced after uncertainty adjustment",
-          "side": "away",
-          "team": "VAN",
-          "stake": 175,
-          "odds": 135,
-          "expected_value": 0.043061700645429246,
-          "edge": 0.03019878741090193,
-          "model_probability": 0.4438560428278422,
-          "market_probability": 0.41365725541694026,
-          "outcome": "win",
-          "profit": 236.25000000000003,
-          "payout": 411.25,
-          "cumulative_profit": 235.80045871559633
+          "cumulative_profit": 4.5504587155963065
         },
         {
           "game_id": 2025020986,
@@ -1012,20 +952,20 @@
           "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
           "home_moneyline": 103,
           "away_moneyline": -115,
-          "bet_label": "$175 EDM",
-          "reason": "Underdog underpriced after uncertainty adjustment",
+          "bet_label": "$75 EDM",
+          "reason": "Underdog underpriced after uncertainty adjustment; daily risk cap",
           "side": "home",
           "team": "EDM",
-          "stake": 175,
+          "stake": 75,
           "odds": 103,
           "expected_value": 0.07971956535824454,
           "edge": 0.0524524144575757,
           "model_probability": 0.5318815592897755,
           "market_probability": 0.47942914483219984,
           "outcome": "loss",
-          "profit": -175,
+          "profit": -75,
           "payout": 0,
-          "cumulative_profit": 60.800458715596335
+          "cumulative_profit": -70.4495412844037
         },
         {
           "game_id": 2025020987,
@@ -1055,97 +995,7 @@
           "outcome": "win",
           "profit": 169.90291262135923,
           "payout": 344.90291262135923,
-          "cumulative_profit": 230.70337133695557
-        },
-        {
-          "game_id": 2025020989,
-          "date_central": "2026-03-06",
-          "week_start_central": "2026-03-02",
-          "start_time_utc": "2026-03-07T03:00:00Z",
-          "final_utc": "2026-03-07T03:00:00Z",
-          "home_team": "SJS",
-          "away_team": "STL",
-          "home_score": 2,
-          "away_score": 3,
-          "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
-          "odds_as_of_utc": "2026-03-06T23:19:22+00:00",
-          "odds_snapshot_id": "nhl_odds_28aafaeae8a9d825",
-          "home_moneyline": -140,
-          "away_moneyline": 125,
-          "bet_label": "$175 STL",
-          "reason": "Underdog underpriced after uncertainty adjustment",
-          "side": "away",
-          "team": "STL",
-          "stake": 175,
-          "odds": 125,
-          "expected_value": 0.046637654335462075,
-          "edge": 0.03273985838332849,
-          "model_probability": 0.46517229081576095,
-          "market_probability": 0.43243243243243246,
-          "outcome": "win",
-          "profit": 218.75,
-          "payout": 393.75,
-          "cumulative_profit": 449.45337133695557
-        },
-        {
-          "game_id": 2025020990,
-          "date_central": "2026-03-07",
-          "week_start_central": "2026-03-02",
-          "start_time_utc": "2026-03-07T17:30:00Z",
-          "final_utc": "2026-03-07T17:30:00Z",
-          "home_team": "BOS",
-          "away_team": "WSH",
-          "home_score": 3,
-          "away_score": 1,
-          "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
-          "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
-          "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
-          "home_moneyline": -128,
-          "away_moneyline": 115,
-          "bet_label": "$175 BOS",
-          "reason": "Favorite underpriced after uncertainty adjustment",
-          "side": "home",
-          "team": "BOS",
-          "stake": 175,
-          "odds": -128,
-          "expected_value": 0.045060610877899476,
-          "edge": 0.03980085280870105,
-          "model_probability": 0.5867006938261892,
-          "market_probability": 0.5468998410174881,
-          "outcome": "win",
-          "profit": 136.71875,
-          "payout": 311.71875,
-          "cumulative_profit": 586.1721213369556
-        },
-        {
-          "game_id": 2025020991,
-          "date_central": "2026-03-07",
-          "week_start_central": "2026-03-02",
-          "start_time_utc": "2026-03-07T20:00:00Z",
-          "final_utc": "2026-03-07T20:00:00Z",
-          "home_team": "NJD",
-          "away_team": "NYR",
-          "home_score": 6,
-          "away_score": 3,
-          "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
-          "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
-          "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
-          "home_moneyline": -165,
-          "away_moneyline": 146,
-          "bet_label": "$175 NYR",
-          "reason": "Underdog underpriced after uncertainty adjustment",
-          "side": "away",
-          "team": "NYR",
-          "stake": 175,
-          "odds": 146,
-          "expected_value": 0.051823655923880496,
-          "edge": 0.03257878978203732,
-          "model_probability": 0.42757059183897583,
-          "market_probability": 0.3949918020569385,
-          "outcome": "loss",
-          "profit": -175,
-          "payout": 0,
-          "cumulative_profit": 411.17212133695557
+          "cumulative_profit": 99.45337133695554
         },
         {
           "game_id": 2025020994,
@@ -1175,7 +1025,7 @@
           "outcome": "loss",
           "profit": -175,
           "payout": 0,
-          "cumulative_profit": 236.17212133695557
+          "cumulative_profit": -75.54662866304446
         },
         {
           "game_id": 2025020996,
@@ -1205,7 +1055,7 @@
           "outcome": "loss",
           "profit": -175,
           "payout": 0,
-          "cumulative_profit": 61.17212133695557
+          "cumulative_profit": -250.54662866304446
         },
         {
           "game_id": 2025020997,
@@ -1235,37 +1085,7 @@
           "outcome": "win",
           "profit": 192.50000000000003,
           "payout": 367.5,
-          "cumulative_profit": 253.6721213369556
-        },
-        {
-          "game_id": 2025020998,
-          "date_central": "2026-03-07",
-          "week_start_central": "2026-03-02",
-          "start_time_utc": "2026-03-08T03:00:00Z",
-          "final_utc": "2026-03-08T03:00:00Z",
-          "home_team": "CGY",
-          "away_team": "CAR",
-          "home_score": 5,
-          "away_score": 4,
-          "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
-          "odds_as_of_utc": "2026-03-07T12:02:48+00:00",
-          "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
-          "home_moneyline": 160,
-          "away_moneyline": -180,
-          "bet_label": "$175 CAR",
-          "reason": "Favorite underpriced after uncertainty adjustment",
-          "side": "away",
-          "team": "CAR",
-          "stake": 175,
-          "odds": -180,
-          "expected_value": 0.04312085135465593,
-          "edge": 0.04490924095870363,
-          "model_probability": 0.6705776901565645,
-          "market_probability": 0.6256684491978609,
-          "outcome": "loss",
-          "profit": -175,
-          "payout": 0,
-          "cumulative_profit": 78.6721213369556
+          "cumulative_profit": -58.04662866304443
         },
         {
           "game_id": 2025020999,
@@ -1282,20 +1102,20 @@
           "odds_snapshot_id": "nhl_odds_e456620f7b04c98b",
           "home_moneyline": 118,
           "away_moneyline": -130,
-          "bet_label": "$175 SJS",
-          "reason": "Underdog underpriced after uncertainty adjustment",
+          "bet_label": "$75 SJS",
+          "reason": "Underdog underpriced after uncertainty adjustment; daily risk cap",
           "side": "home",
           "team": "SJS",
-          "stake": 175,
+          "stake": 75,
           "odds": 118,
           "expected_value": 0.0551036067785895,
           "edge": 0.0359987131304238,
           "model_probability": 0.483992480173665,
           "market_probability": 0.4479937670432412,
           "outcome": "loss",
-          "profit": -175,
+          "profit": -75,
           "payout": 0,
-          "cumulative_profit": -96.3278786630444
+          "cumulative_profit": -133.04662866304443
         },
         {
           "game_id": 2025021001,
@@ -1325,7 +1145,7 @@
           "outcome": "win",
           "profit": 100,
           "payout": 275,
-          "cumulative_profit": 3.6721213369555983
+          "cumulative_profit": -33.04662866304443
         },
         {
           "game_id": 2025021003,
@@ -1355,7 +1175,7 @@
           "outcome": "win",
           "profit": 169.90291262135923,
           "payout": 344.90291262135923,
-          "cumulative_profit": 173.57503395831483
+          "cumulative_profit": 136.8562839583148
         },
         {
           "game_id": 2025021004,
@@ -1385,7 +1205,7 @@
           "outcome": "loss",
           "profit": -175,
           "payout": 0,
-          "cumulative_profit": -1.4249660416851668
+          "cumulative_profit": -38.143716041685195
         },
         {
           "game_id": 2025021008,
@@ -1415,7 +1235,7 @@
           "outcome": "win",
           "profit": 218.75,
           "payout": 393.75,
-          "cumulative_profit": 217.32503395831483
+          "cumulative_profit": 180.6062839583148
         },
         {
           "game_id": 2025021010,
@@ -1445,7 +1265,7 @@
           "outcome": "win",
           "profit": 341.25,
           "payout": 516.25,
-          "cumulative_profit": 558.5750339583149
+          "cumulative_profit": 521.8562839583149
         },
         {
           "game_id": 2025021011,
@@ -1475,7 +1295,7 @@
           "outcome": "win",
           "profit": 76.75438596491227,
           "payout": 251.75438596491227,
-          "cumulative_profit": 635.3294199232271
+          "cumulative_profit": 598.6106699232271
         }
       ]
     },

@@ -27,9 +27,9 @@
       "minExpectedValue": 0.02,
       "stakeScale": 0.75,
       "maxBetBankrollPercent": 1.75,
-      "maxDailyBankrollPercent": null,
-      "description": "Aggressive baseline with the shared value screen, a 1.75% per-bet cap, and no nightly budget cap.",
-      "config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|none",
+      "maxDailyBankrollPercent": 6,
+      "description": "Aggressive baseline with the shared value screen, a 1.75% per-bet cap, and a 6% nightly budget on the reference bankroll.",
+      "config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
       "optimization_objective": "Static aggressive default while matched replay coverage remains limited",
       "optimization_source": "static_fallback",
       "metrics": null

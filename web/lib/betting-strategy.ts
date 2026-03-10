@@ -83,9 +83,7 @@ const BET_STRATEGY_CONFIG: Record<BetStrategy, BetStrategyConfig> = Object.fromE
 
 export const BETTING_STRATEGY_EXPERIMENT_OVERRIDES: Record<BetStrategy, BetStrategyExperimentOverride> = {
   riskAdjusted: {},
-  aggressive: {
-    maxDailyBankrollPercent: null,
-  },
+  aggressive: {},
   capitalPreservation: {},
 };
 
