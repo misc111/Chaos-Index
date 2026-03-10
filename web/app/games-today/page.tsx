@@ -318,6 +318,16 @@ function GamesTodayPageContent() {
           <>
             <div className={styles.tableDesktop}>
               <table className={styles.gamesTable}>
+                <colgroup>
+                  <col className={styles.teamColumnWidth} />
+                  <col className={styles.teamColumnWidth} />
+                  <col className={styles.timeColumnWidth} />
+                  <col className={styles.winChanceColumnWidth} />
+                  <col className={styles.moneylineColumnWidth} />
+                  {league === "NBA" ? <col className={styles.overOddsColumnWidth} /> : null}
+                  <col className={styles.betColumnWidth} />
+                  <col className={styles.reasonColumnWidth} />
+                </colgroup>
                 <thead>
                   <tr>
                     <th>Home Team</th>
@@ -327,7 +337,7 @@ function GamesTodayPageContent() {
                     <th>Moneyline</th>
                     {/* Maintainer note: this is the one league-specific column in the shared table. */}
                     {league === "NBA" ? <th>Over Odds</th> : null}
-                    <th>Suggested Bet</th>
+                    <th className={styles.betColumn}>Suggested Bet</th>
                     <th>Reason</th>
                   </tr>
                 </thead>
@@ -352,7 +362,7 @@ function GamesTodayPageContent() {
                         {league === "NBA" ? (
                           <td className={styles.over190Cell}>{formatOver190(row.over_190_price, row.over_190_point)}</td>
                         ) : null}
-                        <td className={styles.betCell}>
+                        <td className={`${styles.betCell} ${styles.betColumn}`}>
                           <BetStakeWithIcon league={league} teamCode={bet.team} label={bet.team} stake={bet.stake} />
                         </td>
                         <td className={styles.reasonCell}>{bet.reason}</td>

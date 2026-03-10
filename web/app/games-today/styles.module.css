@@ -97,49 +97,69 @@
   table-layout: fixed;
 }
 
+.teamColumnWidth {
+  width: 13%;
+}
+
+.timeColumnWidth {
+  width: 11%;
+}
+
+.winChanceColumnWidth {
+  width: 10%;
+}
+
+.moneylineColumnWidth {
+  width: 13%;
+}
+
+.overOddsColumnWidth {
+  width: 10%;
+}
+
+.betColumnWidth {
+  width: 14%;
+}
+
+.reasonColumnWidth {
+  width: 16%;
+}
+
 .gamesTable th,
 .gamesTable td {
   padding: 6px 8px;
 }
 
-.gamesTable th:nth-child(1),
-.gamesTable td:nth-child(1) {
-  width: 16%;
+.betColumn {
+  position: relative;
+  z-index: 1;
+  border-left: 3px solid color-mix(in srgb, #ff4d4d 84%, white 16%);
+  border-right: 3px solid color-mix(in srgb, #ff4d4d 84%, white 16%);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, #ff3b3b 18%, transparent),
+    color-mix(in srgb, #ff3b3b 8%, transparent)
+  );
+  box-shadow:
+    inset 14px 0 18px -20px rgba(255, 82, 82, 0.9),
+    inset -14px 0 18px -20px rgba(255, 82, 82, 0.9),
+    0 0 18px rgba(255, 56, 56, 0.28);
 }
 
-.gamesTable th:nth-child(2),
-.gamesTable td:nth-child(2) {
-  width: 16%;
+.gamesTable thead .betColumn {
+  border-top: 3px solid color-mix(in srgb, #ff4d4d 90%, white 10%);
+  box-shadow:
+    0 -10px 24px rgba(255, 56, 56, 0.42),
+    inset 14px 0 18px -20px rgba(255, 82, 82, 0.9),
+    inset -14px 0 18px -20px rgba(255, 82, 82, 0.9);
 }
 
-.gamesTable th:nth-child(3),
-.gamesTable td:nth-child(3) {
-  width: 11%;
-}
-
-.gamesTable th:nth-child(4),
-.gamesTable td:nth-child(4) {
-  width: 11%;
-}
-
-.gamesTable th:nth-child(5),
-.gamesTable td:nth-child(5) {
-  width: 14%;
-}
-
-.gamesTable th:nth-child(6),
-.gamesTable td:nth-child(6) {
-  width: 10%;
-}
-
-.gamesTable th:nth-child(7),
-.gamesTable td:nth-child(7) {
-  width: 10%;
-}
-
-.gamesTable th:nth-child(8),
-.gamesTable td:nth-child(8) {
-  width: 12%;
+.gamesTable tbody tr:last-child .betColumn {
+  border-bottom: 3px solid color-mix(in srgb, #ff4d4d 90%, white 10%);
+  box-shadow:
+    0 10px 24px rgba(255, 56, 56, 0.38),
+    inset 14px 0 18px -20px rgba(255, 82, 82, 0.9),
+    inset -14px 0 18px -20px rgba(255, 82, 82, 0.9);
 }
 
 .teamWin {
