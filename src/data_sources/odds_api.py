@@ -66,6 +66,29 @@ NHL_NAME_ALIASES = {
     "vegas golden knights": "VGK",
 }
 
+NCAAM_NAME_ALIASES = {
+    "uconn": "UCONN",
+    "uconn huskies": "UCONN",
+    "connecticut": "CONN",
+    "connecticut huskies": "CONN",
+    "unc": "UNC",
+    "north carolina": "UNC",
+    "north carolina tar heels": "UNC",
+    "ole miss": "MISS",
+    "saint johns": "SJU",
+    "st johns": "SJU",
+    "saint johns red storm": "SJU",
+    "st johns red storm": "SJU",
+    "byu": "BYU",
+    "lsu": "LSU",
+    "smu": "SMU",
+    "tcu": "TCU",
+    "ucf": "UCF",
+    "ucla": "UCLA",
+    "usc": "USC",
+    "utah state": "USU",
+}
+
 
 def _split_markets(markets: str) -> list[str]:
     out: list[str] = []
@@ -140,8 +163,11 @@ def _central_today_key() -> str:
 
 
 def _team_aliases_for_league(league: str) -> dict[str, str]:
-    if league.upper() == "NBA":
+    league_code = league.upper()
+    if league_code == "NBA":
         return NBA_NAME_ALIASES
+    if league_code == "NCAAM":
+        return NCAAM_NAME_ALIASES
     return NHL_NAME_ALIASES
 
 
@@ -151,11 +177,19 @@ def _build_team_name_map(teams_df: pd.DataFrame | None) -> dict[str, str]:
         return mapping
     for row in teams_df.itertuples(index=False):
         team_abbrev = str(getattr(row, "team_abbrev", "") or "").strip()
-        team_name = str(getattr(row, "team_name", "") or "").strip()
+        candidate_names = [
+            getattr(row, "team_name", ""),
+            getattr(row, "team_short_name", ""),
+            getattr(row, "team_location", ""),
+            getattr(row, "team_nickname", ""),
+            getattr(row, "team_display_name", ""),
+        ]
         if not team_abbrev:
             continue
-        if team_name:
-            mapping[_normalize_text(team_name)] = team_abbrev
+        for candidate in candidate_names:
+            team_name = str(candidate or "").strip()
+            if team_name:
+                mapping[_normalize_text(team_name)] = team_abbrev
         mapping[_normalize_text(team_abbrev)] = team_abbrev
     return mapping
 

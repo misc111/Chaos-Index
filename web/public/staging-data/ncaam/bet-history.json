@@ -1,0 +1,131 @@
+{
+  "league": "NCAAM",
+  "default_strategy": "riskAdjusted",
+  "strategy_configs": {
+    "riskAdjusted": {
+      "label": "Balanced",
+      "shortLabel": "Standard risk",
+      "allowUnderdogs": true,
+      "minEdge": 0.03,
+      "minExpectedValue": 0.02,
+      "stakeScale": 0.5,
+      "maxBetBankrollPercent": 1.25,
+      "maxDailyBankrollPercent": 4,
+      "description": "Balanced baseline with the shared value screen, a 1.25% per-bet cap, and a 4% nightly budget on the reference bankroll.",
+      "config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
+      "optimization_objective": "Static balanced default while matched replay coverage remains limited",
+      "optimization_source": "static_fallback",
+      "metrics": null
+    },
+    "aggressive": {
+      "label": "Aggressive",
+      "shortLabel": "Wider caps",
+      "allowUnderdogs": true,
+      "minEdge": 0.03,
+      "minExpectedValue": 0.02,
+      "stakeScale": 0.75,
+      "maxBetBankrollPercent": 1.75,
+      "maxDailyBankrollPercent": 6,
+      "description": "Aggressive baseline with the shared value screen, a 1.75% per-bet cap, and a 6% nightly budget on the reference bankroll.",
+      "config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
+      "optimization_objective": "Static aggressive default while matched replay coverage remains limited",
+      "optimization_source": "static_fallback",
+      "metrics": null
+    },
+    "capitalPreservation": {
+      "label": "Conservative",
+      "shortLabel": "Favorites only",
+      "allowUnderdogs": false,
+      "minEdge": 0.03,
+      "minExpectedValue": 0.02,
+      "stakeScale": 0.25,
+      "maxBetBankrollPercent": 0.75,
+      "maxDailyBankrollPercent": 2.5,
+      "description": "Conservative baseline with the shared value screen, a 0.75% per-bet cap, and a 2.50% nightly budget on the reference bankroll.",
+      "config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
+      "optimization_objective": "Static conservative default while matched replay coverage remains limited",
+      "optimization_source": "static_fallback",
+      "metrics": null
+    }
+  },
+  "strategy_optimization": {
+    "method": "Static defaults active until matched replay coverage reaches at least 60 settled games across 20 replay days (current sample: 0 games across 0 days).",
+    "risk_free_rate": 0,
+    "candidate_count": 0,
+    "frontier_point_count": 0,
+    "frontier": [],
+    "selected": {
+      "riskAdjusted": null,
+      "aggressive": null,
+      "capitalPreservation": null
+    }
+  },
+  "strategies": {
+    "riskAdjusted": {
+      "summary": {
+        "total_final_games": 1049,
+        "games_with_forecast": 0,
+        "games_with_odds": 0,
+        "analyzed_games": 0,
+        "suggested_bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "total_risked": 0,
+        "total_profit": 0,
+        "roi": 0,
+        "starting_bankroll": 5000,
+        "current_bankroll": 5000,
+        "bankroll_start_central": "2026-03-05",
+        "coverage_start_central": "2026-03-05",
+        "coverage_end_central": null,
+        "note": "No finalized games have both a stored pregame forecast snapshot and a matching pregame odds snapshot yet."
+      },
+      "daily_points": [],
+      "bets": []
+    },
+    "aggressive": {
+      "summary": {
+        "total_final_games": 1049,
+        "games_with_forecast": 0,
+        "games_with_odds": 0,
+        "analyzed_games": 0,
+        "suggested_bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "total_risked": 0,
+        "total_profit": 0,
+        "roi": 0,
+        "starting_bankroll": 5000,
+        "current_bankroll": 5000,
+        "bankroll_start_central": "2026-03-05",
+        "coverage_start_central": "2026-03-05",
+        "coverage_end_central": null,
+        "note": "No finalized games have both a stored pregame forecast snapshot and a matching pregame odds snapshot yet."
+      },
+      "daily_points": [],
+      "bets": []
+    },
+    "capitalPreservation": {
+      "summary": {
+        "total_final_games": 1049,
+        "games_with_forecast": 0,
+        "games_with_odds": 0,
+        "analyzed_games": 0,
+        "suggested_bets": 0,
+        "wins": 0,
+        "losses": 0,
+        "total_risked": 0,
+        "total_profit": 0,
+        "roi": 0,
+        "starting_bankroll": 5000,
+        "current_bankroll": 5000,
+        "bankroll_start_central": "2026-03-05",
+        "coverage_start_central": "2026-03-05",
+        "coverage_end_central": null,
+        "note": "No finalized games have both a stored pregame forecast snapshot and a matching pregame odds snapshot yet."
+      },
+      "daily_points": [],
+      "bets": []
+    }
+  }
+}

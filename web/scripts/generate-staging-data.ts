@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { LeagueCode } from "../lib/league";
+import { ALL_LEAGUES, type LeagueCode } from "../lib/league";
 import { STAGING_ROUTE_LOADERS, type JsonRouteHandler } from "./staging-route-loaders";
 
 type JsonRecord = Record<string, unknown>;
@@ -109,13 +109,14 @@ async function generateLeagueSnapshot(league: LeagueCode): Promise<void> {
 }
 
 async function main(): Promise<void> {
-  await generateLeagueSnapshot("NHL");
-  await generateLeagueSnapshot("NBA");
+  for (const league of ALL_LEAGUES) {
+    await generateLeagueSnapshot(league);
+  }
   // Maintainer note: Pages publishes these committed artifacts directly.
   // Regenerating without committing leaves the local dashboard and staging out of sync.
   await writeJson(path.join(outputRoot, "manifest.json"), {
     generated_at_utc: generatedAtUtc,
-    leagues: ["NHL", "NBA"],
+    leagues: ALL_LEAGUES,
   });
 }
 

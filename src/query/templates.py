@@ -55,9 +55,11 @@ def help_answer() -> str:
         "'How much have I risked since the beginning of tracking?', "
         "'What's the chance the Leafs win their next game?', "
         "'What's the chance the Raptors win their next game?', "
+        "'What's the chance Duke wins its next game?', "
         "'Give me the all-teams report table for this league.', "
         "'What are Toronto's odds in the next three games?', "
         "'What's the probability the Kings win the Stanley Cup?', "
         "'What's the probability the Knicks win the NBA Finals?', or "
+        "'What's the probability Duke wins March Madness?', or "
         "'Which model has performed best the last 60 days?'"
     )

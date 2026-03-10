@@ -36,7 +36,7 @@ def _load_dotenv_file(path: Path) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="NHL/NBA probabilistic forecasting pipeline")
+    parser = argparse.ArgumentParser(description="NHL/NBA/NCAAM probabilistic forecasting pipeline")
     sub = parser.add_subparsers(dest="command", required=True)
 
     for cmd in [

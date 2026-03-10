@@ -79,7 +79,7 @@ export function displayPredictionModel(model: string): string {
 
 function normalizeLeagueLabel(league?: string | null): string {
   const leagueCode = String(league || "").trim().toUpperCase();
-  return leagueCode === "NHL" ? "NHL" : leagueCode === "NBA" ? "NBA" : "";
+  return leagueCode === "NHL" ? "NHL" : leagueCode === "NBA" ? "NBA" : leagueCode === "NCAAM" ? "NCAAM" : "";
 }
 
 export function predictionTrustNote(model: string, league?: string | null): string {
@@ -94,6 +94,10 @@ export function predictionTrustNote(model: string, league?: string | null): stri
     return "Linear pregame model anchored by form, xG share, roster strength, and goalie uncertainty. It is strongest when starter and availability info are current.";
   }
 
+  if (canonicalModel === "glm_ridge" && leagueCode === "NCAAM") {
+    return "Linear pregame model anchored by recent scoring margin, shot volume, free-throw pressure, and rating signals. It is strongest before tournament-context injuries materially change rotations.";
+  }
+
   if (canonicalModel === "glm_elastic_net" && leagueCode === "NBA") {
     return "Elastic-net pregame model using the same NBA linear feature map as ridge while allowing extra shrinkage on overlapping lineup and rating signals.";
   }
@@ -102,12 +106,20 @@ export function predictionTrustNote(model: string, league?: string | null): stri
     return "Elastic-net pregame model using the NHL linear feature map with added sparsity pressure on overlapping form, rating, and goalie signals.";
   }
 
+  if (canonicalModel === "glm_elastic_net" && leagueCode === "NCAAM") {
+    return "Elastic-net pregame model using the NCAAM linear feature map with added shrinkage on overlapping scoring-form and rating signals.";
+  }
+
   if (canonicalModel === "glm_lasso" && leagueCode === "NBA") {
     return "Lasso pregame model using the NBA linear feature map with stronger pruning on overlapping lineup, rating, and availability signals.";
   }
 
   if (canonicalModel === "glm_lasso" && leagueCode === "NHL") {
     return "Lasso pregame model using the NHL linear feature map with stronger pruning on overlapping form, rating, and goalie signals.";
+  }
+
+  if (canonicalModel === "glm_lasso" && leagueCode === "NCAAM") {
+    return "Lasso pregame model using the NCAAM linear feature map with stronger pruning on overlapping scoring-form and rating signals.";
   }
 
   return (
@@ -142,6 +154,10 @@ export function predictionModelHeadline(model: string, league?: string | null, a
     return "Pregame ridge logistic regression driven by form, roster, goalie, and xG context.";
   }
 
+  if (canonicalModel === "glm_ridge" && leagueCode === "NCAAM") {
+    return "Pregame ridge logistic regression driven by scoring margin, shot profile, and rating context.";
+  }
+
   if (canonicalModel === "glm_elastic_net" && leagueCode === "NBA") {
     return hasDarkoInputs
       ? "Elastic-net version of the NBA pregame GLM using DARKO-like projected rotation inputs."
@@ -152,6 +168,10 @@ export function predictionModelHeadline(model: string, league?: string | null, a
     return "Pregame elastic-net logistic regression driven by form, roster, goalie, and xG context.";
   }
 
+  if (canonicalModel === "glm_elastic_net" && leagueCode === "NCAAM") {
+    return "Pregame elastic-net logistic regression driven by the current NCAAM feature map.";
+  }
+
   if (canonicalModel === "glm_lasso" && leagueCode === "NBA") {
     return hasDarkoInputs
       ? "Lasso version of the NBA pregame GLM using DARKO-like projected rotation inputs with more aggressive feature pruning."
@@ -160,6 +180,10 @@ export function predictionModelHeadline(model: string, league?: string | null, a
 
   if (canonicalModel === "glm_lasso" && leagueCode === "NHL") {
     return "Pregame lasso logistic regression driven by form, roster, goalie, and xG context.";
+  }
+
+  if (canonicalModel === "glm_lasso" && leagueCode === "NCAAM") {
+    return "Pregame lasso logistic regression driven by the current NCAAM feature map.";
   }
 
   if (canonicalModel === "dynamic_rating") {

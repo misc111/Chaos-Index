@@ -75,6 +75,7 @@ def test_parse_question_championships():
         ("new jersey to win it all", "NJD", "NHL", "Stanley Cup"),
         ("what are the odds the knicks win the nba finals?", "NYK", "NBA", "NBA Finals"),
         ("do the raptors win it all?", "TOR", "NBA", "NBA Finals"),
+        ("what are the odds duke wins march madness?", "DUKE", "NCAAM", "NCAA Tournament"),
     ]
     for question, team, league, competition in cases:
         intent = parse_question(question)
@@ -82,6 +83,12 @@ def test_parse_question_championships():
         assert intent.team == team
         assert intent.league == league
         assert intent.competition == competition
+
+
+def test_parse_question_explicit_ncaam_league_hint():
+    intent = parse_question("Give me the college basketball team report table", default_league="NHL")
+    assert intent.intent_type == "league_report"
+    assert intent.league == "NCAAM"
 
 
 def test_parse_question_best_model_still_supported():

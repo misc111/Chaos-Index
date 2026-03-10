@@ -1,0 +1,232 @@
+{
+  "league": "NCAAM",
+  "significance": [
+    {
+      "block": "travel_block",
+      "small_model_features": 22,
+      "big_model_features": 23,
+      "deviance_small": 533.6295649038252,
+      "deviance_big": 525.8126122272761,
+      "deviance_drop": 7.8169526765491355,
+      "added_parameters": 1,
+      "dispersion_big": 0.8246698204464812,
+      "f_stat": 9.478887771492584,
+      "df_num": 1,
+      "df_den": 711,
+      "p_value": 0.0021584684560489137,
+      "full_holdout_log_loss": 0.9644402264610034,
+      "reduced_holdout_log_loss": 0.9973460861477734,
+      "delta_log_loss": 0.03290585968677007,
+      "full_holdout_brier": 0.23921836246303832,
+      "reduced_holdout_brier": 0.24543027461991845,
+      "delta_brier": 0.006211912156880134
+    }
+  ],
+  "sections": {
+    "split_summary": [
+      {
+        "holdout_end": "2026-03-10T03:45Z",
+        "holdout_fraction": 0.3,
+        "holdout_start": "2026-02-01T19:00Z",
+        "n_fit": 734,
+        "n_holdout": 315,
+        "n_train": 420,
+        "n_validation": 314,
+        "random_seed": null,
+        "requested_split_method": "time",
+        "requested_split_mode": "train_validation_test",
+        "split_method": "time",
+        "split_mode": "train_validation_test",
+        "split_note": null,
+        "status": "ok",
+        "train_end": "2026-01-03T02:00Z",
+        "train_fraction": 0.4,
+        "train_start": "2025-11-03T23:30Z",
+        "validation_end": "2026-02-01T18:00Z",
+        "validation_fraction": 0.3,
+        "validation_start": "2026-01-03T02:00Z"
+      }
+    ],
+    "glm_residual_summary": [
+      {
+        "binning_note": "Binned residual means use equal-working-weight bins and working-weighted averages.",
+        "component_note": "beta_j * z_j uses the fitted standardized design-matrix column because glm_elastic_net is trained on scaled predictors.",
+        "deviance_histogram_plot_file": "glm/residuals/plots/glm_validation_deviance_residuals_histogram.png",
+        "deviance_plot_file": "glm/residuals/plots/glm_validation_deviance_residuals.png",
+        "deviance_qq_plot_file": "glm/residuals/plots/glm_validation_deviance_residuals_qq.png",
+        "deviance_residual_mean": 0.09077200357806339,
+        "deviance_residual_std": 0.8602077736311287,
+        "headline": "Generated working residual, binned working residual, and partial residual diagnostics for glm_elastic_net",
+        "linear_predictor_plot_file": "glm/residuals/plots/glm_validation_working_residuals_linear_predictor.png",
+        "n_features": 24,
+        "n_observations": 734,
+        "partial_residual_definition": "partial = wri + beta_j * z_j",
+        "randomized_quantile_histogram_plot_file": "glm/residuals/plots/glm_validation_randomized_quantile_residuals_histogram.png",
+        "randomized_quantile_qq_plot_file": "glm/residuals/plots/glm_validation_randomized_quantile_residuals_qq.png",
+        "randomized_quantile_residual_mean": 0.0009551630627941567,
+        "randomized_quantile_residual_std": 0.977148665277223,
+        "sample_name": "train_df",
+        "status": "ok",
+        "variance_rule_recommended_max_bins": 0,
+        "weight_axis_name": "unit_weight",
+        "weight_plot_file": null,
+        "weight_plot_status": "skipped_constant_axis",
+        "working_residual_definition": "wri = (y - m) / (m * (1 - m))",
+        "working_weight_sum": 95.90298592572576
+      }
+    ],
+    "significance": [
+      {
+        "block": "travel_block",
+        "small_model_features": 22,
+        "big_model_features": 23,
+        "deviance_small": 533.6295649038252,
+        "deviance_big": 525.8126122272761,
+        "deviance_drop": 7.8169526765491355,
+        "added_parameters": 1,
+        "dispersion_big": 0.8246698204464812,
+        "f_stat": 9.478887771492584,
+        "df_num": 1,
+        "df_den": 711,
+        "p_value": 0.0021584684560489137,
+        "full_holdout_log_loss": 0.9644402264610034,
+        "reduced_holdout_log_loss": 0.9973460861477734,
+        "delta_log_loss": 0.03290585968677007,
+        "full_holdout_brier": 0.23921836246303832,
+        "reduced_holdout_brier": 0.24543027461991845,
+        "delta_brier": 0.006211912156880134
+      }
+    ],
+    "information_criteria_summary": [
+      {
+        "best_aic_candidate": "full_model",
+        "best_bic_candidate": "full_model",
+        "best_holdout_log_loss_candidate": "null_model",
+        "candidate_count": 3,
+        "status": "ok"
+      }
+    ],
+    "cv_summary": [
+      {
+        "feature_count": 24,
+        "folds_used": 5,
+        "mean_holdout_auc": 0.8319787020749679,
+        "mean_holdout_brier": 0.16129015444680453,
+        "mean_holdout_log_loss": 0.49178221881864487,
+        "sign_flip_features": 0,
+        "status": "ok"
+      }
+    ],
+    "collinearity_summary": [
+      {
+        "complete_case_rate": 1,
+        "constant_features": 1,
+        "critical_condition_dimensions": 3,
+        "exact_duplicate_features": 1,
+        "flagged_feature_count": 18,
+        "flagged_features": "elo_home_prob | dyn_home_prob | arena_margin_effect | diff_form_point_margin | diff_form_win_rate | dyn_away_mean | elo_home_pre | elo_home_prob_hinge_055 | home_conference_tournament_window | diff_shot_volume_share_hinge_001 | travel_diff | arena_shot_volume_effect | dyn_home_prob_hinge_055 | diff_shot_volume_share | diff_form_point_margin_hinge_000 | elo_away_pre | dyn_home_mean | away_conference_tournament_window",
+        "full_rank": false,
+        "headline": "Severe multicollinearity detected",
+        "high_corr_pairs": 15,
+        "high_vif_features": 17,
+        "matrix_rank": 22,
+        "max_abs_pairwise_corr": 1,
+        "max_condition_index": 96713358.30574481,
+        "max_vif": "inf",
+        "n_complete_cases": 1049,
+        "n_features_analyzed": 23,
+        "n_features_requested": 24,
+        "n_rows_total": 1049,
+        "near_constant_features": 0,
+        "recommended_actions": "Remove one column from each exact duplicate feature set before interpreting GLM coefficients | Collapse or residualize severe pairwise feature clusters instead of keeping both raw signals | Do not treat coefficient magnitudes as stable until the flagged collinearity cluster is reparameterized",
+        "severe_corr_pairs": 4,
+        "severe_vif_features": 16,
+        "status": "critical",
+        "warning_condition_dimensions": 2
+      }
+    ],
+    "nonlinearity_summary": [
+      {
+        "baseline_holdout_brier": 0.1678339565898012,
+        "baseline_holdout_log_loss": 0.5148865602177125,
+        "baseline_train_brier": 0.09246759417834337,
+        "baseline_train_log_loss": 0.2874459270416087,
+        "coverage_note": "Targets smooth and hinge-shaped predictor nonlinearity. Random effects and dynamic state structure need separate GLMM/DGLM diagnostics.",
+        "headline": "Nonlinear signal detected in at least one predictor",
+        "n_features_evaluated": 18,
+        "n_features_flagged": 5,
+        "n_features_requested": 24,
+        "n_features_skipped": 6,
+        "n_features_strong": 2,
+        "recommended_actions": "Review spline or piecewise transforms for: arena_margin_effect, arena_shot_volume_effect, elo_home_pre | Multiple hinge-like predictors are flagged; a MARS-style model is worth comparing | GLMM and DGLM choices are not identified by this static shape test alone; evaluate grouped and time-varying structure separately",
+        "status": "strong_signal",
+        "top_gam_candidates": "arena_margin_effect | discipline_free_throw_pressure_diff",
+        "top_mars_candidates": "arena_shot_volume_effect | elo_home_pre | rest_diff",
+        "top_transform_candidates": "arena_margin_effect | arena_shot_volume_effect | elo_home_pre | discipline_free_throw_pressure_diff | rest_diff"
+      }
+    ],
+    "calibration_robustness": [
+      {
+        "brier": 0.19294727563976996,
+        "calibration_alpha": 0.0680770803997827,
+        "calibration_beta": 0.4891301878553723,
+        "ece": 0.10421402614316594,
+        "mce": 0.17489320434432537,
+        "reliability": 0.013952282566384668,
+        "resolution": 0.06382940461137893,
+        "uncertainty": 0.24616780045351475
+      }
+    ],
+    "logit_quantile_summary": [
+      {
+        "actual_rate_lift_last_vs_first": 0.75,
+        "bins_realized": 10,
+        "bins_requested": 10,
+        "first_bin_actual_rate": 0.21875,
+        "first_bin_avg_pred": 0.018147106641874744,
+        "last_bin_actual_rate": 0.96875,
+        "last_bin_avg_pred": 0.9945656342746999,
+        "max_abs_calibration_gap": 0.22202034571164042,
+        "mean_abs_calibration_gap": 0.09704955741995197,
+        "monotonicity_violations": 3,
+        "n_obs": 315,
+        "positive_rate": 0.5619047619047619,
+        "rmse_calibration_gap": 0.12077633307921679
+      }
+    ],
+    "logit_lift_summary": [
+      {
+        "bins_realized": 10,
+        "bottom_quantile_actual_lift": 0.3893008474576271,
+        "n_obs": 315,
+        "positive_rate": 0.5619047619047619,
+        "top_quantile_actual_lift": 1.7240466101694916,
+        "top_vs_bottom_actual_lift_diff": 1.3347457627118644,
+        "top_vs_bottom_actual_lift_ratio": 4.428571428571429
+      }
+    ],
+    "logit_roc_summary": [
+      {
+        "auroc": 0.7961598296896749,
+        "best_youden_accuracy": 0.7396825396825397,
+        "best_youden_j_stat": 0.4744534512404815,
+        "best_youden_threshold": 0.5687575284402394,
+        "n_obs": 315,
+        "normalized_gini": 0.5923196593793498,
+        "positive_count": 177,
+        "positive_rate": 0.5619047619047619,
+        "threshold_0_50_accuracy": 0.7301587301587301,
+        "threshold_0_50_false_positive_rate": 0.35507246376811596,
+        "threshold_0_50_predicted_positive_rate": 0.6031746031746031,
+        "threshold_0_50_sensitivity": 0.7966101694915254,
+        "threshold_0_50_specificity": 0.644927536231884
+      }
+    ],
+    "public_note": [
+      {
+        "message": "Compact public validation digest published from the local artifact set. Detailed coefficient paths, residual bins, and other high-volume tables stay private in GitHub Pages staging."
+      }
+    ]
+  },
+  "as_of_utc": null
+}

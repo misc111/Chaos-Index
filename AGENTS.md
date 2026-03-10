@@ -1,7 +1,7 @@
-# NHL + NBA Agent Instructions
+# NHL + NBA + NCAAM Agent Instructions
 
 ## Scope Contract
-- This project supports NHL and NBA forecasting.
+- This project supports NHL, NBA, and NCAA men's basketball forecasting.
 - Interpret user questions in the configured league context by default (`config.data.league`).
 - If no config context is available, default to NBA for ambiguous wording.
 - If a bug, regression, or data drift issue is found in one supported league, investigate the same failure mode in the other supported league before closing the task.
@@ -9,7 +9,7 @@
 - If the same bug exists in the other league, fix it in the shared or league-specific path as appropriate and regenerate any affected staging snapshot files for every impacted league.
 
 ## Team Interpretation
-- Treat city names, nicknames, mascots, and common shorthand as NHL/NBA clubs.
+- Treat city names, nicknames, mascots, and common shorthand as NHL/NBA/NCAAM clubs.
 - Resolve clear references directly.
 - If wording is ambiguous across leagues and context is missing, ask for a short league clarification.
 
@@ -19,6 +19,7 @@
 - Championship questions should be supported:
   - NHL: Stanley Cup
   - NBA: NBA Finals
+  - NCAAM: NCAA Tournament / March Madness
 - Championship answers should be probabilistic heuristic estimates with explicit caveats.
 - Betting-history questions should be supported. This includes:
   - last-night profit/loss summaries
@@ -29,7 +30,7 @@
 - Ambiguous betting-history questions should default to NBA unless the user explicitly says NHL.
 
 ## Out-of-Scope Requests
-- If a user asks about leagues outside NHL/NBA (MLB, MLS, NFL, etc.), respond that this project currently supports NHL and NBA forecasting and ask for an NHL/NBA-framed question.
+- If a user asks about leagues outside NHL/NBA/NCAAM (MLB, MLS, NFL, etc.), respond that this project currently supports NHL, NBA, and NCAA men's basketball forecasting and ask for an NHL/NBA/NCAAM-framed question.
 
 ## Dashboard And Staging Sync
 - Treat the local Next.js dashboard and the GitHub Pages staging site as two separate delivery targets.
@@ -64,12 +65,14 @@
 ## Data Refresh Contract
 - When the user asks to refresh data only, pull in data without rebuilding features, or refresh without training, treat that as the repository-level data-only pipeline.
 - The canonical repository trigger for the executable data-only pipeline is `make data_refresh`.
-- A data-only refresh always covers both leagues, even if the user names only one team or one league in the same message.
+- A data-only refresh always covers all supported leagues, even if the user names only one team or one league in the same message.
 - Run the data-only refresh steps in this exact order, sequentially, with no league parallelism and no step reordering:
   - `make fetch CONFIG=configs/nhl.yaml`
   - `make fetch CONFIG=configs/nba.yaml`
+  - `make fetch CONFIG=configs/ncaam.yaml`
   - `python3 -m src.cli fetch-odds --config configs/nhl.yaml`
   - `python3 -m src.cli fetch-odds --config configs/nba.yaml`
+  - `python3 -m src.cli fetch-odds --config configs/ncaam.yaml`
 - Data-only refreshes stop after data ingestion:
   - do not rebuild features
   - do not train
@@ -80,16 +83,20 @@
 ## Hard Refresh Contract
 - Treat the exact phrase `do a hard refresh` as a repository-level command alias for a full deterministic refresh/train/publish cycle across both supported leagues without rebuilding features.
 - The canonical repository trigger for the executable refresh pipeline is `make hard_refresh`. After it succeeds, continue with the required commit/push/workflow-watch closeout steps below.
-- A hard refresh always covers both leagues, even if the user names only one team or one league in the same message.
+- A hard refresh always covers all supported leagues, even if the user names only one team or one league in the same message.
 - Run the hard refresh steps in this exact order, sequentially, with no league parallelism and no step reordering:
   - `make init-db CONFIG=configs/nhl.yaml`
   - `make init-db CONFIG=configs/nba.yaml`
+  - `make init-db CONFIG=configs/ncaam.yaml`
   - `make fetch CONFIG=configs/nhl.yaml`
   - `make fetch CONFIG=configs/nba.yaml`
+  - `make fetch CONFIG=configs/ncaam.yaml`
   - `python3 -m src.cli fetch-odds --config configs/nhl.yaml`
   - `python3 -m src.cli fetch-odds --config configs/nba.yaml`
+  - `python3 -m src.cli fetch-odds --config configs/ncaam.yaml`
   - `make train CONFIG=configs/nhl.yaml`
   - `make train CONFIG=configs/nba.yaml`
+  - `make train CONFIG=configs/ncaam.yaml`
   - `cd web && npm run generate:staging-data`
   - if dashboard or staging-build behavior changed, `cd web && npm run build:pages`
   - commit all resulting tracked changes
@@ -101,6 +108,7 @@
 - Hard refreshes must be fail-fast and deterministic in behavior:
   - do not skip a league because its files look unchanged
   - do not parallelize NHL and NBA runs
+  - do not parallelize NHL, NBA, and NCAAM runs
   - do not silently rerun steps in a different order
   - do not pass `APPROVE_FEATURE_CHANGES=1` unless the user explicitly asks to approve a feature-contract update
   - if any required step fails, stop, report the failing command, and do not push partial results

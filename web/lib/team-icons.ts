@@ -96,6 +96,7 @@ function buildTeamIconMap(pathPrefix: string, extension: "png" | "svg", codes: r
 const TEAM_ICONS: Record<LeagueCode, Record<string, TeamIconDefinition>> = {
   NBA: buildTeamIconMap("/team-icons/nba", "png", NBA_TEAM_ICON_CODES),
   NHL: buildTeamIconMap("/team-icons/nhl", "svg", NHL_TEAM_ICON_CODES),
+  NCAAM: {},
 };
 
 export function normalizeTeamCode(teamCode?: string | null, label?: string | null): string {

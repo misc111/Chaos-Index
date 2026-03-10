@@ -6,7 +6,7 @@ from src.orchestration.refresh_pipeline import build_data_refresh_steps, run_ste
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run the deterministic data-refresh pipeline across NHL and NBA.")
+    parser = argparse.ArgumentParser(description="Run the deterministic data-refresh pipeline across all supported leagues.")
     parser.add_argument(
         "--dry-run",
         action="store_true",

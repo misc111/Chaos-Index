@@ -14,11 +14,13 @@ def test_build_data_refresh_steps_default_sequence():
     assert [step.name for step in steps] == [
         "nhl:fetch",
         "nba:fetch",
+        "ncaam:fetch",
         "nhl:fetch-odds",
         "nba:fetch-odds",
+        "ncaam:fetch-odds",
     ]
     assert steps[0].command == (sys.executable, "-m", "src.cli", "fetch", "--config", "configs/nhl.yaml")
-    assert steps[2].command == (sys.executable, "-m", "src.cli", "fetch-odds", "--config", "configs/nhl.yaml")
+    assert steps[3].command == (sys.executable, "-m", "src.cli", "fetch-odds", "--config", "configs/nhl.yaml")
 
 
 def test_build_hard_refresh_steps_default_sequence():
@@ -27,18 +29,22 @@ def test_build_hard_refresh_steps_default_sequence():
     assert [step.name for step in steps] == [
         "nhl:init-db",
         "nba:init-db",
+        "ncaam:init-db",
         "nhl:fetch",
         "nba:fetch",
+        "ncaam:fetch",
         "nhl:fetch-odds",
         "nba:fetch-odds",
+        "ncaam:fetch-odds",
         "nhl:train",
         "nba:train",
+        "ncaam:train",
         "staging:generate-data",
         "staging:build-pages",
     ]
     assert steps[0].command == (sys.executable, "-m", "src.cli", "init-db", "--config", "configs/nhl.yaml")
-    assert steps[6].command == (sys.executable, "-m", "src.cli", "train", "--config", "configs/nhl.yaml")
-    assert steps[8].cwd == ROOT_DIR / "web"
+    assert steps[9].command == (sys.executable, "-m", "src.cli", "train", "--config", "configs/nhl.yaml")
+    assert steps[12].cwd == ROOT_DIR / "web"
     assert all(not step.name.endswith(":features") for step in steps)
 
 
@@ -46,7 +52,7 @@ def test_build_hard_refresh_steps_models_and_approve_flag():
     steps = build_hard_refresh_steps(models_arg="glm,rf,glm", approve_feature_changes=True, include_pages_build=False)
 
     train_steps = [step for step in steps if step.name.endswith(":train")]
-    assert len(train_steps) == 2
+    assert len(train_steps) == 3
     for step in train_steps:
         assert step.command[-3:] == ("--models", "glm_ridge,rf", "--approve-feature-changes")
 

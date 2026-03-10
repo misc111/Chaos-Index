@@ -150,24 +150,23 @@ def _select_profile(db: Queryable) -> tuple[str, str, str, str] | None:
                     selected["strategy_config_signature"],
                     PROFILE_TABLE_V2,
                 )
-        if not profiles:
-            return None
-        profiles.sort(
-            key=lambda profile: (
-                profile["sizing_style"] == "continuous",
-                profile["latest_created_at"],
-                profile["strategy"],
-                profile["sizing_style"],
-            ),
-            reverse=True,
-        )
-        selected = profiles[0]
-        return (
-            selected["strategy"],
-            selected["sizing_style"],
-            selected["strategy_config_signature"],
-            PROFILE_TABLE_V2,
-        )
+        if profiles:
+            profiles.sort(
+                key=lambda profile: (
+                    profile["sizing_style"] == "continuous",
+                    profile["latest_created_at"],
+                    profile["strategy"],
+                    profile["sizing_style"],
+                ),
+                reverse=True,
+            )
+            selected = profiles[0]
+            return (
+                selected["strategy"],
+                selected["sizing_style"],
+                selected["strategy_config_signature"],
+                PROFILE_TABLE_V2,
+            )
 
     if not _table_exists(db, PROFILE_TABLE_LEGACY):
         return None

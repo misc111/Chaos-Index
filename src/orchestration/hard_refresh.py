@@ -206,7 +206,7 @@ def run_publish_closeout(*, root_dir: Path = ROOT_DIR) -> HardRefreshPublishSumm
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Run the deterministic NHL/NBA hard-refresh pipeline without rebuilding features."
+        description="Run the deterministic multi-league hard-refresh pipeline without rebuilding features."
     )
     parser.add_argument(
         "--models",

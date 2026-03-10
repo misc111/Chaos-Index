@@ -164,18 +164,36 @@ def _eligible_features_for_model(model_name: str, feature_columns: list[str], le
     league_code = str(league or "NHL").strip().upper()
     cols = [str(c) for c in feature_columns]
 
-    if league_code == "NBA":
+    if league_code in {"NBA", "NCAAM"}:
         glm_pool = [
             c
             for c in cols
             if c.startswith(("diff_", "discipline_", "availability_", "elo_", "dyn_"))
-            or c in {"travel_diff", "rest_diff", "arena_margin_effect", "arena_shot_volume_effect"}
+            or c
+            in {
+                "travel_diff",
+                "rest_diff",
+                "arena_margin_effect",
+                "arena_shot_volume_effect",
+                "conference_tournament_window",
+                "home_conference_tournament_window",
+                "away_conference_tournament_window",
+            }
         ]
         bayes_pool = [
             c
             for c in cols
             if c.startswith(("diff_", "availability_", "elo_", "dyn_"))
-            or c in {"travel_diff", "rest_diff", "arena_margin_effect", "arena_shot_volume_effect"}
+            or c
+            in {
+                "travel_diff",
+                "rest_diff",
+                "arena_margin_effect",
+                "arena_shot_volume_effect",
+                "conference_tournament_window",
+                "home_conference_tournament_window",
+                "away_conference_tournament_window",
+            }
         ]
         two_stage_pool = [
             c
@@ -205,6 +223,8 @@ def _eligible_features_for_model(model_name: str, feature_columns: list[str], le
                 "away_post_all_star_break",
                 "home_post_trade_deadline",
                 "away_post_trade_deadline",
+                "home_conference_tournament_window",
+                "away_conference_tournament_window",
             }
         ]
         tree_pool = [

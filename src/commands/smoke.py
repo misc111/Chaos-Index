@@ -31,8 +31,13 @@ def run(cfg: AppConfig, args: Namespace) -> None:
 
     league = canonicalize_league(cfg.data.league)
     db = Database(cfg.paths.db_path)
+    question_by_league = {
+        "NHL": "What's the chance the Leafs win the next game?",
+        "NBA": "What's the chance the Raptors win the next game?",
+        "NCAAM": "What's the chance Duke wins the next game?",
+    }
     questions = [
-        f"What's the chance the Leafs win the next game?" if league == "NHL" else "What's the chance the Raptors win the next game?",
+        question_by_league.get(league, "What's the chance the Raptors win the next game?"),
         f"Which model has performed best the last 60 days?",
     ]
     logger.info("Smoke scoring info: %s", score_info)

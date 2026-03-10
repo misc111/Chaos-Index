@@ -29,6 +29,7 @@ def test_query_answers(tmp_path: Path):
             (14, "2026-03-01T00:00:00Z", "2026-03-07", "TOR", "OTT", 0.54, "TOR", '{"glm_ridge":0.55}', 0.49, 0.54, 0.60, 0.54, 0.03, 0.04, 0.47, 0.61, '{"starter_unknown":false}', "s1", "f1", "r1"),
             (20, "2026-03-01T00:00:00Z", "2026-03-05", "NYK", "CHI", 0.59, "NYK", '{"glm_ridge":0.60}', 0.52, 0.59, 0.64, 0.58, 0.02, 0.03, 0.51, 0.66, '{"injury_noise":false}', "s1", "f1", "r1"),
             (21, "2026-03-01T00:00:00Z", "2026-03-06", "MIA", "NYK", 0.56, "MIA", '{"glm_ridge":0.57}', 0.50, 0.56, 0.61, 0.56, 0.02, 0.03, 0.49, 0.63, '{"injury_noise":false}', "s1", "f1", "r1"),
+            (30, "2026-03-01T00:00:00Z", "2026-03-05", "DUKE", "UNC", 0.64, "DUKE", '{"glm_ridge":0.63}', 0.57, 0.64, 0.70, 0.64, 0.03, 0.05, 0.56, 0.72, '{"tournament_noise":false}', "s1", "f1", "r1"),
         ],
     )
 
@@ -64,6 +65,8 @@ def test_query_answers(tmp_path: Path):
             ("NBA", "CHI", "Chicago Bulls", "East", "Central", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
             ("NBA", "MIA", "Miami Heat", "East", "Southeast", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
             ("NBA", "NYK", "New York Knicks", "East", "Atlantic", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
+            ("NCAAM", "DUKE", "Duke Blue Devils", "ACC", None, "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
+            ("NCAAM", "UNC", "North Carolina Tar Heels", "ACC", None, "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
         ],
     )
 
@@ -89,6 +92,10 @@ def test_query_answers(tmp_path: Path):
             (203, 20252026, "2026-01-07", "2026-01-07T05:00:00Z", "LAL", "NYK", 99, 105, 0, "2026-01-07T06:00:00Z"),
             (204, 20252026, "2026-01-08", "2026-01-08T05:00:00Z", "NYK", "BKN", 110, 103, 1, "2026-01-08T06:00:00Z"),
             (205, 20252026, "2026-01-09", "2026-01-09T05:00:00Z", "BOS", "LAL", 115, 111, 1, "2026-01-09T06:00:00Z"),
+            (301, 20252026, "2026-01-05", "2026-01-05T03:00:00Z", "DUKE", "UNC", 82, 75, 1, "2026-01-05T04:00:00Z"),
+            (302, 20252026, "2026-01-07", "2026-01-07T03:00:00Z", "DUKE", "UVA", 77, 69, 1, "2026-01-07T04:00:00Z"),
+            (303, 20252026, "2026-01-10", "2026-01-10T03:00:00Z", "DUKE", "WAKE", 74, 71, 1, "2026-01-10T04:00:00Z"),
+            (304, 20252026, "2026-01-12", "2026-01-12T03:00:00Z", "UNC", "DUKE", 70, 76, 0, "2026-01-12T04:00:00Z"),
         ],
     )
 
@@ -145,6 +152,20 @@ def test_query_answers(tmp_path: Path):
     assert 0 < payload_nba_finals["nba_finals_prob"] < 1
     assert payload_nba_finals["interval_90"]["low"] <= payload_nba_finals["nba_finals_prob"] <= payload_nba_finals["interval_90"]["high"]
     assert "Heuristic estimate" in ans_nba_finals
+
+    ans_ncaam, payload_ncaam = answer_question(db, "What's the chance Duke wins the next game?", default_league="NCAAM")
+    assert payload_ncaam["intent"] == "team_next_game"
+    assert payload_ncaam["team"] == "DUKE"
+    assert payload_ncaam["league"] == "NCAAM"
+    assert "DUKE" in ans_ncaam
+
+    ans_ncaam_title, payload_ncaam_title = answer_question(db, "What are the odds Duke wins March Madness?", default_league="NCAAM")
+    assert payload_ncaam_title["intent"] == "team_championship"
+    assert payload_ncaam_title["league"] == "NCAAM"
+    assert payload_ncaam_title["competition"] == "NCAA Tournament"
+    assert payload_ncaam_title["team"] == "DUKE"
+    assert 0 < payload_ncaam_title["ncaa_tournament_prob"] < 1
+    assert "Heuristic estimate" in ans_ncaam_title
 
     _, payload2 = answer_question(db, "Which model has performed best the last 60 days?")
     assert payload2["intent"] == "best_model"

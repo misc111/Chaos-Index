@@ -1,6 +1,6 @@
 # Query
 
-This subsystem answers local NHL/NBA forecasting questions by intent.
+This subsystem answers local NHL/NBA/NCAAM forecasting questions by intent.
 
 Shared across leagues:
 - `intent_parser.py` resolves intent and league/team targeting.

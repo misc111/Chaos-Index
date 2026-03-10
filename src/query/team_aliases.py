@@ -78,9 +78,25 @@ NBA_TEAM_ALIAS_GROUPS: dict[str, tuple[str, ...]] = {
     "WAS": ("washington", "washington wizards", "wizards"),
 }
 
+NCAAM_TEAM_ALIAS_GROUPS: dict[str, tuple[str, ...]] = {
+    "DUKE": ("duke", "duke blue devils", "blue devils"),
+    "UNC": ("unc", "north carolina", "north carolina tar heels", "tar heels"),
+    "UK": ("kentucky", "kentucky wildcats", "wildcats"),
+    "KU": ("kansas", "kansas jayhawks", "jayhawks"),
+    "UCONN": ("uconn", "uconn huskies"),
+    "CONN": ("connecticut", "connecticut huskies"),
+    "MSU": ("michigan state", "michigan state spartans", "spartans"),
+    "UCLA": ("ucla", "ucla bruins", "bruins"),
+    "USC": ("usc", "southern california", "usc trojans", "trojans"),
+    "GONZ": ("gonzaga", "gonzaga bulldogs", "bulldogs"),
+    "PUR": ("purdue", "purdue boilermakers", "boilermakers"),
+    "BAMA": ("alabama", "alabama crimson tide", "crimson tide"),
+}
+
 TEAM_ALIAS_GROUPS_BY_LEAGUE: dict[str, dict[str, tuple[str, ...]]] = {
     "NHL": NHL_TEAM_ALIAS_GROUPS,
     "NBA": NBA_TEAM_ALIAS_GROUPS,
+    "NCAAM": NCAAM_TEAM_ALIAS_GROUPS,
 }
 TEAM_ALIAS_GROUPS = NHL_TEAM_ALIAS_GROUPS
 
@@ -105,6 +121,7 @@ TEAM_ABBREV_ALIASES_BY_LEAGUE = {
         "UTAH": "UTA",
         "WSH": "WAS",
     },
+    "NCAAM": {},
 }
 
 TEAM_ABBREVIATIONS_BY_LEAGUE = {
@@ -113,7 +130,7 @@ TEAM_ABBREVIATIONS_BY_LEAGUE = {
 }
 
 TEAM_ABBREV_PATTERN_BY_LEAGUE = {
-    league: re.compile(rf"\b({'|'.join(sorted(abbrevs))})\b")
+    league: re.compile(rf"\b({'|'.join(sorted(abbrevs))})\b") if abbrevs else re.compile(r"(?!x)x")
     for league, abbrevs in TEAM_ABBREVIATIONS_BY_LEAGUE.items()
 }
 

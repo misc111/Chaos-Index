@@ -41,9 +41,11 @@ ValidationTaskPredicate = Callable[["ValidationContext"], bool]
 
 def _canonical_league(league: str | None) -> str:
     token = str(league or "").strip().upper()
-    if token in {"NHL", "NBA"}:
+    if token == "NCAA":
+        return "NCAAM"
+    if token in {"NHL", "NBA", "NCAAM"}:
         return token
-    raise ValueError(f"Unsupported league '{league}'. Expected one of: NHL, NBA.")
+    raise ValueError(f"Unsupported league '{league}'. Expected one of: NHL, NBA, NCAAM.")
 
 
 @dataclass(frozen=True, slots=True)

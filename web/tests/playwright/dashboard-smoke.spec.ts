@@ -1,6 +1,12 @@
 import { expect, test, type Page } from "@playwright/test";
 
-type LeagueCode = "NBA" | "NHL";
+type LeagueCode = "NBA" | "NHL" | "NCAAM";
+
+const LEAGUES: readonly LeagueCode[] = ["NBA", "NHL", "NCAAM"];
+
+function displayLeagueLabel(league: LeagueCode): string {
+  return league === "NCAAM" ? "NCAA" : league;
+}
 
 type RouteExpectation = {
   label: string;
@@ -232,7 +238,7 @@ async function settle(page: Page) {
 }
 
 async function expectDashboardShell(page: Page, league: LeagueCode) {
-  await expect(page.locator("h1.app-title")).toHaveText(`${league} Win Probability Forecasting`);
+  await expect(page.locator("h1.app-title")).toHaveText(`${displayLeagueLabel(league)} Win Probability Forecasting`);
   await expect(page.locator("aside.dashboard-sidebar")).toContainText(/Bet Objective/i);
   await expect(page.locator("nav.dashboard-nav")).toContainText(/Overview/i);
   const layoutMetrics = await page.evaluate(() => ({
@@ -268,7 +274,7 @@ async function expectHealthyRoute(
 }
 
 test.describe("dashboard smoke", () => {
-  for (const league of ["NBA", "NHL"] as const) {
+  for (const league of LEAGUES) {
     test(`main navigation is healthy for ${league}`, async ({ page }) => {
       const pageIssues = trackPageIssues(page);
       await page.goto(buildLeaguePath("/", league));
@@ -282,10 +288,10 @@ test.describe("dashboard smoke", () => {
       await expect(page.locator("html")).toHaveAttribute("data-dashboard-theme", themeBefore || "market-board-dark");
       expect(pageIssues.flush(), "Theme toggle produced browser/runtime failures").toEqual([]);
 
-      const alternateLeague: LeagueCode = league === "NBA" ? "NHL" : "NBA";
-      await page.getByRole("link", { name: alternateLeague, exact: true }).click();
+      const alternateLeague = LEAGUES.find((candidate) => candidate !== league) || "NBA";
+      await page.getByRole("link", { name: displayLeagueLabel(alternateLeague), exact: true }).click();
       await expectDashboardShell(page, alternateLeague);
-      await page.getByRole("link", { name: league, exact: true }).click();
+      await page.getByRole("link", { name: displayLeagueLabel(league), exact: true }).click();
       await expectDashboardShell(page, league);
       expect(pageIssues.flush(), "League toggle produced browser/runtime failures").toEqual([]);
 

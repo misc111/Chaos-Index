@@ -23,6 +23,17 @@
       "championship_name": "NBA Finals",
       "championship_probability_key": "nba_finals_prob",
       "uncertainty_policy_name": "nba_availability_market"
+    },
+    "NCAAM": {
+      "code": "NCAAM",
+      "slug": "ncaam",
+      "default_config_path": "configs/ncaam.yaml",
+      "env_config_var": "NCAAM_CONFIG_PATH",
+      "project_name": "ncaam_forecast",
+      "db_path": "data/processed/ncaam_forecast.db",
+      "championship_name": "NCAA Tournament",
+      "championship_probability_key": "ncaa_tournament_prob",
+      "uncertainty_policy_name": "ncaam_rotation_market"
     }
   }
 }

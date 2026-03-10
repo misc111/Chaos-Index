@@ -9,7 +9,7 @@ import {
   normalizeBetStrategy,
   type BetStrategy,
 } from "@/lib/betting-strategy";
-import { type LeagueCode, normalizeLeague, withLeague } from "@/lib/league";
+import { ALL_LEAGUES, displayLeagueLabel, type LeagueCode, normalizeLeague, withLeague } from "@/lib/league";
 import { isStaticStagingBuild } from "@/lib/static-staging";
 
 const links: Array<[string, string]> = [
@@ -147,13 +147,13 @@ function SidebarControls({
           League
         </span>
         <div className="league-toggle-row" aria-label="League selection">
-          {(["NBA", "NHL"] as LeagueCode[]).map((code) => (
+          {ALL_LEAGUES.map((code) => (
             <Link
               href={hrefWithLeague(pathname, code, search)}
               key={code}
               className={`league-toggle-btn ${league === code ? "active" : ""}`}
             >
-              {code}
+              {displayLeagueLabel(code)}
             </Link>
           ))}
         </div>
@@ -194,7 +194,7 @@ function SidebarControls({
             ) : isRefreshing ? (
               <>
                 <span className="refresh-spinner" aria-hidden />
-                Refreshing {league}...
+                Refreshing {displayLeagueLabel(league)}...
               </>
             ) : (
               "Refresh Data"
@@ -207,7 +207,7 @@ function SidebarControls({
             {!staticStaging ? <p className="small">Ingest only. No feature rebuild and no retraining.</p> : null}
             {isRefreshing ? (
               <>
-                <p className="small">Refreshing {league} data without rebuilding models...</p>
+                <p className="small">Refreshing {displayLeagueLabel(league)} data without rebuilding models...</p>
                 <div className="refresh-progress-track">
                   <span className="refresh-progress-fill" />
                 </div>
@@ -355,7 +355,7 @@ function HeaderFallback() {
       <div className="dashboard-topbar">
         <div className="dashboard-title-block">
           <p className="sidebar-eyebrow dashboard-eyebrow">Chaos Index</p>
-          <h1 className="title app-title">NBA Win Probability Forecasting</h1>
+          <h1 className="title app-title">Win Probability Forecasting</h1>
           <p className="small dashboard-subtitle">
             Independent win probabilities you can compare against the market.
           </p>
@@ -384,7 +384,7 @@ function DashboardHeaderContent() {
       <div className="dashboard-topbar">
         <div className="dashboard-title-block">
           <p className="sidebar-eyebrow dashboard-eyebrow">Chaos Index</p>
-          <h1 className="title app-title">{league} Win Probability Forecasting</h1>
+          <h1 className="title app-title">{displayLeagueLabel(league)} Win Probability Forecasting</h1>
           <p className="small dashboard-subtitle">
             Independent win probabilities you can compare against the market.
           </p>

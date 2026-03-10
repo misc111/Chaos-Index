@@ -22,10 +22,14 @@ def competition_name_for_league(league: str) -> str:
 
 
 def championship_probs_from_win_rates(win_rates: list[float]) -> list[float]:
+    return championship_probs_from_win_rates_with_slots(win_rates, playoff_slots=min(16, len(win_rates)))
+
+
+def championship_probs_from_win_rates_with_slots(win_rates: list[float], *, playoff_slots: int) -> list[float]:
     clipped = [max(0.15, min(0.85, float(w))) for w in win_rates]
     strength = [math.log(w / (1 - w)) for w in clipped]
     n_teams = len(strength)
-    playoff_slots = min(16, n_teams)
+    playoff_slots = min(max(1, int(playoff_slots)), n_teams) if n_teams else 0
     cutoff = sorted(strength, reverse=True)[playoff_slots - 1] if playoff_slots > 0 else 0.0
 
     raw = []
@@ -96,7 +100,7 @@ def answer_team_championship(
     for row in league_rows:
         if row.get("team"):
             team_code = str(row["team"])
-            if team_code in allowed_teams:
+            if not allowed_teams or team_code in allowed_teams:
                 team_set.add(team_code)
 
     latest_as_of = latest_upcoming_as_of(db)
@@ -116,7 +120,7 @@ def answer_team_championship(
         for row in upcoming_rows:
             if row.get("team"):
                 team_code = str(row["team"])
-                if team_code in allowed_teams:
+                if not allowed_teams or team_code in allowed_teams:
                     team_set.add(team_code)
 
     if team not in team_set:
@@ -151,7 +155,7 @@ def answer_team_championship(
     records = {
         str(r["team"]): {"wins": float(r["wins"]), "games": float(r["games"])}
         for r in record_rows
-        if r.get("team") and str(r["team"]) in allowed_teams
+        if r.get("team") and (not allowed_teams or str(r["team"]) in allowed_teams)
     }
 
     teams = sorted(team_set)
@@ -162,7 +166,8 @@ def answer_team_championship(
     alpha = [1.0 + w for w in wins]
     beta = [1.0 + l for l in losses]
     mean_win_rates = [a / (a + b) for a, b in zip(alpha, beta)]
-    championship_probs = championship_probs_from_win_rates(mean_win_rates)
+    playoff_slots = 68 if league == "NCAAM" else 16
+    championship_probs = championship_probs_from_win_rates_with_slots(mean_win_rates, playoff_slots=playoff_slots)
 
     team_idx = teams.index(team)
     point_estimate = float(championship_probs[team_idx])
@@ -172,7 +177,7 @@ def answer_team_championship(
     sampled: list[float] = []
     for _ in range(n_sims):
         draw = [rng.betavariate(a, b) for a, b in zip(alpha, beta)]
-        sampled.append(float(championship_probs_from_win_rates(draw)[team_idx]))
+        sampled.append(float(championship_probs_from_win_rates_with_slots(draw, playoff_slots=playoff_slots)[team_idx]))
     sampled.sort()
     low_90 = quantile(sampled, 0.05)
     high_90 = quantile(sampled, 0.95)
@@ -218,6 +223,7 @@ def answer_team_championship(
             "type": "heuristic_results_based",
             "summary": "Uses current-season win/loss results with Beta shrinkage, converts to strength scores, applies a smooth playoff-qualification proxy, then normalizes championship shares.",
             "monte_carlo_draws": n_sims,
+            "playoff_slots_proxy": playoff_slots,
             "as_of_date": as_of_date,
             "upcoming_snapshot_as_of_utc": latest_as_of,
         },

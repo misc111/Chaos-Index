@@ -13,6 +13,7 @@ from src.storage.db import Database
     [
         ("NHL", "nhl", "configs/nhl.yaml", "Stanley Cup", "stanley_cup_prob"),
         ("NBA", "nba", "configs/nba.yaml", "NBA Finals", "nba_finals_prob"),
+        ("NCAAM", "ncaam", "configs/ncaam.yaml", "NCAA Tournament", "ncaa_tournament_prob"),
     ],
 )
 def test_league_adapter_contracts_stay_in_sync(
@@ -45,7 +46,7 @@ def test_league_adapter_contracts_stay_in_sync(
 
 
 def test_supported_leagues_are_explicit_and_stable() -> None:
-    assert supported_leagues() == ("NHL", "NBA")
+    assert supported_leagues() == ("NHL", "NBA", "NCAAM")
 
 
 @pytest.mark.parametrize(
@@ -53,9 +54,10 @@ def test_supported_leagues_are_explicit_and_stable() -> None:
     [
         ("NHL", "nhl", "configs/nhl.yaml"),
         ("NBA", "nba", "configs/nba.yaml"),
+        ("NCAAM", "ncaam", "configs/ncaam.yaml"),
     ],
 )
-def test_data_refresh_steps_cover_both_leagues_with_registry_defaults(league: str, slug: str, config_path: str) -> None:
+def test_data_refresh_steps_cover_all_supported_leagues_with_registry_defaults(league: str, slug: str, config_path: str) -> None:
     steps = {step.name: step for step in build_data_refresh_steps()}
 
     assert steps[f"{slug}:fetch"].command[-1] == config_path
@@ -122,6 +124,28 @@ def _seed_query_db(tmp_path: Path) -> Database:
                 "f1",
                 "r1",
             ),
+            (
+                30,
+                "2026-03-01T00:00:00Z",
+                "2026-03-05",
+                "DUKE",
+                "UNC",
+                0.64,
+                "DUKE",
+                '{"glm_ridge":0.63}',
+                0.57,
+                0.64,
+                0.70,
+                0.64,
+                0.03,
+                0.05,
+                0.56,
+                0.72,
+                '{"tournament_noise":false}',
+                "s1",
+                "f1",
+                "r1",
+            ),
         ],
     )
 
@@ -141,6 +165,9 @@ def _seed_query_db(tmp_path: Path) -> Database:
             (202, 20252026, "2026-01-06", "2026-01-06T05:00:00Z", "BOS", "NYK", 112, 104, 1, "2026-01-06T06:00:00Z"),
             (203, 20252026, "2026-01-07", "2026-01-07T05:00:00Z", "MIA", "ATL", 111, 103, 1, "2026-01-07T06:00:00Z"),
             (204, 20252026, "2026-01-08", "2026-01-08T05:00:00Z", "LAL", "DEN", 99, 105, 0, "2026-01-08T06:00:00Z"),
+            (301, 20252026, "2026-01-05", "2026-01-05T03:00:00Z", "DUKE", "UNC", 82, 75, 1, "2026-01-05T04:00:00Z"),
+            (302, 20252026, "2026-01-07", "2026-01-07T03:00:00Z", "DUKE", "UVA", 77, 69, 1, "2026-01-07T04:00:00Z"),
+            (303, 20252026, "2026-01-10", "2026-01-10T03:00:00Z", "UNC", "DUKE", 70, 76, 0, "2026-01-10T04:00:00Z"),
         ],
     )
 
@@ -152,8 +179,10 @@ def _seed_query_db(tmp_path: Path) -> Database:
     [
         ("What's the chance the Leafs win their next game?", "team_next_game", "TOR", "NHL", None, None),
         ("What's the chance the Knicks win the next game?", "team_next_game", "NYK", "NBA", None, None),
+        ("What's the chance Duke wins the next game?", "team_next_game", "DUKE", "NCAAM", None, None),
         ("What's the probability the Kings win the Stanley Cup?", "team_championship", "LAK", "NHL", "Stanley Cup", "stanley_cup_prob"),
         ("What's the probability the Knicks win the NBA Finals?", "team_championship", "NYK", "NBA", "NBA Finals", "nba_finals_prob"),
+        ("What's the probability Duke wins March Madness?", "team_championship", "DUKE", "NCAAM", "NCAA Tournament", "ncaa_tournament_prob"),
     ],
 )
 def test_query_handlers_hold_shared_parity_contract(

@@ -9,7 +9,9 @@ function dbPathForLeague(league: LeagueCode): string {
     ? process.env.SPORTS_DB_PATH
     : league === "NBA"
       ? process.env.NBA_DB_PATH || resolveDbPathForLeague("NBA")
-      : process.env.NHL_DB_PATH || resolveDbPathForLeague("NHL");
+      : league === "NHL"
+        ? process.env.NHL_DB_PATH || resolveDbPathForLeague("NHL")
+        : process.env.NCAAM_DB_PATH || resolveDbPathForLeague("NCAAM");
 }
 
 export function runSqlJson<T extends Record<string, unknown> = Record<string, unknown>>(
