@@ -49,7 +49,7 @@
     }
   },
   "strategy_optimization": {
-    "method": "Static defaults active until matched replay coverage reaches at least 60 settled games across 20 replay days (current sample: 33 games across 4 days).",
+    "method": "Static defaults active until matched replay coverage reaches at least 60 settled games across 20 replay days (current sample: 34 games across 5 days).",
     "risk_free_rate": 0,
     "candidate_count": 0,
     "frontier_point_count": 0,
@@ -63,21 +63,21 @@
   "strategies": {
     "riskAdjusted": {
       "summary": {
-        "total_final_games": 1140,
-        "games_with_forecast": 913,
-        "games_with_odds": 33,
-        "analyzed_games": 33,
-        "suggested_bets": 15,
+        "total_final_games": 1141,
+        "games_with_forecast": 914,
+        "games_with_odds": 34,
+        "analyzed_games": 34,
+        "suggested_bets": 16,
         "wins": 7,
-        "losses": 8,
-        "total_risked": 1500,
-        "total_profit": -38.9392663095344,
-        "roi": -0.025959510873022937,
+        "losses": 9,
+        "total_risked": 1625,
+        "total_profit": -163.9392663095344,
+        "roi": -0.10088570234432885,
         "starting_bankroll": 5000,
-        "current_bankroll": 4961.060733690466,
+        "current_bankroll": 4836.060733690466,
         "bankroll_start_central": "2026-03-05",
         "coverage_start_central": "2026-03-05",
-        "coverage_end_central": "2026-03-08",
+        "coverage_end_central": "2026-03-09",
         "note": "Replay results use only games with stored pregame forecast and odds snapshots."
       },
       "daily_points": [
@@ -112,6 +112,14 @@
           "cumulative_profit": -38.93926630953442,
           "cumulative_bankroll": 4961.060733690466,
           "bet_count": 3
+        },
+        {
+          "date_central": "2026-03-09",
+          "risked": 125,
+          "daily_profit": -125,
+          "cumulative_profit": -163.93926630953442,
+          "cumulative_bankroll": 4836.060733690466,
+          "bet_count": 1
         }
       ],
       "bets": [
@@ -564,26 +572,56 @@
           "profit": -100,
           "payout": 0,
           "cumulative_profit": -38.9392663095344
+        },
+        {
+          "game_id": 2025020828,
+          "date_central": "2026-03-09",
+          "week_start_central": "2026-03-09",
+          "start_time_utc": "2026-03-09T20:00:00Z",
+          "final_utc": "2026-03-09T20:00:00Z",
+          "home_team": "CBJ",
+          "away_team": "LAK",
+          "home_score": 4,
+          "away_score": 5,
+          "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+          "odds_as_of_utc": "2026-03-09T12:01:56+00:00",
+          "odds_snapshot_id": "nhl_odds_891246af38214469",
+          "home_moneyline": -132,
+          "away_moneyline": 120,
+          "bet_label": "$125 CBJ",
+          "reason": "Favorite underpriced after uncertainty adjustment",
+          "side": "home",
+          "team": "CBJ",
+          "stake": 125,
+          "odds": -132,
+          "expected_value": 0.24128384210326592,
+          "edge": 0.15035183802828533,
+          "model_probability": 0.7062477032656513,
+          "market_probability": 0.555895865237366,
+          "outcome": "loss",
+          "profit": -125,
+          "payout": 0,
+          "cumulative_profit": -163.9392663095344
         }
       ]
     },
     "aggressive": {
       "summary": {
-        "total_final_games": 1140,
-        "games_with_forecast": 913,
-        "games_with_odds": 33,
-        "analyzed_games": 33,
-        "suggested_bets": 15,
+        "total_final_games": 1141,
+        "games_with_forecast": 914,
+        "games_with_odds": 34,
+        "analyzed_games": 34,
+        "suggested_bets": 16,
         "wins": 7,
-        "losses": 8,
-        "total_risked": 2250,
-        "total_profit": -58.408899464301626,
-        "roi": -0.025959510873022944,
+        "losses": 9,
+        "total_risked": 2425,
+        "total_profit": -233.4088994643016,
+        "roi": -0.0962510925625986,
         "starting_bankroll": 5000,
-        "current_bankroll": 4941.591100535698,
+        "current_bankroll": 4766.591100535698,
         "bankroll_start_central": "2026-03-05",
         "coverage_start_central": "2026-03-05",
-        "coverage_end_central": "2026-03-08",
+        "coverage_end_central": "2026-03-09",
         "note": "Replay results use only games with stored pregame forecast and odds snapshots."
       },
       "daily_points": [
@@ -618,6 +656,14 @@
           "cumulative_profit": -58.40889946430161,
           "cumulative_bankroll": 4941.591100535698,
           "bet_count": 3
+        },
+        {
+          "date_central": "2026-03-09",
+          "risked": 175,
+          "daily_profit": -175,
+          "cumulative_profit": -233.4088994643016,
+          "cumulative_bankroll": 4766.591100535698,
+          "bet_count": 1
         }
       ],
       "bets": [
@@ -1070,26 +1116,56 @@
           "profit": -150,
           "payout": 0,
           "cumulative_profit": -58.408899464301626
+        },
+        {
+          "game_id": 2025020828,
+          "date_central": "2026-03-09",
+          "week_start_central": "2026-03-09",
+          "start_time_utc": "2026-03-09T20:00:00Z",
+          "final_utc": "2026-03-09T20:00:00Z",
+          "home_team": "CBJ",
+          "away_team": "LAK",
+          "home_score": 4,
+          "away_score": 5,
+          "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+          "odds_as_of_utc": "2026-03-09T12:01:56+00:00",
+          "odds_snapshot_id": "nhl_odds_891246af38214469",
+          "home_moneyline": -132,
+          "away_moneyline": 120,
+          "bet_label": "$175 CBJ",
+          "reason": "Favorite underpriced after uncertainty adjustment",
+          "side": "home",
+          "team": "CBJ",
+          "stake": 175,
+          "odds": -132,
+          "expected_value": 0.24128384210326592,
+          "edge": 0.15035183802828533,
+          "model_probability": 0.7062477032656513,
+          "market_probability": 0.555895865237366,
+          "outcome": "loss",
+          "profit": -175,
+          "payout": 0,
+          "cumulative_profit": -233.4088994643016
         }
       ]
     },
     "capitalPreservation": {
       "summary": {
-        "total_final_games": 1140,
-        "games_with_forecast": 913,
-        "games_with_odds": 33,
-        "analyzed_games": 33,
-        "suggested_bets": 7,
+        "total_final_games": 1141,
+        "games_with_forecast": 914,
+        "games_with_odds": 34,
+        "analyzed_games": 34,
+        "suggested_bets": 8,
         "wins": 5,
-        "losses": 2,
-        "total_risked": 350,
-        "total_profit": 110.59286684523279,
-        "roi": 0.31597961955780796,
+        "losses": 3,
+        "total_risked": 425,
+        "total_profit": 35.59286684523279,
+        "roi": 0.08374792198878304,
         "starting_bankroll": 5000,
-        "current_bankroll": 5110.5928668452325,
+        "current_bankroll": 5035.5928668452325,
         "bankroll_start_central": "2026-03-05",
         "coverage_start_central": "2026-03-05",
-        "coverage_end_central": "2026-03-08",
+        "coverage_end_central": "2026-03-09",
         "note": "Replay results use only games with stored pregame forecast and odds snapshots."
       },
       "daily_points": [
@@ -1124,6 +1200,14 @@
           "cumulative_profit": 110.5928668452328,
           "cumulative_bankroll": 5110.592866845233,
           "bet_count": 2
+        },
+        {
+          "date_central": "2026-03-09",
+          "risked": 75,
+          "daily_profit": -75,
+          "cumulative_profit": 35.592866845232805,
+          "cumulative_bankroll": 5035.592866845233,
+          "bet_count": 1
         }
       ],
       "bets": [
@@ -1336,6 +1420,36 @@
           "profit": 48.54368932038835,
           "payout": 98.54368932038835,
           "cumulative_profit": 110.59286684523279
+        },
+        {
+          "game_id": 2025020828,
+          "date_central": "2026-03-09",
+          "week_start_central": "2026-03-09",
+          "start_time_utc": "2026-03-09T20:00:00Z",
+          "final_utc": "2026-03-09T20:00:00Z",
+          "home_team": "CBJ",
+          "away_team": "LAK",
+          "home_score": 4,
+          "away_score": 5,
+          "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+          "odds_as_of_utc": "2026-03-09T12:01:56+00:00",
+          "odds_snapshot_id": "nhl_odds_891246af38214469",
+          "home_moneyline": -132,
+          "away_moneyline": 120,
+          "bet_label": "$75 CBJ",
+          "reason": "Favorite underpriced after uncertainty adjustment",
+          "side": "home",
+          "team": "CBJ",
+          "stake": 75,
+          "odds": -132,
+          "expected_value": 0.24128384210326592,
+          "edge": 0.15035183802828533,
+          "model_probability": 0.7062477032656513,
+          "market_probability": 0.555895865237366,
+          "outcome": "loss",
+          "profit": -75,
+          "payout": 0,
+          "cumulative_profit": 35.59286684523279
         }
       ]
     }
