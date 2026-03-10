@@ -1,5 +1,6 @@
 import { runSqlJson } from "@/lib/db";
 import type { LeagueCode } from "@/lib/league";
+import { ensureHistoricalReplayDecisionTable } from "@/lib/replay-bets";
 
 type RawBettableModelScoreRow = {
   game_id?: number | null;
@@ -10,6 +11,7 @@ type RawBettableModelScoreRow = {
 
 const DEFAULT_BETTING_MODEL = "ensemble";
 const BETTABLE_DRIVER_LOOKBACK_DAYS = 60;
+const REPLAY_DECISION_TABLE = "historical_bet_decisions_by_profile_v2";
 
 // Temporary live-betting driver reranker:
 // We are intentionally selecting the betting driver from recent *bettable*
@@ -34,7 +36,7 @@ function modelDriverSql(lookbackDays: number): string {
   return `
     WITH latest_day AS (
       SELECT MAX(date_central) AS max_date
-      FROM historical_bet_decisions_by_profile
+      FROM ${REPLAY_DECISION_TABLE}
       WHERE strategy = 'riskAdjusted'
         AND stake > 0
     ),
@@ -43,7 +45,7 @@ function modelDriverSql(lookbackDays: number): string {
         d.game_id,
         r.home_win,
         COALESCE(g.start_time_utc, r.final_utc, r.game_date_utc || 'T23:59:59Z') AS replay_cutoff_utc
-      FROM historical_bet_decisions_by_profile d
+      FROM ${REPLAY_DECISION_TABLE} d
       JOIN latest_day ld
         ON ld.max_date IS NOT NULL
       JOIN results r
@@ -83,6 +85,7 @@ function modelDriverSql(lookbackDays: number): string {
 }
 
 export function getPreferredBettingModelName(league: LeagueCode): string {
+  ensureHistoricalReplayDecisionTable(league);
   const rows = runSqlJson(modelDriverSql(BETTABLE_DRIVER_LOOKBACK_DAYS), { league }) as RawBettableModelScoreRow[];
   const metricsByModel = new Map<string, { n: number; logLoss: number; brier: number; accuracy: number }>();
 

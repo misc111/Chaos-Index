@@ -10,7 +10,8 @@ import type { LeagueCode } from "@/lib/league";
 
 const REPLAY_DECISION_VERSION = "historical_replay_v8";
 const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v5";
-const REPLAY_DECISION_TABLE = "historical_bet_decisions_by_profile";
+const REPLAY_DECISION_TABLE = "historical_bet_decisions_by_profile_v2";
+const LEGACY_REPLAY_DECISION_TABLE = "historical_bet_decisions_by_profile";
 const DEFAULT_REPLAY_VARIANT = "default";
 
 export type ReplayableHistoricalGame = {
@@ -133,12 +134,13 @@ function normalizeStrategy(value: unknown): BetStrategy {
   return DEFAULT_BET_STRATEGY;
 }
 
-function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
+export function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
   execSql(
     `
     CREATE TABLE IF NOT EXISTS ${REPLAY_DECISION_TABLE} (
       strategy TEXT NOT NULL,
       sizing_style TEXT NOT NULL DEFAULT '${DEFAULT_REPLAY_VARIANT}',
+      strategy_config_signature TEXT NOT NULL DEFAULT '',
       game_id INTEGER NOT NULL,
       date_central TEXT NOT NULL,
       forecast_as_of_utc TEXT NOT NULL,
@@ -161,15 +163,92 @@ function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
       edge REAL,
       expected_value REAL,
       stake_unit_dollars REAL NOT NULL DEFAULT 100,
-      strategy_config_signature TEXT,
       decision_logic_version TEXT NOT NULL,
       materialization_version TEXT,
       created_at_utc TEXT NOT NULL,
-      PRIMARY KEY (strategy, sizing_style, game_id)
+      PRIMARY KEY (strategy, sizing_style, strategy_config_signature, game_id)
     );
     `,
     { league }
   );
+
+  const legacyTable = runSqlJson<{ name?: string | null }>(
+    `
+    SELECT name
+    FROM sqlite_master
+    WHERE type = 'table'
+      AND name = '${LEGACY_REPLAY_DECISION_TABLE}'
+    `,
+    { league }
+  );
+
+  if (legacyTable.length > 0) {
+    execSql(
+      `
+      INSERT OR IGNORE INTO ${REPLAY_DECISION_TABLE} (
+        strategy,
+        sizing_style,
+        strategy_config_signature,
+        game_id,
+        date_central,
+        forecast_as_of_utc,
+        forecast_model_run_id,
+        odds_as_of_utc,
+        odds_snapshot_id,
+        home_team,
+        away_team,
+        home_win_probability,
+        home_moneyline,
+        away_moneyline,
+        bet_label,
+        reason,
+        side,
+        team,
+        stake,
+        odds,
+        model_probability,
+        market_probability,
+        edge,
+        expected_value,
+        stake_unit_dollars,
+        decision_logic_version,
+        materialization_version,
+        created_at_utc
+      )
+      SELECT
+        strategy,
+        COALESCE(sizing_style, '${DEFAULT_REPLAY_VARIANT}'),
+        COALESCE(strategy_config_signature, ''),
+        game_id,
+        date_central,
+        forecast_as_of_utc,
+        forecast_model_run_id,
+        odds_as_of_utc,
+        odds_snapshot_id,
+        home_team,
+        away_team,
+        home_win_probability,
+        home_moneyline,
+        away_moneyline,
+        bet_label,
+        reason,
+        side,
+        team,
+        stake,
+        odds,
+        model_probability,
+        market_probability,
+        edge,
+        expected_value,
+        COALESCE(stake_unit_dollars, 100),
+        decision_logic_version,
+        materialization_version,
+        created_at_utc
+      FROM ${LEGACY_REPLAY_DECISION_TABLE}
+      `,
+      { league }
+    );
+  }
 
   const columns = new Set(
     (runSqlJson(`PRAGMA table_info(${REPLAY_DECISION_TABLE})`, { league }) as RawSqliteTableInfoRow[])
@@ -193,9 +272,6 @@ function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
     alterStatements.push(
       `ALTER TABLE ${REPLAY_DECISION_TABLE} ADD COLUMN stake_unit_dollars REAL NOT NULL DEFAULT 100;`
     );
-  }
-  if (!columns.has("strategy_config_signature")) {
-    alterStatements.push(`ALTER TABLE ${REPLAY_DECISION_TABLE} ADD COLUMN strategy_config_signature TEXT;`);
   }
 
   if (alterStatements.length) {
@@ -233,7 +309,7 @@ function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
   execSql(
     `
     CREATE INDEX IF NOT EXISTS idx_historical_bet_decisions_by_profile_date
-      ON ${REPLAY_DECISION_TABLE}(strategy, sizing_style, date_central);
+      ON ${REPLAY_DECISION_TABLE}(strategy, sizing_style, strategy_config_signature, date_central);
     `,
     { league }
   );
@@ -242,7 +318,8 @@ function ensureHistoricalReplayDecisionTable(league: LeagueCode): void {
 function loadStoredHistoricalReplayDecisions(
   gameIds: number[],
   league: LeagueCode,
-  strategy: BetStrategy
+  strategy: BetStrategy,
+  strategyConfigSignature: string
 ): Map<number, HistoricalReplayDecisionSnapshot> {
   if (!gameIds.length) return new Map();
 
@@ -283,6 +360,7 @@ function loadStoredHistoricalReplayDecisions(
     FROM ${REPLAY_DECISION_TABLE}
     WHERE strategy = '${escapeSqlString(strategy)}'
       AND sizing_style = '${DEFAULT_REPLAY_VARIANT}'
+      AND strategy_config_signature = '${escapeSqlString(strategyConfigSignature)}'
       AND game_id IN (${inList})
     `,
     { league }
@@ -372,6 +450,7 @@ function upsertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[
       (row) => `(
         ${sqlText(row.strategy)},
         ${sqlText(DEFAULT_REPLAY_VARIANT)},
+        ${sqlText(row.strategy_config_signature)},
         ${row.game_id},
         ${sqlText(row.date_central)},
         ${sqlText(row.forecast_as_of_utc)},
@@ -394,7 +473,6 @@ function upsertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[
         ${sqlNumber(row.edge)},
         ${sqlNumber(row.expected_value)},
         ${sqlNumber(row.reference_stake_dollars)},
-        ${sqlText(row.strategy_config_signature)},
         ${sqlText(row.decision_logic_version)},
         ${sqlText(row.materialization_version)},
         ${sqlText(row.created_at_utc)}
@@ -407,6 +485,7 @@ function upsertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[
     INSERT OR REPLACE INTO ${REPLAY_DECISION_TABLE} (
       strategy,
       sizing_style,
+      strategy_config_signature,
       game_id,
       date_central,
       forecast_as_of_utc,
@@ -429,7 +508,6 @@ function upsertHistoricalReplayDecisions(rows: HistoricalReplayDecisionSnapshot[
       edge,
       expected_value,
       stake_unit_dollars,
-      strategy_config_signature,
       decision_logic_version,
       materialization_version,
       created_at_utc
@@ -456,7 +534,8 @@ export function loadOrCreateHistoricalReplayDecisions(
     snapshots = loadStoredHistoricalReplayDecisions(
       rows.map((row) => row.game_id),
       league,
-      strategy
+      strategy,
+      strategyConfigSignature
     );
   } catch {
     canPersist = false;

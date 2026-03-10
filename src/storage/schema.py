@@ -305,4 +305,39 @@ CREATE INDEX IF NOT EXISTS idx_odds_lines_event_market_book ON odds_market_lines
 CREATE INDEX IF NOT EXISTS idx_historical_bet_decisions_date ON historical_bet_decisions(date_central);
 CREATE INDEX IF NOT EXISTS idx_historical_bet_decisions_by_profile_date
   ON historical_bet_decisions_by_profile(strategy, sizing_style, date_central);
+
+CREATE TABLE IF NOT EXISTS historical_bet_decisions_by_profile_v2 (
+  strategy TEXT NOT NULL,
+  sizing_style TEXT NOT NULL,
+  strategy_config_signature TEXT NOT NULL DEFAULT '',
+  game_id INTEGER NOT NULL,
+  date_central TEXT NOT NULL,
+  forecast_as_of_utc TEXT NOT NULL,
+  forecast_model_run_id TEXT,
+  odds_as_of_utc TEXT NOT NULL,
+  odds_snapshot_id TEXT NOT NULL,
+  home_team TEXT NOT NULL,
+  away_team TEXT NOT NULL,
+  home_win_probability REAL NOT NULL,
+  home_moneyline REAL NOT NULL,
+  away_moneyline REAL NOT NULL,
+  bet_label TEXT NOT NULL,
+  reason TEXT NOT NULL,
+  side TEXT NOT NULL,
+  team TEXT,
+  stake REAL NOT NULL,
+  odds REAL,
+  model_probability REAL,
+  market_probability REAL,
+  edge REAL,
+  expected_value REAL,
+  stake_unit_dollars REAL NOT NULL DEFAULT 100,
+  decision_logic_version TEXT NOT NULL,
+  materialization_version TEXT,
+  created_at_utc TEXT NOT NULL,
+  PRIMARY KEY (strategy, sizing_style, strategy_config_signature, game_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_historical_bet_decisions_by_profile_v2_date
+  ON historical_bet_decisions_by_profile_v2(strategy, sizing_style, strategy_config_signature, date_central);
 """

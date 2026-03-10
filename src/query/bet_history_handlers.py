@@ -15,6 +15,8 @@ DEFAULT_PROFILE_PREFERENCES: tuple[tuple[str, str], ...] = (
     ("balanced", "bucketed"),
 )
 CENTRAL_TZ = ZoneInfo("America/Chicago")
+PROFILE_TABLE_V2 = "historical_bet_decisions_by_profile_v2"
+PROFILE_TABLE_LEGACY = "historical_bet_decisions_by_profile"
 
 
 def _format_signed_usd(amount: float) -> str:
@@ -111,22 +113,79 @@ def _table_exists(db: Queryable, table_name: str) -> bool:
     return bool(rows)
 
 
-def _select_profile(db: Queryable) -> tuple[str, str] | None:
-    if not _table_exists(db, "historical_bet_decisions_by_profile"):
+def _select_profile(db: Queryable) -> tuple[str, str, str, str] | None:
+    if _table_exists(db, PROFILE_TABLE_V2):
+        rows = db.query(
+            f"""
+            SELECT
+              strategy,
+              sizing_style,
+              COALESCE(strategy_config_signature, '') AS strategy_config_signature,
+              MAX(created_at_utc) AS latest_created_at
+            FROM {PROFILE_TABLE_V2}
+            GROUP BY strategy, sizing_style, COALESCE(strategy_config_signature, '')
+            """
+        )
+        profiles = [
+            {
+                "strategy": str(row.get("strategy") or ""),
+                "sizing_style": str(row.get("sizing_style") or ""),
+                "strategy_config_signature": str(row.get("strategy_config_signature") or ""),
+                "latest_created_at": str(row.get("latest_created_at") or ""),
+            }
+            for row in rows
+        ]
+        for preferred_strategy, preferred_style in DEFAULT_PROFILE_PREFERENCES:
+            matching = [
+                profile
+                for profile in profiles
+                if profile["strategy"] == preferred_strategy and profile["sizing_style"] == preferred_style
+            ]
+            if matching:
+                matching.sort(key=lambda profile: profile["latest_created_at"], reverse=True)
+                selected = matching[0]
+                return (
+                    selected["strategy"],
+                    selected["sizing_style"],
+                    selected["strategy_config_signature"],
+                    PROFILE_TABLE_V2,
+                )
+        if not profiles:
+            return None
+        profiles.sort(
+            key=lambda profile: (
+                profile["sizing_style"] == "continuous",
+                profile["latest_created_at"],
+                profile["strategy"],
+                profile["sizing_style"],
+            ),
+            reverse=True,
+        )
+        selected = profiles[0]
+        return (
+            selected["strategy"],
+            selected["sizing_style"],
+            selected["strategy_config_signature"],
+            PROFILE_TABLE_V2,
+        )
+
+    if not _table_exists(db, PROFILE_TABLE_LEGACY):
         return None
 
-    rows = db.query("SELECT DISTINCT strategy, sizing_style FROM historical_bet_decisions_by_profile")
+    rows = db.query(f"SELECT DISTINCT strategy, sizing_style FROM {PROFILE_TABLE_LEGACY}")
     profiles = {(str(row.get("strategy") or ""), str(row.get("sizing_style") or "")) for row in rows}
     for profile in DEFAULT_PROFILE_PREFERENCES:
         if profile in profiles:
-            return profile
+            return profile[0], profile[1], "", PROFILE_TABLE_LEGACY
     if not profiles:
         return None
 
     continuous_profiles = sorted(profile for profile in profiles if profile[1] == "continuous")
     if continuous_profiles:
-        return continuous_profiles[0]
-    return sorted(profiles)[0]
+        strategy, sizing_style = continuous_profiles[0]
+        return strategy, sizing_style, "", PROFILE_TABLE_LEGACY
+    strategy, sizing_style = sorted(profiles)[0]
+    return strategy, sizing_style, "", PROFILE_TABLE_LEGACY
 
 
 def _query_bet_history_rows(
@@ -148,7 +207,9 @@ def _query_bet_history_rows(
 
     selected_profile = _select_profile(db)
     if selected_profile:
-        strategy, sizing_style = selected_profile
+        strategy, sizing_style, strategy_config_signature, source_table = selected_profile
+        signature_filter_sql = f"AND COALESCE(d.strategy_config_signature, '') = ?" if source_table == PROFILE_TABLE_V2 else ""
+        signature_params = [strategy_config_signature] if source_table == PROFILE_TABLE_V2 else []
         rows = db.query(
             f"""
             SELECT
@@ -181,19 +242,20 @@ def _query_bet_history_rows(
                   THEN 'win'
                 ELSE 'loss'
               END AS outcome
-            FROM historical_bet_decisions_by_profile d
+            FROM {source_table} d
             JOIN results r
               ON r.game_id = d.game_id
             WHERE d.strategy = ?
               AND d.sizing_style = ?
+              {signature_filter_sql}
               AND r.home_win IS NOT NULL
               {date_filter_sql}
             ORDER BY d.date_central ASC, d.game_id ASC
             """,
-            tuple([strategy, sizing_style, *params]),
+            tuple([strategy, sizing_style, *signature_params, *params]),
         )
         return rows, {
-            "source_table": "historical_bet_decisions_by_profile",
+            "source_table": source_table,
             "strategy": strategy,
             "sizing_style": sizing_style,
             "period_start_central": period_start,
