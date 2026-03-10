@@ -95,6 +95,9 @@ export default function BetHistoryChart({ points }: Props) {
             <p className={styles.chartTooltipDetail}>
               Day {formatSignedUsd(activeCoord.point.daily_profit, { minimumFractionDigits: 2 })}
             </p>
+            <p className={styles.chartTooltipDetail}>
+              Total risked {formatUsd(activeCoord.point.risked, { minimumFractionDigits: 2 })}
+            </p>
           </div>
         ) : null}
 
@@ -148,7 +151,11 @@ export default function BetHistoryChart({ points }: Props) {
                 tabIndex={0}
                 aria-label={`${formatDateShort(coord.point.date_central)} bankroll ${formatUsd(coord.point.cumulative_bankroll, {
                   minimumFractionDigits: 2,
-                })} cumulative net ${formatSignedUsd(coord.point.cumulative_profit, { minimumFractionDigits: 2 })}`}
+                })} cumulative net ${formatSignedUsd(coord.point.cumulative_profit, {
+                  minimumFractionDigits: 2,
+                })} day result ${formatSignedUsd(coord.point.daily_profit, {
+                  minimumFractionDigits: 2,
+                })} total risked ${formatUsd(coord.point.risked, { minimumFractionDigits: 2 })}`}
                 onPointerEnter={() => setActivePointIndex(index)}
                 onPointerDown={() => setActivePointIndex(index)}
                 onFocus={() => setActivePointIndex(index)}
