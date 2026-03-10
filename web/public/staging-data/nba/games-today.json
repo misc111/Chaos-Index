@@ -51,7 +51,7 @@
     }
   },
   "strategy_optimization": {
-    "method": "Static defaults active until matched replay coverage reaches at least 60 settled games across 20 replay days (current sample: 32 games across 4 days).",
+    "method": "Static defaults active until matched replay coverage reaches at least 60 settled games across 20 replay days (current sample: 37 games across 5 days).",
     "risk_free_rate": 0,
     "candidate_count": 0,
     "frontier_point_count": 0,
@@ -68,8 +68,8 @@
       "game_date_utc": "2026-03-05",
       "home_team": "ORL",
       "away_team": "DAL",
-      "home_win_probability": 0.6256666666666667,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.688,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.6991930385119611,
         "bayes_goals": 0.688,
@@ -188,8 +188,8 @@
       "game_date_utc": "2026-03-05",
       "home_team": "WSH",
       "away_team": "UTAH",
-      "home_win_probability": 0.48033333333333333,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.4848,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.48481503309175433,
         "bayes_goals": 0.4848,
@@ -308,8 +308,8 @@
       "game_date_utc": "2026-03-05",
       "home_team": "MIA",
       "away_team": "BKN",
-      "home_win_probability": 0.7318333333333333,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.8726,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.9033302937004933,
         "bayes_goals": 0.8726,
@@ -428,8 +428,8 @@
       "game_date_utc": "2026-03-05",
       "home_team": "HOU",
       "away_team": "GS",
-      "home_win_probability": 0.6465000000000001,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.6644,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.7709577908798745,
         "bayes_goals": 0.6644,
@@ -548,8 +548,8 @@
       "game_date_utc": "2026-03-05",
       "home_team": "MIN",
       "away_team": "TOR",
-      "home_win_probability": 0.6006666666666667,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.753,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.576960692939708,
         "bayes_goals": 0.753,
@@ -668,8 +668,8 @@
       "game_date_utc": "2026-03-05",
       "home_team": "SA",
       "away_team": "DET",
-      "home_win_probability": 0.5208333333333333,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.6884,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.4319511450603171,
         "bayes_goals": 0.6884,
@@ -788,8 +788,8 @@
       "game_date_utc": "2026-03-05",
       "home_team": "PHX",
       "away_team": "CHI",
-      "home_win_probability": 0.6308333333333332,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.5514,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.8612711582253965,
         "bayes_goals": 0.5514,
@@ -908,8 +908,8 @@
       "game_date_utc": "2026-03-05",
       "home_team": "DEN",
       "away_team": "LAL",
-      "home_win_probability": 0.6216666666666666,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.7584,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.5025268830897406,
         "bayes_goals": 0.7584,
@@ -1028,8 +1028,8 @@
       "game_date_utc": "2026-03-05",
       "home_team": "SAC",
       "away_team": "NO",
-      "home_win_probability": 0.4066666666666667,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.5142,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.3867867518191522,
         "bayes_goals": 0.5142,
@@ -1148,8 +1148,8 @@
       "game_date_utc": "2026-03-06",
       "home_team": "BOS",
       "away_team": "DAL",
-      "home_win_probability": 0.7368333333333333,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.6746,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.8436008406100514,
         "bayes_goals": 0.6746,
@@ -1268,8 +1268,8 @@
       "game_date_utc": "2026-03-06",
       "home_team": "CHA",
       "away_team": "MIA",
-      "home_win_probability": 0.5611666666666667,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.5886,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.48452465925711724,
         "bayes_goals": 0.5886,
@@ -1388,8 +1388,8 @@
       "game_date_utc": "2026-03-06",
       "home_team": "HOU",
       "away_team": "POR",
-      "home_win_probability": 0.7091666666666666,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.646,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.7077159093205365,
         "bayes_goals": 0.646,
@@ -1508,8 +1508,8 @@
       "game_date_utc": "2026-03-06",
       "home_team": "DEN",
       "away_team": "NY",
-      "home_win_probability": 0.487,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.723,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.48631539220029585,
         "bayes_goals": 0.723,
@@ -1628,8 +1628,8 @@
       "game_date_utc": "2026-03-06",
       "home_team": "PHX",
       "away_team": "NO",
-      "home_win_probability": 0.6605,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.5684,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.8266850471055921,
         "bayes_goals": 0.5684,
@@ -1748,8 +1748,8 @@
       "game_date_utc": "2026-03-06",
       "home_team": "SA",
       "away_team": "LAC",
-      "home_win_probability": 0.643,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.7892,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.6501167860660224,
         "bayes_goals": 0.7892,
@@ -1868,8 +1868,8 @@
       "game_date_utc": "2026-03-06",
       "home_team": "LAL",
       "away_team": "IND",
-      "home_win_probability": 0.6786666666666666,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.7152,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.806445041684457,
         "bayes_goals": 0.7152,
@@ -1988,8 +1988,8 @@
       "game_date_utc": "2026-03-07",
       "home_team": "MIN",
       "away_team": "ORL",
-      "home_win_probability": 0.6148333333333333,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.7458,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.6567359371072362,
         "bayes_goals": 0.7458,
@@ -2108,8 +2108,8 @@
       "game_date_utc": "2026-03-07",
       "home_team": "DET",
       "away_team": "BKN",
-      "home_win_probability": 0.8136666666666666,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.8462,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.9383614306379374,
         "bayes_goals": 0.8462,
@@ -2228,8 +2228,8 @@
       "game_date_utc": "2026-03-07",
       "home_team": "ATL",
       "away_team": "PHI",
-      "home_win_probability": 0.5565,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.71,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.5687518275264164,
         "bayes_goals": 0.71,
@@ -2348,8 +2348,8 @@
       "game_date_utc": "2026-03-07",
       "home_team": "MEM",
       "away_team": "LAC",
-      "home_win_probability": 0.4695,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.7386,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.3237301599406662,
         "bayes_goals": 0.7386,
@@ -2468,8 +2468,8 @@
       "game_date_utc": "2026-03-07",
       "home_team": "MIL",
       "away_team": "UTAH",
-      "home_win_probability": 0.6083333333333333,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.4558,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.584266185117604,
         "bayes_goals": 0.4558,
@@ -2588,8 +2588,8 @@
       "game_date_utc": "2026-03-07",
       "home_team": "OKC",
       "away_team": "GS",
-      "home_win_probability": 0.7100000000000001,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.7092,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.8096804455951404,
         "bayes_goals": 0.7092,
@@ -2708,8 +2708,8 @@
       "game_date_utc": "2026-03-08",
       "home_team": "CLE",
       "away_team": "BOS",
-      "home_win_probability": 0.4325,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.7412,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.4328299314484861,
         "bayes_goals": 0.7412,
@@ -2829,8 +2829,8 @@
       "game_date_utc": "2026-03-08",
       "home_team": "LAL",
       "away_team": "NY",
-      "home_win_probability": 0.38516666666666666,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.5976,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.3157644507987923,
         "bayes_goals": 0.5976,
@@ -2950,8 +2950,8 @@
       "game_date_utc": "2026-03-08",
       "home_team": "MIA",
       "away_team": "DET",
-      "home_win_probability": 0.426,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.7078,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.4603537460998248,
         "bayes_goals": 0.7078,
@@ -3071,8 +3071,8 @@
       "game_date_utc": "2026-03-08",
       "home_team": "TOR",
       "away_team": "DAL",
-      "home_win_probability": 0.6423333333333333,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.662,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.7536731799641525,
         "bayes_goals": 0.662,
@@ -3192,8 +3192,8 @@
       "game_date_utc": "2026-03-08",
       "home_team": "NO",
       "away_team": "WSH",
-      "home_win_probability": 0.6558333333333334,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.738,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.5638037597544692,
         "bayes_goals": 0.738,
@@ -3313,8 +3313,8 @@
       "game_date_utc": "2026-03-08",
       "home_team": "MIL",
       "away_team": "ORL",
-      "home_win_probability": 0.4348333333333333,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.5294,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.40294397163885587,
         "bayes_goals": 0.5294,
@@ -3434,8 +3434,8 @@
       "game_date_utc": "2026-03-08",
       "home_team": "SA",
       "away_team": "HOU",
-      "home_win_probability": 0.5626666666666666,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.7034,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.6048242515483039,
         "bayes_goals": 0.7034,
@@ -3555,8 +3555,8 @@
       "game_date_utc": "2026-03-08",
       "home_team": "POR",
       "away_team": "IND",
-      "home_win_probability": 0.6501666666666667,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.731,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.7868124634911039,
         "bayes_goals": 0.731,
@@ -3676,8 +3676,8 @@
       "game_date_utc": "2026-03-08",
       "home_team": "SAC",
       "away_team": "CHI",
-      "home_win_probability": 0.3735,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.5076,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.347393121973942,
         "bayes_goals": 0.5076,
@@ -3797,8 +3797,8 @@
       "game_date_utc": "2026-03-08",
       "home_team": "PHX",
       "away_team": "CHA",
-      "home_win_probability": 0.5023333333333333,
-      "betting_model_name": "goals_poisson",
+      "home_win_probability": 0.5038,
+      "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
         "bayes_bt_state_space": 0.6873954299048878,
         "bayes_goals": 0.5038,
@@ -3912,6 +3912,611 @@
           "created_at_utc": "2026-03-09T16:51:06.020Z"
         }
       }
+    },
+    {
+      "game_id": 401810786,
+      "game_date_utc": "2026-03-09",
+      "home_team": "CLE",
+      "away_team": "PHI",
+      "home_win_probability": 0.7288,
+      "betting_model_name": "bayes_goals",
+      "model_win_probabilities": {
+        "bayes_bt_state_space": 0.6968347607112579,
+        "bayes_goals": 0.7288,
+        "dynamic_rating": 0.8197718133971001,
+        "elo_baseline": 0.6020818449616728,
+        "ensemble": 0.6568376881961482,
+        "gbdt": 0.5373347490035324,
+        "glm_logit": 0.7116066406928709,
+        "glm_ridge": 0.7253190025022278,
+        "goals_poisson": 0.6233333333333334,
+        "rf": 0.6786337109931777,
+        "simulation_first": 0.5238571428571429,
+        "two_stage": 0.45767874983782625
+      },
+      "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+      "odds_as_of_utc": "2026-03-09T12:01:58+00:00",
+      "start_time_utc": "2026-03-09T23:00Z",
+      "home_moneyline": -542,
+      "away_moneyline": 460,
+      "home_moneyline_book": "LowVig.ag",
+      "away_moneyline_book": "Bovada",
+      "over_190_price": -3000,
+      "over_190_point": 201.5,
+      "over_190_book": "FanDuel",
+      "replay_decisions": {
+        "riskAdjusted": {
+          "strategy": "riskAdjusted",
+          "game_id": 401810786,
+          "date_central": "2026-03-09",
+          "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+          "forecast_model_run_id": "run_7d0b6f72d92e0571__goals_poisson",
+          "odds_as_of_utc": "2026-03-09T12:01:58+00:00",
+          "odds_snapshot_id": "nba_odds_16c62be6b362dfb8",
+          "home_team": "CLE",
+          "away_team": "PHI",
+          "home_win_probability": 0.6233333333333334,
+          "home_moneyline": -542,
+          "away_moneyline": 460,
+          "bet_label": "$125 PHI",
+          "reason": "Underdog underpriced after uncertainty adjustment",
+          "side": "away",
+          "team": "PHI",
+          "stake": 125,
+          "odds": 460,
+          "model_probability": 0.32016088137760546,
+          "market_probability": 0.1745893614706842,
+          "edge": 0.14557151990692124,
+          "expected_value": 0.7929009357145904,
+          "reference_stake_dollars": 100,
+          "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
+          "decision_logic_version": "historical_replay_v8",
+          "materialization_version": "historical_prediction_history_v5",
+          "created_at_utc": "2026-03-10T11:52:28.507Z"
+        },
+        "aggressive": {
+          "strategy": "aggressive",
+          "game_id": 401810786,
+          "date_central": "2026-03-09",
+          "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+          "forecast_model_run_id": "run_7d0b6f72d92e0571__goals_poisson",
+          "odds_as_of_utc": "2026-03-09T12:01:58+00:00",
+          "odds_snapshot_id": "nba_odds_16c62be6b362dfb8",
+          "home_team": "CLE",
+          "away_team": "PHI",
+          "home_win_probability": 0.6233333333333334,
+          "home_moneyline": -542,
+          "away_moneyline": 460,
+          "bet_label": "$175 PHI",
+          "reason": "Underdog underpriced after uncertainty adjustment",
+          "side": "away",
+          "team": "PHI",
+          "stake": 175,
+          "odds": 460,
+          "model_probability": 0.32016088137760546,
+          "market_probability": 0.1745893614706842,
+          "edge": 0.14557151990692124,
+          "expected_value": 0.7929009357145904,
+          "reference_stake_dollars": 100,
+          "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
+          "decision_logic_version": "historical_replay_v8",
+          "materialization_version": "historical_prediction_history_v5",
+          "created_at_utc": "2026-03-10T11:52:28.528Z"
+        },
+        "capitalPreservation": {
+          "strategy": "capitalPreservation",
+          "game_id": 401810786,
+          "date_central": "2026-03-09",
+          "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+          "forecast_model_run_id": "run_7d0b6f72d92e0571__goals_poisson",
+          "odds_as_of_utc": "2026-03-09T12:01:58+00:00",
+          "odds_snapshot_id": "nba_odds_16c62be6b362dfb8",
+          "home_team": "CLE",
+          "away_team": "PHI",
+          "home_win_probability": 0.6233333333333334,
+          "home_moneyline": -542,
+          "away_moneyline": 460,
+          "bet_label": "$0",
+          "reason": "Conservative skips underdogs",
+          "side": "none",
+          "team": null,
+          "stake": 0,
+          "odds": null,
+          "model_probability": 0.32016088137760546,
+          "market_probability": 0.1745893614706842,
+          "edge": 0.14557151990692124,
+          "expected_value": 0.7929009357145904,
+          "reference_stake_dollars": 100,
+          "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
+          "decision_logic_version": "historical_replay_v8",
+          "materialization_version": "historical_prediction_history_v5",
+          "created_at_utc": "2026-03-10T11:52:28.546Z"
+        }
+      }
+    },
+    {
+      "game_id": 401810787,
+      "game_date_utc": "2026-03-09",
+      "home_team": "BKN",
+      "away_team": "MEM",
+      "home_win_probability": 0.413,
+      "betting_model_name": "bayes_goals",
+      "model_win_probabilities": {
+        "bayes_bt_state_space": 0.5089557243419762,
+        "bayes_goals": 0.413,
+        "dynamic_rating": 0.6066343028053556,
+        "elo_baseline": 0.4717352559681231,
+        "ensemble": 0.4242411018698317,
+        "gbdt": 0.40702566836845033,
+        "glm_logit": 0.3371653866313014,
+        "glm_ridge": 0.36721136774091157,
+        "goals_poisson": 0.43033333333333335,
+        "rf": 0.4576180135017554,
+        "simulation_first": 0.5094285714285715,
+        "two_stage": 0.39016790368167065
+      },
+      "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+      "odds_as_of_utc": "2026-03-09T12:01:58+00:00",
+      "start_time_utc": "2026-03-09T23:30Z",
+      "home_moneyline": 105,
+      "away_moneyline": -113,
+      "home_moneyline_book": "Bovada",
+      "away_moneyline_book": "LowVig.ag",
+      "over_190_price": -2200,
+      "over_190_point": 197.5,
+      "over_190_book": "FanDuel",
+      "replay_decisions": {
+        "riskAdjusted": {
+          "strategy": "riskAdjusted",
+          "game_id": 401810787,
+          "date_central": "2026-03-09",
+          "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+          "forecast_model_run_id": "run_7d0b6f72d92e0571__goals_poisson",
+          "odds_as_of_utc": "2026-03-09T12:01:58+00:00",
+          "odds_snapshot_id": "nba_odds_16c62be6b362dfb8",
+          "home_team": "BKN",
+          "away_team": "MEM",
+          "home_win_probability": 0.43033333333333335,
+          "home_moneyline": 105,
+          "away_moneyline": -113,
+          "bet_label": "$0",
+          "reason": "Adjusted price fair",
+          "side": "none",
+          "team": null,
+          "stake": 0,
+          "odds": null,
+          "model_probability": null,
+          "market_probability": null,
+          "edge": null,
+          "expected_value": null,
+          "reference_stake_dollars": 100,
+          "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
+          "decision_logic_version": "historical_replay_v8",
+          "materialization_version": "historical_prediction_history_v5",
+          "created_at_utc": "2026-03-10T11:52:28.507Z"
+        },
+        "aggressive": {
+          "strategy": "aggressive",
+          "game_id": 401810787,
+          "date_central": "2026-03-09",
+          "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+          "forecast_model_run_id": "run_7d0b6f72d92e0571__goals_poisson",
+          "odds_as_of_utc": "2026-03-09T12:01:58+00:00",
+          "odds_snapshot_id": "nba_odds_16c62be6b362dfb8",
+          "home_team": "BKN",
+          "away_team": "MEM",
+          "home_win_probability": 0.43033333333333335,
+          "home_moneyline": 105,
+          "away_moneyline": -113,
+          "bet_label": "$0",
+          "reason": "Adjusted price fair",
+          "side": "none",
+          "team": null,
+          "stake": 0,
+          "odds": null,
+          "model_probability": null,
+          "market_probability": null,
+          "edge": null,
+          "expected_value": null,
+          "reference_stake_dollars": 100,
+          "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
+          "decision_logic_version": "historical_replay_v8",
+          "materialization_version": "historical_prediction_history_v5",
+          "created_at_utc": "2026-03-10T11:52:28.528Z"
+        },
+        "capitalPreservation": {
+          "strategy": "capitalPreservation",
+          "game_id": 401810787,
+          "date_central": "2026-03-09",
+          "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+          "forecast_model_run_id": "run_7d0b6f72d92e0571__goals_poisson",
+          "odds_as_of_utc": "2026-03-09T12:01:58+00:00",
+          "odds_snapshot_id": "nba_odds_16c62be6b362dfb8",
+          "home_team": "BKN",
+          "away_team": "MEM",
+          "home_win_probability": 0.43033333333333335,
+          "home_moneyline": 105,
+          "away_moneyline": -113,
+          "bet_label": "$0",
+          "reason": "Adjusted price fair",
+          "side": "none",
+          "team": null,
+          "stake": 0,
+          "odds": null,
+          "model_probability": null,
+          "market_probability": null,
+          "edge": null,
+          "expected_value": null,
+          "reference_stake_dollars": 100,
+          "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
+          "decision_logic_version": "historical_replay_v8",
+          "materialization_version": "historical_prediction_history_v5",
+          "created_at_utc": "2026-03-10T11:52:28.546Z"
+        }
+      }
+    },
+    {
+      "game_id": 401810788,
+      "game_date_utc": "2026-03-09",
+      "home_team": "OKC",
+      "away_team": "DEN",
+      "home_win_probability": 0.602,
+      "betting_model_name": "bayes_goals",
+      "model_win_probabilities": {
+        "bayes_bt_state_space": 0.7348959993669084,
+        "bayes_goals": 0.602,
+        "dynamic_rating": 0.8229987309143414,
+        "elo_baseline": 0.6409060576664637,
+        "ensemble": 0.6996511771653339,
+        "gbdt": 0.7555290506339454,
+        "glm_logit": 0.8379432745532015,
+        "glm_ridge": 0.8300296015254601,
+        "goals_poisson": 0.6571666666666667,
+        "rf": 0.6731755125417913,
+        "simulation_first": 0.5112857142857142,
+        "two_stage": 0.8238975937626508
+      },
+      "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+      "odds_as_of_utc": "2026-03-09T12:01:58+00:00",
+      "start_time_utc": "2026-03-09T23:30Z",
+      "home_moneyline": -255,
+      "away_moneyline": 240,
+      "home_moneyline_book": "FanDuel",
+      "away_moneyline_book": "DraftKings",
+      "over_190_price": -2400,
+      "over_190_point": 206.5,
+      "over_190_book": "FanDuel",
+      "replay_decisions": {
+        "riskAdjusted": {
+          "strategy": "riskAdjusted",
+          "game_id": 401810788,
+          "date_central": "2026-03-09",
+          "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+          "forecast_model_run_id": "run_7d0b6f72d92e0571__goals_poisson",
+          "odds_as_of_utc": "2026-03-09T12:01:58+00:00",
+          "odds_snapshot_id": "nba_odds_16c62be6b362dfb8",
+          "home_team": "OKC",
+          "away_team": "DEN",
+          "home_win_probability": 0.6571666666666667,
+          "home_moneyline": -255,
+          "away_moneyline": 240,
+          "bet_label": "$0",
+          "reason": "Adjusted price fair",
+          "side": "none",
+          "team": null,
+          "stake": 0,
+          "odds": null,
+          "model_probability": null,
+          "market_probability": null,
+          "edge": null,
+          "expected_value": null,
+          "reference_stake_dollars": 100,
+          "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
+          "decision_logic_version": "historical_replay_v8",
+          "materialization_version": "historical_prediction_history_v5",
+          "created_at_utc": "2026-03-10T11:52:28.507Z"
+        },
+        "aggressive": {
+          "strategy": "aggressive",
+          "game_id": 401810788,
+          "date_central": "2026-03-09",
+          "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+          "forecast_model_run_id": "run_7d0b6f72d92e0571__goals_poisson",
+          "odds_as_of_utc": "2026-03-09T12:01:58+00:00",
+          "odds_snapshot_id": "nba_odds_16c62be6b362dfb8",
+          "home_team": "OKC",
+          "away_team": "DEN",
+          "home_win_probability": 0.6571666666666667,
+          "home_moneyline": -255,
+          "away_moneyline": 240,
+          "bet_label": "$0",
+          "reason": "Adjusted price fair",
+          "side": "none",
+          "team": null,
+          "stake": 0,
+          "odds": null,
+          "model_probability": null,
+          "market_probability": null,
+          "edge": null,
+          "expected_value": null,
+          "reference_stake_dollars": 100,
+          "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
+          "decision_logic_version": "historical_replay_v8",
+          "materialization_version": "historical_prediction_history_v5",
+          "created_at_utc": "2026-03-10T11:52:28.528Z"
+        },
+        "capitalPreservation": {
+          "strategy": "capitalPreservation",
+          "game_id": 401810788,
+          "date_central": "2026-03-09",
+          "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+          "forecast_model_run_id": "run_7d0b6f72d92e0571__goals_poisson",
+          "odds_as_of_utc": "2026-03-09T12:01:58+00:00",
+          "odds_snapshot_id": "nba_odds_16c62be6b362dfb8",
+          "home_team": "OKC",
+          "away_team": "DEN",
+          "home_win_probability": 0.6571666666666667,
+          "home_moneyline": -255,
+          "away_moneyline": 240,
+          "bet_label": "$0",
+          "reason": "Adjusted price fair",
+          "side": "none",
+          "team": null,
+          "stake": 0,
+          "odds": null,
+          "model_probability": null,
+          "market_probability": null,
+          "edge": null,
+          "expected_value": null,
+          "reference_stake_dollars": 100,
+          "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
+          "decision_logic_version": "historical_replay_v8",
+          "materialization_version": "historical_prediction_history_v5",
+          "created_at_utc": "2026-03-10T11:52:28.546Z"
+        }
+      }
+    },
+    {
+      "game_id": 401810789,
+      "game_date_utc": "2026-03-09",
+      "home_team": "UTAH",
+      "away_team": "GS",
+      "home_win_probability": 0.7118,
+      "betting_model_name": "bayes_goals",
+      "model_win_probabilities": {
+        "bayes_bt_state_space": 0.39092624873356285,
+        "bayes_goals": 0.7118,
+        "dynamic_rating": 0.23247006607986676,
+        "elo_baseline": 0.362592148897525,
+        "ensemble": 0.31558789993828334,
+        "gbdt": 0.09380827949205015,
+        "glm_logit": 0.22916706165152761,
+        "glm_ridge": 0.2245877371188184,
+        "goals_poisson": 0.3721666666666667,
+        "rf": 0.32720216874151864,
+        "simulation_first": 0.5208571428571429,
+        "two_stage": 0.18411576046227468
+      },
+      "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+      "odds_as_of_utc": "2026-03-10T00:28:38+00:00",
+      "start_time_utc": "2026-03-10T01:00Z",
+      "home_moneyline": 220,
+      "away_moneyline": -250,
+      "home_moneyline_book": "BetMGM",
+      "away_moneyline_book": "Bovada",
+      "over_190_price": -960,
+      "over_190_point": 202.5,
+      "over_190_book": "DraftKings",
+      "replay_decisions": {
+        "riskAdjusted": {
+          "strategy": "riskAdjusted",
+          "game_id": 401810789,
+          "date_central": "2026-03-09",
+          "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+          "forecast_model_run_id": "run_7d0b6f72d92e0571__goals_poisson",
+          "odds_as_of_utc": "2026-03-10T00:28:38+00:00",
+          "odds_snapshot_id": "nba_odds_cafaf9c3e4c8b72c",
+          "home_team": "UTAH",
+          "away_team": "GS",
+          "home_win_probability": 0.3721666666666667,
+          "home_moneyline": 220,
+          "away_moneyline": -250,
+          "bet_label": "$125 UTAH",
+          "reason": "Underdog underpriced after uncertainty adjustment",
+          "side": "home",
+          "team": "UTAH",
+          "stake": 125,
+          "odds": 220,
+          "model_probability": 0.3454758212726418,
+          "market_probability": 0.3043478260869565,
+          "edge": 0.04112799518568533,
+          "expected_value": 0.10552262807245394,
+          "reference_stake_dollars": 100,
+          "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
+          "decision_logic_version": "historical_replay_v8",
+          "materialization_version": "historical_prediction_history_v5",
+          "created_at_utc": "2026-03-10T11:52:28.507Z"
+        },
+        "aggressive": {
+          "strategy": "aggressive",
+          "game_id": 401810789,
+          "date_central": "2026-03-09",
+          "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+          "forecast_model_run_id": "run_7d0b6f72d92e0571__goals_poisson",
+          "odds_as_of_utc": "2026-03-10T00:28:38+00:00",
+          "odds_snapshot_id": "nba_odds_cafaf9c3e4c8b72c",
+          "home_team": "UTAH",
+          "away_team": "GS",
+          "home_win_probability": 0.3721666666666667,
+          "home_moneyline": 220,
+          "away_moneyline": -250,
+          "bet_label": "$175 UTAH",
+          "reason": "Underdog underpriced after uncertainty adjustment",
+          "side": "home",
+          "team": "UTAH",
+          "stake": 175,
+          "odds": 220,
+          "model_probability": 0.3454758212726418,
+          "market_probability": 0.3043478260869565,
+          "edge": 0.04112799518568533,
+          "expected_value": 0.10552262807245394,
+          "reference_stake_dollars": 100,
+          "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
+          "decision_logic_version": "historical_replay_v8",
+          "materialization_version": "historical_prediction_history_v5",
+          "created_at_utc": "2026-03-10T11:52:28.528Z"
+        },
+        "capitalPreservation": {
+          "strategy": "capitalPreservation",
+          "game_id": 401810789,
+          "date_central": "2026-03-09",
+          "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+          "forecast_model_run_id": "run_7d0b6f72d92e0571__goals_poisson",
+          "odds_as_of_utc": "2026-03-10T00:28:38+00:00",
+          "odds_snapshot_id": "nba_odds_cafaf9c3e4c8b72c",
+          "home_team": "UTAH",
+          "away_team": "GS",
+          "home_win_probability": 0.3721666666666667,
+          "home_moneyline": 220,
+          "away_moneyline": -250,
+          "bet_label": "$0",
+          "reason": "Conservative skips underdogs",
+          "side": "none",
+          "team": null,
+          "stake": 0,
+          "odds": null,
+          "model_probability": 0.3454758212726418,
+          "market_probability": 0.3043478260869565,
+          "edge": 0.04112799518568533,
+          "expected_value": 0.10552262807245394,
+          "reference_stake_dollars": 100,
+          "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
+          "decision_logic_version": "historical_replay_v8",
+          "materialization_version": "historical_prediction_history_v5",
+          "created_at_utc": "2026-03-10T11:52:28.546Z"
+        }
+      }
+    },
+    {
+      "game_id": 401810790,
+      "game_date_utc": "2026-03-09",
+      "home_team": "LAC",
+      "away_team": "NY",
+      "home_win_probability": 0.5402,
+      "betting_model_name": "bayes_goals",
+      "model_win_probabilities": {
+        "bayes_bt_state_space": 0.34058304986815663,
+        "bayes_goals": 0.5402,
+        "dynamic_rating": 0.31172690629773014,
+        "elo_baseline": 0.43546045250775345,
+        "ensemble": 0.38367589218264564,
+        "gbdt": 0.5706029348024136,
+        "glm_logit": 0.4251478977887913,
+        "glm_ridge": 0.44134246969501423,
+        "goals_poisson": 0.40499999999999997,
+        "rf": 0.341546539012493,
+        "simulation_first": 0.5178571428571429,
+        "two_stage": 0.5240727084659907
+      },
+      "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+      "odds_as_of_utc": "2026-03-10T00:28:38+00:00",
+      "start_time_utc": "2026-03-10T02:00Z",
+      "home_moneyline": 117,
+      "away_moneyline": -130,
+      "home_moneyline_book": "LowVig.ag",
+      "away_moneyline_book": "BetUS",
+      "over_190_price": -3000,
+      "over_190_point": 195.5,
+      "over_190_book": "FanDuel",
+      "replay_decisions": {
+        "riskAdjusted": {
+          "strategy": "riskAdjusted",
+          "game_id": 401810790,
+          "date_central": "2026-03-09",
+          "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+          "forecast_model_run_id": "run_7d0b6f72d92e0571__goals_poisson",
+          "odds_as_of_utc": "2026-03-10T00:28:38+00:00",
+          "odds_snapshot_id": "nba_odds_cafaf9c3e4c8b72c",
+          "home_team": "LAC",
+          "away_team": "NY",
+          "home_win_probability": 0.40499999999999997,
+          "home_moneyline": 117,
+          "away_moneyline": -130,
+          "bet_label": "$0",
+          "reason": "Adjusted price fair",
+          "side": "none",
+          "team": null,
+          "stake": 0,
+          "odds": null,
+          "model_probability": null,
+          "market_probability": null,
+          "edge": null,
+          "expected_value": null,
+          "reference_stake_dollars": 100,
+          "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
+          "decision_logic_version": "historical_replay_v8",
+          "materialization_version": "historical_prediction_history_v5",
+          "created_at_utc": "2026-03-10T11:52:28.507Z"
+        },
+        "aggressive": {
+          "strategy": "aggressive",
+          "game_id": 401810790,
+          "date_central": "2026-03-09",
+          "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+          "forecast_model_run_id": "run_7d0b6f72d92e0571__goals_poisson",
+          "odds_as_of_utc": "2026-03-10T00:28:38+00:00",
+          "odds_snapshot_id": "nba_odds_cafaf9c3e4c8b72c",
+          "home_team": "LAC",
+          "away_team": "NY",
+          "home_win_probability": 0.40499999999999997,
+          "home_moneyline": 117,
+          "away_moneyline": -130,
+          "bet_label": "$0",
+          "reason": "Adjusted price fair",
+          "side": "none",
+          "team": null,
+          "stake": 0,
+          "odds": null,
+          "model_probability": null,
+          "market_probability": null,
+          "edge": null,
+          "expected_value": null,
+          "reference_stake_dollars": 100,
+          "strategy_config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
+          "decision_logic_version": "historical_replay_v8",
+          "materialization_version": "historical_prediction_history_v5",
+          "created_at_utc": "2026-03-10T11:52:28.528Z"
+        },
+        "capitalPreservation": {
+          "strategy": "capitalPreservation",
+          "game_id": 401810790,
+          "date_central": "2026-03-09",
+          "forecast_as_of_utc": "2026-03-08T12:59:16+00:00",
+          "forecast_model_run_id": "run_7d0b6f72d92e0571__goals_poisson",
+          "odds_as_of_utc": "2026-03-10T00:28:38+00:00",
+          "odds_snapshot_id": "nba_odds_cafaf9c3e4c8b72c",
+          "home_team": "LAC",
+          "away_team": "NY",
+          "home_win_probability": 0.40499999999999997,
+          "home_moneyline": 117,
+          "away_moneyline": -130,
+          "bet_label": "$0",
+          "reason": "Adjusted price fair",
+          "side": "none",
+          "team": null,
+          "stake": 0,
+          "odds": null,
+          "model_probability": null,
+          "market_probability": null,
+          "edge": null,
+          "expected_value": null,
+          "reference_stake_dollars": 100,
+          "strategy_config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
+          "decision_logic_version": "historical_replay_v8",
+          "materialization_version": "historical_prediction_history_v5",
+          "created_at_utc": "2026-03-10T11:52:28.546Z"
+        }
+      }
     }
   ],
   "rows": [
@@ -3923,7 +4528,7 @@
       "home_win_probability": 0.7256,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6555717567722759,
+        "ensemble": 0.6554156912320435,
         "bayes_bt_state_space": 0.6486905969508979,
         "bayes_goals": 0.7256,
         "dynamic_rating": 0.7687814325669157,
@@ -3933,9 +4538,9 @@
         "glm_lasso": 0.7048291558840489,
         "glm_ridge": 0.7221114430402082,
         "goals_poisson": 0.6301666666666667,
-        "rf": 0.6374539631727981,
+        "rf": 0.6374539631727982,
         "simulation_first": 0.5244285714285715,
-        "two_stage": 0.5579642348615896
+        "two_stage": 0.5554292707115707
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-09T23:00Z",
@@ -3956,7 +4561,7 @@
       "home_win_probability": 0.44,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.41712081469974355,
+        "ensemble": 0.4174916558536173,
         "bayes_bt_state_space": 0.5267415747228312,
         "bayes_goals": 0.44,
         "dynamic_rating": 0.6066343028053556,
@@ -3968,7 +4573,7 @@
         "goals_poisson": 0.4181666666666667,
         "rf": 0.45144013380640435,
         "simulation_first": 0.525,
-        "two_stage": 0.4350016065753301
+        "two_stage": 0.4383862491654021
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-09T23:30Z",
@@ -3989,7 +4594,7 @@
       "home_win_probability": 0.5998,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7317905361177905,
+        "ensemble": 0.7321500411578198,
         "bayes_bt_state_space": 0.7535421151054681,
         "bayes_goals": 0.5998,
         "dynamic_rating": 0.8229987309143414,
@@ -4001,7 +4606,7 @@
         "goals_poisson": 0.6706666666666666,
         "rf": 0.7135784741584701,
         "simulation_first": 0.5191428571428571,
-        "two_stage": 0.8395606266752406
+        "two_stage": 0.8427244038409931
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-09T23:30Z",
@@ -4022,7 +4627,7 @@
       "home_win_probability": 0.7122,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.3031553194341474,
+        "ensemble": 0.3029884656178845,
         "bayes_bt_state_space": 0.3731762655444592,
         "bayes_goals": 0.7122,
         "dynamic_rating": 0.23247006607986676,
@@ -4034,7 +4639,7 @@
         "goals_poisson": 0.37533333333333335,
         "rf": 0.3410576729289239,
         "simulation_first": 0.5187142857142857,
-        "two_stage": 0.2025373194123168
+        "two_stage": 0.19991497146099502
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-10T01:00Z",
@@ -4055,7 +4660,7 @@
       "home_win_probability": 0.5304,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.3924315073820814,
+        "ensemble": 0.39248651716776506,
         "bayes_bt_state_space": 0.37982476357674055,
         "bayes_goals": 0.5304,
         "dynamic_rating": 0.3985050764377844,
@@ -4065,9 +4670,9 @@
         "glm_lasso": 0.44043135409881023,
         "glm_ridge": 0.4386120149693348,
         "goals_poisson": 0.43283333333333335,
-        "rf": 0.3792127238904069,
+        "rf": 0.37921272389040683,
         "simulation_first": 0.5278571428571428,
-        "two_stage": 0.35805336830566786
+        "two_stage": 0.35836765908004686
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-10T02:00Z",
@@ -4088,7 +4693,7 @@
       "home_win_probability": 0.6268,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6469663983383781,
+        "ensemble": 0.6480095946725656,
         "bayes_bt_state_space": 0.6320865536805106,
         "bayes_goals": 0.6268,
         "dynamic_rating": 0.8097194853123469,
@@ -4098,9 +4703,9 @@
         "glm_lasso": 0.608888653929527,
         "glm_ridge": 0.572943360091498,
         "goals_poisson": 0.5771666666666667,
-        "rf": 0.725624213965708,
+        "rf": 0.7256242139657081,
         "simulation_first": 0.517,
-        "two_stage": 0.7540540569104895
+        "two_stage": 0.7656690400082239
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-10T23:00Z",
@@ -4121,7 +4726,7 @@
       "home_win_probability": 0.423,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.19897581355005473,
+        "ensemble": 0.19821748461482633,
         "bayes_bt_state_space": 0.27387685365280684,
         "bayes_goals": 0.423,
         "dynamic_rating": 0.19681873227062724,
@@ -4133,7 +4738,7 @@
         "goals_poisson": 0.24166666666666667,
         "rf": 0.23714693537565232,
         "simulation_first": 0.531,
-        "two_stage": 0.11697939909442882
+        "two_stage": 0.10554884961670648
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-10T23:30Z",
@@ -4154,7 +4759,7 @@
       "home_win_probability": 0.8,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.8187655307445416,
+        "ensemble": 0.8189959550239801,
         "bayes_bt_state_space": 0.8996030522143985,
         "bayes_goals": 0.8,
         "dynamic_rating": 0.9396037319889213,
@@ -4164,9 +4769,9 @@
         "glm_lasso": 0.8097516840889529,
         "glm_ridge": 0.818048495882211,
         "goals_poisson": 0.77,
-        "rf": 0.8687436567648776,
+        "rf": 0.8687436567648775,
         "simulation_first": 0.5252857142857142,
-        "two_stage": 0.8608531575766689
+        "two_stage": 0.8639235124825005
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-10T23:30Z",
@@ -4187,7 +4792,7 @@
       "home_win_probability": 0.7464,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7317677287474422,
+        "ensemble": 0.7308631808222358,
         "bayes_bt_state_space": 0.7693462906167838,
         "bayes_goals": 0.7464,
         "dynamic_rating": 0.9357197926970168,
@@ -4199,7 +4804,7 @@
         "goals_poisson": 0.6106666666666667,
         "rf": 0.8401033951975188,
         "simulation_first": 0.5195714285714286,
-        "two_stage": 0.7291288768316898
+        "two_stage": 0.7194497103304249
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-10T23:30Z",
@@ -4220,7 +4825,7 @@
       "home_win_probability": 0.6912,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.5882091335863154,
+        "ensemble": 0.5890022220511952,
         "bayes_bt_state_space": 0.5518732765233559,
         "bayes_goals": 0.6912,
         "dynamic_rating": 0.5814508401768856,
@@ -4230,9 +4835,9 @@
         "glm_lasso": 0.6935871319298632,
         "glm_ridge": 0.6972834406186216,
         "goals_poisson": 0.6066666666666667,
-        "rf": 0.4832843846163362,
+        "rf": 0.48328438461633627,
         "simulation_first": 0.5355714285714286,
-        "two_stage": 0.5321371484716109
+        "two_stage": 0.5382730586528258
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-11T00:00Z",
@@ -4253,7 +4858,7 @@
       "home_win_probability": 0.6342,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.3382058495225776,
+        "ensemble": 0.33825026824381,
         "bayes_bt_state_space": 0.294707532757869,
         "bayes_goals": 0.6342,
         "dynamic_rating": 0.35934277302833345,
@@ -4263,9 +4868,9 @@
         "glm_lasso": 0.3429275421680355,
         "glm_ridge": 0.34487381845641774,
         "goals_poisson": 0.42233333333333334,
-        "rf": 0.2985645119921804,
+        "rf": 0.2985645119921805,
         "simulation_first": 0.5238571428571429,
-        "two_stage": 0.23050478606225316
+        "two_stage": 0.22905507044221693
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-11T00:00Z",
@@ -4286,7 +4891,7 @@
       "home_win_probability": 0.7418,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6037734742994061,
+        "ensemble": 0.6031530345227398,
         "bayes_bt_state_space": 0.5146157273168482,
         "bayes_goals": 0.7418,
         "dynamic_rating": 0.6997977487324667,
@@ -4296,9 +4901,9 @@
         "glm_lasso": 0.7368152791920393,
         "glm_ridge": 0.74505818176003,
         "goals_poisson": 0.5266666666666667,
-        "rf": 0.6077547468389294,
+        "rf": 0.6077547468389295,
         "simulation_first": 0.5094285714285715,
-        "two_stage": 0.4642859616798395
+        "two_stage": 0.4591624477186638
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-11T00:00Z",
@@ -4319,7 +4924,7 @@
       "home_win_probability": 0.6234,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6714003576015962,
+        "ensemble": 0.6702573475023312,
         "bayes_bt_state_space": 0.7613382882056342,
         "bayes_goals": 0.6234,
         "dynamic_rating": 0.7231144490792528,
@@ -4331,7 +4936,7 @@
         "goals_poisson": 0.6298333333333334,
         "rf": 0.7178010253073267,
         "simulation_first": 0.5112857142857142,
-        "two_stage": 0.6896603864668542
+        "two_stage": 0.6767869458301993
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-11T02:00Z",
@@ -4352,7 +4957,7 @@
       "home_win_probability": 0.6316,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.41834002588069474,
+        "ensemble": 0.41831549608276103,
         "bayes_bt_state_space": 0.5510106271588406,
         "bayes_goals": 0.6316,
         "dynamic_rating": 0.32637695555160934,
@@ -4362,9 +4967,9 @@
         "glm_lasso": 0.443489135881724,
         "glm_ridge": 0.4227538300448132,
         "goals_poisson": 0.4285,
-        "rf": 0.3836878732975029,
+        "rf": 0.3836878732975028,
         "simulation_first": 0.5208571428571429,
-        "two_stage": 0.42161140007512726
+        "two_stage": 0.42050521759939025
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-11T02:00Z",
@@ -4385,7 +4990,7 @@
       "home_win_probability": 0.6182,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.5046725384264901,
+        "ensemble": 0.5044213761184992,
         "bayes_bt_state_space": 0.6480596902931859,
         "bayes_goals": 0.6182,
         "dynamic_rating": 0.665938008524297,
@@ -4395,9 +5000,9 @@
         "glm_lasso": 0.38864334723173966,
         "glm_ridge": 0.38796841145202304,
         "goals_poisson": 0.4751666666666667,
-        "rf": 0.5720158414384948,
+        "rf": 0.5720158414384949,
         "simulation_first": 0.5178571428571429,
-        "two_stage": 0.5842337101338204
+        "two_stage": 0.5795274180840407
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-11T02:00Z",
@@ -4418,7 +5023,7 @@
       "home_win_probability": 0.5312,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.47780598636428223,
+        "ensemble": 0.4778880664250389,
         "bayes_bt_state_space": 0.5381619742993892,
         "bayes_goals": 0.5312,
         "dynamic_rating": 0.5273779324358939,
@@ -4428,9 +5033,9 @@
         "glm_lasso": 0.555611783075331,
         "glm_ridge": 0.5584563923089426,
         "goals_poisson": 0.44399999999999995,
-        "rf": 0.47596005445809936,
+        "rf": 0.47596005445809925,
         "simulation_first": 0.5181428571428571,
-        "two_stage": 0.5050348248212143
+        "two_stage": 0.5052189430399424
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-11T03:00Z",
@@ -4451,7 +5056,7 @@
       "home_win_probability": 0.5664,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.5167007132183489,
+        "ensemble": 0.5193084871225558,
         "bayes_bt_state_space": 0.5387080497155009,
         "bayes_goals": 0.5664,
         "dynamic_rating": 0.48459416514969683,
@@ -4461,9 +5066,9 @@
         "glm_lasso": 0.5305260453291777,
         "glm_ridge": 0.5408419764580775,
         "goals_poisson": 0.5118333333333334,
-        "rf": 0.49429585703549966,
+        "rf": 0.4942958570354997,
         "simulation_first": 0.5105714285714286,
-        "two_stage": 0.7400586344382177
+        "two_stage": 0.7647430911754878
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-11T23:30Z",
@@ -4484,7 +5089,7 @@
       "home_win_probability": 0.6948,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.35646810114273075,
+        "ensemble": 0.3590078423692239,
         "bayes_bt_state_space": 0.2343087786261349,
         "bayes_goals": 0.6948,
         "dynamic_rating": 0.40713891442952127,
@@ -4494,9 +5099,9 @@
         "glm_lasso": 0.3067128970214578,
         "glm_ridge": 0.3179032151112825,
         "goals_poisson": 0.41650000000000004,
-        "rf": 0.32750376407976745,
+        "rf": 0.3275037640797675,
         "simulation_first": 0.5258571428571429,
-        "two_stage": 0.4217480326060652
+        "two_stage": 0.44852643861433866
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-12T00:00Z",
@@ -4517,7 +5122,7 @@
       "home_win_probability": 0.6824,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.2130685699393285,
+        "ensemble": 0.21397816108979545,
         "bayes_bt_state_space": 0.22437204420443974,
         "bayes_goals": 0.6824,
         "dynamic_rating": 0.08322312943544302,
@@ -4527,9 +5132,9 @@
         "glm_lasso": 0.15563048254410478,
         "glm_ridge": 0.15173938002242943,
         "goals_poisson": 0.2738333333333334,
-        "rf": 0.18512404823597997,
+        "rf": 0.18512404823598,
         "simulation_first": 0.5255714285714286,
-        "two_stage": 0.23476746990742947
+        "two_stage": 0.24532084989720648
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-12T01:00Z",
@@ -4550,7 +5155,7 @@
       "home_win_probability": 0.74,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.48658692994483443,
+        "ensemble": 0.487545872104046,
         "bayes_bt_state_space": 0.4926677405982891,
         "bayes_goals": 0.74,
         "dynamic_rating": 0.4869922232875507,
@@ -4560,9 +5165,9 @@
         "glm_lasso": 0.5132920386223416,
         "glm_ridge": 0.506244440898581,
         "goals_poisson": 0.5151666666666667,
-        "rf": 0.397159744582729,
+        "rf": 0.39715974458272896,
         "simulation_first": 0.5272857142857142,
-        "two_stage": 0.48760787713093257
+        "two_stage": 0.49403857410369045
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-12T02:00Z",
@@ -4583,7 +5188,7 @@
       "home_win_probability": 0.5032,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.23892305605952838,
+        "ensemble": 0.23986037724980755,
         "bayes_bt_state_space": 0.30781291311478937,
         "bayes_goals": 0.5032,
         "dynamic_rating": 0.15218410000914323,
@@ -4593,9 +5198,9 @@
         "glm_lasso": 0.1712139653321557,
         "glm_ridge": 0.16637309633938555,
         "goals_poisson": 0.27666666666666667,
-        "rf": 0.24621215923495265,
+        "rf": 0.24621215923495263,
         "simulation_first": 0.5171428571428571,
-        "two_stage": 0.39616191314448745
+        "two_stage": 0.4065842569793207
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-12T02:00Z",
@@ -4616,7 +5221,7 @@
       "home_win_probability": 0.5066,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.47582655314821726,
+        "ensemble": 0.47762258962172877,
         "bayes_bt_state_space": 0.5280442682998946,
         "bayes_goals": 0.5066,
         "dynamic_rating": 0.4914314230860509,
@@ -4626,9 +5231,9 @@
         "glm_lasso": 0.4970698211638805,
         "glm_ridge": 0.5042020765864398,
         "goals_poisson": 0.4715,
-        "rf": 0.43629078356143053,
+        "rf": 0.4362907835614306,
         "simulation_first": 0.5057142857142857,
-        "two_stage": 0.6640954620260602
+        "two_stage": 0.6800259920994556
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-12T02:30Z",
@@ -4649,7 +5254,7 @@
       "home_win_probability": 0.6716,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7178974141550776,
+        "ensemble": 0.71944984999158,
         "bayes_bt_state_space": 0.7920943903035491,
         "bayes_goals": 0.6716,
         "dynamic_rating": 0.6527830872738831,
@@ -4661,7 +5266,7 @@
         "goals_poisson": 0.6805,
         "rf": 0.6046171188052857,
         "simulation_first": 0.5122857142857142,
-        "two_stage": 0.9006261783646258
+        "two_stage": 0.9168584041873188
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-12T23:00Z",
@@ -4682,7 +5287,7 @@
       "home_win_probability": 0.6122,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.23524360118664261,
+        "ensemble": 0.23609480977710945,
         "bayes_bt_state_space": 0.21027374282798808,
         "bayes_goals": 0.6122,
         "dynamic_rating": 0.11752137909345713,
@@ -4694,7 +5299,7 @@
         "goals_poisson": 0.3201666666666667,
         "rf": 0.2303779647881349,
         "simulation_first": 0.514,
-        "two_stage": 0.313782580287686
+        "two_stage": 0.3222936990085074
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-12T23:00Z",
@@ -4715,7 +5320,7 @@
       "home_win_probability": 0.7248,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.813957515399248,
+        "ensemble": 0.8143618090960679,
         "bayes_bt_state_space": 0.884818215620307,
         "bayes_goals": 0.7248,
         "dynamic_rating": 0.9303428661499564,
@@ -4725,9 +5330,9 @@
         "glm_lasso": 0.801833672081392,
         "glm_ridge": 0.808173189386287,
         "goals_poisson": 0.7713333333333334,
-        "rf": 0.8725311753605154,
+        "rf": 0.8725311753605157,
         "simulation_first": 0.5172857142857142,
-        "two_stage": 0.907330933203924
+        "two_stage": 0.9127455354547684
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-12T23:00Z",
@@ -4748,7 +5353,7 @@
       "home_win_probability": 0.852,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7872663183979338,
+        "ensemble": 0.7881630001882642,
         "bayes_bt_state_space": 0.8009760008200074,
         "bayes_goals": 0.852,
         "dynamic_rating": 0.8823504329308691,
@@ -4758,9 +5363,9 @@
         "glm_lasso": 0.7598308386250694,
         "glm_ridge": 0.7814479549030573,
         "goals_poisson": 0.7091666666666666,
-        "rf": 0.8199970240923706,
+        "rf": 0.8199970240923704,
         "simulation_first": 0.5218571428571429,
-        "two_stage": 0.9162812971225631
+        "two_stage": 0.9269258158212741
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-12T23:30Z",
@@ -4781,7 +5386,7 @@
       "home_win_probability": 0.814,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7338539341629882,
+        "ensemble": 0.7346144943463309,
         "bayes_bt_state_space": 0.770619563552704,
         "bayes_goals": 0.814,
         "dynamic_rating": 0.8132490611442394,
@@ -4793,7 +5398,7 @@
         "goals_poisson": 0.6798333333333333,
         "rf": 0.6926380589839272,
         "simulation_first": 0.5225714285714286,
-        "two_stage": 0.8794766672649209
+        "two_stage": 0.8854743213840144
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-12T23:30Z",
@@ -4814,7 +5419,7 @@
       "home_win_probability": 0.6972,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.585585593369357,
+        "ensemble": 0.5853112243499361,
         "bayes_bt_state_space": 0.720995311720486,
         "bayes_goals": 0.6972,
         "dynamic_rating": 0.6153835207632151,
@@ -4826,7 +5431,7 @@
         "goals_poisson": 0.5626666666666666,
         "rf": 0.583995906539508,
         "simulation_first": 0.5397142857142857,
-        "two_stage": 0.704252934087315
+        "two_stage": 0.6988933474011181
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-13T00:00Z",
@@ -4847,7 +5452,7 @@
       "home_win_probability": 0.6456,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7196760406695639,
+        "ensemble": 0.7214188867182803,
         "bayes_bt_state_space": 0.6852537469374471,
         "bayes_goals": 0.6456,
         "dynamic_rating": 0.8825623798542099,
@@ -4857,9 +5462,9 @@
         "glm_lasso": 0.8075969811966378,
         "glm_ridge": 0.8167337727498656,
         "goals_poisson": 0.6193333333333333,
-        "rf": 0.7022255496930362,
+        "rf": 0.7022255496930363,
         "simulation_first": 0.528,
-        "two_stage": 0.8638602729040329
+        "two_stage": 0.8834185033112104
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-13T01:00Z",
@@ -4880,7 +5485,7 @@
       "home_win_probability": 0.7318,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6265921804752729,
+        "ensemble": 0.6277631130823371,
         "bayes_bt_state_space": 0.62712530523693,
         "bayes_goals": 0.7318,
         "dynamic_rating": 0.5905429923171013,
@@ -4890,9 +5495,9 @@
         "glm_lasso": 0.7490047395282373,
         "glm_ridge": 0.7416027778833157,
         "goals_poisson": 0.5671666666666667,
-        "rf": 0.5304891070617683,
+        "rf": 0.5304891070617684,
         "simulation_first": 0.5214285714285715,
-        "two_stage": 0.742634582257602
+        "two_stage": 0.7525455729560145
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-13T01:30Z",
@@ -4913,7 +5518,7 @@
       "home_win_probability": 0.6262,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7145920644447795,
+        "ensemble": 0.7146779083214156,
         "bayes_bt_state_space": 0.7285918436109273,
         "bayes_goals": 0.6262,
         "dynamic_rating": 0.8553368258022271,
@@ -4923,9 +5528,9 @@
         "glm_lasso": 0.7369072437558013,
         "glm_ridge": 0.7424204653476845,
         "goals_poisson": 0.612,
-        "rf": 0.8095977360637764,
+        "rf": 0.8095977360637765,
         "simulation_first": 0.5288571428571428,
-        "two_stage": 0.775792901123784
+        "two_stage": 0.7781806709503459
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-13T02:30Z",
@@ -4946,7 +5551,7 @@
       "home_win_probability": 0.651,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7929579205276498,
+        "ensemble": 0.7942632319847868,
         "bayes_bt_state_space": 0.8934604876629096,
         "bayes_goals": 0.651,
         "dynamic_rating": 0.8764770659366663,
@@ -4958,7 +5563,7 @@
         "goals_poisson": 0.7078333333333333,
         "rf": 0.7433875539993207,
         "simulation_first": 0.5302857142857142,
-        "two_stage": 0.8811219616319763
+        "two_stage": 0.8992459558547484
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-13T23:30Z",
@@ -4979,7 +5584,7 @@
       "home_win_probability": 0.5312,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.189382785322024,
+        "ensemble": 0.19028872740726022,
         "bayes_bt_state_space": 0.2166044168174484,
         "bayes_goals": 0.5312,
         "dynamic_rating": 0.06300295681973425,
@@ -4989,9 +5594,9 @@
         "glm_lasso": 0.16035965023004325,
         "glm_ridge": 0.15817006075303236,
         "goals_poisson": 0.24033333333333332,
-        "rf": 0.15601918836477982,
+        "rf": 0.15601918836477985,
         "simulation_first": 0.5174285714285715,
-        "two_stage": 0.21898959428122186
+        "two_stage": 0.23117658355489065
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-13T23:30Z",
@@ -5012,7 +5617,7 @@
       "home_win_probability": 0.6922,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.5199855959302916,
+        "ensemble": 0.5221666594288027,
         "bayes_bt_state_space": 0.5375281488680507,
         "bayes_goals": 0.6922,
         "dynamic_rating": 0.4875601410534952,
@@ -5022,9 +5627,9 @@
         "glm_lasso": 0.5082521539366079,
         "glm_ridge": 0.5112239211580645,
         "goals_poisson": 0.5401666666666667,
-        "rf": 0.4569554777672394,
+        "rf": 0.4569554777672393,
         "simulation_first": 0.5348571428571428,
-        "two_stage": 0.6573527940559486
+        "two_stage": 0.676306290247339
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-13T23:30Z",
@@ -5045,7 +5650,7 @@
       "home_win_probability": 0.5024,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.2634107473680727,
+        "ensemble": 0.26598573252031554,
         "bayes_bt_state_space": 0.31333914827147863,
         "bayes_goals": 0.5024,
         "dynamic_rating": 0.06663099511332723,
@@ -5057,7 +5662,7 @@
         "goals_poisson": 0.39266666666666666,
         "rf": 0.22393179404456234,
         "simulation_first": 0.5304285714285715,
-        "two_stage": 0.41767219031070046
+        "two_stage": 0.4469719479484625
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-13T23:30Z",
@@ -5078,7 +5683,7 @@
       "home_win_probability": 0.6498,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7447243373600434,
+        "ensemble": 0.7453651808116124,
         "bayes_bt_state_space": 0.7927640526597064,
         "bayes_goals": 0.6498,
         "dynamic_rating": 0.6951987292564618,
@@ -5088,9 +5693,9 @@
         "glm_lasso": 0.8216697209522145,
         "glm_ridge": 0.8169026036876927,
         "goals_poisson": 0.7140000000000001,
-        "rf": 0.6519738685640354,
+        "rf": 0.6519738685640355,
         "simulation_first": 0.5374285714285715,
-        "two_stage": 0.8407646236886258
+        "two_stage": 0.8478260660142468
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-14T00:00Z",
@@ -5111,7 +5716,7 @@
       "home_win_probability": 0.5568,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.47326166985514495,
+        "ensemble": 0.47594174616061324,
         "bayes_bt_state_space": 0.6070261475102489,
         "bayes_goals": 0.5568,
         "dynamic_rating": 0.33015090830984606,
@@ -5121,9 +5726,9 @@
         "glm_lasso": 0.4705593915336645,
         "glm_ridge": 0.462676788495176,
         "goals_poisson": 0.47050000000000003,
-        "rf": 0.46921203101227577,
+        "rf": 0.4692120310122757,
         "simulation_first": 0.5281428571428571,
-        "two_stage": 0.6977486233337178
+        "two_stage": 0.7252787068047623
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-14T02:00Z",
@@ -5144,7 +5749,7 @@
       "home_win_probability": 0.6046,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7105861863429943,
+        "ensemble": 0.7120013073765618,
         "bayes_bt_state_space": 0.779087707208114,
         "bayes_goals": 0.6046,
         "dynamic_rating": 0.7994187076949115,
@@ -5154,9 +5759,9 @@
         "glm_lasso": 0.6973307230123482,
         "glm_ridge": 0.6897942838599559,
         "goals_poisson": 0.6443333333333334,
-        "rf": 0.7567833187855885,
+        "rf": 0.7567833187855881,
         "simulation_first": 0.5094285714285715,
-        "two_stage": 0.8428314554870804
+        "two_stage": 0.8598185247450173
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-14T02:00Z",
@@ -5177,7 +5782,7 @@
       "home_win_probability": 0.556,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7090188748971953,
+        "ensemble": 0.7099730550048539,
         "bayes_bt_state_space": 0.7368131423581987,
         "bayes_goals": 0.556,
         "dynamic_rating": 0.8366059221443362,
@@ -5187,9 +5792,9 @@
         "glm_lasso": 0.7130716403651632,
         "glm_ridge": 0.7266219396785163,
         "goals_poisson": 0.6305,
-        "rf": 0.7813075221989443,
+        "rf": 0.7813075221989442,
         "simulation_first": 0.5304285714285715,
-        "two_stage": 0.8409093172049512
+        "two_stage": 0.8527069794176088
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-14T02:30Z",
@@ -5210,7 +5815,7 @@
       "home_win_probability": 0.802,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7307484822217529,
+        "ensemble": 0.732027301881371,
         "bayes_bt_state_space": 0.7803595491281421,
         "bayes_goals": 0.802,
         "dynamic_rating": 0.756760829859024,
@@ -5222,7 +5827,7 @@
         "goals_poisson": 0.688,
         "rf": 0.7559179192562935,
         "simulation_first": 0.521,
-        "two_stage": 0.7662562860670927
+        "two_stage": 0.7820727822368597
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-14T17:00Z",
@@ -5243,7 +5848,7 @@
       "home_win_probability": 0.7802,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6695050591807694,
+        "ensemble": 0.6707154719485429,
         "bayes_bt_state_space": 0.6134341284246484,
         "bayes_goals": 0.7802,
         "dynamic_rating": 0.7856287635133437,
@@ -5253,9 +5858,9 @@
         "glm_lasso": 0.6249854555520308,
         "glm_ridge": 0.6569650020041863,
         "goals_poisson": 0.6218333333333333,
-        "rf": 0.6807807988586121,
+        "rf": 0.6807807988586122,
         "simulation_first": 0.5317142857142857,
-        "two_stage": 0.8287097948047948
+        "two_stage": 0.8389453218157334
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-14T19:00Z",
@@ -5276,7 +5881,7 @@
       "home_win_probability": 0.7212,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.719174801166516,
+        "ensemble": 0.7206214862632607,
         "bayes_bt_state_space": 0.748210145820961,
         "bayes_goals": 0.7212,
         "dynamic_rating": 0.8337600524275581,
@@ -5288,7 +5893,7 @@
         "goals_poisson": 0.6106666666666667,
         "rf": 0.6669533896022051,
         "simulation_first": 0.5198571428571429,
-        "two_stage": 0.7793564785741276
+        "two_stage": 0.7959983393997995
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-14T19:30Z",
@@ -5309,7 +5914,7 @@
       "home_win_probability": 0.6908,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.8468364625213121,
+        "ensemble": 0.8473810646864125,
         "bayes_bt_state_space": 0.9191949154712681,
         "bayes_goals": 0.6908,
         "dynamic_rating": 0.9580729987410024,
@@ -5321,7 +5926,7 @@
         "goals_poisson": 0.8593333333333334,
         "rf": 0.7893886840191815,
         "simulation_first": 0.5314285714285715,
-        "two_stage": 0.9488679979433589
+        "two_stage": 0.9557190162880504
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-14T22:00Z",
@@ -5342,7 +5947,7 @@
       "home_win_probability": 0.7344,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.545668126851323,
+        "ensemble": 0.54881100160403,
         "bayes_bt_state_space": 0.5659714949752265,
         "bayes_goals": 0.7344,
         "dynamic_rating": 0.5677219692740701,
@@ -5352,9 +5957,9 @@
         "glm_lasso": 0.5944501812310822,
         "glm_ridge": 0.6019792430022088,
         "goals_poisson": 0.5326666666666666,
-        "rf": 0.4365658304137237,
+        "rf": 0.43656583041372365,
         "simulation_first": 0.5195714285714286,
-        "two_stage": 0.6277596130671776
+        "two_stage": 0.657137142186751
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-15T00:00Z",
@@ -5375,7 +5980,7 @@
       "home_win_probability": 0.5346,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.49602720231580594,
+        "ensemble": 0.49911595298350087,
         "bayes_bt_state_space": 0.49692546526037834,
         "bayes_goals": 0.5346,
         "dynamic_rating": 0.6338259973674685,
@@ -5387,7 +5992,7 @@
         "goals_poisson": 0.465,
         "rf": 0.46042103758958414,
         "simulation_first": 0.5261428571428571,
-        "two_stage": 0.5212394725405758
+        "two_stage": 0.5529563102305307
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-15T00:30Z",
@@ -5408,7 +6013,7 @@
       "home_win_probability": 0.6948,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7985922342100934,
+        "ensemble": 0.7990215811486555,
         "bayes_bt_state_space": 0.8502610087333143,
         "bayes_goals": 0.6948,
         "dynamic_rating": 0.8627037794995132,
@@ -5418,9 +6023,9 @@
         "glm_lasso": 0.8212478316869188,
         "glm_ridge": 0.8282107249957151,
         "goals_poisson": 0.773,
-        "rf": 0.7902647130854156,
+        "rf": 0.7902647130854155,
         "simulation_first": 0.5252857142857142,
-        "two_stage": 0.9062941237334867
+        "two_stage": 0.9110320139704758
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-15T02:30Z",
@@ -5441,7 +6046,7 @@
       "home_win_probability": 0.6282,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7071097593803954,
+        "ensemble": 0.7092283096721772,
         "bayes_bt_state_space": 0.7786511901804003,
         "bayes_goals": 0.6282,
         "dynamic_rating": 0.7498389054459139,
@@ -5453,7 +6058,7 @@
         "goals_poisson": 0.6631666666666667,
         "rf": 0.58702799463674,
         "simulation_first": 0.5338571428571428,
-        "two_stage": 0.8242056652763927
+        "two_stage": 0.8475273695988165
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-15T17:00Z",
@@ -5474,7 +6079,7 @@
       "home_win_probability": 0.7662,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.778138231940071,
+        "ensemble": 0.7793550476920417,
         "bayes_bt_state_space": 0.8336931837054691,
         "bayes_goals": 0.7662,
         "dynamic_rating": 0.9468302783761763,
@@ -5484,9 +6089,9 @@
         "glm_lasso": 0.806464216303681,
         "glm_ridge": 0.8077635725805514,
         "goals_poisson": 0.6791666666666667,
-        "rf": 0.8232011357897694,
+        "rf": 0.8232011357897695,
         "simulation_first": 0.5264285714285715,
-        "two_stage": 0.7306703104013805
+        "two_stage": 0.748481408743179
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-15T19:30Z",
@@ -5507,7 +6112,7 @@
       "home_win_probability": 0.588,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.42198500512266973,
+        "ensemble": 0.42376598074552685,
         "bayes_bt_state_space": 0.5306829254347383,
         "bayes_goals": 0.588,
         "dynamic_rating": 0.4596515803636572,
@@ -5519,7 +6124,7 @@
         "goals_poisson": 0.44066666666666665,
         "rf": 0.38956380601317775,
         "simulation_first": 0.5365714285714286,
-        "two_stage": 0.38086952288348125
+        "two_stage": 0.3993927780531177
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-15T19:30Z",
@@ -5540,7 +6145,7 @@
       "home_win_probability": 0.6336,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6746467737183846,
+        "ensemble": 0.6765088355076745,
         "bayes_bt_state_space": 0.7753071113129046,
         "bayes_goals": 0.6336,
         "dynamic_rating": 0.8260513017352528,
@@ -5552,7 +6157,7 @@
         "goals_poisson": 0.6191666666666666,
         "rf": 0.7061599597727154,
         "simulation_first": 0.5291428571428571,
-        "two_stage": 0.6844409666058536
+        "two_stage": 0.7067168094025302
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-15T19:30Z",
@@ -5573,7 +6178,7 @@
       "home_win_probability": 0.6286,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.5732883069707019,
+        "ensemble": 0.573871156945175,
         "bayes_bt_state_space": 0.5909508972311556,
         "bayes_goals": 0.6286,
         "dynamic_rating": 0.5729677459892292,
@@ -5583,9 +6188,9 @@
         "glm_lasso": 0.5435335599163106,
         "glm_ridge": 0.5397749435412627,
         "goals_poisson": 0.5763333333333334,
-        "rf": 0.538968867766564,
+        "rf": 0.5389688677665639,
         "simulation_first": 0.5094285714285715,
-        "two_stage": 0.7388713849948634
+        "two_stage": 0.7420492440124946
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-15T22:00Z",
@@ -5606,7 +6211,7 @@
       "home_win_probability": 0.6872,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6978679341790521,
+        "ensemble": 0.70002814242746,
         "bayes_bt_state_space": 0.7942346094700379,
         "bayes_goals": 0.6872,
         "dynamic_rating": 0.7899995659033681,
@@ -5616,9 +6221,9 @@
         "glm_lasso": 0.7590436863408921,
         "glm_ridge": 0.7665373523224867,
         "goals_poisson": 0.6323333333333334,
-        "rf": 0.6245169558972817,
+        "rf": 0.6245169558972816,
         "simulation_first": 0.5244285714285715,
-        "two_stage": 0.7185561755194402
+        "two_stage": 0.7433910531748452
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-16T00:00Z",
@@ -5639,7 +6244,7 @@
       "home_win_probability": 0.4638,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.45490863899914064,
+        "ensemble": 0.45677144930694613,
         "bayes_bt_state_space": 0.5700225586534753,
         "bayes_goals": 0.4638,
         "dynamic_rating": 0.5962129698317817,
@@ -5649,9 +6254,9 @@
         "glm_lasso": 0.34888338856719375,
         "glm_ridge": 0.34680005700051236,
         "goals_poisson": 0.4688333333333333,
-        "rf": 0.5414020476115461,
+        "rf": 0.5414020476115462,
         "simulation_first": 0.5107142857142857,
-        "two_stage": 0.5035749481336348
+        "two_stage": 0.5241242310651596
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-16T02:00Z",
@@ -5672,7 +6277,7 @@
       "home_win_probability": 0.6746,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.469159913466058,
+        "ensemble": 0.4718938937160235,
         "bayes_bt_state_space": 0.4468359940205107,
         "bayes_goals": 0.6746,
         "dynamic_rating": 0.5249982361600437,
@@ -5682,9 +6287,9 @@
         "glm_lasso": 0.4956234868709473,
         "glm_ridge": 0.5100537622277611,
         "goals_poisson": 0.5035000000000001,
-        "rf": 0.3741065372546078,
+        "rf": 0.37410653725460774,
         "simulation_first": 0.5237142857142857,
-        "two_stage": 0.4355405607279614
+        "two_stage": 0.46157247159570786
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-16T23:00Z",
@@ -5705,7 +6310,7 @@
       "home_win_probability": 0.5742,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.26239785362163176,
+        "ensemble": 0.2644523602793848,
         "bayes_bt_state_space": 0.3058468304303465,
         "bayes_goals": 0.5742,
         "dynamic_rating": 0.20916787453898908,
@@ -5715,9 +6320,9 @@
         "glm_lasso": 0.1720770675297007,
         "glm_ridge": 0.16786605837519808,
         "goals_poisson": 0.3051666666666667,
-        "rf": 0.3395868950902478,
+        "rf": 0.33958689509024786,
         "simulation_first": 0.5185714285714286,
-        "two_stage": 0.26132233895014606
+        "two_stage": 0.2895345004655428
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-16T23:00Z",
@@ -5738,7 +6343,7 @@
       "home_win_probability": 0.4312,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.371767637247834,
+        "ensemble": 0.3731623433397398,
         "bayes_bt_state_space": 0.526452480082777,
         "bayes_goals": 0.4312,
         "dynamic_rating": 0.32716573002648924,
@@ -5748,9 +6353,9 @@
         "glm_lasso": 0.27605077810472967,
         "glm_ridge": 0.2773278708305166,
         "goals_poisson": 0.435,
-        "rf": 0.43588950403993776,
+        "rf": 0.4358895040399378,
         "simulation_first": 0.5192857142857142,
-        "two_stage": 0.5021227196331745
+        "two_stage": 0.5181630328884916
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-16T23:30Z",
@@ -5771,7 +6376,7 @@
       "home_win_probability": 0.7002,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6768427432811988,
+        "ensemble": 0.6793462407967827,
         "bayes_bt_state_space": 0.7224702474360594,
         "bayes_goals": 0.7002,
         "dynamic_rating": 0.760879383048317,
@@ -5781,9 +6386,9 @@
         "glm_lasso": 0.7398094776692025,
         "glm_ridge": 0.7464039157433607,
         "goals_poisson": 0.6601666666666667,
-        "rf": 0.6018529748872,
+        "rf": 0.6018529748871999,
         "simulation_first": 0.5267142857142857,
-        "two_stage": 0.624136094235911
+        "two_stage": 0.6524525613340527
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-16T23:30Z",
@@ -5804,7 +6409,7 @@
       "home_win_probability": 0.6352,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.5114122244511438,
+        "ensemble": 0.5153272778140832,
         "bayes_bt_state_space": 0.5687569329856275,
         "bayes_goals": 0.6352,
         "dynamic_rating": 0.61916512938498,
@@ -5814,9 +6419,9 @@
         "glm_lasso": 0.4615410633878947,
         "glm_ridge": 0.43002219147140436,
         "goals_poisson": 0.5036666666666667,
-        "rf": 0.5207750352608231,
+        "rf": 0.520775035260823,
         "simulation_first": 0.5221428571428571,
-        "two_stage": 0.5460188842064322
+        "two_stage": 0.5866913977438502
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-17T00:00Z",
@@ -5837,7 +6442,7 @@
       "home_win_probability": 0.6994,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.5690228541268614,
+        "ensemble": 0.5729482115552409,
         "bayes_bt_state_space": 0.5823905405560412,
         "bayes_goals": 0.6994,
         "dynamic_rating": 0.8222887610840457,
@@ -5847,9 +6452,9 @@
         "glm_lasso": 0.505079486106798,
         "glm_ridge": 0.5142514330516067,
         "goals_poisson": 0.539,
-        "rf": 0.6252950528913579,
+        "rf": 0.6252950528913577,
         "simulation_first": 0.5232857142857142,
-        "two_stage": 0.4842885011106925
+        "two_stage": 0.5265646792254778
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-17T00:00Z",
@@ -5870,7 +6475,7 @@
       "home_win_probability": 0.647,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6095183254946401,
+        "ensemble": 0.6120659169459901,
         "bayes_bt_state_space": 0.6469485948706142,
         "bayes_goals": 0.647,
         "dynamic_rating": 0.4658972855119258,
@@ -5882,7 +6487,7 @@
         "goals_poisson": 0.6375,
         "rf": 0.48041082939865254,
         "simulation_first": 0.516,
-        "two_stage": 0.6582114380879661
+        "two_stage": 0.6844352697489601
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-17T01:30Z",
@@ -5903,7 +6508,7 @@
       "home_win_probability": 0.5048,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.33998235567551793,
+        "ensemble": 0.3416578186436895,
         "bayes_bt_state_space": 0.412433481139779,
         "bayes_goals": 0.5048,
         "dynamic_rating": 0.18359843690465785,
@@ -5913,9 +6518,9 @@
         "glm_lasso": 0.3915882245954457,
         "glm_ridge": 0.4075595137331648,
         "goals_poisson": 0.4061666666666667,
-        "rf": 0.3284454951423811,
+        "rf": 0.32844549514238114,
         "simulation_first": 0.522,
-        "two_stage": 0.3740153139226421
+        "two_stage": 0.3930213332944518
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-17T02:00Z",
@@ -5936,7 +6541,7 @@
       "home_win_probability": 0.547,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.48423062564640645,
+        "ensemble": 0.48749381322295926,
         "bayes_bt_state_space": 0.48155062180956715,
         "bayes_goals": 0.547,
         "dynamic_rating": 0.43494205361100075,
@@ -5948,7 +6553,7 @@
         "goals_poisson": 0.5456666666666666,
         "rf": 0.4096221528567591,
         "simulation_first": 0.5082857142857143,
-        "two_stage": 0.4295279083520992
+        "two_stage": 0.46368746280271167
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-17T23:00Z",
@@ -5969,7 +6574,7 @@
       "home_win_probability": 0.583,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.3859229973416147,
+        "ensemble": 0.3873047769052636,
         "bayes_bt_state_space": 0.45152972158019267,
         "bayes_goals": 0.583,
         "dynamic_rating": 0.34001297652759693,
@@ -5981,7 +6586,7 @@
         "goals_poisson": 0.3675,
         "rf": 0.42692298275031415,
         "simulation_first": 0.5222857142857142,
-        "two_stage": 0.41213503625746306
+        "two_stage": 0.4289206452423664
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-17T23:00Z",
@@ -6002,7 +6607,7 @@
       "home_win_probability": 0.5352,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.18999647724084062,
+        "ensemble": 0.19078565107791232,
         "bayes_bt_state_space": 0.24569031119595475,
         "bayes_goals": 0.5352,
         "dynamic_rating": 0.12309277485712138,
@@ -6012,9 +6617,9 @@
         "glm_lasso": 0.12543339100267464,
         "glm_ridge": 0.1303608879010033,
         "goals_poisson": 0.2075,
-        "rf": 0.23433996532935686,
+        "rf": 0.2343399653293569,
         "simulation_first": 0.5288571428571428,
-        "two_stage": 0.16553547713448621
+        "two_stage": 0.178093520527967
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-17T23:00Z",
@@ -6035,7 +6640,7 @@
       "home_win_probability": 0.7468,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.8379097013192648,
+        "ensemble": 0.8387587805689927,
         "bayes_bt_state_space": 0.934221243476991,
         "bayes_goals": 0.7468,
         "dynamic_rating": 0.9497648032860161,
@@ -6045,9 +6650,9 @@
         "glm_lasso": 0.8841308836130732,
         "glm_ridge": 0.88522991698518,
         "goals_poisson": 0.7973333333333333,
-        "rf": 0.7556472041088473,
+        "rf": 0.7556472041088472,
         "simulation_first": 0.5161428571428571,
-        "two_stage": 0.9173223145198096
+        "two_stage": 0.9290229182015105
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-17T23:30Z",
@@ -6068,7 +6673,7 @@
       "home_win_probability": 0.434,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.3153405118176976,
+        "ensemble": 0.3176023390817369,
         "bayes_bt_state_space": 0.43897526192628367,
         "bayes_goals": 0.434,
         "dynamic_rating": 0.22091509781815274,
@@ -6078,9 +6683,9 @@
         "glm_lasso": 0.29994371115986573,
         "glm_ridge": 0.2945753973889218,
         "goals_poisson": 0.372,
-        "rf": 0.30685126310679495,
+        "rf": 0.306851263106795,
         "simulation_first": 0.5292857142857142,
-        "two_stage": 0.37291415685862317
+        "two_stage": 0.4003210617041773
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-18T00:00Z",
@@ -6101,7 +6706,7 @@
       "home_win_probability": 0.7956,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.5859730978024265,
+        "ensemble": 0.5890452408034124,
         "bayes_bt_state_space": 0.5992384547620596,
         "bayes_goals": 0.7956,
         "dynamic_rating": 0.6049094925446998,
@@ -6111,9 +6716,9 @@
         "glm_lasso": 0.6127783484750944,
         "glm_ridge": 0.6192962945911221,
         "goals_poisson": 0.5963333333333334,
-        "rf": 0.48967812933582877,
+        "rf": 0.4896781293358287,
         "simulation_first": 0.5307142857142857,
-        "two_stage": 0.5547265761539198
+        "two_stage": 0.585248105258942
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-18T00:00Z",
@@ -6134,7 +6739,7 @@
       "home_win_probability": 0.7602,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.5988616589314443,
+        "ensemble": 0.6025363069054632,
         "bayes_bt_state_space": 0.6285308024792091,
         "bayes_goals": 0.7602,
         "dynamic_rating": 0.5953769993799769,
@@ -6146,7 +6751,7 @@
         "goals_poisson": 0.6231666666666666,
         "rf": 0.5026174883171852,
         "simulation_first": 0.5325714285714286,
-        "two_stage": 0.5090466247065173
+        "two_stage": 0.548001347618126
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-18T02:00Z",
@@ -6167,7 +6772,7 @@
       "home_win_probability": 0.4142,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.15771586792073716,
+        "ensemble": 0.15871506446280492,
         "bayes_bt_state_space": 0.20052598244890388,
         "bayes_goals": 0.4142,
         "dynamic_rating": 0.038787928592591406,
@@ -6179,7 +6784,7 @@
         "goals_poisson": 0.19883333333333333,
         "rf": 0.22340277177819973,
         "simulation_first": 0.5235714285714286,
-        "two_stage": 0.16313291569269706
+        "two_stage": 0.18046109888011025
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-18T02:00Z",
@@ -6200,7 +6805,7 @@
       "home_win_probability": 0.6254,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7146719899352203,
+        "ensemble": 0.7179600919978381,
         "bayes_bt_state_space": 0.7774096001783123,
         "bayes_goals": 0.6254,
         "dynamic_rating": 0.8427780817626271,
@@ -6210,9 +6815,9 @@
         "glm_lasso": 0.783303867221762,
         "glm_ridge": 0.7821695462422796,
         "goals_poisson": 0.6723333333333333,
-        "rf": 0.6739221248213847,
+        "rf": 0.6739221248213845,
         "simulation_first": 0.524,
-        "two_stage": 0.6971977157986188
+        "two_stage": 0.7379141014287831
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-18T23:00Z",
@@ -6233,7 +6838,7 @@
       "home_win_probability": 0.3376,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.17998023774636546,
+        "ensemble": 0.18093664747154448,
         "bayes_bt_state_space": 0.3103918087781775,
         "bayes_goals": 0.3376,
         "dynamic_rating": 0.07056524535699912,
@@ -6243,9 +6848,9 @@
         "glm_lasso": 0.14647009150090654,
         "glm_ridge": 0.15211971139704816,
         "goals_poisson": 0.19133333333333336,
-        "rf": 0.2557481708385694,
+        "rf": 0.25574817083856943,
         "simulation_first": 0.5134285714285715,
-        "two_stage": 0.24772795513127469
+        "two_stage": 0.26371151775295504
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-18T23:30Z",
@@ -6266,7 +6871,7 @@
       "home_win_probability": 0.5586,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.3429278372753166,
+        "ensemble": 0.34497442871942474,
         "bayes_bt_state_space": 0.4910580775678094,
         "bayes_goals": 0.5586,
         "dynamic_rating": 0.19110827877257916,
@@ -6276,9 +6881,9 @@
         "glm_lasso": 0.2504910584044881,
         "glm_ridge": 0.25920829832349584,
         "goals_poisson": 0.418,
-        "rf": 0.3761054083061731,
+        "rf": 0.37610540830617306,
         "simulation_first": 0.5231428571428571,
-        "two_stage": 0.43399949415516925
+        "two_stage": 0.45786797164627496
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-18T23:30Z",
@@ -6299,7 +6904,7 @@
       "home_win_probability": 0.6952,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.35562925786159605,
+        "ensemble": 0.3579919001976203,
         "bayes_bt_state_space": 0.4162884491098257,
         "bayes_goals": 0.6952,
         "dynamic_rating": 0.2550738110539035,
@@ -6309,9 +6914,9 @@
         "glm_lasso": 0.32924866162320177,
         "glm_ridge": 0.3318681418421331,
         "goals_poisson": 0.4043333333333333,
-        "rf": 0.31203342398436396,
+        "rf": 0.312033423984364,
         "simulation_first": 0.5322857142857143,
-        "two_stage": 0.3973411233146105
+        "two_stage": 0.42264728414455954
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-19T00:00Z",
@@ -6332,7 +6937,7 @@
       "home_win_probability": 0.6798,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.8006950505998016,
+        "ensemble": 0.8019254630298794,
         "bayes_bt_state_space": 0.8554357363289503,
         "bayes_goals": 0.6798,
         "dynamic_rating": 0.9056736637775755,
@@ -6344,7 +6949,7 @@
         "goals_poisson": 0.7733333333333334,
         "rf": 0.8045924304162879,
         "simulation_first": 0.5128571428571429,
-        "two_stage": 0.8087701917645841
+        "two_stage": 0.8267031106531703
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-19T00:00Z",
@@ -6365,7 +6970,7 @@
       "home_win_probability": 0.7384,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.3628583732180606,
+        "ensemble": 0.36651456756921597,
         "bayes_bt_state_space": 0.3815798164795398,
         "bayes_goals": 0.7384,
         "dynamic_rating": 0.33241962496161165,
@@ -6375,9 +6980,9 @@
         "glm_lasso": 0.34523846980746126,
         "glm_ridge": 0.35133632199364023,
         "goals_poisson": 0.42316666666666664,
-        "rf": 0.30947384290089597,
+        "rf": 0.3094738429008959,
         "simulation_first": 0.517,
-        "two_stage": 0.3189228508098702
+        "two_stage": 0.3587730601122428
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-19T00:00Z",
@@ -6398,7 +7003,7 @@
       "home_win_probability": 0.5268,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.3493773138896974,
+        "ensemble": 0.3523552606863166,
         "bayes_bt_state_space": 0.5504629231624261,
         "bayes_goals": 0.5268,
         "dynamic_rating": 0.08031577691629452,
@@ -6410,7 +7015,7 @@
         "goals_poisson": 0.445,
         "rf": 0.2743619022697901,
         "simulation_first": 0.531,
-        "two_stage": 0.5094998773099362
+        "two_stage": 0.5410012827991435
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-19T00:30Z",
@@ -6431,7 +7036,7 @@
       "home_win_probability": 0.5644,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.3259183603277571,
+        "ensemble": 0.3290609972041785,
         "bayes_bt_state_space": 0.47962760062784865,
         "bayes_goals": 0.5644,
         "dynamic_rating": 0.18627058180337186,
@@ -6443,7 +7048,7 @@
         "goals_poisson": 0.39733333333333337,
         "rf": 0.3264990598350502,
         "simulation_first": 0.5258571428571429,
-        "two_stage": 0.37206402662562504
+        "two_stage": 0.4086876442627656
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-19T00:30Z",
@@ -6464,7 +7069,7 @@
       "home_win_probability": 0.6572,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6021138275292952,
+        "ensemble": 0.6054250603162724,
         "bayes_bt_state_space": 0.6466480289109235,
         "bayes_goals": 0.6572,
         "dynamic_rating": 0.4658972855119258,
@@ -6474,9 +7079,9 @@
         "glm_lasso": 0.6736725839939044,
         "glm_ridge": 0.6710901898653229,
         "goals_poisson": 0.6365,
-        "rf": 0.4838913631925832,
+        "rf": 0.48389136319258313,
         "simulation_first": 0.514,
-        "two_stage": 0.6457548016129071
+        "two_stage": 0.6802671465825411
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-19T01:30Z",
@@ -6497,7 +7102,7 @@
       "home_win_probability": 0.654,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.490152498445744,
+        "ensemble": 0.49478767462241874,
         "bayes_bt_state_space": 0.4987767310613079,
         "bayes_goals": 0.654,
         "dynamic_rating": 0.47273890191887824,
@@ -6507,9 +7112,9 @@
         "glm_lasso": 0.5298724434458534,
         "glm_ridge": 0.536612164253251,
         "goals_poisson": 0.5515,
-        "rf": 0.4054378978915593,
+        "rf": 0.4054378978915592,
         "simulation_first": 0.5158571428571429,
-        "two_stage": 0.38687290746332953
+        "two_stage": 0.43520880659402095
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-19T23:00Z",
@@ -6530,7 +7135,7 @@
       "home_win_probability": 0.5244,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.19362962938943404,
+        "ensemble": 0.19459867275885684,
         "bayes_bt_state_space": 0.2785777432902569,
         "bayes_goals": 0.5244,
         "dynamic_rating": 0.12309277485712138,
@@ -6540,9 +7145,9 @@
         "glm_lasso": 0.12384622251327607,
         "glm_ridge": 0.12875297188757048,
         "goals_poisson": 0.2155,
-        "rf": 0.24717992370761416,
+        "rf": 0.24717992370761419,
         "simulation_first": 0.5282857142857142,
-        "two_stage": 0.16516226832946718
+        "two_stage": 0.18061803909535876
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-19T23:00Z",
@@ -6563,7 +7168,7 @@
       "home_win_probability": 0.7518,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.5505994439454202,
+        "ensemble": 0.555285156692351,
         "bayes_bt_state_space": 0.5849465440421519,
         "bayes_goals": 0.7518,
         "dynamic_rating": 0.6171475279129727,
@@ -6575,7 +7180,7 @@
         "goals_poisson": 0.5933333333333333,
         "rf": 0.450252468699076,
         "simulation_first": 0.5258571428571429,
-        "two_stage": 0.4846849949348853
+        "two_stage": 0.5319788728665829
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-20T00:00Z",
@@ -6596,7 +7201,7 @@
       "home_win_probability": 0.578,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.29864636978340237,
+        "ensemble": 0.30122139956695604,
         "bayes_bt_state_space": 0.4317515068663631,
         "bayes_goals": 0.578,
         "dynamic_rating": 0.12745780713888213,
@@ -6606,9 +7211,9 @@
         "glm_lasso": 0.2688407179527955,
         "glm_ridge": 0.2679118244875989,
         "goals_poisson": 0.36533333333333334,
-        "rf": 0.28820014370808533,
+        "rf": 0.2882001437080854,
         "simulation_first": 0.5135714285714286,
-        "two_stage": 0.3407444735640588
+        "two_stage": 0.37181227550688983
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-20T00:00Z",
@@ -6629,7 +7234,7 @@
       "home_win_probability": 0.726,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.3458746291542488,
+        "ensemble": 0.3482662371291134,
         "bayes_bt_state_space": 0.37388425770908157,
         "bayes_goals": 0.726,
         "dynamic_rating": 0.33241962496161165,
@@ -6641,7 +7246,7 @@
         "goals_poisson": 0.42483333333333334,
         "rf": 0.2983631999532975,
         "simulation_first": 0.5224285714285715,
-        "two_stage": 0.22809820935919
+        "two_stage": 0.25460660504621957
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-20T00:00Z",
@@ -6662,7 +7267,7 @@
       "home_win_probability": 0.7888,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.71443907396679,
+        "ensemble": 0.717177393767982,
         "bayes_bt_state_space": 0.717048134643032,
         "bayes_goals": 0.7888,
         "dynamic_rating": 0.8680517684805118,
@@ -6672,9 +7277,9 @@
         "glm_lasso": 0.7964420017535487,
         "glm_ridge": 0.8015358623400293,
         "goals_poisson": 0.6596666666666666,
-        "rf": 0.648779621562011,
+        "rf": 0.6487796215620109,
         "simulation_first": 0.5177142857142857,
-        "two_stage": 0.6046091294283688
+        "two_stage": 0.6379284488563336
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-20T00:00Z",
@@ -6695,7 +7300,7 @@
       "home_win_probability": 0.7852,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.42199783736474406,
+        "ensemble": 0.4252578033273741,
         "bayes_bt_state_space": 0.5509772919195408,
         "bayes_goals": 0.7852,
         "dynamic_rating": 0.2654684779802296,
@@ -6705,9 +7310,9 @@
         "glm_lasso": 0.2821330605228458,
         "glm_ridge": 0.2929092968108446,
         "goals_poisson": 0.4805,
-        "rf": 0.45587318733103777,
+        "rf": 0.45587318733103765,
         "simulation_first": 0.5211428571428571,
-        "two_stage": 0.4978864354008191
+        "two_stage": 0.5327454998410325
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-20T01:00Z",
@@ -6728,7 +7333,7 @@
       "home_win_probability": 0.5236,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.28740479829443705,
+        "ensemble": 0.2889863503907914,
         "bayes_bt_state_space": 0.44001191884051644,
         "bayes_goals": 0.5236,
         "dynamic_rating": 0.25981606742730995,
@@ -6738,9 +7343,9 @@
         "glm_lasso": 0.19410130771752768,
         "glm_ridge": 0.20645422136451277,
         "goals_poisson": 0.32999999999999996,
-        "rf": 0.3678586445764307,
+        "rf": 0.36785864457643064,
         "simulation_first": 0.5091428571428571,
-        "two_stage": 0.2483820465183975
+        "two_stage": 0.27036468819063597
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-20T02:00Z",
@@ -6761,7 +7366,7 @@
       "home_win_probability": 0.4088,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.23192212803985446,
+        "ensemble": 0.23291644005000928,
         "bayes_bt_state_space": 0.5032751814767739,
         "bayes_goals": 0.4088,
         "dynamic_rating": 0.12156361819870956,
@@ -6773,7 +7378,7 @@
         "goals_poisson": 0.25766666666666665,
         "rf": 0.2622589034072881,
         "simulation_first": 0.5125714285714286,
-        "two_stage": 0.23157751877365532
+        "two_stage": 0.24661431979928325
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-20T23:30Z",
@@ -6794,7 +7399,7 @@
       "home_win_probability": 0.6898,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7128486707124202,
+        "ensemble": 0.7148319743060263,
         "bayes_bt_state_space": 0.8523274546869577,
         "bayes_goals": 0.6898,
         "dynamic_rating": 0.679943965868546,
@@ -6806,7 +7411,7 @@
         "goals_poisson": 0.6448333333333334,
         "rf": 0.6452757335018713,
         "simulation_first": 0.5074285714285715,
-        "two_stage": 0.7719598546676689
+        "two_stage": 0.7959183406103355
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-20T23:30Z",
@@ -6827,7 +7432,7 @@
       "home_win_probability": 0.5988,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.618242289216636,
+        "ensemble": 0.6217213250580582,
         "bayes_bt_state_space": 0.7256944896952416,
         "bayes_goals": 0.5988,
         "dynamic_rating": 0.4202871074168483,
@@ -6839,7 +7444,7 @@
         "goals_poisson": 0.6605,
         "rf": 0.4855610153770482,
         "simulation_first": 0.5274285714285715,
-        "two_stage": 0.666958384052673
+        "two_stage": 0.7046299081882661
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-21T00:00Z",
@@ -6860,7 +7465,7 @@
       "home_win_probability": 0.6698,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.26917109243169157,
+        "ensemble": 0.27070847800746195,
         "bayes_bt_state_space": 0.4454135939599557,
         "bayes_goals": 0.6698,
         "dynamic_rating": 0.06629693705093494,
@@ -6870,9 +7475,9 @@
         "glm_lasso": 0.23085182652480735,
         "glm_ridge": 0.2475587494622065,
         "goals_poisson": 0.32749999999999996,
-        "rf": 0.2756209829401303,
+        "rf": 0.27562098294013027,
         "simulation_first": 0.5127142857142857,
-        "two_stage": 0.24887995581686584
+        "two_stage": 0.2682174442901119
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-21T00:00Z",
@@ -6893,7 +7498,7 @@
       "home_win_probability": 0.7274,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6939170055891866,
+        "ensemble": 0.6963172868951889,
         "bayes_bt_state_space": 0.7571492849781984,
         "bayes_goals": 0.7274,
         "dynamic_rating": 0.730911758721008,
@@ -6903,9 +7508,9 @@
         "glm_lasso": 0.7274293946096255,
         "glm_ridge": 0.7331777943295539,
         "goals_poisson": 0.6786666666666666,
-        "rf": 0.5902619555933086,
+        "rf": 0.5902619555933087,
         "simulation_first": 0.5158571428571429,
-        "two_stage": 0.722584688004711
+        "two_stage": 0.7491441155710264
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-21T00:00Z",
@@ -6926,7 +7531,7 @@
       "home_win_probability": 0.7696,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.5486350519731791,
+        "ensemble": 0.5517227643463408,
         "bayes_bt_state_space": 0.6126338754034899,
         "bayes_goals": 0.7696,
         "dynamic_rating": 0.539092358564854,
@@ -6936,9 +7541,9 @@
         "glm_lasso": 0.5829970084899363,
         "glm_ridge": 0.5804856589978941,
         "goals_poisson": 0.5635,
-        "rf": 0.4256416387513257,
+        "rf": 0.4256416387513256,
         "simulation_first": 0.5132857142857142,
-        "two_stage": 0.4775163236086745
+        "two_stage": 0.5082432093252459
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-21T01:00Z",
@@ -6959,7 +7564,7 @@
       "home_win_probability": 0.4814,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.16119426919993557,
+        "ensemble": 0.161992600201958,
         "bayes_bt_state_space": 0.22528288240020364,
         "bayes_goals": 0.4814,
         "dynamic_rating": 0.041678238217926614,
@@ -6971,7 +7576,7 @@
         "goals_poisson": 0.15583333333333335,
         "rf": 0.22858254160272584,
         "simulation_first": 0.523,
-        "two_stage": 0.16358847956347347
+        "two_stage": 0.1777963965435957
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-21T21:00Z",
@@ -6992,7 +7597,7 @@
       "home_win_probability": 0.6586,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6899645915713848,
+        "ensemble": 0.6922322218377179,
         "bayes_bt_state_space": 0.7461436951553616,
         "bayes_goals": 0.6586,
         "dynamic_rating": 0.8927205295815847,
@@ -7004,7 +7609,7 @@
         "goals_poisson": 0.6531666666666667,
         "rf": 0.7526008826370494,
         "simulation_first": 0.5188571428571429,
-        "two_stage": 0.36610990160518603
+        "two_stage": 0.39780470927113387
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-21T23:00Z",
@@ -7025,7 +7630,7 @@
       "home_win_probability": 0.6698,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.5413379375260791,
+        "ensemble": 0.5446682373356609,
         "bayes_bt_state_space": 0.6307012970792857,
         "bayes_goals": 0.6698,
         "dynamic_rating": 0.5805168669128256,
@@ -7035,9 +7640,9 @@
         "glm_lasso": 0.5518307829676571,
         "glm_ridge": 0.5548868284306365,
         "goals_poisson": 0.5723333333333334,
-        "rf": 0.44395277250559567,
+        "rf": 0.4439527725055955,
         "simulation_first": 0.5218571428571429,
-        "two_stage": 0.47095270909795023
+        "two_stage": 0.5049314250346295
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-21T23:00Z",
@@ -7058,7 +7663,7 @@
       "home_win_probability": 0.5878,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.28802082105954774,
+        "ensemble": 0.28966118428942467,
         "bayes_bt_state_space": 0.31810970360352203,
         "bayes_goals": 0.5878,
         "dynamic_rating": 0.22658438716868348,
@@ -7068,9 +7673,9 @@
         "glm_lasso": 0.2651049560624391,
         "glm_ridge": 0.2737982611860506,
         "goals_poisson": 0.39049999999999996,
-        "rf": 0.29289413937667025,
+        "rf": 0.2928941393766702,
         "simulation_first": 0.5128571428571429,
-        "two_stage": 0.18484931143021585
+        "two_stage": 0.20486997208625451
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-21T23:00Z",
@@ -7091,7 +7696,7 @@
       "home_win_probability": 0.7058,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.5336876448888584,
+        "ensemble": 0.5351316759029248,
         "bayes_bt_state_space": 0.5727896753911692,
         "bayes_goals": 0.7058,
         "dynamic_rating": 0.7543772774449328,
@@ -7101,9 +7706,9 @@
         "glm_lasso": 0.5337528754757859,
         "glm_ridge": 0.5461340758312592,
         "goals_poisson": 0.5286666666666666,
-        "rf": 0.5559606495105979,
+        "rf": 0.555960649510598,
         "simulation_first": 0.5235714285714286,
-        "two_stage": 0.24308140927101465
+        "two_stage": 0.26027725308072747
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-22T00:00Z",
@@ -7124,7 +7729,7 @@
       "home_win_probability": 0.5488,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6017601366528752,
+        "ensemble": 0.6050236435243832,
         "bayes_bt_state_space": 0.7467445822148597,
         "bayes_goals": 0.5488,
         "dynamic_rating": 0.3789325775629137,
@@ -7136,7 +7741,7 @@
         "goals_poisson": 0.5948333333333333,
         "rf": 0.4959203145089631,
         "simulation_first": 0.51,
-        "two_stage": 0.6786722295259302
+        "two_stage": 0.7148482862078895
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-22T00:00Z",
@@ -7157,7 +7762,7 @@
       "home_win_probability": 0.8038,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.8554526334818815,
+        "ensemble": 0.8565368226565102,
         "bayes_bt_state_space": 0.9199292284581947,
         "bayes_goals": 0.8038,
         "dynamic_rating": 0.9823628971564801,
@@ -7167,9 +7772,9 @@
         "glm_lasso": 0.9146474010951349,
         "glm_ridge": 0.9130737602527632,
         "goals_poisson": 0.8173333333333334,
-        "rf": 0.7920336674415672,
+        "rf": 0.7920336674415671,
         "simulation_first": 0.5187142857142857,
-        "two_stage": 0.8676745249317805
+        "two_stage": 0.8848759997826523
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-22T00:00Z",
@@ -7190,7 +7795,7 @@
       "home_win_probability": 0.6574,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.34534054444337925,
+        "ensemble": 0.3470972430508438,
         "bayes_bt_state_space": 0.5801294112446249,
         "bayes_goals": 0.6574,
         "dynamic_rating": 0.10820648329318766,
@@ -7200,9 +7805,9 @@
         "glm_lasso": 0.290787753937894,
         "glm_ridge": 0.28388364301449687,
         "goals_poisson": 0.4275,
-        "rf": 0.3411313539624569,
+        "rf": 0.341131353962457,
         "simulation_first": 0.529,
-        "two_stage": 0.2861873370153062
+        "two_stage": 0.3076748727943208
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-22T00:30Z",
@@ -7223,7 +7828,7 @@
       "home_win_probability": 0.6924,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.3279735508551749,
+        "ensemble": 0.3289332298365767,
         "bayes_bt_state_space": 0.49728694560755476,
         "bayes_goals": 0.6924,
         "dynamic_rating": 0.21137866750533701,
@@ -7233,9 +7838,9 @@
         "glm_lasso": 0.23410245386809167,
         "glm_ridge": 0.24672994073947818,
         "goals_poisson": 0.4008333333333333,
-        "rf": 0.3760917571766827,
+        "rf": 0.37609175717668264,
         "simulation_first": 0.5138571428571429,
-        "two_stage": 0.19790705947029785
+        "two_stage": 0.2108852552339558
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-22T01:30Z",
@@ -7256,7 +7861,7 @@
       "home_win_probability": 0.6904,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6863393125742874,
+        "ensemble": 0.6888259328439983,
         "bayes_bt_state_space": 0.8156701325402235,
         "bayes_goals": 0.6904,
         "dynamic_rating": 0.6938579048532705,
@@ -7266,9 +7871,9 @@
         "glm_lasso": 0.6716261216928835,
         "glm_ridge": 0.6627260294996684,
         "goals_poisson": 0.6546666666666666,
-        "rf": 0.6469654058820385,
+        "rf": 0.6469654058820384,
         "simulation_first": 0.5191428571428571,
-        "two_stage": 0.7596917225999607
+        "two_stage": 0.7880836848731887
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-22T02:00Z",
@@ -7289,7 +7894,7 @@
       "home_win_probability": 0.747,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.645702774585577,
+        "ensemble": 0.6478173096540696,
         "bayes_bt_state_space": 0.7444769678765704,
         "bayes_goals": 0.747,
         "dynamic_rating": 0.6365008801378876,
@@ -7299,9 +7904,9 @@
         "glm_lasso": 0.657604506824796,
         "glm_ridge": 0.6556395345180202,
         "goals_poisson": 0.6606666666666667,
-        "rf": 0.5444643165474303,
+        "rf": 0.5444643165474302,
         "simulation_first": 0.518,
-        "two_stage": 0.540120678453422
+        "two_stage": 0.5635539617225941
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-22T21:00Z",
@@ -7322,7 +7927,7 @@
       "home_win_probability": 0.708,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.5053771270888197,
+        "ensemble": 0.5078933009848781,
         "bayes_bt_state_space": 0.7269599796059597,
         "bayes_goals": 0.708,
         "dynamic_rating": 0.4920200014390831,
@@ -7334,7 +7939,7 @@
         "goals_poisson": 0.47966666666666663,
         "rf": 0.5610175989483754,
         "simulation_first": 0.52,
-        "two_stage": 0.5093505955061156
+        "two_stage": 0.5373686134298529
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-22T22:00Z",
@@ -7355,7 +7960,7 @@
       "home_win_probability": 0.7422,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.8376961823508247,
+        "ensemble": 0.8389956439419555,
         "bayes_bt_state_space": 0.9271492564507592,
         "bayes_goals": 0.7422,
         "dynamic_rating": 0.9413027175620529,
@@ -7367,7 +7972,7 @@
         "goals_poisson": 0.834,
         "rf": 0.7565151537024514,
         "simulation_first": 0.5248571428571429,
-        "two_stage": 0.8490892323136754
+        "two_stage": 0.8685560656061259
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-22T23:30Z",
@@ -7388,7 +7993,7 @@
       "home_win_probability": 0.5314,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6254736265808225,
+        "ensemble": 0.6279640592101887,
         "bayes_bt_state_space": 0.773629110954146,
         "bayes_goals": 0.5314,
         "dynamic_rating": 0.7008906741406399,
@@ -7398,9 +8003,9 @@
         "glm_lasso": 0.7227095668686851,
         "glm_ridge": 0.7207110134555064,
         "goals_poisson": 0.6041666666666667,
-        "rf": 0.5768459809300421,
+        "rf": 0.5768459809300422,
         "simulation_first": 0.5204285714285715,
-        "two_stage": 0.4504485781923922
+        "two_stage": 0.4807845710456868
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-23T00:00Z",
@@ -7421,7 +8026,7 @@
       "home_win_probability": 0.6048,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.5890896638858814,
+        "ensemble": 0.5917667503443418,
         "bayes_bt_state_space": 0.7813903971691252,
         "bayes_goals": 0.6048,
         "dynamic_rating": 0.5719397523688077,
@@ -7431,9 +8036,9 @@
         "glm_lasso": 0.6090710554739771,
         "glm_ridge": 0.6067918760505834,
         "goals_poisson": 0.5426666666666667,
-        "rf": 0.5391207504013904,
+        "rf": 0.5391207504013903,
         "simulation_first": 0.5217142857142857,
-        "two_stage": 0.6465169063559014
+        "two_stage": 0.6755353821551899
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-23T01:00Z",
@@ -7454,7 +8059,7 @@
       "home_win_probability": 0.6624,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6664885383689992,
+        "ensemble": 0.6686510723764495,
         "bayes_bt_state_space": 0.8414850823495547,
         "bayes_goals": 0.6624,
         "dynamic_rating": 0.48410294194281817,
@@ -7466,7 +8071,7 @@
         "goals_poisson": 0.66,
         "rf": 0.580722652422772,
         "simulation_first": 0.5295714285714286,
-        "two_stage": 0.6441001657162154
+        "two_stage": 0.669991938582195
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-23T23:00Z",
@@ -7487,7 +8092,7 @@
       "home_win_probability": 0.7342,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.7929575635964039,
+        "ensemble": 0.7945950123380159,
         "bayes_bt_state_space": 0.8735809933308322,
         "bayes_goals": 0.7342,
         "dynamic_rating": 0.9402847421985124,
@@ -7499,7 +8104,7 @@
         "goals_poisson": 0.745,
         "rf": 0.8102358816441793,
         "simulation_first": 0.5215714285714286,
-        "two_stage": 0.7491226395922885
+        "two_stage": 0.772928153326696
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-23T23:00Z",
@@ -7520,7 +8125,7 @@
       "home_win_probability": 0.5632,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.29821947630791734,
+        "ensemble": 0.2998307919532237,
         "bayes_bt_state_space": 0.4220629986641532,
         "bayes_goals": 0.5632,
         "dynamic_rating": 0.17321131740819773,
@@ -7530,9 +8135,9 @@
         "glm_lasso": 0.25861364037362883,
         "glm_ridge": 0.2578711513874816,
         "goals_poisson": 0.30766666666666664,
-        "rf": 0.3991221654472602,
+        "rf": 0.3991221654472601,
         "simulation_first": 0.5147142857142857,
-        "two_stage": 0.2787368817107637
+        "two_stage": 0.3022506094386699
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-23T23:00Z",
@@ -7553,7 +8158,7 @@
       "home_win_probability": 0.6538,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.37729383962849483,
+        "ensemble": 0.37887486300557427,
         "bayes_bt_state_space": 0.5163551841766,
         "bayes_goals": 0.6538,
         "dynamic_rating": 0.27075449278185243,
@@ -7565,7 +8170,7 @@
         "goals_poisson": 0.41650000000000004,
         "rf": 0.43055450641474163,
         "simulation_first": 0.5282857142857142,
-        "two_stage": 0.24397148608072647
+        "two_stage": 0.26445175215414407
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-23T23:00Z",
@@ -7586,7 +8191,7 @@
       "home_win_probability": 0.6892,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.670219388979742,
+        "ensemble": 0.6712203153367836,
         "bayes_bt_state_space": 0.7503760359287044,
         "bayes_goals": 0.6892,
         "dynamic_rating": 0.9111748754442737,
@@ -7596,9 +8201,9 @@
         "glm_lasso": 0.6869588431872703,
         "glm_ridge": 0.6865300682856128,
         "goals_poisson": 0.5950000000000001,
-        "rf": 0.7675166048896643,
+        "rf": 0.7675166048896642,
         "simulation_first": 0.5224285714285715,
-        "two_stage": 0.3220843375715159
+        "two_stage": 0.3395789389080424
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-23T23:30Z",
@@ -7619,7 +8224,7 @@
       "home_win_probability": 0.658,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.3075788758246326,
+        "ensemble": 0.3085371561543666,
         "bayes_bt_state_space": 0.4958621241241107,
         "bayes_goals": 0.658,
         "dynamic_rating": 0.21747120682132431,
@@ -7631,7 +8236,7 @@
         "goals_poisson": 0.3298333333333333,
         "rf": 0.31400910466339227,
         "simulation_first": 0.5147142857142857,
-        "two_stage": 0.1984219649367073
+        "two_stage": 0.2112219517996975
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-24T00:00Z",
@@ -7652,7 +8257,7 @@
       "home_win_probability": 0.7318,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.29738218050944043,
+        "ensemble": 0.2981084036915203,
         "bayes_bt_state_space": 0.48681914151581557,
         "bayes_goals": 0.7318,
         "dynamic_rating": 0.175637965728512,
@@ -7662,9 +8267,9 @@
         "glm_lasso": 0.2065398407253381,
         "glm_ridge": 0.21393029572453814,
         "goals_poisson": 0.347,
-        "rf": 0.33969654044793446,
+        "rf": 0.3396965404479345,
         "simulation_first": 0.5131428571428571,
-        "two_stage": 0.1693428732273174
+        "two_stage": 0.17962625877918453
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-24T01:00Z",
@@ -7685,7 +8290,7 @@
       "home_win_probability": 0.5954,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.3778013164983154,
+        "ensemble": 0.37884153941036647,
         "bayes_bt_state_space": 0.6226094301025423,
         "bayes_goals": 0.5954,
         "dynamic_rating": 0.1921704416093242,
@@ -7697,7 +8302,7 @@
         "goals_poisson": 0.44316666666666665,
         "rf": 0.40619667929133035,
         "simulation_first": 0.522,
-        "two_stage": 0.31089228631244215
+        "two_stage": 0.3244424624315212
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-24T01:30Z",
@@ -7718,7 +8323,7 @@
       "home_win_probability": 0.8162,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6978299120075314,
+        "ensemble": 0.6994876963519931,
         "bayes_bt_state_space": 0.823298947005579,
         "bayes_goals": 0.8162,
         "dynamic_rating": 0.7233284174646994,
@@ -7728,9 +8333,9 @@
         "glm_lasso": 0.6707211762175344,
         "glm_ridge": 0.6571332891594251,
         "goals_poisson": 0.646,
-        "rf": 0.7304515145847432,
+        "rf": 0.7304515145847433,
         "simulation_first": 0.5202857142857142,
-        "two_stage": 0.559022574131451
+        "two_stage": 0.5812193324722411
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-24T02:00Z",
@@ -7751,7 +8356,7 @@
       "home_win_probability": 0.6844,
       "betting_model_name": "bayes_goals",
       "model_win_probabilities": {
-        "ensemble": 0.6408993019962665,
+        "ensemble": 0.6430308934366566,
         "bayes_bt_state_space": 0.7058885488310476,
         "bayes_goals": 0.6844,
         "dynamic_rating": 0.7251003918195786,
@@ -7761,9 +8366,9 @@
         "glm_lasso": 0.6415790503372168,
         "glm_ridge": 0.6477470744473115,
         "goals_poisson": 0.6475,
-        "rf": 0.6367458917029621,
+        "rf": 0.636745891702962,
         "simulation_first": 0.5218571428571429,
-        "two_stage": 0.48454766704575475
+        "two_stage": 0.509741419936424
       },
       "forecast_as_of_utc": "2026-03-09T11:56:18+00:00",
       "start_time_utc": "2026-03-24T02:30Z",

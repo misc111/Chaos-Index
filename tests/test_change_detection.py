@@ -15,3 +15,4 @@ def test_change_detection_finds_shift():
     )
     cp = detect_change_points(df, metric_col="log_loss")
     assert not cp.empty
+    assert len(cp) <= 6

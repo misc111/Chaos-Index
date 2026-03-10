@@ -8,58 +8,35 @@ from src.evaluation.change_detection import detect_change_points
 from src.evaluation.metrics import per_game_scores
 from src.evaluation.performance_timeseries import compute_performance_aggregates
 from src.storage.db import Database
+from src.training.model_catalog import MODEL_ALIASES
 
+
+def _canonical_model_name(model_name: object) -> str:
+    token = str(model_name or "").strip().lower()
+    if not token:
+        return ""
+    return str(MODEL_ALIASES.get(token, token))
 
 
 def score_predictions(db: Database, windows_days: list[int]) -> dict:
     preds = pd.DataFrame(
         db.query(
             """
-            WITH eligible AS (
-              SELECT
-                p.prediction_id,
-                p.game_id,
-                p.model_name,
-                p.model_run_id,
-                p.as_of_utc,
-                p.game_date_utc,
-                p.prob_home_win,
-                r.home_win AS outcome_home_win,
-                r.final_utc,
-                r.game_date_utc AS result_game_date_utc
-              FROM predictions p
-              JOIN results r ON r.game_id = p.game_id
-              WHERE DATETIME(p.as_of_utc) <= COALESCE(
-                DATETIME(r.final_utc),
-                DATETIME(r.game_date_utc || 'T23:59:59')
-              )
-            ),
-            ranked AS (
-              SELECT
-                prediction_id,
-                game_id,
-                model_name,
-                model_run_id,
-                as_of_utc,
-                game_date_utc,
-                prob_home_win,
-                outcome_home_win,
-                ROW_NUMBER() OVER (
-                  PARTITION BY game_id, model_name
-                  ORDER BY DATETIME(as_of_utc) DESC, prediction_id DESC
-                ) AS rn
-              FROM eligible
-            )
             SELECT
-              game_id,
-              model_name,
-              model_run_id,
-              as_of_utc,
-              game_date_utc,
-              prob_home_win,
-              outcome_home_win
-            FROM ranked
-            WHERE rn = 1
+              p.prediction_id,
+              p.game_id,
+              p.model_name,
+              p.model_run_id,
+              p.as_of_utc,
+              p.game_date_utc,
+              p.prob_home_win,
+              r.home_win AS outcome_home_win
+            FROM predictions p
+            JOIN results r ON r.game_id = p.game_id
+            WHERE DATETIME(p.as_of_utc) <= COALESCE(
+              DATETIME(r.final_utc),
+              DATETIME(r.game_date_utc || 'T23:59:59')
+            )
             """
         )
     )
@@ -67,6 +44,15 @@ def score_predictions(db: Database, windows_days: list[int]) -> dict:
         return {"n_scored": 0}
 
     preds = preds.dropna(subset=["outcome_home_win", "prob_home_win"]).copy()
+    preds["model_name"] = preds["model_name"].map(_canonical_model_name)
+    preds = preds[preds["model_name"].astype(str) != ""].copy()
+    if preds.empty:
+        return {"n_scored": 0}
+    preds["as_of_sort"] = pd.to_datetime(preds["as_of_utc"], utc=True, errors="coerce")
+    preds = preds.sort_values(["game_id", "model_name", "as_of_sort", "prediction_id"]).drop_duplicates(
+        subset=["game_id", "model_name"],
+        keep="last",
+    )
     scored = preds.reset_index(drop=True).copy()
     s = per_game_scores(scored["outcome_home_win"].astype(int).to_numpy(), scored["prob_home_win"].astype(float).to_numpy())
     scored["log_loss"] = s["log_loss"].to_numpy()
@@ -74,9 +60,7 @@ def score_predictions(db: Database, windows_days: list[int]) -> dict:
     scored["accuracy"] = s["accuracy"].to_numpy()
     scored["scored_at_utc"] = utc_now_iso()
 
-    # Keep one canonical score row per (game_id, model_name).
-    delete_rows = [(int(r.game_id), str(r.model_name)) for r in scored[["game_id", "model_name"]].drop_duplicates().itertuples(index=False)]
-    db.executemany("DELETE FROM model_scores WHERE game_id = ? AND model_name = ?", delete_rows)
+    db.execute("DELETE FROM model_scores")
 
     insert_rows = [
         (
@@ -140,6 +124,7 @@ def score_predictions(db: Database, windows_days: list[int]) -> dict:
 
     # Change detection.
     cps = detect_change_points(all_scores, metric_col="log_loss")
+    db.execute("DELETE FROM change_points")
     if not cps.empty:
         cp_rows = [
             (

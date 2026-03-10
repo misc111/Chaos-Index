@@ -22,6 +22,7 @@ from src.services.ingest import latest_snapshot_id
 from src.storage.db import Database
 from src.storage.tracker import RunTracker
 from src.training.feature_policy import apply_feature_policy
+from src.training.prequential import score_predictions
 from src.training.model_feature_research import load_model_feature_map, research_model_feature_map
 from src.training.train import normalize_selected_models, select_feature_columns, train_and_predict
 
@@ -210,6 +211,78 @@ def persist_predictions(
     )
 
 
+def _historical_as_of(start_time_utc: Any, game_date_utc: Any) -> str:
+    start_ts = pd.to_datetime(start_time_utc, utc=True, errors="coerce")
+    if pd.isna(start_ts):
+        game_ts = pd.to_datetime(game_date_utc, utc=True, errors="coerce")
+        if pd.isna(game_ts):
+            return utc_now_iso()
+        return (game_ts - pd.Timedelta(days=1)).isoformat()
+    return (start_ts - pd.Timedelta(days=1)).isoformat()
+
+
+def persist_historical_oof_predictions(
+    db: Database,
+    train_df: pd.DataFrame,
+    historical_probs: pd.DataFrame,
+    model_run_id: str,
+    feature_set_version: str,
+) -> None:
+    if historical_probs.empty:
+        return
+
+    snapshot_id = latest_snapshot_id(db)
+    game_meta = (
+        train_df[["game_id", "game_date_utc", "start_time_utc", "home_team", "away_team"]]
+        .drop_duplicates(subset=["game_id"])
+        .copy()
+    )
+    merged = historical_probs.merge(game_meta, on=["game_id", "game_date_utc"], how="left", validate="one_to_one")
+    non_model_cols = {"game_id", "game_date_utc", "home_win", "start_time_utc", "home_team", "away_team"}
+    model_cols = [c for c in merged.columns if c not in non_model_cols]
+
+    pred_rows = []
+    for row in merged.itertuples(index=False):
+        as_of = _historical_as_of(getattr(row, "start_time_utc", None), getattr(row, "game_date_utc", None))
+        home_team = str(getattr(row, "home_team", "") or "")
+        away_team = str(getattr(row, "away_team", "") or "")
+        for model_name in model_cols:
+            prob = getattr(row, model_name)
+            if pd.isna(prob):
+                continue
+            prob_value = float(prob)
+            pred_rows.append(
+                (
+                    int(row.game_id),
+                    as_of,
+                    model_name,
+                    f"{model_run_id}__{model_name}",
+                    feature_set_version,
+                    snapshot_id,
+                    str(row.game_date_utc),
+                    home_team,
+                    away_team,
+                    prob_value,
+                    home_team if prob_value >= 0.5 else away_team,
+                    None,
+                    None,
+                    None,
+                    to_json({"source": "train_oof_history"}),
+                )
+            )
+
+    db.executemany(
+        """
+        INSERT OR REPLACE INTO predictions(
+          game_id, as_of_utc, model_name, model_run_id, feature_set_version, snapshot_id,
+          game_date_utc, home_team, away_team, prob_home_win, pred_winner, prob_low, prob_high,
+          uncertainty_flags_json, metadata_json
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        pred_rows,
+    )
+
+
 def run_validation_outputs(result: dict[str, Any], cfg: AppConfig) -> None:
     run_validation_pipeline(result, cfg)
 
@@ -278,6 +351,13 @@ def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_
         model_run_id=result["model_run_id"],
         feature_set_version=feature_set_version,
     )
+    persist_historical_oof_predictions(
+        db,
+        train_df=result["train_df"],
+        historical_probs=result["oof_predictions"],
+        model_run_id=result["model_run_id"],
+        feature_set_version=feature_set_version,
+    )
 
     run_rows = []
     for model_name in [c for c in result["upcoming_model_probs"].columns if c != "game_id"] + ["ensemble"]:
@@ -306,6 +386,7 @@ def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_
     )
 
     run_validation_outputs(result, cfg)
+    score_info = score_predictions(db, windows_days=cfg.modeling.rolling_windows_days)
     tracker.end_run(run_id)
     emit_train_progress(
         {
@@ -317,8 +398,9 @@ def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_
         }
     )
     logger.info(
-        "Train complete | model_run_id=%s upcoming=%d selected_models=%s",
+        "Train complete | model_run_id=%s upcoming=%d scored=%s selected_models=%s",
         result["model_run_id"],
         len(result["forecasts"]),
+        score_info.get("n_scored", 0),
         result["run_payload"].get("selected_models"),
     )

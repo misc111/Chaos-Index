@@ -8,9 +8,20 @@ export const dynamic = "force-dynamic";
 export async function GET(request: Request) {
   const league = leagueFromRequest(request);
   const scores = runSqlJson(
-    `SELECT model_name, game_date_utc, AVG(log_loss) AS log_loss
+    `SELECT
+       CASE
+         WHEN model_name = 'glm_logit' THEN 'glm_ridge'
+         ELSE model_name
+       END AS model_name,
+       game_date_utc,
+       AVG(log_loss) AS log_loss
      FROM model_scores
-     GROUP BY model_name, game_date_utc
+     GROUP BY
+       CASE
+         WHEN model_name = 'glm_logit' THEN 'glm_ridge'
+         ELSE model_name
+       END,
+       game_date_utc
      ORDER BY game_date_utc ASC`,
     { league }
   ).map((row) => ({
@@ -19,9 +30,14 @@ export async function GET(request: Request) {
   }));
 
   const change_points = runSqlJson(
-    `SELECT model_name, metric_name, method, statistic, threshold, details_json, as_of_utc
+    `WITH latest AS (
+       SELECT MAX(as_of_utc) AS as_of_utc
+       FROM change_points
+     )
+     SELECT model_name, metric_name, method, statistic, threshold, details_json, as_of_utc
      FROM change_points
-     ORDER BY as_of_utc DESC
+     WHERE as_of_utc = (SELECT as_of_utc FROM latest)
+     ORDER BY statistic DESC, model_name ASC
      LIMIT 120`,
     { league }
   ).map((row) => ({

@@ -12,6 +12,22 @@ from src.training.ensemble_policy import ensemble_component_columns
 from src.training.progress import ProgressCallback, emit_progress
 
 
+def blend_ensemble_probabilities(
+    pred_df: pd.DataFrame,
+    ensemble_cols: list[str],
+    weights: dict[str, float],
+    stacker: StackingEnsemble,
+    stack_ready: bool,
+) -> np.ndarray:
+    if stack_ready:
+        stack_prob = stacker.predict_proba(pred_df)
+    else:
+        stack_prob = weighted_ensemble(pred_df[ensemble_cols], weights)
+
+    weight_prob = weighted_ensemble(pred_df[ensemble_cols], weights)
+    return np.clip(0.6 * stack_prob + 0.4 * weight_prob, 1e-6, 1 - 1e-6)
+
+
 def fit_stacker(
     oof: pd.DataFrame,
     *,
@@ -102,13 +118,7 @@ def build_ensemble_outputs(
     if not weights:
         weights = {c: 1.0 for c in ensemble_cols}
 
-    if stack_ready:
-        stack_prob = stacker.predict_proba(upcoming_preds)
-    else:
-        stack_prob = weighted_ensemble(upcoming_preds[ensemble_cols], weights)
-
-    weight_prob = weighted_ensemble(upcoming_preds[ensemble_cols], weights)
-    ensemble_prob = np.clip(0.6 * stack_prob + 0.4 * weight_prob, 1e-6, 1 - 1e-6)
+    ensemble_prob = blend_ensemble_probabilities(upcoming_preds, ensemble_cols, weights, stacker, stack_ready)
     emit_progress(
         progress_callback,
         {"kind": "pipeline", "stage": "ensemble", "status": "completed", "message": "Built ensemble probabilities"},

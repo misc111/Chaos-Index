@@ -43,30 +43,18 @@
       "active_features": []
     },
     "glm_ridge": {
-      "headline": "Now using DARKO-like projected rotation inputs before tipoff.",
+      "headline": "Pregame ridge logistic regression driven by the current NBA feature map.",
       "trust_note": "Linear pregame model anchored by projected rotation strength, matchup splits, rest, and absence pressure. It is only as good as the lineup view going into tipoff.",
-      "active_feature_count": 6,
+      "active_feature_count": 2,
       "active_features": [
-        "diff_darko_like_total",
-        "diff_projected_absence_pressure",
-        "rest_diff",
-        "diff_rotation_stability",
-        "elo_home_prob",
-        "arena_margin_effect"
+        "diff_form_point_margin",
+        "elo_home_prob"
       ]
     },
     "glm_elastic_net": {
-      "headline": "Elastic-net version of the NBA pregame GLM using DARKO-like projected rotation inputs.",
+      "headline": "Pregame elastic-net logistic regression driven by the current NBA feature map.",
       "trust_note": "Elastic-net pregame model using the same NBA linear feature map as ridge while allowing extra shrinkage on overlapping lineup and rating signals.",
-      "active_feature_count": 6,
-      "active_features": [
-        "diff_darko_like_total",
-        "diff_projected_absence_pressure",
-        "rest_diff",
-        "diff_rotation_stability",
-        "elo_home_prob",
-        "arena_margin_effect"
-      ]
+      "active_features": []
     },
     "glm_lasso": {
       "headline": "Pregame lasso logistic regression driven by the current NBA feature map.",
@@ -79,35 +67,8 @@
       "active_features": []
     },
     "rf": {
-      "headline": "24 active inputs from the current NBA feature map.",
       "trust_note": "Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups.",
-      "active_feature_count": 24,
-      "active_features": [
-        "diff_form_point_margin",
-        "travel_diff",
-        "rest_diff",
-        "elo_home_prob",
-        "dyn_home_prob",
-        "arena_shot_volume_effect",
-        "diff_shot_volume_share",
-        "diff_form_win_rate",
-        "elo_away_pre",
-        "away_r14_point_margin",
-        "away_r14_field_goal_attempts_against",
-        "dyn_away_mean",
-        "home_ewm_shot_volume_share",
-        "home_ewm_point_margin",
-        "away_ewm_point_margin",
-        "home_r14_point_margin",
-        "elo_home_pre",
-        "away_r14_points_against",
-        "away_r5_field_goal_attempts_against",
-        "home_r14_shot_volume_share",
-        "home_r14_points_against",
-        "home_ewm_field_goal_attempts_for",
-        "away_r14_scoring_efficiency_proxy",
-        "home_r14_scoring_efficiency_proxy"
-      ]
+      "active_features": []
     },
     "goals_poisson": {
       "headline": "Score-rate model that turns projected offense and defense into a win probability.",
@@ -128,97 +89,47 @@
         "away_ewm_points_for",
         "home_ewm_point_margin",
         "away_ewm_point_margin",
-        "arena_shot_volume_effect",
-        "diff_shot_volume_share",
-        "elo_away_pre",
-        "away_r14_field_goal_attempts_against",
-        "dyn_away_mean",
-        "home_ewm_shot_volume_share",
-        "elo_home_pre",
-        "away_r14_points_against",
-        "away_r5_field_goal_attempts_against",
-        "home_r14_points_against",
-        "home_ewm_field_goal_attempts_for",
-        "away_r14_scoring_efficiency_proxy",
-        "home_r14_scoring_efficiency_proxy",
-        "away_r14_shot_volume_share",
-        "dyn_home_mean",
-        "home_r5_points_against",
-        "diff_roster_depth",
-        "away_games_played_prior",
-        "home_ewm_field_goal_attempts_against",
-        "away_ewm_possession_proxy",
-        "away_r5_shot_volume_share",
-        "away_r5_points_against",
-        "away_roster_depth_index",
-        "away_r5_field_goal_attempts_for",
-        "home_r5_possession_proxy",
-        "discipline_foul_pressure_diff",
-        "home_r14_possession_proxy",
-        "away_r14_field_goal_attempts_for",
-        "away_r14_points_for",
-        "home_r14_points_for",
-        "dyn_var_diff"
+        "tree_signal_25",
+        "tree_signal_20",
+        "tree_signal_30",
+        "tree_signal_31",
+        "tree_signal_37",
+        "tree_signal_35",
+        "tree_signal_44",
+        "tree_signal_33",
+        "tree_signal_34",
+        "tree_signal_40",
+        "tree_signal_38",
+        "tree_signal_36",
+        "tree_signal_43",
+        "tree_signal_39",
+        "tree_signal_41",
+        "tree_signal_42",
+        "tree_signal_00",
+        "tree_signal_08",
+        "tree_signal_19",
+        "tree_signal_05",
+        "tree_signal_02",
+        "tree_signal_07",
+        "tree_signal_18",
+        "tree_signal_15",
+        "tree_signal_23",
+        "tree_signal_03",
+        "tree_signal_01",
+        "tree_signal_09",
+        "tree_signal_22",
+        "tree_signal_06",
+        "tree_signal_14"
       ]
     },
     "two_stage": {
-      "headline": "26 active inputs from the current NBA feature map.",
       "trust_note": "Machine learning model with two steps: first predicts game type (fast/slow, close/lopsided), then predicts winner. Good when style matchups matter. If step 1 is wrong, final pick can be wrong.",
-      "active_feature_count": 26,
-      "active_features": [
-        "home_ewm_shot_volume_share",
-        "away_ewm_shot_volume_share",
-        "home_ewm_free_throw_pressure",
-        "away_ewm_free_throw_pressure",
-        "home_ewm_possession_proxy",
-        "away_ewm_possession_proxy",
-        "travel_diff",
-        "rest_diff",
-        "elo_home_prob",
-        "arena_shot_volume_effect",
-        "diff_form_point_margin",
-        "dyn_home_prob",
-        "diff_shot_volume_share",
-        "diff_form_win_rate",
-        "elo_away_pre",
-        "away_r14_point_margin",
-        "away_r14_field_goal_attempts_against",
-        "dyn_away_mean",
-        "home_ewm_point_margin",
-        "away_ewm_point_margin",
-        "home_r14_point_margin",
-        "elo_home_pre",
-        "away_r14_points_against",
-        "away_r5_field_goal_attempts_against",
-        "home_r14_shot_volume_share",
-        "home_r14_points_against"
-      ]
+      "active_features": []
     },
     "bayes_bt_state_space": {
       "headline": "Bayesian rating layer that tracks team strength with uncertainty over time.",
       "trust_note": "Tracks team strength after every game and gives a range, not just one number. Good for spotting rising/falling teams with uncertainty shown. Can move fast after injuries, trades, or short weird stretches.",
-      "active_feature_count": 19,
-      "active_features": [
-        "diff_form_point_margin",
-        "diff_form_win_rate",
-        "travel_diff",
-        "rest_diff",
-        "elo_home_prob",
-        "dyn_home_prob",
-        "arena_shot_volume_effect",
-        "diff_shot_volume_share",
-        "elo_away_pre",
-        "dyn_away_mean",
-        "elo_home_pre",
-        "dyn_home_mean",
-        "diff_roster_depth",
-        "dyn_var_diff",
-        "diff_foul_margin",
-        "diff_scoring_efficiency",
-        "diff_availability_uncertainty",
-        "diff_availability_reliability",
-        "availability_stress_diff"
-      ]
+      "active_features": []
     },
     "bayes_goals": {
       "headline": "Bayesian scoring model that estimates team strength from expected scoring rates.",
@@ -231,22 +142,22 @@
       "active_features": []
     }
   },
-  "model_feature_map_updated_at_utc": "2026-03-09T14:30:48+00:00",
+  "model_feature_map_updated_at_utc": "2026-03-10T12:29:57+00:00",
   "rows": [
     {
       "game_id": 401810788,
       "game_date_utc": "2026-03-09",
       "home_team": "OKC",
       "away_team": "DEN",
-      "ensemble_prob_home_win": 0.7317905361177905,
+      "ensemble_prob_home_win": 0.7321500411578198,
       "predicted_winner": "OKC",
-      "spread_mean": 0.7380425774810632,
-      "spread_sd": 0.08287884193858157,
+      "spread_mean": 0.7383589551976384,
+      "spread_sd": 0.08327087961590625,
       "bayes_ci_low": 0.6721975486165122,
       "bayes_ci_high": 0.8241657699189933,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.7317905361177905,
+        "ensemble": 0.7321500411578198,
         "bayes_bt_state_space": 0.7535421151054681,
         "bayes_goals": 0.5998,
         "dynamic_rating": 0.8229987309143414,
@@ -258,7 +169,7 @@
         "goals_poisson": 0.6706666666666666,
         "rf": 0.7135784741584701,
         "simulation_first": 0.5191428571428571,
-        "two_stage": 0.8395606266752406
+        "two_stage": 0.8427244038409931
       }
     },
     {
@@ -266,15 +177,15 @@
       "game_date_utc": "2026-03-10",
       "home_team": "ATL",
       "away_team": "DAL",
-      "ensemble_prob_home_win": 0.7317677287474422,
+      "ensemble_prob_home_win": 0.7308631808222358,
       "predicted_winner": "ATL",
-      "spread_mean": 0.7711743319803273,
-      "spread_sd": 0.10972087087479779,
+      "spread_mean": 0.7702064153302006,
+      "spread_sd": 0.11012944320888671,
       "bayes_ci_low": 0.686157406423871,
       "bayes_ci_high": 0.8410026716874605,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.7317677287474422,
+        "ensemble": 0.7308631808222358,
         "bayes_bt_state_space": 0.7693462906167838,
         "bayes_goals": 0.7464,
         "dynamic_rating": 0.9357197926970168,
@@ -286,7 +197,7 @@
         "goals_poisson": 0.6106666666666667,
         "rf": 0.8401033951975188,
         "simulation_first": 0.5195714285714286,
-        "two_stage": 0.7291288768316898
+        "two_stage": 0.7194497103304249
       }
     },
     {
@@ -294,15 +205,15 @@
       "game_date_utc": "2026-03-09",
       "home_team": "CLE",
       "away_team": "PHI",
-      "ensemble_prob_home_win": 0.6555717567722759,
+      "ensemble_prob_home_win": 0.6554156912320435,
       "predicted_winner": "CLE",
-      "spread_mean": 0.6467866709433986,
-      "spread_sd": 0.08607484121128992,
+      "spread_mean": 0.6465331745283968,
+      "spread_sd": 0.08633938250692721,
       "bayes_ci_low": 0.554632253499668,
       "bayes_ci_high": 0.7379620659472262,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.6555717567722759,
+        "ensemble": 0.6554156912320435,
         "bayes_bt_state_space": 0.6486905969508979,
         "bayes_goals": 0.7256,
         "dynamic_rating": 0.7687814325669157,
@@ -312,9 +223,9 @@
         "glm_lasso": 0.7048291558840489,
         "glm_ridge": 0.7221114430402082,
         "goals_poisson": 0.6301666666666667,
-        "rf": 0.6374539631727981,
+        "rf": 0.6374539631727982,
         "simulation_first": 0.5244285714285715,
-        "two_stage": 0.5579642348615896
+        "two_stage": 0.5554292707115707
       }
     },
     {
@@ -322,15 +233,15 @@
       "game_date_utc": "2026-03-11",
       "home_team": "SA",
       "away_team": "BOS",
-      "ensemble_prob_home_win": 0.6037734742994061,
+      "ensemble_prob_home_win": 0.6031530345227398,
       "predicted_winner": "SA",
-      "spread_mean": 0.6404753353399196,
-      "spread_sd": 0.10999274885702442,
+      "spread_mean": 0.6399629839438021,
+      "spread_sd": 0.11082106785198392,
       "bayes_ci_low": 0.4139713023731271,
       "bayes_ci_high": 0.623861559035364,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.6037734742994061,
+        "ensemble": 0.6031530345227398,
         "bayes_bt_state_space": 0.5146157273168482,
         "bayes_goals": 0.7418,
         "dynamic_rating": 0.6997977487324667,
@@ -340,9 +251,9 @@
         "glm_lasso": 0.7368152791920393,
         "glm_ridge": 0.74505818176003,
         "goals_poisson": 0.5266666666666667,
-        "rf": 0.6077547468389294,
+        "rf": 0.6077547468389295,
         "simulation_first": 0.5094285714285715,
-        "two_stage": 0.4642859616798395
+        "two_stage": 0.4591624477186638
       }
     },
     {
@@ -350,15 +261,15 @@
       "game_date_utc": "2026-03-11",
       "home_team": "HOU",
       "away_team": "TOR",
-      "ensemble_prob_home_win": 0.5882091335863154,
+      "ensemble_prob_home_win": 0.5890022220511952,
       "predicted_winner": "HOU",
-      "spread_mean": 0.5572438198086964,
-      "spread_sd": 0.14676284048585195,
+      "spread_mean": 0.557857410826818,
+      "spread_sd": 0.14666938786556166,
       "bayes_ci_low": 0.45038849122199964,
       "bayes_ci_high": 0.6477036008683377,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.5882091335863154,
+        "ensemble": 0.5890022220511952,
         "bayes_bt_state_space": 0.5518732765233559,
         "bayes_goals": 0.6912,
         "dynamic_rating": 0.5814508401768856,
@@ -368,9 +279,9 @@
         "glm_lasso": 0.6935871319298632,
         "glm_ridge": 0.6972834406186216,
         "goals_poisson": 0.6066666666666667,
-        "rf": 0.4832843846163362,
+        "rf": 0.48328438461633627,
         "simulation_first": 0.5355714285714286,
-        "two_stage": 0.5321371484716109
+        "two_stage": 0.5382730586528258
       }
     },
     {
@@ -378,15 +289,15 @@
       "game_date_utc": "2026-01-24",
       "home_team": "MIN",
       "away_team": "GS",
-      "ensemble_prob_home_win": 0.574933161291345,
+      "ensemble_prob_home_win": 0.5758324384244171,
       "predicted_winner": "MIN",
-      "spread_mean": 0.5471655453693614,
-      "spread_sd": 0.14464586877896382,
+      "spread_mean": 0.5480201315589178,
+      "spread_sd": 0.14468618066229846,
       "bayes_ci_low": 0.5853297978881611,
       "bayes_ci_high": 0.7431696371475384,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": true, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.574933161291345,
+        "ensemble": 0.5758324384244171,
         "bayes_bt_state_space": 0.6655765048699154,
         "bayes_goals": 0.7324,
         "dynamic_rating": 0.3986775460537725,
@@ -396,9 +307,9 @@
         "glm_lasso": 0.6243905815224317,
         "glm_ridge": 0.6227580236499027,
         "goals_poisson": 0.611,
-        "rf": 0.5399003239704557,
+        "rf": 0.5399003239704554,
         "simulation_first": 0.523,
-        "two_stage": 0.5501439821179535
+        "two_stage": 0.5586898440135178
       }
     },
     {
@@ -406,15 +317,15 @@
       "game_date_utc": "2026-03-11",
       "home_team": "ORL",
       "away_team": "CLE",
-      "ensemble_prob_home_win": 0.5167007132183489,
+      "ensemble_prob_home_win": 0.5193084871225558,
       "predicted_winner": "ORL",
-      "spread_mean": 0.5467696757933026,
-      "spread_sd": 0.07159137244956554,
+      "spread_mean": 0.5492381214670295,
+      "spread_sd": 0.07832247578506545,
       "bayes_ci_low": 0.44319528797325125,
       "bayes_ci_high": 0.6287719170075107,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": true}",
       "model_win_probabilities": {
-        "ensemble": 0.5167007132183489,
+        "ensemble": 0.5193084871225558,
         "bayes_bt_state_space": 0.5387080497155009,
         "bayes_goals": 0.5664,
         "dynamic_rating": 0.48459416514969683,
@@ -424,9 +335,9 @@
         "glm_lasso": 0.5305260453291777,
         "glm_ridge": 0.5408419764580775,
         "goals_poisson": 0.5118333333333334,
-        "rf": 0.49429585703549966,
+        "rf": 0.4942958570354997,
         "simulation_first": 0.5105714285714286,
-        "two_stage": 0.7400586344382177
+        "two_stage": 0.7647430911754878
       }
     },
     {
@@ -434,15 +345,15 @@
       "game_date_utc": "2026-03-11",
       "home_team": "SAC",
       "away_team": "IND",
-      "ensemble_prob_home_win": 0.5046725384264901,
+      "ensemble_prob_home_win": 0.5044213761184992,
       "predicted_winner": "SAC",
-      "spread_mean": 0.5070942999013831,
-      "spread_sd": 0.13509774129677551,
+      "spread_mean": 0.5066236706964051,
+      "spread_sd": 0.13483614134017394,
       "bayes_ci_low": 0.5535510350589373,
       "bayes_ci_high": 0.7330451240558331,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.5046725384264901,
+        "ensemble": 0.5044213761184992,
         "bayes_bt_state_space": 0.6480596902931859,
         "bayes_goals": 0.6182,
         "dynamic_rating": 0.665938008524297,
@@ -452,9 +363,9 @@
         "glm_lasso": 0.38864334723173966,
         "glm_ridge": 0.38796841145202304,
         "goals_poisson": 0.4751666666666667,
-        "rf": 0.5720158414384948,
+        "rf": 0.5720158414384949,
         "simulation_first": 0.5178571428571429,
-        "two_stage": 0.5842337101338204
+        "two_stage": 0.5795274180840407
       }
     },
     {
@@ -462,15 +373,15 @@
       "game_date_utc": "2026-03-11",
       "home_team": "LAL",
       "away_team": "MIN",
-      "ensemble_prob_home_win": 0.47780598636428223,
+      "ensemble_prob_home_win": 0.4778880664250389,
       "predicted_winner": "MIN",
-      "spread_mean": 0.4828406780271227,
-      "spread_sd": 0.10136395359139673,
+      "spread_mean": 0.48285908984899556,
+      "spread_sd": 0.10136799992103168,
       "bayes_ci_low": 0.4433074113381551,
       "bayes_ci_high": 0.6367992799949068,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.47780598636428223,
+        "ensemble": 0.4778880664250389,
         "bayes_bt_state_space": 0.5381619742993892,
         "bayes_goals": 0.5312,
         "dynamic_rating": 0.5273779324358939,
@@ -480,9 +391,9 @@
         "glm_lasso": 0.555611783075331,
         "glm_ridge": 0.5584563923089426,
         "goals_poisson": 0.44399999999999995,
-        "rf": 0.47596005445809936,
+        "rf": 0.47596005445809925,
         "simulation_first": 0.5181428571428571,
-        "two_stage": 0.5050348248212143
+        "two_stage": 0.5052189430399424
       }
     },
     {
@@ -490,15 +401,15 @@
       "game_date_utc": "2026-01-26",
       "home_team": "MIL",
       "away_team": "DAL",
-      "ensemble_prob_home_win": 0.4596319430352397,
+      "ensemble_prob_home_win": 0.4602062170969476,
       "predicted_winner": "DAL",
-      "spread_mean": 0.45547811120036463,
-      "spread_sd": 0.0934434638706025,
+      "spread_mean": 0.45587210984056253,
+      "spread_sd": 0.09350167458107651,
       "bayes_ci_low": 0.4312478616690636,
       "bayes_ci_high": 0.6372938478266577,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.4596319430352397,
+        "ensemble": 0.4602062170969476,
         "bayes_bt_state_space": 0.5376897902199894,
         "bayes_goals": 0.6036,
         "dynamic_rating": 0.38777943365603273,
@@ -510,7 +421,7 @@
         "goals_poisson": 0.522,
         "rf": 0.3916486391866239,
         "simulation_first": 0.5107142857142857,
-        "two_stage": 0.4675150752973411
+        "two_stage": 0.4714550616993194
       }
     },
     {
@@ -518,15 +429,15 @@
       "game_date_utc": "2026-03-11",
       "home_team": "POR",
       "away_team": "CHA",
-      "ensemble_prob_home_win": 0.41834002588069474,
+      "ensemble_prob_home_win": 0.41831549608276103,
       "predicted_winner": "CHA",
-      "spread_mean": 0.43304136906165824,
-      "spread_sd": 0.09988738344196918,
+      "spread_mean": 0.4329307508140845,
+      "spread_sd": 0.09990059171362035,
       "bayes_ci_low": 0.45577520004118427,
       "bayes_ci_high": 0.6435150524097957,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.41834002588069474,
+        "ensemble": 0.41831549608276103,
         "bayes_bt_state_space": 0.5510106271588406,
         "bayes_goals": 0.6316,
         "dynamic_rating": 0.32637695555160934,
@@ -536,9 +447,9 @@
         "glm_lasso": 0.443489135881724,
         "glm_ridge": 0.4227538300448132,
         "goals_poisson": 0.4285,
-        "rf": 0.3836878732975029,
+        "rf": 0.3836878732975028,
         "simulation_first": 0.5208571428571429,
-        "two_stage": 0.42161140007512726
+        "two_stage": 0.42050521759939025
       }
     },
     {
@@ -546,15 +457,15 @@
       "game_date_utc": "2026-03-09",
       "home_team": "BKN",
       "away_team": "MEM",
-      "ensemble_prob_home_win": 0.41712081469974355,
+      "ensemble_prob_home_win": 0.4174916558536173,
       "predicted_winner": "MEM",
-      "spread_mean": 0.4379657694804913,
-      "spread_sd": 0.08319362612561251,
+      "spread_mean": 0.43830423373949845,
+      "spread_sd": 0.08318776306655493,
       "bayes_ci_low": 0.43087275029826994,
       "bayes_ci_high": 0.6347255632647323,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.41712081469974355,
+        "ensemble": 0.4174916558536173,
         "bayes_bt_state_space": 0.5267415747228312,
         "bayes_goals": 0.44,
         "dynamic_rating": 0.6066343028053556,
@@ -566,7 +477,7 @@
         "goals_poisson": 0.4181666666666667,
         "rf": 0.45144013380640435,
         "simulation_first": 0.525,
-        "two_stage": 0.4350016065753301
+        "two_stage": 0.4383862491654021
       }
     },
     {
@@ -574,15 +485,15 @@
       "game_date_utc": "2026-03-10",
       "home_team": "LAC",
       "away_team": "NY",
-      "ensemble_prob_home_win": 0.3924315073820814,
+      "ensemble_prob_home_win": 0.39248651716776506,
       "predicted_winner": "NY",
-      "spread_mean": 0.42886839691588075,
-      "spread_sd": 0.04950857667822749,
+      "spread_mean": 0.42889982599331855,
+      "spread_sd": 0.04946369125682184,
       "bayes_ci_low": 0.28503572955732975,
       "bayes_ci_high": 0.47409659811668375,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.3924315073820814,
+        "ensemble": 0.39248651716776506,
         "bayes_bt_state_space": 0.37982476357674055,
         "bayes_goals": 0.5304,
         "dynamic_rating": 0.3985050764377844,
@@ -592,9 +503,9 @@
         "glm_lasso": 0.44043135409881023,
         "glm_ridge": 0.4386120149693348,
         "goals_poisson": 0.43283333333333335,
-        "rf": 0.3792127238904069,
+        "rf": 0.37921272389040683,
         "simulation_first": 0.5278571428571428,
-        "two_stage": 0.35805336830566786
+        "two_stage": 0.35836765908004686
       }
     },
     {
@@ -602,15 +513,15 @@
       "game_date_utc": "2026-01-09",
       "home_team": "CHI",
       "away_team": "MIA",
-      "ensemble_prob_home_win": 0.3826249455528221,
+      "ensemble_prob_home_win": 0.382175600884919,
       "predicted_winner": "MIA",
-      "spread_mean": 0.41159274631226506,
-      "spread_sd": 0.07404477177172074,
+      "spread_mean": 0.41119749505632147,
+      "spread_sd": 0.0745708589618293,
       "bayes_ci_low": 0.22028544794307878,
       "bayes_ci_high": 0.4034508843255772,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": true, \"shot_profile_proxy_used\": true}",
       "model_win_probabilities": {
-        "ensemble": 0.3826249455528221,
+        "ensemble": 0.382175600884919,
         "bayes_bt_state_space": 0.3111303692405859,
         "bayes_goals": 0.5556,
         "dynamic_rating": 0.397036125623759,
@@ -620,9 +531,9 @@
         "glm_lasso": 0.43630284718177553,
         "glm_ridge": 0.4311142355980341,
         "goals_poisson": 0.38916666666666666,
-        "rf": 0.43393590544908606,
+        "rf": 0.4339359054490861,
         "simulation_first": 0.5174285714285715,
-        "two_stage": 0.314466214231301
+        "two_stage": 0.3105137016718648
       }
     },
     {
@@ -630,15 +541,15 @@
       "game_date_utc": "2026-03-12",
       "home_team": "NO",
       "away_team": "TOR",
-      "ensemble_prob_home_win": 0.35646810114273075,
+      "ensemble_prob_home_win": 0.3590078423692239,
       "predicted_winner": "TOR",
-      "spread_mean": 0.42212667751494576,
-      "spread_sd": 0.14672148264069929,
+      "spread_mean": 0.4248045181157732,
+      "spread_sd": 0.1469343494197847,
       "bayes_ci_low": 0.175479596075789,
       "bayes_ci_high": 0.3082036108321387,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": true}",
       "model_win_probabilities": {
-        "ensemble": 0.35646810114273075,
+        "ensemble": 0.3590078423692239,
         "bayes_bt_state_space": 0.2343087786261349,
         "bayes_goals": 0.6948,
         "dynamic_rating": 0.40713891442952127,
@@ -648,9 +559,9 @@
         "glm_lasso": 0.3067128970214578,
         "glm_ridge": 0.3179032151112825,
         "goals_poisson": 0.41650000000000004,
-        "rf": 0.32750376407976745,
+        "rf": 0.3275037640797675,
         "simulation_first": 0.5258571428571429,
-        "two_stage": 0.4217480326060652
+        "two_stage": 0.44852643861433866
       }
     },
     {
@@ -658,15 +569,15 @@
       "game_date_utc": "2026-01-25",
       "home_team": "MEM",
       "away_team": "DEN",
-      "ensemble_prob_home_win": 0.3241988829177064,
+      "ensemble_prob_home_win": 0.32462858487416346,
       "predicted_winner": "DEN",
-      "spread_mean": 0.35245323995769556,
-      "spread_sd": 0.08243325616145994,
+      "spread_mean": 0.3529381550690268,
+      "spread_sd": 0.08218810814316327,
       "bayes_ci_low": 0.27452644201972215,
       "bayes_ci_high": 0.45109412523647646,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.3241988829177064,
+        "ensemble": 0.32462858487416346,
         "bayes_bt_state_space": 0.3579021456733965,
         "bayes_goals": 0.5628,
         "dynamic_rating": 0.2378261627992934,
@@ -676,9 +587,9 @@
         "glm_lasso": 0.3082895939067412,
         "glm_ridge": 0.3179935627487882,
         "goals_poisson": 0.39233333333333337,
-        "rf": 0.36051787949147734,
+        "rf": 0.3605178794914773,
         "simulation_first": 0.5202857142857142,
-        "two_stage": 0.30865909514465095
+        "two_stage": 0.31350824625796364
       }
     },
     {
@@ -686,15 +597,15 @@
       "game_date_utc": "2026-03-10",
       "home_team": "UTAH",
       "away_team": "GS",
-      "ensemble_prob_home_win": 0.3031553194341474,
+      "ensemble_prob_home_win": 0.3029884656178845,
       "predicted_winner": "GS",
-      "spread_mean": 0.3257558918248991,
-      "spread_sd": 0.1465634578253541,
+      "spread_mean": 0.32549365702976696,
+      "spread_sd": 0.14678586603518928,
       "bayes_ci_low": 0.285894983701036,
       "bayes_ci_high": 0.4647499411195316,
       "uncertainty_flags_json": "{\"availability_proxy_used\": false, \"availability_uncertainty\": false, \"shot_profile_proxy_used\": false}",
       "model_win_probabilities": {
-        "ensemble": 0.3031553194341474,
+        "ensemble": 0.3029884656178845,
         "bayes_bt_state_space": 0.3731762655444592,
         "bayes_goals": 0.7122,
         "dynamic_rating": 0.23247006607986676,
@@ -706,7 +617,7 @@
         "goals_poisson": 0.37533333333333335,
         "rf": 0.3410576729289239,
         "simulation_first": 0.5187142857142857,
-        "two_stage": 0.2025373194123168
+        "two_stage": 0.19991497146099502
       }
     }
   ]

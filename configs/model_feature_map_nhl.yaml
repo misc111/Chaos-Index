@@ -1,12 +1,9 @@
 version: 1
 league: NHL
-updated_at_utc: '2026-03-06T14:32:44+00:00'
+updated_at_utc: '2026-03-10T12:20:00+00:00'
 models:
   glm_ridge:
     active_features:
-    - diff_form_goal_diff
-    - diff_form_goal_diff_hinge_m1
-    - diff_form_goal_diff_hinge_p1
     - rest_diff
     - elo_home_prob
     - elo_home_prob_hinge_054
@@ -14,18 +11,11 @@ models:
     - dyn_home_prob_hinge_055
     - rink_goal_effect
     - diff_roster_strength
-    - rink_shot_effect
-    - dyn_home_mean
-    - dyn_home_mean_hinge_000
     - diff_xg_share
     - diff_xg_share_cubic
-    - goalie_uncertainty_diff
-    feature_count: 16
+    feature_count: 9
   glm_elastic_net:
     active_features:
-    - diff_form_goal_diff
-    - diff_form_goal_diff_hinge_m1
-    - diff_form_goal_diff_hinge_p1
     - rest_diff
     - elo_home_prob
     - elo_home_prob_hinge_054
@@ -33,13 +23,21 @@ models:
     - dyn_home_prob_hinge_055
     - rink_goal_effect
     - diff_roster_strength
-    - rink_shot_effect
-    - dyn_home_mean
-    - dyn_home_mean_hinge_000
     - diff_xg_share
     - diff_xg_share_cubic
-    - goalie_uncertainty_diff
-    feature_count: 16
+    feature_count: 9
+  glm_lasso:
+    active_features:
+    - rest_diff
+    - elo_home_prob
+    - elo_home_prob_hinge_054
+    - dyn_home_prob
+    - dyn_home_prob_hinge_055
+    - rink_goal_effect
+    - diff_roster_strength
+    - diff_xg_share
+    - diff_xg_share_cubic
+    feature_count: 9
   gbdt:
     active_features:
     - home_penalty_diff

@@ -1,9 +1,55 @@
 version: 1
 league: NHL
-updated_at_utc: '2026-03-06T15:10:00+00:00'
+updated_at_utc: '2026-03-10T12:25:00+00:00'
 models:
   glm_ridge:
     blocked_features:
+      diff_form_goal_diff:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - redundancy
+        rationale: Removed from the active NHL GLM because the current form-diff block duplicated rating signal without improving the shipped out-of-sample leaderboard.
+        observed_on_utc: '2026-03-10T12:25:00+00:00'
+        evidence:
+          validation_status: weak_keep_linear
+          corr_cluster: diff_form_goal_diff | dyn_home_prob | diff_form_win_rate
+        related_features:
+        - dyn_home_prob
+        - diff_form_win_rate
+        reconsideration_requirements:
+        - show a distinct transformed form signal that improves rolling 30d/60d/90d log loss
+        - clear the critical collinearity review in NHL validation
+      diff_form_goal_diff_hinge_m1:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - transform_overfit_risk
+        rationale: Removed with the rest of the form-diff block to stop carrying multiple highly-related hinge terms in the NHL GLM.
+        observed_on_utc: '2026-03-10T12:25:00+00:00'
+        evidence:
+          parent_feature: diff_form_goal_diff
+          flagged_in_collinearity_summary: true
+        related_features:
+        - diff_form_goal_diff
+        - diff_form_goal_diff_hinge_p1
+        reconsideration_requirements:
+        - validate a smaller hinge specification against elo_baseline and goals_poisson
+      diff_form_goal_diff_hinge_p1:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - transform_overfit_risk
+        rationale: Removed with the rest of the form-diff block to stop carrying multiple highly-related hinge terms in the NHL GLM.
+        observed_on_utc: '2026-03-10T12:25:00+00:00'
+        evidence:
+          parent_feature: diff_form_goal_diff
+          flagged_in_collinearity_summary: true
+        related_features:
+        - diff_form_goal_diff
+        - diff_form_goal_diff_hinge_m1
+        reconsideration_requirements:
+        - validate a smaller hinge specification against elo_baseline and goals_poisson
       travel_diff:
         decision: blocked
         categories:
@@ -68,6 +114,51 @@ models:
         reconsideration_requirements:
         - replace elo_home_prob or reparameterize the rating block
         - clear critical-condition and severe-VIF checks in validation
+      dyn_home_mean:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - redundant_rating_parameterization
+        rationale: Removed because the dynamic-rating mean block overlapped too heavily with dyn_home_prob and the Elo block in the NHL GLM.
+        observed_on_utc: '2026-03-10T12:25:00+00:00'
+        evidence:
+          flagged_in_collinearity_summary: true
+          corr_with_elo_home_pre: 0.8001
+        related_features:
+        - dyn_home_prob
+        - dyn_home_mean_hinge_000
+        reconsideration_requirements:
+        - choose either the probability-scale dynamic rating or the mean-scale version, not both
+        - rerun validation and clear severe VIF warnings
+      dyn_home_mean_hinge_000:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - transform_overfit_risk
+        rationale: Removed with dyn_home_mean so the NHL GLM keeps one dynamic-rating parameterization instead of a correlated mean-plus-hinge block.
+        observed_on_utc: '2026-03-10T12:25:00+00:00'
+        evidence:
+          parent_feature: dyn_home_mean
+          flagged_in_collinearity_summary: true
+        related_features:
+        - dyn_home_mean
+        - dyn_home_prob
+        reconsideration_requirements:
+        - reintroduce only if the mean-scale block wins a fresh rolling validation test
+      rink_shot_effect:
+        decision: blocked
+        categories:
+        - multicollinearity
+        - retained_warning_cleanup
+        rationale: Removed because the rink shot adjustment carried redundant venue signal alongside rink_goal_effect in the active NHL GLM.
+        observed_on_utc: '2026-03-10T12:25:00+00:00'
+        evidence:
+          abs_corr_with_rink_goal_effect: 0.807
+          pair_severity: warning
+        related_features:
+        - rink_goal_effect
+        reconsideration_requirements:
+        - show the shot-effect term beats the goal-effect term in a direct rolling holdout comparison
     watchlist_features:
       diff_xg_share:
         status: watch
@@ -81,39 +172,15 @@ models:
           holdout_log_loss_gain_best: 0.0224
           holdout_brier_gain_best: 0.0093
         recommendation: consider_spline_transform_or_gam
-      diff_form_goal_diff:
-        status: watch
-        categories:
-        - nonlinearity
-        rationale: Strong hinge-style candidate in the current NHL GLM validation.
-        observed_on_utc: '2026-03-06T15:10:00+00:00'
-        evidence:
-          best_shape: hinge
-          family_hint: mars
-          holdout_log_loss_gain_best: 0.0056
-          holdout_brier_gain_best: 0.0023
-        recommendation: consider_piecewise_transform_or_mars
       dyn_home_prob:
         status: watch
         categories:
         - nonlinearity
-        rationale: Moderate hinge signal remains after the GLM cleanup.
-        observed_on_utc: '2026-03-06T15:10:00+00:00'
+        rationale: Strong hinge signal remains in the cleaned NHL GLM candidate set.
+        observed_on_utc: '2026-03-10T12:25:00+00:00'
         evidence:
-          best_shape: hinge
-          family_hint: mars
-          holdout_log_loss_gain_best: 0.0031
-          holdout_brier_gain_best: 0.0015
-        recommendation: consider_piecewise_transform_or_mars
-    watchlist_pairs:
-    - categories:
-      - multicollinearity
-      - retained_warning
-      feature_a: rink_goal_effect
-      feature_b: rink_shot_effect
-      rationale: Retained for now, but the pair still carries moderate collinearity in the active NHL GLM.
-      observed_on_utc: '2026-03-06T15:10:00+00:00'
-      evidence:
-        abs_corr: 0.8070
-        pair_severity: warning
-        max_vif_after_cleanup: 4.6035
+          best_shape: smooth
+          family_hint: gam
+          holdout_log_loss_gain_best: 0.00773
+          holdout_brier_gain_best: 0.003761
+        recommendation: consider_spline_transform_or_gam

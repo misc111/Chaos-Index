@@ -8,11 +8,11 @@ from src.training.ensemble_policy import demoted_ensemble_models, ensemble_compo
 
 
 def test_ensemble_component_columns_demotes_simulation_first_and_lasso_by_league():
-    cols = ["elo_baseline", "simulation_first", "glm_lasso", "rf"]
+    cols = ["elo_baseline", "simulation_first", "glm_lasso", "rf", "gbdt", "two_stage", "bayes_bt_state_space"]
 
     assert demoted_ensemble_models(league="NBA") == ["glm_lasso", "simulation_first"]
-    assert ensemble_component_columns(cols, league="NBA") == ["elo_baseline", "rf"]
-    assert demoted_ensemble_models(league="NHL") == ["glm_lasso"]
+    assert ensemble_component_columns(cols, league="NBA") == ["elo_baseline", "rf", "gbdt", "two_stage", "bayes_bt_state_space"]
+    assert demoted_ensemble_models(league="NHL") == ["bayes_bt_state_space", "gbdt", "glm_lasso", "two_stage"]
     assert ensemble_component_columns(cols, league="NHL") == ["elo_baseline", "simulation_first", "rf"]
 
 

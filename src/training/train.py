@@ -18,7 +18,7 @@ from src.common.utils import ensure_dir, stable_hash
 from src.evaluation.metrics import metric_bundle
 from src.features.leakage_checks import run_leakage_checks
 from src.training.artifact_writer import save_model_artifacts, save_training_outputs
-from src.training.ensemble_builder import build_ensemble_outputs, build_oof_metrics, fit_stacker
+from src.training.ensemble_builder import blend_ensemble_probabilities, build_ensemble_outputs, build_oof_metrics, fit_stacker
 from src.training.ensemble_policy import demoted_ensemble_models, ensemble_component_columns
 from src.training.feature_selection import (
     bayes_feature_subset,
@@ -262,6 +262,17 @@ def train_and_predict(
         league=league,
         progress_callback=progress_callback,
     )
+    historical_oof = oof.copy()
+    historical_model_cols = [c for c in historical_oof.columns if c not in {"game_id", "home_win", "game_date_utc"}]
+    historical_ensemble_cols = ensemble_component_columns(historical_model_cols, league=league)
+    if historical_ensemble_cols:
+        historical_oof["ensemble"] = blend_ensemble_probabilities(
+            historical_oof,
+            historical_ensemble_cols,
+            weights,
+            stacker,
+            stack_ready,
+        )
 
     forecasts = upcoming_df[["game_id", "game_date_utc", "home_team", "away_team", "as_of_utc"]].copy()
     forecasts["ensemble_prob_home_win"] = ensemble_prob
@@ -315,7 +326,7 @@ def train_and_predict(
         model_dir,
         forecasts,
         upcoming_preds,
-        oof,
+        historical_oof,
         run_payload,
         progress_callback=progress_callback,
     )
@@ -341,6 +352,7 @@ def train_and_predict(
         "feature_columns": feature_cols,
         "weights": weights,
         "oof_metrics": oof_metrics,
+        "oof_predictions": historical_oof,
         "forecasts": forecasts,
         "upcoming_model_probs": upcoming_preds,
         "train_metrics": train_metrics,

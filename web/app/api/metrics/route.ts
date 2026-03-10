@@ -24,10 +24,14 @@ function maybeCsv(filePath: string): Array<Record<string, string>> {
 export async function GET(request: Request) {
   const league = leagueFromRequest(request);
   const leaderboard = runSqlJson(
-    `SELECT model_name, window_label, n_games, log_loss, brier, accuracy, ece, calibration_alpha, calibration_beta
+    `WITH latest AS (
+       SELECT MAX(as_of_utc) AS as_of_utc
+       FROM performance_aggregates
+     )
+     SELECT model_name, window_label, n_games, log_loss, brier, accuracy, ece, calibration_alpha, calibration_beta
      FROM performance_aggregates
-     ORDER BY as_of_utc DESC, window_label ASC, log_loss ASC
-     LIMIT 200`,
+     WHERE as_of_utc = (SELECT as_of_utc FROM latest)
+     ORDER BY window_label ASC, log_loss ASC`,
     { league }
   ).map((row) => ({
     ...row,
@@ -35,10 +39,14 @@ export async function GET(request: Request) {
   }));
 
   const calibration = runSqlJson(
-    `SELECT model_name, window_label, calibration_alpha, calibration_beta, ece, mce, n_games
+    `WITH latest AS (
+       SELECT MAX(as_of_utc) AS as_of_utc
+       FROM performance_aggregates
+     )
+     SELECT model_name, window_label, calibration_alpha, calibration_beta, ece, mce, n_games
      FROM performance_aggregates
-     ORDER BY as_of_utc DESC, log_loss ASC
-     LIMIT 200`,
+     WHERE as_of_utc = (SELECT as_of_utc FROM latest)
+     ORDER BY log_loss ASC`,
     { league }
   ).map((row) => ({
     ...row,

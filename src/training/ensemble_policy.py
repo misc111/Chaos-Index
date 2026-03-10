@@ -7,7 +7,7 @@ from collections.abc import Sequence
 
 _DEMOTED_ENSEMBLE_MODELS: dict[str, frozenset[str]] = {
     "NBA": frozenset({"glm_lasso", "simulation_first"}),
-    "NHL": frozenset({"glm_lasso"}),
+    "NHL": frozenset({"bayes_bt_state_space", "gbdt", "glm_lasso", "two_stage"}),
 }
 
 
