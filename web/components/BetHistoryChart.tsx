@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 
 import {
   HISTORICAL_BANKROLL_START_DATE_CENTRAL,
@@ -14,6 +14,39 @@ type Props = {
   points: HistoricalDailyPoint[];
 };
 
+type ChartCoord = {
+  x: number;
+  y: number;
+  point: HistoricalDailyPoint;
+};
+
+type ChartGeometry = {
+  coords: ChartCoord[];
+  startingBankrollY: number;
+  minY: number;
+  span: number;
+  plotHeight: number;
+  yTicks: number[];
+  xTickIndexes: number[];
+};
+
+const CHART_WIDTH = 960;
+const CHART_HEIGHT = 280;
+const CHART_PAD_LEFT = 58;
+const CHART_PAD_RIGHT = 20;
+const CHART_PAD_TOP = 20;
+const CHART_PAD_BOTTOM = 38;
+const CHART_ANIMATION_DURATION_MS = 320;
+const EMPTY_CHART_GEOMETRY: ChartGeometry = {
+  coords: [],
+  startingBankrollY: CHART_PAD_TOP,
+  minY: HISTORICAL_BANKROLL_START_DOLLARS,
+  span: 1,
+  plotHeight: CHART_HEIGHT - CHART_PAD_TOP - CHART_PAD_BOTTOM,
+  yTicks: [],
+  xTickIndexes: [],
+};
+
 function formatDateShort(dateKey: string): string {
   const parsed = new Date(`${dateKey}T12:00:00Z`);
   if (Number.isNaN(parsed.getTime())) return dateKey;
@@ -23,9 +56,134 @@ function formatDateShort(dateKey: string): string {
   });
 }
 
+function buildChartGeometry(points: HistoricalDailyPoint[]): ChartGeometry {
+  const plottedValues = points.map((point) => point.cumulative_bankroll);
+  const minY = Math.min(HISTORICAL_BANKROLL_START_DOLLARS, ...plottedValues);
+  const maxY = Math.max(HISTORICAL_BANKROLL_START_DOLLARS, ...plottedValues);
+  const span = Math.max(maxY - minY, 1);
+  const plotWidth = CHART_WIDTH - CHART_PAD_LEFT - CHART_PAD_RIGHT;
+  const plotHeight = CHART_HEIGHT - CHART_PAD_TOP - CHART_PAD_BOTTOM;
+
+  const coords = points.map((point, index) => {
+    const x = CHART_PAD_LEFT + (index / Math.max(points.length - 1, 1)) * plotWidth;
+    const y = CHART_PAD_TOP + (1 - (point.cumulative_bankroll - minY) / span) * plotHeight;
+    return { x, y, point };
+  });
+
+  const startingBankrollY =
+    CHART_PAD_TOP + (1 - (HISTORICAL_BANKROLL_START_DOLLARS - minY) / span) * plotHeight;
+  const yTicks = Array.from({ length: 5 }, (_, index) => minY + (span * index) / 4);
+  const xTickIndexes = Array.from(new Set([0, Math.floor((points.length - 1) / 2), points.length - 1])).filter(
+    (index) => index >= 0 && index < points.length
+  );
+
+  return {
+    coords,
+    startingBankrollY,
+    minY,
+    span,
+    plotHeight,
+    yTicks,
+    xTickIndexes,
+  };
+}
+
+function buildLinePath(coords: ChartCoord[]): string {
+  return coords.map((coord, index) => `${index === 0 ? "M" : "L"}${coord.x},${coord.y}`).join(" ");
+}
+
+function interpolateNumber(from: number, to: number, progress: number): number {
+  return from + (to - from) * progress;
+}
+
+function easeOutCubic(progress: number): number {
+  return 1 - Math.pow(1 - progress, 3);
+}
+
 export default function BetHistoryChart({ points }: Props) {
   const [activePointIndex, setActivePointIndex] = useState<number | null>(null);
   const chartId = useId().replace(/:/g, "");
+
+  const geometry = useMemo(() => (points.length ? buildChartGeometry(points) : EMPTY_CHART_GEOMETRY), [points]);
+  const [displayedCoords, setDisplayedCoords] = useState<ChartCoord[]>(geometry.coords);
+  const [displayedStartingBankrollY, setDisplayedStartingBankrollY] = useState<number>(geometry.startingBankrollY);
+  const displayedCoordsRef = useRef<ChartCoord[]>(geometry.coords);
+  const displayedStartingBankrollYRef = useRef<number>(geometry.startingBankrollY);
+  const animationFrameRef = useRef<number | null>(null);
+  const reducedMotionRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    reducedMotionRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (animationFrameRef.current !== null) {
+        window.cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const previousCoords = displayedCoordsRef.current;
+    const previousCoordByDate = new Map(previousCoords.map((coord) => [coord.point.date_central, coord]));
+    const alignedStartCoords = geometry.coords.map((coord, index) => {
+      const matchedCoord = previousCoordByDate.get(coord.point.date_central) ?? previousCoords[Math.min(index, previousCoords.length - 1)];
+      return matchedCoord ? { ...matchedCoord, point: coord.point } : coord;
+    });
+
+    if (animationFrameRef.current !== null) {
+      window.cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+
+    if (reducedMotionRef.current || !previousCoords.length || !geometry.coords.length) {
+      displayedCoordsRef.current = geometry.coords;
+      displayedStartingBankrollYRef.current = geometry.startingBankrollY;
+      animationFrameRef.current = window.requestAnimationFrame(() => {
+        setDisplayedCoords(geometry.coords);
+        setDisplayedStartingBankrollY(geometry.startingBankrollY);
+        animationFrameRef.current = null;
+      });
+      return;
+    }
+
+    const startBaselineY = displayedStartingBankrollYRef.current;
+    let startTime: number | null = null;
+
+    displayedCoordsRef.current = alignedStartCoords;
+    displayedStartingBankrollYRef.current = startBaselineY;
+
+    const animate = (timestamp: number) => {
+      startTime ??= timestamp;
+      const rawProgress = Math.min((timestamp - startTime) / CHART_ANIMATION_DURATION_MS, 1);
+      const progress = easeOutCubic(rawProgress);
+      const nextCoords = geometry.coords.map((coord, index) => {
+        const startCoord = alignedStartCoords[index] ?? coord;
+        return {
+          x: interpolateNumber(startCoord.x, coord.x, progress),
+          y: interpolateNumber(startCoord.y, coord.y, progress),
+          point: coord.point,
+        };
+      });
+      const nextBaselineY = interpolateNumber(startBaselineY, geometry.startingBankrollY, progress);
+
+      displayedCoordsRef.current = nextCoords;
+      displayedStartingBankrollYRef.current = nextBaselineY;
+      setDisplayedCoords(nextCoords);
+      setDisplayedStartingBankrollY(nextBaselineY);
+
+      if (rawProgress < 1) {
+        animationFrameRef.current = window.requestAnimationFrame(animate);
+        return;
+      }
+
+      animationFrameRef.current = null;
+    };
+
+    animationFrameRef.current = window.requestAnimationFrame(animate);
+  }, [geometry]);
 
   if (!points.length) {
     return (
@@ -36,34 +194,14 @@ export default function BetHistoryChart({ points }: Props) {
     );
   }
 
-  const width = 960;
-  const height = 280;
-  const padLeft = 58;
-  const padRight = 20;
-  const padTop = 20;
-  const padBottom = 38;
-  const plottedValues = points.map((point) => point.cumulative_bankroll);
-  const minY = Math.min(HISTORICAL_BANKROLL_START_DOLLARS, ...plottedValues);
-  const maxY = Math.max(HISTORICAL_BANKROLL_START_DOLLARS, ...plottedValues);
-  const span = Math.max(maxY - minY, 1);
-  const plotWidth = width - padLeft - padRight;
-  const plotHeight = height - padTop - padBottom;
-
-  const coords = points.map((point, index) => {
-    const x = padLeft + (index / Math.max(points.length - 1, 1)) * plotWidth;
-    const y = padTop + (1 - (point.cumulative_bankroll - minY) / span) * plotHeight;
-    return { x, y, point };
-  });
-
-  const linePath = coords.map((coord, index) => `${index === 0 ? "M" : "L"}${coord.x},${coord.y}`).join(" ");
-  const startingBankrollY = padTop + (1 - (HISTORICAL_BANKROLL_START_DOLLARS - minY) / span) * plotHeight;
-  const yTicks = Array.from({ length: 5 }, (_, index) => minY + (span * index) / 4);
-  const xTickIndexes = Array.from(new Set([0, Math.floor((points.length - 1) / 2), points.length - 1])).filter(
-    (index) => index >= 0 && index < points.length
-  );
+  const coords = displayedCoords;
+  const linePath = buildLinePath(coords);
+  const startingBankrollY = displayedStartingBankrollY;
+  const { minY, plotHeight, span, xTickIndexes, yTicks } = geometry;
   const lastPoint = points[points.length - 1];
-  const activeCoord = activePointIndex === null ? null : coords[activePointIndex];
-  const tooltipBelow = activeCoord ? activeCoord.y < padTop + 34 : false;
+  const safeActivePointIndex = activePointIndex !== null && activePointIndex < coords.length ? activePointIndex : null;
+  const activeCoord = safeActivePointIndex === null ? null : coords[safeActivePointIndex];
+  const tooltipBelow = activeCoord ? activeCoord.y < CHART_PAD_TOP + 34 : false;
   const gradientId = `bet-history-line-${chartId}`;
 
   return (
@@ -81,8 +219,8 @@ export default function BetHistoryChart({ points }: Props) {
           <div
             className={`${styles.chartTooltip} ${tooltipBelow ? styles.chartTooltipBelow : ""}`}
             style={{
-              left: `${(activeCoord.x / width) * 100}%`,
-              top: `${(activeCoord.y / height) * 100}%`,
+              left: `${(activeCoord.x / CHART_WIDTH) * 100}%`,
+              top: `${(activeCoord.y / CHART_HEIGHT) * 100}%`,
             }}
           >
             <p className={styles.chartTooltipDate}>{formatDateShort(activeCoord.point.date_central)}</p>
@@ -102,7 +240,7 @@ export default function BetHistoryChart({ points }: Props) {
         ) : null}
 
         <svg
-          viewBox={`0 0 ${width} ${height}`}
+          viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`}
           className={styles.chartSvg}
           role="img"
           aria-label="Cumulative bankroll line chart"
@@ -115,14 +253,21 @@ export default function BetHistoryChart({ points }: Props) {
             </linearGradient>
           </defs>
 
-          <rect x="0" y="0" width={width} height={height} rx="14" fill="transparent" />
+          <rect x="0" y="0" width={CHART_WIDTH} height={CHART_HEIGHT} rx="14" fill="transparent" />
 
           {yTicks.map((tick) => {
-            const y = padTop + (1 - (tick - minY) / span) * plotHeight;
+            const tickY = CHART_PAD_TOP + (1 - (tick - minY) / span) * plotHeight;
             return (
               <g key={tick}>
-                <line x1={padLeft} y1={y} x2={width - padRight} y2={y} stroke="var(--chart-grid)" strokeWidth="1" />
-                <text x={padLeft - 10} y={y + 4} textAnchor="end" fill="var(--chart-axis)" fontSize="11">
+                <line
+                  x1={CHART_PAD_LEFT}
+                  y1={tickY}
+                  x2={CHART_WIDTH - CHART_PAD_RIGHT}
+                  y2={tickY}
+                  stroke="var(--chart-grid)"
+                  strokeWidth="1"
+                />
+                <text x={CHART_PAD_LEFT - 10} y={tickY + 4} textAnchor="end" fill="var(--chart-axis)" fontSize="11">
                   {formatUsd(tick, { minimumFractionDigits: 2 })}
                 </text>
               </g>
@@ -130,9 +275,9 @@ export default function BetHistoryChart({ points }: Props) {
           })}
 
           <line
-            x1={padLeft}
+            x1={CHART_PAD_LEFT}
             y1={startingBankrollY}
-            x2={width - padRight}
+            x2={CHART_WIDTH - CHART_PAD_RIGHT}
             y2={startingBankrollY}
             stroke="var(--chart-baseline)"
             strokeDasharray="5 4"
@@ -164,11 +309,11 @@ export default function BetHistoryChart({ points }: Props) {
               <circle
                 cx={coord.x}
                 cy={coord.y}
-                r={activePointIndex === index ? 5.5 : 4}
+                r={safeActivePointIndex === index ? 5.5 : 4}
                 fill={coord.point.cumulative_profit >= 0 ? "var(--chart-point-positive)" : "var(--chart-point-negative)"}
                 stroke="var(--chart-point-stroke)"
-                strokeWidth={activePointIndex === index ? "2.5" : "2"}
-                className={activePointIndex === index ? styles.chartPointActive : undefined}
+                strokeWidth={safeActivePointIndex === index ? "2.5" : "2"}
+                className={safeActivePointIndex === index ? styles.chartPointActive : undefined}
               />
             </g>
           ))}
@@ -176,7 +321,14 @@ export default function BetHistoryChart({ points }: Props) {
           {xTickIndexes.map((index) => {
             const coord = coords[index];
             return (
-              <text key={coord.point.date_central} x={coord.x} y={height - 12} textAnchor="middle" fill="var(--chart-axis)" fontSize="11">
+              <text
+                key={coord.point.date_central}
+                x={coord.x}
+                y={CHART_HEIGHT - 12}
+                textAnchor="middle"
+                fill="var(--chart-axis)"
+                fontSize="11"
+              >
                 {formatDateShort(coord.point.date_central)}
               </text>
             );
