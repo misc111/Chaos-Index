@@ -1,12 +1,11 @@
 import { getHistoricalReplayGames } from "@/lib/bet-history";
 import { parseModelWinProbabilities, selectBettingModelProbability } from "@/lib/betting-model";
-import { centralDateKeyFromTimestamp, centralTodayDateKey, dateKeyForScheduledGame } from "@/lib/games-today";
+import { centralTodayDateKey, dateKeyForScheduledGame, shiftCentralDateKey } from "@/lib/games-today";
 import { type LeagueCode } from "@/lib/league";
-import { getLatestUpcomingAsOf, getScheduledTodayRows } from "@/lib/server/repositories/forecasts";
+import { getGamesTodaySnapshotRows, getLatestUpcomingAsOf } from "@/lib/server/repositories/forecasts";
 import { getPreferredBettingModelName } from "@/lib/server/services/betting-driver";
 import {
   getMoneylineRowsForSnapshots,
-  getOddsSnapshots,
   getOver190RowsForSnapshots,
   type RawMoneylineRow,
   type RawOver190Row,
@@ -21,13 +20,15 @@ function normalizeProbability(value: unknown): number {
 export async function getGamesTodayPayload(league: LeagueCode) {
   const historicalReplay = getHistoricalReplayGames(league);
   const asOf = getLatestUpcomingAsOf(league);
+  const todayKey = centralTodayDateKey();
+  const snapshotFallbackWindowStart = shiftCentralDateKey(todayKey, -1);
   const preferredBettingModelName = getPreferredBettingModelName(league);
 
   if (!asOf) {
     return {
       league,
       as_of_utc: null,
-      date_central: centralTodayDateKey(),
+      date_central: todayKey,
       historical_coverage_start_central: historicalReplay.coverage_start_central,
       strategy_configs: historicalReplay.strategy_configs,
       strategy_optimization: historicalReplay.strategy_optimization,
@@ -36,36 +37,21 @@ export async function getGamesTodayPayload(league: LeagueCode) {
     };
   }
 
-  const rows = getScheduledTodayRows(league, asOf).map((row) => ({
+  const rows = getGamesTodaySnapshotRows(league, asOf).map((row) => ({
       ...row,
       ...selectBettingModelProbability(
         normalizeProbability(row.home_win_probability),
         parseModelWinProbabilities(row.per_model_probs_json),
         preferredBettingModelName
       ),
-    }));
-
-  const snapshotRows = getOddsSnapshots(league);
-  const latestOddsSnapshotByDate = new Map<string, { odds_snapshot_id: string; as_of_utc: string }>();
-  for (const row of snapshotRows) {
-    const snapshotId = String(row.odds_snapshot_id || "").trim();
-    const asOfUtc = String(row.as_of_utc || "").trim();
-    const snapshotDateKey = centralDateKeyFromTimestamp(asOfUtc);
-    if (!snapshotId || !asOfUtc || !snapshotDateKey || latestOddsSnapshotByDate.has(snapshotDateKey)) {
-      continue;
-    }
-    latestOddsSnapshotByDate.set(snapshotDateKey, { odds_snapshot_id: snapshotId, as_of_utc: asOfUtc });
-  }
+    }))
+    .filter((row) => {
+      const dateKey = dateKeyForScheduledGame(row);
+      return Boolean(dateKey && dateKey >= snapshotFallbackWindowStart);
+    });
 
   const neededSnapshotIds = Array.from(
-    new Set(
-      rows
-        .map((row) => {
-          const rowDateKey = dateKeyForScheduledGame(row);
-          return rowDateKey ? latestOddsSnapshotByDate.get(rowDateKey)?.odds_snapshot_id || "" : "";
-        })
-        .filter(Boolean)
-    )
+    new Set(rows.map((row) => String(row.odds_snapshot_id || "").trim()).filter(Boolean))
   );
 
   const moneylineRows = getMoneylineRowsForSnapshots(league, neededSnapshotIds);
@@ -125,15 +111,17 @@ export async function getGamesTodayPayload(league: LeagueCode) {
   }
 
   const enrichedRows = rows.map((row) => {
-    const rowDateKey = dateKeyForScheduledGame(row);
-    const daySnapshot = rowDateKey ? latestOddsSnapshotByDate.get(rowDateKey) : null;
-    const snapshotId = daySnapshot?.odds_snapshot_id || "";
+    const snapshotId = String(row.odds_snapshot_id || "").trim();
     const moneylineMatch =
-      moneylineByGameId.get(`${snapshotId}::${Number(row.game_id)}`) ||
-      moneylineByTeamKey.get(`${snapshotId}::${row.home_team}|${row.away_team}`);
+      (snapshotId
+        ? moneylineByGameId.get(`${snapshotId}::${Number(row.game_id)}`) ||
+          moneylineByTeamKey.get(`${snapshotId}::${row.home_team}|${row.away_team}`)
+        : undefined);
     const over190Match =
-      over190ByGameId.get(`${snapshotId}::${Number(row.game_id)}`) ||
-      over190ByTeamKey.get(`${snapshotId}::${row.home_team}|${row.away_team}`);
+      (snapshotId
+        ? over190ByGameId.get(`${snapshotId}::${Number(row.game_id)}`) ||
+          over190ByTeamKey.get(`${snapshotId}::${row.home_team}|${row.away_team}`)
+        : undefined);
     return {
       game_id: row.game_id,
       game_date_utc: row.game_date_utc,
@@ -144,7 +132,7 @@ export async function getGamesTodayPayload(league: LeagueCode) {
       model_win_probabilities: row.model_win_probabilities,
       forecast_as_of_utc: row.forecast_as_of_utc,
       start_time_utc: row.start_time_utc,
-      odds_as_of_utc: daySnapshot?.as_of_utc || null,
+      odds_as_of_utc: row.odds_as_of_utc || null,
       home_moneyline: moneylineMatch?.home_moneyline ?? null,
       away_moneyline: moneylineMatch?.away_moneyline ?? null,
       home_moneyline_book: moneylineMatch?.home_moneyline_book ?? null,
@@ -158,7 +146,7 @@ export async function getGamesTodayPayload(league: LeagueCode) {
   return {
     league,
     as_of_utc: asOf,
-    date_central: centralTodayDateKey(),
+    date_central: todayKey,
     historical_coverage_start_central: historicalReplay.coverage_start_central,
     strategy_configs: historicalReplay.strategy_configs,
     strategy_optimization: historicalReplay.strategy_optimization,

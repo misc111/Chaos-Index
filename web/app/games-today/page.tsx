@@ -19,13 +19,13 @@ import type { ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
 import TeamWithIcon, { BetStakeWithIcon, TeamMatchup } from "@/components/TeamWithIcon";
 import {
   centralTodayDateKey,
-  dateKeyForScheduledGame,
   formatCentralDateLabel,
   formatCentralDateSummary,
   normalizeCentralDateKey,
   normalizeUtcTimestamp,
   shiftCentralDateKey,
 } from "@/lib/games-today";
+import { resolveGamesTodayDateView } from "@/lib/games-today-view";
 import { normalizeLeague, withLeague } from "@/lib/league";
 import { fetchDashboardJson, isStaticStagingBuild } from "@/lib/static-staging";
 import type { GamesTodayResponse, GamesTodayRow } from "@/lib/types";
@@ -178,12 +178,17 @@ function GamesTodayPageContent() {
 
   const todayKey = centralTodayDateKey();
   const activeDateKey = selectedDateKey || todayKey;
-  const isPastDate = activeDateKey < todayKey;
-  // Maintainer note: the page keeps one table/card layout across leagues.
-  // We swap the backing dataset by date instead of rendering separate NHL/NBA
-  // or past/future views. Add shared fields to both payload pools if needed.
-  const sourceRows = isPastDate ? historicalRows : upcomingRows;
-  const rows = sourceRows.filter((row) => dateKeyForScheduledGame(row) === activeDateKey);
+  const dateView = useMemo(
+    () =>
+      resolveGamesTodayDateView({
+        activeDateKey,
+        todayKey,
+        upcomingRows,
+        historicalRows,
+      }),
+    [activeDateKey, historicalRows, todayKey, upcomingRows]
+  );
+  const { isPastDate, mode, rows } = dateView;
   const selectedForecastAsOf = latestTimestamp(rows, "forecast_as_of_utc") || latestAsOf;
   const selectedOddsAsOf = latestTimestamp(rows, "odds_as_of_utc");
   const liveDecisionMap = useMemo(() => {
@@ -206,14 +211,17 @@ function GamesTodayPageContent() {
   const scheduleSummary = formatCentralDateSummary(activeDateKey);
   const dateLabel = formatCentralDateLabel(activeDateKey);
   const title = activeDateKey === todayKey ? "Games Today" : `Games on ${dateLabel}`;
-  const description = isPastDate
-    ? `Stored pregame replay rows for ${dateLabel} (Central Time) are shown.`
-    : `Only games scheduled for ${scheduleSummary} (Central Time) are shown.`;
+  const description =
+    mode === "historical"
+      ? `Stored pregame replay rows for ${dateLabel} (Central Time) are shown.`
+      : mode === "snapshotFallback"
+        ? `Stored forecast snapshot rows for ${dateLabel} (Central Time) are shown because replay rows are not available yet.`
+        : `Only games scheduled for ${scheduleSummary} (Central Time) are shown.`;
   const emptyState =
     isPastDate && historicalCoverageStart && activeDateKey < historicalCoverageStart
       ? `No stored pregame replay data for ${dateLabel}. Replay coverage starts on ${formatCentralDateLabel(historicalCoverageStart)}.`
       : isPastDate
-        ? `No replayable games available for ${dateLabel}.`
+        ? `No stored forecast or replay rows are available for ${dateLabel}.`
         : `No games scheduled for ${scheduleSummary}.`;
 
   const handleRefreshOdds = async () => {
