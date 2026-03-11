@@ -6,6 +6,7 @@ import {
   buildEnsembleSnapshotBankrollSeries,
   listEnsembleSnapshotChartDates,
   type SnapshotBankrollPoint,
+  type SnapshotBankrollMode,
   type SnapshotBankrollSeries,
   type SnapshotChartStrategyKey,
 } from "@/lib/ensemble-snapshot-chart";
@@ -145,8 +146,12 @@ export default function EnsembleSnapshotBankrollChart({
   onSelectSnapshotKey,
 }: Props) {
   const chartStrategy: SnapshotChartStrategyKey = activeStrategy;
+  const [bankrollMode, setBankrollMode] = useState<SnapshotBankrollMode>("independent");
   const activeStrategyConfig = getBetStrategyConfig(chartStrategy);
-  const series = useMemo(() => buildEnsembleSnapshotBankrollSeries(snapshots, chartStrategy), [snapshots, chartStrategy]);
+  const series = useMemo(
+    () => buildEnsembleSnapshotBankrollSeries(snapshots, chartStrategy, bankrollMode),
+    [snapshots, chartStrategy, bankrollMode]
+  );
   const geometry = useMemo(() => buildChartGeometry(series), [series]);
   const selectedSeries =
     geometry.plottedSeries.find((snapshot) => snapshot.snapshot_key === selectedSnapshotKey) || geometry.plottedSeries[0];
@@ -170,6 +175,7 @@ export default function EnsembleSnapshotBankrollChart({
   const tooltipBelow = activeCoord ? activeCoord.y < CHART_PAD_TOP + 40 : false;
   const { minY, plotHeight, span, yTicks, xTickDates, startingBankrollY, xByDate } = geometry;
   const totalSnapshots = geometry.plottedSeries.length;
+  const continuityEnabled = bankrollMode === "continuity";
 
   function selectSnapshot(snapshotKey: string) {
     onSelectSnapshotKey(snapshotKey);
@@ -192,11 +198,22 @@ export default function EnsembleSnapshotBankrollChart({
             Following Bet Objective: <strong>{activeStrategyConfig.label}</strong>
           </p>
         </div>
+        <button
+          type="button"
+          className={`${styles.continuityButton} ${continuityEnabled ? styles.continuityButtonActive : ""}`}
+          aria-pressed={continuityEnabled}
+          onClick={() => setBankrollMode((currentMode) => (currentMode === "continuity" ? "independent" : "continuity"))}
+        >
+          Continuity <span className={styles.continuityState}>{continuityEnabled ? "On" : "Off"}</span>
+        </button>
       </div>
 
       <p className={styles.note}>
-        The y-axis is total bankroll, not abstract score. This chart follows the dashboard&apos;s Bet Objective buttons, so switching
-        between Balanced, Aggressive, and Conservative redraws the full frozen-snapshot bankroll race under that exact rule set.
+        {continuityEnabled
+          ? "The y-axis is total bankroll with continuity handoffs turned on. Each new model inherits the prior snapshot's bankroll through D-1, so the lines form one stitched account path across recalibration dates."
+          : "The y-axis is total bankroll with isolated replays. Each snapshot restarts at $5,000 so you can compare model quality without carrying forward earlier wins or losses."}{" "}
+        This chart follows the dashboard&apos;s Bet Objective buttons, so switching between Balanced, Aggressive, and Conservative redraws
+        the full frozen-snapshot bankroll race under that exact rule set.
       </p>
 
       <div className={chartStyles.chartWrap}>
@@ -217,8 +234,15 @@ export default function EnsembleSnapshotBankrollChart({
             {activeCoord.point.kind === "daily" ? (
               <>
                 <p className={chartStyles.chartTooltipDetail}>
-                  Net {formatSignedUsd(activeCoord.point.cumulative_profit, { minimumFractionDigits: 2 })}
+                  {continuityEnabled ? "Account net" : "Net"}{" "}
+                  {formatSignedUsd(activeCoord.point.cumulative_profit, { minimumFractionDigits: 2 })}
                 </p>
+                {continuityEnabled ? (
+                  <p className={chartStyles.chartTooltipDetail}>
+                    Snapshot-only net{" "}
+                    {formatSignedUsd(activeCoord.point.snapshot_cumulative_profit, { minimumFractionDigits: 2 })}
+                  </p>
+                ) : null}
                 <p className={chartStyles.chartTooltipDetail}>
                   Day {formatSignedUsd(activeCoord.point.daily_profit, { minimumFractionDigits: 2 })}
                 </p>
@@ -229,7 +253,11 @@ export default function EnsembleSnapshotBankrollChart({
             ) : activeCoord.point.kind === "pending" ? (
               <p className={chartStyles.chartTooltipDetail}>No settled games yet for this snapshot.</p>
             ) : (
-              <p className={chartStyles.chartTooltipDetail}>Opening bankroll before this frozen model starts settling wagers.</p>
+              <p className={chartStyles.chartTooltipDetail}>
+                {continuityEnabled && selectedSeries.starting_bankroll !== HISTORICAL_BANKROLL_START_DOLLARS
+                  ? "Opening bankroll after continuity hands off the prior snapshot's end-of-day bankroll."
+                  : "Opening bankroll before this frozen model starts settling wagers."}
+              </p>
             )}
           </div>
         ) : null}
@@ -323,7 +351,7 @@ export default function EnsembleSnapshotBankrollChart({
                   minimumFractionDigits: 2,
                 })} cumulative net ${formatSignedUsd(coord.point.cumulative_profit, {
                   minimumFractionDigits: 2,
-                })}`}
+                })}${continuityEnabled ? ` snapshot-only net ${formatSignedUsd(coord.point.snapshot_cumulative_profit, { minimumFractionDigits: 2 })}` : ""}`}
                 onPointerEnter={() =>
                   setHoverState({
                     snapshotKey: selectedSeries.snapshot_key,
@@ -375,7 +403,7 @@ export default function EnsembleSnapshotBankrollChart({
         <span>
           Start bankroll:{" "}
           <span className={chartStyles.chartMetaStrong}>
-            {formatUsd(HISTORICAL_BANKROLL_START_DOLLARS, { minimumFractionDigits: 2 })}
+            {formatUsd(selectedSeries.starting_bankroll, { minimumFractionDigits: 2 })}
           </span>
         </span>
         <span>
@@ -385,16 +413,27 @@ export default function EnsembleSnapshotBankrollChart({
           </span>
         </span>
         <span>
-          Selected net:{" "}
+          {continuityEnabled ? "Account net" : "Selected net"}:{" "}
           <span className={chartStyles.chartMetaStrong}>
-            {formatSignedUsd(selectedSeries.total_profit, { minimumFractionDigits: 2 })}
+            {formatSignedUsd(selectedSeries.display_total_profit, { minimumFractionDigits: 2 })}
           </span>
         </span>
+        {continuityEnabled ? (
+          <span>
+            Snapshot-only net:{" "}
+            <span className={chartStyles.chartMetaStrong}>
+              {formatSignedUsd(selectedSeries.isolated_total_profit, { minimumFractionDigits: 2 })}
+            </span>
+          </span>
+        ) : null}
         <span>
           Compared through:{" "}
           <span className={chartStyles.chartMetaStrong}>
             {selectedSeries.compared_through_date_central ? formatDateShort(selectedSeries.compared_through_date_central) : "No settled games yet"}
           </span>
+        </span>
+        <span>
+          Basis: <span className={chartStyles.chartMetaStrong}>{continuityEnabled ? "Continuity handoff" : "Independent reset"}</span>
         </span>
         <span>
           Snapshot lines: <span className={chartStyles.chartMetaStrong}>{totalSnapshots}</span>
@@ -415,9 +454,14 @@ export default function EnsembleSnapshotBankrollChart({
               <span className={styles.legendText}>
                 <strong>Model as of {formatDateShort(snapshot.activation_date_central)}</strong>
                 <span>
-                  {activeStrategyConfig.label} {formatSignedUsd(snapshot.total_profit, { minimumFractionDigits: 2 })} · bankroll{" "}
+                  {activeStrategyConfig.label} {formatSignedUsd(snapshot.display_total_profit, { minimumFractionDigits: 2 })} · bankroll{" "}
                   {formatUsd(snapshot.final_point.cumulative_bankroll, { minimumFractionDigits: 2 })}
                 </span>
+                {continuityEnabled ? (
+                  <span>
+                    Snapshot-only {formatSignedUsd(snapshot.isolated_total_profit, { minimumFractionDigits: 2 })}
+                  </span>
+                ) : null}
               </span>
             </button>
           );

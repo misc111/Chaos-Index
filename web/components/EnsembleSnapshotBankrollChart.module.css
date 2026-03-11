@@ -46,6 +46,48 @@
   font-weight: 600;
 }
 
+.continuityButton {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(24, 47, 44, 0.14);
+  background: rgba(248, 246, 241, 0.88);
+  color: #223734;
+  font-size: 0.84rem;
+  font-weight: 700;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.continuityButton:hover {
+  transform: translateY(-1px);
+  border-color: rgba(28, 84, 72, 0.24);
+  box-shadow: 0 12px 22px rgba(25, 44, 42, 0.08);
+}
+
+.continuityButtonActive {
+  border-color: rgba(32, 95, 81, 0.38);
+  background: rgba(32, 95, 81, 0.12);
+  box-shadow: 0 14px 24px rgba(19, 53, 45, 0.1);
+}
+
+.continuityState {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(16, 32, 29, 0.08);
+  color: #10201d;
+  font-size: 0.75rem;
+}
+
 .legendGrid {
   display: grid;
   gap: 10px;

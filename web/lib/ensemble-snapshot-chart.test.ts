@@ -179,7 +179,123 @@ test("buildEnsembleSnapshotBankrollSeries anchors same-day snapshots to the prio
   assert.equal(series[0].points[1].cumulative_bankroll, HISTORICAL_BANKROLL_START_DOLLARS + 120);
   assert.equal(series[0].points[2].cumulative_bankroll, HISTORICAL_BANKROLL_START_DOLLARS + 80);
   assert.equal(series[0].final_point.cumulative_profit, 80);
+  assert.equal(series[0].starting_bankroll, HISTORICAL_BANKROLL_START_DOLLARS);
+  assert.equal(series[0].display_total_profit, 80);
   assert.equal(conservativeSeries[0].final_point.cumulative_profit, 90);
+});
+
+test("buildEnsembleSnapshotBankrollSeries continuity mode hands each new snapshot the prior snapshot bankroll through D-1", () => {
+  const series = buildEnsembleSnapshotBankrollSeries(
+    [
+      buildSnapshot({
+        snapshot_key: "snapshot_a",
+        activation_date_central: "2026-03-05",
+      }),
+      buildSnapshot({
+        snapshot_key: "snapshot_b",
+        activation_date_central: "2026-03-06",
+        daily: [
+          {
+            date_central: "2026-03-06",
+            slate_games: 2,
+            strategies: {
+              riskAdjusted: {
+                slate_games: 2,
+                suggested_bets: 1,
+                wins: 1,
+                losses: 0,
+                total_risked: 100,
+                total_profit: 50,
+                cumulative_risked: 100,
+                cumulative_profit: 50,
+                roi: 0.5,
+                cumulative_roi: 0.5,
+              },
+              aggressive: {
+                slate_games: 2,
+                suggested_bets: 1,
+                wins: 1,
+                losses: 0,
+                total_risked: 150,
+                total_profit: 75,
+                cumulative_risked: 150,
+                cumulative_profit: 75,
+                roi: 0.5,
+                cumulative_roi: 0.5,
+              },
+              capitalPreservation: {
+                slate_games: 2,
+                suggested_bets: 1,
+                wins: 1,
+                losses: 0,
+                total_risked: 75,
+                total_profit: 38,
+                cumulative_risked: 75,
+                cumulative_profit: 38,
+                roi: 38 / 75,
+                cumulative_roi: 38 / 75,
+              },
+            },
+          },
+        ],
+        strategies: {
+          riskAdjusted: {
+            total_games: 1,
+            suggested_bets: 1,
+            wins: 1,
+            losses: 0,
+            total_risked: 100,
+            total_profit: 50,
+            roi: 0.5,
+            avg_edge: 0.05,
+            avg_expected_value: 0.03,
+            first_bet_date_central: "2026-03-06",
+            last_bet_date_central: "2026-03-06",
+          },
+          aggressive: {
+            total_games: 1,
+            suggested_bets: 1,
+            wins: 1,
+            losses: 0,
+            total_risked: 150,
+            total_profit: 75,
+            roi: 0.5,
+            avg_edge: 0.05,
+            avg_expected_value: 0.03,
+            first_bet_date_central: "2026-03-06",
+            last_bet_date_central: "2026-03-06",
+          },
+          capitalPreservation: {
+            total_games: 1,
+            suggested_bets: 1,
+            wins: 1,
+            losses: 0,
+            total_risked: 75,
+            total_profit: 38,
+            roi: 38 / 75,
+            avg_edge: 0.05,
+            avg_expected_value: 0.03,
+            first_bet_date_central: "2026-03-06",
+            last_bet_date_central: "2026-03-06",
+          },
+        },
+        replayable_games: 1,
+        days_tracked: 1,
+      }),
+    ],
+    "riskAdjusted",
+    "continuity"
+  );
+
+  assert.equal(series[0].starting_bankroll, HISTORICAL_BANKROLL_START_DOLLARS);
+  assert.equal(series[0].final_point.cumulative_bankroll, HISTORICAL_BANKROLL_START_DOLLARS + 80);
+  assert.equal(series[1].starting_bankroll, HISTORICAL_BANKROLL_START_DOLLARS + 120);
+  assert.equal(series[1].points[0].date_central, "2026-03-05");
+  assert.equal(series[1].points[0].cumulative_bankroll, HISTORICAL_BANKROLL_START_DOLLARS + 120);
+  assert.equal(series[1].points[1].snapshot_cumulative_profit, 50);
+  assert.equal(series[1].points[1].cumulative_bankroll, HISTORICAL_BANKROLL_START_DOLLARS + 170);
+  assert.equal(series[1].display_total_profit, 170);
+  assert.equal(series[1].isolated_total_profit, 50);
 });
 
 test("buildEnsembleSnapshotBankrollSeries keeps pending snapshots on their activation date when no settled games exist", () => {

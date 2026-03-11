@@ -3,6 +3,7 @@ import type { BetStrategy } from "@/lib/betting-strategy";
 import type { EnsembleSnapshotRow } from "@/lib/types";
 
 export type SnapshotChartStrategyKey = BetStrategy;
+export type SnapshotBankrollMode = "independent" | "continuity";
 
 export type SnapshotBankrollPoint = {
   date_central: string;
@@ -10,6 +11,7 @@ export type SnapshotBankrollPoint = {
   slate_games: number;
   suggested_bets: number;
   daily_profit: number;
+  snapshot_cumulative_profit: number;
   cumulative_profit: number;
   cumulative_bankroll: number;
   total_risked: number;
@@ -21,7 +23,9 @@ export type SnapshotBankrollSeries = {
   compared_through_date_central: string | null;
   feature_set_version?: string | null;
   replayable_games: number;
-  total_profit: number;
+  starting_bankroll: number;
+  isolated_total_profit: number;
+  display_total_profit: number;
   total_risked: number;
   days_tracked: number;
   points: SnapshotBankrollPoint[];
@@ -54,7 +58,7 @@ function resolveStartingAnchorDate(snapshot: EnsembleSnapshotRow): string {
   return snapshot.activation_date_central;
 }
 
-export function buildEnsembleSnapshotBankrollSeries(
+function buildIndependentEnsembleSnapshotBankrollSeries(
   snapshots: EnsembleSnapshotRow[],
   strategy: SnapshotChartStrategyKey
 ): SnapshotBankrollSeries[] {
@@ -69,6 +73,7 @@ export function buildEnsembleSnapshotBankrollSeries(
         slate_games: 0,
         suggested_bets: 0,
         daily_profit: 0,
+        snapshot_cumulative_profit: 0,
         cumulative_profit: 0,
         cumulative_bankroll: HISTORICAL_BANKROLL_START_DOLLARS,
         total_risked: 0,
@@ -80,6 +85,7 @@ export function buildEnsembleSnapshotBankrollSeries(
         slate_games: day.slate_games,
         suggested_bets: day.strategies[strategy].suggested_bets,
         daily_profit: day.strategies[strategy].total_profit,
+        snapshot_cumulative_profit: day.strategies[strategy].cumulative_profit,
         cumulative_profit: day.strategies[strategy].cumulative_profit,
         cumulative_bankroll: HISTORICAL_BANKROLL_START_DOLLARS + day.strategies[strategy].cumulative_profit,
         total_risked: day.strategies[strategy].total_risked,
@@ -94,13 +100,67 @@ export function buildEnsembleSnapshotBankrollSeries(
         compared_through_date_central: snapshot.compared_through_date_central,
         feature_set_version: snapshot.feature_set_version,
         replayable_games: snapshot.replayable_games,
-        total_profit: strategySummary.total_profit,
+        starting_bankroll: HISTORICAL_BANKROLL_START_DOLLARS,
+        isolated_total_profit: strategySummary.total_profit,
+        display_total_profit: strategySummary.total_profit,
         total_risked: strategySummary.total_risked,
         days_tracked: snapshot.days_tracked,
         points,
         final_point: finalPoint,
       };
     });
+}
+
+function bankrollThroughDate(series: SnapshotBankrollSeries, dateCentral: string): number | null {
+  let bankroll: number | null = null;
+  for (const point of series.points) {
+    if (point.date_central > dateCentral) break;
+    bankroll = point.cumulative_bankroll;
+  }
+  return bankroll;
+}
+
+function applyContinuityToSeries(series: SnapshotBankrollSeries[]): SnapshotBankrollSeries[] {
+  const shiftedSeries: SnapshotBankrollSeries[] = [];
+
+  for (const snapshot of series) {
+    const previousSnapshot = shiftedSeries[shiftedSeries.length - 1];
+    const handoffDate = previousDateKey(snapshot.activation_date_central);
+    const startingBankroll =
+      previousSnapshot && shiftedSeries.length
+        ? bankrollThroughDate(previousSnapshot, handoffDate) ?? previousSnapshot.final_point.cumulative_bankroll
+        : HISTORICAL_BANKROLL_START_DOLLARS;
+    const bankrollOffset = startingBankroll - HISTORICAL_BANKROLL_START_DOLLARS;
+
+    // Continuity mode does not change the replayed bets themselves. It only
+    // changes the bankroll basis so each newly activated snapshot inherits the
+    // bankroll level that the prior deployed snapshot had reached by D-1.
+    const shiftedPoints = snapshot.points.map((point) => ({
+      ...point,
+      cumulative_profit: point.cumulative_profit + bankrollOffset,
+      cumulative_bankroll: point.cumulative_bankroll + bankrollOffset,
+    }));
+    const finalPoint = shiftedPoints[shiftedPoints.length - 1] || shiftedPoints[0];
+
+    shiftedSeries.push({
+      ...snapshot,
+      starting_bankroll: startingBankroll,
+      display_total_profit: (finalPoint?.cumulative_bankroll ?? startingBankroll) - HISTORICAL_BANKROLL_START_DOLLARS,
+      points: shiftedPoints,
+      final_point: finalPoint,
+    });
+  }
+
+  return shiftedSeries;
+}
+
+export function buildEnsembleSnapshotBankrollSeries(
+  snapshots: EnsembleSnapshotRow[],
+  strategy: SnapshotChartStrategyKey,
+  mode: SnapshotBankrollMode = "independent"
+): SnapshotBankrollSeries[] {
+  const independentSeries = buildIndependentEnsembleSnapshotBankrollSeries(snapshots, strategy);
+  return mode === "continuity" ? applyContinuityToSeries(independentSeries) : independentSeries;
 }
 
 export function listEnsembleSnapshotChartDates(series: SnapshotBankrollSeries[]): string[] {
