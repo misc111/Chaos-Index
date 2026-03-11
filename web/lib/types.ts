@@ -110,6 +110,23 @@ export type PerformanceScoreRow = {
   log_loss: number;
 };
 
+export type ModelRunSummaryRow = {
+  model_name: string;
+  model_run_id: string;
+  run_type?: string | null;
+  created_at_utc?: string | null;
+  snapshot_id?: string | null;
+  feature_set_version?: string | null;
+  first_game_date_utc?: string | null;
+  last_game_date_utc?: string | null;
+  n_games: number;
+  avg_log_loss: number;
+  avg_brier: number;
+  accuracy: number;
+  version_rank: number;
+  is_latest_version: number;
+};
+
 export type ChangePointRow = TableRow & {
   model_name?: string;
   metric_name?: string;
@@ -123,6 +140,7 @@ export type ChangePointRow = TableRow & {
 export type PerformanceResponse = {
   league: string;
   scores: PerformanceScoreRow[];
+  run_summaries: ModelRunSummaryRow[];
   change_points: ChangePointRow[];
 };
 

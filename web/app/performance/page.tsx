@@ -2,6 +2,7 @@
 
 import { Suspense } from "react";
 import ModelTable from "@/components/ModelTable";
+import ModelVersionExplorer from "@/components/ModelVersionExplorer";
 import PerformanceCharts from "@/components/PerformanceCharts";
 import { useDashboardData } from "@/lib/hooks/useDashboardData";
 import { useLeague } from "@/lib/hooks/useLeague";
@@ -10,6 +11,7 @@ import type { PerformanceResponse } from "@/lib/types";
 const EMPTY_PERFORMANCE: PerformanceResponse = {
   league: "NHL",
   scores: [],
+  run_summaries: [],
   change_points: [],
 };
 
@@ -26,7 +28,15 @@ function PerformancePageContent() {
 
   return (
     <div className="grid">
+      <div className="card">
+        <h3 className="title">Model Drift Timeline</h3>
+        <p className="small">
+          The top charts show how each model family has been scoring over time. The version replay section underneath keeps older
+          trained runs separate, so you can see whether a feature-set change or parameter tweak coincided with worse live results.
+        </p>
+      </div>
       <PerformanceCharts rows={data.scores} />
+      <ModelVersionExplorer rows={data.run_summaries} />
       <ModelTable title="Change-Point Alerts" rows={data.change_points} />
     </div>
   );
