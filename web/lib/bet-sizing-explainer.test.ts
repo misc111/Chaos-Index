@@ -99,13 +99,13 @@ test("buildBetSizingExplainerModel tracks requested versus funded stake through 
     null
   );
 
-  assert.equal(model.totalBudget, ((getBetStrategyConfig("riskAdjusted").maxDailyBankrollPercent ?? 0) / 100) * 5_000);
-  assert.equal(model.allocatedBudget, 195);
-  assert.equal(model.remainingBudget, 5);
+  assert.equal(model.totalBudget, ((getBetStrategyConfig("riskAdjusted").maxDailyBankrollPercent ?? 0) / 100) * 10_000);
+  assert.equal(model.allocatedBudget, 375);
+  assert.equal(model.remainingBudget, 25);
   assert.equal(model.fundedBetCount, 3);
   assert.equal(model.allocationSteps.length, 3);
-  assert.equal(model.allocationSteps[0]?.budgetBefore, 200);
-  assert.equal(model.allocationSteps[2]?.budgetAfter, 5);
+  assert.equal(model.allocationSteps[0]?.budgetBefore, 400);
+  assert.equal(model.allocationSteps[2]?.budgetAfter, 25);
   assert.equal(model.games.every((game) => game.requestedStake >= game.finalStake), true);
 });
 

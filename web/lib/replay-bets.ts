@@ -584,10 +584,7 @@ export function loadOrCreateHistoricalReplayDecisions(
         model_win_probabilities: row.model_win_probabilities,
       })),
       strategy,
-      strategyConfig,
-      undefined,
-      undefined,
-      REPLAY_REFERENCE_BANKROLL_DOLLARS
+      strategyConfig
     );
 
     dayRows.forEach((row, index) => {

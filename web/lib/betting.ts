@@ -81,11 +81,11 @@ export type BetDecisionTrace = {
   };
 };
 
-export const HISTORICAL_BANKROLL_START_DOLLARS = 5_000;
-export const HISTORICAL_BANKROLL_START_DATE_CENTRAL = "2026-03-05";
-export const REFERENCE_BANKROLL_DOLLARS = HISTORICAL_BANKROLL_START_DOLLARS;
+export const REFERENCE_BANKROLL_DOLLARS = 10_000;
 export const REFERENCE_STAKE_BANKROLL_FRACTION = 0.01;
 export const REFERENCE_STAKE_DOLLARS = Math.round(REFERENCE_BANKROLL_DOLLARS * REFERENCE_STAKE_BANKROLL_FRACTION);
+export const HISTORICAL_BANKROLL_START_DOLLARS = 5_000;
+export const HISTORICAL_BANKROLL_START_DATE_CENTRAL = "2026-03-05";
 
 const STAKE_ROUNDING_DOLLARS = 5;
 const REFERENCE_MARKET_WEIGHT = 0.7;
@@ -114,20 +114,8 @@ type TraceContext = {
   strategyConfig: BetStrategyRuleConfig;
 };
 
-function resolveReferenceBankrollDollars(referenceBankrollDollarsOverride?: number | null): number {
-  if (
-    typeof referenceBankrollDollarsOverride === "number" &&
-    Number.isFinite(referenceBankrollDollarsOverride) &&
-    referenceBankrollDollarsOverride > 0
-  ) {
-    return referenceBankrollDollarsOverride;
-  }
-
-  return REFERENCE_BANKROLL_DOLLARS;
-}
-
-function dollarsFromBankrollShare(share: number, referenceBankrollDollarsOverride?: number | null): number {
-  return resolveReferenceBankrollDollars(referenceBankrollDollarsOverride) * share;
+function dollarsFromBankrollShare(share: number): number {
+  return REFERENCE_BANKROLL_DOLLARS * share;
 }
 
 function roundStakeAmount(amount: number): number {
@@ -155,18 +143,13 @@ function decimalOddsToBaseStakeShare(probability: number, decimalOdds: number): 
   return Number.isFinite(fraction) ? fraction : null;
 }
 
-function quotedStakeFromBaseShare(
-  baseStakeShare: number,
-  stakeScale: number,
-  maxBetBankrollPercent: number,
-  referenceBankrollDollarsOverride?: number | null
-): number {
+function quotedStakeFromBaseShare(baseStakeShare: number, stakeScale: number, maxBetBankrollPercent: number): number {
   if (!Number.isFinite(baseStakeShare) || baseStakeShare <= 0) return 0;
   if (!Number.isFinite(stakeScale) || stakeScale <= 0) return 0;
 
   const scaledShare = clampPositive(baseStakeShare * stakeScale);
   const cappedShare = Math.min(maxBetBankrollPercent / 100, scaledShare);
-  return roundStakeAmount(dollarsFromBankrollShare(cappedShare, referenceBankrollDollarsOverride));
+  return roundStakeAmount(dollarsFromBankrollShare(cappedShare));
 }
 
 function sideProbabilityFromHomeProbability(homeProbability: number, side: ExpectedSide): number {
@@ -398,14 +381,8 @@ function compareByExpectedValue(left: BetDecisionTrace, right: BetDecisionTrace)
 }
 
 function resolveDailyRiskBudgetDollars(
-  strategyConfig?: Pick<BetStrategyRuleConfig, "maxDailyBankrollPercent"> | null,
-  dailyBudgetDollarsOverride?: number | null,
-  referenceBankrollDollarsOverride?: number | null
+  strategyConfig?: Pick<BetStrategyRuleConfig, "maxDailyBankrollPercent"> | null
 ): number | null {
-  if (typeof dailyBudgetDollarsOverride === "number" && Number.isFinite(dailyBudgetDollarsOverride) && dailyBudgetDollarsOverride >= 0) {
-    return dailyBudgetDollarsOverride;
-  }
-
   const maxDailyBankrollPercent = strategyConfig?.maxDailyBankrollPercent;
   if (
     typeof maxDailyBankrollPercent !== "number" ||
@@ -415,22 +392,14 @@ function resolveDailyRiskBudgetDollars(
     return null;
   }
 
-  return dollarsFromBankrollShare(maxDailyBankrollPercent / 100, referenceBankrollDollarsOverride);
+  return dollarsFromBankrollShare(maxDailyBankrollPercent / 100);
 }
 
-export function applyDailyRiskCapToDecisionTraces(
-  traces: BetDecisionTrace[],
-  dailyBudgetDollarsOverride?: number | null,
-  referenceBankrollDollarsOverride?: number | null
-): BetDecisionTrace[] {
+export function applyDailyRiskCapToDecisionTraces(traces: BetDecisionTrace[]): BetDecisionTrace[] {
   if (!traces.length) return traces;
 
   const strategyConfig = traces[0]?.strategyConfig;
-  const budgetDollars = resolveDailyRiskBudgetDollars(
-    strategyConfig,
-    dailyBudgetDollarsOverride,
-    referenceBankrollDollarsOverride
-  );
+  const budgetDollars = resolveDailyRiskBudgetDollars(strategyConfig);
   if (budgetDollars === null) {
     return traces.map((trace) => ({
       ...trace,
@@ -491,8 +460,7 @@ export function explainBetDecision(
   row: BetInput,
   strategy: BetStrategy = DEFAULT_BET_STRATEGY,
   strategyConfigOverride?: BetStrategyRuleConfig,
-  strategyLabelOverride?: string,
-  referenceBankrollDollarsOverride?: number | null
+  strategyLabelOverride?: string
 ): BetDecisionTrace {
   const strategyConfig = strategyConfigOverride || getBetStrategyConfig(strategy);
   const strategyLabel = strategyLabelOverride || getBetStrategyConfig(strategy).label;
@@ -689,12 +657,7 @@ export function explainBetDecision(
   const quotedStake =
     baseStakeShareOfBankroll === null
       ? 0
-      : quotedStakeFromBaseShare(
-          baseStakeShareOfBankroll,
-          strategyConfig.stakeScale,
-          strategyConfig.maxBetBankrollPercent,
-          referenceBankrollDollarsOverride
-        );
+      : quotedStakeFromBaseShare(baseStakeShareOfBankroll, strategyConfig.stakeScale, strategyConfig.maxBetBankrollPercent);
   const stake = quotedStake;
 
   if (stake <= 0) {
@@ -754,44 +717,30 @@ export function explainBetDecisionsForSlate(
   rows: BetInput[],
   strategy: BetStrategy = DEFAULT_BET_STRATEGY,
   strategyConfigOverride?: BetStrategyRuleConfig,
-  strategyLabelOverride?: string,
-  dailyBudgetDollarsOverride?: number | null,
-  referenceBankrollDollarsOverride?: number | null
+  strategyLabelOverride?: string
 ): BetDecisionTrace[] {
   return applyDailyRiskCapToDecisionTraces(
-    rows.map((row) =>
-      explainBetDecision(row, strategy, strategyConfigOverride, strategyLabelOverride, referenceBankrollDollarsOverride)
-    ),
-    dailyBudgetDollarsOverride,
-    referenceBankrollDollarsOverride
+    rows.map((row) => explainBetDecision(row, strategy, strategyConfigOverride, strategyLabelOverride))
   );
 }
 
 export function computeBetDecision(
   row: BetInput,
   strategy: BetStrategy = DEFAULT_BET_STRATEGY,
-  strategyConfigOverride?: BetStrategyRuleConfig,
-  referenceBankrollDollarsOverride?: number | null
+  strategyConfigOverride?: BetStrategyRuleConfig
 ): BetDecision {
-  return explainBetDecision(row, strategy, strategyConfigOverride, undefined, referenceBankrollDollarsOverride).decision;
+  return explainBetDecision(row, strategy, strategyConfigOverride).decision;
 }
 
 export function computeBetDecisionsForSlate(
   rows: BetInput[],
   strategy: BetStrategy = DEFAULT_BET_STRATEGY,
   strategyConfigOverride?: BetStrategyRuleConfig,
-  strategyLabelOverride?: string,
-  dailyBudgetDollarsOverride?: number | null,
-  referenceBankrollDollarsOverride?: number | null
+  strategyLabelOverride?: string
 ): BetDecision[] {
-  return explainBetDecisionsForSlate(
-    rows,
-    strategy,
-    strategyConfigOverride,
-    strategyLabelOverride,
-    dailyBudgetDollarsOverride,
-    referenceBankrollDollarsOverride
-  ).map((trace) => trace.decision);
+  return explainBetDecisionsForSlate(rows, strategy, strategyConfigOverride, strategyLabelOverride).map(
+    (trace) => trace.decision
+  );
 }
 
 export function expectedSide(homeWinProbability: number): ExpectedSide {

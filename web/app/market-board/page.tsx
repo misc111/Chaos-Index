@@ -7,7 +7,6 @@ import {
   normalizeBetStrategy,
 } from "@/lib/betting-strategy";
 import { computeBetDecisionsForSlate, type BetDecision } from "@/lib/betting";
-import { DAILY_BUDGET_QUERY_PARAM, defaultDailyBudgetDollars, parseDailyBudgetParam } from "@/lib/daily-budget";
 import { normalizeLeague } from "@/lib/league";
 import { fetchDashboardJson } from "@/lib/static-staging";
 import { type MarketBoardResponse, type MarketBoardRow } from "@/lib/types";
@@ -146,14 +145,6 @@ function MarketBoardPageContent() {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const resolvedConfig = useMemo(
-    () => report.strategy_configs?.[strategy] || getBetStrategyConfig(strategy),
-    [report.strategy_configs, strategy]
-  );
-  const dailyBudget = useMemo(
-    () => parseDailyBudgetParam(searchParams.get(DAILY_BUDGET_QUERY_PARAM), defaultDailyBudgetDollars(resolvedConfig)),
-    [resolvedConfig, searchParams]
-  );
 
   useEffect(() => {
     let cancelled = false;
@@ -205,6 +196,7 @@ function MarketBoardPageContent() {
 
   const derivedRows = useMemo(
     () => {
+      const resolvedConfig = report.strategy_configs?.[strategy] || getBetStrategyConfig(strategy);
       const decisions = computeBetDecisionsForSlate(
         report.rows.map((row) => ({
           home_team: row.home_team_name,
@@ -216,14 +208,12 @@ function MarketBoardPageContent() {
           model_win_probabilities: row.model_win_probabilities,
         })),
         strategy,
-        resolvedConfig,
-        undefined,
-        dailyBudget
+        resolvedConfig
       );
 
       return report.rows.map((row, index) => buildDerivedRow(row, decisions[index]));
     },
-    [dailyBudget, report.rows, resolvedConfig, strategy]
+    [report.rows, report.strategy_configs, strategy]
   );
 
   return (

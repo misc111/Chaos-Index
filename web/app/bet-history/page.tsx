@@ -169,7 +169,7 @@ function BetHistoryPageContent() {
           <p className={styles.eyebrow}>Historical Replay</p>
           <h2 className="title">Bet History</h2>
           <p className={styles.heroText}>
-            Replays settled games with stored pregame forecasts and fills older gaps from diagnostic history when needed.
+            Replays settled games with stored pregame forecast and moneyline snapshots.
           </p>
           <p className={styles.heroText}>{strategyConfig.label} strategy.</p>
         </div>
