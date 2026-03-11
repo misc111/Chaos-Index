@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import {
   buildEnsembleSnapshotBankrollSeries,
@@ -52,6 +52,7 @@ const CHART_PAD_LEFT = 62;
 const CHART_PAD_RIGHT = 24;
 const CHART_PAD_TOP = 24;
 const CHART_PAD_BOTTOM = 42;
+const CHART_ANIMATION_DURATION_MS = 320;
 const SNAPSHOT_LINE_COLORS = [
   "#0f766e",
   "#1d4ed8",
@@ -64,6 +65,16 @@ const SNAPSHOT_LINE_COLORS = [
   "#0f766e",
   "#374151",
 ];
+const EMPTY_CHART_GEOMETRY: ChartGeometry = {
+  plottedSeries: [],
+  startingBankrollY: CHART_PAD_TOP,
+  minY: HISTORICAL_BANKROLL_START_DOLLARS,
+  span: 1,
+  plotHeight: CHART_HEIGHT - CHART_PAD_TOP - CHART_PAD_BOTTOM,
+  yTicks: [],
+  xByDate: new Map(),
+  xTickDates: [],
+};
 
 function formatDateShort(dateKey: string): string {
   const parsed = new Date(`${dateKey}T12:00:00Z`);
@@ -81,6 +92,14 @@ function pickSeriesColor(index: number): string {
 function buildLinePath(coords: ChartCoord[]): string {
   if (!coords.length) return "";
   return coords.map((coord, index) => `${index === 0 ? "M" : "L"}${coord.x},${coord.y}`).join(" ");
+}
+
+function interpolateNumber(from: number, to: number, progress: number): number {
+  return from + (to - from) * progress;
+}
+
+function easeOutCubic(progress: number): number {
+  return 1 - Math.pow(1 - progress, 3);
 }
 
 function buildTickDates(dateKeys: string[]): string[] {
@@ -139,6 +158,21 @@ function buildChartGeometry(series: SnapshotBankrollSeries[]): ChartGeometry {
   };
 }
 
+function canAnimateTransition(previousSeries: ChartSeries[], nextSeries: ChartSeries[]): boolean {
+  if (!previousSeries.length || !nextSeries.length) return false;
+  if (previousSeries.length !== nextSeries.length) return false;
+
+  return previousSeries.every((snapshot, snapshotIndex) => {
+    const nextSnapshot = nextSeries[snapshotIndex];
+    if (!nextSnapshot) return false;
+    if (snapshot.snapshot_key !== nextSnapshot.snapshot_key) return false;
+    if (snapshot.coords.length !== nextSnapshot.coords.length) return false;
+    return snapshot.coords.every(
+      (coord, coordIndex) => coord.point.date_central === nextSnapshot.coords[coordIndex]?.point.date_central
+    );
+  });
+}
+
 export default function EnsembleSnapshotBankrollChart({
   snapshots,
   activeStrategy = "riskAdjusted",
@@ -152,28 +186,124 @@ export default function EnsembleSnapshotBankrollChart({
     () => buildEnsembleSnapshotBankrollSeries(snapshots, chartStrategy, bankrollMode),
     [snapshots, chartStrategy, bankrollMode]
   );
-  const geometry = useMemo(() => buildChartGeometry(series), [series]);
+  const geometry = useMemo(
+    () => (series.length ? buildChartGeometry(series) : EMPTY_CHART_GEOMETRY),
+    [series]
+  );
+  // The chart renders from "displayed" geometry instead of the latest geometry
+  // so a continuity toggle can animate between two bankroll bases.
+  const [displayedSeries, setDisplayedSeries] = useState<ChartSeries[]>(geometry.plottedSeries);
+  const [displayedStartingBankrollY, setDisplayedStartingBankrollY] = useState<number>(geometry.startingBankrollY);
+  const displayedSeriesRef = useRef<ChartSeries[]>(geometry.plottedSeries);
+  const displayedStartingBankrollYRef = useRef<number>(geometry.startingBankrollY);
+  const animationFrameRef = useRef<number | null>(null);
+  const reducedMotionRef = useRef<boolean>(false);
   const selectedSeries =
     geometry.plottedSeries.find((snapshot) => snapshot.snapshot_key === selectedSnapshotKey) || geometry.plottedSeries[0];
   const [hoverState, setHoverState] = useState<{ snapshotKey: string; strategy: SnapshotChartStrategyKey; date: string } | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    reducedMotionRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (animationFrameRef.current !== null) {
+        window.cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const previousSeries = displayedSeriesRef.current;
+
+    if (animationFrameRef.current !== null) {
+      window.cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+
+    // If the chart structure changed, such as different snapshots appearing, we
+    // snap directly to the new geometry instead of trying to tween mismatched
+    // lines across one another.
+    if (reducedMotionRef.current || !canAnimateTransition(previousSeries, geometry.plottedSeries)) {
+      displayedSeriesRef.current = geometry.plottedSeries;
+      displayedStartingBankrollYRef.current = geometry.startingBankrollY;
+      animationFrameRef.current = window.requestAnimationFrame(() => {
+        setDisplayedSeries(geometry.plottedSeries);
+        setDisplayedStartingBankrollY(geometry.startingBankrollY);
+        animationFrameRef.current = null;
+      });
+      return;
+    }
+
+    const startSeries = previousSeries;
+    const startBaselineY = displayedStartingBankrollYRef.current;
+    let startTime: number | null = null;
+
+    displayedSeriesRef.current = startSeries;
+    displayedStartingBankrollYRef.current = startBaselineY;
+
+    // Continuity toggles only change the bankroll framing, not the identity of
+    // the series. That makes this interpolation safe: every dated snapshot line
+    // keeps the same point order while the y-positions glide into the new basis.
+    const animate = (timestamp: number) => {
+      startTime ??= timestamp;
+      const rawProgress = Math.min((timestamp - startTime) / CHART_ANIMATION_DURATION_MS, 1);
+      const progress = easeOutCubic(rawProgress);
+      const nextSeries = geometry.plottedSeries.map((snapshot, snapshotIndex) => {
+        const startSnapshot = startSeries[snapshotIndex] ?? snapshot;
+        return {
+          ...snapshot,
+          coords: snapshot.coords.map((coord, coordIndex) => {
+            const startCoord = startSnapshot.coords[coordIndex] ?? coord;
+            return {
+              x: interpolateNumber(startCoord.x, coord.x, progress),
+              y: interpolateNumber(startCoord.y, coord.y, progress),
+              point: coord.point,
+            };
+          }),
+        };
+      });
+      const nextBaselineY = interpolateNumber(startBaselineY, geometry.startingBankrollY, progress);
+
+      displayedSeriesRef.current = nextSeries;
+      displayedStartingBankrollYRef.current = nextBaselineY;
+      setDisplayedSeries(nextSeries);
+      setDisplayedStartingBankrollY(nextBaselineY);
+
+      if (rawProgress < 1) {
+        animationFrameRef.current = window.requestAnimationFrame(animate);
+        return;
+      }
+
+      animationFrameRef.current = null;
+    };
+
+    animationFrameRef.current = window.requestAnimationFrame(animate);
+  }, [geometry]);
 
   if (!selectedSeries) {
     return null;
   }
 
+  const displayedSelectedSeries =
+    displayedSeries.find((snapshot) => snapshot.snapshot_key === selectedSeries.snapshot_key) || displayedSeries[0] || selectedSeries;
+  // Tooltip and point highlights should stay attached to the animated line the
+  // viewer is looking at, not jump ahead to the final coordinates mid-transition.
   const activePointDate =
     hoverState &&
-    hoverState.snapshotKey === selectedSeries.snapshot_key &&
+    hoverState.snapshotKey === displayedSelectedSeries.snapshot_key &&
     hoverState.strategy === chartStrategy &&
-    selectedSeries.coords.some((coord) => coord.point.date_central === hoverState.date)
+    displayedSelectedSeries.coords.some((coord) => coord.point.date_central === hoverState.date)
       ? hoverState.date
-      : selectedSeries.final_point.date_central;
+      : displayedSelectedSeries.final_point.date_central;
   const activeCoord =
-    selectedSeries.coords.find((coord) => coord.point.date_central === activePointDate) ||
-    selectedSeries.coords[selectedSeries.coords.length - 1] ||
+    displayedSelectedSeries.coords.find((coord) => coord.point.date_central === activePointDate) ||
+    displayedSelectedSeries.coords[displayedSelectedSeries.coords.length - 1] ||
     null;
   const tooltipBelow = activeCoord ? activeCoord.y < CHART_PAD_TOP + 40 : false;
-  const { minY, plotHeight, span, yTicks, xTickDates, startingBankrollY, xByDate } = geometry;
+  const { minY, plotHeight, span, yTicks, xTickDates, xByDate } = geometry;
   const totalSnapshots = geometry.plottedSeries.length;
   const continuityEnabled = bankrollMode === "continuity";
 
@@ -294,14 +424,14 @@ export default function EnsembleSnapshotBankrollChart({
 
           <line
             x1={CHART_PAD_LEFT}
-            y1={startingBankrollY}
+            y1={displayedStartingBankrollY}
             x2={CHART_WIDTH - CHART_PAD_RIGHT}
-            y2={startingBankrollY}
+            y2={displayedStartingBankrollY}
             stroke="var(--chart-baseline)"
             strokeDasharray="5 4"
           />
 
-          {geometry.plottedSeries.map((snapshot) => {
+          {displayedSeries.map((snapshot) => {
             const linePath = buildLinePath(snapshot.coords);
             const isSelected = snapshot.snapshot_key === selectedSeries.snapshot_key;
             return (
@@ -340,8 +470,8 @@ export default function EnsembleSnapshotBankrollChart({
             );
           })}
 
-          {selectedSeries.coords.map((coord) => (
-            <g key={`${selectedSeries.snapshot_key}-${coord.point.date_central}`}>
+          {displayedSelectedSeries.coords.map((coord) => (
+            <g key={`${displayedSelectedSeries.snapshot_key}-${coord.point.date_central}`}>
               <circle
                 cx={coord.x}
                 cy={coord.y}
@@ -356,21 +486,21 @@ export default function EnsembleSnapshotBankrollChart({
                 })}${continuityEnabled ? ` snapshot-only net ${formatSignedUsd(coord.point.snapshot_cumulative_profit, { minimumFractionDigits: 2 })}` : ""}`}
                 onPointerEnter={() =>
                   setHoverState({
-                    snapshotKey: selectedSeries.snapshot_key,
+                    snapshotKey: displayedSelectedSeries.snapshot_key,
                     strategy: chartStrategy,
                     date: coord.point.date_central,
                   })
                 }
                 onPointerDown={() =>
                   setHoverState({
-                    snapshotKey: selectedSeries.snapshot_key,
+                    snapshotKey: displayedSelectedSeries.snapshot_key,
                     strategy: chartStrategy,
                     date: coord.point.date_central,
                   })
                 }
                 onFocus={() =>
                   setHoverState({
-                    snapshotKey: selectedSeries.snapshot_key,
+                    snapshotKey: displayedSelectedSeries.snapshot_key,
                     strategy: chartStrategy,
                     date: coord.point.date_central,
                   })
@@ -390,7 +520,7 @@ export default function EnsembleSnapshotBankrollChart({
           ))}
 
           {xTickDates.map((dateKey) => {
-            const coord = selectedSeries.coords.find((point) => point.point.date_central === dateKey);
+            const coord = displayedSelectedSeries.coords.find((point) => point.point.date_central === dateKey);
             const x = coord?.x ?? xByDate.get(dateKey) ?? CHART_PAD_LEFT;
             return (
               <text key={dateKey} x={x} y={CHART_HEIGHT - 12} textAnchor="middle" fill="var(--chart-axis)" fontSize="11">
