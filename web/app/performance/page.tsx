@@ -32,22 +32,22 @@ function PerformancePageContent() {
 
   return (
     <div className="grid">
-      <div className="card">
-        <h3 className="title">Model Drift Timeline</h3>
-        <p className="small">
-          The top charts show how each model family has been scoring over time. The version replay section underneath keeps older
-          trained runs separate, so you can see whether a feature-set change or parameter tweak coincided with worse live results.
-          The frozen ensemble snapshot section then asks the counterfactual question directly: what your cumulative winnings would
-          look like today if you had stopped recalibrating on a given date.
-        </p>
-      </div>
-      <PerformanceCharts rows={data.scores} />
-      <ModelVersionExplorer rows={data.run_summaries} />
       <EnsembleSnapshotExplorer
         snapshots={data.ensemble_snapshots}
         defaultStrategy={data.default_replay_strategy}
         comparisonStrategy={data.comparison_replay_strategy}
       />
+      <div className="card">
+        <h3 className="title">Model Drift Timeline</h3>
+        <p className="small">
+          The top bankroll chart freezes each dated ensemble snapshot into its own betting path, so you can answer the direct
+          counterfactual first: what your account would look like today if you had stopped recalibrating on a given date. The score
+          charts underneath then show how each model family has been grading over time, while the version replay section keeps older
+          trained runs separate so you can inspect which feature-set or parameter changes lined up with better or worse live results.
+        </p>
+      </div>
+      <PerformanceCharts rows={data.scores} />
+      <ModelVersionExplorer rows={data.run_summaries} />
       <ModelBetReplayExplorer
         runs={data.replay_runs}
         defaultStrategy={data.default_replay_strategy}

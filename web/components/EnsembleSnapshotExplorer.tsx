@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import EnsembleSnapshotBankrollChart from "@/components/EnsembleSnapshotBankrollChart";
 import styles from "@/components/EnsembleSnapshotExplorer.module.css";
 import { formatUsd } from "@/lib/currency";
 import { getBetStrategyConfig, type BetStrategy } from "@/lib/betting-strategy";
@@ -80,8 +81,24 @@ export default function EnsembleSnapshotExplorer({
 }: Props) {
   const primaryStrategy = strategyKeyFromPreference(defaultStrategy);
   const secondaryStrategy = strategyKeyFromPreference(comparisonStrategy) === "riskAdjusted" ? "aggressive" : strategyKeyFromPreference(comparisonStrategy);
-  const [selectedSnapshotKey, setSelectedSnapshotKey] = useState(snapshots[0]?.snapshot_key || "");
+  const [selectedSnapshotKey, setSelectedSnapshotKey] = useState("");
   const [matrixStrategy, setMatrixStrategy] = useState<SnapshotStrategyKey>(primaryStrategy);
+
+  const sortedSnapshots = useMemo(
+    () =>
+      snapshots
+        .slice()
+        .sort(
+          (left, right) =>
+            Date.parse(String(right.finalized_at_utc || right.activation_date_central || "")) -
+            Date.parse(String(left.finalized_at_utc || left.activation_date_central || ""))
+        ),
+    [snapshots]
+  );
+  const matrixSnapshots = useMemo(
+    () => snapshots.slice().sort((left, right) => left.activation_date_central.localeCompare(right.activation_date_central)),
+    [snapshots]
+  );
 
   if (!snapshots || snapshots.length === 0) {
     return (
@@ -95,15 +112,12 @@ export default function EnsembleSnapshotExplorer({
     );
   }
 
-  const sortedSnapshots = snapshots
-    .slice()
-    .sort(
-      (left, right) =>
-        Date.parse(String(right.finalized_at_utc || right.activation_date_central || "")) -
-        Date.parse(String(left.finalized_at_utc || left.activation_date_central || ""))
-    );
-  const matrixSnapshots = snapshots.slice().sort((left, right) => left.activation_date_central.localeCompare(right.activation_date_central));
-  const selectedSnapshot = sortedSnapshots.find((snapshot) => snapshot.snapshot_key === selectedSnapshotKey) || sortedSnapshots[0];
+  // Keep the entire explorer on one snapshot identity. The top bankroll chart,
+  // the timeline cards, and the detailed provenance tables should all be
+  // talking about the same frozen model state instead of drifting apart.
+  const activeSelectedSnapshotKey =
+    sortedSnapshots.some((snapshot) => snapshot.snapshot_key === selectedSnapshotKey) ? selectedSnapshotKey : sortedSnapshots[0].snapshot_key;
+  const selectedSnapshot = sortedSnapshots.find((snapshot) => snapshot.snapshot_key === activeSelectedSnapshotKey) || sortedSnapshots[0];
   const primaryConfig = getBetStrategyConfig(primaryStrategy);
   const secondaryConfig = getBetStrategyConfig(secondaryStrategy);
   const matrixStrategyConfig = getBetStrategyConfig(matrixStrategy);
@@ -114,6 +128,14 @@ export default function EnsembleSnapshotExplorer({
 
   return (
     <div className="grid">
+      <EnsembleSnapshotBankrollChart
+        snapshots={matrixSnapshots}
+        defaultStrategy={defaultStrategy}
+        comparisonStrategy={comparisonStrategy}
+        selectedSnapshotKey={activeSelectedSnapshotKey}
+        onSelectSnapshotKey={setSelectedSnapshotKey}
+      />
+
       <section className={`card ${styles.heroCard}`}>
         <p className={styles.eyebrow}>Frozen Counterfactuals</p>
         <h3 className="title" style={{ marginTop: 10 }}>What If You Had Stopped Recalibrating On A Given Day?</h3>
