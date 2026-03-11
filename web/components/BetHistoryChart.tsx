@@ -15,10 +15,14 @@ type Props = {
   strategyLabel: string;
 };
 
+type PlottedPoint = HistoricalDailyPoint & {
+  kind: "start" | "daily";
+};
+
 type ChartCoord = {
   x: number;
   y: number;
-  point: HistoricalDailyPoint;
+  point: PlottedPoint;
 };
 
 type ChartGeometry = {
@@ -57,7 +61,37 @@ function formatDateShort(dateKey: string): string {
   });
 }
 
-function buildChartGeometry(points: HistoricalDailyPoint[]): ChartGeometry {
+function previousDateKey(dateKey: string): string {
+  const parsed = new Date(`${dateKey}T12:00:00Z`);
+  if (Number.isNaN(parsed.getTime())) return dateKey;
+  parsed.setUTCDate(parsed.getUTCDate() - 1);
+  return parsed.toISOString().slice(0, 10);
+}
+
+function buildPlottedPoints(points: HistoricalDailyPoint[]): PlottedPoint[] {
+  if (!points.length) return [];
+
+  const firstPoint = points[0];
+  const startPoint: PlottedPoint = {
+    date_central: previousDateKey(firstPoint.date_central),
+    risked: 0,
+    daily_profit: 0,
+    cumulative_profit: 0,
+    cumulative_bankroll: HISTORICAL_BANKROLL_START_DOLLARS,
+    bet_count: 0,
+    kind: "start",
+  };
+
+  return [
+    startPoint,
+    ...points.map((point) => ({
+      ...point,
+      kind: "daily" as const,
+    })),
+  ];
+}
+
+function buildChartGeometry(points: PlottedPoint[]): ChartGeometry {
   const plottedValues = points.map((point) => point.cumulative_bankroll);
   const minY = Math.min(HISTORICAL_BANKROLL_START_DOLLARS, ...plottedValues);
   const maxY = Math.max(HISTORICAL_BANKROLL_START_DOLLARS, ...plottedValues);
@@ -110,8 +144,12 @@ function canAnimateTransition(previousCoords: ChartCoord[], nextCoords: ChartCoo
 export default function BetHistoryChart({ points, strategyLabel }: Props) {
   const [activePointIndex, setActivePointIndex] = useState<number | null>(null);
   const chartId = useId().replace(/:/g, "");
+  const plottedPoints = useMemo(() => buildPlottedPoints(points), [points]);
 
-  const geometry = useMemo(() => (points.length ? buildChartGeometry(points) : EMPTY_CHART_GEOMETRY), [points]);
+  const geometry = useMemo(
+    () => (plottedPoints.length ? buildChartGeometry(plottedPoints) : EMPTY_CHART_GEOMETRY),
+    [plottedPoints]
+  );
   const [displayedCoords, setDisplayedCoords] = useState<ChartCoord[]>(geometry.coords);
   const [displayedStartingBankrollY, setDisplayedStartingBankrollY] = useState<number>(geometry.startingBankrollY);
   const displayedCoordsRef = useRef<ChartCoord[]>(geometry.coords);
@@ -202,6 +240,8 @@ export default function BetHistoryChart({ points, strategyLabel }: Props) {
   const { minY, plotHeight, span, xTickIndexes, yTicks } = geometry;
   const displayedXTickIndexes = xTickIndexes.filter((index) => index < coords.length);
   const lastPoint = points[points.length - 1];
+  const openingPointDate = plottedPoints[0]?.date_central ?? previousDateKey(HISTORICAL_BANKROLL_START_DATE_CENTRAL);
+  const firstReplayDate = points[0]?.date_central ?? HISTORICAL_BANKROLL_START_DATE_CENTRAL;
   const safeActivePointIndex = activePointIndex !== null && activePointIndex < coords.length ? activePointIndex : null;
   const activeCoord = safeActivePointIndex === null ? null : coords[safeActivePointIndex];
   const tooltipBelow = activeCoord ? activeCoord.y < CHART_PAD_TOP + 34 : false;
@@ -213,8 +253,8 @@ export default function BetHistoryChart({ points, strategyLabel }: Props) {
         <h2 className="title">Cumulative Bankroll</h2>
         <p className={styles.chartObjective}>Objective: {strategyLabel}</p>
         <p className="small">
-          Bankroll starts at {formatUsd(HISTORICAL_BANKROLL_START_DOLLARS)} on {formatDateShort(HISTORICAL_BANKROLL_START_DATE_CENTRAL)}.
-          {" "}Plotted points show end-of-day bankroll after each replay date, and Net P/L / ROI above summarize the same replayed bets.
+          The line begins at {formatUsd(HISTORICAL_BANKROLL_START_DOLLARS)} on {formatDateShort(openingPointDate)}, the day before the
+          {" "}first replayed betting day on {formatDateShort(firstReplayDate)}. Later points show end-of-day bankroll after each replay date.
         </p>
       </div>
 
@@ -227,19 +267,29 @@ export default function BetHistoryChart({ points, strategyLabel }: Props) {
               top: `${(activeCoord.y / CHART_HEIGHT) * 100}%`,
             }}
           >
-            <p className={styles.chartTooltipDate}>{formatDateShort(activeCoord.point.date_central)}</p>
+            <p className={styles.chartTooltipDate}>
+              {activeCoord.point.kind === "start"
+                ? `Start · ${formatDateShort(activeCoord.point.date_central)}`
+                : formatDateShort(activeCoord.point.date_central)}
+            </p>
             <p className={styles.chartTooltipValue}>
               Bankroll {formatUsd(activeCoord.point.cumulative_bankroll, { minimumFractionDigits: 2 })}
             </p>
-            <p className={styles.chartTooltipDetail}>
-              Net {formatSignedUsd(activeCoord.point.cumulative_profit, { minimumFractionDigits: 2 })}
-            </p>
-            <p className={styles.chartTooltipDetail}>
-              Day {formatSignedUsd(activeCoord.point.daily_profit, { minimumFractionDigits: 2 })}
-            </p>
-            <p className={styles.chartTooltipDetail}>
-              Total risked {formatUsd(activeCoord.point.risked, { minimumFractionDigits: 2 })}
-            </p>
+            {activeCoord.point.kind === "start" ? (
+              <p className={styles.chartTooltipDetail}>Opening bankroll before the first replayed betting day.</p>
+            ) : (
+              <>
+                <p className={styles.chartTooltipDetail}>
+                  Net {formatSignedUsd(activeCoord.point.cumulative_profit, { minimumFractionDigits: 2 })}
+                </p>
+                <p className={styles.chartTooltipDetail}>
+                  Day {formatSignedUsd(activeCoord.point.daily_profit, { minimumFractionDigits: 2 })}
+                </p>
+                <p className={styles.chartTooltipDetail}>
+                  Total risked {formatUsd(activeCoord.point.risked, { minimumFractionDigits: 2 })}
+                </p>
+              </>
+            )}
           </div>
         ) : null}
 
@@ -298,13 +348,19 @@ export default function BetHistoryChart({ points, strategyLabel }: Props) {
                 fill="transparent"
                 className={styles.chartPointHit}
                 tabIndex={0}
-                aria-label={`${formatDateShort(coord.point.date_central)} bankroll ${formatUsd(coord.point.cumulative_bankroll, {
-                  minimumFractionDigits: 2,
-                })} cumulative net ${formatSignedUsd(coord.point.cumulative_profit, {
-                  minimumFractionDigits: 2,
-                })} day result ${formatSignedUsd(coord.point.daily_profit, {
-                  minimumFractionDigits: 2,
-                })} total risked ${formatUsd(coord.point.risked, { minimumFractionDigits: 2 })}`}
+                aria-label={
+                  coord.point.kind === "start"
+                    ? `Start bankroll on ${formatDateShort(coord.point.date_central)} ${formatUsd(coord.point.cumulative_bankroll, {
+                        minimumFractionDigits: 2,
+                      })}`
+                    : `${formatDateShort(coord.point.date_central)} bankroll ${formatUsd(coord.point.cumulative_bankroll, {
+                        minimumFractionDigits: 2,
+                      })} cumulative net ${formatSignedUsd(coord.point.cumulative_profit, {
+                        minimumFractionDigits: 2,
+                      })} day result ${formatSignedUsd(coord.point.daily_profit, {
+                        minimumFractionDigits: 2,
+                      })} total risked ${formatUsd(coord.point.risked, { minimumFractionDigits: 2 })}`
+                }
                 onPointerEnter={() => setActivePointIndex(index)}
                 onPointerDown={() => setActivePointIndex(index)}
                 onFocus={() => setActivePointIndex(index)}
@@ -333,7 +389,7 @@ export default function BetHistoryChart({ points, strategyLabel }: Props) {
                 fill="var(--chart-axis)"
                 fontSize="11"
               >
-                {formatDateShort(coord.point.date_central)}
+                {coord.point.kind === "start" ? formatDateShort(coord.point.date_central) : formatDateShort(coord.point.date_central)}
               </text>
             );
           })}
