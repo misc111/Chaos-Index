@@ -5,6 +5,7 @@ import path from "node:path";
 import { DEFAULT_BET_STRATEGY } from "@/lib/betting-strategy";
 import type { ModelWinProbabilities } from "@/lib/betting-model";
 import { runSqlJson } from "@/lib/db";
+import { filterPerformanceTimelineSnapshots } from "@/lib/ensemble-snapshot-performance";
 import {
   buildEnsembleSnapshots,
   type EnsembleSnapshotCandidateRow,
@@ -1299,7 +1300,7 @@ export function getPerformancePayload(league: LeagueCode): PerformanceResponse {
   const run_summaries = queryRunSummaries(league);
   const change_points = queryChangePoints(league);
   const replay_runs = buildReplayCandidates(league, run_summaries);
-  const ensemble_snapshots = buildFrozenEnsembleSnapshots(league);
+  const ensemble_snapshots = filterPerformanceTimelineSnapshots(buildFrozenEnsembleSnapshots(league));
 
   return {
     league,
