@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pandas as pd
+import pytest
 
 from src.features.build_features import build_features_from_interim
 
@@ -63,3 +64,6 @@ def test_feature_build_smoke(tmp_path: Path):
     assert "dyn_home_prob_hinge_055" in cols
     assert "dyn_home_mean_hinge_000" in cols
     assert "elo_home_prob_hinge_054" in cols
+    historical = out.dataframe.set_index("game_id")
+    assert float(historical.loc[3, "rink_goal_effect"]) == pytest.approx(1.0 / 26.0)
+    assert float(historical.loc[4, "rink_goal_effect"]) == pytest.approx(-1.0 / 26.0)

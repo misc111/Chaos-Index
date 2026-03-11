@@ -161,8 +161,8 @@ class NhlFeatureStrategy(BaseFeatureStrategy):
         if not travel.empty:
             out = out.merge(travel, on="game_id", how="left")
 
-        rink = compute_rink_effects(out[out["status_final"] == 1])
-        out = out.merge(rink, on="venue", how="left")
+        rink = compute_rink_effects(out)
+        out = out.merge(rink, on="game_id", how="left")
         out["rink_goal_effect"] = out["rink_goal_effect"].fillna(0)
         out["rink_shot_effect"] = out["rink_shot_effect"].fillna(0)
         out["fallback_xg_proxy_used"] = 1

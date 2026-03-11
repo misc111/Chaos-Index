@@ -8,6 +8,7 @@ from src.evaluation.change_detection import detect_change_points
 from src.evaluation.metrics import per_game_scores
 from src.evaluation.performance_timeseries import compute_performance_aggregates
 from src.storage.db import Database
+from src.storage.prediction_history import frozen_prediction_source_sql
 from src.training.model_catalog import MODEL_ALIASES
 
 
@@ -21,7 +22,7 @@ def _canonical_model_name(model_name: object) -> str:
 def score_predictions(db: Database, windows_days: list[int]) -> dict:
     preds = pd.DataFrame(
         db.query(
-            """
+            f"""
             SELECT
               p.prediction_id,
               p.game_id,
@@ -37,6 +38,7 @@ def score_predictions(db: Database, windows_days: list[int]) -> dict:
               DATETIME(r.final_utc),
               DATETIME(r.game_date_utc || 'T23:59:59')
             )
+              AND {frozen_prediction_source_sql('p')}
             """
         )
     )

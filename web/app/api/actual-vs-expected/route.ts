@@ -3,6 +3,7 @@ import { runSqlJson } from "@/lib/db";
 import { leagueFromRequest } from "@/lib/league";
 
 export const dynamic = "force-dynamic";
+const FROZEN_FORECAST_SOURCE = "train_upcoming";
 
 function escapeSqlString(value: string): string {
   return value.replace(/'/g, "''");
@@ -27,6 +28,7 @@ export async function GET(request: Request) {
       FROM predictions p
       JOIN results r ON r.game_id = p.game_id
       WHERE p.model_name = 'ensemble'
+        AND COALESCE(json_extract(p.metadata_json, '$.source'), '') = '${escapeSqlString(FROZEN_FORECAST_SOURCE)}'
         AND DATETIME(p.as_of_utc) <= COALESCE(
           DATETIME(r.final_utc),
           DATETIME(r.game_date_utc || 'T23:59:59')

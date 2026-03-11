@@ -20,6 +20,7 @@ from src.common.utils import to_json
 from src.evaluation.validation_pipeline import run_validation_pipeline
 from src.services.ingest import latest_snapshot_id
 from src.storage.db import Database
+from src.storage.prediction_history import FROZEN_PREDICTION_SOURCE
 from src.storage.tracker import RunTracker
 from src.training.feature_policy import apply_feature_policy
 from src.training.prequential import score_predictions
@@ -136,7 +137,7 @@ def persist_predictions(
                     None,
                     None,
                     r.uncertainty_flags_json,
-                    to_json({"source": "train_upcoming"}),
+                    to_json({"source": FROZEN_PREDICTION_SOURCE}),
                 )
             )
 
@@ -158,7 +159,7 @@ def persist_predictions(
                 r.bayes_ci_low,
                 r.bayes_ci_high,
                 r.uncertainty_flags_json,
-                to_json({"source": "train_upcoming"}),
+                to_json({"source": FROZEN_PREDICTION_SOURCE}),
             )
         )
 
@@ -273,7 +274,8 @@ def persist_historical_oof_predictions(
 
     db.executemany(
         """
-        INSERT OR REPLACE INTO predictions(
+        -- OOF rows are diagnostics, not frozen historical live forecasts.
+        INSERT OR REPLACE INTO prediction_diagnostics(
           game_id, as_of_utc, model_name, model_run_id, feature_set_version, snapshot_id,
           game_date_utc, home_team, away_team, prob_home_win, pred_winner, prob_low, prob_high,
           uncertainty_flags_json, metadata_json
@@ -351,6 +353,9 @@ def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_
         model_run_id=result["model_run_id"],
         feature_set_version=feature_set_version,
     )
+    # Historical replay must stay frozen to the forecasts that truly existed at
+    # the time. Synthetic OOF diagnostics are still useful, but they must live
+    # outside `predictions` so future model overhauls cannot rewrite the past.
     persist_historical_oof_predictions(
         db,
         train_df=result["train_df"],

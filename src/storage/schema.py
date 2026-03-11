@@ -79,8 +79,32 @@ CREATE TABLE IF NOT EXISTS model_runs (
   model_hash TEXT
 );
 
+-- `predictions` is the immutable pregame ledger that powers historical replay.
+-- Only live forecasts that truly existed before a game started belong here.
 CREATE TABLE IF NOT EXISTS predictions (
   prediction_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  game_id INTEGER NOT NULL,
+  as_of_utc TEXT NOT NULL,
+  model_name TEXT NOT NULL,
+  model_run_id TEXT,
+  feature_set_version TEXT,
+  snapshot_id TEXT,
+  game_date_utc TEXT,
+  home_team TEXT,
+  away_team TEXT,
+  prob_home_win REAL NOT NULL,
+  pred_winner TEXT,
+  prob_low REAL,
+  prob_high REAL,
+  uncertainty_flags_json TEXT,
+  metadata_json TEXT,
+  UNIQUE(game_id, as_of_utc, model_name, model_run_id)
+);
+
+-- Synthetic diagnostics stay separate so backtests and OOF rows can never
+-- silently rewrite the app's view of historical live predictions.
+CREATE TABLE IF NOT EXISTS prediction_diagnostics (
+  diagnostic_id INTEGER PRIMARY KEY AUTOINCREMENT,
   game_id INTEGER NOT NULL,
   as_of_utc TEXT NOT NULL,
   model_name TEXT NOT NULL,
@@ -287,6 +311,8 @@ CREATE TABLE IF NOT EXISTS historical_bet_decisions_by_profile (
 
 CREATE INDEX IF NOT EXISTS idx_predictions_game_model ON predictions(game_id, model_name);
 CREATE INDEX IF NOT EXISTS idx_predictions_asof ON predictions(as_of_utc);
+CREATE INDEX IF NOT EXISTS idx_prediction_diagnostics_game_model ON prediction_diagnostics(game_id, model_name);
+CREATE INDEX IF NOT EXISTS idx_prediction_diagnostics_asof ON prediction_diagnostics(as_of_utc);
 CREATE INDEX IF NOT EXISTS idx_upcoming_asof ON upcoming_game_forecasts(as_of_utc);
 CREATE INDEX IF NOT EXISTS idx_upcoming_asof_date ON upcoming_game_forecasts(as_of_utc, game_date_utc, game_id);
 CREATE INDEX IF NOT EXISTS idx_upcoming_asof_home_date ON upcoming_game_forecasts(as_of_utc, home_team, game_date_utc, game_id);

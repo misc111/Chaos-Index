@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pandas as pd
+import pytest
 
 from src.features.build_features import build_features_from_interim
 
@@ -142,3 +143,6 @@ def test_nba_feature_build_uses_basketball_feature_names(tmp_path: Path) -> None
     assert int(upcoming["home_shot_profile_proxy_used"]) == 0
     assert int(upcoming["away_shot_profile_proxy_used"]) == 0
     assert int(upcoming["fallback_shot_profile_proxy_used"]) == 0
+    historical = out.dataframe.set_index("game_id")
+    assert float(historical.loc[3, "arena_margin_effect"]) == pytest.approx(8.0 / 26.0)
+    assert float(historical.loc[4, "arena_margin_effect"]) == pytest.approx(-8.0 / 26.0)

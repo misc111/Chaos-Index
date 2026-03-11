@@ -87,7 +87,8 @@ def run_backtest(cfg: AppConfig, models_arg: str | None = None, approve_feature_
 
     db.executemany(
         """
-        INSERT OR REPLACE INTO predictions(
+        -- Backtest rows stay out of `predictions` so replay/history remains frozen.
+        INSERT OR REPLACE INTO prediction_diagnostics(
           game_id, as_of_utc, model_name, model_run_id, feature_set_version, snapshot_id,
           game_date_utc, home_team, away_team, prob_home_win, pred_winner, prob_low, prob_high,
           uncertainty_flags_json, metadata_json

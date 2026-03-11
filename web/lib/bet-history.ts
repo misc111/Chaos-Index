@@ -117,6 +117,8 @@ type HistoricalReplayDataset = {
   rows: HistoricalReplayGameRow[];
 };
 
+const FROZEN_FORECAST_SOURCE = "train_upcoming";
+
 function escapeSqlString(value: string): string {
   return value.replace(/'/g, "''");
 }
@@ -236,10 +238,13 @@ function betDecisionFromReplaySnapshot(snapshot: HistoricalReplayDecisionSnapsho
 function historicalGamesSql(league: LeagueCode, modelName: string): string {
   const escapedLeague = escapeSqlString(league);
   const escapedModelName = escapeSqlString(modelName);
+  const escapedFrozenSource = escapeSqlString(FROZEN_FORECAST_SOURCE);
 
   // Finalized-game replay must use immutable prediction history. The live
   // `upcoming_game_forecasts` table is intentionally excluded here because
-  // retrains can replace rows in place for the same `as_of_utc`.
+  // retrains can replace rows in place for the same `as_of_utc`. Historical
+  // odds are keyed off that frozen forecast timestamp too, so only the betting
+  // strategy can change over time.
   return `
     WITH finalized_games AS (
       SELECT
@@ -274,6 +279,7 @@ function historicalGamesSql(league: LeagueCode, modelName: string): string {
       JOIN predictions p
         ON p.game_id = fg.game_id
        AND p.model_name = '${escapedModelName}'
+       AND COALESCE(json_extract(p.metadata_json, '$.source'), '') = '${escapedFrozenSource}'
        AND DATETIME(p.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
       LEFT JOIN model_runs mr
         ON mr.model_run_id = p.model_run_id
@@ -295,8 +301,9 @@ function historicalGamesSql(league: LeagueCode, modelName: string): string {
       (
         SELECT s.odds_snapshot_id
         FROM odds_snapshots s
-        WHERE s.league = '${escapedLeague}'
-          AND DATETIME(s.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
+        WHERE rf.as_of_utc IS NOT NULL
+          AND s.league = '${escapedLeague}'
+          AND DATETIME(s.as_of_utc) <= DATETIME(rf.as_of_utc)
           AND EXISTS (
             SELECT 1
             FROM odds_market_lines l
@@ -313,8 +320,9 @@ function historicalGamesSql(league: LeagueCode, modelName: string): string {
       (
         SELECT s.as_of_utc
         FROM odds_snapshots s
-        WHERE s.league = '${escapedLeague}'
-          AND DATETIME(s.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
+        WHERE rf.as_of_utc IS NOT NULL
+          AND s.league = '${escapedLeague}'
+          AND DATETIME(s.as_of_utc) <= DATETIME(rf.as_of_utc)
           AND EXISTS (
             SELECT 1
             FROM odds_market_lines l
@@ -337,6 +345,8 @@ function historicalGamesSql(league: LeagueCode, modelName: string): string {
 }
 
 function historicalModelProbabilitiesSql(): string {
+  const escapedFrozenSource = escapeSqlString(FROZEN_FORECAST_SOURCE);
+
   return `
     WITH finalized_games AS (
       SELECT
@@ -361,6 +371,7 @@ function historicalModelProbabilitiesSql(): string {
       FROM finalized_games fg
       JOIN predictions p
         ON p.game_id = fg.game_id
+       AND COALESCE(json_extract(p.metadata_json, '$.source'), '') = '${escapedFrozenSource}'
        AND DATETIME(p.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
       LEFT JOIN model_runs mr
         ON mr.model_run_id = p.model_run_id

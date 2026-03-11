@@ -5,6 +5,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+from src.features.contextual_effects import compute_causal_group_effects
 from src.features.dynamic_ratings import compute_dynamic_rating_features
 from src.features.elo import compute_elo_features
 from src.features.strategies.base import BaseFeatureStrategy
@@ -25,20 +26,20 @@ def _positive_part(series: pd.Series, knot: float) -> pd.Series:
 
 def _compute_arena_effects(games_df: pd.DataFrame) -> pd.DataFrame:
     if games_df.empty:
-        return pd.DataFrame(columns=["venue", "arena_margin_effect", "arena_shot_volume_effect"])
+        return pd.DataFrame(columns=["game_id", "arena_margin_effect", "arena_shot_volume_effect"])
 
     tmp = games_df.copy()
     tmp["point_margin"] = tmp["home_score"].fillna(0) - tmp["away_score"].fillna(0)
     tmp["shot_volume_diff"] = tmp["home_field_goal_attempts_for"].fillna(0) - tmp["away_field_goal_attempts_for"].fillna(0)
-    arena_mean = tmp.groupby("venue", dropna=False).agg(
-        arena_margin_effect=("point_margin", "mean"),
-        arena_shot_volume_effect=("shot_volume_diff", "mean"),
-        n=("game_id", "count"),
+    return compute_causal_group_effects(
+        tmp,
+        group_col="venue",
+        metric_columns={
+            "arena_margin_effect": "point_margin",
+            "arena_shot_volume_effect": "shot_volume_diff",
+        },
+        shrinkage=20.0,
     )
-    credibility = arena_mean["n"] / (arena_mean["n"] + 20)
-    arena_mean["arena_margin_effect"] = arena_mean["arena_margin_effect"] * credibility
-    arena_mean["arena_shot_volume_effect"] = arena_mean["arena_shot_volume_effect"] * credibility
-    return arena_mean.reset_index()[["venue", "arena_margin_effect", "arena_shot_volume_effect"]]
 
 
 class NcaamFeatureStrategy(BaseFeatureStrategy):
@@ -198,8 +199,8 @@ class NcaamFeatureStrategy(BaseFeatureStrategy):
         out["home_local_start_mismatch"] = 0.0
         out["away_local_start_mismatch"] = 0.0
 
-        arena = _compute_arena_effects(out[out["status_final"] == 1])
-        out = out.merge(arena, on="venue", how="left")
+        arena = _compute_arena_effects(out)
+        out = out.merge(arena, on="game_id", how="left")
         out["arena_margin_effect"] = out["arena_margin_effect"].fillna(0)
         out["arena_shot_volume_effect"] = out["arena_shot_volume_effect"].fillna(0)
 

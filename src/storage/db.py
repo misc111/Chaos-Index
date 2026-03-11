@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Iterator
 
 from src.common.utils import ensure_dir
+from src.storage.prediction_history import DIAGNOSTIC_PREDICTION_SOURCES
 from src.storage.schema import SCHEMA_SQL
 
 
@@ -27,6 +28,7 @@ class Database:
     def init_schema(self) -> None:
         with self.connect() as conn:
             conn.executescript(SCHEMA_SQL)
+            self._apply_online_migrations(conn)
 
     def execute(self, sql: str, params: tuple = ()) -> None:
         with self.connect() as conn:
@@ -42,3 +44,27 @@ class Database:
         with self.connect() as conn:
             cur = conn.execute(sql, params)
             return [dict(r) for r in cur.fetchall()]
+
+    def _apply_online_migrations(self, conn: sqlite3.Connection) -> None:
+        diagnostic_sources = ", ".join(f"'{source}'" for source in DIAGNOSTIC_PREDICTION_SOURCES)
+        conn.execute(
+            f"""
+            INSERT OR IGNORE INTO prediction_diagnostics(
+              game_id, as_of_utc, model_name, model_run_id, feature_set_version, snapshot_id,
+              game_date_utc, home_team, away_team, prob_home_win, pred_winner, prob_low, prob_high,
+              uncertainty_flags_json, metadata_json
+            )
+            SELECT
+              game_id, as_of_utc, model_name, model_run_id, feature_set_version, snapshot_id,
+              game_date_utc, home_team, away_team, prob_home_win, pred_winner, prob_low, prob_high,
+              uncertainty_flags_json, metadata_json
+            FROM predictions
+            WHERE COALESCE(json_extract(metadata_json, '$.source'), '') IN ({diagnostic_sources})
+            """
+        )
+        conn.execute(
+            f"""
+            DELETE FROM predictions
+            WHERE COALESCE(json_extract(metadata_json, '$.source'), '') IN ({diagnostic_sources})
+            """
+        )
