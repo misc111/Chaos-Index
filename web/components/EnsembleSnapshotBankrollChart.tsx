@@ -194,18 +194,20 @@ export default function EnsembleSnapshotBankrollChart({
             This mirrors the bet-history bankroll chart, but every line is a different frozen ensemble snapshot. Each one starts from
             the same opening bankroll and then keeps making bets through later slates as if you had never recalibrated again.
           </p>
-          <p className={styles.objectivePill}>
-            Following Bet Objective: <strong>{activeStrategyConfig.label}</strong>
-          </p>
+          <div className={styles.controlRow}>
+            <p className={styles.objectivePill}>
+              Following Bet Objective: <strong>{activeStrategyConfig.label}</strong>
+            </p>
+            <button
+              type="button"
+              className={`${styles.continuityButton} ${continuityEnabled ? styles.continuityButtonActive : ""}`}
+              aria-pressed={continuityEnabled}
+              onClick={() => setBankrollMode((currentMode) => (currentMode === "continuity" ? "independent" : "continuity"))}
+            >
+              Continuity <span className={styles.continuityState}>{continuityEnabled ? "On" : "Off"}</span>
+            </button>
+          </div>
         </div>
-        <button
-          type="button"
-          className={`${styles.continuityButton} ${continuityEnabled ? styles.continuityButtonActive : ""}`}
-          aria-pressed={continuityEnabled}
-          onClick={() => setBankrollMode((currentMode) => (currentMode === "continuity" ? "independent" : "continuity"))}
-        >
-          Continuity <span className={styles.continuityState}>{continuityEnabled ? "On" : "Off"}</span>
-        </button>
       </div>
 
       <p className={styles.note}>
