@@ -148,6 +148,12 @@ type ReplayBaseGame = {
   away_moneyline: number;
 };
 
+type SnapshotActivationCutoffRow = {
+  date_central: string;
+  pregame_cutoff_utc: string;
+  source: "pregame" | "end_of_day";
+};
+
 function escapeSqlString(value: string): string {
   return value.replace(/'/g, "''");
 }
@@ -852,6 +858,58 @@ function queryScheduledPregameCutoffs(league: LeagueCode): Array<{ date_central:
     }));
 }
 
+export function buildSnapshotActivationCutoffs(
+  scheduledCutoffs: Array<{ date_central: string; pregame_cutoff_utc: string }>,
+  metadataById: Map<string, EnsembleSnapshotRunMetadata>,
+  todayCentral: string = todayCentralDateKey()
+): SnapshotActivationCutoffRow[] {
+  const cutoffs: SnapshotActivationCutoffRow[] = [];
+  const scheduledByDate = new Map<string, string>();
+
+  for (const row of scheduledCutoffs) {
+    if (!row.date_central || !row.pregame_cutoff_utc || row.date_central > todayCentral) {
+      continue;
+    }
+    scheduledByDate.set(row.date_central, row.pregame_cutoff_utc);
+    cutoffs.push({
+      date_central: row.date_central,
+      pregame_cutoff_utc: row.pregame_cutoff_utc,
+      source: "pregame",
+    });
+  }
+
+  const latestFinalizedByDate = new Map<string, string>();
+  for (const metadata of metadataById.values()) {
+    const dateCentral = String(metadata.finalized_date_central || "").trim();
+    const finalizedAtUtc = String(metadata.finalized_at_utc || "").trim();
+    if (!dateCentral || !finalizedAtUtc || dateCentral > todayCentral) {
+      continue;
+    }
+    const current = latestFinalizedByDate.get(dateCentral);
+    if (!current || Date.parse(finalizedAtUtc) > Date.parse(current)) {
+      latestFinalizedByDate.set(dateCentral, finalizedAtUtc);
+    }
+  }
+
+  for (const [dateCentral, finalizedAtUtc] of latestFinalizedByDate.entries()) {
+    const scheduledCutoff = scheduledByDate.get(dateCentral);
+    const cutoffUtc =
+      scheduledCutoff && Date.parse(scheduledCutoff) > Date.parse(finalizedAtUtc) ? scheduledCutoff : finalizedAtUtc;
+    cutoffs.push({
+      date_central: dateCentral,
+      pregame_cutoff_utc: cutoffUtc,
+      source: "end_of_day",
+    });
+  }
+
+  return cutoffs.sort((left, right) => {
+    const timeDiff = Date.parse(left.pregame_cutoff_utc) - Date.parse(right.pregame_cutoff_utc);
+    if (timeDiff !== 0) return timeDiff;
+    if (left.source === right.source) return left.date_central.localeCompare(right.date_central);
+    return left.source === "pregame" ? -1 : 1;
+  });
+}
+
 function queryEnsembleSnapshotPredictionRows(league: LeagueCode): RawEnsembleSnapshotPredictionRow[] {
   return runSqlJson(historicalEnsembleSnapshotPredictionsSql(), { league }) as RawEnsembleSnapshotPredictionRow[];
 }
@@ -1175,7 +1233,8 @@ function buildEnsembleSnapshotCandidates(league: LeagueCode): EnsembleSnapshotCa
 
 function buildFrozenEnsembleSnapshots(league: LeagueCode) {
   const metadataById = queryEnsembleSnapshotRunMetadata(league);
-  const selections = selectEnsembleSnapshotActivations(queryScheduledPregameCutoffs(league), metadataById);
+  const activationCutoffs = buildSnapshotActivationCutoffs(queryScheduledPregameCutoffs(league), metadataById);
+  const selections = selectEnsembleSnapshotActivations(activationCutoffs, metadataById);
   if (!selections.length) {
     return [];
   }
