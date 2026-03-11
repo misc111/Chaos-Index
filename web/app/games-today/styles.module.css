@@ -18,6 +18,106 @@
   margin: 12px 0 10px;
 }
 
+.budgetRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 18px;
+  margin: 14px 0 8px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--surface-accent) 38%, transparent), transparent 58%),
+    var(--surface-card-soft);
+}
+
+.budgetCopy {
+  display: grid;
+  gap: 4px;
+  min-width: min(280px, 100%);
+  flex: 1 1 280px;
+}
+
+.budgetLabel {
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.budgetNote,
+.budgetHint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.budgetHint {
+  margin-bottom: 4px;
+}
+
+.budgetStepper {
+  display: inline-grid;
+  grid-template-columns: auto minmax(118px, auto) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.budgetButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border-accent);
+  border-radius: 14px;
+  background: var(--surface-accent);
+  color: var(--accent-strong);
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.budgetButton:hover:enabled {
+  background: var(--surface-accent-hover);
+}
+
+.budgetButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.budgetInputWrap {
+  display: grid;
+  gap: 6px;
+}
+
+.budgetInputLabel {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.budgetInput {
+  width: 118px;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface-field-muted);
+  color: var(--ink-strong);
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
 .dayNavRow {
   display: flex;
   flex-wrap: wrap;
@@ -314,6 +414,19 @@
   .dayNavRow {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .budgetRow {
+    padding: 14px;
+  }
+
+  .budgetStepper {
+    width: 100%;
+    grid-template-columns: 42px minmax(0, 1fr) 42px;
+  }
+
+  .budgetInput {
+    width: 100%;
   }
 
   .refreshOddsButton {

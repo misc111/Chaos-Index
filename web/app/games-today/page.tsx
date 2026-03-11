@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   getBetStrategyConfig,
   normalizeBetStrategy,
@@ -16,6 +16,15 @@ import {
   formatBetRecommendation,
 } from "@/lib/betting";
 import type { ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
+import {
+  DAILY_BUDGET_QUERY_PARAM,
+  DAILY_BUDGET_STEP_DOLLARS,
+  MAX_DAILY_BUDGET_DOLLARS,
+  MIN_DAILY_BUDGET_DOLLARS,
+  clampDailyBudgetDollars,
+  defaultDailyBudgetDollars,
+  parseDailyBudgetParam,
+} from "@/lib/daily-budget";
 import TeamWithIcon, { BetStakeWithIcon, TeamMatchup } from "@/components/TeamWithIcon";
 import {
   centralTodayDateKey,
@@ -125,6 +134,8 @@ function latestTimestamp(rows: GamesTodayRow[], field: "forecast_as_of_utc" | "o
 }
 
 function GamesTodayPageContent() {
+  const pathname = usePathname();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
   const strategy = normalizeBetStrategy(searchParams.get("strategy"));
@@ -141,6 +152,7 @@ function GamesTodayPageContent() {
   const [refreshOddsError, setRefreshOddsError] = useState("");
   const [refreshOddsStatus, setRefreshOddsStatus] = useState("");
   const [selectedDateKey, setSelectedDateKey] = useState<string>("");
+  const [dailyBudgetInput, setDailyBudgetInput] = useState("");
 
   useEffect(() => {
     let cancelled = false;
@@ -191,12 +203,26 @@ function GamesTodayPageContent() {
   const { isPastDate, mode, rows } = dateView;
   const selectedForecastAsOf = latestTimestamp(rows, "forecast_as_of_utc") || latestAsOf;
   const selectedOddsAsOf = latestTimestamp(rows, "odds_as_of_utc");
+  const resolvedConfig = useMemo(
+    () => strategyConfigs?.[strategy] || getBetStrategyConfig(strategy),
+    [strategy, strategyConfigs]
+  );
+  const defaultDailyBudget = useMemo(() => defaultDailyBudgetDollars(resolvedConfig), [resolvedConfig]);
+  const dailyBudget = useMemo(
+    () => parseDailyBudgetParam(searchParams.get(DAILY_BUDGET_QUERY_PARAM), defaultDailyBudget),
+    [defaultDailyBudget, searchParams]
+  );
+  const hasCustomDailyBudget = dailyBudget !== defaultDailyBudget;
+
+  useEffect(() => {
+    setDailyBudgetInput(String(dailyBudget));
+  }, [dailyBudget]);
+
   const liveDecisionMap = useMemo(() => {
     const liveRows = rows.filter((row) => !row.replay_decisions?.[strategy]);
     if (!liveRows.length) return new Map<number, BetRecommendationDisplay>();
 
-    const resolvedConfig = strategyConfigs?.[strategy] || getBetStrategyConfig(strategy);
-    const decisions = computeBetDecisionsForSlate(liveRows, strategy, resolvedConfig);
+    const decisions = computeBetDecisionsForSlate(liveRows, strategy, resolvedConfig, undefined, dailyBudget);
     return new Map(
       liveRows.map((row, index) => [
         row.game_id,
@@ -207,7 +233,7 @@ function GamesTodayPageContent() {
         },
       ])
     );
-  }, [rows, strategy, strategyConfigs]);
+  }, [dailyBudget, resolvedConfig, rows, strategy]);
   const scheduleSummary = formatCentralDateSummary(activeDateKey);
   const dateLabel = formatCentralDateLabel(activeDateKey);
   const title = activeDateKey === todayKey ? "Games Today" : `Games on ${dateLabel}`;
@@ -223,6 +249,34 @@ function GamesTodayPageContent() {
       : isPastDate
         ? `No stored forecast or replay rows are available for ${dateLabel}.`
         : `No games scheduled for ${scheduleSummary}.`;
+
+  const updateDailyBudget = (nextBudget: number) => {
+    const normalizedBudget = clampDailyBudgetDollars(nextBudget);
+    const params = new URLSearchParams(searchParams.toString());
+    if (normalizedBudget === defaultDailyBudget) {
+      params.delete(DAILY_BUDGET_QUERY_PARAM);
+    } else {
+      params.set(DAILY_BUDGET_QUERY_PARAM, String(normalizedBudget));
+    }
+    const nextQuery = params.toString();
+    router.replace(nextQuery ? `${pathname}?${nextQuery}` : pathname, { scroll: false });
+  };
+
+  const commitDailyBudgetInput = (rawValue: string) => {
+    const trimmed = rawValue.trim();
+    if (!trimmed) {
+      updateDailyBudget(0);
+      return;
+    }
+
+    const numeric = Number(trimmed);
+    if (!Number.isFinite(numeric)) {
+      setDailyBudgetInput(String(dailyBudget));
+      return;
+    }
+
+    updateDailyBudget(numeric);
+  };
 
   const handleRefreshOdds = async () => {
     if (staticStaging) {
@@ -290,21 +344,75 @@ function GamesTodayPageContent() {
         </div>
         <p className="small">{description}</p>
         <p className="small">
-          Stakes use uncertainty-adjusted edge and a bankroll-linked scale. A {formatUsd(REFERENCE_STAKE_DOLLARS)} recommendation corresponds to 1% of the ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()} reference bankroll.
+          Stakes use uncertainty-adjusted edge and a bankroll-linked scale. A {formatUsd(REFERENCE_STAKE_DOLLARS)} recommendation corresponds to 1% of the ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()} bankroll baseline.
         </p>
-        <div className={styles.actionsRow}>
-          <button
-            type="button"
-            className={styles.refreshOddsButton}
-            onClick={handleRefreshOdds}
-            disabled={refreshingOdds || staticStaging}
-            aria-busy={refreshingOdds}
-          >
-            {staticStaging ? "Snapshot Only" : refreshingOdds ? "Refreshing odds..." : "Refresh Odds"}
-          </button>
-          {refreshOddsStatus ? <p className={styles.refreshStatus}>{refreshOddsStatus}</p> : null}
-          {refreshOddsError ? <p className={styles.refreshError}>{refreshOddsError}</p> : null}
+        <div className={styles.budgetRow}>
+          <div className={styles.budgetCopy}>
+            <p className={styles.budgetLabel}>Daily betting budget</p>
+            <p className={styles.budgetNote}>
+              {hasCustomDailyBudget
+                ? `Custom cap ${formatUsd(dailyBudget)} active. ${resolvedConfig.label} would normally use ${formatUsd(defaultDailyBudget)}.`
+                : `${resolvedConfig.label} is currently using a ${formatUsd(dailyBudget)} cap for this slate.`}
+            </p>
+          </div>
+          <div className={styles.budgetStepper} aria-label="Daily betting budget controls">
+            <button
+              type="button"
+              className={styles.budgetButton}
+              onClick={() => updateDailyBudget(dailyBudget - DAILY_BUDGET_STEP_DOLLARS)}
+              disabled={dailyBudget <= MIN_DAILY_BUDGET_DOLLARS}
+              aria-label={`Decrease daily budget by ${formatUsd(DAILY_BUDGET_STEP_DOLLARS)}`}
+            >
+              -
+            </button>
+            <label className={styles.budgetInputWrap}>
+              <span className={styles.budgetInputLabel}>Budget</span>
+              <input
+                className={styles.budgetInput}
+                inputMode="numeric"
+                pattern="[0-9]*"
+                value={dailyBudgetInput}
+                onChange={(event) => {
+                  const nextValue = event.target.value.replace(/[^0-9]/g, "");
+                  setDailyBudgetInput(nextValue);
+                }}
+                onBlur={() => commitDailyBudgetInput(dailyBudgetInput)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    commitDailyBudgetInput(dailyBudgetInput);
+                    event.currentTarget.blur();
+                  }
+                }}
+                aria-label="Daily betting budget in dollars"
+              />
+            </label>
+            <button
+              type="button"
+              className={styles.budgetButton}
+              onClick={() => updateDailyBudget(dailyBudget + DAILY_BUDGET_STEP_DOLLARS)}
+              disabled={dailyBudget >= MAX_DAILY_BUDGET_DOLLARS}
+              aria-label={`Increase daily budget by ${formatUsd(DAILY_BUDGET_STEP_DOLLARS)}`}
+            >
+              +
+            </button>
+          </div>
         </div>
+        <p className={styles.budgetHint}>Use the stepper or type a number from {formatUsd(0)} to {formatUsd(MAX_DAILY_BUDGET_DOLLARS)}.</p>
+        {!staticStaging ? (
+          <div className={styles.actionsRow}>
+            <button
+              type="button"
+              className={styles.refreshOddsButton}
+              onClick={handleRefreshOdds}
+              disabled={refreshingOdds}
+              aria-busy={refreshingOdds}
+            >
+              {refreshingOdds ? "Refreshing odds..." : "Refresh Odds"}
+            </button>
+            {refreshOddsStatus ? <p className={styles.refreshStatus}>{refreshOddsStatus}</p> : null}
+            {refreshOddsError ? <p className={styles.refreshError}>{refreshOddsError}</p> : null}
+          </div>
+        ) : null}
         {selectedForecastAsOf ? <p className="small">Forecast snapshot as of {formatAsOfLabel(selectedForecastAsOf)}</p> : null}
         {selectedOddsAsOf ? <p className="small">Odds snapshot as of {formatAsOfLabel(selectedOddsAsOf)}</p> : null}
         {loading ? <p className="small">Loading games...</p> : null}

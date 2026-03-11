@@ -182,24 +182,24 @@ function SidebarControls({
           Utilities
         </span>
         <div className="refresh-row">
-          <button
-            type="button"
-            className="refresh-btn"
-            onClick={onRefresh}
-            disabled={isRefreshing || staticStaging}
-            aria-busy={isRefreshing}
-          >
-            {staticStaging ? (
-              "Snapshot Only"
-            ) : isRefreshing ? (
-              <>
-                <span className="refresh-spinner" aria-hidden />
-                Refreshing {displayLeagueLabel(league)}...
-              </>
-            ) : (
-              "Refresh Data"
-            )}
-          </button>
+          {!staticStaging ? (
+            <button
+              type="button"
+              className="refresh-btn"
+              onClick={onRefresh}
+              disabled={isRefreshing}
+              aria-busy={isRefreshing}
+            >
+              {isRefreshing ? (
+                <>
+                  <span className="refresh-spinner" aria-hidden />
+                  Refreshing {displayLeagueLabel(league)}...
+                </>
+              ) : (
+                "Refresh Data"
+              )}
+            </button>
+          ) : null}
           <div className="refresh-meta" aria-live="polite">
             <p className="small">
               Active bet objective: {strategyConfig.label}. {strategyConfig.description}

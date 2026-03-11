@@ -29,7 +29,7 @@ test("computeBetDecision sizes favorites with the bankroll-linked formula", () =
   assert.equal(decision.side, "home");
   assert.equal(decision.team, "SAC");
   assert.match(decision.reason, /underpriced after uncertainty adjustment/);
-  assert.equal(decision.stake, 125);
+  assert.equal(decision.stake, 65);
 });
 
 test("computeBetDecision sizes underdogs with the shared value screen", () => {
@@ -43,7 +43,7 @@ test("computeBetDecision sizes underdogs with the shared value screen", () => {
 
   assert.equal(decision.side, "away");
   assert.equal(decision.team, "DAL");
-  assert.equal(decision.stake, 125);
+  assert.equal(decision.stake, 65);
 });
 
 test("computeBetDecision increases stake when the same side gets a better price", () => {
@@ -130,7 +130,7 @@ test("explainBetDecision exposes raw and adjusted sizing steps for a bet", () =>
   });
 
   assert.equal(trace.decision.team, "SAC");
-  assert.equal(trace.decision.stake, 125);
+  assert.equal(trace.decision.stake, 65);
   assert.equal(trace.candidateSide, "home");
   assert.equal(trace.gates.edge, true);
   assert.equal(trace.gates.expectedValue, true);
@@ -139,8 +139,8 @@ test("explainBetDecision exposes raw and adjusted sizing steps for a bet", () =>
   assert.ok((trace.candidateRawModelProbability ?? 0) > (trace.candidateAdjustedProbability ?? 0));
   assert.ok((trace.baseStakeShareOfBankroll ?? 0) > 0);
   assert.ok((trace.scaledStakeShareOfBankroll ?? 0) >= (trace.cappedStakeShareOfBankroll ?? 0));
-  assert.equal(trace.quotedStake, 125);
-  assert.equal(trace.finalStake, 125);
+  assert.equal(trace.quotedStake, 65);
+  assert.equal(trace.finalStake, 65);
 });
 
 test("slate-level sizing enforces the daily risk budget", () => {
@@ -179,8 +179,45 @@ test("slate-level sizing enforces the daily risk budget", () => {
   );
 
   const totalRisked = traces.reduce((sum, trace) => sum + trace.finalStake, 0);
-  assert.ok(totalRisked <= 250);
+  assert.ok(totalRisked <= 125);
   assert.ok(traces.some((trace) => trace.dailyRiskCapApplied));
+});
+
+test("slate-level sizing accepts a custom daily budget override in dollars", () => {
+  const decisions = computeBetDecisionsForSlate(
+    [
+      {
+        home_team: "SAC",
+        away_team: "CHI",
+        home_win_probability: 0.653,
+        home_moneyline: -135,
+        away_moneyline: 125,
+      },
+      {
+        home_team: "PHI",
+        away_team: "ATL",
+        home_win_probability: 0.67,
+        home_moneyline: -140,
+        away_moneyline: 128,
+      },
+      {
+        home_team: "NYK",
+        away_team: "MIA",
+        home_win_probability: 0.64,
+        home_moneyline: -132,
+        away_moneyline: 122,
+      },
+    ],
+    "riskAdjusted",
+    undefined,
+    undefined,
+    75
+  );
+
+  assert.deepEqual(
+    decisions.map((decision) => decision.stake),
+    [10, 65, 0]
+  );
 });
 
 test("computeBetDecisionsForSlate returns decisions in row order", () => {

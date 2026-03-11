@@ -81,11 +81,11 @@ export type BetDecisionTrace = {
   };
 };
 
-export const REFERENCE_BANKROLL_DOLLARS = 10_000;
-export const REFERENCE_STAKE_BANKROLL_FRACTION = 0.01;
-export const REFERENCE_STAKE_DOLLARS = Math.round(REFERENCE_BANKROLL_DOLLARS * REFERENCE_STAKE_BANKROLL_FRACTION);
 export const HISTORICAL_BANKROLL_START_DOLLARS = 5_000;
 export const HISTORICAL_BANKROLL_START_DATE_CENTRAL = "2026-03-05";
+export const REFERENCE_BANKROLL_DOLLARS = HISTORICAL_BANKROLL_START_DOLLARS;
+export const REFERENCE_STAKE_BANKROLL_FRACTION = 0.01;
+export const REFERENCE_STAKE_DOLLARS = Math.round(REFERENCE_BANKROLL_DOLLARS * REFERENCE_STAKE_BANKROLL_FRACTION);
 
 const STAKE_ROUNDING_DOLLARS = 5;
 const REFERENCE_MARKET_WEIGHT = 0.7;
@@ -380,16 +380,35 @@ function compareByExpectedValue(left: BetDecisionTrace, right: BetDecisionTrace)
   );
 }
 
-export function applyDailyRiskCapToDecisionTraces(traces: BetDecisionTrace[]): BetDecisionTrace[] {
-  if (!traces.length) return traces;
+function resolveDailyRiskBudgetDollars(
+  strategyConfig?: Pick<BetStrategyRuleConfig, "maxDailyBankrollPercent"> | null,
+  dailyBudgetDollarsOverride?: number | null
+): number | null {
+  if (typeof dailyBudgetDollarsOverride === "number" && Number.isFinite(dailyBudgetDollarsOverride) && dailyBudgetDollarsOverride >= 0) {
+    return dailyBudgetDollarsOverride;
+  }
 
-  const strategyConfig = traces[0]?.strategyConfig;
   const maxDailyBankrollPercent = strategyConfig?.maxDailyBankrollPercent;
   if (
     typeof maxDailyBankrollPercent !== "number" ||
     !Number.isFinite(maxDailyBankrollPercent) ||
     maxDailyBankrollPercent <= 0
   ) {
+    return null;
+  }
+
+  return dollarsFromBankrollShare(maxDailyBankrollPercent / 100);
+}
+
+export function applyDailyRiskCapToDecisionTraces(
+  traces: BetDecisionTrace[],
+  dailyBudgetDollarsOverride?: number | null
+): BetDecisionTrace[] {
+  if (!traces.length) return traces;
+
+  const strategyConfig = traces[0]?.strategyConfig;
+  const budgetDollars = resolveDailyRiskBudgetDollars(strategyConfig, dailyBudgetDollarsOverride);
+  if (budgetDollars === null) {
     return traces.map((trace) => ({
       ...trace,
       gates: {
@@ -399,7 +418,6 @@ export function applyDailyRiskCapToDecisionTraces(traces: BetDecisionTrace[]): B
     }));
   }
 
-  const budgetDollars = dollarsFromBankrollShare(maxDailyBankrollPercent / 100);
   let usedDollars = 0;
   const next = [...traces];
 
@@ -707,10 +725,12 @@ export function explainBetDecisionsForSlate(
   rows: BetInput[],
   strategy: BetStrategy = DEFAULT_BET_STRATEGY,
   strategyConfigOverride?: BetStrategyRuleConfig,
-  strategyLabelOverride?: string
+  strategyLabelOverride?: string,
+  dailyBudgetDollarsOverride?: number | null
 ): BetDecisionTrace[] {
   return applyDailyRiskCapToDecisionTraces(
-    rows.map((row) => explainBetDecision(row, strategy, strategyConfigOverride, strategyLabelOverride))
+    rows.map((row) => explainBetDecision(row, strategy, strategyConfigOverride, strategyLabelOverride)),
+    dailyBudgetDollarsOverride
   );
 }
 
@@ -726,9 +746,10 @@ export function computeBetDecisionsForSlate(
   rows: BetInput[],
   strategy: BetStrategy = DEFAULT_BET_STRATEGY,
   strategyConfigOverride?: BetStrategyRuleConfig,
-  strategyLabelOverride?: string
+  strategyLabelOverride?: string,
+  dailyBudgetDollarsOverride?: number | null
 ): BetDecision[] {
-  return explainBetDecisionsForSlate(rows, strategy, strategyConfigOverride, strategyLabelOverride).map(
+  return explainBetDecisionsForSlate(rows, strategy, strategyConfigOverride, strategyLabelOverride, dailyBudgetDollarsOverride).map(
     (trace) => trace.decision
   );
 }
