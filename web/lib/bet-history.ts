@@ -45,6 +45,7 @@ type RawHistoricalGameRow = {
   home_win?: number | null;
   forecast_as_of_utc?: string | null;
   forecast_model_run_id?: string | null;
+  forecast_source?: string | null;
   home_win_probability?: number | null;
   odds_snapshot_id?: string | null;
   odds_as_of_utc?: string | null;
@@ -109,6 +110,8 @@ type HistoricalReplayDataset = {
   total_final_games: number;
   games_with_forecast: number;
   games_with_odds: number;
+  frozen_forecast_games: number;
+  diagnostic_forecast_games: number;
   earliest_final_date: string | null;
   coverage_start_central: string | null;
   coverage_end_central: string | null;
@@ -118,6 +121,7 @@ type HistoricalReplayDataset = {
 };
 
 const FROZEN_FORECAST_SOURCE = "train_upcoming";
+const DIAGNOSTIC_FORECAST_SOURCE = "train_oof_history";
 
 function escapeSqlString(value: string): string {
   return value.replace(/'/g, "''");
@@ -208,16 +212,26 @@ function snapshotTeamKey(snapshotId: string, homeTeam: string, awayTeam: string)
 function buildNote(
   totalFinalGames: number,
   analyzedGames: number,
-  suggestedBets: number
+  suggestedBets: number,
+  frozenForecastGames: number,
+  diagnosticForecastGames: number
 ): string {
+  const usesDiagnosticBackfill = diagnosticForecastGames > 0;
+  const coverageDescription = usesDiagnosticBackfill
+    ? "Replay prefers frozen live forecasts when they exist and backfills older dates with historical diagnostic forecasts plus the latest pregame odds before game time."
+    : "Replay results use stored pregame forecasts plus the latest matching pregame odds before game time.";
+
   if (totalFinalGames === 0) return "No finalized games are available yet.";
   if (analyzedGames === 0) {
-    return "No finalized games have both a stored pregame forecast snapshot and a matching pregame odds snapshot yet.";
+    if (frozenForecastGames > 0 || diagnosticForecastGames > 0) {
+      return "Forecast history exists, but no finalized games have matching pregame odds snapshots yet.";
+    }
+    return "No finalized games have either frozen live forecasts or historical diagnostic backfill yet.";
   }
   if (suggestedBets === 0) {
-    return "The replay window is available, but none of the covered games cleared the current bet threshold.";
+    return `${coverageDescription} None of the covered games cleared the current bet threshold.`;
   }
-  return "Replay results use only games with stored pregame forecast and odds snapshots.";
+  return coverageDescription;
 }
 
 function betDecisionFromReplaySnapshot(snapshot: HistoricalReplayDecisionSnapshot): BetDecision {
@@ -235,16 +249,60 @@ function betDecisionFromReplaySnapshot(snapshot: HistoricalReplayDecisionSnapsho
   };
 }
 
+function historicalForecastCandidatesSql(modelName?: string): string {
+  const escapedFrozenSource = escapeSqlString(FROZEN_FORECAST_SOURCE);
+  const escapedDiagnosticSource = escapeSqlString(DIAGNOSTIC_FORECAST_SOURCE);
+  const modelFilter = modelName ? `AND p.model_name = '${escapeSqlString(modelName)}'` : "";
+
+  return `
+    SELECT
+      fg.game_id,
+      p.as_of_utc,
+      p.prob_home_win,
+      p.model_run_id,
+      p.model_name,
+      '${escapedFrozenSource}' AS forecast_source,
+      0 AS source_priority,
+      p.prediction_id AS row_sort_id,
+      COALESCE(mr.created_at_utc, p.as_of_utc) AS created_at_utc
+    FROM finalized_games fg
+    JOIN predictions p
+      ON p.game_id = fg.game_id
+     ${modelFilter}
+     AND COALESCE(json_extract(p.metadata_json, '$.source'), '') = '${escapedFrozenSource}'
+     AND DATETIME(p.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
+    LEFT JOIN model_runs mr
+      ON mr.model_run_id = p.model_run_id
+    WHERE DATETIME(COALESCE(mr.created_at_utc, p.as_of_utc)) <= DATETIME(fg.replay_cutoff_utc)
+
+    UNION ALL
+
+    SELECT
+      fg.game_id,
+      p.as_of_utc,
+      p.prob_home_win,
+      p.model_run_id,
+      p.model_name,
+      '${escapedDiagnosticSource}' AS forecast_source,
+      1 AS source_priority,
+      p.diagnostic_id AS row_sort_id,
+      p.as_of_utc AS created_at_utc
+    FROM finalized_games fg
+    JOIN prediction_diagnostics p
+      ON p.game_id = fg.game_id
+     ${modelFilter}
+     AND COALESCE(json_extract(p.metadata_json, '$.source'), '') = '${escapedDiagnosticSource}'
+     AND DATETIME(p.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
+  `;
+}
+
 function historicalGamesSql(league: LeagueCode, modelName: string): string {
   const escapedLeague = escapeSqlString(league);
-  const escapedModelName = escapeSqlString(modelName);
-  const escapedFrozenSource = escapeSqlString(FROZEN_FORECAST_SOURCE);
 
-  // Finalized-game replay must use immutable prediction history. The live
-  // `upcoming_game_forecasts` table is intentionally excluded here because
-  // retrains can replace rows in place for the same `as_of_utc`. Historical
-  // odds are keyed off that frozen forecast timestamp too, so only the betting
-  // strategy can change over time.
+  // Finalized-game replay prefers immutable live prediction history, but older
+  // dates still need the diagnostic backfill until the frozen ledger covers a
+  // full season. The market side of the replay uses the latest pregame odds
+  // snapshot available before the game starts.
   return `
     WITH finalized_games AS (
       SELECT
@@ -262,28 +320,25 @@ function historicalGamesSql(league: LeagueCode, modelName: string): string {
       LEFT JOIN games g ON g.game_id = r.game_id
       WHERE r.home_win IS NOT NULL
     ),
+    forecast_candidates AS (
+      ${historicalForecastCandidatesSql(modelName)}
+    ),
     ranked_forecasts AS (
       SELECT
-        fg.game_id,
-        p.as_of_utc,
-        p.prob_home_win,
-        p.model_run_id,
+        game_id,
+        as_of_utc,
+        prob_home_win,
+        model_run_id,
+        forecast_source,
         ROW_NUMBER() OVER (
-          PARTITION BY fg.game_id
+          PARTITION BY game_id
           ORDER BY
-            DATETIME(p.as_of_utc) DESC,
-            DATETIME(COALESCE(mr.created_at_utc, p.as_of_utc)) DESC,
-            p.prediction_id DESC
+            source_priority ASC,
+            DATETIME(as_of_utc) DESC,
+            DATETIME(created_at_utc) DESC,
+            row_sort_id DESC
         ) AS rn
-      FROM finalized_games fg
-      JOIN predictions p
-        ON p.game_id = fg.game_id
-       AND p.model_name = '${escapedModelName}'
-       AND COALESCE(json_extract(p.metadata_json, '$.source'), '') = '${escapedFrozenSource}'
-       AND DATETIME(p.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
-      LEFT JOIN model_runs mr
-        ON mr.model_run_id = p.model_run_id
-      WHERE DATETIME(COALESCE(mr.created_at_utc, p.as_of_utc)) <= DATETIME(fg.replay_cutoff_utc)
+      FROM forecast_candidates
     )
     SELECT
       fg.game_id,
@@ -297,13 +352,14 @@ function historicalGamesSql(league: LeagueCode, modelName: string): string {
       fg.home_win,
       rf.as_of_utc AS forecast_as_of_utc,
       rf.model_run_id AS forecast_model_run_id,
+      rf.forecast_source AS forecast_source,
       rf.prob_home_win AS home_win_probability,
       (
         SELECT s.odds_snapshot_id
         FROM odds_snapshots s
         WHERE rf.as_of_utc IS NOT NULL
           AND s.league = '${escapedLeague}'
-          AND DATETIME(s.as_of_utc) <= DATETIME(rf.as_of_utc)
+          AND DATETIME(s.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
           AND EXISTS (
             SELECT 1
             FROM odds_market_lines l
@@ -322,7 +378,7 @@ function historicalGamesSql(league: LeagueCode, modelName: string): string {
         FROM odds_snapshots s
         WHERE rf.as_of_utc IS NOT NULL
           AND s.league = '${escapedLeague}'
-          AND DATETIME(s.as_of_utc) <= DATETIME(rf.as_of_utc)
+          AND DATETIME(s.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
           AND EXISTS (
             SELECT 1
             FROM odds_market_lines l
@@ -345,8 +401,6 @@ function historicalGamesSql(league: LeagueCode, modelName: string): string {
 }
 
 function historicalModelProbabilitiesSql(): string {
-  const escapedFrozenSource = escapeSqlString(FROZEN_FORECAST_SOURCE);
-
   return `
     WITH finalized_games AS (
       SELECT
@@ -356,26 +410,23 @@ function historicalModelProbabilitiesSql(): string {
       LEFT JOIN games g ON g.game_id = r.game_id
       WHERE r.home_win IS NOT NULL
     ),
+    forecast_candidates AS (
+      ${historicalForecastCandidatesSql()}
+    ),
     ranked_forecasts AS (
       SELECT
-        fg.game_id,
-        p.model_name,
-        p.prob_home_win,
+        game_id,
+        model_name,
+        prob_home_win,
         ROW_NUMBER() OVER (
-          PARTITION BY fg.game_id, p.model_name
+          PARTITION BY game_id, model_name
           ORDER BY
-            DATETIME(p.as_of_utc) DESC,
-            DATETIME(COALESCE(mr.created_at_utc, p.as_of_utc)) DESC,
-            p.prediction_id DESC
+            source_priority ASC,
+            DATETIME(as_of_utc) DESC,
+            DATETIME(created_at_utc) DESC,
+            row_sort_id DESC
         ) AS rn
-      FROM finalized_games fg
-      JOIN predictions p
-        ON p.game_id = fg.game_id
-       AND COALESCE(json_extract(p.metadata_json, '$.source'), '') = '${escapedFrozenSource}'
-       AND DATETIME(p.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
-      LEFT JOIN model_runs mr
-        ON mr.model_run_id = p.model_run_id
-      WHERE DATETIME(COALESCE(mr.created_at_utc, p.as_of_utc)) <= DATETIME(fg.replay_cutoff_utc)
+      FROM forecast_candidates
     )
     SELECT game_id, model_name, prob_home_win
     FROM ranked_forecasts
@@ -572,6 +623,8 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
 
   let gamesWithForecast = 0;
   let gamesWithOdds = 0;
+  let frozenForecastGames = 0;
+  let diagnosticForecastGames = 0;
   const earliestFinalDate = rawGames.length ? dateKeyForHistoricalRow(rawGames[0]) : null;
   let coverageStartDate: string | null = null;
   let coverageEndDate: string | null = null;
@@ -583,12 +636,15 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
     const forecastAsOf = String(row.forecast_as_of_utc || "").trim();
     const oddsSnapshotId = String(row.odds_snapshot_id || "").trim();
     const oddsAsOf = String(row.odds_as_of_utc || "").trim();
+    const forecastSource = String(row.forecast_source || "").trim();
     const homeTeam = String(row.home_team || "").trim();
     const awayTeam = String(row.away_team || "").trim();
     const dateCentral = dateKeyForHistoricalRow(row);
 
     if (forecastAsOf) gamesWithForecast += 1;
     if (oddsSnapshotId) gamesWithOdds += 1;
+    if (forecastAsOf && forecastSource === FROZEN_FORECAST_SOURCE) frozenForecastGames += 1;
+    if (forecastAsOf && forecastSource === DIAGNOSTIC_FORECAST_SOURCE) diagnosticForecastGames += 1;
 
     if (gameId === null || !forecastAsOf || !oddsSnapshotId || !oddsAsOf || !homeTeam || !awayTeam || !dateCentral) {
       continue;
@@ -659,6 +715,8 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
     total_final_games: rawGames.length,
     games_with_forecast: gamesWithForecast,
     games_with_odds: gamesWithOdds,
+    frozen_forecast_games: frozenForecastGames,
+    diagnostic_forecast_games: diagnosticForecastGames,
     earliest_final_date: earliestFinalDate,
     coverage_start_central: coverageStartDate,
     coverage_end_central: coverageEndDate,
@@ -806,7 +864,13 @@ function buildBetHistoryStrategyBundle(
     bankroll_start_central: HISTORICAL_BANKROLL_START_DATE_CENTRAL,
     coverage_start_central: replayCoverageStart,
     coverage_end_central: dataset.coverage_end_central,
-    note: buildNote(dataset.total_final_games, analyzedGames, bets.length),
+    note: buildNote(
+      dataset.total_final_games,
+      analyzedGames,
+      bets.length,
+      dataset.frozen_forecast_games,
+      dataset.diagnostic_forecast_games
+    ),
   };
 
   return {
