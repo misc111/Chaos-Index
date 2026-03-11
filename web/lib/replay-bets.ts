@@ -4,7 +4,7 @@ import {
   DEFAULT_BET_STRATEGY,
 } from "@/lib/betting-strategy";
 import {
-  REFERENCE_STAKE_BANKROLL_FRACTION,
+  REFERENCE_STAKE_DOLLARS,
   computeBetDecisionsForSlate,
   type BetDecision,
   type ExpectedSide,
@@ -18,10 +18,7 @@ const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v8";
 const REPLAY_DECISION_TABLE = "historical_bet_decisions_by_profile_v2";
 const LEGACY_REPLAY_DECISION_TABLE = "historical_bet_decisions_by_profile";
 const DEFAULT_REPLAY_VARIANT = "default";
-const REPLAY_REFERENCE_BANKROLL_DOLLARS = 10_000;
-const REPLAY_REFERENCE_STAKE_DOLLARS = Math.round(
-  REPLAY_REFERENCE_BANKROLL_DOLLARS * REFERENCE_STAKE_BANKROLL_FRACTION
-);
+const REPLAY_REFERENCE_STAKE_DOLLARS = REFERENCE_STAKE_DOLLARS;
 
 export type ReplayableHistoricalGame = {
   game_id: number;
