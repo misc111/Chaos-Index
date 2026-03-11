@@ -220,7 +220,7 @@ function BetHistoryPageContent() {
         ) : null}
       </section>
 
-      {!loading && !error ? <BetHistoryChart points={activeHistory.daily_points} /> : null}
+      {!loading && !error ? <BetHistoryChart points={activeHistory.daily_points} strategyLabel={strategyConfig.label} /> : null}
 
       <section className={`card ${styles.calendarCard}`}>
         <div className={styles.calendarHeader}>

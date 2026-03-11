@@ -12,6 +12,7 @@ import styles from "./BetHistory.module.css";
 
 type Props = {
   points: HistoricalDailyPoint[];
+  strategyLabel: string;
 };
 
 type ChartCoord = {
@@ -106,7 +107,7 @@ function canAnimateTransition(previousCoords: ChartCoord[], nextCoords: ChartCoo
   return previousCoords.every((coord, index) => coord.point.date_central === nextCoords[index]?.point.date_central);
 }
 
-export default function BetHistoryChart({ points }: Props) {
+export default function BetHistoryChart({ points, strategyLabel }: Props) {
   const [activePointIndex, setActivePointIndex] = useState<number | null>(null);
   const chartId = useId().replace(/:/g, "");
 
@@ -210,9 +211,10 @@ export default function BetHistoryChart({ points }: Props) {
     <div className={`card ${styles.chartCard}`}>
       <div>
         <h2 className="title">Cumulative Bankroll</h2>
+        <p className={styles.chartObjective}>Objective: {strategyLabel}</p>
         <p className="small">
           Bankroll starts at {formatUsd(HISTORICAL_BANKROLL_START_DOLLARS)} on {formatDateShort(HISTORICAL_BANKROLL_START_DATE_CENTRAL)}.
-          {" "}Net P/L and ROI above still summarize the same replayed bets.
+          {" "}Plotted points show end-of-day bankroll after each replay date, and Net P/L / ROI above summarize the same replayed bets.
         </p>
       </div>
 
