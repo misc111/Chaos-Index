@@ -44,7 +44,11 @@ type RawRunSummaryRow = {
   created_at_utc?: string | null;
   snapshot_id?: string | null;
   feature_set_version?: string | null;
+  first_start_time_utc?: string | null;
+  first_final_utc?: string | null;
   first_game_date_utc?: string | null;
+  last_start_time_utc?: string | null;
+  last_final_utc?: string | null;
   last_game_date_utc?: string | null;
   n_games?: number | null;
   avg_log_loss?: number | null;
@@ -286,6 +290,18 @@ function dateKeyForReplayRow(row: Pick<RawReplayGameRow, "start_time_utc" | "gam
   const gameDate = String(row.game_date_utc || "").trim();
   if (/^\d{4}-\d{2}-\d{2}$/.test(gameDate)) return gameDate;
   return gameDate.length >= 10 ? gameDate.slice(0, 10) : null;
+}
+
+function resolveDisplayGameDate(values: {
+  start_time_utc?: string | null;
+  final_utc?: string | null;
+  game_date_utc?: string | null;
+}): string | null {
+  return dateKeyForReplayRow({
+    start_time_utc: values.start_time_utc,
+    final_utc: values.final_utc,
+    game_date_utc: values.game_date_utc,
+  });
 }
 
 function snapshotGameKey(snapshotId: string, gameId: number): string {
@@ -593,6 +609,8 @@ function queryRunSummaries(league: LeagueCode): ModelRunSummaryRow[] {
   return (runSqlJson(
     `WITH canonical_scores AS (
        SELECT
+         score_id,
+         game_id,
          CASE
            WHEN model_name = 'glm_logit' THEN 'glm_ridge'
            ELSE model_name
@@ -605,6 +623,44 @@ function queryRunSummaries(league: LeagueCode): ModelRunSummaryRow[] {
        FROM model_scores
        WHERE model_run_id IS NOT NULL
          AND TRIM(model_run_id) <> ''
+     ),
+     scored_games AS (
+       SELECT
+         cs.model_name,
+         cs.model_run_id,
+         cs.game_date_utc,
+         g.start_time_utc,
+         r.final_utc,
+         ROW_NUMBER() OVER (
+           PARTITION BY cs.model_name, cs.model_run_id
+           ORDER BY
+             DATETIME(COALESCE(g.start_time_utc, r.final_utc, cs.game_date_utc || 'T23:59:59Z')) ASC,
+             cs.game_id ASC,
+             cs.score_id ASC
+         ) AS first_rn,
+         ROW_NUMBER() OVER (
+           PARTITION BY cs.model_name, cs.model_run_id
+           ORDER BY
+             DATETIME(COALESCE(g.start_time_utc, r.final_utc, cs.game_date_utc || 'T23:59:59Z')) DESC,
+             cs.game_id DESC,
+             cs.score_id DESC
+         ) AS last_rn
+       FROM canonical_scores cs
+       LEFT JOIN games g ON g.game_id = cs.game_id
+       LEFT JOIN results r ON r.game_id = cs.game_id
+     ),
+     display_windows AS (
+       SELECT
+         model_name,
+         model_run_id,
+         MAX(CASE WHEN first_rn = 1 THEN start_time_utc END) AS first_start_time_utc,
+         MAX(CASE WHEN first_rn = 1 THEN final_utc END) AS first_final_utc,
+         MAX(CASE WHEN first_rn = 1 THEN game_date_utc END) AS first_game_date_utc,
+         MAX(CASE WHEN last_rn = 1 THEN start_time_utc END) AS last_start_time_utc,
+         MAX(CASE WHEN last_rn = 1 THEN final_utc END) AS last_final_utc,
+         MAX(CASE WHEN last_rn = 1 THEN game_date_utc END) AS last_game_date_utc
+       FROM scored_games
+       GROUP BY model_name, model_run_id
      ),
      canonical_runs AS (
        SELECT
@@ -656,25 +712,32 @@ function queryRunSummaries(league: LeagueCode): ModelRunSummaryRow[] {
        FROM summarized
      )
      SELECT
-       model_name,
-       model_run_id,
-       run_type,
-       created_at_utc,
-       snapshot_id,
-       feature_set_version,
-       first_game_date_utc,
-       last_game_date_utc,
-       n_games,
-       avg_log_loss,
-       avg_brier,
-       accuracy,
-       version_rank,
-       CASE WHEN version_rank = 1 THEN 1 ELSE 0 END AS is_latest_version
+       ranked.model_name AS model_name,
+       ranked.model_run_id AS model_run_id,
+       ranked.run_type AS run_type,
+       ranked.created_at_utc AS created_at_utc,
+       ranked.snapshot_id AS snapshot_id,
+       ranked.feature_set_version AS feature_set_version,
+       dw.first_start_time_utc,
+       dw.first_final_utc,
+       dw.first_game_date_utc,
+       dw.last_start_time_utc,
+       dw.last_final_utc,
+       dw.last_game_date_utc,
+       ranked.n_games AS n_games,
+       ranked.avg_log_loss AS avg_log_loss,
+       ranked.avg_brier AS avg_brier,
+       ranked.accuracy AS accuracy,
+       ranked.version_rank AS version_rank,
+       CASE WHEN ranked.version_rank = 1 THEN 1 ELSE 0 END AS is_latest_version
      FROM ranked
+     LEFT JOIN display_windows dw
+       ON dw.model_name = ranked.model_name
+      AND dw.model_run_id = ranked.model_run_id
      ORDER BY
-       DATETIME(COALESCE(created_at_utc, last_game_date_utc || 'T23:59:59Z')) DESC,
-       model_name ASC,
-       avg_log_loss ASC`,
+       DATETIME(COALESCE(ranked.created_at_utc, dw.last_game_date_utc || 'T23:59:59Z')) DESC,
+       ranked.model_name ASC,
+       ranked.avg_log_loss ASC`,
     { league }
   ) as RawRunSummaryRow[]).map((row) => ({
     model_name: canonicalizePredictionModel(String(row.model_name || "")),
@@ -684,7 +747,17 @@ function queryRunSummaries(league: LeagueCode): ModelRunSummaryRow[] {
     snapshot_id: row.snapshot_id ? String(row.snapshot_id) : null,
     feature_set_version: row.feature_set_version ? String(row.feature_set_version) : null,
     first_game_date_utc: row.first_game_date_utc ? String(row.first_game_date_utc) : null,
+    first_game_date_central: resolveDisplayGameDate({
+      start_time_utc: row.first_start_time_utc ? String(row.first_start_time_utc) : null,
+      final_utc: row.first_final_utc ? String(row.first_final_utc) : null,
+      game_date_utc: row.first_game_date_utc ? String(row.first_game_date_utc) : null,
+    }),
     last_game_date_utc: row.last_game_date_utc ? String(row.last_game_date_utc) : null,
+    last_game_date_central: resolveDisplayGameDate({
+      start_time_utc: row.last_start_time_utc ? String(row.last_start_time_utc) : null,
+      final_utc: row.last_final_utc ? String(row.last_final_utc) : null,
+      game_date_utc: row.last_game_date_utc ? String(row.last_game_date_utc) : null,
+    }),
     n_games: numberOrNull(row.n_games) ?? 0,
     avg_log_loss: numberOrNull(row.avg_log_loss) ?? 0,
     avg_brier: numberOrNull(row.avg_brier) ?? 0,

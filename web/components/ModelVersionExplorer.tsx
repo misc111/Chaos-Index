@@ -66,6 +66,14 @@ function summarizeFeatureSetToken(value?: string | null): string {
   return `${token.slice(0, 10)}...${token.slice(-4)}`;
 }
 
+function scoredWindowStart(row: Pick<ModelRunSummaryRow, "first_game_date_central" | "first_game_date_utc">): string | null {
+  return row.first_game_date_central || row.first_game_date_utc || null;
+}
+
+function scoredWindowEnd(row: Pick<ModelRunSummaryRow, "last_game_date_central" | "last_game_date_utc">): string | null {
+  return row.last_game_date_central || row.last_game_date_utc || null;
+}
+
 function summarizeFeatureSets(rows: ModelRunSummaryRow[]): FeatureSetSummary[] {
   const groups = new Map<string, FeatureSetSummary>();
 
@@ -190,7 +198,7 @@ export default function ModelVersionExplorer({ rows }: { rows: ModelRunSummaryRo
       trained_at: formatDateLabel(row.created_at_utc || row.last_game_date_utc),
       feature_set: summarizeFeatureSetToken(row.feature_set_version),
       games_scored: String(row.n_games),
-      score_window: `${formatDateLabel(row.first_game_date_utc)} to ${formatDateLabel(row.last_game_date_utc)}`,
+      score_window: `${formatDateLabel(scoredWindowStart(row))} to ${formatDateLabel(scoredWindowEnd(row))}`,
       log_loss: formatMetricValue("avg_log_loss", Number(row.avg_log_loss)),
       brier: formatMetricValue("avg_brier", Number(row.avg_brier)),
       accuracy: formatMetricValue("accuracy", Number(row.accuracy)),

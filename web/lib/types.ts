@@ -119,7 +119,9 @@ export type ModelRunSummaryRow = {
   snapshot_id?: string | null;
   feature_set_version?: string | null;
   first_game_date_utc?: string | null;
+  first_game_date_central?: string | null;
   last_game_date_utc?: string | null;
+  last_game_date_central?: string | null;
   n_games: number;
   avg_log_loss: number;
   avg_brier: number;
@@ -193,7 +195,9 @@ export type ModelReplayRunRow = {
   version_rank: number | null;
   is_latest_version: number | null;
   first_game_date_utc?: string | null;
+  first_game_date_central?: string | null;
   last_game_date_utc?: string | null;
+  last_game_date_central?: string | null;
   first_replay_date_central: string | null;
   last_replay_date_central: string | null;
   replayable_games: number;

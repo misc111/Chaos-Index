@@ -44,6 +44,14 @@ function prettyJson(value: unknown): string {
   return JSON.stringify(value || {}, null, 2);
 }
 
+function scoredWindowStart(row: Pick<ModelReplayRunRow, "first_game_date_central" | "first_game_date_utc">): string | null {
+  return row.first_game_date_central || row.first_game_date_utc || null;
+}
+
+function scoredWindowEnd(row: Pick<ModelReplayRunRow, "last_game_date_central" | "last_game_date_utc">): string | null {
+  return row.last_game_date_central || row.last_game_date_utc || null;
+}
+
 export default function ModelBetReplayExplorer({
   runs,
   defaultStrategy = DEFAULT_BET_STRATEGY,
@@ -288,7 +296,7 @@ export default function ModelBetReplayExplorer({
               <div className={styles.detailRow}>
                 <span className={styles.detailLabel}>Scored window</span>
                 <span className={styles.detailValue}>
-                  {formatDateLabel(selectedRun.first_game_date_utc)} to {formatDateLabel(selectedRun.last_game_date_utc)}
+                  {formatDateLabel(scoredWindowStart(selectedRun))} to {formatDateLabel(scoredWindowEnd(selectedRun))}
                 </span>
               </div>
               <div className={styles.detailRow}>
