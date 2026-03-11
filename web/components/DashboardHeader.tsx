@@ -19,6 +19,7 @@ const links: Array<[string, string]> = [
   ["/bet-history", "Bet History"],
   ["/actual-vs-expected", "Actual vs Expected"],
   ["/predictions", "Model Summary"],
+  ["/performance", "Performance"],
   ["/bet-sizing", "Bet Sizing"],
 ];
 
