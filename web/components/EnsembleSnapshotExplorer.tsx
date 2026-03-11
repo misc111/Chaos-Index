@@ -14,6 +14,7 @@ type Props = {
   snapshots: EnsembleSnapshotRow[];
   defaultStrategy?: BetStrategy;
   comparisonStrategy?: BetStrategy;
+  activeStrategy?: BetStrategy;
 };
 
 function formatPercent(value: number): string {
@@ -78,6 +79,7 @@ export default function EnsembleSnapshotExplorer({
   snapshots,
   defaultStrategy = "riskAdjusted",
   comparisonStrategy = "aggressive",
+  activeStrategy = defaultStrategy,
 }: Props) {
   const primaryStrategy = strategyKeyFromPreference(defaultStrategy);
   const secondaryStrategy = strategyKeyFromPreference(comparisonStrategy) === "riskAdjusted" ? "aggressive" : strategyKeyFromPreference(comparisonStrategy);
@@ -130,8 +132,7 @@ export default function EnsembleSnapshotExplorer({
     <div className="grid">
       <EnsembleSnapshotBankrollChart
         snapshots={matrixSnapshots}
-        defaultStrategy={defaultStrategy}
-        comparisonStrategy={comparisonStrategy}
+        activeStrategy={activeStrategy}
         selectedSnapshotKey={activeSelectedSnapshotKey}
         onSelectSnapshotKey={setSelectedSnapshotKey}
       />

@@ -1,7 +1,8 @@
 import { HISTORICAL_BANKROLL_START_DOLLARS } from "@/lib/betting";
+import type { BetStrategy } from "@/lib/betting-strategy";
 import type { EnsembleSnapshotRow } from "@/lib/types";
 
-export type SnapshotChartStrategyKey = "riskAdjusted" | "aggressive";
+export type SnapshotChartStrategyKey = BetStrategy;
 
 export type SnapshotBankrollPoint = {
   date_central: string;

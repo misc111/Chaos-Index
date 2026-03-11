@@ -4,6 +4,7 @@ import type { BetStrategy } from "@/lib/betting-strategy";
 import type { ModelWinProbabilities } from "@/lib/betting-model";
 
 export type TableRow = Record<string, unknown>;
+export type ReplayStrategyMap<T> = Record<BetStrategy, T>;
 
 export type ForecastRow = {
   game_id: number;
@@ -169,10 +170,7 @@ export type ModelReplayBetRow = {
   away_score: number | null;
   home_moneyline: number;
   away_moneyline: number;
-  strategies: {
-    riskAdjusted: ModelReplayDecisionDetail;
-    aggressive: ModelReplayDecisionDetail;
-  };
+  strategies: ReplayStrategyMap<ModelReplayDecisionDetail>;
 };
 
 export type ModelReplayRunRow = {
@@ -199,10 +197,7 @@ export type ModelReplayRunRow = {
   first_replay_date_central: string | null;
   last_replay_date_central: string | null;
   replayable_games: number;
-  strategies: {
-    riskAdjusted: ModelReplayStrategySummary;
-    aggressive: ModelReplayStrategySummary;
-  };
+  strategies: ReplayStrategyMap<ModelReplayStrategySummary>;
   bets: ModelReplayBetRow[];
 };
 
@@ -241,10 +236,7 @@ export type EnsembleSnapshotDailyStrategyRow = {
 export type EnsembleSnapshotDailyRow = {
   date_central: string;
   slate_games: number;
-  strategies: {
-    riskAdjusted: EnsembleSnapshotDailyStrategyRow;
-    aggressive: EnsembleSnapshotDailyStrategyRow;
-  };
+  strategies: ReplayStrategyMap<EnsembleSnapshotDailyStrategyRow>;
 };
 
 export type EnsembleSnapshotRow = {
@@ -278,10 +270,7 @@ export type EnsembleSnapshotRow = {
   commit_window: SnapshotCommitInfo[];
   replayable_games: number;
   days_tracked: number;
-  strategies: {
-    riskAdjusted: ModelReplayStrategySummary;
-    aggressive: ModelReplayStrategySummary;
-  };
+  strategies: ReplayStrategyMap<ModelReplayStrategySummary>;
   daily: EnsembleSnapshotDailyRow[];
   bets: ModelReplayBetRow[];
 };

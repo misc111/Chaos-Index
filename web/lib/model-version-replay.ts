@@ -1,5 +1,5 @@
 import { computeBetDecisionsForSlate, settleBet } from "@/lib/betting";
-import { getBetStrategyConfig } from "@/lib/betting-strategy";
+import { BET_STRATEGIES, getBetStrategyConfig } from "@/lib/betting-strategy";
 import type { ModelWinProbabilities } from "@/lib/betting-model";
 import type {
   ModelReplayBetRow,
@@ -12,7 +12,7 @@ import type {
 
 type ModelReplayStrategyKey = keyof ModelReplayRunRow["strategies"];
 
-export const MODEL_REPLAY_COMPARISON_STRATEGIES: readonly ModelReplayStrategyKey[] = ["riskAdjusted", "aggressive"];
+export const MODEL_REPLAY_COMPARISON_STRATEGIES: readonly ModelReplayStrategyKey[] = BET_STRATEGIES;
 
 export type ModelReplayCandidateRow = {
   game_id: number;
@@ -171,6 +171,14 @@ function defaultDecisionDetail(): ModelReplayDecisionDetail {
   };
 }
 
+function buildEmptyStrategySummaryMap(totalGames: number): Record<ModelReplayStrategyKey, MutableStrategySummary> {
+  return {
+    riskAdjusted: emptyStrategySummary(totalGames),
+    aggressive: emptyStrategySummary(totalGames),
+    capitalPreservation: emptyStrategySummary(totalGames),
+  };
+}
+
 export function buildModelReplayRuns(
   candidates: ModelReplayCandidateRow[],
   runMetadataById: Map<string, ModelReplayRunMetadata>,
@@ -197,10 +205,7 @@ export function buildModelReplayRuns(
         rowsByDate.set(row.date_central, current);
       }
 
-      const strategySummaries = {
-        riskAdjusted: emptyStrategySummary(runRows.length),
-        aggressive: emptyStrategySummary(runRows.length),
-      };
+      const strategySummaries = buildEmptyStrategySummaryMap(runRows.length);
       const betRowsByGame = new Map<number, MutableReplayBetRow>();
 
       for (const [, dayRows] of Array.from(rowsByDate.entries()).sort(([left], [right]) => left.localeCompare(right))) {
@@ -254,6 +259,7 @@ export function buildModelReplayRuns(
           strategies: {
             riskAdjusted: row.strategies.riskAdjusted || defaultDecisionDetail(),
             aggressive: row.strategies.aggressive || defaultDecisionDetail(),
+            capitalPreservation: row.strategies.capitalPreservation || defaultDecisionDetail(),
           },
         }));
 
@@ -289,6 +295,7 @@ export function buildModelReplayRuns(
         strategies: {
           riskAdjusted: finalizeStrategySummary(strategySummaries.riskAdjusted),
           aggressive: finalizeStrategySummary(strategySummaries.aggressive),
+          capitalPreservation: finalizeStrategySummary(strategySummaries.capitalPreservation),
         },
         bets,
       };

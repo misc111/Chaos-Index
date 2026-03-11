@@ -1,5 +1,5 @@
 import { computeBetDecisionsForSlate, settleBet } from "@/lib/betting";
-import { getBetStrategyConfig } from "@/lib/betting-strategy";
+import { BET_STRATEGIES, getBetStrategyConfig } from "@/lib/betting-strategy";
 import type {
   EnsembleSnapshotComponentModelRow,
   EnsembleSnapshotDailyRow,
@@ -13,10 +13,7 @@ import type {
 
 type EnsembleSnapshotStrategyKey = keyof EnsembleSnapshotRow["strategies"];
 
-export const ENSEMBLE_SNAPSHOT_COMPARISON_STRATEGIES: readonly EnsembleSnapshotStrategyKey[] = [
-  "riskAdjusted",
-  "aggressive",
-] as const;
+export const ENSEMBLE_SNAPSHOT_COMPARISON_STRATEGIES: readonly EnsembleSnapshotStrategyKey[] = BET_STRATEGIES;
 
 export type EnsembleSnapshotCandidateRow = {
   game_id: number;
@@ -186,6 +183,22 @@ function defaultDecisionDetail(): ModelReplayDecisionDetail {
   };
 }
 
+function buildEmptyStrategySummaryMap(totalGames: number): Record<EnsembleSnapshotStrategyKey, MutableStrategySummary> {
+  return {
+    riskAdjusted: emptyStrategySummary(totalGames),
+    aggressive: emptyStrategySummary(totalGames),
+    capitalPreservation: emptyStrategySummary(totalGames),
+  };
+}
+
+function buildEmptyCumulativeState(): Record<EnsembleSnapshotStrategyKey, { total_profit: number; total_risked: number }> {
+  return {
+    riskAdjusted: { total_profit: 0, total_risked: 0 },
+    aggressive: { total_profit: 0, total_risked: 0 },
+    capitalPreservation: { total_profit: 0, total_risked: 0 },
+  };
+}
+
 function sortTimestamp(value?: string | null, fallbackDate?: string | null): number {
   const fallback = fallbackDate ? `${fallbackDate}T23:59:59Z` : "";
   const numeric = Date.parse(String(value || fallback || ""));
@@ -238,14 +251,8 @@ export function buildEnsembleSnapshots(
             left.game_id - right.game_id
         );
 
-      const strategyTotals = {
-        riskAdjusted: emptyStrategySummary(runRows.length),
-        aggressive: emptyStrategySummary(runRows.length),
-      };
-      const cumulativeState = {
-        riskAdjusted: { total_profit: 0, total_risked: 0 },
-        aggressive: { total_profit: 0, total_risked: 0 },
-      };
+      const strategyTotals = buildEmptyStrategySummaryMap(runRows.length);
+      const cumulativeState = buildEmptyCumulativeState();
       const dailyRows: EnsembleSnapshotDailyRow[] = [];
       const betRowsByGame = new Map<number, MutableReplayBetRow>();
       const dayRowsByDate = new Map<string, EnsembleSnapshotCandidateRow[]>();
@@ -261,10 +268,7 @@ export function buildEnsembleSnapshots(
       // midstream inside this loop; the whole point is to ask how this one
       // frozen snapshot would have behaved if we had stopped recalibrating.
       for (const [dateCentral, dayRows] of Array.from(dayRowsByDate.entries()).sort(([left], [right]) => left.localeCompare(right))) {
-        const daySummaries = {
-          riskAdjusted: emptyStrategySummary(dayRows.length),
-          aggressive: emptyStrategySummary(dayRows.length),
-        };
+        const daySummaries = buildEmptyStrategySummaryMap(dayRows.length);
 
         for (const strategy of ENSEMBLE_SNAPSHOT_COMPARISON_STRATEGIES) {
           const strategyConfig = getBetStrategyConfig(strategy);
@@ -309,10 +313,10 @@ export function buildEnsembleSnapshots(
           });
         }
 
-        cumulativeState.riskAdjusted.total_profit += daySummaries.riskAdjusted.total_profit;
-        cumulativeState.riskAdjusted.total_risked += daySummaries.riskAdjusted.total_risked;
-        cumulativeState.aggressive.total_profit += daySummaries.aggressive.total_profit;
-        cumulativeState.aggressive.total_risked += daySummaries.aggressive.total_risked;
+        for (const strategy of ENSEMBLE_SNAPSHOT_COMPARISON_STRATEGIES) {
+          cumulativeState[strategy].total_profit += daySummaries[strategy].total_profit;
+          cumulativeState[strategy].total_risked += daySummaries[strategy].total_risked;
+        }
 
         dailyRows.push({
           date_central: dateCentral,
@@ -330,6 +334,12 @@ export function buildEnsembleSnapshots(
               cumulativeState.aggressive.total_profit,
               cumulativeState.aggressive.total_risked
             ),
+            capitalPreservation: buildDailyStrategyRow(
+              dayRows.length,
+              daySummaries.capitalPreservation,
+              cumulativeState.capitalPreservation.total_profit,
+              cumulativeState.capitalPreservation.total_risked
+            ),
           },
         });
       }
@@ -346,6 +356,7 @@ export function buildEnsembleSnapshots(
           strategies: {
             riskAdjusted: row.strategies.riskAdjusted || defaultDecisionDetail(),
             aggressive: row.strategies.aggressive || defaultDecisionDetail(),
+            capitalPreservation: row.strategies.capitalPreservation || defaultDecisionDetail(),
           },
         }));
 
@@ -386,6 +397,7 @@ export function buildEnsembleSnapshots(
         strategies: {
           riskAdjusted: finalizeStrategySummary(strategyTotals.riskAdjusted),
           aggressive: finalizeStrategySummary(strategyTotals.aggressive),
+          capitalPreservation: finalizeStrategySummary(strategyTotals.capitalPreservation),
         },
         daily: dailyRows,
         bets,

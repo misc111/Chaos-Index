@@ -2,9 +2,10 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { buildModelReplayRuns } from "./model-version-replay";
+import { getBetStrategyConfig } from "./betting-strategy";
 import type { ModelRunSummaryRow } from "./types";
 
-test("buildModelReplayRuns groups dated model snapshots and compares balanced to aggressive", () => {
+test("buildModelReplayRuns groups dated model snapshots and preserves all supported bet objectives", () => {
   const runs = buildModelReplayRuns(
     [
       {
@@ -112,6 +113,14 @@ test("buildModelReplayRuns groups dated model snapshots and compares balanced to
   assert.equal(runs[0].strategies.riskAdjusted.suggested_bets, 1);
   assert.equal(runs[0].bets[0].strategies.riskAdjusted.outcome, "win");
   assert.ok(runs[0].strategies.aggressive.total_risked > runs[0].strategies.riskAdjusted.total_risked);
+  assert.ok(runs[0].bets[0].strategies.capitalPreservation.stake > 0);
+  assert.ok(
+    runs[0].bets[0].strategies.capitalPreservation.stake < runs[0].bets[0].strategies.aggressive.stake
+  );
+  assert.ok(
+    runs[0].strategies.capitalPreservation.total_risked <= runs[0].strategies.aggressive.total_risked,
+    getBetStrategyConfig("capitalPreservation").description
+  );
   assert.equal(runs[1].feature_set_version, "fset_old");
   assert.equal(runs[1].scored_games, 8);
 });

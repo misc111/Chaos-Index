@@ -64,6 +64,19 @@ function buildSnapshot(overrides: Partial<EnsembleSnapshotRow>): EnsembleSnapsho
         first_bet_date_central: "2026-03-05",
         last_bet_date_central: "2026-03-06",
       },
+      capitalPreservation: {
+        total_games: 2,
+        suggested_bets: 1,
+        wins: 1,
+        losses: 0,
+        total_risked: 90,
+        total_profit: 90,
+        roi: 1,
+        avg_edge: 0.05,
+        avg_expected_value: 0.03,
+        first_bet_date_central: "2026-03-05",
+        last_bet_date_central: "2026-03-05",
+      },
     },
     daily: [
       {
@@ -91,6 +104,18 @@ function buildSnapshot(overrides: Partial<EnsembleSnapshotRow>): EnsembleSnapsho
             total_profit: 180,
             cumulative_risked: 180,
             cumulative_profit: 180,
+            roi: 1,
+            cumulative_roi: 1,
+          },
+          capitalPreservation: {
+            slate_games: 3,
+            suggested_bets: 1,
+            wins: 1,
+            losses: 0,
+            total_risked: 90,
+            total_profit: 90,
+            cumulative_risked: 90,
+            cumulative_profit: 90,
             roi: 1,
             cumulative_roi: 1,
           },
@@ -124,6 +149,18 @@ function buildSnapshot(overrides: Partial<EnsembleSnapshotRow>): EnsembleSnapsho
             roi: -60 / 180,
             cumulative_roi: 120 / 360,
           },
+          capitalPreservation: {
+            slate_games: 4,
+            suggested_bets: 0,
+            wins: 0,
+            losses: 0,
+            total_risked: 0,
+            total_profit: 0,
+            cumulative_risked: 90,
+            cumulative_profit: 90,
+            roi: 0,
+            cumulative_roi: 1,
+          },
         },
       },
     ],
@@ -134,6 +171,7 @@ function buildSnapshot(overrides: Partial<EnsembleSnapshotRow>): EnsembleSnapsho
 
 test("buildEnsembleSnapshotBankrollSeries anchors same-day snapshots to the prior day and converts cumulative profit into bankroll", () => {
   const series = buildEnsembleSnapshotBankrollSeries([buildSnapshot({})], "riskAdjusted");
+  const conservativeSeries = buildEnsembleSnapshotBankrollSeries([buildSnapshot({})], "capitalPreservation");
 
   assert.equal(series.length, 1);
   assert.equal(series[0].points[0].date_central, "2026-03-04");
@@ -141,6 +179,7 @@ test("buildEnsembleSnapshotBankrollSeries anchors same-day snapshots to the prio
   assert.equal(series[0].points[1].cumulative_bankroll, HISTORICAL_BANKROLL_START_DOLLARS + 120);
   assert.equal(series[0].points[2].cumulative_bankroll, HISTORICAL_BANKROLL_START_DOLLARS + 80);
   assert.equal(series[0].final_point.cumulative_profit, 80);
+  assert.equal(conservativeSeries[0].final_point.cumulative_profit, 90);
 });
 
 test("buildEnsembleSnapshotBankrollSeries keeps pending snapshots on their activation date when no settled games exist", () => {
@@ -168,6 +207,19 @@ test("buildEnsembleSnapshotBankrollSeries keeps pending snapshots on their activ
             last_bet_date_central: null,
           },
           aggressive: {
+            total_games: 0,
+            suggested_bets: 0,
+            wins: 0,
+            losses: 0,
+            total_risked: 0,
+            total_profit: 0,
+            roi: 0,
+            avg_edge: null,
+            avg_expected_value: null,
+            first_bet_date_central: null,
+            last_bet_date_central: null,
+          },
+          capitalPreservation: {
             total_games: 0,
             suggested_bets: 0,
             wins: 0,
@@ -226,6 +278,18 @@ test("listEnsembleSnapshotChartDates returns a sorted union of every plotted ban
                 cumulative_profit: 135,
                 roi: 0.9,
                 cumulative_roi: 0.9,
+              },
+              capitalPreservation: {
+                slate_games: 2,
+                suggested_bets: 1,
+                wins: 1,
+                losses: 0,
+                total_risked: 75,
+                total_profit: 70,
+                cumulative_risked: 75,
+                cumulative_profit: 70,
+                roi: 70 / 75,
+                cumulative_roi: 70 / 75,
               },
             },
           },

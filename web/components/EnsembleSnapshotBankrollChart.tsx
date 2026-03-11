@@ -18,8 +18,7 @@ import styles from "./EnsembleSnapshotBankrollChart.module.css";
 
 type Props = {
   snapshots: EnsembleSnapshotRow[];
-  defaultStrategy?: BetStrategy;
-  comparisonStrategy?: BetStrategy;
+  activeStrategy?: BetStrategy;
   selectedSnapshotKey: string;
   onSelectSnapshotKey: (snapshotKey: string) => void;
 };
@@ -64,10 +63,6 @@ const SNAPSHOT_LINE_COLORS = [
   "#0f766e",
   "#374151",
 ];
-
-function strategyKeyFromPreference(value?: BetStrategy): SnapshotChartStrategyKey {
-  return value === "aggressive" ? "aggressive" : "riskAdjusted";
-}
 
 function formatDateShort(dateKey: string): string {
   const parsed = new Date(`${dateKey}T12:00:00Z`);
@@ -145,20 +140,11 @@ function buildChartGeometry(series: SnapshotBankrollSeries[]): ChartGeometry {
 
 export default function EnsembleSnapshotBankrollChart({
   snapshots,
-  defaultStrategy = "riskAdjusted",
-  comparisonStrategy = "aggressive",
+  activeStrategy = "riskAdjusted",
   selectedSnapshotKey,
   onSelectSnapshotKey,
 }: Props) {
-  const primaryStrategy = strategyKeyFromPreference(defaultStrategy);
-  const secondaryStrategy =
-    strategyKeyFromPreference(comparisonStrategy) === "riskAdjusted"
-      ? "aggressive"
-      : strategyKeyFromPreference(comparisonStrategy);
-  const [chartStrategy, setChartStrategy] = useState<SnapshotChartStrategyKey>(primaryStrategy);
-
-  const primaryConfig = getBetStrategyConfig(primaryStrategy);
-  const secondaryConfig = getBetStrategyConfig(secondaryStrategy);
+  const chartStrategy: SnapshotChartStrategyKey = activeStrategy;
   const activeStrategyConfig = getBetStrategyConfig(chartStrategy);
   const series = useMemo(() => buildEnsembleSnapshotBankrollSeries(snapshots, chartStrategy), [snapshots, chartStrategy]);
   const geometry = useMemo(() => buildChartGeometry(series), [series]);
@@ -202,29 +188,15 @@ export default function EnsembleSnapshotBankrollChart({
             This mirrors the bet-history bankroll chart, but every line is a different frozen ensemble snapshot. Each one starts from
             the same opening bankroll and then keeps making bets through later slates as if you had never recalibrated again.
           </p>
-        </div>
-
-        <div className={styles.toggleRow}>
-          <button
-            type="button"
-            className={`${styles.toggleButton} ${chartStrategy === "riskAdjusted" ? styles.toggleButtonActive : ""}`}
-            onClick={() => setChartStrategy("riskAdjusted")}
-          >
-            {primaryConfig.label}
-          </button>
-          <button
-            type="button"
-            className={`${styles.toggleButton} ${chartStrategy === "aggressive" ? styles.toggleButtonActive : ""}`}
-            onClick={() => setChartStrategy("aggressive")}
-          >
-            {secondaryConfig.label}
-          </button>
+          <p className={styles.objectivePill}>
+            Following Bet Objective: <strong>{activeStrategyConfig.label}</strong>
+          </p>
         </div>
       </div>
 
       <p className={styles.note}>
-        The y-axis is total bankroll, not abstract score, so the visual question is direct: which dated model would have left your
-        account higher or lower by now?
+        The y-axis is total bankroll, not abstract score. This chart follows the dashboard&apos;s Bet Objective buttons, so switching
+        between Balanced, Aggressive, and Conservative redraws the full frozen-snapshot bankroll race under that exact rule set.
       </p>
 
       <div className={chartStyles.chartWrap}>

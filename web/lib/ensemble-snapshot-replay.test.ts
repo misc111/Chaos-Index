@@ -3,7 +3,7 @@ import test from "node:test";
 
 import { buildEnsembleSnapshots } from "./ensemble-snapshot-replay";
 
-test("buildEnsembleSnapshots replays frozen snapshots only from activation day forward", () => {
+test("buildEnsembleSnapshots replays frozen snapshots only from activation day forward and keeps conservative results available", () => {
   const snapshots = buildEnsembleSnapshots(
     [
       {
@@ -174,6 +174,14 @@ test("buildEnsembleSnapshots replays frozen snapshots only from activation day f
   assert.equal(
     snapshots[1].daily[1].strategies.riskAdjusted.cumulative_profit,
     snapshots[1].strategies.riskAdjusted.total_profit
+  );
+  assert.ok(snapshots[1].daily[1].strategies.capitalPreservation.cumulative_profit > 0);
+  assert.ok(
+    snapshots[1].strategies.capitalPreservation.total_risked <= snapshots[1].strategies.riskAdjusted.total_risked
+  );
+  assert.ok(
+    snapshots[1].bets[0].strategies.capitalPreservation.stake <
+      snapshots[1].bets[0].strategies.aggressive.stake
   );
   assert.equal(snapshots[1].feature_count, 2);
   assert.equal(snapshots[0].activation_date_central, "2026-03-07");
