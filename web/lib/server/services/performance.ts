@@ -297,6 +297,9 @@ function resolveDisplayGameDate(values: {
   final_utc?: string | null;
   game_date_utc?: string | null;
 }): string | null {
+  // Performance score tables still store the upstream UTC game_date_utc. For
+  // historical UI windows we need the actual slate day users recognize, which
+  // is the same central-time resolution used by replay/bet-history views.
   return dateKeyForReplayRow({
     start_time_utc: values.start_time_utc,
     final_utc: values.final_utc,
@@ -625,6 +628,9 @@ function queryRunSummaries(league: LeagueCode): ModelRunSummaryRow[] {
          AND TRIM(model_run_id) <> ''
      ),
      scored_games AS (
+       -- Capture the earliest and latest scored game per run using the same
+       -- replay ordering basis as the historical views, so west-coast games do
+       -- not drift one day later when a raw UTC date is shown in performance.
        SELECT
          cs.model_name,
          cs.model_run_id,

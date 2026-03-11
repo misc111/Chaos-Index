@@ -296,6 +296,8 @@ export default function ModelBetReplayExplorer({
               <div className={styles.detailRow}>
                 <span className={styles.detailLabel}>Scored window</span>
                 <span className={styles.detailValue}>
+                  {/* Use the replay-aligned display dates so the performance
+                  fingerprint matches the historical game day users see elsewhere. */}
                   {formatDateLabel(scoredWindowStart(selectedRun))} to {formatDateLabel(scoredWindowEnd(selectedRun))}
                 </span>
               </div>

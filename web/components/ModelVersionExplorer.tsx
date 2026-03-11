@@ -198,6 +198,8 @@ export default function ModelVersionExplorer({ rows }: { rows: ModelRunSummaryRo
       trained_at: formatDateLabel(row.created_at_utc || row.last_game_date_utc),
       feature_set: summarizeFeatureSetToken(row.feature_set_version),
       games_scored: String(row.n_games),
+      // Prefer the replay-aligned display date when present. The raw UTC score
+      // window can be a day late for late-night games.
       score_window: `${formatDateLabel(scoredWindowStart(row))} to ${formatDateLabel(scoredWindowEnd(row))}`,
       log_loss: formatMetricValue("avg_log_loss", Number(row.avg_log_loss)),
       brier: formatMetricValue("avg_brier", Number(row.avg_brier)),
