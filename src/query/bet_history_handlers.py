@@ -9,6 +9,8 @@ from src.query.contracts import Queryable
 from src.query.team_aliases import TEAM_ALIAS_GROUPS_BY_LEAGUE, canonical_league, canonical_team_code
 
 DEFAULT_PROFILE_PREFERENCES: tuple[tuple[str, str], ...] = (
+    ("riskAdjusted", "default"),
+    ("balanced", "default"),
     ("riskAdjusted", "continuous"),
     ("balanced", "continuous"),
     ("riskAdjusted", "bucketed"),

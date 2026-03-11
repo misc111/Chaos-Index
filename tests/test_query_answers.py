@@ -284,3 +284,113 @@ def test_query_answers_bet_history_summary_and_cumulative(tmp_path: Path):
     assert net_profit_payload["intent"] == "bet_history_summary"
     assert net_profit_payload["period"] == "yesterday"
     assert "| Game | Bet on | Winner | P/L | Bet rationale |" in net_profit_answer
+
+
+def test_query_answers_bet_history_prefers_risk_adjusted_default_profile(tmp_path: Path):
+    db = Database(str(tmp_path / "bets-v2.db"))
+    db.init_schema()
+
+    today_central = datetime.now(timezone.utc).astimezone(ZoneInfo("America/Chicago")).date()
+    yesterday = (today_central - timedelta(days=1)).isoformat()
+
+    db.executemany(
+        """
+        INSERT INTO results(
+          game_id, season, game_date_utc, final_utc, home_team, away_team,
+          home_score, away_score, home_win, ingested_at_utc
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        [
+            (1, 20252026, yesterday, f"{yesterday}T05:00:00Z", "NYK", "CHI", 108, 101, 1, f"{yesterday}T06:00:00Z"),
+            (2, 20252026, yesterday, f"{yesterday}T05:30:00Z", "MIA", "BOS", 104, 109, 0, f"{yesterday}T06:30:00Z"),
+        ],
+    )
+    db.executemany(
+        """
+        INSERT INTO historical_bet_decisions_by_profile_v2(
+          strategy, sizing_style, strategy_config_signature, game_id, date_central, forecast_as_of_utc, forecast_model_run_id,
+          odds_as_of_utc, odds_snapshot_id, home_team, away_team, home_win_probability,
+          home_moneyline, away_moneyline, bet_label, reason, side, team, stake, odds,
+          model_probability, market_probability, edge, expected_value, stake_unit_dollars,
+          decision_logic_version, materialization_version, created_at_utc
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        [
+            (
+                "riskAdjusted",
+                "default",
+                "sig-risk",
+                1,
+                yesterday,
+                f"{yesterday}T00:00:00Z",
+                "r1",
+                f"{yesterday}T00:10:00Z",
+                "s1",
+                "NYK",
+                "CHI",
+                0.59,
+                -120,
+                105,
+                "$50 NYK",
+                "Favorite underpriced",
+                "home",
+                "NYK",
+                50.0,
+                -120.0,
+                0.59,
+                0.5455,
+                0.0445,
+                0.031,
+                100.0,
+                "v1",
+                "m1",
+                f"{yesterday}T00:20:00Z",
+            ),
+            (
+                "capitalPreservation",
+                "default",
+                "sig-conservative",
+                2,
+                yesterday,
+                f"{yesterday}T00:00:00Z",
+                "r1",
+                f"{yesterday}T00:10:00Z",
+                "s1",
+                "MIA",
+                "BOS",
+                0.44,
+                110,
+                -130,
+                "$75 BOS",
+                "Favorite underpriced",
+                "away",
+                "BOS",
+                75.0,
+                -130.0,
+                0.56,
+                0.4348,
+                0.1252,
+                0.062,
+                100.0,
+                "v1",
+                "m1",
+                f"{yesterday}T00:20:01Z",
+            ),
+        ],
+    )
+
+    answer, payload = answer_question(db, "How much money did I win or lose last night?")
+
+    assert payload["intent"] == "bet_history_summary"
+    assert payload["league"] == "NBA"
+    assert payload["period"] == "yesterday"
+    assert payload["strategy"] == "riskAdjusted"
+    assert payload["sizing_style"] == "default"
+    assert payload["source_table"] == "historical_bet_decisions_by_profile_v2"
+    assert payload["summary"]["tracked_games"] == 1
+    assert payload["summary"]["settled_bets"] == 1
+    assert payload["summary"]["wins"] == 1
+    assert payload["summary"]["losses"] == 0
+    assert round(payload["summary"]["total_risked"], 2) == 50.00
+    assert round(payload["summary"]["total_profit"], 2) == 41.67
+    assert answer.startswith(f"NBA last night ({yesterday}): +$41.67 net, $50.00 risked, 1-0 on 1 bets.")

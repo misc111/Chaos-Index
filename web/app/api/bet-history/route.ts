@@ -18,5 +18,13 @@ function readCommittedBetHistorySnapshot(league: string): BetHistoryResponse | n
 
 export async function GET(request: Request) {
   const league = leagueFromRequest(request);
-  return NextResponse.json(readCommittedBetHistorySnapshot(league) || getBetHistory(league));
+  try {
+    return NextResponse.json(getBetHistory(league));
+  } catch (error) {
+    const snapshot = readCommittedBetHistorySnapshot(league);
+    if (snapshot) {
+      return NextResponse.json(snapshot);
+    }
+    throw error;
+  }
 }
