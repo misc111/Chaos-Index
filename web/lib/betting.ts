@@ -81,12 +81,12 @@ export type BetDecisionTrace = {
   };
 };
 
-// Single source of truth for the bankroll assumptions used across sizing,
-// replay materialization, and UI copy.
-export const REFERENCE_BANKROLL_DOLLARS = 5_000;
+// Reference bankroll drives stake sizing, replay materialization, and UI copy.
+// Historical replay curves still start from the fixed comparison bankroll below.
+export const REFERENCE_BANKROLL_DOLLARS = 10_000;
 export const REFERENCE_STAKE_BANKROLL_FRACTION = 0.01;
 export const REFERENCE_STAKE_DOLLARS = Math.round(REFERENCE_BANKROLL_DOLLARS * REFERENCE_STAKE_BANKROLL_FRACTION);
-export const HISTORICAL_BANKROLL_START_DOLLARS = REFERENCE_BANKROLL_DOLLARS;
+export const HISTORICAL_BANKROLL_START_DOLLARS = 5_000;
 export const HISTORICAL_BANKROLL_START_DATE_CENTRAL = "2026-03-05";
 
 const STAKE_ROUNDING_DOLLARS = 5;
