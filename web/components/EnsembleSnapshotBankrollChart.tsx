@@ -180,7 +180,7 @@ export default function EnsembleSnapshotBankrollChart({
   onSelectSnapshotKey,
 }: Props) {
   const chartStrategy: SnapshotChartStrategyKey = activeStrategy;
-  const [bankrollMode, setBankrollMode] = useState<SnapshotBankrollMode>("independent");
+  const [bankrollMode, setBankrollMode] = useState<SnapshotBankrollMode>("continuity");
   const activeStrategyConfig = getBetStrategyConfig(chartStrategy);
   const series = useMemo(
     () => buildEnsembleSnapshotBankrollSeries(snapshots, chartStrategy, bankrollMode),

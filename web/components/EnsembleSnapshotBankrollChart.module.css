@@ -58,12 +58,14 @@
   gap: 8px;
   padding: 10px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(24, 47, 44, 0.14);
-  background: rgba(248, 246, 241, 0.88);
-  color: #223734;
+  border: 1px solid rgba(32, 95, 81, 0.24);
+  background: rgba(32, 95, 81, 0.12);
+  color: #16312d;
   font-size: 0.84rem;
   font-weight: 700;
   transition:
+    background 160ms ease,
+    color 160ms ease,
     border-color 160ms ease,
     box-shadow 160ms ease,
     transform 160ms ease;
@@ -76,8 +78,9 @@
 }
 
 .continuityButtonActive {
-  border-color: rgba(32, 95, 81, 0.38);
-  background: rgba(32, 95, 81, 0.12);
+  border-color: rgba(24, 47, 44, 0.14);
+  background: rgba(248, 246, 241, 0.96);
+  color: #223734;
   box-shadow: 0 14px 24px rgba(19, 53, 45, 0.1);
 }
 
@@ -91,6 +94,11 @@
   background: rgba(16, 32, 29, 0.08);
   color: #10201d;
   font-size: 0.75rem;
+}
+
+.continuityButtonActive .continuityState {
+  background: rgba(16, 32, 29, 0.08);
+  color: #10201d;
 }
 
 .legendGrid {
