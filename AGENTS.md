@@ -54,6 +54,7 @@
 
 ## Model Analysis Fast Path
 - Treat model-analysis questions as first-class product questions, not side investigations.
+- Unless the user explicitly asks about predictive accuracy, calibration, or another statistical metric, interpret model "performance" as betting profitability: net profit/loss, ROI, bankroll growth, and related money-making outcomes.
 - If the user asks why predictions went right or wrong, what model issues might explain outcomes, or which model behavior should be improved, inspect the local performance/validation surfaces before giving a conclusion.
 - Default NBA unless the user explicitly says NHL or the config context is already league-specific.
 - Start from the narrowest relevant local evidence source:
