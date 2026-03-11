@@ -15,6 +15,8 @@ export type RawPredictionRow = {
   bayes_ci_high?: number | null;
   uncertainty_flags_json?: string | null;
   per_model_probs_json?: string | null;
+  odds_snapshot_id?: string | null;
+  odds_as_of_utc?: string | null;
 };
 
 export type RawTodayGameRow = {
@@ -45,12 +47,64 @@ export function getLatestUpcomingAsOf(league: LeagueCode): string | null {
 }
 
 export function getPredictionRows(league: LeagueCode, asOf: string): RawPredictionRow[] {
+  const escapedLeague = escapeSqlString(league);
+  const escapedAsOf = escapeSqlString(asOf);
   return runSqlJson(
-    `SELECT game_id, game_date_utc, home_team, away_team, ensemble_prob_home_win, predicted_winner,
-            spread_mean, spread_sd, bayes_ci_low, bayes_ci_high, uncertainty_flags_json, per_model_probs_json
-     FROM upcoming_game_forecasts
-     WHERE as_of_utc = '${escapeSqlString(asOf)}'
-     ORDER BY game_date_utc ASC, game_id ASC`,
+    `
+    SELECT
+      u.game_id,
+      u.game_date_utc,
+      u.home_team,
+      u.away_team,
+      u.ensemble_prob_home_win,
+      u.predicted_winner,
+      u.spread_mean,
+      u.spread_sd,
+      u.bayes_ci_low,
+      u.bayes_ci_high,
+      u.uncertainty_flags_json,
+      u.per_model_probs_json,
+      (
+        SELECT s.odds_snapshot_id
+        FROM odds_snapshots s
+        WHERE s.league = '${escapedLeague}'
+          AND DATETIME(s.as_of_utc) <= DATETIME(COALESCE(g.start_time_utc, u.game_date_utc || 'T23:59:59Z'))
+          AND EXISTS (
+            SELECT 1
+            FROM odds_market_lines l
+            WHERE l.odds_snapshot_id = s.odds_snapshot_id
+              AND l.market_key = 'h2h'
+              AND (
+                (l.game_id IS NOT NULL AND l.game_id = u.game_id)
+                OR (l.home_team = u.home_team AND l.away_team = u.away_team)
+              )
+          )
+        ORDER BY DATETIME(s.as_of_utc) DESC
+        LIMIT 1
+      ) AS odds_snapshot_id,
+      (
+        SELECT s.as_of_utc
+        FROM odds_snapshots s
+        WHERE s.league = '${escapedLeague}'
+          AND DATETIME(s.as_of_utc) <= DATETIME(COALESCE(g.start_time_utc, u.game_date_utc || 'T23:59:59Z'))
+          AND EXISTS (
+            SELECT 1
+            FROM odds_market_lines l
+            WHERE l.odds_snapshot_id = s.odds_snapshot_id
+              AND l.market_key = 'h2h'
+              AND (
+                (l.game_id IS NOT NULL AND l.game_id = u.game_id)
+                OR (l.home_team = u.home_team AND l.away_team = u.away_team)
+              )
+          )
+        ORDER BY DATETIME(s.as_of_utc) DESC
+        LIMIT 1
+      ) AS odds_as_of_utc
+    FROM upcoming_game_forecasts u
+    LEFT JOIN games g ON g.game_id = u.game_id
+    WHERE u.as_of_utc = '${escapedAsOf}'
+    ORDER BY u.game_date_utc ASC, u.game_id ASC
+    `,
     { league }
   ) as RawPredictionRow[];
 }

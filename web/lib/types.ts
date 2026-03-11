@@ -18,6 +18,10 @@ export type ForecastRow = {
   bayes_ci_high?: number;
   uncertainty_flags_json?: string;
   model_win_probabilities?: Record<string, number | null>;
+  odds_as_of_utc?: string;
+  home_moneyline?: number;
+  away_moneyline?: number;
+  moneyline_book?: string;
 };
 
 export type PredictionModelSummary = {

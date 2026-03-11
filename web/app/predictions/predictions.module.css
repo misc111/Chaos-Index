@@ -95,6 +95,14 @@
   line-height: 1.5;
 }
 
+.marketHelp {
+  margin: 10px 0 0;
+  max-width: 72ch;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
 .tableCount {
   margin: 0;
   color: var(--muted-strong);
@@ -113,7 +121,7 @@
 }
 
 .reportTable {
-  min-width: 1120px;
+  min-width: 1280px;
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
@@ -158,6 +166,33 @@
 
 .metricCell {
   text-align: right;
+}
+
+.marketCell {
+  min-width: 170px;
+}
+
+.marketStack {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+}
+
+.marketMeta,
+.marketDetail,
+.marketUnavailable {
+  color: var(--muted-strong);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.marketDetail {
+  max-width: 160px;
+}
+
+.marketUnavailable {
+  color: var(--muted);
 }
 
 .probPill {
@@ -314,6 +349,22 @@
 .mobileModelItem {
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
+}
+
+.mobileModelItemDetailed {
+  align-items: start;
+}
+
+.mobileModelCopy {
+  display: grid;
+  gap: 4px;
+}
+
+.mobileModelSubtext {
+  color: var(--muted-strong);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.45;
 }
 
 .noteCard {

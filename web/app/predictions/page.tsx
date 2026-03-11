@@ -3,13 +3,14 @@
 import { Suspense, useMemo, useState } from "react";
 import { useDashboardData } from "@/lib/hooks/useDashboardData";
 import { useLeague } from "@/lib/hooks/useLeague";
-import { type PredictionsResponse } from "@/lib/types";
+import { americanToImpliedProbability } from "@/lib/betting";
 import {
   displayPredictionModel,
   formatPredictionAsOf,
   formatPredictionDate,
   formatPredictionProbability,
 } from "@/lib/predictions-report";
+import { type ForecastRow, type PredictionsResponse } from "@/lib/types";
 import TeamWithIcon, { TeamMatchup } from "@/components/TeamWithIcon";
 import styles from "./predictions.module.css";
 
@@ -40,6 +41,45 @@ function probabilityTone(value?: number | null): string {
     return styles.probTossup;
   }
   return styles.probAgainst;
+}
+
+type MoneylineImpliedView = {
+  rawHomeProbability: number | null;
+  fairHomeProbability: number | null;
+  homeMoneyline: number | null;
+  awayMoneyline: number | null;
+  moneylineBook: string | null;
+};
+
+function numericOrNull(value?: number | null): number | null {
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+function formatMoneyline(value?: number | null): string {
+  const price = numericOrNull(value);
+  if (price === null) return "—";
+  const rounded = Math.round(price);
+  return rounded > 0 ? `+${rounded}` : `${rounded}`;
+}
+
+function getMoneylineImpliedView(row: ForecastRow): MoneylineImpliedView {
+  const homeMoneyline = numericOrNull(row.home_moneyline);
+  const awayMoneyline = numericOrNull(row.away_moneyline);
+  const rawHomeProbability = homeMoneyline == null ? null : americanToImpliedProbability(homeMoneyline);
+  const rawAwayProbability = awayMoneyline == null ? null : americanToImpliedProbability(awayMoneyline);
+  const impliedTotal =
+    rawHomeProbability != null && rawAwayProbability != null ? rawHomeProbability + rawAwayProbability : null;
+
+  return {
+    rawHomeProbability,
+    fairHomeProbability:
+      impliedTotal != null && Number.isFinite(impliedTotal) && impliedTotal > 0
+        ? rawHomeProbability! / impliedTotal
+        : null,
+    homeMoneyline,
+    awayMoneyline,
+    moneylineBook: row.moneyline_book ? String(row.moneyline_book) : null,
+  };
 }
 
 function PredictionsPageContent() {
@@ -106,6 +146,11 @@ function PredictionsPageContent() {
             <p className={styles.sectionSubtitle}>
               One row per home team when that team&apos;s next scheduled game is at home.
             </p>
+            <p className={styles.marketHelp}>
+              <code>ML implied</code> uses one paired home/away moneyline from the same book when available. <code>raw</code>{" "}
+              is the direct home-side implied chance from that line; <code>fair</code> rescales both sides to strip out
+              the visible vig, which is still only a market estimate, not the sportsbook&apos;s hidden true probability.
+            </p>
           </div>
           <p className={styles.tableCount}>
             {filteredRows.length} {filteredRows.length === 1 ? "team" : "teams"} shown
@@ -127,94 +172,154 @@ function PredictionsPageContent() {
                     <th>Home Team</th>
                     <th>Away Team</th>
                     <th>Date</th>
+                    <th>ML implied</th>
                     {modelEntries.map((model) => (
                       <th key={model.key}>{model.label}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredRows.map((row) => (
-                    <tr key={`${row.game_id}-${row.game_date_utc}`}>
-                      <td className={styles.teamCell}>
-                        <TeamWithIcon league={league} teamCode={row.home_team} label={row.home_team} />
-                      </td>
-                      <td className={styles.awayCell}>
-                        <TeamWithIcon league={league} teamCode={row.away_team} label={row.away_team} />
-                      </td>
-                      <td className={styles.dateCell}>{formatPredictionDate(row.game_date_utc)}</td>
-                      {modelEntries.map((model) => {
-                        const value = row.model_win_probabilities?.[model.key];
-                        return (
-                          <td key={model.key} className={styles.metricCell}>
-                            <span className={`${styles.probPill} ${probabilityTone(value)}`}>
-                              {formatPredictionProbability(value)}
-                            </span>
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  ))}
+                  {filteredRows.map((row) => {
+                    const market = getMoneylineImpliedView(row);
+
+                    return (
+                      <tr key={`${row.game_id}-${row.game_date_utc}`}>
+                        <td className={styles.teamCell}>
+                          <TeamWithIcon league={league} teamCode={row.home_team} label={row.home_team} />
+                        </td>
+                        <td className={styles.awayCell}>
+                          <TeamWithIcon league={league} teamCode={row.away_team} label={row.away_team} />
+                        </td>
+                        <td className={styles.dateCell}>{formatPredictionDate(row.game_date_utc)}</td>
+                        <td className={`${styles.metricCell} ${styles.marketCell}`}>
+                          {market.rawHomeProbability == null ? (
+                            <span className={styles.marketUnavailable}>No paired ML</span>
+                          ) : (
+                            <div className={styles.marketStack}>
+                              <span
+                                className={`${styles.probPill} ${probabilityTone(
+                                  market.fairHomeProbability ?? market.rawHomeProbability
+                                )}`}
+                              >
+                                {formatPredictionProbability(market.fairHomeProbability ?? market.rawHomeProbability)} fair
+                              </span>
+                              <span className={styles.marketMeta}>
+                                {formatPredictionProbability(market.rawHomeProbability)} raw
+                              </span>
+                              <span className={styles.marketDetail}>
+                                {market.moneylineBook || "paired book"} · H {formatMoneyline(market.homeMoneyline)} · A{" "}
+                                {formatMoneyline(market.awayMoneyline)}
+                              </span>
+                            </div>
+                          )}
+                        </td>
+                        {modelEntries.map((model) => {
+                          const value = row.model_win_probabilities?.[model.key];
+                          return (
+                            <td key={model.key} className={styles.metricCell}>
+                              <span className={`${styles.probPill} ${probabilityTone(value)}`}>
+                                {formatPredictionProbability(value)}
+                              </span>
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
 
             <div className={styles.tableMobile}>
               <div className={styles.mobileCardList}>
-                {filteredRows.map((row) => (
-                  <article key={`${row.game_id}-${row.game_date_utc}-mobile`} className={styles.mobileCard}>
-                    <div className={styles.mobileCardTop}>
-                      <div>
-                        <p className={styles.mobileCardEyebrow}>Matchup</p>
-                        <h4 className={styles.mobileCardTitle}>
-                          <TeamMatchup
-                            league={league}
-                            awayTeamCode={row.away_team}
-                            homeTeamCode={row.home_team}
-                            awayLabel={row.away_team}
-                            homeLabel={row.home_team}
-                            size="md"
-                          />
-                        </h4>
-                      </div>
-                      <span className={`${styles.probPill} ${probabilityTone(row.ensemble_prob_home_win)}`}>
-                        Ensemble {formatPredictionProbability(row.ensemble_prob_home_win)}
-                      </span>
-                    </div>
+                {filteredRows.map((row) => {
+                  const market = getMoneylineImpliedView(row);
 
-                    <div className={styles.mobileMetaGrid}>
-                      <div className={styles.mobileMetaItem}>
-                        <span className={styles.mobileMetaLabel}>Date</span>
-                        <span className={styles.mobileMetaValue}>{formatPredictionDate(row.game_date_utc)}</span>
-                      </div>
-                      <div className={styles.mobileMetaItem}>
-                        <span className={styles.mobileMetaLabel}>Home</span>
-                        <span className={styles.mobileMetaValue}>
-                          <TeamWithIcon league={league} teamCode={row.home_team} label={row.home_team} />
+                  return (
+                    <article key={`${row.game_id}-${row.game_date_utc}-mobile`} className={styles.mobileCard}>
+                      <div className={styles.mobileCardTop}>
+                        <div>
+                          <p className={styles.mobileCardEyebrow}>Matchup</p>
+                          <h4 className={styles.mobileCardTitle}>
+                            <TeamMatchup
+                              league={league}
+                              awayTeamCode={row.away_team}
+                              homeTeamCode={row.home_team}
+                              awayLabel={row.away_team}
+                              homeLabel={row.home_team}
+                              size="md"
+                            />
+                          </h4>
+                        </div>
+                        <span className={`${styles.probPill} ${probabilityTone(row.ensemble_prob_home_win)}`}>
+                          Ensemble {formatPredictionProbability(row.ensemble_prob_home_win)}
                         </span>
                       </div>
-                      <div className={styles.mobileMetaItem}>
-                        <span className={styles.mobileMetaLabel}>Away</span>
-                        <span className={styles.mobileMetaValue}>
-                          <TeamWithIcon league={league} teamCode={row.away_team} label={row.away_team} />
-                        </span>
-                      </div>
-                    </div>
 
-                    <div className={styles.mobileModelGrid}>
-                      {modelEntries.map((model) => {
-                        const value = row.model_win_probabilities?.[model.key];
-                        return (
-                          <div key={model.key} className={styles.mobileModelItem}>
-                            <span className={styles.mobileModelLabel}>{model.label}</span>
-                            <span className={`${styles.probPill} ${probabilityTone(value)}`}>
-                              {formatPredictionProbability(value)}
-                            </span>
+                      <div className={styles.mobileMetaGrid}>
+                        <div className={styles.mobileMetaItem}>
+                          <span className={styles.mobileMetaLabel}>Date</span>
+                          <span className={styles.mobileMetaValue}>{formatPredictionDate(row.game_date_utc)}</span>
+                        </div>
+                        <div className={styles.mobileMetaItem}>
+                          <span className={styles.mobileMetaLabel}>Home</span>
+                          <span className={styles.mobileMetaValue}>
+                            <TeamWithIcon league={league} teamCode={row.home_team} label={row.home_team} />
+                          </span>
+                        </div>
+                        <div className={styles.mobileMetaItem}>
+                          <span className={styles.mobileMetaLabel}>Away</span>
+                          <span className={styles.mobileMetaValue}>
+                            <TeamWithIcon league={league} teamCode={row.away_team} label={row.away_team} />
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className={styles.mobileModelGrid}>
+                        <div className={`${styles.mobileModelItem} ${styles.mobileModelItemDetailed}`}>
+                          <div className={styles.mobileModelCopy}>
+                            <span className={styles.mobileModelLabel}>ML implied</span>
+                            {market.rawHomeProbability == null ? (
+                              <span className={styles.mobileModelSubtext}>No paired home/away moneyline yet</span>
+                            ) : (
+                              <>
+                                <span className={styles.mobileModelSubtext}>
+                                  {formatPredictionProbability(market.rawHomeProbability)} raw
+                                  {market.moneylineBook ? ` · ${market.moneylineBook}` : ""}
+                                </span>
+                                <span className={styles.mobileModelSubtext}>
+                                  H {formatMoneyline(market.homeMoneyline)} · A {formatMoneyline(market.awayMoneyline)}
+                                </span>
+                              </>
+                            )}
                           </div>
-                        );
-                      })}
-                    </div>
-                  </article>
-                ))}
+                          <span
+                            className={`${styles.probPill} ${probabilityTone(
+                              market.fairHomeProbability ?? market.rawHomeProbability
+                            )}`}
+                          >
+                            {market.rawHomeProbability == null
+                              ? "—"
+                              : `${formatPredictionProbability(
+                                  market.fairHomeProbability ?? market.rawHomeProbability
+                                )} fair`}
+                          </span>
+                        </div>
+                        {modelEntries.map((model) => {
+                          const value = row.model_win_probabilities?.[model.key];
+                          return (
+                            <div key={model.key} className={styles.mobileModelItem}>
+                              <span className={styles.mobileModelLabel}>{model.label}</span>
+                              <span className={`${styles.probPill} ${probabilityTone(value)}`}>
+                                {formatPredictionProbability(value)}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </article>
+                  );
+                })}
               </div>
             </div>
           </>

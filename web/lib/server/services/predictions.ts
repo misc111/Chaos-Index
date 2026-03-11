@@ -7,18 +7,47 @@ import {
 } from "@/lib/predictions-report";
 import { type LeagueCode } from "@/lib/league";
 import { getLatestUpcomingAsOf, getPredictionRows } from "@/lib/server/repositories/forecasts";
+import { getPairedMoneylineRowsForSnapshots, type RawPairedMoneylineRow } from "@/lib/server/repositories/odds";
 import { loadServerModelFeatureMap } from "@/lib/server/repositories/model-feature-map";
+
+function pairKey(homeTeam?: string | null, awayTeam?: string | null): string {
+  return `${String(homeTeam || "").trim()}|${String(awayTeam || "").trim()}`;
+}
 
 export async function getPredictionsPayload(league: LeagueCode) {
   const featureMap = await loadServerModelFeatureMap(league);
   const asOf = getLatestUpcomingAsOf(league);
   const rawRows = asOf ? getPredictionRows(league, asOf) : [];
+  const snapshotIds = Array.from(
+    new Set(rawRows.map((row) => String(row.odds_snapshot_id || "").trim()).filter(Boolean))
+  );
+  const pairedMoneylineRows = getPairedMoneylineRowsForSnapshots(league, snapshotIds);
+  const pairedMoneylineByGameId = new Map<string, RawPairedMoneylineRow>();
+  const pairedMoneylineByTeamKey = new Map<string, RawPairedMoneylineRow>();
+
+  for (const row of pairedMoneylineRows) {
+    const snapshotId = String(row.odds_snapshot_id || "").trim();
+    const gameId = Number(row.game_id);
+    if (snapshotId && Number.isFinite(gameId)) {
+      pairedMoneylineByGameId.set(`${snapshotId}::${gameId}`, row);
+    }
+    const teamKey = pairKey(row.home_team, row.away_team);
+    if (snapshotId && teamKey !== "|") {
+      pairedMoneylineByTeamKey.set(`${snapshotId}::${teamKey}`, row);
+    }
+  }
 
   const games = rawRows.map((row) => {
     const modelWinProbabilities = canonicalizePredictionModelProbabilities({
       ensemble: Number(row.ensemble_prob_home_win),
       ...parseModelWinProbabilities(row.per_model_probs_json),
     });
+    const snapshotId = String(row.odds_snapshot_id || "").trim();
+    const pairedMoneyline =
+      (snapshotId
+        ? pairedMoneylineByGameId.get(`${snapshotId}::${Number(row.game_id)}`) ||
+          pairedMoneylineByTeamKey.get(`${snapshotId}::${pairKey(row.home_team, row.away_team)}`)
+        : undefined);
 
     return {
       game_id: Number(row.game_id),
@@ -32,6 +61,10 @@ export async function getPredictionsPayload(league: LeagueCode) {
       bayes_ci_low: row.bayes_ci_low == null ? undefined : Number(row.bayes_ci_low),
       bayes_ci_high: row.bayes_ci_high == null ? undefined : Number(row.bayes_ci_high),
       uncertainty_flags_json: row.uncertainty_flags_json == null ? undefined : String(row.uncertainty_flags_json),
+      odds_as_of_utc: row.odds_as_of_utc == null ? undefined : String(row.odds_as_of_utc),
+      home_moneyline: pairedMoneyline?.home_moneyline == null ? undefined : Number(pairedMoneyline.home_moneyline),
+      away_moneyline: pairedMoneyline?.away_moneyline == null ? undefined : Number(pairedMoneyline.away_moneyline),
+      moneyline_book: pairedMoneyline?.moneyline_book == null ? undefined : String(pairedMoneyline.moneyline_book),
       model_win_probabilities: modelWinProbabilities,
     };
   });
