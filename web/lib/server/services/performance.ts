@@ -1,5 +1,16 @@
+import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
 import { DEFAULT_BET_STRATEGY } from "@/lib/betting-strategy";
+import type { ModelWinProbabilities } from "@/lib/betting-model";
 import { runSqlJson } from "@/lib/db";
+import {
+  buildEnsembleSnapshots,
+  type EnsembleSnapshotCandidateRow,
+  type EnsembleSnapshotRunMetadata,
+  type EnsembleSnapshotSelection,
+} from "@/lib/ensemble-snapshot-replay";
 import { type LeagueCode } from "@/lib/league";
 import { canonicalizePredictionModel } from "@/lib/predictions-report";
 import {
@@ -7,15 +18,17 @@ import {
   type ModelReplayCandidateRow,
   type ModelReplayRunMetadata,
 } from "@/lib/model-version-replay";
+import { repoRootPath } from "@/lib/server/manifests";
 import type {
   ChangePointRow,
+  EnsembleSnapshotComponentModelRow,
   ModelReplayRunRow,
   ModelRunSummaryRow,
   PerformanceResponse,
   PerformanceScoreRow,
+  SnapshotCommitInfo,
   TableRow,
 } from "@/lib/types";
-import type { ModelWinProbabilities } from "@/lib/betting-model";
 
 type RawScoreRow = {
   model_name?: string | null;
@@ -85,6 +98,40 @@ type RawRunMetadataRow = {
   feature_metadata_json?: string | null;
 };
 
+type RawScheduledGameRow = {
+  start_time_utc?: string | null;
+};
+
+type RawEnsembleSnapshotPredictionRow = {
+  game_id?: number | null;
+  model_name?: string | null;
+  ensemble_model_run_id?: string | null;
+  base_model_run_id?: string | null;
+  forecast_as_of_utc?: string | null;
+  prob_home_win?: number | null;
+};
+
+type RawEnsembleSnapshotRunRow = {
+  ensemble_model_run_id?: string | null;
+  base_model_run_id?: string | null;
+  model_name?: string | null;
+  created_at_utc?: string | null;
+  snapshot_id?: string | null;
+  feature_set_version?: string | null;
+  artifact_path?: string | null;
+  params_json?: string | null;
+  metrics_json?: string | null;
+  feature_columns_json?: string | null;
+  feature_metadata_json?: string | null;
+};
+
+type RawComponentRunRow = {
+  base_model_run_id?: string | null;
+  model_name?: string | null;
+  metrics_json?: string | null;
+  params_json?: string | null;
+};
+
 type ReplayBaseGame = {
   game_id: number;
   date_central: string;
@@ -146,6 +193,69 @@ function normalizeUtcTimestamp(value: string): string {
   return value;
 }
 
+function todayCentralDateKey(): string {
+  return centralDateKeyFromTimestamp(new Date().toISOString()) || "";
+}
+
+function baseModelRunIdFromToken(value?: string | null): string {
+  const token = String(value || "").trim();
+  return token.split("__", 1)[0] || token;
+}
+
+function stableFingerprint(value: unknown): string {
+  const serialized = JSON.stringify(value, (_key, entry) => {
+    if (entry && typeof entry === "object" && !Array.isArray(entry)) {
+      return Object.fromEntries(Object.entries(entry as Record<string, unknown>).sort(([left], [right]) => left.localeCompare(right)));
+    }
+    return entry;
+  });
+  return createHash("sha256").update(serialized).digest("hex").slice(0, 12);
+}
+
+function resolveArtifactDirectory(artifactPath?: string | null): string | null {
+  const raw = String(artifactPath || "").trim();
+  if (!raw) return null;
+  return path.isAbsolute(raw) ? raw : path.resolve(repoRootPath(), raw);
+}
+
+function readJsonFileRecord(filePath?: string | null): TableRow | null {
+  const resolved = String(filePath || "").trim();
+  if (!resolved || !fs.existsSync(resolved)) return null;
+  try {
+    const parsed = JSON.parse(fs.readFileSync(resolved, "utf8")) as unknown;
+    if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+      return parsed as TableRow;
+    }
+  } catch {}
+  return null;
+}
+
+function recordStringArray(record: TableRow | null, key: string): string[] {
+  const value = record?.[key];
+  return Array.isArray(value) ? value.map((entry) => String(entry || "").trim()).filter(Boolean) : [];
+}
+
+function recordObject(value: unknown): TableRow | null {
+  return value && typeof value === "object" && !Array.isArray(value) ? (value as TableRow) : null;
+}
+
+function recordStringArrayMap(record: TableRow | null, key: string): Record<string, string[]> {
+  const value = record?.[key];
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return {};
+  }
+  return Object.fromEntries(
+    Object.entries(value as Record<string, unknown>).map(([modelName, rawColumns]) => [
+      modelName,
+      Array.isArray(rawColumns) ? rawColumns.map((column) => String(column || "").trim()).filter(Boolean) : [],
+    ])
+  );
+}
+
+function canonicalizeModelNameArray(values: string[]): string[] {
+  return Array.from(new Set(values.map((value) => canonicalizePredictionModel(String(value || "").trim())).filter(Boolean)));
+}
+
 function centralDateKeyFromTimestamp(value?: string | null): string | null {
   if (!value) return null;
   const parsed = new Date(normalizeUtcTimestamp(value));
@@ -183,6 +293,83 @@ function snapshotGameKey(snapshotId: string, gameId: number): string {
 
 function snapshotTeamKey(snapshotId: string, homeTeam: string, awayTeam: string): string {
   return `${snapshotId}::${homeTeam}::${awayTeam}`;
+}
+
+function modelGitPathsForLeague(league: LeagueCode): string[] {
+  const slug = league.toLowerCase();
+  return [
+    "src/features",
+    "src/models",
+    "src/training",
+    "src/services/train.py",
+    `configs/${slug}.yaml`,
+    `configs/model_feature_map_${slug}.yaml`,
+    `configs/model_feature_guardrails_${slug}.yaml`,
+    `configs/feature_registry_${slug}.yaml`,
+  ];
+}
+
+function parseGitCommitLines(rawOutput: string): SnapshotCommitInfo[] {
+  return rawOutput
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const [sha, committedAtUtc, subject] = line.split("\u001f");
+      return {
+        sha: String(sha || "").trim(),
+        short_sha: String(sha || "").trim().slice(0, 7),
+        committed_at_utc: String(committedAtUtc || "").trim(),
+        subject: String(subject || "").trim(),
+      };
+    })
+    .filter((commit) => commit.sha && commit.committed_at_utc && commit.subject);
+}
+
+function queryLatestModelCommitBefore(league: LeagueCode, beforeUtc?: string | null): SnapshotCommitInfo | null {
+  const timestamp = String(beforeUtc || "").trim();
+  if (!timestamp) return null;
+  try {
+    const output = execFileSync(
+      "git",
+      ["log", `--before=${timestamp}`, "--pretty=format:%H%x1f%cI%x1f%s", "-n", "1", "--", ...modelGitPathsForLeague(league)],
+      {
+        cwd: repoRootPath(),
+        encoding: "utf8",
+        maxBuffer: 1024 * 1024,
+      }
+    );
+    return parseGitCommitLines(output)[0] || null;
+  } catch {
+    return null;
+  }
+}
+
+function queryModelCommitWindow(
+  league: LeagueCode,
+  afterUtc?: string | null,
+  beforeUtc?: string | null
+): SnapshotCommitInfo[] {
+  const beforeTimestamp = String(beforeUtc || "").trim();
+  if (!beforeTimestamp) return [];
+
+  const args = ["log", `--before=${beforeTimestamp}`];
+  const afterTimestamp = String(afterUtc || "").trim();
+  if (afterTimestamp) {
+    args.push(`--after=${afterTimestamp}`);
+  }
+  args.push("--reverse", "--pretty=format:%H%x1f%cI%x1f%s", "--", ...modelGitPathsForLeague(league));
+
+  try {
+    const output = execFileSync("git", args, {
+      cwd: repoRootPath(),
+      encoding: "utf8",
+      maxBuffer: 1024 * 1024,
+    });
+    return parseGitCommitLines(output).slice(-8);
+  } catch {
+    return [];
+  }
 }
 
 function historicalReplayGamesSql(league: LeagueCode): string {
@@ -593,8 +780,410 @@ function queryReplayBaseGames(league: LeagueCode): ReplayBaseGame[] {
   return baseGames;
 }
 
+function scheduledPregameCutoffsSql(): string {
+  return `
+    SELECT start_time_utc
+    FROM games
+    WHERE start_time_utc IS NOT NULL
+    ORDER BY DATETIME(start_time_utc) ASC
+  `;
+}
+
+function historicalEnsembleSnapshotPredictionsSql(): string {
+  return `
+    WITH finalized_games AS (
+      SELECT
+        r.game_id,
+        COALESCE(g.start_time_utc, r.final_utc, r.game_date_utc || 'T23:59:59Z') AS replay_cutoff_utc
+      FROM results r
+      LEFT JOIN games g ON g.game_id = r.game_id
+      WHERE r.home_win IS NOT NULL
+    )
+    SELECT
+      p.game_id,
+      CASE
+        WHEN p.model_name = 'glm_logit' THEN 'glm_ridge'
+        ELSE p.model_name
+      END AS model_name,
+      p.model_run_id AS ensemble_model_run_id,
+      COALESCE(mr.model_hash, p.model_run_id) AS base_model_run_id,
+      p.as_of_utc AS forecast_as_of_utc,
+      p.prob_home_win
+    FROM predictions p
+    JOIN finalized_games fg
+      ON fg.game_id = p.game_id
+    LEFT JOIN model_runs mr
+      ON mr.model_run_id = p.model_run_id
+    WHERE DATETIME(p.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
+      AND DATETIME(COALESCE(mr.created_at_utc, p.as_of_utc)) <= DATETIME(fg.replay_cutoff_utc)
+    ORDER BY DATETIME(p.as_of_utc) ASC, p.game_id ASC
+  `;
+}
+
 function queryReplayForecastRows(league: LeagueCode): RawForecastRow[] {
   return runSqlJson(historicalForecastCandidatesSql(), { league }) as RawForecastRow[];
+}
+
+function queryScheduledPregameCutoffs(league: LeagueCode): Array<{ date_central: string; pregame_cutoff_utc: string }> {
+  const todayCentral = todayCentralDateKey();
+  const rows = runSqlJson(scheduledPregameCutoffsSql(), { league }) as RawScheduledGameRow[];
+  const firstStartByDate = new Map<string, string>();
+
+  for (const row of rows) {
+    const startTimeUtc = String(row.start_time_utc || "").trim();
+    const dateCentral = centralDateKeyFromTimestamp(startTimeUtc);
+    if (!startTimeUtc || !dateCentral || dateCentral > todayCentral) {
+      continue;
+    }
+    // We use the first start time on the slate as the "truth cutoff" for that
+    // date. Anything trained after this timestamp did not exist before the
+    // first bettable game and therefore cannot count as that day's snapshot.
+    const current = firstStartByDate.get(dateCentral);
+    if (!current || Date.parse(startTimeUtc) < Date.parse(current)) {
+      firstStartByDate.set(dateCentral, startTimeUtc);
+    }
+  }
+
+  return Array.from(firstStartByDate.entries())
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([dateCentral, pregameCutoffUtc]) => ({
+      date_central: dateCentral,
+      pregame_cutoff_utc: pregameCutoffUtc,
+    }));
+}
+
+function queryEnsembleSnapshotPredictionRows(league: LeagueCode): RawEnsembleSnapshotPredictionRow[] {
+  return runSqlJson(historicalEnsembleSnapshotPredictionsSql(), { league }) as RawEnsembleSnapshotPredictionRow[];
+}
+
+function queryComponentRunsByBaseRun(league: LeagueCode, baseRunIds: string[]): Map<string, EnsembleSnapshotComponentModelRow[]> {
+  if (!baseRunIds.length) return new Map();
+
+  const inList = baseRunIds.map((runId) => `'${escapeSqlString(runId)}'`).join(", ");
+  const rows = runSqlJson(
+    `SELECT
+       model_hash AS base_model_run_id,
+       CASE
+         WHEN model_name = 'glm_logit' THEN 'glm_ridge'
+         ELSE model_name
+       END AS model_name,
+       metrics_json,
+       params_json
+     FROM model_runs
+     WHERE model_hash IN (${inList})
+       AND model_name != 'ensemble'
+     ORDER BY model_hash ASC, model_name ASC`,
+    { league }
+  ) as RawComponentRunRow[];
+
+  const out = new Map<string, EnsembleSnapshotComponentModelRow[]>();
+  for (const row of rows) {
+    const baseModelRunId = baseModelRunIdFromToken(row.base_model_run_id);
+    const modelName = canonicalizePredictionModel(String(row.model_name || "").trim());
+    if (!baseModelRunId || !modelName) continue;
+
+    const current = out.get(baseModelRunId) || [];
+    current.push({
+      model_name: modelName,
+      selected_for_training: 0,
+      included_in_ensemble: 0,
+      demoted_from_ensemble: 0,
+      weight: null,
+      feature_columns: [],
+      feature_count: 0,
+      train_metrics: parseJsonRecord(row.metrics_json),
+      train_params: parseJsonRecord(row.params_json),
+    });
+    out.set(baseModelRunId, current);
+  }
+
+  return out;
+}
+
+function queryEnsembleSnapshotRunMetadata(league: LeagueCode): Map<string, EnsembleSnapshotRunMetadata> {
+  const rows = runSqlJson(
+    `SELECT
+       mr.model_run_id AS ensemble_model_run_id,
+       COALESCE(mr.model_hash, mr.model_run_id) AS base_model_run_id,
+       CASE
+         WHEN mr.model_name = 'glm_logit' THEN 'glm_ridge'
+         ELSE mr.model_name
+       END AS model_name,
+       mr.created_at_utc,
+       mr.snapshot_id,
+       mr.feature_set_version,
+       mr.artifact_path,
+       mr.params_json,
+       mr.metrics_json,
+       fs.feature_columns_json,
+       fs.metadata_json AS feature_metadata_json
+     FROM model_runs mr
+     LEFT JOIN feature_sets fs
+       ON fs.feature_set_version = mr.feature_set_version
+     WHERE mr.model_name = 'ensemble'
+     ORDER BY DATETIME(mr.created_at_utc) ASC`,
+    { league }
+  ) as RawEnsembleSnapshotRunRow[];
+
+  const baseRunIds = rows
+    .map((row) => baseModelRunIdFromToken(row.base_model_run_id || row.ensemble_model_run_id))
+    .filter(Boolean);
+  const componentRunsByBaseRun = queryComponentRunsByBaseRun(league, Array.from(new Set(baseRunIds)));
+  const out = new Map<string, EnsembleSnapshotRunMetadata>();
+
+  for (const row of rows) {
+    const baseModelRunId = baseModelRunIdFromToken(row.base_model_run_id || row.ensemble_model_run_id);
+    const ensembleModelRunId = String(row.ensemble_model_run_id || "").trim();
+    if (!baseModelRunId || !ensembleModelRunId) continue;
+
+    const artifactDir = resolveArtifactDirectory(row.artifact_path);
+    const runPayload = readJsonFileRecord(artifactDir ? path.join(artifactDir, "run_payload.json") : null);
+    const featureColumns = recordStringArray(runPayload, "feature_columns");
+    const glmFeatureColumns = recordStringArray(runPayload, "glm_feature_columns");
+    const selectedModels = canonicalizeModelNameArray(recordStringArray(runPayload, "selected_models"));
+    const ensembleComponentColumns = canonicalizeModelNameArray(recordStringArray(runPayload, "ensemble_component_columns"));
+    const demotedModels = canonicalizeModelNameArray(recordStringArray(runPayload, "ensemble_demoted_models"));
+    const stackBaseColumns = canonicalizeModelNameArray(recordStringArray(runPayload, "stack_base_columns"));
+    const rawModelFeatureColumns = recordStringArrayMap(runPayload, "model_feature_columns");
+    const modelFeatureColumns = Object.fromEntries(
+      Object.entries(rawModelFeatureColumns).map(([modelName, featureList]) => [
+        canonicalizePredictionModel(modelName),
+        featureList,
+      ])
+    );
+    const tuning = {
+      glm_primary_model: runPayload?.glm_primary_model ?? null,
+      glm_best_c: runPayload?.glm_best_c ?? null,
+      glm_lasso_best_c: runPayload?.glm_lasso_best_c ?? null,
+      glm_elastic_net_best_c: runPayload?.glm_elastic_net_best_c ?? null,
+      glm_elastic_net_best_l1_ratio: runPayload?.glm_elastic_net_best_l1_ratio ?? null,
+    };
+    // The fingerprint is intentionally built from the model-shaping inputs we
+    // care about for "did I recalibrate?" questions, not from the raw run id.
+    // That lets us collapse same-state retrains while still preserving a full
+    // snapshot row whenever the actual model design changed.
+    const calibrationFingerprint = stableFingerprint({
+      league,
+      feature_set_version: row.feature_set_version ? String(row.feature_set_version) : null,
+      feature_columns: featureColumns,
+      glm_feature_columns: glmFeatureColumns,
+      selected_models: selectedModels,
+      ensemble_component_columns: ensembleComponentColumns,
+      demoted_models: demotedModels,
+      stack_base_columns: stackBaseColumns,
+      model_feature_columns: modelFeatureColumns,
+      tuning,
+    });
+    const rawWeights = recordObject(runPayload?.weights) || recordObject(parseJsonRecord(row.params_json)?.weights) || {};
+    const weights = Object.fromEntries(
+      Object.entries(rawWeights).map(([modelName, weightValue]) => [canonicalizePredictionModel(modelName), weightValue])
+    );
+
+    const rawComponentRuns = componentRunsByBaseRun.get(baseModelRunId) || [];
+    const componentRunByModel = new Map(rawComponentRuns.map((componentRow) => [componentRow.model_name, componentRow]));
+    const componentOrder = Array.from(
+      new Set([
+        ...selectedModels.map((model) => canonicalizePredictionModel(model)),
+        ...rawComponentRuns.map((componentRow) => componentRow.model_name),
+      ])
+    ).filter(Boolean);
+
+    const componentModels: EnsembleSnapshotComponentModelRow[] = componentOrder.map((modelName) => {
+      const existing = componentRunByModel.get(modelName);
+      const modelColumns = modelFeatureColumns[modelName] || [];
+      const weightValue = numberOrNull((weights as TableRow)[modelName]);
+      return {
+        model_name: modelName,
+        selected_for_training: selectedModels.includes(modelName) ? 1 : 0,
+        included_in_ensemble: ensembleComponentColumns.includes(modelName) ? 1 : 0,
+        demoted_from_ensemble: demotedModels.includes(modelName) ? 1 : 0,
+        weight: weightValue,
+        feature_columns: modelColumns,
+        feature_count: modelColumns.length,
+        train_metrics: existing?.train_metrics || null,
+        train_params: existing?.train_params || null,
+      };
+    });
+
+    out.set(baseModelRunId, {
+      model_name: canonicalizePredictionModel(String(row.model_name || "ensemble")),
+      model_run_id: baseModelRunId,
+      ensemble_model_run_id: ensembleModelRunId,
+      finalized_at_utc: row.created_at_utc ? String(row.created_at_utc) : null,
+      finalized_date_central: centralDateKeyFromTimestamp(row.created_at_utc),
+      snapshot_id: row.snapshot_id ? String(row.snapshot_id) : null,
+      artifact_path: artifactDir,
+      feature_set_version: row.feature_set_version ? String(row.feature_set_version) : null,
+      calibration_fingerprint: calibrationFingerprint,
+      feature_columns: featureColumns.length ? featureColumns : parseJsonStringArray(row.feature_columns_json),
+      feature_metadata: parseJsonRecord(row.feature_metadata_json),
+      params: parseJsonRecord(row.params_json),
+      metrics: parseJsonRecord(row.metrics_json),
+      tuning,
+      selected_models: selectedModels,
+      ensemble_component_columns: ensembleComponentColumns,
+      demoted_models: demotedModels,
+      stack_base_columns: stackBaseColumns,
+      glm_feature_columns: glmFeatureColumns,
+      model_feature_columns: modelFeatureColumns,
+      component_models: componentModels,
+      model_commit: queryLatestModelCommitBefore(league, row.created_at_utc ? String(row.created_at_utc) : null),
+      commit_window: [],
+    });
+  }
+
+  const orderedMetadata = Array.from(out.values()).sort(
+    (left, right) => Date.parse(String(left.finalized_at_utc || "")) - Date.parse(String(right.finalized_at_utc || ""))
+  );
+  let previousSnapshotFinalizedAt: string | null = null;
+  for (const metadata of orderedMetadata) {
+    // Commit windows are attached here so the UI can explain not just which
+    // commit the snapshot maps to, but also which model-affecting changes
+    // landed between the prior frozen state and this one.
+    const commitWindow = queryModelCommitWindow(league, previousSnapshotFinalizedAt, metadata.finalized_at_utc);
+    metadata.commit_window = commitWindow.length ? commitWindow : metadata.model_commit ? [metadata.model_commit] : [];
+    previousSnapshotFinalizedAt = metadata.finalized_at_utc || previousSnapshotFinalizedAt;
+  }
+
+  return out;
+}
+
+function selectEnsembleSnapshotActivations(
+  dailyCutoffs: Array<{ date_central: string; pregame_cutoff_utc: string }>,
+  metadataById: Map<string, EnsembleSnapshotRunMetadata>
+): EnsembleSnapshotSelection[] {
+  const runs = Array.from(metadataById.values()).sort(
+    (left, right) => Date.parse(String(left.finalized_at_utc || "")) - Date.parse(String(right.finalized_at_utc || ""))
+  );
+  const selections: EnsembleSnapshotSelection[] = [];
+  let previousIdentity: string | null = null;
+
+  for (const day of dailyCutoffs) {
+    let activeRun: EnsembleSnapshotRunMetadata | null = null;
+    for (const run of runs) {
+      if (!run.finalized_at_utc) continue;
+      if (Date.parse(String(run.finalized_at_utc)) <= Date.parse(day.pregame_cutoff_utc)) {
+        activeRun = run;
+      } else {
+        break;
+      }
+    }
+
+    if (!activeRun) {
+      continue;
+    }
+
+    // The activation selector intentionally keys off both git provenance and
+    // the reconstructed calibration fingerprint. This lets us collapse away
+    // same-state retrains while still creating a new snapshot when a model-
+    // affecting commit landed even if the feature-set token happened to stay
+    // the same.
+    const identity = `${activeRun.model_commit?.sha || "no-commit"}::${activeRun.calibration_fingerprint}`;
+    if (identity === previousIdentity) {
+      continue;
+    }
+
+    selections.push({
+      activation_date_central: day.date_central,
+      pregame_cutoff_utc: day.pregame_cutoff_utc,
+      model_run_id: activeRun.model_run_id,
+    });
+    previousIdentity = identity;
+  }
+
+  return selections;
+}
+
+function buildEnsembleSnapshotCandidates(league: LeagueCode): EnsembleSnapshotCandidateRow[] {
+  const baseGames = queryReplayBaseGames(league);
+  const predictionRows = queryEnsembleSnapshotPredictionRows(league);
+  if (!baseGames.length || !predictionRows.length) {
+    return [];
+  }
+
+  const baseGamesById = new Map(baseGames.map((row) => [row.game_id, row]));
+  const probabilitiesByRunAndGame = new Map<
+    string,
+    {
+      game_id: number;
+      model_run_id: string;
+      forecast_as_of_utc: string;
+      ensemble_probability: number | null;
+      model_win_probabilities: ModelWinProbabilities;
+    }
+  >();
+
+  for (const row of predictionRows) {
+    const gameId = numberOrNull(row.game_id);
+    const modelName = canonicalizePredictionModel(String(row.model_name || "").trim());
+    const baseModelRunId = baseModelRunIdFromToken(row.base_model_run_id || row.ensemble_model_run_id);
+    const forecastAsOf = String(row.forecast_as_of_utc || "").trim();
+    const probability = numberOrNull(row.prob_home_win);
+    if (gameId === null || !modelName || !baseModelRunId || !forecastAsOf || probability === null) {
+      continue;
+    }
+
+    const key = `${baseModelRunId}::${gameId}`;
+    const current = probabilitiesByRunAndGame.get(key) || {
+      game_id: gameId,
+      model_run_id: baseModelRunId,
+      forecast_as_of_utc: forecastAsOf,
+      ensemble_probability: null,
+      model_win_probabilities: {},
+    };
+
+    current.model_win_probabilities[modelName] = probability;
+    if (modelName === "ensemble") {
+      current.ensemble_probability = probability;
+      current.forecast_as_of_utc = forecastAsOf;
+    }
+    probabilitiesByRunAndGame.set(key, current);
+  }
+
+  const candidates: EnsembleSnapshotCandidateRow[] = [];
+
+  for (const value of probabilitiesByRunAndGame.values()) {
+    const baseGame = baseGamesById.get(value.game_id);
+    if (!baseGame || value.ensemble_probability === null) {
+      continue;
+    }
+
+    // These candidate rows are rebuilt from the immutable predictions ledger
+    // instead of upcoming_game_forecasts, because predictions is the table that
+    // actually preserves same-day historical versions across recalibrations.
+    candidates.push({
+      game_id: value.game_id,
+      date_central: baseGame.date_central,
+      start_time_utc: baseGame.start_time_utc,
+      final_utc: baseGame.final_utc,
+      home_team: baseGame.home_team,
+      away_team: baseGame.away_team,
+      home_score: baseGame.home_score,
+      away_score: baseGame.away_score,
+      home_win: baseGame.home_win,
+      forecast_as_of_utc: value.forecast_as_of_utc,
+      home_moneyline: baseGame.home_moneyline,
+      away_moneyline: baseGame.away_moneyline,
+      model_run_id: value.model_run_id,
+      home_win_probability: value.ensemble_probability,
+      model_win_probabilities: value.model_win_probabilities,
+    });
+  }
+
+  return candidates;
+}
+
+function buildFrozenEnsembleSnapshots(league: LeagueCode) {
+  const metadataById = queryEnsembleSnapshotRunMetadata(league);
+  const selections = selectEnsembleSnapshotActivations(queryScheduledPregameCutoffs(league), metadataById);
+  if (!selections.length) {
+    return [];
+  }
+
+  // The final replay pass is pure: once the selector chooses which dated run
+  // became the official snapshot, we hand only those frozen rows into the
+  // replay engine and never let newer runs leak back into the path.
+  return buildEnsembleSnapshots(buildEnsembleSnapshotCandidates(league), selections, metadataById);
 }
 
 function queryRunMetadata(league: LeagueCode, runIds: string[]): Map<string, ModelReplayRunMetadata> {
@@ -710,6 +1299,7 @@ export function getPerformancePayload(league: LeagueCode): PerformanceResponse {
   const run_summaries = queryRunSummaries(league);
   const change_points = queryChangePoints(league);
   const replay_runs = buildReplayCandidates(league, run_summaries);
+  const ensemble_snapshots = buildFrozenEnsembleSnapshots(league);
 
   return {
     league,
@@ -717,6 +1307,7 @@ export function getPerformancePayload(league: LeagueCode): PerformanceResponse {
     run_summaries,
     change_points,
     replay_runs,
+    ensemble_snapshots,
     default_replay_strategy: DEFAULT_BET_STRATEGY,
     comparison_replay_strategy: "aggressive",
   };

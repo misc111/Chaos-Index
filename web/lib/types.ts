@@ -206,6 +206,86 @@ export type ModelReplayRunRow = {
   bets: ModelReplayBetRow[];
 };
 
+export type SnapshotCommitInfo = {
+  sha: string;
+  short_sha: string;
+  committed_at_utc: string;
+  subject: string;
+};
+
+export type EnsembleSnapshotComponentModelRow = {
+  model_name: string;
+  selected_for_training: number;
+  included_in_ensemble: number;
+  demoted_from_ensemble: number;
+  weight: number | null;
+  feature_columns: string[];
+  feature_count: number;
+  train_metrics?: TableRow | null;
+  train_params?: TableRow | null;
+};
+
+export type EnsembleSnapshotDailyStrategyRow = {
+  slate_games: number;
+  suggested_bets: number;
+  wins: number;
+  losses: number;
+  total_risked: number;
+  total_profit: number;
+  cumulative_risked: number;
+  cumulative_profit: number;
+  roi: number;
+  cumulative_roi: number;
+};
+
+export type EnsembleSnapshotDailyRow = {
+  date_central: string;
+  slate_games: number;
+  strategies: {
+    riskAdjusted: EnsembleSnapshotDailyStrategyRow;
+    aggressive: EnsembleSnapshotDailyStrategyRow;
+  };
+};
+
+export type EnsembleSnapshotRow = {
+  snapshot_key: string;
+  model_name: string;
+  model_run_id: string;
+  ensemble_model_run_id: string;
+  finalized_at_utc?: string | null;
+  finalized_date_central: string | null;
+  activation_date_central: string;
+  compared_through_date_central: string | null;
+  pregame_cutoff_utc?: string | null;
+  snapshot_id?: string | null;
+  artifact_path?: string | null;
+  feature_set_version?: string | null;
+  calibration_fingerprint: string;
+  feature_columns: string[];
+  feature_count: number;
+  feature_metadata?: TableRow | null;
+  params?: TableRow | null;
+  metrics?: TableRow | null;
+  tuning?: TableRow | null;
+  selected_models: string[];
+  ensemble_component_columns: string[];
+  demoted_models: string[];
+  stack_base_columns: string[];
+  glm_feature_columns: string[];
+  model_feature_columns?: Record<string, string[]> | null;
+  component_models: EnsembleSnapshotComponentModelRow[];
+  model_commit?: SnapshotCommitInfo | null;
+  commit_window: SnapshotCommitInfo[];
+  replayable_games: number;
+  days_tracked: number;
+  strategies: {
+    riskAdjusted: ModelReplayStrategySummary;
+    aggressive: ModelReplayStrategySummary;
+  };
+  daily: EnsembleSnapshotDailyRow[];
+  bets: ModelReplayBetRow[];
+};
+
 export type ChangePointRow = TableRow & {
   model_name?: string;
   metric_name?: string;
@@ -222,6 +302,7 @@ export type PerformanceResponse = {
   run_summaries: ModelRunSummaryRow[];
   change_points: ChangePointRow[];
   replay_runs: ModelReplayRunRow[];
+  ensemble_snapshots: EnsembleSnapshotRow[];
   default_replay_strategy?: BetStrategy;
   comparison_replay_strategy?: BetStrategy;
 };

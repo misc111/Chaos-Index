@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense } from "react";
+import EnsembleSnapshotExplorer from "@/components/EnsembleSnapshotExplorer";
 import ModelBetReplayExplorer from "@/components/ModelBetReplayExplorer";
 import ModelTable from "@/components/ModelTable";
 import ModelVersionExplorer from "@/components/ModelVersionExplorer";
@@ -15,6 +16,7 @@ const EMPTY_PERFORMANCE: PerformanceResponse = {
   run_summaries: [],
   change_points: [],
   replay_runs: [],
+  ensemble_snapshots: [],
 };
 
 function PerformancePageContent() {
@@ -35,11 +37,17 @@ function PerformancePageContent() {
         <p className="small">
           The top charts show how each model family has been scoring over time. The version replay section underneath keeps older
           trained runs separate, so you can see whether a feature-set change or parameter tweak coincided with worse live results.
-          The new versioned bet replay block then asks the next question: what those dated model snapshots would actually have bet.
+          The frozen ensemble snapshot section then asks the counterfactual question directly: what your cumulative winnings would
+          look like today if you had stopped recalibrating on a given date.
         </p>
       </div>
       <PerformanceCharts rows={data.scores} />
       <ModelVersionExplorer rows={data.run_summaries} />
+      <EnsembleSnapshotExplorer
+        snapshots={data.ensemble_snapshots}
+        defaultStrategy={data.default_replay_strategy}
+        comparisonStrategy={data.comparison_replay_strategy}
+      />
       <ModelBetReplayExplorer
         runs={data.replay_runs}
         defaultStrategy={data.default_replay_strategy}
