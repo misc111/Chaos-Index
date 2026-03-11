@@ -3,16 +3,25 @@ import {
   type BetStrategy,
   DEFAULT_BET_STRATEGY,
 } from "@/lib/betting-strategy";
-import { REFERENCE_STAKE_DOLLARS, computeBetDecisionsForSlate, type BetDecision, type ExpectedSide } from "@/lib/betting";
+import {
+  REFERENCE_STAKE_BANKROLL_FRACTION,
+  computeBetDecisionsForSlate,
+  type BetDecision,
+  type ExpectedSide,
+} from "@/lib/betting";
 import type { ModelWinProbabilities } from "@/lib/betting-model";
 import { execSql, runSqlJson } from "@/lib/db";
 import type { LeagueCode } from "@/lib/league";
 
 const REPLAY_DECISION_VERSION = "historical_replay_v8";
-const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v5";
+const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v8";
 const REPLAY_DECISION_TABLE = "historical_bet_decisions_by_profile_v2";
 const LEGACY_REPLAY_DECISION_TABLE = "historical_bet_decisions_by_profile";
 const DEFAULT_REPLAY_VARIANT = "default";
+const REPLAY_REFERENCE_BANKROLL_DOLLARS = 10_000;
+const REPLAY_REFERENCE_STAKE_DOLLARS = Math.round(
+  REPLAY_REFERENCE_BANKROLL_DOLLARS * REFERENCE_STAKE_BANKROLL_FRACTION
+);
 
 export type ReplayableHistoricalGame = {
   game_id: number;
@@ -434,7 +443,7 @@ function buildHistoricalReplayDecision(
     market_probability: decision.marketProbability,
     edge: decision.edge,
     expected_value: decision.expectedValue,
-    reference_stake_dollars: REFERENCE_STAKE_DOLLARS,
+    reference_stake_dollars: REPLAY_REFERENCE_STAKE_DOLLARS,
     strategy_config_signature: strategyConfigSignature,
     decision_logic_version: REPLAY_DECISION_VERSION,
     materialization_version: REPLAY_MATERIALIZATION_VERSION,
@@ -550,7 +559,7 @@ export function loadOrCreateHistoricalReplayDecisions(
         !snapshot ||
         snapshot.decision_logic_version !== REPLAY_DECISION_VERSION ||
         snapshot.materialization_version !== REPLAY_MATERIALIZATION_VERSION ||
-        snapshot.reference_stake_dollars !== REFERENCE_STAKE_DOLLARS ||
+        snapshot.reference_stake_dollars !== REPLAY_REFERENCE_STAKE_DOLLARS ||
         snapshot.strategy_config_signature !== strategyConfigSignature
       );
     });
@@ -575,7 +584,10 @@ export function loadOrCreateHistoricalReplayDecisions(
         model_win_probabilities: row.model_win_probabilities,
       })),
       strategy,
-      strategyConfig
+      strategyConfig,
+      undefined,
+      undefined,
+      REPLAY_REFERENCE_BANKROLL_DOLLARS
     );
 
     dayRows.forEach((row, index) => {

@@ -110,7 +110,7 @@ type HistoricalReplayDataset = {
   total_final_games: number;
   games_with_forecast: number;
   games_with_odds: number;
-  frozen_forecast_games: number;
+  stored_forecast_games: number;
   diagnostic_forecast_games: number;
   earliest_final_date: string | null;
   coverage_start_central: string | null;
@@ -120,7 +120,7 @@ type HistoricalReplayDataset = {
   rows: HistoricalReplayGameRow[];
 };
 
-const FROZEN_FORECAST_SOURCE = "train_upcoming";
+const STORED_FORECAST_SOURCE = "stored_prediction_history";
 const DIAGNOSTIC_FORECAST_SOURCE = "train_oof_history";
 
 function escapeSqlString(value: string): string {
@@ -213,20 +213,20 @@ function buildNote(
   totalFinalGames: number,
   analyzedGames: number,
   suggestedBets: number,
-  frozenForecastGames: number,
+  storedForecastGames: number,
   diagnosticForecastGames: number
 ): string {
   const usesDiagnosticBackfill = diagnosticForecastGames > 0;
   const coverageDescription = usesDiagnosticBackfill
-    ? "Replay prefers frozen live forecasts when they exist and backfills older dates with historical diagnostic forecasts plus the latest pregame odds before game time."
-    : "Replay results use stored pregame forecasts plus the latest matching pregame odds before game time.";
+    ? "Replay uses the latest stored pregame forecast before game time and backfills older gaps with historical diagnostics, paired with the latest pregame odds before game time."
+    : "Replay uses the latest stored pregame forecast and latest matching pregame odds before game time.";
 
   if (totalFinalGames === 0) return "No finalized games are available yet.";
   if (analyzedGames === 0) {
-    if (frozenForecastGames > 0 || diagnosticForecastGames > 0) {
+    if (storedForecastGames > 0 || diagnosticForecastGames > 0) {
       return "Forecast history exists, but no finalized games have matching pregame odds snapshots yet.";
     }
-    return "No finalized games have either frozen live forecasts or historical diagnostic backfill yet.";
+    return "No finalized games have either stored pregame forecast history or historical diagnostic backfill yet.";
   }
   if (suggestedBets === 0) {
     return `${coverageDescription} None of the covered games cleared the current bet threshold.`;
@@ -250,7 +250,6 @@ function betDecisionFromReplaySnapshot(snapshot: HistoricalReplayDecisionSnapsho
 }
 
 function historicalForecastCandidatesSql(modelName?: string): string {
-  const escapedFrozenSource = escapeSqlString(FROZEN_FORECAST_SOURCE);
   const escapedDiagnosticSource = escapeSqlString(DIAGNOSTIC_FORECAST_SOURCE);
   const modelFilter = modelName ? `AND p.model_name = '${escapeSqlString(modelName)}'` : "";
 
@@ -261,7 +260,7 @@ function historicalForecastCandidatesSql(modelName?: string): string {
       p.prob_home_win,
       p.model_run_id,
       p.model_name,
-      '${escapedFrozenSource}' AS forecast_source,
+      '${STORED_FORECAST_SOURCE}' AS forecast_source,
       0 AS source_priority,
       p.prediction_id AS row_sort_id,
       COALESCE(mr.created_at_utc, p.as_of_utc) AS created_at_utc
@@ -269,7 +268,6 @@ function historicalForecastCandidatesSql(modelName?: string): string {
     JOIN predictions p
       ON p.game_id = fg.game_id
      ${modelFilter}
-     AND COALESCE(json_extract(p.metadata_json, '$.source'), '') = '${escapedFrozenSource}'
      AND DATETIME(p.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
     LEFT JOIN model_runs mr
       ON mr.model_run_id = p.model_run_id
@@ -299,10 +297,10 @@ function historicalForecastCandidatesSql(modelName?: string): string {
 function historicalGamesSql(league: LeagueCode, modelName: string): string {
   const escapedLeague = escapeSqlString(league);
 
-  // Finalized-game replay prefers immutable live prediction history, but older
-  // dates still need the diagnostic backfill until the frozen ledger covers a
-  // full season. The market side of the replay uses the latest pregame odds
-  // snapshot available before the game starts.
+  // Finalized-game replay should use the latest stored pregame prediction that
+  // existed before game time. Historical diagnostics only fill holes where the
+  // main prediction history is missing. The market side uses the latest
+  // pregame odds snapshot available before the game starts.
   return `
     WITH finalized_games AS (
       SELECT
@@ -559,7 +557,7 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
   // Maintainer note: this is the shared "pregame replay" source for both
   // Bet History and Games Today past-date navigation. Keep the core fields
   // league-agnostic here; league-specific extras should stay optional.
-  const preferredBettingModelName = getPreferredBettingModelName(league);
+  const preferredBettingModelName = getPreferredBettingModelName(league, "historicalReplay");
   const rawGames = runSqlJson(historicalGamesSql(league, preferredBettingModelName), { league }) as RawHistoricalGameRow[];
   const modelProbabilityRows = runSqlJson(historicalModelProbabilitiesSql(), { league }) as RawHistoricalModelProbabilityRow[];
   const modelProbabilitiesByGame = new Map<number, ModelWinProbabilities>();
@@ -623,7 +621,7 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
 
   let gamesWithForecast = 0;
   let gamesWithOdds = 0;
-  let frozenForecastGames = 0;
+  let storedForecastGames = 0;
   let diagnosticForecastGames = 0;
   const earliestFinalDate = rawGames.length ? dateKeyForHistoricalRow(rawGames[0]) : null;
   let coverageStartDate: string | null = null;
@@ -643,7 +641,7 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
 
     if (forecastAsOf) gamesWithForecast += 1;
     if (oddsSnapshotId) gamesWithOdds += 1;
-    if (forecastAsOf && forecastSource === FROZEN_FORECAST_SOURCE) frozenForecastGames += 1;
+    if (forecastAsOf && forecastSource === STORED_FORECAST_SOURCE) storedForecastGames += 1;
     if (forecastAsOf && forecastSource === DIAGNOSTIC_FORECAST_SOURCE) diagnosticForecastGames += 1;
 
     if (gameId === null || !forecastAsOf || !oddsSnapshotId || !oddsAsOf || !homeTeam || !awayTeam || !dateCentral) {
@@ -715,7 +713,7 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
     total_final_games: rawGames.length,
     games_with_forecast: gamesWithForecast,
     games_with_odds: gamesWithOdds,
-    frozen_forecast_games: frozenForecastGames,
+    stored_forecast_games: storedForecastGames,
     diagnostic_forecast_games: diagnosticForecastGames,
     earliest_final_date: earliestFinalDate,
     coverage_start_central: coverageStartDate,
@@ -868,7 +866,7 @@ function buildBetHistoryStrategyBundle(
       dataset.total_final_games,
       analyzedGames,
       bets.length,
-      dataset.frozen_forecast_games,
+      dataset.stored_forecast_games,
       dataset.diagnostic_forecast_games
     ),
   };

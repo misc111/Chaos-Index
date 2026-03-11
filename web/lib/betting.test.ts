@@ -32,6 +32,25 @@ test("computeBetDecision sizes favorites with the bankroll-linked formula", () =
   assert.equal(decision.stake, 65);
 });
 
+test("computeBetDecision accepts a larger reference bankroll override", () => {
+  const decision = computeBetDecision(
+    {
+      home_team: "SAC",
+      away_team: "CHI",
+      home_win_probability: 0.653,
+      home_moneyline: -135,
+      away_moneyline: 125,
+    },
+    "riskAdjusted",
+    undefined,
+    10_000
+  );
+
+  assert.equal(decision.side, "home");
+  assert.equal(decision.team, "SAC");
+  assert.equal(decision.stake, 125);
+});
+
 test("computeBetDecision sizes underdogs with the shared value screen", () => {
   const decision = computeBetDecision({
     home_team: "BOS",
@@ -181,6 +200,50 @@ test("slate-level sizing enforces the daily risk budget", () => {
   const totalRisked = traces.reduce((sum, trace) => sum + trace.finalStake, 0);
   assert.ok(totalRisked <= 125);
   assert.ok(traces.some((trace) => trace.dailyRiskCapApplied));
+});
+
+test("slate-level sizing scales the default daily budget with a replay bankroll override", () => {
+  const traces = explainBetDecisionsForSlate(
+    [
+      {
+        home_team: "SAC",
+        away_team: "CHI",
+        home_win_probability: 0.653,
+        home_moneyline: -135,
+        away_moneyline: 125,
+      },
+      {
+        home_team: "PHI",
+        away_team: "ATL",
+        home_win_probability: 0.67,
+        home_moneyline: -140,
+        away_moneyline: 128,
+      },
+      {
+        home_team: "NYK",
+        away_team: "MIA",
+        home_win_probability: 0.64,
+        home_moneyline: -132,
+        away_moneyline: 122,
+      },
+      {
+        home_team: "DEN",
+        away_team: "UTA",
+        home_win_probability: 0.69,
+        home_moneyline: -142,
+        away_moneyline: 130,
+      },
+    ],
+    "capitalPreservation",
+    undefined,
+    undefined,
+    undefined,
+    10_000
+  );
+
+  const totalRisked = traces.reduce((sum, trace) => sum + trace.finalStake, 0);
+  assert.ok(totalRisked <= 250);
+  assert.ok(totalRisked > 125);
 });
 
 test("slate-level sizing accepts a custom daily budget override in dollars", () => {

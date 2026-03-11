@@ -9,6 +9,7 @@ import {
   normalizeBetStrategy,
   type BetStrategy,
 } from "@/lib/betting-strategy";
+import { DAILY_BUDGET_QUERY_PARAM } from "@/lib/daily-budget";
 import { ALL_LEAGUES, displayLeagueLabel, type LeagueCode, normalizeLeague, withLeague } from "@/lib/league";
 import { isStaticStagingBuild } from "@/lib/static-staging";
 
@@ -23,6 +24,7 @@ const links: Array<[string, string]> = [
 ];
 
 const DEFAULT_QUERY = "?league=NBA&strategy=riskAdjusted";
+const DAILY_BUDGET_SUPPORTED_PATHS = new Set(["/games-today", "/market-board"]);
 
 type RefreshResponse = {
   ok?: boolean;
@@ -96,6 +98,9 @@ function hrefWithParams(href: string, searchParams: URLSearchParams, updates: Re
   const params = new URLSearchParams(searchParams.toString());
   for (const [key, value] of Object.entries(updates)) {
     params.set(key, value);
+  }
+  if (!DAILY_BUDGET_SUPPORTED_PATHS.has(href)) {
+    params.delete(DAILY_BUDGET_QUERY_PARAM);
   }
   const query = params.toString();
   return query ? `${href}?${query}` : href;

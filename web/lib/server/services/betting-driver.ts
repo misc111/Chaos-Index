@@ -12,7 +12,6 @@ type RawBettableModelScoreRow = {
 const DEFAULT_BETTING_MODEL = "ensemble";
 const BETTABLE_DRIVER_LOOKBACK_DAYS = 60;
 const REPLAY_DECISION_TABLE = "historical_bet_decisions_by_profile_v2";
-const FROZEN_FORECAST_SOURCE = "train_upcoming";
 
 // Temporary live-betting driver reranker:
 // We are intentionally selecting the betting driver from recent *bettable*
@@ -28,6 +27,7 @@ const FROZEN_FORECAST_SOURCE = "train_upcoming";
 // If those checks pass, prefer deleting this reranker and returning to the
 // simpler ensemble-first policy.
 const TEMPORARY_MIN_BETTABLE_DRIVER_GAMES = 10;
+type BettingDriverMode = "live" | "historicalReplay";
 
 function clampProbability(value: number): number {
   return Math.min(1 - 1e-9, Math.max(1e-9, value));
@@ -74,7 +74,6 @@ function modelDriverSql(lookbackDays: number): string {
       FROM target_games tg
       JOIN predictions p
         ON p.game_id = tg.game_id
-       AND COALESCE(json_extract(p.metadata_json, '$.source'), '') = '${FROZEN_FORECAST_SOURCE}'
        AND DATETIME(p.as_of_utc) <= DATETIME(tg.replay_cutoff_utc)
       LEFT JOIN model_runs mr
         ON mr.model_run_id = p.model_run_id
@@ -86,7 +85,14 @@ function modelDriverSql(lookbackDays: number): string {
   `;
 }
 
-export function getPreferredBettingModelName(league: LeagueCode): string {
+export function getPreferredBettingModelName(
+  league: LeagueCode,
+  mode: BettingDriverMode = "live"
+): string {
+  if (mode === "historicalReplay") {
+    return DEFAULT_BETTING_MODEL;
+  }
+
   ensureHistoricalReplayDecisionTable(league);
   const rows = runSqlJson(modelDriverSql(BETTABLE_DRIVER_LOOKBACK_DAYS), { league }) as RawBettableModelScoreRow[];
   const metricsByModel = new Map<string, { n: number; logLoss: number; brier: number; accuracy: number }>();
