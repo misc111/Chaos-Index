@@ -1,7 +1,7 @@
 {
   "league": "NHL",
   "as_of_utc": "2026-03-10T11:40:08+00:00",
-  "odds_as_of_utc": "2026-03-10T11:50:21+00:00",
+  "odds_as_of_utc": "2026-03-11T14:17:49+00:00",
   "date_central": "2026-03-11",
   "strategy_configs": {
     "riskAdjusted": {
@@ -59,10 +59,10 @@
       "away_team": "MTL",
       "home_team_name": "Ottawa Senators",
       "away_team_name": "Montréal Canadiens",
-      "home_win_probability": 0.5208738537412746,
-      "betting_model_name": "ensemble",
+      "home_win_probability": 0.607,
+      "betting_model_name": "simulation_first",
       "model_win_probabilities": {
-        "ensemble": 0.5208738537412746,
+        "ensemble": 0.5208738537412779,
         "bayes_bt_state_space": 0.5266512150452936,
         "bayes_goals": 0.473,
         "dynamic_rating": 0.5801785654366824,
@@ -74,30 +74,30 @@
         "goals_poisson": 0.49350000000000005,
         "rf": 0.5319902954171682,
         "simulation_first": 0.607,
-        "two_stage": 0.6001389442718587
+        "two_stage": 0.6015180250815779
       },
       "moneyline": {
-        "away_price": null,
-        "home_price": null,
-        "away_book": null,
-        "home_book": null,
-        "books_count": 0
+        "away_price": 153,
+        "home_price": -166,
+        "away_book": "BetOnline.ag",
+        "home_book": "DraftKings",
+        "books_count": 9
       },
       "spread": {
-        "point": null,
-        "away_price": null,
-        "home_price": null,
-        "away_book": null,
-        "home_book": null,
-        "books_count": 0
+        "point": 1.5,
+        "away_price": -160,
+        "home_price": 150,
+        "away_book": "BetMGM",
+        "home_book": "DraftKings",
+        "books_count": 9
       },
       "total": {
-        "point": null,
-        "over_price": null,
-        "under_price": null,
-        "over_book": null,
-        "under_book": null,
-        "books_count": 0
+        "point": 6.5,
+        "over_price": -108,
+        "under_price": -106,
+        "over_book": "DraftKings",
+        "under_book": "BetOnline.ag",
+        "books_count": 9
       }
     },
     {
@@ -108,10 +108,10 @@
       "away_team": "WSH",
       "home_team_name": "Philadelphia Flyers",
       "away_team_name": "Washington Capitals",
-      "home_win_probability": 0.45944402317223226,
-      "betting_model_name": "ensemble",
+      "home_win_probability": 0.41185714285714287,
+      "betting_model_name": "simulation_first",
       "model_win_probabilities": {
-        "ensemble": 0.45944402317223226,
+        "ensemble": 0.45944402317223704,
         "bayes_bt_state_space": 0.4775158082414874,
         "bayes_goals": 0.4786,
         "dynamic_rating": 0.47444408910794394,
@@ -123,30 +123,30 @@
         "goals_poisson": 0.4376666666666667,
         "rf": 0.43032546151725914,
         "simulation_first": 0.41185714285714287,
-        "two_stage": 0.47027724828224854
+        "two_stage": 0.4713288643753839
       },
       "moneyline": {
-        "away_price": null,
-        "home_price": null,
-        "away_book": null,
-        "home_book": null,
-        "books_count": 0
+        "away_price": -117,
+        "home_price": 107,
+        "away_book": "BetRivers",
+        "home_book": "BetOnline.ag",
+        "books_count": 9
       },
       "spread": {
-        "point": null,
-        "away_price": null,
-        "home_price": null,
-        "away_book": null,
-        "home_book": null,
-        "books_count": 0
+        "point": 1.5,
+        "away_price": 215,
+        "home_price": -225,
+        "away_book": "DraftKings",
+        "home_book": "BetMGM",
+        "books_count": 9
       },
       "total": {
-        "point": null,
-        "over_price": null,
-        "under_price": null,
-        "over_book": null,
-        "under_book": null,
-        "books_count": 0
+        "point": 6,
+        "over_price": -103,
+        "under_price": -105,
+        "over_book": "Bovada",
+        "under_book": "BetMGM",
+        "books_count": 7
       }
     }
   ]
