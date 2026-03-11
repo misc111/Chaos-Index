@@ -127,6 +127,85 @@ export type ModelRunSummaryRow = {
   is_latest_version: number;
 };
 
+export type ModelReplayStrategySummary = {
+  total_games: number;
+  suggested_bets: number;
+  wins: number;
+  losses: number;
+  total_risked: number;
+  total_profit: number;
+  roi: number;
+  avg_edge: number | null;
+  avg_expected_value: number | null;
+  first_bet_date_central: string | null;
+  last_bet_date_central: string | null;
+};
+
+export type ModelReplayDecisionDetail = {
+  bet_label: string;
+  reason: string;
+  side: "home" | "away" | "none";
+  team: string | null;
+  stake: number;
+  odds: number | null;
+  model_probability: number | null;
+  market_probability: number | null;
+  edge: number | null;
+  expected_value: number | null;
+  outcome: "win" | "loss" | "no_bet";
+  profit: number;
+  payout: number;
+};
+
+export type ModelReplayBetRow = {
+  game_id: number;
+  date_central: string;
+  forecast_as_of_utc: string;
+  start_time_utc?: string | null;
+  final_utc?: string | null;
+  home_team: string;
+  away_team: string;
+  home_score: number | null;
+  away_score: number | null;
+  home_moneyline: number;
+  away_moneyline: number;
+  strategies: {
+    riskAdjusted: ModelReplayDecisionDetail;
+    aggressive: ModelReplayDecisionDetail;
+  };
+};
+
+export type ModelReplayRunRow = {
+  model_name: string;
+  model_run_id: string;
+  run_type?: string | null;
+  created_at_utc?: string | null;
+  snapshot_id?: string | null;
+  artifact_path?: string | null;
+  feature_set_version?: string | null;
+  feature_columns: string[];
+  feature_count: number;
+  feature_metadata?: TableRow | null;
+  params?: TableRow | null;
+  metrics?: TableRow | null;
+  scored_games: number;
+  avg_log_loss: number | null;
+  avg_brier: number | null;
+  accuracy: number | null;
+  version_rank: number | null;
+  is_latest_version: number | null;
+  first_game_date_utc?: string | null;
+  last_game_date_utc?: string | null;
+  first_replay_date_central: string | null;
+  last_replay_date_central: string | null;
+  replayable_games: number;
+  strategies: {
+    riskAdjusted: ModelReplayStrategySummary;
+    aggressive: ModelReplayStrategySummary;
+  };
+  bets: ModelReplayBetRow[];
+};
+
 export type ChangePointRow = TableRow & {
   model_name?: string;
   metric_name?: string;
@@ -142,6 +221,9 @@ export type PerformanceResponse = {
   scores: PerformanceScoreRow[];
   run_summaries: ModelRunSummaryRow[];
   change_points: ChangePointRow[];
+  replay_runs: ModelReplayRunRow[];
+  default_replay_strategy?: BetStrategy;
+  comparison_replay_strategy?: BetStrategy;
 };
 
 export type ValidationSections = Record<string, TableRow[]>;

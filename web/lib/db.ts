@@ -3,6 +3,7 @@ import { type LeagueCode, normalizeLeague } from "@/lib/league";
 import { resolveDbPathForLeague } from "@/lib/server/manifests";
 
 const envLeague = normalizeLeague(process.env.LEAGUE);
+const SQLITE_JSON_MAX_BUFFER_BYTES = 64 * 1024 * 1024;
 
 function dbPathForLeague(league: LeagueCode): string {
   return process.env.SPORTS_DB_PATH
@@ -20,7 +21,10 @@ export function runSqlJson<T extends Record<string, unknown> = Record<string, un
 ): T[] {
   const dbPath = dbPathForLeague(opts?.league || envLeague);
   try {
-    const out = execFileSync("sqlite3", ["-json", dbPath, sql], { encoding: "utf8" });
+    const out = execFileSync("sqlite3", ["-json", dbPath, sql], {
+      encoding: "utf8",
+      maxBuffer: SQLITE_JSON_MAX_BUFFER_BYTES,
+    });
     return out.trim() ? (JSON.parse(out) as T[]) : [];
   } catch {
     return [];
