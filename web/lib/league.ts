@@ -1,12 +1,10 @@
-export type LeagueCode = "NHL" | "NBA" | "NCAAM";
+import { ALL_LEAGUES, LEAGUE_ALIASES, LEAGUE_RUNTIME, type LeagueCode } from "@/lib/generated/league-registry";
 
-export const ALL_LEAGUES: LeagueCode[] = ["NBA", "NHL", "NCAAM"];
+export { ALL_LEAGUES, type LeagueCode };
 
 export function normalizeLeague(value?: string | null): LeagueCode {
   const token = String(value || "").trim().toUpperCase();
-  if (token === "NCAAM" || token === "NCAA") return "NCAAM";
-  if (token === "NHL") return "NHL";
-  return "NBA";
+  return LEAGUE_ALIASES[token] || "NBA";
 }
 
 export function leagueFromRequest(request: Request): LeagueCode {
@@ -20,5 +18,5 @@ export function withLeague(path: string, league: LeagueCode): string {
 }
 
 export function displayLeagueLabel(league: LeagueCode): string {
-  return league === "NCAAM" ? "NCAA" : league;
+  return LEAGUE_RUNTIME[league].displayLabel;
 }

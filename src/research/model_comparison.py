@@ -868,7 +868,6 @@ def _write_report(
     candidate_scope_note: str,
     feature_pool_note: str,
 ) -> tuple[str, str]:
-    best_validation = _best_model_row(validation_metrics)
     best_test = _best_model_row(test_metrics)
     candidate_validation = validation_metrics[validation_metrics["model_name"] != "intercept_only"].copy()
     candidate_test = test_metrics[test_metrics["model_name"] != "intercept_only"].copy()

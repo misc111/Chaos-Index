@@ -1,3 +1,5 @@
+"""CLI entry point for the deterministic repo-wide hard refresh pipeline."""
+
 import argparse
 import json
 import shlex
@@ -15,6 +17,8 @@ PUBLISH_WORKFLOW_NAME = "Publish Sanitized Staging Site"
 
 @dataclass(frozen=True)
 class WorkflowRun:
+    """GitHub Actions workflow metadata for the publish workflow."""
+
     database_id: int
     head_sha: str
     status: str
@@ -24,6 +28,8 @@ class WorkflowRun:
 
 @dataclass(frozen=True)
 class HardRefreshPublishSummary:
+    """Summary of the commit/push/workflow closeout after a hard refresh."""
+
     commit_sha: str
     staging_data_changed: bool
     workflow_url: str
@@ -63,6 +69,8 @@ def _git_status_lines(*, root_dir: Path = ROOT_DIR, pathspec: str | None = None)
 
 
 def assert_publish_preconditions(*, root_dir: Path = ROOT_DIR) -> None:
+    """Require a clean `main` worktree before a hard refresh publish closeout."""
+
     current_branch = _capture_stdout(("git", "branch", "--show-current"), cwd=root_dir)
     if current_branch != "main":
         raise RuntimeError(
@@ -169,6 +177,8 @@ def _build_commit_message() -> str:
 
 
 def run_publish_closeout(*, root_dir: Path = ROOT_DIR) -> HardRefreshPublishSummary | None:
+    """Commit, push, and watch the publish workflow for a successful hard refresh."""
+
     changed_lines = _git_status_lines(root_dir=root_dir)
     if not changed_lines:
         print("Hard refresh produced no repository changes; skipping git commit, push, and workflow watch.", flush=True)
@@ -205,13 +215,15 @@ def run_publish_closeout(*, root_dir: Path = ROOT_DIR) -> HardRefreshPublishSumm
 
 
 def main() -> None:
+    """Run or preview the deterministic repo-wide hard refresh pipeline."""
+
     parser = argparse.ArgumentParser(
         description="Run the deterministic multi-league hard-refresh pipeline without rebuilding features."
     )
     parser.add_argument(
         "--models",
         default=None,
-        help="Optional comma-separated model list to train for both leagues. Defaults to the full model suite.",
+        help="Optional comma-separated model list to train for all supported leagues. Defaults to the full model suite.",
     )
     parser.add_argument(
         "--approve-feature-changes",

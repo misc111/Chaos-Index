@@ -8,7 +8,6 @@ from dataclasses import dataclass, field
 from src.query.team_aliases import (
     TEAM_ABBREV_ALIASES_BY_LEAGUE,
     TEAM_ABBREV_PATTERN_BY_LEAGUE,
-    TEAM_ALIAS_GROUPS_BY_LEAGUE,
     TEAM_ALIAS_REGEX,
     canonical_league,
 )

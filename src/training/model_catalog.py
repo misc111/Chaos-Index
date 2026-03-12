@@ -2,20 +2,22 @@
 
 from __future__ import annotations
 
-from src.common.manifests import load_model_manifest
+from src.registry.models import (
+    legacy_model_keys,
+    model_aliases,
+    prediction_report_order,
+    trainable_model_names,
+)
 
-
-MODEL_MANIFEST = load_model_manifest()
-ALL_MODEL_NAMES = list(MODEL_MANIFEST["trainable_models"])
-MODEL_ALIASES = dict(MODEL_MANIFEST["aliases"])
-LEGACY_MODEL_KEYS = {
-    str(model_name): tuple(str(item) for item in values)
-    for model_name, values in dict(MODEL_MANIFEST.get("legacy_model_keys", {})).items()
-}
-MODEL_REPORT_ORDER = list(MODEL_MANIFEST["prediction_report_order"])
+ALL_MODEL_NAMES = trainable_model_names()
+MODEL_ALIASES = model_aliases()
+LEGACY_MODEL_KEYS = legacy_model_keys()
+MODEL_REPORT_ORDER = prediction_report_order()
 
 
 def normalize_selected_models(selected_models: list[str] | None) -> list[str]:
+    """Normalize user-selected model tokens into canonical registered keys."""
+
     if not selected_models:
         return list(ALL_MODEL_NAMES)
 

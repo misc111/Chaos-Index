@@ -7,6 +7,27 @@ Production-grade NHL/NBA/NCAAM home-win probability forecasting with:
 - SQLite-backed deterministic local query command
 - Next.js dashboard for predictions, performance, calibration, diagnostics, slices, and validation
 
+## Generated Reference
+
+The repo now uses code-first registries under `src/registry/` as the canonical source of truth for leagues, models, commands, and dashboard routes.
+
+- `docs/generated/architecture.md`: generated subsystem and ownership map
+- `docs/generated/commands.md`: generated CLI command reference
+- `docs/generated/dashboard-routes.md`: generated dashboard API/staging route inventory
+- `docs/generated/extensions.md`: generated extension guide for leagues, models, and dashboard payloads
+- `docs/generated/manifests.md`: generated manifest inventory
+- `configs/generated/*.json` and `web/lib/generated/*.ts`: generated machine-readable/runtime registry surfaces
+
+Refresh generated artifacts with:
+```bash
+make docs-generate
+```
+
+Verify generated artifacts and repo contracts with:
+```bash
+make verify
+```
+
 ## Repo Structure
 
 - `src/` Python pipeline, models, evaluation, storage, query tools

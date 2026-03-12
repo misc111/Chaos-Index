@@ -24,51 +24,49 @@ help:
 	@echo "Targets:"
 	@echo "  install-python      Install Python deps"
 	@echo "  install-node        Install Node deps"
-	@echo "  init-db             Initialize SQLite schema"
-	@echo "  fetch               Fetch league data from CONFIG"
-	@echo "  refresh-data        Fetch league data + final odds pull from CONFIG"
-	@echo "  fetch-odds          Fetch latest odds snapshot from CONFIG"
-	@echo "  import-history      Import bulk historical game/odds files into immutable storage"
-	@echo "                      Optional: HISTORY_SEASONS=5 SOURCE_MANIFEST=/abs/path/manifest.json"
-	@echo "  features            Build feature tables"
-	@echo "  research-features   Score and promote per-model feature maps"
-	@echo "  train               Train models + predict upcoming games"
-	@echo "                      Optional: MODELS=glm_ridge,rf (default: all)"
-	@echo "                      Optional: APPROVE_FEATURE_CHANGES=1"
-	@echo "  validate            Regenerate validation artifacts from the latest saved trained run"
-	@echo "                      Optional: MODELS=glm_ridge,rf (default: saved run selection)"
-	@echo "                      Optional: MODEL_RUN_ID=run_abc123"
-	@echo "  compare-candidates  Run the research-only candidate model comparison suite"
-	@echo "                      Optional: CONFIG=configs/nba.yaml"
-	@echo "                      Optional: CANDIDATE_MODELS=glm_ridge,glm_lasso,glm_elastic_net,glm_vanilla FEATURE_POOL=production_model_map FEATURE_MAP_MODEL=glm_ridge"
-	@echo "  backtest            Walk-forward backtest + artifacts"
-	@echo "                      Optional: MODELS=glm_ridge,rf (default: all)"
-	@echo "                      Optional: APPROVE_FEATURE_CHANGES=1"
-	@echo "  research-backtest   Nested-CV research backtest with bankroll and predictive scorecards"
-	@echo "                      Optional: FEATURE_POOL=research_broad CANDIDATE_MODELS=glm_ridge,glm_vanilla FEATURE_MAP_MODEL=glm_ridge"
-	@echo "  run_daily           Daily pipeline end-to-end"
 	@echo "  data_refresh        Deterministic multi-league data-only refresh"
 	@echo "                      Optional: DRY_RUN=1"
 	@echo "  hard_refresh        Deterministic multi-league refresh/train + staging snapshot"
 	@echo "                      Uses existing processed features; does not rebuild features"
 	@echo "                      Optional: MODELS=glm_ridge,rf APPROVE_FEATURE_CHANGES=1 PAGES_BUILD=0 DRY_RUN=1"
+	@echo "  docs-generate       Regenerate manifests, generated docs, and boilerplate READMEs"
+	@echo "  docs-check          Fail if generated docs/manifests are stale"
+	@echo "  lint                Run Python and web lint checks"
+	@echo "  typecheck           Run Python and web type checks"
 	@echo "  dashboard           Launch Next.js dashboard"
 	@echo "  smoke-dashboard     Playwright smoke test for the Next.js dashboard"
 	@echo "  query Q=...         Query local forecast/performance DB"
 	@echo "  smoke               End-to-end smoke run"
 	@echo "  test                Run tests"
+	@echo "  verify              Run repo contract checks, tests, lint, and type checks"
 	@echo "  "
 	@echo "Usage:"
 	@echo "  make fetch CONFIG=configs/nba.yaml"
 	@echo "  make refresh-data CONFIG=configs/nba.yaml"
 	@echo "  make data_refresh DRY_RUN=1"
 	@echo "  make query CONFIG=configs/nba.yaml Q=\"What's the chance the Raptors win the next game?\""
+	@echo "  "
+	@$(PYTHON) -m src.registry.commands
 
 install-python:
 	$(PIP) install -e '.[dev]'
 
 install-node:
 	cd web && $(NPM) install
+
+docs-generate:
+	$(PYTHON) -m src.registry.generate
+
+docs-check:
+	$(PYTHON) -m src.registry.generate --check
+
+lint:
+	ruff check src tests scripts
+	cd web && $(NPM) run lint
+
+typecheck:
+	mypy src/registry src/common/manifests.py src/league_registry.py src/cli.py src/training/model_catalog.py src/training/model_feature_guardrails.py
+	cd web && $(NPM) run typecheck
 
 init-db:
 	$(PYTHON) -m src.cli init-db --config $(CONFIG)
@@ -129,3 +127,9 @@ smoke:
 
 test:
 	pytest
+
+verify:
+	$(PYTHON) -m src.registry.verify
+	pytest -q
+	$(MAKE) lint
+	$(MAKE) typecheck

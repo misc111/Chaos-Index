@@ -14,7 +14,6 @@ import pandas as pd
 
 from src.common.config import AppConfig
 from src.common.logging import get_logger
-from src.common.time import utc_now_iso
 from src.common.utils import ensure_dir, to_json
 from src.services.ingest import latest_snapshot_id
 from src.services.train import apply_model_feature_policy, load_features_dataframe, parse_models_arg

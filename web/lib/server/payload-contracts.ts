@@ -5,6 +5,7 @@
  * staging snapshots under `web/public/staging-data/`. Route services should
  * return these contracts directly so staging-data generation stays aligned.
  */
+import type { DashboardRouteKey } from "@/lib/generated/dashboard-routes";
 import type { BetHistoryResponse } from "@/lib/bet-history-types";
 import type {
   ActualVsExpectedResponse,
@@ -27,4 +28,13 @@ export type DashboardPayloadByKey = {
   validation: ValidationResponse;
 };
 
-export type DashboardRouteContract = keyof DashboardPayloadByKey;
+type _AssertRoutePayloadCoverage = DashboardRouteKey extends keyof DashboardPayloadByKey ? true : never;
+type _AssertPayloadRouteCoverage = keyof DashboardPayloadByKey extends DashboardRouteKey ? true : never;
+
+const _routePayloadCoverage: _AssertRoutePayloadCoverage = true;
+const _payloadRouteCoverage: _AssertPayloadRouteCoverage = true;
+
+void _routePayloadCoverage;
+void _payloadRouteCoverage;
+
+export type DashboardRouteContract = DashboardRouteKey;

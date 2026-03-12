@@ -209,7 +209,7 @@ def _query_bet_history_rows(
     selected_profile = _select_profile(db)
     if selected_profile:
         strategy, sizing_style, strategy_config_signature, source_table = selected_profile
-        signature_filter_sql = f"AND COALESCE(d.strategy_config_signature, '') = ?" if source_table == PROFILE_TABLE_V2 else ""
+        signature_filter_sql = "AND COALESCE(d.strategy_config_signature, '') = ?" if source_table == PROFILE_TABLE_V2 else ""
         signature_params = [strategy_config_signature] if source_table == PROFILE_TABLE_V2 else []
         rows = db.query(
             f"""

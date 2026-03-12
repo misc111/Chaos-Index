@@ -10,27 +10,16 @@ from argparse import Namespace
 from collections.abc import Callable
 
 from src.common.config import AppConfig
-
-from . import data, modeling, smoke
+from src.registry.commands import get_command_handler
 
 CommandHandler = Callable[[AppConfig, Namespace], None]
 
 
 def dispatch(command: str, cfg: AppConfig, args: Namespace) -> None:
-    handlers: dict[str, CommandHandler] = {
-        "init-db": data.init_db,
-        "fetch": data.fetch,
-        "refresh-data": data.refresh_data,
-        "fetch-odds": data.fetch_odds,
-        "import-history": data.import_history,
-        "features": data.features,
-        "research-features": data.research_features,
-        "train": modeling.train,
-        "validate": modeling.validate,
-        "compare-candidates": modeling.compare_candidates,
-        "backtest": modeling.backtest,
-        "research-backtest": modeling.research_backtest,
-        "run-daily": modeling.run_daily,
-        "smoke": smoke.run,
-    }
-    handlers[command](cfg, args)
+    """Dispatch a parsed CLI command through the canonical command registry."""
+
+    handler = get_command_handler(command)
+    typed_handler = handler if callable(handler) else None
+    if typed_handler is None:
+        raise KeyError(f"Unknown command '{command}'.")
+    typed_handler(cfg, args)

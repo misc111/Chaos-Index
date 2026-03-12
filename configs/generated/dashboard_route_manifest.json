@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "source": "code_registry",
+  "routes": [
+    {
+      "key": "actualVsExpected",
+      "summary": "Actual-vs-expected trend payload for residual-style dashboard views.",
+      "module_path": "app/api/actual-vs-expected/route.ts",
+      "api_path": "/api/actual-vs-expected",
+      "page_path": "/actual-vs-expected",
+      "staging_file_name": "actual-vs-expected.json",
+      "payload_contract": "actualVsExpected",
+      "include_in_staging": true,
+      "public": true,
+      "supports_experiments": false
+    },
+    {
+      "key": "betHistory",
+      "summary": "Bet history recap payload for bankroll, replay, and bet/no-bet explanations.",
+      "module_path": "app/api/bet-history/route.ts",
+      "api_path": "/api/bet-history",
+      "page_path": "/bet-history",
+      "staging_file_name": "bet-history.json",
+      "payload_contract": "betHistory",
+      "include_in_staging": true,
+      "public": true,
+      "supports_experiments": false
+    },
+    {
+      "key": "gamesToday",
+      "summary": "Upcoming slate payload for the games-today dashboard view.",
+      "module_path": "app/api/games-today/route.ts",
+      "api_path": "/api/games-today",
+      "page_path": "/games-today",
+      "staging_file_name": "games-today.json",
+      "payload_contract": "gamesToday",
+      "include_in_staging": true,
+      "public": true,
+      "supports_experiments": false
+    },
+    {
+      "key": "marketBoard",
+      "summary": "Market board payload for edge screens and pricing comparisons.",
+      "module_path": "app/api/market-board/route.ts",
+      "api_path": "/api/market-board",
+      "page_path": "/market-board",
+      "staging_file_name": "market-board.json",
+      "payload_contract": "marketBoard",
+      "include_in_staging": true,
+      "public": true,
+      "supports_experiments": false
+    },
+    {
+      "key": "metrics",
+      "summary": "Top-level metrics payload used by the overview surfaces.",
+      "module_path": "app/api/metrics/route.ts",
+      "api_path": "/api/metrics",
+      "page_path": null,
+      "staging_file_name": "metrics.json",
+      "payload_contract": "metrics",
+      "include_in_staging": true,
+      "public": true,
+      "supports_experiments": false
+    },
+    {
+      "key": "performance",
+      "summary": "Performance payload including experiment-aware replay variants for staging snapshots.",
+      "module_path": "app/api/performance/route.ts",
+      "api_path": "/api/performance",
+      "page_path": "/performance",
+      "staging_file_name": "performance.json",
+      "payload_contract": "performance",
+      "include_in_staging": true,
+      "public": true,
+      "supports_experiments": true
+    },
+    {
+      "key": "predictions",
+      "summary": "Prediction board payload for daily forecast delivery.",
+      "module_path": "app/api/predictions/route.ts",
+      "api_path": "/api/predictions",
+      "page_path": "/predictions",
+      "staging_file_name": "predictions.json",
+      "payload_contract": "predictions",
+      "include_in_staging": true,
+      "public": true,
+      "supports_experiments": false
+    },
+    {
+      "key": "validation",
+      "summary": "Validation artifact digest payload served to the dashboard and sanitized staging data.",
+      "module_path": "app/api/validation/route.ts",
+      "api_path": "/api/validation",
+      "page_path": "/validation",
+      "staging_file_name": "validation.json",
+      "payload_contract": "validation",
+      "include_in_staging": true,
+      "public": true,
+      "supports_experiments": false
+    }
+  ]
+}

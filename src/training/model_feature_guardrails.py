@@ -1,3 +1,5 @@
+"""Model feature guardrail loading and filtering helpers."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -5,17 +7,19 @@ from typing import Any
 
 import yaml
 
-from src.common.manifests import load_model_manifest
+from src.registry.models import legacy_model_keys
 
 
 MODEL_FEATURE_GUARDRAILS_PATH_TEMPLATE = "configs/model_feature_guardrails_{league}.yaml"
 MODEL_GUARDRAIL_FALLBACKS = {
     str(model_name): tuple(str(item) for item in values)
-    for model_name, values in dict(load_model_manifest().get("legacy_model_keys", {})).items()
+    for model_name, values in legacy_model_keys().items()
 }
 
 
 def default_guardrails_path_template(path_template: str) -> str:
+    """Normalize a feature-map template into the guardrails companion template."""
+
     rendered = str(path_template or "")
     if "model_feature_map_" in rendered:
         return rendered.replace("model_feature_map_", "model_feature_guardrails_")
@@ -23,6 +27,8 @@ def default_guardrails_path_template(path_template: str) -> str:
 
 
 def resolve_model_feature_guardrails_path(path_template: str, league: str) -> Path:
+    """Resolve the guardrails config path for a given league."""
+
     league_token = str(league or "unknown").strip().lower()
     rendered = str(path_template).replace("{league}", league_token)
     return Path(rendered)
@@ -54,6 +60,8 @@ def load_model_feature_guardrails(
     *,
     path_template: str = MODEL_FEATURE_GUARDRAILS_PATH_TEMPLATE,
 ) -> dict[str, dict[str, Any]]:
+    """Load per-model blocked and watchlist feature metadata for a league."""
+
     path = resolve_model_feature_guardrails_path(path_template, league=league)
     raw = _load_guardrails(path)
     models = raw.get("models", {})
@@ -80,6 +88,8 @@ def blocked_features_for_model(
     *,
     path_template: str = MODEL_FEATURE_GUARDRAILS_PATH_TEMPLATE,
 ) -> set[str]:
+    """Return the blocked feature set for a model, honoring legacy fallback keys."""
+
     guardrails = load_model_feature_guardrails(league, path_template=path_template)
     candidate_keys = [str(model_name)] + list(MODEL_GUARDRAIL_FALLBACKS.get(str(model_name), ()))
     for key in candidate_keys:
@@ -97,6 +107,8 @@ def apply_model_feature_guardrails(
     model_name: str,
     path_template: str = MODEL_FEATURE_GUARDRAILS_PATH_TEMPLATE,
 ) -> tuple[list[str], list[str]]:
+    """Partition candidate features into approved and blocked lists."""
+
     blocked = blocked_features_for_model(league, model_name, path_template=path_template)
     approved: list[str] = []
     blocked_hits: list[str] = []
@@ -121,6 +133,8 @@ def find_model_feature_guardrail_conflicts(
     model_name: str,
     path_template: str = MODEL_FEATURE_GUARDRAILS_PATH_TEMPLATE,
 ) -> list[str]:
+    """Return only the blocked feature hits for a proposed feature set."""
+
     _, blocked_hits = apply_model_feature_guardrails(
         features,
         league=league,

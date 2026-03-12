@@ -16,6 +16,8 @@ from sklearn.exceptions import ConvergenceWarning
 from src.commands import dispatch
 from src.common.config import load_config
 from src.common.logging import setup_logging
+from src.registry.commands import command_registry
+from src.registry.leagues import default_config_path
 
 
 def _load_dotenv_file(path: Path) -> None:
@@ -36,142 +38,23 @@ def _load_dotenv_file(path: Path) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """Build the CLI parser directly from the canonical command registry."""
+
     parser = argparse.ArgumentParser(description="NHL/NBA/NCAAM probabilistic forecasting pipeline")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    for cmd in [
-        "init-db",
-        "fetch",
-        "refresh-data",
-        "fetch-odds",
-        "import-history",
-        "features",
-        "research-features",
-        "train",
-        "validate",
-        "compare-candidates",
-        "backtest",
-        "research-backtest",
-        "run-daily",
-        "smoke",
-    ]:
-        p = sub.add_parser(cmd)
-        p.add_argument("--config", default="configs/nba.yaml")
-        if cmd == "import-history":
-            p.add_argument(
-                "--history-seasons",
-                type=int,
-                default=None,
-                help="Override the configured number of historical seasons to import.",
-            )
-            p.add_argument(
-                "--source-manifest",
-                default=None,
-                help="Optional absolute or config-relative path to the historical import manifest.",
-            )
-        if cmd in {"research-features", "train", "validate", "backtest", "run-daily"}:
-            p.add_argument(
-                "--models",
-                default=None if cmd == "validate" else "all",
-                help="Comma-separated model list (e.g. glm_ridge,rf) or 'all'",
-            )
-        if cmd == "compare-candidates":
-            p.add_argument(
-                "--report-slug",
-                default=None,
-                help="Optional report slug prefix for artifacts/reports/history outputs.",
-            )
-            p.add_argument(
-                "--bootstrap-samples",
-                type=int,
-                default=1000,
-                help="Number of paired bootstrap samples for the final holdout comparison.",
-            )
-            p.add_argument(
-                "--candidate-models",
-                default="all",
-                help=(
-                    "Comma-separated candidate model list for the research suite "
-                    "(e.g. glm_ridge,glm_lasso,glm_elastic_net,glm_vanilla) or 'all'."
-                ),
-            )
-            p.add_argument(
-                "--feature-pool",
-                choices=["full_screened", "production_model_map", "research_broad"],
-                default="full_screened",
-                help="Feature pool for the comparison: full screened, production model map, or the research-broad dataset.",
-            )
-            p.add_argument(
-                "--feature-map-model",
-                default="glm_ridge",
-                help="Model key to read from the production feature map when --feature-pool=production_model_map.",
-            )
-        if cmd == "research-backtest":
-            p.add_argument(
-                "--report-slug",
-                default=None,
-                help="Optional report slug prefix for artifacts/research outputs.",
-            )
-            p.add_argument(
-                "--candidate-models",
-                default="all",
-                help=(
-                    "Comma-separated candidate model list for the research backtest "
-                    "(e.g. glm_ridge,glm_lasso,glm_elastic_net,glm_vanilla) or 'all'."
-                ),
-            )
-            p.add_argument(
-                "--feature-pool",
-                choices=["full_screened", "production_model_map", "research_broad"],
-                default="research_broad",
-                help="Feature pool for the research backtest dataset.",
-            )
-            p.add_argument(
-                "--feature-map-model",
-                default="glm_ridge",
-                help="Baseline production model key to read when needed for comparisons.",
-            )
-            p.add_argument(
-                "--history-seasons",
-                type=int,
-                default=None,
-                help="Override the configured number of historical seasons to include in the research dataset.",
-            )
-        if cmd in {"train", "validate", "run-daily"}:
-            p.add_argument(
-                "--validation-split-mode",
-                choices=["train_test", "train_validation_test"],
-                default=None,
-                help="Validation split layout: 70/30 train-test or 40/30/30 train-validation-test.",
-            )
-            p.add_argument(
-                "--validation-split-method",
-                choices=["time", "random"],
-                default=None,
-                help="Validation split method: out-of-time or random-by-record.",
-            )
-            p.add_argument(
-                "--validation-split-seed",
-                type=int,
-                default=None,
-                help="Optional random seed for random-by-record validation splits.",
-            )
-        if cmd == "validate":
-            p.add_argument(
-                "--model-run-id",
-                default=None,
-                help="Optional saved base model run id to validate (e.g. run_abc123). Defaults to the latest daily_train run.",
-            )
-        if cmd in {"research-features", "train", "backtest", "run-daily"}:
-            p.add_argument(
-                "--approve-feature-changes",
-                action="store_true",
-                help="Explicitly accept and persist model feature-contract changes in the registry.",
-            )
+    for spec in command_registry():
+        p = sub.add_parser(spec.name, help=spec.summary, description=spec.summary)
+        if spec.config_required:
+            p.add_argument("--config", default=default_config_path("NBA"))
+        for argument in spec.arguments:
+            p.add_argument(*argument.flags, **argument.argparse_kwargs)
     return parser
 
 
 def main() -> None:
+    """Parse arguments, load config, and dispatch the selected command."""
+
     _load_dotenv_file(Path(".env"))
     _load_dotenv_file(Path("web/.env.local"))
 

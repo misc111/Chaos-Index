@@ -11,7 +11,6 @@ import pandas as pd
 from src.common.config import AppConfig
 from src.common.logging import get_logger
 from src.common.research import resolve_research_paths
-from src.common.time import utc_now_iso
 from src.common.utils import ensure_dir, to_json
 from src.evaluation.calibration import calibration_alpha_beta, ece_mce
 from src.evaluation.metrics import metric_bundle

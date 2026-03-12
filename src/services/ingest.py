@@ -18,7 +18,7 @@ from src.common.time import utc_now_iso
 from src.common.utils import ensure_dir, to_json
 from src.data_sources.base import HttpClient, SourceFetchResult
 from src.features.build_features import build_features_from_interim
-from src.league_registry import LeagueAdapter, canonicalize_league, get_league_adapter
+from src.league_registry import canonicalize_league, get_league_adapter
 from src.storage.db import Database
 
 logger = get_logger(__name__)

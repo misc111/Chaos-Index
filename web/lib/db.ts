@@ -1,4 +1,5 @@
 import { execFileSync } from "node:child_process";
+import { LEAGUE_RUNTIME } from "@/lib/generated/league-registry";
 import { type LeagueCode, normalizeLeague } from "@/lib/league";
 import { resolveDbPathForLeague } from "@/lib/server/manifests";
 
@@ -6,13 +7,11 @@ const envLeague = normalizeLeague(process.env.LEAGUE);
 const SQLITE_JSON_MAX_BUFFER_BYTES = 64 * 1024 * 1024;
 
 function dbPathForLeague(league: LeagueCode): string {
-  return process.env.SPORTS_DB_PATH
-    ? process.env.SPORTS_DB_PATH
-    : league === "NBA"
-      ? process.env.NBA_DB_PATH || resolveDbPathForLeague("NBA")
-      : league === "NHL"
-        ? process.env.NHL_DB_PATH || resolveDbPathForLeague("NHL")
-        : process.env.NCAAM_DB_PATH || resolveDbPathForLeague("NCAAM");
+  if (process.env.SPORTS_DB_PATH) {
+    return process.env.SPORTS_DB_PATH;
+  }
+  const runtime = LEAGUE_RUNTIME[league];
+  return process.env[runtime.dbEnvVar] || resolveDbPathForLeague(league);
 }
 
 export function runSqlJson<T extends Record<string, unknown> = Record<string, unknown>>(

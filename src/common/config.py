@@ -1,3 +1,5 @@
+"""Typed application config loading with registry-backed defaults."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -6,9 +8,14 @@ from typing import Any, Literal
 import yaml
 from pydantic import BaseModel, Field
 
+from src.registry.leagues import default_db_path, get_league_registry_entry
+
+
+DEFAULT_LEAGUE_ENTRY = get_league_registry_entry("NBA")
+
 
 class ProjectConfig(BaseModel):
-    name: str = "nba_forecast"
+    name: str = DEFAULT_LEAGUE_ENTRY.project_name
     timezone: str = "America/Chicago"
 
 
@@ -17,11 +24,11 @@ class PathsConfig(BaseModel):
     interim_dir: str = "data/interim"
     processed_dir: str = "data/processed"
     artifacts_dir: str = "artifacts"
-    db_path: str = "data/processed/nba_forecast.db"
+    db_path: str = default_db_path("NBA")
 
 
 class DataConfig(BaseModel):
-    league: str = "NBA"
+    league: str = DEFAULT_LEAGUE_ENTRY.code
     season_start: str
     season_end: str
     history_days: int = 220

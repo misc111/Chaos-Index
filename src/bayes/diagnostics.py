@@ -5,7 +5,6 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 
 from src.bayes.posterior_predictive import pit_histogram
 from src.common.utils import ensure_dir

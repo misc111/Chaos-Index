@@ -1,3 +1,5 @@
+"""Deterministic orchestration step builders for repo-wide refresh flows."""
+
 from __future__ import annotations
 
 import shlex
@@ -7,20 +9,21 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Sequence
 
-from src.league_registry import get_league_metadata
-from src.league_registry import supported_leagues
+from src.registry.leagues import ordered_league_entries
 from src.training.train import normalize_selected_models
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 LEAGUE_CONFIGS: tuple[tuple[str, str], ...] = tuple(
-    (get_league_metadata(code).slug, get_league_metadata(code).default_config_path)
-    for code in supported_leagues()
+    (entry.slug, entry.default_config_path)
+    for entry in ordered_league_entries()
 )
 
 
 @dataclass(frozen=True)
 class OrchestrationStep:
+    """A deterministic shell step in a multi-league orchestration pipeline."""
+
     name: str
     command: tuple[str, ...]
     cwd: Path
@@ -53,6 +56,8 @@ def _cli_command(
 
 
 def build_data_refresh_steps(*, root_dir: Path | None = None, include_init_db: bool = False) -> list[OrchestrationStep]:
+    """Build the canonical repo-wide data refresh step sequence."""
+
     resolved_root = ROOT_DIR if root_dir is None else Path(root_dir).resolve()
     steps: list[OrchestrationStep] = []
 
@@ -94,6 +99,8 @@ def build_hard_refresh_steps(
     approve_feature_changes: bool = False,
     include_pages_build: bool = True,
 ) -> list[OrchestrationStep]:
+    """Build the canonical repo-wide hard refresh step sequence."""
+
     resolved_root = ROOT_DIR if root_dir is None else Path(root_dir).resolve()
     models_csv = _normalize_models_arg(models_arg)
     steps = build_data_refresh_steps(root_dir=resolved_root, include_init_db=True)
@@ -133,6 +140,8 @@ def build_hard_refresh_steps(
 
 
 def run_steps(steps: Sequence[OrchestrationStep], *, pipeline_name: str) -> None:
+    """Execute orchestration steps sequentially and fail fast on the first error."""
+
     total = len(steps)
     for index, step in enumerate(steps, start=1):
         print(f"[{index}/{total}] {step.name}", flush=True)

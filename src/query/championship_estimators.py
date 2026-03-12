@@ -164,7 +164,7 @@ def answer_team_championship(
     losses = [max(g - w, 0.0) for g, w in zip(games, wins)]
 
     alpha = [1.0 + w for w in wins]
-    beta = [1.0 + l for l in losses]
+    beta = [1.0 + loss_count for loss_count in losses]
     mean_win_rates = [a / (a + b) for a, b in zip(alpha, beta)]
     playoff_slots = 68 if league == "NCAAM" else 16
     championship_probs = championship_probs_from_win_rates_with_slots(mean_win_rates, playoff_slots=playoff_slots)

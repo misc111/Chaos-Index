@@ -1,0 +1,468 @@
+{
+  "version": 1,
+  "source": "code_registry",
+  "default_config_path": "configs/nba.yaml",
+  "commands": [
+    {
+      "name": "init-db",
+      "summary": "Initialize the SQLite schema for the selected league config.",
+      "handler_path": "src.commands.data:init_db",
+      "config_required": true,
+      "arguments": [],
+      "examples": [
+        "make init-db",
+        "make init-db CONFIG=configs/nhl.yaml"
+      ]
+    },
+    {
+      "name": "fetch",
+      "summary": "Fetch league data, persist snapshots, and ingest results.",
+      "handler_path": "src.commands.data:fetch",
+      "config_required": true,
+      "arguments": [],
+      "examples": [
+        "make fetch",
+        "make fetch CONFIG=configs/ncaam.yaml"
+      ]
+    },
+    {
+      "name": "refresh-data",
+      "summary": "Run the league-scoped data refresh flow including the final odds pull.",
+      "handler_path": "src.commands.data:refresh_data",
+      "config_required": true,
+      "arguments": [],
+      "examples": [
+        "make refresh-data CONFIG=configs/nba.yaml"
+      ]
+    },
+    {
+      "name": "fetch-odds",
+      "summary": "Fetch the latest standalone odds snapshot for the selected league.",
+      "handler_path": "src.commands.data:fetch_odds",
+      "config_required": true,
+      "arguments": [],
+      "examples": [
+        "make fetch-odds",
+        "make fetch-odds CONFIG=configs/nhl.yaml"
+      ]
+    },
+    {
+      "name": "import-history",
+      "summary": "Import historical source snapshots into the local research dataset.",
+      "handler_path": "src.commands.data:import_history",
+      "config_required": true,
+      "arguments": [
+        {
+          "flags": [
+            "--history-seasons"
+          ],
+          "doc_metavar": "N",
+          "help": "Override the configured number of historical seasons.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--source-manifest"
+          ],
+          "doc_metavar": "PATH",
+          "help": "Optional absolute or config-relative path to the historical import manifest.",
+          "choices": null,
+          "default": null
+        }
+      ],
+      "examples": [
+        "python3 -m src.cli import-history --config configs/nba.yaml --history-seasons 3"
+      ]
+    },
+    {
+      "name": "features",
+      "summary": "Build processed feature tables from the current interim snapshot.",
+      "handler_path": "src.commands.data:features",
+      "config_required": true,
+      "arguments": [],
+      "examples": [
+        "make features",
+        "make features CONFIG=configs/ncaam.yaml"
+      ]
+    },
+    {
+      "name": "research-features",
+      "summary": "Score and optionally promote per-model feature maps.",
+      "handler_path": "src.commands.data:research_features",
+      "config_required": true,
+      "arguments": [
+        {
+          "flags": [
+            "--models"
+          ],
+          "doc_metavar": "MODELS",
+          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'.",
+          "choices": null,
+          "default": "all"
+        },
+        {
+          "flags": [
+            "--approve-feature-changes"
+          ],
+          "doc_metavar": null,
+          "help": "Explicitly accept and persist model feature-contract changes.",
+          "choices": null,
+          "default": null
+        }
+      ],
+      "examples": [
+        "make research-features CONFIG=configs/nba.yaml APPROVE_FEATURE_CHANGES=1"
+      ]
+    },
+    {
+      "name": "train",
+      "summary": "Train models, produce forecasts, and persist validation-ready outputs.",
+      "handler_path": "src.commands.modeling:train",
+      "config_required": true,
+      "arguments": [
+        {
+          "flags": [
+            "--models"
+          ],
+          "doc_metavar": "MODELS",
+          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'.",
+          "choices": null,
+          "default": "all"
+        },
+        {
+          "flags": [
+            "--validation-split-mode"
+          ],
+          "doc_metavar": "MODE",
+          "help": "Validation split layout: 70/30 train-test or 40/30/30 train-validation-test.",
+          "choices": [
+            "train_test",
+            "train_validation_test"
+          ],
+          "default": null
+        },
+        {
+          "flags": [
+            "--validation-split-method"
+          ],
+          "doc_metavar": "METHOD",
+          "help": "Validation split method: out-of-time or random-by-record.",
+          "choices": [
+            "time",
+            "random"
+          ],
+          "default": null
+        },
+        {
+          "flags": [
+            "--validation-split-seed"
+          ],
+          "doc_metavar": "SEED",
+          "help": "Optional random seed for random-by-record validation splits.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--approve-feature-changes"
+          ],
+          "doc_metavar": null,
+          "help": "Explicitly accept and persist model feature-contract changes.",
+          "choices": null,
+          "default": null
+        }
+      ],
+      "examples": [
+        "make train",
+        "make train CONFIG=configs/nba.yaml MODELS=glm_ridge,rf"
+      ]
+    },
+    {
+      "name": "validate",
+      "summary": "Regenerate validation artifacts from the latest saved trained run.",
+      "handler_path": "src.commands.modeling:validate",
+      "config_required": true,
+      "arguments": [
+        {
+          "flags": [
+            "--models"
+          ],
+          "doc_metavar": "MODELS",
+          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--validation-split-mode"
+          ],
+          "doc_metavar": "MODE",
+          "help": "Validation split layout: 70/30 train-test or 40/30/30 train-validation-test.",
+          "choices": [
+            "train_test",
+            "train_validation_test"
+          ],
+          "default": null
+        },
+        {
+          "flags": [
+            "--validation-split-method"
+          ],
+          "doc_metavar": "METHOD",
+          "help": "Validation split method: out-of-time or random-by-record.",
+          "choices": [
+            "time",
+            "random"
+          ],
+          "default": null
+        },
+        {
+          "flags": [
+            "--validation-split-seed"
+          ],
+          "doc_metavar": "SEED",
+          "help": "Optional random seed for random-by-record validation splits.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--model-run-id"
+          ],
+          "doc_metavar": "RUN_ID",
+          "help": "Optional saved base model run id to validate.",
+          "choices": null,
+          "default": null
+        }
+      ],
+      "examples": [
+        "make validate",
+        "make validate CONFIG=configs/nba.yaml MODEL_RUN_ID=run_abc123"
+      ]
+    },
+    {
+      "name": "compare-candidates",
+      "summary": "Run the research-only candidate model comparison suite.",
+      "handler_path": "src.commands.modeling:compare_candidates",
+      "config_required": true,
+      "arguments": [
+        {
+          "flags": [
+            "--report-slug"
+          ],
+          "doc_metavar": "SLUG",
+          "help": "Optional report slug prefix for artifact outputs.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--bootstrap-samples"
+          ],
+          "doc_metavar": "N",
+          "help": "Number of paired bootstrap samples for the final holdout comparison.",
+          "choices": null,
+          "default": 1000
+        },
+        {
+          "flags": [
+            "--candidate-models"
+          ],
+          "doc_metavar": "MODELS",
+          "help": "Comma-separated candidate model list or 'all'.",
+          "choices": null,
+          "default": "all"
+        },
+        {
+          "flags": [
+            "--feature-pool"
+          ],
+          "doc_metavar": "POOL",
+          "help": "Feature pool for the comparison flow.",
+          "choices": [
+            "full_screened",
+            "production_model_map",
+            "research_broad"
+          ],
+          "default": "full_screened"
+        },
+        {
+          "flags": [
+            "--feature-map-model"
+          ],
+          "doc_metavar": "MODEL",
+          "help": "Model key to read from the production feature map when needed.",
+          "choices": null,
+          "default": "glm_ridge"
+        }
+      ],
+      "examples": [
+        "make compare-candidates CONFIG=configs/nba.yaml"
+      ]
+    },
+    {
+      "name": "backtest",
+      "summary": "Run the walk-forward backtest and scoring pipeline.",
+      "handler_path": "src.commands.modeling:backtest",
+      "config_required": true,
+      "arguments": [
+        {
+          "flags": [
+            "--models"
+          ],
+          "doc_metavar": "MODELS",
+          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'.",
+          "choices": null,
+          "default": "all"
+        },
+        {
+          "flags": [
+            "--approve-feature-changes"
+          ],
+          "doc_metavar": null,
+          "help": "Explicitly accept and persist model feature-contract changes.",
+          "choices": null,
+          "default": null
+        }
+      ],
+      "examples": [
+        "make backtest",
+        "make backtest CONFIG=configs/ncaam.yaml MODELS=glm_ridge"
+      ]
+    },
+    {
+      "name": "research-backtest",
+      "summary": "Run the research backtest over a historical candidate-model dataset.",
+      "handler_path": "src.commands.modeling:research_backtest",
+      "config_required": true,
+      "arguments": [
+        {
+          "flags": [
+            "--report-slug"
+          ],
+          "doc_metavar": "SLUG",
+          "help": "Optional report slug prefix for artifact outputs.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--candidate-models"
+          ],
+          "doc_metavar": "MODELS",
+          "help": "Comma-separated candidate model list or 'all'.",
+          "choices": null,
+          "default": "all"
+        },
+        {
+          "flags": [
+            "--feature-pool"
+          ],
+          "doc_metavar": "POOL",
+          "help": "Feature pool for the comparison flow.",
+          "choices": [
+            "full_screened",
+            "production_model_map",
+            "research_broad"
+          ],
+          "default": "full_screened"
+        },
+        {
+          "flags": [
+            "--feature-map-model"
+          ],
+          "doc_metavar": "MODEL",
+          "help": "Model key to read from the production feature map when needed.",
+          "choices": null,
+          "default": "glm_ridge"
+        },
+        {
+          "flags": [
+            "--history-seasons"
+          ],
+          "doc_metavar": "N",
+          "help": "Override the configured number of historical seasons.",
+          "choices": null,
+          "default": null
+        }
+      ],
+      "examples": [
+        "python3 -m src.cli research-backtest --config configs/nba.yaml --history-seasons 2"
+      ]
+    },
+    {
+      "name": "run-daily",
+      "summary": "Execute the daily fetch, feature, train, and scoring flow.",
+      "handler_path": "src.commands.modeling:run_daily",
+      "config_required": true,
+      "arguments": [
+        {
+          "flags": [
+            "--models"
+          ],
+          "doc_metavar": "MODELS",
+          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'.",
+          "choices": null,
+          "default": "all"
+        },
+        {
+          "flags": [
+            "--validation-split-mode"
+          ],
+          "doc_metavar": "MODE",
+          "help": "Validation split layout: 70/30 train-test or 40/30/30 train-validation-test.",
+          "choices": [
+            "train_test",
+            "train_validation_test"
+          ],
+          "default": null
+        },
+        {
+          "flags": [
+            "--validation-split-method"
+          ],
+          "doc_metavar": "METHOD",
+          "help": "Validation split method: out-of-time or random-by-record.",
+          "choices": [
+            "time",
+            "random"
+          ],
+          "default": null
+        },
+        {
+          "flags": [
+            "--validation-split-seed"
+          ],
+          "doc_metavar": "SEED",
+          "help": "Optional random seed for random-by-record validation splits.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--approve-feature-changes"
+          ],
+          "doc_metavar": null,
+          "help": "Explicitly accept and persist model feature-contract changes.",
+          "choices": null,
+          "default": null
+        }
+      ],
+      "examples": [
+        "make run_daily",
+        "make run_daily CONFIG=configs/nba.yaml MODELS=glm_ridge"
+      ]
+    },
+    {
+      "name": "smoke",
+      "summary": "Exercise the local end-to-end smoke pipeline with reduced data windows.",
+      "handler_path": "src.commands.smoke:run",
+      "config_required": true,
+      "arguments": [],
+      "examples": [
+        "make smoke"
+      ]
+    }
+  ]
+}

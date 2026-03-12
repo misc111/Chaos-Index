@@ -3,7 +3,7 @@ import test from "node:test";
 
 import { buildModelReplayRuns } from "./model-version-replay";
 import { getBetStrategyConfig } from "./betting-strategy";
-import type { ModelRunSummaryRow } from "./types";
+import type { ModelReplayRunMetadata } from "./model-version-replay";
 
 test("buildModelReplayRuns groups dated model snapshots and preserves all supported bet objectives", () => {
   const runs = buildModelReplayRuns(
@@ -53,7 +53,7 @@ test("buildModelReplayRuns groups dated model snapshots and preserves all suppor
         },
       },
     ],
-    new Map<string, ModelRunSummaryRow>([
+    new Map<string, ModelReplayRunMetadata>([
       [
         "run_old",
         {

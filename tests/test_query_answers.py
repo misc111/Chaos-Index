@@ -251,8 +251,8 @@ def test_query_answers_bet_history_summary_and_cumulative(tmp_path: Path):
     assert len(payload["games"]) == 3
     assert answer.startswith(f"NBA last night ({yesterday}): +$80.13 net, $100.00 risked, 2-0 on 2 bets.")
     assert "| Game | Bet on | Winner | P/L | Bet rationale |" in answer
-    assert f"| CHI @ NYK | NYK | NYK | +$41.67 | New York was the favorite but underpriced. |" in answer
-    assert f"| BOS @ MIA | BOS | BOS | +$38.46 | Boston was the favorite but underpriced. |" in answer
+    assert "| CHI @ NYK | NYK | NYK | +$41.67 | New York was the favorite but underpriced. |" in answer
+    assert "| BOS @ MIA | BOS | BOS | +$38.46 | Boston was the favorite but underpriced. |" in answer
     assert any(game["reason"] == "Too close" and game["outcome"] == "no_bet" for game in payload["games"])
     assert any(game["bet_rationale"] == "No bet because the game was too close." for game in payload["games"])
 

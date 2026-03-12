@@ -9,12 +9,16 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from functools import lru_cache
-from typing import Any, Callable
+from typing import Callable
 
 import pandas as pd
 
-from src.common.manifests import load_league_manifest
 from src.data_sources.base import HttpClient, SourceFetchResult
+from src.registry.leagues import (
+    canonicalize_league as canonicalize_registry_league,
+    get_league_registry_entry,
+    league_codes,
+)
 
 FetchGamesFn = Callable[[HttpClient], SourceFetchResult]
 FetchGoalieStatsFn = Callable[[HttpClient, list[int], int], SourceFetchResult]
@@ -29,12 +33,16 @@ FetchXgFn = Callable[[HttpClient], SourceFetchResult]
 
 @dataclass(frozen=True)
 class LeagueMetadata:
+    """Canonical league metadata exposed to shared orchestration layers."""
+
     code: str
     slug: str
     default_config_path: str
-    env_config_var: str
+    config_env_var: str
     project_name: str
     db_path: str
+    db_env_var: str
+    display_label: str
     championship_name: str
     championship_probability_key: str
     uncertainty_policy_name: str
@@ -66,17 +74,16 @@ class LeagueAdapter:
 
 
 def canonicalize_league(league: str | None) -> str:
-    token = str(league or "").strip().upper()
-    if token == "NCAA":
-        return "NCAAM"
-    if token in {"NHL", "NBA", "NCAAM"}:
-        return token
-    raise ValueError(f"Unsupported league '{league}'. Expected one of: NHL, NBA, NCAAM.")
+    """Normalize a user or config league value into a supported code."""
+
+    return canonicalize_registry_league(league)
 
 
 @lru_cache(maxsize=1)
 def _registry() -> dict[str, LeagueAdapter]:
-    league_manifest = load_league_manifest()["leagues"]
+    nhl = get_league_registry_entry("NHL")
+    nba = get_league_registry_entry("NBA")
+    ncaam = get_league_registry_entry("NCAAM")
     from src.data_sources.nba.games import fetch_games as fetch_nba_games
     from src.data_sources.nba.goalies import fetch_goalie_game_stats as fetch_nba_goalie_stats
     from src.data_sources.nba.injuries import fetch_injuries_proxy as fetch_nba_injuries
@@ -108,7 +115,17 @@ def _registry() -> dict[str, LeagueAdapter]:
     return {
         "NHL": LeagueAdapter(
             metadata=LeagueMetadata(
-                **league_manifest["NHL"],
+                code=nhl.code,
+                slug=nhl.slug,
+                default_config_path=nhl.default_config_path,
+                config_env_var=nhl.config_env_var,
+                project_name=nhl.project_name,
+                db_path=nhl.db_path,
+                db_env_var=nhl.db_env_var,
+                display_label=nhl.display_label,
+                championship_name=nhl.championship_name,
+                championship_probability_key=nhl.championship_probability_key,
+                uncertainty_policy_name=nhl.uncertainty_policy_name,
             ),
             fetch_games=fetch_nhl_games,
             fetch_goalie_game_stats=fetch_nhl_goalie_stats,
@@ -122,7 +139,17 @@ def _registry() -> dict[str, LeagueAdapter]:
         ),
         "NBA": LeagueAdapter(
             metadata=LeagueMetadata(
-                **league_manifest["NBA"],
+                code=nba.code,
+                slug=nba.slug,
+                default_config_path=nba.default_config_path,
+                config_env_var=nba.config_env_var,
+                project_name=nba.project_name,
+                db_path=nba.db_path,
+                db_env_var=nba.db_env_var,
+                display_label=nba.display_label,
+                championship_name=nba.championship_name,
+                championship_probability_key=nba.championship_probability_key,
+                uncertainty_policy_name=nba.uncertainty_policy_name,
             ),
             fetch_games=fetch_nba_games,
             fetch_goalie_game_stats=fetch_nba_goalie_stats,
@@ -136,7 +163,17 @@ def _registry() -> dict[str, LeagueAdapter]:
         ),
         "NCAAM": LeagueAdapter(
             metadata=LeagueMetadata(
-                **league_manifest["NCAAM"],
+                code=ncaam.code,
+                slug=ncaam.slug,
+                default_config_path=ncaam.default_config_path,
+                config_env_var=ncaam.config_env_var,
+                project_name=ncaam.project_name,
+                db_path=ncaam.db_path,
+                db_env_var=ncaam.db_env_var,
+                display_label=ncaam.display_label,
+                championship_name=ncaam.championship_name,
+                championship_probability_key=ncaam.championship_probability_key,
+                uncertainty_policy_name=ncaam.uncertainty_policy_name,
             ),
             fetch_games=fetch_ncaam_games,
             fetch_goalie_game_stats=fetch_ncaam_goalie_stats,
@@ -152,12 +189,18 @@ def _registry() -> dict[str, LeagueAdapter]:
 
 
 def get_league_adapter(league: str | None) -> LeagueAdapter:
+    """Return the typed ingest/query adapter for a supported league."""
+
     return _registry()[canonicalize_league(league)]
 
 
 def get_league_metadata(league: str | None) -> LeagueMetadata:
+    """Return canonical metadata for a supported league."""
+
     return get_league_adapter(league).metadata
 
 
 def supported_leagues() -> tuple[str, ...]:
-    return tuple(_registry().keys())
+    """Return supported league codes in the canonical orchestration order."""
+
+    return league_codes()

@@ -16,6 +16,8 @@ logger = get_logger(__name__)
 
 
 def run(cfg: AppConfig, args: Namespace) -> None:
+    """Run the reduced-window smoke pipeline for the selected league."""
+
     del args
 
     old_hist = cfg.data.history_days
@@ -38,7 +40,7 @@ def run(cfg: AppConfig, args: Namespace) -> None:
     }
     questions = [
         question_by_league.get(league, "What's the chance the Raptors win the next game?"),
-        f"Which model has performed best the last 60 days?",
+        "Which model has performed best the last 60 days?",
     ]
     logger.info("Smoke scoring info: %s", score_info)
     for question in questions:

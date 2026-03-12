@@ -33,6 +33,8 @@ def _apply_validation_split_overrides(cfg: AppConfig, args: Namespace) -> None:
 
 
 def train(cfg: AppConfig, args: Namespace) -> None:
+    """Train registered models and persist forecasts plus validation-ready outputs."""
+
     _apply_validation_split_overrides(cfg, args)
     train_service.train_models(
         cfg,
@@ -42,6 +44,8 @@ def train(cfg: AppConfig, args: Namespace) -> None:
 
 
 def backtest(cfg: AppConfig, args: Namespace) -> None:
+    """Run the walk-forward backtest flow."""
+
     backtest_service.run_backtest(
         cfg,
         models_arg=getattr(args, "models", None),
@@ -50,6 +54,8 @@ def backtest(cfg: AppConfig, args: Namespace) -> None:
 
 
 def validate(cfg: AppConfig, args: Namespace) -> None:
+    """Regenerate validation artifacts from a saved trained run."""
+
     _apply_validation_split_overrides(cfg, args)
     validate_service.run_saved_validation(
         cfg,
@@ -59,6 +65,8 @@ def validate(cfg: AppConfig, args: Namespace) -> None:
 
 
 def compare_candidates(cfg: AppConfig, args: Namespace) -> None:
+    """Run the research-only candidate model comparison suite."""
+
     raw_candidate_models = str(getattr(args, "candidate_models", "all") or "all").strip()
     candidate_models = None if raw_candidate_models.lower() in {"all", "*"} else [
         token.strip() for token in raw_candidate_models.split(",") if token.strip()
@@ -78,6 +86,8 @@ def compare_candidates(cfg: AppConfig, args: Namespace) -> None:
 
 
 def research_backtest(cfg: AppConfig, args: Namespace) -> None:
+    """Run the historical research backtest over candidate model sets."""
+
     raw_candidate_models = str(getattr(args, "candidate_models", "all") or "all").strip()
     candidate_models = None if raw_candidate_models.lower() in {"all", "*"} else [
         token.strip() for token in raw_candidate_models.split(",") if token.strip()
@@ -97,6 +107,8 @@ def research_backtest(cfg: AppConfig, args: Namespace) -> None:
 
 
 def run_daily(cfg: AppConfig, args: Namespace) -> None:
+    """Execute the daily fetch, feature, train, and scoring flow."""
+
     ingest.fetch_data(cfg)
     ingest.build_features(cfg)
     if cfg.runtime.retrain_daily:

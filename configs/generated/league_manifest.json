@@ -1,39 +1,50 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-03-07T00:00:00Z",
+  "source": "code_registry",
   "leagues": {
     "NHL": {
       "code": "NHL",
       "slug": "nhl",
+      "display_label": "NHL",
       "default_config_path": "configs/nhl.yaml",
-      "env_config_var": "NHL_CONFIG_PATH",
+      "config_env_var": "NHL_CONFIG_PATH",
       "project_name": "nhl_forecast",
       "db_path": "data/processed/nhl_forecast.db",
+      "db_env_var": "NHL_DB_PATH",
       "championship_name": "Stanley Cup",
       "championship_probability_key": "stanley_cup_prob",
-      "uncertainty_policy_name": "nhl_goalie_rink"
+      "uncertainty_policy_name": "nhl_goalie_rink",
+      "aliases": []
     },
     "NBA": {
       "code": "NBA",
       "slug": "nba",
+      "display_label": "NBA",
       "default_config_path": "configs/nba.yaml",
-      "env_config_var": "NBA_CONFIG_PATH",
+      "config_env_var": "NBA_CONFIG_PATH",
       "project_name": "nba_forecast",
       "db_path": "data/processed/nba_forecast.db",
+      "db_env_var": "NBA_DB_PATH",
       "championship_name": "NBA Finals",
       "championship_probability_key": "nba_finals_prob",
-      "uncertainty_policy_name": "nba_availability_market"
+      "uncertainty_policy_name": "nba_availability_market",
+      "aliases": []
     },
     "NCAAM": {
       "code": "NCAAM",
       "slug": "ncaam",
+      "display_label": "NCAA",
       "default_config_path": "configs/ncaam.yaml",
-      "env_config_var": "NCAAM_CONFIG_PATH",
+      "config_env_var": "NCAAM_CONFIG_PATH",
       "project_name": "ncaam_forecast",
       "db_path": "data/processed/ncaam_forecast.db",
+      "db_env_var": "NCAAM_DB_PATH",
       "championship_name": "NCAA Tournament",
       "championship_probability_key": "ncaa_tournament_prob",
-      "uncertainty_policy_name": "ncaam_rotation_market"
+      "uncertainty_policy_name": "ncaam_rotation_market",
+      "aliases": [
+        "NCAA"
+      ]
     }
   }
 }

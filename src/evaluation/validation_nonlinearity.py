@@ -353,8 +353,6 @@ def assess_nonlinearity(
         best_train_gain = smooth_train_gain
         best_shape_gap = smooth_shape_gap
         best_direction_changes = _direction_changes(smooth_curve)
-        family_hint = "gam"
-
         if hinge_gain > smooth_gain + 1e-4 or (abs(hinge_gain - smooth_gain) <= 1e-4 and hinge_shape_gap > smooth_shape_gap):
             best_shape = "hinge"
             best_gain = hinge_gain
@@ -362,8 +360,6 @@ def assess_nonlinearity(
             best_train_gain = hinge_train_gain
             best_shape_gap = hinge_shape_gap
             best_direction_changes = _direction_changes(hinge_curve)
-            family_hint = "mars"
-
         status = "weak"
         recommendation = "keep_linear"
         family_output = "keep_linear"

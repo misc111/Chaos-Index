@@ -1,5 +1,5 @@
 {
-  "name": "nhl-forecast-dashboard",
+  "name": "sportsmodeling-dashboard",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "generate:staging-data": "tsx --tsconfig ./tsconfig.json scripts/generate-staging-data.ts",
     "start": "next start -H 127.0.0.1 -p 3000",
     "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit",
     "playwright:install": "playwright install chromium",
     "test:smoke": "playwright test"
   },

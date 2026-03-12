@@ -14,10 +14,13 @@ from src.query.intent_parser import parse_question
 from src.query.report_handlers import answer_best_model, answer_league_report
 from src.query.team_handlers import answer_team_next_game, answer_team_next_n_games
 from src.query.templates import help_answer
+from src.registry.leagues import default_config_path
 from src.storage.db import Database
 
 
 def clarify_team_answer(team_candidates: tuple[tuple[str, str], ...]) -> tuple[str, dict]:
+    """Return a deterministic clarification response for ambiguous team tokens."""
+
     if not team_candidates:
         return "Team not recognized. Include team name or abbreviation.", {"error": "team_not_recognized"}
 
@@ -30,6 +33,8 @@ def clarify_team_answer(team_candidates: tuple[tuple[str, str], ...]) -> tuple[s
 
 
 def answer_question(db: Queryable, question: str, default_league: str | None = "NBA") -> tuple[str, dict]:
+    """Answer a supported natural-language question against the local forecast DB."""
+
     intent = parse_question(question, default_league=default_league)
 
     if intent.intent_type == "bet_history_summary":
@@ -58,8 +63,10 @@ def answer_question(db: Queryable, question: str, default_league: str | None = "
 
 
 def main() -> None:
+    """Run the deterministic local query CLI entry point."""
+
     parser = argparse.ArgumentParser(description="Local deterministic sports query command")
-    parser.add_argument("--config", type=str, default="configs/nba.yaml")
+    parser.add_argument("--config", type=str, default=default_config_path("NBA"))
     parser.add_argument("--league", type=str, choices=["NHL", "NBA", "NCAAM"], default=None)
     parser.add_argument("--question", type=str, required=True)
     args = parser.parse_args()

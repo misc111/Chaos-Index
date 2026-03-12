@@ -21,13 +21,11 @@ from src.training.artifact_writer import save_model_artifacts, save_training_out
 from src.training.ensemble_builder import blend_ensemble_probabilities, build_ensemble_outputs, build_oof_metrics, fit_stacker
 from src.training.ensemble_policy import demoted_ensemble_models, ensemble_component_columns
 from src.training.feature_selection import (
-    bayes_feature_subset,
     glm_feature_subset,
-    resolve_model_feature_columns,
     select_feature_columns,
 )
 from src.training.fit_runner import fit_model_suite
-from src.training.model_catalog import ALL_MODEL_NAMES, MODEL_ALIASES, normalize_selected_models
+from src.training.model_catalog import normalize_selected_models
 from src.training.penalized_glm import (
     PREFERRED_VALIDATION_PENALIZED_GLM_MODELS,
     resolve_penalized_glm_feature_columns,

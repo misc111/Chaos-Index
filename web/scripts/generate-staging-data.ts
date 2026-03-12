@@ -1,7 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { ALL_LEAGUES, type LeagueCode } from "../lib/league";
+import { DASHBOARD_STAGING_ROUTES } from "../lib/generated/dashboard-routes";
+import { ALL_LEAGUES, type LeagueCode } from "../lib/generated/league-registry";
 import {
   buildPerformanceExperimentStagingFileName,
   listPerformanceReplayExperiments,
@@ -18,17 +19,6 @@ const appRoot = path.resolve(scriptDir, "..");
 // commit the resulting files under web/public/staging-data/.
 const outputRoot = path.join(appRoot, "public", "staging-data");
 const generatedAtUtc = new Date().toISOString();
-
-const routes: Array<{ fileName: string; modulePath: string; routePath: string }> = [
-  { fileName: "actual-vs-expected.json", modulePath: "app/api/actual-vs-expected/route.ts", routePath: "/api/actual-vs-expected" },
-  { fileName: "bet-history.json", modulePath: "app/api/bet-history/route.ts", routePath: "/api/bet-history" },
-  { fileName: "games-today.json", modulePath: "app/api/games-today/route.ts", routePath: "/api/games-today" },
-  { fileName: "market-board.json", modulePath: "app/api/market-board/route.ts", routePath: "/api/market-board" },
-  { fileName: "metrics.json", modulePath: "app/api/metrics/route.ts", routePath: "/api/metrics" },
-  { fileName: "performance.json", modulePath: "app/api/performance/route.ts", routePath: "/api/performance" },
-  { fileName: "predictions.json", modulePath: "app/api/predictions/route.ts", routePath: "/api/predictions" },
-  { fileName: "validation.json", modulePath: "app/api/validation/route.ts", routePath: "/api/validation" },
-];
 
 const PUBLIC_VALIDATION_SECTIONS = [
   "split_summary",
@@ -104,17 +94,17 @@ async function generateLeagueSnapshot(league: LeagueCode): Promise<void> {
   await fs.mkdir(leagueDir, { recursive: true });
   const generatedFiles: string[] = [];
 
-  for (const route of routes) {
+  for (const route of DASHBOARD_STAGING_ROUTES) {
     const handler = await loadRouteHandler(route.modulePath);
-    const response = await handler(requestForLeague(route.routePath, league));
+    const response = await handler(requestForLeague(route.apiPath, league));
     const payload = await response.json();
-    await writeJson(path.join(leagueDir, route.fileName), sanitizePublicPayload(route.fileName, payload, league));
-    generatedFiles.push(route.fileName);
+    await writeJson(path.join(leagueDir, route.stagingFileName), sanitizePublicPayload(route.stagingFileName, payload, league));
+    generatedFiles.push(route.stagingFileName);
 
-    if (route.fileName === "performance.json") {
+    if (route.supportsExperiments) {
       for (const experiment of listPerformanceReplayExperiments()) {
         const experimentResponse = await handler(
-          requestForLeague(route.routePath, league, { experiment: experiment.id })
+          requestForLeague(route.apiPath, league, { experiment: experiment.id })
         );
         const experimentPayload = await experimentResponse.json();
         const experimentFileName = buildPerformanceExperimentStagingFileName(experiment.id);
@@ -144,7 +134,7 @@ async function main(): Promise<void> {
   // Regenerating without committing leaves the local dashboard and staging out of sync.
   await writeJson(path.join(outputRoot, "manifest.json"), {
     generated_at_utc: generatedAtUtc,
-    leagues: ALL_LEAGUES,
+    leagues: [...ALL_LEAGUES],
   });
 }
 

@@ -5,7 +5,6 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from src.evaluation.metrics import metric_bundle
 from src.simulation.game_simulator import GameSimulator
 from src.training.cv import time_series_splits
 from src.training.fit_runner import fit_model_suite
@@ -145,7 +144,6 @@ def generate_oof_predictions(
 ) -> pd.DataFrame:
     splits = time_series_splits(train_df, n_splits=5, min_train_size=min(220, max(80, len(train_df) // 2)))
     rows = []
-    selected = set(selected_models)
     emit_progress(
         progress_callback,
         {

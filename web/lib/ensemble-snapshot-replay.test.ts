@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { buildEnsembleSnapshots } from "./ensemble-snapshot-replay";
+import type { EnsembleSnapshotRunMetadata } from "./ensemble-snapshot-replay";
 
 test("buildEnsembleSnapshots replays frozen snapshots only from activation day forward and keeps conservative results available", () => {
   const snapshots = buildEnsembleSnapshots(
@@ -103,7 +104,7 @@ test("buildEnsembleSnapshots replays frozen snapshots only from activation day f
         model_run_id: "run_sat",
       },
     ],
-    new Map([
+    new Map<string, EnsembleSnapshotRunMetadata>([
       [
         "run_thu",
         {
