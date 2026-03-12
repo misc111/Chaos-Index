@@ -6,6 +6,10 @@ MODELS ?=
 MODEL_ARGS := $(if $(MODELS),--models "$(MODELS)",)
 MODEL_RUN_ID ?=
 MODEL_RUN_ARGS := $(if $(MODEL_RUN_ID),--model-run-id "$(MODEL_RUN_ID)",)
+HISTORY_SEASONS ?=
+HISTORY_SEASONS_ARGS := $(if $(HISTORY_SEASONS),--history-seasons $(HISTORY_SEASONS),)
+SOURCE_MANIFEST ?=
+SOURCE_MANIFEST_ARGS := $(if $(SOURCE_MANIFEST),--source-manifest "$(SOURCE_MANIFEST)",)
 APPROVE_FEATURE_CHANGES ?= 0
 APPROVE_FEATURE_ARGS := $(if $(filter 1 true TRUE yes YES,$(APPROVE_FEATURE_CHANGES)),--approve-feature-changes,)
 PAGES_BUILD ?= 1
@@ -24,6 +28,8 @@ help:
 	@echo "  fetch               Fetch league data from CONFIG"
 	@echo "  refresh-data        Fetch league data + final odds pull from CONFIG"
 	@echo "  fetch-odds          Fetch latest odds snapshot from CONFIG"
+	@echo "  import-history      Import bulk historical game/odds files into immutable storage"
+	@echo "                      Optional: HISTORY_SEASONS=5 SOURCE_MANIFEST=/abs/path/manifest.json"
 	@echo "  features            Build feature tables"
 	@echo "  research-features   Score and promote per-model feature maps"
 	@echo "  train               Train models + predict upcoming games"
@@ -38,6 +44,8 @@ help:
 	@echo "  backtest            Walk-forward backtest + artifacts"
 	@echo "                      Optional: MODELS=glm_ridge,rf (default: all)"
 	@echo "                      Optional: APPROVE_FEATURE_CHANGES=1"
+	@echo "  research-backtest   Nested-CV research backtest with bankroll and predictive scorecards"
+	@echo "                      Optional: FEATURE_POOL=research_broad CANDIDATE_MODELS=glm_ridge,glm_vanilla FEATURE_MAP_MODEL=glm_ridge"
 	@echo "  run_daily           Daily pipeline end-to-end"
 	@echo "  data_refresh        Deterministic multi-league data-only refresh"
 	@echo "                      Optional: DRY_RUN=1"
@@ -74,6 +82,9 @@ refresh-data:
 fetch-odds:
 	$(PYTHON) -m src.cli fetch-odds --config $(CONFIG)
 
+import-history:
+	$(PYTHON) -m src.cli import-history --config $(CONFIG) $(HISTORY_SEASONS_ARGS) $(SOURCE_MANIFEST_ARGS)
+
 features:
 	$(PYTHON) -m src.cli features --config $(CONFIG)
 
@@ -91,6 +102,9 @@ compare-candidates:
 
 backtest:
 	$(PYTHON) -m src.cli backtest --config $(CONFIG) $(MODEL_ARGS) $(APPROVE_FEATURE_ARGS)
+
+research-backtest:
+	$(PYTHON) -m src.cli research-backtest --config $(CONFIG) $(if $(CANDIDATE_MODELS),--candidate-models "$(CANDIDATE_MODELS)",) $(if $(FEATURE_POOL),--feature-pool "$(FEATURE_POOL)",) $(if $(FEATURE_MAP_MODEL),--feature-map-model "$(FEATURE_MAP_MODEL)",) $(HISTORY_SEASONS_ARGS)
 
 run_daily:
 	$(PYTHON) -m src.cli run-daily --config $(CONFIG) $(MODEL_ARGS) $(APPROVE_FEATURE_ARGS)

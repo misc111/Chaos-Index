@@ -294,3 +294,56 @@ def test_candidate_model_comparison_can_use_production_feature_map_for_penalized
 
     report_text = result.report_path.read_text()
     assert "Restricted to the production model feature map for `glm_ridge`" in report_text
+
+
+def test_candidate_model_comparison_can_use_research_broad_dataset(tmp_path, monkeypatch):
+    df = _synthetic_candidate_frame(210)
+    cfg = load_config("configs/default.yaml")
+    cfg.data.league = "NBA"
+    cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
+    cfg.paths.processed_dir = str(tmp_path / "processed" / "nba")
+    cfg.paths.db_path = str(tmp_path / "processed" / "nba_forecast.db")
+    cfg.research.inner_folds = 2
+
+    research_processed_dir = tmp_path / "processed" / "research" / "nba"
+    research_processed_dir.mkdir(parents=True, exist_ok=True)
+    df.to_csv(research_processed_dir / "features.csv", index=False)
+
+    def small_specs(feature_sets, *, selected_models=None):
+        specs = [
+            CandidateSpec(
+                model_name="glm_ridge",
+                display_name="GLM Ridge",
+                param_grid=[{"c": 0.5}],
+                builder=lambda fs, params: PenalizedLogitCandidate(
+                    model_name="glm_ridge",
+                    display_name="GLM Ridge",
+                    features=fs.screened_features,
+                    penalty="l2",
+                    c=float(params["c"]),
+                    solver="lbfgs",
+                ),
+            ),
+            CandidateSpec(
+                model_name="glm_vanilla",
+                display_name="Vanilla GLM",
+                param_grid=[{}],
+                builder=lambda fs, params: VanillaGLMBinomialCandidate(features=fs.screened_features),
+            ),
+        ]
+        if not selected_models:
+            return specs
+        return [spec for spec in specs if spec.model_name in selected_models]
+
+    monkeypatch.setattr("src.research.model_comparison._candidate_specs", small_specs)
+
+    result = run_candidate_model_comparison(
+        cfg,
+        report_slug="unit_candidate_compare_research",
+        bootstrap_samples=40,
+        feature_pool="research_broad",
+    )
+
+    assert result.report_path.exists()
+    assert result.recommendation_model in result.test_metrics["model_name"].tolist()
+    assert "research dataset's broad numeric feature pool" in result.report_path.read_text()

@@ -72,6 +72,19 @@ class FeaturePolicyConfig(BaseModel):
     registry_path: str = "configs/feature_registry_{league}.yaml"
 
 
+class ResearchConfig(BaseModel):
+    history_seasons: int = 5
+    outer_folds: int = 10
+    outer_valid_days: int = 60
+    inner_folds: int = 4
+    inner_valid_days: int = 30
+    embargo_days: int = 1
+    final_holdout_days: int = 30
+    feature_pool: Literal["research_broad", "full_screened", "production_model_map"] = "research_broad"
+    source_dir: str = "data/raw/historical"
+    source_manifest: str = "manifest.json"
+
+
 class AppConfig(BaseModel):
     project: ProjectConfig
     paths: PathsConfig
@@ -81,6 +94,7 @@ class AppConfig(BaseModel):
     bayes: BayesConfig
     runtime: RuntimeConfig
     feature_policy: FeaturePolicyConfig = Field(default_factory=FeaturePolicyConfig)
+    research: ResearchConfig = Field(default_factory=ResearchConfig)
 
 
 def _deep_update(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:

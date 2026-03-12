@@ -44,3 +44,15 @@ runtime:
 feature_policy:
   mode: production
   registry_path: configs/feature_registry_{league}.yaml
+
+research:
+  history_seasons: 5
+  outer_folds: 10
+  outer_valid_days: 60
+  inner_folds: 4
+  inner_valid_days: 30
+  embargo_days: 1
+  final_holdout_days: 30
+  feature_pool: research_broad
+  source_dir: data/raw/historical
+  source_manifest: manifest.json

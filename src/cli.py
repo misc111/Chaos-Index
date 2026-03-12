@@ -44,17 +44,31 @@ def build_parser() -> argparse.ArgumentParser:
         "fetch",
         "refresh-data",
         "fetch-odds",
+        "import-history",
         "features",
         "research-features",
         "train",
         "validate",
         "compare-candidates",
         "backtest",
+        "research-backtest",
         "run-daily",
         "smoke",
     ]:
         p = sub.add_parser(cmd)
         p.add_argument("--config", default="configs/nba.yaml")
+        if cmd == "import-history":
+            p.add_argument(
+                "--history-seasons",
+                type=int,
+                default=None,
+                help="Override the configured number of historical seasons to import.",
+            )
+            p.add_argument(
+                "--source-manifest",
+                default=None,
+                help="Optional absolute or config-relative path to the historical import manifest.",
+            )
         if cmd in {"research-features", "train", "validate", "backtest", "run-daily"}:
             p.add_argument(
                 "--models",
@@ -83,14 +97,45 @@ def build_parser() -> argparse.ArgumentParser:
             )
             p.add_argument(
                 "--feature-pool",
-                choices=["full_screened", "production_model_map"],
+                choices=["full_screened", "production_model_map", "research_broad"],
                 default="full_screened",
-                help="Feature pool for the comparison: full screened pool or a production model feature map.",
+                help="Feature pool for the comparison: full screened, production model map, or the research-broad dataset.",
             )
             p.add_argument(
                 "--feature-map-model",
                 default="glm_ridge",
                 help="Model key to read from the production feature map when --feature-pool=production_model_map.",
+            )
+        if cmd == "research-backtest":
+            p.add_argument(
+                "--report-slug",
+                default=None,
+                help="Optional report slug prefix for artifacts/research outputs.",
+            )
+            p.add_argument(
+                "--candidate-models",
+                default="all",
+                help=(
+                    "Comma-separated candidate model list for the research backtest "
+                    "(e.g. glm_ridge,glm_lasso,glm_elastic_net,glm_vanilla) or 'all'."
+                ),
+            )
+            p.add_argument(
+                "--feature-pool",
+                choices=["full_screened", "production_model_map", "research_broad"],
+                default="research_broad",
+                help="Feature pool for the research backtest dataset.",
+            )
+            p.add_argument(
+                "--feature-map-model",
+                default="glm_ridge",
+                help="Baseline production model key to read when needed for comparisons.",
+            )
+            p.add_argument(
+                "--history-seasons",
+                type=int,
+                default=None,
+                help="Override the configured number of historical seasons to include in the research dataset.",
             )
         if cmd in {"train", "validate", "run-daily"}:
             p.add_argument(

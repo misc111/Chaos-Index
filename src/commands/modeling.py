@@ -12,6 +12,7 @@ from src.common.logging import get_logger
 from src.common.utils import ensure_dir
 from src.services import backtest as backtest_service
 from src.services import ingest, model_compare as model_compare_service, train as train_service
+from src.services import research_backtest as research_backtest_service
 from src.services import validate as validate_service
 from src.storage.db import Database
 from src.training.prequential import score_predictions
@@ -72,6 +73,25 @@ def compare_candidates(cfg: AppConfig, args: Namespace) -> None:
     )
     print(
         f"CANDIDATE_MODEL_COMPARISON::{result.league}::{result.recommendation_model}::{result.report_path}",
+        flush=True,
+    )
+
+
+def research_backtest(cfg: AppConfig, args: Namespace) -> None:
+    raw_candidate_models = str(getattr(args, "candidate_models", "all") or "all").strip()
+    candidate_models = None if raw_candidate_models.lower() in {"all", "*"} else [
+        token.strip() for token in raw_candidate_models.split(",") if token.strip()
+    ]
+    result = research_backtest_service.run_research_backtest(
+        cfg,
+        report_slug=getattr(args, "report_slug", None),
+        candidate_models=candidate_models,
+        feature_pool=str(getattr(args, "feature_pool", cfg.research.feature_pool)),
+        feature_map_model=str(getattr(args, "feature_map_model", "glm_ridge")),
+        history_seasons=getattr(args, "history_seasons", None),
+    )
+    print(
+        f"RESEARCH_BACKTEST::{result.league}::{result.best_candidate_model}::{result.report_path}",
         flush=True,
     )
 

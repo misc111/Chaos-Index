@@ -347,6 +347,8 @@ def insert_odds_snapshot_and_lines(
     if rows_df.empty:
         return
 
+    db.execute("DELETE FROM odds_market_lines WHERE odds_snapshot_id = ?", (odds_res.snapshot_id,))
+
     created_at_utc = utc_now_iso()
     insert_rows: list[tuple[Any, ...]] = []
     for row in rows_df.itertuples(index=False):

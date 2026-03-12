@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 
 from src.common.config import AppConfig
+from src.common.research import resolve_research_paths
 from src.common.utils import ensure_dir
 from src.evaluation.brier_decomposition import brier_decompose
 from src.evaluation.calibration import calibration_alpha_beta, ece_mce
@@ -47,6 +48,7 @@ CANDIDATE_MODEL_NAMES = {
 }
 FEATURE_POOL_FULL_SCREENED = "full_screened"
 FEATURE_POOL_PRODUCTION_MODEL_MAP = "production_model_map"
+FEATURE_POOL_RESEARCH_BROAD = "research_broad"
 
 
 def _safe_numeric_frame(df: pd.DataFrame, features: list[str]) -> pd.DataFrame:
@@ -959,7 +961,12 @@ def run_candidate_model_comparison(
     feature_pool: str = FEATURE_POOL_FULL_SCREENED,
     feature_map_model: str = "glm_ridge",
 ) -> ComparisonRunResult:
-    features_df = load_features_dataframe(cfg.paths.processed_dir)
+    feature_pool_token = str(feature_pool or FEATURE_POOL_FULL_SCREENED).strip().lower()
+    if feature_pool_token == FEATURE_POOL_RESEARCH_BROAD:
+        research_paths = resolve_research_paths(cfg)
+        features_df = load_features_dataframe(str(research_paths.processed_dir))
+    else:
+        features_df = load_features_dataframe(cfg.paths.processed_dir)
     all_raw_features = select_feature_columns(features_df)
     leakage_issues = run_leakage_checks(features_df, feature_columns=all_raw_features)
     if leakage_issues:
@@ -975,11 +982,10 @@ def run_candidate_model_comparison(
             raise ValueError("candidate_models must include at least one valid model name")
         candidate_model_set = normalized
 
-    feature_pool_token = str(feature_pool or FEATURE_POOL_FULL_SCREENED).strip().lower()
-    if feature_pool_token not in {FEATURE_POOL_FULL_SCREENED, FEATURE_POOL_PRODUCTION_MODEL_MAP}:
+    if feature_pool_token not in {FEATURE_POOL_FULL_SCREENED, FEATURE_POOL_PRODUCTION_MODEL_MAP, FEATURE_POOL_RESEARCH_BROAD}:
         raise ValueError(
             f"Unknown feature_pool='{feature_pool}'. "
-            f"Valid={[FEATURE_POOL_FULL_SCREENED, FEATURE_POOL_PRODUCTION_MODEL_MAP]}"
+            f"Valid={[FEATURE_POOL_FULL_SCREENED, FEATURE_POOL_PRODUCTION_MODEL_MAP, FEATURE_POOL_RESEARCH_BROAD]}"
         )
 
     if feature_pool_token == FEATURE_POOL_PRODUCTION_MODEL_MAP:
@@ -998,6 +1004,12 @@ def run_candidate_model_comparison(
         feature_pool_note = (
             f"Restricted to the production model feature map for `{feature_map_model}` "
             f"after leakage bans ({len(raw_features)} raw features)."
+        )
+    elif feature_pool_token == FEATURE_POOL_RESEARCH_BROAD:
+        raw_features = all_raw_features
+        feature_pool_note = (
+            "Built from the research dataset's broad numeric feature pool after leakage bans, "
+            "without applying production model-map pruning."
         )
     else:
         raw_features = all_raw_features
@@ -1031,7 +1043,7 @@ def run_candidate_model_comparison(
             fit_df=train_df,
             eval_df=validation_df,
             raw_features=raw_features,
-            cv_splits=max(2, int(cfg.modeling.cv_splits)),
+            cv_splits=max(2, int(cfg.research.inner_folds if feature_pool_token == FEATURE_POOL_RESEARCH_BROAD else cfg.modeling.cv_splits)),
             candidate_models=candidate_model_set,
         )
         fit_plus_validation = pd.concat([train_df, validation_df], ignore_index=True).sort_values("start_time_utc").reset_index(drop=True)
@@ -1040,7 +1052,7 @@ def run_candidate_model_comparison(
             fit_df=fit_plus_validation,
             eval_df=test_df,
             raw_features=raw_features,
-            cv_splits=max(2, int(cfg.modeling.cv_splits)),
+            cv_splits=max(2, int(cfg.research.inner_folds if feature_pool_token == FEATURE_POOL_RESEARCH_BROAD else cfg.modeling.cv_splits)),
             candidate_models=candidate_model_set,
         )
 
