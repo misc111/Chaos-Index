@@ -1,4 +1,5 @@
 import type { ModelReplayDecisionDetail, EnsembleSnapshotDailyRow, EnsembleSnapshotRow, PerformanceReplayExperimentSummary } from "@/lib/types";
+import type { LeagueCode } from "@/lib/league";
 
 type DailyCumulativeState = {
   total_profit: number;
@@ -38,6 +39,8 @@ const PERFORMANCE_REPLAY_EXPERIMENTS: Record<string, PerformanceReplayExperiment
 };
 
 export type PerformanceReplayExperimentId = keyof typeof PERFORMANCE_REPLAY_EXPERIMENTS;
+export const DEFAULT_NBA_PERFORMANCE_REPLAY_EXPERIMENT: PerformanceReplayExperimentId =
+  "fresh-1d-no-dogs-over-300";
 
 export function normalizePerformanceReplayExperiment(value?: string | null): PerformanceReplayExperimentId | null {
   const token = String(value || "").trim().toLowerCase();
@@ -73,6 +76,10 @@ export function listPerformanceReplayExperiments(): PerformanceReplayExperimentS
     description: experiment.description,
     scope: experiment.scope,
   }));
+}
+
+export function defaultPerformanceReplayExperimentForLeague(league: LeagueCode): PerformanceReplayExperimentId | null {
+  return league === "NBA" ? DEFAULT_NBA_PERFORMANCE_REPLAY_EXPERIMENT : null;
 }
 
 export function buildPerformanceExperimentStagingFileName(value?: string | null): string {

@@ -1,9 +1,20 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { getPerformanceReplayExperimentSummary } from "@/lib/performance-replay-experiments";
+import { type LeagueCode } from "@/lib/league";
+import {
+  defaultPerformanceReplayExperimentForLeague,
+  getPerformanceReplayExperimentSummary,
+} from "@/lib/performance-replay-experiments";
 
-export function usePerformanceReplayExperiment() {
+export function usePerformanceReplayExperiment(league: LeagueCode) {
   const searchParams = useSearchParams();
-  return getPerformanceReplayExperimentSummary(searchParams.get("experiment"));
+  const rawExperiment = searchParams.get("experiment");
+  if (rawExperiment === "baseline") {
+    return null;
+  }
+
+  return getPerformanceReplayExperimentSummary(
+    rawExperiment || defaultPerformanceReplayExperimentForLeague(league)
+  );
 }

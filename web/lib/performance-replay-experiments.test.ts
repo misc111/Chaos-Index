@@ -4,6 +4,7 @@ import test from "node:test";
 import {
   applyPerformanceReplayExperimentToEnsembleSnapshots,
   buildPerformanceExperimentStagingFileName,
+  defaultPerformanceReplayExperimentForLeague,
   normalizePerformanceReplayExperiment,
 } from "./performance-replay-experiments";
 import type { EnsembleSnapshotRow } from "./types";
@@ -291,6 +292,8 @@ test("normalizePerformanceReplayExperiment accepts only known experiment ids", (
   assert.equal(normalizePerformanceReplayExperiment("unknown"), null);
   assert.equal(buildPerformanceExperimentStagingFileName("fresh-1d-no-dogs-over-300"), "performance.fresh-1d-no-dogs-over-300.json");
   assert.equal(buildPerformanceExperimentStagingFileName("unknown"), "performance.json");
+  assert.equal(defaultPerformanceReplayExperimentForLeague("NBA"), "fresh-1d-no-dogs-over-300");
+  assert.equal(defaultPerformanceReplayExperimentForLeague("NHL"), null);
 });
 
 test("applyPerformanceReplayExperimentToEnsembleSnapshots zeroes stale bets and giant dogs but keeps the snapshot path intact", () => {
