@@ -6,6 +6,7 @@ import ModelBetReplayExplorer from "@/components/ModelBetReplayExplorer";
 import { useDashboardData } from "@/lib/hooks/useDashboardData";
 import { useBetStrategy } from "@/lib/hooks/useBetStrategy";
 import { useLeague } from "@/lib/hooks/useLeague";
+import { usePerformanceReplayExperiment } from "@/lib/hooks/usePerformanceReplayExperiment";
 import type { PerformanceResponse } from "@/lib/types";
 
 const EMPTY_PERFORMANCE: PerformanceResponse = {
@@ -15,12 +16,22 @@ const EMPTY_PERFORMANCE: PerformanceResponse = {
   change_points: [],
   replay_runs: [],
   ensemble_snapshots: [],
+  replay_experiment: null,
 };
 
 function PerformancePageContent() {
   const league = useLeague();
   const strategy = useBetStrategy();
-  const { data, isLoading, error } = useDashboardData<PerformanceResponse>("performance", "/api/performance", league, EMPTY_PERFORMANCE);
+  const replayExperiment = usePerformanceReplayExperiment();
+  const livePath = replayExperiment ? `/api/performance?experiment=${encodeURIComponent(replayExperiment.id)}` : "/api/performance";
+  const { data, isLoading, error } = useDashboardData<PerformanceResponse>(
+    "performance",
+    livePath,
+    league,
+    EMPTY_PERFORMANCE,
+    undefined,
+    replayExperiment?.id
+  );
 
   if (error) {
     return <div className="card">{error}</div>;
@@ -36,6 +47,7 @@ function PerformancePageContent() {
         defaultStrategy={data.default_replay_strategy}
         comparisonStrategy={data.comparison_replay_strategy}
         activeStrategy={strategy}
+        replayExperiment={data.replay_experiment}
       />
       <ModelBetReplayExplorer
         runs={data.replay_runs}

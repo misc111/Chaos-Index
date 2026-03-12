@@ -289,6 +289,13 @@ export type ChangePointRow = TableRow & {
   as_of_utc?: string;
 };
 
+export type PerformanceReplayExperimentSummary = {
+  id: string;
+  label: string;
+  description: string;
+  scope: "ensemble_snapshots";
+};
+
 export type PerformanceResponse = {
   league: string;
   scores: PerformanceScoreRow[];
@@ -298,6 +305,7 @@ export type PerformanceResponse = {
   ensemble_snapshots: EnsembleSnapshotRow[];
   default_replay_strategy?: BetStrategy;
   comparison_replay_strategy?: BetStrategy;
+  replay_experiment?: PerformanceReplayExperimentSummary | null;
 };
 
 export type ValidationSections = Record<string, TableRow[]>;

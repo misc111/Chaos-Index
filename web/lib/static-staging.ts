@@ -1,4 +1,5 @@
 import { type LeagueCode, withLeague } from "@/lib/league";
+import { buildPerformanceExperimentStagingFileName } from "@/lib/performance-replay-experiments";
 
 // Maintainer note: GitHub Pages staging does not call the live API routes.
 // It reads committed JSON snapshots from web/public/staging-data/, so any
@@ -21,21 +22,38 @@ const STAGING_FILES = {
 
 export type StagingDataKey = keyof typeof STAGING_FILES;
 
+function resolveStagingFileName(key: StagingDataKey, stagingVariant?: string | null): string {
+  if (key === "performance") {
+    return buildPerformanceExperimentStagingFileName(stagingVariant);
+  }
+  return STAGING_FILES[key];
+}
+
 export function isStaticStagingBuild(): boolean {
   return STATIC_STAGING;
 }
 
-export function buildStaticStagingUrl(key: StagingDataKey, league: LeagueCode): string {
-  const path = `${BASE_PATH}/staging-data/${league.toLowerCase()}/${STAGING_FILES[key]}`;
+export function buildStaticStagingUrl(key: StagingDataKey, league: LeagueCode, stagingVariant?: string | null): string {
+  const path = `${BASE_PATH}/staging-data/${league.toLowerCase()}/${resolveStagingFileName(key, stagingVariant)}`;
   return STAGING_ASSET_VERSION ? `${path}?v=${encodeURIComponent(STAGING_ASSET_VERSION)}` : path;
 }
 
-export function buildDashboardDataUrl(key: StagingDataKey, livePath: string, league: LeagueCode): string {
-  return STATIC_STAGING ? buildStaticStagingUrl(key, league) : withLeague(livePath, league);
+export function buildDashboardDataUrl(
+  key: StagingDataKey,
+  livePath: string,
+  league: LeagueCode,
+  stagingVariant?: string | null
+): string {
+  return STATIC_STAGING ? buildStaticStagingUrl(key, league, stagingVariant) : withLeague(livePath, league);
 }
 
-export async function fetchDashboardJson<T>(key: StagingDataKey, livePath: string, league: LeagueCode): Promise<T> {
-  const response = await fetch(buildDashboardDataUrl(key, livePath, league), {
+export async function fetchDashboardJson<T>(
+  key: StagingDataKey,
+  livePath: string,
+  league: LeagueCode,
+  stagingVariant?: string | null
+): Promise<T> {
+  const response = await fetch(buildDashboardDataUrl(key, livePath, league, stagingVariant), {
     cache: STATIC_STAGING ? "force-cache" : "no-store",
   });
 

@@ -23,6 +23,7 @@ type Props = {
   activeStrategy?: BetStrategy;
   selectedSnapshotKey: string;
   onSelectSnapshotKey: (snapshotKey: string) => void;
+  replayExperimentLabel?: string | null;
 };
 
 type ChartCoord = {
@@ -180,6 +181,7 @@ export default function EnsembleSnapshotBankrollChart({
   activeStrategy = "riskAdjusted",
   selectedSnapshotKey,
   onSelectSnapshotKey,
+  replayExperimentLabel = null,
 }: Props) {
   const chartStrategy: SnapshotChartStrategyKey = activeStrategy;
   const [bankrollMode, setBankrollMode] = useState<SnapshotBankrollMode>("continuity");
@@ -334,6 +336,7 @@ export default function EnsembleSnapshotBankrollChart({
             <p className={styles.objectivePill}>
               Following Bet Objective: <strong>{activeStrategyConfig.label}</strong>
             </p>
+            {replayExperimentLabel ? <p className={styles.experimentPill}>Experiment: {replayExperimentLabel}</p> : null}
             <button
               type="button"
               className={`${styles.continuityButton} ${continuityEnabled ? styles.continuityButtonActive : ""}`}

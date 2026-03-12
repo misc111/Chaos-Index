@@ -2,6 +2,10 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { ALL_LEAGUES, type LeagueCode } from "../lib/league";
+import {
+  buildPerformanceExperimentStagingFileName,
+  listPerformanceReplayExperiments,
+} from "../lib/performance-replay-experiments";
 import { STAGING_ROUTE_LOADERS, type JsonRouteHandler } from "./staging-route-loaders";
 
 type JsonRecord = Record<string, unknown>;
@@ -40,8 +44,15 @@ const PUBLIC_VALIDATION_SECTIONS = [
   "logit_roc_summary",
 ] as const;
 
-function requestForLeague(routePath: string, league: LeagueCode): Request {
-  return new Request(`http://staging.local${routePath}?league=${league}`);
+function requestForLeague(routePath: string, league: LeagueCode, params: Record<string, string> = {}): Request {
+  const url = new URL(`http://staging.local${routePath}`);
+  url.searchParams.set("league", league);
+  for (const [key, value] of Object.entries(params)) {
+    if (value) {
+      url.searchParams.set(key, value);
+    }
+  }
+  return new Request(url);
 }
 
 function asRecordArray(value: unknown): JsonRecord[] {
@@ -91,12 +102,29 @@ async function loadRouteHandler(modulePath: string): Promise<JsonRouteHandler> {
 async function generateLeagueSnapshot(league: LeagueCode): Promise<void> {
   const leagueDir = path.join(outputRoot, league.toLowerCase());
   await fs.mkdir(leagueDir, { recursive: true });
+  const generatedFiles: string[] = [];
 
   for (const route of routes) {
     const handler = await loadRouteHandler(route.modulePath);
     const response = await handler(requestForLeague(route.routePath, league));
     const payload = await response.json();
     await writeJson(path.join(leagueDir, route.fileName), sanitizePublicPayload(route.fileName, payload, league));
+    generatedFiles.push(route.fileName);
+
+    if (route.fileName === "performance.json") {
+      for (const experiment of listPerformanceReplayExperiments()) {
+        const experimentResponse = await handler(
+          requestForLeague(route.routePath, league, { experiment: experiment.id })
+        );
+        const experimentPayload = await experimentResponse.json();
+        const experimentFileName = buildPerformanceExperimentStagingFileName(experiment.id);
+        await writeJson(
+          path.join(leagueDir, experimentFileName),
+          sanitizePublicPayload(experimentFileName, experimentPayload, league)
+        );
+        generatedFiles.push(experimentFileName);
+      }
+    }
   }
 
   await writeJson(path.join(leagueDir, "meta.json"), {
@@ -104,7 +132,7 @@ async function generateLeagueSnapshot(league: LeagueCode): Promise<void> {
     league,
     mode: "static-staging-snapshot",
     note: "Generated locally from the current dashboard data sources for GitHub Pages staging.",
-    files: routes.map((route) => route.fileName),
+    files: generatedFiles,
   });
 }
 

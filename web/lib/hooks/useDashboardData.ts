@@ -9,7 +9,8 @@ export function useDashboardData<T>(
   livePath: string,
   league: LeagueCode,
   emptyValue: T,
-  refreshToken?: string | number | null
+  refreshToken?: string | number | null,
+  stagingVariant?: string | null
 ) {
   const [data, setData] = useState<T>(emptyValue);
   const [isLoading, setIsLoading] = useState(true);
@@ -22,7 +23,7 @@ export function useDashboardData<T>(
       setIsLoading(true);
       setError("");
       try {
-        const payload = await fetchDashboardJson<T>(key, livePath, league);
+        const payload = await fetchDashboardJson<T>(key, livePath, league, stagingVariant);
         if (!cancelled) {
           setData(payload);
         }
@@ -42,7 +43,7 @@ export function useDashboardData<T>(
     return () => {
       cancelled = true;
     };
-  }, [emptyValue, key, league, livePath, refreshToken]);
+  }, [emptyValue, key, league, livePath, refreshToken, stagingVariant]);
 
   return { data, isLoading, error };
 }

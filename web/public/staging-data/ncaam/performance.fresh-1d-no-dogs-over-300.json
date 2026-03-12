@@ -1861,5 +1861,10 @@
   ],
   "default_replay_strategy": "riskAdjusted",
   "comparison_replay_strategy": "aggressive",
-  "replay_experiment": null
+  "replay_experiment": {
+    "id": "fresh-1d-no-dogs-over-300",
+    "label": "Fresh <= 1 day, no dogs > +300",
+    "description": "Keeps the same strategy thresholds and sizing, but zeroes any replay bet more than 1 day after the snapshot as-of date and any underdog priced above +300.",
+    "scope": "ensemble_snapshots"
+  }
 }

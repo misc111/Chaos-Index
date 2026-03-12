@@ -6,7 +6,7 @@ import styles from "@/components/EnsembleSnapshotExplorer.module.css";
 import { formatUsd } from "@/lib/currency";
 import { getBetStrategyConfig, type BetStrategy } from "@/lib/betting-strategy";
 import { displayPredictionModel } from "@/lib/predictions-report";
-import type { EnsembleSnapshotRow } from "@/lib/types";
+import type { EnsembleSnapshotRow, PerformanceReplayExperimentSummary } from "@/lib/types";
 
 type SnapshotStrategyKey = "riskAdjusted" | "aggressive";
 
@@ -15,6 +15,7 @@ type Props = {
   defaultStrategy?: BetStrategy;
   comparisonStrategy?: BetStrategy;
   activeStrategy?: BetStrategy;
+  replayExperiment?: PerformanceReplayExperimentSummary | null;
 };
 
 function formatPercent(value: number): string {
@@ -80,6 +81,7 @@ export default function EnsembleSnapshotExplorer({
   defaultStrategy = "riskAdjusted",
   comparisonStrategy = "aggressive",
   activeStrategy = defaultStrategy,
+  replayExperiment = null,
 }: Props) {
   const primaryStrategy = strategyKeyFromPreference(defaultStrategy);
   const secondaryStrategy = strategyKeyFromPreference(comparisonStrategy) === "riskAdjusted" ? "aggressive" : strategyKeyFromPreference(comparisonStrategy);
@@ -135,6 +137,7 @@ export default function EnsembleSnapshotExplorer({
         activeStrategy={activeStrategy}
         selectedSnapshotKey={activeSelectedSnapshotKey}
         onSelectSnapshotKey={setSelectedSnapshotKey}
+        replayExperimentLabel={replayExperiment?.label || null}
       />
 
       <section className={`card ${styles.heroCard}`}>
@@ -154,6 +157,12 @@ export default function EnsembleSnapshotExplorer({
             commit that existed before the run finalized.
           </p>
         </div>
+        {replayExperiment ? (
+          <div className={styles.strategyCallout}>
+            <p className={styles.strategyCalloutTitle}>Experiment active: {replayExperiment.label}</p>
+            <p className={styles.strategyCalloutText}>{replayExperiment.description} Live defaults remain unchanged.</p>
+          </div>
+        ) : null}
       </section>
 
       <section className="card">

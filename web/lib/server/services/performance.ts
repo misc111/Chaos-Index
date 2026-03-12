@@ -7,6 +7,11 @@ import type { ModelWinProbabilities } from "@/lib/betting-model";
 import { runSqlJson } from "@/lib/db";
 import { filterPerformanceTimelineSnapshots } from "@/lib/ensemble-snapshot-performance";
 import {
+  applyPerformanceReplayExperimentToEnsembleSnapshots,
+  getPerformanceReplayExperimentSummary,
+  type PerformanceReplayExperimentId,
+} from "@/lib/performance-replay-experiments";
+import {
   buildEnsembleSnapshots,
   type EnsembleSnapshotCandidateRow,
   type EnsembleSnapshotRunMetadata,
@@ -1374,12 +1379,19 @@ function buildReplayCandidates(league: LeagueCode, runSummaries: ModelRunSummary
   return buildModelReplayRuns(candidates, runMetadataById, runSummaryById);
 }
 
-export function getPerformancePayload(league: LeagueCode): PerformanceResponse {
+export function getPerformancePayload(
+  league: LeagueCode,
+  replayExperiment?: PerformanceReplayExperimentId | null
+): PerformanceResponse {
   const scores = queryScores(league);
   const run_summaries = queryRunSummaries(league);
   const change_points = queryChangePoints(league);
   const replay_runs = buildReplayCandidates(league, run_summaries);
-  const ensemble_snapshots = filterPerformanceTimelineSnapshots(buildFrozenEnsembleSnapshots(league));
+  const baseEnsembleSnapshots = filterPerformanceTimelineSnapshots(buildFrozenEnsembleSnapshots(league));
+  const replay_experiment = getPerformanceReplayExperimentSummary(replayExperiment);
+  const ensemble_snapshots = replay_experiment
+    ? applyPerformanceReplayExperimentToEnsembleSnapshots(baseEnsembleSnapshots, replay_experiment.id)
+    : baseEnsembleSnapshots;
 
   return {
     league,
@@ -1390,5 +1402,6 @@ export function getPerformancePayload(league: LeagueCode): PerformanceResponse {
     ensemble_snapshots,
     default_replay_strategy: DEFAULT_BET_STRATEGY,
     comparison_replay_strategy: "aggressive",
+    replay_experiment,
   };
 }
