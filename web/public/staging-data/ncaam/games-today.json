@@ -1,7 +1,7 @@
 {
   "league": "NCAAM",
   "as_of_utc": "2026-03-10T14:49:28+00:00",
-  "date_central": "2026-03-11",
+  "date_central": "2026-03-12",
   "historical_coverage_start_central": null,
   "strategy_configs": {
     "riskAdjusted": {
@@ -64,39 +64,6 @@
   },
   "historical_rows": [],
   "rows": [
-    {
-      "game_id": 401851762,
-      "game_date_utc": "2026-03-11",
-      "home_team": "GONZ",
-      "away_team": "SCU",
-      "home_win_probability": 0.8801174675073471,
-      "betting_model_name": "ensemble",
-      "model_win_probabilities": {
-        "ensemble": 0.8801174675073471,
-        "bayes_bt_state_space": 0.8570180152942031,
-        "bayes_goals": 0.997,
-        "dynamic_rating": 0.820222444162213,
-        "elo_baseline": 0.6872561222507415,
-        "gbdt": 0.9844165520789324,
-        "glm_elastic_net": 0.9124563428324961,
-        "glm_lasso": 0.8988429041512126,
-        "glm_ridge": 0.880942406503064,
-        "goals_poisson": 0.973,
-        "rf": 0.8869192045303512,
-        "simulation_first": 0.525,
-        "two_stage": 0.8003087092512213
-      },
-      "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
-      "start_time_utc": "2026-03-11T01:07Z",
-      "odds_as_of_utc": "2026-03-10T14:52:14+00:00",
-      "home_moneyline": -280,
-      "away_moneyline": 270,
-      "home_moneyline_book": "FanDuel",
-      "away_moneyline_book": "BetUS",
-      "over_190_price": null,
-      "over_190_point": null,
-      "over_190_book": null
-    },
     {
       "game_id": 401851289,
       "game_date_utc": "2026-03-11",

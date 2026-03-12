@@ -102,13 +102,14 @@
 
 .runGrid {
   display: grid;
-  gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  align-items: start;
 }
 
 .runButton {
   display: grid;
-  gap: 10px;
+  gap: 14px;
   padding: 16px;
   border: 1px solid var(--border);
   border-radius: 18px;
@@ -116,6 +117,7 @@
   color: inherit;
   cursor: pointer;
   text-align: left;
+  align-content: start;
   transition:
     transform 160ms ease,
     border-color 160ms ease,
@@ -135,24 +137,26 @@
 }
 
 .runHeader {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
+  display: grid;
+  gap: 10px;
+  align-items: start;
 }
 
 .runDate {
   margin: 0;
   color: var(--ink-strong);
   font-family: "Space Grotesk", "Avenir Next", sans-serif;
-  font-size: 1.02rem;
+  font-size: clamp(1.25rem, 1.5vw, 1.65rem);
   font-weight: 700;
+  line-height: 1.15;
+  text-wrap: balance;
 }
 
 .runMeta {
   margin: 4px 0 0;
   color: var(--muted);
   font-size: 12px;
+  line-height: 1.45;
 }
 
 .runMetrics {
@@ -161,9 +165,9 @@
 }
 
 .metricRow {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
   gap: 12px;
 }
 
@@ -194,6 +198,10 @@
 }
 
 .badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
   padding: 6px 10px;
   border: 1px solid var(--border);
   border-radius: 999px;
@@ -201,6 +209,9 @@
   color: var(--muted-strong);
   font-size: 12px;
   font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .detailGrid {

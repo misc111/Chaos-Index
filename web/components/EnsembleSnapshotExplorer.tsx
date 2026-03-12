@@ -157,54 +157,6 @@ export default function EnsembleSnapshotExplorer({
       </section>
 
       <section className="card">
-        <div style={{ display: "grid", gap: 10 }}>
-          <h3 className="title" style={{ margin: 0 }}>Snapshot Timeline</h3>
-          <p className={styles.heroText}>
-            Click a snapshot to inspect the exact model state that went live, then compare its frozen bankroll path against the later
-            snapshots that replaced it.
-          </p>
-        </div>
-
-        <div className={styles.snapshotGrid}>
-          {sortedSnapshots.map((snapshot) => (
-            <button
-              key={snapshot.snapshot_key}
-              type="button"
-              className={`${styles.snapshotButton} ${selectedSnapshot.snapshot_key === snapshot.snapshot_key ? styles.snapshotButtonActive : ""}`}
-              onClick={() => setSelectedSnapshotKey(snapshot.snapshot_key)}
-            >
-              <div className={styles.snapshotHeader}>
-                <div>
-                  <p className={styles.snapshotDate}>Model as of {formatDateLabel(snapshot.activation_date_central)}</p>
-                  <p className={styles.snapshotMeta}>
-                    finalized {formatDateLabel(snapshot.finalized_at_utc || snapshot.activation_date_central)} · {snapshot.replayable_games} replayable games
-                  </p>
-                </div>
-                <span className={styles.badge}>{summarizeFeatureSetToken(snapshot.feature_set_version)}</span>
-              </div>
-
-              <div className={styles.snapshotMetrics}>
-                <div className={styles.metricRow}>
-                  <span className={styles.metricLabel}>{primaryConfig.label} P/L</span>
-                  <span className={valueClassName(snapshot.strategies.riskAdjusted.total_profit)}>
-                    {formatUsd(snapshot.strategies.riskAdjusted.total_profit, { minimumFractionDigits: 2 })}
-                  </span>
-                </div>
-                <div className={styles.metricRow}>
-                  <span className={styles.metricLabel}>{secondaryConfig.label} P/L</span>
-                  <span className={valueClassName(snapshot.strategies.aggressive.total_profit)}>
-                    {formatUsd(snapshot.strategies.aggressive.total_profit, { minimumFractionDigits: 2 })}
-                  </span>
-                </div>
-              </div>
-
-              <p className={styles.commitSubject}>{snapshot.model_commit?.subject || "No model commit provenance found"}</p>
-            </button>
-          ))}
-        </div>
-      </section>
-
-      <section className="card">
         <div className={styles.matrixHeader}>
           <div>
             <h3 className="title" style={{ margin: 0 }}>Cumulative Winnings Matrix</h3>

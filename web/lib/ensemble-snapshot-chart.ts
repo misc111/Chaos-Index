@@ -154,6 +154,27 @@ function applyContinuityToSeries(series: SnapshotBankrollSeries[]): SnapshotBank
   return shiftedSeries;
 }
 
+export function resolveSnapshotAccountBankrollOnDate(
+  series: SnapshotBankrollSeries[],
+  dateCentral: string
+): number | null {
+  let bankroll: number | null = null;
+
+  for (const snapshot of series) {
+    const firstPointDate = snapshot.points[0]?.date_central;
+    if (firstPointDate && firstPointDate > dateCentral) {
+      break;
+    }
+
+    const candidate = bankrollThroughDate(snapshot, dateCentral);
+    if (candidate !== null) {
+      bankroll = candidate;
+    }
+  }
+
+  return bankroll;
+}
+
 export function buildEnsembleSnapshotBankrollSeries(
   snapshots: EnsembleSnapshotRow[],
   strategy: SnapshotChartStrategyKey,

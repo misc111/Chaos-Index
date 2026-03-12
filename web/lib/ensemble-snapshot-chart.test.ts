@@ -2,7 +2,11 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { HISTORICAL_BANKROLL_START_DOLLARS } from "./betting";
-import { buildEnsembleSnapshotBankrollSeries, listEnsembleSnapshotChartDates } from "./ensemble-snapshot-chart";
+import {
+  buildEnsembleSnapshotBankrollSeries,
+  listEnsembleSnapshotChartDates,
+  resolveSnapshotAccountBankrollOnDate,
+} from "./ensemble-snapshot-chart";
 import type { EnsembleSnapshotRow } from "./types";
 
 function buildSnapshot(overrides: Partial<EnsembleSnapshotRow>): EnsembleSnapshotRow {
@@ -416,4 +420,112 @@ test("listEnsembleSnapshotChartDates returns a sorted union of every plotted ban
   );
 
   assert.deepEqual(listEnsembleSnapshotChartDates(series), ["2026-03-04", "2026-03-05", "2026-03-06", "2026-03-07", "2026-03-08"]);
+});
+
+test("resolveSnapshotAccountBankrollOnDate follows the stitched continuity bankroll across recalibration dates", () => {
+  const series = buildEnsembleSnapshotBankrollSeries(
+    [
+      buildSnapshot({
+        snapshot_key: "snapshot_a",
+        activation_date_central: "2026-03-05",
+      }),
+      buildSnapshot({
+        snapshot_key: "snapshot_b",
+        activation_date_central: "2026-03-06",
+        daily: [
+          {
+            date_central: "2026-03-06",
+            slate_games: 2,
+            strategies: {
+              riskAdjusted: {
+                slate_games: 2,
+                suggested_bets: 1,
+                wins: 1,
+                losses: 0,
+                total_risked: 100,
+                total_profit: 50,
+                cumulative_risked: 100,
+                cumulative_profit: 50,
+                roi: 0.5,
+                cumulative_roi: 0.5,
+              },
+              aggressive: {
+                slate_games: 2,
+                suggested_bets: 1,
+                wins: 1,
+                losses: 0,
+                total_risked: 150,
+                total_profit: 75,
+                cumulative_risked: 150,
+                cumulative_profit: 75,
+                roi: 0.5,
+                cumulative_roi: 0.5,
+              },
+              capitalPreservation: {
+                slate_games: 2,
+                suggested_bets: 1,
+                wins: 1,
+                losses: 0,
+                total_risked: 75,
+                total_profit: 38,
+                cumulative_risked: 75,
+                cumulative_profit: 38,
+                roi: 38 / 75,
+                cumulative_roi: 38 / 75,
+              },
+            },
+          },
+        ],
+        strategies: {
+          riskAdjusted: {
+            total_games: 1,
+            suggested_bets: 1,
+            wins: 1,
+            losses: 0,
+            total_risked: 100,
+            total_profit: 50,
+            roi: 0.5,
+            avg_edge: 0.05,
+            avg_expected_value: 0.03,
+            first_bet_date_central: "2026-03-06",
+            last_bet_date_central: "2026-03-06",
+          },
+          aggressive: {
+            total_games: 1,
+            suggested_bets: 1,
+            wins: 1,
+            losses: 0,
+            total_risked: 150,
+            total_profit: 75,
+            roi: 0.5,
+            avg_edge: 0.05,
+            avg_expected_value: 0.03,
+            first_bet_date_central: "2026-03-06",
+            last_bet_date_central: "2026-03-06",
+          },
+          capitalPreservation: {
+            total_games: 1,
+            suggested_bets: 1,
+            wins: 1,
+            losses: 0,
+            total_risked: 75,
+            total_profit: 38,
+            roi: 38 / 75,
+            avg_edge: 0.05,
+            avg_expected_value: 0.03,
+            first_bet_date_central: "2026-03-06",
+            last_bet_date_central: "2026-03-06",
+          },
+        },
+        replayable_games: 1,
+        days_tracked: 1,
+      }),
+    ],
+    "riskAdjusted",
+    "continuity"
+  );
+
+  assert.equal(resolveSnapshotAccountBankrollOnDate(series, "2026-03-04"), HISTORICAL_BANKROLL_START_DOLLARS);
+  assert.equal(resolveSnapshotAccountBankrollOnDate(series, "2026-03-05"), HISTORICAL_BANKROLL_START_DOLLARS + 120);
+  assert.equal(resolveSnapshotAccountBankrollOnDate(series, "2026-03-06"), HISTORICAL_BANKROLL_START_DOLLARS + 170);
 });

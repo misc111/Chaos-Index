@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   buildEnsembleSnapshotBankrollSeries,
   listEnsembleSnapshotChartDates,
+  resolveSnapshotAccountBankrollOnDate,
   type SnapshotBankrollPoint,
   type SnapshotBankrollMode,
   type SnapshotBankrollSeries,
@@ -53,6 +54,7 @@ const CHART_PAD_RIGHT = 24;
 const CHART_PAD_TOP = 24;
 const CHART_PAD_BOTTOM = 42;
 const CHART_ANIMATION_DURATION_MS = 320;
+const BANKROLL_REFERENCE_DATE = "2026-03-04";
 const SNAPSHOT_LINE_COLORS = [
   "#0f766e",
   "#1d4ed8",
@@ -186,6 +188,10 @@ export default function EnsembleSnapshotBankrollChart({
     () => buildEnsembleSnapshotBankrollSeries(snapshots, chartStrategy, bankrollMode),
     [snapshots, chartStrategy, bankrollMode]
   );
+  const marchFourthBankroll = useMemo(() => {
+    const continuitySeries = buildEnsembleSnapshotBankrollSeries(snapshots, chartStrategy, "continuity");
+    return resolveSnapshotAccountBankrollOnDate(continuitySeries, BANKROLL_REFERENCE_DATE);
+  }, [snapshots, chartStrategy]);
   const geometry = useMemo(
     () => (series.length ? buildChartGeometry(series) : EMPTY_CHART_GEOMETRY),
     [series]
@@ -321,8 +327,8 @@ export default function EnsembleSnapshotBankrollChart({
             Every Dated Ensemble Snapshot, Let Loose Through Today
           </h2>
           <p className={styles.body}>
-            This mirrors the bet-history bankroll chart, but every line is a different frozen ensemble snapshot. Each one starts from
-            the same opening bankroll and then keeps making bets through later slates as if you had never recalibrated again.
+            Bankroll as of March 4:{" "}
+            {formatUsd(marchFourthBankroll ?? HISTORICAL_BANKROLL_START_DOLLARS, { minimumFractionDigits: 2 })}.
           </p>
           <div className={styles.controlRow}>
             <p className={styles.objectivePill}>
@@ -339,14 +345,6 @@ export default function EnsembleSnapshotBankrollChart({
           </div>
         </div>
       </div>
-
-      <p className={styles.note}>
-        {continuityEnabled
-          ? "The y-axis is total bankroll with continuity handoffs turned on. Each new model inherits the prior snapshot's bankroll through D-1, so the lines form one stitched account path across recalibration dates."
-          : "The y-axis is total bankroll with isolated replays. Each snapshot restarts at $5,000 so you can compare model quality without carrying forward earlier wins or losses."}{" "}
-        This chart follows the dashboard&apos;s Bet Objective buttons, so switching between Balanced, Aggressive, and Conservative redraws
-        the full frozen-snapshot bankroll race under that exact rule set.
-      </p>
 
       <div className={chartStyles.chartWrap}>
         {activeCoord ? (
