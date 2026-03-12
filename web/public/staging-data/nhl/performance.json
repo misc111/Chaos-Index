@@ -404,7 +404,7 @@
     {
       "model_name": "rf",
       "game_date_utc": "2026-03-10",
-      "log_loss": 0.6883749128153934
+      "log_loss": 0.6883749128153933
     },
     {
       "model_name": "simulation_first",
@@ -414,7 +414,72 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-10",
-      "log_loss": 0.6531407826479614
+      "log_loss": 0.6538027748670554
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-03-11",
+      "log_loss": 0.7435403933308518
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-03-11",
+      "log_loss": 0.6887224169743194
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-03-11",
+      "log_loss": 0.8067686564797394
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-03-11",
+      "log_loss": 0.7156098045198537
+    },
+    {
+      "model_name": "ensemble",
+      "game_date_utc": "2026-03-11",
+      "log_loss": 0.756764764330824
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-03-11",
+      "log_loss": 0.8577102837547458
+    },
+    {
+      "model_name": "glm_elastic_net",
+      "game_date_utc": "2026-03-11",
+      "log_loss": 0.7343126176999681
+    },
+    {
+      "model_name": "glm_lasso",
+      "game_date_utc": "2026-03-11",
+      "log_loss": 0.7226373514847736
+    },
+    {
+      "model_name": "glm_ridge",
+      "game_date_utc": "2026-03-11",
+      "log_loss": 0.7064629813276833
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-03-11",
+      "log_loss": 0.7532643243204248
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-03-11",
+      "log_loss": 0.8012398581655862
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-03-11",
+      "log_loss": 0.9105121987559619
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-03-11",
+      "log_loss": 0.8316916650385077
     }
   ],
   "run_summaries": [
@@ -422,17 +487,17 @@
       "model_name": "bayes_bt_state_space",
       "model_run_id": "run_0bd28749c5be5350__bayes_bt_state_space",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:18:23+00:00",
-      "snapshot_id": "nhl_odds_79f3494fa115feb9",
+      "created_at_utc": "2026-03-12T14:03:11+00:00",
+      "snapshot_id": "nhl_odds_989ed25d9b9b6bfc",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-10",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 13,
-      "avg_log_loss": 0.668282367685201,
-      "avg_brier": 0.23762374056488203,
-      "accuracy": 0.6923076923076923,
+      "last_game_date_utc": "2026-03-11",
+      "last_game_date_central": "2026-03-11",
+      "n_games": 15,
+      "avg_log_loss": 0.6783167711046211,
+      "avg_brier": 0.24263065735264647,
+      "accuracy": 0.6,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -440,17 +505,17 @@
       "model_name": "bayes_goals",
       "model_run_id": "run_0bd28749c5be5350__bayes_goals",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:18:23+00:00",
-      "snapshot_id": "nhl_odds_79f3494fa115feb9",
+      "created_at_utc": "2026-03-12T14:03:11+00:00",
+      "snapshot_id": "nhl_odds_989ed25d9b9b6bfc",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-10",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 13,
-      "avg_log_loss": 0.6388504683243256,
-      "avg_brier": 0.22306225538461538,
-      "accuracy": 0.7692307692307693,
+      "last_game_date_utc": "2026-03-11",
+      "last_game_date_central": "2026-03-11",
+      "n_games": 15,
+      "avg_log_loss": 0.6455000614776581,
+      "avg_brier": 0.226359752,
+      "accuracy": 0.7333333333333333,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -458,17 +523,17 @@
       "model_name": "dynamic_rating",
       "model_run_id": "run_0bd28749c5be5350__dynamic_rating",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:18:23+00:00",
-      "snapshot_id": "nhl_odds_79f3494fa115feb9",
+      "created_at_utc": "2026-03-12T14:03:11+00:00",
+      "snapshot_id": "nhl_odds_989ed25d9b9b6bfc",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-10",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 13,
-      "avg_log_loss": 0.6055074436138668,
-      "avg_brier": 0.20984814038902577,
-      "accuracy": 0.6153846153846154,
+      "last_game_date_utc": "2026-03-11",
+      "last_game_date_central": "2026-03-11",
+      "n_games": 15,
+      "avg_log_loss": 0.632342271995983,
+      "avg_brier": 0.222722800554872,
+      "accuracy": 0.5333333333333333,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -476,17 +541,17 @@
       "model_name": "elo_baseline",
       "model_run_id": "run_0bd28749c5be5350__elo_baseline",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:18:23+00:00",
-      "snapshot_id": "nhl_odds_79f3494fa115feb9",
+      "created_at_utc": "2026-03-12T14:03:11+00:00",
+      "snapshot_id": "nhl_odds_989ed25d9b9b6bfc",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-10",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 13,
-      "avg_log_loss": 0.641811074664385,
-      "avg_brier": 0.22447656659163095,
-      "accuracy": 0.6923076923076923,
+      "last_game_date_utc": "2026-03-11",
+      "last_game_date_central": "2026-03-11",
+      "n_games": 15,
+      "avg_log_loss": 0.6516509053117809,
+      "avg_brier": 0.22937628733309492,
+      "accuracy": 0.6,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -494,17 +559,17 @@
       "model_name": "ensemble",
       "model_run_id": "run_0bd28749c5be5350__ensemble",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:18:23+00:00",
-      "snapshot_id": "nhl_odds_79f3494fa115feb9",
+      "created_at_utc": "2026-03-12T14:03:11+00:00",
+      "snapshot_id": "nhl_odds_989ed25d9b9b6bfc",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-10",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 13,
-      "avg_log_loss": 0.6346867625864367,
-      "avg_brier": 0.22123520578783218,
-      "accuracy": 0.7692307692307693,
+      "last_game_date_utc": "2026-03-11",
+      "last_game_date_central": "2026-03-11",
+      "n_games": 15,
+      "avg_log_loss": 0.6509638294856883,
+      "avg_brier": 0.22930453405582168,
+      "accuracy": 0.6666666666666666,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -512,17 +577,17 @@
       "model_name": "gbdt",
       "model_run_id": "run_0bd28749c5be5350__gbdt",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:18:23+00:00",
-      "snapshot_id": "nhl_odds_79f3494fa115feb9",
+      "created_at_utc": "2026-03-12T14:03:11+00:00",
+      "snapshot_id": "nhl_odds_989ed25d9b9b6bfc",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-10",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 13,
-      "avg_log_loss": 0.9720577415713035,
-      "avg_brier": 0.36535918103685006,
-      "accuracy": 0.38461538461538464,
+      "last_game_date_utc": "2026-03-11",
+      "last_game_date_central": "2026-03-11",
+      "n_games": 15,
+      "avg_log_loss": 0.9568114138624292,
+      "avg_brier": 0.3608434778668625,
+      "accuracy": 0.3333333333333333,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -530,17 +595,17 @@
       "model_name": "glm_elastic_net",
       "model_run_id": "run_0bd28749c5be5350__glm_elastic_net",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:18:23+00:00",
-      "snapshot_id": "nhl_odds_79f3494fa115feb9",
+      "created_at_utc": "2026-03-12T14:03:11+00:00",
+      "snapshot_id": "nhl_odds_989ed25d9b9b6bfc",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-10",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 13,
-      "avg_log_loss": 0.643144005462002,
-      "avg_brier": 0.22512177407423406,
-      "accuracy": 0.7692307692307693,
+      "last_game_date_utc": "2026-03-11",
+      "last_game_date_central": "2026-03-11",
+      "n_games": 15,
+      "avg_log_loss": 0.6552998204270641,
+      "avg_brier": 0.2311817290581724,
+      "accuracy": 0.6666666666666666,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -548,17 +613,17 @@
       "model_name": "glm_lasso",
       "model_run_id": "run_0bd28749c5be5350__glm_lasso",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:18:23+00:00",
-      "snapshot_id": "nhl_odds_79f3494fa115feb9",
+      "created_at_utc": "2026-03-12T14:03:11+00:00",
+      "snapshot_id": "nhl_odds_989ed25d9b9b6bfc",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-10",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 13,
-      "avg_log_loss": 0.6405990379995548,
-      "avg_brier": 0.2239035408340531,
-      "accuracy": 0.7692307692307693,
+      "last_game_date_utc": "2026-03-11",
+      "last_game_date_central": "2026-03-11",
+      "n_games": 15,
+      "avg_log_loss": 0.6515374797975839,
+      "avg_brier": 0.2293482286216037,
+      "accuracy": 0.6666666666666666,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -566,17 +631,17 @@
       "model_name": "glm_ridge",
       "model_run_id": "run_0bd28749c5be5350__glm_ridge",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:18:23+00:00",
-      "snapshot_id": "nhl_odds_79f3494fa115feb9",
+      "created_at_utc": "2026-03-12T14:03:11+00:00",
+      "snapshot_id": "nhl_odds_989ed25d9b9b6bfc",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-10",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 13,
-      "avg_log_loss": 0.638255767943311,
-      "avg_brier": 0.22288322417738987,
-      "accuracy": 0.8461538461538461,
+      "last_game_date_utc": "2026-03-11",
+      "last_game_date_central": "2026-03-11",
+      "n_games": 15,
+      "avg_log_loss": 0.6473500630612272,
+      "avg_brier": 0.22738485773509884,
+      "accuracy": 0.8,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -584,17 +649,17 @@
       "model_name": "goals_poisson",
       "model_run_id": "run_0bd28749c5be5350__goals_poisson",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:18:23+00:00",
-      "snapshot_id": "nhl_odds_79f3494fa115feb9",
+      "created_at_utc": "2026-03-12T14:03:11+00:00",
+      "snapshot_id": "nhl_odds_989ed25d9b9b6bfc",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-10",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 13,
-      "avg_log_loss": 0.6770576417636295,
-      "avg_brier": 0.24159317948717948,
-      "accuracy": 0.6923076923076923,
+      "last_game_date_utc": "2026-03-11",
+      "last_game_date_central": "2026-03-11",
+      "n_games": 15,
+      "avg_log_loss": 0.6872185327712022,
+      "avg_brier": 0.24669815740740741,
+      "accuracy": 0.6666666666666666,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -602,17 +667,17 @@
       "model_name": "rf",
       "model_run_id": "run_0bd28749c5be5350__rf",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:18:23+00:00",
-      "snapshot_id": "nhl_odds_79f3494fa115feb9",
+      "created_at_utc": "2026-03-12T14:03:11+00:00",
+      "snapshot_id": "nhl_odds_989ed25d9b9b6bfc",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-10",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 13,
-      "avg_log_loss": 0.6883749128153934,
-      "avg_brier": 0.2475850877147111,
-      "accuracy": 0.5384615384615384,
+      "last_game_date_utc": "2026-03-11",
+      "last_game_date_central": "2026-03-11",
+      "n_games": 15,
+      "avg_log_loss": 0.7034235721954191,
+      "avg_brier": 0.2550765929669876,
+      "accuracy": 0.4666666666666667,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -620,17 +685,17 @@
       "model_name": "simulation_first",
       "model_run_id": "run_0bd28749c5be5350__simulation_first",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:18:23+00:00",
-      "snapshot_id": "nhl_odds_79f3494fa115feb9",
+      "created_at_utc": "2026-03-12T14:03:11+00:00",
+      "snapshot_id": "nhl_odds_989ed25d9b9b6bfc",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-10",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 13,
-      "avg_log_loss": 0.6165280420055802,
-      "avg_brier": 0.2135465321821036,
-      "accuracy": 0.6923076923076923,
+      "last_game_date_utc": "2026-03-11",
+      "last_game_date_central": "2026-03-11",
+      "n_games": 15,
+      "avg_log_loss": 0.6557259295722978,
+      "avg_brier": 0.23269772925170068,
+      "accuracy": 0.6,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -638,17 +703,17 @@
       "model_name": "two_stage",
       "model_run_id": "run_0bd28749c5be5350__two_stage",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:18:23+00:00",
-      "snapshot_id": "nhl_odds_79f3494fa115feb9",
+      "created_at_utc": "2026-03-12T14:03:11+00:00",
+      "snapshot_id": "nhl_odds_989ed25d9b9b6bfc",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-10",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 13,
-      "avg_log_loss": 0.6531407826479614,
-      "avg_brier": 0.23031750878544535,
-      "accuracy": 0.6153846153846154,
+      "last_game_date_utc": "2026-03-11",
+      "last_game_date_central": "2026-03-11",
+      "n_games": 15,
+      "avg_log_loss": 0.6775212935565823,
+      "avg_brier": 0.2423249595461411,
+      "accuracy": 0.5333333333333333,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -1519,409 +1584,427 @@
   ],
   "change_points": [
     {
+      "model_name": "dynamic_rating",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 2.7338233401787444,
+      "threshold": 1.470249774545447,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 45, \"value\": 0.5381793115391759}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
+    },
+    {
       "model_name": "gbdt",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 2.539860257967559,
-      "threshold": 1.5414919898372155,
+      "statistic": 2.5483802294922615,
+      "threshold": 1.5148670788225207,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 1.0988196601157652}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
-    },
-    {
-      "model_name": "gbdt",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 2.36746130532683,
-      "threshold": 1.8497903878046584,
-      "details_json": "{\"date\": \"2026-03-07\", \"index\": 23, \"value\": 2.405920683299475}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "dynamic_rating",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 2.1147339480239538,
-      "threshold": 1.2461450881649032,
+      "statistic": 2.118921336566027,
+      "threshold": 1.2252081454545392,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 1.5905288100615655}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
-    },
-    {
-      "model_name": "dynamic_rating",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 2.104235372249147,
-      "threshold": 1.4953741057978838,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 45, \"value\": 0.10751159688287067}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "gbdt",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 2.0518685008690296,
-      "threshold": 1.5414919898372155,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 50, \"value\": 1.4740124991143628}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
-    },
-    {
-      "model_name": "gbdt",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 1.9961645479763925,
-      "threshold": 1.5414919898372155,
+      "statistic": 1.9977620426372737,
+      "threshold": 1.5148670788225207,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 39, \"value\": 2.6073172489879406}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "gbdt",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 1.9154650636859418,
-      "threshold": 1.8497903878046584,
-      "details_json": "{\"date\": \"2026-03-08\", \"index\": 35, \"value\": 0.13308637164442735}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "statistic": 1.934081010778739,
+      "threshold": 1.817840494587025,
+      "details_json": "{\"date\": \"2026-03-07\", \"index\": 23, \"value\": 2.405920683299475}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
+    },
+    {
+      "model_name": "gbdt",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 1.9128603610760553,
+      "threshold": 1.817840494587025,
+      "details_json": "{\"date\": \"2026-03-08\", \"index\": 36, \"value\": 0.3237829988270282}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
+    },
+    {
+      "model_name": "gbdt",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.7140923195209377,
+      "threshold": 1.5148670788225207,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 50, \"value\": 2.0163137875529067}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "dynamic_rating",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 1.8752033581389955,
-      "threshold": 1.4953741057978838,
+      "statistic": 1.661958919248361,
+      "threshold": 1.470249774545447,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 35, \"value\": 0.12200388809832072}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "dynamic_rating",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 1.778259728682731,
-      "threshold": 1.4953741057978838,
+      "statistic": 1.5006938091079272,
+      "threshold": 1.470249774545447,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 23, \"value\": 2.0737999724226572}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
+    },
+    {
+      "model_name": "dynamic_rating",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 1.4968647789916252,
+      "threshold": 1.470249774545447,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 55, \"value\": 0.5767952338827336}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "simulation_first",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.4883565021846006,
-      "threshold": 0.5640594399875167,
+      "statistic": 1.488309924685869,
+      "threshold": 0.5641964326308447,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 1.1186692340146691}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "dynamic_rating",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.3353943906783918,
-      "threshold": 1.2461450881649032,
+      "statistic": 1.3370693460952214,
+      "threshold": 1.2252081454545392,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 39, \"value\": 2.036607827855701}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
-    },
-    {
-      "model_name": "two_stage",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.9646814657212399,
-      "threshold": 0.7769812715927762,
-      "details_json": "{\"date\": \"2026-03-07\", \"index\": 23, \"value\": 1.2047268695579962}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.961226791353205,
-      "threshold": 0.48236203524706356,
+      "threshold": 0.4757301985275515,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.6591039349850436}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "glm_ridge",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.961226791353205,
-      "threshold": 0.46397735937278173,
+      "threshold": 0.45680368186797826,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.6591039349850436}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
-    },
-    {
-      "model_name": "two_stage",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.9187676341198154,
-      "threshold": 0.7769812715927762,
-      "details_json": "{\"date\": \"2026-03-08\", \"index\": 34, \"value\": 0.4431872479747446}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.9175550308166563,
-      "threshold": 0.3716637304217141,
+      "threshold": 0.36896653143028235,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.8101040203030079}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "two_stage",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.8873735208397386,
-      "threshold": 0.6474843929939801,
-      "details_json": "{\"date\": \"2026-03-07\", \"index\": 23, \"value\": 1.2047268695579962}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
-    },
-    {
-      "model_name": "two_stage",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 0.8668086611000505,
-      "threshold": 0.6474843929939801,
+      "statistic": 0.8672279440699471,
+      "threshold": 0.6370023187465579,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 1.0184294385466095}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "simulation_first",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.7996846819273454,
-      "threshold": 0.67687132798502,
-      "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 1.1186692340146691}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
-    },
-    {
-      "model_name": "simulation_first",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.7847479344701679,
-      "threshold": 0.67687132798502,
-      "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 0.9961846410949208}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
-    },
-    {
-      "model_name": "glm_ridge",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.7784269772220749,
-      "threshold": 0.5567728312473381,
-      "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.6591039349850436}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
-    },
-    {
-      "model_name": "rf",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.7512291509583495,
-      "threshold": 0.45,
-      "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.8101040203030079}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "statistic": 0.8475949073275688,
+      "threshold": 0.6770357191570138,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 55, \"value\": 0.38461261194914786}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.7388822377667525,
-      "threshold": 0.5788344422964762,
+      "statistic": 0.8015647776582461,
+      "threshold": 0.5708762382330619,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 35, \"value\": 0.34687888270816913}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
+    },
+    {
+      "model_name": "two_stage",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.7947091149541244,
+      "threshold": 0.7644027824958695,
+      "details_json": "{\"date\": \"2026-03-07\", \"index\": 23, \"value\": 1.2047268695579962}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "simulation_first",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.7346405773717588,
-      "threshold": 0.67687132798502,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 50, \"value\": 0.5638748448558062}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "statistic": 0.7758591032062698,
+      "threshold": 0.6770357191570138,
+      "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 1.1186692340146691}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
+    },
+    {
+      "model_name": "two_stage",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.7749903705802437,
+      "threshold": 0.6370023187465579,
+      "details_json": "{\"date\": \"2026-03-07\", \"index\": 23, \"value\": 1.2047268695579962}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
+    },
+    {
+      "model_name": "two_stage",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.7679655366795891,
+      "threshold": 0.7644027824958695,
+      "details_json": "{\"date\": \"2026-03-08\", \"index\": 33, \"value\": 0.4891604539890946}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
+    },
+    {
+      "model_name": "glm_ridge",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.7632439686672975,
+      "threshold": 0.5481644182415739,
+      "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.6591039349850436}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
+    },
+    {
+      "model_name": "simulation_first",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.7450386366017083,
+      "threshold": 0.6770357191570138,
+      "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 0.9961846410949208}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
+    },
+    {
+      "model_name": "rf",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.7338460352914826,
+      "threshold": 0.45,
+      "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.8101040203030079}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "elo_baseline",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.6929463187303606,
-      "threshold": 0.5352507426229789,
+      "statistic": 0.7207254735092126,
+      "threshold": 0.5263375212298573,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 44, \"value\": 1.0581333020595178}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
+    },
+    {
+      "model_name": "elo_baseline",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.6884648533796995,
+      "threshold": 0.5263375212298573,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.8676613029796226}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
-      "model_name": "elo_baseline",
+      "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.6809587201172931,
-      "threshold": 0.5352507426229789,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 43, \"value\": 1.0581333020595178}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
-    },
-    {
-      "model_name": "bayes_bt_state_space",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.6569959532073195,
-      "threshold": 0.5104357037781369,
-      "details_json": "{\"date\": \"2026-03-08\", \"index\": 32, \"value\": 0.335718934155175}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "statistic": 0.6745449146683626,
+      "threshold": 0.5708762382330619,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 45, \"value\": 0.6662714344874521}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.6537122903136228,
-      "threshold": 0.48236203524706356,
+      "threshold": 0.4757301985275515,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 0.9869624095337838}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
-      "model_name": "ensemble",
+      "model_name": "elo_baseline",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.6352499358253159,
-      "threshold": 0.5788344422964762,
-      "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.6591039349850436}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "statistic": 0.6452048752322042,
+      "threshold": 0.5263375212298573,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 54, \"value\": 0.5052067095536541}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
+    },
+    {
+      "model_name": "goals_poisson",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.6341474210515652,
+      "threshold": 0.3962647096900698,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 44, \"value\": 1.0911402738294087}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "simulation_first",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.6242051029842246,
-      "threshold": 0.5640594399875167,
+      "statistic": 0.6241941435727589,
+      "threshold": 0.5641964326308447,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 39, \"value\": 1.20349672719245}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
-      "model_name": "rf",
+      "model_name": "glm_ridge",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.6099395895990856,
-      "threshold": 0.45,
-      "details_json": "{\"date\": \"2026-03-08\", \"index\": 35, \"value\": 0.48019950934089484}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "statistic": 0.5975387908765664,
+      "threshold": 0.5481644182415739,
+      "details_json": "{\"date\": \"2026-03-08\", \"index\": 34, \"value\": 0.45317739672056007}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
+    },
+    {
+      "model_name": "ensemble",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.5957463410042432,
+      "threshold": 0.5708762382330619,
+      "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.6591039349850436}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "elo_baseline",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.5858516022300998,
-      "threshold": 0.44604228551914915,
+      "threshold": 0.43861460102488115,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.8676613029796226}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "elo_baseline",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.5672428154216,
-      "threshold": 0.5352507426229789,
+      "statistic": 0.5737891196381961,
+      "threshold": 0.5263375212298573,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 30, \"value\": 0.4409955338964178}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
-    },
-    {
-      "model_name": "glm_ridge",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.5603672995584815,
-      "threshold": 0.5567728312473381,
-      "details_json": "{\"date\": \"2026-03-08\", \"index\": 34, \"value\": 0.45317739672056007}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
-    },
-    {
-      "model_name": "elo_baseline",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.5529970533073785,
-      "threshold": 0.5352507426229789,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 53, \"value\": 0.5811756312947989}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "bayes_goals",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.5473690575598462,
+      "statistic": 0.5521573104536852,
       "threshold": 0.45,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 35, \"value\": 0.4231200433468851}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
-      "model_name": "goals_poisson",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 0.5300800736684774,
-      "threshold": 0.40061243927063217,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 43, \"value\": 1.0911402738294087}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
-    },
-    {
-      "model_name": "goals_poisson",
+      "model_name": "bayes_goals",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.5233257454139744,
-      "threshold": 0.48073492712475857,
-      "details_json": "{\"date\": \"2026-03-07\", \"index\": 23, \"value\": 1.036576897748657}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "statistic": 0.5266208247675542,
+      "threshold": 0.45,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 55, \"value\": 0.5481814103097596}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.5225861544500506,
+      "threshold": 0.5024344336678992,
+      "details_json": "{\"date\": \"2026-03-08\", \"index\": 32, \"value\": 0.335718934155175}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "glm_ridge",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.5162063498312481,
-      "threshold": 0.46397735937278173,
+      "threshold": 0.45680368186797826,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 0.9462860324025361}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
-    },
-    {
-      "model_name": "bayes_goals",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.5110335187060223,
-      "threshold": 0.45,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 54, \"value\": 0.5916742116293116}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "goals_poisson",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.5045498121976798,
-      "threshold": 0.48073492712475857,
-      "details_json": "{\"date\": \"2026-03-08\", \"index\": 33, \"value\": 0.6264235485170372}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "statistic": 0.4989615943532709,
+      "threshold": 0.4755176516280838,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 44, \"value\": 1.0911402738294087}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
+    },
+    {
+      "model_name": "goals_poisson",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.49209460658152315,
+      "threshold": 0.4755176516280838,
+      "details_json": "{\"date\": \"2026-03-08\", \"index\": 32, \"value\": 0.4748151862429576}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "goals_poisson",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.4707261573820134,
-      "threshold": 0.40061243927063217,
+      "threshold": 0.3962647096900698,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.8081839905483036}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "bayes_goals",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.46216138829649994,
+      "statistic": 0.46664715837439363,
       "threshold": 0.45,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.7194911558995473}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "elo_baseline",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.45894580390513484,
-      "threshold": 0.44604228551914915,
+      "statistic": 0.4589458039051344,
+      "threshold": 0.43861460102488115,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 0.8933009715461003}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
+    },
+    {
+      "model_name": "rf",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.4569773115120988,
+      "threshold": 0.45,
+      "details_json": "{\"date\": \"2026-03-08\", \"index\": 34, \"value\": 0.5431804978127164}",
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.44920506260876936,
-      "threshold": 0.4253630864817807,
+      "threshold": 0.41869536138991603,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 37, \"value\": 1.0563752075483124}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "bayes_goals",
@@ -1930,16 +2013,16 @@
       "statistic": 0.4454014604405375,
       "threshold": 0.35,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 0.8920860431773375}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.4440576413829316,
-      "threshold": 0.3716637304217141,
+      "threshold": 0.36896653143028235,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 0.802500556766169}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     },
     {
       "model_name": "bayes_goals",
@@ -1948,7 +2031,7 @@
       "statistic": 0.36470844223467846,
       "threshold": 0.35,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.7194911558995473}",
-      "as_of_utc": "2026-03-11T14:18:50+00:00"
+      "as_of_utc": "2026-03-12T14:03:39+00:00"
     }
   ],
   "replay_runs": [
@@ -2176,37 +2259,37 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-10",
-      "replayable_games": 13,
+      "last_replay_date_central": "2026-03-11",
+      "replayable_games": 15,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 1,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 2,
           "losses": 3,
-          "total_risked": 400,
-          "total_profit": -18.75,
-          "roi": -0.046875,
-          "avg_edge": 0.061360125265638304,
-          "avg_expected_value": 0.13494591215899393,
+          "total_risked": 525,
+          "total_profit": 172.5,
+          "roi": 0.32857142857142857,
+          "avg_edge": 0.055463217375577044,
+          "avg_expected_value": 0.1202955781847979,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 1,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 2,
           "losses": 3,
-          "total_risked": 600,
-          "total_profit": -66.25000000000006,
-          "roi": -0.11041666666666676,
-          "avg_edge": 0.061360125265638304,
-          "avg_expected_value": 0.13494591215899393,
+          "total_risked": 775,
+          "total_profit": 201.49999999999994,
+          "roi": 0.25999999999999995,
+          "avg_edge": 0.055463217375577044,
+          "avg_expected_value": 0.1202955781847979,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "capitalPreservation": {
-          "total_games": 13,
+          "total_games": 15,
           "suggested_bets": 3,
           "wins": 1,
           "losses": 2,
@@ -2952,6 +3035,126 @@
           "away_score": 4,
           "home_moneyline": -118,
           "away_moneyline": 106,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 125,
+              "odds": 153,
+              "model_probability": 0.4196419929992149,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.03187558581533201,
+              "expected_value": 0.06169424228801379,
+              "outcome": "win",
+              "profit": 191.25,
+              "payout": 316.25
+            },
+            "aggressive": {
+              "bet_label": "$175 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 175,
+              "odds": 153,
+              "model_probability": 0.4196419929992149,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.03187558581533201,
+              "expected_value": 0.06169424228801379,
+              "outcome": "win",
+              "profit": 267.75,
+              "payout": 442.75
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.4196419929992149,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.03187558581533201,
+              "expected_value": 0.06169424228801379,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
           "strategies": {
             "riskAdjusted": {
               "bet_label": "$0",
@@ -6307,37 +6510,37 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-10",
-      "replayable_games": 13,
+      "last_replay_date_central": "2026-03-11",
+      "replayable_games": 15,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 3,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 4,
           "losses": 1,
-          "total_risked": 400,
-          "total_profit": 293.4913793103448,
-          "roi": 0.733728448275862,
-          "avg_edge": 0.0464925665793402,
-          "avg_expected_value": 0.09908501009235654,
+          "total_risked": 525,
+          "total_profit": 484.7413793103448,
+          "roi": 0.9233169129720854,
+          "avg_edge": 0.04526863754536119,
+          "avg_expected_value": 0.09590650834210926,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 3,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 4,
           "losses": 1,
-          "total_risked": 600,
-          "total_profit": 438.4741379310344,
-          "roi": 0.7307902298850574,
-          "avg_edge": 0.0464925665793402,
-          "avg_expected_value": 0.09908501009235654,
+          "total_risked": 775,
+          "total_profit": 706.2241379310344,
+          "roi": 0.9112569521690767,
+          "avg_edge": 0.04526863754536119,
+          "avg_expected_value": 0.09590650834210926,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "capitalPreservation": {
-          "total_games": 13,
+          "total_games": 15,
           "suggested_bets": 1,
           "wins": 1,
           "losses": 0,
@@ -7083,6 +7286,126 @@
           "away_score": 4,
           "home_moneyline": -118,
           "away_moneyline": 106,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 125,
+              "odds": 153,
+              "model_probability": 0.42813932859332804,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.04037292140944515,
+              "expected_value": 0.0831925013411201,
+              "outcome": "win",
+              "profit": 191.25,
+              "payout": 316.25
+            },
+            "aggressive": {
+              "bet_label": "$175 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 175,
+              "odds": 153,
+              "model_probability": 0.42813932859332804,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.04037292140944515,
+              "expected_value": 0.0831925013411201,
+              "outcome": "win",
+              "profit": 267.75,
+              "payout": 442.75
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.42813932859332804,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.04037292140944515,
+              "expected_value": 0.0831925013411201,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
           "strategies": {
             "riskAdjusted": {
               "bet_label": "$0",
@@ -10438,37 +10761,37 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-10",
-      "replayable_games": 13,
+      "last_replay_date_central": "2026-03-11",
+      "replayable_games": 15,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 3,
+          "total_games": 15,
+          "suggested_bets": 6,
+          "wins": 5,
           "losses": 1,
-          "total_risked": 400,
-          "total_profit": 116.95945945945945,
-          "roi": 0.2923986486486486,
-          "avg_edge": 0.11663013428487785,
-          "avg_expected_value": 0.18272578845202148,
+          "total_risked": 650,
+          "total_profit": 441.9594594594595,
+          "roi": 0.67993762993763,
+          "avg_edge": 0.09206936540359927,
+          "avg_expected_value": 0.1471865763686905,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 3,
+          "total_games": 15,
+          "suggested_bets": 6,
+          "wins": 5,
           "losses": 1,
-          "total_risked": 600,
-          "total_profit": 183.74324324324323,
-          "roi": 0.3062387387387387,
-          "avg_edge": 0.11663013428487785,
-          "avg_expected_value": 0.18272578845202148,
+          "total_risked": 950,
+          "total_profit": 638.7432432432432,
+          "roi": 0.6723613086770981,
+          "avg_edge": 0.09206936540359927,
+          "avg_expected_value": 0.1471865763686905,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "capitalPreservation": {
-          "total_games": 13,
+          "total_games": 15,
           "suggested_bets": 4,
           "wins": 3,
           "losses": 1,
@@ -11256,6 +11579,126 @@
               "market_probability": null,
               "edge": null,
               "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 125,
+              "odds": 153,
+              "model_probability": 0.42068111485224813,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.03291470766836524,
+              "expected_value": 0.06432322057618789,
+              "outcome": "win",
+              "profit": 191.25,
+              "payout": 316.25
+            },
+            "aggressive": {
+              "bet_label": "$175 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 175,
+              "odds": 153,
+              "model_probability": 0.42068111485224813,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.03291470766836524,
+              "expected_value": 0.06432322057618789,
+              "outcome": "win",
+              "profit": 267.75,
+              "payout": 442.75
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.42068111485224813,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.03291470766836524,
+              "expected_value": 0.06432322057618789,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 PHI",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "home",
+              "team": "PHI",
+              "stake": 125,
+              "odds": 107,
+              "model_probability": 0.5255522144095987,
+              "market_probability": 0.47257126679587974,
+              "edge": 0.05298094761371891,
+              "expected_value": 0.08789308382786931,
+              "outcome": "win",
+              "profit": 133.75,
+              "payout": 258.75
+            },
+            "aggressive": {
+              "bet_label": "$175 PHI",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "home",
+              "team": "PHI",
+              "stake": 175,
+              "odds": 107,
+              "model_probability": 0.5255522144095987,
+              "market_probability": 0.47257126679587974,
+              "edge": 0.05298094761371891,
+              "expected_value": 0.08789308382786931,
+              "outcome": "win",
+              "profit": 187.25,
+              "payout": 362.25
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.5255522144095987,
+              "market_probability": 0.47257126679587974,
+              "edge": 0.05298094761371891,
+              "expected_value": 0.08789308382786931,
               "outcome": "no_bet",
               "profit": 0,
               "payout": 0
@@ -14569,37 +15012,37 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-10",
-      "replayable_games": 13,
+      "last_replay_date_central": "2026-03-11",
+      "replayable_games": 15,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 2,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 3,
           "losses": 2,
-          "total_risked": 400,
-          "total_profit": 251.25,
-          "roi": 0.628125,
-          "avg_edge": 0.04402979666023288,
-          "avg_expected_value": 0.09254105806126806,
+          "total_risked": 525,
+          "total_profit": 442.5,
+          "roi": 0.8428571428571429,
+          "avg_edge": 0.04342032340450981,
+          "avg_expected_value": 0.09097975825715769,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 2,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 3,
           "losses": 2,
-          "total_risked": 600,
-          "total_profit": 311.74999999999994,
-          "roi": 0.5195833333333333,
-          "avg_edge": 0.04402979666023288,
-          "avg_expected_value": 0.09254105806126806,
+          "total_risked": 775,
+          "total_profit": 579.5,
+          "roi": 0.747741935483871,
+          "avg_edge": 0.04342032340450981,
+          "avg_expected_value": 0.09097975825715769,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "capitalPreservation": {
-          "total_games": 13,
+          "total_games": 15,
           "suggested_bets": 2,
           "wins": 2,
           "losses": 0,
@@ -15345,6 +15788,126 @@
           "away_score": 4,
           "home_moneyline": -118,
           "away_moneyline": 106,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 125,
+              "odds": 153,
+              "model_probability": 0.4287488375655004,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.04098243038161753,
+              "expected_value": 0.08473455904071625,
+              "outcome": "win",
+              "profit": 191.25,
+              "payout": 316.25
+            },
+            "aggressive": {
+              "bet_label": "$175 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 175,
+              "odds": 153,
+              "model_probability": 0.4287488375655004,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.04098243038161753,
+              "expected_value": 0.08473455904071625,
+              "outcome": "win",
+              "profit": 267.75,
+              "payout": 442.75
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.4287488375655004,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.04098243038161753,
+              "expected_value": 0.08473455904071625,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
           "strategies": {
             "riskAdjusted": {
               "bet_label": "$0",
@@ -18695,37 +19258,37 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-10",
-      "replayable_games": 13,
+      "last_replay_date_central": "2026-03-11",
+      "replayable_games": 15,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 2,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 3,
           "losses": 2,
-          "total_risked": 400,
-          "total_profit": 23.491379310344826,
-          "roi": 0.058728448275862065,
-          "avg_edge": 0.06590891967324085,
-          "avg_expected_value": 0.11670154092367341,
+          "total_risked": 525,
+          "total_profit": 214.74137931034483,
+          "roi": 0.4090311986863711,
+          "avg_edge": 0.06009732820809778,
+          "avg_expected_value": 0.1082176217218314,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 2,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 3,
           "losses": 2,
-          "total_risked": 600,
-          "total_profit": 60.47413793103442,
-          "roi": 0.10079022988505737,
-          "avg_edge": 0.06590891967324085,
-          "avg_expected_value": 0.11670154092367341,
+          "total_risked": 775,
+          "total_profit": 328.2241379310344,
+          "roi": 0.4235150166852057,
+          "avg_edge": 0.06009732820809778,
+          "avg_expected_value": 0.1082176217218314,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "capitalPreservation": {
-          "total_games": 13,
+          "total_games": 15,
           "suggested_bets": 3,
           "wins": 2,
           "losses": 1,
@@ -19471,6 +20034,126 @@
           "away_score": 4,
           "home_moneyline": -118,
           "away_moneyline": 106,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 125,
+              "odds": 153,
+              "model_probability": 0.4246173695314084,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.036850962347525495,
+              "expected_value": 0.07428194491446338,
+              "outcome": "win",
+              "profit": 191.25,
+              "payout": 316.25
+            },
+            "aggressive": {
+              "bet_label": "$175 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 175,
+              "odds": 153,
+              "model_probability": 0.4246173695314084,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.036850962347525495,
+              "expected_value": 0.07428194491446338,
+              "outcome": "win",
+              "profit": 267.75,
+              "payout": 442.75
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.4246173695314084,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.036850962347525495,
+              "expected_value": 0.07428194491446338,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
           "strategies": {
             "riskAdjusted": {
               "bet_label": "$0",
@@ -23065,47 +23748,47 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-10",
-      "replayable_games": 13,
+      "last_replay_date_central": "2026-03-11",
+      "replayable_games": 15,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 13,
-          "suggested_bets": 4,
+          "total_games": 15,
+          "suggested_bets": 5,
           "wins": 1,
-          "losses": 3,
-          "total_risked": 400,
-          "total_profit": -357.7586206896552,
-          "roi": -0.8943965517241379,
-          "avg_edge": 0.1801930454292024,
-          "avg_expected_value": 0.3809620440590219,
+          "losses": 4,
+          "total_risked": 525,
+          "total_profit": -482.7586206896552,
+          "roi": -0.9195402298850575,
+          "avg_edge": 0.180303568061559,
+          "avg_expected_value": 0.3674599651951457,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 13,
-          "suggested_bets": 4,
+          "total_games": 15,
+          "suggested_bets": 5,
           "wins": 1,
-          "losses": 3,
-          "total_risked": 600,
-          "total_profit": -473.2758620689655,
-          "roi": -0.7887931034482759,
-          "avg_edge": 0.1801930454292024,
-          "avg_expected_value": 0.3809620440590219,
+          "losses": 4,
+          "total_risked": 775,
+          "total_profit": -648.2758620689656,
+          "roi": -0.8364849833147943,
+          "avg_edge": 0.180303568061559,
+          "avg_expected_value": 0.3674599651951457,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "capitalPreservation": {
-          "total_games": 13,
-          "suggested_bets": 4,
+          "total_games": 15,
+          "suggested_bets": 5,
           "wins": 3,
-          "losses": 1,
-          "total_risked": 250,
-          "total_profit": 39.899813606710154,
-          "roi": 0.15959925442684061,
-          "avg_edge": 0.08115352057881803,
-          "avg_expected_value": 0.11682327969192391,
+          "losses": 2,
+          "total_risked": 325,
+          "total_profit": -35.100186393289846,
+          "roi": -0.1080005735178149,
+          "avg_edge": 0.10107194818125151,
+          "avg_expected_value": 0.15614895370146725,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         }
       },
       "bets": [
@@ -23885,6 +24568,126 @@
               "expected_value": null,
               "outcome": "no_bet",
               "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 WSH",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "WSH",
+              "stake": 125,
+              "odds": -117,
+              "model_probability": 0.7081743917951058,
+              "market_probability": 0.5274287332041203,
+              "edge": 0.18074565859098546,
+              "expected_value": 0.3134516497396407,
+              "outcome": "loss",
+              "profit": -125,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$175 WSH",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "WSH",
+              "stake": 175,
+              "odds": -117,
+              "model_probability": 0.7081743917951058,
+              "market_probability": 0.5274287332041203,
+              "edge": 0.18074565859098546,
+              "expected_value": 0.3134516497396407,
+              "outcome": "loss",
+              "profit": -175,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$75 WSH",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "WSH",
+              "stake": 75,
+              "odds": -117,
+              "model_probability": 0.7081743917951058,
+              "market_probability": 0.5274287332041203,
+              "edge": 0.18074565859098546,
+              "expected_value": 0.3134516497396407,
+              "outcome": "loss",
+              "profit": -75,
               "payout": 0
             }
           }
@@ -26976,8 +27779,8 @@
       "model_name": "glm_elastic_net",
       "model_run_id": "run_0bd28749c5be5350__glm_elastic_net",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:18:23+00:00",
-      "snapshot_id": "nhl_odds_79f3494fa115feb9",
+      "created_at_utc": "2026-03-12T14:03:11+00:00",
+      "snapshot_id": "nhl_odds_989ed25d9b9b6bfc",
       "artifact_path": "artifacts/models/0bd28749c5be5350",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "feature_columns": [
@@ -27175,7 +27978,7 @@
           "glm_elastic_net": 0.1252865257135692,
           "glm_ridge": 0.12547749254801532,
           "goals_poisson": 0.12640826947542175,
-          "rf": 0.126573322791356,
+          "rf": 0.12657332279135602,
           "simulation_first": 0.12574330836300282
         }
       },
@@ -27185,16 +27988,16 @@
         "brier": 0.2407096217524775,
         "log_loss": 0.6737612147429706
       },
-      "scored_games": 13,
-      "avg_log_loss": 0.643144005462002,
-      "avg_brier": 0.22512177407423406,
-      "accuracy": 0.7692307692307693,
+      "scored_games": 15,
+      "avg_log_loss": 0.6552998204270641,
+      "avg_brier": 0.2311817290581724,
+      "accuracy": 0.6666666666666666,
       "version_rank": 1,
       "is_latest_version": 1,
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-10",
-      "last_game_date_central": "2026-03-10",
+      "last_game_date_utc": "2026-03-11",
+      "last_game_date_central": "2026-03-11",
       "first_replay_date_central": "2026-03-05",
       "last_replay_date_central": "2026-03-09",
       "replayable_games": 38,
@@ -29746,37 +30549,37 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-10",
-      "replayable_games": 13,
+      "last_replay_date_central": "2026-03-11",
+      "replayable_games": 15,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 2,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 3,
           "losses": 2,
-          "total_risked": 400,
-          "total_profit": 23.491379310344826,
-          "roi": 0.058728448275862065,
-          "avg_edge": 0.07079451241358335,
-          "avg_expected_value": 0.1227607371366386,
+          "total_risked": 525,
+          "total_profit": 214.74137931034483,
+          "roi": 0.4090311986863711,
+          "avg_edge": 0.06402867836277878,
+          "avg_expected_value": 0.11312285487709324,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 2,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 3,
           "losses": 2,
-          "total_risked": 600,
-          "total_profit": 60.47413793103442,
-          "roi": 0.10079022988505737,
-          "avg_edge": 0.07079451241358335,
-          "avg_expected_value": 0.1227607371366386,
+          "total_risked": 775,
+          "total_profit": 328.2241379310344,
+          "roi": 0.4235150166852057,
+          "avg_edge": 0.06402867836277878,
+          "avg_expected_value": 0.11312285487709324,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "capitalPreservation": {
-          "total_games": 13,
+          "total_games": 15,
           "suggested_bets": 2,
           "wins": 1,
           "losses": 1,
@@ -30569,6 +31372,126 @@
               "payout": 0
             }
           }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 125,
+              "odds": 153,
+              "model_probability": 0.4247317493434434,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.03696534215956049,
+              "expected_value": 0.0745713258389118,
+              "outcome": "win",
+              "profit": 191.25,
+              "payout": 316.25
+            },
+            "aggressive": {
+              "bet_label": "$175 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 175,
+              "odds": 153,
+              "model_probability": 0.4247317493434434,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.03696534215956049,
+              "expected_value": 0.0745713258389118,
+              "outcome": "win",
+              "profit": 267.75,
+              "payout": 442.75
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.4247317493434434,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.03696534215956049,
+              "expected_value": 0.0745713258389118,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
         }
       ]
     },
@@ -30576,8 +31499,8 @@
       "model_name": "glm_lasso",
       "model_run_id": "run_0bd28749c5be5350__glm_lasso",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:18:23+00:00",
-      "snapshot_id": "nhl_odds_79f3494fa115feb9",
+      "created_at_utc": "2026-03-12T14:03:11+00:00",
+      "snapshot_id": "nhl_odds_989ed25d9b9b6bfc",
       "artifact_path": "artifacts/models/0bd28749c5be5350",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "feature_columns": [
@@ -30775,7 +31698,7 @@
           "glm_elastic_net": 0.1252865257135692,
           "glm_ridge": 0.12547749254801532,
           "goals_poisson": 0.12640826947542175,
-          "rf": 0.126573322791356,
+          "rf": 0.12657332279135602,
           "simulation_first": 0.12574330836300282
         }
       },
@@ -30785,16 +31708,16 @@
         "brier": 0.2404390529717825,
         "log_loss": 0.6730916501457993
       },
-      "scored_games": 13,
-      "avg_log_loss": 0.6405990379995548,
-      "avg_brier": 0.2239035408340531,
-      "accuracy": 0.7692307692307693,
+      "scored_games": 15,
+      "avg_log_loss": 0.6515374797975839,
+      "avg_brier": 0.2293482286216037,
+      "accuracy": 0.6666666666666666,
       "version_rank": 1,
       "is_latest_version": 1,
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-10",
-      "last_game_date_central": "2026-03-10",
+      "last_game_date_utc": "2026-03-11",
+      "last_game_date_central": "2026-03-11",
       "first_replay_date_central": "2026-03-05",
       "last_replay_date_central": "2026-03-09",
       "replayable_games": 38,
@@ -33346,37 +34269,37 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-10",
-      "replayable_games": 13,
+      "last_replay_date_central": "2026-03-11",
+      "replayable_games": 15,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 1,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 2,
           "losses": 3,
-          "total_risked": 400,
-          "total_profit": -188.79310344827587,
-          "roi": -0.47198275862068967,
-          "avg_edge": 0.07060220778761057,
-          "avg_expected_value": 0.11383844633252094,
+          "total_risked": 525,
+          "total_profit": 2.456896551724128,
+          "roi": 0.004679802955665006,
+          "avg_edge": 0.06265875732863307,
+          "avg_expected_value": 0.10290834658037937,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 1,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 2,
           "losses": 3,
-          "total_risked": 600,
-          "total_profit": -304.31034482758616,
-          "roi": -0.5071839080459769,
-          "avg_edge": 0.07060220778761057,
-          "avg_expected_value": 0.11383844633252094,
+          "total_risked": 775,
+          "total_profit": -36.560344827586164,
+          "roi": -0.04717463848720795,
+          "avg_edge": 0.06265875732863307,
+          "avg_expected_value": 0.10290834658037937,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "capitalPreservation": {
-          "total_games": 13,
+          "total_games": 15,
           "suggested_bets": 2,
           "wins": 1,
           "losses": 1,
@@ -34169,6 +35092,126 @@
               "payout": 0
             }
           }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 125,
+              "odds": 153,
+              "model_probability": 0.41865136267660596,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.030884955492723076,
+              "expected_value": 0.059187947571813115,
+              "outcome": "win",
+              "profit": 191.25,
+              "payout": 316.25
+            },
+            "aggressive": {
+              "bet_label": "$175 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 175,
+              "odds": 153,
+              "model_probability": 0.41865136267660596,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.030884955492723076,
+              "expected_value": 0.059187947571813115,
+              "outcome": "win",
+              "profit": 267.75,
+              "payout": 442.75
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.41865136267660596,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.030884955492723076,
+              "expected_value": 0.059187947571813115,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
         }
       ]
     },
@@ -34396,37 +35439,37 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-10",
-      "replayable_games": 13,
+      "last_replay_date_central": "2026-03-11",
+      "replayable_games": 15,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 2,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 3,
           "losses": 2,
-          "total_risked": 400,
-          "total_profit": 23.491379310344826,
-          "roi": 0.058728448275862065,
-          "avg_edge": 0.07402662729517605,
-          "avg_expected_value": 0.1323602736145223,
+          "total_risked": 525,
+          "total_profit": 214.74137931034483,
+          "roi": 0.4090311986863711,
+          "avg_edge": 0.06672291704617962,
+          "avg_expected_value": 0.12107710740806073,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 2,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 3,
           "losses": 2,
-          "total_risked": 600,
-          "total_profit": 60.47413793103442,
-          "roi": 0.10079022988505737,
-          "avg_edge": 0.07402662729517605,
-          "avg_expected_value": 0.1323602736145223,
+          "total_risked": 775,
+          "total_profit": 328.2241379310344,
+          "roi": 0.4235150166852057,
+          "avg_edge": 0.06672291704617962,
+          "avg_expected_value": 0.12107710740806073,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "capitalPreservation": {
-          "total_games": 13,
+          "total_games": 15,
           "suggested_bets": 3,
           "wins": 2,
           "losses": 1,
@@ -35172,6 +36215,126 @@
           "away_score": 4,
           "home_moneyline": -118,
           "away_moneyline": 106,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 125,
+              "odds": 153,
+              "model_probability": 0.4252744832340768,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.037508076050193906,
+              "expected_value": 0.07594444258221444,
+              "outcome": "win",
+              "profit": 191.25,
+              "payout": 316.25
+            },
+            "aggressive": {
+              "bet_label": "$175 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 175,
+              "odds": 153,
+              "model_probability": 0.4252744832340768,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.037508076050193906,
+              "expected_value": 0.07594444258221444,
+              "outcome": "win",
+              "profit": 267.75,
+              "payout": 442.75
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.4252744832340768,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.037508076050193906,
+              "expected_value": 0.07594444258221444,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
           "strategies": {
             "riskAdjusted": {
               "bet_label": "$0",
@@ -38786,37 +39949,37 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-10",
-      "replayable_games": 13,
+      "last_replay_date_central": "2026-03-11",
+      "replayable_games": 15,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 1,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 2,
           "losses": 3,
-          "total_risked": 400,
-          "total_profit": -18.75,
-          "roi": -0.046875,
-          "avg_edge": 0.042970510753439994,
-          "avg_expected_value": 0.08843599620198583,
+          "total_risked": 525,
+          "total_profit": 172.5,
+          "roi": 0.32857142857142857,
+          "avg_edge": 0.04237853455130767,
+          "avg_expected_value": 0.08720397764647929,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 1,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 2,
           "losses": 3,
-          "total_risked": 600,
-          "total_profit": -66.25000000000006,
-          "roi": -0.11041666666666676,
-          "avg_edge": 0.042970510753439994,
-          "avg_expected_value": 0.08843599620198583,
+          "total_risked": 775,
+          "total_profit": 201.49999999999994,
+          "roi": 0.25999999999999995,
+          "avg_edge": 0.04237853455130767,
+          "avg_expected_value": 0.08720397764647929,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "capitalPreservation": {
-          "total_games": 13,
+          "total_games": 15,
           "suggested_bets": 1,
           "wins": 0,
           "losses": 1,
@@ -39562,6 +40725,126 @@
           "away_score": 4,
           "home_moneyline": -118,
           "away_moneyline": 106,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 125,
+              "odds": 153,
+              "model_probability": 0.42777703692666125,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.04001062974277836,
+              "expected_value": 0.08227590342445312,
+              "outcome": "win",
+              "profit": 191.25,
+              "payout": 316.25
+            },
+            "aggressive": {
+              "bet_label": "$175 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 175,
+              "odds": 153,
+              "model_probability": 0.42777703692666125,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.04001062974277836,
+              "expected_value": 0.08227590342445312,
+              "outcome": "win",
+              "profit": 267.75,
+              "payout": 442.75
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.42777703692666125,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.04001062974277836,
+              "expected_value": 0.08227590342445312,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
           "strategies": {
             "riskAdjusted": {
               "bet_label": "$0",
@@ -42917,11 +44200,11 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-10",
-      "replayable_games": 13,
+      "last_replay_date_central": "2026-03-11",
+      "replayable_games": 15,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 13,
+          "total_games": 15,
           "suggested_bets": 4,
           "wins": 1,
           "losses": 3,
@@ -42934,7 +44217,7 @@
           "last_bet_date_central": "2026-03-10"
         },
         "aggressive": {
-          "total_games": 13,
+          "total_games": 15,
           "suggested_bets": 4,
           "wins": 1,
           "losses": 3,
@@ -42947,7 +44230,7 @@
           "last_bet_date_central": "2026-03-10"
         },
         "capitalPreservation": {
-          "total_games": 13,
+          "total_games": 15,
           "suggested_bets": 1,
           "wins": 1,
           "losses": 0,
@@ -43693,6 +44976,126 @@
           "away_score": 4,
           "home_moneyline": -118,
           "away_moneyline": 106,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
           "strategies": {
             "riskAdjusted": {
               "bet_label": "$0",
@@ -47048,37 +48451,37 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-10",
-      "replayable_games": 13,
+      "last_replay_date_central": "2026-03-11",
+      "replayable_games": 15,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 3,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 4,
           "losses": 1,
-          "total_risked": 400,
-          "total_profit": 230.5904118404119,
-          "roi": 0.5764760296010297,
-          "avg_edge": 0.056332756579509397,
-          "avg_expected_value": 0.10283906393067715,
+          "total_risked": 525,
+          "total_profit": 421.8404118404119,
+          "roi": 0.8035055463626893,
+          "avg_edge": 0.0516301083686461,
+          "avg_expected_value": 0.09508772803533412,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 3,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 4,
           "losses": 1,
-          "total_risked": 600,
-          "total_profit": 346.63610038610034,
-          "roi": 0.5777268339768339,
-          "avg_edge": 0.056332756579509397,
-          "avg_expected_value": 0.10283906393067715,
+          "total_risked": 775,
+          "total_profit": 614.3861003861003,
+          "roi": 0.7927562585627101,
+          "avg_edge": 0.0516301083686461,
+          "avg_expected_value": 0.09508772803533412,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "capitalPreservation": {
-          "total_games": 13,
+          "total_games": 15,
           "suggested_bets": 2,
           "wins": 2,
           "losses": 0,
@@ -47824,6 +49227,126 @@
           "away_score": 4,
           "home_moneyline": -118,
           "away_moneyline": 106,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 125,
+              "odds": 153,
+              "model_probability": 0.4205859227090758,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.03281951552519291,
+              "expected_value": 0.06408238445396197,
+              "outcome": "win",
+              "profit": 191.25,
+              "payout": 316.25
+            },
+            "aggressive": {
+              "bet_label": "$175 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 175,
+              "odds": 153,
+              "model_probability": 0.4205859227090758,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.03281951552519291,
+              "expected_value": 0.06408238445396197,
+              "outcome": "win",
+              "profit": 267.75,
+              "payout": 442.75
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.4205859227090758,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.03281951552519291,
+              "expected_value": 0.06408238445396197,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
           "strategies": {
             "riskAdjusted": {
               "bet_label": "$0",
@@ -51179,47 +52702,47 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-10",
-      "replayable_games": 13,
+      "last_replay_date_central": "2026-03-11",
+      "replayable_games": 15,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 13,
-          "suggested_bets": 4,
+          "total_games": 15,
+          "suggested_bets": 5,
           "wins": 2,
-          "losses": 2,
-          "total_risked": 400,
-          "total_profit": -146.90121155638397,
-          "roi": -0.3672530288909599,
-          "avg_edge": 0.08063555991845042,
-          "avg_expected_value": 0.12175552883590157,
+          "losses": 3,
+          "total_risked": 525,
+          "total_profit": -271.90121155638394,
+          "roi": -0.5179070696312075,
+          "avg_edge": 0.07208618837503374,
+          "avg_expected_value": 0.10710336919349177,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 13,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 2,
+          "losses": 3,
+          "total_risked": 775,
+          "total_profit": -353.63466915191054,
+          "roi": -0.45630279890569103,
+          "avg_edge": 0.07208618837503374,
+          "avg_expected_value": 0.10710336919349177,
+          "first_bet_date_central": "2026-03-10",
+          "last_bet_date_central": "2026-03-11"
+        },
+        "capitalPreservation": {
+          "total_games": 15,
           "suggested_bets": 4,
           "wins": 2,
           "losses": 2,
-          "total_risked": 600,
-          "total_profit": -178.63466915191051,
-          "roi": -0.29772444858651753,
-          "avg_edge": 0.08063555991845042,
-          "avg_expected_value": 0.12175552883590157,
+          "total_risked": 300,
+          "total_profit": -47.600186393289846,
+          "roi": -0.15866728797763283,
+          "avg_edge": 0.07738992514394899,
+          "avg_expected_value": 0.11355010666442161,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
-        },
-        "capitalPreservation": {
-          "total_games": 13,
-          "suggested_bets": 3,
-          "wins": 2,
-          "losses": 1,
-          "total_risked": 225,
-          "total_profit": 27.399813606710154,
-          "roi": 0.12177694936315624,
-          "avg_edge": 0.090556999458143,
-          "avg_expected_value": 0.13523523201127796,
-          "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         }
       },
       "bets": [
@@ -51999,6 +53522,126 @@
               "expected_value": null,
               "outcome": "no_bet",
               "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 WSH",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "WSH",
+              "stake": 125,
+              "odds": -117,
+              "model_probability": 0.5653174354054873,
+              "market_probability": 0.5274287332041203,
+              "edge": 0.037888702201366975,
+              "expected_value": 0.04849473062385257,
+              "outcome": "loss",
+              "profit": -125,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$175 WSH",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "WSH",
+              "stake": 175,
+              "odds": -117,
+              "model_probability": 0.5653174354054873,
+              "market_probability": 0.5274287332041203,
+              "edge": 0.037888702201366975,
+              "expected_value": 0.04849473062385257,
+              "outcome": "loss",
+              "profit": -175,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$75 WSH",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "WSH",
+              "stake": 75,
+              "odds": -117,
+              "model_probability": 0.5653174354054873,
+              "market_probability": 0.5274287332041203,
+              "edge": 0.037888702201366975,
+              "expected_value": 0.04849473062385257,
+              "outcome": "loss",
+              "profit": -75,
               "payout": 0
             }
           }
@@ -55089,16 +56732,16 @@
   ],
   "ensemble_snapshots": [
     {
-      "snapshot_key": "2026-03-11::run_0bd28749c5be5350",
+      "snapshot_key": "2026-03-12::run_0bd28749c5be5350",
       "model_name": "ensemble",
       "model_run_id": "run_0bd28749c5be5350",
       "ensemble_model_run_id": "run_0bd28749c5be5350__ensemble",
-      "finalized_at_utc": "2026-03-11T14:18:23+00:00",
-      "finalized_date_central": "2026-03-11",
-      "activation_date_central": "2026-03-11",
+      "finalized_at_utc": "2026-03-12T14:03:11+00:00",
+      "finalized_date_central": "2026-03-12",
+      "activation_date_central": "2026-03-12",
       "compared_through_date_central": null,
-      "pregame_cutoff_utc": "2026-03-11T23:30:00Z",
-      "snapshot_id": "nhl_odds_79f3494fa115feb9",
+      "pregame_cutoff_utc": "2026-03-12T23:00:00Z",
+      "snapshot_id": "nhl_odds_989ed25d9b9b6bfc",
       "artifact_path": "/Users/davidiruegas/Library/Application Support/SportsModeling/artifacts/models/0bd28749c5be5350",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "calibration_fingerprint": "750c01b59ec8",
@@ -55268,7 +56911,7 @@
           "glm_elastic_net": 0.1252865257135692,
           "glm_ridge": 0.12547749254801532,
           "goals_poisson": 0.12640826947542175,
-          "rf": 0.126573322791356,
+          "rf": 0.12657332279135602,
           "simulation_first": 0.12574330836300282
         }
       },
@@ -55470,7 +57113,7 @@
               "glm_elastic_net": 0.1252865257135692,
               "glm_ridge": 0.12547749254801532,
               "goals_poisson": 0.12640826947542175,
-              "rf": 0.126573322791356,
+              "rf": 0.12657332279135602,
               "simulation_first": 0.12574330836300282
             }
           }
@@ -55497,7 +57140,7 @@
               "glm_elastic_net": 0.1252865257135692,
               "glm_ridge": 0.12547749254801532,
               "goals_poisson": 0.12640826947542175,
-              "rf": 0.126573322791356,
+              "rf": 0.12657332279135602,
               "simulation_first": 0.12574330836300282
             }
           }
@@ -55534,7 +57177,7 @@
               "glm_elastic_net": 0.1252865257135692,
               "glm_ridge": 0.12547749254801532,
               "goals_poisson": 0.12640826947542175,
-              "rf": 0.126573322791356,
+              "rf": 0.12657332279135602,
               "simulation_first": 0.12574330836300282
             }
           }
@@ -55571,7 +57214,7 @@
               "glm_elastic_net": 0.1252865257135692,
               "glm_ridge": 0.12547749254801532,
               "goals_poisson": 0.12640826947542175,
-              "rf": 0.126573322791356,
+              "rf": 0.12657332279135602,
               "simulation_first": 0.12574330836300282
             }
           }
@@ -55608,7 +57251,7 @@
               "glm_elastic_net": 0.1252865257135692,
               "glm_ridge": 0.12547749254801532,
               "goals_poisson": 0.12640826947542175,
-              "rf": 0.126573322791356,
+              "rf": 0.12657332279135602,
               "simulation_first": 0.12574330836300282
             }
           }
@@ -55660,7 +57303,7 @@
               "glm_elastic_net": 0.1252865257135692,
               "glm_ridge": 0.12547749254801532,
               "goals_poisson": 0.12640826947542175,
-              "rf": 0.126573322791356,
+              "rf": 0.12657332279135602,
               "simulation_first": 0.12574330836300282
             }
           }
@@ -55670,7 +57313,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.126573322791356,
+          "weight": 0.12657332279135602,
           "feature_columns": [
             "home_penalty_diff",
             "home_pp_eff",
@@ -55708,7 +57351,7 @@
               "glm_elastic_net": 0.1252865257135692,
               "glm_ridge": 0.12547749254801532,
               "goals_poisson": 0.12640826947542175,
-              "rf": 0.126573322791356,
+              "rf": 0.12657332279135602,
               "simulation_first": 0.12574330836300282
             }
           }
@@ -55739,10 +57382,10 @@
           ],
           "feature_count": 16,
           "train_metrics": {
-            "accuracy": 0.6323144104803493,
-            "auc": 0.6857776989721986,
-            "brier": 0.22810515227901956,
-            "log_loss": 0.648092477444999
+            "accuracy": 0.6296943231441048,
+            "auc": 0.6868171173870243,
+            "brier": 0.2278774761049977,
+            "log_loss": 0.6476021397242251
           },
           "train_params": {
             "weights": {
@@ -55752,7 +57395,7 @@
               "glm_elastic_net": 0.1252865257135692,
               "glm_ridge": 0.12547749254801532,
               "goals_poisson": 0.12640826947542175,
-              "rf": 0.126573322791356,
+              "rf": 0.12657332279135602,
               "simulation_first": 0.12574330836300282
             }
           }
@@ -55779,7 +57422,7 @@
               "glm_elastic_net": 0.1252865257135692,
               "glm_ridge": 0.12547749254801532,
               "goals_poisson": 0.12640826947542175,
-              "rf": 0.126573322791356,
+              "rf": 0.12657332279135602,
               "simulation_first": 0.12574330836300282
             }
           }
@@ -55806,7 +57449,7 @@
               "glm_elastic_net": 0.1252865257135692,
               "glm_ridge": 0.12547749254801532,
               "goals_poisson": 0.12640826947542175,
-              "rf": 0.126573322791356,
+              "rf": 0.12657332279135602,
               "simulation_first": 0.12574330836300282
             }
           }
@@ -55846,7 +57489,7 @@
               "glm_elastic_net": 0.1252865257135692,
               "glm_ridge": 0.12547749254801532,
               "goals_poisson": 0.12640826947542175,
-              "rf": 0.126573322791356,
+              "rf": 0.12657332279135602,
               "simulation_first": 0.12574330836300282
             }
           }
@@ -55873,7 +57516,7 @@
               "glm_elastic_net": 0.1252865257135692,
               "glm_ridge": 0.12547749254801532,
               "goals_poisson": 0.12640826947542175,
-              "rf": 0.126573322791356,
+              "rf": 0.12657332279135602,
               "simulation_first": 0.12574330836300282
             }
           }
@@ -55970,7 +57613,7 @@
       "finalized_at_utc": "2026-03-10T12:30:42+00:00",
       "finalized_date_central": "2026-03-10",
       "activation_date_central": "2026-03-10",
-      "compared_through_date_central": "2026-03-10",
+      "compared_through_date_central": "2026-03-11",
       "pregame_cutoff_utc": "2026-03-10T23:00:00Z",
       "snapshot_id": "nhl_odds_0724e18b816f37c2",
       "artifact_path": "/Users/davidiruegas/Library/Application Support/SportsModeling/artifacts/models/cc6dc19acfb77419",
@@ -56802,37 +58445,37 @@
           "subject": "Add production lasso GLM support"
         }
       ],
-      "replayable_games": 13,
-      "days_tracked": 1,
+      "replayable_games": 15,
+      "days_tracked": 2,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 2,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 3,
           "losses": 2,
-          "total_risked": 400,
-          "total_profit": 23.491379310344826,
-          "roi": 0.058728448275862065,
-          "avg_edge": 0.06590891967324085,
-          "avg_expected_value": 0.11670154092367341,
+          "total_risked": 525,
+          "total_profit": 214.74137931034483,
+          "roi": 0.4090311986863711,
+          "avg_edge": 0.06009732820809778,
+          "avg_expected_value": 0.1082176217218314,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 13,
-          "suggested_bets": 4,
-          "wins": 2,
+          "total_games": 15,
+          "suggested_bets": 5,
+          "wins": 3,
           "losses": 2,
-          "total_risked": 600,
-          "total_profit": 60.47413793103442,
-          "roi": 0.10079022988505737,
-          "avg_edge": 0.06590891967324085,
-          "avg_expected_value": 0.11670154092367341,
+          "total_risked": 775,
+          "total_profit": 328.2241379310344,
+          "roi": 0.4235150166852057,
+          "avg_edge": 0.06009732820809778,
+          "avg_expected_value": 0.1082176217218314,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "capitalPreservation": {
-          "total_games": 13,
+          "total_games": 15,
           "suggested_bets": 3,
           "wins": 2,
           "losses": 1,
@@ -56884,6 +58527,48 @@
               "cumulative_risked": 225,
               "cumulative_profit": 27.399813606710154,
               "roi": 0.12177694936315624,
+              "cumulative_roi": 0.12177694936315624
+            }
+          }
+        },
+        {
+          "date_central": "2026-03-11",
+          "slate_games": 2,
+          "strategies": {
+            "riskAdjusted": {
+              "slate_games": 2,
+              "suggested_bets": 1,
+              "wins": 1,
+              "losses": 0,
+              "total_risked": 125,
+              "total_profit": 191.25,
+              "cumulative_risked": 525,
+              "cumulative_profit": 214.74137931034483,
+              "roi": 1.53,
+              "cumulative_roi": 0.4090311986863711
+            },
+            "aggressive": {
+              "slate_games": 2,
+              "suggested_bets": 1,
+              "wins": 1,
+              "losses": 0,
+              "total_risked": 175,
+              "total_profit": 267.75,
+              "cumulative_risked": 775,
+              "cumulative_profit": 328.2241379310344,
+              "roi": 1.53,
+              "cumulative_roi": 0.4235150166852057
+            },
+            "capitalPreservation": {
+              "slate_games": 2,
+              "suggested_bets": 0,
+              "wins": 0,
+              "losses": 0,
+              "total_risked": 0,
+              "total_profit": 0,
+              "cumulative_risked": 225,
+              "cumulative_profit": 27.399813606710154,
+              "roi": 0,
               "cumulative_roi": 0.12177694936315624
             }
           }
@@ -57669,6 +59354,126 @@
               "payout": 0
             }
           }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 125,
+              "odds": 153,
+              "model_probability": 0.4246173695314084,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.036850962347525495,
+              "expected_value": 0.07428194491446338,
+              "outcome": "win",
+              "profit": 191.25,
+              "payout": 316.25
+            },
+            "aggressive": {
+              "bet_label": "$175 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 175,
+              "odds": 153,
+              "model_probability": 0.4246173695314084,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.036850962347525495,
+              "expected_value": 0.07428194491446338,
+              "outcome": "win",
+              "profit": 267.75,
+              "payout": 442.75
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.4246173695314084,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.036850962347525495,
+              "expected_value": 0.07428194491446338,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
         }
       ]
     },
@@ -57680,7 +59485,7 @@
       "finalized_at_utc": "2026-03-08T03:01:39+00:00",
       "finalized_date_central": "2026-03-07",
       "activation_date_central": "2026-03-08",
-      "compared_through_date_central": "2026-03-10",
+      "compared_through_date_central": "2026-03-11",
       "pregame_cutoff_utc": "2026-03-08T18:00:00Z",
       "snapshot_id": "nhl_odds_e456620f7b04c98b",
       "artifact_path": "/Users/davidiruegas/Library/Application Support/SportsModeling/artifacts/models/42b29b278843a8f5",
@@ -57961,37 +59766,37 @@
           "subject": "Modularize league pipelines and web contracts"
         }
       ],
-      "replayable_games": 25,
-      "days_tracked": 3,
+      "replayable_games": 27,
+      "days_tracked": 4,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 25,
-          "suggested_bets": 11,
-          "wins": 7,
+          "total_games": 27,
+          "suggested_bets": 12,
+          "wins": 8,
           "losses": 4,
-          "total_risked": 1175,
-          "total_profit": 527.6718799425748,
-          "roi": 0.4490824510149573,
-          "avg_edge": 0.07779835523796107,
-          "avg_expected_value": 0.14138640992468354,
+          "total_risked": 1300,
+          "total_profit": 718.9218799425748,
+          "roi": 0.5530168307250576,
+          "avg_edge": 0.07595525593631387,
+          "avg_expected_value": 0.13976440527506462,
           "first_bet_date_central": "2026-03-08",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 25,
-          "suggested_bets": 11,
-          "wins": 7,
+          "total_games": 27,
+          "suggested_bets": 12,
+          "wins": 8,
           "losses": 4,
-          "total_risked": 1725,
-          "total_profit": 736.8358700148428,
-          "roi": 0.4271512289941118,
-          "avg_edge": 0.07779835523796107,
-          "avg_expected_value": 0.14138640992468354,
+          "total_risked": 1900,
+          "total_profit": 1004.5858700148428,
+          "roi": 0.5287294052709699,
+          "avg_edge": 0.07595525593631387,
+          "avg_expected_value": 0.13976440527506462,
           "first_bet_date_central": "2026-03-08",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "capitalPreservation": {
-          "total_games": 25,
+          "total_games": 27,
           "suggested_bets": 6,
           "wins": 5,
           "losses": 1,
@@ -58127,6 +59932,48 @@
               "cumulative_risked": 450,
               "cumulative_profit": 205.97159486449962,
               "roi": -0.09349593495934959,
+              "cumulative_roi": 0.4577146552544436
+            }
+          }
+        },
+        {
+          "date_central": "2026-03-11",
+          "slate_games": 2,
+          "strategies": {
+            "riskAdjusted": {
+              "slate_games": 2,
+              "suggested_bets": 1,
+              "wins": 1,
+              "losses": 0,
+              "total_risked": 125,
+              "total_profit": 191.25,
+              "cumulative_risked": 1300,
+              "cumulative_profit": 718.921879942575,
+              "roi": 1.53,
+              "cumulative_roi": 0.5530168307250577
+            },
+            "aggressive": {
+              "slate_games": 2,
+              "suggested_bets": 1,
+              "wins": 1,
+              "losses": 0,
+              "total_risked": 175,
+              "total_profit": 267.75,
+              "cumulative_risked": 1900,
+              "cumulative_profit": 1004.5858700148428,
+              "roi": 1.53,
+              "cumulative_roi": 0.5287294052709699
+            },
+            "capitalPreservation": {
+              "slate_games": 2,
+              "suggested_bets": 0,
+              "wins": 0,
+              "losses": 0,
+              "total_risked": 0,
+              "total_profit": 0,
+              "cumulative_risked": 450,
+              "cumulative_profit": 205.97159486449962,
+              "roi": 0,
               "cumulative_roi": 0.4577146552544436
             }
           }
@@ -59632,6 +61479,126 @@
               "payout": 0
             }
           }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 125,
+              "odds": 153,
+              "model_probability": 0.44344757080207764,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.05568116361819475,
+              "expected_value": 0.12192235412925645,
+              "outcome": "win",
+              "profit": 191.25,
+              "payout": 316.25
+            },
+            "aggressive": {
+              "bet_label": "$175 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 175,
+              "odds": 153,
+              "model_probability": 0.44344757080207764,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.05568116361819475,
+              "expected_value": 0.12192235412925645,
+              "outcome": "win",
+              "profit": 267.75,
+              "payout": 442.75
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.44344757080207764,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.05568116361819475,
+              "expected_value": 0.12192235412925645,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
         }
       ]
     },
@@ -59643,7 +61610,7 @@
       "finalized_at_utc": "2026-03-07T12:03:21+00:00",
       "finalized_date_central": "2026-03-07",
       "activation_date_central": "2026-03-07",
-      "compared_through_date_central": "2026-03-10",
+      "compared_through_date_central": "2026-03-11",
       "pregame_cutoff_utc": "2026-03-07T17:30:00Z",
       "snapshot_id": "nhl_odds_e456620f7b04c98b",
       "artifact_path": "/Users/davidiruegas/Library/Application Support/SportsModeling/artifacts/models/5344c99a8c9cbc8e",
@@ -60401,37 +62368,37 @@
           "subject": "Add NBA DARKO-like player projections"
         }
       ],
-      "replayable_games": 36,
-      "days_tracked": 4,
+      "replayable_games": 38,
+      "days_tracked": 5,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 36,
-          "suggested_bets": 12,
-          "wins": 5,
+          "total_games": 38,
+          "suggested_bets": 13,
+          "wins": 6,
           "losses": 7,
-          "total_risked": 1300,
-          "total_profit": 67.78779472954233,
-          "roi": 0.05214445748426333,
-          "avg_edge": 0.05217198706313949,
-          "avg_expected_value": 0.0968867245497771,
+          "total_risked": 1425,
+          "total_profit": 259.0377947295423,
+          "roi": 0.18178090858213497,
+          "avg_edge": 0.05103374915493735,
+          "avg_expected_value": 0.0952498605570403,
           "first_bet_date_central": "2026-03-07",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 36,
-          "suggested_bets": 12,
-          "wins": 5,
+          "total_games": 38,
+          "suggested_bets": 13,
+          "wins": 6,
           "losses": 7,
-          "total_risked": 1900,
-          "total_profit": 14.902912621359178,
-          "roi": 0.007843638221767988,
-          "avg_edge": 0.05217198706313949,
-          "avg_expected_value": 0.0968867245497771,
+          "total_risked": 2075,
+          "total_profit": 282.6529126213592,
+          "roi": 0.1362182711428237,
+          "avg_edge": 0.05103374915493735,
+          "avg_expected_value": 0.0952498605570403,
           "first_bet_date_central": "2026-03-07",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "capitalPreservation": {
-          "total_games": 36,
+          "total_games": 38,
           "suggested_bets": 6,
           "wins": 3,
           "losses": 3,
@@ -60609,6 +62576,48 @@
               "cumulative_risked": 450,
               "cumulative_profit": -50.73357316227461,
               "roi": -1,
+              "cumulative_roi": -0.11274127369394357
+            }
+          }
+        },
+        {
+          "date_central": "2026-03-11",
+          "slate_games": 2,
+          "strategies": {
+            "riskAdjusted": {
+              "slate_games": 2,
+              "suggested_bets": 1,
+              "wins": 1,
+              "losses": 0,
+              "total_risked": 125,
+              "total_profit": 191.25,
+              "cumulative_risked": 1425,
+              "cumulative_profit": 259.0377947295423,
+              "roi": 1.53,
+              "cumulative_roi": 0.18178090858213497
+            },
+            "aggressive": {
+              "slate_games": 2,
+              "suggested_bets": 1,
+              "wins": 1,
+              "losses": 0,
+              "total_risked": 175,
+              "total_profit": 267.75,
+              "cumulative_risked": 2075,
+              "cumulative_profit": 282.6529126213592,
+              "roi": 1.53,
+              "cumulative_roi": 0.1362182711428237
+            },
+            "capitalPreservation": {
+              "slate_games": 2,
+              "suggested_bets": 0,
+              "wins": 0,
+              "losses": 0,
+              "total_risked": 0,
+              "total_profit": 0,
+              "cumulative_risked": 450,
+              "cumulative_profit": -50.73357316227461,
+              "roi": 0,
               "cumulative_roi": -0.11274127369394357
             }
           }
@@ -62774,6 +64783,126 @@
               "payout": 0
             }
           }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 125,
+              "odds": 153,
+              "model_probability": 0.42514130144039464,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.03737489425651175,
+              "expected_value": 0.07560749264419853,
+              "outcome": "win",
+              "profit": 191.25,
+              "payout": 316.25
+            },
+            "aggressive": {
+              "bet_label": "$175 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 175,
+              "odds": 153,
+              "model_probability": 0.42514130144039464,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.03737489425651175,
+              "expected_value": 0.07560749264419853,
+              "outcome": "win",
+              "profit": 267.75,
+              "payout": 442.75
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.42514130144039464,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.03737489425651175,
+              "expected_value": 0.07560749264419853,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
         }
       ]
     },
@@ -62785,7 +64914,7 @@
       "finalized_at_utc": "2026-03-06T15:31:10+00:00",
       "finalized_date_central": "2026-03-06",
       "activation_date_central": "2026-03-06",
-      "compared_through_date_central": "2026-03-10",
+      "compared_through_date_central": "2026-03-11",
       "pregame_cutoff_utc": "2026-03-07T00:00:00Z",
       "snapshot_id": "nhl_injuries_59d30b7972c35635",
       "artifact_path": "/Users/davidiruegas/Library/Application Support/SportsModeling/artifacts/models/08b34a55107a67a9",
@@ -63060,37 +65189,37 @@
           "subject": "Expand validation and enforce feature guardrails"
         }
       ],
-      "replayable_games": 43,
-      "days_tracked": 5,
+      "replayable_games": 45,
+      "days_tracked": 6,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 43,
-          "suggested_bets": 17,
-          "wins": 10,
+          "total_games": 45,
+          "suggested_bets": 18,
+          "wins": 11,
           "losses": 7,
-          "total_risked": 1825,
-          "total_profit": 554.660617029194,
-          "roi": 0.30392362576942134,
-          "avg_edge": 0.12820254478192125,
-          "avg_expected_value": 0.25952215673122814,
+          "total_risked": 1950,
+          "total_profit": 745.910617029194,
+          "roi": 0.3825182651431764,
+          "avg_edge": 0.12400117454032264,
+          "avg_expected_value": 0.2514415395612202,
           "first_bet_date_central": "2026-03-06",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 43,
-          "suggested_bets": 17,
-          "wins": 10,
+          "total_games": 45,
+          "suggested_bets": 18,
+          "wins": 11,
           "losses": 7,
-          "total_risked": 2675,
-          "total_profit": 819.0451890441234,
-          "roi": 0.3061851173996723,
-          "avg_edge": 0.12820254478192125,
-          "avg_expected_value": 0.25952215673122814,
+          "total_risked": 2850,
+          "total_profit": 1086.7951890441234,
+          "roi": 0.3813316452786398,
+          "avg_edge": 0.12400117454032264,
+          "avg_expected_value": 0.2514415395612202,
           "first_bet_date_central": "2026-03-06",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "capitalPreservation": {
-          "total_games": 43,
+          "total_games": 45,
           "suggested_bets": 8,
           "wins": 6,
           "losses": 2,
@@ -63310,6 +65439,48 @@
               "cumulative_risked": 600,
               "cumulative_profit": 229.4861420029769,
               "roi": -0.09349593495934959,
+              "cumulative_roi": 0.3824769033382948
+            }
+          }
+        },
+        {
+          "date_central": "2026-03-11",
+          "slate_games": 2,
+          "strategies": {
+            "riskAdjusted": {
+              "slate_games": 2,
+              "suggested_bets": 1,
+              "wins": 1,
+              "losses": 0,
+              "total_risked": 125,
+              "total_profit": 191.25,
+              "cumulative_risked": 1950,
+              "cumulative_profit": 745.9106170291939,
+              "roi": 1.53,
+              "cumulative_roi": 0.38251826514317633
+            },
+            "aggressive": {
+              "slate_games": 2,
+              "suggested_bets": 1,
+              "wins": 1,
+              "losses": 0,
+              "total_risked": 175,
+              "total_profit": 267.75,
+              "cumulative_risked": 2850,
+              "cumulative_profit": 1086.7951890441234,
+              "roi": 1.53,
+              "cumulative_roi": 0.3813316452786398
+            },
+            "capitalPreservation": {
+              "slate_games": 2,
+              "suggested_bets": 0,
+              "wins": 0,
+              "losses": 0,
+              "total_risked": 0,
+              "total_profit": 0,
+              "cumulative_risked": 600,
+              "cumulative_profit": 229.4861420029769,
+              "roi": 0,
               "cumulative_roi": 0.3824769033382948
             }
           }
@@ -65895,6 +68066,126 @@
               "payout": 0
             }
           }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 125,
+              "odds": 153,
+              "model_probability": 0.44034428761702926,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.05257788043314637,
+              "expected_value": 0.11407104767108422,
+              "outcome": "win",
+              "profit": 191.25,
+              "payout": 316.25
+            },
+            "aggressive": {
+              "bet_label": "$175 MTL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "MTL",
+              "stake": 175,
+              "odds": 153,
+              "model_probability": 0.44034428761702926,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.05257788043314637,
+              "expected_value": 0.11407104767108422,
+              "outcome": "win",
+              "profit": 267.75,
+              "payout": 442.75
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.44034428761702926,
+              "market_probability": 0.3877664071838829,
+              "edge": 0.05257788043314637,
+              "expected_value": 0.11407104767108422,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
         }
       ]
     },
@@ -65906,7 +68197,7 @@
       "finalized_at_utc": "2026-03-05T22:35:15+00:00",
       "finalized_date_central": "2026-03-05",
       "activation_date_central": "2026-03-05",
-      "compared_through_date_central": "2026-03-10",
+      "compared_through_date_central": "2026-03-11",
       "pregame_cutoff_utc": "2026-03-06T00:00:00Z",
       "snapshot_id": "nhl_injuries_db81e412df593a96",
       "artifact_path": "/Users/davidiruegas/Library/Application Support/SportsModeling/artifacts/models/30b4b6ac5add600c",
@@ -66658,11 +68949,11 @@
           "subject": "Honor selected models in research runs"
         }
       ],
-      "replayable_games": 51,
-      "days_tracked": 6,
+      "replayable_games": 53,
+      "days_tracked": 7,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 51,
+          "total_games": 53,
           "suggested_bets": 22,
           "wins": 13,
           "losses": 9,
@@ -66675,7 +68966,7 @@
           "last_bet_date_central": "2026-03-10"
         },
         "aggressive": {
-          "total_games": 51,
+          "total_games": 53,
           "suggested_bets": 22,
           "wins": 13,
           "losses": 9,
@@ -66688,7 +68979,7 @@
           "last_bet_date_central": "2026-03-10"
         },
         "capitalPreservation": {
-          "total_games": 51,
+          "total_games": 53,
           "suggested_bets": 15,
           "wins": 9,
           "losses": 6,
@@ -66950,6 +69241,48 @@
               "cumulative_risked": 1075,
               "cumulative_profit": 2.1729607860550715,
               "roi": 0.12177694936315624,
+              "cumulative_roi": 0.0020213588707489035
+            }
+          }
+        },
+        {
+          "date_central": "2026-03-11",
+          "slate_games": 2,
+          "strategies": {
+            "riskAdjusted": {
+              "slate_games": 2,
+              "suggested_bets": 0,
+              "wins": 0,
+              "losses": 0,
+              "total_risked": 0,
+              "total_profit": 0,
+              "cumulative_risked": 2350,
+              "cumulative_profit": 427.92835952461695,
+              "roi": 0,
+              "cumulative_roi": 0.18209717426579444
+            },
+            "aggressive": {
+              "slate_games": 2,
+              "suggested_bets": 0,
+              "wins": 0,
+              "losses": 0,
+              "total_risked": 0,
+              "total_profit": 0,
+              "cumulative_risked": 3450,
+              "cumulative_profit": 692.9616818178013,
+              "roi": 0,
+              "cumulative_roi": 0.20085845849791342
+            },
+            "capitalPreservation": {
+              "slate_games": 2,
+              "suggested_bets": 0,
+              "wins": 0,
+              "losses": 0,
+              "total_risked": 0,
+              "total_profit": 0,
+              "cumulative_risked": 1075,
+              "cumulative_profit": 2.1729607860550715,
+              "roi": 0,
               "cumulative_roi": 0.0020213588707489035
             }
           }
@@ -69968,6 +72301,126 @@
           "away_score": 4,
           "home_moneyline": -118,
           "away_moneyline": 106,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-05T16:42:47+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021026,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-05T16:42:47+00:00",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "PHI",
+          "away_team": "WSH",
+          "home_score": 4,
+          "away_score": 1,
+          "home_moneyline": 107,
+          "away_moneyline": -117,
           "strategies": {
             "riskAdjusted": {
               "bet_label": "$0",

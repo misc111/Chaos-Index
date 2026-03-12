@@ -49,7 +49,7 @@
     }
   },
   "strategy_optimization": {
-    "method": "Static defaults active until matched replay coverage reaches at least 60 settled games across 20 replay days (current sample: 51 games across 6 days).",
+    "method": "Static defaults active until matched replay coverage reaches at least 60 settled games across 20 replay days (current sample: 53 games across 7 days).",
     "risk_free_rate": 0,
     "candidate_count": 0,
     "frontier_point_count": 0,
@@ -63,21 +63,21 @@
   "strategies": {
     "riskAdjusted": {
       "summary": {
-        "total_final_games": 1158,
-        "games_with_forecast": 938,
-        "games_with_odds": 51,
-        "analyzed_games": 51,
-        "suggested_bets": 21,
-        "wins": 11,
+        "total_final_games": 1160,
+        "games_with_forecast": 940,
+        "games_with_odds": 53,
+        "analyzed_games": 53,
+        "suggested_bets": 22,
+        "wins": 12,
         "losses": 10,
-        "total_risked": 2225,
-        "total_profit": 207.72991778265015,
-        "roi": 0.09336176080119107,
+        "total_risked": 2350,
+        "total_profit": 398.97991778265015,
+        "roi": 0.169778688418149,
         "starting_bankroll": 5000,
-        "current_bankroll": 5207.72991778265,
+        "current_bankroll": 5398.97991778265,
         "bankroll_start_central": "2026-03-05",
         "coverage_start_central": "2026-03-05",
-        "coverage_end_central": "2026-03-10",
+        "coverage_end_central": "2026-03-11",
         "note": "Replay uses the latest stored pregame forecast before game time and backfills older gaps with historical diagnostics, paired with the latest pregame odds before game time."
       },
       "daily_points": [
@@ -128,6 +128,14 @@
           "cumulative_profit": 207.72991778265015,
           "cumulative_bankroll": 5207.72991778265,
           "bet_count": 4
+        },
+        {
+          "date_central": "2026-03-11",
+          "risked": 125,
+          "daily_profit": 191.25,
+          "cumulative_profit": 398.97991778265015,
+          "cumulative_bankroll": 5398.97991778265,
+          "bet_count": 1
         }
       ],
       "bets": [
@@ -760,26 +768,56 @@
           "profit": -125,
           "payout": 0,
           "cumulative_profit": 207.72991778265015
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "week_start_central": "2026-03-09",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "odds_as_of_utc": "2026-03-11T14:17:49+00:00",
+          "odds_snapshot_id": "nhl_odds_79f3494fa115feb9",
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "bet_label": "$125 MTL",
+          "reason": "Underdog underpriced after uncertainty adjustment",
+          "side": "away",
+          "team": "MTL",
+          "stake": 125,
+          "odds": 153,
+          "expected_value": 0.07761391053628364,
+          "edge": 0.038167944806743015,
+          "model_probability": 0.4259343519906259,
+          "market_probability": 0.3877664071838829,
+          "outcome": "win",
+          "profit": 191.25,
+          "payout": 316.25,
+          "cumulative_profit": 398.97991778265015
         }
       ]
     },
     "aggressive": {
       "summary": {
-        "total_final_games": 1158,
-        "games_with_forecast": 938,
-        "games_with_odds": 51,
-        "analyzed_games": 51,
-        "suggested_bets": 21,
-        "wins": 11,
+        "total_final_games": 1160,
+        "games_with_forecast": 940,
+        "games_with_odds": 53,
+        "analyzed_games": 53,
+        "suggested_bets": 22,
+        "wins": 12,
         "losses": 10,
-        "total_risked": 3275,
-        "total_profit": 385.2430432485726,
-        "roi": 0.11763146358735041,
+        "total_risked": 3450,
+        "total_profit": 652.9930432485726,
+        "roi": 0.18927334586915148,
         "starting_bankroll": 5000,
-        "current_bankroll": 5385.243043248573,
+        "current_bankroll": 5652.993043248573,
         "bankroll_start_central": "2026-03-05",
         "coverage_start_central": "2026-03-05",
-        "coverage_end_central": "2026-03-10",
+        "coverage_end_central": "2026-03-11",
         "note": "Replay uses the latest stored pregame forecast before game time and backfills older gaps with historical diagnostics, paired with the latest pregame odds before game time."
       },
       "daily_points": [
@@ -830,6 +868,14 @@
           "cumulative_profit": 385.2430432485725,
           "cumulative_bankroll": 5385.243043248573,
           "bet_count": 4
+        },
+        {
+          "date_central": "2026-03-11",
+          "risked": 175,
+          "daily_profit": 267.75,
+          "cumulative_profit": 652.9930432485726,
+          "cumulative_bankroll": 5652.993043248573,
+          "bet_count": 1
         }
       ],
       "bets": [
@@ -1462,15 +1508,45 @@
           "profit": -175,
           "payout": 0,
           "cumulative_profit": 385.2430432485726
+        },
+        {
+          "game_id": 2025021025,
+          "date_central": "2026-03-11",
+          "week_start_central": "2026-03-09",
+          "start_time_utc": "2026-03-11T23:30:00Z",
+          "final_utc": "2026-03-11T23:30:00Z",
+          "home_team": "OTT",
+          "away_team": "MTL",
+          "home_score": 2,
+          "away_score": 3,
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "odds_as_of_utc": "2026-03-11T14:17:49+00:00",
+          "odds_snapshot_id": "nhl_odds_79f3494fa115feb9",
+          "home_moneyline": -166,
+          "away_moneyline": 153,
+          "bet_label": "$175 MTL",
+          "reason": "Underdog underpriced after uncertainty adjustment",
+          "side": "away",
+          "team": "MTL",
+          "stake": 175,
+          "odds": 153,
+          "expected_value": 0.07761391053628364,
+          "edge": 0.038167944806743015,
+          "model_probability": 0.4259343519906259,
+          "market_probability": 0.3877664071838829,
+          "outcome": "win",
+          "profit": 267.75,
+          "payout": 442.75,
+          "cumulative_profit": 652.9930432485726
         }
       ]
     },
     "capitalPreservation": {
       "summary": {
-        "total_final_games": 1158,
-        "games_with_forecast": 938,
-        "games_with_odds": 51,
-        "analyzed_games": 51,
+        "total_final_games": 1160,
+        "games_with_forecast": 940,
+        "games_with_odds": 53,
+        "analyzed_games": 53,
         "suggested_bets": 10,
         "wins": 7,
         "losses": 3,
@@ -1481,7 +1557,7 @@
         "current_bankroll": 5193.289113874559,
         "bankroll_start_central": "2026-03-05",
         "coverage_start_central": "2026-03-05",
-        "coverage_end_central": "2026-03-10",
+        "coverage_end_central": "2026-03-11",
         "note": "Replay uses the latest stored pregame forecast before game time and backfills older gaps with historical diagnostics, paired with the latest pregame odds before game time."
       },
       "daily_points": [

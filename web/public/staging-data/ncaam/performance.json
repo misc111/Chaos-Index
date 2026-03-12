@@ -4,72 +4,72 @@
     {
       "model_name": "bayes_bt_state_space",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.15429633925850797
+      "log_loss": 0.215928213052525
     },
     {
       "model_name": "bayes_goals",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.0030045090202987243
+      "log_loss": 0.001002169673766261
     },
     {
       "model_name": "dynamic_rating",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.19817970214325312
+      "log_loss": 0.24709079466714515
     },
     {
       "model_name": "elo_baseline",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.37504824364508005
+      "log_loss": 0.4440949314766541
     },
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.12769989461451853
+      "log_loss": 0.13328907837286405
     },
     {
       "model_name": "gbdt",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.015706146223284326
+      "log_loss": 0.030413141626626283
     },
     {
       "model_name": "glm_elastic_net",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.09161503814126301
+      "log_loss": 0.08726380864580174
     },
     {
       "model_name": "glm_lasso",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.10664700488454557
+      "log_loss": 0.07940879422041754
     },
     {
       "model_name": "glm_ridge",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.12676302805111545
+      "log_loss": 0.06915539933351354
     },
     {
       "model_name": "goals_poisson",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.027371196796132015
+      "log_loss": 0.05276270180086689
     },
     {
       "model_name": "nn_mlp",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.2668856292379
+      "log_loss": 0.14231718632927903
     },
     {
       "model_name": "rf",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.12000138928770972
+      "log_loss": 0.12347983427890237
     },
     {
       "model_name": "simulation_first",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.6443570163905132
+      "log_loss": 0.6521117506983206
     },
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.22275773918525485
+      "log_loss": 0.1567394965310016
     }
   ],
   "run_summaries": [
@@ -77,16 +77,16 @@
       "model_name": "bayes_bt_state_space",
       "model_run_id": "run_b3760fbf3dfb9ff3__bayes_bt_state_space",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:20:26+00:00",
-      "snapshot_id": "ncaam_odds_3cbb8fcb5343de91",
+      "created_at_utc": "2026-03-12T14:05:02+00:00",
+      "snapshot_id": "ncaam_odds_0ecf46220a83ecdf",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-11",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 1,
-      "avg_log_loss": 0.15429633925850797,
-      "avg_brier": 0.020443847950408746,
+      "last_game_date_central": "2026-03-11",
+      "n_games": 3,
+      "avg_log_loss": 0.215928213052525,
+      "avg_brier": 0.039078968765116386,
       "accuracy": 1,
       "version_rank": 1,
       "is_latest_version": 1
@@ -95,16 +95,16 @@
       "model_name": "bayes_goals",
       "model_run_id": "run_b3760fbf3dfb9ff3__bayes_goals",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:20:26+00:00",
-      "snapshot_id": "ncaam_odds_3cbb8fcb5343de91",
+      "created_at_utc": "2026-03-12T14:05:02+00:00",
+      "snapshot_id": "ncaam_odds_0ecf46220a83ecdf",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-11",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 1,
-      "avg_log_loss": 0.0030045090202987243,
-      "avg_brier": 0.000009000000000000015,
+      "last_game_date_central": "2026-03-11",
+      "n_games": 3,
+      "avg_log_loss": 0.001002169673766261,
+      "avg_brier": 0.000003000000666666672,
       "accuracy": 1,
       "version_rank": 1,
       "is_latest_version": 1
@@ -113,16 +113,16 @@
       "model_name": "dynamic_rating",
       "model_run_id": "run_b3760fbf3dfb9ff3__dynamic_rating",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:20:26+00:00",
-      "snapshot_id": "ncaam_odds_3cbb8fcb5343de91",
+      "created_at_utc": "2026-03-12T14:05:02+00:00",
+      "snapshot_id": "ncaam_odds_0ecf46220a83ecdf",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-11",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 1,
-      "avg_log_loss": 0.19817970214325312,
-      "avg_brier": 0.03231996958300862,
+      "last_game_date_central": "2026-03-11",
+      "n_games": 3,
+      "avg_log_loss": 0.24709079466714515,
+      "avg_brier": 0.05092020559355035,
       "accuracy": 1,
       "version_rank": 1,
       "is_latest_version": 1
@@ -131,16 +131,16 @@
       "model_name": "elo_baseline",
       "model_run_id": "run_b3760fbf3dfb9ff3__elo_baseline",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:20:26+00:00",
-      "snapshot_id": "ncaam_odds_3cbb8fcb5343de91",
+      "created_at_utc": "2026-03-12T14:05:02+00:00",
+      "snapshot_id": "ncaam_odds_0ecf46220a83ecdf",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-11",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 1,
-      "avg_log_loss": 0.37504824364508005,
-      "avg_brier": 0.09780873306964315,
+      "last_game_date_central": "2026-03-11",
+      "n_games": 3,
+      "avg_log_loss": 0.4440949314766541,
+      "avg_brier": 0.12916131055469185,
       "accuracy": 1,
       "version_rank": 1,
       "is_latest_version": 1
@@ -149,16 +149,16 @@
       "model_name": "ensemble",
       "model_run_id": "run_b3760fbf3dfb9ff3__ensemble",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:20:26+00:00",
-      "snapshot_id": "ncaam_odds_3cbb8fcb5343de91",
+      "created_at_utc": "2026-03-12T14:05:02+00:00",
+      "snapshot_id": "ncaam_odds_0ecf46220a83ecdf",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-11",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 1,
-      "avg_log_loss": 0.12769989461451853,
-      "avg_brier": 0.01437182159685198,
+      "last_game_date_central": "2026-03-11",
+      "n_games": 3,
+      "avg_log_loss": 0.13328907837286405,
+      "avg_brier": 0.015802102639477882,
       "accuracy": 1,
       "version_rank": 1,
       "is_latest_version": 1
@@ -167,16 +167,16 @@
       "model_name": "gbdt",
       "model_run_id": "run_b3760fbf3dfb9ff3__gbdt",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:20:26+00:00",
-      "snapshot_id": "ncaam_odds_3cbb8fcb5343de91",
+      "created_at_utc": "2026-03-12T14:05:02+00:00",
+      "snapshot_id": "ncaam_odds_0ecf46220a83ecdf",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-11",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 1,
-      "avg_log_loss": 0.015706146223284326,
-      "avg_brier": 0.00024284384910862558,
+      "last_game_date_central": "2026-03-11",
+      "n_games": 3,
+      "avg_log_loss": 0.030413141626626283,
+      "avg_brier": 0.0016890966164482366,
       "accuracy": 1,
       "version_rank": 1,
       "is_latest_version": 1
@@ -185,16 +185,16 @@
       "model_name": "glm_elastic_net",
       "model_run_id": "run_b3760fbf3dfb9ff3__glm_elastic_net",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:20:26+00:00",
-      "snapshot_id": "ncaam_odds_3cbb8fcb5343de91",
+      "created_at_utc": "2026-03-12T14:05:02+00:00",
+      "snapshot_id": "ncaam_odds_0ecf46220a83ecdf",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-11",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 1,
-      "avg_log_loss": 0.09161503814126301,
-      "avg_brier": 0.007663891910261456,
+      "last_game_date_central": "2026-03-11",
+      "n_games": 3,
+      "avg_log_loss": 0.08726380864580174,
+      "avg_brier": 0.0076332238088964435,
       "accuracy": 1,
       "version_rank": 1,
       "is_latest_version": 1
@@ -203,16 +203,16 @@
       "model_name": "glm_lasso",
       "model_run_id": "run_b3760fbf3dfb9ff3__glm_lasso",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:20:26+00:00",
-      "snapshot_id": "ncaam_odds_3cbb8fcb5343de91",
+      "created_at_utc": "2026-03-12T14:05:02+00:00",
+      "snapshot_id": "ncaam_odds_0ecf46220a83ecdf",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-11",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 1,
-      "avg_log_loss": 0.10664700488454557,
-      "avg_brier": 0.010232758040560761,
+      "last_game_date_central": "2026-03-11",
+      "n_games": 3,
+      "avg_log_loss": 0.07940879422041754,
+      "avg_brier": 0.006437210624385369,
       "accuracy": 1,
       "version_rank": 1,
       "is_latest_version": 1
@@ -221,16 +221,16 @@
       "model_name": "glm_ridge",
       "model_run_id": "run_b3760fbf3dfb9ff3__glm_ridge",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:20:26+00:00",
-      "snapshot_id": "ncaam_odds_3cbb8fcb5343de91",
+      "created_at_utc": "2026-03-12T14:05:02+00:00",
+      "snapshot_id": "ncaam_odds_0ecf46220a83ecdf",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-11",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 1,
-      "avg_log_loss": 0.12676302805111545,
-      "avg_brier": 0.01417471056928166,
+      "last_game_date_central": "2026-03-11",
+      "n_games": 3,
+      "avg_log_loss": 0.06915539933351354,
+      "avg_brier": 0.005778521086990871,
       "accuracy": 1,
       "version_rank": 1,
       "is_latest_version": 1
@@ -239,16 +239,16 @@
       "model_name": "goals_poisson",
       "model_run_id": "run_b3760fbf3dfb9ff3__goals_poisson",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:20:26+00:00",
-      "snapshot_id": "ncaam_odds_3cbb8fcb5343de91",
+      "created_at_utc": "2026-03-12T14:05:02+00:00",
+      "snapshot_id": "ncaam_odds_0ecf46220a83ecdf",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-11",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 1,
-      "avg_log_loss": 0.027371196796132015,
-      "avg_brier": 0.0007290000000000013,
+      "last_game_date_central": "2026-03-11",
+      "n_games": 3,
+      "avg_log_loss": 0.05276270180086689,
+      "avg_brier": 0.002952925925925928,
       "accuracy": 1,
       "version_rank": 1,
       "is_latest_version": 1
@@ -257,16 +257,16 @@
       "model_name": "rf",
       "model_run_id": "run_b3760fbf3dfb9ff3__rf",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:20:26+00:00",
-      "snapshot_id": "ncaam_odds_3cbb8fcb5343de91",
+      "created_at_utc": "2026-03-12T14:05:02+00:00",
+      "snapshot_id": "ncaam_odds_0ecf46220a83ecdf",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-11",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 1,
-      "avg_log_loss": 0.12000138928770972,
-      "avg_brier": 0.012787266304048538,
+      "last_game_date_central": "2026-03-11",
+      "n_games": 3,
+      "avg_log_loss": 0.12347983427890237,
+      "avg_brier": 0.015040071260484239,
       "accuracy": 1,
       "version_rank": 1,
       "is_latest_version": 1
@@ -275,16 +275,16 @@
       "model_name": "simulation_first",
       "model_run_id": "run_b3760fbf3dfb9ff3__simulation_first",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:20:26+00:00",
-      "snapshot_id": "ncaam_odds_3cbb8fcb5343de91",
+      "created_at_utc": "2026-03-12T14:05:02+00:00",
+      "snapshot_id": "ncaam_odds_0ecf46220a83ecdf",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-11",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 1,
-      "avg_log_loss": 0.6443570163905132,
-      "avg_brier": 0.225625,
+      "last_game_date_central": "2026-03-11",
+      "n_games": 3,
+      "avg_log_loss": 0.6521117506983206,
+      "avg_brier": 0.22949484353741498,
       "accuracy": 1,
       "version_rank": 1,
       "is_latest_version": 1
@@ -293,16 +293,16 @@
       "model_name": "two_stage",
       "model_run_id": "run_b3760fbf3dfb9ff3__two_stage",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-11T14:20:26+00:00",
-      "snapshot_id": "ncaam_odds_3cbb8fcb5343de91",
+      "created_at_utc": "2026-03-12T14:05:02+00:00",
+      "snapshot_id": "ncaam_odds_0ecf46220a83ecdf",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-11",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 1,
-      "avg_log_loss": 0.22275773918525485,
-      "avg_brier": 0.039876611600913256,
+      "last_game_date_central": "2026-03-11",
+      "n_games": 3,
+      "avg_log_loss": 0.1567394965310016,
+      "avg_brier": 0.023254467263488583,
       "accuracy": 1,
       "version_rank": 1,
       "is_latest_version": 1
@@ -317,10 +317,10 @@
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-11",
-      "last_game_date_central": "2026-03-10",
-      "n_games": 1,
-      "avg_log_loss": 0.2668856292379,
-      "avg_brier": 0.05486807445355696,
+      "last_game_date_central": "2026-03-11",
+      "n_games": 3,
+      "avg_log_loss": 0.14231718632927903,
+      "avg_brier": 0.023999909821470062,
       "accuracy": 1,
       "version_rank": 1,
       "is_latest_version": 1
@@ -495,58 +495,58 @@
         "brier": 0.15087631871839105,
         "log_loss": 0.4852633746314263
       },
-      "scored_games": 1,
-      "avg_log_loss": 0.2668856292379,
-      "avg_brier": 0.05486807445355696,
+      "scored_games": 3,
+      "avg_log_loss": 0.14231718632927903,
+      "avg_brier": 0.023999909821470062,
       "accuracy": 1,
       "version_rank": 1,
       "is_latest_version": 1,
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-11",
-      "last_game_date_central": "2026-03-10",
+      "last_game_date_central": "2026-03-11",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-10",
-      "replayable_games": 1,
+      "last_replay_date_central": "2026-03-11",
+      "replayable_games": 2,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 1,
-          "suggested_bets": 1,
-          "wins": 1,
+          "total_games": 2,
+          "suggested_bets": 2,
+          "wins": 2,
           "losses": 0,
-          "total_risked": 125,
-          "total_profit": 44.642857142857146,
-          "roi": 0.35714285714285715,
-          "avg_edge": 0.03412222900693063,
-          "avg_expected_value": 0.039246592473893394,
+          "total_risked": 250,
+          "total_profit": 90.93915343915344,
+          "roi": 0.3637566137566138,
+          "avg_edge": 0.1455106458859527,
+          "avg_expected_value": 0.19000126332153033,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "aggressive": {
-          "total_games": 1,
-          "suggested_bets": 1,
-          "wins": 1,
+          "total_games": 2,
+          "suggested_bets": 2,
+          "wins": 2,
           "losses": 0,
-          "total_risked": 175,
-          "total_profit": 62.5,
-          "roi": 0.35714285714285715,
-          "avg_edge": 0.03412222900693063,
-          "avg_expected_value": 0.039246592473893394,
+          "total_risked": 350,
+          "total_profit": 127.31481481481481,
+          "roi": 0.3637566137566137,
+          "avg_edge": 0.1455106458859527,
+          "avg_expected_value": 0.19000126332153033,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         },
         "capitalPreservation": {
-          "total_games": 1,
-          "suggested_bets": 1,
-          "wins": 1,
+          "total_games": 2,
+          "suggested_bets": 2,
+          "wins": 2,
           "losses": 0,
-          "total_risked": 75,
-          "total_profit": 26.785714285714285,
-          "roi": 0.35714285714285715,
-          "avg_edge": 0.03412222900693063,
-          "avg_expected_value": 0.039246592473893394,
+          "total_risked": 150,
+          "total_profit": 54.56349206349206,
+          "roi": 0.3637566137566138,
+          "avg_edge": 0.1455106458859527,
+          "avg_expected_value": 0.19000126332153033,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-10"
+          "last_bet_date_central": "2026-03-11"
         }
       },
       "bets": [
@@ -609,22 +609,82 @@
               "payout": 101.78571428571428
             }
           }
+        },
+        {
+          "game_id": 401851174,
+          "date_central": "2026-03-11",
+          "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
+          "start_time_utc": "2026-03-11T18:45Z",
+          "final_utc": "2026-03-11T18:45Z",
+          "home_team": "LOU",
+          "away_team": "SMU",
+          "home_score": 62,
+          "away_score": 58,
+          "home_moneyline": -270,
+          "away_moneyline": 255,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 LOU",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "home",
+              "team": "LOU",
+              "stake": 125,
+              "odds": -270,
+              "model_probability": 0.9783894654747979,
+              "market_probability": 0.7214904027098231,
+              "edge": 0.25689906276497476,
+              "expected_value": 0.3407559341691673,
+              "outcome": "win",
+              "profit": 46.29629629629629,
+              "payout": 171.2962962962963
+            },
+            "aggressive": {
+              "bet_label": "$175 LOU",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "home",
+              "team": "LOU",
+              "stake": 175,
+              "odds": -270,
+              "model_probability": 0.9783894654747979,
+              "market_probability": 0.7214904027098231,
+              "edge": 0.25689906276497476,
+              "expected_value": 0.3407559341691673,
+              "outcome": "win",
+              "profit": 64.81481481481481,
+              "payout": 239.8148148148148
+            },
+            "capitalPreservation": {
+              "bet_label": "$75 LOU",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "home",
+              "team": "LOU",
+              "stake": 75,
+              "odds": -270,
+              "model_probability": 0.9783894654747979,
+              "market_probability": 0.7214904027098231,
+              "edge": 0.25689906276497476,
+              "expected_value": 0.3407559341691673,
+              "outcome": "win",
+              "profit": 27.777777777777775,
+              "payout": 102.77777777777777
+            }
+          }
         }
       ]
     }
   ],
   "ensemble_snapshots": [
     {
-      "snapshot_key": "2026-03-11::run_b3760fbf3dfb9ff3",
+      "snapshot_key": "2026-03-12::run_b3760fbf3dfb9ff3",
       "model_name": "ensemble",
       "model_run_id": "run_b3760fbf3dfb9ff3",
       "ensemble_model_run_id": "run_b3760fbf3dfb9ff3__ensemble",
-      "finalized_at_utc": "2026-03-11T14:20:26+00:00",
-      "finalized_date_central": "2026-03-11",
-      "activation_date_central": "2026-03-11",
+      "finalized_at_utc": "2026-03-12T14:05:02+00:00",
+      "finalized_date_central": "2026-03-12",
+      "activation_date_central": "2026-03-12",
       "compared_through_date_central": null,
-      "pregame_cutoff_utc": "2026-03-11T16:30Z",
-      "snapshot_id": "ncaam_odds_3cbb8fcb5343de91",
+      "pregame_cutoff_utc": "2026-03-12T15:00Z",
+      "snapshot_id": "ncaam_odds_0ecf46220a83ecdf",
       "artifact_path": "/Users/davidiruegas/Library/Application Support/SportsModeling/artifacts/models/b3760fbf3dfb9ff3",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "calibration_fingerprint": "d387a8a798cb",
@@ -764,18 +824,18 @@
       },
       "params": {
         "weights": {
-          "bayes_bt_state_space": 0.09427793378324564,
-          "bayes_goals": 0.03653462346181717,
-          "dynamic_rating": 0.09556319814127998,
-          "elo_baseline": 0.08492090797074736,
-          "gbdt": 0.08240914543943192,
-          "glm_elastic_net": 0.09302533226316925,
-          "glm_lasso": 0.08966082375696237,
-          "glm_ridge": 0.08830674605839443,
-          "goals_poisson": 0.08425811022289867,
-          "rf": 0.09682336374770303,
-          "simulation_first": 0.08377324793197609,
-          "two_stage": 0.07044656722237416
+          "bayes_bt_state_space": 0.09429443829163986,
+          "bayes_goals": 0.03654101929566087,
+          "dynamic_rating": 0.09557992765096066,
+          "elo_baseline": 0.08493577441703234,
+          "gbdt": 0.08242357217088525,
+          "glm_elastic_net": 0.09304161748830732,
+          "glm_lasso": 0.08967651998362906,
+          "glm_ridge": 0.08832220523715557,
+          "goals_poisson": 0.08427286063831031,
+          "rf": 0.09684031386482592,
+          "simulation_first": 0.08378791346629808,
+          "two_stage": 0.07028383749529481
         }
       },
       "metrics": {},
@@ -1084,7 +1144,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.08492090797074736,
+          "weight": 0.08493577441703234,
           "feature_columns": [],
           "feature_count": 0,
           "train_metrics": {
@@ -1095,18 +1155,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09427793378324564,
-              "bayes_goals": 0.03653462346181717,
-              "dynamic_rating": 0.09556319814127998,
-              "elo_baseline": 0.08492090797074736,
-              "gbdt": 0.08240914543943192,
-              "glm_elastic_net": 0.09302533226316925,
-              "glm_lasso": 0.08966082375696237,
-              "glm_ridge": 0.08830674605839443,
-              "goals_poisson": 0.08425811022289867,
-              "rf": 0.09682336374770303,
-              "simulation_first": 0.08377324793197609,
-              "two_stage": 0.07044656722237416
+              "bayes_bt_state_space": 0.09429443829163986,
+              "bayes_goals": 0.03654101929566087,
+              "dynamic_rating": 0.09557992765096066,
+              "elo_baseline": 0.08493577441703234,
+              "gbdt": 0.08242357217088525,
+              "glm_elastic_net": 0.09304161748830732,
+              "glm_lasso": 0.08967651998362906,
+              "glm_ridge": 0.08832220523715557,
+              "goals_poisson": 0.08427286063831031,
+              "rf": 0.09684031386482592,
+              "simulation_first": 0.08378791346629808,
+              "two_stage": 0.07028383749529481
             }
           }
         },
@@ -1115,7 +1175,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.09556319814127998,
+          "weight": 0.09557992765096066,
           "feature_columns": [],
           "feature_count": 0,
           "train_metrics": {
@@ -1126,18 +1186,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09427793378324564,
-              "bayes_goals": 0.03653462346181717,
-              "dynamic_rating": 0.09556319814127998,
-              "elo_baseline": 0.08492090797074736,
-              "gbdt": 0.08240914543943192,
-              "glm_elastic_net": 0.09302533226316925,
-              "glm_lasso": 0.08966082375696237,
-              "glm_ridge": 0.08830674605839443,
-              "goals_poisson": 0.08425811022289867,
-              "rf": 0.09682336374770303,
-              "simulation_first": 0.08377324793197609,
-              "two_stage": 0.07044656722237416
+              "bayes_bt_state_space": 0.09429443829163986,
+              "bayes_goals": 0.03654101929566087,
+              "dynamic_rating": 0.09557992765096066,
+              "elo_baseline": 0.08493577441703234,
+              "gbdt": 0.08242357217088525,
+              "glm_elastic_net": 0.09304161748830732,
+              "glm_lasso": 0.08967651998362906,
+              "glm_ridge": 0.08832220523715557,
+              "goals_poisson": 0.08427286063831031,
+              "rf": 0.09684031386482592,
+              "simulation_first": 0.08378791346629808,
+              "two_stage": 0.07028383749529481
             }
           }
         },
@@ -1146,7 +1206,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.08830674605839443,
+          "weight": 0.08832220523715557,
           "feature_columns": [
             "rest_diff",
             "elo_home_prob",
@@ -1182,18 +1242,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09427793378324564,
-              "bayes_goals": 0.03653462346181717,
-              "dynamic_rating": 0.09556319814127998,
-              "elo_baseline": 0.08492090797074736,
-              "gbdt": 0.08240914543943192,
-              "glm_elastic_net": 0.09302533226316925,
-              "glm_lasso": 0.08966082375696237,
-              "glm_ridge": 0.08830674605839443,
-              "goals_poisson": 0.08425811022289867,
-              "rf": 0.09682336374770303,
-              "simulation_first": 0.08377324793197609,
-              "two_stage": 0.07044656722237416
+              "bayes_bt_state_space": 0.09429443829163986,
+              "bayes_goals": 0.03654101929566087,
+              "dynamic_rating": 0.09557992765096066,
+              "elo_baseline": 0.08493577441703234,
+              "gbdt": 0.08242357217088525,
+              "glm_elastic_net": 0.09304161748830732,
+              "glm_lasso": 0.08967651998362906,
+              "glm_ridge": 0.08832220523715557,
+              "goals_poisson": 0.08427286063831031,
+              "rf": 0.09684031386482592,
+              "simulation_first": 0.08378791346629808,
+              "two_stage": 0.07028383749529481
             }
           }
         },
@@ -1202,7 +1262,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.09302533226316925,
+          "weight": 0.09304161748830732,
           "feature_columns": [
             "rest_diff",
             "elo_home_prob",
@@ -1238,18 +1298,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09427793378324564,
-              "bayes_goals": 0.03653462346181717,
-              "dynamic_rating": 0.09556319814127998,
-              "elo_baseline": 0.08492090797074736,
-              "gbdt": 0.08240914543943192,
-              "glm_elastic_net": 0.09302533226316925,
-              "glm_lasso": 0.08966082375696237,
-              "glm_ridge": 0.08830674605839443,
-              "goals_poisson": 0.08425811022289867,
-              "rf": 0.09682336374770303,
-              "simulation_first": 0.08377324793197609,
-              "two_stage": 0.07044656722237416
+              "bayes_bt_state_space": 0.09429443829163986,
+              "bayes_goals": 0.03654101929566087,
+              "dynamic_rating": 0.09557992765096066,
+              "elo_baseline": 0.08493577441703234,
+              "gbdt": 0.08242357217088525,
+              "glm_elastic_net": 0.09304161748830732,
+              "glm_lasso": 0.08967651998362906,
+              "glm_ridge": 0.08832220523715557,
+              "goals_poisson": 0.08427286063831031,
+              "rf": 0.09684031386482592,
+              "simulation_first": 0.08378791346629808,
+              "two_stage": 0.07028383749529481
             }
           }
         },
@@ -1258,7 +1318,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.08966082375696237,
+          "weight": 0.08967651998362906,
           "feature_columns": [
             "rest_diff",
             "elo_home_prob",
@@ -1294,18 +1354,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09427793378324564,
-              "bayes_goals": 0.03653462346181717,
-              "dynamic_rating": 0.09556319814127998,
-              "elo_baseline": 0.08492090797074736,
-              "gbdt": 0.08240914543943192,
-              "glm_elastic_net": 0.09302533226316925,
-              "glm_lasso": 0.08966082375696237,
-              "glm_ridge": 0.08830674605839443,
-              "goals_poisson": 0.08425811022289867,
-              "rf": 0.09682336374770303,
-              "simulation_first": 0.08377324793197609,
-              "two_stage": 0.07044656722237416
+              "bayes_bt_state_space": 0.09429443829163986,
+              "bayes_goals": 0.03654101929566087,
+              "dynamic_rating": 0.09557992765096066,
+              "elo_baseline": 0.08493577441703234,
+              "gbdt": 0.08242357217088525,
+              "glm_elastic_net": 0.09304161748830732,
+              "glm_lasso": 0.08967651998362906,
+              "glm_ridge": 0.08832220523715557,
+              "goals_poisson": 0.08427286063831031,
+              "rf": 0.09684031386482592,
+              "simulation_first": 0.08378791346629808,
+              "two_stage": 0.07028383749529481
             }
           }
         },
@@ -1314,7 +1374,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.08240914543943192,
+          "weight": 0.08242357217088525,
           "feature_columns": [
             "arena_margin_effect",
             "dyn_home_prob",
@@ -1366,18 +1426,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09427793378324564,
-              "bayes_goals": 0.03653462346181717,
-              "dynamic_rating": 0.09556319814127998,
-              "elo_baseline": 0.08492090797074736,
-              "gbdt": 0.08240914543943192,
-              "glm_elastic_net": 0.09302533226316925,
-              "glm_lasso": 0.08966082375696237,
-              "glm_ridge": 0.08830674605839443,
-              "goals_poisson": 0.08425811022289867,
-              "rf": 0.09682336374770303,
-              "simulation_first": 0.08377324793197609,
-              "two_stage": 0.07044656722237416
+              "bayes_bt_state_space": 0.09429443829163986,
+              "bayes_goals": 0.03654101929566087,
+              "dynamic_rating": 0.09557992765096066,
+              "elo_baseline": 0.08493577441703234,
+              "gbdt": 0.08242357217088525,
+              "glm_elastic_net": 0.09304161748830732,
+              "glm_lasso": 0.08967651998362906,
+              "glm_ridge": 0.08832220523715557,
+              "goals_poisson": 0.08427286063831031,
+              "rf": 0.09684031386482592,
+              "simulation_first": 0.08378791346629808,
+              "two_stage": 0.07028383749529481
             }
           }
         },
@@ -1386,7 +1446,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.09682336374770303,
+          "weight": 0.09684031386482592,
           "feature_columns": [
             "arena_margin_effect",
             "dyn_home_prob",
@@ -1442,18 +1502,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09427793378324564,
-              "bayes_goals": 0.03653462346181717,
-              "dynamic_rating": 0.09556319814127998,
-              "elo_baseline": 0.08492090797074736,
-              "gbdt": 0.08240914543943192,
-              "glm_elastic_net": 0.09302533226316925,
-              "glm_lasso": 0.08966082375696237,
-              "glm_ridge": 0.08830674605839443,
-              "goals_poisson": 0.08425811022289867,
-              "rf": 0.09682336374770303,
-              "simulation_first": 0.08377324793197609,
-              "two_stage": 0.07044656722237416
+              "bayes_bt_state_space": 0.09429443829163986,
+              "bayes_goals": 0.03654101929566087,
+              "dynamic_rating": 0.09557992765096066,
+              "elo_baseline": 0.08493577441703234,
+              "gbdt": 0.08242357217088525,
+              "glm_elastic_net": 0.09304161748830732,
+              "glm_lasso": 0.08967651998362906,
+              "glm_ridge": 0.08832220523715557,
+              "goals_poisson": 0.08427286063831031,
+              "rf": 0.09684031386482592,
+              "simulation_first": 0.08378791346629808,
+              "two_stage": 0.07028383749529481
             }
           }
         },
@@ -1462,7 +1522,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.07044656722237416,
+          "weight": 0.07028383749529481,
           "feature_columns": [
             "arena_margin_effect",
             "dyn_home_prob",
@@ -1497,25 +1557,25 @@
           ],
           "feature_count": 30,
           "train_metrics": {
-            "accuracy": 0.792183031458532,
-            "auc": 0.8588920501401947,
-            "brier": 0.13981312528230277,
-            "log_loss": 0.4307417171617858
+            "accuracy": 0.7931363203050524,
+            "auc": 0.8589456539666831,
+            "brier": 0.13957192616911626,
+            "log_loss": 0.4302985075071536
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09427793378324564,
-              "bayes_goals": 0.03653462346181717,
-              "dynamic_rating": 0.09556319814127998,
-              "elo_baseline": 0.08492090797074736,
-              "gbdt": 0.08240914543943192,
-              "glm_elastic_net": 0.09302533226316925,
-              "glm_lasso": 0.08966082375696237,
-              "glm_ridge": 0.08830674605839443,
-              "goals_poisson": 0.08425811022289867,
-              "rf": 0.09682336374770303,
-              "simulation_first": 0.08377324793197609,
-              "two_stage": 0.07044656722237416
+              "bayes_bt_state_space": 0.09429443829163986,
+              "bayes_goals": 0.03654101929566087,
+              "dynamic_rating": 0.09557992765096066,
+              "elo_baseline": 0.08493577441703234,
+              "gbdt": 0.08242357217088525,
+              "glm_elastic_net": 0.09304161748830732,
+              "glm_lasso": 0.08967651998362906,
+              "glm_ridge": 0.08832220523715557,
+              "goals_poisson": 0.08427286063831031,
+              "rf": 0.09684031386482592,
+              "simulation_first": 0.08378791346629808,
+              "two_stage": 0.07028383749529481
             }
           }
         },
@@ -1524,7 +1584,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.08425811022289867,
+          "weight": 0.08427286063831031,
           "feature_columns": [],
           "feature_count": 0,
           "train_metrics": {
@@ -1535,18 +1595,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09427793378324564,
-              "bayes_goals": 0.03653462346181717,
-              "dynamic_rating": 0.09556319814127998,
-              "elo_baseline": 0.08492090797074736,
-              "gbdt": 0.08240914543943192,
-              "glm_elastic_net": 0.09302533226316925,
-              "glm_lasso": 0.08966082375696237,
-              "glm_ridge": 0.08830674605839443,
-              "goals_poisson": 0.08425811022289867,
-              "rf": 0.09682336374770303,
-              "simulation_first": 0.08377324793197609,
-              "two_stage": 0.07044656722237416
+              "bayes_bt_state_space": 0.09429443829163986,
+              "bayes_goals": 0.03654101929566087,
+              "dynamic_rating": 0.09557992765096066,
+              "elo_baseline": 0.08493577441703234,
+              "gbdt": 0.08242357217088525,
+              "glm_elastic_net": 0.09304161748830732,
+              "glm_lasso": 0.08967651998362906,
+              "glm_ridge": 0.08832220523715557,
+              "goals_poisson": 0.08427286063831031,
+              "rf": 0.09684031386482592,
+              "simulation_first": 0.08378791346629808,
+              "two_stage": 0.07028383749529481
             }
           }
         },
@@ -1555,7 +1615,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.08377324793197609,
+          "weight": 0.08378791346629808,
           "feature_columns": [],
           "feature_count": 0,
           "train_metrics": {
@@ -1566,18 +1626,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09427793378324564,
-              "bayes_goals": 0.03653462346181717,
-              "dynamic_rating": 0.09556319814127998,
-              "elo_baseline": 0.08492090797074736,
-              "gbdt": 0.08240914543943192,
-              "glm_elastic_net": 0.09302533226316925,
-              "glm_lasso": 0.08966082375696237,
-              "glm_ridge": 0.08830674605839443,
-              "goals_poisson": 0.08425811022289867,
-              "rf": 0.09682336374770303,
-              "simulation_first": 0.08377324793197609,
-              "two_stage": 0.07044656722237416
+              "bayes_bt_state_space": 0.09429443829163986,
+              "bayes_goals": 0.03654101929566087,
+              "dynamic_rating": 0.09557992765096066,
+              "elo_baseline": 0.08493577441703234,
+              "gbdt": 0.08242357217088525,
+              "glm_elastic_net": 0.09304161748830732,
+              "glm_lasso": 0.08967651998362906,
+              "glm_ridge": 0.08832220523715557,
+              "goals_poisson": 0.08427286063831031,
+              "rf": 0.09684031386482592,
+              "simulation_first": 0.08378791346629808,
+              "two_stage": 0.07028383749529481
             }
           }
         },
@@ -1586,7 +1646,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.09427793378324564,
+          "weight": 0.09429443829163986,
           "feature_columns": [
             "travel_diff",
             "rest_diff",
@@ -1618,18 +1678,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09427793378324564,
-              "bayes_goals": 0.03653462346181717,
-              "dynamic_rating": 0.09556319814127998,
-              "elo_baseline": 0.08492090797074736,
-              "gbdt": 0.08240914543943192,
-              "glm_elastic_net": 0.09302533226316925,
-              "glm_lasso": 0.08966082375696237,
-              "glm_ridge": 0.08830674605839443,
-              "goals_poisson": 0.08425811022289867,
-              "rf": 0.09682336374770303,
-              "simulation_first": 0.08377324793197609,
-              "two_stage": 0.07044656722237416
+              "bayes_bt_state_space": 0.09429443829163986,
+              "bayes_goals": 0.03654101929566087,
+              "dynamic_rating": 0.09557992765096066,
+              "elo_baseline": 0.08493577441703234,
+              "gbdt": 0.08242357217088525,
+              "glm_elastic_net": 0.09304161748830732,
+              "glm_lasso": 0.08967651998362906,
+              "glm_ridge": 0.08832220523715557,
+              "goals_poisson": 0.08427286063831031,
+              "rf": 0.09684031386482592,
+              "simulation_first": 0.08378791346629808,
+              "two_stage": 0.07028383749529481
             }
           }
         },
@@ -1638,7 +1698,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.03653462346181717,
+          "weight": 0.03654101929566087,
           "feature_columns": [],
           "feature_count": 0,
           "train_metrics": {
@@ -1649,18 +1709,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09427793378324564,
-              "bayes_goals": 0.03653462346181717,
-              "dynamic_rating": 0.09556319814127998,
-              "elo_baseline": 0.08492090797074736,
-              "gbdt": 0.08240914543943192,
-              "glm_elastic_net": 0.09302533226316925,
-              "glm_lasso": 0.08966082375696237,
-              "glm_ridge": 0.08830674605839443,
-              "goals_poisson": 0.08425811022289867,
-              "rf": 0.09682336374770303,
-              "simulation_first": 0.08377324793197609,
-              "two_stage": 0.07044656722237416
+              "bayes_bt_state_space": 0.09429443829163986,
+              "bayes_goals": 0.03654101929566087,
+              "dynamic_rating": 0.09557992765096066,
+              "elo_baseline": 0.08493577441703234,
+              "gbdt": 0.08242357217088525,
+              "glm_elastic_net": 0.09304161748830732,
+              "glm_lasso": 0.08967651998362906,
+              "glm_ridge": 0.08832220523715557,
+              "goals_poisson": 0.08427286063831031,
+              "rf": 0.09684031386482592,
+              "simulation_first": 0.08378791346629808,
+              "two_stage": 0.07028383749529481
             }
           }
         },
