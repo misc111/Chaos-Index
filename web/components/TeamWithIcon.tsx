@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import type { LeagueCode } from "@/lib/league";
 import { TEAM_ICON_SIZE_TOKENS, type TeamIconSize } from "@/lib/team-icon-size-tokens";
 import { getTeamIconDefinition, normalizeTeamCode, resolveTeamIconSrc } from "@/lib/team-icons";
@@ -66,6 +66,8 @@ export default function TeamWithIcon({
   const sizeTokens = TEAM_ICON_SIZE_TOKENS[size];
   const iconSize = sizeTokens.imagePx;
   const iconSrc = resolveTeamIconSrc(icon.src);
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  const showFallback = !iconSrc || failedSrc === iconSrc;
   const wrapperStyle = {
     "--team-icon-gap": `${sizeTokens.gapRem}rem`,
     "--team-logo-box-size": `${sizeTokens.logoBoxRem}rem`,
@@ -79,10 +81,10 @@ export default function TeamWithIcon({
   return (
     <span className={joinClassNames(styles.teamWithIcon, className)} style={wrapperStyle}>
       <span
-        className={joinClassNames(styles.iconFrame, iconSrc ? styles.logoBox : styles.fallbackFrame)}
+        className={joinClassNames(styles.iconFrame, showFallback ? styles.fallbackFrame : styles.logoBox)}
         aria-hidden="true"
       >
-        {iconSrc ? (
+        {!showFallback ? (
           <Image
             src={iconSrc}
             alt=""
@@ -90,6 +92,7 @@ export default function TeamWithIcon({
             height={iconSize}
             className={styles.iconImage}
             unoptimized
+            onError={() => setFailedSrc(iconSrc)}
           />
         ) : (
           <span className={styles.fallbackText}>{fallbackLetters(normalizedCode, displayLabel.toUpperCase())}</span>

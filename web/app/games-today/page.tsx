@@ -86,6 +86,10 @@ function formatCentralTip(value?: string | null): string {
   });
 }
 
+function formatGameCountLabel(count: number): string {
+  return `${count} game${count === 1 ? "" : "s"}`;
+}
+
 function displayBetRecommendation(
   row: GamesTodayRow,
   liveDecisionMap: Map<number, BetRecommendationDisplay>,
@@ -212,6 +216,7 @@ function GamesTodayPageContent() {
   const scheduleSummary = formatCentralDateSummary(activeDateKey);
   const dateLabel = formatCentralDateLabel(activeDateKey);
   const title = activeDateKey === todayKey ? "Games Today" : `Games on ${dateLabel}`;
+  const slateSummary = `Showing ${formatGameCountLabel(rows.length)} for ${dateLabel} (Central Time).`;
   const description =
     mode === "historical"
       ? `Stored pregame replay rows for ${dateLabel} (Central Time) are shown.`
@@ -290,6 +295,7 @@ function GamesTodayPageContent() {
           </button>
         </div>
         <p className="small">{description}</p>
+        {!loading && !error ? <p className="small">{slateSummary}</p> : null}
         <p className="small">
           Stakes use uncertainty-adjusted edge and a bankroll-linked scale. A {formatUsd(REFERENCE_STAKE_DOLLARS)} recommendation corresponds to 1% of the ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()} reference bankroll.
         </p>
