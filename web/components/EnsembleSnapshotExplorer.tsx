@@ -1,10 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useTransition } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import EnsembleSnapshotBankrollChart from "@/components/EnsembleSnapshotBankrollChart";
 import styles from "@/components/EnsembleSnapshotExplorer.module.css";
 import { formatUsd } from "@/lib/currency";
 import { getBetStrategyConfig, type BetStrategy } from "@/lib/betting-strategy";
+import { listPerformanceReplayExperiments } from "@/lib/performance-replay-experiments";
 import { displayPredictionModel } from "@/lib/predictions-report";
 import type { EnsembleSnapshotRow, PerformanceReplayExperimentSummary } from "@/lib/types";
 
@@ -83,10 +85,18 @@ export default function EnsembleSnapshotExplorer({
   activeStrategy = defaultStrategy,
   replayExperiment = null,
 }: Props) {
+  const router = useRouter();
+  const pathname = usePathname() || "/performance";
+  const searchParams = useSearchParams();
+  const [isExperimentPending, startExperimentTransition] = useTransition();
   const primaryStrategy = strategyKeyFromPreference(defaultStrategy);
   const secondaryStrategy = strategyKeyFromPreference(comparisonStrategy) === "riskAdjusted" ? "aggressive" : strategyKeyFromPreference(comparisonStrategy);
   const [selectedSnapshotKey, setSelectedSnapshotKey] = useState("");
   const [matrixStrategy, setMatrixStrategy] = useState<SnapshotStrategyKey>(primaryStrategy);
+  const availableReplayExperiments = useMemo(
+    () => listPerformanceReplayExperiments().filter((experiment) => experiment.scope === "ensemble_snapshots"),
+    []
+  );
 
   const sortedSnapshots = useMemo(
     () =>
@@ -126,6 +136,20 @@ export default function EnsembleSnapshotExplorer({
   const secondaryConfig = getBetStrategyConfig(secondaryStrategy);
   const matrixStrategyConfig = getBetStrategyConfig(matrixStrategy);
 
+  function selectReplayExperiment(experimentId: string | null) {
+    const nextSearch = new URLSearchParams(searchParams.toString());
+    if (experimentId) {
+      nextSearch.set("experiment", experimentId);
+    } else {
+      nextSearch.delete("experiment");
+    }
+
+    const nextUrl = nextSearch.size ? `${pathname}?${nextSearch.toString()}` : pathname;
+    startExperimentTransition(() => {
+      router.replace(nextUrl, { scroll: false });
+    });
+  }
+
   // The matrix uses the union of tracked dates so each row answers a simple
   // question: "By this date, what would each frozen snapshot have been worth?"
   const matrixDates = Array.from(new Set(matrixSnapshots.flatMap((snapshot) => snapshot.daily.map((day) => day.date_central)))).sort();
@@ -137,7 +161,10 @@ export default function EnsembleSnapshotExplorer({
         activeStrategy={activeStrategy}
         selectedSnapshotKey={activeSelectedSnapshotKey}
         onSelectSnapshotKey={setSelectedSnapshotKey}
-        replayExperimentLabel={replayExperiment?.label || null}
+        replayExperiment={replayExperiment}
+        availableReplayExperiments={availableReplayExperiments}
+        onSelectReplayExperiment={selectReplayExperiment}
+        replayExperimentPending={isExperimentPending}
       />
 
       <section className={`card ${styles.heroCard}`}>
@@ -160,7 +187,9 @@ export default function EnsembleSnapshotExplorer({
         {replayExperiment ? (
           <div className={styles.strategyCallout}>
             <p className={styles.strategyCalloutTitle}>Experiment active: {replayExperiment.label}</p>
-            <p className={styles.strategyCalloutText}>{replayExperiment.description} Live defaults remain unchanged.</p>
+            <p className={styles.strategyCalloutText}>
+              {replayExperiment.description} Use the replay lens control above the chart to switch back to the live baseline.
+            </p>
           </div>
         ) : null}
       </section>

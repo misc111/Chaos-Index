@@ -14,7 +14,7 @@ import {
 import { HISTORICAL_BANKROLL_START_DOLLARS } from "@/lib/betting";
 import { getBetStrategyConfig, type BetStrategy } from "@/lib/betting-strategy";
 import { formatSignedUsd, formatUsd } from "@/lib/currency";
-import type { EnsembleSnapshotRow } from "@/lib/types";
+import type { EnsembleSnapshotRow, PerformanceReplayExperimentSummary } from "@/lib/types";
 import chartStyles from "./BetHistory.module.css";
 import styles from "./EnsembleSnapshotBankrollChart.module.css";
 
@@ -23,7 +23,10 @@ type Props = {
   activeStrategy?: BetStrategy;
   selectedSnapshotKey: string;
   onSelectSnapshotKey: (snapshotKey: string) => void;
-  replayExperimentLabel?: string | null;
+  replayExperiment?: PerformanceReplayExperimentSummary | null;
+  availableReplayExperiments?: PerformanceReplayExperimentSummary[];
+  onSelectReplayExperiment?: (experimentId: string | null) => void;
+  replayExperimentPending?: boolean;
 };
 
 type ChartCoord = {
@@ -181,7 +184,10 @@ export default function EnsembleSnapshotBankrollChart({
   activeStrategy = "riskAdjusted",
   selectedSnapshotKey,
   onSelectSnapshotKey,
-  replayExperimentLabel = null,
+  replayExperiment = null,
+  availableReplayExperiments = [],
+  onSelectReplayExperiment,
+  replayExperimentPending = false,
 }: Props) {
   const chartStrategy: SnapshotChartStrategyKey = activeStrategy;
   const [bankrollMode, setBankrollMode] = useState<SnapshotBankrollMode>("continuity");
@@ -314,6 +320,7 @@ export default function EnsembleSnapshotBankrollChart({
   const { minY, plotHeight, span, yTicks, xTickDates, xByDate } = geometry;
   const totalSnapshots = geometry.plottedSeries.length;
   const continuityEnabled = bankrollMode === "continuity";
+  const showReplayLensControls = availableReplayExperiments.length > 0 && typeof onSelectReplayExperiment === "function";
 
   function selectSnapshot(snapshotKey: string) {
     onSelectSnapshotKey(snapshotKey);
@@ -336,7 +343,36 @@ export default function EnsembleSnapshotBankrollChart({
             <p className={styles.objectivePill}>
               Following Bet Objective: <strong>{activeStrategyConfig.label}</strong>
             </p>
-            {replayExperimentLabel ? <p className={styles.experimentPill}>Experiment: {replayExperimentLabel}</p> : null}
+            {showReplayLensControls ? (
+              <div className={styles.controlCluster} aria-label="Replay lens" aria-busy={replayExperimentPending}>
+                <span className={styles.controlLabel}>Replay lens</span>
+                <div className={styles.replayLensRow}>
+                  <button
+                    type="button"
+                    className={`${styles.replayLensButton} ${!replayExperiment ? styles.replayLensButtonActive : ""}`}
+                    aria-pressed={!replayExperiment}
+                    disabled={replayExperimentPending}
+                    onClick={() => onSelectReplayExperiment?.(null)}
+                  >
+                    Live baseline
+                  </button>
+                  {availableReplayExperiments.map((experiment) => (
+                    <button
+                      key={experiment.id}
+                      type="button"
+                      className={`${styles.replayLensButton} ${replayExperiment?.id === experiment.id ? styles.replayLensButtonActive : ""}`}
+                      aria-pressed={replayExperiment?.id === experiment.id}
+                      disabled={replayExperimentPending}
+                      onClick={() => onSelectReplayExperiment?.(experiment.id)}
+                    >
+                      {experiment.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : replayExperiment ? (
+              <p className={styles.experimentPill}>Experiment: {replayExperiment.label}</p>
+            ) : null}
             <button
               type="button"
               className={`${styles.continuityButton} ${continuityEnabled ? styles.continuityButtonActive : ""}`}

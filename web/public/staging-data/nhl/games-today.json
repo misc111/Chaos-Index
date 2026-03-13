@@ -1,7 +1,7 @@
 {
   "league": "NHL",
   "as_of_utc": "2026-03-10T11:40:08+00:00",
-  "date_central": "2026-03-12",
+  "date_central": "2026-03-13",
   "historical_coverage_start_central": "2026-03-05",
   "strategy_configs": {
     "riskAdjusted": {
@@ -6584,72 +6584,6 @@
     }
   ],
   "rows": [
-    {
-      "game_id": 2025021025,
-      "game_date_utc": "2026-03-11",
-      "home_team": "OTT",
-      "away_team": "MTL",
-      "home_win_probability": 0.5208738537412778,
-      "betting_model_name": "ensemble",
-      "model_win_probabilities": {
-        "ensemble": 0.5208738537412778,
-        "bayes_bt_state_space": 0.5266512150452936,
-        "bayes_goals": 0.473,
-        "dynamic_rating": 0.5801785654366824,
-        "elo_baseline": 0.5004941566765593,
-        "gbdt": 0.5561588133625694,
-        "glm_elastic_net": 0.5198594789549358,
-        "glm_lasso": 0.5084183484098471,
-        "glm_ridge": 0.4845613407062524,
-        "goals_poisson": 0.49350000000000005,
-        "rf": 0.5319902954171682,
-        "simulation_first": 0.607,
-        "two_stage": 0.596955126726997
-      },
-      "forecast_as_of_utc": "2026-03-10T11:40:08+00:00",
-      "start_time_utc": "2026-03-11T23:30:00Z",
-      "odds_as_of_utc": "2026-03-11T14:17:49+00:00",
-      "home_moneyline": -166,
-      "away_moneyline": 153,
-      "home_moneyline_book": "DraftKings",
-      "away_moneyline_book": "BetOnline.ag",
-      "over_190_price": null,
-      "over_190_point": null,
-      "over_190_book": null
-    },
-    {
-      "game_id": 2025021026,
-      "game_date_utc": "2026-03-11",
-      "home_team": "PHI",
-      "away_team": "WSH",
-      "home_win_probability": 0.4594440231722369,
-      "betting_model_name": "ensemble",
-      "model_win_probabilities": {
-        "ensemble": 0.4594440231722369,
-        "bayes_bt_state_space": 0.4775158082414874,
-        "bayes_goals": 0.4786,
-        "dynamic_rating": 0.47444408910794394,
-        "elo_baseline": 0.4785073888943001,
-        "gbdt": 0.40529823537925747,
-        "glm_elastic_net": 0.47953002483500934,
-        "glm_lasso": 0.4794347481039781,
-        "glm_ridge": 0.472277289844966,
-        "goals_poisson": 0.4376666666666667,
-        "rf": 0.4303254615172592,
-        "simulation_first": 0.41185714285714287,
-        "two_stage": 0.4701629440396858
-      },
-      "forecast_as_of_utc": "2026-03-10T11:40:08+00:00",
-      "start_time_utc": "2026-03-11T23:30:00Z",
-      "odds_as_of_utc": "2026-03-11T14:17:49+00:00",
-      "home_moneyline": 107,
-      "away_moneyline": -117,
-      "home_moneyline_book": "BetOnline.ag",
-      "away_moneyline_book": "BetRivers",
-      "over_190_price": null,
-      "over_190_point": null,
-      "over_190_book": null
-    },
     {
       "game_id": 2025021027,
       "game_date_utc": "2026-03-12",

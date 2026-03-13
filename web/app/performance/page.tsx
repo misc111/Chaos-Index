@@ -22,7 +22,7 @@ const EMPTY_PERFORMANCE: PerformanceResponse = {
 function PerformancePageContent() {
   const league = useLeague();
   const strategy = useBetStrategy();
-  const replayExperiment = usePerformanceReplayExperiment(league);
+  const replayExperiment = usePerformanceReplayExperiment();
   const livePath = replayExperiment ? `/api/performance?experiment=${encodeURIComponent(replayExperiment.id)}` : "/api/performance";
   const { data, isLoading, error } = useDashboardData<PerformanceResponse>(
     "performance",
