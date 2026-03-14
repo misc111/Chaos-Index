@@ -374,7 +374,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-10",
-      "log_loss": 0.6346867625864375
+      "log_loss": 0.6346867625864362
     },
     {
       "model_name": "gbdt",
@@ -414,7 +414,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-10",
-      "log_loss": 0.6541702977211402
+      "log_loss": 0.6532576800257888
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -439,7 +439,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.7567647643308231
+      "log_loss": 0.7567647643308247
     },
     {
       "model_name": "gbdt",
@@ -469,7 +469,7 @@
     {
       "model_name": "rf",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.8012398581655861
+      "log_loss": 0.8012398581655862
     },
     {
       "model_name": "simulation_first",
@@ -479,7 +479,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.8310298644426231
+      "log_loss": 0.8305237452724474
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -504,7 +504,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-12",
-      "log_loss": 0.7863154542866636
+      "log_loss": 0.7863154542866667
     },
     {
       "model_name": "gbdt",
@@ -544,7 +544,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-12",
-      "log_loss": 0.8153650805205153
+      "log_loss": 0.8181745071336736
     }
   ],
   "run_summaries": [
@@ -552,8 +552,8 @@
       "model_name": "bayes_bt_state_space",
       "model_run_id": "run_0bd28749c5be5350__bayes_bt_state_space",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:14:39+00:00",
-      "snapshot_id": "nhl_odds_8fc014e8a249eb1a",
+      "created_at_utc": "2026-03-14T00:04:18+00:00",
+      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -570,8 +570,8 @@
       "model_name": "bayes_goals",
       "model_run_id": "run_0bd28749c5be5350__bayes_goals",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:14:39+00:00",
-      "snapshot_id": "nhl_odds_8fc014e8a249eb1a",
+      "created_at_utc": "2026-03-14T00:04:18+00:00",
+      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -588,8 +588,8 @@
       "model_name": "dynamic_rating",
       "model_run_id": "run_0bd28749c5be5350__dynamic_rating",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:14:39+00:00",
-      "snapshot_id": "nhl_odds_8fc014e8a249eb1a",
+      "created_at_utc": "2026-03-14T00:04:18+00:00",
+      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -606,8 +606,8 @@
       "model_name": "elo_baseline",
       "model_run_id": "run_0bd28749c5be5350__elo_baseline",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:14:39+00:00",
-      "snapshot_id": "nhl_odds_8fc014e8a249eb1a",
+      "created_at_utc": "2026-03-14T00:04:18+00:00",
+      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -624,16 +624,16 @@
       "model_name": "ensemble",
       "model_run_id": "run_0bd28749c5be5350__ensemble",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:14:39+00:00",
-      "snapshot_id": "nhl_odds_8fc014e8a249eb1a",
+      "created_at_utc": "2026-03-14T00:04:18+00:00",
+      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-12",
       "last_game_date_central": "2026-03-12",
       "n_games": 29,
-      "avg_log_loss": 0.7163059931827112,
-      "avg_brier": 0.2614046905675439,
+      "avg_log_loss": 0.7163059931827123,
+      "avg_brier": 0.26140469056754434,
       "accuracy": 0.5172413793103449,
       "version_rank": 1,
       "is_latest_version": 1
@@ -642,8 +642,8 @@
       "model_name": "gbdt",
       "model_run_id": "run_0bd28749c5be5350__gbdt",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:14:39+00:00",
-      "snapshot_id": "nhl_odds_8fc014e8a249eb1a",
+      "created_at_utc": "2026-03-14T00:04:18+00:00",
+      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -660,8 +660,8 @@
       "model_name": "glm_elastic_net",
       "model_run_id": "run_0bd28749c5be5350__glm_elastic_net",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:14:39+00:00",
-      "snapshot_id": "nhl_odds_8fc014e8a249eb1a",
+      "created_at_utc": "2026-03-14T00:04:18+00:00",
+      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -678,8 +678,8 @@
       "model_name": "glm_lasso",
       "model_run_id": "run_0bd28749c5be5350__glm_lasso",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:14:39+00:00",
-      "snapshot_id": "nhl_odds_8fc014e8a249eb1a",
+      "created_at_utc": "2026-03-14T00:04:18+00:00",
+      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -696,8 +696,8 @@
       "model_name": "glm_ridge",
       "model_run_id": "run_0bd28749c5be5350__glm_ridge",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:14:39+00:00",
-      "snapshot_id": "nhl_odds_8fc014e8a249eb1a",
+      "created_at_utc": "2026-03-14T00:04:18+00:00",
+      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -714,8 +714,8 @@
       "model_name": "goals_poisson",
       "model_run_id": "run_0bd28749c5be5350__goals_poisson",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:14:39+00:00",
-      "snapshot_id": "nhl_odds_8fc014e8a249eb1a",
+      "created_at_utc": "2026-03-14T00:04:18+00:00",
+      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -732,8 +732,8 @@
       "model_name": "rf",
       "model_run_id": "run_0bd28749c5be5350__rf",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:14:39+00:00",
-      "snapshot_id": "nhl_odds_8fc014e8a249eb1a",
+      "created_at_utc": "2026-03-14T00:04:18+00:00",
+      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -750,8 +750,8 @@
       "model_name": "simulation_first",
       "model_run_id": "run_0bd28749c5be5350__simulation_first",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:14:39+00:00",
-      "snapshot_id": "nhl_odds_8fc014e8a249eb1a",
+      "created_at_utc": "2026-03-14T00:04:18+00:00",
+      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -768,16 +768,16 @@
       "model_name": "two_stage",
       "model_run_id": "run_0bd28749c5be5350__two_stage",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:14:39+00:00",
-      "snapshot_id": "nhl_odds_8fc014e8a249eb1a",
+      "created_at_utc": "2026-03-14T00:04:18+00:00",
+      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-12",
       "last_game_date_central": "2026-03-12",
       "n_games": 29,
-      "avg_log_loss": 0.7441856802257683,
-      "avg_brier": 0.274504347656373,
+      "avg_log_loss": 0.7450979458879855,
+      "avg_brier": 0.27495969768279216,
       "accuracy": 0.4827586206896552,
       "version_rank": 1,
       "is_latest_version": 1
@@ -1655,7 +1655,7 @@
       "statistic": 2.6988907877809645,
       "threshold": 1.2777514187042573,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 41, \"value\": 1.4080825108107682}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "gbdt",
@@ -1664,7 +1664,7 @@
       "statistic": 2.46928863270316,
       "threshold": 1.5383649485825672,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 1.5237633998969349}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "dynamic_rating",
@@ -1673,7 +1673,7 @@
       "statistic": 2.4257239452642123,
       "threshold": 1.2777514187042573,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 69, \"value\": 1.492128457807802}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "dynamic_rating",
@@ -1682,7 +1682,7 @@
       "statistic": 2.400415117746249,
       "threshold": 1.2777514187042573,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 59, \"value\": 1.9928429720085996}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "gbdt",
@@ -1691,7 +1691,7 @@
       "statistic": 2.0843923203581145,
       "threshold": 1.5383649485825672,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 49, \"value\": 1.4740124991143628}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "gbdt",
@@ -1700,7 +1700,7 @@
       "statistic": 2.0581924987430598,
       "threshold": 1.8460379382990808,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 1.4635990474561396}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "dynamic_rating",
@@ -1709,7 +1709,7 @@
       "statistic": 2.0469017046621656,
       "threshold": 1.533301702445109,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 61, \"value\": 0.4357833586610193}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "dynamic_rating",
@@ -1718,7 +1718,7 @@
       "statistic": 2.011576291388775,
       "threshold": 1.533301702445109,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 51, \"value\": 0.16986572350742243}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "gbdt",
@@ -1727,7 +1727,7 @@
       "statistic": 1.966036228458113,
       "threshold": 1.8460379382990808,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 67, \"value\": 0.35163891474587455}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "gbdt",
@@ -1736,7 +1736,7 @@
       "statistic": 1.861484614225569,
       "threshold": 1.5383649485825672,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 69, \"value\": 2.4241835376478016}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "dynamic_rating",
@@ -1745,7 +1745,7 @@
       "statistic": 1.8573310178452578,
       "threshold": 1.533301702445109,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 1.6251768292200672}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "gbdt",
@@ -1754,7 +1754,7 @@
       "statistic": 1.7053830742288894,
       "threshold": 1.5383649485825672,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 39, \"value\": 2.6073172489879406}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "dynamic_rating",
@@ -1763,7 +1763,7 @@
       "statistic": 1.683786374086115,
       "threshold": 1.2777514187042573,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.9542254363415801}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "dynamic_rating",
@@ -1772,7 +1772,7 @@
       "statistic": 1.6691747230146567,
       "threshold": 1.533301702445109,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 26, \"value\": 0.20945555226579088}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "gbdt",
@@ -1781,16 +1781,16 @@
       "statistic": 1.6457604573835394,
       "threshold": 1.5383649485825672,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 29, \"value\": 1.0179450737863192}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "two_stage",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.46328702634478,
-      "threshold": 0.6418155349062897,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 68, \"value\": 1.1561683817970476}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "statistic": 1.452950033476153,
+      "threshold": 0.6406466390254877,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 68, \"value\": 1.1626561037384942}",
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "simulation_first",
@@ -1799,7 +1799,7 @@
       "statistic": 1.3094563021190522,
       "threshold": 0.5570484814059758,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.9148631798829696}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "dynamic_rating",
@@ -1808,7 +1808,7 @@
       "statistic": 1.2961717904565477,
       "threshold": 1.2777514187042573,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 31, \"value\": 1.0987217557636895}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "glm_ridge",
@@ -1817,16 +1817,16 @@
       "statistic": 1.2299889618222726,
       "threshold": 0.47623620283440476,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 69, \"value\": 0.8528216153056998}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.2001953308231805,
-      "threshold": 0.4867295320341709,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 68, \"value\": 0.9934746088349837}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "statistic": 1.2001953308232332,
+      "threshold": 0.4867295320341785,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 68, \"value\": 0.9934746088349994}",
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "simulation_first",
@@ -1835,7 +1835,16 @@
       "statistic": 1.1649844158177085,
       "threshold": 0.5570484814059758,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 67, \"value\": 0.7023320901370179}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
+    },
+    {
+      "model_name": "two_stage",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 1.159671794239168,
+      "threshold": 0.7687759668305851,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 68, \"value\": 1.1626561037384942}",
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "glm_lasso",
@@ -1844,7 +1853,7 @@
       "statistic": 1.067896925295975,
       "threshold": 0.49983234836073415,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 19, \"value\": 0.6416308369837391}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -1853,7 +1862,7 @@
       "statistic": 1.0133873989988955,
       "threshold": 0.42977509339618936,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 68, \"value\": 0.9701283525136658}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "glm_elastic_net",
@@ -1862,43 +1871,34 @@
       "statistic": 0.9843214182993454,
       "threshold": 0.47513346585744015,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 19, \"value\": 0.6383164235428803}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "two_stage",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.9806354067264211,
-      "threshold": 0.7701786418875476,
+      "statistic": 0.9820182627463256,
+      "threshold": 0.7687759668305851,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 35, \"value\": 0.23594092049284612}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.9391703278180833,
-      "threshold": 0.5840754384410052,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 69, \"value\": 0.908547183878276}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "statistic": 0.9391703278181668,
+      "threshold": 0.5840754384410142,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 69, \"value\": 0.9085471838782997}",
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "two_stage",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.9092373096802244,
-      "threshold": 0.7701786418875476,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 45, \"value\": 0.48519557029071214}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
-    },
-    {
-      "model_name": "two_stage",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 0.8858804612913374,
-      "threshold": 0.6418155349062897,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 58, \"value\": 0.9878360459339933}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "statistic": 0.914178909057674,
+      "threshold": 0.7687759668305851,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 45, \"value\": 0.4895236726702042}",
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -1907,7 +1907,16 @@
       "statistic": 0.883929072991991,
       "threshold": 0.45633740610277185,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 66, \"value\": 0.9752360089549104}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
+    },
+    {
+      "model_name": "two_stage",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8767981102724787,
+      "threshold": 0.6406466390254877,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 58, \"value\": 0.9997271364494085}",
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "glm_lasso",
@@ -1916,7 +1925,7 @@
       "statistic": 0.8729909368631331,
       "threshold": 0.5997988180328809,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 30, \"value\": 1.063868209914666}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "glm_elastic_net",
@@ -1925,16 +1934,16 @@
       "statistic": 0.8691005335656902,
       "threshold": 0.5701601590289281,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 30, \"value\": 1.0387762792654345}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "two_stage",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.867035415423558,
-      "threshold": 0.6418155349062897,
+      "statistic": 0.8670821712587897,
+      "threshold": 0.6406466390254877,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 1.0184294385466095}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "glm_elastic_net",
@@ -1943,7 +1952,7 @@
       "statistic": 0.8529233422061007,
       "threshold": 0.47513346585744015,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 29, \"value\": 0.8420386241222134}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -1952,7 +1961,7 @@
       "statistic": 0.8497832736189802,
       "threshold": 0.5476048873233261,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 70, \"value\": 0.7686789866887521}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "glm_ridge",
@@ -1961,7 +1970,7 @@
       "statistic": 0.8386927776599525,
       "threshold": 0.47623620283440476,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 59, \"value\": 1.0679153309663962}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "glm_lasso",
@@ -1970,7 +1979,7 @@
       "statistic": 0.8376195073310222,
       "threshold": 0.49983234836073415,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 29, \"value\": 0.8296989077667443}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "bayes_goals",
@@ -1979,7 +1988,7 @@
       "statistic": 0.8360622749749229,
       "threshold": 0.35942967414972155,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 69, \"value\": 0.7096831492000448}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "rf",
@@ -1988,7 +1997,7 @@
       "statistic": 0.819778992793326,
       "threshold": 0.36443402697429156,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.8148621137614164}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "simulation_first",
@@ -1997,25 +2006,16 @@
       "statistic": 0.7836021791485379,
       "threshold": 0.5570484814059758,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 0.9961846410949208}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
-    },
-    {
-      "model_name": "two_stage",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.7798627896326613,
-      "threshold": 0.7701786418875476,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 67, \"value\": 1.0258447344852966}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.7665289580075435,
-      "threshold": 0.4867295320341709,
+      "threshold": 0.4867295320341785,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.5821864597864855}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "glm_ridge",
@@ -2024,7 +2024,7 @@
       "statistic": 0.7665289580075435,
       "threshold": 0.47623620283440476,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.5821864597864855}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "glm_ridge",
@@ -2033,25 +2033,25 @@
       "statistic": 0.7559639667069991,
       "threshold": 0.5714834434012858,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 35, \"value\": 0.3150121203030179}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.733502490614383,
-      "threshold": 0.4867295320341709,
+      "threshold": 0.4867295320341785,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 41, \"value\": 0.7738489111470783}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.7329899944286534,
-      "threshold": 0.5840754384410052,
+      "statistic": 0.732989994428653,
+      "threshold": 0.5840754384410142,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 35, \"value\": 0.4077891762903111}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "simulation_first",
@@ -2060,7 +2060,7 @@
       "statistic": 0.7177839169943869,
       "threshold": 0.668458177687171,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 32, \"value\": 1.0535023576444902}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "simulation_first",
@@ -2069,7 +2069,7 @@
       "statistic": 0.7091513879678137,
       "threshold": 0.668458177687171,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.9148631798829696}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -2078,7 +2078,7 @@
       "statistic": 0.7079458832786324,
       "threshold": 0.5476048873233261,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 60, \"value\": 0.8489795183975113}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "simulation_first",
@@ -2087,7 +2087,7 @@
       "statistic": 0.7064919472341988,
       "threshold": 0.668458177687171,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 70, \"value\": 0.8563386050393527}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "simulation_first",
@@ -2096,7 +2096,7 @@
       "statistic": 0.7013358327841124,
       "threshold": 0.668458177687171,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 45, \"value\": 0.33347672764141445}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "glm_lasso",
@@ -2105,16 +2105,16 @@
       "statistic": 0.6956700349595487,
       "threshold": 0.49983234836073415,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 39, \"value\": 0.903744054943495}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "two_stage",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.693925200375711,
-      "threshold": 0.6418155349062897,
+      "statistic": 0.6939719562109431,
+      "threshold": 0.6406466390254877,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 29, \"value\": 0.9583125280380612}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "simulation_first",
@@ -2123,16 +2123,16 @@
       "statistic": 0.6906553652500518,
       "threshold": 0.5570484814059758,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 29, \"value\": 0.7749771988075774}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.6823081833194579,
-      "threshold": 0.5840754384410052,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 45, \"value\": 0.44562476267910467}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "statistic": 0.6823081833194705,
+      "threshold": 0.5840754384410142,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 45, \"value\": 0.4456247626791005}",
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "simulation_first",
@@ -2141,7 +2141,7 @@
       "statistic": 0.6814833005539545,
       "threshold": 0.668458177687171,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 60, \"value\": 0.9541409560052527}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "simulation_first",
@@ -2150,7 +2150,7 @@
       "statistic": 0.6756768545779724,
       "threshold": 0.5570484814059758,
       "details_json": "{\"date\": \"2026-03-11\", \"index\": 57, \"value\": 0.9339456671128757}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "glm_elastic_net",
@@ -2159,7 +2159,7 @@
       "statistic": 0.6554803205283031,
       "threshold": 0.47513346585744015,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 39, \"value\": 0.9182614491885797}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "goals_poisson",
@@ -2168,7 +2168,7 @@
       "statistic": 0.6450072438707385,
       "threshold": 0.4927065539757313,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 51, \"value\": 0.4826161672965794}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -2177,16 +2177,16 @@
       "statistic": 0.6434388727482215,
       "threshold": 0.5476048873233261,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 27, \"value\": 0.575066339189471}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.6157109808519566,
-      "threshold": 0.5840754384410052,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 59, \"value\": 1.0161546056489057}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "statistic": 0.6157109808519589,
+      "threshold": 0.5840754384410142,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 59, \"value\": 1.0161546056489223}",
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "glm_ridge",
@@ -2195,25 +2195,25 @@
       "statistic": 0.6081874620347985,
       "threshold": 0.5714834434012858,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 66, \"value\": 1.0779668249494534}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.5971656671114185,
+      "statistic": 0.5971656671114193,
       "threshold": 0.45,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.8148621137614164}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.5928020132288562,
-      "threshold": 0.4867295320341709,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 58, \"value\": 0.8345378523002398}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "statistic": 0.5928020132288492,
+      "threshold": 0.4867295320341785,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 58, \"value\": 0.834537852300239}",
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -2222,7 +2222,7 @@
       "statistic": 0.5902316125791953,
       "threshold": 0.5157301120754272,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 38, \"value\": 0.41682889454715677}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -2231,7 +2231,7 @@
       "statistic": 0.5861175762370052,
       "threshold": 0.5476048873233261,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 50, \"value\": 0.5656313556671759}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -2240,7 +2240,7 @@
       "statistic": 0.5784485974922509,
       "threshold": 0.5476048873233261,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 38, \"value\": 0.45992568522941846}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -2249,7 +2249,7 @@
       "statistic": 0.5682215258951955,
       "threshold": 0.5157301120754272,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 26, \"value\": 0.3825986984974909}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -2258,7 +2258,7 @@
       "statistic": 0.5619103274910359,
       "threshold": 0.45633740610277185,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 41, \"value\": 0.8606501649179034}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -2267,7 +2267,7 @@
       "statistic": 0.5540897994855788,
       "threshold": 0.5157301120754272,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 66, \"value\": 0.9663813419561049}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -2276,25 +2276,25 @@
       "statistic": 0.5435294150153669,
       "threshold": 0.42977509339618936,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 41, \"value\": 0.8330872722555999}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.5328683031342295,
-      "threshold": 0.4867295320341709,
+      "threshold": 0.4867295320341785,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 31, \"value\": 0.9484235378523279}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.5268842164322358,
+      "statistic": 0.5268842164322356,
       "threshold": 0.36443402697429156,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 70, \"value\": 0.7147284614702526}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "bayes_goals",
@@ -2303,7 +2303,7 @@
       "statistic": 0.5178885065020152,
       "threshold": 0.35942967414972155,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 31, \"value\": 1.0356374895067213}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "glm_ridge",
@@ -2312,7 +2312,7 @@
       "statistic": 0.5162063498312477,
       "threshold": 0.47623620283440476,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 0.9462860324025361}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -2321,7 +2321,7 @@
       "statistic": 0.516173941414568,
       "threshold": 0.5157301120754272,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 48, \"value\": 0.5416254672470224}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "bayes_goals",
@@ -2330,7 +2330,7 @@
       "statistic": 0.5153246431770755,
       "threshold": 0.45,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 43, \"value\": 0.4841836928195696}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "bayes_goals",
@@ -2339,7 +2339,7 @@
       "statistic": 0.514052255812415,
       "threshold": 0.45,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 66, \"value\": 0.8906229851255774}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "goals_poisson",
@@ -2348,7 +2348,7 @@
       "statistic": 0.5087528399069863,
       "threshold": 0.4927065539757313,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 37, \"value\": 0.6264235485170372}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "goals_poisson",
@@ -2357,7 +2357,7 @@
       "statistic": 0.5087500970618875,
       "threshold": 0.4105887949797761,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 55, \"value\": 0.8089322135536556}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -2366,16 +2366,16 @@
       "statistic": 0.5086357570559384,
       "threshold": 0.45633740610277185,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 31, \"value\": 0.9864309088275939}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.4984187807506826,
+      "statistic": 0.49841878075068213,
       "threshold": 0.45,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 35, \"value\": 0.5219687488845497}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "bayes_goals",
@@ -2384,7 +2384,7 @@
       "statistic": 0.4960513915499059,
       "threshold": 0.45,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 31, \"value\": 1.0356374895067213}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "bayes_goals",
@@ -2393,7 +2393,7 @@
       "statistic": 0.4958908335600636,
       "threshold": 0.35942967414972155,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 59, \"value\": 0.8589656652548857}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "goals_poisson",
@@ -2402,7 +2402,7 @@
       "statistic": 0.49293480520509586,
       "threshold": 0.4927065539757313,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 63, \"value\": 0.8003612648670945}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "goals_poisson",
@@ -2411,7 +2411,7 @@
       "statistic": 0.4918029844650391,
       "threshold": 0.4105887949797761,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 65, \"value\": 0.5136072667278676}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "goals_poisson",
@@ -2420,7 +2420,7 @@
       "statistic": 0.4754499735362816,
       "threshold": 0.4105887949797761,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 31, \"value\": 0.9441759353636907}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -2429,7 +2429,7 @@
       "statistic": 0.47401953076831826,
       "threshold": 0.45633740610277185,
       "details_json": "{\"date\": \"2026-03-11\", \"index\": 56, \"value\": 0.7370836264229801}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "bayes_goals",
@@ -2438,7 +2438,7 @@
       "statistic": 0.4733374044006801,
       "threshold": 0.45,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 53, \"value\": 0.5916742116293116}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -2447,7 +2447,7 @@
       "statistic": 0.46057547551623096,
       "threshold": 0.45633740610277185,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.858087593873505}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -2456,7 +2456,7 @@
       "statistic": 0.4545352904864479,
       "threshold": 0.42977509339618936,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 58, \"value\": 0.8109575695562878}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "rf",
@@ -2465,7 +2465,7 @@
       "statistic": 0.4440576413829316,
       "threshold": 0.36443402697429156,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 0.802500556766169}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -2474,16 +2474,16 @@
       "statistic": 0.43646022132079787,
       "threshold": 0.42977509339618936,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 31, \"value\": 1.0563752075483124}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.4014314330885955,
+      "statistic": 0.40143143308859475,
       "threshold": 0.36443402697429156,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 60, \"value\": 0.7524088469773836}",
-      "as_of_utc": "2026-03-13T23:15:05+00:00"
+      "as_of_utc": "2026-03-14T00:04:43+00:00"
     }
   ],
   "replay_runs": [
@@ -33271,8 +33271,8 @@
       "model_name": "glm_elastic_net",
       "model_run_id": "run_0bd28749c5be5350__glm_elastic_net",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:14:39+00:00",
-      "snapshot_id": "nhl_odds_8fc014e8a249eb1a",
+      "created_at_utc": "2026-03-14T00:04:18+00:00",
+      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
       "artifact_path": "artifacts/models/0bd28749c5be5350",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "feature_columns": [
@@ -33470,7 +33470,7 @@
           "glm_elastic_net": 0.1252865257135692,
           "glm_ridge": 0.12547749254801532,
           "goals_poisson": 0.12640826947542175,
-          "rf": 0.12657332279135602,
+          "rf": 0.126573322791356,
           "simulation_first": 0.12574330836300282
         }
       },
@@ -37831,8 +37831,8 @@
       "model_name": "glm_lasso",
       "model_run_id": "run_0bd28749c5be5350__glm_lasso",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:14:39+00:00",
-      "snapshot_id": "nhl_odds_8fc014e8a249eb1a",
+      "created_at_utc": "2026-03-14T00:04:18+00:00",
+      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
       "artifact_path": "artifacts/models/0bd28749c5be5350",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "feature_columns": [
@@ -38030,7 +38030,7 @@
           "glm_elastic_net": 0.1252865257135692,
           "glm_ridge": 0.12547749254801532,
           "goals_poisson": 0.12640826947542175,
-          "rf": 0.12657332279135602,
+          "rf": 0.126573322791356,
           "simulation_first": 0.12574330836300282
         }
       },

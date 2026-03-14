@@ -24,7 +24,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.13346152891314608
+      "log_loss": 0.13308564983605933
     },
     {
       "model_name": "gbdt",
@@ -59,7 +59,7 @@
     {
       "model_name": "rf",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.12347983427890241
+      "log_loss": 0.12347983427890237
     },
     {
       "model_name": "simulation_first",
@@ -69,7 +69,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.15776731755652498
+      "log_loss": 0.15343234318980295
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -94,7 +94,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-12",
-      "log_loss": 0.47004901621379963
+      "log_loss": 0.47024509944006054
     },
     {
       "model_name": "gbdt",
@@ -139,7 +139,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-12",
-      "log_loss": 0.506748172250737
+      "log_loss": 0.4999331394526319
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -164,7 +164,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-13",
-      "log_loss": 0.7846632914894247
+      "log_loss": 0.7854539032161969
     },
     {
       "model_name": "gbdt",
@@ -209,7 +209,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-13",
-      "log_loss": 0.7101606192921542
+      "log_loss": 0.7213881261097056
     }
   ],
   "run_summaries": [
@@ -217,8 +217,8 @@
       "model_name": "bayes_bt_state_space",
       "model_run_id": "run_b3760fbf3dfb9ff3__bayes_bt_state_space",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:16:21+00:00",
-      "snapshot_id": "ncaam_odds_20e1102dc328e1bf",
+      "created_at_utc": "2026-03-14T00:05:57+00:00",
+      "snapshot_id": "ncaam_odds_447b716b196a980c",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -235,8 +235,8 @@
       "model_name": "bayes_goals",
       "model_run_id": "run_b3760fbf3dfb9ff3__bayes_goals",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:16:21+00:00",
-      "snapshot_id": "ncaam_odds_20e1102dc328e1bf",
+      "created_at_utc": "2026-03-14T00:05:57+00:00",
+      "snapshot_id": "ncaam_odds_447b716b196a980c",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -253,8 +253,8 @@
       "model_name": "dynamic_rating",
       "model_run_id": "run_b3760fbf3dfb9ff3__dynamic_rating",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:16:21+00:00",
-      "snapshot_id": "ncaam_odds_20e1102dc328e1bf",
+      "created_at_utc": "2026-03-14T00:05:57+00:00",
+      "snapshot_id": "ncaam_odds_447b716b196a980c",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -271,8 +271,8 @@
       "model_name": "elo_baseline",
       "model_run_id": "run_b3760fbf3dfb9ff3__elo_baseline",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:16:21+00:00",
-      "snapshot_id": "ncaam_odds_20e1102dc328e1bf",
+      "created_at_utc": "2026-03-14T00:05:57+00:00",
+      "snapshot_id": "ncaam_odds_447b716b196a980c",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -289,16 +289,16 @@
       "model_name": "ensemble",
       "model_run_id": "run_b3760fbf3dfb9ff3__ensemble",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:16:21+00:00",
-      "snapshot_id": "ncaam_odds_20e1102dc328e1bf",
+      "created_at_utc": "2026-03-14T00:05:57+00:00",
+      "snapshot_id": "ncaam_odds_447b716b196a980c",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-13",
       "last_game_date_central": "2026-03-13",
       "n_games": 20,
-      "avg_log_loss": 0.5139451757013891,
-      "avg_brier": 0.16405666220574597,
+      "avg_log_loss": 0.5142338231323013,
+      "avg_brier": 0.16412377292548597,
       "accuracy": 0.8,
       "version_rank": 1,
       "is_latest_version": 1
@@ -307,8 +307,8 @@
       "model_name": "gbdt",
       "model_run_id": "run_b3760fbf3dfb9ff3__gbdt",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:16:21+00:00",
-      "snapshot_id": "ncaam_odds_20e1102dc328e1bf",
+      "created_at_utc": "2026-03-14T00:05:57+00:00",
+      "snapshot_id": "ncaam_odds_447b716b196a980c",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -325,8 +325,8 @@
       "model_name": "glm_elastic_net",
       "model_run_id": "run_b3760fbf3dfb9ff3__glm_elastic_net",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:16:21+00:00",
-      "snapshot_id": "ncaam_odds_20e1102dc328e1bf",
+      "created_at_utc": "2026-03-14T00:05:57+00:00",
+      "snapshot_id": "ncaam_odds_447b716b196a980c",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -343,8 +343,8 @@
       "model_name": "glm_lasso",
       "model_run_id": "run_b3760fbf3dfb9ff3__glm_lasso",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:16:21+00:00",
-      "snapshot_id": "ncaam_odds_20e1102dc328e1bf",
+      "created_at_utc": "2026-03-14T00:05:57+00:00",
+      "snapshot_id": "ncaam_odds_447b716b196a980c",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -361,8 +361,8 @@
       "model_name": "glm_ridge",
       "model_run_id": "run_b3760fbf3dfb9ff3__glm_ridge",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:16:21+00:00",
-      "snapshot_id": "ncaam_odds_20e1102dc328e1bf",
+      "created_at_utc": "2026-03-14T00:05:57+00:00",
+      "snapshot_id": "ncaam_odds_447b716b196a980c",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -379,8 +379,8 @@
       "model_name": "goals_poisson",
       "model_run_id": "run_b3760fbf3dfb9ff3__goals_poisson",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:16:21+00:00",
-      "snapshot_id": "ncaam_odds_20e1102dc328e1bf",
+      "created_at_utc": "2026-03-14T00:05:57+00:00",
+      "snapshot_id": "ncaam_odds_447b716b196a980c",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -397,8 +397,8 @@
       "model_name": "rf",
       "model_run_id": "run_b3760fbf3dfb9ff3__rf",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:16:21+00:00",
-      "snapshot_id": "ncaam_odds_20e1102dc328e1bf",
+      "created_at_utc": "2026-03-14T00:05:57+00:00",
+      "snapshot_id": "ncaam_odds_447b716b196a980c",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -415,8 +415,8 @@
       "model_name": "simulation_first",
       "model_run_id": "run_b3760fbf3dfb9ff3__simulation_first",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:16:21+00:00",
-      "snapshot_id": "ncaam_odds_20e1102dc328e1bf",
+      "created_at_utc": "2026-03-14T00:05:57+00:00",
+      "snapshot_id": "ncaam_odds_447b716b196a980c",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -433,16 +433,16 @@
       "model_name": "two_stage",
       "model_run_id": "run_b3760fbf3dfb9ff3__two_stage",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:16:21+00:00",
-      "snapshot_id": "ncaam_odds_20e1102dc328e1bf",
+      "created_at_utc": "2026-03-14T00:05:57+00:00",
+      "snapshot_id": "ncaam_odds_447b716b196a980c",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-13",
       "last_game_date_central": "2026-03-13",
       "n_games": 20,
-      "avg_log_loss": 0.5154247781590303,
-      "avg_brier": 0.16739264308879984,
+      "avg_log_loss": 0.5143945160103297,
+      "avg_brier": 0.16633537469640905,
       "accuracy": 0.8,
       "version_rank": 1,
       "is_latest_version": 1

@@ -309,7 +309,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-10",
-      "log_loss": 0.5362501662550031
+      "log_loss": 0.5360978647878208
     },
     {
       "model_name": "gbdt",
@@ -349,7 +349,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-10",
-      "log_loss": 0.5939448810045779
+      "log_loss": 0.5946073722274544
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -374,7 +374,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.6338973289535011
+      "log_loss": 0.634280858304817
     },
     {
       "model_name": "gbdt",
@@ -404,7 +404,7 @@
     {
       "model_name": "rf",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.6347694766550578
+      "log_loss": 0.6347694766550577
     },
     {
       "model_name": "simulation_first",
@@ -414,7 +414,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.6013728883510482
+      "log_loss": 0.6029748451859802
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -439,7 +439,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-12",
-      "log_loss": 0.42203863103352335
+      "log_loss": 0.421152889232663
     },
     {
       "model_name": "gbdt",
@@ -479,7 +479,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-12",
-      "log_loss": 0.2930742655281472
+      "log_loss": 0.2849925582315117
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -504,7 +504,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-13",
-      "log_loss": 0.7405929928551251
+      "log_loss": 0.744160829879674
     },
     {
       "model_name": "gbdt",
@@ -534,7 +534,7 @@
     {
       "model_name": "rf",
       "game_date_utc": "2026-03-13",
-      "log_loss": 0.7756432131141634
+      "log_loss": 0.7756432131141633
     },
     {
       "model_name": "simulation_first",
@@ -544,7 +544,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-13",
-      "log_loss": 0.7884199928466158
+      "log_loss": 0.8382027357706199
     }
   ],
   "run_summaries": [
@@ -552,8 +552,8 @@
       "model_name": "bayes_bt_state_space",
       "model_run_id": "run_54a95fec15c1b731__bayes_bt_state_space",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:15:24+00:00",
-      "snapshot_id": "nba_odds_50d28084bbc6b9e8",
+      "created_at_utc": "2026-03-14T00:05:01+00:00",
+      "snapshot_id": "nba_odds_b0282d2f3c17e6db",
       "feature_set_version": "fset_303e54a140ca5278",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -570,8 +570,8 @@
       "model_name": "bayes_goals",
       "model_run_id": "run_54a95fec15c1b731__bayes_goals",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:15:24+00:00",
-      "snapshot_id": "nba_odds_50d28084bbc6b9e8",
+      "created_at_utc": "2026-03-14T00:05:01+00:00",
+      "snapshot_id": "nba_odds_b0282d2f3c17e6db",
       "feature_set_version": "fset_303e54a140ca5278",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -588,8 +588,8 @@
       "model_name": "dynamic_rating",
       "model_run_id": "run_54a95fec15c1b731__dynamic_rating",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:15:24+00:00",
-      "snapshot_id": "nba_odds_50d28084bbc6b9e8",
+      "created_at_utc": "2026-03-14T00:05:01+00:00",
+      "snapshot_id": "nba_odds_b0282d2f3c17e6db",
       "feature_set_version": "fset_303e54a140ca5278",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -606,8 +606,8 @@
       "model_name": "elo_baseline",
       "model_run_id": "run_54a95fec15c1b731__elo_baseline",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:15:24+00:00",
-      "snapshot_id": "nba_odds_50d28084bbc6b9e8",
+      "created_at_utc": "2026-03-14T00:05:01+00:00",
+      "snapshot_id": "nba_odds_b0282d2f3c17e6db",
       "feature_set_version": "fset_303e54a140ca5278",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -624,16 +624,16 @@
       "model_name": "ensemble",
       "model_run_id": "run_54a95fec15c1b731__ensemble",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:15:24+00:00",
-      "snapshot_id": "nba_odds_50d28084bbc6b9e8",
+      "created_at_utc": "2026-03-14T00:05:01+00:00",
+      "snapshot_id": "nba_odds_b0282d2f3c17e6db",
       "feature_set_version": "fset_303e54a140ca5278",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-13",
       "last_game_date_central": "2026-03-12",
       "n_games": 26,
-      "avg_log_loss": 0.513158625997465,
-      "avg_brier": 0.1677500066970101,
+      "avg_log_loss": 0.5134497166165815,
+      "avg_brier": 0.16788566487883833,
       "accuracy": 0.7692307692307693,
       "version_rank": 1,
       "is_latest_version": 1
@@ -642,8 +642,8 @@
       "model_name": "gbdt",
       "model_run_id": "run_54a95fec15c1b731__gbdt",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:15:24+00:00",
-      "snapshot_id": "nba_odds_50d28084bbc6b9e8",
+      "created_at_utc": "2026-03-14T00:05:01+00:00",
+      "snapshot_id": "nba_odds_b0282d2f3c17e6db",
       "feature_set_version": "fset_303e54a140ca5278",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -660,8 +660,8 @@
       "model_name": "glm_elastic_net",
       "model_run_id": "run_54a95fec15c1b731__glm_elastic_net",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:15:24+00:00",
-      "snapshot_id": "nba_odds_50d28084bbc6b9e8",
+      "created_at_utc": "2026-03-14T00:05:01+00:00",
+      "snapshot_id": "nba_odds_b0282d2f3c17e6db",
       "feature_set_version": "fset_303e54a140ca5278",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -678,8 +678,8 @@
       "model_name": "glm_lasso",
       "model_run_id": "run_54a95fec15c1b731__glm_lasso",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:15:24+00:00",
-      "snapshot_id": "nba_odds_50d28084bbc6b9e8",
+      "created_at_utc": "2026-03-14T00:05:01+00:00",
+      "snapshot_id": "nba_odds_b0282d2f3c17e6db",
       "feature_set_version": "fset_303e54a140ca5278",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -696,8 +696,8 @@
       "model_name": "glm_ridge",
       "model_run_id": "run_54a95fec15c1b731__glm_ridge",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:15:24+00:00",
-      "snapshot_id": "nba_odds_50d28084bbc6b9e8",
+      "created_at_utc": "2026-03-14T00:05:01+00:00",
+      "snapshot_id": "nba_odds_b0282d2f3c17e6db",
       "feature_set_version": "fset_303e54a140ca5278",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -714,8 +714,8 @@
       "model_name": "goals_poisson",
       "model_run_id": "run_54a95fec15c1b731__goals_poisson",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:15:24+00:00",
-      "snapshot_id": "nba_odds_50d28084bbc6b9e8",
+      "created_at_utc": "2026-03-14T00:05:01+00:00",
+      "snapshot_id": "nba_odds_b0282d2f3c17e6db",
       "feature_set_version": "fset_303e54a140ca5278",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -732,8 +732,8 @@
       "model_name": "rf",
       "model_run_id": "run_54a95fec15c1b731__rf",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:15:24+00:00",
-      "snapshot_id": "nba_odds_50d28084bbc6b9e8",
+      "created_at_utc": "2026-03-14T00:05:01+00:00",
+      "snapshot_id": "nba_odds_b0282d2f3c17e6db",
       "feature_set_version": "fset_303e54a140ca5278",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -741,7 +741,7 @@
       "last_game_date_central": "2026-03-12",
       "n_games": 26,
       "avg_log_loss": 0.5281663934274013,
-      "avg_brier": 0.17609714296599346,
+      "avg_brier": 0.1760971429659934,
       "accuracy": 0.6923076923076923,
       "version_rank": 1,
       "is_latest_version": 1
@@ -750,8 +750,8 @@
       "model_name": "simulation_first",
       "model_run_id": "run_54a95fec15c1b731__simulation_first",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:15:24+00:00",
-      "snapshot_id": "nba_odds_50d28084bbc6b9e8",
+      "created_at_utc": "2026-03-14T00:05:01+00:00",
+      "snapshot_id": "nba_odds_b0282d2f3c17e6db",
       "feature_set_version": "fset_303e54a140ca5278",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
@@ -768,17 +768,17 @@
       "model_name": "two_stage",
       "model_run_id": "run_54a95fec15c1b731__two_stage",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:15:24+00:00",
-      "snapshot_id": "nba_odds_50d28084bbc6b9e8",
+      "created_at_utc": "2026-03-14T00:05:01+00:00",
+      "snapshot_id": "nba_odds_b0282d2f3c17e6db",
       "feature_set_version": "fset_303e54a140ca5278",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-13",
       "last_game_date_central": "2026-03-12",
       "n_games": 26,
-      "avg_log_loss": 0.4547313859646574,
-      "avg_brier": 0.1454367536580252,
-      "accuracy": 0.8076923076923077,
+      "avg_log_loss": 0.4599277129164411,
+      "avg_brier": 0.14733030193278515,
+      "accuracy": 0.8461538461538461,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -2015,7 +2015,7 @@
       "statistic": 3.184981967683368,
       "threshold": 2.248934969528279,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.2595554698398365}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -2024,7 +2024,7 @@
       "statistic": 2.912564843005807,
       "threshold": 1.3360566228547106,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.39262109850212973}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "gbdt",
@@ -2033,7 +2033,7 @@
       "statistic": 2.8066175731965743,
       "threshold": 2.248934969528279,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 30, \"value\": 1.618930409261978}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "gbdt",
@@ -2042,7 +2042,7 @@
       "statistic": 2.7350087763798556,
       "threshold": 2.248934969528279,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 58, \"value\": 0.04816226008881839}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "dynamic_rating",
@@ -2051,7 +2051,7 @@
       "statistic": 2.6018157024810566,
       "threshold": 1.413665323732949,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.19565171860239475}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "dynamic_rating",
@@ -2060,7 +2060,7 @@
       "statistic": 2.568140964246371,
       "threshold": 1.696398388479539,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.19565171860239475}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "gbdt",
@@ -2069,16 +2069,16 @@
       "statistic": 2.351860479298043,
       "threshold": 2.248934969528279,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 68, \"value\": 1.4231408493403115}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "two_stage",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 2.30212386038353,
-      "threshold": 1.3306817888412348,
+      "statistic": 2.2593605232237053,
+      "threshold": 1.3506535573082117,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.40673843717575825}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -2087,7 +2087,7 @@
       "statistic": 2.1308788474526112,
       "threshold": 1.113380519045592,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.39262109850212973}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "gbdt",
@@ -2096,16 +2096,16 @@
       "statistic": 2.0046287856776015,
       "threshold": 1.8741124746068993,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 29, \"value\": 2.9284151695211653}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 1.9899146878509038,
-      "threshold": 1.1595456446377002,
+      "statistic": 1.989391387989024,
+      "threshold": 1.1605168491433953,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.35218904980522775}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "gbdt",
@@ -2114,7 +2114,7 @@
       "statistic": 1.9407014884279405,
       "threshold": 1.8741124746068993,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 66, \"value\": 2.6861420194829377}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "dynamic_rating",
@@ -2123,7 +2123,7 @@
       "statistic": 1.9234282637656408,
       "threshold": 1.696398388479539,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 58, \"value\": 0.12502071606978102}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "glm_ridge",
@@ -2132,25 +2132,25 @@
       "statistic": 1.8384953904926908,
       "threshold": 1.293935307286316,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.224764843422788}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.791119165256427,
-      "threshold": 0.9662880371980835,
+      "statistic": 1.791070605031142,
+      "threshold": 0.9670973742861627,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.35218904980522775}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "two_stage",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.7666036989992624,
-      "threshold": 1.108901490701029,
+      "statistic": 1.762276482498084,
+      "threshold": 1.1255446310901764,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.40673843717575825}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "glm_ridge",
@@ -2159,7 +2159,7 @@
       "statistic": 1.670494734822491,
       "threshold": 1.0782794227385968,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.224764843422788}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "dynamic_rating",
@@ -2168,7 +2168,7 @@
       "statistic": 1.6082888235549202,
       "threshold": 1.413665323732949,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 66, \"value\": 2.226674010264233}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "glm_ridge",
@@ -2177,7 +2177,7 @@
       "statistic": 1.5341924482392166,
       "threshold": 1.293935307286316,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 58, \"value\": 0.19984758630234017}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "bayes_goals",
@@ -2186,7 +2186,7 @@
       "statistic": 1.4058414317692793,
       "threshold": 1.073212217002663,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.2430911891239058}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "bayes_goals",
@@ -2195,7 +2195,7 @@
       "statistic": 1.3988573342022315,
       "threshold": 0.8943435141688859,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.2430911891239058}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -2204,25 +2204,25 @@
       "statistic": 1.3897565509396428,
       "threshold": 1.3360566228547106,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 58, \"value\": 0.20970248430714863}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "two_stage",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 1.346691145925699,
-      "threshold": 1.3306817888412348,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 57, \"value\": 0.07554217024934434}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "statistic": 1.3767751343096801,
+      "threshold": 1.3506535573082117,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 57, \"value\": 0.06711755171824449}",
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "two_stage",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.2801409220075068,
-      "threshold": 1.108901490701029,
+      "statistic": 1.279475196391941,
+      "threshold": 1.1255446310901764,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 42, \"value\": 1.026195838894793}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "rf",
@@ -2231,7 +2231,7 @@
       "statistic": 1.2730194527313299,
       "threshold": 1.0244519824165421,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.46297980357252405}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "bayes_goals",
@@ -2240,16 +2240,25 @@
       "statistic": 1.2369467127152765,
       "threshold": 1.073212217002663,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 45, \"value\": 0.2144316107121882}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
+    },
+    {
+      "model_name": "two_stage",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.225892839994069,
+      "threshold": 1.1255446310901764,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 66, \"value\": 1.830474915276629}",
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 1.2028178426895193,
-      "threshold": 1.1595456446377002,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 58, \"value\": 0.2730562824681973}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "statistic": 1.2021554277654047,
+      "threshold": 1.1605168491433953,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 58, \"value\": 0.2760460170170906}",
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "glm_elastic_net",
@@ -2258,25 +2267,16 @@
       "statistic": 1.1629260469496965,
       "threshold": 1.0719226927373668,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 21, \"value\": 0.2881865266898429}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 1.1594424256346179,
+      "statistic": 1.1594424256346176,
       "threshold": 1.0244519824165421,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 46, \"value\": 0.15824427092649576}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
-    },
-    {
-      "model_name": "two_stage",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 1.1441187768942163,
-      "threshold": 1.108901490701029,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 68, \"value\": 0.9238435162593036}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 46, \"value\": 0.1582442709264959}",
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "glm_lasso",
@@ -2285,7 +2285,7 @@
       "statistic": 1.1299212431331203,
       "threshold": 1.0861757810698585,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 21, \"value\": 0.3004381193964919}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -2294,16 +2294,16 @@
       "statistic": 1.1251986873374893,
       "threshold": 1.113380519045592,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 68, \"value\": 1.0015459434002982}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 1.1036969757438175,
+      "statistic": 1.103696975743818,
       "threshold": 1.0244519824165421,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 58, \"value\": 0.2920291917107149}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "goals_poisson",
@@ -2312,16 +2312,16 @@
       "statistic": 1.0864334168049654,
       "threshold": 0.7646582034707929,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.43515141847852473}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.079196632341572,
+      "statistic": 1.0791966323415716,
       "threshold": 0.8537099853471185,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 68, \"value\": 0.8885480475897141}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "glm_elastic_net",
@@ -2330,7 +2330,7 @@
       "statistic": 1.015831299570121,
       "threshold": 0.8932689106144722,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 28, \"value\": 1.4771726055567471}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "goals_poisson",
@@ -2339,7 +2339,7 @@
       "statistic": 1.000116472280326,
       "threshold": 0.637215169558994,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.43515141847852473}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -2348,7 +2348,7 @@
       "statistic": 0.9642470416735708,
       "threshold": 0.72690550628025,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.40590809736546024}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "glm_lasso",
@@ -2357,7 +2357,7 @@
       "statistic": 0.9455676640069827,
       "threshold": 0.9051464842248822,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 28, \"value\": 1.4224373911562966}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "rf",
@@ -2366,7 +2366,7 @@
       "statistic": 0.9182964820155032,
       "threshold": 0.8537099853471185,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.46297980357252405}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -2375,7 +2375,7 @@
       "statistic": 0.8839830849649863,
       "threshold": 0.6057545885668749,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 19, \"value\": 0.40590809736546024}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "goals_poisson",
@@ -2384,7 +2384,7 @@
       "statistic": 0.8103302720292327,
       "threshold": 0.7646582034707929,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 58, \"value\": 0.4200712604975265}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -2393,7 +2393,7 @@
       "statistic": 0.8089182576864674,
       "threshold": 0.72690550628025,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 59, \"value\": 0.4406486394181394}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -2402,7 +2402,7 @@
       "statistic": 0.7673994888748348,
       "threshold": 0.72690550628025,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 46, \"value\": 0.41857370404849703}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "goals_poisson",
@@ -2411,7 +2411,7 @@
       "statistic": 0.7087934390715342,
       "threshold": 0.637215169558994,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 42, \"value\": 0.8374025365474436}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     },
     {
       "model_name": "simulation_first",
@@ -2420,7 +2420,7 @@
       "statistic": 0.3622517341307796,
       "threshold": 0.35,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 20, \"value\": 0.7312941846308975}",
-      "as_of_utc": "2026-03-13T23:15:53+00:00"
+      "as_of_utc": "2026-03-14T00:05:30+00:00"
     }
   ],
   "replay_runs": [
@@ -33078,8 +33078,8 @@
       "model_name": "glm_elastic_net",
       "model_run_id": "run_54a95fec15c1b731__glm_elastic_net",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:15:24+00:00",
-      "snapshot_id": "nba_odds_50d28084bbc6b9e8",
+      "created_at_utc": "2026-03-14T00:05:01+00:00",
+      "snapshot_id": "nba_odds_b0282d2f3c17e6db",
       "artifact_path": "artifacts/models/54a95fec15c1b731",
       "feature_set_version": "fset_303e54a140ca5278",
       "feature_columns": [
@@ -33261,16 +33261,16 @@
       },
       "params": {
         "weights": {
-          "bayes_bt_state_space": 0.10591400373899801,
-          "bayes_goals": 0.10703314368936351,
-          "dynamic_rating": 0.10627630560945733,
-          "elo_baseline": 0.10774714372493513,
-          "gbdt": 0.08933296665641483,
-          "glm_elastic_net": 0.10808984380593126,
-          "glm_ridge": 0.10822509100127721,
-          "goals_poisson": 0.10932195417640593,
-          "rf": 0.10803793292567943,
-          "two_stage": 0.050021614671537346
+          "bayes_bt_state_space": 0.10597909940650603,
+          "bayes_goals": 0.10709892719001476,
+          "dynamic_rating": 0.10634162395084477,
+          "elo_baseline": 0.10781336605621572,
+          "gbdt": 0.08938787147437735,
+          "glm_elastic_net": 0.10815627676366103,
+          "glm_ridge": 0.10829160708310909,
+          "goals_poisson": 0.1093891443998813,
+          "rf": 0.1081043339785309,
+          "two_stage": 0.04943774969685895
         }
       },
       "metrics": {
@@ -37142,8 +37142,8 @@
       "model_name": "glm_lasso",
       "model_run_id": "run_54a95fec15c1b731__glm_lasso",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-13T23:15:24+00:00",
-      "snapshot_id": "nba_odds_50d28084bbc6b9e8",
+      "created_at_utc": "2026-03-14T00:05:01+00:00",
+      "snapshot_id": "nba_odds_b0282d2f3c17e6db",
       "artifact_path": "artifacts/models/54a95fec15c1b731",
       "feature_set_version": "fset_303e54a140ca5278",
       "feature_columns": [
@@ -37325,16 +37325,16 @@
       },
       "params": {
         "weights": {
-          "bayes_bt_state_space": 0.10591400373899801,
-          "bayes_goals": 0.10703314368936351,
-          "dynamic_rating": 0.10627630560945733,
-          "elo_baseline": 0.10774714372493513,
-          "gbdt": 0.08933296665641483,
-          "glm_elastic_net": 0.10808984380593126,
-          "glm_ridge": 0.10822509100127721,
-          "goals_poisson": 0.10932195417640593,
-          "rf": 0.10803793292567943,
-          "two_stage": 0.050021614671537346
+          "bayes_bt_state_space": 0.10597909940650603,
+          "bayes_goals": 0.10709892719001476,
+          "dynamic_rating": 0.10634162395084477,
+          "elo_baseline": 0.10781336605621572,
+          "gbdt": 0.08938787147437735,
+          "glm_elastic_net": 0.10815627676366103,
+          "glm_ridge": 0.10829160708310909,
+          "goals_poisson": 0.1093891443998813,
+          "rf": 0.1081043339785309,
+          "two_stage": 0.04943774969685895
         }
       },
       "metrics": {
@@ -66855,989 +66855,6 @@
     }
   ],
   "ensemble_snapshots": [
-    {
-      "snapshot_key": "2026-03-13::run_54a95fec15c1b731",
-      "model_name": "ensemble",
-      "model_run_id": "run_54a95fec15c1b731",
-      "ensemble_model_run_id": "run_54a95fec15c1b731__ensemble",
-      "finalized_at_utc": "2026-03-13T23:15:24+00:00",
-      "finalized_date_central": "2026-03-13",
-      "activation_date_central": "2026-03-13",
-      "compared_through_date_central": null,
-      "pregame_cutoff_utc": "2026-03-13T23:30Z",
-      "snapshot_id": "nba_odds_50d28084bbc6b9e8",
-      "artifact_path": "/Users/davidiruegas/Library/Application Support/SportsModeling/artifacts/models/54a95fec15c1b731",
-      "feature_set_version": "fset_303e54a140ca5278",
-      "calibration_fingerprint": "f5696578a8d3",
-      "feature_columns": [
-        "home_season",
-        "home_is_home",
-        "home_roster_depth_index",
-        "home_availability_uncertainty",
-        "home_availability_reliability",
-        "home_absence_load_proxy",
-        "home_darko_like_total",
-        "home_darko_like_offense",
-        "home_darko_like_defense",
-        "home_projected_minutes_known_share",
-        "home_projected_absence_pressure",
-        "home_rotation_top6_share",
-        "home_rotation_stability",
-        "home_player_projection_confidence",
-        "home_shot_profile_proxy_used",
-        "home_games_played_prior",
-        "home_ewm_points_for",
-        "home_r5_points_for",
-        "home_r14_points_for",
-        "home_ewm_points_against",
-        "home_r5_points_against",
-        "home_r14_points_against",
-        "home_ewm_point_margin",
-        "home_r5_point_margin",
-        "home_r14_point_margin",
-        "home_ewm_field_goal_attempts_for",
-        "home_r5_field_goal_attempts_for",
-        "home_r14_field_goal_attempts_for",
-        "home_ewm_field_goal_attempts_against",
-        "home_r5_field_goal_attempts_against",
-        "home_r14_field_goal_attempts_against",
-        "home_ewm_shot_volume_share",
-        "home_r5_shot_volume_share",
-        "home_r14_shot_volume_share",
-        "home_ewm_free_throw_pressure",
-        "home_r5_free_throw_pressure",
-        "home_r14_free_throw_pressure",
-        "home_ewm_foul_margin",
-        "home_r5_foul_margin",
-        "home_r14_foul_margin",
-        "home_ewm_scoring_efficiency_proxy",
-        "home_r5_scoring_efficiency_proxy",
-        "home_r14_scoring_efficiency_proxy",
-        "home_ewm_possession_proxy",
-        "home_r5_possession_proxy",
-        "home_r14_possession_proxy",
-        "home_win_rate_ewm",
-        "home_days_into_season",
-        "home_days_into_season_spline",
-        "home_season_phase_early",
-        "home_season_phase_mid",
-        "home_season_phase_late",
-        "home_post_all_star_break",
-        "home_post_trade_deadline",
-        "away_season",
-        "away_is_home",
-        "away_roster_depth_index",
-        "away_availability_uncertainty",
-        "away_availability_reliability",
-        "away_absence_load_proxy",
-        "away_darko_like_total",
-        "away_darko_like_offense",
-        "away_darko_like_defense",
-        "away_projected_minutes_known_share",
-        "away_projected_absence_pressure",
-        "away_rotation_top6_share",
-        "away_rotation_stability",
-        "away_player_projection_confidence",
-        "away_shot_profile_proxy_used",
-        "away_games_played_prior",
-        "away_ewm_points_for",
-        "away_r5_points_for",
-        "away_r14_points_for",
-        "away_ewm_points_against",
-        "away_r5_points_against",
-        "away_r14_points_against",
-        "away_ewm_point_margin",
-        "away_r5_point_margin",
-        "away_r14_point_margin",
-        "away_ewm_field_goal_attempts_for",
-        "away_r5_field_goal_attempts_for",
-        "away_r14_field_goal_attempts_for",
-        "away_ewm_field_goal_attempts_against",
-        "away_r5_field_goal_attempts_against",
-        "away_r14_field_goal_attempts_against",
-        "away_ewm_shot_volume_share",
-        "away_r5_shot_volume_share",
-        "away_r14_shot_volume_share",
-        "away_ewm_free_throw_pressure",
-        "away_r5_free_throw_pressure",
-        "away_r14_free_throw_pressure",
-        "away_ewm_foul_margin",
-        "away_r5_foul_margin",
-        "away_r14_foul_margin",
-        "away_ewm_scoring_efficiency_proxy",
-        "away_r5_scoring_efficiency_proxy",
-        "away_r14_scoring_efficiency_proxy",
-        "away_ewm_possession_proxy",
-        "away_r5_possession_proxy",
-        "away_r14_possession_proxy",
-        "away_win_rate_ewm",
-        "away_days_into_season",
-        "away_days_into_season_spline",
-        "away_season_phase_early",
-        "away_season_phase_mid",
-        "away_season_phase_late",
-        "away_post_all_star_break",
-        "away_post_trade_deadline",
-        "diff_form_point_margin",
-        "diff_form_win_rate",
-        "diff_shot_volume_share",
-        "diff_scoring_efficiency",
-        "diff_foul_margin",
-        "diff_darko_like_total",
-        "diff_projected_minutes_known_share",
-        "diff_projected_absence_pressure",
-        "diff_rotation_top6_share",
-        "diff_rotation_stability",
-        "diff_player_projection_confidence",
-        "diff_roster_depth",
-        "diff_availability_uncertainty",
-        "diff_availability_reliability",
-        "discipline_free_throw_pressure_diff",
-        "discipline_foul_margin_diff",
-        "discipline_foul_pressure_diff",
-        "availability_depth_diff",
-        "availability_stress_diff",
-        "darko_like_off_matchup",
-        "darko_like_def_matchup",
-        "home_3in4",
-        "home_4in6",
-        "home_travel_miles",
-        "home_tz_change",
-        "home_local_start_mismatch",
-        "away_3in4",
-        "away_4in6",
-        "away_travel_miles",
-        "away_tz_change",
-        "away_local_start_mismatch",
-        "travel_diff",
-        "rest_diff",
-        "home_rest_days",
-        "home_b2b",
-        "away_rest_days",
-        "away_b2b",
-        "arena_margin_effect",
-        "arena_shot_volume_effect",
-        "fallback_shot_profile_proxy_used",
-        "fallback_availability_proxy_used",
-        "elo_home_pre",
-        "elo_away_pre",
-        "elo_home_prob",
-        "dyn_home_mean",
-        "dyn_away_mean",
-        "dyn_home_prob",
-        "dyn_var_diff",
-        "diff_darko_like_total_hinge_000",
-        "discipline_foul_margin_diff_hinge_000",
-        "discipline_free_throw_pressure_diff_hinge_000",
-        "discipline_free_throw_pressure_diff_is_zero",
-        "elo_home_prob_hinge_055",
-        "diff_shot_volume_share_hinge_001",
-        "diff_form_point_margin_hinge_000"
-      ],
-      "feature_count": 163,
-      "feature_metadata": {
-        "built_at_utc": "2026-03-11T00:31:15+00:00",
-        "feature_set_version": "fset_303e54a140ca5278",
-        "league": "NBA",
-        "n_features": 166,
-        "n_rows": 1159,
-        "saved_path": "data/processed/nba/features.parquet"
-      },
-      "params": {
-        "weights": {
-          "bayes_bt_state_space": 0.10591400373899801,
-          "bayes_goals": 0.10703314368936351,
-          "dynamic_rating": 0.10627630560945733,
-          "elo_baseline": 0.10774714372493513,
-          "gbdt": 0.08933296665641483,
-          "glm_elastic_net": 0.10808984380593126,
-          "glm_ridge": 0.10822509100127721,
-          "goals_poisson": 0.10932195417640593,
-          "rf": 0.10803793292567943,
-          "two_stage": 0.050021614671537346
-        }
-      },
-      "metrics": {},
-      "tuning": {
-        "glm_primary_model": "glm_elastic_net",
-        "glm_best_c": 0.05,
-        "glm_lasso_best_c": 0.1,
-        "glm_elastic_net_best_c": 0.05,
-        "glm_elastic_net_best_l1_ratio": 0.25
-      },
-      "selected_models": [
-        "elo_baseline",
-        "dynamic_rating",
-        "glm_ridge",
-        "glm_elastic_net",
-        "glm_lasso",
-        "gbdt",
-        "rf",
-        "two_stage",
-        "goals_poisson",
-        "simulation_first",
-        "bayes_bt_state_space",
-        "bayes_goals",
-        "nn_mlp"
-      ],
-      "ensemble_component_columns": [
-        "elo_baseline",
-        "dynamic_rating",
-        "glm_ridge",
-        "glm_elastic_net",
-        "gbdt",
-        "rf",
-        "two_stage",
-        "goals_poisson",
-        "bayes_goals",
-        "bayes_bt_state_space"
-      ],
-      "demoted_models": [
-        "glm_lasso",
-        "simulation_first"
-      ],
-      "stack_base_columns": [
-        "elo_baseline",
-        "dynamic_rating",
-        "glm_ridge",
-        "glm_elastic_net",
-        "gbdt",
-        "rf",
-        "two_stage",
-        "goals_poisson",
-        "bayes_bt_state_space",
-        "bayes_goals"
-      ],
-      "glm_feature_columns": [
-        "diff_darko_like_total",
-        "diff_projected_absence_pressure",
-        "rest_diff",
-        "diff_rotation_stability",
-        "elo_home_prob",
-        "arena_margin_effect"
-      ],
-      "model_feature_columns": {
-        "bayes_bt_state_space": [
-          "diff_form_point_margin",
-          "diff_form_win_rate",
-          "travel_diff",
-          "rest_diff",
-          "elo_home_prob",
-          "dyn_home_prob",
-          "arena_shot_volume_effect",
-          "diff_shot_volume_share",
-          "elo_away_pre",
-          "dyn_away_mean",
-          "elo_home_pre",
-          "dyn_home_mean",
-          "diff_roster_depth",
-          "dyn_var_diff",
-          "diff_foul_margin",
-          "diff_scoring_efficiency",
-          "diff_availability_uncertainty",
-          "diff_availability_reliability",
-          "availability_stress_diff"
-        ],
-        "gbdt": [
-          "diff_form_point_margin",
-          "travel_diff",
-          "rest_diff",
-          "elo_home_prob",
-          "dyn_home_prob",
-          "home_ewm_points_for",
-          "away_ewm_points_for",
-          "home_ewm_point_margin",
-          "away_ewm_point_margin",
-          "arena_shot_volume_effect",
-          "diff_shot_volume_share",
-          "elo_away_pre",
-          "away_r14_field_goal_attempts_against",
-          "dyn_away_mean",
-          "home_ewm_shot_volume_share",
-          "elo_home_pre",
-          "away_r14_points_against",
-          "away_r5_field_goal_attempts_against",
-          "home_r14_points_against",
-          "home_ewm_field_goal_attempts_for",
-          "away_r14_scoring_efficiency_proxy",
-          "home_r14_scoring_efficiency_proxy",
-          "away_r14_shot_volume_share",
-          "dyn_home_mean",
-          "home_r5_points_against",
-          "diff_roster_depth",
-          "away_games_played_prior",
-          "home_ewm_field_goal_attempts_against",
-          "away_ewm_possession_proxy",
-          "away_r5_shot_volume_share",
-          "away_r5_points_against",
-          "away_roster_depth_index",
-          "away_r5_field_goal_attempts_for",
-          "home_r5_possession_proxy",
-          "discipline_foul_pressure_diff",
-          "home_r14_possession_proxy",
-          "away_r14_field_goal_attempts_for",
-          "away_r14_points_for",
-          "home_r14_points_for",
-          "dyn_var_diff"
-        ],
-        "glm_elastic_net": [
-          "diff_darko_like_total",
-          "diff_projected_absence_pressure",
-          "rest_diff",
-          "diff_rotation_stability",
-          "elo_home_prob",
-          "arena_margin_effect"
-        ],
-        "glm_lasso": [
-          "diff_darko_like_total",
-          "diff_projected_absence_pressure",
-          "rest_diff",
-          "diff_rotation_stability",
-          "elo_home_prob",
-          "arena_margin_effect"
-        ],
-        "glm_ridge": [
-          "diff_darko_like_total",
-          "diff_projected_absence_pressure",
-          "rest_diff",
-          "diff_rotation_stability",
-          "elo_home_prob",
-          "arena_margin_effect"
-        ],
-        "rf": [
-          "diff_form_point_margin",
-          "travel_diff",
-          "rest_diff",
-          "elo_home_prob",
-          "dyn_home_prob",
-          "arena_shot_volume_effect",
-          "diff_shot_volume_share",
-          "diff_form_win_rate",
-          "elo_away_pre",
-          "away_r14_point_margin",
-          "away_r14_field_goal_attempts_against",
-          "dyn_away_mean",
-          "home_ewm_shot_volume_share",
-          "home_ewm_point_margin",
-          "away_ewm_point_margin",
-          "home_r14_point_margin",
-          "elo_home_pre",
-          "away_r14_points_against",
-          "away_r5_field_goal_attempts_against",
-          "home_r14_shot_volume_share",
-          "home_r14_points_against",
-          "home_ewm_field_goal_attempts_for",
-          "away_r14_scoring_efficiency_proxy",
-          "home_r14_scoring_efficiency_proxy"
-        ],
-        "two_stage": [
-          "home_ewm_shot_volume_share",
-          "away_ewm_shot_volume_share",
-          "home_ewm_free_throw_pressure",
-          "away_ewm_free_throw_pressure",
-          "home_ewm_possession_proxy",
-          "away_ewm_possession_proxy",
-          "travel_diff",
-          "rest_diff",
-          "elo_home_prob",
-          "arena_shot_volume_effect",
-          "diff_form_point_margin",
-          "dyn_home_prob",
-          "diff_shot_volume_share",
-          "diff_form_win_rate",
-          "elo_away_pre",
-          "away_r14_point_margin",
-          "away_r14_field_goal_attempts_against",
-          "dyn_away_mean",
-          "home_ewm_point_margin",
-          "away_ewm_point_margin",
-          "home_r14_point_margin",
-          "elo_home_pre",
-          "away_r14_points_against",
-          "away_r5_field_goal_attempts_against",
-          "home_r14_shot_volume_share",
-          "home_r14_points_against"
-        ]
-      },
-      "component_models": [
-        {
-          "model_name": "elo_baseline",
-          "selected_for_training": 1,
-          "included_in_ensemble": 1,
-          "demoted_from_ensemble": 0,
-          "weight": 0.10774714372493513,
-          "feature_columns": [],
-          "feature_count": 0,
-          "train_metrics": {
-            "accuracy": 0.6381135707410972,
-            "auc": 0.6869635953848681,
-            "brier": 0.22780740396483343,
-            "log_loss": 0.6476897780308015
-          },
-          "train_params": {
-            "weights": {
-              "bayes_bt_state_space": 0.10591400373899801,
-              "bayes_goals": 0.10703314368936351,
-              "dynamic_rating": 0.10627630560945733,
-              "elo_baseline": 0.10774714372493513,
-              "gbdt": 0.08933296665641483,
-              "glm_elastic_net": 0.10808984380593126,
-              "glm_ridge": 0.10822509100127721,
-              "goals_poisson": 0.10932195417640593,
-              "rf": 0.10803793292567943,
-              "two_stage": 0.050021614671537346
-            }
-          }
-        },
-        {
-          "model_name": "dynamic_rating",
-          "selected_for_training": 1,
-          "included_in_ensemble": 1,
-          "demoted_from_ensemble": 0,
-          "weight": 0.10627630560945733,
-          "feature_columns": [],
-          "feature_count": 0,
-          "train_metrics": {
-            "accuracy": 0.6015399422521656,
-            "auc": 0.6558204098690985,
-            "brier": 0.23760401794707386,
-            "log_loss": 0.6714039713410741
-          },
-          "train_params": {
-            "weights": {
-              "bayes_bt_state_space": 0.10591400373899801,
-              "bayes_goals": 0.10703314368936351,
-              "dynamic_rating": 0.10627630560945733,
-              "elo_baseline": 0.10774714372493513,
-              "gbdt": 0.08933296665641483,
-              "glm_elastic_net": 0.10808984380593126,
-              "glm_ridge": 0.10822509100127721,
-              "goals_poisson": 0.10932195417640593,
-              "rf": 0.10803793292567943,
-              "two_stage": 0.050021614671537346
-            }
-          }
-        },
-        {
-          "model_name": "glm_ridge",
-          "selected_for_training": 1,
-          "included_in_ensemble": 1,
-          "demoted_from_ensemble": 0,
-          "weight": 0.10822509100127721,
-          "feature_columns": [
-            "diff_darko_like_total",
-            "diff_projected_absence_pressure",
-            "rest_diff",
-            "diff_rotation_stability",
-            "elo_home_prob",
-            "arena_margin_effect"
-          ],
-          "feature_count": 6,
-          "train_metrics": {
-            "accuracy": 0.6361886429258903,
-            "auc": 0.6881651417227637,
-            "brier": 0.22257563462735422,
-            "log_loss": 0.636057490403188
-          },
-          "train_params": {
-            "weights": {
-              "bayes_bt_state_space": 0.10591400373899801,
-              "bayes_goals": 0.10703314368936351,
-              "dynamic_rating": 0.10627630560945733,
-              "elo_baseline": 0.10774714372493513,
-              "gbdt": 0.08933296665641483,
-              "glm_elastic_net": 0.10808984380593126,
-              "glm_ridge": 0.10822509100127721,
-              "goals_poisson": 0.10932195417640593,
-              "rf": 0.10803793292567943,
-              "two_stage": 0.050021614671537346
-            }
-          }
-        },
-        {
-          "model_name": "glm_elastic_net",
-          "selected_for_training": 1,
-          "included_in_ensemble": 1,
-          "demoted_from_ensemble": 0,
-          "weight": 0.10808984380593126,
-          "feature_columns": [
-            "diff_darko_like_total",
-            "diff_projected_absence_pressure",
-            "rest_diff",
-            "diff_rotation_stability",
-            "elo_home_prob",
-            "arena_margin_effect"
-          ],
-          "feature_count": 6,
-          "train_metrics": {
-            "accuracy": 0.6352261790182868,
-            "auc": 0.6881408869053839,
-            "brier": 0.22282850339774504,
-            "log_loss": 0.6366023954670302
-          },
-          "train_params": {
-            "weights": {
-              "bayes_bt_state_space": 0.10591400373899801,
-              "bayes_goals": 0.10703314368936351,
-              "dynamic_rating": 0.10627630560945733,
-              "elo_baseline": 0.10774714372493513,
-              "gbdt": 0.08933296665641483,
-              "glm_elastic_net": 0.10808984380593126,
-              "glm_ridge": 0.10822509100127721,
-              "goals_poisson": 0.10932195417640593,
-              "rf": 0.10803793292567943,
-              "two_stage": 0.050021614671537346
-            }
-          }
-        },
-        {
-          "model_name": "glm_lasso",
-          "selected_for_training": 1,
-          "included_in_ensemble": 0,
-          "demoted_from_ensemble": 1,
-          "weight": null,
-          "feature_columns": [
-            "diff_darko_like_total",
-            "diff_projected_absence_pressure",
-            "rest_diff",
-            "diff_rotation_stability",
-            "elo_home_prob",
-            "arena_margin_effect"
-          ],
-          "feature_count": 6,
-          "train_metrics": {
-            "accuracy": 0.6361886429258903,
-            "auc": 0.6880998402913563,
-            "brier": 0.22290194571332544,
-            "log_loss": 0.6367245195807476
-          },
-          "train_params": {
-            "weights": {
-              "bayes_bt_state_space": 0.10591400373899801,
-              "bayes_goals": 0.10703314368936351,
-              "dynamic_rating": 0.10627630560945733,
-              "elo_baseline": 0.10774714372493513,
-              "gbdt": 0.08933296665641483,
-              "glm_elastic_net": 0.10808984380593126,
-              "glm_ridge": 0.10822509100127721,
-              "goals_poisson": 0.10932195417640593,
-              "rf": 0.10803793292567943,
-              "two_stage": 0.050021614671537346
-            }
-          }
-        },
-        {
-          "model_name": "gbdt",
-          "selected_for_training": 1,
-          "included_in_ensemble": 1,
-          "demoted_from_ensemble": 0,
-          "weight": 0.08933296665641483,
-          "feature_columns": [
-            "diff_form_point_margin",
-            "travel_diff",
-            "rest_diff",
-            "elo_home_prob",
-            "dyn_home_prob",
-            "home_ewm_points_for",
-            "away_ewm_points_for",
-            "home_ewm_point_margin",
-            "away_ewm_point_margin",
-            "arena_shot_volume_effect",
-            "diff_shot_volume_share",
-            "elo_away_pre",
-            "away_r14_field_goal_attempts_against",
-            "dyn_away_mean",
-            "home_ewm_shot_volume_share",
-            "elo_home_pre",
-            "away_r14_points_against",
-            "away_r5_field_goal_attempts_against",
-            "home_r14_points_against",
-            "home_ewm_field_goal_attempts_for",
-            "away_r14_scoring_efficiency_proxy",
-            "home_r14_scoring_efficiency_proxy",
-            "away_r14_shot_volume_share",
-            "dyn_home_mean",
-            "home_r5_points_against",
-            "diff_roster_depth",
-            "away_games_played_prior",
-            "home_ewm_field_goal_attempts_against",
-            "away_ewm_possession_proxy",
-            "away_r5_shot_volume_share",
-            "away_r5_points_against",
-            "away_roster_depth_index",
-            "away_r5_field_goal_attempts_for",
-            "home_r5_possession_proxy",
-            "discipline_foul_pressure_diff",
-            "home_r14_possession_proxy",
-            "away_r14_field_goal_attempts_for",
-            "away_r14_points_for",
-            "home_r14_points_for",
-            "dyn_var_diff"
-          ],
-          "feature_count": 40,
-          "train_metrics": {
-            "accuracy": 0.9720885466794995,
-            "auc": 0.997581981282744,
-            "brier": 0.06535684086142793,
-            "log_loss": 0.26761418411789784
-          },
-          "train_params": {
-            "weights": {
-              "bayes_bt_state_space": 0.10591400373899801,
-              "bayes_goals": 0.10703314368936351,
-              "dynamic_rating": 0.10627630560945733,
-              "elo_baseline": 0.10774714372493513,
-              "gbdt": 0.08933296665641483,
-              "glm_elastic_net": 0.10808984380593126,
-              "glm_ridge": 0.10822509100127721,
-              "goals_poisson": 0.10932195417640593,
-              "rf": 0.10803793292567943,
-              "two_stage": 0.050021614671537346
-            }
-          }
-        },
-        {
-          "model_name": "rf",
-          "selected_for_training": 1,
-          "included_in_ensemble": 1,
-          "demoted_from_ensemble": 0,
-          "weight": 0.10803793292567943,
-          "feature_columns": [
-            "diff_form_point_margin",
-            "travel_diff",
-            "rest_diff",
-            "elo_home_prob",
-            "dyn_home_prob",
-            "arena_shot_volume_effect",
-            "diff_shot_volume_share",
-            "diff_form_win_rate",
-            "elo_away_pre",
-            "away_r14_point_margin",
-            "away_r14_field_goal_attempts_against",
-            "dyn_away_mean",
-            "home_ewm_shot_volume_share",
-            "home_ewm_point_margin",
-            "away_ewm_point_margin",
-            "home_r14_point_margin",
-            "elo_home_pre",
-            "away_r14_points_against",
-            "away_r5_field_goal_attempts_against",
-            "home_r14_shot_volume_share",
-            "home_r14_points_against",
-            "home_ewm_field_goal_attempts_for",
-            "away_r14_scoring_efficiency_proxy",
-            "home_r14_scoring_efficiency_proxy"
-          ],
-          "feature_count": 24,
-          "train_metrics": {
-            "accuracy": 0.8065447545717036,
-            "auc": 0.8839649536546411,
-            "brier": 0.17188829608485984,
-            "log_loss": 0.5255809412874194
-          },
-          "train_params": {
-            "weights": {
-              "bayes_bt_state_space": 0.10591400373899801,
-              "bayes_goals": 0.10703314368936351,
-              "dynamic_rating": 0.10627630560945733,
-              "elo_baseline": 0.10774714372493513,
-              "gbdt": 0.08933296665641483,
-              "glm_elastic_net": 0.10808984380593126,
-              "glm_ridge": 0.10822509100127721,
-              "goals_poisson": 0.10932195417640593,
-              "rf": 0.10803793292567943,
-              "two_stage": 0.050021614671537346
-            }
-          }
-        },
-        {
-          "model_name": "two_stage",
-          "selected_for_training": 1,
-          "included_in_ensemble": 1,
-          "demoted_from_ensemble": 0,
-          "weight": 0.050021614671537346,
-          "feature_columns": [
-            "home_ewm_shot_volume_share",
-            "away_ewm_shot_volume_share",
-            "home_ewm_free_throw_pressure",
-            "away_ewm_free_throw_pressure",
-            "home_ewm_possession_proxy",
-            "away_ewm_possession_proxy",
-            "travel_diff",
-            "rest_diff",
-            "elo_home_prob",
-            "arena_shot_volume_effect",
-            "diff_form_point_margin",
-            "dyn_home_prob",
-            "diff_shot_volume_share",
-            "diff_form_win_rate",
-            "elo_away_pre",
-            "away_r14_point_margin",
-            "away_r14_field_goal_attempts_against",
-            "dyn_away_mean",
-            "home_ewm_point_margin",
-            "away_ewm_point_margin",
-            "home_r14_point_margin",
-            "elo_home_pre",
-            "away_r14_points_against",
-            "away_r5_field_goal_attempts_against",
-            "home_r14_shot_volume_share",
-            "home_r14_points_against"
-          ],
-          "feature_count": 26,
-          "train_metrics": {
-            "accuracy": 0.6544754571703562,
-            "auc": 0.7102407570488232,
-            "brier": 0.21548321635140774,
-            "log_loss": 0.6210126023169414
-          },
-          "train_params": {
-            "weights": {
-              "bayes_bt_state_space": 0.10591400373899801,
-              "bayes_goals": 0.10703314368936351,
-              "dynamic_rating": 0.10627630560945733,
-              "elo_baseline": 0.10774714372493513,
-              "gbdt": 0.08933296665641483,
-              "glm_elastic_net": 0.10808984380593126,
-              "glm_ridge": 0.10822509100127721,
-              "goals_poisson": 0.10932195417640593,
-              "rf": 0.10803793292567943,
-              "two_stage": 0.050021614671537346
-            }
-          }
-        },
-        {
-          "model_name": "goals_poisson",
-          "selected_for_training": 1,
-          "included_in_ensemble": 1,
-          "demoted_from_ensemble": 0,
-          "weight": 0.10932195417640593,
-          "feature_columns": [],
-          "feature_count": 0,
-          "train_metrics": {
-            "accuracy": 0.6717998075072185,
-            "auc": 0.7315271579324447,
-            "brier": 0.21116690364666882,
-            "log_loss": 0.6115779683709074
-          },
-          "train_params": {
-            "weights": {
-              "bayes_bt_state_space": 0.10591400373899801,
-              "bayes_goals": 0.10703314368936351,
-              "dynamic_rating": 0.10627630560945733,
-              "elo_baseline": 0.10774714372493513,
-              "gbdt": 0.08933296665641483,
-              "glm_elastic_net": 0.10808984380593126,
-              "glm_ridge": 0.10822509100127721,
-              "goals_poisson": 0.10932195417640593,
-              "rf": 0.10803793292567943,
-              "two_stage": 0.050021614671537346
-            }
-          }
-        },
-        {
-          "model_name": "simulation_first",
-          "selected_for_training": 1,
-          "included_in_ensemble": 0,
-          "demoted_from_ensemble": 1,
-          "weight": null,
-          "feature_columns": [],
-          "feature_count": 0,
-          "train_metrics": {
-            "accuracy": 0.5409047160731473,
-            "auc": 0.45636744928877404,
-            "brier": 0.24926274930761522,
-            "log_loss": 0.6916729092302307
-          },
-          "train_params": {
-            "weights": {
-              "bayes_bt_state_space": 0.10591400373899801,
-              "bayes_goals": 0.10703314368936351,
-              "dynamic_rating": 0.10627630560945733,
-              "elo_baseline": 0.10774714372493513,
-              "gbdt": 0.08933296665641483,
-              "glm_elastic_net": 0.10808984380593126,
-              "glm_ridge": 0.10822509100127721,
-              "goals_poisson": 0.10932195417640593,
-              "rf": 0.10803793292567943,
-              "two_stage": 0.050021614671537346
-            }
-          }
-        },
-        {
-          "model_name": "bayes_bt_state_space",
-          "selected_for_training": 1,
-          "included_in_ensemble": 1,
-          "demoted_from_ensemble": 0,
-          "weight": 0.10591400373899801,
-          "feature_columns": [
-            "diff_form_point_margin",
-            "diff_form_win_rate",
-            "travel_diff",
-            "rest_diff",
-            "elo_home_prob",
-            "dyn_home_prob",
-            "arena_shot_volume_effect",
-            "diff_shot_volume_share",
-            "elo_away_pre",
-            "dyn_away_mean",
-            "elo_home_pre",
-            "dyn_home_mean",
-            "diff_roster_depth",
-            "dyn_var_diff",
-            "diff_foul_margin",
-            "diff_scoring_efficiency",
-            "diff_availability_uncertainty",
-            "diff_availability_reliability",
-            "availability_stress_diff"
-          ],
-          "feature_count": 19,
-          "train_metrics": {
-            "accuracy": 0.65832531280077,
-            "auc": 0.7113490156275655,
-            "brier": 0.21622315695677918,
-            "log_loss": 0.6235052131564012
-          },
-          "train_params": {
-            "weights": {
-              "bayes_bt_state_space": 0.10591400373899801,
-              "bayes_goals": 0.10703314368936351,
-              "dynamic_rating": 0.10627630560945733,
-              "elo_baseline": 0.10774714372493513,
-              "gbdt": 0.08933296665641483,
-              "glm_elastic_net": 0.10808984380593126,
-              "glm_ridge": 0.10822509100127721,
-              "goals_poisson": 0.10932195417640593,
-              "rf": 0.10803793292567943,
-              "two_stage": 0.050021614671537346
-            }
-          }
-        },
-        {
-          "model_name": "bayes_goals",
-          "selected_for_training": 1,
-          "included_in_ensemble": 1,
-          "demoted_from_ensemble": 0,
-          "weight": 0.10703314368936351,
-          "feature_columns": [],
-          "feature_count": 0,
-          "train_metrics": {
-            "accuracy": 0.5726660250240616,
-            "auc": 0.6343343731808887,
-            "brier": 0.24389931410972668,
-            "log_loss": 0.6803175126219382
-          },
-          "train_params": {
-            "weights": {
-              "bayes_bt_state_space": 0.10591400373899801,
-              "bayes_goals": 0.10703314368936351,
-              "dynamic_rating": 0.10627630560945733,
-              "elo_baseline": 0.10774714372493513,
-              "gbdt": 0.08933296665641483,
-              "glm_elastic_net": 0.10808984380593126,
-              "glm_ridge": 0.10822509100127721,
-              "goals_poisson": 0.10932195417640593,
-              "rf": 0.10803793292567943,
-              "two_stage": 0.050021614671537346
-            }
-          }
-        },
-        {
-          "model_name": "nn_mlp",
-          "selected_for_training": 1,
-          "included_in_ensemble": 0,
-          "demoted_from_ensemble": 0,
-          "weight": null,
-          "feature_columns": [],
-          "feature_count": 0,
-          "train_metrics": null,
-          "train_params": null
-        }
-      ],
-      "model_commit": {
-        "sha": "fb4ecdef0fd1e4f745c310aa70c569239be6fb60",
-        "short_sha": "fb4ecde",
-        "committed_at_utc": "2026-03-12T13:11:37-05:00",
-        "subject": "Establish code-first registry and repo verification"
-      },
-      "commit_window": [
-        {
-          "sha": "c31efebab4d7d6ad68915ca7884b6bcc0825854d",
-          "short_sha": "c31efeb",
-          "committed_at_utc": "2026-03-10T07:39:45-05:00",
-          "subject": "Refresh NHL GLM scoring and staging outputs"
-        },
-        {
-          "sha": "ef46a71034ddeb5f6eef6c632fb63b990422b5f4",
-          "short_sha": "ef46a71",
-          "committed_at_utc": "2026-03-10T10:02:57-05:00",
-          "subject": "Add NCAAM forecasting support"
-        },
-        {
-          "sha": "f9c18d0f5b28a0a557b1aeb2ad89ac65621ed442",
-          "short_sha": "f9c18d0",
-          "committed_at_utc": "2026-03-10T19:34:54-05:00",
-          "subject": "Freeze historical forecasts and causal venue effects"
-        },
-        {
-          "sha": "ac100a79d072ec5d9afd1add407faa4fd3ff9345",
-          "short_sha": "ac100a7",
-          "committed_at_utc": "2026-03-12T12:47:20-05:00",
-          "subject": "Add historical research backtest pipeline"
-        },
-        {
-          "sha": "fb4ecdef0fd1e4f745c310aa70c569239be6fb60",
-          "short_sha": "fb4ecde",
-          "committed_at_utc": "2026-03-12T13:11:37-05:00",
-          "subject": "Establish code-first registry and repo verification"
-        }
-      ],
-      "replayable_games": 0,
-      "days_tracked": 0,
-      "strategies": {
-        "riskAdjusted": {
-          "total_games": 0,
-          "suggested_bets": 0,
-          "wins": 0,
-          "losses": 0,
-          "total_risked": 0,
-          "total_profit": 0,
-          "roi": 0,
-          "avg_edge": null,
-          "avg_expected_value": null,
-          "first_bet_date_central": null,
-          "last_bet_date_central": null
-        },
-        "aggressive": {
-          "total_games": 0,
-          "suggested_bets": 0,
-          "wins": 0,
-          "losses": 0,
-          "total_risked": 0,
-          "total_profit": 0,
-          "roi": 0,
-          "avg_edge": null,
-          "avg_expected_value": null,
-          "first_bet_date_central": null,
-          "last_bet_date_central": null
-        },
-        "capitalPreservation": {
-          "total_games": 0,
-          "suggested_bets": 0,
-          "wins": 0,
-          "losses": 0,
-          "total_risked": 0,
-          "total_profit": 0,
-          "roi": 0,
-          "avg_edge": null,
-          "avg_expected_value": null,
-          "first_bet_date_central": null,
-          "last_bet_date_central": null
-        }
-      },
-      "daily": [],
-      "bets": []
-    },
     {
       "snapshot_key": "2026-03-10::run_b477359e029b048b",
       "model_name": "ensemble",

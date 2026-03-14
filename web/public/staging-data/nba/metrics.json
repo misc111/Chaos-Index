@@ -27,12 +27,12 @@
       "model_name": "two_stage",
       "window_label": "30d",
       "n_games": 69,
-      "log_loss": 0.5827389191965828,
-      "brier": 0.19736098871875335,
-      "accuracy": 0.6956521739130435,
-      "ece": 0.17919389925818013,
-      "calibration_alpha": 0.4910133370882022,
-      "calibration_beta": 0.854664480046702
+      "log_loss": 0.584696955439284,
+      "brier": 0.19807449966286578,
+      "accuracy": 0.7101449275362319,
+      "ece": 0.18155221485221967,
+      "calibration_alpha": 0.4737865962481289,
+      "calibration_beta": 0.8301366037213154
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -54,7 +54,7 @@
       "accuracy": 0.6811594202898551,
       "ece": 0.14072850852222138,
       "calibration_alpha": 0.4232369028067202,
-      "calibration_beta": 0.975823191996721
+      "calibration_beta": 0.9758231919967212
     },
     {
       "model_name": "dynamic_rating",
@@ -82,12 +82,12 @@
       "model_name": "ensemble",
       "window_label": "30d",
       "n_games": 69,
-      "log_loss": 0.5993144203743683,
-      "brier": 0.20309548886891865,
+      "log_loss": 0.5994241066946152,
+      "brier": 0.20314660644468005,
       "accuracy": 0.7246376811594203,
-      "ece": 0.13214962456537974,
-      "calibration_alpha": 0.40360415347322287,
-      "calibration_beta": 0.8784884449057917
+      "ece": 0.1320149662445147,
+      "calibration_alpha": 0.4026050103390936,
+      "calibration_beta": 0.8766710757333812
     },
     {
       "model_name": "goals_poisson",
@@ -170,12 +170,12 @@
       "model_name": "two_stage",
       "window_label": "60d",
       "n_games": 69,
-      "log_loss": 0.5827389191965828,
-      "brier": 0.19736098871875335,
-      "accuracy": 0.6956521739130435,
-      "ece": 0.17919389925818013,
-      "calibration_alpha": 0.4910133370882022,
-      "calibration_beta": 0.854664480046702
+      "log_loss": 0.584696955439284,
+      "brier": 0.19807449966286578,
+      "accuracy": 0.7101449275362319,
+      "ece": 0.18155221485221967,
+      "calibration_alpha": 0.4737865962481289,
+      "calibration_beta": 0.8301366037213154
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -197,7 +197,7 @@
       "accuracy": 0.6811594202898551,
       "ece": 0.14072850852222138,
       "calibration_alpha": 0.4232369028067202,
-      "calibration_beta": 0.975823191996721
+      "calibration_beta": 0.9758231919967212
     },
     {
       "model_name": "dynamic_rating",
@@ -225,12 +225,12 @@
       "model_name": "ensemble",
       "window_label": "60d",
       "n_games": 69,
-      "log_loss": 0.5993144203743683,
-      "brier": 0.20309548886891865,
+      "log_loss": 0.5994241066946152,
+      "brier": 0.20314660644468005,
       "accuracy": 0.7246376811594203,
-      "ece": 0.13214962456537974,
-      "calibration_alpha": 0.40360415347322287,
-      "calibration_beta": 0.8784884449057917
+      "ece": 0.1320149662445147,
+      "calibration_alpha": 0.4026050103390936,
+      "calibration_beta": 0.8766710757333812
     },
     {
       "model_name": "goals_poisson",
@@ -308,17 +308,6 @@
       "ece": 0.1962753287769872,
       "calibration_alpha": 0.8488832628096038,
       "calibration_beta": 1.004112161843151
-    },
-    {
-      "model_name": "two_stage",
-      "window_label": "7d",
-      "n_games": 63,
-      "log_loss": 0.5897200501463289,
-      "brier": 0.20072647465761093,
-      "accuracy": 0.6825396825396826,
-      "ece": 0.21222379976138264,
-      "calibration_alpha": 0.6350591868708586,
-      "calibration_beta": 0.7736829389939882
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -332,15 +321,26 @@
       "calibration_beta": 0.751503953178438
     },
     {
+      "model_name": "two_stage",
+      "window_label": "7d",
+      "n_games": 63,
+      "log_loss": 0.5918645660311921,
+      "brier": 0.2015079390249722,
+      "accuracy": 0.6984126984126984,
+      "ece": 0.2148067168405688,
+      "calibration_alpha": 0.6171141248232257,
+      "calibration_beta": 0.7464572078009134
+    },
+    {
       "model_name": "rf",
       "window_label": "7d",
       "n_games": 63,
       "log_loss": 0.5941393811695505,
       "brier": 0.20461105348718794,
       "accuracy": 0.6825396825396826,
-      "ece": 0.1743462269859274,
+      "ece": 0.17434622698592733,
       "calibration_alpha": 0.5805764465699309,
-      "calibration_beta": 0.8813464889204171
+      "calibration_beta": 0.8813464889204173
     },
     {
       "model_name": "glm_ridge",
@@ -368,12 +368,12 @@
       "model_name": "ensemble",
       "window_label": "7d",
       "n_games": 63,
-      "log_loss": 0.602724745621264,
-      "brier": 0.204273360935193,
+      "log_loss": 0.6028448782577248,
+      "brier": 0.20432934685150309,
       "accuracy": 0.7301587301587301,
-      "ece": 0.17068414440096147,
-      "calibration_alpha": 0.5702802842582441,
-      "calibration_beta": 0.7924814178410098
+      "ece": 0.17047760989897895,
+      "calibration_alpha": 0.5693209378200258,
+      "calibration_beta": 0.7902195028917554
     },
     {
       "model_name": "bayes_goals",
@@ -456,12 +456,12 @@
       "model_name": "two_stage",
       "window_label": "90d",
       "n_games": 69,
-      "log_loss": 0.5827389191965828,
-      "brier": 0.19736098871875335,
-      "accuracy": 0.6956521739130435,
-      "ece": 0.17919389925818013,
-      "calibration_alpha": 0.4910133370882022,
-      "calibration_beta": 0.854664480046702
+      "log_loss": 0.584696955439284,
+      "brier": 0.19807449966286578,
+      "accuracy": 0.7101449275362319,
+      "ece": 0.18155221485221967,
+      "calibration_alpha": 0.4737865962481289,
+      "calibration_beta": 0.8301366037213154
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -483,7 +483,7 @@
       "accuracy": 0.6811594202898551,
       "ece": 0.14072850852222138,
       "calibration_alpha": 0.4232369028067202,
-      "calibration_beta": 0.975823191996721
+      "calibration_beta": 0.9758231919967212
     },
     {
       "model_name": "dynamic_rating",
@@ -511,12 +511,12 @@
       "model_name": "ensemble",
       "window_label": "90d",
       "n_games": 69,
-      "log_loss": 0.5993144203743683,
-      "brier": 0.20309548886891865,
+      "log_loss": 0.5994241066946152,
+      "brier": 0.20314660644468005,
       "accuracy": 0.7246376811594203,
-      "ece": 0.13214962456537974,
-      "calibration_alpha": 0.40360415347322287,
-      "calibration_beta": 0.8784884449057917
+      "ece": 0.1320149662445147,
+      "calibration_alpha": 0.4026050103390936,
+      "calibration_beta": 0.8766710757333812
     },
     {
       "model_name": "goals_poisson",
@@ -599,12 +599,12 @@
       "model_name": "two_stage",
       "window_label": "cumulative",
       "n_games": 69,
-      "log_loss": 0.5827389191965828,
-      "brier": 0.19736098871875335,
-      "accuracy": 0.6956521739130435,
-      "ece": 0.17919389925818013,
-      "calibration_alpha": 0.4910133370882022,
-      "calibration_beta": 0.854664480046702
+      "log_loss": 0.584696955439284,
+      "brier": 0.19807449966286578,
+      "accuracy": 0.7101449275362319,
+      "ece": 0.18155221485221967,
+      "calibration_alpha": 0.4737865962481289,
+      "calibration_beta": 0.8301366037213154
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -626,7 +626,7 @@
       "accuracy": 0.6811594202898551,
       "ece": 0.14072850852222138,
       "calibration_alpha": 0.4232369028067202,
-      "calibration_beta": 0.975823191996721
+      "calibration_beta": 0.9758231919967212
     },
     {
       "model_name": "dynamic_rating",
@@ -654,12 +654,12 @@
       "model_name": "ensemble",
       "window_label": "cumulative",
       "n_games": 69,
-      "log_loss": 0.5993144203743683,
-      "brier": 0.20309548886891865,
+      "log_loss": 0.5994241066946152,
+      "brier": 0.20314660644468005,
       "accuracy": 0.7246376811594203,
-      "ece": 0.13214962456537974,
-      "calibration_alpha": 0.40360415347322287,
-      "calibration_beta": 0.8784884449057917
+      "ece": 0.1320149662445147,
+      "calibration_alpha": 0.4026050103390936,
+      "calibration_beta": 0.8766710757333812
     },
     {
       "model_name": "goals_poisson",
@@ -811,37 +811,37 @@
     {
       "model_name": "two_stage",
       "window_label": "30d",
-      "calibration_alpha": 0.4910133370882022,
-      "calibration_beta": 0.854664480046702,
-      "ece": 0.17919389925818013,
-      "mce": 0.3262176798839795,
+      "calibration_alpha": 0.4737865962481289,
+      "calibration_beta": 0.8301366037213154,
+      "ece": 0.18155221485221967,
+      "mce": 0.3010732241267988,
       "n_games": 69
     },
     {
       "model_name": "two_stage",
       "window_label": "60d",
-      "calibration_alpha": 0.4910133370882022,
-      "calibration_beta": 0.854664480046702,
-      "ece": 0.17919389925818013,
-      "mce": 0.3262176798839795,
+      "calibration_alpha": 0.4737865962481289,
+      "calibration_beta": 0.8301366037213154,
+      "ece": 0.18155221485221967,
+      "mce": 0.3010732241267988,
       "n_games": 69
     },
     {
       "model_name": "two_stage",
       "window_label": "90d",
-      "calibration_alpha": 0.4910133370882022,
-      "calibration_beta": 0.854664480046702,
-      "ece": 0.17919389925818013,
-      "mce": 0.3262176798839795,
+      "calibration_alpha": 0.4737865962481289,
+      "calibration_beta": 0.8301366037213154,
+      "ece": 0.18155221485221967,
+      "mce": 0.3010732241267988,
       "n_games": 69
     },
     {
       "model_name": "two_stage",
       "window_label": "cumulative",
-      "calibration_alpha": 0.4910133370882022,
-      "calibration_beta": 0.854664480046702,
-      "ece": 0.17919389925818013,
-      "mce": 0.3262176798839795,
+      "calibration_alpha": 0.4737865962481289,
+      "calibration_beta": 0.8301366037213154,
+      "ece": 0.18155221485221967,
+      "mce": 0.3010732241267988,
       "n_games": 69
     },
     {
@@ -884,7 +884,7 @@
       "model_name": "rf",
       "window_label": "30d",
       "calibration_alpha": 0.4232369028067202,
-      "calibration_beta": 0.975823191996721,
+      "calibration_beta": 0.9758231919967212,
       "ece": 0.14072850852222138,
       "mce": 0.3160979092231491,
       "n_games": 69
@@ -893,7 +893,7 @@
       "model_name": "rf",
       "window_label": "60d",
       "calibration_alpha": 0.4232369028067202,
-      "calibration_beta": 0.975823191996721,
+      "calibration_beta": 0.9758231919967212,
       "ece": 0.14072850852222138,
       "mce": 0.3160979092231491,
       "n_games": 69
@@ -902,7 +902,7 @@
       "model_name": "rf",
       "window_label": "90d",
       "calibration_alpha": 0.4232369028067202,
-      "calibration_beta": 0.975823191996721,
+      "calibration_beta": 0.9758231919967212,
       "ece": 0.14072850852222138,
       "mce": 0.3160979092231491,
       "n_games": 69
@@ -911,19 +911,10 @@
       "model_name": "rf",
       "window_label": "cumulative",
       "calibration_alpha": 0.4232369028067202,
-      "calibration_beta": 0.975823191996721,
+      "calibration_beta": 0.9758231919967212,
       "ece": 0.14072850852222138,
       "mce": 0.3160979092231491,
       "n_games": 69
-    },
-    {
-      "model_name": "two_stage",
-      "window_label": "7d",
-      "calibration_alpha": 0.6350591868708586,
-      "calibration_beta": 0.7736829389939882,
-      "ece": 0.21222379976138264,
-      "mce": 0.41717962987473733,
-      "n_games": 63
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -932,6 +923,15 @@
       "calibration_beta": 0.751503953178438,
       "ece": 0.15963907868918845,
       "mce": 0.3583576197847389,
+      "n_games": 63
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "7d",
+      "calibration_alpha": 0.6171141248232257,
+      "calibration_beta": 0.7464572078009134,
+      "ece": 0.2148067168405688,
+      "mce": 0.401437673293782,
       "n_games": 63
     },
     {
@@ -974,8 +974,8 @@
       "model_name": "rf",
       "window_label": "7d",
       "calibration_alpha": 0.5805764465699309,
-      "calibration_beta": 0.8813464889204171,
-      "ece": 0.1743462269859274,
+      "calibration_beta": 0.8813464889204173,
+      "ece": 0.17434622698592733,
       "mce": 0.44223450237561257,
       "n_games": 63
     },
@@ -1018,36 +1018,36 @@
     {
       "model_name": "ensemble",
       "window_label": "30d",
-      "calibration_alpha": 0.40360415347322287,
-      "calibration_beta": 0.8784884449057917,
-      "ece": 0.13214962456537974,
+      "calibration_alpha": 0.4026050103390936,
+      "calibration_beta": 0.8766710757333812,
+      "ece": 0.1320149662445147,
       "mce": 0.9013737205733751,
       "n_games": 69
     },
     {
       "model_name": "ensemble",
       "window_label": "60d",
-      "calibration_alpha": 0.40360415347322287,
-      "calibration_beta": 0.8784884449057917,
-      "ece": 0.13214962456537974,
+      "calibration_alpha": 0.4026050103390936,
+      "calibration_beta": 0.8766710757333812,
+      "ece": 0.1320149662445147,
       "mce": 0.9013737205733751,
       "n_games": 69
     },
     {
       "model_name": "ensemble",
       "window_label": "90d",
-      "calibration_alpha": 0.40360415347322287,
-      "calibration_beta": 0.8784884449057917,
-      "ece": 0.13214962456537974,
+      "calibration_alpha": 0.4026050103390936,
+      "calibration_beta": 0.8766710757333812,
+      "ece": 0.1320149662445147,
       "mce": 0.9013737205733751,
       "n_games": 69
     },
     {
       "model_name": "ensemble",
       "window_label": "cumulative",
-      "calibration_alpha": 0.40360415347322287,
-      "calibration_beta": 0.8784884449057917,
-      "ece": 0.13214962456537974,
+      "calibration_alpha": 0.4026050103390936,
+      "calibration_beta": 0.8766710757333812,
+      "ece": 0.1320149662445147,
       "mce": 0.9013737205733751,
       "n_games": 69
     },
@@ -1072,9 +1072,9 @@
     {
       "model_name": "ensemble",
       "window_label": "7d",
-      "calibration_alpha": 0.5702802842582441,
-      "calibration_beta": 0.7924814178410098,
-      "ece": 0.17068414440096147,
+      "calibration_alpha": 0.5693209378200258,
+      "calibration_beta": 0.7902195028917554,
+      "ece": 0.17047760989897895,
       "mce": 0.9013737205733751,
       "n_games": 63
     },
