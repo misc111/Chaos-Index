@@ -1,8 +1,8 @@
 {
   "league": "NHL",
   "as_of_utc": "2026-03-10T11:40:08+00:00",
-  "odds_as_of_utc": "2026-03-14T00:03:53+00:00",
-  "date_central": "2026-03-13",
+  "odds_as_of_utc": "2026-03-14T11:58:00+00:00",
+  "date_central": "2026-03-14",
   "strategy_configs": {
     "riskAdjusted": {
       "label": "Balanced",
@@ -52,101 +52,689 @@
   },
   "rows": [
     {
-      "game_id": 2025021041,
-      "game_date_utc": "2026-03-13",
-      "start_time_utc": "2026-03-13T23:00:00Z",
-      "home_team": "NYI",
-      "away_team": "LAK",
-      "home_team_name": "New York Islanders",
-      "away_team_name": "Los Angeles Kings",
-      "home_win_probability": 0.5407698080389666,
+      "game_id": 2025021043,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T17:00:00Z",
+      "home_team": "OTT",
+      "away_team": "ANA",
+      "home_team_name": "Ottawa Senators",
+      "away_team_name": "Anaheim Ducks",
+      "home_win_probability": 0.5338988717106468,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.5407698080389666,
-        "bayes_bt_state_space": 0.49343552767477433,
-        "bayes_goals": 0.5596,
-        "dynamic_rating": 0.6962068840049849,
-        "elo_baseline": 0.5988741523978314,
-        "gbdt": 0.1875705874212394,
-        "glm_elastic_net": 0.5104877091157051,
-        "glm_lasso": 0.5074117247843538,
-        "glm_ridge": 0.4985956532032657,
-        "goals_poisson": 0.553,
-        "rf": 0.4669905959096155,
-        "simulation_first": 0.5171428571428571,
-        "two_stage": 0.5511768431810082
+        "ensemble": 0.5338988717106468,
+        "bayes_bt_state_space": 0.5529580426401625,
+        "bayes_goals": 0.5158,
+        "dynamic_rating": 0.5202275823555006,
+        "elo_baseline": 0.5151292404472579,
+        "gbdt": 0.2935947062255704,
+        "glm_elastic_net": 0.5258163877942246,
+        "glm_lasso": 0.5151780959340263,
+        "glm_ridge": 0.49919718018142895,
+        "goals_poisson": 0.5351666666666667,
+        "rf": 0.5232071665284909,
+        "simulation_first": 0.6402857142857142,
+        "two_stage": 0.606501959136626
       },
       "moneyline": {
-        "away_price": -920,
-        "home_price": 680,
-        "away_book": "DraftKings",
-        "home_book": "FanDuel",
-        "books_count": 5
-      },
-      "spread": {
-        "point": 2.5,
-        "away_price": -160,
-        "home_price": 146,
-        "away_book": "DraftKings",
-        "home_book": "FanDuel",
-        "books_count": 4
-      },
-      "total": {
-        "point": 6.5,
-        "over_price": -160,
-        "under_price": 124,
-        "over_book": "BetMGM",
-        "under_book": "DraftKings",
-        "books_count": 3
-      }
-    },
-    {
-      "game_id": 2025021042,
-      "game_date_utc": "2026-03-13",
-      "start_time_utc": "2026-03-14T00:00:00Z",
-      "home_team": "STL",
-      "away_team": "EDM",
-      "home_team_name": "St. Louis Blues",
-      "away_team_name": "Edmonton Oilers",
-      "home_win_probability": 0.4421327506791325,
-      "betting_model_name": "ensemble",
-      "model_win_probabilities": {
-        "ensemble": 0.4421327506791325,
-        "bayes_bt_state_space": 0.4076251184753431,
-        "bayes_goals": 0.3964,
-        "dynamic_rating": 0.7112035167895171,
-        "elo_baseline": 0.4697309253315847,
-        "gbdt": 0.24316682962447084,
-        "glm_elastic_net": 0.40674904360425823,
-        "glm_lasso": 0.40115187033780714,
-        "glm_ridge": 0.3868813500003387,
-        "goals_poisson": 0.42566666666666664,
-        "rf": 0.3904829121050274,
-        "simulation_first": 0.5518571428571428,
-        "two_stage": 0.40259879361072987
-      },
-      "moneyline": {
-        "away_price": -140,
-        "home_price": 130,
-        "away_book": "BetUS",
+        "away_price": 142,
+        "home_price": -152,
+        "away_book": "Bovada",
         "home_book": "BetRivers",
         "books_count": 9
       },
       "spread": {
         "point": 1.5,
-        "away_price": 170,
-        "home_price": -190,
-        "away_book": "BetOnline.ag",
-        "home_book": "BetMGM",
+        "away_price": -175,
+        "home_price": 163,
+        "away_book": "BetMGM",
+        "home_book": "BetRivers",
         "books_count": 9
       },
       "total": {
         "point": 6.5,
-        "over_price": -110,
+        "over_price": -105,
+        "under_price": -104,
+        "over_book": "DraftKings",
+        "under_book": "BetOnline.ag",
+        "books_count": 9
+      }
+    },
+    {
+      "game_id": 2025021044,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T19:00:00Z",
+      "home_team": "WSH",
+      "away_team": "BOS",
+      "home_team_name": "Washington Capitals",
+      "away_team_name": "Boston Bruins",
+      "home_win_probability": 0.4819861857807417,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.4819861857807417,
+        "bayes_bt_state_space": 0.49350363795974783,
+        "bayes_goals": 0.489,
+        "dynamic_rating": 0.5079976114233649,
+        "elo_baseline": 0.4889977061383027,
+        "gbdt": 0.13332031537047567,
+        "glm_elastic_net": 0.46600553151179264,
+        "glm_lasso": 0.45552269232950543,
+        "glm_ridge": 0.4415787559779999,
+        "goals_poisson": 0.5203333333333333,
+        "rf": 0.4800097909986591,
+        "simulation_first": 0.5351428571428571,
+        "two_stage": 0.5665109477717156
+      },
+      "moneyline": {
+        "away_price": 116,
+        "home_price": -130,
+        "away_book": "BetOnline.ag",
+        "home_book": "BetUS",
+        "books_count": 9
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -220,
+        "home_price": 190,
+        "away_book": "BetMGM",
+        "home_book": "Bovada",
+        "books_count": 9
+      },
+      "total": {
+        "point": 6,
+        "over_price": -105,
+        "under_price": -102,
+        "over_book": "Bovada",
+        "under_book": "BetMGM",
+        "books_count": 7
+      }
+    },
+    {
+      "game_id": 2025021045,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T20:00:00Z",
+      "home_team": "WPG",
+      "away_team": "COL",
+      "home_team_name": "Winnipeg Jets",
+      "away_team_name": "Colorado Avalanche",
+      "home_win_probability": 0.3876966626284412,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.3876966626284412,
+        "bayes_bt_state_space": 0.4464703985366002,
+        "bayes_goals": 0.3914,
+        "dynamic_rating": 0.2651881649717474,
+        "elo_baseline": 0.3416174935235966,
+        "gbdt": 0.18905892060118268,
+        "glm_elastic_net": 0.4217396792072165,
+        "glm_lasso": 0.4238278360340307,
+        "glm_ridge": 0.4119103031090848,
+        "goals_poisson": 0.3325,
+        "rf": 0.4443585796074919,
+        "simulation_first": 0.44885714285714284,
+        "two_stage": 0.4849221300948198
+      },
+      "moneyline": {
+        "away_price": -178,
+        "home_price": 165,
+        "away_book": "MyBookie.ag",
+        "home_book": "BetRivers",
+        "books_count": 9
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": 136,
+        "home_price": -153,
+        "away_book": "FanDuel",
+        "home_book": "BetOnline.ag",
+        "books_count": 9
+      },
+      "total": {
+        "point": 6.5,
+        "over_price": 110,
+        "under_price": -125,
+        "over_book": "DraftKings",
+        "under_book": "BetOnline.ag",
+        "books_count": 6
+      }
+    },
+    {
+      "game_id": 2025021046,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T22:00:00Z",
+      "home_team": "MIN",
+      "away_team": "NYR",
+      "home_team_name": "Minnesota Wild",
+      "away_team_name": "New York Rangers",
+      "home_win_probability": 0.6260636116055398,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.6260636116055398,
+        "bayes_bt_state_space": 0.5962238963469552,
+        "bayes_goals": 0.5974,
+        "dynamic_rating": 0.7924048890919642,
+        "elo_baseline": 0.6557696287593411,
+        "gbdt": 0.2806101867626536,
+        "glm_elastic_net": 0.6296284582763876,
+        "glm_lasso": 0.6344403888972201,
+        "glm_ridge": 0.6313711852650357,
+        "goals_poisson": 0.6141666666666666,
+        "rf": 0.5154173843422012,
+        "simulation_first": 0.5287142857142857,
+        "two_stage": 0.661553967153772
+      },
+      "moneyline": {
+        "away_price": 200,
+        "home_price": -220,
+        "away_book": "BetRivers",
+        "home_book": "BetOnline.ag",
+        "books_count": 9
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -125,
+        "home_price": 115,
+        "away_book": "BetRivers",
+        "home_book": "BetOnline.ag",
+        "books_count": 9
+      },
+      "total": {
+        "point": 6,
+        "over_price": -118,
+        "under_price": 104,
+        "over_book": "BetMGM",
+        "under_book": "BetOnline.ag",
+        "books_count": 6
+      }
+    },
+    {
+      "game_id": 2025021047,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T23:00:00Z",
+      "home_team": "BUF",
+      "away_team": "TOR",
+      "home_team_name": "Buffalo Sabres",
+      "away_team_name": "Toronto Maple Leafs",
+      "home_win_probability": 0.6696069925875647,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.6696069925875647,
+        "bayes_bt_state_space": 0.6160876717982164,
+        "bayes_goals": 0.5622,
+        "dynamic_rating": 0.9514266860387561,
+        "elo_baseline": 0.6837839717616228,
+        "gbdt": 0.623427079989222,
+        "glm_elastic_net": 0.6303945475946384,
+        "glm_lasso": 0.6404861688393266,
+        "glm_ridge": 0.6509570351572305,
+        "goals_poisson": 0.6208333333333333,
+        "rf": 0.558743614586197,
+        "simulation_first": 0.7352857142857143,
+        "two_stage": 0.6389145224981299
+      },
+      "moneyline": {
+        "away_price": 195,
+        "home_price": -218,
+        "away_book": "FanDuel",
+        "home_book": "BetOnline.ag",
+        "books_count": 9
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -122,
+        "home_price": 108,
+        "away_book": "DraftKings",
+        "home_book": "BetRivers",
+        "books_count": 9
+      },
+      "total": {
+        "point": 6.5,
+        "over_price": -113,
+        "under_price": 102,
+        "over_book": "BetOnline.ag",
+        "under_book": "Bovada",
+        "books_count": 9
+      }
+    },
+    {
+      "game_id": 2025021048,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T23:00:00Z",
+      "home_team": "MTL",
+      "away_team": "SJS",
+      "home_team_name": "Montréal Canadiens",
+      "away_team_name": "San Jose Sharks",
+      "home_win_probability": 0.58719662212259,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.58719662212259,
+        "bayes_bt_state_space": 0.5420151834797051,
+        "bayes_goals": 0.594,
+        "dynamic_rating": 0.6971107949701991,
+        "elo_baseline": 0.5777603939921561,
+        "gbdt": 0.270874158936598,
+        "glm_elastic_net": 0.5730599397003879,
+        "glm_lasso": 0.5801618568732468,
+        "glm_ridge": 0.5865498734658148,
+        "goals_poisson": 0.6014999999999999,
+        "rf": 0.46194365342542015,
+        "simulation_first": 0.589,
+        "two_stage": 0.5679925815502628
+      },
+      "moneyline": {
+        "away_price": 146,
+        "home_price": -160,
+        "away_book": "BetUS",
+        "home_book": "BetOnline.ag",
+        "books_count": 9
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -160,
+        "home_price": 153,
+        "away_book": "BetMGM",
+        "home_book": "BetOnline.ag",
+        "books_count": 9
+      },
+      "total": {
+        "point": 6.5,
+        "over_price": -122,
+        "under_price": 109,
+        "over_book": "DraftKings",
+        "under_book": "BetOnline.ag",
+        "books_count": 9
+      }
+    },
+    {
+      "game_id": 2025021049,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T23:00:00Z",
+      "home_team": "TBL",
+      "away_team": "CAR",
+      "home_team_name": "Tampa Bay Lightning",
+      "away_team_name": "Carolina Hurricanes",
+      "home_win_probability": 0.5467306498718041,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.5467306498718041,
+        "bayes_bt_state_space": 0.5924458858726023,
+        "bayes_goals": 0.5262,
+        "dynamic_rating": 0.47828926681829437,
+        "elo_baseline": 0.5547884747081214,
+        "gbdt": 0.6812544850910995,
+        "glm_elastic_net": 0.5795195850798673,
+        "glm_lasso": 0.5890458924456109,
+        "glm_ridge": 0.6080767368864877,
+        "goals_poisson": 0.5501666666666667,
+        "rf": 0.5144096658421827,
+        "simulation_first": 0.416,
+        "two_stage": 0.5549801224908697
+      },
+      "moneyline": {
+        "away_price": 115,
+        "home_price": -130,
+        "away_book": "BetOnline.ag",
+        "home_book": "BetOnline.ag",
+        "books_count": 9
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -210,
+        "home_price": 188,
+        "away_book": "BetMGM",
+        "home_book": "BetUS",
+        "books_count": 9
+      },
+      "total": {
+        "point": 6.5,
+        "over_price": 104,
+        "under_price": -115,
+        "over_book": "BetOnline.ag",
+        "under_book": "MyBookie.ag",
+        "books_count": 9
+      }
+    },
+    {
+      "game_id": 2025021050,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T23:00:00Z",
+      "home_team": "NJD",
+      "away_team": "LAK",
+      "home_team_name": "New Jersey Devils",
+      "away_team_name": "Los Angeles Kings",
+      "home_win_probability": 0.4936715443046246,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.4936715443046246,
+        "bayes_bt_state_space": 0.47785953610564624,
+        "bayes_goals": 0.5176,
+        "dynamic_rating": 0.531748725929625,
+        "elo_baseline": 0.542385174908959,
+        "gbdt": 0.45220433602941146,
+        "glm_elastic_net": 0.4618288059390299,
+        "glm_lasso": 0.4480510733176653,
+        "glm_ridge": 0.43265904588211096,
+        "goals_poisson": 0.5058333333333334,
+        "rf": 0.4863863724143584,
+        "simulation_first": 0.562,
+        "two_stage": 0.5876516538772155
+      },
+      "moneyline": {
+        "away_price": 129,
+        "home_price": -144,
+        "away_book": "BetUS",
+        "home_book": "BetOnline.ag",
+        "books_count": 9
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -200,
+        "home_price": 188,
+        "away_book": "BetMGM",
+        "home_book": "BetUS",
+        "books_count": 9
+      },
+      "total": {
+        "point": 5.5,
+        "over_price": -101,
+        "under_price": -105,
+        "over_book": "BetOnline.ag",
+        "under_book": "Bovada",
+        "books_count": 9
+      }
+    },
+    {
+      "game_id": 2025021051,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T23:00:00Z",
+      "home_team": "NYI",
+      "away_team": "CGY",
+      "home_team_name": "New York Islanders",
+      "away_team_name": "Calgary Flames",
+      "home_win_probability": 0.6304670726722816,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.6304670726722816,
+        "bayes_bt_state_space": 0.6139883679858106,
+        "bayes_goals": 0.5998,
+        "dynamic_rating": 0.771332098062729,
+        "elo_baseline": 0.6250783588089251,
+        "gbdt": 0.48833449202095813,
+        "glm_elastic_net": 0.6308028298336902,
+        "glm_lasso": 0.6329322251435299,
+        "glm_ridge": 0.6294854734347204,
+        "goals_poisson": 0.5856666666666667,
+        "rf": 0.5178816727177692,
+        "simulation_first": 0.6304285714285714,
+        "two_stage": 0.5924361624461495
+      },
+      "moneyline": {
+        "away_price": 132,
+        "home_price": -145,
+        "away_book": "FanDuel",
+        "home_book": "BetUS",
+        "books_count": 9
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -188,
+        "home_price": 167,
+        "away_book": "MyBookie.ag",
+        "home_book": "BetOnline.ag",
+        "books_count": 9
+      },
+      "total": {
+        "point": 5.5,
+        "over_price": -115,
         "under_price": 100,
         "over_book": "BetOnline.ag",
-        "under_book": "BetMGM",
+        "under_book": "DraftKings",
+        "books_count": 6
+      }
+    },
+    {
+      "game_id": 2025021052,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T23:30:00Z",
+      "home_team": "PHI",
+      "away_team": "CBJ",
+      "home_team_name": "Philadelphia Flyers",
+      "away_team_name": "Columbus Blue Jackets",
+      "home_win_probability": 0.45588200206535723,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.45588200206535723,
+        "bayes_bt_state_space": 0.45945116632635297,
+        "bayes_goals": 0.5076,
+        "dynamic_rating": 0.41609796586040304,
+        "elo_baseline": 0.4750605073619703,
+        "gbdt": 0.1900217709103272,
+        "glm_elastic_net": 0.46296808199115624,
+        "glm_lasso": 0.4639271733853844,
+        "glm_ridge": 0.46030027632751563,
+        "goals_poisson": 0.4791666666666667,
+        "rf": 0.434190951393068,
+        "simulation_first": 0.41185714285714287,
+        "two_stage": 0.4863503374875
+      },
+      "moneyline": {
+        "away_price": -127,
+        "home_price": 117,
+        "away_book": "BetRivers",
+        "home_book": "BetOnline.ag",
         "books_count": 9
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": 200,
+        "home_price": -220,
+        "away_book": "DraftKings",
+        "home_book": "BetMGM",
+        "books_count": 9
+      },
+      "total": {
+        "point": 6,
+        "over_price": -110,
+        "under_price": 100,
+        "over_book": "Bovada",
+        "under_book": "BetRivers",
+        "books_count": 7
+      }
+    },
+    {
+      "game_id": 2025021053,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-15T00:00:00Z",
+      "home_team": "DAL",
+      "away_team": "DET",
+      "home_team_name": "Dallas Stars",
+      "away_team_name": "Detroit Red Wings",
+      "home_win_probability": 0.6286907757847826,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.6286907757847826,
+        "bayes_bt_state_space": 0.6183751428419788,
+        "bayes_goals": 0.5906,
+        "dynamic_rating": 0.7613488054985484,
+        "elo_baseline": 0.5726194285749214,
+        "gbdt": 0.685333798785081,
+        "glm_elastic_net": 0.6247459553763361,
+        "glm_lasso": 0.6266326040546443,
+        "glm_ridge": 0.6315906757764743,
+        "goals_poisson": 0.6053333333333334,
+        "rf": 0.5332501818726253,
+        "simulation_first": 0.6584285714285715,
+        "two_stage": 0.6668480684153496
+      },
+      "moneyline": {
+        "away_price": 160,
+        "home_price": -170,
+        "away_book": "BetRivers",
+        "home_book": "BetMGM",
+        "books_count": 9
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -167,
+        "home_price": 154,
+        "away_book": "BetRivers",
+        "home_book": "DraftKings",
+        "books_count": 9
+      },
+      "total": {
+        "point": 5.5,
+        "over_price": -115,
+        "under_price": -101,
+        "over_book": "BetMGM",
+        "under_book": "BetOnline.ag",
+        "books_count": 9
+      }
+    },
+    {
+      "game_id": 2025021054,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-15T01:00:00Z",
+      "home_team": "UTA",
+      "away_team": "PIT",
+      "home_team_name": "Utah Mammoth",
+      "away_team_name": "Pittsburgh Penguins",
+      "home_win_probability": 0.5447738671582854,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.5447738671582854,
+        "bayes_bt_state_space": 0.5613834257062691,
+        "bayes_goals": 0.4786,
+        "dynamic_rating": 0.6543473071121555,
+        "elo_baseline": 0.5251327079972092,
+        "gbdt": 0.31218222012790087,
+        "glm_elastic_net": 0.5518167796249833,
+        "glm_lasso": 0.5599584630410266,
+        "glm_ridge": 0.5746508452730249,
+        "goals_poisson": 0.5023333333333333,
+        "rf": 0.48634235691632094,
+        "simulation_first": 0.5391428571428571,
+        "two_stage": 0.5873123968559693
+      },
+      "moneyline": {
+        "away_price": 135,
+        "home_price": -145,
+        "away_book": "BetRivers",
+        "home_book": "BetMGM",
+        "books_count": 9
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -195,
+        "home_price": 177,
+        "away_book": "BetRivers",
+        "home_book": "BetOnline.ag",
+        "books_count": 9
+      },
+      "total": {
+        "point": 6,
+        "over_price": -108,
+        "under_price": -103,
+        "over_book": "BetOnline.ag",
+        "under_book": "Bovada",
+        "books_count": 7
+      }
+    },
+    {
+      "game_id": 2025021055,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-15T02:00:00Z",
+      "home_team": "VAN",
+      "away_team": "SEA",
+      "home_team_name": "Vancouver Canucks",
+      "away_team_name": "Seattle Kraken",
+      "home_win_probability": 0.42761004250429485,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.42761004250429485,
+        "bayes_bt_state_space": 0.4495646900873533,
+        "bayes_goals": 0.5064,
+        "dynamic_rating": 0.2350525023989824,
+        "elo_baseline": 0.39720658164402717,
+        "gbdt": 0.1860434929704249,
+        "glm_elastic_net": 0.4692524931525138,
+        "glm_lasso": 0.47298454484876873,
+        "glm_ridge": 0.4683616148458369,
+        "goals_poisson": 0.4205,
+        "rf": 0.40556904234956415,
+        "simulation_first": 0.418,
+        "two_stage": 0.4842942601588752
+      },
+      "moneyline": {
+        "away_price": -130,
+        "home_price": 115,
+        "away_book": "BetOnline.ag",
+        "home_book": "BetOnline.ag",
+        "books_count": 9
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": 196,
+        "home_price": -220,
+        "away_book": "BetUS",
+        "home_book": "BetMGM",
+        "books_count": 9
+      },
+      "total": {
+        "point": 6,
+        "over_price": -108,
+        "under_price": -103,
+        "over_book": "BetOnline.ag",
+        "under_book": "Bovada",
+        "books_count": 7
+      }
+    },
+    {
+      "game_id": 2025021056,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-15T02:00:00Z",
+      "home_team": "VGK",
+      "away_team": "CHI",
+      "home_team_name": "Vegas Golden Knights",
+      "away_team_name": "Chicago Blackhawks",
+      "home_win_probability": 0.5830050239924016,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.5830050239924016,
+        "bayes_bt_state_space": 0.6282073386567616,
+        "bayes_goals": 0.6104,
+        "dynamic_rating": 0.5187312662580275,
+        "elo_baseline": 0.5770945448771984,
+        "gbdt": 0.3282282446175987,
+        "glm_elastic_net": 0.6189752781107832,
+        "glm_lasso": 0.613326560088595,
+        "glm_ridge": 0.5999743183223879,
+        "goals_poisson": 0.584,
+        "rf": 0.5241492482339984,
+        "simulation_first": 0.4947142857142857,
+        "two_stage": 0.699536775373144
+      },
+      "moneyline": {
+        "away_price": 195,
+        "home_price": -220,
+        "away_book": "DraftKings",
+        "home_book": "BetUS",
+        "books_count": 9
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -125,
+        "home_price": 115,
+        "away_book": "BetMGM",
+        "home_book": "BetOnline.ag",
+        "books_count": 9
+      },
+      "total": {
+        "point": 6,
+        "over_price": -113,
+        "under_price": -101,
+        "over_book": "BetRivers",
+        "under_book": "BetOnline.ag",
+        "books_count": 7
       }
     }
   ]

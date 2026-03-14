@@ -374,7 +374,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-10",
-      "log_loss": 0.6346867625864362
+      "log_loss": 0.634686762586436
     },
     {
       "model_name": "gbdt",
@@ -414,7 +414,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-10",
-      "log_loss": 0.6532576800257888
+      "log_loss": 0.6539291268084132
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -439,7 +439,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.7567647643308247
+      "log_loss": 0.7567647643308248
     },
     {
       "model_name": "gbdt",
@@ -469,7 +469,7 @@
     {
       "model_name": "rf",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.8012398581655862
+      "log_loss": 0.8012398581655861
     },
     {
       "model_name": "simulation_first",
@@ -479,7 +479,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.8305237452724474
+      "log_loss": 0.8310666894744794
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -504,7 +504,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-12",
-      "log_loss": 0.7863154542866667
+      "log_loss": 0.7863154542866669
     },
     {
       "model_name": "gbdt",
@@ -544,7 +544,72 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-12",
-      "log_loss": 0.8181745071336736
+      "log_loss": 0.815563630180425
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-03-13",
+      "log_loss": 0.7887555138684483
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-03-13",
+      "log_loss": 0.8727016753299581
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-03-13",
+      "log_loss": 0.766102499332814
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-03-13",
+      "log_loss": 0.8345376570023715
+    },
+    {
+      "model_name": "ensemble",
+      "game_date_utc": "2026-03-13",
+      "log_loss": 0.7971743940944093
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-03-13",
+      "log_loss": 0.8108668874587072
+    },
+    {
+      "model_name": "glm_elastic_net",
+      "game_date_utc": "2026-03-13",
+      "log_loss": 0.8069522962323549
+    },
+    {
+      "model_name": "glm_lasso",
+      "game_date_utc": "2026-03-13",
+      "log_loss": 0.8107483948840923
+    },
+    {
+      "model_name": "glm_ridge",
+      "game_date_utc": "2026-03-13",
+      "log_loss": 0.8199898230414879
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-03-13",
+      "log_loss": 0.829647697993138
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-03-13",
+      "log_loss": 0.7847936404745116
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-03-13",
+      "log_loss": 0.6612502524657775
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-03-13",
+      "log_loss": 0.8551398113709661
     }
   ],
   "run_summaries": [
@@ -552,17 +617,17 @@
       "model_name": "bayes_bt_state_space",
       "model_run_id": "run_0bd28749c5be5350__bayes_bt_state_space",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-14T00:04:18+00:00",
-      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
+      "created_at_utc": "2026-03-14T11:58:24+00:00",
+      "snapshot_id": "nhl_odds_d725cfbb77dccee5",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-12",
-      "last_game_date_central": "2026-03-12",
-      "n_games": 29,
-      "avg_log_loss": 0.7269250694608043,
-      "avg_brier": 0.2665841918270925,
-      "accuracy": 0.4827586206896552,
+      "last_game_date_utc": "2026-03-13",
+      "last_game_date_central": "2026-03-13",
+      "n_games": 31,
+      "avg_log_loss": 0.7309141303903296,
+      "avg_brier": 0.26855897365221665,
+      "accuracy": 0.4838709677419355,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -570,17 +635,17 @@
       "model_name": "bayes_goals",
       "model_run_id": "run_0bd28749c5be5350__bayes_goals",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-14T00:04:18+00:00",
-      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
+      "created_at_utc": "2026-03-14T11:58:24+00:00",
+      "snapshot_id": "nhl_odds_d725cfbb77dccee5",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-12",
-      "last_game_date_central": "2026-03-12",
-      "n_games": 29,
-      "avg_log_loss": 0.7005989539655456,
-      "avg_brier": 0.2535237379310345,
-      "accuracy": 0.5172413793103449,
+      "last_game_date_utc": "2026-03-13",
+      "last_game_date_central": "2026-03-13",
+      "n_games": 31,
+      "avg_log_loss": 0.7117023553438948,
+      "avg_brier": 0.2590217264516129,
+      "accuracy": 0.4838709677419355,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -588,17 +653,17 @@
       "model_name": "dynamic_rating",
       "model_run_id": "run_0bd28749c5be5350__dynamic_rating",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-14T00:04:18+00:00",
-      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
+      "created_at_utc": "2026-03-14T11:58:24+00:00",
+      "snapshot_id": "nhl_odds_d725cfbb77dccee5",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-12",
-      "last_game_date_central": "2026-03-12",
-      "n_games": 29,
-      "avg_log_loss": 0.8335480686708336,
-      "avg_brier": 0.30927802060391063,
-      "accuracy": 0.3793103448275862,
+      "last_game_date_utc": "2026-03-13",
+      "last_game_date_central": "2026-03-13",
+      "n_games": 31,
+      "avg_log_loss": 0.8291967416167678,
+      "avg_brier": 0.3076506461794865,
+      "accuracy": 0.3870967741935484,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -606,17 +671,17 @@
       "model_name": "elo_baseline",
       "model_run_id": "run_0bd28749c5be5350__elo_baseline",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-14T00:04:18+00:00",
-      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
+      "created_at_utc": "2026-03-14T11:58:24+00:00",
+      "snapshot_id": "nhl_odds_d725cfbb77dccee5",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-12",
-      "last_game_date_central": "2026-03-12",
-      "n_games": 29,
-      "avg_log_loss": 0.7218257584906236,
-      "avg_brier": 0.2639208243783815,
-      "accuracy": 0.4482758620689655,
+      "last_game_date_utc": "2026-03-13",
+      "last_game_date_central": "2026-03-13",
+      "n_games": 31,
+      "avg_log_loss": 0.7290974938784782,
+      "avg_brier": 0.26753353061074137,
+      "accuracy": 0.41935483870967744,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -624,17 +689,17 @@
       "model_name": "ensemble",
       "model_run_id": "run_0bd28749c5be5350__ensemble",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-14T00:04:18+00:00",
-      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
+      "created_at_utc": "2026-03-14T11:58:24+00:00",
+      "snapshot_id": "nhl_odds_d725cfbb77dccee5",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-12",
-      "last_game_date_central": "2026-03-12",
-      "n_games": 29,
-      "avg_log_loss": 0.7163059931827123,
-      "avg_brier": 0.26140469056754434,
-      "accuracy": 0.5172413793103449,
+      "last_game_date_utc": "2026-03-13",
+      "last_game_date_central": "2026-03-13",
+      "n_games": 31,
+      "avg_log_loss": 0.7215233093705636,
+      "avg_brier": 0.2640123832132296,
+      "accuracy": 0.4838709677419355,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -642,17 +707,17 @@
       "model_name": "gbdt",
       "model_run_id": "run_0bd28749c5be5350__gbdt",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-14T00:04:18+00:00",
-      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
+      "created_at_utc": "2026-03-14T11:58:24+00:00",
+      "snapshot_id": "nhl_odds_d725cfbb77dccee5",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-12",
-      "last_game_date_central": "2026-03-12",
-      "n_games": 29,
-      "avg_log_loss": 0.9265164942588455,
-      "avg_brier": 0.34253502235318617,
-      "accuracy": 0.41379310344827586,
+      "last_game_date_utc": "2026-03-13",
+      "last_game_date_central": "2026-03-13",
+      "n_games": 31,
+      "avg_log_loss": 0.9190552293039979,
+      "avg_brier": 0.3400482200415684,
+      "accuracy": 0.41935483870967744,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -660,17 +725,17 @@
       "model_name": "glm_elastic_net",
       "model_run_id": "run_0bd28749c5be5350__glm_elastic_net",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-14T00:04:18+00:00",
-      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
+      "created_at_utc": "2026-03-14T11:58:24+00:00",
+      "snapshot_id": "nhl_odds_d725cfbb77dccee5",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-12",
-      "last_game_date_central": "2026-03-12",
-      "n_games": 29,
-      "avg_log_loss": 0.7081338241440294,
-      "avg_brier": 0.25722437536892445,
-      "accuracy": 0.5172413793103449,
+      "last_game_date_utc": "2026-03-13",
+      "last_game_date_central": "2026-03-13",
+      "n_games": 31,
+      "avg_log_loss": 0.7145092094400504,
+      "avg_brier": 0.26038875110069265,
+      "accuracy": 0.4838709677419355,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -678,17 +743,17 @@
       "model_name": "glm_lasso",
       "model_run_id": "run_0bd28749c5be5350__glm_lasso",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-14T00:04:18+00:00",
-      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
+      "created_at_utc": "2026-03-14T11:58:24+00:00",
+      "snapshot_id": "nhl_odds_d725cfbb77dccee5",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-12",
-      "last_game_date_central": "2026-03-12",
-      "n_games": 29,
-      "avg_log_loss": 0.7060291408242578,
-      "avg_brier": 0.256133709403075,
-      "accuracy": 0.5517241379310345,
+      "last_game_date_utc": "2026-03-13",
+      "last_game_date_central": "2026-03-13",
+      "n_games": 31,
+      "avg_log_loss": 0.712785221731344,
+      "avg_brier": 0.25948268753347464,
+      "accuracy": 0.5161290322580645,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -696,17 +761,17 @@
       "model_name": "glm_ridge",
       "model_run_id": "run_0bd28749c5be5350__glm_ridge",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-14T00:04:18+00:00",
-      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
+      "created_at_utc": "2026-03-14T11:58:24+00:00",
+      "snapshot_id": "nhl_odds_d725cfbb77dccee5",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-12",
-      "last_game_date_central": "2026-03-12",
-      "n_games": 29,
-      "avg_log_loss": 0.7032478747109283,
-      "avg_brier": 0.2547435617691401,
-      "accuracy": 0.6206896551724138,
+      "last_game_date_utc": "2026-03-13",
+      "last_game_date_central": "2026-03-13",
+      "n_games": 31,
+      "avg_log_loss": 0.7107796133128998,
+      "avg_brier": 0.25845404502179553,
+      "accuracy": 0.6129032258064516,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -714,17 +779,17 @@
       "model_name": "goals_poisson",
       "model_run_id": "run_0bd28749c5be5350__goals_poisson",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-14T00:04:18+00:00",
-      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
+      "created_at_utc": "2026-03-14T11:58:24+00:00",
+      "snapshot_id": "nhl_odds_d725cfbb77dccee5",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-12",
-      "last_game_date_central": "2026-03-12",
-      "n_games": 29,
-      "avg_log_loss": 0.7221627084516945,
-      "avg_brier": 0.26416039655172413,
-      "accuracy": 0.4482758620689655,
+      "last_game_date_utc": "2026-03-13",
+      "last_game_date_central": "2026-03-13",
+      "n_games": 31,
+      "avg_log_loss": 0.7290972239059812,
+      "avg_brier": 0.2676232025089606,
+      "accuracy": 0.41935483870967744,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -732,17 +797,17 @@
       "model_name": "rf",
       "model_run_id": "run_0bd28749c5be5350__rf",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-14T00:04:18+00:00",
-      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
+      "created_at_utc": "2026-03-14T11:58:24+00:00",
+      "snapshot_id": "nhl_odds_d725cfbb77dccee5",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-12",
-      "last_game_date_central": "2026-03-12",
-      "n_games": 29,
-      "avg_log_loss": 0.714954201533394,
-      "avg_brier": 0.2606528056988132,
-      "accuracy": 0.41379310344827586,
+      "last_game_date_utc": "2026-03-13",
+      "last_game_date_central": "2026-03-13",
+      "n_games": 31,
+      "avg_log_loss": 0.7194599717876596,
+      "avg_brier": 0.262855569753857,
+      "accuracy": 0.41935483870967744,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -750,17 +815,17 @@
       "model_name": "simulation_first",
       "model_run_id": "run_0bd28749c5be5350__simulation_first",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-14T00:04:18+00:00",
-      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
+      "created_at_utc": "2026-03-14T11:58:24+00:00",
+      "snapshot_id": "nhl_odds_d725cfbb77dccee5",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-12",
-      "last_game_date_central": "2026-03-12",
-      "n_games": 29,
-      "avg_log_loss": 0.7281484216328863,
-      "avg_brier": 0.2674985524278677,
-      "accuracy": 0.3793103448275862,
+      "last_game_date_utc": "2026-03-13",
+      "last_game_date_central": "2026-03-13",
+      "n_games": 31,
+      "avg_log_loss": 0.7238324107188793,
+      "avg_brier": 0.26534602501645815,
+      "accuracy": 0.3870967741935484,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -768,17 +833,17 @@
       "model_name": "two_stage",
       "model_run_id": "run_0bd28749c5be5350__two_stage",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-14T00:04:18+00:00",
-      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
+      "created_at_utc": "2026-03-14T11:58:24+00:00",
+      "snapshot_id": "nhl_odds_d725cfbb77dccee5",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-12",
-      "last_game_date_central": "2026-03-12",
-      "n_games": 29,
-      "avg_log_loss": 0.7450979458879855,
-      "avg_brier": 0.27495969768279216,
-      "accuracy": 0.4827586206896552,
+      "last_game_date_utc": "2026-03-13",
+      "last_game_date_central": "2026-03-13",
+      "n_games": 31,
+      "avg_log_loss": 0.7513349184750391,
+      "avg_brier": 0.278100727344438,
+      "accuracy": 0.45161290322580644,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -1652,838 +1717,811 @@
       "model_name": "dynamic_rating",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 2.6988907877809645,
-      "threshold": 1.2777514187042573,
+      "statistic": 3.1191169742219995,
+      "threshold": 1.272504177249925,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 70, \"value\": 0.9502699717490083}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "dynamic_rating",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 2.6992056222682246,
+      "threshold": 1.272504177249925,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 41, \"value\": 1.4080825108107682}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "gbdt",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 2.46928863270316,
-      "threshold": 1.5383649485825672,
+      "statistic": 2.4694602788793234,
+      "threshold": 1.5378285542820551,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 1.5237633998969349}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "dynamic_rating",
       "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 2.4257239452642123,
-      "threshold": 1.2777514187042573,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 69, \"value\": 1.492128457807802}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "dynamic_rating",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 2.400415117746249,
-      "threshold": 1.2777514187042573,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 59, \"value\": 1.9928429720085996}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "method": "cusum",
+      "statistic": 2.101020040604432,
+      "threshold": 1.5270050126999102,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 61, \"value\": 1.81318866194156}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "gbdt",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 2.0843923203581145,
-      "threshold": 1.5383649485825672,
+      "statistic": 2.084445959788165,
+      "threshold": 1.5378285542820551,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 49, \"value\": 1.4740124991143628}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "gbdt",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 2.0581924987430598,
-      "threshold": 1.8460379382990808,
+      "statistic": 2.0772168934930684,
+      "threshold": 1.8453942651384663,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 70, \"value\": 1.4168064884684075}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "gbdt",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 2.062193230777368,
+      "threshold": 1.8453942651384663,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 1.4635990474561396}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "dynamic_rating",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 2.0469017046621656,
-      "threshold": 1.533301702445109,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 61, \"value\": 0.4357833586610193}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "dynamic_rating",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 2.011576291388775,
-      "threshold": 1.533301702445109,
+      "statistic": 2.006610785420862,
+      "threshold": 1.5270050126999102,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 51, \"value\": 0.16986572350742243}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
-      "model_name": "gbdt",
+      "model_name": "dynamic_rating",
       "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 1.966036228458113,
-      "threshold": 1.8460379382990808,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 67, \"value\": 0.35163891474587455}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "method": "page_hinkley",
+      "statistic": 1.9224800042707726,
+      "threshold": 1.272504177249925,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 60, \"value\": 1.9928429720085996}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "gbdt",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.861484614225569,
-      "threshold": 1.5383649485825672,
+      "statistic": 1.8615060699975896,
+      "threshold": 1.5378285542820551,
       "details_json": "{\"date\": \"2026-03-12\", \"index\": 69, \"value\": 2.4241835376478016}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "dynamic_rating",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 1.8573310178452578,
-      "threshold": 1.533301702445109,
+      "statistic": 1.8600032363042271,
+      "threshold": 1.5270050126999102,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 1.6251768292200672}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "gbdt",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 1.7053830742288894,
-      "threshold": 1.5383649485825672,
-      "details_json": "{\"date\": \"2026-03-09\", \"index\": 39, \"value\": 2.6073172489879406}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "dynamic_rating",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 1.683786374086115,
-      "threshold": 1.2777514187042573,
-      "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.9542254363415801}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "dynamic_rating",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 1.6691747230146567,
-      "threshold": 1.533301702445109,
-      "details_json": "{\"date\": \"2026-03-07\", \"index\": 26, \"value\": 0.20945555226579088}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "gbdt",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 1.6457604573835394,
-      "threshold": 1.5383649485825672,
-      "details_json": "{\"date\": \"2026-03-07\", \"index\": 29, \"value\": 1.0179450737863192}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "two_stage",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.452950033476153,
-      "threshold": 0.6406466390254877,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 68, \"value\": 1.1626561037384942}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 1.8064646412391976,
+      "threshold": 0.635500414355819,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 69, \"value\": 1.023480919494185}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
-      "model_name": "simulation_first",
+      "model_name": "gbdt",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.3094563021190522,
-      "threshold": 0.5570484814059758,
-      "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.9148631798829696}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 1.7053938021148995,
+      "threshold": 1.5378285542820551,
+      "details_json": "{\"date\": \"2026-03-09\", \"index\": 39, \"value\": 2.6073172489879406}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "dynamic_rating",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.2961717904565477,
-      "threshold": 1.2777514187042573,
-      "details_json": "{\"date\": \"2026-03-08\", \"index\": 31, \"value\": 1.0987217557636895}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 1.6849407672060686,
+      "threshold": 1.272504177249925,
+      "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.9542254363415801}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
-      "model_name": "glm_ridge",
+      "model_name": "dynamic_rating",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 1.6656988688371173,
+      "threshold": 1.5270050126999102,
+      "details_json": "{\"date\": \"2026-03-07\", \"index\": 26, \"value\": 0.20945555226579088}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "gbdt",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.2299889618222726,
-      "threshold": 0.47623620283440476,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 69, \"value\": 0.8528216153056998}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 1.64578191315556,
+      "threshold": 1.5378285542820551,
+      "details_json": "{\"date\": \"2026-03-07\", \"index\": 29, \"value\": 1.0179450737863192}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "simulation_first",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.3920022493986204,
+      "threshold": 0.550527747039548,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 67, \"value\": 0.7023320901370179}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "simulation_first",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.3116733518036376,
+      "threshold": 0.550527747039548,
+      "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.9148631798829696}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "dynamic_rating",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.2965915697728942,
+      "threshold": 1.272504177249925,
+      "details_json": "{\"date\": \"2026-03-08\", \"index\": 31, \"value\": 1.0987217557636895}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.2001953308232332,
-      "threshold": 0.4867295320341785,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 68, \"value\": 0.9934746088349994}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 1.2959222852229901,
+      "threshold": 0.4819587520811741,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 70, \"value\": 0.6877827211427882}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
-      "model_name": "simulation_first",
+      "model_name": "elo_baseline",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.1649844158177085,
-      "threshold": 0.5570484814059758,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 67, \"value\": 0.7023320901370179}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 1.1283344899934655,
+      "threshold": 0.4542058180888833,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 66, \"value\": 0.9752360089549104}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
-      "model_name": "two_stage",
+      "model_name": "glm_ridge",
       "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 1.159671794239168,
-      "threshold": 0.7687759668305851,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 68, \"value\": 1.1626561037384942}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "method": "page_hinkley",
+      "statistic": 1.1129213604268973,
+      "threshold": 0.4760132921237912,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 70, \"value\": 0.5496387620877766}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "glm_lasso",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.067896925295975,
-      "threshold": 0.49983234836073415,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 19, \"value\": 0.6416308369837391}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 1.1028262963590825,
+      "threshold": 0.49595659527084535,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 40, \"value\": 0.8191720903451727}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.0133873989988955,
-      "threshold": 0.42977509339618936,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 68, \"value\": 0.9701283525136658}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 1.086298988305818,
+      "threshold": 0.42751510619548017,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 70, \"value\": 0.5778373288157238}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "glm_lasso",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.0766003058023454,
+      "threshold": 0.49595659527084535,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 19, \"value\": 0.6416308369837391}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "glm_elastic_net",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.9843214182993454,
-      "threshold": 0.47513346585744015,
+      "statistic": 1.0650805684387141,
+      "threshold": 0.4711191159617717,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 40, \"value\": 0.8364126405662643}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "glm_elastic_net",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.9919921366493891,
+      "threshold": 0.4711191159617717,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 19, \"value\": 0.6383164235428803}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "two_stage",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.9820182627463256,
-      "threshold": 0.7687759668305851,
+      "statistic": 0.968993458473917,
+      "threshold": 0.7626004972269829,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 35, \"value\": 0.23594092049284612}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
-      "model_name": "ensemble",
+      "model_name": "simulation_first",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.9391703278181668,
-      "threshold": 0.5840754384410142,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 69, \"value\": 0.9085471838782997}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "two_stage",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.914178909057674,
-      "threshold": 0.7687759668305851,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 45, \"value\": 0.4895236726702042}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "elo_baseline",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 0.883929072991991,
-      "threshold": 0.45633740610277185,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 66, \"value\": 0.9752360089549104}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "two_stage",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 0.8767981102724787,
-      "threshold": 0.6406466390254877,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 58, \"value\": 0.9997271364494085}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "glm_lasso",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.8729909368631331,
-      "threshold": 0.5997988180328809,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 30, \"value\": 1.063868209914666}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "glm_elastic_net",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.8691005335656902,
-      "threshold": 0.5701601590289281,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 30, \"value\": 1.0387762792654345}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "two_stage",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 0.8670821712587897,
-      "threshold": 0.6406466390254877,
-      "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 1.0184294385466095}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "glm_elastic_net",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 0.8529233422061007,
-      "threshold": 0.47513346585744015,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 29, \"value\": 0.8420386241222134}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "elo_baseline",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.8497832736189802,
-      "threshold": 0.5476048873233261,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 70, \"value\": 0.7686789866887521}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "glm_ridge",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 0.8386927776599525,
-      "threshold": 0.47623620283440476,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 59, \"value\": 1.0679153309663962}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "glm_lasso",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 0.8376195073310222,
-      "threshold": 0.49983234836073415,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 29, \"value\": 0.8296989077667443}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 0.9393272659728501,
+      "threshold": 0.6606332964474575,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 64, \"value\": 1.192138346678933}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "bayes_goals",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.8360622749749229,
-      "threshold": 0.35942967414972155,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 69, \"value\": 0.7096831492000448}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 0.938654470729603,
+      "threshold": 0.3620233538873638,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 70, \"value\": 0.7588597239253266}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "two_stage",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.9268600555196097,
+      "threshold": 0.7626004972269829,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 45, \"value\": 0.48558012283988594}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "two_stage",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.8724022029742801,
+      "threshold": 0.7626004972269829,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 67, \"value\": 1.0259605245465369}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "two_stage",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.8672880202455764,
+      "threshold": 0.635500414355819,
+      "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 1.0184294385466095}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "two_stage",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.840577778255609,
+      "threshold": 0.635500414355819,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 59, \"value\": 0.9898486485153343}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.819778992793326,
-      "threshold": 0.36443402697429156,
+      "threshold": 0.3665995453892833,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.8148621137614164}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "glm_ridge",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.819699386185522,
+      "threshold": 0.4760132921237912,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 60, \"value\": 1.0679153309663962}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "glm_lasso",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.8165918893330468,
+      "threshold": 0.5951479143250145,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 38, \"value\": 1.0252970060327673}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "glm_elastic_net",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.803800316613225,
+      "threshold": 0.565342939154126,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 38, \"value\": 0.9941302564866665}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "ensemble",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.798094265816193,
+      "threshold": 0.4819587520811741,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 60, \"value\": 1.0161546056489237}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "simulation_first",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.7836021791485379,
-      "threshold": 0.5570484814059758,
+      "statistic": 0.7838630085231948,
+      "threshold": 0.550527747039548,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 0.9961846410949208}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "ensemble",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.7732841678238211,
+      "threshold": 0.5783505024974089,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 66, \"value\": 1.0201354761553874}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "elo_baseline",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.7719928264343343,
+      "threshold": 0.5450469817066599,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 66, \"value\": 0.9752360089549104}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.7665289580075435,
-      "threshold": 0.4867295320341785,
+      "threshold": 0.4819587520811741,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.5821864597864855}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "glm_ridge",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.7665289580075435,
-      "threshold": 0.47623620283440476,
+      "threshold": 0.4760132921237912,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.5821864597864855}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "glm_ridge",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.7559639667069991,
-      "threshold": 0.5714834434012858,
+      "statistic": 0.7634270651583519,
+      "threshold": 0.5712159505485495,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 35, \"value\": 0.3150121203030179}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.733502490614383,
-      "threshold": 0.4867295320341785,
+      "threshold": 0.4819587520811741,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 41, \"value\": 0.7738489111470783}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "simulation_first",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.7147707817502439,
+      "threshold": 0.6606332964474575,
+      "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.9148631798829696}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.732989994428653,
-      "threshold": 0.5840754384410142,
-      "details_json": "{\"date\": \"2026-03-08\", \"index\": 35, \"value\": 0.4077891762903111}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "simulation_first",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.7177839169943869,
-      "threshold": 0.668458177687171,
-      "details_json": "{\"date\": \"2026-03-08\", \"index\": 32, \"value\": 1.0535023576444902}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "simulation_first",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.7091513879678137,
-      "threshold": 0.668458177687171,
-      "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.9148631798829696}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "elo_baseline",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.7079458832786324,
-      "threshold": 0.5476048873233261,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 60, \"value\": 0.8489795183975113}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "simulation_first",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.7064919472341988,
-      "threshold": 0.668458177687171,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 70, \"value\": 0.8563386050393527}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "simulation_first",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.7013358327841124,
-      "threshold": 0.668458177687171,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 45, \"value\": 0.33347672764141445}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "glm_lasso",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 0.6956700349595487,
-      "threshold": 0.49983234836073415,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 39, \"value\": 0.903744054943495}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 0.6948964046529829,
+      "threshold": 0.5783505024974089,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 45, \"value\": 0.4456247626791002}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "two_stage",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.6939719562109431,
-      "threshold": 0.6406466390254877,
+      "statistic": 0.6941778051977299,
+      "threshold": 0.635500414355819,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 29, \"value\": 0.9583125280380612}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "simulation_first",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.6917904030017926,
+      "threshold": 0.6606332964474575,
+      "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 0.9961846410949208}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "simulation_first",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.6906553652500518,
-      "threshold": 0.5570484814059758,
+      "statistic": 0.6909161946247089,
+      "threshold": 0.550527747039548,
       "details_json": "{\"date\": \"2026-03-07\", \"index\": 29, \"value\": 0.7749771988075774}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.6823081833194705,
-      "threshold": 0.5840754384410142,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 45, \"value\": 0.4456247626791005}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 0.6785176346273445,
+      "threshold": 0.5783505024974089,
+      "details_json": "{\"date\": \"2026-03-08\", \"index\": 35, \"value\": 0.4077891762903111}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
-      "model_name": "simulation_first",
+      "model_name": "glm_lasso",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.6814833005539545,
-      "threshold": 0.668458177687171,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 60, \"value\": 0.9541409560052527}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 0.6771099240229977,
+      "threshold": 0.5951479143250145,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 28, \"value\": 0.5505010135297894}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "simulation_first",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.6756768545779724,
-      "threshold": 0.5570484814059758,
+      "statistic": 0.6763289280146151,
+      "threshold": 0.550527747039548,
       "details_json": "{\"date\": \"2026-03-11\", \"index\": 57, \"value\": 0.9339456671128757}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
-      "model_name": "glm_elastic_net",
+      "model_name": "bayes_bt_state_space",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.6554803205283031,
-      "threshold": 0.47513346585744015,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 39, \"value\": 0.9182614491885797}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 0.6681826385025014,
+      "threshold": 0.42751510619548017,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 60, \"value\": 0.9544775301951364}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "goals_poisson",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.6450072438707385,
-      "threshold": 0.4927065539757313,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 51, \"value\": 0.4826161672965794}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 0.665291434472054,
+      "threshold": 0.4900544479581273,
+      "details_json": "{\"date\": \"2026-03-09\", \"index\": 38, \"value\": 0.4847789148278899}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
-      "model_name": "elo_baseline",
+      "model_name": "simulation_first",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.6434388727482215,
-      "threshold": 0.5476048873233261,
-      "details_json": "{\"date\": \"2026-03-07\", \"index\": 27, \"value\": 0.575066339189471}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "ensemble",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.6157109808519589,
-      "threshold": 0.5840754384410142,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 59, \"value\": 1.0161546056489223}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 0.6639633989499351,
+      "threshold": 0.6606332964474575,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 50, \"value\": 1.0016152207715607}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "glm_ridge",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.6081874620347985,
-      "threshold": 0.5714834434012858,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 66, \"value\": 1.0779668249494534}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 0.6557699472557477,
+      "threshold": 0.5712159505485495,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 67, \"value\": 0.8203495479342244}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "glm_elastic_net",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.6461328884505134,
+      "threshold": 0.565342939154126,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 28, \"value\": 0.5607579445025882}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "elo_baseline",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.6184494613904854,
+      "threshold": 0.5450469817066599,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 50, \"value\": 0.5656313556671759}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "elo_baseline",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.6035956192782911,
+      "threshold": 0.5450469817066599,
+      "details_json": "{\"date\": \"2026-03-09\", \"index\": 38, \"value\": 0.45992568522941846}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "goals_poisson",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.5967446889715495,
+      "threshold": 0.4083787066317728,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 65, \"value\": 1.0622803594207193}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.5870359307611249,
+      "threshold": 0.5130181274345762,
+      "details_json": "{\"date\": \"2026-03-07\", \"index\": 26, \"value\": 0.3825986984974909}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.5971656671114193,
+      "statistic": 0.5805882707239025,
       "threshold": 0.45,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.8148621137614164}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
-      "model_name": "ensemble",
+      "model_name": "bayes_goals",
       "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 0.5928020132288492,
-      "threshold": 0.4867295320341785,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 58, \"value\": 0.834537852300239}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "method": "cusum",
+      "statistic": 0.5782278027817114,
+      "threshold": 0.45,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 66, \"value\": 0.8906229851255774}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "elo_baseline",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.5722320409861162,
+      "threshold": 0.5450469817066599,
+      "details_json": "{\"date\": \"2026-03-07\", \"index\": 26, \"value\": 0.5201360540581472}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "bayes_goals",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.5688058090457713,
+      "threshold": 0.45,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 43, \"value\": 0.4841836928195696}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.5902316125791953,
-      "threshold": 0.5157301120754272,
-      "details_json": "{\"date\": \"2026-03-09\", \"index\": 38, \"value\": 0.41682889454715677}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "elo_baseline",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.5861175762370052,
-      "threshold": 0.5476048873233261,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 50, \"value\": 0.5656313556671759}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "elo_baseline",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.5784485974922509,
-      "threshold": 0.5476048873233261,
-      "details_json": "{\"date\": \"2026-03-09\", \"index\": 38, \"value\": 0.45992568522941846}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "bayes_bt_state_space",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.5682215258951955,
-      "threshold": 0.5157301120754272,
-      "details_json": "{\"date\": \"2026-03-07\", \"index\": 26, \"value\": 0.3825986984974909}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 0.5673221214589251,
+      "threshold": 0.5130181274345762,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 44, \"value\": 0.46816942913796006}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "elo_baseline",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.5619103274910359,
-      "threshold": 0.45633740610277185,
+      "statistic": 0.5619103274910362,
+      "threshold": 0.4542058180888833,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 41, \"value\": 0.8606501649179034}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
-      "model_name": "bayes_bt_state_space",
+      "model_name": "goals_poisson",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.5540897994855788,
-      "threshold": 0.5157301120754272,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 66, \"value\": 0.9663813419561049}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 0.558543002135546,
+      "threshold": 0.4900544479581273,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 65, \"value\": 1.0622803594207193}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "glm_lasso",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.5462205847447356,
+      "threshold": 0.49595659527084535,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 30, \"value\": 1.002389797954965}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.5435294150153669,
-      "threshold": 0.42977509339618936,
+      "threshold": 0.42751510619548017,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 41, \"value\": 0.8330872722555999}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.5403700886593588,
+      "threshold": 0.5130181274345762,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 66, \"value\": 0.9663813419561049}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "glm_elastic_net",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 0.5403055049751371,
+      "threshold": 0.4711191159617717,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 30, \"value\": 0.9927154324524956}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.5328683031342295,
-      "threshold": 0.4867295320341785,
+      "threshold": 0.4819587520811741,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 31, \"value\": 0.9484235378523279}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
-      "model_name": "rf",
+      "model_name": "bayes_goals",
       "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 0.5268842164322356,
-      "threshold": 0.36443402697429156,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 70, \"value\": 0.7147284614702526}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "method": "cusum",
+      "statistic": 0.5179050426245931,
+      "threshold": 0.45,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 53, \"value\": 0.5916742116293116}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "bayes_goals",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.5178885065020152,
-      "threshold": 0.35942967414972155,
+      "threshold": 0.3620233538873638,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 31, \"value\": 1.0356374895067213}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "glm_ridge",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.5162063498312477,
-      "threshold": 0.47623620283440476,
+      "threshold": 0.4760132921237912,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 0.9462860324025361}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "bayes_bt_state_space",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.516173941414568,
-      "threshold": 0.5157301120754272,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 48, \"value\": 0.5416254672470224}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "bayes_goals",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.5153246431770755,
-      "threshold": 0.45,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 43, \"value\": 0.4841836928195696}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "bayes_goals",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.514052255812415,
-      "threshold": 0.45,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 66, \"value\": 0.8906229851255774}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "goals_poisson",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.5087528399069863,
-      "threshold": 0.4927065539757313,
-      "details_json": "{\"date\": \"2026-03-08\", \"index\": 37, \"value\": 0.6264235485170372}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "goals_poisson",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.5087500970618875,
-      "threshold": 0.4105887949797761,
+      "threshold": 0.4083787066317728,
       "details_json": "{\"date\": \"2026-03-10\", \"index\": 55, \"value\": 0.8089322135536556}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "elo_baseline",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.5086357570559384,
-      "threshold": 0.45633740610277185,
+      "threshold": 0.4542058180888833,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 31, \"value\": 0.9864309088275939}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.49841878075068213,
+      "statistic": 0.5065056469008116,
       "threshold": 0.45,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 35, \"value\": 0.5219687488845497}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
+    },
+    {
+      "model_name": "goals_poisson",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 0.4901410239466369,
+      "threshold": 0.4900544479581273,
+      "details_json": "{\"date\": \"2026-03-10\", \"index\": 50, \"value\": 0.5759569131485417}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "bayes_goals",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.4960513915499059,
+      "statistic": 0.4765643812282496,
       "threshold": 0.45,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 31, \"value\": 1.0356374895067213}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "bayes_goals",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 0.4958908335600636,
-      "threshold": 0.35942967414972155,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 59, \"value\": 0.8589656652548857}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "goals_poisson",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.49293480520509586,
-      "threshold": 0.4927065539757313,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 63, \"value\": 0.8003612648670945}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "goals_poisson",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 0.4918029844650391,
-      "threshold": 0.4105887949797761,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 65, \"value\": 0.5136072667278676}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "goals_poisson",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.4754499735362816,
-      "threshold": 0.4105887949797761,
+      "threshold": 0.4083787066317728,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 31, \"value\": 0.9441759353636907}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "elo_baseline",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.47401953076831826,
-      "threshold": 0.45633740610277185,
+      "statistic": 0.4740195307683186,
+      "threshold": 0.4542058180888833,
       "details_json": "{\"date\": \"2026-03-11\", \"index\": 56, \"value\": 0.7370836264229801}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
-    },
-    {
-      "model_name": "bayes_goals",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.4733374044006801,
-      "threshold": 0.45,
-      "details_json": "{\"date\": \"2026-03-10\", \"index\": 53, \"value\": 0.5916742116293116}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "elo_baseline",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.46057547551623096,
-      "threshold": 0.45633740610277185,
+      "threshold": 0.4542058180888833,
       "details_json": "{\"date\": \"2026-03-06\", \"index\": 19, \"value\": 0.858087593873505}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
-      "model_name": "bayes_bt_state_space",
+      "model_name": "bayes_goals",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.4545352904864479,
-      "threshold": 0.42977509339618936,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 58, \"value\": 0.8109575695562878}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 0.45214808241011406,
+      "threshold": 0.3620233538873638,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 60, \"value\": 0.8589656652548857}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.4440576413829316,
-      "threshold": 0.36443402697429156,
+      "statistic": 0.44405764138293136,
+      "threshold": 0.3665995453892833,
       "details_json": "{\"date\": \"2026-03-09\", \"index\": 40, \"value\": 0.802500556766169}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
       "metric_name": "log_loss",
       "method": "page_hinkley",
       "statistic": 0.43646022132079787,
-      "threshold": 0.42977509339618936,
+      "threshold": 0.42751510619548017,
       "details_json": "{\"date\": \"2026-03-08\", \"index\": 31, \"value\": 1.0563752075483124}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.40143143308859475,
-      "threshold": 0.36443402697429156,
-      "details_json": "{\"date\": \"2026-03-12\", \"index\": 60, \"value\": 0.7524088469773836}",
-      "as_of_utc": "2026-03-14T00:04:43+00:00"
+      "statistic": 0.3743254721475474,
+      "threshold": 0.3665995453892833,
+      "details_json": "{\"date\": \"2026-03-12\", \"index\": 68, \"value\": 0.7739416598465302}",
+      "as_of_utc": "2026-03-14T11:58:53+00:00"
     }
   ],
   "replay_runs": [
@@ -2711,11 +2749,11 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-12",
-      "replayable_games": 29,
+      "last_replay_date_central": "2026-03-13",
+      "replayable_games": 30,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 9,
           "wins": 4,
           "losses": 5,
@@ -2728,7 +2766,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "aggressive": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 9,
           "wins": 4,
           "losses": 5,
@@ -2741,7 +2779,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "capitalPreservation": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 4,
           "wins": 1,
           "losses": 3,
@@ -4489,6 +4527,66 @@
               "market_probability": 0.35294117647058826,
               "edge": 0.03540898948161847,
               "expected_value": 0.06796295636856842,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
               "outcome": "no_bet",
               "profit": 0,
               "payout": 0
@@ -7802,11 +7900,11 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-12",
-      "replayable_games": 29,
+      "last_replay_date_central": "2026-03-13",
+      "replayable_games": 30,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 9,
           "wins": 7,
           "losses": 2,
@@ -7819,7 +7917,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "aggressive": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 9,
           "wins": 7,
           "losses": 2,
@@ -7832,7 +7930,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "capitalPreservation": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 1,
           "wins": 1,
           "losses": 0,
@@ -9538,6 +9636,66 @@
           "away_score": 5,
           "home_moneyline": 175,
           "away_moneyline": -200,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
           "strategies": {
             "riskAdjusted": {
               "bet_label": "$0",
@@ -12893,37 +13051,37 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-12",
-      "replayable_games": 29,
+      "last_replay_date_central": "2026-03-13",
+      "replayable_games": 30,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 29,
-          "suggested_bets": 10,
-          "wins": 7,
+          "total_games": 30,
+          "suggested_bets": 11,
+          "wins": 8,
           "losses": 3,
-          "total_risked": 1050,
-          "total_profit": 689.6157094594595,
-          "roi": 0.6567768661518661,
-          "avg_edge": 0.11053129724905567,
-          "avg_expected_value": 0.1871073748444006,
+          "total_risked": 1175,
+          "total_profit": 854.6157094594595,
+          "roi": 0.7273325186889017,
+          "avg_edge": 0.11323100811451098,
+          "avg_expected_value": 0.19838533394538427,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "aggressive": {
-          "total_games": 29,
-          "suggested_bets": 10,
-          "wins": 7,
+          "total_games": 30,
+          "suggested_bets": 11,
+          "wins": 8,
           "losses": 3,
-          "total_risked": 1550,
-          "total_profit": 945.4619932432432,
-          "roi": 0.6099754795117698,
-          "avg_edge": 0.11053129724905567,
-          "avg_expected_value": 0.1871073748444006,
+          "total_risked": 1725,
+          "total_profit": 1176.4619932432433,
+          "roi": 0.6820069526047787,
+          "avg_edge": 0.11323100811451098,
+          "avg_expected_value": 0.19838533394538427,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "capitalPreservation": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 8,
           "wins": 4,
           "losses": 4,
@@ -14671,6 +14829,66 @@
               "market_probability": 0.6470588235294118,
               "edge": 0.05616782993600855,
               "expected_value": 0.05483998019813052,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 STL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "home",
+              "team": "STL",
+              "stake": 125,
+              "odds": 132,
+              "model_probability": 0.5651572952393192,
+              "market_probability": 0.4249291784702549,
+              "edge": 0.14022811676906433,
+              "expected_value": 0.31116492495522086,
+              "outcome": "win",
+              "profit": 165,
+              "payout": 290
+            },
+            "aggressive": {
+              "bet_label": "$175 STL",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "home",
+              "team": "STL",
+              "stake": 175,
+              "odds": 132,
+              "model_probability": 0.5651572952393192,
+              "market_probability": 0.4249291784702549,
+              "edge": 0.14022811676906433,
+              "expected_value": 0.31116492495522086,
+              "outcome": "win",
+              "profit": 231,
+              "payout": 406
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.5651572952393192,
+              "market_probability": 0.4249291784702549,
+              "edge": 0.14022811676906433,
+              "expected_value": 0.31116492495522086,
               "outcome": "no_bet",
               "profit": 0,
               "payout": 0
@@ -17984,11 +18202,11 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-12",
-      "replayable_games": 29,
+      "last_replay_date_central": "2026-03-13",
+      "replayable_games": 30,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 9,
           "wins": 5,
           "losses": 4,
@@ -18001,7 +18219,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "aggressive": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 9,
           "wins": 5,
           "losses": 4,
@@ -18014,7 +18232,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "capitalPreservation": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 4,
           "wins": 3,
           "losses": 1,
@@ -19720,6 +19938,66 @@
           "away_score": 5,
           "home_moneyline": 175,
           "away_moneyline": -200,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
           "strategies": {
             "riskAdjusted": {
               "bet_label": "$0",
@@ -23070,11 +23348,11 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-12",
-      "replayable_games": 29,
+      "last_replay_date_central": "2026-03-13",
+      "replayable_games": 30,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 9,
           "wins": 6,
           "losses": 3,
@@ -23087,7 +23365,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "aggressive": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 9,
           "wins": 6,
           "losses": 3,
@@ -23100,7 +23378,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "capitalPreservation": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 7,
           "wins": 3,
           "losses": 4,
@@ -24848,6 +25126,66 @@
               "market_probability": 0.35294117647058826,
               "edge": 0.0321151664442641,
               "expected_value": 0.058904943015843925,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
               "outcome": "no_bet",
               "profit": 0,
               "payout": 0
@@ -28400,47 +28738,47 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-12",
-      "replayable_games": 29,
+      "last_replay_date_central": "2026-03-13",
+      "replayable_games": 30,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 29,
-          "suggested_bets": 9,
+          "total_games": 30,
+          "suggested_bets": 10,
           "wins": 3,
-          "losses": 6,
-          "total_risked": 925,
-          "total_profit": -407.7586206896551,
-          "roi": -0.44082013047530283,
-          "avg_edge": 0.1806380391728123,
-          "avg_expected_value": 0.4066892797095763,
+          "losses": 7,
+          "total_risked": 1050,
+          "total_profit": -532.7586206896551,
+          "roi": -0.5073891625615763,
+          "avg_edge": 0.17298707877345892,
+          "avg_expected_value": 0.38245451003159414,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "aggressive": {
-          "total_games": 29,
-          "suggested_bets": 9,
+          "total_games": 30,
+          "suggested_bets": 10,
           "wins": 3,
-          "losses": 6,
-          "total_risked": 1375,
-          "total_profit": -447.2758620689656,
-          "roi": -0.32529153605015676,
-          "avg_edge": 0.1806380391728123,
-          "avg_expected_value": 0.4066892797095763,
+          "losses": 7,
+          "total_risked": 1550,
+          "total_profit": -622.2758620689656,
+          "roi": -0.40146829810901,
+          "avg_edge": 0.17298707877345892,
+          "avg_expected_value": 0.38245451003159414,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "capitalPreservation": {
-          "total_games": 29,
-          "suggested_bets": 9,
+          "total_games": 30,
+          "suggested_bets": 10,
           "wins": 3,
-          "losses": 6,
-          "total_risked": 575,
-          "total_profit": -285.10018639328985,
-          "roi": -0.49582641111876496,
-          "avg_edge": 0.11751354278226975,
-          "avg_expected_value": 0.18482142950520256,
+          "losses": 7,
+          "total_risked": 650,
+          "total_profit": -360.10018639328985,
+          "roi": -0.5540002867589074,
+          "avg_edge": 0.11617503202197062,
+          "avg_expected_value": 0.18277344484765776,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         }
       },
       "bets": [
@@ -30180,6 +30518,66 @@
               "expected_value": 0.055474832698742205,
               "outcome": "no_bet",
               "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 125,
+              "odds": -140,
+              "model_probability": 0.6791992567090235,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.10412843517927839,
+              "expected_value": 0.16434158292975454,
+              "outcome": "loss",
+              "profit": -125,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$175 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 175,
+              "odds": -140,
+              "model_probability": 0.6791992567090235,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.10412843517927839,
+              "expected_value": 0.16434158292975454,
+              "outcome": "loss",
+              "profit": -175,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$75 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 75,
+              "odds": -140,
+              "model_probability": 0.6791992567090235,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.10412843517927839,
+              "expected_value": 0.16434158292975454,
+              "outcome": "loss",
+              "profit": -75,
               "payout": 0
             }
           }
@@ -33271,8 +33669,8 @@
       "model_name": "glm_elastic_net",
       "model_run_id": "run_0bd28749c5be5350__glm_elastic_net",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-14T00:04:18+00:00",
-      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
+      "created_at_utc": "2026-03-14T11:58:24+00:00",
+      "snapshot_id": "nhl_odds_d725cfbb77dccee5",
       "artifact_path": "artifacts/models/0bd28749c5be5350",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "feature_columns": [
@@ -33480,16 +33878,16 @@
         "brier": 0.2407096217524775,
         "log_loss": 0.6737612147429706
       },
-      "scored_games": 29,
-      "avg_log_loss": 0.7081338241440294,
-      "avg_brier": 0.25722437536892445,
-      "accuracy": 0.5172413793103449,
+      "scored_games": 31,
+      "avg_log_loss": 0.7145092094400504,
+      "avg_brier": 0.26038875110069265,
+      "accuracy": 0.4838709677419355,
       "version_rank": 1,
       "is_latest_version": 1,
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-12",
-      "last_game_date_central": "2026-03-12",
+      "last_game_date_utc": "2026-03-13",
+      "last_game_date_central": "2026-03-13",
       "first_replay_date_central": "2026-03-05",
       "last_replay_date_central": "2026-03-09",
       "replayable_games": 38,
@@ -36041,47 +36439,47 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-12",
-      "replayable_games": 29,
+      "last_replay_date_central": "2026-03-13",
+      "replayable_games": 30,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 29,
-          "suggested_bets": 9,
+          "total_games": 30,
+          "suggested_bets": 10,
           "wins": 5,
-          "losses": 4,
-          "total_risked": 925,
-          "total_profit": 629.7413793103449,
-          "roi": 0.6808014911463188,
-          "avg_edge": 0.0658692352441049,
-          "avg_expected_value": 0.13125090876518228,
+          "losses": 5,
+          "total_risked": 1050,
+          "total_profit": 504.7413793103449,
+          "roi": 0.4807060755336618,
+          "avg_edge": 0.06291541160226846,
+          "avg_expected_value": 0.12293755852103302,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "aggressive": {
-          "total_games": 29,
-          "suggested_bets": 9,
+          "total_games": 30,
+          "suggested_bets": 10,
           "wins": 5,
-          "losses": 4,
-          "total_risked": 1375,
-          "total_profit": 869.2241379310344,
-          "roi": 0.6321630094043886,
-          "avg_edge": 0.0658692352441049,
-          "avg_expected_value": 0.13125090876518228,
+          "losses": 5,
+          "total_risked": 1550,
+          "total_profit": 694.2241379310344,
+          "roi": 0.44788654060066735,
+          "avg_edge": 0.06291541160226846,
+          "avg_expected_value": 0.12293755852103302,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "capitalPreservation": {
-          "total_games": 29,
-          "suggested_bets": 4,
+          "total_games": 30,
+          "suggested_bets": 5,
           "wins": 1,
-          "losses": 3,
-          "total_risked": 300,
-          "total_profit": -173.27586206896552,
-          "roi": -0.5775862068965517,
-          "avg_edge": 0.07112856758926411,
-          "avg_expected_value": 0.09876537524890394,
+          "losses": 4,
+          "total_risked": 375,
+          "total_profit": -248.27586206896552,
+          "roi": -0.6620689655172414,
+          "avg_edge": 0.0641690538365594,
+          "avg_expected_value": 0.08863578146386111,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         }
       },
       "bets": [
@@ -37824,6 +38222,66 @@
               "payout": 0
             }
           }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 125,
+              "odds": -140,
+              "model_probability": 0.6114018203554856,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.036330998825740535,
+              "expected_value": 0.04811740632368977,
+              "outcome": "loss",
+              "profit": -125,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$175 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 175,
+              "odds": -140,
+              "model_probability": 0.6114018203554856,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.036330998825740535,
+              "expected_value": 0.04811740632368977,
+              "outcome": "loss",
+              "profit": -175,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$75 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 75,
+              "odds": -140,
+              "model_probability": 0.6114018203554856,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.036330998825740535,
+              "expected_value": 0.04811740632368977,
+              "outcome": "loss",
+              "profit": -75,
+              "payout": 0
+            }
+          }
         }
       ]
     },
@@ -37831,8 +38289,8 @@
       "model_name": "glm_lasso",
       "model_run_id": "run_0bd28749c5be5350__glm_lasso",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-14T00:04:18+00:00",
-      "snapshot_id": "nhl_odds_710106bcbcd12ecf",
+      "created_at_utc": "2026-03-14T11:58:24+00:00",
+      "snapshot_id": "nhl_odds_d725cfbb77dccee5",
       "artifact_path": "artifacts/models/0bd28749c5be5350",
       "feature_set_version": "fset_b96d45cc6991b4e0",
       "feature_columns": [
@@ -38040,16 +38498,16 @@
         "brier": 0.2404390529717825,
         "log_loss": 0.6730916501457993
       },
-      "scored_games": 29,
-      "avg_log_loss": 0.7060291408242578,
-      "avg_brier": 0.256133709403075,
-      "accuracy": 0.5517241379310345,
+      "scored_games": 31,
+      "avg_log_loss": 0.712785221731344,
+      "avg_brier": 0.25948268753347464,
+      "accuracy": 0.5161290322580645,
       "version_rank": 1,
       "is_latest_version": 1,
       "first_game_date_utc": "2026-03-10",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-12",
-      "last_game_date_central": "2026-03-12",
+      "last_game_date_utc": "2026-03-13",
+      "last_game_date_central": "2026-03-13",
       "first_replay_date_central": "2026-03-05",
       "last_replay_date_central": "2026-03-09",
       "replayable_games": 38,
@@ -40601,47 +41059,47 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-12",
-      "replayable_games": 29,
+      "last_replay_date_central": "2026-03-13",
+      "replayable_games": 30,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 29,
-          "suggested_bets": 9,
+          "total_games": 30,
+          "suggested_bets": 10,
           "wins": 4,
-          "losses": 5,
-          "total_risked": 925,
-          "total_profit": 417.4568965517242,
-          "roi": 0.451304753028891,
-          "avg_edge": 0.061355312305479054,
-          "avg_expected_value": 0.11158560543073734,
+          "losses": 6,
+          "total_risked": 1050,
+          "total_profit": 292.4568965517242,
+          "roi": 0.27853037766830874,
+          "avg_edge": 0.059202831496299214,
+          "avg_expected_value": 0.10583870072939375,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "aggressive": {
-          "total_games": 29,
-          "suggested_bets": 9,
+          "total_games": 30,
+          "suggested_bets": 10,
           "wins": 4,
-          "losses": 5,
-          "total_risked": 1375,
-          "total_profit": 504.43965517241384,
-          "roi": 0.3668652037617555,
-          "avg_edge": 0.061355312305479054,
-          "avg_expected_value": 0.11158560543073734,
+          "losses": 6,
+          "total_risked": 1550,
+          "total_profit": 329.43965517241384,
+          "roi": 0.21254171301446054,
+          "avg_edge": 0.059202831496299214,
+          "avg_expected_value": 0.10583870072939375,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "capitalPreservation": {
-          "total_games": 29,
-          "suggested_bets": 5,
+          "total_games": 30,
+          "suggested_bets": 6,
           "wins": 2,
-          "losses": 3,
-          "total_risked": 375,
-          "total_profit": -114.68211206896552,
-          "roi": -0.3058189655172414,
-          "avg_edge": 0.06382854901177035,
-          "avg_expected_value": 0.08522662990084698,
+          "losses": 4,
+          "total_risked": 450,
+          "total_profit": -189.68211206896552,
+          "roi": -0.42151580459770116,
+          "avg_edge": 0.0598288748787554,
+          "avg_expected_value": 0.0800416179869227,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         }
       },
       "bets": [
@@ -42384,6 +42842,66 @@
               "payout": 0
             }
           }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 125,
+              "odds": -140,
+              "model_probability": 0.6149013257434257,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.03983050421368062,
+              "expected_value": 0.05411655841730134,
+              "outcome": "loss",
+              "profit": -125,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$175 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 175,
+              "odds": -140,
+              "model_probability": 0.6149013257434257,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.03983050421368062,
+              "expected_value": 0.05411655841730134,
+              "outcome": "loss",
+              "profit": -175,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$75 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 75,
+              "odds": -140,
+              "model_probability": 0.6149013257434257,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.03983050421368062,
+              "expected_value": 0.05411655841730134,
+              "outcome": "loss",
+              "profit": -75,
+              "payout": 0
+            }
+          }
         }
       ]
     },
@@ -42611,47 +43129,47 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-12",
-      "replayable_games": 29,
+      "last_replay_date_central": "2026-03-13",
+      "replayable_games": 30,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 29,
-          "suggested_bets": 9,
+          "total_games": 30,
+          "suggested_bets": 10,
           "wins": 5,
-          "losses": 4,
-          "total_risked": 925,
-          "total_profit": 629.7413793103449,
-          "roi": 0.6808014911463188,
-          "avg_edge": 0.06699436007598135,
-          "avg_expected_value": 0.13448547908031372,
+          "losses": 5,
+          "total_risked": 1050,
+          "total_profit": 504.7413793103449,
+          "roi": 0.4807060755336618,
+          "avg_edge": 0.06404046670825547,
+          "avg_expected_value": 0.12604143081716251,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "aggressive": {
-          "total_games": 29,
-          "suggested_bets": 9,
+          "total_games": 30,
+          "suggested_bets": 10,
           "wins": 5,
-          "losses": 4,
-          "total_risked": 1375,
-          "total_profit": 869.2241379310344,
-          "roi": 0.6321630094043886,
-          "avg_edge": 0.06699436007598135,
-          "avg_expected_value": 0.13448547908031372,
+          "losses": 5,
+          "total_risked": 1550,
+          "total_profit": 694.2241379310344,
+          "roi": 0.44788654060066735,
+          "avg_edge": 0.06404046670825547,
+          "avg_expected_value": 0.12604143081716251,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "capitalPreservation": {
-          "total_games": 29,
-          "suggested_bets": 5,
+          "total_games": 30,
+          "suggested_bets": 6,
           "wins": 2,
-          "losses": 3,
-          "total_risked": 375,
-          "total_profit": -135.77586206896552,
-          "roi": -0.3620689655172414,
-          "avg_edge": 0.06590949767028438,
-          "avg_expected_value": 0.0880901912254061,
+          "losses": 4,
+          "total_risked": 450,
+          "total_profit": -210.77586206896552,
+          "roi": -0.46839080459770116,
+          "avg_edge": 0.06116715245835741,
+          "avg_expected_value": 0.08174932542930535,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         }
       },
       "bets": [
@@ -44391,6 +44909,66 @@
               "expected_value": 0.0619604253710655,
               "outcome": "no_bet",
               "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 125,
+              "odds": -140,
+              "model_probability": 0.6125262479284677,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.03745542639872257,
+              "expected_value": 0.05004499644880167,
+              "outcome": "loss",
+              "profit": -125,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$175 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 175,
+              "odds": -140,
+              "model_probability": 0.6125262479284677,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.03745542639872257,
+              "expected_value": 0.05004499644880167,
+              "outcome": "loss",
+              "profit": -175,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$75 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 75,
+              "odds": -140,
+              "model_probability": 0.6125262479284677,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.03745542639872257,
+              "expected_value": 0.05004499644880167,
+              "outcome": "loss",
+              "profit": -75,
               "payout": 0
             }
           }
@@ -47961,11 +48539,11 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-12",
-      "replayable_games": 29,
+      "last_replay_date_central": "2026-03-13",
+      "replayable_games": 30,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 9,
           "wins": 5,
           "losses": 4,
@@ -47978,7 +48556,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "aggressive": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 9,
           "wins": 5,
           "losses": 4,
@@ -47991,7 +48569,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "capitalPreservation": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 2,
           "wins": 1,
           "losses": 1,
@@ -49697,6 +50275,66 @@
           "away_score": 5,
           "home_moneyline": 175,
           "away_moneyline": -200,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
           "strategies": {
             "riskAdjusted": {
               "bet_label": "$0",
@@ -53052,47 +53690,47 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-12",
-      "replayable_games": 29,
+      "last_replay_date_central": "2026-03-13",
+      "replayable_games": 30,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 29,
-          "suggested_bets": 8,
+          "total_games": 30,
+          "suggested_bets": 9,
           "wins": 3,
-          "losses": 5,
-          "total_risked": 800,
-          "total_profit": 396.25,
-          "roi": 0.4953125,
-          "avg_edge": 0.06607146159309264,
-          "avg_expected_value": 0.14481287128360648,
+          "losses": 6,
+          "total_risked": 925,
+          "total_profit": 271.25,
+          "roi": 0.29324324324324325,
+          "avg_edge": 0.06269369477526283,
+          "avg_expected_value": 0.1339433233814349,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "aggressive": {
-          "total_games": 29,
-          "suggested_bets": 8,
+          "total_games": 30,
+          "suggested_bets": 9,
           "wins": 3,
-          "losses": 5,
-          "total_risked": 1200,
-          "total_profit": 474.75,
-          "roi": 0.395625,
-          "avg_edge": 0.06607146159309264,
-          "avg_expected_value": 0.14481287128360648,
+          "losses": 6,
+          "total_risked": 1375,
+          "total_profit": 299.75,
+          "roi": 0.218,
+          "avg_edge": 0.06269369477526283,
+          "avg_expected_value": 0.1339433233814349,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "capitalPreservation": {
-          "total_games": 29,
-          "suggested_bets": 3,
+          "total_games": 30,
+          "suggested_bets": 4,
           "wins": 2,
-          "losses": 1,
-          "total_risked": 225,
-          "total_profit": 44.569359756097555,
-          "roi": 0.1980860433604336,
-          "avg_edge": 0.058468064228846615,
-          "avg_expected_value": 0.07089710853434172,
+          "losses": 2,
+          "total_risked": 300,
+          "total_profit": -30.430640243902445,
+          "roi": -0.10143546747967482,
+          "avg_edge": 0.05276893822979106,
+          "avg_expected_value": 0.06491956644177183,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         }
       },
       "bets": [
@@ -54832,6 +55470,66 @@
               "expected_value": 0.064278229582591,
               "outcome": "no_bet",
               "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 125,
+              "odds": -140,
+              "model_probability": 0.6107423817623695,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.03567156023262441,
+              "expected_value": 0.04698694016406213,
+              "outcome": "loss",
+              "profit": -125,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$175 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 175,
+              "odds": -140,
+              "model_probability": 0.6107423817623695,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.03567156023262441,
+              "expected_value": 0.04698694016406213,
+              "outcome": "loss",
+              "profit": -175,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$75 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 75,
+              "odds": -140,
+              "model_probability": 0.6107423817623695,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.03567156023262441,
+              "expected_value": 0.04698694016406213,
+              "outcome": "loss",
+              "profit": -75,
               "payout": 0
             }
           }
@@ -58143,11 +58841,11 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-12",
-      "replayable_games": 29,
+      "last_replay_date_central": "2026-03-13",
+      "replayable_games": 30,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 9,
           "wins": 7,
           "losses": 2,
@@ -58160,7 +58858,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "aggressive": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 9,
           "wins": 7,
           "losses": 2,
@@ -58173,7 +58871,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "capitalPreservation": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 4,
           "wins": 3,
           "losses": 1,
@@ -59879,6 +60577,66 @@
           "away_score": 5,
           "home_moneyline": 175,
           "away_moneyline": -200,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
           "strategies": {
             "riskAdjusted": {
               "bet_label": "$0",
@@ -63234,47 +63992,47 @@
       "last_game_date_utc": "2026-03-09",
       "last_game_date_central": "2026-03-09",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-12",
-      "replayable_games": 29,
+      "last_replay_date_central": "2026-03-13",
+      "replayable_games": 30,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 29,
-          "suggested_bets": 9,
+          "total_games": 30,
+          "suggested_bets": 10,
           "wins": 3,
-          "losses": 6,
-          "total_risked": 925,
-          "total_profit": -281.90121155638394,
-          "roi": -0.3047580665474421,
-          "avg_edge": 0.0670472186281876,
-          "avg_expected_value": 0.10363441739723034,
+          "losses": 7,
+          "total_risked": 1050,
+          "total_profit": -406.90121155638394,
+          "roi": -0.38752496338703235,
+          "avg_edge": 0.06458330788730102,
+          "avg_expected_value": 0.09912450698591875,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "aggressive": {
-          "total_games": 29,
+          "total_games": 30,
+          "suggested_bets": 10,
+          "wins": 3,
+          "losses": 7,
+          "total_risked": 1550,
+          "total_profit": -582.6346691519105,
+          "roi": -0.3758933349367165,
+          "avg_edge": 0.06458330788730102,
+          "avg_expected_value": 0.09912450698591875,
+          "first_bet_date_central": "2026-03-10",
+          "last_bet_date_central": "2026-03-13"
+        },
+        "capitalPreservation": {
+          "total_games": 30,
           "suggested_bets": 9,
           "wins": 3,
           "losses": 6,
-          "total_risked": 1375,
-          "total_profit": -407.63466915191054,
-          "roi": -0.29646157756502584,
-          "avg_edge": 0.0670472186281876,
-          "avg_expected_value": 0.10363441739723034,
+          "total_risked": 625,
+          "total_profit": -328.06893639328985,
+          "roi": -0.5249102982292637,
+          "avg_edge": 0.06634761373460535,
+          "avg_expected_value": 0.08997709642300936,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
-        },
-        "capitalPreservation": {
-          "total_games": 29,
-          "suggested_bets": 8,
-          "wins": 3,
-          "losses": 5,
-          "total_risked": 550,
-          "total_profit": -253.06893639328985,
-          "roi": -0.4601253388968906,
-          "avg_edge": 0.0693400515490158,
-          "avg_expected_value": 0.09390731931537122,
-          "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         }
       },
       "bets": [
@@ -65014,6 +65772,66 @@
               "expected_value": 0.0642495874275062,
               "outcome": "no_bet",
               "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 125,
+              "odds": -140,
+              "model_probability": 0.6174789327490667,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.04240811121932164,
+              "expected_value": 0.05853531328411443,
+              "outcome": "loss",
+              "profit": -125,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$175 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 175,
+              "odds": -140,
+              "model_probability": 0.6174789327490667,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.04240811121932164,
+              "expected_value": 0.05853531328411443,
+              "outcome": "loss",
+              "profit": -175,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$75 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 75,
+              "odds": -140,
+              "model_probability": 0.6174789327490667,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.04240811121932164,
+              "expected_value": 0.05853531328411443,
+              "outcome": "loss",
+              "profit": -75,
               "payout": 0
             }
           }
@@ -68104,6 +68922,892 @@
   ],
   "ensemble_snapshots": [
     {
+      "snapshot_key": "2026-03-14::run_0bd28749c5be5350",
+      "model_name": "ensemble",
+      "model_run_id": "run_0bd28749c5be5350",
+      "ensemble_model_run_id": "run_0bd28749c5be5350__ensemble",
+      "finalized_at_utc": "2026-03-14T11:58:24+00:00",
+      "finalized_date_central": "2026-03-14",
+      "activation_date_central": "2026-03-14",
+      "compared_through_date_central": null,
+      "pregame_cutoff_utc": "2026-03-14T17:00:00Z",
+      "snapshot_id": "nhl_odds_d725cfbb77dccee5",
+      "artifact_path": "/Users/davidiruegas/Library/Application Support/SportsModeling/artifacts/models/0bd28749c5be5350",
+      "feature_set_version": "fset_b96d45cc6991b4e0",
+      "calibration_fingerprint": "750c01b59ec8",
+      "feature_columns": [
+        "home_season",
+        "home_is_home",
+        "home_starter_goalie_id",
+        "home_roster_strength_index",
+        "home_man_games_lost_proxy",
+        "home_lineup_uncertainty",
+        "home_rest_days_x",
+        "home_b2b_x",
+        "home_games_played_prior",
+        "home_ewm_goals_for",
+        "home_r5_goals_for",
+        "home_r14_goals_for",
+        "home_ewm_goals_against",
+        "home_r5_goals_against",
+        "home_r14_goals_against",
+        "home_ewm_goal_diff",
+        "home_r5_goal_diff",
+        "home_r14_goal_diff",
+        "home_ewm_shots_for",
+        "home_r5_shots_for",
+        "home_r14_shots_for",
+        "home_ewm_shots_against",
+        "home_r5_shots_against",
+        "home_r14_shots_against",
+        "home_ewm_team_save_pct_proxy",
+        "home_r5_team_save_pct_proxy",
+        "home_r14_team_save_pct_proxy",
+        "home_win_rate_ewm",
+        "home_xg_available",
+        "home_xg_for_ewm",
+        "home_xg_against_ewm",
+        "home_xg_share_ewm",
+        "home_pp_eff",
+        "home_penalty_diff",
+        "home_pp_eff_ewm",
+        "home_penalty_diff_ewm",
+        "home_starter_known",
+        "home_starter_unknown",
+        "home_goalie_quality_ewm",
+        "home_goalie_starts_last7",
+        "home_goalie_starts_last14",
+        "home_goalie_b2b_starter",
+        "home_goalie_uncertainty_feature",
+        "home_days_into_season",
+        "home_days_into_season_spline",
+        "home_season_phase_early",
+        "home_season_phase_mid",
+        "home_season_phase_late",
+        "home_post_trade_deadline",
+        "home_coaching_change_indicator",
+        "away_season",
+        "away_is_home",
+        "away_starter_goalie_id",
+        "away_roster_strength_index",
+        "away_man_games_lost_proxy",
+        "away_lineup_uncertainty",
+        "away_rest_days_x",
+        "away_b2b_x",
+        "away_games_played_prior",
+        "away_ewm_goals_for",
+        "away_r5_goals_for",
+        "away_r14_goals_for",
+        "away_ewm_goals_against",
+        "away_r5_goals_against",
+        "away_r14_goals_against",
+        "away_ewm_goal_diff",
+        "away_r5_goal_diff",
+        "away_r14_goal_diff",
+        "away_ewm_shots_for",
+        "away_r5_shots_for",
+        "away_r14_shots_for",
+        "away_ewm_shots_against",
+        "away_r5_shots_against",
+        "away_r14_shots_against",
+        "away_ewm_team_save_pct_proxy",
+        "away_r5_team_save_pct_proxy",
+        "away_r14_team_save_pct_proxy",
+        "away_win_rate_ewm",
+        "away_xg_available",
+        "away_xg_for_ewm",
+        "away_xg_against_ewm",
+        "away_xg_share_ewm",
+        "away_pp_eff",
+        "away_penalty_diff",
+        "away_pp_eff_ewm",
+        "away_penalty_diff_ewm",
+        "away_starter_known",
+        "away_starter_unknown",
+        "away_goalie_quality_ewm",
+        "away_goalie_starts_last7",
+        "away_goalie_starts_last14",
+        "away_goalie_b2b_starter",
+        "away_goalie_uncertainty_feature",
+        "away_days_into_season",
+        "away_days_into_season_spline",
+        "away_season_phase_early",
+        "away_season_phase_mid",
+        "away_season_phase_late",
+        "away_post_trade_deadline",
+        "away_coaching_change_indicator",
+        "diff_form_goal_diff",
+        "diff_form_win_rate",
+        "diff_xg_share",
+        "diff_penalty_diff",
+        "diff_roster_strength",
+        "diff_lineup_uncertainty",
+        "special_pp_diff",
+        "special_penalty_diff",
+        "special_pk_pressure_diff",
+        "goalie_quality_diff",
+        "goalie_workload_diff_7",
+        "goalie_workload_diff_14",
+        "goalie_uncertainty_diff",
+        "home_rest_days_y",
+        "home_b2b_y",
+        "home_3in4",
+        "home_4in6",
+        "home_travel_miles",
+        "home_tz_change",
+        "home_local_start_mismatch",
+        "away_rest_days_y",
+        "away_b2b_y",
+        "away_3in4",
+        "away_4in6",
+        "away_travel_miles",
+        "away_tz_change",
+        "away_local_start_mismatch",
+        "travel_diff",
+        "rest_diff",
+        "rink_goal_effect",
+        "rink_shot_effect",
+        "fallback_xg_proxy_used",
+        "fallback_goalie_unknown",
+        "fallback_lineup_proxy_used",
+        "elo_home_pre",
+        "elo_away_pre",
+        "elo_home_prob",
+        "dyn_home_mean",
+        "dyn_away_mean",
+        "dyn_home_prob",
+        "dyn_var_diff",
+        "diff_xg_share_cubic",
+        "diff_form_goal_diff_hinge_m1",
+        "diff_form_goal_diff_hinge_p1",
+        "dyn_home_prob_hinge_055",
+        "dyn_home_mean_hinge_000",
+        "elo_home_prob_hinge_054"
+      ],
+      "feature_count": 147,
+      "feature_metadata": {
+        "built_at_utc": "2026-03-11T00:29:53+00:00",
+        "feature_set_version": "fset_b96d45cc6991b4e0",
+        "league": "NHL",
+        "n_features": 176,
+        "n_rows": 1268,
+        "saved_path": "data/processed/nhl/features.parquet"
+      },
+      "params": {
+        "weights": {
+          "bayes_goals": 0.12643704818726487,
+          "dynamic_rating": 0.11867436717533045,
+          "elo_baseline": 0.1253996657460396,
+          "glm_elastic_net": 0.1252865257135692,
+          "glm_ridge": 0.12547749254801532,
+          "goals_poisson": 0.12640826947542175,
+          "rf": 0.126573322791356,
+          "simulation_first": 0.12574330836300282
+        }
+      },
+      "metrics": {},
+      "tuning": {
+        "glm_primary_model": "glm_elastic_net",
+        "glm_best_c": 0.1,
+        "glm_lasso_best_c": 0.25,
+        "glm_elastic_net_best_c": 0.1,
+        "glm_elastic_net_best_l1_ratio": 0.5
+      },
+      "selected_models": [
+        "elo_baseline",
+        "dynamic_rating",
+        "glm_ridge",
+        "glm_elastic_net",
+        "glm_lasso",
+        "gbdt",
+        "rf",
+        "two_stage",
+        "goals_poisson",
+        "simulation_first",
+        "bayes_bt_state_space",
+        "bayes_goals",
+        "nn_mlp"
+      ],
+      "ensemble_component_columns": [
+        "elo_baseline",
+        "dynamic_rating",
+        "glm_ridge",
+        "glm_elastic_net",
+        "rf",
+        "goals_poisson",
+        "bayes_goals",
+        "simulation_first"
+      ],
+      "demoted_models": [
+        "bayes_bt_state_space",
+        "gbdt",
+        "glm_lasso",
+        "two_stage"
+      ],
+      "stack_base_columns": [
+        "elo_baseline",
+        "dynamic_rating",
+        "glm_ridge",
+        "glm_elastic_net",
+        "rf",
+        "goals_poisson",
+        "simulation_first",
+        "bayes_goals"
+      ],
+      "glm_feature_columns": [
+        "rest_diff",
+        "elo_home_prob",
+        "elo_home_prob_hinge_054",
+        "dyn_home_prob",
+        "dyn_home_prob_hinge_055",
+        "rink_goal_effect",
+        "diff_roster_strength",
+        "diff_xg_share",
+        "diff_xg_share_cubic"
+      ],
+      "model_feature_columns": {
+        "bayes_bt_state_space": [
+          "diff_form_goal_diff",
+          "travel_diff",
+          "rest_diff",
+          "elo_home_prob",
+          "dyn_home_prob",
+          "rink_goal_effect",
+          "diff_roster_strength",
+          "rink_shot_effect",
+          "diff_form_win_rate",
+          "dyn_home_mean",
+          "diff_xg_share",
+          "elo_home_pre"
+        ],
+        "gbdt": [
+          "home_penalty_diff",
+          "home_pp_eff",
+          "home_starter_known",
+          "rink_goal_effect",
+          "home_post_trade_deadline",
+          "away_pp_eff_ewm",
+          "diff_roster_strength",
+          "rink_shot_effect",
+          "home_r5_shots_against",
+          "away_r5_team_save_pct_proxy",
+          "home_days_into_season",
+          "away_r5_shots_for",
+          "home_season_phase_late",
+          "away_r14_shots_for",
+          "away_games_played_prior",
+          "home_r14_shots_against",
+          "home_r5_shots_for",
+          "away_r14_team_save_pct_proxy",
+          "away_ewm_shots_against",
+          "away_pp_eff",
+          "home_roster_strength_index",
+          "home_r14_team_save_pct_proxy",
+          "home_r5_team_save_pct_proxy",
+          "home_r14_shots_for"
+        ],
+        "glm_elastic_net": [
+          "rest_diff",
+          "elo_home_prob",
+          "elo_home_prob_hinge_054",
+          "dyn_home_prob",
+          "dyn_home_prob_hinge_055",
+          "rink_goal_effect",
+          "diff_roster_strength",
+          "diff_xg_share",
+          "diff_xg_share_cubic"
+        ],
+        "glm_lasso": [
+          "rest_diff",
+          "elo_home_prob",
+          "elo_home_prob_hinge_054",
+          "dyn_home_prob",
+          "dyn_home_prob_hinge_055",
+          "rink_goal_effect",
+          "diff_roster_strength",
+          "diff_xg_share",
+          "diff_xg_share_cubic"
+        ],
+        "glm_ridge": [
+          "rest_diff",
+          "elo_home_prob",
+          "elo_home_prob_hinge_054",
+          "dyn_home_prob",
+          "dyn_home_prob_hinge_055",
+          "rink_goal_effect",
+          "diff_roster_strength",
+          "diff_xg_share",
+          "diff_xg_share_cubic"
+        ],
+        "rf": [
+          "home_penalty_diff",
+          "home_pp_eff",
+          "home_starter_known",
+          "rink_goal_effect",
+          "home_post_trade_deadline",
+          "away_pp_eff_ewm",
+          "diff_roster_strength",
+          "home_pp_eff_ewm",
+          "rink_shot_effect",
+          "home_r5_shots_against",
+          "away_r5_team_save_pct_proxy",
+          "home_days_into_season",
+          "away_r5_shots_for",
+          "home_season_phase_late",
+          "away_r14_shots_for",
+          "away_games_played_prior",
+          "home_r14_shots_against",
+          "home_r5_shots_for",
+          "away_r14_team_save_pct_proxy",
+          "away_ewm_shots_against"
+        ],
+        "two_stage": [
+          "rink_goal_effect",
+          "diff_roster_strength",
+          "rink_shot_effect",
+          "home_r5_shots_against",
+          "away_r5_team_save_pct_proxy",
+          "away_r5_shots_for",
+          "away_r14_shots_for",
+          "home_r14_shots_against",
+          "home_r5_shots_for",
+          "away_r14_team_save_pct_proxy",
+          "away_ewm_shots_against",
+          "home_r14_team_save_pct_proxy",
+          "away_r14_shots_against",
+          "home_r5_team_save_pct_proxy",
+          "home_r14_shots_for",
+          "elo_home_prob"
+        ]
+      },
+      "component_models": [
+        {
+          "model_name": "elo_baseline",
+          "selected_for_training": 1,
+          "included_in_ensemble": 1,
+          "demoted_from_ensemble": 0,
+          "weight": 0.1253996657460396,
+          "feature_columns": [],
+          "feature_count": 0,
+          "train_metrics": {
+            "accuracy": 0.5467248908296943,
+            "auc": 0.5540451719014631,
+            "brier": 0.24696012117764227,
+            "log_loss": 0.6869704811807911
+          },
+          "train_params": {
+            "weights": {
+              "bayes_goals": 0.12643704818726487,
+              "dynamic_rating": 0.11867436717533045,
+              "elo_baseline": 0.1253996657460396,
+              "glm_elastic_net": 0.1252865257135692,
+              "glm_ridge": 0.12547749254801532,
+              "goals_poisson": 0.12640826947542175,
+              "rf": 0.126573322791356,
+              "simulation_first": 0.12574330836300282
+            }
+          }
+        },
+        {
+          "model_name": "dynamic_rating",
+          "selected_for_training": 1,
+          "included_in_ensemble": 1,
+          "demoted_from_ensemble": 0,
+          "weight": 0.11867436717533045,
+          "feature_columns": [],
+          "feature_count": 0,
+          "train_metrics": {
+            "accuracy": 0.5310043668122271,
+            "auc": 0.54376257237715,
+            "brier": 0.2692645921444735,
+            "log_loss": 0.7404124556249586
+          },
+          "train_params": {
+            "weights": {
+              "bayes_goals": 0.12643704818726487,
+              "dynamic_rating": 0.11867436717533045,
+              "elo_baseline": 0.1253996657460396,
+              "glm_elastic_net": 0.1252865257135692,
+              "glm_ridge": 0.12547749254801532,
+              "goals_poisson": 0.12640826947542175,
+              "rf": 0.126573322791356,
+              "simulation_first": 0.12574330836300282
+            }
+          }
+        },
+        {
+          "model_name": "glm_ridge",
+          "selected_for_training": 1,
+          "included_in_ensemble": 1,
+          "demoted_from_ensemble": 0,
+          "weight": 0.12547749254801532,
+          "feature_columns": [
+            "rest_diff",
+            "elo_home_prob",
+            "elo_home_prob_hinge_054",
+            "dyn_home_prob",
+            "dyn_home_prob_hinge_055",
+            "rink_goal_effect",
+            "diff_roster_strength",
+            "diff_xg_share",
+            "diff_xg_share_cubic"
+          ],
+          "feature_count": 9,
+          "train_metrics": {
+            "accuracy": 0.5834061135371179,
+            "auc": 0.6112147132733732,
+            "brier": 0.24015828977915402,
+            "log_loss": 0.6724297018127445
+          },
+          "train_params": {
+            "weights": {
+              "bayes_goals": 0.12643704818726487,
+              "dynamic_rating": 0.11867436717533045,
+              "elo_baseline": 0.1253996657460396,
+              "glm_elastic_net": 0.1252865257135692,
+              "glm_ridge": 0.12547749254801532,
+              "goals_poisson": 0.12640826947542175,
+              "rf": 0.126573322791356,
+              "simulation_first": 0.12574330836300282
+            }
+          }
+        },
+        {
+          "model_name": "glm_elastic_net",
+          "selected_for_training": 1,
+          "included_in_ensemble": 1,
+          "demoted_from_ensemble": 0,
+          "weight": 0.1252865257135692,
+          "feature_columns": [
+            "rest_diff",
+            "elo_home_prob",
+            "elo_home_prob_hinge_054",
+            "dyn_home_prob",
+            "dyn_home_prob_hinge_055",
+            "rink_goal_effect",
+            "diff_roster_strength",
+            "diff_xg_share",
+            "diff_xg_share_cubic"
+          ],
+          "feature_count": 9,
+          "train_metrics": {
+            "accuracy": 0.5834061135371179,
+            "auc": 0.6085580820895978,
+            "brier": 0.2407096217524775,
+            "log_loss": 0.6737612147429706
+          },
+          "train_params": {
+            "weights": {
+              "bayes_goals": 0.12643704818726487,
+              "dynamic_rating": 0.11867436717533045,
+              "elo_baseline": 0.1253996657460396,
+              "glm_elastic_net": 0.1252865257135692,
+              "glm_ridge": 0.12547749254801532,
+              "goals_poisson": 0.12640826947542175,
+              "rf": 0.126573322791356,
+              "simulation_first": 0.12574330836300282
+            }
+          }
+        },
+        {
+          "model_name": "glm_lasso",
+          "selected_for_training": 1,
+          "included_in_ensemble": 0,
+          "demoted_from_ensemble": 1,
+          "weight": null,
+          "feature_columns": [
+            "rest_diff",
+            "elo_home_prob",
+            "elo_home_prob_hinge_054",
+            "dyn_home_prob",
+            "dyn_home_prob_hinge_055",
+            "rink_goal_effect",
+            "diff_roster_strength",
+            "diff_xg_share",
+            "diff_xg_share_cubic"
+          ],
+          "feature_count": 9,
+          "train_metrics": {
+            "accuracy": 0.588646288209607,
+            "auc": 0.6097228421367997,
+            "brier": 0.2404390529717825,
+            "log_loss": 0.6730916501457993
+          },
+          "train_params": {
+            "weights": {
+              "bayes_goals": 0.12643704818726487,
+              "dynamic_rating": 0.11867436717533045,
+              "elo_baseline": 0.1253996657460396,
+              "glm_elastic_net": 0.1252865257135692,
+              "glm_ridge": 0.12547749254801532,
+              "goals_poisson": 0.12640826947542175,
+              "rf": 0.126573322791356,
+              "simulation_first": 0.12574330836300282
+            }
+          }
+        },
+        {
+          "model_name": "gbdt",
+          "selected_for_training": 1,
+          "included_in_ensemble": 0,
+          "demoted_from_ensemble": 1,
+          "weight": null,
+          "feature_columns": [
+            "home_penalty_diff",
+            "home_pp_eff",
+            "home_starter_known",
+            "rink_goal_effect",
+            "home_post_trade_deadline",
+            "away_pp_eff_ewm",
+            "diff_roster_strength",
+            "rink_shot_effect",
+            "home_r5_shots_against",
+            "away_r5_team_save_pct_proxy",
+            "home_days_into_season",
+            "away_r5_shots_for",
+            "home_season_phase_late",
+            "away_r14_shots_for",
+            "away_games_played_prior",
+            "home_r14_shots_against",
+            "home_r5_shots_for",
+            "away_r14_team_save_pct_proxy",
+            "away_ewm_shots_against",
+            "away_pp_eff",
+            "home_roster_strength_index",
+            "home_r14_team_save_pct_proxy",
+            "home_r5_team_save_pct_proxy",
+            "home_r14_shots_for"
+          ],
+          "feature_count": 24,
+          "train_metrics": {
+            "accuracy": 0.9467248908296944,
+            "auc": 0.9898901273593269,
+            "brier": 0.10344252899739252,
+            "log_loss": 0.36823074080581075
+          },
+          "train_params": {
+            "weights": {
+              "bayes_goals": 0.12643704818726487,
+              "dynamic_rating": 0.11867436717533045,
+              "elo_baseline": 0.1253996657460396,
+              "glm_elastic_net": 0.1252865257135692,
+              "glm_ridge": 0.12547749254801532,
+              "goals_poisson": 0.12640826947542175,
+              "rf": 0.126573322791356,
+              "simulation_first": 0.12574330836300282
+            }
+          }
+        },
+        {
+          "model_name": "rf",
+          "selected_for_training": 1,
+          "included_in_ensemble": 1,
+          "demoted_from_ensemble": 0,
+          "weight": 0.126573322791356,
+          "feature_columns": [
+            "home_penalty_diff",
+            "home_pp_eff",
+            "home_starter_known",
+            "rink_goal_effect",
+            "home_post_trade_deadline",
+            "away_pp_eff_ewm",
+            "diff_roster_strength",
+            "home_pp_eff_ewm",
+            "rink_shot_effect",
+            "home_r5_shots_against",
+            "away_r5_team_save_pct_proxy",
+            "home_days_into_season",
+            "away_r5_shots_for",
+            "home_season_phase_late",
+            "away_r14_shots_for",
+            "away_games_played_prior",
+            "home_r14_shots_against",
+            "home_r5_shots_for",
+            "away_r14_team_save_pct_proxy",
+            "away_ewm_shots_against"
+          ],
+          "feature_count": 20,
+          "train_metrics": {
+            "accuracy": 0.8087336244541484,
+            "auc": 0.9112061533570157,
+            "brier": 0.20403835351531685,
+            "log_loss": 0.5984726953743765
+          },
+          "train_params": {
+            "weights": {
+              "bayes_goals": 0.12643704818726487,
+              "dynamic_rating": 0.11867436717533045,
+              "elo_baseline": 0.1253996657460396,
+              "glm_elastic_net": 0.1252865257135692,
+              "glm_ridge": 0.12547749254801532,
+              "goals_poisson": 0.12640826947542175,
+              "rf": 0.126573322791356,
+              "simulation_first": 0.12574330836300282
+            }
+          }
+        },
+        {
+          "model_name": "two_stage",
+          "selected_for_training": 1,
+          "included_in_ensemble": 0,
+          "demoted_from_ensemble": 1,
+          "weight": null,
+          "feature_columns": [
+            "rink_goal_effect",
+            "diff_roster_strength",
+            "rink_shot_effect",
+            "home_r5_shots_against",
+            "away_r5_team_save_pct_proxy",
+            "away_r5_shots_for",
+            "away_r14_shots_for",
+            "home_r14_shots_against",
+            "home_r5_shots_for",
+            "away_r14_team_save_pct_proxy",
+            "away_ewm_shots_against",
+            "home_r14_team_save_pct_proxy",
+            "away_r14_shots_against",
+            "home_r5_team_save_pct_proxy",
+            "home_r14_shots_for",
+            "elo_home_prob"
+          ],
+          "feature_count": 16,
+          "train_metrics": {
+            "accuracy": 0.62882096069869,
+            "auc": 0.6865970052521202,
+            "brier": 0.22790166922344324,
+            "log_loss": 0.6476545762986817
+          },
+          "train_params": {
+            "weights": {
+              "bayes_goals": 0.12643704818726487,
+              "dynamic_rating": 0.11867436717533045,
+              "elo_baseline": 0.1253996657460396,
+              "glm_elastic_net": 0.1252865257135692,
+              "glm_ridge": 0.12547749254801532,
+              "goals_poisson": 0.12640826947542175,
+              "rf": 0.126573322791356,
+              "simulation_first": 0.12574330836300282
+            }
+          }
+        },
+        {
+          "model_name": "goals_poisson",
+          "selected_for_training": 1,
+          "included_in_ensemble": 1,
+          "demoted_from_ensemble": 0,
+          "weight": 0.12640826947542175,
+          "feature_columns": [],
+          "feature_count": 0,
+          "train_metrics": {
+            "accuracy": 0.6139737991266375,
+            "auc": 0.6398613904972701,
+            "brier": 0.2366597530810286,
+            "log_loss": 0.66602164187516
+          },
+          "train_params": {
+            "weights": {
+              "bayes_goals": 0.12643704818726487,
+              "dynamic_rating": 0.11867436717533045,
+              "elo_baseline": 0.1253996657460396,
+              "glm_elastic_net": 0.1252865257135692,
+              "glm_ridge": 0.12547749254801532,
+              "goals_poisson": 0.12640826947542175,
+              "rf": 0.126573322791356,
+              "simulation_first": 0.12574330836300282
+            }
+          }
+        },
+        {
+          "model_name": "simulation_first",
+          "selected_for_training": 1,
+          "included_in_ensemble": 1,
+          "demoted_from_ensemble": 0,
+          "weight": 0.12574330836300282,
+          "feature_columns": [],
+          "feature_count": 0,
+          "train_metrics": {
+            "accuracy": 0.5336244541484716,
+            "auc": 0.5361855178443685,
+            "brier": 0.25505108116923625,
+            "log_loss": 0.7050586119594052
+          },
+          "train_params": {
+            "weights": {
+              "bayes_goals": 0.12643704818726487,
+              "dynamic_rating": 0.11867436717533045,
+              "elo_baseline": 0.1253996657460396,
+              "glm_elastic_net": 0.1252865257135692,
+              "glm_ridge": 0.12547749254801532,
+              "goals_poisson": 0.12640826947542175,
+              "rf": 0.126573322791356,
+              "simulation_first": 0.12574330836300282
+            }
+          }
+        },
+        {
+          "model_name": "bayes_bt_state_space",
+          "selected_for_training": 1,
+          "included_in_ensemble": 0,
+          "demoted_from_ensemble": 1,
+          "weight": null,
+          "feature_columns": [
+            "diff_form_goal_diff",
+            "travel_diff",
+            "rest_diff",
+            "elo_home_prob",
+            "dyn_home_prob",
+            "rink_goal_effect",
+            "diff_roster_strength",
+            "rink_shot_effect",
+            "diff_form_win_rate",
+            "dyn_home_mean",
+            "diff_xg_share",
+            "elo_home_pre"
+          ],
+          "feature_count": 12,
+          "train_metrics": {
+            "accuracy": 0.5633187772925764,
+            "auc": 0.5948775014826998,
+            "brier": 0.24304843857482056,
+            "log_loss": 0.679089090469975
+          },
+          "train_params": {
+            "weights": {
+              "bayes_goals": 0.12643704818726487,
+              "dynamic_rating": 0.11867436717533045,
+              "elo_baseline": 0.1253996657460396,
+              "glm_elastic_net": 0.1252865257135692,
+              "glm_ridge": 0.12547749254801532,
+              "goals_poisson": 0.12640826947542175,
+              "rf": 0.126573322791356,
+              "simulation_first": 0.12574330836300282
+            }
+          }
+        },
+        {
+          "model_name": "bayes_goals",
+          "selected_for_training": 1,
+          "included_in_ensemble": 1,
+          "demoted_from_ensemble": 0,
+          "weight": 0.12643704818726487,
+          "feature_columns": [],
+          "feature_count": 0,
+          "train_metrics": {
+            "accuracy": 0.588646288209607,
+            "auc": 0.625457802669471,
+            "brier": 0.23835409830567683,
+            "log_loss": 0.6692764964754577
+          },
+          "train_params": {
+            "weights": {
+              "bayes_goals": 0.12643704818726487,
+              "dynamic_rating": 0.11867436717533045,
+              "elo_baseline": 0.1253996657460396,
+              "glm_elastic_net": 0.1252865257135692,
+              "glm_ridge": 0.12547749254801532,
+              "goals_poisson": 0.12640826947542175,
+              "rf": 0.126573322791356,
+              "simulation_first": 0.12574330836300282
+            }
+          }
+        },
+        {
+          "model_name": "nn_mlp",
+          "selected_for_training": 1,
+          "included_in_ensemble": 0,
+          "demoted_from_ensemble": 0,
+          "weight": null,
+          "feature_columns": [],
+          "feature_count": 0,
+          "train_metrics": null,
+          "train_params": null
+        }
+      ],
+      "model_commit": {
+        "sha": "fb4ecdef0fd1e4f745c310aa70c569239be6fb60",
+        "short_sha": "fb4ecde",
+        "committed_at_utc": "2026-03-12T13:11:37-05:00",
+        "subject": "Establish code-first registry and repo verification"
+      },
+      "commit_window": [
+        {
+          "sha": "c31efebab4d7d6ad68915ca7884b6bcc0825854d",
+          "short_sha": "c31efeb",
+          "committed_at_utc": "2026-03-10T07:39:45-05:00",
+          "subject": "Refresh NHL GLM scoring and staging outputs"
+        },
+        {
+          "sha": "ef46a71034ddeb5f6eef6c632fb63b990422b5f4",
+          "short_sha": "ef46a71",
+          "committed_at_utc": "2026-03-10T10:02:57-05:00",
+          "subject": "Add NCAAM forecasting support"
+        },
+        {
+          "sha": "f9c18d0f5b28a0a557b1aeb2ad89ac65621ed442",
+          "short_sha": "f9c18d0",
+          "committed_at_utc": "2026-03-10T19:34:54-05:00",
+          "subject": "Freeze historical forecasts and causal venue effects"
+        },
+        {
+          "sha": "ac100a79d072ec5d9afd1add407faa4fd3ff9345",
+          "short_sha": "ac100a7",
+          "committed_at_utc": "2026-03-12T12:47:20-05:00",
+          "subject": "Add historical research backtest pipeline"
+        },
+        {
+          "sha": "fb4ecdef0fd1e4f745c310aa70c569239be6fb60",
+          "short_sha": "fb4ecde",
+          "committed_at_utc": "2026-03-12T13:11:37-05:00",
+          "subject": "Establish code-first registry and repo verification"
+        }
+      ],
+      "replayable_games": 0,
+      "days_tracked": 0,
+      "strategies": {
+        "riskAdjusted": {
+          "total_games": 0,
+          "suggested_bets": 0,
+          "wins": 0,
+          "losses": 0,
+          "total_risked": 0,
+          "total_profit": 0,
+          "roi": 0,
+          "avg_edge": null,
+          "avg_expected_value": null,
+          "first_bet_date_central": null,
+          "last_bet_date_central": null
+        },
+        "aggressive": {
+          "total_games": 0,
+          "suggested_bets": 0,
+          "wins": 0,
+          "losses": 0,
+          "total_risked": 0,
+          "total_profit": 0,
+          "roi": 0,
+          "avg_edge": null,
+          "avg_expected_value": null,
+          "first_bet_date_central": null,
+          "last_bet_date_central": null
+        },
+        "capitalPreservation": {
+          "total_games": 0,
+          "suggested_bets": 0,
+          "wins": 0,
+          "losses": 0,
+          "total_risked": 0,
+          "total_profit": 0,
+          "roi": 0,
+          "avg_edge": null,
+          "avg_expected_value": null,
+          "first_bet_date_central": null,
+          "last_bet_date_central": null
+        }
+      },
+      "daily": [],
+      "bets": []
+    },
+    {
       "snapshot_key": "2026-03-10::run_cc6dc19acfb77419",
       "model_name": "ensemble",
       "model_run_id": "run_cc6dc19acfb77419",
@@ -68111,7 +69815,7 @@
       "finalized_at_utc": "2026-03-10T12:30:42+00:00",
       "finalized_date_central": "2026-03-10",
       "activation_date_central": "2026-03-10",
-      "compared_through_date_central": "2026-03-12",
+      "compared_through_date_central": "2026-03-13",
       "pregame_cutoff_utc": "2026-03-10T23:00:00Z",
       "snapshot_id": "nhl_odds_0724e18b816f37c2",
       "artifact_path": "/Users/davidiruegas/Library/Application Support/SportsModeling/artifacts/models/cc6dc19acfb77419",
@@ -68943,11 +70647,11 @@
           "subject": "Add production lasso GLM support"
         }
       ],
-      "replayable_games": 29,
-      "days_tracked": 3,
+      "replayable_games": 30,
+      "days_tracked": 4,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 9,
           "wins": 6,
           "losses": 3,
@@ -68960,7 +70664,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "aggressive": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 9,
           "wins": 6,
           "losses": 3,
@@ -68973,7 +70677,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "capitalPreservation": {
-          "total_games": 29,
+          "total_games": 30,
           "suggested_bets": 7,
           "wins": 3,
           "losses": 4,
@@ -69109,6 +70813,48 @@
               "cumulative_risked": 475,
               "cumulative_profit": -89.00643639328985,
               "roi": -0.465625,
+              "cumulative_roi": -0.1873819713542944
+            }
+          }
+        },
+        {
+          "date_central": "2026-03-13",
+          "slate_games": 1,
+          "strategies": {
+            "riskAdjusted": {
+              "slate_games": 1,
+              "suggested_bets": 0,
+              "wins": 0,
+              "losses": 0,
+              "total_risked": 0,
+              "total_profit": 0,
+              "cumulative_risked": 925,
+              "cumulative_profit": 674.2726293103449,
+              "roi": 0,
+              "cumulative_roi": 0.7289433830382107
+            },
+            "aggressive": {
+              "slate_games": 1,
+              "suggested_bets": 0,
+              "wins": 0,
+              "losses": 0,
+              "total_risked": 0,
+              "total_profit": 0,
+              "cumulative_risked": 1375,
+              "cumulative_profit": 1002.8178879310344,
+              "roi": 0,
+              "cumulative_roi": 0.7293221003134795
+            },
+            "capitalPreservation": {
+              "slate_games": 1,
+              "suggested_bets": 0,
+              "wins": 0,
+              "losses": 0,
+              "total_risked": 0,
+              "total_profit": 0,
+              "cumulative_risked": 475,
+              "cumulative_profit": -89.00643639328985,
+              "roi": 0,
               "cumulative_roi": -0.1873819713542944
             }
           }
@@ -70854,6 +72600,66 @@
               "payout": 0
             }
           }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-08T12:55:33+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
         }
       ]
     },
@@ -70865,7 +72671,7 @@
       "finalized_at_utc": "2026-03-08T03:01:39+00:00",
       "finalized_date_central": "2026-03-07",
       "activation_date_central": "2026-03-08",
-      "compared_through_date_central": "2026-03-12",
+      "compared_through_date_central": "2026-03-13",
       "pregame_cutoff_utc": "2026-03-08T18:00:00Z",
       "snapshot_id": "nhl_odds_e456620f7b04c98b",
       "artifact_path": "/Users/davidiruegas/Library/Application Support/SportsModeling/artifacts/models/42b29b278843a8f5",
@@ -71146,47 +72952,47 @@
           "subject": "Modularize league pipelines and web contracts"
         }
       ],
-      "replayable_games": 41,
-      "days_tracked": 5,
+      "replayable_games": 42,
+      "days_tracked": 6,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 41,
-          "suggested_bets": 16,
+          "total_games": 42,
+          "suggested_bets": 17,
           "wins": 11,
-          "losses": 5,
-          "total_risked": 1700,
-          "total_profit": 1198.4218799425748,
-          "roi": 0.704954047025044,
-          "avg_edge": 0.07182597714212033,
-          "avg_expected_value": 0.14232067911707866,
+          "losses": 6,
+          "total_risked": 1825,
+          "total_profit": 1073.4218799425748,
+          "roi": 0.5881763725712739,
+          "avg_edge": 0.07165814359125088,
+          "avg_expected_value": 0.1400709210151078,
           "first_bet_date_central": "2026-03-08",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "aggressive": {
-          "total_games": 41,
-          "suggested_bets": 16,
+          "total_games": 42,
+          "suggested_bets": 17,
           "wins": 11,
-          "losses": 5,
-          "total_risked": 2500,
-          "total_profit": 1739.0858700148428,
-          "roi": 0.6956343480059372,
-          "avg_edge": 0.07182597714212033,
-          "avg_expected_value": 0.14232067911707866,
+          "losses": 6,
+          "total_risked": 2675,
+          "total_profit": 1564.0858700148428,
+          "roi": 0.5847049981363899,
+          "avg_edge": 0.07165814359125088,
+          "avg_expected_value": 0.1400709210151078,
           "first_bet_date_central": "2026-03-08",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "capitalPreservation": {
-          "total_games": 41,
-          "suggested_bets": 8,
+          "total_games": 42,
+          "suggested_bets": 9,
           "wins": 6,
-          "losses": 2,
-          "total_risked": 600,
-          "total_profit": 202.4001662930711,
-          "roi": 0.33733361048845184,
-          "avg_edge": 0.08433007739425255,
-          "avg_expected_value": 0.1222605091391647,
+          "losses": 3,
+          "total_risked": 675,
+          "total_profit": 127.4001662930711,
+          "roi": 0.18874098710084608,
+          "avg_edge": 0.08262371399237332,
+          "avg_expected_value": 0.12023987383298793,
           "first_bet_date_central": "2026-03-08",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         }
       },
       "daily": [
@@ -71397,6 +73203,48 @@
               "cumulative_profit": 202.40016629307104,
               "roi": -0.023809523809523794,
               "cumulative_roi": 0.33733361048845173
+            }
+          }
+        },
+        {
+          "date_central": "2026-03-13",
+          "slate_games": 1,
+          "strategies": {
+            "riskAdjusted": {
+              "slate_games": 1,
+              "suggested_bets": 1,
+              "wins": 0,
+              "losses": 1,
+              "total_risked": 125,
+              "total_profit": -125,
+              "cumulative_risked": 1825,
+              "cumulative_profit": 1073.4218799425748,
+              "roi": -1,
+              "cumulative_roi": 0.5881763725712739
+            },
+            "aggressive": {
+              "slate_games": 1,
+              "suggested_bets": 1,
+              "wins": 0,
+              "losses": 1,
+              "total_risked": 175,
+              "total_profit": -175,
+              "cumulative_risked": 2675,
+              "cumulative_profit": 1564.0858700148428,
+              "roi": -1,
+              "cumulative_roi": 0.5847049981363899
+            },
+            "capitalPreservation": {
+              "slate_games": 1,
+              "suggested_bets": 1,
+              "wins": 0,
+              "losses": 1,
+              "total_risked": 75,
+              "total_profit": -75,
+              "cumulative_risked": 675,
+              "cumulative_profit": 127.40016629307104,
+              "roi": -1,
+              "cumulative_roi": 0.18874098710084597
             }
           }
         }
@@ -73861,6 +75709,66 @@
               "payout": 0
             }
           }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 125,
+              "odds": -140,
+              "model_probability": 0.6440436283070846,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.06897280677733952,
+              "expected_value": 0.10407479138357378,
+              "outcome": "loss",
+              "profit": -125,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$175 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 175,
+              "odds": -140,
+              "model_probability": 0.6440436283070846,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.06897280677733952,
+              "expected_value": 0.10407479138357378,
+              "outcome": "loss",
+              "profit": -175,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$75 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 75,
+              "odds": -140,
+              "model_probability": 0.6440436283070846,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.06897280677733952,
+              "expected_value": 0.10407479138357378,
+              "outcome": "loss",
+              "profit": -75,
+              "payout": 0
+            }
+          }
         }
       ]
     },
@@ -73872,7 +75780,7 @@
       "finalized_at_utc": "2026-03-07T12:03:21+00:00",
       "finalized_date_central": "2026-03-07",
       "activation_date_central": "2026-03-07",
-      "compared_through_date_central": "2026-03-12",
+      "compared_through_date_central": "2026-03-13",
       "pregame_cutoff_utc": "2026-03-07T17:30:00Z",
       "snapshot_id": "nhl_odds_e456620f7b04c98b",
       "artifact_path": "/Users/davidiruegas/Library/Application Support/SportsModeling/artifacts/models/5344c99a8c9cbc8e",
@@ -74630,11 +76538,11 @@
           "subject": "Add NBA DARKO-like player projections"
         }
       ],
-      "replayable_games": 52,
-      "days_tracked": 6,
+      "replayable_games": 53,
+      "days_tracked": 7,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 52,
+          "total_games": 53,
           "suggested_bets": 17,
           "wins": 9,
           "losses": 8,
@@ -74647,7 +76555,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "aggressive": {
-          "total_games": 52,
+          "total_games": 53,
           "suggested_bets": 17,
           "wins": 9,
           "losses": 8,
@@ -74660,7 +76568,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "capitalPreservation": {
-          "total_games": 52,
+          "total_games": 53,
           "suggested_bets": 8,
           "wins": 4,
           "losses": 4,
@@ -74922,6 +76830,48 @@
               "cumulative_risked": 600,
               "cumulative_profit": -67.13982316227461,
               "roi": -0.109375,
+              "cumulative_roi": -0.11189970527045769
+            }
+          }
+        },
+        {
+          "date_central": "2026-03-13",
+          "slate_games": 1,
+          "strategies": {
+            "riskAdjusted": {
+              "slate_games": 1,
+              "suggested_bets": 0,
+              "wins": 0,
+              "losses": 0,
+              "total_risked": 0,
+              "total_profit": 0,
+              "cumulative_risked": 1825,
+              "cumulative_profit": 718.5690447295424,
+              "roi": 0,
+              "cumulative_roi": 0.3937364628655027
+            },
+            "aggressive": {
+              "slate_games": 1,
+              "suggested_bets": 0,
+              "wins": 0,
+              "losses": 0,
+              "total_risked": 0,
+              "total_profit": 0,
+              "cumulative_risked": 2675,
+              "cumulative_profit": 957.2466626213592,
+              "roi": 0,
+              "cumulative_roi": 0.35784921967153616
+            },
+            "capitalPreservation": {
+              "slate_games": 1,
+              "suggested_bets": 0,
+              "wins": 0,
+              "losses": 0,
+              "total_risked": 0,
+              "total_profit": 0,
+              "cumulative_risked": 600,
+              "cumulative_profit": -67.13982316227461,
+              "roi": 0,
               "cumulative_roi": -0.11189970527045769
             }
           }
@@ -78047,6 +79997,66 @@
               "payout": 0
             }
           }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-07T11:53:17+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
         }
       ]
     },
@@ -78058,7 +80068,7 @@
       "finalized_at_utc": "2026-03-06T15:31:10+00:00",
       "finalized_date_central": "2026-03-06",
       "activation_date_central": "2026-03-06",
-      "compared_through_date_central": "2026-03-12",
+      "compared_through_date_central": "2026-03-13",
       "pregame_cutoff_utc": "2026-03-07T00:00:00Z",
       "snapshot_id": "nhl_injuries_59d30b7972c35635",
       "artifact_path": "/Users/davidiruegas/Library/Application Support/SportsModeling/artifacts/models/08b34a55107a67a9",
@@ -78333,47 +80343,47 @@
           "subject": "Expand validation and enforce feature guardrails"
         }
       ],
-      "replayable_games": 59,
-      "days_tracked": 7,
+      "replayable_games": 60,
+      "days_tracked": 8,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 59,
-          "suggested_bets": 22,
+          "total_games": 60,
+          "suggested_bets": 23,
           "wins": 14,
-          "losses": 8,
-          "total_risked": 2350,
-          "total_profit": 1225.4106170291939,
-          "roi": 0.5214513263954016,
-          "avg_edge": 0.1130220366789315,
-          "avg_expected_value": 0.23530804347134768,
+          "losses": 9,
+          "total_risked": 2475,
+          "total_profit": 1100.4106170291939,
+          "roi": 0.4446103503148258,
+          "avg_edge": 0.11271050255791955,
+          "avg_expected_value": 0.23235136382417615,
           "first_bet_date_central": "2026-03-06",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "aggressive": {
-          "total_games": 59,
-          "suggested_bets": 22,
+          "total_games": 60,
+          "suggested_bets": 23,
           "wins": 14,
-          "losses": 8,
-          "total_risked": 3450,
-          "total_profit": 1821.2951890441234,
-          "roi": 0.5279116489982967,
-          "avg_edge": 0.1130220366789315,
-          "avg_expected_value": 0.23530804347134768,
+          "losses": 9,
+          "total_risked": 3625,
+          "total_profit": 1646.2951890441234,
+          "roi": 0.4541503969776892,
+          "avg_edge": 0.11271050255791955,
+          "avg_expected_value": 0.23235136382417615,
           "first_bet_date_central": "2026-03-06",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         },
         "capitalPreservation": {
-          "total_games": 59,
-          "suggested_bets": 12,
+          "total_games": 60,
+          "suggested_bets": 13,
           "wins": 9,
-          "losses": 3,
-          "total_risked": 850,
-          "total_profit": 405.9370348601198,
-          "roi": 0.47757298218837624,
-          "avg_edge": 0.08209035640158314,
-          "avg_expected_value": 0.11937437457937605,
+          "losses": 4,
+          "total_risked": 925,
+          "total_profit": 330.9370348601198,
+          "roi": 0.35776976741634575,
+          "avg_edge": 0.083918540670358,
+          "avg_expected_value": 0.12306130050299348,
           "first_bet_date_central": "2026-03-06",
-          "last_bet_date_central": "2026-03-12"
+          "last_bet_date_central": "2026-03-13"
         }
       },
       "daily": [
@@ -78668,6 +80678,48 @@
               "cumulative_profit": 405.93703486011975,
               "roi": 0.7058035714285714,
               "cumulative_roi": 0.4775729821883762
+            }
+          }
+        },
+        {
+          "date_central": "2026-03-13",
+          "slate_games": 1,
+          "strategies": {
+            "riskAdjusted": {
+              "slate_games": 1,
+              "suggested_bets": 1,
+              "wins": 0,
+              "losses": 1,
+              "total_risked": 125,
+              "total_profit": -125,
+              "cumulative_risked": 2475,
+              "cumulative_profit": 1100.4106170291939,
+              "roi": -1,
+              "cumulative_roi": 0.4446103503148258
+            },
+            "aggressive": {
+              "slate_games": 1,
+              "suggested_bets": 1,
+              "wins": 0,
+              "losses": 1,
+              "total_risked": 175,
+              "total_profit": -175,
+              "cumulative_risked": 3625,
+              "cumulative_profit": 1646.2951890441234,
+              "roi": -1,
+              "cumulative_roi": 0.4541503969776892
+            },
+            "capitalPreservation": {
+              "slate_games": 1,
+              "suggested_bets": 1,
+              "wins": 0,
+              "losses": 1,
+              "total_risked": 75,
+              "total_profit": -75,
+              "cumulative_risked": 925,
+              "cumulative_profit": 330.93703486011975,
+              "roi": -1,
+              "cumulative_roi": 0.3577697674163457
             }
           }
         }
@@ -82212,6 +84264,66 @@
               "payout": 0
             }
           }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-06T12:06:33+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 125,
+              "odds": -140,
+              "model_probability": 0.6809275734254014,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.10585675189565635,
+              "expected_value": 0.16730441158640263,
+              "outcome": "loss",
+              "profit": -125,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$175 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 175,
+              "odds": -140,
+              "model_probability": 0.6809275734254014,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.10585675189565635,
+              "expected_value": 0.16730441158640263,
+              "outcome": "loss",
+              "profit": -175,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$75 EDM",
+              "reason": "Favorite underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "EDM",
+              "stake": 75,
+              "odds": -140,
+              "model_probability": 0.6809275734254014,
+              "market_probability": 0.5750708215297451,
+              "edge": 0.10585675189565635,
+              "expected_value": 0.16730441158640263,
+              "outcome": "loss",
+              "profit": -75,
+              "payout": 0
+            }
+          }
         }
       ]
     },
@@ -82223,7 +84335,7 @@
       "finalized_at_utc": "2026-03-05T22:35:15+00:00",
       "finalized_date_central": "2026-03-05",
       "activation_date_central": "2026-03-05",
-      "compared_through_date_central": "2026-03-12",
+      "compared_through_date_central": "2026-03-13",
       "pregame_cutoff_utc": "2026-03-06T00:00:00Z",
       "snapshot_id": "nhl_injuries_db81e412df593a96",
       "artifact_path": "/Users/davidiruegas/Library/Application Support/SportsModeling/artifacts/models/30b4b6ac5add600c",
@@ -82975,11 +85087,11 @@
           "subject": "Honor selected models in research runs"
         }
       ],
-      "replayable_games": 67,
-      "days_tracked": 8,
+      "replayable_games": 68,
+      "days_tracked": 9,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 67,
+          "total_games": 68,
           "suggested_bets": 26,
           "wins": 15,
           "losses": 11,
@@ -82992,7 +85104,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "aggressive": {
-          "total_games": 67,
+          "total_games": 68,
           "suggested_bets": 26,
           "wins": 15,
           "losses": 11,
@@ -83005,7 +85117,7 @@
           "last_bet_date_central": "2026-03-12"
         },
         "capitalPreservation": {
-          "total_games": 67,
+          "total_games": 68,
           "suggested_bets": 18,
           "wins": 10,
           "losses": 8,
@@ -83351,6 +85463,48 @@
               "cumulative_risked": 1300,
               "cumulative_profit": -89.23328921394493,
               "roi": -0.40625,
+              "cumulative_roi": -0.06864099170303456
+            }
+          }
+        },
+        {
+          "date_central": "2026-03-13",
+          "slate_games": 1,
+          "strategies": {
+            "riskAdjusted": {
+              "slate_games": 1,
+              "suggested_bets": 0,
+              "wins": 0,
+              "losses": 0,
+              "total_risked": 0,
+              "total_profit": 0,
+              "cumulative_risked": 2750,
+              "cumulative_profit": 640.584609524617,
+              "roi": 0,
+              "cumulative_roi": 0.23293985800895164
+            },
+            "aggressive": {
+              "slate_games": 1,
+              "suggested_bets": 0,
+              "wins": 0,
+              "losses": 0,
+              "total_risked": 0,
+              "total_profit": 0,
+              "cumulative_risked": 4050,
+              "cumulative_profit": 950.6804318178013,
+              "roi": 0,
+              "cumulative_roi": 0.23473590909081513
+            },
+            "capitalPreservation": {
+              "slate_games": 1,
+              "suggested_bets": 0,
+              "wins": 0,
+              "losses": 0,
+              "total_risked": 0,
+              "total_profit": 0,
+              "cumulative_risked": 1300,
+              "cumulative_profit": -89.23328921394493,
+              "roi": 0,
               "cumulative_roi": -0.06864099170303456
             }
           }
@@ -87371,6 +89525,66 @@
               "market_probability": 0.35294117647058826,
               "edge": 0.03940355831595993,
               "expected_value": 0.07894802066300755,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
+        },
+        {
+          "game_id": 2025021042,
+          "date_central": "2026-03-13",
+          "forecast_as_of_utc": "2026-03-05T16:42:47+00:00",
+          "start_time_utc": "2026-03-14T00:00:00Z",
+          "final_utc": "2026-03-14T00:00:00Z",
+          "home_team": "STL",
+          "away_team": "EDM",
+          "home_score": 3,
+          "away_score": 2,
+          "home_moneyline": 132,
+          "away_moneyline": -140,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "aggressive": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Adjusted price fair",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": null,
+              "market_probability": null,
+              "edge": null,
+              "expected_value": null,
               "outcome": "no_bet",
               "profit": 0,
               "payout": 0

@@ -1,8 +1,8 @@
 {
   "league": "NCAAM",
   "as_of_utc": "2026-03-10T14:49:28+00:00",
-  "odds_as_of_utc": "2026-03-14T00:03:59+00:00",
-  "date_central": "2026-03-13",
+  "odds_as_of_utc": "2026-03-14T11:58:04+00:00",
+  "date_central": "2026-03-14",
   "strategy_configs": {
     "riskAdjusted": {
       "label": "Balanced",
@@ -52,127 +52,127 @@
   },
   "rows": [
     {
-      "game_id": 401851382,
-      "game_date_utc": "2026-03-13",
-      "start_time_utc": "2026-03-13T22:30Z",
-      "home_team": "NEB",
-      "away_team": "TBD",
-      "home_team_name": "Nebraska Cornhuskers",
-      "away_team_name": "TBD",
-      "home_win_probability": 0.8575828555436991,
-      "betting_model_name": "ensemble",
-      "model_win_probabilities": {
-        "ensemble": 0.8575828555436991,
-        "bayes_bt_state_space": 0.9051817840748608,
-        "bayes_goals": 1,
-        "dynamic_rating": 0.7670517858391553,
-        "elo_baseline": 0.604340424361907,
-        "gbdt": 0.704584495063034,
-        "glm_elastic_net": 0.9693718767744013,
-        "glm_lasso": 0.9759331028647893,
-        "glm_ridge": 0.984384323851101,
-        "goals_poisson": 0.8868333333333334,
-        "rf": 0.7610046058278201,
-        "simulation_first": 0.5057142857142857,
-        "two_stage": 0.7890962285302433
-      },
-      "moneyline": {
-        "away_price": -1800,
-        "home_price": 1300,
-        "away_book": "Bovada",
-        "home_book": "DraftKings",
-        "books_count": 5
-      },
-      "spread": {
-        "point": 10.5,
-        "away_price": -106,
-        "home_price": -114,
-        "away_book": "BetRivers",
-        "home_book": "FanDuel",
-        "books_count": 3
-      },
-      "total": {
-        "point": 137.5,
-        "over_price": -105,
-        "under_price": -108,
-        "over_book": "DraftKings",
-        "under_book": "FanDuel",
-        "books_count": 3
-      }
-    },
-    {
-      "game_id": 401851567,
-      "game_date_utc": "2026-03-13",
-      "start_time_utc": "2026-03-13T23:00Z",
-      "home_team": "ALA",
-      "away_team": "TBD",
-      "home_team_name": "Alabama Crimson Tide",
-      "away_team_name": "TBD",
-      "home_win_probability": 0.851323006638363,
-      "betting_model_name": "ensemble",
-      "model_win_probabilities": {
-        "ensemble": 0.851323006638363,
-        "bayes_bt_state_space": 0.901040049692197,
-        "bayes_goals": 1,
-        "dynamic_rating": 0.7957676208702457,
-        "elo_baseline": 0.5982769078615446,
-        "gbdt": 0.5135499700768055,
-        "glm_elastic_net": 0.9727153861219376,
-        "glm_lasso": 0.98008370499116,
-        "glm_ridge": 0.9882256212245959,
-        "goals_poisson": 0.8828333333333334,
-        "rf": 0.7495901858120861,
-        "simulation_first": 0.5122857142857142,
-        "two_stage": 0.7586525268851084
-      },
-      "moneyline": {
-        "away_price": 158,
-        "home_price": -139,
-        "away_book": "FanDuel",
-        "home_book": "BetRivers",
-        "books_count": 5
-      },
-      "spread": {
-        "point": 2.5,
-        "away_price": -115,
-        "home_price": -112,
-        "away_book": "BetMGM",
-        "home_book": "BetRivers",
-        "books_count": 2
-      },
-      "total": {
-        "point": 174.5,
-        "over_price": -115,
-        "under_price": -115,
-        "over_book": "Bovada",
-        "under_book": "Bovada",
-        "books_count": 2
-      }
-    },
-    {
-      "game_id": 401851383,
+      "game_id": 401851206,
       "game_date_utc": "2026-03-14",
-      "start_time_utc": "2026-03-14T01:00Z",
-      "home_team": "MSU",
+      "start_time_utc": "2026-03-14T15:00Z",
+      "home_team": "TBD",
       "away_team": "TBD",
-      "home_team_name": "Michigan State Spartans",
+      "home_team_name": "TBD",
       "away_team_name": "TBD",
-      "home_win_probability": 0.8827798136850745,
+      "home_win_probability": 0.7625516921687365,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.8827798136850745,
-        "bayes_bt_state_space": 0.9269551314625075,
-        "bayes_goals": 1,
-        "dynamic_rating": 0.8727168829453666,
-        "elo_baseline": 0.6470970601767204,
-        "gbdt": 0.7942927848909397,
-        "glm_elastic_net": 0.9878624003027149,
-        "glm_lasso": 0.992531988189701,
-        "glm_ridge": 0.9966784994967222,
-        "goals_poisson": 0.9079999999999999,
-        "rf": 0.7882907766389866,
-        "simulation_first": 0.514,
-        "two_stage": 0.7720227002339177
+        "ensemble": 0.7625516921687365,
+        "bayes_bt_state_space": 0.9896251206948489,
+        "bayes_goals": 0.5108,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.5790662944417826,
+        "glm_elastic_net": 0.9974654580310521,
+        "glm_lasso": 0.9986936082126285,
+        "glm_ridge": 0.9991805073560445,
+        "goals_poisson": 0.779,
+        "rf": 0.6137573295356052,
+        "simulation_first": 0.5218571428571429,
+        "two_stage": 0.6460335190948557
+      },
+      "moneyline": {
+        "away_price": 161,
+        "home_price": -166,
+        "away_book": "BetOnline.ag",
+        "home_book": "FanDuel",
+        "books_count": 5
+      },
+      "spread": {
+        "point": 3.5,
+        "away_price": -110,
+        "home_price": -110,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 3
+      },
+      "total": {
+        "point": 136.5,
+        "over_price": -110,
+        "under_price": -103,
+        "over_book": "BetRivers",
+        "under_book": "LowVig.ag",
+        "books_count": 5
+      }
+    },
+    {
+      "game_id": 401851435,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T15:00Z",
+      "home_team": "YALE",
+      "away_team": "COR",
+      "home_team_name": "Yale Bulldogs",
+      "away_team_name": "Cornell Big Red",
+      "home_win_probability": 0.6492410443526935,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.6492410443526935,
+        "bayes_bt_state_space": 0.7480675558326577,
+        "bayes_goals": 0.3214,
+        "dynamic_rating": 0.5781291939553257,
+        "elo_baseline": 0.5286632665658628,
+        "gbdt": 0.40586590097378317,
+        "glm_elastic_net": 0.7211899636941759,
+        "glm_lasso": 0.7193289839326659,
+        "glm_ridge": 0.7318006449773444,
+        "goals_poisson": 0.7613333333333334,
+        "rf": 0.6173625250725622,
+        "simulation_first": 0.5225714285714286,
+        "two_stage": 0.7916939078300896
+      },
+      "moneyline": {
+        "away_price": 157,
+        "home_price": -175,
+        "away_book": "BetOnline.ag",
+        "home_book": "Bovada",
+        "books_count": 7
+      },
+      "spread": {
+        "point": 3.5,
+        "away_price": -102,
+        "home_price": -114,
+        "away_book": "BetMGM",
+        "home_book": "FanDuel",
+        "books_count": 4
+      },
+      "total": {
+        "point": 163.5,
+        "over_price": -108,
+        "under_price": -108,
+        "over_book": "LowVig.ag",
+        "under_book": "LowVig.ag",
+        "books_count": 3
+      }
+    },
+    {
+      "game_id": 401851275,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T17:00Z",
+      "home_team": "TBD",
+      "away_team": "TBD",
+      "home_team_name": "TBD",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.7618080679548707,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.7618080679548707,
+        "bayes_bt_state_space": 0.9953617686780244,
+        "bayes_goals": 0.5156,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.5361687347607713,
+        "glm_elastic_net": 0.9988538517025938,
+        "glm_lasso": 0.9994651577944573,
+        "glm_ridge": 0.9996843550098197,
+        "goals_poisson": 0.7818333333333333,
+        "rf": 0.6117632721273517,
+        "simulation_first": 0.528,
+        "two_stage": 0.6465823718523084
       },
       "moneyline": {
         "away_price": null,
@@ -199,52 +199,885 @@
       }
     },
     {
-      "game_id": 401851568,
+      "game_id": 401851384,
       "game_date_utc": "2026-03-14",
-      "start_time_utc": "2026-03-14T01:30Z",
-      "home_team": "ARK",
+      "start_time_utc": "2026-03-14T17:00Z",
+      "home_team": "TBD",
       "away_team": "TBD",
-      "home_team_name": "Arkansas Razorbacks",
+      "home_team_name": "TBD",
       "away_team_name": "TBD",
-      "home_win_probability": 0.8774208868769879,
+      "home_win_probability": 0.7608595300713314,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.8774208868769879,
-        "bayes_bt_state_space": 0.9016672017449082,
-        "bayes_goals": 1,
-        "dynamic_rating": 0.8428043676754197,
-        "elo_baseline": 0.6246902800712794,
-        "gbdt": 0.857616936776402,
-        "glm_elastic_net": 0.9848238736435543,
-        "glm_lasso": 0.9909762128842888,
-        "glm_ridge": 0.9960682988391707,
-        "goals_poisson": 0.9038333333333333,
-        "rf": 0.7657622420192232,
-        "simulation_first": 0.5172857142857142,
-        "two_stage": 0.745604965934103
+        "ensemble": 0.7608595300713314,
+        "bayes_bt_state_space": 0.9905441421880818,
+        "bayes_goals": 0.524,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.5160666016536356,
+        "glm_elastic_net": 0.9979800811803904,
+        "glm_lasso": 0.9989798106485821,
+        "glm_ridge": 0.9993579310425675,
+        "goals_poisson": 0.7755,
+        "rf": 0.6080434711398089,
+        "simulation_first": 0.5397142857142857,
+        "two_stage": 0.5872344312270039
       },
       "moneyline": {
-        "away_price": 230,
-        "home_price": -245,
-        "away_book": "BetUS",
-        "home_book": "Bovada",
+        "away_price": 640,
+        "home_price": -700,
+        "away_book": "FanDuel",
+        "home_book": "DraftKings",
         "books_count": 8
       },
       "spread": {
-        "point": 6,
-        "away_price": 100,
-        "home_price": -105,
+        "point": 12,
+        "away_price": -104,
+        "home_price": -108,
+        "away_book": "LowVig.ag",
+        "home_book": "LowVig.ag",
+        "books_count": 3
+      },
+      "total": {
+        "point": 160.5,
+        "over_price": -110,
+        "under_price": -105,
+        "over_book": "Bovada",
+        "under_book": "BetMGM",
+        "books_count": 3
+      }
+    },
+    {
+      "game_id": 401851477,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T17:00Z",
+      "home_team": "TBD",
+      "away_team": "TBD",
+      "home_team_name": "TBD",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.7634675289995234,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.7634675289995234,
+        "bayes_bt_state_space": 0.9970947179341576,
+        "bayes_goals": 0.5342,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.5790662944417826,
+        "glm_elastic_net": 0.9994774425639921,
+        "glm_lasso": 0.9997788308762383,
+        "glm_ridge": 0.9998770992995958,
+        "goals_poisson": 0.767,
+        "rf": 0.6110132721273517,
+        "simulation_first": 0.5288571428571428,
+        "two_stage": 0.6463316797632843
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 401851569,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T17:00Z",
+      "home_team": "TBD",
+      "away_team": "TBD",
+      "home_team_name": "TBD",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.761038261529573,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.761038261529573,
+        "bayes_bt_state_space": 0.9939017294542446,
+        "bayes_goals": 0.53,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.5160666016536356,
+        "glm_elastic_net": 0.9990451595216516,
+        "glm_lasso": 0.9995612266740755,
+        "glm_ridge": 0.9997357187584189,
+        "goals_poisson": 0.7758333333333334,
+        "rf": 0.6056347409810787,
+        "simulation_first": 0.5214285714285715,
+        "two_stage": 0.5607187847424456
+      },
+      "moneyline": {
+        "away_price": 310,
+        "home_price": -360,
+        "away_book": "BetRivers",
+        "home_book": "DraftKings",
+        "books_count": 8
+      },
+      "spread": {
+        "point": 8,
+        "away_price": -101,
+        "home_price": -110,
         "away_book": "LowVig.ag",
         "home_book": "Bovada",
         "books_count": 4
       },
       "total": {
-        "point": 166.5,
-        "over_price": -105,
-        "under_price": -110,
-        "over_book": "DraftKings",
-        "under_book": "BetMGM",
+        "point": 160.5,
+        "over_price": -108,
+        "under_price": -108,
+        "over_book": "BetRivers",
+        "under_book": "LowVig.ag",
+        "books_count": 7
+      }
+    },
+    {
+      "game_id": 401851436,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T18:00Z",
+      "home_team": "HARV",
+      "away_team": "PENN",
+      "home_team_name": "Harvard Crimson",
+      "away_team_name": "Pennsylvania Quakers",
+      "home_win_probability": 0.7197233262333433,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.7197233262333433,
+        "bayes_bt_state_space": 0.7894569111769137,
+        "bayes_goals": 0.5432,
+        "dynamic_rating": 0.6689866698976726,
+        "elo_baseline": 0.536287147278765,
+        "gbdt": 0.7314606133006193,
+        "glm_elastic_net": 0.7468473023499292,
+        "glm_lasso": 0.7405925704962149,
+        "glm_ridge": 0.7259690104744457,
+        "goals_poisson": 0.7521666666666667,
+        "rf": 0.6973202231453811,
+        "simulation_first": 0.5302857142857142,
+        "two_stage": 0.8107044476938415
+      },
+      "moneyline": {
+        "away_price": 130,
+        "home_price": -150,
+        "away_book": "BetOnline.ag",
+        "home_book": "BetMGM",
+        "books_count": 8
+      },
+      "spread": {
+        "point": 2.5,
+        "away_price": -101,
+        "home_price": -111,
+        "away_book": "LowVig.ag",
+        "home_book": "LowVig.ag",
         "books_count": 6
+      },
+      "total": {
+        "point": 136.5,
+        "over_price": -110,
+        "under_price": -105,
+        "over_book": "BetUS",
+        "under_book": "BetMGM",
+        "books_count": 5
+      }
+    },
+    {
+      "game_id": 401851227,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T19:00Z",
+      "home_team": "USF",
+      "away_team": "TBD",
+      "home_team_name": "South Florida Bulls",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.809448606889295,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.809448606889295,
+        "bayes_bt_state_space": 0.9675209222290169,
+        "bayes_goals": 1,
+        "dynamic_rating": 0.6818255240605859,
+        "elo_baseline": 0.546577854740426,
+        "gbdt": 0.16479568969794905,
+        "glm_elastic_net": 0.9886605946235566,
+        "glm_lasso": 0.992479645937329,
+        "glm_ridge": 0.9953775641334588,
+        "goals_poisson": 0.836,
+        "rf": 0.638884112235163,
+        "simulation_first": 0.5174285714285715,
+        "two_stage": 0.711886463349276
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 401851276,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T19:30Z",
+      "home_team": "TBD",
+      "away_team": "TBD",
+      "home_team_name": "TBD",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.762001714054789,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.762001714054789,
+        "bayes_bt_state_space": 0.9990514897729342,
+        "bayes_goals": 0.5096,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.5361687347607713,
+        "glm_elastic_net": 0.9998683217276576,
+        "glm_lasso": 0.9999530298845416,
+        "glm_ridge": 0.9999765114196303,
+        "goals_poisson": 0.7805000000000001,
+        "rf": 0.6130291451432248,
+        "simulation_first": 0.5374285714285715,
+        "two_stage": 0.6487398393806649
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 401851386,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T19:30Z",
+      "home_team": "TBD",
+      "away_team": "TBD",
+      "home_team_name": "TBD",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.7594310723659282,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.7594310723659282,
+        "bayes_bt_state_space": 0.9985311898061313,
+        "bayes_goals": 0.5242,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.5160666016536356,
+        "glm_elastic_net": 0.9997677564751658,
+        "glm_lasso": 0.9999103667464821,
+        "glm_ridge": 0.9999522062818846,
+        "goals_poisson": 0.7623333333333334,
+        "rf": 0.6080434711398089,
+        "simulation_first": 0.5304285714285715,
+        "two_stage": 0.5895241945133581
+      },
+      "moneyline": {
+        "away_price": -310,
+        "home_price": 263,
+        "away_book": "FanDuel",
+        "home_book": "BetOnline.ag",
+        "books_count": 7
+      },
+      "spread": {
+        "point": 7.5,
+        "away_price": -102,
+        "home_price": -106,
+        "away_book": "FanDuel",
+        "home_book": "LowVig.ag",
+        "books_count": 7
+      },
+      "total": {
+        "point": 147.5,
+        "over_price": -108,
+        "under_price": -108,
+        "over_book": "LowVig.ag",
+        "under_book": "LowVig.ag",
+        "books_count": 7
+      }
+    },
+    {
+      "game_id": 401851570,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T19:30Z",
+      "home_team": "TBD",
+      "away_team": "TBD",
+      "home_team_name": "TBD",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.7650614098927886,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.7650614098927886,
+        "bayes_bt_state_space": 0.9972649167006907,
+        "bayes_goals": 0.5256,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.559295179986842,
+        "glm_elastic_net": 0.9996427543443707,
+        "glm_lasso": 0.9998547104575726,
+        "glm_ridge": 0.999918836375016,
+        "goals_poisson": 0.7856666666666666,
+        "rf": 0.6069006139969517,
+        "simulation_first": 0.5348571428571428,
+        "two_stage": 0.5609600160725599
+      },
+      "moneyline": {
+        "away_price": 340,
+        "home_price": -400,
+        "away_book": "Bovada",
+        "home_book": "BetMGM",
+        "books_count": 7
+      },
+      "spread": {
+        "point": 8.5,
+        "away_price": -106,
+        "home_price": -106,
+        "away_book": "LowVig.ag",
+        "home_book": "LowVig.ag",
+        "books_count": 7
+      },
+      "total": {
+        "point": 157.5,
+        "over_price": -105,
+        "under_price": -105,
+        "over_book": "Bovada",
+        "under_book": "DraftKings",
+        "books_count": 4
+      }
+    },
+    {
+      "game_id": 401851228,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T21:30Z",
+      "home_team": "WICH",
+      "away_team": "TBD",
+      "home_team_name": "Wichita State Shockers",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.7343292523242344,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.7343292523242344,
+        "bayes_bt_state_space": 0.975932287915069,
+        "bayes_goals": 0.54,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.25865912906485383,
+        "glm_elastic_net": 0.9885981371817625,
+        "glm_lasso": 0.9927407205051567,
+        "glm_ridge": 0.9948710583060146,
+        "goals_poisson": 0.7616666666666666,
+        "rf": 0.54030371439247,
+        "simulation_first": 0.5281428571428571,
+        "two_stage": 0.63702694051982
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 401851306,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T22:00Z",
+      "home_team": "TBD",
+      "away_team": "TBD",
+      "home_team_name": "TBD",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.7647391993170631,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.7647391993170631,
+        "bayes_bt_state_space": 0.9997027455494718,
+        "bayes_goals": 0.5266,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.5403184622687295,
+        "glm_elastic_net": 0.9999557163327698,
+        "glm_lasso": 0.9999862698915502,
+        "glm_ridge": 0.9999937620795275,
+        "goals_poisson": 0.783,
+        "rf": 0.6221873770979832,
+        "simulation_first": 0.5304285714285715,
+        "two_stage": 0.6758484489912885
+      },
+      "moneyline": {
+        "away_price": 130,
+        "home_price": -146,
+        "away_book": "BetOnline.ag",
+        "home_book": "FanDuel",
+        "books_count": 7
+      },
+      "spread": {
+        "point": 2.5,
+        "away_price": -101,
+        "home_price": -110,
+        "away_book": "LowVig.ag",
+        "home_book": "BetMGM",
+        "books_count": 7
+      },
+      "total": {
+        "point": 138,
+        "over_price": -108,
+        "under_price": -108,
+        "over_book": "LowVig.ag",
+        "under_book": "LowVig.ag",
+        "books_count": 3
+      }
+    },
+    {
+      "game_id": 401851505,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T22:00Z",
+      "home_team": "TBD",
+      "away_team": "TBD",
+      "home_team_name": "TBD",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.7646813366424751,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.7646813366424751,
+        "bayes_bt_state_space": 0.9995124644766227,
+        "bayes_goals": 0.5256,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.5790662944417826,
+        "glm_elastic_net": 0.9999270113050822,
+        "glm_lasso": 0.9999758002902605,
+        "glm_ridge": 0.9999884321222338,
+        "goals_poisson": 0.7828333333333333,
+        "rf": 0.6130291451432248,
+        "simulation_first": 0.5094285714285715,
+        "two_stage": 0.648571290965379
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 401851317,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T22:30Z",
+      "home_team": "TBD",
+      "away_team": "TBD",
+      "home_team_name": "TBD",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.7689555047157047,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.7689555047157047,
+        "bayes_bt_state_space": 0.9998912240684095,
+        "bayes_goals": 0.5286,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.583130627669127,
+        "glm_elastic_net": 0.999976147638896,
+        "glm_lasso": 0.9999931717612667,
+        "glm_ridge": 0.9999971910790134,
+        "goals_poisson": 0.7885,
+        "rf": 0.6408639094483826,
+        "simulation_first": 0.521,
+        "two_stage": 0.7660033838247057
+      },
+      "moneyline": {
+        "away_price": -150,
+        "home_price": 130,
+        "away_book": "BetMGM",
+        "home_book": "BetOnline.ag",
+        "books_count": 6
+      },
+      "spread": {
+        "point": 3,
+        "away_price": -106,
+        "home_price": -106,
+        "away_book": "LowVig.ag",
+        "home_book": "LowVig.ag",
+        "books_count": 4
+      },
+      "total": {
+        "point": 141,
+        "over_price": -108,
+        "under_price": -108,
+        "over_book": "LowVig.ag",
+        "under_book": "LowVig.ag",
+        "books_count": 3
+      }
+    },
+    {
+      "game_id": 401851726,
+      "game_date_utc": "2026-03-14",
+      "start_time_utc": "2026-03-14T23:30Z",
+      "home_team": "TBD",
+      "away_team": "TBD",
+      "home_team_name": "TBD",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.7661095848144515,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.7661095848144515,
+        "bayes_bt_state_space": 0.9998519514140215,
+        "bayes_goals": 0.5302,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.5790662944417826,
+        "glm_elastic_net": 0.99997758265289,
+        "glm_lasso": 0.9999935786177697,
+        "glm_ridge": 0.9999971953093992,
+        "goals_poisson": 0.7841666666666667,
+        "rf": 0.6130291451432248,
+        "simulation_first": 0.5317142857142857,
+        "two_stage": 0.6496849966848117
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 401858192,
+      "game_date_utc": "2026-03-15",
+      "start_time_utc": "2026-03-15T00:00Z",
+      "home_team": "TBD",
+      "away_team": "TBD",
+      "home_team_name": "TBD",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.7620167825114105,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.7620167825114105,
+        "bayes_bt_state_space": 0.9998918199879272,
+        "bayes_goals": 0.5182,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.5790662944417826,
+        "glm_elastic_net": 0.9999848810193698,
+        "glm_lasso": 0.9999958755040033,
+        "glm_ridge": 0.9999982519526073,
+        "goals_poisson": 0.7651666666666667,
+        "rf": 0.6130291451432248,
+        "simulation_first": 0.5198571428571429,
+        "two_stage": 0.6501369024477442
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 401851183,
+      "game_date_utc": "2026-03-15",
+      "start_time_utc": "2026-03-15T00:30Z",
+      "home_team": "TBD",
+      "away_team": "TBD",
+      "home_team_name": "TBD",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.7629702484856161,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.7629702484856161,
+        "bayes_bt_state_space": 0.9999648553801511,
+        "bayes_goals": 0.5104,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.5403184622687295,
+        "glm_elastic_net": 0.9999936459273232,
+        "glm_lasso": 0.999998449078572,
+        "glm_ridge": 0.999999,
+        "goals_poisson": 0.7838333333333333,
+        "rf": 0.6206611866217928,
+        "simulation_first": 0.5195714285714286,
+        "two_stage": 0.6693633953183419
+      },
+      "moneyline": {
+        "away_price": 313,
+        "home_price": -385,
+        "away_book": "BetOnline.ag",
+        "home_book": "FanDuel",
+        "books_count": 7
+      },
+      "spread": {
+        "point": 8.5,
+        "away_price": -110,
+        "home_price": -101,
+        "away_book": "FanDuel",
+        "home_book": "LowVig.ag",
+        "books_count": 7
+      },
+      "total": {
+        "point": 137,
+        "over_price": -113,
+        "under_price": -103,
+        "over_book": "LowVig.ag",
+        "under_book": "LowVig.ag",
+        "books_count": 3
+      }
+    },
+    {
+      "game_id": 401851415,
+      "game_date_utc": "2026-03-15",
+      "start_time_utc": "2026-03-15T00:30Z",
+      "home_team": "TBD",
+      "away_team": "TBD",
+      "home_team_name": "TBD",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.7634557317501864,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.7634557317501864,
+        "bayes_bt_state_space": 0.9999358198822302,
+        "bayes_goals": 0.5124,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.583130627669127,
+        "glm_elastic_net": 0.9999903770649164,
+        "glm_lasso": 0.9999975247193401,
+        "glm_ridge": 0.999998993552419,
+        "goals_poisson": 0.7675,
+        "rf": 0.6210391740032536,
+        "simulation_first": 0.5314285714285715,
+        "two_stage": 0.6657975894308384
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 401851398,
+      "game_date_utc": "2026-03-15",
+      "start_time_utc": "2026-03-15T02:00Z",
+      "home_team": "TBD",
+      "away_team": "TBD",
+      "home_team_name": "TBD",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.7644018563437082,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.7644018563437082,
+        "bayes_bt_state_space": 0.9999724189723325,
+        "bayes_goals": 0.5334,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.5790662944417826,
+        "glm_elastic_net": 0.9999953552853923,
+        "glm_lasso": 0.9999989052133782,
+        "glm_ridge": 0.999999,
+        "goals_poisson": 0.7715000000000001,
+        "rf": 0.6130291451432248,
+        "simulation_first": 0.5261428571428571,
+        "two_stage": 0.6512497595393827
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 401851739,
+      "game_date_utc": "2026-03-15",
+      "start_time_utc": "2026-03-15T03:59Z",
+      "home_team": "TBD",
+      "away_team": "TBD",
+      "home_team_name": "TBD",
+      "away_team_name": "TBD",
+      "home_win_probability": 0.7636607109200645,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.7636607109200645,
+        "bayes_bt_state_space": 0.9999779397805052,
+        "bayes_goals": 0.526,
+        "dynamic_rating": 0.5299640517645717,
+        "elo_baseline": 0.5218610539716015,
+        "gbdt": 0.5790662944417826,
+        "glm_elastic_net": 0.9999967855612351,
+        "glm_lasso": 0.999999,
+        "glm_ridge": 0.999999,
+        "goals_poisson": 0.7695,
+        "rf": 0.6150291451432248,
+        "simulation_first": 0.5252857142857142,
+        "two_stage": 0.6595008833378244
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
       }
     }
   ]
