@@ -57,6 +57,14 @@
 - Unless the user explicitly asks about predictive accuracy, calibration, or another statistical metric, interpret model "performance" as betting profitability: net profit/loss, ROI, bankroll growth, and related money-making outcomes.
 - If the user asks why predictions went right or wrong, what model issues might explain outcomes, or which model behavior should be improved, inspect the local performance/validation surfaces before giving a conclusion.
 - Default NBA unless the user explicitly says NHL or the config context is already league-specific.
+- When the user says `my model`, `the model`, or `my models` without naming a model family, interpret that as the GLM family first, especially the vanilla GLM, elastic-net GLM, and the closely related regularized GLM variants used in this repo.
+- Treat ambiguous model-development questions as GLM questions by default. This includes feature engineering, fitting, coefficient behavior, regularization, cross-validation, diagnostics, and why a modeling change may have hurt betting results.
+- Distinguish between the default model family and the default betting prediction:
+  - default model family under discussion: GLM models
+  - default probability, pick, edge, or bet-driving prediction: the ensemble probability unless the user explicitly asks for a specific model's probability
+- The north star of this project is maximizing long-run betting profit by identifying mispriced odds and betting only when the model-estimated edge is positive enough to create positive expected value over time.
+- When the user asks why things are `going badly`, `failing`, or `losing money`, prioritize diagnoses that explain negative betting outcomes, weak mispricing detection, bad thresholding, poor calibration at bet-trigger points, feature leakage cleanup regressions, over-regularization, or ensemble interactions that may be washing out real GLM signal.
+- If older, leakier, or otherwise less principled historical models appear to lose less money than newer models, treat that as a serious product question rather than a curiosity. Investigate what changed in feature construction, leakage removal, calibration, thresholding, coverage, and ensemble weighting before assuming the newer pipeline is better.
 - Start from the narrowest relevant local evidence source:
   - `make query Q="<user question>"` for leaderboard-style or recent-best-model questions
   - `performance_aggregates`, `model_scores`, `validation_results`, `change_points`, and `model_runs` tables for causal follow-up
