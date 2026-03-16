@@ -2,26 +2,26 @@
   "league": "NCAAM",
   "leaderboard": [
     {
-      "model_name": "two_stage",
-      "window_label": "30d",
-      "n_games": 33,
-      "log_loss": 0.6115157819809744,
-      "brier": 0.21103635736073317,
-      "accuracy": 0.696969696969697,
-      "ece": 0.13656229307261114,
-      "calibration_alpha": 0.28148947968897464,
-      "calibration_beta": 0.4614879904498758
-    },
-    {
       "model_name": "rf",
       "window_label": "30d",
       "n_games": 33,
       "log_loss": 0.6124297631682052,
-      "brier": 0.21162097079524214,
+      "brier": 0.2116209707952421,
       "accuracy": 0.696969696969697,
-      "ece": 0.10150993774473109,
-      "calibration_alpha": 0.22758877526058433,
-      "calibration_beta": 0.48664090998324405
+      "ece": 0.10150993774473115,
+      "calibration_alpha": 0.2275887752605845,
+      "calibration_beta": 0.48664090998324383
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "30d",
+      "n_games": 33,
+      "log_loss": 0.6247309523530101,
+      "brier": 0.21491469512714284,
+      "accuracy": 0.696969696969697,
+      "ece": 0.14221729154448493,
+      "calibration_alpha": 0.2912430496277838,
+      "calibration_beta": 0.412999682959809
     },
     {
       "model_name": "elo_baseline",
@@ -71,12 +71,12 @@
       "model_name": "ensemble",
       "window_label": "30d",
       "n_games": 33,
-      "log_loss": 0.6765126833860953,
-      "brier": 0.23062111290050635,
+      "log_loss": 0.6761270508532942,
+      "brier": 0.23050920424384364,
       "accuracy": 0.696969696969697,
-      "ece": 0.16436726995090412,
-      "calibration_alpha": 0.1976366986676142,
-      "calibration_beta": 0.3668471977433918
+      "ece": 0.16404928547327097,
+      "calibration_alpha": 0.19799048284010246,
+      "calibration_beta": 0.3671774574022769
     },
     {
       "model_name": "goals_poisson",
@@ -156,26 +156,26 @@
       "calibration_beta": 0.020690294452719114
     },
     {
-      "model_name": "two_stage",
-      "window_label": "60d",
-      "n_games": 33,
-      "log_loss": 0.6115157819809744,
-      "brier": 0.21103635736073317,
-      "accuracy": 0.696969696969697,
-      "ece": 0.13656229307261114,
-      "calibration_alpha": 0.28148947968897464,
-      "calibration_beta": 0.4614879904498758
-    },
-    {
       "model_name": "rf",
       "window_label": "60d",
       "n_games": 33,
       "log_loss": 0.6124297631682052,
-      "brier": 0.21162097079524214,
+      "brier": 0.2116209707952421,
       "accuracy": 0.696969696969697,
-      "ece": 0.10150993774473109,
-      "calibration_alpha": 0.22758877526058433,
-      "calibration_beta": 0.48664090998324405
+      "ece": 0.10150993774473115,
+      "calibration_alpha": 0.2275887752605845,
+      "calibration_beta": 0.48664090998324383
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "60d",
+      "n_games": 33,
+      "log_loss": 0.6247309523530101,
+      "brier": 0.21491469512714284,
+      "accuracy": 0.696969696969697,
+      "ece": 0.14221729154448493,
+      "calibration_alpha": 0.2912430496277838,
+      "calibration_beta": 0.412999682959809
     },
     {
       "model_name": "elo_baseline",
@@ -225,12 +225,12 @@
       "model_name": "ensemble",
       "window_label": "60d",
       "n_games": 33,
-      "log_loss": 0.6765126833860953,
-      "brier": 0.23062111290050635,
+      "log_loss": 0.6761270508532942,
+      "brier": 0.23050920424384364,
       "accuracy": 0.696969696969697,
-      "ece": 0.16436726995090412,
-      "calibration_alpha": 0.1976366986676142,
-      "calibration_beta": 0.3668471977433918
+      "ece": 0.16404928547327097,
+      "calibration_alpha": 0.19799048284010246,
+      "calibration_beta": 0.3671774574022769
     },
     {
       "model_name": "goals_poisson",
@@ -310,26 +310,26 @@
       "calibration_beta": 0.020690294452719114
     },
     {
-      "model_name": "two_stage",
-      "window_label": "7d",
-      "n_games": 33,
-      "log_loss": 0.6115157819809744,
-      "brier": 0.21103635736073317,
-      "accuracy": 0.696969696969697,
-      "ece": 0.13656229307261114,
-      "calibration_alpha": 0.28148947968897464,
-      "calibration_beta": 0.4614879904498758
-    },
-    {
       "model_name": "rf",
       "window_label": "7d",
       "n_games": 33,
       "log_loss": 0.6124297631682052,
-      "brier": 0.21162097079524214,
+      "brier": 0.2116209707952421,
       "accuracy": 0.696969696969697,
-      "ece": 0.10150993774473109,
-      "calibration_alpha": 0.22758877526058433,
-      "calibration_beta": 0.48664090998324405
+      "ece": 0.10150993774473115,
+      "calibration_alpha": 0.2275887752605845,
+      "calibration_beta": 0.48664090998324383
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "7d",
+      "n_games": 33,
+      "log_loss": 0.6247309523530101,
+      "brier": 0.21491469512714284,
+      "accuracy": 0.696969696969697,
+      "ece": 0.14221729154448493,
+      "calibration_alpha": 0.2912430496277838,
+      "calibration_beta": 0.412999682959809
     },
     {
       "model_name": "elo_baseline",
@@ -379,12 +379,12 @@
       "model_name": "ensemble",
       "window_label": "7d",
       "n_games": 33,
-      "log_loss": 0.6765126833860953,
-      "brier": 0.23062111290050635,
+      "log_loss": 0.6761270508532942,
+      "brier": 0.23050920424384364,
       "accuracy": 0.696969696969697,
-      "ece": 0.16436726995090412,
-      "calibration_alpha": 0.1976366986676142,
-      "calibration_beta": 0.3668471977433918
+      "ece": 0.16404928547327097,
+      "calibration_alpha": 0.19799048284010246,
+      "calibration_beta": 0.3671774574022769
     },
     {
       "model_name": "goals_poisson",
@@ -464,26 +464,26 @@
       "calibration_beta": 0.020690294452719114
     },
     {
-      "model_name": "two_stage",
-      "window_label": "90d",
-      "n_games": 33,
-      "log_loss": 0.6115157819809744,
-      "brier": 0.21103635736073317,
-      "accuracy": 0.696969696969697,
-      "ece": 0.13656229307261114,
-      "calibration_alpha": 0.28148947968897464,
-      "calibration_beta": 0.4614879904498758
-    },
-    {
       "model_name": "rf",
       "window_label": "90d",
       "n_games": 33,
       "log_loss": 0.6124297631682052,
-      "brier": 0.21162097079524214,
+      "brier": 0.2116209707952421,
       "accuracy": 0.696969696969697,
-      "ece": 0.10150993774473109,
-      "calibration_alpha": 0.22758877526058433,
-      "calibration_beta": 0.48664090998324405
+      "ece": 0.10150993774473115,
+      "calibration_alpha": 0.2275887752605845,
+      "calibration_beta": 0.48664090998324383
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "90d",
+      "n_games": 33,
+      "log_loss": 0.6247309523530101,
+      "brier": 0.21491469512714284,
+      "accuracy": 0.696969696969697,
+      "ece": 0.14221729154448493,
+      "calibration_alpha": 0.2912430496277838,
+      "calibration_beta": 0.412999682959809
     },
     {
       "model_name": "elo_baseline",
@@ -533,12 +533,12 @@
       "model_name": "ensemble",
       "window_label": "90d",
       "n_games": 33,
-      "log_loss": 0.6765126833860953,
-      "brier": 0.23062111290050635,
+      "log_loss": 0.6761270508532942,
+      "brier": 0.23050920424384364,
       "accuracy": 0.696969696969697,
-      "ece": 0.16436726995090412,
-      "calibration_alpha": 0.1976366986676142,
-      "calibration_beta": 0.3668471977433918
+      "ece": 0.16404928547327097,
+      "calibration_alpha": 0.19799048284010246,
+      "calibration_beta": 0.3671774574022769
     },
     {
       "model_name": "goals_poisson",
@@ -618,26 +618,26 @@
       "calibration_beta": 0.020690294452719114
     },
     {
-      "model_name": "two_stage",
-      "window_label": "cumulative",
-      "n_games": 33,
-      "log_loss": 0.6115157819809744,
-      "brier": 0.21103635736073317,
-      "accuracy": 0.696969696969697,
-      "ece": 0.13656229307261114,
-      "calibration_alpha": 0.28148947968897464,
-      "calibration_beta": 0.4614879904498758
-    },
-    {
       "model_name": "rf",
       "window_label": "cumulative",
       "n_games": 33,
       "log_loss": 0.6124297631682052,
-      "brier": 0.21162097079524214,
+      "brier": 0.2116209707952421,
       "accuracy": 0.696969696969697,
-      "ece": 0.10150993774473109,
-      "calibration_alpha": 0.22758877526058433,
-      "calibration_beta": 0.48664090998324405
+      "ece": 0.10150993774473115,
+      "calibration_alpha": 0.2275887752605845,
+      "calibration_beta": 0.48664090998324383
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "cumulative",
+      "n_games": 33,
+      "log_loss": 0.6247309523530101,
+      "brier": 0.21491469512714284,
+      "accuracy": 0.696969696969697,
+      "ece": 0.14221729154448493,
+      "calibration_alpha": 0.2912430496277838,
+      "calibration_beta": 0.412999682959809
     },
     {
       "model_name": "elo_baseline",
@@ -687,12 +687,12 @@
       "model_name": "ensemble",
       "window_label": "cumulative",
       "n_games": 33,
-      "log_loss": 0.6765126833860953,
-      "brier": 0.23062111290050635,
+      "log_loss": 0.6761270508532942,
+      "brier": 0.23050920424384364,
       "accuracy": 0.696969696969697,
-      "ece": 0.16436726995090412,
-      "calibration_alpha": 0.1976366986676142,
-      "calibration_beta": 0.3668471977433918
+      "ece": 0.16404928547327097,
+      "calibration_alpha": 0.19799048284010246,
+      "calibration_beta": 0.3671774574022769
     },
     {
       "model_name": "goals_poisson",
@@ -774,93 +774,93 @@
   ],
   "calibration": [
     {
-      "model_name": "two_stage",
-      "window_label": "30d",
-      "calibration_alpha": 0.28148947968897464,
-      "calibration_beta": 0.4614879904498758,
-      "ece": 0.13656229307261114,
-      "mce": 0.20062483233918982,
-      "n_games": 33
-    },
-    {
-      "model_name": "two_stage",
-      "window_label": "60d",
-      "calibration_alpha": 0.28148947968897464,
-      "calibration_beta": 0.4614879904498758,
-      "ece": 0.13656229307261114,
-      "mce": 0.20062483233918982,
-      "n_games": 33
-    },
-    {
-      "model_name": "two_stage",
-      "window_label": "7d",
-      "calibration_alpha": 0.28148947968897464,
-      "calibration_beta": 0.4614879904498758,
-      "ece": 0.13656229307261114,
-      "mce": 0.20062483233918982,
-      "n_games": 33
-    },
-    {
-      "model_name": "two_stage",
-      "window_label": "90d",
-      "calibration_alpha": 0.28148947968897464,
-      "calibration_beta": 0.4614879904498758,
-      "ece": 0.13656229307261114,
-      "mce": 0.20062483233918982,
-      "n_games": 33
-    },
-    {
-      "model_name": "two_stage",
-      "window_label": "cumulative",
-      "calibration_alpha": 0.28148947968897464,
-      "calibration_beta": 0.4614879904498758,
-      "ece": 0.13656229307261114,
-      "mce": 0.20062483233918982,
-      "n_games": 33
-    },
-    {
       "model_name": "rf",
       "window_label": "30d",
-      "calibration_alpha": 0.22758877526058433,
-      "calibration_beta": 0.48664090998324405,
-      "ece": 0.10150993774473109,
+      "calibration_alpha": 0.2275887752605845,
+      "calibration_beta": 0.48664090998324383,
+      "ece": 0.10150993774473115,
       "mce": 0.2295998735703655,
       "n_games": 33
     },
     {
       "model_name": "rf",
       "window_label": "60d",
-      "calibration_alpha": 0.22758877526058433,
-      "calibration_beta": 0.48664090998324405,
-      "ece": 0.10150993774473109,
+      "calibration_alpha": 0.2275887752605845,
+      "calibration_beta": 0.48664090998324383,
+      "ece": 0.10150993774473115,
       "mce": 0.2295998735703655,
       "n_games": 33
     },
     {
       "model_name": "rf",
       "window_label": "7d",
-      "calibration_alpha": 0.22758877526058433,
-      "calibration_beta": 0.48664090998324405,
-      "ece": 0.10150993774473109,
+      "calibration_alpha": 0.2275887752605845,
+      "calibration_beta": 0.48664090998324383,
+      "ece": 0.10150993774473115,
       "mce": 0.2295998735703655,
       "n_games": 33
     },
     {
       "model_name": "rf",
       "window_label": "90d",
-      "calibration_alpha": 0.22758877526058433,
-      "calibration_beta": 0.48664090998324405,
-      "ece": 0.10150993774473109,
+      "calibration_alpha": 0.2275887752605845,
+      "calibration_beta": 0.48664090998324383,
+      "ece": 0.10150993774473115,
       "mce": 0.2295998735703655,
       "n_games": 33
     },
     {
       "model_name": "rf",
       "window_label": "cumulative",
-      "calibration_alpha": 0.22758877526058433,
-      "calibration_beta": 0.48664090998324405,
-      "ece": 0.10150993774473109,
+      "calibration_alpha": 0.2275887752605845,
+      "calibration_beta": 0.48664090998324383,
+      "ece": 0.10150993774473115,
       "mce": 0.2295998735703655,
+      "n_games": 33
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "30d",
+      "calibration_alpha": 0.2912430496277838,
+      "calibration_beta": 0.412999682959809,
+      "ece": 0.14221729154448493,
+      "mce": 0.1801557509500359,
+      "n_games": 33
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "60d",
+      "calibration_alpha": 0.2912430496277838,
+      "calibration_beta": 0.412999682959809,
+      "ece": 0.14221729154448493,
+      "mce": 0.1801557509500359,
+      "n_games": 33
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "7d",
+      "calibration_alpha": 0.2912430496277838,
+      "calibration_beta": 0.412999682959809,
+      "ece": 0.14221729154448493,
+      "mce": 0.1801557509500359,
+      "n_games": 33
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "90d",
+      "calibration_alpha": 0.2912430496277838,
+      "calibration_beta": 0.412999682959809,
+      "ece": 0.14221729154448493,
+      "mce": 0.1801557509500359,
+      "n_games": 33
+    },
+    {
+      "model_name": "two_stage",
+      "window_label": "cumulative",
+      "calibration_alpha": 0.2912430496277838,
+      "calibration_beta": 0.412999682959809,
+      "ece": 0.14221729154448493,
+      "mce": 0.1801557509500359,
       "n_games": 33
     },
     {
@@ -1046,46 +1046,46 @@
     {
       "model_name": "ensemble",
       "window_label": "30d",
-      "calibration_alpha": 0.1976366986676142,
-      "calibration_beta": 0.3668471977433918,
-      "ece": 0.16436726995090412,
-      "mce": 0.20296000384050794,
+      "calibration_alpha": 0.19799048284010246,
+      "calibration_beta": 0.3671774574022769,
+      "ece": 0.16404928547327097,
+      "mce": 0.20274159327055874,
       "n_games": 33
     },
     {
       "model_name": "ensemble",
       "window_label": "60d",
-      "calibration_alpha": 0.1976366986676142,
-      "calibration_beta": 0.3668471977433918,
-      "ece": 0.16436726995090412,
-      "mce": 0.20296000384050794,
+      "calibration_alpha": 0.19799048284010246,
+      "calibration_beta": 0.3671774574022769,
+      "ece": 0.16404928547327097,
+      "mce": 0.20274159327055874,
       "n_games": 33
     },
     {
       "model_name": "ensemble",
       "window_label": "7d",
-      "calibration_alpha": 0.1976366986676142,
-      "calibration_beta": 0.3668471977433918,
-      "ece": 0.16436726995090412,
-      "mce": 0.20296000384050794,
+      "calibration_alpha": 0.19799048284010246,
+      "calibration_beta": 0.3671774574022769,
+      "ece": 0.16404928547327097,
+      "mce": 0.20274159327055874,
       "n_games": 33
     },
     {
       "model_name": "ensemble",
       "window_label": "90d",
-      "calibration_alpha": 0.1976366986676142,
-      "calibration_beta": 0.3668471977433918,
-      "ece": 0.16436726995090412,
-      "mce": 0.20296000384050794,
+      "calibration_alpha": 0.19799048284010246,
+      "calibration_beta": 0.3671774574022769,
+      "ece": 0.16404928547327097,
+      "mce": 0.20274159327055874,
       "n_games": 33
     },
     {
       "model_name": "ensemble",
       "window_label": "cumulative",
-      "calibration_alpha": 0.1976366986676142,
-      "calibration_beta": 0.3668471977433918,
-      "ece": 0.16436726995090412,
-      "mce": 0.20296000384050794,
+      "calibration_alpha": 0.19799048284010246,
+      "calibration_beta": 0.3671774574022769,
+      "ece": 0.16404928547327097,
+      "mce": 0.20274159327055874,
       "n_games": 33
     },
     {

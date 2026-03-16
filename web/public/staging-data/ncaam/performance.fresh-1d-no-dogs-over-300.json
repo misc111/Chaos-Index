@@ -24,7 +24,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.13339257365380022
+      "log_loss": 0.13360679964621283
     },
     {
       "model_name": "gbdt",
@@ -59,7 +59,7 @@
     {
       "model_name": "rf",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.12347983427890245
+      "log_loss": 0.12347983427890241
     },
     {
       "model_name": "simulation_first",
@@ -69,7 +69,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.16524142784230336
+      "log_loss": 0.1462673547704314
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -94,7 +94,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-12",
-      "log_loss": 0.4701033533138059
+      "log_loss": 0.469937749952404
     },
     {
       "model_name": "gbdt",
@@ -129,7 +129,7 @@
     {
       "model_name": "rf",
       "game_date_utc": "2026-03-12",
-      "log_loss": 0.4947170328999871
+      "log_loss": 0.4947170328999872
     },
     {
       "model_name": "simulation_first",
@@ -139,7 +139,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-12",
-      "log_loss": 0.5040739153104787
+      "log_loss": 0.5124480138058817
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -164,7 +164,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-13",
-      "log_loss": 1.070203919215645
+      "log_loss": 1.069741387970085
     },
     {
       "model_name": "gbdt",
@@ -199,7 +199,7 @@
     {
       "model_name": "rf",
       "game_date_utc": "2026-03-13",
-      "log_loss": 0.8602540457545422
+      "log_loss": 0.8602540457545425
     },
     {
       "model_name": "simulation_first",
@@ -209,7 +209,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-13",
-      "log_loss": 0.8845933610742903
+      "log_loss": 0.9241588297448913
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -234,7 +234,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-14",
-      "log_loss": 0.7756321693637092
+      "log_loss": 0.7748722794955208
     },
     {
       "model_name": "gbdt",
@@ -279,7 +279,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-14",
-      "log_loss": 0.6498516402344038
+      "log_loss": 0.6613991481238977
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -304,7 +304,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-15",
-      "log_loss": 0.6623050785643494
+      "log_loss": 0.6617158966729267
     },
     {
       "model_name": "gbdt",
@@ -339,7 +339,7 @@
     {
       "model_name": "rf",
       "game_date_utc": "2026-03-15",
-      "log_loss": 0.6376548382311191
+      "log_loss": 0.637654838231119
     },
     {
       "model_name": "simulation_first",
@@ -349,7 +349,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-15",
-      "log_loss": 0.6213078143201417
+      "log_loss": 0.6186424628410095
     }
   ],
   "run_summaries": [
@@ -357,8 +357,8 @@
       "model_name": "bayes_bt_state_space",
       "model_run_id": "run_b3760fbf3dfb9ff3__bayes_bt_state_space",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-15T23:33:29+00:00",
-      "snapshot_id": "ncaam_odds_aeb6245e2668a0a2",
+      "created_at_utc": "2026-03-16T13:06:05+00:00",
+      "snapshot_id": "ncaam_odds_d1e6cd9fc29f0fb4",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -375,8 +375,8 @@
       "model_name": "bayes_goals",
       "model_run_id": "run_b3760fbf3dfb9ff3__bayes_goals",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-15T23:33:29+00:00",
-      "snapshot_id": "ncaam_odds_aeb6245e2668a0a2",
+      "created_at_utc": "2026-03-16T13:06:05+00:00",
+      "snapshot_id": "ncaam_odds_d1e6cd9fc29f0fb4",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -393,8 +393,8 @@
       "model_name": "dynamic_rating",
       "model_run_id": "run_b3760fbf3dfb9ff3__dynamic_rating",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-15T23:33:29+00:00",
-      "snapshot_id": "ncaam_odds_aeb6245e2668a0a2",
+      "created_at_utc": "2026-03-16T13:06:05+00:00",
+      "snapshot_id": "ncaam_odds_d1e6cd9fc29f0fb4",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -411,8 +411,8 @@
       "model_name": "elo_baseline",
       "model_run_id": "run_b3760fbf3dfb9ff3__elo_baseline",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-15T23:33:29+00:00",
-      "snapshot_id": "ncaam_odds_aeb6245e2668a0a2",
+      "created_at_utc": "2026-03-16T13:06:05+00:00",
+      "snapshot_id": "ncaam_odds_d1e6cd9fc29f0fb4",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -429,16 +429,16 @@
       "model_name": "ensemble",
       "model_run_id": "run_b3760fbf3dfb9ff3__ensemble",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-15T23:33:29+00:00",
-      "snapshot_id": "ncaam_odds_aeb6245e2668a0a2",
+      "created_at_utc": "2026-03-16T13:06:05+00:00",
+      "snapshot_id": "ncaam_odds_d1e6cd9fc29f0fb4",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-15",
       "last_game_date_central": "2026-03-15",
       "n_games": 33,
-      "avg_log_loss": 0.6765126833860953,
-      "avg_brier": 0.23062111290050635,
+      "avg_log_loss": 0.6761270508532942,
+      "avg_brier": 0.23050920424384364,
       "accuracy": 0.696969696969697,
       "version_rank": 1,
       "is_latest_version": 1
@@ -447,8 +447,8 @@
       "model_name": "gbdt",
       "model_run_id": "run_b3760fbf3dfb9ff3__gbdt",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-15T23:33:29+00:00",
-      "snapshot_id": "ncaam_odds_aeb6245e2668a0a2",
+      "created_at_utc": "2026-03-16T13:06:05+00:00",
+      "snapshot_id": "ncaam_odds_d1e6cd9fc29f0fb4",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -465,8 +465,8 @@
       "model_name": "glm_elastic_net",
       "model_run_id": "run_b3760fbf3dfb9ff3__glm_elastic_net",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-15T23:33:29+00:00",
-      "snapshot_id": "ncaam_odds_aeb6245e2668a0a2",
+      "created_at_utc": "2026-03-16T13:06:05+00:00",
+      "snapshot_id": "ncaam_odds_d1e6cd9fc29f0fb4",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -483,8 +483,8 @@
       "model_name": "glm_lasso",
       "model_run_id": "run_b3760fbf3dfb9ff3__glm_lasso",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-15T23:33:29+00:00",
-      "snapshot_id": "ncaam_odds_aeb6245e2668a0a2",
+      "created_at_utc": "2026-03-16T13:06:05+00:00",
+      "snapshot_id": "ncaam_odds_d1e6cd9fc29f0fb4",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -501,8 +501,8 @@
       "model_name": "glm_ridge",
       "model_run_id": "run_b3760fbf3dfb9ff3__glm_ridge",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-15T23:33:29+00:00",
-      "snapshot_id": "ncaam_odds_aeb6245e2668a0a2",
+      "created_at_utc": "2026-03-16T13:06:05+00:00",
+      "snapshot_id": "ncaam_odds_d1e6cd9fc29f0fb4",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -519,8 +519,8 @@
       "model_name": "goals_poisson",
       "model_run_id": "run_b3760fbf3dfb9ff3__goals_poisson",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-15T23:33:29+00:00",
-      "snapshot_id": "ncaam_odds_aeb6245e2668a0a2",
+      "created_at_utc": "2026-03-16T13:06:05+00:00",
+      "snapshot_id": "ncaam_odds_d1e6cd9fc29f0fb4",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -537,16 +537,16 @@
       "model_name": "rf",
       "model_run_id": "run_b3760fbf3dfb9ff3__rf",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-15T23:33:29+00:00",
-      "snapshot_id": "ncaam_odds_aeb6245e2668a0a2",
+      "created_at_utc": "2026-03-16T13:06:05+00:00",
+      "snapshot_id": "ncaam_odds_d1e6cd9fc29f0fb4",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-15",
       "last_game_date_central": "2026-03-15",
       "n_games": 33,
-      "avg_log_loss": 0.6124297631682051,
-      "avg_brier": 0.2116209707952421,
+      "avg_log_loss": 0.6124297631682052,
+      "avg_brier": 0.21162097079524214,
       "accuracy": 0.696969696969697,
       "version_rank": 1,
       "is_latest_version": 1
@@ -555,8 +555,8 @@
       "model_name": "simulation_first",
       "model_run_id": "run_b3760fbf3dfb9ff3__simulation_first",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-15T23:33:29+00:00",
-      "snapshot_id": "ncaam_odds_aeb6245e2668a0a2",
+      "created_at_utc": "2026-03-16T13:06:05+00:00",
+      "snapshot_id": "ncaam_odds_d1e6cd9fc29f0fb4",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
@@ -573,16 +573,16 @@
       "model_name": "two_stage",
       "model_run_id": "run_b3760fbf3dfb9ff3__two_stage",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-15T23:33:29+00:00",
-      "snapshot_id": "ncaam_odds_aeb6245e2668a0a2",
+      "created_at_utc": "2026-03-16T13:06:05+00:00",
+      "snapshot_id": "ncaam_odds_d1e6cd9fc29f0fb4",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
       "last_game_date_utc": "2026-03-15",
       "last_game_date_central": "2026-03-15",
       "n_games": 33,
-      "avg_log_loss": 0.6115157819809743,
-      "avg_brier": 0.21103635736073315,
+      "avg_log_loss": 0.6247309523530101,
+      "avg_brier": 0.21491469512714284,
       "accuracy": 0.696969696969697,
       "version_rank": 1,
       "is_latest_version": 1
@@ -614,7 +614,7 @@
       "statistic": 25.504360994548467,
       "threshold": 8.316634831630584,
       "details_json": "{\"date\": \"2026-03-15\", \"index\": 30, \"value\": 13.815510557935518}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "bayes_goals",
@@ -623,7 +623,7 @@
       "statistic": 25.41305011632393,
       "threshold": 13.245270824280942,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 13.815510557935518}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "glm_lasso",
@@ -632,7 +632,7 @@
       "statistic": 19.744585957284738,
       "threshold": 7.944799431053376,
       "details_json": "{\"date\": \"2026-03-15\", \"index\": 31, \"value\": 1.55092263063065e-06}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "bayes_goals",
@@ -641,7 +641,7 @@
       "statistic": 19.641134632031942,
       "threshold": 15.894324989137129,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 20, \"value\": 13.815510557935518}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "glm_elastic_net",
@@ -650,7 +650,7 @@
       "statistic": 18.470890283714276,
       "threshold": 7.579296520445502,
       "details_json": "{\"date\": \"2026-03-15\", \"index\": 31, \"value\": 6.3540928640005245e-06}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "glm_ridge",
@@ -659,7 +659,7 @@
       "statistic": 15.664512080622519,
       "threshold": 9.979961797956701,
       "details_json": "{\"date\": \"2026-03-14\", \"index\": 23, \"value\": 9.94861634728394}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "glm_lasso",
@@ -668,7 +668,7 @@
       "statistic": 13.661995419875753,
       "threshold": 9.53375931726405,
       "details_json": "{\"date\": \"2026-03-14\", \"index\": 23, \"value\": 9.319784173824479}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "glm_elastic_net",
@@ -677,7 +677,7 @@
       "statistic": 12.150534232589573,
       "threshold": 9.095155824534602,
       "details_json": "{\"date\": \"2026-03-14\", \"index\": 23, \"value\": 8.367724060813142}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -686,7 +686,7 @@
       "statistic": 12.142070529053795,
       "threshold": 7.436508935185804,
       "details_json": "{\"date\": \"2026-03-15\", \"index\": 30, \"value\": 12.203738449291759}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -695,7 +695,7 @@
       "statistic": 11.342204154599184,
       "threshold": 6.1970907793215035,
       "details_json": "{\"date\": \"2026-03-15\", \"index\": 32, \"value\": 2.1170056179160613e-05}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "glm_lasso",
@@ -704,7 +704,7 @@
       "statistic": 10.480686593791006,
       "threshold": 7.944799431053376,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 21, \"value\": 3.726917945542026}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "glm_elastic_net",
@@ -713,7 +713,7 @@
       "statistic": 9.672516432021196,
       "threshold": 7.579296520445502,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 21, \"value\": 3.4858366324404533}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "glm_ridge",
@@ -722,7 +722,7 @@
       "statistic": 9.05263350191306,
       "threshold": 8.316634831630584,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 20, \"value\": 3.937386175845093}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "nn_mlp",
@@ -731,7 +731,7 @@
       "statistic": 8.347654737926678,
       "threshold": 5.090568707649844,
       "details_json": "{\"date\": \"2026-03-14\", \"index\": 25, \"value\": 4.522444724512342}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "nn_mlp",
@@ -740,7 +740,7 @@
       "statistic": 8.084624999459082,
       "threshold": 6.108682449179813,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 0.8348408383666663}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "nn_mlp",
@@ -749,7 +749,7 @@
       "statistic": 7.596969375692326,
       "threshold": 6.108682449179813,
       "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 4.806506806166545}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -758,7 +758,7 @@
       "statistic": 7.338154781579622,
       "threshold": 6.1970907793215035,
       "details_json": "{\"date\": \"2026-03-14\", \"index\": 22, \"value\": 2.616681389146114}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "goals_poisson",
@@ -767,7 +767,7 @@
       "statistic": 4.4277208338416685,
       "threshold": 2.2958213611050486,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 2.8473122684357186}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "gbdt",
@@ -776,16 +776,16 @@
       "statistic": 3.6576505767618936,
       "threshold": 1.7914222936554163,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 2.31239801061841}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 3.3738815092046024,
-      "threshold": 1.9734927569253111,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 2.1280400735195584}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "statistic": 3.3702397906778545,
+      "threshold": 1.9709866283286723,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 2.125908181091465}",
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "goals_poisson",
@@ -794,7 +794,7 @@
       "statistic": 3.2798024355200344,
       "threshold": 2.7549856333260587,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 20, \"value\": 2.2210051060016234}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "goals_poisson",
@@ -803,25 +803,34 @@
       "statistic": 3.086095389019372,
       "threshold": 2.2958213611050486,
       "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.2542472963655436}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 2.987055054751232,
-      "threshold": 1.9734927569253111,
-      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.2719444689321696}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "statistic": 2.982785257040568,
+      "threshold": 1.9709866283286723,
+      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.2729909564953537}",
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 2.664402502762554,
-      "threshold": 1.4478914621282986,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 1.5934142781564216}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "statistic": 2.664402502762556,
+      "threshold": 1.447891462128299,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 1.593414278156422}",
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
+    },
+    {
+      "model_name": "two_stage",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 2.6252202571116334,
+      "threshold": 1.5482795165505712,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 1.655511587513833}",
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "dynamic_rating",
@@ -830,16 +839,16 @@
       "statistic": 2.5947953057627275,
       "threshold": 1.6212574054285662,
       "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.6349461015956136}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 2.5331147673827568,
-      "threshold": 2.368191308310373,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 20, \"value\": 2.073858901743438}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "statistic": 2.531057650869154,
+      "threshold": 2.3651839539944066,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 20, \"value\": 2.0727614320168652}",
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "gbdt",
@@ -848,7 +857,7 @@
       "statistic": 2.5223083317675816,
       "threshold": 2.1497067523865,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 20, \"value\": 1.758157651542385}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "dynamic_rating",
@@ -857,34 +866,34 @@
       "statistic": 2.446536078597248,
       "threshold": 1.9455088865142793,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 21, \"value\": 1.4569391069395532}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
-    },
-    {
-      "model_name": "two_stage",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 2.3469040871949494,
-      "threshold": 1.406713173472224,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 1.533199094973511}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 2.2934206706126297,
-      "threshold": 1.4478914621282986,
-      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.4975089009866598}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "statistic": 2.29342067061263,
+      "threshold": 1.447891462128299,
+      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.49750890098666}",
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "two_stage",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 2.0801185971357463,
-      "threshold": 1.406713173472224,
-      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.5015678536710081}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "statistic": 2.1695756054920827,
+      "threshold": 1.5482795165505712,
+      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.47131734254341007}",
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
+    },
+    {
+      "model_name": "two_stage",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 2.0565476398754323,
+      "threshold": 1.8579354198606852,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 20, \"value\": 1.8982226797157107}",
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "gbdt",
@@ -893,16 +902,7 @@
       "statistic": 1.954357507468917,
       "threshold": 1.7914222936554163,
       "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.6615194488576117}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
-    },
-    {
-      "model_name": "two_stage",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 1.892927297405353,
-      "threshold": 1.688055808166669,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 20, \"value\": 1.8078338741493465}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "dynamic_rating",
@@ -911,16 +911,16 @@
       "statistic": 1.8167001667763374,
       "threshold": 1.6212574054285662,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 1.6111610006902615}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 1.743481591256196,
-      "threshold": 1.7374697545539581,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 20, \"value\": 1.6065894733767123}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "statistic": 1.7434815912561974,
+      "threshold": 1.7374697545539588,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 20, \"value\": 1.6065894733767134}",
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -929,7 +929,7 @@
       "statistic": 1.3089253174049162,
       "threshold": 0.534094880422215,
       "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.6503539066627486}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -938,7 +938,7 @@
       "statistic": 0.681296232276752,
       "threshold": 0.534094880422215,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 1.0154689708928992}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     },
     {
       "model_name": "elo_baseline",
@@ -947,7 +947,7 @@
       "statistic": 0.6738247171873457,
       "threshold": 0.6409138565066579,
       "details_json": "{\"date\": \"2026-03-13\", \"index\": 20, \"value\": 0.9936523501353004}",
-      "as_of_utc": "2026-03-15T23:34:33+00:00"
+      "as_of_utc": "2026-03-16T13:07:06+00:00"
     }
   ],
   "replay_runs": [
