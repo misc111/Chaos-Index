@@ -5,23 +5,23 @@
       "model_name": "rf",
       "window_label": "30d",
       "n_games": 33,
-      "log_loss": 0.6124297631682052,
+      "log_loss": 0.6124297631682051,
       "brier": 0.2116209707952421,
       "accuracy": 0.696969696969697,
-      "ece": 0.10150993774473115,
-      "calibration_alpha": 0.2275887752605845,
-      "calibration_beta": 0.48664090998324383
+      "ece": 0.10150993774473122,
+      "calibration_alpha": 0.22758877526058338,
+      "calibration_beta": 0.48664090998324466
     },
     {
       "model_name": "two_stage",
       "window_label": "30d",
       "n_games": 33,
-      "log_loss": 0.6247309523530101,
-      "brier": 0.21491469512714284,
+      "log_loss": 0.6140193447615531,
+      "brier": 0.2116385072830833,
       "accuracy": 0.696969696969697,
-      "ece": 0.14221729154448493,
-      "calibration_alpha": 0.2912430496277838,
-      "calibration_beta": 0.412999682959809
+      "ece": 0.09270350777514456,
+      "calibration_alpha": 0.24493183646084674,
+      "calibration_beta": 0.4710119103798067
     },
     {
       "model_name": "elo_baseline",
@@ -71,12 +71,12 @@
       "model_name": "ensemble",
       "window_label": "30d",
       "n_games": 33,
-      "log_loss": 0.6761270508532942,
-      "brier": 0.23050920424384364,
+      "log_loss": 0.6766839668550088,
+      "brier": 0.23064669789179454,
       "accuracy": 0.696969696969697,
-      "ece": 0.16404928547327097,
-      "calibration_alpha": 0.19799048284010246,
-      "calibration_beta": 0.3671774574022769
+      "ece": 0.16427299153718516,
+      "calibration_alpha": 0.19749153298288838,
+      "calibration_beta": 0.3666559922065781
     },
     {
       "model_name": "goals_poisson",
@@ -159,23 +159,23 @@
       "model_name": "rf",
       "window_label": "60d",
       "n_games": 33,
-      "log_loss": 0.6124297631682052,
+      "log_loss": 0.6124297631682051,
       "brier": 0.2116209707952421,
       "accuracy": 0.696969696969697,
-      "ece": 0.10150993774473115,
-      "calibration_alpha": 0.2275887752605845,
-      "calibration_beta": 0.48664090998324383
+      "ece": 0.10150993774473122,
+      "calibration_alpha": 0.22758877526058338,
+      "calibration_beta": 0.48664090998324466
     },
     {
       "model_name": "two_stage",
       "window_label": "60d",
       "n_games": 33,
-      "log_loss": 0.6247309523530101,
-      "brier": 0.21491469512714284,
+      "log_loss": 0.6140193447615531,
+      "brier": 0.2116385072830833,
       "accuracy": 0.696969696969697,
-      "ece": 0.14221729154448493,
-      "calibration_alpha": 0.2912430496277838,
-      "calibration_beta": 0.412999682959809
+      "ece": 0.09270350777514456,
+      "calibration_alpha": 0.24493183646084674,
+      "calibration_beta": 0.4710119103798067
     },
     {
       "model_name": "elo_baseline",
@@ -225,12 +225,12 @@
       "model_name": "ensemble",
       "window_label": "60d",
       "n_games": 33,
-      "log_loss": 0.6761270508532942,
-      "brier": 0.23050920424384364,
+      "log_loss": 0.6766839668550088,
+      "brier": 0.23064669789179454,
       "accuracy": 0.696969696969697,
-      "ece": 0.16404928547327097,
-      "calibration_alpha": 0.19799048284010246,
-      "calibration_beta": 0.3671774574022769
+      "ece": 0.16427299153718516,
+      "calibration_alpha": 0.19749153298288838,
+      "calibration_beta": 0.3666559922065781
     },
     {
       "model_name": "goals_poisson",
@@ -313,23 +313,23 @@
       "model_name": "rf",
       "window_label": "7d",
       "n_games": 33,
-      "log_loss": 0.6124297631682052,
+      "log_loss": 0.6124297631682051,
       "brier": 0.2116209707952421,
       "accuracy": 0.696969696969697,
-      "ece": 0.10150993774473115,
-      "calibration_alpha": 0.2275887752605845,
-      "calibration_beta": 0.48664090998324383
+      "ece": 0.10150993774473122,
+      "calibration_alpha": 0.22758877526058338,
+      "calibration_beta": 0.48664090998324466
     },
     {
       "model_name": "two_stage",
       "window_label": "7d",
       "n_games": 33,
-      "log_loss": 0.6247309523530101,
-      "brier": 0.21491469512714284,
+      "log_loss": 0.6140193447615531,
+      "brier": 0.2116385072830833,
       "accuracy": 0.696969696969697,
-      "ece": 0.14221729154448493,
-      "calibration_alpha": 0.2912430496277838,
-      "calibration_beta": 0.412999682959809
+      "ece": 0.09270350777514456,
+      "calibration_alpha": 0.24493183646084674,
+      "calibration_beta": 0.4710119103798067
     },
     {
       "model_name": "elo_baseline",
@@ -379,12 +379,12 @@
       "model_name": "ensemble",
       "window_label": "7d",
       "n_games": 33,
-      "log_loss": 0.6761270508532942,
-      "brier": 0.23050920424384364,
+      "log_loss": 0.6766839668550088,
+      "brier": 0.23064669789179454,
       "accuracy": 0.696969696969697,
-      "ece": 0.16404928547327097,
-      "calibration_alpha": 0.19799048284010246,
-      "calibration_beta": 0.3671774574022769
+      "ece": 0.16427299153718516,
+      "calibration_alpha": 0.19749153298288838,
+      "calibration_beta": 0.3666559922065781
     },
     {
       "model_name": "goals_poisson",
@@ -467,23 +467,23 @@
       "model_name": "rf",
       "window_label": "90d",
       "n_games": 33,
-      "log_loss": 0.6124297631682052,
+      "log_loss": 0.6124297631682051,
       "brier": 0.2116209707952421,
       "accuracy": 0.696969696969697,
-      "ece": 0.10150993774473115,
-      "calibration_alpha": 0.2275887752605845,
-      "calibration_beta": 0.48664090998324383
+      "ece": 0.10150993774473122,
+      "calibration_alpha": 0.22758877526058338,
+      "calibration_beta": 0.48664090998324466
     },
     {
       "model_name": "two_stage",
       "window_label": "90d",
       "n_games": 33,
-      "log_loss": 0.6247309523530101,
-      "brier": 0.21491469512714284,
+      "log_loss": 0.6140193447615531,
+      "brier": 0.2116385072830833,
       "accuracy": 0.696969696969697,
-      "ece": 0.14221729154448493,
-      "calibration_alpha": 0.2912430496277838,
-      "calibration_beta": 0.412999682959809
+      "ece": 0.09270350777514456,
+      "calibration_alpha": 0.24493183646084674,
+      "calibration_beta": 0.4710119103798067
     },
     {
       "model_name": "elo_baseline",
@@ -533,12 +533,12 @@
       "model_name": "ensemble",
       "window_label": "90d",
       "n_games": 33,
-      "log_loss": 0.6761270508532942,
-      "brier": 0.23050920424384364,
+      "log_loss": 0.6766839668550088,
+      "brier": 0.23064669789179454,
       "accuracy": 0.696969696969697,
-      "ece": 0.16404928547327097,
-      "calibration_alpha": 0.19799048284010246,
-      "calibration_beta": 0.3671774574022769
+      "ece": 0.16427299153718516,
+      "calibration_alpha": 0.19749153298288838,
+      "calibration_beta": 0.3666559922065781
     },
     {
       "model_name": "goals_poisson",
@@ -621,23 +621,23 @@
       "model_name": "rf",
       "window_label": "cumulative",
       "n_games": 33,
-      "log_loss": 0.6124297631682052,
+      "log_loss": 0.6124297631682051,
       "brier": 0.2116209707952421,
       "accuracy": 0.696969696969697,
-      "ece": 0.10150993774473115,
-      "calibration_alpha": 0.2275887752605845,
-      "calibration_beta": 0.48664090998324383
+      "ece": 0.10150993774473122,
+      "calibration_alpha": 0.22758877526058338,
+      "calibration_beta": 0.48664090998324466
     },
     {
       "model_name": "two_stage",
       "window_label": "cumulative",
       "n_games": 33,
-      "log_loss": 0.6247309523530101,
-      "brier": 0.21491469512714284,
+      "log_loss": 0.6140193447615531,
+      "brier": 0.2116385072830833,
       "accuracy": 0.696969696969697,
-      "ece": 0.14221729154448493,
-      "calibration_alpha": 0.2912430496277838,
-      "calibration_beta": 0.412999682959809
+      "ece": 0.09270350777514456,
+      "calibration_alpha": 0.24493183646084674,
+      "calibration_beta": 0.4710119103798067
     },
     {
       "model_name": "elo_baseline",
@@ -687,12 +687,12 @@
       "model_name": "ensemble",
       "window_label": "cumulative",
       "n_games": 33,
-      "log_loss": 0.6761270508532942,
-      "brier": 0.23050920424384364,
+      "log_loss": 0.6766839668550088,
+      "brier": 0.23064669789179454,
       "accuracy": 0.696969696969697,
-      "ece": 0.16404928547327097,
-      "calibration_alpha": 0.19799048284010246,
-      "calibration_beta": 0.3671774574022769
+      "ece": 0.16427299153718516,
+      "calibration_alpha": 0.19749153298288838,
+      "calibration_beta": 0.3666559922065781
     },
     {
       "model_name": "goals_poisson",
@@ -776,91 +776,91 @@
     {
       "model_name": "rf",
       "window_label": "30d",
-      "calibration_alpha": 0.2275887752605845,
-      "calibration_beta": 0.48664090998324383,
-      "ece": 0.10150993774473115,
+      "calibration_alpha": 0.22758877526058338,
+      "calibration_beta": 0.48664090998324466,
+      "ece": 0.10150993774473122,
       "mce": 0.2295998735703655,
       "n_games": 33
     },
     {
       "model_name": "rf",
       "window_label": "60d",
-      "calibration_alpha": 0.2275887752605845,
-      "calibration_beta": 0.48664090998324383,
-      "ece": 0.10150993774473115,
+      "calibration_alpha": 0.22758877526058338,
+      "calibration_beta": 0.48664090998324466,
+      "ece": 0.10150993774473122,
       "mce": 0.2295998735703655,
       "n_games": 33
     },
     {
       "model_name": "rf",
       "window_label": "7d",
-      "calibration_alpha": 0.2275887752605845,
-      "calibration_beta": 0.48664090998324383,
-      "ece": 0.10150993774473115,
+      "calibration_alpha": 0.22758877526058338,
+      "calibration_beta": 0.48664090998324466,
+      "ece": 0.10150993774473122,
       "mce": 0.2295998735703655,
       "n_games": 33
     },
     {
       "model_name": "rf",
       "window_label": "90d",
-      "calibration_alpha": 0.2275887752605845,
-      "calibration_beta": 0.48664090998324383,
-      "ece": 0.10150993774473115,
+      "calibration_alpha": 0.22758877526058338,
+      "calibration_beta": 0.48664090998324466,
+      "ece": 0.10150993774473122,
       "mce": 0.2295998735703655,
       "n_games": 33
     },
     {
       "model_name": "rf",
       "window_label": "cumulative",
-      "calibration_alpha": 0.2275887752605845,
-      "calibration_beta": 0.48664090998324383,
-      "ece": 0.10150993774473115,
+      "calibration_alpha": 0.22758877526058338,
+      "calibration_beta": 0.48664090998324466,
+      "ece": 0.10150993774473122,
       "mce": 0.2295998735703655,
       "n_games": 33
     },
     {
       "model_name": "two_stage",
       "window_label": "30d",
-      "calibration_alpha": 0.2912430496277838,
-      "calibration_beta": 0.412999682959809,
-      "ece": 0.14221729154448493,
-      "mce": 0.1801557509500359,
+      "calibration_alpha": 0.24493183646084674,
+      "calibration_beta": 0.4710119103798067,
+      "ece": 0.09270350777514456,
+      "mce": 0.14756668811299523,
       "n_games": 33
     },
     {
       "model_name": "two_stage",
       "window_label": "60d",
-      "calibration_alpha": 0.2912430496277838,
-      "calibration_beta": 0.412999682959809,
-      "ece": 0.14221729154448493,
-      "mce": 0.1801557509500359,
+      "calibration_alpha": 0.24493183646084674,
+      "calibration_beta": 0.4710119103798067,
+      "ece": 0.09270350777514456,
+      "mce": 0.14756668811299523,
       "n_games": 33
     },
     {
       "model_name": "two_stage",
       "window_label": "7d",
-      "calibration_alpha": 0.2912430496277838,
-      "calibration_beta": 0.412999682959809,
-      "ece": 0.14221729154448493,
-      "mce": 0.1801557509500359,
+      "calibration_alpha": 0.24493183646084674,
+      "calibration_beta": 0.4710119103798067,
+      "ece": 0.09270350777514456,
+      "mce": 0.14756668811299523,
       "n_games": 33
     },
     {
       "model_name": "two_stage",
       "window_label": "90d",
-      "calibration_alpha": 0.2912430496277838,
-      "calibration_beta": 0.412999682959809,
-      "ece": 0.14221729154448493,
-      "mce": 0.1801557509500359,
+      "calibration_alpha": 0.24493183646084674,
+      "calibration_beta": 0.4710119103798067,
+      "ece": 0.09270350777514456,
+      "mce": 0.14756668811299523,
       "n_games": 33
     },
     {
       "model_name": "two_stage",
       "window_label": "cumulative",
-      "calibration_alpha": 0.2912430496277838,
-      "calibration_beta": 0.412999682959809,
-      "ece": 0.14221729154448493,
-      "mce": 0.1801557509500359,
+      "calibration_alpha": 0.24493183646084674,
+      "calibration_beta": 0.4710119103798067,
+      "ece": 0.09270350777514456,
+      "mce": 0.14756668811299523,
       "n_games": 33
     },
     {
@@ -1046,46 +1046,46 @@
     {
       "model_name": "ensemble",
       "window_label": "30d",
-      "calibration_alpha": 0.19799048284010246,
-      "calibration_beta": 0.3671774574022769,
-      "ece": 0.16404928547327097,
-      "mce": 0.20274159327055874,
+      "calibration_alpha": 0.19749153298288838,
+      "calibration_beta": 0.3666559922065781,
+      "ece": 0.16427299153718516,
+      "mce": 0.20328613277420937,
       "n_games": 33
     },
     {
       "model_name": "ensemble",
       "window_label": "60d",
-      "calibration_alpha": 0.19799048284010246,
-      "calibration_beta": 0.3671774574022769,
-      "ece": 0.16404928547327097,
-      "mce": 0.20274159327055874,
+      "calibration_alpha": 0.19749153298288838,
+      "calibration_beta": 0.3666559922065781,
+      "ece": 0.16427299153718516,
+      "mce": 0.20328613277420937,
       "n_games": 33
     },
     {
       "model_name": "ensemble",
       "window_label": "7d",
-      "calibration_alpha": 0.19799048284010246,
-      "calibration_beta": 0.3671774574022769,
-      "ece": 0.16404928547327097,
-      "mce": 0.20274159327055874,
+      "calibration_alpha": 0.19749153298288838,
+      "calibration_beta": 0.3666559922065781,
+      "ece": 0.16427299153718516,
+      "mce": 0.20328613277420937,
       "n_games": 33
     },
     {
       "model_name": "ensemble",
       "window_label": "90d",
-      "calibration_alpha": 0.19799048284010246,
-      "calibration_beta": 0.3671774574022769,
-      "ece": 0.16404928547327097,
-      "mce": 0.20274159327055874,
+      "calibration_alpha": 0.19749153298288838,
+      "calibration_beta": 0.3666559922065781,
+      "ece": 0.16427299153718516,
+      "mce": 0.20328613277420937,
       "n_games": 33
     },
     {
       "model_name": "ensemble",
       "window_label": "cumulative",
-      "calibration_alpha": 0.19799048284010246,
-      "calibration_beta": 0.3671774574022769,
-      "ece": 0.16404928547327097,
-      "mce": 0.20274159327055874,
+      "calibration_alpha": 0.19749153298288838,
+      "calibration_beta": 0.3666559922065781,
+      "ece": 0.16427299153718516,
+      "mce": 0.20328613277420937,
       "n_games": 33
     },
     {
