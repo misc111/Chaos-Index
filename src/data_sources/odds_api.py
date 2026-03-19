@@ -1,10 +1,15 @@
+"""Legacy module name for the repo-owned public odds fetcher.
+
+This implementation no longer depends on The Odds API. It builds odds snapshots
+from ESPN's public scoreboard + summary payloads, specifically the `pickcenter`
+markets exposed on each event summary.
+"""
+
 from __future__ import annotations
 
-import os
 import re
 import unicodedata
-from datetime import datetime, timezone
-from pathlib import Path
+from datetime import date, datetime, timedelta, timezone
 from typing import Any
 from zoneinfo import ZoneInfo
 
@@ -13,8 +18,10 @@ import pandas as pd
 from src.common.time import utc_now_iso
 from src.data_sources.base import HttpClient, SourceFetchResult
 
-ODDS_API_BASE = "https://api.the-odds-api.com/v4"
 CENTRAL_TZ = ZoneInfo("America/Chicago")
+DEFAULT_MARKETS = "h2h,spreads,totals"
+DEFAULT_ODDS_FORMAT = "american"
+DEFAULT_DATE_FORMAT = "iso"
 
 ODDS_COLUMNS = [
     "league",
@@ -37,6 +44,21 @@ ODDS_COLUMNS = [
     "outcome_point",
     "implied_probability",
 ]
+
+ESPN_ENDPOINTS = {
+    "NBA": {
+        "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard",
+        "summary": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary",
+    },
+    "NCAAM": {
+        "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard",
+        "summary": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary",
+    },
+    "NHL": {
+        "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard",
+        "summary": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary",
+    },
+}
 
 NBA_NAME_ALIASES = {
     "los angeles clippers": "LAC",
@@ -90,19 +112,6 @@ NCAAM_NAME_ALIASES = {
 }
 
 
-def _split_markets(markets: str) -> list[str]:
-    out: list[str] = []
-    for token in str(markets or "").split(","):
-        value = token.strip()
-        if value and value not in out:
-            out.append(value)
-    return out
-
-
-def _join_markets(markets: list[str]) -> str:
-    return ",".join(markets)
-
-
 def _normalize_text(value: Any) -> str:
     text = str(value or "").strip()
     if not text:
@@ -113,38 +122,38 @@ def _normalize_text(value: Any) -> str:
     return text.strip()
 
 
-def _parse_env_int(name: str, default: int = 0) -> int:
-    raw = str(os.getenv(name, "")).strip()
+def _slugify(value: Any) -> str:
+    text = _normalize_text(value).replace(" ", "_")
+    return text or "espn_pickcenter"
+
+
+def _parse_float(value: Any) -> float | None:
+    raw = str(value or "").strip()
     if not raw:
-        return default
-    try:
-        parsed = int(raw)
-    except Exception:
-        return default
-    return parsed if parsed >= 0 else default
-
-
-def _parse_header_int(headers: dict[str, str], key: str) -> int | None:
-    lowered = {str(k).lower(): str(v) for k, v in headers.items()}
-    raw = headers.get(key) or headers.get(key.lower()) or lowered.get(key.lower())
-    if raw is None:
         return None
+    cleaned = raw.replace(",", "")
+    cleaned = re.sub(r"^[ou]", "", cleaned, flags=re.IGNORECASE)
+    cleaned = cleaned.lstrip("+")
     try:
-        return int(raw)
+        return float(cleaned)
     except Exception:
         return None
+
+
+def _parse_american_odds(value: Any) -> float | None:
+    parsed = _parse_float(value)
+    if parsed is None:
+        return None
+    return float(int(parsed)) if float(parsed).is_integer() else float(parsed)
 
 
 def _american_to_implied_probability(price: Any) -> float | None:
-    try:
-        p = float(price)
-    except Exception:
+    value = _parse_american_odds(price)
+    if value is None or value == 0:
         return None
-    if p == 0:
-        return None
-    if p > 0:
-        return 100.0 / (p + 100.0)
-    return (-p) / ((-p) + 100.0)
+    if value > 0:
+        return 100.0 / (value + 100.0)
+    return (-value) / ((-value) + 100.0)
 
 
 def _central_date_key(value: Any) -> str | None:
@@ -158,12 +167,18 @@ def _central_date_key(value: Any) -> str | None:
     return dt.astimezone(CENTRAL_TZ).date().isoformat()
 
 
-def _central_today_key() -> str:
-    return datetime.now(timezone.utc).astimezone(CENTRAL_TZ).date().isoformat()
+def _current_central_date() -> date:
+    return datetime.now(timezone.utc).astimezone(CENTRAL_TZ).date()
+
+
+def _date_keys_for_window(days_ahead: int) -> list[str]:
+    normalized_days = max(0, int(days_ahead))
+    start = _current_central_date()
+    return [(start + timedelta(days=offset)).strftime("%Y%m%d") for offset in range(normalized_days + 1)]
 
 
 def _team_aliases_for_league(league: str) -> dict[str, str]:
-    league_code = league.upper()
+    league_code = str(league or "").upper()
     if league_code == "NBA":
         return NBA_NAME_ALIASES
     if league_code == "NCAAM":
@@ -177,28 +192,24 @@ def _build_team_name_map(teams_df: pd.DataFrame | None) -> dict[str, str]:
         return mapping
     for row in teams_df.itertuples(index=False):
         team_abbrev = str(getattr(row, "team_abbrev", "") or "").strip()
+        if not team_abbrev:
+            continue
         candidate_names = [
             getattr(row, "team_name", ""),
             getattr(row, "team_short_name", ""),
             getattr(row, "team_location", ""),
             getattr(row, "team_nickname", ""),
             getattr(row, "team_display_name", ""),
+            team_abbrev,
         ]
-        if not team_abbrev:
-            continue
         for candidate in candidate_names:
-            team_name = str(candidate or "").strip()
-            if team_name:
-                mapping[_normalize_text(team_name)] = team_abbrev
-        mapping[_normalize_text(team_abbrev)] = team_abbrev
+            normalized = _normalize_text(candidate)
+            if normalized:
+                mapping[normalized] = team_abbrev
     return mapping
 
 
-def _resolve_abbrev(
-    raw_team_name: str,
-    team_name_map: dict[str, str],
-    alias_map: dict[str, str],
-) -> str | None:
+def _resolve_abbrev(raw_team_name: Any, team_name_map: dict[str, str], alias_map: dict[str, str]) -> str | None:
     normalized = _normalize_text(raw_team_name)
     if not normalized:
         return None
@@ -209,168 +220,367 @@ def _resolve_abbrev(
     return None
 
 
-def _resolve_outcome_side(outcome_name: str, api_home_team: str, api_away_team: str) -> str | None:
-    normalized_outcome = _normalize_text(outcome_name)
-    if normalized_outcome in {"over", "under"}:
-        return normalized_outcome
-    if normalized_outcome == _normalize_text(api_home_team):
-        return "home"
-    if normalized_outcome == _normalize_text(api_away_team):
-        return "away"
+def _resolve_competitor_abbrev(
+    competitor: dict[str, Any] | None,
+    team_name_map: dict[str, str],
+    alias_map: dict[str, str],
+) -> str | None:
+    team = (competitor or {}).get("team") or {}
+    candidates = [
+        team.get("abbreviation"),
+        team.get("shortDisplayName"),
+        team.get("displayName"),
+        team.get("location"),
+        team.get("name"),
+    ]
+    for candidate in candidates:
+        resolved = _resolve_abbrev(candidate, team_name_map, alias_map)
+        if resolved:
+            return resolved
+
+    raw_abbrev = str(team.get("abbreviation") or "").strip()
+    return raw_abbrev or None
+
+
+def _competition_from_summary(summary_payload: dict[str, Any], scoreboard_event: dict[str, Any]) -> dict[str, Any]:
+    summary_header = summary_payload.get("header") or {}
+    competitions = summary_header.get("competitions") or summary_payload.get("competitions") or scoreboard_event.get("competitions") or []
+    return competitions[0] if competitions else {}
+
+
+def _competition_time_utc(competition: dict[str, Any], scoreboard_event: dict[str, Any]) -> str | None:
+    for value in (
+        competition.get("date"),
+        competition.get("startDate"),
+        scoreboard_event.get("date"),
+    ):
+        text = str(value or "").strip()
+        if text:
+            return text
     return None
 
 
-def _flatten_odds_events(
-    events: list[dict[str, Any]],
+def _preferred_event_team_name(competitor: dict[str, Any] | None) -> str | None:
+    team = (competitor or {}).get("team") or {}
+    for value in (
+        team.get("displayName"),
+        team.get("shortDisplayName"),
+        team.get("name"),
+        team.get("location"),
+        team.get("abbreviation"),
+    ):
+        text = str(value or "").strip()
+        if text:
+            return text
+    return None
+
+
+def _bookmaker_fields(entry: dict[str, Any]) -> tuple[str, str]:
+    provider = entry.get("provider") or {}
+    title = str(provider.get("name") or "ESPN PickCenter").strip() or "ESPN PickCenter"
+    key = str(provider.get("id") or "").strip() or _slugify(title)
+    return key, title
+
+
+def _pick_nested_value(node: dict[str, Any], *path: str) -> Any:
+    current: Any = node
+    for part in path:
+        if not isinstance(current, dict):
+            return None
+        current = current.get(part)
+    return current
+
+
+def _pick_moneyline_price(entry: dict[str, Any], side: str) -> float | None:
+    prices = [
+        _pick_nested_value(entry, "moneyline", side, "close", "odds"),
+        _pick_nested_value(entry, "moneyline", side, "open", "odds"),
+        _pick_nested_value(entry, f"{side}TeamOdds", "moneyLine"),
+    ]
+    for candidate in prices:
+        parsed = _parse_american_odds(candidate)
+        if parsed is not None:
+            return parsed
+    return None
+
+
+def _pick_spread_price(entry: dict[str, Any], side: str) -> float | None:
+    prices = [
+        _pick_nested_value(entry, "pointSpread", side, "close", "odds"),
+        _pick_nested_value(entry, "pointSpread", side, "open", "odds"),
+        _pick_nested_value(entry, f"{side}TeamOdds", "spreadOdds"),
+    ]
+    for candidate in prices:
+        parsed = _parse_american_odds(candidate)
+        if parsed is not None:
+            return parsed
+    return None
+
+
+def _pick_spread_point(entry: dict[str, Any], side: str) -> float | None:
+    for candidate in (
+        _pick_nested_value(entry, "pointSpread", side, "close", "line"),
+        _pick_nested_value(entry, "pointSpread", side, "open", "line"),
+    ):
+        parsed = _parse_float(candidate)
+        if parsed is not None:
+            return parsed
+
+    base_spread = _parse_float(entry.get("spread"))
+    if base_spread is None:
+        return None
+
+    absolute_spread = abs(base_spread)
+    side_odds = entry.get(f"{side}TeamOdds") or {}
+    is_favorite = bool(side_odds.get("favorite"))
+    return -absolute_spread if is_favorite else absolute_spread
+
+
+def _pick_total_price(entry: dict[str, Any], side: str) -> float | None:
+    prices = [
+        _pick_nested_value(entry, "total", side, "close", "odds"),
+        _pick_nested_value(entry, "total", side, "open", "odds"),
+        entry.get("overOdds") if side == "over" else entry.get("underOdds"),
+    ]
+    for candidate in prices:
+        parsed = _parse_american_odds(candidate)
+        if parsed is not None:
+            return parsed
+    return None
+
+
+def _pick_total_point(entry: dict[str, Any], side: str) -> float | None:
+    for candidate in (
+        _pick_nested_value(entry, "total", side, "close", "line"),
+        _pick_nested_value(entry, "total", side, "open", "line"),
+        entry.get("overUnder"),
+    ):
+        parsed = _parse_float(candidate)
+        if parsed is not None:
+            return parsed
+    return None
+
+
+def _row_payload(
     *,
+    league: str,
+    sport_key: str,
+    event_id: str,
+    commence_time_utc: str | None,
+    api_home_team: str | None,
+    api_away_team: str | None,
+    home_team: str | None,
+    away_team: str | None,
+    bookmaker_key: str,
+    bookmaker_title: str,
+    bookmaker_last_update_utc: str,
+    market_key: str,
+    outcome_name: str,
+    outcome_side: str,
+    outcome_team: str | None,
+    outcome_price: float | None,
+    outcome_point: float | None,
+) -> dict[str, Any]:
+    return {
+        "league": league,
+        "sport_key": sport_key,
+        "odds_event_id": event_id,
+        "commence_time_utc": commence_time_utc,
+        "commence_date_central": _central_date_key(commence_time_utc),
+        "api_home_team": api_home_team,
+        "api_away_team": api_away_team,
+        "home_team": home_team,
+        "away_team": away_team,
+        "bookmaker_key": bookmaker_key,
+        "bookmaker_title": bookmaker_title,
+        "bookmaker_last_update_utc": bookmaker_last_update_utc,
+        "market_key": market_key,
+        "outcome_name": outcome_name,
+        "outcome_side": outcome_side,
+        "outcome_team": outcome_team,
+        "outcome_price": outcome_price,
+        "outcome_point": outcome_point,
+        "implied_probability": _american_to_implied_probability(outcome_price),
+    }
+
+
+def _flatten_pickcenter_summary(
+    *,
+    summary_payload: dict[str, Any],
+    scoreboard_event: dict[str, Any],
     league: str,
     sport_key: str,
     team_name_map: dict[str, str],
     alias_map: dict[str, str],
+    as_of_utc: str,
 ) -> list[dict[str, Any]]:
+    competition = _competition_from_summary(summary_payload, scoreboard_event)
+    competitors = competition.get("competitors") or []
+    home_competitor = next((c for c in competitors if str(c.get("homeAway") or "").lower() == "home"), None)
+    away_competitor = next((c for c in competitors if str(c.get("homeAway") or "").lower() == "away"), None)
+    if home_competitor is None or away_competitor is None:
+        return []
+
+    api_home_team = _preferred_event_team_name(home_competitor)
+    api_away_team = _preferred_event_team_name(away_competitor)
+    home_team = _resolve_competitor_abbrev(home_competitor, team_name_map, alias_map)
+    away_team = _resolve_competitor_abbrev(away_competitor, team_name_map, alias_map)
+    event_id = str(competition.get("id") or summary_payload.get("id") or scoreboard_event.get("id") or "").strip()
+    commence_time_utc = _competition_time_utc(competition, scoreboard_event)
+    if not event_id:
+        return []
+
     rows: list[dict[str, Any]] = []
-    for event in events:
-        api_home_team = str(event.get("home_team") or "")
-        api_away_team = str(event.get("away_team") or "")
-        home_team = _resolve_abbrev(api_home_team, team_name_map, alias_map)
-        away_team = _resolve_abbrev(api_away_team, team_name_map, alias_map)
-        commence_time = str(event.get("commence_time") or "")
-        commence_date_central = _central_date_key(commence_time)
+    for entry in summary_payload.get("pickcenter") or []:
+        bookmaker_key, bookmaker_title = _bookmaker_fields(entry)
+        bookmaker_last_update_utc = as_of_utc
 
-        for bookmaker in event.get("bookmakers") or []:
-            for market in bookmaker.get("markets") or []:
-                market_key = str(market.get("key") or "")
-                for outcome in market.get("outcomes") or []:
-                    outcome_name = str(outcome.get("name") or "")
-                    outcome_side = _resolve_outcome_side(outcome_name, api_home_team, api_away_team)
-                    if outcome_side == "home":
-                        outcome_team = home_team
-                    elif outcome_side == "away":
-                        outcome_team = away_team
-                    else:
-                        outcome_team = None
-
-                    rows.append(
-                        {
-                            "league": league,
-                            "sport_key": str(event.get("sport_key") or sport_key),
-                            "odds_event_id": str(event.get("id") or ""),
-                            "commence_time_utc": commence_time or None,
-                            "commence_date_central": commence_date_central,
-                            "api_home_team": api_home_team or None,
-                            "api_away_team": api_away_team or None,
-                            "home_team": home_team,
-                            "away_team": away_team,
-                            "bookmaker_key": str(bookmaker.get("key") or ""),
-                            "bookmaker_title": str(bookmaker.get("title") or ""),
-                            "bookmaker_last_update_utc": str(bookmaker.get("last_update") or ""),
-                            "market_key": market_key,
-                            "outcome_name": outcome_name,
-                            "outcome_side": outcome_side,
-                            "outcome_team": outcome_team,
-                            "outcome_price": pd.to_numeric(outcome.get("price"), errors="coerce"),
-                            "outcome_point": pd.to_numeric(outcome.get("point"), errors="coerce"),
-                            "implied_probability": _american_to_implied_probability(outcome.get("price")),
-                        }
-                    )
-    return rows
-
-
-def _fetch_nba_alternate_totals_events(
-    *,
-    client: HttpClient,
-    source: str,
-    sport_key: str,
-    api_key: str,
-    regions: str,
-    odds_format: str,
-    date_format: str,
-    base_events: list[dict[str, Any]],
-) -> tuple[list[dict[str, Any]], int, int, int | None, int | None]:
-    today_key = _central_today_key()
-    target_event_ids: list[str] = []
-    for event in base_events:
-        event_id = str(event.get("id") or "").strip()
-        if not event_id:
-            continue
-        event_day = _central_date_key(event.get("commence_time"))
-        if event_day == today_key:
-            target_event_ids.append(event_id)
-
-    alt_events: list[dict[str, Any]] = []
-    alt_calls = 0
-    alt_cache_hits = 0
-    requests_last_total = 0
-    requests_used: int | None = None
-    requests_remaining: int | None = None
-
-    for event_id in target_event_ids:
-        alt_calls += 1
-        endpoint = f"{ODDS_API_BASE}/sports/{sport_key}/events/{event_id}/odds/"
-        params = {
-            "apiKey": api_key,
-            "regions": regions,
-            "markets": "alternate_totals",
-            "oddsFormat": odds_format,
-            "dateFormat": date_format,
-        }
-
-        try:
-            payload, _, headers, from_cache = client.get_json_with_headers(
-                source=f"{source}_alternate_totals",
-                url=endpoint,
-                params=params,
-                key=f"{event_id}_{utc_now_iso().replace(':', '-')}",
+        home_moneyline = _pick_moneyline_price(entry, "home")
+        away_moneyline = _pick_moneyline_price(entry, "away")
+        if home_moneyline is not None:
+            rows.append(
+                _row_payload(
+                    league=league,
+                    sport_key=sport_key,
+                    event_id=event_id,
+                    commence_time_utc=commence_time_utc,
+                    api_home_team=api_home_team,
+                    api_away_team=api_away_team,
+                    home_team=home_team,
+                    away_team=away_team,
+                    bookmaker_key=bookmaker_key,
+                    bookmaker_title=bookmaker_title,
+                    bookmaker_last_update_utc=bookmaker_last_update_utc,
+                    market_key="h2h",
+                    outcome_name=api_home_team or "Home",
+                    outcome_side="home",
+                    outcome_team=home_team,
+                    outcome_price=home_moneyline,
+                    outcome_point=None,
+                )
             )
-        except Exception:
-            continue
+        if away_moneyline is not None:
+            rows.append(
+                _row_payload(
+                    league=league,
+                    sport_key=sport_key,
+                    event_id=event_id,
+                    commence_time_utc=commence_time_utc,
+                    api_home_team=api_home_team,
+                    api_away_team=api_away_team,
+                    home_team=home_team,
+                    away_team=away_team,
+                    bookmaker_key=bookmaker_key,
+                    bookmaker_title=bookmaker_title,
+                    bookmaker_last_update_utc=bookmaker_last_update_utc,
+                    market_key="h2h",
+                    outcome_name=api_away_team or "Away",
+                    outcome_side="away",
+                    outcome_team=away_team,
+                    outcome_price=away_moneyline,
+                    outcome_point=None,
+                )
+            )
 
-        if from_cache:
-            alt_cache_hits += 1
+        home_spread_point = _pick_spread_point(entry, "home")
+        home_spread_price = _pick_spread_price(entry, "home")
+        away_spread_point = _pick_spread_point(entry, "away")
+        away_spread_price = _pick_spread_price(entry, "away")
+        if home_spread_price is not None or home_spread_point is not None:
+            rows.append(
+                _row_payload(
+                    league=league,
+                    sport_key=sport_key,
+                    event_id=event_id,
+                    commence_time_utc=commence_time_utc,
+                    api_home_team=api_home_team,
+                    api_away_team=api_away_team,
+                    home_team=home_team,
+                    away_team=away_team,
+                    bookmaker_key=bookmaker_key,
+                    bookmaker_title=bookmaker_title,
+                    bookmaker_last_update_utc=bookmaker_last_update_utc,
+                    market_key="spreads",
+                    outcome_name=api_home_team or "Home",
+                    outcome_side="home",
+                    outcome_team=home_team,
+                    outcome_price=home_spread_price,
+                    outcome_point=home_spread_point,
+                )
+            )
+        if away_spread_price is not None or away_spread_point is not None:
+            rows.append(
+                _row_payload(
+                    league=league,
+                    sport_key=sport_key,
+                    event_id=event_id,
+                    commence_time_utc=commence_time_utc,
+                    api_home_team=api_home_team,
+                    api_away_team=api_away_team,
+                    home_team=home_team,
+                    away_team=away_team,
+                    bookmaker_key=bookmaker_key,
+                    bookmaker_title=bookmaker_title,
+                    bookmaker_last_update_utc=bookmaker_last_update_utc,
+                    market_key="spreads",
+                    outcome_name=api_away_team or "Away",
+                    outcome_side="away",
+                    outcome_team=away_team,
+                    outcome_price=away_spread_price,
+                    outcome_point=away_spread_point,
+                )
+            )
 
-        last_value = _parse_header_int(headers, "x-requests-last")
-        used_value = _parse_header_int(headers, "x-requests-used")
-        remaining_value = _parse_header_int(headers, "x-requests-remaining")
-        if last_value is not None:
-            requests_last_total += last_value
-        if used_value is not None:
-            requests_used = used_value
-        if remaining_value is not None:
-            requests_remaining = remaining_value
+        over_total_price = _pick_total_price(entry, "over")
+        over_total_point = _pick_total_point(entry, "over")
+        under_total_price = _pick_total_price(entry, "under")
+        under_total_point = _pick_total_point(entry, "under")
+        if over_total_price is not None or over_total_point is not None:
+            rows.append(
+                _row_payload(
+                    league=league,
+                    sport_key=sport_key,
+                    event_id=event_id,
+                    commence_time_utc=commence_time_utc,
+                    api_home_team=api_home_team,
+                    api_away_team=api_away_team,
+                    home_team=home_team,
+                    away_team=away_team,
+                    bookmaker_key=bookmaker_key,
+                    bookmaker_title=bookmaker_title,
+                    bookmaker_last_update_utc=bookmaker_last_update_utc,
+                    market_key="totals",
+                    outcome_name="Over",
+                    outcome_side="over",
+                    outcome_team=None,
+                    outcome_price=over_total_price,
+                    outcome_point=over_total_point,
+                )
+            )
+        if under_total_price is not None or under_total_point is not None:
+            rows.append(
+                _row_payload(
+                    league=league,
+                    sport_key=sport_key,
+                    event_id=event_id,
+                    commence_time_utc=commence_time_utc,
+                    api_home_team=api_home_team,
+                    api_away_team=api_away_team,
+                    home_team=home_team,
+                    away_team=away_team,
+                    bookmaker_key=bookmaker_key,
+                    bookmaker_title=bookmaker_title,
+                    bookmaker_last_update_utc=bookmaker_last_update_utc,
+                    market_key="totals",
+                    outcome_name="Under",
+                    outcome_side="under",
+                    outcome_team=None,
+                    outcome_price=under_total_price,
+                    outcome_point=under_total_point,
+                )
+            )
 
-        if isinstance(payload, dict):
-            payload_event = {
-                "id": str(payload.get("id") or event_id),
-                "sport_key": str(payload.get("sport_key") or sport_key),
-                "home_team": payload.get("home_team"),
-                "away_team": payload.get("away_team"),
-                "commence_time": payload.get("commence_time"),
-                "bookmakers": payload.get("bookmakers") or [],
-            }
-            alt_events.append(payload_event)
-
-    return alt_events, alt_calls, alt_cache_hits, requests_used, requests_remaining
-
-
-def _maybe_cached_payload_for_throttle(
-    client: HttpClient,
-    source: str,
-    min_interval_seconds: int,
-) -> tuple[Any, str] | None:
-    if min_interval_seconds <= 0:
-        return None
-    latest_cached: Path | None = client.latest_cached_file(source)
-    if latest_cached is None:
-        return None
-
-    age_seconds = max(0.0, datetime.now(timezone.utc).timestamp() - latest_cached.stat().st_mtime)
-    if age_seconds >= float(min_interval_seconds):
-        return None
-
-    payload = client.load_latest_cached(source)
-    if payload is None:
-        return None
-    return payload, str(latest_cached)
+    return rows
 
 
 def fetch_public_odds(
@@ -380,144 +590,128 @@ def fetch_public_odds(
     sport_key: str,
     source: str,
     teams_df: pd.DataFrame | None = None,
+    upcoming_days: int | None = None,
 ) -> SourceFetchResult:
     as_of_utc = utc_now_iso()
-    api_key = str(os.getenv("ODDS_API_KEY", "")).strip()
-    regions = str(os.getenv("ODDS_API_REGIONS", "us")).strip() or "us"
-    base_markets_default = "h2h,spreads,totals"
-    league_markets_default = "h2h,spreads,totals,alternate_totals" if league.upper() == "NBA" else base_markets_default
-    markets = (
-        str(os.getenv(f"ODDS_API_MARKETS_{league.upper()}", "")).strip()
-        or str(os.getenv("ODDS_API_MARKETS", league_markets_default)).strip()
-        or league_markets_default
-    )
-    odds_format = str(os.getenv("ODDS_API_ODDS_FORMAT", "american")).strip() or "american"
-    date_format = str(os.getenv("ODDS_API_DATE_FORMAT", "iso")).strip() or "iso"
-    throttle_seconds = _parse_env_int("ODDS_API_THROTTLE_SECONDS", default=0)
+    normalized_league = str(league or "").upper()
+    endpoints = ESPN_ENDPOINTS[normalized_league]
+    lookahead_days = 14 if upcoming_days is None else max(0, int(upcoming_days))
+    date_keys = _date_keys_for_window(lookahead_days)
 
-    if not api_key:
-        df = pd.DataFrame(columns=ODDS_COLUMNS)
-        metadata = {
-            "fetched_at_utc": as_of_utc,
-            "league": league,
-            "sport_key": sport_key,
-            "regions": regions,
-            "markets": markets,
-            "odds_format": odds_format,
-            "date_format": date_format,
-            "fallback_used": 1,
-            "reason": "odds_api_key_not_configured",
-            "api_call_performed": 0,
-            "from_cache": 0,
-            "throttle_seconds": throttle_seconds,
-            "throttle_applied": 0,
-            "n_events": 0,
-            "n_rows": 0,
-        }
-        snapshot_id = client.snapshot_id(source, metadata)
-        return SourceFetchResult(
-            source=source,
-            snapshot_id=snapshot_id,
-            extracted_at_utc=as_of_utc,
-            raw_path="",
-            metadata=metadata,
-            dataframe=df,
-        )
+    events_by_id: dict[str, dict[str, Any]] = {}
+    scoreboard_raw_paths: list[str] = []
+    summary_raw_paths: list[str] = []
+    scoreboard_failures: list[str] = []
+    summary_failures: list[str] = []
+    scoreboard_cache_hits = 0
+    summary_cache_hits = 0
 
-    requested_markets = _split_markets(markets)
-    include_alt_totals = league.upper() == "NBA" and "alternate_totals" in requested_markets
-    primary_markets = [m for m in requested_markets if m != "alternate_totals"] or ["h2h"]
+    for date_key in date_keys:
+        try:
+            payload, raw_path, _, from_cache = client.get_json_with_headers(
+                source=f"{source}_scoreboard_{date_key}",
+                url=endpoints["scoreboard"],
+                params={"dates": date_key},
+                key="scoreboard",
+            )
+        except Exception as exc:
+            scoreboard_failures.append(f"{date_key}: {exc}")
+            continue
 
-    endpoint = f"{ODDS_API_BASE}/sports/{sport_key}/odds/"
-    params = {
-        "apiKey": api_key,
-        "regions": regions,
-        "markets": _join_markets(primary_markets),
-        "oddsFormat": odds_format,
-        "dateFormat": date_format,
-    }
+        if raw_path:
+            scoreboard_raw_paths.append(raw_path)
+        if from_cache:
+            scoreboard_cache_hits += 1
 
-    throttled = _maybe_cached_payload_for_throttle(client, source, throttle_seconds)
-    if throttled is not None:
-        payload, raw_path = throttled
-        headers: dict[str, str] = {}
-        from_cache = True
-        throttle_applied = True
-    else:
-        payload, raw_path, headers, from_cache = client.get_json_with_headers(
-            source=source,
-            url=endpoint,
-            params=params,
-            key=as_of_utc.replace(":", "-"),
-        )
-        throttle_applied = False
-
-    events = payload if isinstance(payload, list) else []
-    base_requests_last = _parse_header_int(headers, "x-requests-last")
-    requests_used = _parse_header_int(headers, "x-requests-used")
-    requests_remaining = _parse_header_int(headers, "x-requests-remaining")
-    requests_last_total = base_requests_last or 0
-    alt_calls = 0
-    alt_cache_hits = 0
-
-    if include_alt_totals:
-        alt_events, alt_calls, alt_cache_hits, alt_used, alt_remaining = _fetch_nba_alternate_totals_events(
-            client=client,
-            source=source,
-            sport_key=sport_key,
-            api_key=api_key,
-            regions=regions,
-            odds_format=odds_format,
-            date_format=date_format,
-            base_events=events,
-        )
-        events = events + alt_events
-        # Event-odds calls with alternate_totals cost 1 credit each when live.
-        live_alt_calls = max(0, alt_calls - alt_cache_hits)
-        requests_last_total += live_alt_calls
-        if alt_used is not None:
-            requests_used = alt_used
-        if alt_remaining is not None:
-            requests_remaining = alt_remaining
+        for event in (payload or {}).get("events") or []:
+            event_id = str(event.get("id") or "").strip()
+            if event_id:
+                events_by_id[event_id] = event
 
     team_name_map = _build_team_name_map(teams_df)
-    alias_map = _team_aliases_for_league(league)
-    rows = _flatten_odds_events(
-        events,
-        league=league,
-        sport_key=sport_key,
-        team_name_map=team_name_map,
-        alias_map=alias_map,
-    )
+    alias_map = _team_aliases_for_league(normalized_league)
+    rows: list[dict[str, Any]] = []
+    event_ids_with_pickcenter: list[str] = []
+
+    for event_id in sorted(events_by_id):
+        try:
+            summary_payload, raw_path, _, from_cache = client.get_json_with_headers(
+                source=f"{source}_summary_{event_id}",
+                url=endpoints["summary"],
+                params={"event": event_id},
+                key="summary",
+            )
+        except Exception as exc:
+            summary_failures.append(f"{event_id}: {exc}")
+            continue
+
+        if raw_path:
+            summary_raw_paths.append(raw_path)
+        if from_cache:
+            summary_cache_hits += 1
+
+        event_rows = _flatten_pickcenter_summary(
+            summary_payload=summary_payload or {},
+            scoreboard_event=events_by_id[event_id],
+            league=normalized_league,
+            sport_key=sport_key,
+            team_name_map=team_name_map,
+            alias_map=alias_map,
+            as_of_utc=as_of_utc,
+        )
+        if event_rows:
+            event_ids_with_pickcenter.append(event_id)
+            rows.extend(event_rows)
 
     df = pd.DataFrame(rows, columns=ODDS_COLUMNS)
+    manifest_payload = {
+        "provider": "espn_pickcenter",
+        "league": normalized_league,
+        "fetched_at_utc": as_of_utc,
+        "date_keys": date_keys,
+        "event_ids_seen": sorted(events_by_id),
+        "event_ids_with_pickcenter": event_ids_with_pickcenter,
+        "scoreboard_raw_paths": scoreboard_raw_paths,
+        "summary_raw_paths": summary_raw_paths,
+        "scoreboard_failures": scoreboard_failures,
+        "summary_failures": summary_failures,
+    }
+    manifest_raw_path = client.save_raw(source, manifest_payload, key=as_of_utc.replace(":", "-"))
 
+    total_requests = len(scoreboard_raw_paths) + len(summary_raw_paths) + len(scoreboard_failures) + len(summary_failures)
+    total_cache_hits = scoreboard_cache_hits + summary_cache_hits
     metadata = {
         "fetched_at_utc": as_of_utc,
-        "league": league,
+        "league": normalized_league,
         "sport_key": sport_key,
-        "endpoint": endpoint,
-        "regions": regions,
-        "markets": markets,
-        "markets_primary": _join_markets(primary_markets),
-        "alternate_totals_requested": int(include_alt_totals),
-        "alternate_totals_event_calls": int(alt_calls),
-        "alternate_totals_event_cache_hits": int(alt_cache_hits),
-        "odds_format": odds_format,
-        "date_format": date_format,
-        "api_call_performed": int((not from_cache) or (alt_calls - alt_cache_hits > 0)),
-        "from_cache": int(from_cache),
-        "throttle_seconds": throttle_seconds,
-        "throttle_applied": int(throttle_applied),
-        "n_events": int(len(events)),
+        "provider": "espn_pickcenter",
+        "regions": "us",
+        "markets": DEFAULT_MARKETS,
+        "odds_format": DEFAULT_ODDS_FORMAT,
+        "date_format": DEFAULT_DATE_FORMAT,
+        "scoreboard_endpoint": endpoints["scoreboard"],
+        "summary_endpoint": endpoints["summary"],
+        "upcoming_days": lookahead_days,
+        "date_keys": date_keys,
+        "scoreboard_request_count": len(scoreboard_raw_paths) + len(scoreboard_failures),
+        "summary_request_count": len(summary_raw_paths) + len(summary_failures),
+        "scoreboard_cache_hits": scoreboard_cache_hits,
+        "summary_cache_hits": summary_cache_hits,
+        "from_cache": int(total_requests > 0 and total_cache_hits == total_requests),
+        "n_events_seen": int(len(events_by_id)),
+        "n_events": int(df["odds_event_id"].nunique()) if not df.empty else 0,
         "n_rows": int(len(df)),
         "n_unique_books": int(df["bookmaker_key"].nunique()) if not df.empty else 0,
         "n_events_with_team_mapping": int(df["odds_event_id"][df["home_team"].notna() & df["away_team"].notna()].nunique())
         if not df.empty
         else 0,
-        "requests_last": requests_last_total,
-        "requests_used": requests_used,
-        "requests_remaining": requests_remaining,
+        "scoreboard_failures": scoreboard_failures,
+        "summary_failures": summary_failures,
+        "raw_paths": {
+            "manifest": manifest_raw_path,
+            "scoreboards": scoreboard_raw_paths,
+            "summaries": summary_raw_paths,
+        },
     }
     snapshot_id = client.snapshot_id(source, metadata)
 
@@ -525,7 +719,7 @@ def fetch_public_odds(
         source=source,
         snapshot_id=snapshot_id,
         extracted_at_utc=as_of_utc,
-        raw_path=raw_path,
+        raw_path=manifest_raw_path,
         metadata=metadata,
         dataframe=df,
     )

@@ -465,7 +465,12 @@ def fetch_data(cfg: AppConfig) -> None:
     save_interim(injuries_res.dataframe, cfg.paths.interim_dir, "injuries")
     insert_snapshot(db, injuries_res)
 
-    odds_res = adapter.fetch_public_odds_optional(client, teams_df=teams_res.dataframe, league=league)
+    odds_res = adapter.fetch_public_odds_optional(
+        client,
+        teams_df=teams_res.dataframe,
+        league=league,
+        upcoming_days=cfg.data.upcoming_days,
+    )
     save_interim(odds_res.dataframe, cfg.paths.interim_dir, "odds")
     insert_snapshot(db, odds_res)
     insert_odds_snapshot_and_lines(db, league=league, odds_res=odds_res)
@@ -509,7 +514,12 @@ def fetch_odds(cfg: AppConfig) -> None:
         )
         teams_df = teams_res.dataframe
 
-    odds_res = adapter.fetch_public_odds_optional(client, teams_df=teams_df, league=league)
+    odds_res = adapter.fetch_public_odds_optional(
+        client,
+        teams_df=teams_df,
+        league=league,
+        upcoming_days=cfg.data.upcoming_days,
+    )
     save_interim(odds_res.dataframe, cfg.paths.interim_dir, "odds")
     insert_snapshot(db, odds_res)
     insert_odds_snapshot_and_lines(db, league=league, odds_res=odds_res)
