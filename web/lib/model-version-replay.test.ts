@@ -104,7 +104,8 @@ test("buildModelReplayRuns groups dated model snapshots and preserves all suppor
           is_latest_version: 1,
         },
       ],
-    ])
+    ]),
+    "NBA"
   );
 
   assert.equal(runs.length, 2);

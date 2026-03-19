@@ -13,8 +13,8 @@ import type { ModelWinProbabilities } from "@/lib/betting-model";
 import { execSql, runSqlJson } from "@/lib/db";
 import type { LeagueCode } from "@/lib/league";
 
-const REPLAY_DECISION_VERSION = "historical_replay_v8";
-const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v9";
+const REPLAY_DECISION_VERSION = "historical_replay_v9";
+const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v10";
 const REPLAY_DECISION_TABLE = "historical_bet_decisions_by_profile_v2";
 const LEGACY_REPLAY_DECISION_TABLE = "historical_bet_decisions_by_profile";
 const DEFAULT_REPLAY_VARIANT = "default";
@@ -572,6 +572,7 @@ export function loadOrCreateHistoricalReplayDecisions(
   for (const dayRows of pendingRowsByDate.values()) {
     const decisions = computeBetDecisionsForSlate(
       dayRows.map((row) => ({
+        league: row.league ?? league,
         home_team: row.home_team,
         away_team: row.away_team,
         home_win_probability: row.home_win_probability,

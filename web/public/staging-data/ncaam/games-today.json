@@ -8,46 +8,37 @@
       "label": "Balanced",
       "shortLabel": "Standard risk",
       "allowUnderdogs": true,
+      "maxUnderdogMoneyline": null,
       "minEdge": 0.03,
       "minExpectedValue": 0.02,
       "stakeScale": 0.5,
       "maxBetBankrollPercent": 1.25,
       "maxDailyBankrollPercent": 4,
-      "description": "Balanced baseline with the shared value screen, a 1.25% per-bet cap, and a 4% nightly budget on the reference bankroll.",
-      "config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.500|1.250|4.000",
-      "optimization_objective": "Static balanced default while matched replay coverage remains limited",
-      "optimization_source": "static_fallback",
-      "metrics": null
+      "description": "Balanced baseline with the shared value screen, a 1.25% per-bet cap, and a 4% nightly budget on the reference bankroll."
     },
     "aggressive": {
       "label": "Aggressive",
       "shortLabel": "Wider caps",
       "allowUnderdogs": true,
+      "maxUnderdogMoneyline": null,
       "minEdge": 0.03,
       "minExpectedValue": 0.02,
       "stakeScale": 0.75,
       "maxBetBankrollPercent": 1.75,
       "maxDailyBankrollPercent": 6,
-      "description": "Aggressive baseline with the shared value screen, a 1.75% per-bet cap, and a 6% nightly budget on the reference bankroll.",
-      "config_signature": "bet_strategy_frontier_v1|dogs|0.030|0.020|0.750|1.750|6.000",
-      "optimization_objective": "Static aggressive default while matched replay coverage remains limited",
-      "optimization_source": "static_fallback",
-      "metrics": null
+      "description": "Aggressive baseline with the shared value screen, a 1.75% per-bet cap, and a 6% nightly budget on the reference bankroll."
     },
     "capitalPreservation": {
       "label": "Conservative",
       "shortLabel": "Favorites only",
       "allowUnderdogs": false,
+      "maxUnderdogMoneyline": null,
       "minEdge": 0.03,
       "minExpectedValue": 0.02,
       "stakeScale": 0.25,
       "maxBetBankrollPercent": 0.75,
       "maxDailyBankrollPercent": 2.5,
-      "description": "Conservative baseline with the shared value screen, a 0.75% per-bet cap, and a 2.50% nightly budget on the reference bankroll.",
-      "config_signature": "bet_strategy_frontier_v1|favorites|0.030|0.020|0.250|0.750|2.500",
-      "optimization_objective": "Static conservative default while matched replay coverage remains limited",
-      "optimization_source": "static_fallback",
-      "metrics": null
+      "description": "Conservative baseline with the shared value screen, a 0.75% per-bet cap, and a 2.50% nightly budget on the reference bankroll."
     }
   },
   "strategy_optimization": {

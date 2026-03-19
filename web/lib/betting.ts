@@ -1,14 +1,17 @@
 import {
   DEFAULT_BET_STRATEGY,
   getBetStrategyConfig,
+  type BetRiskRegime,
   type BetStrategyRuleConfig,
   type BetStrategy,
 } from "@/lib/betting-strategy";
 import type { ModelWinProbabilities } from "@/lib/betting-model";
+import type { LeagueCode } from "@/lib/league";
 
 export type ExpectedSide = "home" | "away" | "none";
 
 export type BetInput = {
+  league?: LeagueCode | null;
   home_team: string;
   away_team: string;
   home_win_probability: number;
@@ -35,6 +38,11 @@ export type BetSettlement = {
   outcome: "win" | "loss" | "no_bet";
   profit: number;
   payout: number;
+};
+
+export type BetDecisionPolicyOptions = {
+  league?: LeagueCode | null;
+  riskRegime?: BetRiskRegime;
 };
 
 export type BetDecisionTrace = {
@@ -77,6 +85,7 @@ export type BetDecisionTrace = {
     edge: boolean;
     expectedValue: boolean;
     underdogAllowed: boolean;
+    underdogPrice: boolean;
     dailyBudget: boolean;
   };
 };
@@ -255,6 +264,10 @@ function buildProbabilityAdjustment(
 
 function buildPricedBetReason(candidateIsUnderdog: boolean): string {
   return candidateIsUnderdog ? "Underdog underpriced after uncertainty adjustment" : "Favorite underpriced after uncertainty adjustment";
+}
+
+function buildLongShotUnderdogReason(strategyLabel: string, maxUnderdogMoneyline: number): string {
+  return `${strategyLabel} caps long-shot underdogs above +${Math.round(maxUnderdogMoneyline)}`;
 }
 
 function formatStakeForDecision(team: string | null, stake: number): string {
@@ -462,10 +475,14 @@ export function explainBetDecision(
   row: BetInput,
   strategy: BetStrategy = DEFAULT_BET_STRATEGY,
   strategyConfigOverride?: BetStrategyRuleConfig,
-  strategyLabelOverride?: string
+  strategyLabelOverride?: string,
+  options?: BetDecisionPolicyOptions
 ): BetDecisionTrace {
-  const strategyConfig = strategyConfigOverride || getBetStrategyConfig(strategy);
-  const strategyLabel = strategyLabelOverride || getBetStrategyConfig(strategy).label;
+  const resolvedLeague = options?.league ?? row.league;
+  const riskRegime = options?.riskRegime ?? "normal";
+  const configuredStrategy = getBetStrategyConfig(strategy, { league: resolvedLeague, riskRegime });
+  const strategyConfig = strategyConfigOverride || configuredStrategy;
+  const strategyLabel = strategyLabelOverride || configuredStrategy.label;
   const context: TraceContext = { strategyLabel, strategyConfig };
   const homeOdds = Number(row.home_moneyline);
   const awayOdds = Number(row.away_moneyline);
@@ -477,6 +494,7 @@ export function explainBetDecision(
     edge: false,
     expectedValue: false,
     underdogAllowed: false,
+    underdogPrice: false,
     dailyBudget: true,
   };
 
@@ -591,6 +609,11 @@ export function explainBetDecision(
   const edgeGate = edge >= strategyConfig.minEdge;
   const expectedValueGate = ev >= strategyConfig.minExpectedValue;
   const underdogAllowed = strategyConfig.allowUnderdogs || !candidateIsUnderdog;
+  const underdogPriceGate =
+    !candidateIsUnderdog ||
+    typeof strategyConfig.maxUnderdogMoneyline !== "number" ||
+    !Number.isFinite(strategyConfig.maxUnderdogMoneyline) ||
+    candidateOdds <= strategyConfig.maxUnderdogMoneyline;
 
   const traceOverrides: Partial<Omit<BetDecisionTrace, "decision" | "strategyLabel" | "strategyConfig" | "gates">> = {
     homeRawModelProbability: pHomeRaw,
@@ -628,6 +651,7 @@ export function explainBetDecision(
         edge: edgeGate,
         expectedValue: expectedValueGate,
         underdogAllowed,
+        underdogPrice: underdogPriceGate,
       },
       traceOverrides
     );
@@ -643,6 +667,32 @@ export function explainBetDecision(
         edge: edgeGate,
         expectedValue: expectedValueGate,
         underdogAllowed,
+        underdogPrice: underdogPriceGate,
+      },
+      traceOverrides
+    );
+  }
+
+  if (!underdogPriceGate) {
+    return buildTrace(
+      context,
+      buildDecision(
+        row,
+        "none",
+        0,
+        buildLongShotUnderdogReason(strategyLabel, strategyConfig.maxUnderdogMoneyline ?? 0),
+        adjustedProb,
+        fairProb,
+        ev,
+        edge
+      ),
+      {
+        ...baseGates,
+        positiveExpectedValue,
+        edge: edgeGate,
+        expectedValue: expectedValueGate,
+        underdogAllowed,
+        underdogPrice: underdogPriceGate,
       },
       traceOverrides
     );
@@ -672,6 +722,7 @@ export function explainBetDecision(
         edge: edgeGate,
         expectedValue: expectedValueGate,
         underdogAllowed,
+        underdogPrice: underdogPriceGate,
       },
       {
         ...traceOverrides,
@@ -703,6 +754,7 @@ export function explainBetDecision(
       edge: edgeGate,
       expectedValue: expectedValueGate,
       underdogAllowed,
+      underdogPrice: underdogPriceGate,
     },
     {
       ...traceOverrides,
@@ -719,28 +771,31 @@ export function explainBetDecisionsForSlate(
   rows: BetInput[],
   strategy: BetStrategy = DEFAULT_BET_STRATEGY,
   strategyConfigOverride?: BetStrategyRuleConfig,
-  strategyLabelOverride?: string
+  strategyLabelOverride?: string,
+  options?: BetDecisionPolicyOptions
 ): BetDecisionTrace[] {
   return applyDailyRiskCapToDecisionTraces(
-    rows.map((row) => explainBetDecision(row, strategy, strategyConfigOverride, strategyLabelOverride))
+    rows.map((row) => explainBetDecision(row, strategy, strategyConfigOverride, strategyLabelOverride, options))
   );
 }
 
 export function computeBetDecision(
   row: BetInput,
   strategy: BetStrategy = DEFAULT_BET_STRATEGY,
-  strategyConfigOverride?: BetStrategyRuleConfig
+  strategyConfigOverride?: BetStrategyRuleConfig,
+  options?: BetDecisionPolicyOptions
 ): BetDecision {
-  return explainBetDecision(row, strategy, strategyConfigOverride).decision;
+  return explainBetDecision(row, strategy, strategyConfigOverride, undefined, options).decision;
 }
 
 export function computeBetDecisionsForSlate(
   rows: BetInput[],
   strategy: BetStrategy = DEFAULT_BET_STRATEGY,
   strategyConfigOverride?: BetStrategyRuleConfig,
-  strategyLabelOverride?: string
+  strategyLabelOverride?: string,
+  options?: BetDecisionPolicyOptions
 ): BetDecision[] {
-  return explainBetDecisionsForSlate(rows, strategy, strategyConfigOverride, strategyLabelOverride).map(
+  return explainBetDecisionsForSlate(rows, strategy, strategyConfigOverride, strategyLabelOverride, options).map(
     (trace) => trace.decision
   );
 }

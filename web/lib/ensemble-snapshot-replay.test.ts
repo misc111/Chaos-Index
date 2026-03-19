@@ -163,7 +163,8 @@ test("buildEnsembleSnapshots replays frozen snapshots only from activation day f
           commit_window: [],
         },
       ],
-    ])
+    ]),
+    "NBA"
   );
 
   assert.equal(snapshots.length, 2);

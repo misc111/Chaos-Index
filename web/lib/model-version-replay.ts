@@ -1,6 +1,7 @@
 import { computeBetDecisionsForSlate, settleBet } from "@/lib/betting";
 import { BET_STRATEGIES, getBetStrategyConfig } from "@/lib/betting-strategy";
 import type { ModelWinProbabilities } from "@/lib/betting-model";
+import type { LeagueCode } from "@/lib/league";
 import type {
   ModelReplayBetRow,
   ModelReplayDecisionDetail,
@@ -182,7 +183,8 @@ function buildEmptyStrategySummaryMap(totalGames: number): Record<ModelReplayStr
 export function buildModelReplayRuns(
   candidates: ModelReplayCandidateRow[],
   runMetadataById: Map<string, ModelReplayRunMetadata>,
-  runSummariesById: Map<string, ModelRunSummaryRow>
+  runSummariesById: Map<string, ModelRunSummaryRow>,
+  league: LeagueCode
 ): ModelReplayRunRow[] {
   const candidatesByRun = new Map<string, ModelReplayCandidateRow[]>();
 
@@ -210,9 +212,10 @@ export function buildModelReplayRuns(
 
       for (const [, dayRows] of Array.from(rowsByDate.entries()).sort(([left], [right]) => left.localeCompare(right))) {
         for (const strategy of MODEL_REPLAY_COMPARISON_STRATEGIES) {
-          const strategyConfig = getBetStrategyConfig(strategy);
+          const strategyConfig = getBetStrategyConfig(strategy, { league });
           const decisions = computeBetDecisionsForSlate(
             dayRows.map((row) => ({
+              league,
               home_team: row.home_team,
               away_team: row.away_team,
               home_win_probability: row.home_win_probability,

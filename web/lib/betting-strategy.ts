@@ -1,13 +1,17 @@
+import type { LeagueCode } from "@/lib/league";
+
 export type BetStrategy = "riskAdjusted" | "aggressive" | "capitalPreservation";
 
 export const BET_STRATEGIES = ["riskAdjusted", "aggressive", "capitalPreservation"] as const;
 export const DEFAULT_BET_STRATEGY: BetStrategy = "riskAdjusted";
+export type BetRiskRegime = "normal" | "guarded";
 
 export type BetStrategyConfig = {
   label: string;
   shortLabel: string;
   description: string;
   allowUnderdogs: boolean;
+  maxUnderdogMoneyline?: number | null;
   minEdge: number;
   minExpectedValue: number;
   stakeScale: number;
@@ -17,7 +21,13 @@ export type BetStrategyConfig = {
 
 export type BetStrategyRuleConfig = Pick<
   BetStrategyConfig,
-  "allowUnderdogs" | "minEdge" | "minExpectedValue" | "stakeScale" | "maxBetBankrollPercent" | "maxDailyBankrollPercent"
+  | "allowUnderdogs"
+  | "maxUnderdogMoneyline"
+  | "minEdge"
+  | "minExpectedValue"
+  | "stakeScale"
+  | "maxBetBankrollPercent"
+  | "maxDailyBankrollPercent"
 >;
 
 const SHARED_MIN_EDGE = 0.03;
@@ -25,6 +35,31 @@ const SHARED_MIN_EXPECTED_VALUE = 0.02;
 
 type BetStrategyTuning = Omit<BetStrategyConfig, "description">;
 type BetStrategyExperimentOverride = Partial<Pick<BetStrategyConfig, "stakeScale" | "maxBetBankrollPercent" | "maxDailyBankrollPercent">>;
+
+const NBA_STATIC_TUNING_OVERRIDES: Partial<Record<BetStrategy, Partial<BetStrategyConfig>>> = {
+  riskAdjusted: {
+    minEdge: 0.05,
+    minExpectedValue: 0.05,
+    stakeScale: 0.25,
+    maxBetBankrollPercent: 0.75,
+    maxDailyBankrollPercent: 2.5,
+    maxUnderdogMoneyline: 300,
+  },
+  aggressive: {
+    minEdge: 0.05,
+    minExpectedValue: 0.05,
+    stakeScale: 0.4,
+    maxBetBankrollPercent: 1,
+    maxDailyBankrollPercent: 3,
+    maxUnderdogMoneyline: 300,
+  },
+  capitalPreservation: {
+    minEdge: 0.04,
+    minExpectedValue: 0.03,
+    maxBetBankrollPercent: 0.75,
+    maxDailyBankrollPercent: 2.5,
+  },
+};
 
 function formatPercent(value: number): string {
   return Number.isInteger(value) ? `${value}%` : `${value.toFixed(2)}%`;
@@ -35,7 +70,11 @@ function buildStrategyDescription(config: BetStrategyTuning): string {
     typeof config.maxDailyBankrollPercent === "number" && Number.isFinite(config.maxDailyBankrollPercent) && config.maxDailyBankrollPercent > 0
       ? `a ${formatPercent(config.maxDailyBankrollPercent)} nightly budget on the reference bankroll`
       : "no nightly budget cap";
-  return `${config.label} baseline with the shared value screen, a ${formatPercent(config.maxBetBankrollPercent)} per-bet cap, and ${dailyBudgetText}.`;
+  const longShotText =
+    typeof config.maxUnderdogMoneyline === "number" && Number.isFinite(config.maxUnderdogMoneyline)
+      ? ` Long-shot underdogs above +${Math.round(config.maxUnderdogMoneyline)} are skipped.`
+      : "";
+  return `${config.label} baseline with the shared value screen, a ${formatPercent(config.maxBetBankrollPercent)} per-bet cap, and ${dailyBudgetText}.${longShotText}`;
 }
 
 export const BETTING_STRATEGY_TUNING: Record<BetStrategy, BetStrategyTuning> = {
@@ -43,6 +82,7 @@ export const BETTING_STRATEGY_TUNING: Record<BetStrategy, BetStrategyTuning> = {
     label: "Balanced",
     shortLabel: "Standard risk",
     allowUnderdogs: true,
+    maxUnderdogMoneyline: null,
     minEdge: SHARED_MIN_EDGE,
     minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
     stakeScale: 0.5,
@@ -53,6 +93,7 @@ export const BETTING_STRATEGY_TUNING: Record<BetStrategy, BetStrategyTuning> = {
     label: "Aggressive",
     shortLabel: "Wider caps",
     allowUnderdogs: true,
+    maxUnderdogMoneyline: null,
     minEdge: SHARED_MIN_EDGE,
     minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
     stakeScale: 0.75,
@@ -63,6 +104,7 @@ export const BETTING_STRATEGY_TUNING: Record<BetStrategy, BetStrategyTuning> = {
     label: "Conservative",
     shortLabel: "Favorites only",
     allowUnderdogs: false,
+    maxUnderdogMoneyline: null,
     minEdge: SHARED_MIN_EDGE,
     minExpectedValue: SHARED_MIN_EXPECTED_VALUE,
     stakeScale: 0.25,
@@ -87,6 +129,90 @@ export const BETTING_STRATEGY_EXPERIMENT_OVERRIDES: Record<BetStrategy, BetStrat
   capitalPreservation: {},
 };
 
+function minNumber(left: number | null | undefined, right: number): number {
+  if (typeof left !== "number" || !Number.isFinite(left)) return right;
+  return Math.min(left, right);
+}
+
+function applyLeagueBetStrategyAdjustments(strategy: BetStrategy, config: BetStrategyConfig, league?: LeagueCode | null): BetStrategyConfig {
+  if (league !== "NBA") {
+    return config;
+  }
+
+  const overrides = NBA_STATIC_TUNING_OVERRIDES[strategy];
+  if (!overrides) {
+    return config;
+  }
+
+  const merged: BetStrategyTuning = {
+    label: config.label,
+    shortLabel: config.shortLabel,
+    allowUnderdogs: overrides.allowUnderdogs ?? config.allowUnderdogs,
+    maxUnderdogMoneyline:
+      Object.prototype.hasOwnProperty.call(overrides, "maxUnderdogMoneyline")
+        ? overrides.maxUnderdogMoneyline ?? null
+        : config.maxUnderdogMoneyline ?? null,
+    minEdge: overrides.minEdge ?? config.minEdge,
+    minExpectedValue: overrides.minExpectedValue ?? config.minExpectedValue,
+    stakeScale: overrides.stakeScale ?? config.stakeScale,
+    maxBetBankrollPercent: overrides.maxBetBankrollPercent ?? config.maxBetBankrollPercent,
+    maxDailyBankrollPercent:
+      Object.prototype.hasOwnProperty.call(overrides, "maxDailyBankrollPercent")
+        ? overrides.maxDailyBankrollPercent ?? null
+        : config.maxDailyBankrollPercent,
+  };
+
+  return {
+    ...config,
+    ...merged,
+    description: buildStrategyDescription(merged),
+  };
+}
+
+function applyRiskRegimeAdjustments(
+  strategy: BetStrategy,
+  config: BetStrategyConfig,
+  league?: LeagueCode | null,
+  riskRegime: BetRiskRegime = "normal"
+): BetStrategyConfig {
+  if (league !== "NBA" || riskRegime !== "guarded") {
+    return config;
+  }
+
+  const guarded: BetStrategyTuning = {
+    label: config.label,
+    shortLabel: config.shortLabel,
+    allowUnderdogs: strategy === "capitalPreservation" ? false : false,
+    maxUnderdogMoneyline: null,
+    minEdge:
+      strategy === "capitalPreservation"
+        ? Math.max(config.minEdge, 0.05)
+        : Math.max(config.minEdge, 0.06),
+    minExpectedValue:
+      strategy === "capitalPreservation"
+        ? Math.max(config.minExpectedValue, 0.035)
+        : Math.max(config.minExpectedValue, 0.05),
+    stakeScale:
+      strategy === "capitalPreservation"
+        ? Math.min(config.stakeScale, 0.2)
+        : Math.min(config.stakeScale, 0.2),
+    maxBetBankrollPercent:
+      strategy === "capitalPreservation"
+        ? minNumber(config.maxBetBankrollPercent, 0.5)
+        : minNumber(config.maxBetBankrollPercent, 0.5),
+    maxDailyBankrollPercent:
+      strategy === "capitalPreservation"
+        ? minNumber(config.maxDailyBankrollPercent, 1.5)
+        : minNumber(config.maxDailyBankrollPercent, 1.5),
+  };
+
+  return {
+    ...config,
+    ...guarded,
+    description: buildStrategyDescription(guarded),
+  };
+}
+
 export function applyBetStrategyExperimentOverrides(strategy: BetStrategy, config: BetStrategyConfig): BetStrategyConfig {
   const overrides = BETTING_STRATEGY_EXPERIMENT_OVERRIDES[strategy];
   if (!overrides || Object.keys(overrides).length === 0) {
@@ -97,6 +223,7 @@ export function applyBetStrategyExperimentOverrides(strategy: BetStrategy, confi
     label: config.label,
     shortLabel: config.shortLabel,
     allowUnderdogs: config.allowUnderdogs,
+    maxUnderdogMoneyline: config.maxUnderdogMoneyline ?? null,
     minEdge: config.minEdge,
     minExpectedValue: config.minExpectedValue,
     stakeScale: overrides.stakeScale ?? config.stakeScale,
@@ -158,13 +285,22 @@ export function strategyFromRequest(request: Request): BetStrategy {
   return normalizeBetStrategy(url.searchParams.get("strategy"));
 }
 
-export function getBetStrategyConfig(strategy: BetStrategy): BetStrategyConfig {
-  return applyBetStrategyExperimentOverrides(strategy, BET_STRATEGY_CONFIG[strategy]);
+export function getBetStrategyConfig(
+  strategy: BetStrategy,
+  options?: {
+    league?: LeagueCode | null;
+    riskRegime?: BetRiskRegime;
+  }
+): BetStrategyConfig {
+  const experimented = applyBetStrategyExperimentOverrides(strategy, BET_STRATEGY_CONFIG[strategy]);
+  const leagueAdjusted = applyLeagueBetStrategyAdjustments(strategy, experimented, options?.league);
+  return applyRiskRegimeAdjustments(strategy, leagueAdjusted, options?.league, options?.riskRegime);
 }
 
 export function toBetStrategyRuleConfig(strategyConfig: BetStrategyConfig): BetStrategyRuleConfig {
   return {
     allowUnderdogs: strategyConfig.allowUnderdogs,
+    maxUnderdogMoneyline: strategyConfig.maxUnderdogMoneyline ?? null,
     minEdge: strategyConfig.minEdge,
     minExpectedValue: strategyConfig.minExpectedValue,
     stakeScale: strategyConfig.stakeScale,

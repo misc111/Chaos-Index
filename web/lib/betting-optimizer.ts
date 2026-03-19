@@ -152,6 +152,9 @@ function strategyConfigSignature(config: BetStrategyRuleConfig): string {
   return [
     OPTIMIZER_VERSION,
     config.allowUnderdogs ? "dogs" : "favorites",
+    typeof config.maxUnderdogMoneyline === "number" && Number.isFinite(config.maxUnderdogMoneyline)
+      ? `maxdog${Math.round(config.maxUnderdogMoneyline)}`
+      : "maxdognone",
     roundNumber(config.minEdge, 3).toFixed(3),
     roundNumber(config.minExpectedValue, 3).toFixed(3),
     roundNumber(config.stakeScale, 3).toFixed(3),
@@ -166,6 +169,7 @@ function strategyConfigSummary(config: BetStrategyRuleConfig, metrics: BetStrate
   return {
     config_signature: strategyConfigSignature(config),
     allowUnderdogs: config.allowUnderdogs,
+    maxUnderdogMoneyline: config.maxUnderdogMoneyline ?? null,
     minEdge: config.minEdge,
     minExpectedValue: config.minExpectedValue,
     stakeScale: config.stakeScale,
@@ -186,6 +190,7 @@ function buildCandidateGrid(): BetStrategyRuleConfig[] {
             for (const maxDailyBankrollPercent of MAX_DAILY_BANKROLL_PERCENT_GRID) {
               candidates.push({
                 allowUnderdogs,
+                maxUnderdogMoneyline: null,
                 minEdge,
                 minExpectedValue,
                 stakeScale,
@@ -237,6 +242,7 @@ function evaluateCandidate(rows: OptimizableHistoricalBetRow[], config: BetStrat
         home_win_probability: row.home_win_probability,
         home_moneyline: row.home_moneyline,
         away_moneyline: row.away_moneyline,
+        league: row.league,
         betting_model_name: row.betting_model_name,
         model_win_probabilities: row.model_win_probabilities,
       })),
@@ -349,10 +355,11 @@ function compareByCapitalProtection(left: CandidateEvaluation, right: CandidateE
 function toResolvedConfig(
   strategy: BetStrategy,
   candidate: CandidateEvaluation | null,
+  league: LeagueCode | null,
   optimizationSource: ResolvedBetStrategyConfig["optimization_source"],
   optimizationObjective: string
 ): ResolvedBetStrategyConfig {
-  const fallback = getBetStrategyConfig(strategy);
+  const fallback = getBetStrategyConfig(strategy, { league });
   const resolvedRules = candidate?.config || toBetStrategyRuleConfig(fallback);
   const baseConfig = {
     ...fallback,
@@ -373,6 +380,7 @@ export function resolveBetStrategyConfigs(rows: OptimizableHistoricalBetRow[]): 
   strategyConfigs: Record<BetStrategy, ResolvedBetStrategyConfig>;
   optimizationSummary: BetStrategyOptimizationSummary;
 } {
+  const league = (rows.find((row) => row.league)?.league || null) as LeagueCode | null;
   const replayCoverage = summarizeReplayCoverage(rows);
   const hasReplayCoverageForRanking =
     replayCoverage.settledGames >= MIN_REPLAY_GAMES_FOR_POLICY_RANKING &&
@@ -384,18 +392,21 @@ export function resolveBetStrategyConfigs(rows: OptimizableHistoricalBetRow[]): 
         riskAdjusted: toResolvedConfig(
           "riskAdjusted",
           null,
+          league,
           "static_fallback",
           "Static balanced default while matched replay coverage remains limited"
         ),
         aggressive: toResolvedConfig(
           "aggressive",
           null,
+          league,
           "static_fallback",
           "Static aggressive default while matched replay coverage remains limited"
         ),
         capitalPreservation: toResolvedConfig(
           "capitalPreservation",
           null,
+          league,
           "static_fallback",
           "Static conservative default while matched replay coverage remains limited"
         ),
@@ -457,18 +468,21 @@ export function resolveBetStrategyConfigs(rows: OptimizableHistoricalBetRow[]): 
     riskAdjusted: toResolvedConfig(
       "riskAdjusted",
       bestRiskAdjustedCandidate,
+      league,
       bestRiskAdjustedCandidate ? "historical_frontier" : "static_fallback",
       "Best replay expected log growth among sampled policies"
     ),
     aggressive: toResolvedConfig(
       "aggressive",
       aggressiveCandidate,
+      league,
       aggressiveCandidate ? "historical_frontier" : "static_fallback",
       "Higher-return replay policy than the balanced selection"
     ),
     capitalPreservation: toResolvedConfig(
       "capitalPreservation",
       capitalPreservationCandidate,
+      league,
       capitalPreservationCandidate ? "historical_downside" : "static_fallback",
       "Minimum downside volatility and drawdown among positive-return conservative replay candidates"
     ),

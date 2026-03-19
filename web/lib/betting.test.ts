@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { normalizeBetStrategy, type BetStrategy } from "./betting-strategy";
+import { getBetStrategyConfig, normalizeBetStrategy, type BetStrategy } from "./betting-strategy";
 import { computeBetDecision, computeBetDecisionsForSlate, explainBetDecision, explainBetDecisionsForSlate } from "./betting";
 
 function buildDecision(strategy?: BetStrategy) {
@@ -34,6 +34,79 @@ test("computeBetDecision sizes favorites with the bankroll-linked formula", () =
 
 test("computeBetDecision sizes underdogs with the shared value screen", () => {
   const decision = computeBetDecision({
+    home_team: "BOS",
+    away_team: "DAL",
+    home_win_probability: 0.71,
+    home_moneyline: -430,
+    away_moneyline: 340,
+  });
+
+  assert.equal(decision.side, "away");
+  assert.equal(decision.team, "DAL");
+  assert.equal(decision.stake, 125);
+});
+
+test("NBA long-shot guardrail blocks extreme underdogs while NHL keeps baseline behavior", () => {
+  const baseRow = {
+    home_team: "BOS",
+    away_team: "DAL",
+    home_win_probability: 0.71,
+    home_moneyline: -430,
+    away_moneyline: 340,
+  };
+
+  const nbaDecision = computeBetDecision({ ...baseRow, league: "NBA" }, "riskAdjusted");
+  const nhlDecision = computeBetDecision({ ...baseRow, league: "NHL" }, "riskAdjusted");
+
+  assert.equal(nbaDecision.side, "none");
+  assert.equal(nbaDecision.stake, 0);
+  assert.match(nbaDecision.reason, /long-shot underdogs/i);
+  assert.equal(nhlDecision.side, "away");
+  assert.ok(nhlDecision.stake > 0);
+});
+
+test("guarded risk regime throttles NBA stakes and does not alter NHL stakes", () => {
+  const nbaRow = {
+    league: "NBA" as const,
+    home_team: "SAC",
+    away_team: "CHI",
+    home_win_probability: 0.653,
+    home_moneyline: -135,
+    away_moneyline: 125,
+  };
+  const nhlRow = {
+    ...nbaRow,
+    league: "NHL" as const,
+  };
+
+  const nbaNormal = computeBetDecision(nbaRow, "riskAdjusted", undefined, { league: "NBA", riskRegime: "normal" });
+  const nbaGuarded = computeBetDecision(nbaRow, "riskAdjusted", undefined, { league: "NBA", riskRegime: "guarded" });
+  const nhlNormal = computeBetDecision(nhlRow, "riskAdjusted", undefined, { league: "NHL", riskRegime: "normal" });
+  const nhlGuarded = computeBetDecision(nhlRow, "riskAdjusted", undefined, { league: "NHL", riskRegime: "guarded" });
+
+  assert.ok(nbaNormal.stake > 0);
+  assert.ok(nbaGuarded.stake <= nbaNormal.stake);
+  assert.equal(nhlGuarded.stake, nhlNormal.stake);
+});
+
+test("NBA risk-adjusted skips long-shot underdogs above +300", () => {
+  const decision = computeBetDecision({
+    league: "NBA",
+    home_team: "BOS",
+    away_team: "DAL",
+    home_win_probability: 0.71,
+    home_moneyline: -430,
+    away_moneyline: 340,
+  });
+
+  assert.equal(decision.side, "none");
+  assert.equal(decision.stake, 0);
+  assert.equal(decision.reason, "Balanced caps long-shot underdogs above +300");
+});
+
+test("NHL risk-adjusted still allows the same underdog profile", () => {
+  const decision = computeBetDecision({
+    league: "NHL",
     home_team: "BOS",
     away_team: "DAL",
     home_win_probability: 0.71,
@@ -118,6 +191,15 @@ test("legacy strategy query params normalize to the new profiles", () => {
   assert.equal(normalizeBetStrategy("riskLoving"), "aggressive");
   assert.equal(normalizeBetStrategy("aggressiveEv"), "aggressive");
   assert.equal(normalizeBetStrategy("riskAverse"), "capitalPreservation");
+});
+
+test("NBA strategy defaults are tighter than the shared fallback", () => {
+  const nba = getBetStrategyConfig("riskAdjusted", { league: "NBA" });
+  const nhl = getBetStrategyConfig("riskAdjusted", { league: "NHL" });
+
+  assert.ok(nba.minEdge > nhl.minEdge);
+  assert.ok(nba.minExpectedValue > nhl.minExpectedValue);
+  assert.equal(nba.maxUnderdogMoneyline, 300);
 });
 
 test("explainBetDecision exposes raw and adjusted sizing steps for a bet", () => {

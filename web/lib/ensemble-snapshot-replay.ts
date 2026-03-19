@@ -1,5 +1,6 @@
 import { computeBetDecisionsForSlate, settleBet } from "@/lib/betting";
 import { BET_STRATEGIES, getBetStrategyConfig } from "@/lib/betting-strategy";
+import type { LeagueCode } from "@/lib/league";
 import type {
   EnsembleSnapshotComponentModelRow,
   EnsembleSnapshotDailyRow,
@@ -228,7 +229,8 @@ function buildDailyStrategyRow(
 export function buildEnsembleSnapshots(
   candidates: EnsembleSnapshotCandidateRow[],
   selections: EnsembleSnapshotSelection[],
-  runMetadataById: Map<string, EnsembleSnapshotRunMetadata>
+  runMetadataById: Map<string, EnsembleSnapshotRunMetadata>,
+  league: LeagueCode
 ): EnsembleSnapshotRow[] {
   const rowsByRun = new Map<string, EnsembleSnapshotCandidateRow[]>();
 
@@ -271,9 +273,10 @@ export function buildEnsembleSnapshots(
         const daySummaries = buildEmptyStrategySummaryMap(dayRows.length);
 
         for (const strategy of ENSEMBLE_SNAPSHOT_COMPARISON_STRATEGIES) {
-          const strategyConfig = getBetStrategyConfig(strategy);
+          const strategyConfig = getBetStrategyConfig(strategy, { league });
           const decisions = computeBetDecisionsForSlate(
             dayRows.map((row) => ({
+              league,
               home_team: row.home_team,
               away_team: row.away_team,
               home_win_probability: row.home_win_probability,

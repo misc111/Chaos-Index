@@ -1,9 +1,10 @@
 import { getHistoricalReplayGames } from "@/lib/bet-history";
 import { parseModelWinProbabilities, selectBettingModelProbability } from "@/lib/betting-model";
+import { BET_STRATEGIES, getBetStrategyConfig, type BetStrategy } from "@/lib/betting-strategy";
 import { centralTodayDateKey, dateKeyForScheduledGame, shiftCentralDateKey } from "@/lib/games-today";
 import { type LeagueCode } from "@/lib/league";
 import { getGamesTodaySnapshotRows, getLatestUpcomingAsOf } from "@/lib/server/repositories/forecasts";
-import { getPreferredBettingModelName } from "@/lib/server/services/betting-driver";
+import { getActiveBetRiskRegime, getPreferredBettingModelName } from "@/lib/server/services/betting-driver";
 import {
   getMoneylineRowsForSnapshots,
   getOver190RowsForSnapshots,
@@ -23,6 +24,11 @@ export async function getGamesTodayPayload(league: LeagueCode) {
   const todayKey = centralTodayDateKey();
   const snapshotFallbackWindowStart = shiftCentralDateKey(todayKey, -1);
   const preferredBettingModelName = getPreferredBettingModelName(league);
+  const riskRegime = getActiveBetRiskRegime(league);
+  const liveStrategyConfigs = BET_STRATEGIES.reduce((acc, strategy) => {
+    acc[strategy] = getBetStrategyConfig(strategy, { league, riskRegime });
+    return acc;
+  }, {} as Record<BetStrategy, ReturnType<typeof getBetStrategyConfig>>);
 
   if (!asOf) {
     return {
@@ -30,7 +36,7 @@ export async function getGamesTodayPayload(league: LeagueCode) {
       as_of_utc: null,
       date_central: todayKey,
       historical_coverage_start_central: historicalReplay.coverage_start_central,
-      strategy_configs: historicalReplay.strategy_configs,
+      strategy_configs: liveStrategyConfigs,
       strategy_optimization: historicalReplay.strategy_optimization,
       historical_rows: historicalReplay.rows,
       rows: [],
@@ -148,7 +154,7 @@ export async function getGamesTodayPayload(league: LeagueCode) {
     as_of_utc: asOf,
     date_central: todayKey,
     historical_coverage_start_central: historicalReplay.coverage_start_central,
-    strategy_configs: historicalReplay.strategy_configs,
+    strategy_configs: liveStrategyConfigs,
     strategy_optimization: historicalReplay.strategy_optimization,
     historical_rows: historicalReplay.rows.map(buildHistoricalRow),
     rows: enrichedRows,

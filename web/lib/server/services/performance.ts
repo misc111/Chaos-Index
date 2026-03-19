@@ -1268,7 +1268,7 @@ function buildFrozenEnsembleSnapshots(league: LeagueCode) {
   // The final replay pass is pure: once the selector chooses which dated run
   // became the official snapshot, we hand only those frozen rows into the
   // replay engine and never let newer runs leak back into the path.
-  return buildEnsembleSnapshots(buildEnsembleSnapshotCandidates(league), selections, metadataById);
+  return buildEnsembleSnapshots(buildEnsembleSnapshotCandidates(league), selections, metadataById, league);
 }
 
 function queryRunMetadata(league: LeagueCode, runIds: string[]): Map<string, ModelReplayRunMetadata> {
@@ -1376,7 +1376,7 @@ function buildReplayCandidates(league: LeagueCode, runSummaries: ModelRunSummary
 
   const runIds = Array.from(new Set(candidates.map((row) => row.model_run_id)));
   const runMetadataById = queryRunMetadata(league, runIds);
-  return buildModelReplayRuns(candidates, runMetadataById, runSummaryById);
+  return buildModelReplayRuns(candidates, runMetadataById, runSummaryById, league);
 }
 
 export function getPerformancePayload(
