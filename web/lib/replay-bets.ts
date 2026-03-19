@@ -14,7 +14,7 @@ import { execSql, runSqlJson } from "@/lib/db";
 import type { LeagueCode } from "@/lib/league";
 
 const REPLAY_DECISION_VERSION = "historical_replay_v8";
-const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v8";
+const REPLAY_MATERIALIZATION_VERSION = "historical_prediction_history_v9";
 const REPLAY_DECISION_TABLE = "historical_bet_decisions_by_profile_v2";
 const LEGACY_REPLAY_DECISION_TABLE = "historical_bet_decisions_by_profile";
 const DEFAULT_REPLAY_VARIANT = "default";
