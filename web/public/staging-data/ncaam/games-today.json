@@ -1,7 +1,7 @@
 {
   "league": "NCAAM",
   "as_of_utc": "2026-03-10T14:49:28+00:00",
-  "date_central": "2026-03-18",
+  "date_central": "2026-03-19",
   "historical_coverage_start_central": null,
   "strategy_configs": {
     "riskAdjusted": {
@@ -65,80 +65,14 @@
   "historical_rows": [],
   "rows": [
     {
-      "game_id": 401856435,
-      "game_date_utc": "2026-03-17",
-      "home_team": "TBD",
-      "away_team": "TBD",
-      "home_win_probability": 0.7670134772880188,
-      "betting_model_name": "ensemble",
-      "model_win_probabilities": {
-        "ensemble": 0.7670134772880188,
-        "bayes_bt_state_space": 0.9999987633466498,
-        "bayes_goals": 0.5224,
-        "dynamic_rating": 0.5299640517645717,
-        "elo_baseline": 0.5218610539716015,
-        "gbdt": 0.583130627669127,
-        "glm_elastic_net": 0.999999,
-        "glm_lasso": 0.999999,
-        "glm_ridge": 0.999999,
-        "goals_poisson": 0.7866666666666667,
-        "rf": 0.6265118959106662,
-        "simulation_first": 0.5244285714285715,
-        "two_stage": 0.7167573598651015
-      },
-      "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
-      "start_time_utc": "2026-03-17T22:40Z",
-      "odds_as_of_utc": "2026-03-17T19:00:57+00:00",
-      "home_moneyline": -105,
-      "away_moneyline": -105,
-      "home_moneyline_book": "Bovada",
-      "away_moneyline_book": "BetUS",
-      "over_190_price": null,
-      "over_190_point": null,
-      "over_190_book": null
-    },
-    {
-      "game_id": 401856434,
-      "game_date_utc": "2026-03-17",
-      "home_team": "TBD",
-      "away_team": "TBD",
-      "home_win_probability": 0.7653675091941259,
-      "betting_model_name": "ensemble",
-      "model_win_probabilities": {
-        "ensemble": 0.7653675091941259,
-        "bayes_bt_state_space": 0.9999987323421503,
-        "bayes_goals": 0.5462,
-        "dynamic_rating": 0.5299640517645717,
-        "elo_baseline": 0.5218610539716015,
-        "gbdt": 0.5403184622687295,
-        "glm_elastic_net": 0.999999,
-        "glm_lasso": 0.999999,
-        "glm_ridge": 0.999999,
-        "goals_poisson": 0.7795000000000001,
-        "rf": 0.6263660336726907,
-        "simulation_first": 0.5107142857142857,
-        "two_stage": 0.71725765075562
-      },
-      "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
-      "start_time_utc": "2026-03-18T01:29Z",
-      "odds_as_of_utc": "2026-03-15T23:30:59+00:00",
-      "home_moneyline": -105,
-      "away_moneyline": -106,
-      "home_moneyline_book": "DraftKings",
-      "away_moneyline_book": "FanDuel",
-      "over_190_price": null,
-      "over_190_point": null,
-      "over_190_book": null
-    },
-    {
       "game_id": 401856437,
       "game_date_utc": "2026-03-18",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7646509774373428,
+      "home_win_probability": 0.7652393187480349,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7646509774373428,
+        "ensemble": 0.7652393187480349,
         "bayes_bt_state_space": 0.9999994523348202,
         "bayes_goals": 0.5218,
         "dynamic_rating": 0.5299640517645717,
@@ -148,9 +82,9 @@
         "glm_lasso": 0.999999,
         "glm_ridge": 0.999999,
         "goals_poisson": 0.7708333333333334,
-        "rf": 0.6274104781171354,
+        "rf": 0.6274104781171352,
         "simulation_first": 0.5185714285714286,
-        "two_stage": 0.7175973010425254
+        "two_stage": 0.6915661116545281
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-18T22:40Z",
@@ -168,10 +102,10 @@
       "game_date_utc": "2026-03-18",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7643065621018722,
+      "home_win_probability": 0.7649180155395496,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7643065621018722,
+        "ensemble": 0.7649180155395496,
         "bayes_bt_state_space": 0.9999994675327557,
         "bayes_goals": 0.5256,
         "dynamic_rating": 0.5299640517645717,
@@ -183,7 +117,7 @@
         "goals_poisson": 0.7806666666666667,
         "rf": 0.6263660336726907,
         "simulation_first": 0.5237142857142857,
-        "two_stage": 0.7172058724274223
+        "two_stage": 0.6900793627922844
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-19T01:15Z",
@@ -201,10 +135,10 @@
       "game_date_utc": "2026-03-19",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7629723305218558,
+      "home_win_probability": 0.763544478545827,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7629723305218558,
+        "ensemble": 0.763544478545827,
         "bayes_bt_state_space": 0.9999996493911261,
         "bayes_goals": 0.5314,
         "dynamic_rating": 0.5299640517645717,
@@ -216,11 +150,11 @@
         "goals_poisson": 0.7765,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5267142857142857,
-        "two_stage": 0.6701670854223927
+        "two_stage": 0.6389910417862947
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-19T16:15Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -140,
       "away_moneyline": 125,
       "home_moneyline_book": "BetUS",
@@ -234,10 +168,10 @@
       "game_date_utc": "2026-03-19",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.761680019944213,
+      "home_win_probability": 0.7623590728348797,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.761680019944213,
+        "ensemble": 0.7623590728348797,
         "bayes_bt_state_space": 0.9999999809806657,
         "bayes_goals": 0.5208,
         "dynamic_rating": 0.5299640517645717,
@@ -249,11 +183,11 @@
         "goals_poisson": 0.7765000000000001,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5161428571428571,
-        "two_stage": 0.6699413132548717
+        "two_stage": 0.631183014621662
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-19T16:40Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -1000,
       "away_moneyline": 740,
       "home_moneyline_book": "BetRivers",
@@ -267,10 +201,10 @@
       "game_date_utc": "2026-03-19",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7619026379122587,
+      "home_win_probability": 0.7625151052442748,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7619026379122587,
+        "ensemble": 0.7625151052442748,
         "bayes_bt_state_space": 0.9999998452028119,
         "bayes_goals": 0.5288,
         "dynamic_rating": 0.5299640517645717,
@@ -282,11 +216,11 @@
         "goals_poisson": 0.7733333333333334,
         "rf": 0.6130291451432247,
         "simulation_first": 0.516,
-        "two_stage": 0.670082430049343
+        "two_stage": 0.6360713779182401
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-19T17:30Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -200,
       "away_moneyline": 186,
       "home_moneyline_book": "BetMGM",
@@ -300,10 +234,10 @@
       "game_date_utc": "2026-03-19",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7599615345330597,
+      "home_win_probability": 0.7605778676603527,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7599615345330597,
+        "ensemble": 0.7605778676603527,
         "bayes_bt_state_space": 0.9999997095071937,
         "bayes_goals": 0.5248,
         "dynamic_rating": 0.5299640517645717,
@@ -315,11 +249,11 @@
         "goals_poisson": 0.7601666666666667,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5221428571428571,
-        "two_stage": 0.6701388681903625
+        "two_stage": 0.638018949030769
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-19T17:50Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -490,
       "away_moneyline": 420,
       "home_moneyline_book": "Bovada",
@@ -333,10 +267,10 @@
       "game_date_utc": "2026-03-19",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7636151758181435,
+      "home_win_probability": 0.7642256387754651,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7636151758181435,
+        "ensemble": 0.7642256387754651,
         "bayes_bt_state_space": 0.9999999172167142,
         "bayes_goals": 0.531,
         "dynamic_rating": 0.5299640517645717,
@@ -348,11 +282,11 @@
         "goals_poisson": 0.7826666666666666,
         "rf": 0.6130291451432247,
         "simulation_first": 0.522,
-        "two_stage": 0.670054209140654
+        "two_stage": 0.6350959129405456
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-19T18:50Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -10000,
       "away_moneyline": 7000,
       "home_moneyline_book": "BetRivers",
@@ -366,10 +300,10 @@
       "game_date_utc": "2026-03-19",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7616427455992643,
+      "home_win_probability": 0.7623207159229162,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7616427455992643,
+        "ensemble": 0.7623207159229162,
         "bayes_bt_state_space": 0.999999971486565,
         "bayes_goals": 0.5126,
         "dynamic_rating": 0.5299640517645717,
@@ -381,11 +315,11 @@
         "goals_poisson": 0.7776666666666667,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5288571428571428,
-        "two_stage": 0.6699695390636707
+        "two_stage": 0.6321628813374998
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-19T19:15Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -670,
       "away_moneyline": 530,
       "home_moneyline_book": "BetRivers",
@@ -399,10 +333,10 @@
       "game_date_utc": "2026-03-19",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7601008008657217,
+      "home_win_probability": 0.7606818614261266,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7601008008657217,
+        "ensemble": 0.7606818614261266,
         "bayes_bt_state_space": 0.9999994729789462,
         "bayes_goals": 0.5156,
         "dynamic_rating": 0.5299640517645717,
@@ -414,7 +348,7 @@
         "goals_poisson": 0.7675,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5192857142857142,
-        "two_stage": 0.6701953014285698
+        "two_stage": 0.6399619971475716
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-19T20:05Z",
@@ -432,10 +366,10 @@
       "game_date_utc": "2026-03-19",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7634919085451585,
+      "home_win_probability": 0.7640806169041654,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7634919085451585,
+        "ensemble": 0.7640806169041654,
         "bayes_bt_state_space": 0.9999998258112515,
         "bayes_goals": 0.5342,
         "dynamic_rating": 0.5299640517645717,
@@ -447,11 +381,11 @@
         "goals_poisson": 0.7795,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5232857142857142,
-        "two_stage": 0.6701106497326292
+        "two_stage": 0.6370457255174297
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-19T20:25Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -1300,
       "away_moneyline": 860,
       "home_moneyline_book": "Bovada",
@@ -465,10 +399,10 @@
       "game_date_utc": "2026-03-19",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7647933476739264,
+      "home_win_probability": 0.765457762467483,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7647933476739264,
+        "ensemble": 0.765457762467483,
         "bayes_bt_state_space": 0.9999999850958291,
         "bayes_goals": 0.5232,
         "dynamic_rating": 0.5299640517645717,
@@ -480,11 +414,11 @@
         "goals_poisson": 0.7938333333333334,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5292857142857142,
-        "two_stage": 0.6699130862214207
+        "two_stage": 0.6302020645895261
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-19T22:50Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -137,
       "away_moneyline": 130,
       "home_moneyline_book": "FanDuel",
@@ -498,10 +432,10 @@
       "game_date_utc": "2026-03-19",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7638926224080804,
+      "home_win_probability": 0.7646196460501349,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7638926224080804,
+        "ensemble": 0.7646196460501349,
         "bayes_bt_state_space": 0.9999999962125978,
         "bayes_goals": 0.5326,
         "dynamic_rating": 0.5299640517645717,
@@ -511,13 +445,13 @@
         "glm_lasso": 0.999999,
         "glm_ridge": 0.999999,
         "goals_poisson": 0.7668333333333334,
-        "rf": 0.6140735895876692,
+        "rf": 0.6140735895876691,
         "simulation_first": 0.524,
-        "two_stage": 0.6685138804964719
+        "two_stage": 0.6251011941562348
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-19T23:10Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -20000,
       "away_moneyline": 8000,
       "home_moneyline_book": "DraftKings",
@@ -531,10 +465,10 @@
       "game_date_utc": "2026-03-19",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7634379401219745,
+      "home_win_probability": 0.7640472670180513,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7634379401219745,
+        "ensemble": 0.7640472670180513,
         "bayes_bt_state_space": 0.9999999321903603,
         "bayes_goals": 0.528,
         "dynamic_rating": 0.5299640517645717,
@@ -546,11 +480,11 @@
         "goals_poisson": 0.787,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5082857142857143,
-        "two_stage": 0.6700259870067121
+        "two_stage": 0.6341193373269262
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-19T23:25Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -140,
       "away_moneyline": 125,
       "home_moneyline_book": "Bovada",
@@ -564,10 +498,10 @@
       "game_date_utc": "2026-03-19",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7640376266244548,
+      "home_win_probability": 0.7647424941387384,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7640376266244548,
+        "ensemble": 0.7647424941387384,
         "bayes_bt_state_space": 0.9999999932392548,
         "bayes_goals": 0.5234,
         "dynamic_rating": 0.5299640517645717,
@@ -579,11 +513,11 @@
         "goals_poisson": 0.7873333333333333,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5325714285714286,
-        "two_stage": 0.6698566284811641
+        "two_stage": 0.6282369422764803
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-19T23:35Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -160,
       "away_moneyline": 145,
       "home_moneyline_book": "Bovada",
@@ -597,10 +531,10 @@
       "game_date_utc": "2026-03-19",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7611181250984713,
+      "home_win_probability": 0.761846233635836,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7611181250984713,
+        "ensemble": 0.761846233635836,
         "bayes_bt_state_space": 0.9999999899918188,
         "bayes_goals": 0.5138,
         "dynamic_rating": 0.5299640517645717,
@@ -612,11 +546,11 @@
         "goals_poisson": 0.7726666666666667,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5307142857142857,
-        "two_stage": 0.669884857963468
+        "two_stage": 0.629220038157547
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-20T01:25Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -6500,
       "away_moneyline": 3000,
       "home_moneyline_book": "DraftKings",
@@ -630,10 +564,10 @@
       "game_date_utc": "2026-03-19",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7620012373459781,
+      "home_win_probability": 0.7627515601086228,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7620012373459781,
+        "ensemble": 0.7627515601086228,
         "bayes_bt_state_space": 0.9999999975516077,
         "bayes_goals": 0.5192,
         "dynamic_rating": 0.5299640517645717,
@@ -645,11 +579,11 @@
         "goals_poisson": 0.7805000000000001,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5134285714285715,
-        "two_stage": 0.669771932689648
+        "two_stage": 0.6252813079573628
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-20T01:45Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -132,
       "away_moneyline": 124,
       "home_moneyline_book": "BetRivers",
@@ -663,10 +597,10 @@
       "game_date_utc": "2026-03-19",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7620079416626975,
+      "home_win_probability": 0.7626649870411196,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7620079416626975,
+        "ensemble": 0.7626649870411196,
         "bayes_bt_state_space": 0.9999999519953804,
         "bayes_goals": 0.5266,
         "dynamic_rating": 0.5299640517645717,
@@ -678,7 +612,7 @@
         "goals_poisson": 0.7736666666666666,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5222857142857142,
-        "two_stage": 0.6699977636476677
+        "two_stage": 0.6331416578550455
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-20T02:00Z",
@@ -696,10 +630,10 @@
       "game_date_utc": "2026-03-19",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7594232235763633,
+      "home_win_probability": 0.7601908320912127,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7594232235763633,
+        "ensemble": 0.7601908320912127,
         "bayes_bt_state_space": 0.9999999943797213,
         "bayes_goals": 0.5028,
         "dynamic_rating": 0.5299640517645717,
@@ -711,11 +645,11 @@
         "goals_poisson": 0.7691666666666667,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5235714285714286,
-        "two_stage": 0.6698283977746592
+        "two_stage": 0.6272527839312183
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-20T02:10Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -7000,
       "away_moneyline": 2800,
       "home_moneyline_book": "Bovada",
@@ -729,10 +663,10 @@
       "game_date_utc": "2026-03-20",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7615458367556848,
+      "home_win_probability": 0.7624538803705183,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7615458367556848,
+        "ensemble": 0.7624538803705183,
         "bayes_bt_state_space": 0.9999999999407796,
         "bayes_goals": 0.526,
         "dynamic_rating": 0.5299640517645717,
@@ -744,11 +678,11 @@
         "goals_poisson": 0.7696666666666667,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5258571428571429,
-        "two_stage": 0.6694895338637007
+        "two_stage": 0.6153625999366106
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-20T16:15Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -150,
       "away_moneyline": 136,
       "home_moneyline_book": "BetUS",
@@ -762,10 +696,10 @@
       "game_date_utc": "2026-03-20",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.762455205475602,
+      "home_win_probability": 0.7632954513745884,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.762455205475602,
+        "ensemble": 0.7632954513745884,
         "bayes_bt_state_space": 0.999999999826909,
         "bayes_goals": 0.5304,
         "dynamic_rating": 0.5299640517645717,
@@ -777,11 +711,11 @@
         "goals_poisson": 0.7768333333333333,
         "rf": 0.6130291451432247,
         "simulation_first": 0.514,
-        "two_stage": 0.6695742663518972
+        "two_stage": 0.6183487171228527
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-20T16:40Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -325,
       "away_moneyline": 280,
       "home_moneyline_book": "BetMGM",
@@ -795,10 +729,10 @@
       "game_date_utc": "2026-03-20",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.764059056394829,
+      "home_win_probability": 0.7649745084391371,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.764059056394829,
+        "ensemble": 0.7649745084391371,
         "bayes_bt_state_space": 0.9999999999857505,
         "bayes_goals": 0.5352,
         "dynamic_rating": 0.5299640517645717,
@@ -810,7 +744,7 @@
         "goals_poisson": 0.7835000000000001,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5211428571428571,
-        "two_stage": 0.66937654010207
+        "two_stage": 0.6113675846075415
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-20T17:35Z",
@@ -828,10 +762,10 @@
       "game_date_utc": "2026-03-20",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7628071307718907,
+      "home_win_probability": 0.7636935789353878,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7628071307718907,
+        "ensemble": 0.7636935789353878,
         "bayes_bt_state_space": 0.9999999999649746,
         "bayes_goals": 0.5298,
         "dynamic_rating": 0.5299640517645717,
@@ -843,7 +777,7 @@
         "goals_poisson": 0.7798333333333333,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5135714285714286,
-        "two_stage": 0.669461287256281
+        "two_stage": 0.61436528040295
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-20T17:50Z",
@@ -861,10 +795,10 @@
       "game_date_utc": "2026-03-20",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7637275970407904,
+      "home_win_probability": 0.7646588395814722,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7637275970407904,
+        "ensemble": 0.7646588395814722,
         "bayes_bt_state_space": 0.9999999999892465,
         "bayes_goals": 0.5246,
         "dynamic_rating": 0.5299640517645717,
@@ -874,9 +808,9 @@
         "glm_lasso": 0.999999,
         "glm_ridge": 0.999999,
         "goals_poisson": 0.775,
-        "rf": 0.6140735895876692,
+        "rf": 0.6140735895876691,
         "simulation_first": 0.5074285714285715,
-        "two_stage": 0.668032807186223
+        "two_stage": 0.6081782906799875
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-20T18:50Z",
@@ -894,10 +828,10 @@
       "game_date_utc": "2026-03-20",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7598434958025811,
+      "home_win_probability": 0.7606478041081441,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7598434958025811,
+        "ensemble": 0.7606478041081441,
         "bayes_bt_state_space": 0.9999999986483601,
         "bayes_goals": 0.5096,
         "dynamic_rating": 0.5299640517645717,
@@ -909,11 +843,11 @@
         "goals_poisson": 0.7681666666666667,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5231428571428571,
-        "two_stage": 0.6697436983114428
+        "two_stage": 0.6242940044677349
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-20T19:15Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -750,
       "away_moneyline": 586,
       "home_moneyline_book": "BetMGM",
@@ -927,10 +861,10 @@
       "game_date_utc": "2026-03-20",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7586019457687441,
+      "home_win_probability": 0.7595857664312515,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7586019457687441,
+        "ensemble": 0.7595857664312515,
         "bayes_bt_state_space": 0.9999999999828153,
         "bayes_goals": 0.512,
         "dynamic_rating": 0.5299640517645717,
@@ -942,11 +876,11 @@
         "goals_poisson": 0.7593333333333333,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5177142857142857,
-        "two_stage": 0.6694047903753148
+        "two_stage": 0.6123677652469767
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-20T20:10Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": 105,
       "away_moneyline": -122,
       "home_moneyline_book": "BetRivers",
@@ -960,10 +894,10 @@
       "game_date_utc": "2026-03-20",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7614410447744203,
+      "home_win_probability": 0.7623713389482272,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7614410447744203,
+        "ensemble": 0.7623713389482272,
         "bayes_bt_state_space": 0.9999999999806785,
         "bayes_goals": 0.5194,
         "dynamic_rating": 0.5299640517645717,
@@ -975,7 +909,7 @@
         "goals_poisson": 0.7738333333333334,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5224285714285715,
-        "two_stage": 0.6694330394267687
+        "two_stage": 0.6133669996811296
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-20T20:25Z",
@@ -993,10 +927,10 @@
       "game_date_utc": "2026-03-20",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7603254180262755,
+      "home_win_probability": 0.761299885401511,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7603254180262755,
+        "ensemble": 0.761299885401511,
         "bayes_bt_state_space": 0.9999999999904708,
         "bayes_goals": 0.523,
         "dynamic_rating": 0.5299640517645717,
@@ -1008,11 +942,11 @@
         "goals_poisson": 0.7673333333333333,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5091428571428571,
-        "two_stage": 0.6693482886071855
+        "two_stage": 0.6103664653008972
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-20T22:50Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": 122,
       "away_moneyline": -130,
       "home_moneyline_book": "FanDuel",
@@ -1026,10 +960,10 @@
       "game_date_utc": "2026-03-20",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7631985360167282,
+      "home_win_probability": 0.7639849305254451,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7631985360167282,
+        "ensemble": 0.7639849305254451,
         "bayes_bt_state_space": 0.9999999988971622,
         "bayes_goals": 0.5356,
         "dynamic_rating": 0.5299640517645717,
@@ -1041,11 +975,11 @@
         "goals_poisson": 0.774,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5322857142857143,
-        "two_stage": 0.6697154627096382
+        "two_stage": 0.6233056667914991
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-20T23:10Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -585,
       "away_moneyline": 480,
       "home_moneyline_book": "Bovada",
@@ -1059,10 +993,10 @@
       "game_date_utc": "2026-03-20",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7614928397756422,
+      "home_win_probability": 0.7623081037027304,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7614928397756422,
+        "ensemble": 0.7623081037027304,
         "bayes_bt_state_space": 0.9999999994790644,
         "bayes_goals": 0.5184,
         "dynamic_rating": 0.5299640517645717,
@@ -1074,11 +1008,11 @@
         "goals_poisson": 0.7763333333333334,
         "rf": 0.6130291451432247,
         "simulation_first": 0.517,
-        "two_stage": 0.6696589878358339
+        "two_stage": 0.6213259175244962
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-20T23:25Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -233,
       "away_moneyline": 205,
       "home_moneyline_book": "MyBookie.ag",
@@ -1092,10 +1026,10 @@
       "game_date_utc": "2026-03-20",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7625269583707808,
+      "home_win_probability": 0.763372463422233,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7625269583707808,
+        "ensemble": 0.763372463422233,
         "bayes_bt_state_space": 0.9999999997965661,
         "bayes_goals": 0.5276,
         "dynamic_rating": 0.5299640517645717,
@@ -1107,7 +1041,7 @@
         "goals_poisson": 0.7743333333333334,
         "rf": 0.6130291451432247,
         "simulation_first": 0.531,
-        "two_stage": 0.6696025080694392
+        "two_stage": 0.6193421177769544
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-20T23:35Z",
@@ -1125,10 +1059,10 @@
       "game_date_utc": "2026-03-20",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7620775774712809,
+      "home_win_probability": 0.7629506645470794,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7620775774712809,
+        "ensemble": 0.7629506645470794,
         "bayes_bt_state_space": 0.9999999999150352,
         "bayes_goals": 0.5242,
         "dynamic_rating": 0.5299640517645717,
@@ -1140,7 +1074,7 @@
         "goals_poisson": 0.7773333333333334,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5158571428571429,
-        "two_stage": 0.6695177792488772
+        "two_stage": 0.6163589508377051
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-21T01:25Z",
@@ -1158,10 +1092,10 @@
       "game_date_utc": "2026-03-20",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7588837648723918,
+      "home_win_probability": 0.7597212932784213,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7588837648723918,
+        "ensemble": 0.7597212932784213,
         "bayes_bt_state_space": 0.9999999993153015,
         "bayes_goals": 0.5198,
         "dynamic_rating": 0.5299640517645717,
@@ -1173,7 +1107,7 @@
         "goals_poisson": 0.758,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5128571428571429,
-        "two_stage": 0.6696872258843851
+        "two_stage": 0.6223163020817013
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-21T01:45Z",
@@ -1191,10 +1125,10 @@
       "game_date_utc": "2026-03-20",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7614148536350214,
+      "home_win_probability": 0.7622561076446612,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7614148536350214,
+        "ensemble": 0.7622561076446612,
         "bayes_bt_state_space": 0.9999999995071829,
         "bayes_goals": 0.5206,
         "dynamic_rating": 0.5299640517645717,
@@ -1206,11 +1140,11 @@
         "goals_poisson": 0.772,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5258571428571429,
-        "two_stage": 0.669630748564135
+        "two_stage": 0.6203345203389691
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-21T02:00Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -3500,
       "away_moneyline": 2000,
       "home_moneyline_book": "Bovada",
@@ -1224,10 +1158,10 @@
       "game_date_utc": "2026-03-20",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7622280128307938,
+      "home_win_probability": 0.7630995970036555,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7622280128307938,
+        "ensemble": 0.7630995970036555,
         "bayes_bt_state_space": 0.9999999998772432,
         "bayes_goals": 0.5214,
         "dynamic_rating": 0.5299640517645717,
@@ -1239,11 +1173,11 @@
         "goals_poisson": 0.7766666666666667,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5282857142857142,
-        "two_stage": 0.6695460234116596
+        "two_stage": 0.6173543256934447
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-21T02:10Z",
-      "odds_as_of_utc": "2026-03-18T13:51:48+00:00",
+      "odds_as_of_utc": "2026-03-19T13:09:34+00:00",
       "home_moneyline": -125,
       "away_moneyline": 112,
       "home_moneyline_book": "Bovada",
@@ -1257,10 +1191,10 @@
       "game_date_utc": "2026-03-21",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7664416029386866,
+      "home_win_probability": 0.767348827553796,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7664416029386866,
+        "ensemble": 0.767348827553796,
         "bayes_bt_state_space": 0.9999999999957662,
         "bayes_goals": 0.5382,
         "dynamic_rating": 0.5299640517645717,
@@ -1270,9 +1204,9 @@
         "glm_lasso": 0.999999,
         "glm_ridge": 0.999999,
         "goals_poisson": 0.785,
-        "rf": 0.6140735895876692,
+        "rf": 0.6140735895876691,
         "simulation_first": 0.5125714285714286,
-        "two_stage": 0.6680044978190169
+        "two_stage": 0.6071742345791912
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-21T04:00Z",
@@ -1290,10 +1224,10 @@
       "game_date_utc": "2026-03-21",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7634014491015398,
+      "home_win_probability": 0.7643915007831824,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7634014491015398,
+        "ensemble": 0.7643915007831824,
         "bayes_bt_state_space": 0.9999999999954593,
         "bayes_goals": 0.5446,
         "dynamic_rating": 0.5299640517645717,
@@ -1305,7 +1239,7 @@
         "goals_poisson": 0.7713333333333334,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5274285714285715,
-        "two_stage": 0.6692635267942026
+        "two_stage": 0.6073575512195155
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-21T04:00Z",
@@ -1323,10 +1257,10 @@
       "game_date_utc": "2026-03-21",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7614666156781401,
+      "home_win_probability": 0.7624856326218126,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7614666156781401,
+        "ensemble": 0.7624856326218126,
         "bayes_bt_state_space": 0.9999999999977351,
         "bayes_goals": 0.5432,
         "dynamic_rating": 0.5299640517645717,
@@ -1338,7 +1272,7 @@
         "goals_poisson": 0.7623333333333333,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5127142857142857,
-        "two_stage": 0.6692352704142687
+        "two_stage": 0.6063527532380906
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-21T04:00Z",
@@ -1356,10 +1290,10 @@
       "game_date_utc": "2026-03-21",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7611910129141499,
+      "home_win_probability": 0.7622268684352757,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7611910129141499,
+        "ensemble": 0.7622268684352757,
         "bayes_bt_state_space": 0.9999999999987663,
         "bayes_goals": 0.5252,
         "dynamic_rating": 0.5299640517645717,
@@ -1371,7 +1305,7 @@
         "goals_poisson": 0.7703333333333333,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5158571428571429,
-        "two_stage": 0.66920701281345
+        "two_stage": 0.605347054738004
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-21T04:00Z",
@@ -1389,10 +1323,10 @@
       "game_date_utc": "2026-03-21",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7625121509575608,
+      "home_win_probability": 0.76353805717677,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7625121509575608,
+        "ensemble": 0.76353805717677,
         "bayes_bt_state_space": 0.9999999999990591,
         "bayes_goals": 0.5388,
         "dynamic_rating": 0.5299640517645717,
@@ -1404,7 +1338,7 @@
         "goals_poisson": 0.7723333333333333,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5132857142857142,
-        "two_stage": 0.6691787539918975
+        "two_stage": 0.6043404634391413
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-21T04:00Z",
@@ -1422,10 +1356,10 @@
       "game_date_utc": "2026-03-21",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7622082779709098,
+      "home_win_probability": 0.763280938891564,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7622082779709098,
+        "ensemble": 0.763280938891564,
         "bayes_bt_state_space": 0.999999999999707,
         "bayes_goals": 0.5066,
         "dynamic_rating": 0.5299640517645717,
@@ -1437,7 +1371,7 @@
         "goals_poisson": 0.7871666666666667,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5218571428571429,
-        "two_stage": 0.6690939702043502
+        "two_stage": 0.6013154103908779
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-21T04:00Z",
@@ -1455,10 +1389,10 @@
       "game_date_utc": "2026-03-21",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7631518152526555,
+      "home_win_probability": 0.7641877160997066,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7631518152526555,
+        "ensemble": 0.7641877160997066,
         "bayes_bt_state_space": 0.9999999999991613,
         "bayes_goals": 0.5262,
         "dynamic_rating": 0.5299640517645717,
@@ -1470,7 +1404,7 @@
         "goals_poisson": 0.7818333333333333,
         "rf": 0.6130291451432247,
         "simulation_first": 0.523,
-        "two_stage": 0.6691504939497628
+        "two_stage": 0.6033329870909497
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-21T04:00Z",
@@ -1488,10 +1422,10 @@
       "game_date_utc": "2026-03-21",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7633616974747878,
+      "home_win_probability": 0.764402153148056,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7633616974747878,
+        "ensemble": 0.764402153148056,
         "bayes_bt_state_space": 0.9999999999994076,
         "bayes_goals": 0.5284,
         "dynamic_rating": 0.5299640517645717,
@@ -1503,7 +1437,7 @@
         "goals_poisson": 0.7831666666666667,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5188571428571429,
-        "two_stage": 0.6691222326871965
+        "two_stage": 0.6023246334722222
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-21T04:00Z",
@@ -1521,10 +1455,10 @@
       "game_date_utc": "2026-03-22",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7637616455136247,
+      "home_win_probability": 0.7649118832873396,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7637616455136247,
+        "ensemble": 0.7649118832873396,
         "bayes_bt_state_space": 0.9999999999999847,
         "bayes_goals": 0.5316,
         "dynamic_rating": 0.5299640517645717,
@@ -1536,7 +1470,7 @@
         "goals_poisson": 0.7843333333333333,
         "rf": 0.6130291451432247,
         "simulation_first": 0.518,
-        "two_stage": 0.6688678264296539
+        "two_stage": 0.5932112714711949
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-22T04:00Z",
@@ -1554,10 +1488,10 @@
       "game_date_utc": "2026-03-22",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7625874565982242,
+      "home_win_probability": 0.7636869091525749,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7625874565982242,
+        "ensemble": 0.7636869091525749,
         "bayes_bt_state_space": 0.9999999999998234,
         "bayes_goals": 0.5236,
         "dynamic_rating": 0.5299640517645717,
@@ -1569,7 +1503,7 @@
         "goals_poisson": 0.7791666666666667,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5235714285714286,
-        "two_stage": 0.6690374415784226
+        "two_stage": 0.5992943872163202
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-22T04:00Z",
@@ -1587,10 +1521,10 @@
       "game_date_utc": "2026-03-22",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7611873312824724,
+      "home_win_probability": 0.7623038856545716,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7611873312824724,
+        "ensemble": 0.7623038856545716,
         "bayes_bt_state_space": 0.9999999999998856,
         "bayes_goals": 0.5054,
         "dynamic_rating": 0.5299640517645717,
@@ -1602,7 +1536,7 @@
         "goals_poisson": 0.7838333333333333,
         "rf": 0.6130291451432247,
         "simulation_first": 0.51,
-        "two_stage": 0.6690091754356436
+        "two_stage": 0.59828260288258
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-22T04:00Z",
@@ -1620,10 +1554,10 @@
       "game_date_utc": "2026-03-22",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.764299448348769,
+      "home_win_probability": 0.7654175972765034,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.764299448348769,
+        "ensemble": 0.7654175972765034,
         "bayes_bt_state_space": 0.9999999999999512,
         "bayes_goals": 0.5424,
         "dynamic_rating": 0.5299640517645717,
@@ -1635,7 +1569,7 @@
         "goals_poisson": 0.7786666666666667,
         "rf": 0.6130291451432247,
         "simulation_first": 0.529,
-        "two_stage": 0.6689526394912126
+        "two_stage": 0.5962565283329305
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-22T04:00Z",
@@ -1653,10 +1587,10 @@
       "game_date_utc": "2026-03-22",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7666066722020332,
+      "home_win_probability": 0.7676807181897654,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7666066722020332,
+        "ensemble": 0.7676807181897654,
         "bayes_bt_state_space": 0.9999999999999545,
         "bayes_goals": 0.547,
         "dynamic_rating": 0.5299640517645717,
@@ -1666,9 +1600,9 @@
         "glm_lasso": 0.999999,
         "glm_ridge": 0.999999,
         "goals_poisson": 0.7805,
-        "rf": 0.6140735895876692,
+        "rf": 0.6140735895876691,
         "simulation_first": 0.5138571428571429,
-        "two_stage": 0.6676363656015639
+        "two_stage": 0.5940418163013914
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-22T04:00Z",
@@ -1686,10 +1620,10 @@
       "game_date_utc": "2026-03-22",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7619077880039162,
+      "home_win_probability": 0.7630858911753668,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7619077880039162,
+        "ensemble": 0.7630858911753668,
         "bayes_bt_state_space": 0.9999999999999759,
         "bayes_goals": 0.5388,
         "dynamic_rating": 0.5299640517645717,
@@ -1701,7 +1635,7 @@
         "goals_poisson": 0.7663333333333333,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5191428571428571,
-        "two_stage": 0.6688960986692931
+        "two_stage": 0.5942271657470076
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-22T04:00Z",
@@ -1719,10 +1653,10 @@
       "game_date_utc": "2026-03-22",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7609761532964372,
+      "home_win_probability": 0.7621269382656911,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7609761532964372,
+        "ensemble": 0.7621269382656911,
         "bayes_bt_state_space": 0.9999999999999284,
         "bayes_goals": 0.5224,
         "dynamic_rating": 0.5299640517645717,
@@ -1734,7 +1668,7 @@
         "goals_poisson": 0.7696666666666667,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5187142857142857,
-        "two_stage": 0.6689809080731899
+        "two_stage": 0.5972699806047171
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-22T04:00Z",
@@ -1752,10 +1686,10 @@
       "game_date_utc": "2026-03-22",
       "home_team": "TBD",
       "away_team": "TBD",
-      "home_win_probability": 0.7617038826407522,
+      "home_win_probability": 0.7627929776966366,
       "betting_model_name": "ensemble",
       "model_win_probabilities": {
-        "ensemble": 0.7617038826407522,
+        "ensemble": 0.7627929776966366,
         "bayes_bt_state_space": 0.9999999999997753,
         "bayes_goals": 0.5238,
         "dynamic_rating": 0.5299640517645717,
@@ -1767,7 +1701,7 @@
         "goals_poisson": 0.7756666666666667,
         "rf": 0.6130291451432247,
         "simulation_first": 0.5128571428571429,
-        "two_stage": 0.6690657065013752
+        "two_stage": 0.6003053256837413
       },
       "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
       "start_time_utc": "2026-03-22T04:00Z",

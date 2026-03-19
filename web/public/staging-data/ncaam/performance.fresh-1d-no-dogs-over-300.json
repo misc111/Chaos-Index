@@ -24,7 +24,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.13334379534931207
+      "log_loss": 0.13340629230230933
     },
     {
       "model_name": "gbdt",
@@ -69,7 +69,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-11",
-      "log_loss": 0.16024566652278086
+      "log_loss": 0.15798729777926387
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -94,7 +94,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-12",
-      "log_loss": 0.47012414855022155
+      "log_loss": 0.47012900207290526
     },
     {
       "model_name": "gbdt",
@@ -129,7 +129,7 @@
     {
       "model_name": "rf",
       "game_date_utc": "2026-03-12",
-      "log_loss": 0.49471703289998725
+      "log_loss": 0.4947170328999872
     },
     {
       "model_name": "simulation_first",
@@ -139,7 +139,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-12",
-      "log_loss": 0.5006880612572879
+      "log_loss": 0.5111441947893212
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -164,7 +164,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-13",
-      "log_loss": 1.070034066469347
+      "log_loss": 1.069853367103415
     },
     {
       "model_name": "gbdt",
@@ -199,7 +199,7 @@
     {
       "model_name": "rf",
       "game_date_utc": "2026-03-13",
-      "log_loss": 0.8602540457545421
+      "log_loss": 0.8602540457545422
     },
     {
       "model_name": "simulation_first",
@@ -209,7 +209,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-13",
-      "log_loss": 0.8931284542646001
+      "log_loss": 0.8962557038617335
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -234,7 +234,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-14",
-      "log_loss": 0.7751870191047675
+      "log_loss": 0.7750223621024755
     },
     {
       "model_name": "gbdt",
@@ -279,7 +279,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-14",
-      "log_loss": 0.6514371333038771
+      "log_loss": 0.6519535989601523
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -304,7 +304,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-15",
-      "log_loss": 0.6615029281331523
+      "log_loss": 0.6616943428756449
     },
     {
       "model_name": "gbdt",
@@ -339,7 +339,7 @@
     {
       "model_name": "rf",
       "game_date_utc": "2026-03-15",
-      "log_loss": 0.6376548382311191
+      "log_loss": 0.637654838231119
     },
     {
       "model_name": "simulation_first",
@@ -349,7 +349,7 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-15",
-      "log_loss": 0.619878408819211
+      "log_loss": 0.6208852461556247
     },
     {
       "model_name": "bayes_bt_state_space",
@@ -374,7 +374,7 @@
     {
       "model_name": "ensemble",
       "game_date_utc": "2026-03-17",
-      "log_loss": 0.8574928821031131
+      "log_loss": 0.8583518146125305
     },
     {
       "model_name": "gbdt",
@@ -409,7 +409,7 @@
     {
       "model_name": "rf",
       "game_date_utc": "2026-03-17",
-      "log_loss": 0.7260330887032866
+      "log_loss": 0.7260330887032865
     },
     {
       "model_name": "simulation_first",
@@ -419,7 +419,77 @@
     {
       "model_name": "two_stage",
       "game_date_utc": "2026-03-17",
-      "log_loss": 0.7981185643067348
+      "log_loss": 0.7723831581020959
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "game_date_utc": "2026-03-18",
+      "log_loss": 13.815510557935518
+    },
+    {
+      "model_name": "bayes_goals",
+      "game_date_utc": "2026-03-18",
+      "log_loss": 0.7417153276282671
+    },
+    {
+      "model_name": "dynamic_rating",
+      "game_date_utc": "2026-03-18",
+      "log_loss": 0.7549461015956135
+    },
+    {
+      "model_name": "elo_baseline",
+      "game_date_utc": "2026-03-18",
+      "log_loss": 0.7378539066627487
+    },
+    {
+      "model_name": "ensemble",
+      "game_date_utc": "2026-03-18",
+      "log_loss": 1.4485048085112715
+    },
+    {
+      "model_name": "gbdt",
+      "game_date_utc": "2026-03-18",
+      "log_loss": 0.8261018502975115
+    },
+    {
+      "model_name": "glm_elastic_net",
+      "game_date_utc": "2026-03-18",
+      "log_loss": 13.815510557935518
+    },
+    {
+      "model_name": "glm_lasso",
+      "game_date_utc": "2026-03-18",
+      "log_loss": 13.815510557935518
+    },
+    {
+      "model_name": "glm_ridge",
+      "game_date_utc": "2026-03-18",
+      "log_loss": 13.815510557935518
+    },
+    {
+      "model_name": "goals_poisson",
+      "game_date_utc": "2026-03-18",
+      "log_loss": 1.4952341872172252
+    },
+    {
+      "model_name": "nn_mlp",
+      "game_date_utc": "2026-03-18",
+      "log_loss": 0.0012189550067894224
+    },
+    {
+      "model_name": "rf",
+      "game_date_utc": "2026-03-18",
+      "log_loss": 0.9858783016502941
+    },
+    {
+      "model_name": "simulation_first",
+      "game_date_utc": "2026-03-18",
+      "log_loss": 0.736367384708877
+    },
+    {
+      "model_name": "two_stage",
+      "game_date_utc": "2026-03-18",
+      "log_loss": 1.173843391113667
     }
   ],
   "run_summaries": [
@@ -427,17 +497,17 @@
       "model_name": "bayes_bt_state_space",
       "model_run_id": "run_b3760fbf3dfb9ff3__bayes_bt_state_space",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-18T13:54:02+00:00",
-      "snapshot_id": "ncaam_odds_777a0bbffbdca5c6",
+      "created_at_utc": "2026-03-19T13:12:09+00:00",
+      "snapshot_id": "ncaam_odds_bd731c3b9740ab44",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-17",
-      "last_game_date_central": "2026-03-17",
-      "n_games": 35,
-      "avg_log_loss": 1.6258508952004924,
-      "avg_brier": 0.28916598799529164,
-      "accuracy": 0.6857142857142857,
+      "last_game_date_utc": "2026-03-18",
+      "last_game_date_central": "2026-03-18",
+      "n_games": 37,
+      "avg_log_loss": 2.2847514175104937,
+      "avg_brier": 0.3275893399956002,
+      "accuracy": 0.6486486486486487,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -445,17 +515,17 @@
       "model_name": "bayes_goals",
       "model_run_id": "run_b3760fbf3dfb9ff3__bayes_goals",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-18T13:54:02+00:00",
-      "snapshot_id": "ncaam_odds_777a0bbffbdca5c6",
+      "created_at_utc": "2026-03-19T13:12:09+00:00",
+      "snapshot_id": "ncaam_odds_bd731c3b9740ab44",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-17",
-      "last_game_date_central": "2026-03-17",
-      "n_games": 35,
-      "avg_log_loss": 2.808715211854275,
-      "avg_brier": 0.2779783154292,
-      "accuracy": 0.6857142857142857,
+      "last_game_date_utc": "2026-03-18",
+      "last_game_date_central": "2026-03-18",
+      "n_games": 37,
+      "avg_log_loss": 2.696985488382599,
+      "avg_brier": 0.27777761189248645,
+      "accuracy": 0.6486486486486487,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -463,17 +533,17 @@
       "model_name": "dynamic_rating",
       "model_run_id": "run_b3760fbf3dfb9ff3__dynamic_rating",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-18T13:54:02+00:00",
-      "snapshot_id": "ncaam_odds_777a0bbffbdca5c6",
+      "created_at_utc": "2026-03-19T13:12:09+00:00",
+      "snapshot_id": "ncaam_odds_bd731c3b9740ab44",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-17",
-      "last_game_date_central": "2026-03-17",
-      "n_games": 35,
-      "avg_log_loss": 0.6658857580379781,
-      "avg_brier": 0.23111899416410156,
-      "accuracy": 0.6857142857142857,
+      "last_game_date_utc": "2026-03-18",
+      "last_game_date_central": "2026-03-18",
+      "n_games": 37,
+      "avg_log_loss": 0.6706998306627151,
+      "avg_brier": 0.23380779967754048,
+      "accuracy": 0.6486486486486487,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -481,17 +551,17 @@
       "model_name": "elo_baseline",
       "model_run_id": "run_b3760fbf3dfb9ff3__elo_baseline",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-18T13:54:02+00:00",
-      "snapshot_id": "ncaam_odds_777a0bbffbdca5c6",
+      "created_at_utc": "2026-03-19T13:12:09+00:00",
+      "snapshot_id": "ncaam_odds_bd731c3b9740ab44",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-17",
-      "last_game_date_central": "2026-03-17",
-      "n_games": 35,
-      "avg_log_loss": 0.6288740369252839,
-      "avg_brier": 0.21897053849939752,
-      "accuracy": 0.6857142857142857,
+      "last_game_date_utc": "2026-03-18",
+      "last_game_date_central": "2026-03-18",
+      "n_games": 37,
+      "avg_log_loss": 0.6347648406948766,
+      "avg_brier": 0.2218553180211788,
+      "accuracy": 0.6486486486486487,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -499,17 +569,17 @@
       "model_name": "ensemble",
       "model_run_id": "run_b3760fbf3dfb9ff3__ensemble",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-18T13:54:02+00:00",
-      "snapshot_id": "ncaam_odds_777a0bbffbdca5c6",
+      "created_at_utc": "2026-03-19T13:12:09+00:00",
+      "snapshot_id": "ncaam_odds_bd731c3b9740ab44",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-17",
-      "last_game_date_central": "2026-03-17",
-      "n_games": 35,
-      "avg_log_loss": 0.6866474358085422,
-      "avg_brier": 0.23566154050720692,
-      "accuracy": 0.6857142857142857,
+      "last_game_date_utc": "2026-03-18",
+      "last_game_date_central": "2026-03-18",
+      "n_games": 37,
+      "avg_log_loss": 0.72782270292515,
+      "avg_brier": 0.2545704444665474,
+      "accuracy": 0.6486486486486487,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -517,17 +587,17 @@
       "model_name": "gbdt",
       "model_run_id": "run_b3760fbf3dfb9ff3__gbdt",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-18T13:54:02+00:00",
-      "snapshot_id": "ncaam_odds_777a0bbffbdca5c6",
+      "created_at_utc": "2026-03-19T13:12:09+00:00",
+      "snapshot_id": "ncaam_odds_bd731c3b9740ab44",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-17",
-      "last_game_date_central": "2026-03-17",
-      "n_games": 35,
-      "avg_log_loss": 0.6323797568948818,
-      "avg_brier": 0.21342893236960014,
-      "accuracy": 0.6857142857142857,
+      "last_game_date_utc": "2026-03-18",
+      "last_game_date_central": "2026-03-18",
+      "n_games": 37,
+      "avg_log_loss": 0.6428512214031321,
+      "avg_brier": 0.21897291898730376,
+      "accuracy": 0.6486486486486487,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -535,17 +605,17 @@
       "model_name": "glm_elastic_net",
       "model_run_id": "run_b3760fbf3dfb9ff3__glm_elastic_net",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-18T13:54:02+00:00",
-      "snapshot_id": "ncaam_odds_777a0bbffbdca5c6",
+      "created_at_utc": "2026-03-19T13:12:09+00:00",
+      "snapshot_id": "ncaam_odds_bd731c3b9740ab44",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-17",
-      "last_game_date_central": "2026-03-17",
-      "n_games": 35,
-      "avg_log_loss": 1.9134474648776851,
-      "avg_brier": 0.29801566335643465,
-      "accuracy": 0.6857142857142857,
+      "last_game_date_utc": "2026-03-18",
+      "last_game_date_central": "2026-03-18",
+      "n_games": 37,
+      "avg_log_loss": 2.556802226664595,
+      "avg_brier": 0.33596065452641116,
+      "accuracy": 0.6486486486486487,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -553,17 +623,17 @@
       "model_name": "glm_lasso",
       "model_run_id": "run_b3760fbf3dfb9ff3__glm_lasso",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-18T13:54:02+00:00",
-      "snapshot_id": "ncaam_odds_777a0bbffbdca5c6",
+      "created_at_utc": "2026-03-19T13:12:09+00:00",
+      "snapshot_id": "ncaam_odds_bd731c3b9740ab44",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-17",
-      "last_game_date_central": "2026-03-17",
-      "n_games": 35,
-      "avg_log_loss": 1.9955891328666078,
-      "avg_brier": 0.29780001707969467,
-      "accuracy": 0.6857142857142857,
+      "last_game_date_utc": "2026-03-18",
+      "last_game_date_central": "2026-03-18",
+      "n_games": 37,
+      "avg_log_loss": 2.6345038044919544,
+      "avg_brier": 0.33575666480517063,
+      "accuracy": 0.6486486486486487,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -571,17 +641,17 @@
       "model_name": "glm_ridge",
       "model_run_id": "run_b3760fbf3dfb9ff3__glm_ridge",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-18T13:54:02+00:00",
-      "snapshot_id": "ncaam_odds_777a0bbffbdca5c6",
+      "created_at_utc": "2026-03-19T13:12:09+00:00",
+      "snapshot_id": "ncaam_odds_bd731c3b9740ab44",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-17",
-      "last_game_date_central": "2026-03-17",
-      "n_games": 35,
-      "avg_log_loss": 2.093770341765782,
-      "avg_brier": 0.29611229338895684,
-      "accuracy": 0.6857142857142857,
+      "last_game_date_utc": "2026-03-18",
+      "last_game_date_central": "2026-03-18",
+      "n_games": 37,
+      "avg_log_loss": 2.7273779210182,
+      "avg_brier": 0.33416016942204024,
+      "accuracy": 0.6486486486486487,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -589,17 +659,17 @@
       "model_name": "goals_poisson",
       "model_run_id": "run_b3760fbf3dfb9ff3__goals_poisson",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-18T13:54:02+00:00",
-      "snapshot_id": "ncaam_odds_777a0bbffbdca5c6",
+      "created_at_utc": "2026-03-19T13:12:09+00:00",
+      "snapshot_id": "ncaam_odds_bd731c3b9740ab44",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-17",
-      "last_game_date_central": "2026-03-17",
-      "n_games": 35,
-      "avg_log_loss": 0.7200381815012593,
-      "avg_brier": 0.2429085174603175,
-      "accuracy": 0.6857142857142857,
+      "last_game_date_utc": "2026-03-18",
+      "last_game_date_central": "2026-03-18",
+      "n_games": 37,
+      "avg_log_loss": 0.7619406682967169,
+      "avg_brier": 0.2623087184684685,
+      "accuracy": 0.6486486486486487,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -607,17 +677,17 @@
       "model_name": "rf",
       "model_run_id": "run_b3760fbf3dfb9ff3__rf",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-18T13:54:02+00:00",
-      "snapshot_id": "ncaam_odds_777a0bbffbdca5c6",
+      "created_at_utc": "2026-03-19T13:12:09+00:00",
+      "snapshot_id": "ncaam_odds_bd731c3b9740ab44",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-17",
-      "last_game_date_central": "2026-03-17",
-      "n_games": 35,
-      "avg_log_loss": 0.6189213817702098,
-      "avg_brier": 0.21472342309365983,
-      "accuracy": 0.6857142857142857,
+      "last_game_date_utc": "2026-03-18",
+      "last_game_date_central": "2026-03-18",
+      "n_games": 37,
+      "avg_log_loss": 0.638756890952917,
+      "avg_brier": 0.22435940876940874,
+      "accuracy": 0.6486486486486487,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -625,17 +695,17 @@
       "model_name": "simulation_first",
       "model_run_id": "run_b3760fbf3dfb9ff3__simulation_first",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-18T13:54:02+00:00",
-      "snapshot_id": "ncaam_odds_777a0bbffbdca5c6",
+      "created_at_utc": "2026-03-19T13:12:09+00:00",
+      "snapshot_id": "ncaam_odds_bd731c3b9740ab44",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-17",
-      "last_game_date_central": "2026-03-17",
-      "n_games": 35,
-      "avg_log_loss": 0.6738926584392126,
-      "avg_brier": 0.24038248104956267,
-      "accuracy": 0.6857142857142857,
+      "last_game_date_utc": "2026-03-18",
+      "last_game_date_central": "2026-03-18",
+      "n_games": 37,
+      "avg_log_loss": 0.6772696706700053,
+      "avg_brier": 0.2420697247655819,
+      "accuracy": 0.6486486486486487,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -643,17 +713,17 @@
       "model_name": "two_stage",
       "model_run_id": "run_b3760fbf3dfb9ff3__two_stage",
       "run_type": "daily_train",
-      "created_at_utc": "2026-03-18T13:54:02+00:00",
-      "snapshot_id": "ncaam_odds_777a0bbffbdca5c6",
+      "created_at_utc": "2026-03-19T13:12:09+00:00",
+      "snapshot_id": "ncaam_odds_bd731c3b9740ab44",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-17",
-      "last_game_date_central": "2026-03-17",
-      "n_games": 35,
-      "avg_log_loss": 0.6228772208290695,
-      "avg_brier": 0.21594767091063719,
-      "accuracy": 0.6857142857142857,
+      "last_game_date_utc": "2026-03-18",
+      "last_game_date_central": "2026-03-18",
+      "n_games": 37,
+      "avg_log_loss": 0.6550630079863192,
+      "avg_brier": 0.23063011981853593,
+      "accuracy": 0.6486486486486487,
       "version_rank": 1,
       "is_latest_version": 1
     },
@@ -666,12 +736,12 @@
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-17",
-      "last_game_date_central": "2026-03-17",
-      "n_games": 35,
-      "avg_log_loss": 1.5184046069618167,
-      "avg_brier": 0.3282695045537387,
-      "accuracy": 0.6285714285714286,
+      "last_game_date_utc": "2026-03-18",
+      "last_game_date_central": "2026-03-18",
+      "n_games": 37,
+      "avg_log_loss": 1.4363945717210043,
+      "avg_brier": 0.3105252872466244,
+      "accuracy": 0.6486486486486487,
       "version_rank": 1,
       "is_latest_version": 1
     }
@@ -681,379 +751,370 @@
       "model_name": "bayes_goals",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 26.018632893058342,
-      "threshold": 12.925439806059003,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 1.000000500029089e-06}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
-    },
-    {
-      "model_name": "glm_ridge",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 22.186876698229014,
-      "threshold": 9.54117729602935,
-      "details_json": "{\"date\": \"2026-03-15\", \"index\": 31, \"value\": 1.000000500029089e-06}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
-    },
-    {
-      "model_name": "glm_lasso",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 21.314147175894686,
-      "threshold": 9.257144273892525,
-      "details_json": "{\"date\": \"2026-03-15\", \"index\": 31, \"value\": 1.55092263063065e-06}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
-    },
-    {
-      "model_name": "nn_mlp",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 20.734011511634762,
-      "threshold": 5.3955571428362905,
-      "details_json": "{\"date\": \"2026-03-17\", \"index\": 33, \"value\": 6.372687099248227}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
-    },
-    {
-      "model_name": "glm_elastic_net",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 20.05159515209094,
-      "threshold": 8.980706263206718,
-      "details_json": "{\"date\": \"2026-03-15\", \"index\": 31, \"value\": 6.3540928640005245e-06}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 39.21536690522975,
+      "threshold": 12.625440088837616,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 13.815510557935518}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "bayes_goals",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 18.39003229577409,
-      "threshold": 15.510527767270803,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 20, \"value\": 13.815510557935518}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
-    },
-    {
-      "model_name": "glm_ridge",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 18.049997854323195,
-      "threshold": 11.44941275523522,
-      "details_json": "{\"date\": \"2026-03-15\", \"index\": 30, \"value\": 13.815510557935518}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
-    },
-    {
-      "model_name": "glm_lasso",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 17.662973382203973,
-      "threshold": 11.108573128671031,
-      "details_json": "{\"date\": \"2026-03-15\", \"index\": 30, \"value\": 13.815510557935518}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 22.911430196359518,
+      "threshold": 15.15052810660514,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 13.815510557935518}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "glm_elastic_net",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 16.919426686880215,
-      "threshold": 10.776847515848061,
-      "details_json": "{\"date\": \"2026-03-15\", \"index\": 30, \"value\": 13.815510557935518}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 20.75331702727043,
+      "threshold": 13.230747264535621,
+      "details_json": "{\"date\": \"2026-03-17\", \"index\": 33, \"value\": 13.815510557935518}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
+    },
+    {
+      "model_name": "glm_lasso",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 20.568080578362206,
+      "threshold": 13.454496963936915,
+      "details_json": "{\"date\": \"2026-03-17\", \"index\": 33, \"value\": 13.815510557935518}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
+    },
+    {
+      "model_name": "glm_ridge",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 20.351824383553357,
+      "threshold": 13.683306677109616,
+      "details_json": "{\"date\": \"2026-03-17\", \"index\": 33, \"value\": 13.815510557935518}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 14.207703177210844,
-      "threshold": 9.507270596489885,
-      "details_json": "{\"date\": \"2026-03-15\", \"index\": 30, \"value\": 12.203738449291759}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 19.558591686914017,
+      "threshold": 12.404876252600609,
+      "details_json": "{\"date\": \"2026-03-17\", \"index\": 33, \"value\": 13.578339572989995}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "glm_ridge",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 12.954575118558246,
-      "threshold": 11.44941275523522,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 0.0039559073123235245}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
-    },
-    {
-      "model_name": "nn_mlp",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 12.092266583143145,
-      "threshold": 6.474668571403548,
-      "details_json": "{\"date\": \"2026-03-15\", \"index\": 32, \"value\": 7.588242207789158}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
-    },
-    {
-      "model_name": "glm_lasso",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 12.088145029870212,
-      "threshold": 11.108573128671031,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 0.008823389518781952}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 18.49267739381083,
+      "threshold": 13.683306677109616,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 4.248413105875798}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "glm_ridge",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 11.766964629784832,
-      "threshold": 9.54117729602935,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 21, \"value\": 4.159479987942234}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 18.060042917786976,
+      "threshold": 11.402755564258014,
+      "details_json": "{\"date\": \"2026-03-15\", \"index\": 32, \"value\": 13.815510557935518}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
-      "model_name": "glm_elastic_net",
+      "model_name": "glm_lasso",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 11.095010032571441,
-      "threshold": 10.776847515848061,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 0.01410892019106501}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 18.02044545933272,
+      "threshold": 13.454496963936915,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 3.8687162518669114}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "glm_lasso",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 10.138580018591963,
-      "threshold": 9.257144273892525,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 21, \"value\": 3.726917945542026}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 17.8505936817186,
+      "threshold": 11.212080803280761,
+      "details_json": "{\"date\": \"2026-03-15\", \"index\": 32, \"value\": 13.815510557935518}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
-      "model_name": "nn_mlp",
+      "model_name": "glm_elastic_net",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 9.619405388021962,
-      "threshold": 6.474668571403548,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 0.3490497914595058}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 17.218511224476853,
+      "threshold": 13.230747264535621,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 3.6729477470917655}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "glm_elastic_net",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 9.291775358671453,
-      "threshold": 8.980706263206718,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 21, \"value\": 3.4858366324404533}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 16.87093604549154,
+      "threshold": 11.02562272044635,
+      "details_json": "{\"date\": \"2026-03-15\", \"index\": 32, \"value\": 13.815510557935518}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
+    },
+    {
+      "model_name": "glm_ridge",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 15.317458622599402,
+      "threshold": 11.402755564258014,
+      "details_json": "{\"date\": \"2026-03-14\", \"index\": 22, \"value\": 5.7073386393377366}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
+    },
+    {
+      "model_name": "bayes_bt_state_space",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 14.953394112653607,
+      "threshold": 12.404876252600609,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 2.4561492261746456}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
+    },
+    {
+      "model_name": "nn_mlp",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 14.479668065296641,
+      "threshold": 5.317333051883097,
+      "details_json": "{\"date\": \"2026-03-17\", \"index\": 33, \"value\": 0.0016792246963727693}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
+    },
+    {
+      "model_name": "glm_lasso",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 12.982024368561712,
+      "threshold": 11.212080803280761,
+      "details_json": "{\"date\": \"2026-03-14\", \"index\": 22, \"value\": 4.897126471849842}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "bayes_bt_state_space",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 8.167364867747548,
-      "threshold": 7.922725497074904,
-      "details_json": "{\"date\": \"2026-03-14\", \"index\": 26, \"value\": 5.099750065090718}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 12.155237713996888,
+      "threshold": 10.337396877167173,
+      "details_json": "{\"date\": \"2026-03-14\", \"index\": 27, \"value\": 6.523302597852057}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
+    },
+    {
+      "model_name": "glm_elastic_net",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 11.69396863095371,
+      "threshold": 11.02562272044635,
+      "details_json": "{\"date\": \"2026-03-14\", \"index\": 22, \"value\": 4.411447231409953}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
+    },
+    {
+      "model_name": "nn_mlp",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 9.109793906015954,
+      "threshold": 6.380799662259715,
+      "details_json": "{\"date\": \"2026-03-15\", \"index\": 30, \"value\": 5.454521224981096}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
+    },
+    {
+      "model_name": "nn_mlp",
+      "metric_name": "log_loss",
+      "method": "cusum",
+      "statistic": 7.894331917505853,
+      "threshold": 6.380799662259715,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 0.8348408383666663}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "nn_mlp",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 7.045305506587299,
-      "threshold": 5.3955571428362905,
-      "details_json": "{\"date\": \"2026-03-14\", \"index\": 23, \"value\": 4.806506806166545}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 6.855767068549523,
+      "threshold": 5.317333051883097,
+      "details_json": "{\"date\": \"2026-03-14\", \"index\": 23, \"value\": 4.522444724512342}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "goals_poisson",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 4.4627780038311995,
-      "threshold": 2.263460062633123,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 0.04290750101127655}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 6.531655397179845,
+      "threshold": 2.2446656840510797,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 2.8473122684357186}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
+    },
+    {
+      "model_name": "ensemble",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 5.201249753370544,
+      "threshold": 1.9449381994166264,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 2.1262333782923415}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "gbdt",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 3.776380836416626,
-      "threshold": 1.7410105593080956,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 0.11644350554827955}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 4.89662802366404,
+      "threshold": 1.697078048223849,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 2.31239801061841}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
+    },
+    {
+      "model_name": "rf",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 3.9469114605406443,
+      "threshold": 1.3926461898223816,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 1.5934142781564216}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
+    },
+    {
+      "model_name": "two_stage",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 3.82352603567492,
+      "threshold": 1.4358437485693456,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 1.55821808700435}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
+    },
+    {
+      "model_name": "dynamic_rating",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 3.225172458527849,
+      "threshold": 1.5324391223446048,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 1.6111610006902615}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "goals_poisson",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 3.6856585500524788,
-      "threshold": 2.716152075159748,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 21, \"value\": 2.1788936206514964}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
-    },
-    {
-      "model_name": "ensemble",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 3.437957257571872,
-      "threshold": 1.9501454491705439,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 0.10040456462245062}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
-    },
-    {
-      "model_name": "goals_poisson",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 3.3207724406258303,
-      "threshold": 2.263460062633123,
-      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 1.436886147235951}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
-    },
-    {
-      "model_name": "ensemble",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 3.2132394636666057,
-      "threshold": 1.9501454491705439,
-      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 1.4256710309213687}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 3.143178043045609,
+      "threshold": 2.693598820861296,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 2.8473122684357186}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "dynamic_rating",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 2.9752971466982427,
-      "threshold": 1.8897171492696747,
+      "statistic": 2.968156851059941,
+      "threshold": 1.8389269468135259,
       "details_json": "{\"date\": \"2026-03-14\", \"index\": 22, \"value\": 2.0613414055083408}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 2.8778058330164105,
-      "threshold": 2.3401745390046527,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 21, \"value\": 1.9470416740572352}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 2.71337095117358,
+      "threshold": 2.333925839299952,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 21, \"value\": 2.073657119764011}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
-      "model_name": "rf",
+      "model_name": "goals_poisson",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 2.7419192880640515,
-      "threshold": 1.415908483093595,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 0.1802044287954925}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 2.368148889935916,
+      "threshold": 2.2446656840510797,
+      "details_json": "{\"date\": \"2026-03-18\", \"index\": 35, \"value\": 1.4733057381095205}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
-      "model_name": "dynamic_rating",
+      "model_name": "ensemble",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 2.644776254221227,
-      "threshold": 1.5747642910580621,
-      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.7549461015956135}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
-    },
-    {
-      "model_name": "two_stage",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 2.5548403106731032,
-      "threshold": 1.4373972089175138,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 0.17944509108755652}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
-    },
-    {
-      "model_name": "rf",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 2.389860811294506,
-      "threshold": 1.415908483093595,
-      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.9366043411058832}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 2.344121964090508,
+      "threshold": 1.9449381994166264,
+      "details_json": "{\"date\": \"2026-03-17\", \"index\": 33, \"value\": 1.452156785358517}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "gbdt",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 2.319729183474985,
-      "threshold": 2.0892126711697143,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 21, \"value\": 1.2193724223240276}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
-    },
-    {
-      "model_name": "two_stage",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 2.194692575001091,
-      "threshold": 1.4373972089175138,
-      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.9510119656302962}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 2.2919017289889423,
+      "threshold": 2.036493657868619,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 21, \"value\": 1.758157651542385}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "two_stage",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 2.106783880993485,
-      "threshold": 1.7248766507010167,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 21, \"value\": 1.4997699674535876}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
-    },
-    {
-      "model_name": "gbdt",
-      "metric_name": "log_loss",
-      "method": "page_hinkley",
-      "statistic": 1.9939767347153414,
-      "threshold": 1.7410105593080956,
-      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.7258079884565666}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 1.9977247355823156,
+      "threshold": 1.723012498283215,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 21, \"value\": 1.8426049484870317}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "rf",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 1.8827429371402642,
-      "threshold": 1.699090179712314,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 21, \"value\": 1.4313109984824286}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 1.8108448342562249,
+      "threshold": 1.6711754277868578,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 21, \"value\": 1.6065894733767128}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "dynamic_rating",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.865820200454449,
-      "threshold": 1.5747642910580621,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 0.045278816617639786}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 1.7747492801060576,
+      "threshold": 1.5324391223446048,
+      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.6349461015956136}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
+    },
+    {
+      "model_name": "two_stage",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.629317985397258,
+      "threshold": 1.4358437485693456,
+      "details_json": "{\"date\": \"2026-03-17\", \"index\": 33, \"value\": 1.1772592007286786}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
+    },
+    {
+      "model_name": "rf",
+      "metric_name": "log_loss",
+      "method": "page_hinkley",
+      "statistic": 1.4655005698260906,
+      "threshold": 1.3926461898223816,
+      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.44493815435528644}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "elo_baseline",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 1.3351514753760634,
-      "threshold": 0.5208188108036709,
-      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.7378539066627487}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
-    },
-    {
-      "model_name": "elo_baseline",
-      "metric_name": "log_loss",
-      "method": "cusum",
-      "statistic": 0.804642988963164,
-      "threshold": 0.624982572964405,
-      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.7378539066627487}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 1.234994631722565,
+      "threshold": 0.5102797614054456,
+      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 1.0154689708928992}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "elo_baseline",
       "metric_name": "log_loss",
       "method": "page_hinkley",
-      "statistic": 0.685876447374149,
-      "threshold": 0.5208188108036709,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 0.3578440108504256}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 0.9784784701949847,
+      "threshold": 0.5102797614054456,
+      "details_json": "{\"date\": \"2026-03-14\", \"index\": 29, \"value\": 0.6503539066627486}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     },
     {
       "model_name": "elo_baseline",
       "metric_name": "log_loss",
       "method": "cusum",
-      "statistic": 0.6703872890075506,
-      "threshold": 0.624982572964405,
-      "details_json": "{\"date\": \"2026-03-13\", \"index\": 19, \"value\": 0.3578440108504256}",
-      "as_of_utc": "2026-03-18T13:54:51+00:00"
+      "statistic": 0.9577925366311073,
+      "threshold": 0.6123357136865347,
+      "details_json": "{\"date\": \"2026-03-14\", \"index\": 22, \"value\": 1.0415622178644304}",
+      "as_of_utc": "2026-03-19T13:13:11+00:00"
     }
   ],
   "replay_runs": [
@@ -1224,48 +1285,48 @@
         "brier": 0.15087631871839105,
         "log_loss": 0.4852633746314263
       },
-      "scored_games": 35,
-      "avg_log_loss": 1.5184046069618167,
-      "avg_brier": 0.3282695045537387,
-      "accuracy": 0.6285714285714286,
+      "scored_games": 37,
+      "avg_log_loss": 1.4363945717210043,
+      "avg_brier": 0.3105252872466244,
+      "accuracy": 0.6486486486486487,
       "version_rank": 1,
       "is_latest_version": 1,
       "first_game_date_utc": "2026-03-11",
       "first_game_date_central": "2026-03-10",
-      "last_game_date_utc": "2026-03-17",
-      "last_game_date_central": "2026-03-17",
+      "last_game_date_utc": "2026-03-18",
+      "last_game_date_central": "2026-03-18",
       "first_replay_date_central": "2026-03-10",
-      "last_replay_date_central": "2026-03-17",
-      "replayable_games": 24,
+      "last_replay_date_central": "2026-03-18",
+      "replayable_games": 25,
       "strategies": {
         "riskAdjusted": {
-          "total_games": 24,
-          "suggested_bets": 13,
-          "wins": 5,
+          "total_games": 25,
+          "suggested_bets": 14,
+          "wins": 6,
           "losses": 8,
-          "total_risked": 1425,
-          "total_profit": -703.6363182589598,
-          "roi": -0.49377987246242794,
-          "avg_edge": 0.4471423985435159,
-          "avg_expected_value": 1.6281748854801923,
+          "total_risked": 1550,
+          "total_profit": -391.1363182589598,
+          "roi": -0.25234601177997407,
+          "avg_edge": 0.466668048541338,
+          "avg_expected_value": 1.690148104059369,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-17"
+          "last_bet_date_central": "2026-03-18"
         },
         "aggressive": {
-          "total_games": 24,
-          "suggested_bets": 13,
-          "wins": 5,
+          "total_games": 25,
+          "suggested_bets": 14,
+          "wins": 6,
           "losses": 8,
-          "total_risked": 2075,
-          "total_profit": -845.0908455625437,
-          "roi": -0.40727269665664756,
-          "avg_edge": 0.4471423985435159,
-          "avg_expected_value": 1.6281748854801923,
+          "total_risked": 2250,
+          "total_profit": -407.5908455625437,
+          "roi": -0.1811514869166861,
+          "avg_edge": 0.466668048541338,
+          "avg_expected_value": 1.690148104059369,
           "first_bet_date_central": "2026-03-10",
-          "last_bet_date_central": "2026-03-17"
+          "last_bet_date_central": "2026-03-18"
         },
         "capitalPreservation": {
-          "total_games": 24,
+          "total_games": 25,
           "suggested_bets": 10,
           "wins": 6,
           "losses": 4,
@@ -2718,22 +2779,82 @@
               "payout": 0
             }
           }
+        },
+        {
+          "game_id": 401856436,
+          "date_central": "2026-03-18",
+          "forecast_as_of_utc": "2026-03-10T14:49:28+00:00",
+          "start_time_utc": "2026-03-19T01:15Z",
+          "final_utc": "2026-03-19T01:15Z",
+          "home_team": "SMU",
+          "away_team": "M-OH",
+          "home_score": 79,
+          "away_score": 89,
+          "home_moneyline": -286,
+          "away_moneyline": 250,
+          "strategies": {
+            "riskAdjusted": {
+              "bet_label": "$125 M-OH",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "M-OH",
+              "stake": 125,
+              "odds": 250,
+              "model_probability": 0.9987999844539047,
+              "market_probability": 0.27829848594087964,
+              "edge": 0.7205014985130251,
+              "expected_value": 2.4957999455886664,
+              "outcome": "win",
+              "profit": 312.5,
+              "payout": 437.5
+            },
+            "aggressive": {
+              "bet_label": "$175 M-OH",
+              "reason": "Underdog underpriced after uncertainty adjustment",
+              "side": "away",
+              "team": "M-OH",
+              "stake": 175,
+              "odds": 250,
+              "model_probability": 0.9987999844539047,
+              "market_probability": 0.27829848594087964,
+              "edge": 0.7205014985130251,
+              "expected_value": 2.4957999455886664,
+              "outcome": "win",
+              "profit": 437.5,
+              "payout": 612.5
+            },
+            "capitalPreservation": {
+              "bet_label": "$0",
+              "reason": "Conservative skips underdogs",
+              "side": "none",
+              "team": null,
+              "stake": 0,
+              "odds": null,
+              "model_probability": 0.9987999844539047,
+              "market_probability": 0.27829848594087964,
+              "edge": 0.7205014985130251,
+              "expected_value": 2.4957999455886664,
+              "outcome": "no_bet",
+              "profit": 0,
+              "payout": 0
+            }
+          }
         }
       ]
     }
   ],
   "ensemble_snapshots": [
     {
-      "snapshot_key": "2026-03-18::run_b3760fbf3dfb9ff3",
+      "snapshot_key": "2026-03-19::run_b3760fbf3dfb9ff3",
       "model_name": "ensemble",
       "model_run_id": "run_b3760fbf3dfb9ff3",
       "ensemble_model_run_id": "run_b3760fbf3dfb9ff3__ensemble",
-      "finalized_at_utc": "2026-03-18T13:54:02+00:00",
-      "finalized_date_central": "2026-03-18",
-      "activation_date_central": "2026-03-18",
+      "finalized_at_utc": "2026-03-19T13:12:09+00:00",
+      "finalized_date_central": "2026-03-19",
+      "activation_date_central": "2026-03-19",
       "compared_through_date_central": null,
-      "pregame_cutoff_utc": "2026-03-18T22:40Z",
-      "snapshot_id": "ncaam_odds_777a0bbffbdca5c6",
+      "pregame_cutoff_utc": "2026-03-19T16:15Z",
+      "snapshot_id": "ncaam_odds_bd731c3b9740ab44",
       "artifact_path": "/Users/davidiruegas/Library/Application Support/SportsModeling/artifacts/models/b3760fbf3dfb9ff3",
       "feature_set_version": "fset_7a3b9c21182f53a2",
       "calibration_fingerprint": "d387a8a798cb",
@@ -2873,18 +2994,18 @@
       },
       "params": {
         "weights": {
-          "bayes_bt_state_space": 0.09424424007377927,
-          "bayes_goals": 0.036521566461743156,
-          "dynamic_rating": 0.09552904509501942,
-          "elo_baseline": 0.08489055834081842,
-          "gbdt": 0.08237969348081993,
-          "glm_elastic_net": 0.09299208621722287,
-          "glm_lasso": 0.08962878014267264,
-          "glm_ridge": 0.08827518637389337,
-          "goals_poisson": 0.08422799746827929,
-          "rf": 0.09678876033461623,
-          "simulation_first": 0.08374330846084423,
-          "two_stage": 0.0707787775502912
+          "bayes_bt_state_space": 0.0942262478856978,
+          "bayes_goals": 0.03651459412165855,
+          "dynamic_rating": 0.09551080762453584,
+          "elo_baseline": 0.08487435186612233,
+          "gbdt": 0.08236396635587266,
+          "glm_elastic_net": 0.09297433307810266,
+          "glm_lasso": 0.08961166909303632,
+          "glm_ridge": 0.0882583337391337,
+          "goals_poisson": 0.08421191748322145,
+          "rf": 0.09677028237162613,
+          "simulation_first": 0.08372732100786873,
+          "two_stage": 0.07095617537312393
         }
       },
       "metrics": {},
@@ -3193,7 +3314,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.08489055834081842,
+          "weight": 0.08487435186612233,
           "feature_columns": [],
           "feature_count": 0,
           "train_metrics": {
@@ -3204,18 +3325,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09424424007377927,
-              "bayes_goals": 0.036521566461743156,
-              "dynamic_rating": 0.09552904509501942,
-              "elo_baseline": 0.08489055834081842,
-              "gbdt": 0.08237969348081993,
-              "glm_elastic_net": 0.09299208621722287,
-              "glm_lasso": 0.08962878014267264,
-              "glm_ridge": 0.08827518637389337,
-              "goals_poisson": 0.08422799746827929,
-              "rf": 0.09678876033461623,
-              "simulation_first": 0.08374330846084423,
-              "two_stage": 0.0707787775502912
+              "bayes_bt_state_space": 0.0942262478856978,
+              "bayes_goals": 0.03651459412165855,
+              "dynamic_rating": 0.09551080762453584,
+              "elo_baseline": 0.08487435186612233,
+              "gbdt": 0.08236396635587266,
+              "glm_elastic_net": 0.09297433307810266,
+              "glm_lasso": 0.08961166909303632,
+              "glm_ridge": 0.0882583337391337,
+              "goals_poisson": 0.08421191748322145,
+              "rf": 0.09677028237162613,
+              "simulation_first": 0.08372732100786873,
+              "two_stage": 0.07095617537312393
             }
           }
         },
@@ -3224,7 +3345,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.09552904509501942,
+          "weight": 0.09551080762453584,
           "feature_columns": [],
           "feature_count": 0,
           "train_metrics": {
@@ -3235,18 +3356,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09424424007377927,
-              "bayes_goals": 0.036521566461743156,
-              "dynamic_rating": 0.09552904509501942,
-              "elo_baseline": 0.08489055834081842,
-              "gbdt": 0.08237969348081993,
-              "glm_elastic_net": 0.09299208621722287,
-              "glm_lasso": 0.08962878014267264,
-              "glm_ridge": 0.08827518637389337,
-              "goals_poisson": 0.08422799746827929,
-              "rf": 0.09678876033461623,
-              "simulation_first": 0.08374330846084423,
-              "two_stage": 0.0707787775502912
+              "bayes_bt_state_space": 0.0942262478856978,
+              "bayes_goals": 0.03651459412165855,
+              "dynamic_rating": 0.09551080762453584,
+              "elo_baseline": 0.08487435186612233,
+              "gbdt": 0.08236396635587266,
+              "glm_elastic_net": 0.09297433307810266,
+              "glm_lasso": 0.08961166909303632,
+              "glm_ridge": 0.0882583337391337,
+              "goals_poisson": 0.08421191748322145,
+              "rf": 0.09677028237162613,
+              "simulation_first": 0.08372732100786873,
+              "two_stage": 0.07095617537312393
             }
           }
         },
@@ -3255,7 +3376,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.08827518637389337,
+          "weight": 0.0882583337391337,
           "feature_columns": [
             "rest_diff",
             "elo_home_prob",
@@ -3291,18 +3412,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09424424007377927,
-              "bayes_goals": 0.036521566461743156,
-              "dynamic_rating": 0.09552904509501942,
-              "elo_baseline": 0.08489055834081842,
-              "gbdt": 0.08237969348081993,
-              "glm_elastic_net": 0.09299208621722287,
-              "glm_lasso": 0.08962878014267264,
-              "glm_ridge": 0.08827518637389337,
-              "goals_poisson": 0.08422799746827929,
-              "rf": 0.09678876033461623,
-              "simulation_first": 0.08374330846084423,
-              "two_stage": 0.0707787775502912
+              "bayes_bt_state_space": 0.0942262478856978,
+              "bayes_goals": 0.03651459412165855,
+              "dynamic_rating": 0.09551080762453584,
+              "elo_baseline": 0.08487435186612233,
+              "gbdt": 0.08236396635587266,
+              "glm_elastic_net": 0.09297433307810266,
+              "glm_lasso": 0.08961166909303632,
+              "glm_ridge": 0.0882583337391337,
+              "goals_poisson": 0.08421191748322145,
+              "rf": 0.09677028237162613,
+              "simulation_first": 0.08372732100786873,
+              "two_stage": 0.07095617537312393
             }
           }
         },
@@ -3311,7 +3432,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.09299208621722287,
+          "weight": 0.09297433307810266,
           "feature_columns": [
             "rest_diff",
             "elo_home_prob",
@@ -3347,18 +3468,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09424424007377927,
-              "bayes_goals": 0.036521566461743156,
-              "dynamic_rating": 0.09552904509501942,
-              "elo_baseline": 0.08489055834081842,
-              "gbdt": 0.08237969348081993,
-              "glm_elastic_net": 0.09299208621722287,
-              "glm_lasso": 0.08962878014267264,
-              "glm_ridge": 0.08827518637389337,
-              "goals_poisson": 0.08422799746827929,
-              "rf": 0.09678876033461623,
-              "simulation_first": 0.08374330846084423,
-              "two_stage": 0.0707787775502912
+              "bayes_bt_state_space": 0.0942262478856978,
+              "bayes_goals": 0.03651459412165855,
+              "dynamic_rating": 0.09551080762453584,
+              "elo_baseline": 0.08487435186612233,
+              "gbdt": 0.08236396635587266,
+              "glm_elastic_net": 0.09297433307810266,
+              "glm_lasso": 0.08961166909303632,
+              "glm_ridge": 0.0882583337391337,
+              "goals_poisson": 0.08421191748322145,
+              "rf": 0.09677028237162613,
+              "simulation_first": 0.08372732100786873,
+              "two_stage": 0.07095617537312393
             }
           }
         },
@@ -3367,7 +3488,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.08962878014267264,
+          "weight": 0.08961166909303632,
           "feature_columns": [
             "rest_diff",
             "elo_home_prob",
@@ -3403,18 +3524,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09424424007377927,
-              "bayes_goals": 0.036521566461743156,
-              "dynamic_rating": 0.09552904509501942,
-              "elo_baseline": 0.08489055834081842,
-              "gbdt": 0.08237969348081993,
-              "glm_elastic_net": 0.09299208621722287,
-              "glm_lasso": 0.08962878014267264,
-              "glm_ridge": 0.08827518637389337,
-              "goals_poisson": 0.08422799746827929,
-              "rf": 0.09678876033461623,
-              "simulation_first": 0.08374330846084423,
-              "two_stage": 0.0707787775502912
+              "bayes_bt_state_space": 0.0942262478856978,
+              "bayes_goals": 0.03651459412165855,
+              "dynamic_rating": 0.09551080762453584,
+              "elo_baseline": 0.08487435186612233,
+              "gbdt": 0.08236396635587266,
+              "glm_elastic_net": 0.09297433307810266,
+              "glm_lasso": 0.08961166909303632,
+              "glm_ridge": 0.0882583337391337,
+              "goals_poisson": 0.08421191748322145,
+              "rf": 0.09677028237162613,
+              "simulation_first": 0.08372732100786873,
+              "two_stage": 0.07095617537312393
             }
           }
         },
@@ -3423,7 +3544,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.08237969348081993,
+          "weight": 0.08236396635587266,
           "feature_columns": [
             "arena_margin_effect",
             "dyn_home_prob",
@@ -3475,18 +3596,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09424424007377927,
-              "bayes_goals": 0.036521566461743156,
-              "dynamic_rating": 0.09552904509501942,
-              "elo_baseline": 0.08489055834081842,
-              "gbdt": 0.08237969348081993,
-              "glm_elastic_net": 0.09299208621722287,
-              "glm_lasso": 0.08962878014267264,
-              "glm_ridge": 0.08827518637389337,
-              "goals_poisson": 0.08422799746827929,
-              "rf": 0.09678876033461623,
-              "simulation_first": 0.08374330846084423,
-              "two_stage": 0.0707787775502912
+              "bayes_bt_state_space": 0.0942262478856978,
+              "bayes_goals": 0.03651459412165855,
+              "dynamic_rating": 0.09551080762453584,
+              "elo_baseline": 0.08487435186612233,
+              "gbdt": 0.08236396635587266,
+              "glm_elastic_net": 0.09297433307810266,
+              "glm_lasso": 0.08961166909303632,
+              "glm_ridge": 0.0882583337391337,
+              "goals_poisson": 0.08421191748322145,
+              "rf": 0.09677028237162613,
+              "simulation_first": 0.08372732100786873,
+              "two_stage": 0.07095617537312393
             }
           }
         },
@@ -3495,7 +3616,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.09678876033461623,
+          "weight": 0.09677028237162613,
           "feature_columns": [
             "arena_margin_effect",
             "dyn_home_prob",
@@ -3546,23 +3667,23 @@
           "train_metrics": {
             "accuracy": 0.8665395614871306,
             "auc": 0.9388730826323604,
-            "brier": 0.1085857061742945,
+            "brier": 0.10858570617429451,
             "log_loss": 0.3576088591548095
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09424424007377927,
-              "bayes_goals": 0.036521566461743156,
-              "dynamic_rating": 0.09552904509501942,
-              "elo_baseline": 0.08489055834081842,
-              "gbdt": 0.08237969348081993,
-              "glm_elastic_net": 0.09299208621722287,
-              "glm_lasso": 0.08962878014267264,
-              "glm_ridge": 0.08827518637389337,
-              "goals_poisson": 0.08422799746827929,
-              "rf": 0.09678876033461623,
-              "simulation_first": 0.08374330846084423,
-              "two_stage": 0.0707787775502912
+              "bayes_bt_state_space": 0.0942262478856978,
+              "bayes_goals": 0.03651459412165855,
+              "dynamic_rating": 0.09551080762453584,
+              "elo_baseline": 0.08487435186612233,
+              "gbdt": 0.08236396635587266,
+              "glm_elastic_net": 0.09297433307810266,
+              "glm_lasso": 0.08961166909303632,
+              "glm_ridge": 0.0882583337391337,
+              "goals_poisson": 0.08421191748322145,
+              "rf": 0.09677028237162613,
+              "simulation_first": 0.08372732100786873,
+              "two_stage": 0.07095617537312393
             }
           }
         },
@@ -3571,7 +3692,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.0707787775502912,
+          "weight": 0.07095617537312393,
           "feature_columns": [
             "arena_margin_effect",
             "dyn_home_prob",
@@ -3607,24 +3728,24 @@
           "feature_count": 30,
           "train_metrics": {
             "accuracy": 0.7940896091515729,
-            "auc": 0.8592755236681511,
-            "brier": 0.1397046810445493,
-            "log_loss": 0.43037155770883684
+            "auc": 0.859168316015174,
+            "brier": 0.13963764327319717,
+            "log_loss": 0.43040732772957296
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09424424007377927,
-              "bayes_goals": 0.036521566461743156,
-              "dynamic_rating": 0.09552904509501942,
-              "elo_baseline": 0.08489055834081842,
-              "gbdt": 0.08237969348081993,
-              "glm_elastic_net": 0.09299208621722287,
-              "glm_lasso": 0.08962878014267264,
-              "glm_ridge": 0.08827518637389337,
-              "goals_poisson": 0.08422799746827929,
-              "rf": 0.09678876033461623,
-              "simulation_first": 0.08374330846084423,
-              "two_stage": 0.0707787775502912
+              "bayes_bt_state_space": 0.0942262478856978,
+              "bayes_goals": 0.03651459412165855,
+              "dynamic_rating": 0.09551080762453584,
+              "elo_baseline": 0.08487435186612233,
+              "gbdt": 0.08236396635587266,
+              "glm_elastic_net": 0.09297433307810266,
+              "glm_lasso": 0.08961166909303632,
+              "glm_ridge": 0.0882583337391337,
+              "goals_poisson": 0.08421191748322145,
+              "rf": 0.09677028237162613,
+              "simulation_first": 0.08372732100786873,
+              "two_stage": 0.07095617537312393
             }
           }
         },
@@ -3633,7 +3754,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.08422799746827929,
+          "weight": 0.08421191748322145,
           "feature_columns": [],
           "feature_count": 0,
           "train_metrics": {
@@ -3644,18 +3765,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09424424007377927,
-              "bayes_goals": 0.036521566461743156,
-              "dynamic_rating": 0.09552904509501942,
-              "elo_baseline": 0.08489055834081842,
-              "gbdt": 0.08237969348081993,
-              "glm_elastic_net": 0.09299208621722287,
-              "glm_lasso": 0.08962878014267264,
-              "glm_ridge": 0.08827518637389337,
-              "goals_poisson": 0.08422799746827929,
-              "rf": 0.09678876033461623,
-              "simulation_first": 0.08374330846084423,
-              "two_stage": 0.0707787775502912
+              "bayes_bt_state_space": 0.0942262478856978,
+              "bayes_goals": 0.03651459412165855,
+              "dynamic_rating": 0.09551080762453584,
+              "elo_baseline": 0.08487435186612233,
+              "gbdt": 0.08236396635587266,
+              "glm_elastic_net": 0.09297433307810266,
+              "glm_lasso": 0.08961166909303632,
+              "glm_ridge": 0.0882583337391337,
+              "goals_poisson": 0.08421191748322145,
+              "rf": 0.09677028237162613,
+              "simulation_first": 0.08372732100786873,
+              "two_stage": 0.07095617537312393
             }
           }
         },
@@ -3664,7 +3785,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.08374330846084423,
+          "weight": 0.08372732100786873,
           "feature_columns": [],
           "feature_count": 0,
           "train_metrics": {
@@ -3675,18 +3796,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09424424007377927,
-              "bayes_goals": 0.036521566461743156,
-              "dynamic_rating": 0.09552904509501942,
-              "elo_baseline": 0.08489055834081842,
-              "gbdt": 0.08237969348081993,
-              "glm_elastic_net": 0.09299208621722287,
-              "glm_lasso": 0.08962878014267264,
-              "glm_ridge": 0.08827518637389337,
-              "goals_poisson": 0.08422799746827929,
-              "rf": 0.09678876033461623,
-              "simulation_first": 0.08374330846084423,
-              "two_stage": 0.0707787775502912
+              "bayes_bt_state_space": 0.0942262478856978,
+              "bayes_goals": 0.03651459412165855,
+              "dynamic_rating": 0.09551080762453584,
+              "elo_baseline": 0.08487435186612233,
+              "gbdt": 0.08236396635587266,
+              "glm_elastic_net": 0.09297433307810266,
+              "glm_lasso": 0.08961166909303632,
+              "glm_ridge": 0.0882583337391337,
+              "goals_poisson": 0.08421191748322145,
+              "rf": 0.09677028237162613,
+              "simulation_first": 0.08372732100786873,
+              "two_stage": 0.07095617537312393
             }
           }
         },
@@ -3695,7 +3816,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.09424424007377927,
+          "weight": 0.0942262478856978,
           "feature_columns": [
             "travel_diff",
             "rest_diff",
@@ -3727,18 +3848,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09424424007377927,
-              "bayes_goals": 0.036521566461743156,
-              "dynamic_rating": 0.09552904509501942,
-              "elo_baseline": 0.08489055834081842,
-              "gbdt": 0.08237969348081993,
-              "glm_elastic_net": 0.09299208621722287,
-              "glm_lasso": 0.08962878014267264,
-              "glm_ridge": 0.08827518637389337,
-              "goals_poisson": 0.08422799746827929,
-              "rf": 0.09678876033461623,
-              "simulation_first": 0.08374330846084423,
-              "two_stage": 0.0707787775502912
+              "bayes_bt_state_space": 0.0942262478856978,
+              "bayes_goals": 0.03651459412165855,
+              "dynamic_rating": 0.09551080762453584,
+              "elo_baseline": 0.08487435186612233,
+              "gbdt": 0.08236396635587266,
+              "glm_elastic_net": 0.09297433307810266,
+              "glm_lasso": 0.08961166909303632,
+              "glm_ridge": 0.0882583337391337,
+              "goals_poisson": 0.08421191748322145,
+              "rf": 0.09677028237162613,
+              "simulation_first": 0.08372732100786873,
+              "two_stage": 0.07095617537312393
             }
           }
         },
@@ -3747,7 +3868,7 @@
           "selected_for_training": 1,
           "included_in_ensemble": 1,
           "demoted_from_ensemble": 0,
-          "weight": 0.036521566461743156,
+          "weight": 0.03651459412165855,
           "feature_columns": [],
           "feature_count": 0,
           "train_metrics": {
@@ -3758,18 +3879,18 @@
           },
           "train_params": {
             "weights": {
-              "bayes_bt_state_space": 0.09424424007377927,
-              "bayes_goals": 0.036521566461743156,
-              "dynamic_rating": 0.09552904509501942,
-              "elo_baseline": 0.08489055834081842,
-              "gbdt": 0.08237969348081993,
-              "glm_elastic_net": 0.09299208621722287,
-              "glm_lasso": 0.08962878014267264,
-              "glm_ridge": 0.08827518637389337,
-              "goals_poisson": 0.08422799746827929,
-              "rf": 0.09678876033461623,
-              "simulation_first": 0.08374330846084423,
-              "two_stage": 0.0707787775502912
+              "bayes_bt_state_space": 0.0942262478856978,
+              "bayes_goals": 0.03651459412165855,
+              "dynamic_rating": 0.09551080762453584,
+              "elo_baseline": 0.08487435186612233,
+              "gbdt": 0.08236396635587266,
+              "glm_elastic_net": 0.09297433307810266,
+              "glm_lasso": 0.08961166909303632,
+              "glm_ridge": 0.0882583337391337,
+              "goals_poisson": 0.08421191748322145,
+              "rf": 0.09677028237162613,
+              "simulation_first": 0.08372732100786873,
+              "two_stage": 0.07095617537312393
             }
           }
         },
