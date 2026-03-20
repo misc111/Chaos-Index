@@ -13,9 +13,7 @@ These instructions extend, and do not replace, [AGENTS.md](AGENTS.md). The coord
 ## Activation Gate
 
 - Only use this mode when the user explicitly asks for coordinator-style delegation, orchestration across multiple workstreams, or equivalent language.
-- Before launching the coordinator workflow, ask the user this exact question:
-  `Are you ABSOLUTELY SURE you want me to run as the coordinator from the top-level thread? This is token-intensive, fairly hands-off, and usually only worth it when there are real parallel workstreams.`
-- Do not proceed unless the user clearly confirms.
+- If the user explicitly asks for coordinator mode, you may proceed without an extra confirmation prompt.
 - If the task is small, single-threaded, or blocked on one immediate answer, do not recommend coordinator mode.
 - If you are already inside a spawned subagent and do not have child-agent spawning tools, do not attempt to act as the coordinator. Report the limitation and hand the orchestration back to the top-level thread instead.
 
