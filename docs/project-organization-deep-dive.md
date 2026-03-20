@@ -1,8 +1,10 @@
 # SportsModeling Project Organization Deep Dive
 
-## Purpose of this document
+## Purpose, audience, and non-goals
 
-This document is a reviewer-oriented map of how the `SportsModeling` repository is organized. It is meant to give an external evaluator enough context to reason about:
+This document is a reviewer-oriented map of how the `SportsModeling` repository is organized. It is written for an external evaluator, another model, or a new contributor who needs enough context to critique the setup without first reverse-engineering the repository.
+
+The document focuses on:
 
 - the system's intended product shape
 - the repo's module boundaries
@@ -12,7 +14,64 @@ This document is a reviewer-oriented map of how the `SportsModeling` repository 
 - where the strongest architectural ideas are
 - where the most likely stress points or cleanup opportunities are
 
-It is intentionally more detailed than a normal README. The goal is to make it possible for another model or engineer to critique the setup without first reverse-engineering the repository from scratch.
+It is intentionally more detailed than a normal README.
+
+This document is not:
+
+- a code audit
+- a prediction-quality evaluation
+- a security review
+- a production-readiness certification
+- a line-by-line inventory of every file in the repository
+
+Operating assumptions that matter while reading:
+
+- the repository is local-first and operator-driven
+- the dashboard is closer to an internal product/workbench than a public multi-tenant service
+- GitHub Pages staging is snapshot-based, not live
+- SQLite is the canonical local persistence layer
+
+## Critical invariants
+
+These are the main truths a reviewer should hold in mind while reading the rest of the document:
+
+- `src/registry/*` is the canonical metadata layer for leagues, commands, models, dashboard routes, and subsystem docs.
+- Generated artifacts under `configs/generated/`, `docs/generated/`, and `web/lib/generated/` are derived from those registries and should not become competing sources of truth.
+- The local dashboard reads live SQLite-backed data through Next.js API routes and server-side services.
+- The GitHub Pages staging site reads committed JSON snapshots from `web/public/staging-data/`; it does not read live SQLite data.
+- `predictions` stores frozen pregame records that actually existed before games, while `prediction_diagnostics` stores synthetic replay, OOF, and backtest outputs.
+- League-specific behavior should live in adapters, strategies, or named policies, not inside shared orchestration modules.
+- Production, validation, and research are adjacent execution surfaces, but they are intentionally distinct and should not be treated as the same thing.
+
+## 60-second architecture map
+
+The shortest accurate description of the system is:
+
+1. Python ingest code fetches league data and odds, saves raw snapshots, normalizes them into interim tables, and persists core entities into SQLite.
+2. Shared feature-pipeline code plus league-specific strategies build `features.parquet` into league-scoped processed directories.
+3. Training code fits model families, builds ensemble forecasts, persists frozen predictions, and writes validation and scoring outputs.
+4. A deterministic query layer answers product-style questions from persisted data.
+5. A Next.js dashboard reads the same persisted outputs through live API routes.
+6. A separate staging-data generator calls those same route handlers and writes committed JSON snapshots for GitHub Pages.
+
+If a reviewer remembers only one relationship map, it should be this:
+
+- hand-authored Python registries -> generated manifests/docs/TS metadata
+- live ingest/features/train/validate -> SQLite + artifact outputs
+- live dashboard -> SQLite-backed API payloads
+- staging site -> committed JSON snapshots generated from those payloads
+
+## Reviewer checklist
+
+If you want to use this document as a review instrument, these are the main questions to keep in mind while reading:
+
+- Are the registries actually canonical, or can generated artifacts drift into semi-authoritative duplicates?
+- Is the `predictions` vs `prediction_diagnostics` distinction enforced strongly enough to preserve historical integrity?
+- Are production, validation, and research boundaries encoded in the architecture, or mostly conventional?
+- Are shared cross-league abstractions truly neutral, or still carrying NHL-shaped naming and assumptions?
+- Is too much orchestration concentrated in a few mutation-heavy modules like ingest, train, and performance services?
+- Is the web layer an appropriate home for replay, betting, and control-plane logic, or is it accumulating too much domain behavior?
+- Does the live-vs-staging split reduce drift, or create too much additional operational ceremony?
 
 ## What this project is
 
@@ -30,7 +89,7 @@ The system is not just a collection of prediction scripts. It is a full local pr
 - model training and ensembling
 - scoring and validation
 - betting-history and profitability analysis
-- deterministic natural-language query answering
+- a deterministic question-answer interface over persisted data
 - a local Next.js dashboard
 - a separate GitHub Pages staging snapshot system
 
@@ -75,6 +134,32 @@ These are the top-level directories that matter most:
 - `scripts/`: shell and export helpers
 
 The repo also has a generated-documentation mindset. Several docs and manifests are produced from code-first registries rather than handwritten by hand.
+
+## Source-of-truth map
+
+The repo has several important metadata and data surfaces. The table below is the quickest way to understand which ones are canonical and which ones are derived.
+
+| Surface | Hand-authored or generated | Canonical owner | Main consumers | Regeneration or update trigger |
+| --- | --- | --- | --- | --- |
+| [src/registry/leagues.py](src/registry/leagues.py) | hand-authored | Python registry layer | CLI defaults, config resolution, web generated metadata, docs | `make docs-generate` after changes |
+| [src/registry/commands.py](src/registry/commands.py) | hand-authored | Python registry layer | `src/cli.py`, generated command docs, tests | `make docs-generate` after changes |
+| [src/registry/models.py](src/registry/models.py) | hand-authored | Python registry layer | training catalog, reports, generated model manifest, web generated metadata | `make docs-generate` after changes |
+| [src/registry/dashboard_routes.py](src/registry/dashboard_routes.py) | hand-authored | Python registry layer | route manifest, staging generation, generated TS route metadata, docs | `make docs-generate` after changes |
+| [configs/*.yaml](configs) | hand-authored | config layer | ingest, training, validation, orchestration | edited directly |
+| [configs/feature_registry_*.yaml](configs) | hand-authored but policy-managed | feature governance layer | training feature-policy enforcement | direct edit or approved feature-policy update |
+| [configs/model_feature_map_*.yaml](configs) | hand-authored but research-promoted | model feature selection layer | training, web feature summaries | `make research-features ... APPROVE_FEATURE_CHANGES=1` or direct edit |
+| [configs/model_feature_guardrails_*.yaml](configs) | hand-authored | training guardrail layer | training feature validation | edited directly |
+| [configs/generated/*.json](configs/generated) | generated | registry + feature-research outputs | Python manifest readers, tests, web generated metadata | `make docs-generate` or feature-research promotion |
+| [docs/generated/*.md](docs/generated) | generated | registry layer | human reviewers | `make docs-generate` |
+| [web/lib/generated/*.ts](web/lib/generated) | generated | registry layer | web runtime | `make docs-generate` |
+| `data/raw/` | generated runtime data | ingest layer | ingest auditing and offline cache behavior | `fetch`, `refresh-data`, `data_refresh`, `hard_refresh` |
+| `data/interim/<league>/` | generated runtime data | ingest layer | feature pipeline | ingest commands |
+| `data/processed/<league>/features.parquet` | generated runtime data | feature pipeline | training, research, validation | `features` or daily/full pipeline runs |
+| `data/processed/*_forecast.db` | generated runtime data | storage layer | query subsystem, live dashboard, scoring, validation | init-db, ingest, training, scoring |
+| `artifacts/models/` | generated runtime data | training layer | validate, run replay, model inspection | `train`, `backtest`, research flows |
+| `artifacts/validation/` | generated runtime data | evaluation/validation layer | validation API and local review | `train` and `validate` |
+| `artifacts/validation-runs/` | generated runtime data | evaluation/validation layer | archived validation review | `train` and `validate` |
+| [web/public/staging-data/](web/public/staging-data) | generated but committed | web staging snapshot layer | GitHub Pages staging site | `cd web && npm run generate:staging-data` |
 
 ## The three major execution surfaces
 
@@ -663,6 +748,49 @@ The end-to-end pipeline looks like this:
 
 This persistence-first architecture is important. The web app and query layer generally read persisted outputs rather than recomputing model behavior on demand.
 
+```mermaid
+flowchart LR
+  A["League APIs and odds sources"] --> B["Ingest services and league adapters"]
+  B --> C["data/raw + data/interim + SQLite core tables"]
+  C --> D["Feature pipeline and league strategies"]
+  D --> E["data/processed/<league>/features.parquet"]
+  E --> F["Training, ensemble, validation, scoring"]
+  F --> G["SQLite prediction/performance tables"]
+  F --> H["artifacts/models + artifacts/validation + artifacts/reports"]
+  G --> I["Query subsystem"]
+  G --> J["Live Next.js API routes"]
+  H --> J
+  J --> K["Local dashboard"]
+  J --> L["staging-data generator"]
+  L --> M["web/public/staging-data"]
+  M --> N["GitHub Pages staging site"]
+```
+
+## Persistence cheat sheet
+
+Because the architecture is persistence-first, these are the tables and directories a reviewer should care about most:
+
+| Store | Meaning | Written by | Read by |
+| --- | --- | --- | --- |
+| `raw_snapshots` | audit trail for fetched source payloads and snapshot metadata | ingest | debugging, provenance, freshness reasoning |
+| `games` | normalized scheduled and completed games | ingest | feature pipeline, odds matching, dashboard/services |
+| `results` | normalized final outcomes | ingest | scoring, bet-history logic, validation context |
+| `odds_snapshots` / `odds_market_lines` | normalized market history and bookmaker lines | ingest / odds refresh | market-board, games-today, bet history, research betting |
+| `predictions` | frozen pregame predictions that really existed before games | train closeout | production scoring, replay, product answers, dashboard |
+| `prediction_diagnostics` | synthetic OOF, backtest, and replay diagnostics | train/backtest/research flows | diagnostics and offline analysis |
+| `upcoming_game_forecasts` | latest user-facing upcoming forecast surface | train closeout | query handlers, live dashboard API payloads |
+| `model_runs` | trained-run metadata and artifact references | train closeout | validation reload, web run summaries, provenance |
+| `model_scores` | per-game/per-model realized scoring records | scoring | performance summaries and analysis |
+| `performance_aggregates` | summarized rolling or aggregate performance records | scoring | query/reporting/dashboard performance views |
+| `change_points` | detected regime or performance shifts | scoring/change detection | performance analysis surfaces |
+| `validation_results` | validation metadata and pointers | validation | validation APIs and summaries |
+| `data/interim/<league>/` | normalized ingest-stage files | ingest | feature pipeline |
+| `data/processed/<league>/features.parquet` | finalized feature table | feature build | train, research, validation |
+| `artifacts/models/` | serialized model and run payload bundles | training/backtest/research | validate, inspection, replay |
+| `artifacts/validation/` | latest local validation snapshot | train/validate | validation API and local review |
+| `artifacts/validation-runs/` | archived immutable validation snapshots | train/validate | historical validation review |
+| `web/public/staging-data/` | committed static dashboard payloads | staging-data generation | GitHub Pages staging site |
+
 ## Feature engineering model
 
 The feature system mixes shared mechanics with league-specific feature semantics.
@@ -802,7 +930,7 @@ Research has its own workflows:
 - model feature research
 - width evaluations and experiment histories under `artifacts/research/`
 
-This is a healthy separation because it avoids turning the production pipeline into an always-experimental system.
+This separation keeps the production pipeline and the experimentation pipeline adjacent but distinct.
 
 ## Query and answer system
 
@@ -824,7 +952,7 @@ It supports:
 - P/L summaries
 - game-by-game bet/no-bet explanations
 
-The important architectural point is that this is a product layer over persisted data, not a language-model reasoning layer.
+The important architectural point is that this is a product layer over persisted data, not a freeform language-model reasoning layer.
 
 ## Web application architecture
 
@@ -935,7 +1063,7 @@ What it does:
 4. write the returned JSON to `web/public/staging-data/<league>/...`
 5. write league-level `meta.json` and root `manifest.json`
 
-This is a strong design choice because staging snapshots are generated by the same route handlers used in live mode, which reduces divergence between local and staged payloads.
+Staging snapshots are generated by the same route handlers used in live mode, which reduces divergence between local and staged payloads.
 
 ### Static vs live mode
 
@@ -984,7 +1112,7 @@ This means route keys, API paths, staging file names, and payload contracts are 
 - generated TS metadata
 - staging snapshot generation
 
-This is one of the cleaner pieces of cross-stack architecture in the repo.
+This route-registry pattern is one of the main anti-drift mechanisms between the Python and web layers.
 
 ## Artifact layout
 
@@ -1095,11 +1223,11 @@ Primary steps:
 3. regenerate manifests/docs
 4. update route and staging tests
 
-These extension stories are clearer than in many comparable repos because the registry layer is explicit.
+These extension stories are relatively clear because the registry layer is explicit.
 
-## Architectural strengths
+## Author assessment: strengths
 
-From an organizational perspective, the strongest aspects of the repo are:
+The sections above aim to be descriptive. This section is the author's assessment of the strongest organizational choices in the repo:
 
 - `Code-first registries`: leagues, models, commands, and routes are centralized and reused across Python, docs, and the web app.
 - `Strong live-vs-staging distinction`: the repo explicitly models local dashboard behavior and GitHub Pages staging as different delivery targets.
@@ -1111,9 +1239,9 @@ From an organizational perspective, the strongest aspects of the repo are:
 - `Deterministic product answering`: the query layer uses persisted data and stable logic rather than informal recomputation.
 - `Shared route generation`: dashboard and staging metadata are generated rather than manually mirrored.
 
-## Likely architectural stress points
+## Review hypotheses and stress points
 
-These are the areas an external reviewer will probably focus on first.
+These are the areas I expect an external reviewer to focus on first.
 
 ### 1. Naming drift from NHL-first abstractions
 
@@ -1171,7 +1299,7 @@ Those universes are:
 
 The boundaries are there, but they are close enough that future contributors could blur them if discipline weakens.
 
-## Questions a reviewer should probably ask
+## Reviewer prompts
 
 If you want ChatGPT Pro to critique this setup well, these are useful prompts to push on:
 
