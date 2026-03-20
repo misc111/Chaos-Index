@@ -1,205 +1,606 @@
 # SportsModeling Project Organization Deep Dive
 
-## Purpose
+## Purpose of this document
 
-This repository is a multi-league sports forecasting platform for:
+This document is a reviewer-oriented map of how the `SportsModeling` repository is organized. It is meant to give an external evaluator enough context to reason about:
+
+- the system's intended product shape
+- the repo's module boundaries
+- how data flows from source APIs to forecasts and dashboard views
+- how league-specific behavior is isolated
+- how the web app and static staging site are related
+- where the strongest architectural ideas are
+- where the most likely stress points or cleanup opportunities are
+
+It is intentionally more detailed than a normal README. The goal is to make it possible for another model or engineer to critique the setup without first reverse-engineering the repository from scratch.
+
+## What this project is
+
+At a high level, this repo is a multi-league sports forecasting platform for:
 
 - NHL
 - NBA
-- NCAAM
+- NCAA men's basketball (`NCAAM`)
 
-Its core product is probabilistic home-win forecasting with a repeatable end-to-end workflow:
+The system is not just a collection of prediction scripts. It is a full local product stack with:
 
-`fetch -> features -> train/update -> predict -> ingest results -> score -> aggregates -> artifacts`
+- raw data ingestion
+- normalized SQLite persistence
+- feature engineering
+- model training and ensembling
+- scoring and validation
+- betting-history and profitability analysis
+- deterministic natural-language query answering
+- a local Next.js dashboard
+- a separate GitHub Pages staging snapshot system
 
-Around that core pipeline, the repo also provides:
+The repository is opinionated about two things:
 
-- deterministic local natural-language query answering
-- walk-forward backtesting and research comparisons
-- validation and diagnostics artifacts
-- a Next.js dashboard for live local inspection
-- a committed GitHub Pages staging snapshot under `web/public/staging-data/`
-- deterministic repo-level refresh orchestration across all supported leagues
+1. Cross-league support should share as much structure as possible.
+2. Forecasting is only useful if it feeds product surfaces like betting decisions, validation views, historical replay, and dashboard payloads.
 
-The project is organized around one central idea: keep league-specific behavior behind explicit registries, adapters, strategies, and policies, while reusing one shared pipeline shape across all supported leagues.
+## Core product mental model
 
-## High-Level Layout
+The cleanest way to understand the repo is as five connected layers:
 
-At the top level, the repository is divided into a few major surfaces:
+1. `Ingest and normalize sports/odds data`
+2. `Build league-aware feature tables`
+3. `Train model families and ensemble them`
+4. `Persist forecasts, scores, validation outputs, and replayable history`
+5. `Expose those outputs through queries, APIs, and dashboard pages`
 
-- `src/`
-  Python application code for ingestion, features, modeling, scoring, validation, orchestration, query answering, and storage.
-- `web/`
-  Next.js dashboard, server-side data shaping, route handlers, staging-data generation, and static Pages build support.
-- `configs/`
-  Runtime YAML configs, feature registries, model feature maps, and generated manifest JSON.
-- `data/`
-  Local raw, interim, and processed data outputs.
-- `artifacts/`
-  Trained model outputs, reports, research outputs, and validation artifacts.
-- `docs/generated/`
-  Generated reference docs derived from code registries.
-- `tests/`
-  Python tests for contracts, pipelines, league parity, validation, query behavior, and orchestration.
-- `scripts/`
-  Small shell and export helpers.
-- `statistical_theory/`
-  Theory and modeling notes that capture longer-lived thinking outside the runtime pipeline.
+That flow is visible in both the Python pipeline and the web app.
 
-## Architectural Philosophy
+The practical daily path is roughly:
 
-Several repo-wide design choices shape how the code is organized:
+1. Fetch league data and odds into `data/raw/`, `data/interim/`, and SQLite
+2. Build `features.parquet` into `data/processed/<league>/`
+3. Train models and write forecasts, diagnostics, and artifacts
+4. Score frozen pregame predictions against final results
+5. Serve the latest outputs through the CLI query layer and the dashboard
 
-### 1. Code-first registries are the canonical source of truth
+## Top-level repository layout
 
-The repo explicitly states that `src/registry/` is the canonical source of truth for:
+These are the top-level directories that matter most:
 
-- supported leagues
-- supported models
-- supported CLI commands
-- supported dashboard routes
+- `src/`: the Python application and model pipeline
+- `web/`: the Next.js dashboard and its server/data-access layer
+- `configs/`: league configs, feature registries, model feature maps, and guardrails
+- `configs/generated/`: generated manifests shared by Python, docs, and the web app
+- `data/`: raw snapshots, interim tables, and processed league outputs
+- `artifacts/`: trained-model artifacts, reports, validation outputs, archived validation runs, and research outputs
+- `docs/generated/`: generated architecture, command, manifest, and route references
+- `tests/`: Python test suite
+- `statistical_theory/`: durable modeling notes and supporting theory documents
+- `scripts/`: shell and export helpers
+
+The repo also has a generated-documentation mindset. Several docs and manifests are produced from code-first registries rather than handwritten by hand.
+
+## The three major execution surfaces
+
+There are three separate but connected execution surfaces in this repo:
+
+### 1. Python CLI pipeline
+
+The Python CLI is the operational backbone. It handles:
+
+- DB initialization
+- ingest
+- odds refreshes
+- feature building
+- model training
+- validation
+- backtesting
+- research model comparison
+- deterministic daily runs
+
+Main entrypoints:
+
+- `src/cli.py`
+- `src/commands/`
+- `src/services/`
+- `Makefile`
+
+### 2. Local dashboard
+
+The local dashboard is a full Next.js app that reads the repo's SQLite outputs and exposes them through API routes and client pages.
+
+Main entrypoints:
+
+- `web/app/`
+- `web/app/api/`
+- `web/lib/server/`
+- `web/lib/`
+
+### 3. Static staging site
+
+The staging site is not the live local dashboard. It is a static GitHub Pages artifact that serves committed JSON snapshots from `web/public/staging-data/`.
+
+This distinction is extremely important:
+
+- local dashboard = live SQLite-backed product
+- GitHub Pages staging = committed JSON snapshots built from local route handlers
+
+That separation is a first-class architectural rule in the repo and affects how changes are shipped.
+
+## Python application architecture
+
+The Python side is organized more like an application platform than a flat modeling codebase.
+
+### `src/common`
+
+Cross-cutting utilities and typed configuration live here.
+
+Key responsibilities:
+
+- `src/common/config.py`: typed Pydantic config loading from YAML
+- `src/common/manifests.py`: shared manifest loading
+- `src/common/logging.py`: logging setup
+- `src/common/time.py`: time helpers
+- `src/common/utils.py`: file and JSON helpers
+- `src/common/research.py`: research-specific helpers
+
+Why it matters:
+
+- config loading is centralized
+- generated manifests can be consumed in one place
+- shared runtime assumptions do not leak across modules
+
+### `src/registry`
+
+This is one of the most important architectural subsystems in the repo.
+
+It defines code-first registries for:
+
+- leagues
+- commands
+- models
+- dashboard routes
 - subsystem documentation metadata
 
-Those registries generate:
+Key files:
 
-- committed JSON manifests under `configs/generated/`
-- generated TypeScript runtime metadata under `web/lib/generated/`
-- generated Markdown reference docs under `docs/generated/`
-- generated subsystem README files
+- `src/registry/leagues.py`
+- `src/registry/commands.py`
+- `src/registry/models.py`
+- `src/registry/dashboard_routes.py`
+- `src/registry/subsystems.py`
+- `src/registry/generate.py`
+- `src/registry/verify.py`
 
-This reduces drift between Python, the dashboard, and documentation.
+What this layer does:
 
-### 2. Thin entrypoints, thicker service and training layers
+- drives CLI parser generation
+- drives generated command docs
+- drives generated architecture docs
+- drives generated dashboard route manifests
+- drives generated TypeScript registry outputs for the web app
 
-The repo tries to keep:
+This is a strong anti-drift pattern. Instead of duplicating system metadata across Python, the web app, and docs, the repo generates those surfaces from one code-backed source of truth.
 
-- CLI parsing in `src/cli.py`
-- command dispatch in `src/commands/`
-- application-layer orchestration in `src/services/`
-- modeling and pipeline math in `src/training/`, `src/features/`, `src/evaluation/`, and `src/models/`
+### `src/commands`
 
-That separation is visible in both the README and the module docstrings.
+This layer is intentionally thin.
 
-### 3. League-specific logic is pushed to adapters and strategies
+Responsibilities:
 
-Cross-league orchestration should not branch arbitrarily everywhere. Instead, the project centralizes league differences in:
+- receive parsed argparse arguments
+- apply small argument overrides
+- hand real work to services
+
+Key files:
+
+- `src/commands/data.py`
+- `src/commands/modeling.py`
+- `src/commands/smoke.py`
+- `src/commands/__init__.py`
+
+This is an example of a healthy boundary: the CLI entrypoint does not own business logic.
+
+### `src/services`
+
+This is the application orchestration layer.
+
+Key responsibilities:
+
+- ingest lifecycle
+- training closeout
+- validation closeout
+- backtests
+- historical import
+- research comparison orchestration
+
+Key files:
+
+- `src/services/ingest.py`
+- `src/services/train.py`
+- `src/services/validate.py`
+- `src/services/backtest.py`
+- `src/services/model_compare.py`
+- `src/services/research_backtest.py`
+- `src/services/history_import.py`
+
+This is where repository-level concerns live:
+
+- loading feature contracts
+- persisting outputs to DB
+- writing artifacts
+- triggering validation
+- scoring predictions
+
+### `src/storage`
+
+This is the canonical persistence layer.
+
+Key files:
+
+- `src/storage/db.py`
+- `src/storage/schema.py`
+- `src/storage/prediction_history.py`
+- `src/storage/tracker.py`
+
+Responsibilities:
+
+- own SQLite schema
+- provide basic execute/query helpers
+- apply online migrations
+- enforce prediction-history contracts
+- track artifact run metadata on disk
+
+The most important persistence distinction in the repo is:
+
+- `predictions` = frozen pregame forecasts that actually existed before games
+- `prediction_diagnostics` = synthetic OOF, backtest, and replay predictions
+
+That separation is crucial for trustworthy performance analysis and user-facing replay.
+
+### `src/data_sources`
+
+This layer owns source acquisition and source-specific parsing.
+
+Structure:
+
+- shared contracts in `src/data_sources/base.py`
+- per-league modules under:
+  - `src/data_sources/nhl/`
+  - `src/data_sources/nba/`
+  - `src/data_sources/ncaam/`
+
+The repo standardizes a league adapter surface through `src/league_registry.py`, which makes each league look the same to the shared pipeline.
+
+Shared adapter responsibilities include:
+
+- fetch games
+- fetch schedule
+- fetch teams
+- fetch players
+- fetch injuries
+- fetch odds
+- fetch xG or similar optional stats
+- build normalized results from raw game tables
+
+Architecturally, this is the key move that lets NHL, NBA, and NCAAM share the same orchestration pipeline.
+
+### `src/features`
+
+This layer builds processed training data from the interim ingest tables.
+
+Key files:
+
+- `src/features/build_features.py`
+- `src/features/pipeline.py`
+- `src/features/leakage_checks.py`
+- `src/features/strategies/nhl.py`
+- `src/features/strategies/nba.py`
+- `src/features/strategies/ncaam.py`
+
+The feature pipeline is shared, but strategy objects inject league-specific behavior.
+
+Shared stages include:
+
+- load interim tables
+- expand games into team-level views
+- compute rolling windows
+- merge back into game-level rows
+- compute home-away difference features
+- impute, finalize, and persist the feature frame
+
+League-specific logic stays in strategy modules rather than inlined across the pipeline.
+
+This is one of the repo's better structural decisions:
+
+- common pipeline mechanics are shared
+- league-specific semantics are explicit and named
+
+### `src/models`
+
+This directory contains model implementations, but model metadata lives elsewhere.
+
+Representative files:
+
+- `src/models/glm_ridge.py`
+- `src/models/glm_elastic_net.py`
+- `src/models/glm_lasso.py`
+- `src/models/gbdt.py`
+- `src/models/rf.py`
+- `src/models/two_stage.py`
+- `src/models/glm_goals.py`
+- `src/models/bayes_state_space_bt.py`
+- `src/models/bayes_state_space_goals.py`
+- `src/models/nn.py`
+- `src/models/ensemble_weighted.py`
+- `src/models/ensemble_stack.py`
+
+The canonical model registry lives in `src/registry/models.py`, not here.
+
+That means:
+
+- model code and model metadata are intentionally separated
+- reporting order and aliases are centralized
+- the web app can consume the same model catalog as the training code
+
+### `src/training`
+
+This is the core model execution layer.
+
+Key responsibilities:
+
+- selecting feature columns
+- enforcing feature policy and guardrails
+- fitting model families
+- generating OOF predictions
+- assembling ensembles
+- generating upcoming forecasts
+- applying uncertainty policies
+- running prequential scoring
+
+Key files:
+
+- `src/training/train.py`
+- `src/training/fit_runner.py`
+- `src/training/predict_runner.py`
+- `src/training/model_catalog.py`
+- `src/training/feature_policy.py`
+- `src/training/model_feature_guardrails.py`
+- `src/training/model_feature_research.py`
+- `src/training/ensemble_builder.py`
+- `src/training/ensemble_policy.py`
+- `src/training/prequential.py`
+- `src/training/uncertainty_policy.py`
+
+This subsystem is where most of the modeling sophistication lives.
+
+### `src/evaluation`
+
+This is the formal evaluation and validation subsystem.
+
+Key responsibilities:
+
+- validation pipelines
+- GLM diagnostics
+- calibration
+- significance tests
+- nonlinearity checks
+- stability analysis
+- fragility analysis
+- influence analysis
+- drift and change detection
+- slice analysis
+
+Key files:
+
+- `src/evaluation/validation_pipeline.py`
+- `src/evaluation/calibration.py`
+- `src/evaluation/change_detection.py`
+- `src/evaluation/diagnostics_glm.py`
+- `src/evaluation/validation_significance.py`
+- `src/evaluation/validation_nonlinearity.py`
+- `src/evaluation/validation_stability.py`
+- `src/evaluation/validation_fragility.py`
+- `src/evaluation/validation_influence.py`
+- `src/evaluation/research_betting.py`
+
+This repo does not treat validation as a small afterthought. It has a real diagnostics surface.
+
+### `src/query`
+
+This is a product-facing deterministic question-answering layer over the local database.
+
+Key files:
+
+- `src/query/answer.py`
+- `src/query/intent_parser.py`
+- `src/query/parse.py`
+- `src/query/team_handlers.py`
+- `src/query/report_handlers.py`
+- `src/query/bet_history_handlers.py`
+- `src/query/championship_estimators.py`
+- `src/query/team_aliases.py`
+
+It answers questions like:
+
+- next game win probability
+- next few games
+- championship heuristics
+- bet history summaries
+- P/L recap questions
+- why a team was bet or skipped
+
+This is not an LLM layer. It is a deterministic SQL-backed product-answering surface.
+
+### `src/research`
+
+This is explicitly separated from the production pipeline.
+
+Key responsibilities:
+
+- candidate model comparison
+- broader experimentation
+- historical research backtests
+
+Key files:
+
+- `src/research/model_comparison.py`
+- `src/research/candidate_models.py`
+
+This separation matters because the repo intentionally distinguishes:
+
+- production models
+- research candidates
+
+### `src/orchestration`
+
+This is the multi-league orchestration layer.
+
+Key files:
+
+- `src/orchestration/data_refresh.py`
+- `src/orchestration/hard_refresh.py`
+- `src/orchestration/refresh_pipeline.py`
+
+Responsibilities:
+
+- deterministic repo-wide data-only refresh
+- deterministic repo-wide hard refresh
+- sequential cross-league execution
+- commit/push/workflow-watch automation for hard refreshes
+
+The orchestration system reflects the repo's operational contract:
+
+- supported leagues are run in a fixed order
+- data refresh and hard refresh are repository-level workflows, not just per-league commands
+
+## Configuration model
+
+Config is YAML-based and typed through `src/common/config.py`.
+
+Important files:
+
+- `configs/default.yaml`
+- `configs/nhl.yaml`
+- `configs/nba.yaml`
+- `configs/ncaam.yaml`
+
+Important patterns:
+
+- league configs extend `configs/default.yaml`
+- paths are league-specific for interim/processed/db outputs
+- research, feature policy, and runtime behavior are config-driven
+
+There are also several config surfaces beyond the main league YAML files:
+
+- `configs/feature_registry_<league>.yaml`
+- `configs/model_feature_map_<league>.yaml`
+- `configs/model_feature_guardrails_<league>.yaml`
+
+These are not decorative files. They are active parts of the modeling contract.
+
+## Generated manifests and why they matter
+
+The repo has a strong generated-manifest pattern.
+
+Generated outputs include:
+
+- `configs/generated/league_manifest.json`
+- `configs/generated/model_manifest.json`
+- `configs/generated/command_manifest.json`
+- `configs/generated/dashboard_route_manifest.json`
+- `configs/generated/model_feature_map_<league>.json`
+- `docs/generated/architecture.md`
+- `docs/generated/commands.md`
+- `docs/generated/dashboard-routes.md`
+- `docs/generated/extensions.md`
+- `web/lib/generated/*.ts`
+
+Why this is valuable:
+
+- Python and TypeScript read the same canonical metadata
+- docs and tests can verify the repo against generated truth
+- adding a league, model, or route is more mechanical and less error-prone
+
+This is one of the most mature structural features in the project.
+
+## Command and execution model
+
+The CLI parser is built from the command registry rather than manually coded.
+
+Main flow:
+
+1. `src/cli.py` builds argparse from `src/registry/commands.py`
+2. `src.commands.dispatch()` resolves the handler
+3. thin command modules call service functions
+4. services mutate the DB, files, and artifacts
+
+Core commands include:
+
+- `init-db`
+- `fetch`
+- `refresh-data`
+- `fetch-odds`
+- `import-history`
+- `features`
+- `research-features`
+- `train`
+- `validate`
+- `compare-candidates`
+- `backtest`
+- `research-backtest`
+- `run-daily`
+- `smoke`
+
+The `Makefile` acts as the main human-facing wrapper around these commands.
+
+It also exposes higher-level repo workflows:
+
+- `make data_refresh`
+- `make hard_refresh`
+- `make docs-generate`
+- `make verify`
+- `make dashboard`
+
+Two repository-level workflows are especially important in this codebase:
+
+### `make data_refresh`
+
+This is the deterministic multi-league data-only refresh.
+
+Intent:
+
+- fetch fresh league data
+- fetch a final fresh odds snapshot for each league
+- stop before features, training, or staging regeneration
+
+### `make hard_refresh`
+
+This is the deterministic multi-league refresh/train/publish workflow.
+
+Intent:
+
+- initialize DBs
+- fetch league data
+- fetch a final fresh odds snapshot for each league
+- train each league from the current processed feature snapshot
+- regenerate staging data
+- optionally build Pages output
+- commit and push results
+- watch the GitHub Actions publish workflow
+
+Operationally, that tells you this repo treats multi-league refreshes as first-class product workflows rather than ad hoc shell scripts.
+
+## League and runtime model
+
+League identity is registry-backed rather than being scattered across the codebase.
+
+Important files:
 
 - `src/registry/leagues.py`
 - `src/league_registry.py`
-- `src/data_sources/<league>/`
-- `src/features/strategies/<league>.py`
-- selected query alias and championship helpers
-- league-aware policies for uncertainty, naming, and feature maps
 
-### 4. Local dashboard and staging site are separate delivery targets
-
-The repo treats the local Next.js dashboard and the GitHub Pages staging site as distinct products:
-
-- the live local dashboard reads local SQLite-backed data flows
-- GitHub Pages publishes committed JSON snapshots under `web/public/staging-data/`
-
-This is a major operational boundary and one of the most important things for an outside reviewer to understand.
-
-### 5. Historical prediction integrity is a first-class data contract
-
-The storage layer separates:
-
-- immutable pregame history in `predictions`
-- synthetic or diagnostic rows in `prediction_diagnostics`
-
-That prevents backtests or out-of-fold reconstructions from silently rewriting what the app presents as historical live forecasts.
-
-## Top-Level Execution Surfaces
-
-The main human-facing execution surfaces are:
-
-### `Makefile`
-
-The `Makefile` is the primary ergonomic wrapper for both Python and web workflows. Important targets include:
-
-- install and verification:
-  - `install-python`
-  - `install-node`
-  - `lint`
-  - `typecheck`
-  - `test`
-  - `verify`
-- league-scoped Python pipeline commands:
-  - `init-db`
-  - `fetch`
-  - `refresh-data`
-  - `fetch-odds`
-  - `import-history`
-  - `features`
-  - `research-features`
-  - `train`
-  - `validate`
-  - `compare-candidates`
-  - `backtest`
-  - `research-backtest`
-  - `run_daily`
-  - `smoke`
-- repo-level orchestration:
-  - `data_refresh`
-  - `hard_refresh`
-- product surfaces:
-  - `dashboard`
-  - `smoke-dashboard`
-  - `query`
-- documentation/codegen:
-  - `docs-generate`
-  - `docs-check`
-
-The `Makefile` defaults to `CONFIG=configs/nba.yaml`, so NBA is the operational default when context is ambiguous.
-
-### `src/cli.py`
-
-`src/cli.py` is the Python application entrypoint. Its responsibilities are intentionally narrow:
-
-- load `.env` and `web/.env.local` when present
-- build argparse subcommands from `src.registry.commands`
-- load the selected YAML config via `src.common.config.load_config`
-- initialize logging
-- dispatch to a command handler in `src.commands`
-
-It does not implement business logic directly.
-
-### `make query` / `src/query/answer.py`
-
-The repo includes a deterministic natural-language query entrypoint for product questions such as:
-
-- next-game win probability
-- next few games
-- best model over a recent window
-- championship odds heuristics
-- betting history summaries
-
-This is important because model performance and betting history are treated as product surfaces, not only engineering internals.
-
-### `web/`
-
-The dashboard is an independent Next.js application that consumes the same underlying local artifacts and manifests but through web-facing route services and repositories.
-
-## Registry and Generated Metadata Layer
-
-The registry system is one of the clearest organizing mechanisms in the repo.
-
-### `src/registry/types.py`
-
-Defines the typed primitives used by the rest of the registry system:
-
-- `LeagueRegistryEntry`
-- `ModelRegistryEntry`
-- `CommandArgumentSpec`
-- `CommandRegistryEntry`
-- `DashboardRouteRegistryEntry`
-- `SubsystemDocEntry`
-
-These types make the registry layer explicit rather than ad hoc.
+There are two related ideas here:
 
 ### `src/registry/leagues.py`
 
-Defines canonical league metadata:
+This is the canonical metadata registry for supported leagues. It defines, per league:
 
 - code
 - slug
@@ -207,1117 +608,602 @@ Defines canonical league metadata:
 - default config path
 - config env var
 - project name
-- DB path
+- default DB path
 - DB env var
 - championship naming
-- uncertainty policy name
-- aliases
+- uncertainty policy naming
 
-Current registered leagues:
+### `src/league_registry.py`
 
-- `NHL`
-- `NBA`
-- `NCAAM`
+This is the typed adapter layer that maps shared orchestration code to per-league implementations.
 
-This module also provides:
+It exposes a normalized league adapter with methods like:
 
-- league canonicalization
-- config path resolution
-- DB path resolution
-- machine-readable manifest payload generation
+- fetch games
+- fetch players
+- fetch injuries
+- fetch schedule
+- fetch teams
+- fetch odds
+- fetch xG
+- build results from games
 
-### `src/registry/models.py`
+This is one of the main reasons the repo can support NHL, NBA, and NCAAM without triplicating the orchestration layer.
 
-Defines the canonical model catalog for both Python and web consumers. It captures:
+The canonical orchestration order is:
 
-- canonical model key
-- display labels and short labels
-- model family
-- aliases
-- legacy keys
-- trainable flag
-- prediction report ordering
+1. NHL
+2. NBA
+3. NCAAM
 
-Current registered model families include:
+That order matters for repo-level refresh workflows and cross-league operational consistency.
 
-- ratings
-- linear
-- tree
-- hybrid
-- goals
-- simulation
-- bayes
-- neural
+## End-to-end data flow
 
-Current registered models include:
+The end-to-end pipeline looks like this:
 
-- `elo_baseline`
-- `dynamic_rating`
-- `glm_ridge`
-- `glm_elastic_net`
-- `glm_lasso`
-- `gbdt`
-- `rf`
-- `two_stage`
-- `goals_poisson`
-- `simulation_first`
-- `bayes_bt_state_space`
-- `bayes_goals`
-- `nn_mlp`
+1. Shared ingest orchestration in `src/services/ingest.py`
+2. League-specific fetch adapters in `src/data_sources/<league>/`
+3. Raw snapshot persistence into `data/raw/` plus `raw_snapshots`
+4. Normalized interim tables into `data/interim/<league>/`
+5. Feature build into `data/processed/<league>/features.parquet`
+6. Model train/predict into `artifacts/models/` and `artifacts/reports/runs/`
+7. Forecast and metadata persistence into SQLite tables such as:
+   - `predictions`
+   - `upcoming_game_forecasts`
+   - `model_runs`
+   - `model_scores`
+   - `performance_aggregates`
+   - `change_points`
+8. Validation outputs into:
+   - `artifacts/validation/<league>/`
+   - `artifacts/validation-runs/<league>/...`
+9. Dashboard APIs and query handlers read those persisted outputs
+10. Staging snapshot generation materializes selected API payloads into `web/public/staging-data/`
 
-### `src/registry/commands.py`
+This persistence-first architecture is important. The web app and query layer generally read persisted outputs rather than recomputing model behavior on demand.
 
-Defines the declarative command registry used to:
+## Feature engineering model
 
-- build argparse command-line options
-- drive generated command docs
-- drive help text
-- resolve the handler import path for each command
+The feature system mixes shared mechanics with league-specific feature semantics.
 
-This keeps the CLI contract centralized rather than duplicated across parser code and docs.
+Shared feature concepts:
 
-### `src/registry/dashboard_routes.py`
+- rolling windows
+- rest and schedule effects
+- dynamic ratings and Elo-like signals
+- home-away differential features
+- feature hashing/versioning
+- leakage checks
+- governed feature contracts
 
-Defines the canonical dashboard/staging routes:
+League-specific feature strategy examples:
 
-- `actualVsExpected`
-- `betHistory`
-- `gamesToday`
-- `marketBoard`
-- `metrics`
-- `performance`
-- `predictions`
-- `validation`
+### NHL
 
-Each entry includes:
+- lineup and injury uncertainty
+- goalie-derived features
+- special teams
+- travel and rink adjustments
+- xG and shot-quality style transforms
 
-- API path
-- page path
-- staging file name
-- payload contract key
-- whether it participates in staging
-- whether it supports experimental variants
+### NBA
 
-### `src/registry/subsystems.py`
+- player-projection and availability features
+- rotation stability
+- DARKO-like total and shot proxies
+- arena, travel, rest, possession, and foul features
 
-Defines subsystem documentation metadata, which in turn feeds:
+### NCAAM
 
-- `docs/generated/architecture.md`
-- generated subsystem README files
+- basketball-style efficiency proxies
+- conference-tournament and season-phase indicators
+- more fallback/proxy behavior than NBA
 
-This is effectively a lightweight ownership map for the repo.
+The repo treats feature governance seriously:
 
-### `src/registry/generate.py`
+- unexpected feature set changes can be blocked
+- per-model approved feature maps exist
+- per-model guardrails exist
 
-This is the code-generation engine. It produces:
+That makes feature evolution safer, but also increases cognitive load because the active feature contract is spread across several files.
 
-- JSON manifests in `configs/generated/`
-- generated TypeScript runtime metadata in `web/lib/generated/`
-- generated docs in `docs/generated/`
-- generated README files for subsystem folders
+## Modeling and training model
 
-This module is a key bridge between Python, docs, and the web app.
+The training system is organized around a model catalog plus several execution helpers.
 
-### `src/registry/verify.py`
+Registered trainable model families include:
 
-This is the registry-driven contract checker. It verifies:
+- rating baselines
+- penalized GLMs
+- random forest
+- gradient boosted trees
+- hybrid two-stage models
+- goal-based models
+- Bayesian state-space models
+- neural network MLP
+- simulation-derived forecast surface
 
-- generated artifacts are up to date
-- required README files exist
-- public docstrings exist on designated modules
-- oversized files are either avoided or explicitly allowlisted
-- forbidden hard-coded config/DB/env literals do not leak outside resolver modules
+The modeling worldview of the repo seems to be:
 
-This is a strong signal that the repo is trying to enforce architectural discipline, not just implement functionality.
+- the ensemble probability is the default operational prediction
+- GLM-family models are especially important to product reasoning and diagnostics
+- model-specific feature subsets are acceptable and expected
+- validation and scoring should happen immediately around training
 
-## Configuration Model
+The training closeout does a lot in one step:
 
-### Base config
+- fit models
+- generate upcoming probabilities
+- generate OOF predictions
+- build ensemble forecasts
+- persist predictions
+- persist model-run metadata
+- run validation
+- run prequential scoring
 
-`configs/default.yaml` defines shared defaults for:
+This is operationally convenient, but it also means training has a large blast radius.
 
-- project metadata
-- path layout
-- data window settings
-- modeling settings
-- validation split policy
-- Bayesian hyperparameters
-- runtime toggles
-- feature policy behavior
-- research workflow settings
+## Persistence and historical integrity
 
-### League configs
+One of the most important design ideas in the repo is historical integrity.
 
-Each league config extends the default base:
+The system tries to preserve the distinction between:
 
-- `configs/nhl.yaml`
-- `configs/nba.yaml`
-- `configs/ncaam.yaml`
+- what the model really predicted before a game
+- what a later backtest or diagnostic recomputation says
 
-Differences across leagues include:
+This shows up in:
 
-- `project.name`
-- `paths.interim_dir`
-- `paths.processed_dir`
-- `paths.db_path`
-- `data.league`
-- season windows
-- history windows
-- validation split mode
+- `predictions` vs `prediction_diagnostics`
+- frozen pregame scoring
+- historical bet replay logic
+- validation artifacts stored by run
 
-Notable example:
+This is a strong product decision because betting and performance analysis become misleading if historical rows are quietly rewritten after retraining.
 
-- NBA and NHL use `train_test`
-- NCAAM uses `train_validation_test`
+## Evaluation, validation, and research
 
-### Config loading
+The repo has three related but distinct analysis surfaces:
 
-`src/common/config.py` loads YAML into a typed `AppConfig` based on Pydantic models such as:
+### 1. Production scoring
 
-- `ProjectConfig`
-- `PathsConfig`
-- `DataConfig`
-- `ModelingConfig`
-- `ValidationSplitConfig`
-- `BayesConfig`
-- `RuntimeConfig`
-- `FeaturePolicyConfig`
-- `ResearchConfig`
+This uses frozen predictions and real results to update:
 
-The loader also supports one level of config inheritance through `extends`.
-
-### Feature-policy configs
-
-Feature-contract management is partly config-driven:
-
-- `configs/feature_registry_<league>.yaml`
-- `configs/model_feature_map_<league>.yaml`
-- `configs/model_feature_guardrails_<league>.yaml`
-
-These support two related but different concerns:
-
-- feature-contract stability for production
-- per-model feature selection and guardrails
-
-## Python Package Map
-
-### `src/common/`
-
-Cross-cutting infrastructure for:
-
-- typed config loading
-- generated manifest loading
-- logging
-- time helpers
-- utility functions
-
-This package is the repo’s shared glue layer.
-
-### `src/commands/`
-
-Thin CLI wrappers that translate parsed arguments into service calls.
-
-- `data.py`
-  wraps ingest, features, odds refresh, and history import
-- `modeling.py`
-  wraps train, validate, backtest, compare-candidates, research-backtest, and daily run flows
-- `smoke.py`
-  runs a reduced-window end-to-end smoke flow and sample local queries
-
-### `src/orchestration/`
-
-Repo-level deterministic multi-league workflows.
-
-- `refresh_pipeline.py`
-  builds ordered shell-step plans and executes them sequentially
-- `data_refresh.py`
-  repo-wide ingest-only pipeline
-- `hard_refresh.py`
-  repo-wide init/fetch/fetch-odds/train/staging/push/workflow-watch pipeline
-
-This layer is intentionally separate from the league-scoped Python services.
-
-### `src/services/`
-
-Application-layer orchestration over the lower-level modules.
-
-- `ingest.py`
-  database initialization, raw snapshot insertion, interim-file persistence, ingestion, odds persistence, feature-build invocation, and data refresh flow
-- `train.py`
-  load processed features, apply feature policy, call training package, persist predictions and forecasts, persist OOF diagnostics, score outputs, and trigger validation artifacts
-- `validate.py`
-  regenerate validation artifacts from a saved trained run
-- `backtest.py`
-  walk-forward backtest orchestration and persistence closeout
-- `model_compare.py`
-  research-only candidate comparison service
-- `research_backtest.py`
-  historical research backtest service
-- `history_import.py`
-  historical import logic for research datasets
-
-The service layer is where repo-level persistence and artifact responsibilities sit.
-
-### `src/storage/`
-
-SQLite schema and persistence helpers.
-
-- `schema.py`
-  full DDL for pipeline tables
-- `db.py`
-  simple database wrapper plus online migration logic
-- `prediction_history.py`
-  contracts around immutable prediction history versus diagnostics
-- `tracker.py`
-  run/artifact tracking utilities
-- `io.py`
-  storage-related helper functions
-
-Important storage tables include:
-
-- `raw_snapshots`
-- `games`
-- `results`
-- `teams`
-- `feature_sets`
-- `model_runs`
-- `predictions`
-- `prediction_diagnostics`
-- `upcoming_game_forecasts`
 - `model_scores`
 - `performance_aggregates`
 - `change_points`
-- `validation_results`
-- `odds_snapshots`
-- `odds_market_lines`
-- `historical_bet_decisions`
-- `historical_bet_decisions_by_profile`
-
-The schema strongly suggests the repo is organized around a local SQLite product database, not around purely ephemeral notebook workflows.
-
-### `src/data_sources/`
-
-League-specific ingest adapters and shared source contracts.
-
-- shared:
-  - `base.py`
-  - `odds_api.py`
-- per league:
-  - `src/data_sources/nhl/`
-  - `src/data_sources/nba/`
-  - `src/data_sources/ncaam/`
-
-Per-league modules cover:
-
-- games
-- teams
-- schedule
-- players
-- injuries
-- odds
-- results
-- xg
-- goalie/game stats
-
-The shared orchestration surface for these modules is `src/league_registry.py`, which assembles a typed `LeagueAdapter` from the registered league metadata plus the league-specific fetch/build functions.
-
-### `src/features/`
-
-Feature engineering is organized as a shared pipeline plus league strategies.
-
-Core shared files:
-
-- `pipeline.py`
-  stable pipeline stages for interim loading, team-game expansion, rolling windows, game-level merge, and final feature-frame persistence
-- `build_features.py`
-  shared caller entrypoint
-- `leakage_checks.py`
-  leakage detection before training
-
-Reusable feature helpers include:
-
-- `elo.py`
-- `dynamic_ratings.py`
-- `travel.py`
-- `contextual_effects.py`
-- `goalie_features.py`
-- `rink_adjustments.py`
-- `special_teams.py`
-- `intermediates.py`
-
-League-specific strategy classes live in:
-
-- `src/features/strategies/nhl.py`
-- `src/features/strategies/nba.py`
-- `src/features/strategies/ncaam.py`
-
-This is one of the cleanest extension seams in the repo.
-
-### `src/models/`
-
-Concrete model implementations by family.
-
-Examples:
-
-- ratings:
-  - `glm_ridge.py`
-  - `glm_lasso.py`
-  - `glm_elastic_net.py`
-  - `glm_penalized.py`
-- tree and hybrid:
-  - `gbdt.py`
-  - `rf.py`
-  - `two_stage.py`
-- goals and simulation:
-  - `glm_goals.py`
-  - `ensemble_weighted.py`
-  - `ensemble_stack.py`
-- bayesian:
-  - `bayes_state_space_bt.py`
-  - `bayes_state_space_goals.py`
-- neural:
-  - `nn.py`
-
-This directory mostly contains model math and direct estimator implementations.
-
-### `src/training/`
-
-This package is the main modeling runtime layer. It converts processed features into:
-
-- fit models
-- out-of-fold predictions
-- ensemble probabilities
-- upcoming forecasts
-- saved artifacts
-- diagnostics and scores
-
-Important files:
-
-- `train.py`
-  main orchestration entrypoint `train_and_predict`
-- `model_catalog.py`
-  canonical model normalization built from the shared registry
-- `fit_runner.py`
-  model fitting flow
-- `predict_runner.py`
-  prediction generation flow
-- `ensemble_builder.py`
-  ensemble weight, stacker, and spread assembly
-- `ensemble_policy.py`
-  rules for which models participate in ensembles
-- `feature_selection.py`
-  raw feature selection helpers
-- `feature_policy.py`
-  production versus research feature-contract enforcement
-- `model_feature_research.py`
-  per-model feature research and promotion
-- `model_feature_guardrails.py`
-  feature constraints and checks
-- `penalized_glm.py`
-  GLM tuning and penalized-model feature handling
-- `artifact_writer.py`
-  artifact serialization
-- `backtest.py`
-  walk-forward logic
-- `prequential.py`
-  scoring logic
-- `cv.py`
-  cross-validation helpers
-- `uncertainty_policy.py`
-  uncertainty flag generation
-- `progress.py`
-  structured progress emission
-
-This is arguably the most important package in the repo.
-
-### `src/evaluation/`
-
-Diagnostics, validation, significance, drift, and scoring surfaces.
-
-Important files include:
-
-- `metrics.py`
-- `calibration.py`
-- `brier_decomposition.py`
-- `performance_timeseries.py`
-- `slice_analysis.py`
-- `change_detection.py`
-- `drift.py`
-- `diagnostics_glm.py`
-- `diagnostics_ml.py`
-- `validation_pipeline.py`
-- `validation_classification.py`
-- `validation_significance.py`
-- `validation_nonlinearity.py`
-- `validation_stability.py`
-- `validation_influence.py`
-- `validation_fragility.py`
-- `validation_backtest_integrity.py`
-- `research_betting.py`
-
-This package turns model outputs into analysis surfaces that can be stored, plotted, or surfaced in the dashboard.
-
-### `src/query/`
-
-Deterministic natural-language product query answering.
-
-Important files:
-
-- `answer.py`
-  top-level router
-- `intent_parser.py`
-  query parsing and intent resolution
-- `team_aliases.py`
-  cross-league alias handling
-- `team_handlers.py`
-  team-centric forecast answers
-- `bet_history_handlers.py`
-  bet-history summaries and breakdowns
-- `report_handlers.py`
-  best-model and report answers
-- `championship_estimators.py`
-  heuristic championship answers
-- `contracts.py`
-  query adapter interfaces
-- `templates.py`
-  deterministic answer text formatting
-
-This package is important because it exposes the project’s internal data model as a user-facing local QA/product interface.
 
-### `src/research/`
+### 2. Formal validation
 
-Research-only comparison and experimentation.
+This writes structured diagnostics under:
 
-Primary files:
+- `artifacts/validation/<league>/`
+- `artifacts/validation-runs/<league>/...`
 
-- `candidate_models.py`
-- `model_comparison.py`
+Validation topics include:
 
-This area appears to support broader experimentation outside the stricter production training contract.
+- residual diagnostics
+- calibration
+- significance
+- nonlinearity
+- collinearity
+- stability
+- fragility
+- influence
+- classification curves and summaries
 
-### `src/bayes/`
-
-Bayesian state-space flows and diagnostics:
-
-- offline fit
-- daily update
-- posterior predictive diagnostics
-
-This package is narrower than `src/training/` and seems to support the Bayesian model family specifically.
-
-### `src/simulation/`
+### 3. Research
 
-Simulation-specific support code for forecast and betting workflows.
-
-Currently centered on:
-
-- `game_simulator.py`
-
-## End-to-End Data Flow
+Research has its own workflows:
 
-The typical league-scoped pipeline is:
+- candidate model comparison
+- research backtests
+- model feature research
+- width evaluations and experiment histories under `artifacts/research/`
 
-### 1. Config and DB initialization
+This is a healthy separation because it avoids turning the production pipeline into an always-experimental system.
 
-- select config such as `configs/nba.yaml`
-- optionally initialize the SQLite schema with `init-db`
+## Query and answer system
 
-### 2. Data ingestion
+The repo contains a deterministic query engine under `src/query/`.
 
-`src/services/ingest.py` uses:
+This subsystem answers local product questions by:
 
-- `src.league_registry.get_league_adapter`
-- league-specific `src/data_sources/<league>/...`
-- `HttpClient` from `src.data_sources.base`
+- parsing intent
+- resolving league and team aliases
+- reading the SQLite database
+- returning deterministic answer text plus structured payloads
 
-It persists:
+It supports:
 
-- raw snapshot metadata into `raw_snapshots`
-- structured `games`
-- structured `results`
-- `teams`
-- odds snapshots and market lines
-- interim parquet/csv files under the configured `interim_dir`
+- team forecast questions
+- multi-game questions
+- championship heuristic questions
+- betting-history questions
+- P/L summaries
+- game-by-game bet/no-bet explanations
 
-Interim file names are standardized via `INTERIM_FILES`:
+The important architectural point is that this is a product layer over persisted data, not a language-model reasoning layer.
 
-- `games`
-- `schedule`
-- `teams`
-- `players`
-- `goalies`
-- `injuries`
-- `odds`
-- `xg`
+## Web application architecture
 
-### 3. Feature building
+The `web/` directory is a separate Next.js application that acts as the local UI for the forecasting system.
 
-`src.features.build_features` enters the shared pipeline in `src/features/pipeline.py`.
+### App structure
 
-Core steps:
+The app uses route-per-surface organization under `web/app/`.
 
-- load interim data
-- expand each game into home and away team-game records
-- compute per-team rolling windows
-- merge back to game level
-- apply league strategy transforms
-- persist final features to `features.parquet` or `features.csv`
-
-The resulting `FeatureBuildResult` includes:
-
-- finalized dataframe
-- numeric feature columns
-- `feature_set_version`
-- metadata
-
-### 4. Feature policy enforcement
-
-Before training or backtesting, the repo enforces a feature contract through `src/training/feature_policy.py`.
-
-Modes:
-
-- `production`
-  blocks feature drift unless explicitly approved
-- `research`
-  allows broader discovery while tracking new candidates
-
-This is a notable governance mechanism: the repo treats feature drift as a managed contract, not an incidental side effect.
-
-### 5. Model training and prediction
-
-`src/services/train.py` loads features and passes them into `src/training/train.py::train_and_predict`.
-
-The training flow includes:
-
-- split train versus upcoming rows
-- feature selection
-- leakage checks
-- optional GLM hyperparameter tuning
-- model suite fitting
-- artifact saving
-- out-of-fold prediction generation
-- stacking/weighted ensemble construction
-- upcoming forecast generation
-- uncertainty flags
-- run payload serialization
-
-### 6. Persistence closeout
-
-The service layer persists:
-
-- immutable live-style predictions into `predictions`
-- upcoming forecast rows into `upcoming_game_forecasts`
-- synthetic OOF/backtest data into `prediction_diagnostics`
-- model run metadata into `model_runs`
-- feature set metadata into `feature_sets`
-
-### 7. Scoring and aggregates
-
-Scoring is handled through `src/training/prequential.py` and related evaluation modules, producing:
-
-- `model_scores`
-- `performance_aggregates`
-- change detection and validation surfaces
-
-### 8. Validation artifacts
-
-`src/evaluation/validation_pipeline.py` produces saved validation sections and artifacts that later feed:
-
-- local analysis
-- dashboard payloads
-- staging snapshots
-
-## Multi-League Orchestration
-
-The repo distinguishes between:
-
-- league-scoped commands
-- repo-wide deterministic orchestration
-
-### League-scoped commands
-
-Examples:
-
-- `make fetch CONFIG=configs/nhl.yaml`
-- `make features CONFIG=configs/nba.yaml`
-- `make train CONFIG=configs/ncaam.yaml`
-
-These remain independently runnable.
-
-### Repo-wide data refresh
-
-`make data_refresh` calls `src/orchestration/data_refresh.py`, which uses `src/orchestration/refresh_pipeline.py`.
-
-Its deterministic sequence is:
-
-- fetch NHL
-- fetch NBA
-- fetch NCAAM
-- fetch odds NHL
-- fetch odds NBA
-- fetch odds NCAAM
-
-No features, training, or staging regeneration occur in this flow.
-
-### Repo-wide hard refresh
-
-`make hard_refresh` calls `src/orchestration/hard_refresh.py`.
-
-Its deterministic sequence is:
-
-- init DB for NHL/NBA/NCAAM
-- fetch for NHL/NBA/NCAAM
-- fetch odds for NHL/NBA/NCAAM
-- train for NHL/NBA/NCAAM
-- `web` staging-data generation
-- optional Pages build
-- commit
-- push
-- GitHub Actions workflow watch
-
-This is implemented as a strict shell-step plan, not as loose orchestration logic. That improves determinism and auditability.
-
-## Web Application Organization
-
-The `web/` app is a second major subsystem, not just a thin view over Python scripts.
-
-### Core stack
-
-From `web/package.json`:
-
-- Next.js 16
-- React 18
-- TypeScript
-- Playwright for smoke tests
-
-Important scripts:
-
-- `npm run dev`
-- `npm run build`
-- `npm run build:pages`
-- `npm run generate:staging-data`
-- `npm run lint`
-- `npm run typecheck`
-- `npm run test:smoke`
-
-### App shell
-
-`web/app/layout.tsx` defines the top-level dashboard shell:
-
-- header
-- sidebar
-- theme bootstrap
-- main content area
-
-The app brands itself as `Chaos Index`.
-
-### App pages
-
-Current page surfaces include:
+Important pages include:
 
 - `/`
+- `/predictions`
 - `/games-today`
-- `/bet-sizing`
 - `/market-board`
 - `/bet-history`
-- `/actual-vs-expected`
-- `/predictions`
-- `/leaderboard`
 - `/performance`
+- `/validation`
+- `/actual-vs-expected`
+- `/bet-sizing`
+- `/leaderboard`
 - `/calibration`
 - `/diagnostics`
 - `/slices`
-- `/validation`
+
+The app shell lives in:
+
+- `web/app/layout.tsx`
+- `web/components/DashboardHeader.tsx`
+
+The header also carries league switching, strategy controls, refresh controls, and theme toggles.
 
 ### API routes
 
-`web/app/api/` contains thin route handlers. Canonical dashboard routes are registry-backed, while additional operational routes also exist:
+The JSON API routes under `web/app/api/` mirror the public dashboard surfaces:
 
-- registry-backed:
-  - `actual-vs-expected`
-  - `bet-history`
-  - `games-today`
-  - `market-board`
-  - `metrics`
-  - `performance`
-  - `predictions`
-  - `validation`
-- operational routes:
-  - `refresh-data`
-  - `refresh-odds`
-  - `train-models`
+- `predictions`
+- `performance`
+- `validation`
+- `market-board`
+- `games-today`
+- `bet-history`
+- `actual-vs-expected`
+- `metrics`
 
-The generated registry only covers the public/staging route contract, not every operational API endpoint.
+There are also operational routes for local-only actions:
 
-### Server-side web architecture
+- `refresh-data`
+- `refresh-odds`
+- `train-models`
 
-`web/lib/server/` is the main backend-for-frontend layer.
+### Server/data-access layer
 
-It is organized around:
+The real web-side logic lives in:
 
-- `repositories/`
-  direct data access and SQL helpers
-- `services/`
-  route-specific orchestration and payload shaping
-- `payload-contracts.ts`
-  stable payload shapes
-- `manifests.ts`
-  generated manifest and runtime resolution helpers
+- `web/lib/server/services/`
+- `web/lib/server/repositories/`
 
-This mirrors the Python pattern of thin entrypoints and deeper service layers.
+Important design choices:
 
-### Generated web metadata
+- route handlers are thin wrappers
+- server services own payload shaping
+- repositories own SQLite reads and manifest lookup
+- payload contracts are centralized in `web/lib/server/payload-contracts.ts`
 
-The dashboard consumes generated runtime metadata from:
+One unusual but important detail:
 
-- `web/lib/generated/league-registry.ts`
-- `web/lib/generated/model-manifest.ts`
-- `web/lib/generated/dashboard-routes.ts`
+- the web app shells out to the `sqlite3` CLI via `web/lib/db.ts`
+- it does not use an ORM or long-lived embedded DB client
 
-This means the web app and Python app share the same code-generated canonical metadata instead of maintaining separate enums by hand.
+This is pragmatic and likely fine for local/internal use, but it is a notable architectural tradeoff.
 
-## Staging and Deployment Model
+### Client-side data loading
 
-This project has a very explicit staging model.
+The client fetch path is centered around:
 
-### Local dashboard
+- `web/lib/hooks/useDashboardData.ts`
+- `web/lib/hooks/useLeague.ts`
+- `web/lib/static-staging.ts`
 
-The local dashboard reads current local data and code behavior.
+Most page components are client-heavy and fetch JSON after mount rather than leaning on server component data loading.
 
-### GitHub Pages staging
+That makes live/static mode switching easier, but may leave performance and composition questions for future review.
 
-GitHub Pages does not rebuild live SQLite data. It publishes committed JSON snapshots from:
+## Static staging architecture
 
-- `web/public/staging-data/manifest.json`
-- `web/public/staging-data/<league>/*.json`
+The staging system is one of the most important product-delivery concepts in the repo.
 
-That staging data is generated by:
+### What staging is
+
+The GitHub Pages site serves committed JSON snapshots from:
+
+- `web/public/staging-data/`
+
+It does not connect to live SQLite data on GitHub.
+
+### How staging snapshots are generated
+
+Main file:
 
 - `web/scripts/generate-staging-data.ts`
 
-This script:
+What it does:
 
-- iterates all supported leagues
-- iterates the registry-declared staging routes
-- calls the route handlers directly
-- sanitizes validation payloads for public staging
-- writes per-league JSON files plus metadata
+1. read the generated dashboard route registry
+2. import the real route handlers
+3. call each handler with a synthetic request per league
+4. write the returned JSON to `web/public/staging-data/<league>/...`
+5. write league-level `meta.json` and root `manifest.json`
 
-It also writes experimental performance variants where supported.
+This is a strong design choice because staging snapshots are generated by the same route handlers used in live mode, which reduces divergence between local and staged payloads.
 
-### Static export
+### Static vs live mode
 
-`web/next.config.js` supports a static export mode with:
+The bridge is:
 
-- `STATIC_EXPORT=1`
-- optional `PAGES_BASE_PATH`
+- `web/lib/static-staging.ts`
 
-The Pages build is performed by:
+It switches page data loading between:
 
-- `npm run build:pages`
+- live API routes in local mode
+- committed static JSON files in staging mode
 
-### Operational implication
+This means many page components can stay environment-agnostic.
 
-If a dashboard or payload change should appear on staging, code changes alone are not enough. The developer must also regenerate and commit the staging snapshot.
+### Pages build
 
-This is one of the most important repo conventions.
+Main file:
 
-## Query and Product-Surface Logic
+- `web/scripts/build-pages.mjs`
 
-The repo is not only a training pipeline. It also encodes product logic for how users ask questions about forecasts and betting.
+Important behavior:
 
-### Intent parsing
+- validates staging manifest presence
+- sets static-export environment
+- temporarily removes `web/app/api` from the build tree
+- runs the static export
+- restores the API tree
 
-`src/query/intent_parser.py` handles:
+That makes the static Pages build intentionally API-less.
 
-- league hints
-- team alias resolution
-- next-game and next-N-games parsing
-- championship request detection
-- report detection
-- betting-history time-scope parsing
+## Generated dashboard route system
 
-It defaults ambiguous contexts to NBA when no stronger signal is present.
+The dashboard route system is registry-driven, not manually duplicated.
 
-### Team and championship handlers
+Relevant files:
 
-`team_handlers.py` uses `upcoming_game_forecasts` plus per-model probabilities to answer:
+- `src/registry/dashboard_routes.py`
+- `configs/generated/dashboard_route_manifest.json`
+- `web/lib/generated/dashboard-routes.ts`
+- `docs/generated/dashboard-routes.md`
 
-- next-game probability
-- next few games
-- expected wins over the next span
+This means route keys, API paths, staging file names, and payload contracts are intended to stay synchronized across:
 
-### Betting history
+- Python registries
+- generated docs
+- generated TS metadata
+- staging snapshot generation
 
-`bet_history_handlers.py` is a substantial product-facing reporting layer that works over:
+This is one of the cleaner pieces of cross-stack architecture in the repo.
 
-- historical decision tables
-- profile selection logic
-- realized results
-- profit/loss computation
-- rationale rendering
+## Artifact layout
 
-This is more sophisticated than a simple SQL summary and suggests the repo treats bankroll and betting explanations as core product features.
+The repo stores several distinct artifact classes:
 
-## Testing and Verification
-
-The repo includes several layers of quality checks.
-
-### Python tests
-
-The `tests/` directory covers:
-
-- league parity
-- feature pipeline behavior
-- leakage checks
-- GLM hardening and diagnostics
-- candidate model comparison
-- validation pipeline and significance
-- research backtest
-- query parsing and answers
-- odds API behavior
-- hard-refresh orchestration
-- registry contracts
-
-This gives the project broad contract-level coverage across both infra and modeling logic.
-
-### Web tests
-
-The dashboard has Playwright smoke coverage in:
-
-- `web/tests/playwright/dashboard-smoke.spec.ts`
-
-That suite exercises:
-
-- all supported leagues
-- major pages
-- common navigation and interactive flows
-- UI error detection
-- layout sanity checks
-
-### Repo verification
-
-`make verify` combines:
-
-- registry verification
-- pytest
-- Python lint
-- Python type checking
-- web lint
-- web typecheck
-
-This is the main “architecture and contract drift” gate.
-
-## Important Cross-Cutting Contracts
-
-Several contracts recur across the repo:
-
-### Canonical league order
-
-The supported league order comes from `src/registry/leagues.py` and is reused by orchestration:
-
-- NHL
-- NBA
-- NCAAM
-
-### Canonical model naming
-
-Model names are normalized through the shared registry and `src/training/model_catalog.py`, which keeps the Python and web naming aligned.
-
-### Prediction history immutability
-
-User-facing historical replay must come from `predictions`, not reconstructed diagnostics.
-
-### Feature drift approval
-
-Production feature changes must be explicitly approved.
-
-### Registry-driven documentation and runtime metadata
-
-Generated artifacts are not optional niceties; they are part of the architecture.
-
-### Dashboard route registry
-
-Public dashboard/staging routes are expected to be declared centrally, not only implemented ad hoc.
-
-## Data and Artifact Layout
-
-### `data/`
-
-The data directory is organized by pipeline stage:
+### Runtime and data artifacts
 
 - `data/raw/`
-  cached raw source outputs and historical imports
-- `data/interim/`
-  structured intermediate ingest outputs, often league-scoped
-- `data/processed/`
-  final processed league artifacts such as databases and feature tables
-
-League-specific configs often point to:
-
 - `data/interim/<league>/`
-- `data/processed/<league>/`
+- `data/processed/<league>/features.parquet`
+- `data/processed/<league>_forecast.db`
 
-while the DB filenames remain top-level league forecast DBs such as:
+### Model and run artifacts
 
-- `data/processed/nba_forecast.db`
-- `data/processed/nhl_forecast.db`
-- `data/processed/ncaam_forecast.db`
+- `artifacts/models/<run-or-model-hash>/`
+- `artifacts/reports/runs/train_<timestamp>_<hash>/`
 
-### `artifacts/`
+### Validation artifacts
 
-The artifact directory collects multiple output classes:
+- `artifacts/validation/<league>/`
+- `artifacts/validation-runs/<league>/<date>/<timestamp>_<run>/`
 
-- `artifacts/models/`
-  saved model artifacts by run hash
-- `artifacts/reports/`
-  generated metrics and train-run outputs
-- `artifacts/research/`
-  research-only experiments and width evaluations
-- `artifacts/validation/`
-  current validation outputs
-- `artifacts/validation-runs/`
-  archived validation runs by league/date/run
+### Research artifacts
 
-This separation suggests the repo is designed both for current product delivery and for historical forensic analysis.
+- `artifacts/research/...`
 
-## How to Mentally Navigate the Repo
+### Report-like outputs
 
-A reviewer can navigate the codebase efficiently using this path:
+- `artifacts/reports/history/`
+- `artifacts/reports/*latest*`
 
-### For runtime entrypoints
+This layout suggests the repo is trying to preserve:
 
-Start at:
+- operational outputs
+- reproducible validation runs
+- separate research histories
 
-- `README.md`
-- `Makefile`
-- `src/cli.py`
-- `src/registry/commands.py`
+## Testing and verification model
 
-### For “what exists in the system”
+The repo has both verification and generation checks.
 
-Start at:
+### Python verification
 
-- `src/registry/leagues.py`
-- `src/registry/models.py`
-- `src/registry/dashboard_routes.py`
-- `src/registry/subsystems.py`
+Important tests include:
 
-### For ingestion and local data movement
+- registry contract tests
+- feature pipeline parity tests
+- league parity tests
+- model-selection and feature-policy tests
+- validation pipeline tests
+- query parsing and answer tests
+- hard refresh tests
 
-Start at:
+Example file:
 
-- `src/services/ingest.py`
-- `src/league_registry.py`
-- `src/data_sources/`
-- `src/storage/schema.py`
+- `tests/test_registry_contracts.py`
 
-### For feature engineering
+This is especially useful because it verifies that generated manifests and docs stay synchronized with the code registries.
 
-Start at:
+### Web verification
 
-- `src/features/pipeline.py`
-- `src/features/strategies/`
+Web tests include:
 
-### For training
+- TypeScript logic/unit tests under `web/lib/**/*.test.ts`
+- Playwright smoke coverage in `web/tests/playwright/dashboard-smoke.spec.ts`
 
-Start at:
+### Repo-level verification
 
-- `src/services/train.py`
-- `src/training/train.py`
-- `src/training/model_catalog.py`
-- `src/training/ensemble_builder.py`
+Main command:
 
-### For validation and diagnostics
+- `make verify`
 
-Start at:
+It runs:
 
-- `src/services/validate.py`
-- `src/evaluation/validation_pipeline.py`
+- registry verification
+- Python tests
+- lint
+- typecheck
 
-### For product queries
+## Extension points
 
-Start at:
-
-- `src/query/answer.py`
-- `src/query/intent_parser.py`
-- `src/query/bet_history_handlers.py`
-
-### For the dashboard
-
-Start at:
-
-- `web/package.json`
-- `web/app/layout.tsx`
-- `web/app/api/`
-- `web/lib/server/`
-- `web/scripts/generate-staging-data.ts`
-
-## Extension Seams
-
-This repo already advertises several extension seams clearly.
+The repo already documents its intended extension points through generated docs.
 
 ### Add a league
 
-Main touchpoints:
+Primary steps:
 
-- `src/registry/leagues.py`
-- `src/league_registry.py`
-- `src/data_sources/<league>/`
-- `src/features/strategies/<league>.py`
-- query alias support
-- tests and staging coverage
+1. register the league in `src/registry/leagues.py`
+2. add league adapters and support behind existing public entrypoints
+3. regenerate docs and manifests
+4. extend tests and dashboard/staging support
 
 ### Add a model
 
-Main touchpoints:
+Primary steps:
 
-- `src/registry/models.py`
-- model implementation in `src/models/`
-- training integration in `src/training/`
-- validation/report integration
-- tests
+1. register the model in `src/registry/models.py`
+2. implement training/report behavior behind existing contracts
+3. regenerate manifests/docs
+4. update tests
 
 ### Add a dashboard payload
 
-Main touchpoints:
+Primary steps:
 
-- `src/registry/dashboard_routes.py`
-- route implementation under `web/app/api/`
-- payload shaping under `web/lib/server/services/`
-- staging generation
-- tests
+1. register the route in `src/registry/dashboard_routes.py`
+2. implement the route module and payload contract
+3. regenerate manifests/docs
+4. update route and staging tests
 
-## Things an External Reviewer Should Pay Attention To
+These extension stories are clearer than in many comparable repos because the registry layer is explicit.
 
-If this document is being handed to another model or reviewer for architectural feedback, the highest-value review angles are probably:
+## Architectural strengths
 
-- whether the service/training/storage boundaries are clean enough
-- whether the registry/codegen system is paying off relative to its complexity
-- whether the split between local dashboard data and committed staging snapshots is operationally robust
-- whether the feature-contract governance is in the right place and at the right abstraction level
-- whether `src/services/train.py` and `src/services/ingest.py` are still manageable or becoming overloaded
-- whether the query layer should remain SQLite/product-coupled or be abstracted further
-- whether the repo-wide orchestration logic is appropriately separated from league-scoped services
-- whether the web server/repository layer mirrors the Python architecture in a good way or adds duplication
+From an organizational perspective, the strongest aspects of the repo are:
 
-## Concise Summary
+- `Code-first registries`: leagues, models, commands, and routes are centralized and reused across Python, docs, and the web app.
+- `Strong live-vs-staging distinction`: the repo explicitly models local dashboard behavior and GitHub Pages staging as different delivery targets.
+- `Historical integrity mindset`: frozen predictions are distinguished from synthetic diagnostics.
+- `Real subsystem layering`: CLI, commands, services, storage, features, training, evaluation, query, and web are meaningfully separated.
+- `League-aware sharing`: common orchestration is reused while league-specific logic is named and isolated.
+- `Feature governance`: feature contracts, feature maps, and guardrails make uncontrolled drift less likely.
+- `Rich diagnostics`: validation is a real subsystem, not an afterthought.
+- `Deterministic product answering`: the query layer uses persisted data and stable logic rather than informal recomputation.
+- `Shared route generation`: dashboard and staging metadata are generated rather than manually mirrored.
 
-This project is best understood as five interconnected systems living in one repo:
+## Likely architectural stress points
 
-- a registry-driven multi-league metadata system
-- a Python ingestion and modeling pipeline over SQLite and parquet/csv artifacts
-- a validation and research system for model diagnostics and comparison
-- a deterministic local query/product-answering interface
-- a Next.js dashboard plus committed staging snapshot publishing flow
+These are the areas an external reviewer will probably focus on first.
 
-Its strongest organizing ideas are:
+### 1. Naming drift from NHL-first abstractions
 
-- code-first registries
-- thin entrypoints
-- explicit league adapters and feature strategies
-- deterministic orchestration
-- immutable historical prediction contracts
-- explicit separation between local live behavior and published staging snapshots
+The shared adapter surface still uses some hockey-biased names in basketball contexts, especially around `goalies`.
 
-That makes it a fairly disciplined production-style research/product repo rather than a loose collection of scripts.
+This works structurally, but it is confusing. It suggests the abstraction layer was extended from an NHL origin and now carries legacy naming.
+
+### 2. Training has a large blast radius
+
+`src/services/train.py` appears to do all of the following in one operational flow:
+
+- fit models
+- persist forecasts
+- persist diagnostics
+- persist model run metadata
+- trigger validation
+- trigger scoring
+
+That is convenient, but it makes the train step a very heavy mutation point.
+
+### 3. Feature governance is powerful but distributed
+
+Understanding the active feature contract requires reading:
+
+- feature pipeline code
+- leakage checks
+- feature registry
+- per-model feature map
+- guardrails
+- training-time selection logic
+
+This is disciplined, but cognitively expensive.
+
+### 4. Web server services may be accumulating too much product logic
+
+The web server service layer is more than a thin presentation adapter. It owns replay logic, betting-driver logic, analysis shaping, and local control-plane behavior.
+
+That may be correct for the product, but it creates a likely hotspot, especially around performance-oriented services.
+
+### 5. The web DB access model is pragmatic, not infrastructural
+
+Using `sqlite3` shell calls from Node is simple and deterministic, but it may raise reviewer questions about:
+
+- performance under heavier usage
+- blocking behavior
+- maintainability compared to a typed async repository layer
+
+### 6. The repo contains three adjacent but different universes
+
+Those universes are:
+
+- live daily production
+- formal validation of the latest run
+- research/candidate experimentation
+
+The boundaries are there, but they are close enough that future contributors could blur them if discipline weakens.
+
+## Questions a reviewer should probably ask
+
+If you want ChatGPT Pro to critique this setup well, these are useful prompts to push on:
+
+- Are the service boundaries right, or is too much orchestration concentrated in a few modules like ingest/train/performance?
+- Is the registry-driven generation layer a long-term strength, or is it adding ceremony without enough leverage?
+- Should some of the feature-governance surfaces be consolidated?
+- Is the `goalies` abstraction now misleading enough that it should be renamed or wrapped in a more neutral contract?
+- Is the web app too client-heavy for the kind of dashboard it is becoming?
+- Is shelling out to `sqlite3` in the web app a reasonable local-product choice, or a technical debt marker?
+- Should the local control-plane actions remain inside the dashboard, or move to a clearer operational boundary?
+- Does the separation between `predictions` and `prediction_diagnostics` fully protect historical integrity across all downstream consumers?
+- Are research and production boundaries strong enough, or too easy to mix accidentally?
+- Are the multi-league abstractions truly neutral now, or still NHL-shaped under the hood?
+
+## Short summary for an evaluator
+
+This repository is best understood as a multi-league forecasting platform with a strong persistence-first architecture and a code-generated metadata layer tying Python, docs, and the web app together.
+
+Its standout strengths are:
+
+- thoughtful cross-league structure
+- strong generated registries
+- historical prediction integrity
+- explicit live-vs-staging separation
+- unusually rich diagnostics and product-facing analysis
+
+Its main areas for review are:
+
+- naming and abstraction cleanliness in shared cross-league contracts
+- concentration of responsibilities in a few orchestration modules
+- complexity of feature-governance surfaces
+- how much domain logic the web tier should own
+- whether the local-product implementation choices will scale cleanly
+
+If an external reviewer starts from those themes, they should be able to evaluate the repo with much less orientation cost than starting from the raw codebase.
