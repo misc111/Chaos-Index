@@ -1,4 +1,4 @@
-SHELL := /bin/zsh
+SHELL := /bin/bash
 PYTHON ?= python3
 PIP ?= pip3
 NPM ?= npm
