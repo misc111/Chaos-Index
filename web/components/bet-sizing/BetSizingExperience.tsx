@@ -195,7 +195,7 @@ const EMPTY_GAMES_TODAY: GamesTodayResponse = {
 
 export default function BetSizingExperience() {
   const league = useLeague();
-  const strategy = useBetStrategy();
+  const strategy = useBetStrategy(league);
   const betHistory = useDashboardData<BetHistoryResponse>("betHistory", "/api/bet-history", league, EMPTY_BET_HISTORY);
   const gamesToday = useDashboardData<GamesTodayResponse>("gamesToday", "/api/games-today", league, EMPTY_GAMES_TODAY);
 

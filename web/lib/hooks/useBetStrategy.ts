@@ -1,9 +1,11 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { normalizeBetStrategy } from "@/lib/betting-strategy";
+import { getDefaultBetStrategyForLeague, normalizeBetStrategy } from "@/lib/betting-strategy";
+import type { LeagueCode } from "@/lib/league";
 
-export function useBetStrategy() {
+export function useBetStrategy(league?: LeagueCode | null) {
   const searchParams = useSearchParams();
-  return normalizeBetStrategy(searchParams.get("strategy"));
+  const strategy = searchParams.get("strategy");
+  return strategy ? normalizeBetStrategy(strategy) : getDefaultBetStrategyForLeague(league);
 }

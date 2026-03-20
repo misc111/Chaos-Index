@@ -4,6 +4,11 @@ export type BetStrategy = "riskAdjusted" | "aggressive" | "capitalPreservation";
 
 export const BET_STRATEGIES = ["riskAdjusted", "aggressive", "capitalPreservation"] as const;
 export const DEFAULT_BET_STRATEGY: BetStrategy = "riskAdjusted";
+export const LEAGUE_DEFAULT_BET_STRATEGY: Record<LeagueCode, BetStrategy> = {
+  NHL: "riskAdjusted",
+  NBA: "capitalPreservation",
+  NCAAM: "riskAdjusted",
+};
 export type BetRiskRegime = "normal" | "guarded";
 
 export type BetStrategyConfig = {
@@ -280,9 +285,20 @@ export function normalizeBetStrategy(value?: string | null): BetStrategy {
   }
 }
 
+export function getDefaultBetStrategyForLeague(league?: LeagueCode | null): BetStrategy {
+  if (!league) {
+    return DEFAULT_BET_STRATEGY;
+  }
+  return LEAGUE_DEFAULT_BET_STRATEGY[league] || DEFAULT_BET_STRATEGY;
+}
+
 export function strategyFromRequest(request: Request): BetStrategy {
   const url = new URL(request.url);
-  return normalizeBetStrategy(url.searchParams.get("strategy"));
+  const leagueParam = url.searchParams.get("league");
+  const league =
+    leagueParam === "NHL" || leagueParam === "NBA" || leagueParam === "NCAAM" ? leagueParam : null;
+  const strategyParam = url.searchParams.get("strategy");
+  return strategyParam ? normalizeBetStrategy(strategyParam) : getDefaultBetStrategyForLeague(league);
 }
 
 export function getBetStrategyConfig(

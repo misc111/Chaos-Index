@@ -2,7 +2,7 @@ import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import { DEFAULT_BET_STRATEGY } from "@/lib/betting-strategy";
+import { getDefaultBetStrategyForLeague } from "@/lib/betting-strategy";
 import type { ModelWinProbabilities } from "@/lib/betting-model";
 import { runSqlJson } from "@/lib/db";
 import { filterPerformanceTimelineSnapshots } from "@/lib/ensemble-snapshot-performance";
@@ -1400,7 +1400,7 @@ export function getPerformancePayload(
     change_points,
     replay_runs,
     ensemble_snapshots,
-    default_replay_strategy: DEFAULT_BET_STRATEGY,
+    default_replay_strategy: getDefaultBetStrategyForLeague(league),
     comparison_replay_strategy: "aggressive",
     replay_experiment,
   };

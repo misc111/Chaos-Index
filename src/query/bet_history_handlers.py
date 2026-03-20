@@ -16,6 +16,17 @@ DEFAULT_PROFILE_PREFERENCES: tuple[tuple[str, str], ...] = (
     ("riskAdjusted", "bucketed"),
     ("balanced", "bucketed"),
 )
+NBA_PROFILE_PREFERENCES: tuple[tuple[str, str], ...] = (
+    ("capitalPreservation", "default"),
+    ("riskAdjusted", "default"),
+    ("balanced", "default"),
+    ("capitalPreservation", "continuous"),
+    ("riskAdjusted", "continuous"),
+    ("balanced", "continuous"),
+    ("capitalPreservation", "bucketed"),
+    ("riskAdjusted", "bucketed"),
+    ("balanced", "bucketed"),
+)
 CENTRAL_TZ = ZoneInfo("America/Chicago")
 PROFILE_TABLE_V2 = "historical_bet_decisions_by_profile_v2"
 PROFILE_TABLE_LEGACY = "historical_bet_decisions_by_profile"
@@ -115,7 +126,13 @@ def _table_exists(db: Queryable, table_name: str) -> bool:
     return bool(rows)
 
 
-def _select_profile(db: Queryable) -> tuple[str, str, str, str] | None:
+def _profile_preferences(league: str | None) -> tuple[tuple[str, str], ...]:
+    return NBA_PROFILE_PREFERENCES if canonical_league(league) == "NBA" else DEFAULT_PROFILE_PREFERENCES
+
+
+def _select_profile(db: Queryable, league: str | None = None) -> tuple[str, str, str, str] | None:
+    preferences = _profile_preferences(league)
+
     if _table_exists(db, PROFILE_TABLE_V2):
         rows = db.query(
             f"""
@@ -137,7 +154,7 @@ def _select_profile(db: Queryable) -> tuple[str, str, str, str] | None:
             }
             for row in rows
         ]
-        for preferred_strategy, preferred_style in DEFAULT_PROFILE_PREFERENCES:
+        for preferred_strategy, preferred_style in preferences:
             matching = [
                 profile
                 for profile in profiles
@@ -175,7 +192,7 @@ def _select_profile(db: Queryable) -> tuple[str, str, str, str] | None:
 
     rows = db.query(f"SELECT DISTINCT strategy, sizing_style FROM {PROFILE_TABLE_LEGACY}")
     profiles = {(str(row.get("strategy") or ""), str(row.get("sizing_style") or "")) for row in rows}
-    for profile in DEFAULT_PROFILE_PREFERENCES:
+    for profile in preferences:
         if profile in profiles:
             return profile[0], profile[1], "", PROFILE_TABLE_LEGACY
     if not profiles:
@@ -192,6 +209,7 @@ def _select_profile(db: Queryable) -> tuple[str, str, str, str] | None:
 def _query_bet_history_rows(
     db: Queryable,
     *,
+    league: str,
     history_period: str,
 ) -> tuple[list[dict], dict[str, str | None]]:
     params: list[object] = []
@@ -206,7 +224,7 @@ def _query_bet_history_rows(
         period_start = target_date
         period_end = target_date
 
-    selected_profile = _select_profile(db)
+    selected_profile = _select_profile(db, league=league)
     if selected_profile:
         strategy, sizing_style, strategy_config_signature, source_table = selected_profile
         signature_filter_sql = "AND COALESCE(d.strategy_config_signature, '') = ?" if source_table == PROFILE_TABLE_V2 else ""
@@ -329,7 +347,7 @@ def answer_bet_history_summary(
     history_period: str,
     include_games: bool,
 ) -> tuple[str, dict]:
-    rows, meta = _query_bet_history_rows(db, history_period=history_period)
+    rows, meta = _query_bet_history_rows(db, league=league, history_period=history_period)
     if meta["source_table"] is None:
         return (
             "No tracked betting history is available in this database yet.",

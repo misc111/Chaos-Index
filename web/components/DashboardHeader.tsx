@@ -5,6 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import {
   BET_STRATEGIES,
+  getDefaultBetStrategyForLeague,
   getBetStrategyConfig,
   normalizeBetStrategy,
   type BetStrategy,
@@ -23,7 +24,7 @@ const links: Array<[string, string]> = [
   ["/bet-sizing", "Bet Sizing"],
 ];
 
-const DEFAULT_QUERY = "?league=NBA&strategy=riskAdjusted";
+const DEFAULT_QUERY = `?league=NBA&strategy=${getDefaultBetStrategyForLeague("NBA")}`;
 type RefreshResponse = {
   ok?: boolean;
   error?: string;
@@ -85,7 +86,10 @@ function resolveDashboardTheme(): DashboardTheme {
 }
 
 function hrefWithLeague(href: string, league: LeagueCode, searchParams: URLSearchParams): string {
-  return hrefWithParams(href, searchParams, { league });
+  return hrefWithParams(href, searchParams, {
+    league,
+    strategy: getDefaultBetStrategyForLeague(league),
+  });
 }
 
 function hrefWithStrategy(href: string, strategy: BetStrategy, searchParams: URLSearchParams): string {
@@ -248,10 +252,10 @@ function DashboardSidebarFallback() {
           pathname="/"
           refreshError=""
           refreshedAtLabel=""
-          search={new URLSearchParams("league=NBA&strategy=riskAdjusted")}
+          search={new URLSearchParams(`league=NBA&strategy=${getDefaultBetStrategyForLeague("NBA")}`)}
           showRefreshedStamp={false}
           staticStaging={false}
-          strategy="riskAdjusted"
+          strategy={getDefaultBetStrategyForLeague("NBA")}
           theme={DARK_THEME}
         />
       </div>
@@ -264,7 +268,8 @@ function DashboardSidebarContent() {
   const searchParams = useSearchParams();
   const search = new URLSearchParams(searchParams.toString());
   const league = normalizeLeague(searchParams.get("league"));
-  const strategy = normalizeBetStrategy(searchParams.get("strategy"));
+  const strategyParam = searchParams.get("strategy");
+  const strategy = strategyParam ? normalizeBetStrategy(strategyParam) : getDefaultBetStrategyForLeague(league);
   const staticStaging = isStaticStagingBuild();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [refreshError, setRefreshError] = useState("");

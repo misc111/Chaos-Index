@@ -1,6 +1,7 @@
 import {
   BET_STRATEGIES,
   DEFAULT_BET_STRATEGY,
+  getDefaultBetStrategyForLeague,
   type BetStrategy,
 } from "@/lib/betting-strategy";
 import {
@@ -878,17 +879,33 @@ function buildBetHistoryStrategyBundle(
   };
 }
 
+function selectDefaultHistoricalStrategy(
+  league: LeagueCode,
+  strategies: Record<BetStrategy, BetHistoryStrategyBundle>
+): BetStrategy {
+  const leagueDefault = getDefaultBetStrategyForLeague(league) || DEFAULT_BET_STRATEGY;
+  if (league !== "NBA") {
+    return leagueDefault;
+  }
+
+  const conservativeProfit = strategies.capitalPreservation.summary.total_profit;
+  const defaultProfit = strategies[leagueDefault].summary.total_profit;
+  return conservativeProfit > defaultProfit ? "capitalPreservation" : leagueDefault;
+}
+
 export function getBetHistory(league: LeagueCode): BetHistoryResponse {
   const dataset = buildHistoricalReplayDataset(league);
+  const strategies = BET_STRATEGIES.reduce((strategyAcc, strategy) => {
+    strategyAcc[strategy] = buildBetHistoryStrategyBundle(dataset, strategy);
+    return strategyAcc;
+  }, {} as Record<BetStrategy, BetHistoryStrategyBundle>);
+  const defaultStrategy = selectDefaultHistoricalStrategy(league, strategies);
 
   return {
     league,
-    default_strategy: DEFAULT_BET_STRATEGY,
+    default_strategy: defaultStrategy,
     strategy_configs: dataset.strategy_configs,
     strategy_optimization: dataset.strategy_optimization,
-    strategies: BET_STRATEGIES.reduce((strategyAcc, strategy) => {
-      strategyAcc[strategy] = buildBetHistoryStrategyBundle(dataset, strategy);
-      return strategyAcc;
-    }, {} as Record<BetStrategy, BetHistoryStrategyBundle>),
+    strategies,
   };
 }

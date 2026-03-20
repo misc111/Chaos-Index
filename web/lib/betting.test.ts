@@ -1,7 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getBetStrategyConfig, normalizeBetStrategy, type BetStrategy } from "./betting-strategy";
+import {
+  getBetStrategyConfig,
+  getDefaultBetStrategyForLeague,
+  normalizeBetStrategy,
+  type BetStrategy,
+} from "./betting-strategy";
 import { computeBetDecision, computeBetDecisionsForSlate, explainBetDecision, explainBetDecisionsForSlate } from "./betting";
 
 function buildDecision(strategy?: BetStrategy) {
@@ -200,6 +205,12 @@ test("NBA strategy defaults are tighter than the shared fallback", () => {
   assert.ok(nba.minEdge > nhl.minEdge);
   assert.ok(nba.minExpectedValue > nhl.minExpectedValue);
   assert.equal(nba.maxUnderdogMoneyline, 300);
+});
+
+test("league-aware default strategy shifts NBA to conservative while leaving NHL unchanged", () => {
+  assert.equal(getDefaultBetStrategyForLeague("NBA"), "capitalPreservation");
+  assert.equal(getDefaultBetStrategyForLeague("NHL"), "riskAdjusted");
+  assert.equal(getDefaultBetStrategyForLeague("NCAAM"), "riskAdjusted");
 });
 
 test("explainBetDecision exposes raw and adjusted sizing steps for a bet", () => {

@@ -135,7 +135,7 @@ const EMPTY_BET_HISTORY: BetHistoryResponse = {
 
 function BetHistoryPageContent() {
   const league = useLeague();
-  const strategy = useBetStrategy();
+  const strategy = useBetStrategy(league);
   const strategyConfig = getBetStrategyConfig(strategy);
   const { data, isLoading: loading, error } = useDashboardData<BetHistoryResponse>(
     "betHistory",
