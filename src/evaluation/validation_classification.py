@@ -12,6 +12,9 @@ from src.common.utils import ensure_dir
 from src.evaluation.metrics import brier_score
 
 
+_NUMPY_TRAPEZOID = getattr(np, "trapezoid", np.trapz)
+
+
 def _clean_binary_probability_inputs(
     y_true: np.ndarray | pd.Series | list[float],
     p_pred: np.ndarray | pd.Series | list[float],
@@ -255,9 +258,9 @@ def lorenz_gini_report(y_true: np.ndarray, p_pred: np.ndarray) -> dict[str, Any]
         }
     )
 
-    curve_area = _safe_float(np.trapz(cumulative_events, x))
+    curve_area = _safe_float(_NUMPY_TRAPEZOID(cumulative_events, x))
     raw_gini = _safe_float(2.0 * curve_area - 1.0)
-    perfect_raw_gini = _safe_float(2.0 * np.trapz(perfect_curve, x) - 1.0)
+    perfect_raw_gini = _safe_float(2.0 * _NUMPY_TRAPEZOID(perfect_curve, x) - 1.0)
     normalized_gini = _safe_float(raw_gini / perfect_raw_gini) if perfect_raw_gini > 0 else float("nan")
     top_decile_n = max(1, int(np.ceil(0.10 * n)))
     top_quintile_n = max(1, int(np.ceil(0.20 * n)))

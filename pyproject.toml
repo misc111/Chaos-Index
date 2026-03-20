@@ -9,8 +9,8 @@ description = "Production-grade NHL, NBA, and NCAAM probabilistic forecasting pl
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-  "numpy>=1.26.0",
-  "pandas>=2.1.0",
+  "numpy>=1.26.0,<2.0",
+  "pandas>=2.1.0,<3.0",
   "scipy>=1.11.0",
   "scikit-learn>=1.4.0",
   "statsmodels>=0.14.0",
