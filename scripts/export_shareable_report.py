@@ -8,7 +8,6 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import pandas as pd
-from xhtml2pdf import pisa
 
 from src.common.config import load_config
 from src.query.answer import answer_question
@@ -185,6 +184,14 @@ def _build_html(
 
 
 def _save_pdf_from_html(html_doc: str, out_path: Path) -> None:
+    try:
+        from xhtml2pdf import pisa
+    except ImportError as exc:
+        raise RuntimeError(
+            "PDF export requires the optional reporting dependencies. "
+            "Install them with `pip install -e '.[reporting]'`."
+        ) from exc
+
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with out_path.open("wb") as f:
         result = pisa.CreatePDF(src=html_doc, dest=f, encoding="utf-8")

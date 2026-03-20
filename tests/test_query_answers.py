@@ -286,7 +286,7 @@ def test_query_answers_bet_history_summary_and_cumulative(tmp_path: Path):
     assert "| Game | Bet on | Winner | P/L | Bet rationale |" in net_profit_answer
 
 
-def test_query_answers_bet_history_prefers_risk_adjusted_default_profile(tmp_path: Path):
+def test_query_answers_bet_history_prefers_capital_preservation_default_profile_for_nba(tmp_path: Path):
     db = Database(str(tmp_path / "bets-v2.db"))
     db.init_schema()
 
@@ -384,13 +384,13 @@ def test_query_answers_bet_history_prefers_risk_adjusted_default_profile(tmp_pat
     assert payload["intent"] == "bet_history_summary"
     assert payload["league"] == "NBA"
     assert payload["period"] == "yesterday"
-    assert payload["strategy"] == "riskAdjusted"
+    assert payload["strategy"] == "capitalPreservation"
     assert payload["sizing_style"] == "default"
     assert payload["source_table"] == "historical_bet_decisions_by_profile_v2"
     assert payload["summary"]["tracked_games"] == 1
     assert payload["summary"]["settled_bets"] == 1
     assert payload["summary"]["wins"] == 1
     assert payload["summary"]["losses"] == 0
-    assert round(payload["summary"]["total_risked"], 2) == 50.00
-    assert round(payload["summary"]["total_profit"], 2) == 41.67
-    assert answer.startswith(f"NBA last night ({yesterday}): +$41.67 net, $50.00 risked, 1-0 on 1 bets.")
+    assert round(payload["summary"]["total_risked"], 2) == 75.00
+    assert round(payload["summary"]["total_profit"], 2) == 57.69
+    assert answer.startswith(f"NBA last night ({yesterday}): +$57.69 net, $75.00 risked, 1-0 on 1 bets.")
