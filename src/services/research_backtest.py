@@ -176,7 +176,7 @@ def _latest_pregame_moneylines(db: Database, *, league: str, seasons: list[int])
     meta = (
         frame.sort_values(["game_id", "odds_as_of_utc", "odds_snapshot_id"], ascending=[True, False, False])
         .groupby("game_id", as_index=False)
-        .first()[["game_id", "odds_as_of_utc", "odds_snapshot_id"]]
+        .first()[["game_id", "season", "start_time_utc", "odds_as_of_utc", "odds_snapshot_id"]]
     )
     merged = meta.merge(pivot, on="game_id", how="left").rename(columns={"home": "home_moneyline", "away": "away_moneyline"})
     return merged
@@ -217,12 +217,20 @@ def _tune_candidate_on_inner_cv(
     feature_sets: CandidateFeatureSets,
     cfg: AppConfig,
 ) -> tuple[dict[str, Any] | None, pd.DataFrame]:
+    resolved_min_train_days = _resolve_adaptive_min_train_days(
+        fit_df,
+        validation_days=cfg.research.inner_valid_days,
+        embargo_days=cfg.research.embargo_days,
+        requested_min_train_days=max(120, cfg.research.inner_valid_days * 2),
+    )
+    if resolved_min_train_days is None:
+        return None, pd.DataFrame()
     splits = expanding_window_date_splits(
         fit_df,
         n_splits=cfg.research.inner_folds,
         validation_days=cfg.research.inner_valid_days,
         embargo_days=cfg.research.embargo_days,
-        min_train_days=max(120, cfg.research.inner_valid_days * 2),
+        min_train_days=resolved_min_train_days,
     )
     rows: list[dict[str, Any]] = []
     if not splits:
@@ -412,6 +420,34 @@ def _write_report(
     report_path.write_text("\n".join(lines) + "\n")
 
 
+def _resolve_adaptive_min_train_days(
+    df: pd.DataFrame,
+    *,
+    validation_days: int,
+    embargo_days: int,
+    requested_min_train_days: int,
+    date_col: str = "start_time_utc",
+) -> int | None:
+    work = df[df["home_win"].notna()].copy()
+    if work.empty or date_col not in work.columns:
+        return None
+
+    work[date_col] = pd.to_datetime(work[date_col], errors="coerce", utc=True)
+    work = work[work[date_col].notna()].sort_values(date_col)
+    if work.empty:
+        return None
+
+    unique_days = work[date_col].dt.normalize().nunique()
+    validation_days = max(1, int(validation_days))
+    embargo_days = max(0, int(embargo_days))
+    requested = max(1, int(requested_min_train_days))
+    max_supported_train_days = int(unique_days) - validation_days - embargo_days - 1
+    minimum_usable_train_days = max(30, validation_days)
+    if max_supported_train_days < minimum_usable_train_days:
+        return None
+    return min(requested, max_supported_train_days)
+
+
 def run_research_backtest(
     cfg: AppConfig,
     *,
@@ -445,12 +481,25 @@ def run_research_backtest(
     if research_df.empty or holdout_df.empty:
         raise RuntimeError("Research dataset needs both outer-fold rows and a final holdout window")
 
+    resolved_outer_min_train_days = _resolve_adaptive_min_train_days(
+        research_df,
+        validation_days=cfg.research.outer_valid_days,
+        embargo_days=cfg.research.embargo_days,
+        requested_min_train_days=max(180, cfg.research.outer_valid_days * 2),
+    )
+    if resolved_outer_min_train_days is None:
+        raise RuntimeError(
+            "Research dataset is too short for the requested outer validation window. "
+            f"Available_days={research_df['start_time_utc'].dt.normalize().nunique()} "
+            f"validation_days={cfg.research.outer_valid_days} embargo_days={cfg.research.embargo_days}."
+        )
+
     outer_splits = expanding_window_date_splits(
         research_df,
         n_splits=cfg.research.outer_folds,
         validation_days=cfg.research.outer_valid_days,
         embargo_days=cfg.research.embargo_days,
-        min_train_days=max(180, cfg.research.outer_valid_days * 2),
+        min_train_days=resolved_outer_min_train_days,
     )
     if not outer_splits:
         raise RuntimeError("No outer research CV splits were available")
@@ -458,6 +507,17 @@ def run_research_backtest(
     odds_df = _latest_pregame_moneylines(Database(cfg.paths.db_path), league=cfg.data.league, seasons=seasons)
     if odds_df.empty:
         raise RuntimeError("Research backtest requires historical moneyline odds in odds_snapshots/odds_market_lines")
+    odds_overlap_count = int(research_df["game_id"].isin(set(odds_df["game_id"].tolist())).sum())
+    if odds_overlap_count == 0:
+        research_start = str(research_df["start_time_utc"].min())
+        research_end = str(research_df["start_time_utc"].max())
+        odds_start = str(odds_df["start_time_utc"].min())
+        odds_end = str(odds_df["start_time_utc"].max())
+        raise RuntimeError(
+            "Historical moneyline odds do not overlap the outer research window. "
+            f"Research window={research_start}..{research_end}; odds window={odds_start}..{odds_end}. "
+            "Backtest bankroll results would be misleading because every game would be treated as missing odds."
+        )
 
     candidate_specs = _candidate_specs(
         _select_feature_sets(research_df, raw_features),
