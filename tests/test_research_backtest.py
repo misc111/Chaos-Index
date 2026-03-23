@@ -7,7 +7,43 @@ from src.common.config import load_config
 from src.research.candidate_models import PenalizedLogitCandidate, VanillaGLMBinomialCandidate
 from src.research.model_comparison import CandidateSpec
 from src.services.history_import import import_historical_data
-from src.services.research_backtest import run_research_backtest
+from src.services.research_backtest import _resolve_adaptive_min_train_days, run_research_backtest
+
+
+def test_resolve_adaptive_min_train_days_caps_to_available_history():
+    frame = pd.DataFrame(
+        {
+            "home_win": [0, 1] * 70,
+            "start_time_utc": pd.date_range("2025-10-01", periods=140, freq="D").strftime("%Y-%m-%dT%H:%M:%SZ"),
+        }
+    )
+
+    resolved = _resolve_adaptive_min_train_days(
+        frame,
+        validation_days=60,
+        embargo_days=1,
+        requested_min_train_days=180,
+    )
+
+    assert resolved == 78
+
+
+def test_resolve_adaptive_min_train_days_returns_none_when_history_is_too_short():
+    frame = pd.DataFrame(
+        {
+            "home_win": [0, 1] * 40,
+            "start_time_utc": pd.date_range("2025-10-01", periods=80, freq="D").strftime("%Y-%m-%dT%H:%M:%SZ"),
+        }
+    )
+
+    resolved = _resolve_adaptive_min_train_days(
+        frame,
+        validation_days=60,
+        embargo_days=1,
+        requested_min_train_days=180,
+    )
+
+    assert resolved is None
 
 
 def test_research_backtest_writes_dual_scorecard_bundle(tmp_path, monkeypatch):

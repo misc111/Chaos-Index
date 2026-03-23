@@ -176,7 +176,8 @@ def _latest_pregame_moneylines(db: Database, *, league: str, seasons: list[int])
     meta = (
         frame.sort_values(["game_id", "odds_as_of_utc", "odds_snapshot_id"], ascending=[True, False, False])
         .groupby("game_id", as_index=False)
-        .first()[["game_id", "season", "start_time_utc", "odds_as_of_utc", "odds_snapshot_id"]]
+        .first()[["game_id", "start_time_utc", "odds_as_of_utc", "odds_snapshot_id"]]
+        .rename(columns={"start_time_utc": "game_start_time_utc"})
     )
     merged = meta.merge(pivot, on="game_id", how="left").rename(columns={"home": "home_moneyline", "away": "away_moneyline"})
     return merged
@@ -511,8 +512,8 @@ def run_research_backtest(
     if odds_overlap_count == 0:
         research_start = str(research_df["start_time_utc"].min())
         research_end = str(research_df["start_time_utc"].max())
-        odds_start = str(odds_df["start_time_utc"].min())
-        odds_end = str(odds_df["start_time_utc"].max())
+        odds_start = str(odds_df["game_start_time_utc"].min())
+        odds_end = str(odds_df["game_start_time_utc"].max())
         raise RuntimeError(
             "Historical moneyline odds do not overlap the outer research window. "
             f"Research window={research_start}..{research_end}; odds window={odds_start}..{odds_end}. "
