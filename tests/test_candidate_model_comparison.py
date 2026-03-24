@@ -347,3 +347,64 @@ def test_candidate_model_comparison_can_use_research_broad_dataset(tmp_path, mon
     assert result.report_path.exists()
     assert result.recommendation_model in result.test_metrics["model_name"].tolist()
     assert "research dataset's broad numeric feature pool" in result.report_path.read_text()
+
+
+def test_candidate_model_comparison_supports_structured_glm_research_spec(tmp_path):
+    df = _synthetic_candidate_frame(210)
+    cfg = load_config("configs/default.yaml")
+    cfg.data.league = "NBA"
+    cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
+    cfg.paths.processed_dir = str(tmp_path / "processed")
+    cfg.paths.db_path = str(tmp_path / "processed" / "nba_forecast.db")
+    cfg.modeling.cv_splits = 2
+
+    processed_dir = tmp_path / "processed"
+    processed_dir.mkdir(parents=True, exist_ok=True)
+    df.to_csv(processed_dir / "features.csv", index=False)
+
+    spec_path = tmp_path / "nba_structured_glm.yaml"
+    spec_path.write_text(
+        """
+version: 1
+league: NBA
+experiment_name: unit_structured_glm
+default_slate: synthetic
+default_width_variant: medium
+slates:
+  synthetic:
+    feature_order:
+      - diff_signal_linear
+      - rest_diff
+      - elo_home_prob
+      - dyn_home_prob
+      - diff_signal_hinge
+    width_variants:
+      medium:
+        feature_count: 3
+"""
+    )
+
+    result = run_candidate_model_comparison(
+        cfg,
+        report_slug="unit_candidate_compare_structured_glm",
+        bootstrap_samples=40,
+        candidate_models=["glm_ridge", "glm_lasso", "glm_elastic_net", "glm_vanilla"],
+        feature_pool="full_screened",
+        structured_glm_spec_path=str(spec_path),
+    )
+
+    metric_models = set(result.test_metrics["model_name"].tolist())
+    assert metric_models == {
+        "intercept_only",
+        "glm_ridge",
+        "glm_lasso",
+        "glm_elastic_net",
+        "glm_vanilla",
+    }
+
+    fit_stats = pd.read_csv(result.report_path.with_name("unit_candidate_compare_structured_glm_nba_fit_stats.csv"))
+    glm_rows = fit_stats[fit_stats["model_name"].isin(["glm_ridge", "glm_lasso", "glm_elastic_net", "glm_vanilla"])]
+    assert set(glm_rows["n_features"].tolist()) == {3}
+
+    report_text = result.report_path.read_text()
+    assert "structured GLM experiment `unit_structured_glm`" in report_text

@@ -295,6 +295,33 @@
           "help": "Model key to read from the production feature map when needed.",
           "choices": null,
           "default": "glm_ridge"
+        },
+        {
+          "flags": [
+            "--structured-glm-spec"
+          ],
+          "doc_metavar": "PATH",
+          "help": "Optional research-only YAML spec defining a structured NBA GLM feature slate.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--structured-glm-slate"
+          ],
+          "doc_metavar": "SLATE",
+          "help": "Optional named slate to select from the structured NBA GLM spec.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--structured-glm-width-variant"
+          ],
+          "doc_metavar": "VARIANT",
+          "help": "Optional width variant to select from the structured NBA GLM spec.",
+          "choices": null,
+          "default": null
         }
       ],
       "examples": [
@@ -383,6 +410,33 @@
           ],
           "doc_metavar": "N",
           "help": "Override the configured number of historical seasons.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--structured-glm-spec"
+          ],
+          "doc_metavar": "PATH",
+          "help": "Optional research-only YAML spec defining a structured NBA GLM feature slate.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--structured-glm-slate"
+          ],
+          "doc_metavar": "SLATE",
+          "help": "Optional named slate to select from the structured NBA GLM spec.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--structured-glm-width-variant"
+          ],
+          "doc_metavar": "VARIANT",
+          "help": "Optional width variant to select from the structured NBA GLM spec.",
           "choices": null,
           "default": null
         }

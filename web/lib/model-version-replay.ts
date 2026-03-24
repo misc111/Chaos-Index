@@ -1,12 +1,18 @@
-import { computeBetDecisionsForSlate, settleBet } from "@/lib/betting";
+import { computeBetDecisionsForSlate } from "@/lib/betting";
 import { BET_STRATEGIES, getBetStrategyConfig } from "@/lib/betting-strategy";
 import type { ModelWinProbabilities } from "@/lib/betting-model";
 import type { LeagueCode } from "@/lib/league";
+import {
+  buildReplayDecisionDetail,
+  createEmptyReplayStrategySummary,
+  defaultReplayDecisionDetail,
+  finalizeReplayStrategySummary,
+  trackReplayStrategyOutcome,
+  type MutableReplayStrategySummary,
+} from "@/lib/server/services/replay-engine";
 import type {
   ModelReplayBetRow,
-  ModelReplayDecisionDetail,
   ModelReplayRunRow,
-  ModelReplayStrategySummary,
   ModelRunSummaryRow,
   TableRow,
 } from "@/lib/types";
@@ -48,105 +54,9 @@ export type ModelReplayRunMetadata = {
   metrics?: TableRow | null;
 };
 
-type MutableStrategySummary = {
-  total_games: number;
-  suggested_bets: number;
-  wins: number;
-  losses: number;
-  total_risked: number;
-  total_profit: number;
-  first_bet_date_central: string | null;
-  last_bet_date_central: string | null;
-  edge_sum: number;
-  edge_count: number;
-  expected_value_sum: number;
-  expected_value_count: number;
-};
-
 type MutableReplayBetRow = Omit<ModelReplayBetRow, "strategies"> & {
   strategies: Partial<ModelReplayBetRow["strategies"]>;
 };
-
-function emptyStrategySummary(totalGames: number): MutableStrategySummary {
-  return {
-    total_games: totalGames,
-    suggested_bets: 0,
-    wins: 0,
-    losses: 0,
-    total_risked: 0,
-    total_profit: 0,
-    first_bet_date_central: null,
-    last_bet_date_central: null,
-    edge_sum: 0,
-    edge_count: 0,
-    expected_value_sum: 0,
-    expected_value_count: 0,
-  };
-}
-
-function finalizeStrategySummary(summary: MutableStrategySummary): ModelReplayStrategySummary {
-  return {
-    total_games: summary.total_games,
-    suggested_bets: summary.suggested_bets,
-    wins: summary.wins,
-    losses: summary.losses,
-    total_risked: summary.total_risked,
-    total_profit: summary.total_profit,
-    roi: summary.total_risked > 0 ? summary.total_profit / summary.total_risked : 0,
-    avg_edge: summary.edge_count > 0 ? summary.edge_sum / summary.edge_count : null,
-    avg_expected_value: summary.expected_value_count > 0 ? summary.expected_value_sum / summary.expected_value_count : null,
-    first_bet_date_central: summary.first_bet_date_central,
-    last_bet_date_central: summary.last_bet_date_central,
-  };
-}
-
-function buildDecisionDetail(
-  row: ModelReplayCandidateRow,
-  decision: ReturnType<typeof computeBetDecisionsForSlate>[number]
-): ModelReplayDecisionDetail {
-  const settlement = settleBet(decision, row.home_win);
-  return {
-    bet_label: decision.bet,
-    reason: decision.reason,
-    side: decision.side,
-    team: decision.team,
-    stake: decision.stake,
-    odds: decision.odds,
-    model_probability: decision.modelProbability,
-    market_probability: decision.marketProbability,
-    edge: decision.edge,
-    expected_value: decision.expectedValue,
-    outcome: settlement.outcome,
-    profit: settlement.profit,
-    payout: settlement.payout,
-  };
-}
-
-function trackStrategyOutcome(summary: MutableStrategySummary, detail: ModelReplayDecisionDetail, dateCentral: string): void {
-  if (detail.stake <= 0 || detail.outcome === "no_bet") {
-    return;
-  }
-
-  summary.suggested_bets += 1;
-  summary.total_risked += detail.stake;
-  summary.total_profit += detail.profit;
-  if (detail.outcome === "win") summary.wins += 1;
-  if (detail.outcome === "loss") summary.losses += 1;
-  if (typeof detail.edge === "number" && Number.isFinite(detail.edge)) {
-    summary.edge_sum += detail.edge;
-    summary.edge_count += 1;
-  }
-  if (typeof detail.expected_value === "number" && Number.isFinite(detail.expected_value)) {
-    summary.expected_value_sum += detail.expected_value;
-    summary.expected_value_count += 1;
-  }
-  if (!summary.first_bet_date_central || dateCentral < summary.first_bet_date_central) {
-    summary.first_bet_date_central = dateCentral;
-  }
-  if (!summary.last_bet_date_central || dateCentral > summary.last_bet_date_central) {
-    summary.last_bet_date_central = dateCentral;
-  }
-}
 
 function sortTimestamp(createdAt?: string | null, fallbackDate?: string | null): number {
   const fallback = fallbackDate ? `${fallbackDate}T23:59:59Z` : "";
@@ -154,29 +64,11 @@ function sortTimestamp(createdAt?: string | null, fallbackDate?: string | null):
   return Number.isFinite(value) ? value : 0;
 }
 
-function defaultDecisionDetail(): ModelReplayDecisionDetail {
+function buildEmptyStrategySummaryMap(totalGames: number): Record<ModelReplayStrategyKey, MutableReplayStrategySummary> {
   return {
-    bet_label: "$0",
-    reason: "No replay decision recorded",
-    side: "none",
-    team: null,
-    stake: 0,
-    odds: null,
-    model_probability: null,
-    market_probability: null,
-    edge: null,
-    expected_value: null,
-    outcome: "no_bet",
-    profit: 0,
-    payout: 0,
-  };
-}
-
-function buildEmptyStrategySummaryMap(totalGames: number): Record<ModelReplayStrategyKey, MutableStrategySummary> {
-  return {
-    riskAdjusted: emptyStrategySummary(totalGames),
-    aggressive: emptyStrategySummary(totalGames),
-    capitalPreservation: emptyStrategySummary(totalGames),
+    riskAdjusted: createEmptyReplayStrategySummary(totalGames),
+    aggressive: createEmptyReplayStrategySummary(totalGames),
+    capitalPreservation: createEmptyReplayStrategySummary(totalGames),
   };
 }
 
@@ -230,7 +122,7 @@ export function buildModelReplayRuns(
           );
 
           dayRows.forEach((row, index) => {
-            const detail = buildDecisionDetail(row, decisions[index]);
+            const detail = buildReplayDecisionDetail(decisions[index], row.home_win);
             const existing =
               betRowsByGame.get(row.game_id) ||
               {
@@ -250,7 +142,7 @@ export function buildModelReplayRuns(
 
             existing.strategies[strategy] = detail;
             betRowsByGame.set(row.game_id, existing);
-            trackStrategyOutcome(strategySummaries[strategy], detail, row.date_central);
+            trackReplayStrategyOutcome(strategySummaries[strategy], detail, row.date_central);
           });
         }
       }
@@ -260,9 +152,9 @@ export function buildModelReplayRuns(
         .map((row) => ({
           ...row,
           strategies: {
-            riskAdjusted: row.strategies.riskAdjusted || defaultDecisionDetail(),
-            aggressive: row.strategies.aggressive || defaultDecisionDetail(),
-            capitalPreservation: row.strategies.capitalPreservation || defaultDecisionDetail(),
+            riskAdjusted: row.strategies.riskAdjusted || defaultReplayDecisionDetail(),
+            aggressive: row.strategies.aggressive || defaultReplayDecisionDetail(),
+            capitalPreservation: row.strategies.capitalPreservation || defaultReplayDecisionDetail(),
           },
         }));
 
@@ -298,9 +190,9 @@ export function buildModelReplayRuns(
         last_replay_date_central: bets[bets.length - 1]?.date_central || null,
         replayable_games: bets.length,
         strategies: {
-          riskAdjusted: finalizeStrategySummary(strategySummaries.riskAdjusted),
-          aggressive: finalizeStrategySummary(strategySummaries.aggressive),
-          capitalPreservation: finalizeStrategySummary(strategySummaries.capitalPreservation),
+          riskAdjusted: finalizeReplayStrategySummary(strategySummaries.riskAdjusted),
+          aggressive: finalizeReplayStrategySummary(strategySummaries.aggressive),
+          capitalPreservation: finalizeReplayStrategySummary(strategySummaries.capitalPreservation),
         },
         bets,
       };

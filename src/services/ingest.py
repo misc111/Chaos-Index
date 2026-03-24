@@ -232,6 +232,11 @@ def map_odds_rows_to_games(db: Database, odds_df: pd.DataFrame) -> pd.DataFrame:
         mapped["game_id"] = None
         return mapped
 
+    def _event_id_key(value: Any) -> str:
+        if value is None or pd.isna(value):
+            return ""
+        return str(value).strip()
+
     games = pd.DataFrame(
         db.query(
             """
@@ -248,15 +253,17 @@ def map_odds_rows_to_games(db: Database, odds_df: pd.DataFrame) -> pd.DataFrame:
         mapped["game_id"] = None
         return mapped
 
+    work = odds_df.copy()
+    work["_odds_event_key"] = work["odds_event_id"].map(_event_id_key)
     event_keys = (
-        odds_df[["odds_event_id", "home_team", "away_team", "commence_date_central", "commence_time_utc"]]
-        .drop_duplicates(subset=["odds_event_id"])
+        work[["_odds_event_key", "home_team", "away_team", "commence_date_central", "commence_time_utc"]]
+        .drop_duplicates(subset=["_odds_event_key"])
         .to_dict(orient="records")
     )
 
     event_to_game: dict[str, int | None] = {}
     for event in event_keys:
-        event_id = str(event.get("odds_event_id") or "").strip()
+        event_id = str(event.get("_odds_event_key") or "").strip()
         if not event_id:
             continue
         home_team = str(event.get("home_team") or "").strip()
@@ -293,9 +300,9 @@ def map_odds_rows_to_games(db: Database, odds_df: pd.DataFrame) -> pd.DataFrame:
 
         event_to_game[event_id] = int(candidates.iloc[0]["game_id"]) if len(candidates) == 1 else None
 
-    mapped = odds_df.copy()
-    mapped["game_id"] = mapped["odds_event_id"].map(event_to_game)
-    return mapped
+    mapped = work
+    mapped["game_id"] = mapped["_odds_event_key"].map(event_to_game)
+    return mapped.drop(columns=["_odds_event_key"])
 
 
 def insert_odds_snapshot_and_lines(

@@ -1,0 +1,55 @@
+version: 1
+league: NBA
+experiment_name: nba_glm_rewrite_v1
+default_slate: core_market_form
+default_width_variant: medium
+slates:
+  core_market_form:
+    feature_order:
+      - diff_form_point_margin
+      - diff_form_win_rate
+      - rest_diff
+      - travel_diff
+      - elo_home_prob
+      - dyn_home_prob
+      - availability_stress_diff
+      - diff_roster_depth
+      - discipline_foul_margin_diff
+      - discipline_free_throw_pressure_diff
+      - arena_margin_effect
+      - arena_shot_volume_effect
+      - diff_shot_volume_share
+      - home_post_all_star_break
+      - away_post_all_star_break
+      - home_post_trade_deadline
+      - away_post_trade_deadline
+    width_variants:
+      narrow:
+        feature_count: 8
+      medium:
+        feature_count: 12
+      wide:
+        feature_count: 16
+  pace_and_pressure:
+    feature_order:
+      - rest_diff
+      - travel_diff
+      - diff_shot_volume_share
+      - arena_shot_volume_effect
+      - discipline_foul_margin_diff
+      - discipline_free_throw_pressure_diff
+      - availability_stress_diff
+      - diff_roster_depth
+      - diff_form_point_margin
+      - diff_form_win_rate
+      - elo_home_prob
+      - dyn_home_prob
+      - home_post_trade_deadline
+      - away_post_trade_deadline
+    width_variants:
+      narrow:
+        feature_count: 8
+      medium:
+        feature_count: 10
+      wide:
+        feature_count: 14

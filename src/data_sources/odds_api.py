@@ -7,9 +7,12 @@ markets exposed on each event summary.
 
 from __future__ import annotations
 
+import json
 import re
+import shutil
 import unicodedata
 from datetime import date, datetime, timedelta, timezone
+from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
 
@@ -175,6 +178,28 @@ def _date_keys_for_window(days_ahead: int) -> list[str]:
     normalized_days = max(0, int(days_ahead))
     start = _current_central_date()
     return [(start + timedelta(days=offset)).strftime("%Y%m%d") for offset in range(normalized_days + 1)]
+
+
+def _coerce_date(value: date | datetime | str) -> date:
+    if isinstance(value, date) and not isinstance(value, datetime):
+        return value
+    if isinstance(value, datetime):
+        return value.date()
+    raw = str(value or "").strip()
+    if not raw:
+        raise ValueError("Historical odds date values must be non-empty")
+    if len(raw) == 8 and raw.isdigit():
+        return datetime.strptime(raw, "%Y%m%d").date()
+    return date.fromisoformat(raw)
+
+
+def _date_keys_for_range(start_date: date | datetime | str, end_date: date | datetime | str) -> list[str]:
+    start = _coerce_date(start_date)
+    end = _coerce_date(end_date)
+    if end < start:
+        raise ValueError(f"Historical odds date range must be ascending: start={start} end={end}")
+    span = (end - start).days
+    return [(start + timedelta(days=offset)).strftime("%Y%m%d") for offset in range(span + 1)]
 
 
 def _team_aliases_for_league(league: str) -> dict[str, str]:
@@ -583,20 +608,21 @@ def _flatten_pickcenter_summary(
     return rows
 
 
-def fetch_public_odds(
+def _fetch_public_odds_for_date_keys(
     client: HttpClient,
     *,
     league: str,
     sport_key: str,
     source: str,
+    date_keys: list[str],
     teams_df: pd.DataFrame | None = None,
-    upcoming_days: int | None = None,
 ) -> SourceFetchResult:
     as_of_utc = utc_now_iso()
     normalized_league = str(league or "").upper()
     endpoints = ESPN_ENDPOINTS[normalized_league]
-    lookahead_days = 14 if upcoming_days is None else max(0, int(upcoming_days))
-    date_keys = _date_keys_for_window(lookahead_days)
+    normalized_date_keys = [str(date_key).strip() for date_key in date_keys if str(date_key).strip()]
+    if not normalized_date_keys:
+        raise ValueError("Historical/public odds fetch requires at least one date key")
 
     events_by_id: dict[str, dict[str, Any]] = {}
     scoreboard_raw_paths: list[str] = []
@@ -606,7 +632,7 @@ def fetch_public_odds(
     scoreboard_cache_hits = 0
     summary_cache_hits = 0
 
-    for date_key in date_keys:
+    for date_key in normalized_date_keys:
         try:
             payload, raw_path, _, from_cache = client.get_json_with_headers(
                 source=f"{source}_scoreboard_{date_key}",
@@ -668,7 +694,7 @@ def fetch_public_odds(
         "provider": "espn_pickcenter",
         "league": normalized_league,
         "fetched_at_utc": as_of_utc,
-        "date_keys": date_keys,
+        "date_keys": normalized_date_keys,
         "event_ids_seen": sorted(events_by_id),
         "event_ids_with_pickcenter": event_ids_with_pickcenter,
         "scoreboard_raw_paths": scoreboard_raw_paths,
@@ -691,8 +717,7 @@ def fetch_public_odds(
         "date_format": DEFAULT_DATE_FORMAT,
         "scoreboard_endpoint": endpoints["scoreboard"],
         "summary_endpoint": endpoints["summary"],
-        "upcoming_days": lookahead_days,
-        "date_keys": date_keys,
+        "date_keys": normalized_date_keys,
         "scoreboard_request_count": len(scoreboard_raw_paths) + len(scoreboard_failures),
         "summary_request_count": len(summary_raw_paths) + len(summary_failures),
         "scoreboard_cache_hits": scoreboard_cache_hits,
@@ -723,3 +748,143 @@ def fetch_public_odds(
         metadata=metadata,
         dataframe=df,
     )
+
+
+def fetch_public_odds(
+    client: HttpClient,
+    *,
+    league: str,
+    sport_key: str,
+    source: str,
+    teams_df: pd.DataFrame | None = None,
+    upcoming_days: int | None = None,
+) -> SourceFetchResult:
+    lookahead_days = 14 if upcoming_days is None else max(0, int(upcoming_days))
+    return _fetch_public_odds_for_date_keys(
+        client,
+        league=league,
+        sport_key=sport_key,
+        source=source,
+        date_keys=_date_keys_for_window(lookahead_days),
+        teams_df=teams_df,
+    )
+
+
+def fetch_public_odds_for_date_range(
+    client: HttpClient,
+    *,
+    league: str,
+    sport_key: str,
+    source: str,
+    start_date: date | datetime | str,
+    end_date: date | datetime | str,
+    teams_df: pd.DataFrame | None = None,
+) -> SourceFetchResult:
+    return _fetch_public_odds_for_date_keys(
+        client,
+        league=league,
+        sport_key=sport_key,
+        source=source,
+        date_keys=_date_keys_for_range(start_date, end_date),
+        teams_df=teams_df,
+    )
+
+
+def write_historical_odds_bundle(
+    client: HttpClient,
+    *,
+    league: str,
+    sport_key: str,
+    source: str,
+    output_dir: str | Path,
+    start_date: date | datetime | str,
+    end_date: date | datetime | str,
+    games_path: str | Path,
+    teams_df: pd.DataFrame | None = None,
+    games_source: str | None = None,
+) -> dict[str, Any]:
+    output_root = Path(output_dir).resolve()
+    output_root.mkdir(parents=True, exist_ok=True)
+
+    odds_result = fetch_public_odds_for_date_range(
+        client,
+        league=league,
+        sport_key=sport_key,
+        source=source,
+        start_date=start_date,
+        end_date=end_date,
+        teams_df=teams_df,
+    )
+
+    requested_date_keys = odds_result.metadata.get("date_keys") or []
+    first_date_key = requested_date_keys[0] if requested_date_keys else _coerce_date(start_date).strftime("%Y%m%d")
+    last_date_key = requested_date_keys[-1] if requested_date_keys else _coerce_date(end_date).strftime("%Y%m%d")
+    odds_filename = f"odds_{first_date_key}_{last_date_key}.csv"
+    odds_path = output_root / odds_filename
+    odds_result.dataframe.to_csv(odds_path, index=False)
+
+    games_src_path = Path(games_path).resolve()
+    copied_games_path = (output_root / games_src_path.name).resolve()
+    if games_src_path != copied_games_path:
+        shutil.copy2(games_src_path, copied_games_path)
+
+    commence_values = odds_result.dataframe.get("commence_time_utc")
+    if commence_values is not None and not odds_result.dataframe.empty:
+        coverage_start = str(commence_values.dropna().astype(str).min()) if commence_values.notna().any() else None
+        coverage_end = str(commence_values.dropna().astype(str).max()) if commence_values.notna().any() else None
+    else:
+        coverage_start = None
+        coverage_end = None
+
+    manifest_payload = {
+        "league": str(league or "").upper(),
+        "games": [
+            {
+                "path": copied_games_path.name,
+                "source": games_source or f"{str(league or '').lower()}_historical_games",
+                "extracted_at_utc": odds_result.extracted_at_utc,
+                "metadata": {
+                    "import_mode": "historical_bundle",
+                    "copied_from": str(games_src_path),
+                },
+            }
+        ],
+        "odds_snapshots": [
+            {
+                "path": odds_path.name,
+                "source": source,
+                "snapshot_id": odds_result.snapshot_id,
+                "as_of_utc": odds_result.extracted_at_utc,
+                "metadata": {
+                    "import_mode": "historical_bundle",
+                    "coverage_start_utc": coverage_start,
+                    "coverage_end_utc": coverage_end,
+                }
+                | dict(odds_result.metadata),
+            }
+        ],
+        "bundle_metadata": {
+            "requested_start_date": str(_coerce_date(start_date)),
+            "requested_end_date": str(_coerce_date(end_date)),
+            "requested_date_keys": requested_date_keys,
+            "coverage_start_utc": coverage_start,
+            "coverage_end_utc": coverage_end,
+            "odds_rows": int(len(odds_result.dataframe)),
+            "odds_events": int(odds_result.metadata.get("n_events") or 0),
+            "games_path": copied_games_path.name,
+        },
+    }
+    manifest_path = output_root / "manifest.json"
+    manifest_path.write_text(json.dumps(manifest_payload, indent=2))
+
+    return {
+        "manifest_path": str(manifest_path),
+        "odds_path": str(odds_path),
+        "games_path": str(copied_games_path),
+        "odds_rows": int(len(odds_result.dataframe)),
+        "odds_events": int(odds_result.metadata.get("n_events") or 0),
+        "coverage_start_utc": coverage_start,
+        "coverage_end_utc": coverage_end,
+        "metadata": odds_result.metadata,
+        "snapshot_id": odds_result.snapshot_id,
+    }

@@ -34,6 +34,7 @@ class StubClient:
 
     def save_raw(self, source: str, payload: dict, key: str = "snapshot") -> str:
         path = self.raw_dir / f"{source}_{key}.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(payload, indent=2))
         return str(path)
 
@@ -229,3 +230,134 @@ def test_fetch_public_odds_aggregates_scoreboard_and_summary_payloads(tmp_path, 
     assert result.dataframe["home_team"].dropna().unique().tolist() == ["OSU"]
     assert result.dataframe["away_team"].dropna().unique().tolist() == ["TCU"]
     assert Path(result.raw_path).exists()
+
+
+def test_fetch_public_odds_for_date_range_uses_explicit_historical_dates(tmp_path) -> None:
+    client = StubClient(
+        {
+            ("scoreboard", "20260318"): {"events": []},
+            ("scoreboard", "20260319"): {"events": [_sample_scoreboard_event()]},
+            ("summary", "401810863"): _sample_summary_payload(),
+        },
+        raw_dir=tmp_path,
+    )
+
+    result = odds_api.fetch_public_odds_for_date_range(
+        client,
+        league="NBA",
+        sport_key="basketball_nba",
+        source="nba_historical_odds",
+        start_date="2026-03-18",
+        end_date="2026-03-19",
+    )
+
+    assert result.metadata["date_keys"] == ["20260318", "20260319"]
+    assert result.metadata["n_events_seen"] == 1
+    assert result.metadata["n_events"] == 1
+    assert len(result.dataframe) == 6
+    assert Path(result.raw_path).exists()
+
+
+def test_write_historical_odds_bundle_emits_manifest_and_tabular_files(tmp_path) -> None:
+    client = StubClient(
+        {
+            ("scoreboard", "20260319"): {"events": [_sample_scoreboard_event()]},
+            ("summary", "401810863"): _sample_summary_payload(),
+        },
+        raw_dir=tmp_path / "raw-cache",
+    )
+
+    games = pd.DataFrame(
+        [
+            {
+                "game_id": 401810863,
+                "season": 20252026,
+                "game_date_utc": "2026-03-19",
+                "start_time_utc": "2026-03-19T23:00:00Z",
+                "home_team": "CHA",
+                "away_team": "ORL",
+                "home_score": 0,
+                "away_score": 0,
+                "home_win": None,
+                "status_final": 0,
+                "as_of_utc": "2026-03-19T12:00:00Z",
+            }
+        ]
+    )
+    games_path = tmp_path / "games.parquet"
+    games.to_parquet(games_path, index=False)
+
+    bundle = odds_api.write_historical_odds_bundle(
+        client,
+        league="NBA",
+        sport_key="basketball_nba",
+        source="nba_historical_odds",
+        output_dir=tmp_path / "historical" / "nba",
+        start_date="2026-03-19",
+        end_date="2026-03-19",
+        games_path=games_path,
+    )
+
+    manifest_path = Path(bundle["manifest_path"])
+    odds_path = Path(bundle["odds_path"])
+    copied_games_path = Path(bundle["games_path"])
+    manifest = json.loads(manifest_path.read_text())
+    odds_df = pd.read_csv(odds_path)
+
+    assert manifest_path.exists()
+    assert odds_path.exists()
+    assert copied_games_path.exists()
+    assert manifest["league"] == "NBA"
+    assert manifest["games"][0]["path"] == "games.parquet"
+    assert manifest["odds_snapshots"][0]["path"] == odds_path.name
+    assert manifest["odds_snapshots"][0]["snapshot_id"] == bundle["snapshot_id"]
+    assert bundle["odds_rows"] == 6
+    assert bundle["coverage_start_utc"] == "2026-03-19T23:00Z"
+    assert bundle["coverage_end_utc"] == "2026-03-19T23:00Z"
+    assert len(odds_df) == 6
+
+
+def test_write_historical_odds_bundle_allows_games_file_already_in_output_dir(tmp_path) -> None:
+    output_dir = tmp_path / "historical" / "nba"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    client = StubClient(
+        {
+            ("scoreboard", "20260319"): {"events": [_sample_scoreboard_event()]},
+            ("summary", "401810863"): _sample_summary_payload(),
+        },
+        raw_dir=tmp_path / "raw-cache",
+    )
+
+    games = pd.DataFrame(
+        [
+            {
+                "game_id": 401810863,
+                "season": 20252026,
+                "game_date_utc": "2026-03-19",
+                "start_time_utc": "2026-03-19T23:00:00Z",
+                "home_team": "CHA",
+                "away_team": "ORL",
+                "home_score": 0,
+                "away_score": 0,
+                "home_win": None,
+                "status_final": 0,
+                "as_of_utc": "2026-03-19T12:00:00Z",
+            }
+        ]
+    )
+    games_path = output_dir / "games.parquet"
+    games.to_parquet(games_path, index=False)
+
+    bundle = odds_api.write_historical_odds_bundle(
+        client,
+        league="NBA",
+        sport_key="basketball_nba",
+        source="nba_historical_odds",
+        output_dir=output_dir,
+        start_date="2026-03-19",
+        end_date="2026-03-19",
+        games_path=games_path,
+    )
+
+    assert Path(bundle["games_path"]).resolve() == games_path.resolve()
+    assert Path(bundle["manifest_path"]).exists()

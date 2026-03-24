@@ -29,6 +29,40 @@ def test_cli_parser_stays_in_sync_with_command_registry() -> None:
     assert tuple(subparser_action.choices.keys()) == command_names()
 
 
+def test_structured_glm_cli_flags_are_exposed_on_research_commands() -> None:
+    parser = build_parser()
+
+    compare_args = parser.parse_args(
+        [
+            "compare-candidates",
+            "--structured-glm-spec",
+            "configs/research/nba_glm_rewrite_v1.yaml",
+            "--structured-glm-slate",
+            "core_market_form",
+            "--structured-glm-width-variant",
+            "wide",
+        ]
+    )
+    assert compare_args.structured_glm_spec == "configs/research/nba_glm_rewrite_v1.yaml"
+    assert compare_args.structured_glm_slate == "core_market_form"
+    assert compare_args.structured_glm_width_variant == "wide"
+
+    backtest_args = parser.parse_args(
+        [
+            "research-backtest",
+            "--structured-glm-spec",
+            "configs/research/nba_glm_rewrite_v1.yaml",
+            "--structured-glm-slate",
+            "pace_and_pressure",
+            "--structured-glm-width-variant",
+            "narrow",
+        ]
+    )
+    assert backtest_args.structured_glm_spec == "configs/research/nba_glm_rewrite_v1.yaml"
+    assert backtest_args.structured_glm_slate == "pace_and_pressure"
+    assert backtest_args.structured_glm_width_variant == "narrow"
+
+
 def test_generated_league_manifest_matches_code_registry() -> None:
     manifest = json.loads((ROOT_DIR / "configs" / "generated" / "league_manifest.json").read_text())
 

@@ -78,6 +78,9 @@ def compare_candidates(cfg: AppConfig, args: Namespace) -> None:
         candidate_models=candidate_models,
         feature_pool=str(getattr(args, "feature_pool", "full_screened")),
         feature_map_model=str(getattr(args, "feature_map_model", "glm_ridge")),
+        structured_glm_spec_path=getattr(args, "structured_glm_spec", None),
+        structured_glm_slate=getattr(args, "structured_glm_slate", None),
+        structured_glm_width_variant=getattr(args, "structured_glm_width_variant", None),
     )
     print(
         f"CANDIDATE_MODEL_COMPARISON::{result.league}::{result.recommendation_model}::{result.report_path}",
@@ -99,6 +102,9 @@ def research_backtest(cfg: AppConfig, args: Namespace) -> None:
         feature_pool=str(getattr(args, "feature_pool", cfg.research.feature_pool)),
         feature_map_model=str(getattr(args, "feature_map_model", "glm_ridge")),
         history_seasons=getattr(args, "history_seasons", None),
+        structured_glm_spec_path=getattr(args, "structured_glm_spec", None),
+        structured_glm_slate=getattr(args, "structured_glm_slate", None),
+        structured_glm_width_variant=getattr(args, "structured_glm_width_variant", None),
     )
     print(
         f"RESEARCH_BACKTEST::{result.league}::{result.best_candidate_model}::{result.report_path}",

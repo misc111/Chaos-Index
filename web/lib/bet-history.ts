@@ -27,6 +27,14 @@ import type {
 } from "@/lib/bet-history-types";
 import { runSqlJson } from "@/lib/db";
 import type { LeagueCode } from "@/lib/league";
+import {
+  DIAGNOSTIC_FORECAST_SOURCE,
+  STORED_FORECAST_SOURCE,
+  effectiveReplayOddsAsOfSql,
+  escapeSqlString,
+  historicalForecastCandidatesUnionSql,
+  historicalMoneylineSql,
+} from "@/lib/server/services/replay-data";
 import { getPreferredBettingModelName } from "@/lib/server/services/betting-driver";
 import {
   loadOrCreateHistoricalReplayDecisions,
@@ -120,13 +128,6 @@ type HistoricalReplayDataset = {
   strategy_optimization: BetStrategyOptimizationSummary;
   rows: HistoricalReplayGameRow[];
 };
-
-const STORED_FORECAST_SOURCE = "stored_prediction_history";
-const DIAGNOSTIC_FORECAST_SOURCE = "train_oof_history";
-
-function escapeSqlString(value: string): string {
-  return value.replace(/'/g, "''");
-}
 
 function normalizeUtcTimestamp(value: string): string {
   if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}Z$/.test(value)) {
@@ -250,53 +251,9 @@ function betDecisionFromReplaySnapshot(snapshot: HistoricalReplayDecisionSnapsho
   };
 }
 
-function historicalForecastCandidatesSql(modelName?: string): string {
-  const escapedDiagnosticSource = escapeSqlString(DIAGNOSTIC_FORECAST_SOURCE);
-  const modelFilter = modelName ? `AND p.model_name = '${escapeSqlString(modelName)}'` : "";
-
-  return `
-    SELECT
-      fg.game_id,
-      p.as_of_utc,
-      p.prob_home_win,
-      p.model_run_id,
-      p.model_name,
-      '${STORED_FORECAST_SOURCE}' AS forecast_source,
-      0 AS source_priority,
-      p.prediction_id AS row_sort_id,
-      COALESCE(mr.created_at_utc, p.as_of_utc) AS created_at_utc
-    FROM finalized_games fg
-    JOIN predictions p
-      ON p.game_id = fg.game_id
-     ${modelFilter}
-     AND DATETIME(p.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
-    LEFT JOIN model_runs mr
-      ON mr.model_run_id = p.model_run_id
-    WHERE DATETIME(COALESCE(mr.created_at_utc, p.as_of_utc)) <= DATETIME(fg.replay_cutoff_utc)
-
-    UNION ALL
-
-    SELECT
-      fg.game_id,
-      p.as_of_utc,
-      p.prob_home_win,
-      p.model_run_id,
-      p.model_name,
-      '${escapedDiagnosticSource}' AS forecast_source,
-      1 AS source_priority,
-      p.diagnostic_id AS row_sort_id,
-      p.as_of_utc AS created_at_utc
-    FROM finalized_games fg
-    JOIN prediction_diagnostics p
-      ON p.game_id = fg.game_id
-     ${modelFilter}
-     AND COALESCE(json_extract(p.metadata_json, '$.source'), '') = '${escapedDiagnosticSource}'
-     AND DATETIME(p.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
-  `;
-}
-
 function historicalGamesSql(league: LeagueCode, modelName: string): string {
   const escapedLeague = escapeSqlString(league);
+  const effectiveOddsAsOf = effectiveReplayOddsAsOfSql("s", "l");
 
   // Finalized-game replay should use the latest stored pregame prediction that
   // existed before game time. Historical diagnostics only fill holes where the
@@ -320,7 +277,7 @@ function historicalGamesSql(league: LeagueCode, modelName: string): string {
       WHERE r.home_win IS NOT NULL
     ),
     forecast_candidates AS (
-      ${historicalForecastCandidatesSql(modelName)}
+      ${historicalForecastCandidatesUnionSql({ modelName })}
     ),
     ranked_forecasts AS (
       SELECT
@@ -354,41 +311,35 @@ function historicalGamesSql(league: LeagueCode, modelName: string): string {
       rf.forecast_source AS forecast_source,
       rf.prob_home_win AS home_win_probability,
       (
-        SELECT s.odds_snapshot_id
-        FROM odds_snapshots s
+        SELECT l.odds_snapshot_id
+        FROM odds_market_lines l
+        JOIN odds_snapshots s
+          ON s.odds_snapshot_id = l.odds_snapshot_id
         WHERE rf.as_of_utc IS NOT NULL
           AND s.league = '${escapedLeague}'
-          AND DATETIME(s.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
-          AND EXISTS (
-            SELECT 1
-            FROM odds_market_lines l
-            WHERE l.odds_snapshot_id = s.odds_snapshot_id
-              AND l.market_key = 'h2h'
-              AND (
-                (l.game_id IS NOT NULL AND l.game_id = fg.game_id)
-                OR (l.home_team = fg.home_team AND l.away_team = fg.away_team)
-              )
+          AND l.market_key = 'h2h'
+          AND (
+            (l.game_id IS NOT NULL AND l.game_id = fg.game_id)
+            OR (l.home_team = fg.home_team AND l.away_team = fg.away_team)
           )
-        ORDER BY DATETIME(s.as_of_utc) DESC
+          AND DATETIME(${effectiveOddsAsOf}) <= DATETIME(fg.replay_cutoff_utc)
+        ORDER BY DATETIME(${effectiveOddsAsOf}) DESC, DATETIME(s.as_of_utc) DESC, l.line_id DESC
         LIMIT 1
       ) AS odds_snapshot_id,
       (
-        SELECT s.as_of_utc
-        FROM odds_snapshots s
+        SELECT ${effectiveOddsAsOf}
+        FROM odds_market_lines l
+        JOIN odds_snapshots s
+          ON s.odds_snapshot_id = l.odds_snapshot_id
         WHERE rf.as_of_utc IS NOT NULL
           AND s.league = '${escapedLeague}'
-          AND DATETIME(s.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
-          AND EXISTS (
-            SELECT 1
-            FROM odds_market_lines l
-            WHERE l.odds_snapshot_id = s.odds_snapshot_id
-              AND l.market_key = 'h2h'
-              AND (
-                (l.game_id IS NOT NULL AND l.game_id = fg.game_id)
-                OR (l.home_team = fg.home_team AND l.away_team = fg.away_team)
-              )
+          AND l.market_key = 'h2h'
+          AND (
+            (l.game_id IS NOT NULL AND l.game_id = fg.game_id)
+            OR (l.home_team = fg.home_team AND l.away_team = fg.away_team)
           )
-        ORDER BY DATETIME(s.as_of_utc) DESC
+          AND DATETIME(${effectiveOddsAsOf}) <= DATETIME(fg.replay_cutoff_utc)
+        ORDER BY DATETIME(${effectiveOddsAsOf}) DESC, DATETIME(s.as_of_utc) DESC, l.line_id DESC
         LIMIT 1
       ) AS odds_as_of_utc
     FROM finalized_games fg
@@ -410,7 +361,7 @@ function historicalModelProbabilitiesSql(): string {
       WHERE r.home_win IS NOT NULL
     ),
     forecast_candidates AS (
-      ${historicalForecastCandidatesSql()}
+      ${historicalForecastCandidatesUnionSql()}
     ),
     ranked_forecasts AS (
       SELECT
@@ -430,46 +381,6 @@ function historicalModelProbabilitiesSql(): string {
     SELECT game_id, model_name, prob_home_win
     FROM ranked_forecasts
     WHERE rn = 1
-  `;
-}
-
-function moneylineSql(snapshotIds: string[]): string {
-  const inList = snapshotIds.map((snapshotId) => `'${escapeSqlString(snapshotId)}'`).join(", ");
-
-  return `
-    WITH ranked AS (
-      SELECT
-        odds_snapshot_id,
-        game_id,
-        home_team,
-        away_team,
-        outcome_side,
-        outcome_price,
-        bookmaker_title,
-        ROW_NUMBER() OVER (
-          PARTITION BY
-            odds_snapshot_id,
-            COALESCE(CAST(game_id AS TEXT), home_team || '|' || away_team),
-            outcome_side
-          ORDER BY outcome_price DESC, DATETIME(bookmaker_last_update_utc) DESC, line_id DESC
-        ) AS rn
-      FROM odds_market_lines
-      WHERE odds_snapshot_id IN (${inList})
-        AND market_key = 'h2h'
-        AND outcome_side IN ('home', 'away')
-        AND outcome_price IS NOT NULL
-    )
-    SELECT
-      odds_snapshot_id,
-      game_id,
-      home_team,
-      away_team,
-      MAX(CASE WHEN outcome_side = 'home' AND rn = 1 THEN outcome_price END) AS home_moneyline,
-      MAX(CASE WHEN outcome_side = 'away' AND rn = 1 THEN outcome_price END) AS away_moneyline,
-      MAX(CASE WHEN outcome_side = 'home' AND rn = 1 THEN bookmaker_title END) AS home_moneyline_book,
-      MAX(CASE WHEN outcome_side = 'away' AND rn = 1 THEN bookmaker_title END) AS away_moneyline_book
-    FROM ranked
-    GROUP BY odds_snapshot_id, game_id, home_team, away_team
   `;
 }
 
@@ -575,7 +486,7 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
     new Set(rawGames.map((row) => String(row.odds_snapshot_id || "").trim()).filter(Boolean))
   );
   const moneylineRows = uniqueSnapshotIds.length
-    ? (runSqlJson(moneylineSql(uniqueSnapshotIds), { league }) as RawMoneylineRow[])
+    ? (runSqlJson(historicalMoneylineSql(uniqueSnapshotIds, { includeBookmakerTitles: true }), { league }) as RawMoneylineRow[])
     : [];
   const over190Rows =
     uniqueSnapshotIds.length && league === "NBA"

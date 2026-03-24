@@ -27,6 +27,7 @@ from src.research.model_comparison import (
     _candidate_specs,
     _select_feature_sets,
 )
+from src.research.structured_glm_specs import load_structured_glm_selection
 from src.services.ingest import save_interim
 from src.services.train import load_features_dataframe
 from src.storage.db import Database
@@ -129,7 +130,11 @@ def _latest_pregame_moneylines(db: Database, *, league: str, seasons: list[int])
           g.game_id,
           g.season,
           g.start_time_utc,
-          s.as_of_utc AS odds_as_of_utc,
+          CASE
+            WHEN COALESCE(json_extract(s.metadata_json, '$.import_mode'), '') IN ('historical_bundle', 'historical_manifest')
+              THEN l.commence_time_utc
+            ELSE COALESCE(l.bookmaker_last_update_utc, s.as_of_utc)
+          END AS odds_as_of_utc,
           l.odds_snapshot_id,
           l.outcome_side,
           l.outcome_price,
@@ -457,6 +462,9 @@ def run_research_backtest(
     feature_pool: str | None = None,
     feature_map_model: str = "glm_ridge",
     history_seasons: int | None = None,
+    structured_glm_spec_path: str | None = None,
+    structured_glm_slate: str | None = None,
+    structured_glm_width_variant: str | None = None,
 ) -> ResearchBacktestResult:
     history_seasons_value = max(1, int(history_seasons or cfg.research.history_seasons))
     features_df, seasons = _build_research_features(cfg, history_seasons=history_seasons_value)
@@ -470,6 +478,16 @@ def run_research_backtest(
         feature_pool=str(feature_pool or cfg.research.feature_pool),
         feature_map_model=feature_map_model,
     )
+    structured_glm_selection = load_structured_glm_selection(
+        league=cfg.data.league,
+        available_features=raw_features,
+        spec_path=structured_glm_spec_path,
+        slate_name=structured_glm_slate,
+        width_variant=structured_glm_width_variant,
+    )
+    structured_glm_overrides = structured_glm_selection.feature_overrides() if structured_glm_selection else None
+    if structured_glm_selection:
+        feature_pool_note = f"{feature_pool_note}; plus {structured_glm_selection.summary_line()}"
     candidate_model_set = _parse_candidate_models(candidate_models)
 
     historical_df = features_df[features_df["home_win"].notna()].copy().sort_values("start_time_utc").reset_index(drop=True)
@@ -520,10 +538,17 @@ def run_research_backtest(
             "Backtest bankroll results would be misleading because every game would be treated as missing odds."
         )
 
-    candidate_specs = _candidate_specs(
-        _select_feature_sets(research_df, raw_features),
-        selected_models=candidate_model_set,
-    )
+    if structured_glm_overrides:
+        candidate_specs = _candidate_specs(
+            _select_feature_sets(research_df, raw_features),
+            selected_models=candidate_model_set,
+            glm_feature_overrides=structured_glm_overrides,
+        )
+    else:
+        candidate_specs = _candidate_specs(
+            _select_feature_sets(research_df, raw_features),
+            selected_models=candidate_model_set,
+        )
     spec_map = {spec.model_name: spec for spec in candidate_specs}
     baseline_model = feature_map_model if feature_map_model in spec_map else "glm_ridge"
     if baseline_model not in spec_map:

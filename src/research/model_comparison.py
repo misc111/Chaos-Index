@@ -28,6 +28,7 @@ from src.research.candidate_models import (
     PenalizedLogitCandidate,
     VanillaGLMBinomialCandidate,
 )
+from src.research.structured_glm_specs import load_structured_glm_selection
 from src.services.train import load_features_dataframe
 from src.training.cv import time_series_splits
 from src.training.feature_selection import select_feature_columns
@@ -309,7 +310,18 @@ def _candidate_specs(
     feature_sets: CandidateFeatureSets,
     *,
     selected_models: set[str] | None = None,
+    glm_feature_overrides: dict[str, list[str]] | None = None,
 ) -> list[CandidateSpec]:
+    def _glm_features_for(fs: CandidateFeatureSets, model_name: str) -> list[str]:
+        if not glm_feature_overrides:
+            return fs.screened_features
+        requested = [str(feature) for feature in glm_feature_overrides.get(model_name, []) if str(feature).strip()]
+        if not requested:
+            return fs.screened_features
+        screened_set = set(fs.screened_features)
+        resolved = [feature for feature in requested if feature in screened_set]
+        return resolved or fs.screened_features
+
     specs = [
         CandidateSpec(
             model_name="glm_ridge",
@@ -318,7 +330,7 @@ def _candidate_specs(
             builder=lambda fs, params: PenalizedLogitCandidate(
                 model_name="glm_ridge",
                 display_name="GLM Ridge",
-                features=fs.screened_features,
+                features=_glm_features_for(fs, "glm_ridge"),
                 penalty="l2",
                 c=float(params["c"]),
                 solver="lbfgs",
@@ -335,7 +347,7 @@ def _candidate_specs(
             builder=lambda fs, params: PenalizedLogitCandidate(
                 model_name="glm_elastic_net",
                 display_name="Elastic Net GLM",
-                features=fs.screened_features,
+                features=_glm_features_for(fs, "glm_elastic_net"),
                 penalty="elasticnet",
                 c=float(params["c"]),
                 l1_ratio=float(params["l1_ratio"]),
@@ -349,7 +361,7 @@ def _candidate_specs(
             builder=lambda fs, params: PenalizedLogitCandidate(
                 model_name="glm_lasso",
                 display_name="Lasso GLM",
-                features=fs.screened_features,
+                features=_glm_features_for(fs, "glm_lasso"),
                 penalty="l1",
                 c=float(params["c"]),
                 solver="saga",
@@ -359,7 +371,7 @@ def _candidate_specs(
             model_name="glm_vanilla",
             display_name="Vanilla GLM",
             param_grid=[{}],
-            builder=lambda fs, params: VanillaGLMBinomialCandidate(features=fs.screened_features),
+            builder=lambda fs, params: VanillaGLMBinomialCandidate(features=_glm_features_for(fs, "glm_vanilla")),
         ),
     ]
 
@@ -631,9 +643,17 @@ def _phase_evaluation(
     raw_features: list[str],
     cv_splits: int,
     candidate_models: set[str] | None,
+    structured_glm_overrides: dict[str, list[str]] | None = None,
 ) -> tuple[CandidateFeatureSets, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     feature_sets = _select_feature_sets(fit_df, raw_features)
-    specs = _candidate_specs(feature_sets, selected_models=candidate_models)
+    if structured_glm_overrides:
+        specs = _candidate_specs(
+            feature_sets,
+            selected_models=candidate_models,
+            glm_feature_overrides=structured_glm_overrides,
+        )
+    else:
+        specs = _candidate_specs(feature_sets, selected_models=candidate_models)
     metric_rows: list[dict[str, Any]] = []
     fit_stat_rows: list[dict[str, Any]] = []
     cv_summary_frames: list[pd.DataFrame] = []
@@ -959,6 +979,9 @@ def run_candidate_model_comparison(
     candidate_models: list[str] | None = None,
     feature_pool: str = FEATURE_POOL_FULL_SCREENED,
     feature_map_model: str = "glm_ridge",
+    structured_glm_spec_path: str | None = None,
+    structured_glm_slate: str | None = None,
+    structured_glm_width_variant: str | None = None,
 ) -> ComparisonRunResult:
     feature_pool_token = str(feature_pool or FEATURE_POOL_FULL_SCREENED).strip().lower()
     if feature_pool_token == FEATURE_POOL_RESEARCH_BROAD:
@@ -1017,6 +1040,17 @@ def run_candidate_model_comparison(
             "production `glm_feature_subset` or per-model feature map."
         )
 
+    structured_glm_selection = load_structured_glm_selection(
+        league=cfg.data.league,
+        available_features=raw_features,
+        spec_path=structured_glm_spec_path,
+        slate_name=structured_glm_slate,
+        width_variant=structured_glm_width_variant,
+    )
+    structured_glm_overrides = structured_glm_selection.feature_overrides() if structured_glm_selection else None
+    if structured_glm_selection:
+        feature_pool_note = f"{feature_pool_note} Plus {structured_glm_selection.summary_line()}."
+
     if candidate_model_set:
         candidate_scope_note = ", ".join(sorted(candidate_model_set))
     else:
@@ -1044,6 +1078,7 @@ def run_candidate_model_comparison(
             raw_features=raw_features,
             cv_splits=max(2, int(cfg.research.inner_folds if feature_pool_token == FEATURE_POOL_RESEARCH_BROAD else cfg.modeling.cv_splits)),
             candidate_models=candidate_model_set,
+            structured_glm_overrides=structured_glm_overrides,
         )
         fit_plus_validation = pd.concat([train_df, validation_df], ignore_index=True).sort_values("start_time_utc").reset_index(drop=True)
         final_features, test_metrics, test_predictions, test_fit_stats, final_cv = _phase_evaluation(
@@ -1053,6 +1088,7 @@ def run_candidate_model_comparison(
             raw_features=raw_features,
             cv_splits=max(2, int(cfg.research.inner_folds if feature_pool_token == FEATURE_POOL_RESEARCH_BROAD else cfg.modeling.cv_splits)),
             candidate_models=candidate_model_set,
+            structured_glm_overrides=structured_glm_overrides,
         )
 
     bootstrap_summary = _bootstrap_against_best(

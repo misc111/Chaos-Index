@@ -17,6 +17,9 @@ def compare_candidate_models(
     candidate_models: list[str] | None = None,
     feature_pool: str = "full_screened",
     feature_map_model: str = "glm_ridge",
+    structured_glm_spec_path: str | None = None,
+    structured_glm_slate: str | None = None,
+    structured_glm_width_variant: str | None = None,
 ):
     result = run_candidate_model_comparison(
         cfg,
@@ -25,6 +28,9 @@ def compare_candidate_models(
         candidate_models=candidate_models,
         feature_pool=feature_pool,
         feature_map_model=feature_map_model,
+        structured_glm_spec_path=structured_glm_spec_path,
+        structured_glm_slate=structured_glm_slate,
+        structured_glm_width_variant=structured_glm_width_variant,
     )
     logger.info(
         "Candidate model comparison complete | league=%s recommendation=%s report=%s",

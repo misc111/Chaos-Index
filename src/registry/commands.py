@@ -79,6 +79,24 @@ _FEATURE_MAP_MODEL_ARG = _option(
     help="Model key to read from the production feature map when needed.",
     doc_metavar="MODEL",
 )
+_STRUCTURED_GLM_SPEC_ARG = _option(
+    "--structured-glm-spec",
+    default=None,
+    help="Optional research-only YAML spec defining a structured NBA GLM feature slate.",
+    doc_metavar="PATH",
+)
+_STRUCTURED_GLM_SLATE_ARG = _option(
+    "--structured-glm-slate",
+    default=None,
+    help="Optional named slate to select from the structured NBA GLM spec.",
+    doc_metavar="SLATE",
+)
+_STRUCTURED_GLM_WIDTH_VARIANT_ARG = _option(
+    "--structured-glm-width-variant",
+    default=None,
+    help="Optional width variant to select from the structured NBA GLM spec.",
+    doc_metavar="VARIANT",
+)
 _BOOTSTRAP_SAMPLES_ARG = _option(
     "--bootstrap-samples",
     type=int,
@@ -188,6 +206,9 @@ COMMAND_REGISTRY: tuple[CommandRegistryEntry, ...] = (
             _CANDIDATE_MODELS_ARG,
             _FEATURE_POOL_ARG,
             _FEATURE_MAP_MODEL_ARG,
+            _STRUCTURED_GLM_SPEC_ARG,
+            _STRUCTURED_GLM_SLATE_ARG,
+            _STRUCTURED_GLM_WIDTH_VARIANT_ARG,
         ),
         examples=("make compare-candidates CONFIG=configs/nba.yaml",),
     ),
@@ -208,6 +229,9 @@ COMMAND_REGISTRY: tuple[CommandRegistryEntry, ...] = (
             _FEATURE_POOL_ARG,
             _FEATURE_MAP_MODEL_ARG,
             _HISTORY_SEASONS_ARG,
+            _STRUCTURED_GLM_SPEC_ARG,
+            _STRUCTURED_GLM_SLATE_ARG,
+            _STRUCTURED_GLM_WIDTH_VARIANT_ARG,
         ),
         examples=("python3 -m src.cli research-backtest --config configs/nba.yaml --history-seasons 2",),
     ),
