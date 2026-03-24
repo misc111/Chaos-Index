@@ -6,7 +6,7 @@ This workflow must stay in the top-level Codex thread that actually has access t
 
 Do not assume a spawned subagent can itself spawn more subagents in this environment.
 
-NEVER INTERRUPT subagents' work. Always wait for them to finish.
+NEVER INTERRUPT subagents' work.
 
 These instructions extend, and do not replace, [AGENTS.md](AGENTS.md). The coordinator must read [AGENTS.md](AGENTS.md) first, then read [SUBAGENTS.md](SUBAGENTS.md) before choosing models, reasoning levels, or prompt styles for child agents.
 
@@ -27,7 +27,6 @@ These instructions extend, and do not replace, [AGENTS.md](AGENTS.md). The coord
   - choose the right model and reasoning effort using [SUBAGENTS.md](SUBAGENTS.md),
   - write good prompts for each child agent using the prompting guidance in [SUBAGENTS.md](SUBAGENTS.md),
   - monitor progress,
-  - check stale-looking agent threads directly when needed,
   - integrate the results into one coherent answer.
 - Do not delegate every thought. Keep ownership of orchestration, synthesis, conflict handling, and rerouting.
 - Do not turn the coordinator into the primary implementer for a broad workstream. If the coordinator writes code directly, keep it to narrow unblockers, conflict resolution, integration glue, or other work that is tightly coupled to orchestration.
@@ -234,21 +233,9 @@ Use the prompting techniques from [SUBAGENTS.md](SUBAGENTS.md). Do not reuse one
   6. update status and docs, then create any required checkpoint commit before advancing follow-up priorities
   7. reassess the remaining project state
   8. decide again which agents to spawn next
-- Close completed worker agents promptly after their results have been reviewed and integrated unless there is an immediate, concrete reason to reuse that exact agent thread.
 - Repeat this loop until the task is complete or a real blocker requires escalation.
 - Do not stop after one spawn wave unless the task is actually finished.
 - Do not behave like a passive dispatcher; active reassessment between waves is part of the job.
-
-## Stale UI Rule
-
-- If an agent looks like it has been working forever, do not assume the UI is telling the full story.
-- Go check the agent's thread directly.
-- If the thread shows healthy progress, let it continue.
-- If the thread appears stalled, confused, or off-track:
-  - send a concise status check,
-  - redirect with a sharper instruction if needed,
-  - interrupt only when necessary.
-- Do not leave a possibly stuck child agent running forever just because the status indicator still looks active.
 
 ## Integration Rules
 
@@ -260,11 +247,9 @@ Use the prompting techniques from [SUBAGENTS.md](SUBAGENTS.md). Do not reuse one
 - Unless explicitly delegated with exclusive ownership, checklist, planning-stack, and milestone-tracking updates belong to the coordinator.
 - Tell the user explicitly which checklist item, milestone, or gate-backed item was effectively completed or advanced, and when relevant which checkpoint commit captured that progress.
 - Tell the user which next items are realistically tickable in parallel, rather than only naming one serial next step.
-- Always close a worker agent once it is done and you no longer need that exact thread for immediate follow-on work.
 - If two child agents conflict:
   - resolve the conflict yourself when possible,
   - otherwise reroute one focused follow-up agent with the conflict framed clearly.
-- Close or stop using agents that are no longer useful.
 
 ## Anti-Patterns
 
@@ -281,7 +266,6 @@ Do not:
 - use `wait_agent` as your main activity
 - treat coordination as a single spawn-and-idle step
 - try to run coordinator mode from a spawned subagent that lacks child-agent spawning tools
-- assume an apparently long-running child is healthy without checking its thread
 - delegate synthesis, prioritization, and conflict resolution away from the coordinator
 - let a `default` child agent behave like a second coordinator
 - let child agents own final acceptance, milestone completion, or project done/not-done judgment
