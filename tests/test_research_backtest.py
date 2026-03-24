@@ -13,6 +13,7 @@ from src.services.research_backtest import (
     run_research_backtest,
 )
 from src.storage.db import Database
+from src.storage.schema import EFFECTIVE_ODDS_MARKET_LINES_VIEW_NAME
 
 
 def test_resolve_adaptive_min_train_days_caps_to_available_history():
@@ -135,12 +136,23 @@ def test_latest_pregame_moneylines_accepts_historical_bundle_rows_with_late_snap
 
     import_historical_data(cfg, history_seasons=1)
 
-    rows = _latest_pregame_moneylines(Database(cfg.paths.db_path), league="NBA", seasons=[20252026])
+    db = Database(cfg.paths.db_path)
+    rows = _latest_pregame_moneylines(db, league="NBA", seasons=[20252026])
     assert not rows.empty
     record = rows.iloc[0].to_dict()
     assert record["game_id"] == 401810863
     assert record["home_moneyline"] == 455
     assert record["away_moneyline"] == -625
+    assert str(pd.Timestamp(record["odds_as_of_utc"])) == "2026-03-19 23:00:00+00:00"
+
+    effective_rows = db.query(
+        f"""
+        SELECT effective_odds_as_of_utc, commence_time_utc
+        FROM {EFFECTIVE_ODDS_MARKET_LINES_VIEW_NAME}
+        """
+    )
+    assert len(effective_rows) == 2
+    assert all(row["effective_odds_as_of_utc"] == row["commence_time_utc"] for row in effective_rows)
 
 
 def test_research_backtest_writes_dual_scorecard_bundle(tmp_path, monkeypatch):

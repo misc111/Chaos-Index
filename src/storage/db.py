@@ -7,7 +7,11 @@ from typing import Iterator
 
 from src.common.utils import ensure_dir
 from src.storage.prediction_history import DIAGNOSTIC_PREDICTION_SOURCES
-from src.storage.schema import SCHEMA_SQL
+from src.storage.schema import (
+    EFFECTIVE_ODDS_MARKET_LINES_VIEW_NAME,
+    EFFECTIVE_ODDS_MARKET_LINES_VIEW_REPLACE_SQL,
+    SCHEMA_SQL,
+)
 
 
 class Database:
@@ -68,3 +72,5 @@ class Database:
             WHERE COALESCE(json_extract(metadata_json, '$.source'), '') IN ({diagnostic_sources})
             """
         )
+        conn.execute(f"DROP VIEW IF EXISTS {EFFECTIVE_ODDS_MARKET_LINES_VIEW_NAME}")
+        conn.execute(EFFECTIVE_ODDS_MARKET_LINES_VIEW_REPLACE_SQL)

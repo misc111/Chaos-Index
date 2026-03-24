@@ -1,5 +1,84 @@
 from __future__ import annotations
 
+EFFECTIVE_ODDS_MARKET_LINES_VIEW_NAME = "odds_market_lines_effective_as_of"
+EFFECTIVE_ODDS_MARKET_LINES_VIEW_SQL = f"""
+CREATE VIEW IF NOT EXISTS {EFFECTIVE_ODDS_MARKET_LINES_VIEW_NAME} AS
+SELECT
+  l.line_id,
+  l.odds_snapshot_id,
+  l.league,
+  l.game_id,
+  l.sport_key,
+  l.odds_event_id,
+  l.commence_time_utc,
+  l.commence_date_central,
+  l.api_home_team,
+  l.api_away_team,
+  l.home_team,
+  l.away_team,
+  l.bookmaker_key,
+  l.bookmaker_title,
+  l.bookmaker_last_update_utc,
+  l.market_key,
+  l.outcome_name,
+  l.outcome_side,
+  l.outcome_team,
+  l.outcome_price,
+  l.outcome_point,
+  l.implied_probability,
+  l.created_at_utc,
+  s.source AS snapshot_source,
+  s.as_of_utc AS snapshot_as_of_utc,
+  s.metadata_json AS snapshot_metadata_json,
+  CASE
+    WHEN COALESCE(json_extract(s.metadata_json, '$.import_mode'), '') IN ('historical_bundle', 'historical_manifest')
+      THEN l.commence_time_utc
+    ELSE COALESCE(l.bookmaker_last_update_utc, s.as_of_utc)
+  END AS effective_odds_as_of_utc
+FROM odds_market_lines l
+JOIN odds_snapshots s
+  ON s.odds_snapshot_id = l.odds_snapshot_id
+"""
+
+EFFECTIVE_ODDS_MARKET_LINES_VIEW_REPLACE_SQL = f"""
+CREATE VIEW {EFFECTIVE_ODDS_MARKET_LINES_VIEW_NAME} AS
+SELECT
+  l.line_id,
+  l.odds_snapshot_id,
+  l.league,
+  l.game_id,
+  l.sport_key,
+  l.odds_event_id,
+  l.commence_time_utc,
+  l.commence_date_central,
+  l.api_home_team,
+  l.api_away_team,
+  l.home_team,
+  l.away_team,
+  l.bookmaker_key,
+  l.bookmaker_title,
+  l.bookmaker_last_update_utc,
+  l.market_key,
+  l.outcome_name,
+  l.outcome_side,
+  l.outcome_team,
+  l.outcome_price,
+  l.outcome_point,
+  l.implied_probability,
+  l.created_at_utc,
+  s.source AS snapshot_source,
+  s.as_of_utc AS snapshot_as_of_utc,
+  s.metadata_json AS snapshot_metadata_json,
+  CASE
+    WHEN COALESCE(json_extract(s.metadata_json, '$.import_mode'), '') IN ('historical_bundle', 'historical_manifest')
+      THEN l.commence_time_utc
+    ELSE COALESCE(l.bookmaker_last_update_utc, s.as_of_utc)
+  END AS effective_odds_as_of_utc
+FROM odds_market_lines l
+JOIN odds_snapshots s
+  ON s.odds_snapshot_id = l.odds_snapshot_id
+"""
+
 SCHEMA_SQL = """
 CREATE TABLE IF NOT EXISTS raw_snapshots (
   snapshot_id TEXT PRIMARY KEY,
@@ -367,3 +446,5 @@ CREATE TABLE IF NOT EXISTS historical_bet_decisions_by_profile_v2 (
 CREATE INDEX IF NOT EXISTS idx_historical_bet_decisions_by_profile_v2_date
   ON historical_bet_decisions_by_profile_v2(strategy, sizing_style, strategy_config_signature, date_central);
 """
+
+SCHEMA_SQL += "\n" + EFFECTIVE_ODDS_MARKET_LINES_VIEW_SQL + "\n"

@@ -1,19 +1,20 @@
-import { computeBetDecisionsForSlate } from "@/lib/betting";
-import { BET_STRATEGIES, getBetStrategyConfig } from "@/lib/betting-strategy";
+import { BET_STRATEGIES } from "@/lib/betting-strategy";
 import type { LeagueCode } from "@/lib/league";
 import {
-  buildReplayDecisionDetail,
-  createEmptyReplayStrategySummary,
-  defaultReplayDecisionDetail,
+  createEmptyReplayStrategySummaryMap,
+  ensureReplayBetRow,
+  evaluateReplayStrategyDecisionsForDay,
   finalizeReplayStrategySummary,
+  finalizeReplayBetRows,
+  groupReplayRowsByDate,
   trackReplayStrategyOutcome,
+  type MutableReplayBetRow,
   type MutableReplayStrategySummary,
 } from "@/lib/server/services/replay-engine";
 import type {
   EnsembleSnapshotComponentModelRow,
   EnsembleSnapshotDailyRow,
   EnsembleSnapshotRow,
-  ModelReplayBetRow,
   SnapshotCommitInfo,
   TableRow,
 } from "@/lib/types";
@@ -71,18 +72,6 @@ export type EnsembleSnapshotRunMetadata = {
   model_commit?: SnapshotCommitInfo | null;
   commit_window: SnapshotCommitInfo[];
 };
-
-type MutableReplayBetRow = Omit<ModelReplayBetRow, "strategies"> & {
-  strategies: Partial<ModelReplayBetRow["strategies"]>;
-};
-
-function buildEmptyStrategySummaryMap(totalGames: number): Record<EnsembleSnapshotStrategyKey, MutableReplayStrategySummary> {
-  return {
-    riskAdjusted: createEmptyReplayStrategySummary(totalGames),
-    aggressive: createEmptyReplayStrategySummary(totalGames),
-    capitalPreservation: createEmptyReplayStrategySummary(totalGames),
-  };
-}
 
 function buildEmptyCumulativeState(): Record<EnsembleSnapshotStrategyKey, { total_profit: number; total_risked: number }> {
   return {
@@ -145,68 +134,29 @@ export function buildEnsembleSnapshots(
             left.game_id - right.game_id
         );
 
-      const strategyTotals = buildEmptyStrategySummaryMap(runRows.length);
+      const strategyTotals = createEmptyReplayStrategySummaryMap(runRows.length);
       const cumulativeState = buildEmptyCumulativeState();
       const dailyRows: EnsembleSnapshotDailyRow[] = [];
       const betRowsByGame = new Map<number, MutableReplayBetRow>();
-      const dayRowsByDate = new Map<string, EnsembleSnapshotCandidateRow[]>();
-
-      for (const row of runRows) {
-        const current = dayRowsByDate.get(row.date_central) || [];
-        current.push(row);
-        dayRowsByDate.set(row.date_central, current);
-      }
 
       // Each snapshot is intentionally replayed from the date it first became
       // the last truthful pregame model state. We never "upgrade" the model
       // midstream inside this loop; the whole point is to ask how this one
       // frozen snapshot would have behaved if we had stopped recalibrating.
-      for (const [dateCentral, dayRows] of Array.from(dayRowsByDate.entries()).sort(([left], [right]) => left.localeCompare(right))) {
-        const daySummaries = buildEmptyStrategySummaryMap(dayRows.length);
+      for (const [dateCentral, dayRows] of groupReplayRowsByDate(runRows)) {
+        const daySummaries = createEmptyReplayStrategySummaryMap(dayRows.length);
 
-        for (const strategy of ENSEMBLE_SNAPSHOT_COMPARISON_STRATEGIES) {
-          const strategyConfig = getBetStrategyConfig(strategy, { league });
-          const decisions = computeBetDecisionsForSlate(
-            dayRows.map((row) => ({
-              league,
-              home_team: row.home_team,
-              away_team: row.away_team,
-              home_win_probability: row.home_win_probability,
-              home_moneyline: row.home_moneyline,
-              away_moneyline: row.away_moneyline,
-              betting_model_name: "ensemble",
-              model_win_probabilities: row.model_win_probabilities,
-            })),
-            strategy,
-            strategyConfig,
-            strategyConfig.label
-          );
-
-          dayRows.forEach((row, index) => {
-            const detail = buildReplayDecisionDetail(decisions[index], row.home_win);
-            const existing =
-              betRowsByGame.get(row.game_id) ||
-              {
-                game_id: row.game_id,
-                date_central: row.date_central,
-                forecast_as_of_utc: row.forecast_as_of_utc,
-                start_time_utc: row.start_time_utc,
-                final_utc: row.final_utc,
-                home_team: row.home_team,
-                away_team: row.away_team,
-                home_score: row.home_score,
-                away_score: row.away_score,
-                home_moneyline: row.home_moneyline,
-                away_moneyline: row.away_moneyline,
-                strategies: {},
-              };
-
+        evaluateReplayStrategyDecisionsForDay(dayRows, {
+          league,
+          strategies: ENSEMBLE_SNAPSHOT_COMPARISON_STRATEGIES,
+          bettingModelNameForRow: () => "ensemble",
+          onDecision: (row, strategy, detail) => {
+            const existing = ensureReplayBetRow(betRowsByGame, row);
             existing.strategies[strategy] = detail;
-            betRowsByGame.set(row.game_id, existing);
             trackReplayStrategyOutcome(daySummaries[strategy], detail, dateCentral);
             trackReplayStrategyOutcome(strategyTotals[strategy], detail, dateCentral);
-          });
-        }
+          },
+        });
 
         for (const strategy of ENSEMBLE_SNAPSHOT_COMPARISON_STRATEGIES) {
           cumulativeState[strategy].total_profit += daySummaries[strategy].total_profit;
@@ -239,21 +189,13 @@ export function buildEnsembleSnapshots(
         });
       }
 
-      const bets = Array.from(betRowsByGame.values())
-        .sort(
-          (left, right) =>
-            left.date_central.localeCompare(right.date_central) ||
-            sortTimestamp(left.start_time_utc, left.date_central) - sortTimestamp(right.start_time_utc, right.date_central) ||
-            left.game_id - right.game_id
-        )
-        .map((row) => ({
-          ...row,
-          strategies: {
-            riskAdjusted: row.strategies.riskAdjusted || defaultReplayDecisionDetail(),
-            aggressive: row.strategies.aggressive || defaultReplayDecisionDetail(),
-            capitalPreservation: row.strategies.capitalPreservation || defaultReplayDecisionDetail(),
-          },
-        }));
+      const bets = finalizeReplayBetRows(
+        betRowsByGame,
+        (left, right) =>
+          left.date_central.localeCompare(right.date_central) ||
+          sortTimestamp(left.start_time_utc, left.date_central) - sortTimestamp(right.start_time_utc, right.date_central) ||
+          left.game_id - right.game_id
+      );
 
       const featureColumns = metadata?.feature_columns || [];
       const featureCount = featureColumns.length || Number(metadata?.feature_metadata?.n_features || 0) || 0;

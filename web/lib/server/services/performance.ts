@@ -25,9 +25,11 @@ import {
   type ModelReplayRunMetadata,
 } from "@/lib/model-version-replay";
 import {
-  effectiveReplayOddsAsOfSql,
+  escapeSqlString,
   historicalForecastCandidatesUnionSql,
+  historicalFinalizedGamesCteSql,
   historicalMoneylineSql,
+  historicalReplayOddsSelectionSql,
 } from "@/lib/server/services/replay-data";
 import { repoRootPath } from "@/lib/server/manifests";
 import type {
@@ -162,10 +164,6 @@ type ReplayBaseGame = {
   home_moneyline: number;
   away_moneyline: number;
 };
-
-function escapeSqlString(value: string): string {
-  return value.replace(/'/g, "''");
-}
 
 function numberOrNull(value: unknown): number | null {
   if (value === null || value === undefined || value === "") return null;
@@ -403,26 +401,8 @@ function queryModelCommitWindow(
 }
 
 function historicalReplayGamesSql(league: LeagueCode): string {
-  const escapedLeague = escapeSqlString(league);
-  const effectiveOddsAsOf = effectiveReplayOddsAsOfSql("s", "l");
-
   return `
-    WITH finalized_games AS (
-      SELECT
-        r.game_id,
-        r.game_date_utc,
-        g.start_time_utc,
-        r.final_utc,
-        r.home_team,
-        r.away_team,
-        r.home_score,
-        r.away_score,
-        r.home_win,
-        COALESCE(g.start_time_utc, r.final_utc, r.game_date_utc || 'T23:59:59Z') AS replay_cutoff_utc
-      FROM results r
-      LEFT JOIN games g ON g.game_id = r.game_id
-      WHERE r.home_win IS NOT NULL
-    )
+    WITH ${historicalFinalizedGamesCteSql()}
     SELECT
       fg.game_id,
       fg.game_date_utc,
@@ -433,36 +413,7 @@ function historicalReplayGamesSql(league: LeagueCode): string {
       fg.home_score,
       fg.away_score,
       fg.home_win,
-      (
-        SELECT l.odds_snapshot_id
-        FROM odds_market_lines l
-        JOIN odds_snapshots s
-          ON s.odds_snapshot_id = l.odds_snapshot_id
-        WHERE s.league = '${escapedLeague}'
-          AND l.market_key = 'h2h'
-          AND (
-            (l.game_id IS NOT NULL AND l.game_id = fg.game_id)
-            OR (l.home_team = fg.home_team AND l.away_team = fg.away_team)
-          )
-          AND DATETIME(${effectiveOddsAsOf}) <= DATETIME(fg.replay_cutoff_utc)
-        ORDER BY DATETIME(${effectiveOddsAsOf}) DESC, DATETIME(s.as_of_utc) DESC, l.line_id DESC
-        LIMIT 1
-      ) AS odds_snapshot_id,
-      (
-        SELECT ${effectiveOddsAsOf}
-        FROM odds_market_lines l
-        JOIN odds_snapshots s
-          ON s.odds_snapshot_id = l.odds_snapshot_id
-        WHERE s.league = '${escapedLeague}'
-          AND l.market_key = 'h2h'
-          AND (
-            (l.game_id IS NOT NULL AND l.game_id = fg.game_id)
-            OR (l.home_team = fg.home_team AND l.away_team = fg.away_team)
-          )
-          AND DATETIME(${effectiveOddsAsOf}) <= DATETIME(fg.replay_cutoff_utc)
-        ORDER BY DATETIME(${effectiveOddsAsOf}) DESC, DATETIME(s.as_of_utc) DESC, l.line_id DESC
-        LIMIT 1
-      ) AS odds_as_of_utc
+      ${historicalReplayOddsSelectionSql({ league })}
     FROM finalized_games fg
     ORDER BY DATETIME(fg.replay_cutoff_utc) ASC, fg.game_id ASC
   `;

@@ -11,6 +11,22 @@ type HistoricalMoneylineSqlOptions = {
   includeBookmakerTitles?: boolean;
 };
 
+type HistoricalFinalizedGamesCteSqlOptions = {
+  resultsAlias?: string;
+  gamesAlias?: string;
+};
+
+type HistoricalReplayOddsSelectionSqlOptions = {
+  league: string;
+  finalizedGameAlias?: string;
+  lineAlias?: string;
+  replayCutoffSql?: string;
+  gameMatchSql?: string;
+  requireConditionSql?: string;
+};
+
+const EFFECTIVE_ODDS_MARKET_LINES_VIEW_NAME = "odds_market_lines_effective_as_of";
+
 export function escapeSqlString(value: string): string {
   return value.replace(/'/g, "''");
 }
@@ -61,12 +77,66 @@ export function historicalForecastCandidatesUnionSql(options: HistoricalForecast
   `;
 }
 
-export function effectiveReplayOddsAsOfSql(snapshotAlias: string, lineAlias: string): string {
-  return `CASE
-    WHEN COALESCE(json_extract(${snapshotAlias}.metadata_json, '$.import_mode'), '') IN ('historical_bundle', 'historical_manifest')
-      THEN ${lineAlias}.commence_time_utc
-    ELSE COALESCE(${lineAlias}.bookmaker_last_update_utc, ${snapshotAlias}.as_of_utc)
-  END`;
+export function effectiveReplayOddsAsOfSql(lineAlias: string): string {
+  return `${lineAlias}.effective_odds_as_of_utc`;
+}
+
+export function historicalFinalizedGamesCteSql(options: HistoricalFinalizedGamesCteSqlOptions = {}): string {
+  const resultsAlias = options.resultsAlias ?? "r";
+  const gamesAlias = options.gamesAlias ?? "g";
+
+  return `finalized_games AS (
+      SELECT
+        ${resultsAlias}.game_id,
+        ${resultsAlias}.game_date_utc,
+        ${gamesAlias}.start_time_utc,
+        ${resultsAlias}.final_utc,
+        ${resultsAlias}.home_team,
+        ${resultsAlias}.away_team,
+        ${resultsAlias}.home_score,
+        ${resultsAlias}.away_score,
+        ${resultsAlias}.home_win,
+        COALESCE(${gamesAlias}.start_time_utc, ${resultsAlias}.final_utc, ${resultsAlias}.game_date_utc || 'T23:59:59Z') AS replay_cutoff_utc
+      FROM results ${resultsAlias}
+      LEFT JOIN games ${gamesAlias} ON ${gamesAlias}.game_id = ${resultsAlias}.game_id
+      WHERE ${resultsAlias}.home_win IS NOT NULL
+    )`;
+}
+
+export function historicalReplayOddsSelectionSql(options: HistoricalReplayOddsSelectionSqlOptions): string {
+  const finalizedGameAlias = options.finalizedGameAlias ?? "fg";
+  const lineAlias = options.lineAlias ?? "l";
+  const replayCutoffSql = options.replayCutoffSql ?? `DATETIME(${finalizedGameAlias}.replay_cutoff_utc)`;
+  const gameMatchSql =
+    options.gameMatchSql ??
+    `(
+            (${lineAlias}.game_id IS NOT NULL AND ${lineAlias}.game_id = ${finalizedGameAlias}.game_id)
+            OR (${lineAlias}.home_team = ${finalizedGameAlias}.home_team AND ${lineAlias}.away_team = ${finalizedGameAlias}.away_team)
+          )`;
+  const requireConditionSql = options.requireConditionSql ? `\n          AND ${options.requireConditionSql}` : "";
+  const escapedLeague = escapeSqlString(options.league);
+  const effectiveOddsAsOf = effectiveReplayOddsAsOfSql(lineAlias);
+
+  return `(
+        SELECT ${lineAlias}.odds_snapshot_id
+        FROM ${EFFECTIVE_ODDS_MARKET_LINES_VIEW_NAME} ${lineAlias}
+        WHERE ${lineAlias}.league = '${escapedLeague}'
+          AND ${lineAlias}.market_key = 'h2h'
+          AND ${gameMatchSql}${requireConditionSql}
+          AND DATETIME(${effectiveOddsAsOf}) <= ${replayCutoffSql}
+        ORDER BY DATETIME(${effectiveOddsAsOf}) DESC, DATETIME(${lineAlias}.snapshot_as_of_utc) DESC, ${lineAlias}.line_id DESC
+        LIMIT 1
+      ) AS odds_snapshot_id,
+      (
+        SELECT ${effectiveOddsAsOf}
+        FROM ${EFFECTIVE_ODDS_MARKET_LINES_VIEW_NAME} ${lineAlias}
+        WHERE ${lineAlias}.league = '${escapedLeague}'
+          AND ${lineAlias}.market_key = 'h2h'
+          AND ${gameMatchSql}${requireConditionSql}
+          AND DATETIME(${effectiveOddsAsOf}) <= ${replayCutoffSql}
+        ORDER BY DATETIME(${effectiveOddsAsOf}) DESC, DATETIME(${lineAlias}.snapshot_as_of_utc) DESC, ${lineAlias}.line_id DESC
+        LIMIT 1
+      ) AS odds_as_of_utc`;
 }
 
 export function historicalMoneylineSql(snapshotIds: string[], options: HistoricalMoneylineSqlOptions = {}): string {

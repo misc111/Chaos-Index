@@ -30,10 +30,11 @@ import type { LeagueCode } from "@/lib/league";
 import {
   DIAGNOSTIC_FORECAST_SOURCE,
   STORED_FORECAST_SOURCE,
-  effectiveReplayOddsAsOfSql,
   escapeSqlString,
   historicalForecastCandidatesUnionSql,
+  historicalFinalizedGamesCteSql,
   historicalMoneylineSql,
+  historicalReplayOddsSelectionSql,
 } from "@/lib/server/services/replay-data";
 import { getPreferredBettingModelName } from "@/lib/server/services/betting-driver";
 import {
@@ -252,30 +253,12 @@ function betDecisionFromReplaySnapshot(snapshot: HistoricalReplayDecisionSnapsho
 }
 
 function historicalGamesSql(league: LeagueCode, modelName: string): string {
-  const escapedLeague = escapeSqlString(league);
-  const effectiveOddsAsOf = effectiveReplayOddsAsOfSql("s", "l");
-
   // Finalized-game replay should use the latest stored pregame prediction that
   // existed before game time. Historical diagnostics only fill holes where the
   // main prediction history is missing. The market side uses the latest
   // pregame odds snapshot available before the game starts.
   return `
-    WITH finalized_games AS (
-      SELECT
-        r.game_id,
-        r.game_date_utc,
-        g.start_time_utc,
-        r.final_utc,
-        r.home_team,
-        r.away_team,
-        r.home_score,
-        r.away_score,
-        r.home_win,
-        COALESCE(g.start_time_utc, r.final_utc, r.game_date_utc || 'T23:59:59Z') AS replay_cutoff_utc
-      FROM results r
-      LEFT JOIN games g ON g.game_id = r.game_id
-      WHERE r.home_win IS NOT NULL
-    ),
+    WITH ${historicalFinalizedGamesCteSql()},
     forecast_candidates AS (
       ${historicalForecastCandidatesUnionSql({ modelName })}
     ),
@@ -310,38 +293,7 @@ function historicalGamesSql(league: LeagueCode, modelName: string): string {
       rf.model_run_id AS forecast_model_run_id,
       rf.forecast_source AS forecast_source,
       rf.prob_home_win AS home_win_probability,
-      (
-        SELECT l.odds_snapshot_id
-        FROM odds_market_lines l
-        JOIN odds_snapshots s
-          ON s.odds_snapshot_id = l.odds_snapshot_id
-        WHERE rf.as_of_utc IS NOT NULL
-          AND s.league = '${escapedLeague}'
-          AND l.market_key = 'h2h'
-          AND (
-            (l.game_id IS NOT NULL AND l.game_id = fg.game_id)
-            OR (l.home_team = fg.home_team AND l.away_team = fg.away_team)
-          )
-          AND DATETIME(${effectiveOddsAsOf}) <= DATETIME(fg.replay_cutoff_utc)
-        ORDER BY DATETIME(${effectiveOddsAsOf}) DESC, DATETIME(s.as_of_utc) DESC, l.line_id DESC
-        LIMIT 1
-      ) AS odds_snapshot_id,
-      (
-        SELECT ${effectiveOddsAsOf}
-        FROM odds_market_lines l
-        JOIN odds_snapshots s
-          ON s.odds_snapshot_id = l.odds_snapshot_id
-        WHERE rf.as_of_utc IS NOT NULL
-          AND s.league = '${escapedLeague}'
-          AND l.market_key = 'h2h'
-          AND (
-            (l.game_id IS NOT NULL AND l.game_id = fg.game_id)
-            OR (l.home_team = fg.home_team AND l.away_team = fg.away_team)
-          )
-          AND DATETIME(${effectiveOddsAsOf}) <= DATETIME(fg.replay_cutoff_utc)
-        ORDER BY DATETIME(${effectiveOddsAsOf}) DESC, DATETIME(s.as_of_utc) DESC, l.line_id DESC
-        LIMIT 1
-      ) AS odds_as_of_utc
+      ${historicalReplayOddsSelectionSql({ league, requireConditionSql: "rf.as_of_utc IS NOT NULL" })}
     FROM finalized_games fg
     LEFT JOIN ranked_forecasts rf
       ON rf.game_id = fg.game_id

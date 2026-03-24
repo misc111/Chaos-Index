@@ -28,7 +28,7 @@ from src.research.candidate_models import (
     PenalizedLogitCandidate,
     VanillaGLMBinomialCandidate,
 )
-from src.research.structured_glm_specs import load_structured_glm_selection
+from src.research.structured_glm_specs import StructuredGLMExperimentResolution, resolve_structured_glm_experiment
 from src.services.train import load_features_dataframe
 from src.training.cv import time_series_splits
 from src.training.feature_selection import select_feature_columns
@@ -643,14 +643,14 @@ def _phase_evaluation(
     raw_features: list[str],
     cv_splits: int,
     candidate_models: set[str] | None,
-    structured_glm_overrides: dict[str, list[str]] | None = None,
+    structured_glm_resolution: StructuredGLMExperimentResolution | None = None,
 ) -> tuple[CandidateFeatureSets, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     feature_sets = _select_feature_sets(fit_df, raw_features)
-    if structured_glm_overrides:
-        specs = _candidate_specs(
-            feature_sets,
+    if structured_glm_resolution:
+        specs = structured_glm_resolution.build_candidate_specs(
+            feature_sets=feature_sets,
             selected_models=candidate_models,
-            glm_feature_overrides=structured_glm_overrides,
+            candidate_spec_builder=_candidate_specs,
         )
     else:
         specs = _candidate_specs(feature_sets, selected_models=candidate_models)
@@ -1040,16 +1040,18 @@ def run_candidate_model_comparison(
             "production `glm_feature_subset` or per-model feature map."
         )
 
-    structured_glm_selection = load_structured_glm_selection(
+    structured_glm_resolution = resolve_structured_glm_experiment(
         league=cfg.data.league,
         available_features=raw_features,
         spec_path=structured_glm_spec_path,
         slate_name=structured_glm_slate,
         width_variant=structured_glm_width_variant,
     )
-    structured_glm_overrides = structured_glm_selection.feature_overrides() if structured_glm_selection else None
-    if structured_glm_selection:
-        feature_pool_note = f"{feature_pool_note} Plus {structured_glm_selection.summary_line()}."
+    feature_pool_note = structured_glm_resolution.extend_feature_pool_note(
+        feature_pool_note,
+        connector=" Plus ",
+        suffix=".",
+    )
 
     if candidate_model_set:
         candidate_scope_note = ", ".join(sorted(candidate_model_set))
@@ -1078,7 +1080,7 @@ def run_candidate_model_comparison(
             raw_features=raw_features,
             cv_splits=max(2, int(cfg.research.inner_folds if feature_pool_token == FEATURE_POOL_RESEARCH_BROAD else cfg.modeling.cv_splits)),
             candidate_models=candidate_model_set,
-            structured_glm_overrides=structured_glm_overrides,
+            structured_glm_resolution=structured_glm_resolution,
         )
         fit_plus_validation = pd.concat([train_df, validation_df], ignore_index=True).sort_values("start_time_utc").reset_index(drop=True)
         final_features, test_metrics, test_predictions, test_fit_stats, final_cv = _phase_evaluation(
@@ -1088,7 +1090,7 @@ def run_candidate_model_comparison(
             raw_features=raw_features,
             cv_splits=max(2, int(cfg.research.inner_folds if feature_pool_token == FEATURE_POOL_RESEARCH_BROAD else cfg.modeling.cv_splits)),
             candidate_models=candidate_model_set,
-            structured_glm_overrides=structured_glm_overrides,
+            structured_glm_resolution=structured_glm_resolution,
         )
 
     bootstrap_summary = _bootstrap_against_best(

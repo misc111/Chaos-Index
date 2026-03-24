@@ -2,12 +2,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable, TypeVar
 
 import yaml
 
 
 GLM_CANDIDATE_MODELS = ("glm_ridge", "glm_elastic_net", "glm_lasso", "glm_vanilla")
+CandidateSpecT = TypeVar("CandidateSpecT")
 
 
 @dataclass(frozen=True, slots=True)
@@ -32,6 +33,29 @@ class StructuredGLMSelection:
             f"(slate `{self.slate_name}`{variant_note}; requested={self.requested_feature_count}, "
             f"usable={self.available_feature_count}{missing_note})"
         )
+
+
+@dataclass(frozen=True, slots=True)
+class StructuredGLMExperimentResolution:
+    selection: StructuredGLMSelection | None
+    glm_feature_overrides: dict[str, list[str]] | None
+
+    def extend_feature_pool_note(self, feature_pool_note: str, *, connector: str, suffix: str = "") -> str:
+        if not self.selection:
+            return feature_pool_note
+        return f"{feature_pool_note}{connector}{self.selection.summary_line()}{suffix}"
+
+    def build_candidate_specs(
+        self,
+        *,
+        feature_sets: Any,
+        selected_models: set[str] | None,
+        candidate_spec_builder: Callable[..., list[CandidateSpecT]],
+    ) -> list[CandidateSpecT]:
+        kwargs: dict[str, Any] = {"selected_models": selected_models}
+        if self.glm_feature_overrides:
+            kwargs["glm_feature_overrides"] = self.glm_feature_overrides
+        return candidate_spec_builder(feature_sets, **kwargs)
 
 
 def _resolve_spec_path(spec_path: str | Path) -> Path:
@@ -144,4 +168,26 @@ def load_structured_glm_selection(
         available_feature_count=len(resolved_features),
         missing_feature_count=missing_feature_count,
         features=tuple(resolved_features),
+    )
+
+
+def resolve_structured_glm_experiment(
+    *,
+    league: str,
+    available_features: list[str],
+    spec_path: str | Path | None,
+    slate_name: str | None = None,
+    width_variant: str | None = None,
+) -> StructuredGLMExperimentResolution:
+    selection = load_structured_glm_selection(
+        league=league,
+        available_features=available_features,
+        spec_path=spec_path,
+        slate_name=slate_name,
+        width_variant=width_variant,
+    )
+    glm_feature_overrides = selection.feature_overrides() if selection else None
+    return StructuredGLMExperimentResolution(
+        selection=selection,
+        glm_feature_overrides=glm_feature_overrides,
     )

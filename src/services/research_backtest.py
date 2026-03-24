@@ -27,7 +27,7 @@ from src.research.model_comparison import (
     _candidate_specs,
     _select_feature_sets,
 )
-from src.research.structured_glm_specs import load_structured_glm_selection
+from src.research.structured_glm_specs import resolve_structured_glm_experiment
 from src.services.ingest import save_interim
 from src.services.train import load_features_dataframe
 from src.storage.db import Database
@@ -130,27 +130,21 @@ def _latest_pregame_moneylines(db: Database, *, league: str, seasons: list[int])
           g.game_id,
           g.season,
           g.start_time_utc,
-          CASE
-            WHEN COALESCE(json_extract(s.metadata_json, '$.import_mode'), '') IN ('historical_bundle', 'historical_manifest')
-              THEN l.commence_time_utc
-            ELSE COALESCE(l.bookmaker_last_update_utc, s.as_of_utc)
-          END AS odds_as_of_utc,
+          l.effective_odds_as_of_utc AS odds_as_of_utc,
           l.odds_snapshot_id,
           l.outcome_side,
           l.outcome_price,
           l.bookmaker_key,
           l.bookmaker_title,
           l.market_key
-        FROM odds_market_lines l
-        JOIN odds_snapshots s
-          ON s.odds_snapshot_id = l.odds_snapshot_id
+        FROM odds_market_lines_effective_as_of l
         JOIN games g
           ON g.game_id = l.game_id
         WHERE l.league = ?
           AND g.season IN ({placeholders})
           AND COALESCE(l.market_key, '') = 'h2h'
           AND l.outcome_side IN ('home', 'away')
-        ORDER BY g.game_id ASC, s.as_of_utc ASC
+        ORDER BY g.game_id ASC, l.snapshot_as_of_utc ASC
         """,
         tuple([league, *seasons]),
     )
@@ -478,16 +472,17 @@ def run_research_backtest(
         feature_pool=str(feature_pool or cfg.research.feature_pool),
         feature_map_model=feature_map_model,
     )
-    structured_glm_selection = load_structured_glm_selection(
+    structured_glm_resolution = resolve_structured_glm_experiment(
         league=cfg.data.league,
         available_features=raw_features,
         spec_path=structured_glm_spec_path,
         slate_name=structured_glm_slate,
         width_variant=structured_glm_width_variant,
     )
-    structured_glm_overrides = structured_glm_selection.feature_overrides() if structured_glm_selection else None
-    if structured_glm_selection:
-        feature_pool_note = f"{feature_pool_note}; plus {structured_glm_selection.summary_line()}"
+    feature_pool_note = structured_glm_resolution.extend_feature_pool_note(
+        feature_pool_note,
+        connector="; plus ",
+    )
     candidate_model_set = _parse_candidate_models(candidate_models)
 
     historical_df = features_df[features_df["home_win"].notna()].copy().sort_values("start_time_utc").reset_index(drop=True)
@@ -523,7 +518,9 @@ def run_research_backtest(
     if not outer_splits:
         raise RuntimeError("No outer research CV splits were available")
 
-    odds_df = _latest_pregame_moneylines(Database(cfg.paths.db_path), league=cfg.data.league, seasons=seasons)
+    odds_db = Database(cfg.paths.db_path)
+    odds_db.init_schema()
+    odds_df = _latest_pregame_moneylines(odds_db, league=cfg.data.league, seasons=seasons)
     if odds_df.empty:
         raise RuntimeError("Research backtest requires historical moneyline odds in odds_snapshots/odds_market_lines")
     odds_overlap_count = int(research_df["game_id"].isin(set(odds_df["game_id"].tolist())).sum())
@@ -538,17 +535,11 @@ def run_research_backtest(
             "Backtest bankroll results would be misleading because every game would be treated as missing odds."
         )
 
-    if structured_glm_overrides:
-        candidate_specs = _candidate_specs(
-            _select_feature_sets(research_df, raw_features),
-            selected_models=candidate_model_set,
-            glm_feature_overrides=structured_glm_overrides,
-        )
-    else:
-        candidate_specs = _candidate_specs(
-            _select_feature_sets(research_df, raw_features),
-            selected_models=candidate_model_set,
-        )
+    candidate_specs = structured_glm_resolution.build_candidate_specs(
+        feature_sets=_select_feature_sets(research_df, raw_features),
+        selected_models=candidate_model_set,
+        candidate_spec_builder=_candidate_specs,
+    )
     spec_map = {spec.model_name: spec for spec in candidate_specs}
     baseline_model = feature_map_model if feature_map_model in spec_map else "glm_ridge"
     if baseline_model not in spec_map:
