@@ -1,12 +1,10 @@
-import ResearchDeskExperience from "@/components/research-desk/ResearchDeskExperience";
-import { normalizeLeague } from "@/lib/league";
+import { Suspense } from "react";
+import ResearchDeskPageClient from "./page-client";
 
-type ResearchDeskPageProps = {
-  searchParams?: Promise<Record<string, string | string[] | undefined>>;
-};
-
-export default async function ResearchDeskPage({ searchParams }: ResearchDeskPageProps) {
-  const resolved = searchParams ? await searchParams : {};
-  const rawLeague = Array.isArray(resolved.league) ? resolved.league[0] : resolved.league;
-  return <ResearchDeskExperience league={normalizeLeague(rawLeague ?? null)} />;
+export default function ResearchDeskPage() {
+  return (
+    <Suspense fallback={<p className="small">Loading research desk...</p>}>
+      <ResearchDeskPageClient />
+    </Suspense>
+  );
 }
