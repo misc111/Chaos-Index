@@ -5,6 +5,16 @@
 - For general planning, debugging, testing, delegation, review, and verification behavior, follow the agent's normal workflow unless this file states a repo-specific exception.
 - Do not infer extra process rules from this file beyond the explicit repository constraints written here.
 
+## Coordinator Mode
+- Only use coordinator-style delegation when the user explicitly asks for orchestration across multiple workstreams or equivalent language.
+- Coordinator work must stay in the top-level Codex thread that actually has access to the agent-spawning tools.
+- Do not assume a spawned child agent can itself spawn more child agents in this environment.
+- If you are coordinating child agents, read `SUBAGENTS.md` before choosing child-agent models, reasoning levels, or prompt styles.
+- The coordinator owns task decomposition, routing, synthesis, conflict handling, and final user-facing completion judgment.
+- Keep overlapping write scopes to one owner whenever possible. If two lanes are likely to edit the same files, either keep that work with one child agent or keep it coordinator-owned.
+- When child agents return work, review and integrate it before treating the task as complete.
+- Leave unrelated worktree changes alone.
+
 ## Scope Contract
 - This project supports NHL, NBA, and NCAA men's basketball forecasting.
 - Interpret user questions in the configured league context by default (`config.data.league`).
