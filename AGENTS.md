@@ -1,5 +1,10 @@
 # NHL + NBA + NCAAM Agent Instructions
 
+## Instruction Scope
+- Treat this file as a repository-specific contract for domain behavior, local defaults, required command paths, and delivery constraints.
+- For general planning, debugging, testing, delegation, review, and verification behavior, follow the agent's normal workflow unless this file states a repo-specific exception.
+- Do not infer extra process rules from this file beyond the explicit repository constraints written here.
+
 ## Scope Contract
 - This project supports NHL, NBA, and NCAA men's basketball forecasting.
 - Interpret user questions in the configured league context by default (`config.data.league`).
