@@ -446,6 +446,111 @@
       ]
     },
     {
+      "name": "research-desk",
+      "summary": "Run the NBA-first research desk orchestration flow with structured brief intake and champion auto-promotion.",
+      "handler_path": "src.commands.modeling:research_desk",
+      "config_required": true,
+      "arguments": [
+        {
+          "flags": [
+            "--report-slug"
+          ],
+          "doc_metavar": "SLUG",
+          "help": "Optional report slug prefix for artifact outputs.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--brief"
+          ],
+          "doc_metavar": "BRIEF",
+          "help": "Optional brief key or path for the research desk flow.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--brief-dir"
+          ],
+          "doc_metavar": "PATH",
+          "help": "Optional directory containing structured research briefs.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--candidate-models"
+          ],
+          "doc_metavar": "MODELS",
+          "help": "Comma-separated candidate model list or 'all'.",
+          "choices": null,
+          "default": "all"
+        },
+        {
+          "flags": [
+            "--feature-pool"
+          ],
+          "doc_metavar": "POOL",
+          "help": "Feature pool for the comparison flow.",
+          "choices": [
+            "full_screened",
+            "production_model_map",
+            "research_broad"
+          ],
+          "default": "full_screened"
+        },
+        {
+          "flags": [
+            "--feature-map-model"
+          ],
+          "doc_metavar": "MODEL",
+          "help": "Model key to read from the production feature map when needed.",
+          "choices": null,
+          "default": "glm_ridge"
+        },
+        {
+          "flags": [
+            "--history-seasons"
+          ],
+          "doc_metavar": "N",
+          "help": "Override the configured number of historical seasons.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--structured-glm-spec"
+          ],
+          "doc_metavar": "PATH",
+          "help": "Optional research-only YAML spec defining a structured NBA GLM feature slate.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--structured-glm-slate"
+          ],
+          "doc_metavar": "SLATE",
+          "help": "Optional named slate to select from the structured NBA GLM spec.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--structured-glm-width-variant"
+          ],
+          "doc_metavar": "VARIANT",
+          "help": "Optional width variant to select from the structured NBA GLM spec.",
+          "choices": null,
+          "default": null
+        }
+      ],
+      "examples": [
+        "make research_desk CONFIG=configs/nba.yaml"
+      ]
+    },
+    {
       "name": "run-daily",
       "summary": "Execute the daily fetch, feature, train, and scoring flow.",
       "handler_path": "src.commands.modeling:run_daily",

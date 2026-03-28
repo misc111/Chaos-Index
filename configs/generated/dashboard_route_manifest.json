@@ -63,6 +63,30 @@
       "supports_experiments": false
     },
     {
+      "key": "researchAdmin",
+      "summary": "Live-only research admin payload for experiment briefs, runs, and promotion decisions.",
+      "module_path": "app/api/research-admin/route.ts",
+      "api_path": "/api/research-admin",
+      "page_path": "/research-admin",
+      "staging_file_name": "research-admin.json",
+      "payload_contract": "researchAdmin",
+      "include_in_staging": false,
+      "public": false,
+      "supports_experiments": false
+    },
+    {
+      "key": "researchDesk",
+      "summary": "Research desk payload for champion summary, desk posture, and nightly decision actions.",
+      "module_path": "app/api/research-desk/route.ts",
+      "api_path": "/api/research-desk",
+      "page_path": "/research-desk",
+      "staging_file_name": "research-desk.json",
+      "payload_contract": "researchDesk",
+      "include_in_staging": true,
+      "public": true,
+      "supports_experiments": false
+    },
+    {
       "key": "performance",
       "summary": "Performance payload including experiment-aware replay variants for staging snapshots.",
       "module_path": "app/api/performance/route.ts",

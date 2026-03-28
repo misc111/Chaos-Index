@@ -6,6 +6,8 @@ export const DASHBOARD_ROUTE_KEYS = [
   "gamesToday",
   "marketBoard",
   "metrics",
+  "researchAdmin",
+  "researchDesk",
   "performance",
   "predictions",
   "validation"
@@ -87,6 +89,30 @@ export const DASHBOARD_ROUTES: readonly DashboardRouteEntry[] = [
     supportsExperiments: false
   },
   {
+    key: "researchAdmin",
+    summary: "Live-only research admin payload for experiment briefs, runs, and promotion decisions.",
+    modulePath: "app/api/research-admin/route.ts",
+    apiPath: "/api/research-admin",
+    pagePath: "/research-admin",
+    stagingFileName: "research-admin.json",
+    payloadContract: "researchAdmin",
+    includeInStaging: false,
+    public: false,
+    supportsExperiments: false
+  },
+  {
+    key: "researchDesk",
+    summary: "Research desk payload for champion summary, desk posture, and nightly decision actions.",
+    modulePath: "app/api/research-desk/route.ts",
+    apiPath: "/api/research-desk",
+    pagePath: "/research-desk",
+    stagingFileName: "research-desk.json",
+    payloadContract: "researchDesk",
+    includeInStaging: true,
+    public: true,
+    supportsExperiments: false
+  },
+  {
     key: "performance",
     summary: "Performance payload including experiment-aware replay variants for staging snapshots.",
     modulePath: "app/api/performance/route.ts",
@@ -129,6 +155,7 @@ export const DASHBOARD_STAGING_ROUTE_KEYS = [
   "gamesToday",
   "marketBoard",
   "metrics",
+  "researchDesk",
   "performance",
   "predictions",
   "validation"

@@ -117,6 +117,18 @@ _SOURCE_MANIFEST_ARG = _option(
     help="Optional absolute or config-relative path to the historical import manifest.",
     doc_metavar="PATH",
 )
+_BRIEF_ARG = _option(
+    "--brief",
+    default=None,
+    help="Optional brief key or path for the research desk flow.",
+    doc_metavar="BRIEF",
+)
+_BRIEF_DIR_ARG = _option(
+    "--brief-dir",
+    default=None,
+    help="Optional directory containing structured research briefs.",
+    doc_metavar="PATH",
+)
 _MODEL_RUN_ID_ARG = _option(
     "--model-run-id",
     default=None,
@@ -234,6 +246,24 @@ COMMAND_REGISTRY: tuple[CommandRegistryEntry, ...] = (
             _STRUCTURED_GLM_WIDTH_VARIANT_ARG,
         ),
         examples=("python3 -m src.cli research-backtest --config configs/nba.yaml --history-seasons 2",),
+    ),
+    CommandRegistryEntry(
+        name="research-desk",
+        summary="Run the NBA-first research desk orchestration flow with structured brief intake and champion auto-promotion.",
+        handler_path="src.commands.modeling:research_desk",
+        arguments=(
+            _REPORT_SLUG_ARG,
+            _BRIEF_ARG,
+            _BRIEF_DIR_ARG,
+            _CANDIDATE_MODELS_ARG,
+            _FEATURE_POOL_ARG,
+            _FEATURE_MAP_MODEL_ARG,
+            _HISTORY_SEASONS_ARG,
+            _STRUCTURED_GLM_SPEC_ARG,
+            _STRUCTURED_GLM_SLATE_ARG,
+            _STRUCTURED_GLM_WIDTH_VARIANT_ARG,
+        ),
+        examples=("make research_desk CONFIG=configs/nba.yaml",),
     ),
     CommandRegistryEntry(
         name="run-daily",

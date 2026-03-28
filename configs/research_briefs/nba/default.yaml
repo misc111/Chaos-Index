@@ -1,0 +1,15 @@
+key: default
+title: Default NBA research desk brief
+league: NBA
+profile_key: default
+status: active
+candidate_models:
+  - glm_elastic_net
+  - glm_ridge
+  - glm_lasso
+feature_pool: research_broad
+feature_map_model: glm_ridge
+history_seasons: 5
+notes: >
+  Conservative default brief for the NBA research desk. Reuse existing
+  production-trainable GLM-family candidates before expanding the search space.

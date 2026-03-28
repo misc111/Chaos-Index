@@ -11,6 +11,8 @@ All dashboard API and staging routes are derived from the code-first dashboard r
 | `gamesToday` | `/api/games-today` | `games-today.json` | `/games-today` | no |
 | `marketBoard` | `/api/market-board` | `market-board.json` | `/market-board` | no |
 | `metrics` | `/api/metrics` | `metrics.json` | n/a | no |
+| `researchAdmin` | `/api/research-admin` | `research-admin.json` | `/research-admin` | no |
+| `researchDesk` | `/api/research-desk` | `research-desk.json` | `/research-desk` | no |
 | `performance` | `/api/performance` | `performance.json` | `/performance` | yes |
 | `predictions` | `/api/predictions` | `predictions.json` | `/predictions` | no |
 | `validation` | `/api/validation` | `validation.json` | `/validation` | no |

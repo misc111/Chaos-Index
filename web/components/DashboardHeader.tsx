@@ -17,6 +17,7 @@ const links: Array<[string, string]> = [
   ["/", "Overview"],
   ["/games-today", "Games Today"],
   ["/market-board", "Market Board"],
+  ["/research-desk", "Research Desk"],
   ["/bet-history", "Bet History"],
   ["/actual-vs-expected", "Actual vs Expected"],
   ["/predictions", "Model Summary"],

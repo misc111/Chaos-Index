@@ -89,8 +89,109 @@ export type MarketBoardResponse = {
   as_of_utc?: string | null;
   odds_as_of_utc?: string | null;
   date_central?: string;
+  desk_posture?: DeskPosture;
+  champion?: ResearchChampionSummary | null;
   strategy_configs?: Record<BetStrategy, ResolvedBetStrategyConfig>;
   rows: MarketBoardRow[];
+};
+
+export type DeskPosture = "normal" | "guarded";
+
+export type ResearchChampionSummary = {
+  league: string;
+  profile_key: string;
+  model_name: string;
+  promoted_at_utc: string;
+  source_run_id?: string | null;
+  source_brief_id?: string | null;
+  descriptor?: TableRow | null;
+  policy?: TableRow | null;
+};
+
+export type ResearchDeskCounts = {
+  total_games: number;
+  bets: number;
+  passes: number;
+};
+
+export type ResearchDeskNightlyRow = {
+  game_id: number;
+  start_time_utc?: string | null;
+  home_team: string;
+  away_team: string;
+  bet_label: string;
+  reason: string;
+  side: "home" | "away" | "none";
+  team?: string | null;
+  stake: number;
+  odds?: number | null;
+  edge?: number | null;
+  expected_value?: number | null;
+  home_win_probability: number;
+  betting_model_name?: string | null;
+};
+
+export type ResearchPromotionSummary = {
+  promoted: boolean;
+  incumbent_model_name?: string | null;
+  candidate_model_name?: string | null;
+  reason_summary?: string | null;
+  policy?: TableRow | null;
+  created_at_utc?: string | null;
+};
+
+export type ResearchDeskResponse = {
+  league: string;
+  as_of_utc?: string | null;
+  odds_as_of_utc?: string | null;
+  date_central?: string;
+  desk_posture: DeskPosture;
+  overnight_summary?: string | null;
+  champion: ResearchChampionSummary | null;
+  latest_promotion: ResearchPromotionSummary | null;
+  counts: ResearchDeskCounts;
+  rows: ResearchDeskNightlyRow[];
+};
+
+export type ResearchBriefRow = {
+  brief_id: string;
+  league: string;
+  profile_key: string;
+  brief_key: string;
+  title: string;
+  status: string;
+  source_path?: string | null;
+  updated_at_utc: string;
+  brief?: TableRow | null;
+};
+
+export type ResearchRunRow = {
+  run_id: string;
+  league: string;
+  profile_key: string;
+  brief_id?: string | null;
+  brief_key?: string | null;
+  incumbent_model_name?: string | null;
+  candidate_model_name?: string | null;
+  status: string;
+  auto_promote: number;
+  report_slug?: string | null;
+  report_path?: string | null;
+  scorecard_path?: string | null;
+  fold_metrics_path?: string | null;
+  promotion_path?: string | null;
+  started_at_utc: string;
+  completed_at_utc?: string | null;
+  summary?: TableRow | null;
+};
+
+export type ResearchAdminResponse = {
+  league: string;
+  as_of_utc?: string | null;
+  champion: ResearchChampionSummary | null;
+  briefs: ResearchBriefRow[];
+  runs: ResearchRunRow[];
+  decisions: ResearchPromotionSummary[];
 };
 
 export type LeaderboardRow = {
@@ -349,6 +450,8 @@ export type GamesTodayResponse = {
   as_of_utc?: string | null;
   odds_as_of_utc?: string | null;
   date_central?: string;
+  desk_posture?: DeskPosture;
+  champion?: ResearchChampionSummary | null;
   historical_coverage_start_central?: string | null;
   strategy_configs?: Record<BetStrategy, ResolvedBetStrategyConfig>;
   strategy_optimization?: BetStrategyOptimizationSummary;

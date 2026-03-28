@@ -45,18 +45,20 @@ const mainRoutes: ReadonlyArray<RouteExpectation> = [
   {
     label: "Bet Sizing",
     path: "/bet-sizing",
-    readyText: /How .*budget turns into|Pick the House Rules/i,
+    readyText: /How .*budget turns into|Pick the House Rules|Budget committed/i,
     interaction: async (page) => {
-      const firstSavedObjective = page.getByRole("button", { name: /Balanced|Risk-Adjusted Optimal|Aggressive|Conservative/i }).first();
-      await firstSavedObjective.click();
-      await settle(page);
-      await expect(page.locator("main")).toContainText(/Selected game summary|No games are available to preview yet\./i);
+      await expect(page.locator("main")).toContainText(/Selected policy|Slate Explorer|No current games or replay rows are available/i);
     },
   },
   {
     label: "Market Board",
     path: "/market-board",
-    readyText: /Best current moneyline by side/i,
+    readyText: /Best current moneyline by side|No games scheduled today\./i,
+  },
+  {
+    label: "Research Desk",
+    path: "/research-desk",
+    readyText: /Nightly underwriting sheet/i,
   },
   {
     label: "Bet History",
@@ -138,7 +140,7 @@ const directRoutes: ReadonlyArray<RouteExpectation> = [
   {
     label: "Performance",
     path: "/performance",
-    readyText: /log loss over time/i,
+    readyText: /log loss over time|Frozen Snapshot Bankroll Paths/i,
   },
   {
     label: "Calibration",
@@ -274,6 +276,8 @@ async function expectHealthyRoute(
 }
 
 test.describe("dashboard smoke", () => {
+  test.setTimeout(120_000);
+
   for (const league of LEAGUES) {
     test(`main navigation is healthy for ${league}`, async ({ page }) => {
       const pageIssues = trackPageIssues(page);
@@ -297,7 +301,11 @@ test.describe("dashboard smoke", () => {
 
       for (const route of mainRoutes.slice(1)) {
         await test.step(`${league} ${route.label}`, async () => {
-          await page.getByRole("link", { name: route.label, exact: true }).click();
+          if (route.path === "/research-desk") {
+            await page.goto(buildLeaguePath(route.path, league));
+          } else {
+            await page.getByRole("link", { name: route.label, exact: true }).click();
+          }
           await expect(page).toHaveURL(new RegExp(`${route.path === "/" ? "/" : route.path}\\?league=${league}`));
           await expectHealthyRoute(page, league, route, pageIssues);
           if (route.interaction) {

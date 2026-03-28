@@ -112,6 +112,34 @@ def research_backtest(cfg: AppConfig, args: Namespace) -> None:
     )
 
 
+def research_desk(cfg: AppConfig, args: Namespace) -> None:
+    """Run the research desk orchestration flow."""
+
+    from src.services import research_desk as research_desk_service
+
+    raw_candidate_models = str(getattr(args, "candidate_models", "all") or "all").strip()
+    candidate_models = None if raw_candidate_models.lower() in {"all", "*"} else [
+        token.strip() for token in raw_candidate_models.split(",") if token.strip()
+    ]
+    result = research_desk_service.run_research_desk(
+        cfg,
+        report_slug=getattr(args, "report_slug", None),
+        brief=getattr(args, "brief", None),
+        brief_dir=getattr(args, "brief_dir", None),
+        candidate_models=candidate_models,
+        feature_pool=str(getattr(args, "feature_pool", cfg.research.feature_pool)),
+        feature_map_model=str(getattr(args, "feature_map_model", "glm_ridge")),
+        history_seasons=getattr(args, "history_seasons", None),
+        structured_glm_spec_path=getattr(args, "structured_glm_spec", None),
+        structured_glm_slate=getattr(args, "structured_glm_slate", None),
+        structured_glm_width_variant=getattr(args, "structured_glm_width_variant", None),
+    )
+    print(
+        f"RESEARCH_DESK::{result.league}::{result.active_model_name}::{result.run_id}",
+        flush=True,
+    )
+
+
 def run_daily(cfg: AppConfig, args: Namespace) -> None:
     """Execute the daily fetch, feature, train, and scoring flow."""
 

@@ -9,6 +9,7 @@
     "generate:staging-data": "tsx --tsconfig ./tsconfig.json scripts/generate-staging-data.ts",
     "start": "next start -H 127.0.0.1 -p 3000",
     "lint": "eslint . --max-warnings=0",
+    "test:unit": "find . -path './node_modules' -prune -o \\( -name '*.test.ts' -o -name '*.test.tsx' \\) -print | sort | xargs node --test --import tsx",
     "typecheck": "tsc --noEmit",
     "playwright:install": "playwright install chromium",
     "test:smoke": "playwright test"

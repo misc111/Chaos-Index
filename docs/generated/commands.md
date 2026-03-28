@@ -144,6 +144,25 @@ Run the research backtest over a historical candidate-model dataset.
 - Examples:
   - `python3 -m src.cli research-backtest --config configs/nba.yaml --history-seasons 2`
 
+## `research-desk`
+
+Run the NBA-first research desk orchestration flow with structured brief intake and champion auto-promotion.
+
+- Default config: `configs/nba.yaml`
+- Options:
+  - `--report-slug` `SLUG`: Optional report slug prefix for artifact outputs.
+  - `--brief` `BRIEF`: Optional brief key or path for the research desk flow.
+  - `--brief-dir` `PATH`: Optional directory containing structured research briefs.
+  - `--candidate-models` `MODELS`: Comma-separated candidate model list or 'all'.
+  - `--feature-pool` `POOL`: Feature pool for the comparison flow.
+  - `--feature-map-model` `MODEL`: Model key to read from the production feature map when needed.
+  - `--history-seasons` `N`: Override the configured number of historical seasons.
+  - `--structured-glm-spec` `PATH`: Optional research-only YAML spec defining a structured NBA GLM feature slate.
+  - `--structured-glm-slate` `SLATE`: Optional named slate to select from the structured NBA GLM spec.
+  - `--structured-glm-width-variant` `VARIANT`: Optional width variant to select from the structured NBA GLM spec.
+- Examples:
+  - `make research_desk CONFIG=configs/nba.yaml`
+
 ## `run-daily`
 
 Execute the daily fetch, feature, train, and scoring flow.

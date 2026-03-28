@@ -284,6 +284,73 @@ CREATE TABLE IF NOT EXISTS validation_results (
   artifact_path TEXT
 );
 
+CREATE TABLE IF NOT EXISTS experiment_briefs (
+  brief_id TEXT PRIMARY KEY,
+  league TEXT NOT NULL,
+  profile_key TEXT NOT NULL DEFAULT 'default',
+  brief_key TEXT NOT NULL,
+  title TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'active',
+  source_path TEXT,
+  source_kind TEXT NOT NULL DEFAULT 'structured_brief',
+  brief_json TEXT NOT NULL,
+  created_at_utc TEXT NOT NULL,
+  updated_at_utc TEXT NOT NULL,
+  UNIQUE(league, profile_key, brief_key)
+);
+
+CREATE TABLE IF NOT EXISTS experiment_runs (
+  run_id TEXT PRIMARY KEY,
+  league TEXT NOT NULL,
+  profile_key TEXT NOT NULL DEFAULT 'default',
+  brief_id TEXT,
+  brief_key TEXT,
+  incumbent_model_name TEXT,
+  candidate_model_name TEXT,
+  report_slug TEXT,
+  report_path TEXT,
+  scorecard_path TEXT,
+  fold_metrics_path TEXT,
+  promotion_path TEXT,
+  status TEXT NOT NULL,
+  auto_promote INTEGER NOT NULL DEFAULT 1,
+  started_at_utc TEXT NOT NULL,
+  completed_at_utc TEXT,
+  summary_json TEXT,
+  FOREIGN KEY (brief_id) REFERENCES experiment_briefs(brief_id)
+);
+
+CREATE TABLE IF NOT EXISTS promotion_decisions (
+  decision_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  run_id TEXT NOT NULL,
+  league TEXT NOT NULL,
+  profile_key TEXT NOT NULL DEFAULT 'default',
+  incumbent_model_name TEXT,
+  candidate_model_name TEXT,
+  promoted INTEGER NOT NULL,
+  reason_summary TEXT,
+  policy_json TEXT NOT NULL,
+  created_at_utc TEXT NOT NULL,
+  UNIQUE(run_id),
+  FOREIGN KEY (run_id) REFERENCES experiment_runs(run_id)
+);
+
+CREATE TABLE IF NOT EXISTS active_champions (
+  league TEXT NOT NULL,
+  profile_key TEXT NOT NULL DEFAULT 'default',
+  model_name TEXT NOT NULL,
+  source_run_id TEXT,
+  source_brief_id TEXT,
+  promoted_at_utc TEXT NOT NULL,
+  descriptor_json TEXT NOT NULL,
+  policy_json TEXT,
+  created_at_utc TEXT NOT NULL,
+  updated_at_utc TEXT NOT NULL,
+  PRIMARY KEY (league, profile_key),
+  FOREIGN KEY (source_run_id) REFERENCES experiment_runs(run_id),
+  FOREIGN KEY (source_brief_id) REFERENCES experiment_briefs(brief_id)
+);
+
 CREATE TABLE IF NOT EXISTS odds_snapshots (
   odds_snapshot_id TEXT PRIMARY KEY,
   source TEXT NOT NULL,
@@ -403,6 +470,9 @@ CREATE INDEX IF NOT EXISTS idx_results_final_utc ON results(final_utc);
 CREATE INDEX IF NOT EXISTS idx_teams_league_asof ON teams(league, as_of_utc DESC);
 CREATE INDEX IF NOT EXISTS idx_teams_league_team_asof ON teams(league, team_abbrev, as_of_utc DESC);
 CREATE INDEX IF NOT EXISTS idx_change_points_asof ON change_points(as_of_utc DESC);
+CREATE INDEX IF NOT EXISTS idx_experiment_briefs_league_status ON experiment_briefs(league, profile_key, status, updated_at_utc DESC);
+CREATE INDEX IF NOT EXISTS idx_experiment_runs_league_started ON experiment_runs(league, profile_key, started_at_utc DESC);
+CREATE INDEX IF NOT EXISTS idx_promotion_decisions_league_created ON promotion_decisions(league, profile_key, created_at_utc DESC);
 CREATE INDEX IF NOT EXISTS idx_odds_snapshots_league_asof ON odds_snapshots(league, as_of_utc DESC);
 CREATE INDEX IF NOT EXISTS idx_odds_lines_snapshot ON odds_market_lines(odds_snapshot_id);
 CREATE INDEX IF NOT EXISTS idx_odds_lines_league_game_market ON odds_market_lines(league, game_id, market_key, odds_snapshot_id);

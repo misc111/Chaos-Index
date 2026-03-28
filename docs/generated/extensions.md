@@ -25,4 +25,4 @@ Current registered models: `elo_baseline`, `dynamic_rating`, `glm_ridge`, `glm_e
 2. Implement the route module and payload contract in the web app.
 3. Regenerate manifests/docs, then update route and staging contract tests.
 
-Current registered dashboard routes: `actualVsExpected`, `betHistory`, `gamesToday`, `marketBoard`, `metrics`, `performance`, `predictions`, `validation`.
+Current registered dashboard routes: `actualVsExpected`, `betHistory`, `gamesToday`, `marketBoard`, `metrics`, `researchAdmin`, `researchDesk`, `performance`, `predictions`, `validation`.

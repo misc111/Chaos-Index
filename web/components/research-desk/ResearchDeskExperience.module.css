@@ -1,0 +1,269 @@
+.page {
+  display: grid;
+  gap: 18px;
+  padding: 0 0 18px;
+}
+
+.heroCard,
+.summaryCard,
+.tableCard {
+  display: grid;
+  gap: 18px;
+}
+
+.heroCard {
+  background:
+    radial-gradient(circle at top right, rgba(86, 216, 194, 0.18), transparent 34%),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface-card-soft) 86%, transparent), var(--surface-card)),
+    var(--surface-card);
+}
+
+.heroTop,
+.heroMeta,
+.pillRow,
+.countGrid,
+.summaryGrid,
+.decisionMeta,
+.promotionMeta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.heroTop {
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--accent-2-strong);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink-strong);
+  font-family: "Space Grotesk", "Avenir Next", sans-serif;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  line-height: 1.1;
+}
+
+.copy,
+.smallCopy,
+.emptyState,
+.errorState,
+.loadingState {
+  margin: 0;
+  color: var(--muted-strong);
+  line-height: 1.6;
+}
+
+.smallCopy {
+  font-size: 13px;
+}
+
+.pill,
+.statusPill,
+.gatePill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-field-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pill {
+  color: var(--ink-strong);
+}
+
+.postureGuarded {
+  background: var(--warning-soft);
+  color: var(--warning);
+  border-color: color-mix(in srgb, var(--warning) 40%, var(--border));
+}
+
+.postureNormal {
+  background: var(--success-soft);
+  color: var(--success);
+  border-color: color-mix(in srgb, var(--success) 40%, var(--border));
+}
+
+.countGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.countTile,
+.factTile {
+  display: grid;
+  gap: 4px;
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface-field-muted) 84%, transparent);
+}
+
+.countLabel,
+.factLabel,
+.sectionLabel {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.countValue,
+.factValue,
+.sectionTitle {
+  color: var(--ink-strong);
+  font-family: "Space Grotesk", "Avenir Next", sans-serif;
+  font-weight: 700;
+}
+
+.countValue {
+  font-size: 1.6rem;
+}
+
+.factValue {
+  font-size: 1rem;
+}
+
+.summaryCard,
+.tableCard {
+  background:
+    radial-gradient(circle at top right, rgba(86, 216, 194, 0.1), transparent 32%),
+    var(--surface-card);
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 860px;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 14px 12px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.table th {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-top: 0;
+}
+
+.matchup {
+  display: grid;
+  gap: 4px;
+}
+
+.matchupTitle {
+  color: var(--ink-strong);
+  font-weight: 700;
+}
+
+.metaText {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.statusBet {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.statusPass {
+  background: var(--neutral-soft);
+  color: var(--neutral);
+}
+
+.metricStrong {
+  color: var(--ink-strong);
+  font-weight: 700;
+}
+
+.metricMuted {
+  color: var(--muted);
+}
+
+.reasonCell {
+  display: grid;
+  gap: 6px;
+}
+
+.gateRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.gatePass {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.gateFail {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.unsupportedNote {
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: var(--surface-field-muted);
+}
+
+@media (max-width: 760px) {
+  .page {
+    gap: 14px;
+  }
+
+  .heroCard,
+  .summaryCard,
+  .tableCard {
+    gap: 14px;
+  }
+
+  .table {
+    min-width: 720px;
+  }
+}

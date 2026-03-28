@@ -14,6 +14,8 @@ import type {
   MetricsResponse,
   PerformanceResponse,
   PredictionsResponse,
+  ResearchAdminResponse,
+  ResearchDeskResponse,
   ValidationResponse,
 } from "@/lib/types";
 
@@ -25,6 +27,8 @@ export type DashboardPayloadByKey = {
   metrics: MetricsResponse;
   performance: PerformanceResponse;
   predictions: PredictionsResponse;
+  researchAdmin: ResearchAdminResponse;
+  researchDesk: ResearchDeskResponse;
   validation: ValidationResponse;
 };
 

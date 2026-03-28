@@ -104,6 +104,9 @@ backtest:
 research-backtest:
 	$(PYTHON) -m src.cli research-backtest --config $(CONFIG) $(if $(CANDIDATE_MODELS),--candidate-models "$(CANDIDATE_MODELS)",) $(if $(FEATURE_POOL),--feature-pool "$(FEATURE_POOL)",) $(if $(FEATURE_MAP_MODEL),--feature-map-model "$(FEATURE_MAP_MODEL)",) $(HISTORY_SEASONS_ARGS)
 
+research_desk:
+	$(PYTHON) -m src.cli research-desk --config $(CONFIG) $(if $(BRIEF),--brief "$(BRIEF)",) $(if $(BRIEF_DIR),--brief-dir "$(BRIEF_DIR)",) $(if $(CANDIDATE_MODELS),--candidate-models "$(CANDIDATE_MODELS)",) $(if $(FEATURE_POOL),--feature-pool "$(FEATURE_POOL)",) $(if $(FEATURE_MAP_MODEL),--feature-map-model "$(FEATURE_MAP_MODEL)",) $(HISTORY_SEASONS_ARGS)
+
 run_daily:
 	$(PYTHON) -m src.cli run-daily --config $(CONFIG) $(MODEL_ARGS) $(APPROVE_FEATURE_ARGS)
 

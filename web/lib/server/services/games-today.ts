@@ -4,7 +4,7 @@ import { BET_STRATEGIES, getBetStrategyConfig, type BetStrategy } from "@/lib/be
 import { centralTodayDateKey, dateKeyForScheduledGame, shiftCentralDateKey } from "@/lib/games-today";
 import { type LeagueCode } from "@/lib/league";
 import { getGamesTodaySnapshotRows, getLatestUpcomingAsOf } from "@/lib/server/repositories/forecasts";
-import { getActiveBetRiskRegime, getPreferredBettingModelName } from "@/lib/server/services/betting-driver";
+import { getBettingDriverContext } from "@/lib/server/services/betting-driver";
 import {
   getMoneylineRowsForSnapshots,
   getOver190RowsForSnapshots,
@@ -23,8 +23,9 @@ export async function getGamesTodayPayload(league: LeagueCode) {
   const asOf = getLatestUpcomingAsOf(league);
   const todayKey = centralTodayDateKey();
   const snapshotFallbackWindowStart = shiftCentralDateKey(todayKey, -1);
-  const preferredBettingModelName = getPreferredBettingModelName(league);
-  const riskRegime = getActiveBetRiskRegime(league);
+  const bettingDriver = getBettingDriverContext(league);
+  const preferredBettingModelName = bettingDriver.preferred_model_name;
+  const riskRegime = bettingDriver.desk_posture;
   const liveStrategyConfigs = BET_STRATEGIES.reduce((acc, strategy) => {
     acc[strategy] = getBetStrategyConfig(strategy, { league, riskRegime });
     return acc;
@@ -35,6 +36,8 @@ export async function getGamesTodayPayload(league: LeagueCode) {
       league,
       as_of_utc: null,
       date_central: todayKey,
+      desk_posture: bettingDriver.desk_posture,
+      champion: bettingDriver.champion,
       historical_coverage_start_central: historicalReplay.coverage_start_central,
       strategy_configs: liveStrategyConfigs,
       strategy_optimization: historicalReplay.strategy_optimization,
@@ -153,6 +156,8 @@ export async function getGamesTodayPayload(league: LeagueCode) {
     league,
     as_of_utc: asOf,
     date_central: todayKey,
+    desk_posture: bettingDriver.desk_posture,
+    champion: bettingDriver.champion,
     historical_coverage_start_central: historicalReplay.coverage_start_central,
     strategy_configs: liveStrategyConfigs,
     strategy_optimization: historicalReplay.strategy_optimization,
