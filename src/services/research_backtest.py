@@ -337,8 +337,16 @@ def _choose_best_candidate(scorecard: pd.DataFrame, *, baseline_model: str) -> s
     if candidates.empty:
         return baseline_model
     ranked = candidates.sort_values(
-        ["mean_ending_bankroll", "profitable_folds", "mean_log_loss", "mean_brier"],
-        ascending=[False, False, True, True],
+        [
+            "mean_ending_bankroll",
+            "mean_net_profit",
+            "mean_roi",
+            "profitable_folds",
+            "mean_max_drawdown",
+            "mean_log_loss",
+            "mean_brier",
+        ],
+        ascending=[False, False, False, False, True, True, True],
     )
     return str(ranked.iloc[0]["model_name"])
 
@@ -347,19 +355,26 @@ def _promotion_summary(scorecard: pd.DataFrame, *, best_model: str, baseline_mod
     best_rows = scorecard[scorecard["model_name"] == best_model].copy()
     if best_rows.empty:
         return {"eligible": False, "reason": "best_model_not_present"}
-    chosen = best_rows.sort_values(["mean_ending_bankroll", "mean_log_loss"], ascending=[False, True]).iloc[0]
+    if "mean_roi" not in best_rows.columns and "median_roi" in best_rows.columns:
+        best_rows["mean_roi"] = best_rows["median_roi"]
+    chosen = best_rows.sort_values(
+        ["mean_ending_bankroll", "mean_net_profit", "mean_roi", "mean_max_drawdown", "mean_log_loss"],
+        ascending=[False, False, False, True, True],
+    ).iloc[0]
     baseline_rows = scorecard[
         (scorecard["model_name"] == baseline_model) & (scorecard["strategy"] == chosen["strategy"])
     ].copy()
     if baseline_rows.empty:
         return {"eligible": False, "reason": "baseline_row_missing", "best_model": best_model}
+    if "mean_roi" not in baseline_rows.columns and "median_roi" in baseline_rows.columns:
+        baseline_rows["mean_roi"] = baseline_rows["median_roi"]
     baseline = baseline_rows.iloc[0]
     checks = {
         "mean_ending_bankroll": float(chosen["mean_ending_bankroll"]) > float(baseline["mean_ending_bankroll"]),
-        "median_roi": float(chosen["median_roi"]) > float(baseline["median_roi"]),
-        "outer_fold_profit_wins": int(chosen["profit_winning_folds"]) >= 6,
-        "mean_log_loss": float(chosen["mean_log_loss"]) <= float(baseline["mean_log_loss"]),
-        "mean_brier": float(chosen["mean_brier"]) <= float(baseline["mean_brier"]),
+        "mean_net_profit": float(chosen["mean_net_profit"]) > float(baseline["mean_net_profit"]),
+        "median_roi": float(chosen["median_roi"]) >= float(baseline["median_roi"]),
+        "outer_fold_profit_wins": int(chosen["profit_winning_folds"]) >= int(baseline["profit_winning_folds"]),
+        "drawdown_guardrail": float(chosen["mean_max_drawdown"]) <= float(baseline["mean_max_drawdown"]) + 250.0,
         "ece_guardrail": float(chosen["mean_ece"]) <= float(baseline["mean_ece"]) + 0.01,
         "integrity_checks": bool(chosen["all_integrity_checks"]),
     }
@@ -649,7 +664,10 @@ def run_research_backtest(
             mean_auc=("auc", "mean"),
             bet_count=("bet_count", "sum"),
         )
-        .sort_values(["mean_ending_bankroll", "mean_log_loss"], ascending=[False, True])
+        .sort_values(
+            ["mean_ending_bankroll", "mean_net_profit", "mean_roi", "profitable_folds", "mean_max_drawdown", "mean_log_loss"],
+            ascending=[False, False, False, False, True, True],
+        )
         .reset_index(drop=True)
     )
     integrity_summary = (

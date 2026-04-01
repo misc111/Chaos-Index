@@ -32,6 +32,7 @@ from src.research.structured_glm_specs import StructuredGLMExperimentResolution,
 from src.services.train import load_features_dataframe
 from src.training.cv import time_series_splits
 from src.training.feature_selection import select_feature_columns
+from src.training.lambda_search import penalized_glm_search_grid
 from src.training.model_feature_research import load_model_feature_map
 from statsmodels.tools.sm_exceptions import PerfectSeparationWarning
 
@@ -326,7 +327,7 @@ def _candidate_specs(
         CandidateSpec(
             model_name="glm_ridge",
             display_name="GLM Ridge",
-            param_grid=[{"c": c} for c in [0.05, 0.1, 0.25, 0.5, 1.0, 2.0, 4.0]],
+            param_grid=penalized_glm_search_grid("glm_ridge"),
             builder=lambda fs, params: PenalizedLogitCandidate(
                 model_name="glm_ridge",
                 display_name="GLM Ridge",
@@ -339,11 +340,7 @@ def _candidate_specs(
         CandidateSpec(
             model_name="glm_elastic_net",
             display_name="Elastic Net GLM",
-            param_grid=[
-                {"c": c, "l1_ratio": l1_ratio}
-                for c in [0.05, 0.1, 0.25, 0.5, 1.0]
-                for l1_ratio in [0.1, 0.25, 0.5, 0.75]
-            ],
+            param_grid=penalized_glm_search_grid("glm_elastic_net"),
             builder=lambda fs, params: PenalizedLogitCandidate(
                 model_name="glm_elastic_net",
                 display_name="Elastic Net GLM",
@@ -357,7 +354,7 @@ def _candidate_specs(
         CandidateSpec(
             model_name="glm_lasso",
             display_name="Lasso GLM",
-            param_grid=[{"c": c} for c in [0.01, 0.05, 0.1, 0.25, 0.5, 1.0]],
+            param_grid=penalized_glm_search_grid("glm_lasso"),
             builder=lambda fs, params: PenalizedLogitCandidate(
                 model_name="glm_lasso",
                 display_name="Lasso GLM",

@@ -9,6 +9,7 @@ import pandas as pd
 from src.bayes.fit_offline import run_bayes_offline_fit
 from src.evaluation.metrics import metric_bundle
 from src.models.bayes_state_space_goals import BayesGoalsModel
+from src.models.challenger_prob import DGLMMarginModel, GAMSplineModel, GLMMLogitModel, MARSHingeModel, VanillaGLMModel
 from src.models.gbdt import GBDTModel
 from src.models.glm_goals import GoalsPoissonModel
 from src.models.glm_penalized import build_penalized_glm
@@ -71,6 +72,106 @@ def fit_model_suite(
                 "status": "completed",
                 "message": f"Completed {model_name} fit",
             },
+        )
+
+    if "glm_vanilla" in selected:
+        emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "glm_vanilla", "stage": "fit", "status": "started", "message": "Fitting glm_vanilla"},
+        )
+        vanilla_cols = resolve_model_feature_columns(
+            feature_cols,
+            model_name="glm_vanilla",
+            model_feature_columns=model_feature_columns,
+            fallback_columns=glm_feature_cols if glm_feature_cols else feature_cols,
+        )
+        vanilla = VanillaGLMModel()
+        vanilla.fit(train_df, vanilla_cols)
+        models[vanilla.model_name] = vanilla
+        used_feature_map[vanilla.model_name] = vanilla_cols
+        emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "glm_vanilla", "stage": "fit", "status": "completed", "message": "Completed glm_vanilla fit"},
+        )
+
+    if "gam_spline" in selected:
+        emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "gam_spline", "stage": "fit", "status": "started", "message": "Fitting gam_spline"},
+        )
+        gam_cols = resolve_model_feature_columns(
+            feature_cols,
+            model_name="gam_spline",
+            model_feature_columns=model_feature_columns,
+            fallback_columns=feature_cols,
+        )
+        gam = GAMSplineModel()
+        gam.fit(train_df, gam_cols)
+        models[gam.model_name] = gam
+        used_feature_map[gam.model_name] = gam_cols
+        emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "gam_spline", "stage": "fit", "status": "completed", "message": "Completed gam_spline fit"},
+        )
+
+    if "mars_hinge" in selected:
+        emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "mars_hinge", "stage": "fit", "status": "started", "message": "Fitting mars_hinge"},
+        )
+        mars_cols = resolve_model_feature_columns(
+            feature_cols,
+            model_name="mars_hinge",
+            model_feature_columns=model_feature_columns,
+            fallback_columns=feature_cols,
+        )
+        mars = MARSHingeModel()
+        mars.fit(train_df, mars_cols)
+        models[mars.model_name] = mars
+        used_feature_map[mars.model_name] = mars_cols
+        emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "mars_hinge", "stage": "fit", "status": "completed", "message": "Completed mars_hinge fit"},
+        )
+
+    if "glmm_logit" in selected:
+        emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "glmm_logit", "stage": "fit", "status": "started", "message": "Fitting glmm_logit"},
+        )
+        glmm_cols = resolve_model_feature_columns(
+            feature_cols,
+            model_name="glmm_logit",
+            model_feature_columns=model_feature_columns,
+            fallback_columns=feature_cols,
+        )
+        glmm = GLMMLogitModel()
+        glmm.fit(train_df, glmm_cols)
+        models[glmm.model_name] = glmm
+        used_feature_map[glmm.model_name] = glmm_cols
+        emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "glmm_logit", "stage": "fit", "status": "completed", "message": "Completed glmm_logit fit"},
+        )
+
+    if "dglm_margin" in selected:
+        emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "dglm_margin", "stage": "fit", "status": "started", "message": "Fitting dglm_margin"},
+        )
+        dglm_cols = resolve_model_feature_columns(
+            feature_cols,
+            model_name="dglm_margin",
+            model_feature_columns=model_feature_columns,
+            fallback_columns=feature_cols,
+        )
+        dglm = DGLMMarginModel()
+        dglm.fit(train_df, dglm_cols)
+        models[dglm.model_name] = dglm
+        used_feature_map[dglm.model_name] = dglm_cols
+        emit_progress(
+            progress_callback,
+            {"kind": "model", "model": "dglm_margin", "stage": "fit", "status": "completed", "message": "Completed dglm_margin fit"},
         )
 
     gbdt = None

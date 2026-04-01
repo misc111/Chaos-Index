@@ -29,6 +29,11 @@ MATERIALIZABLE_MODEL_NAMES = {
     "glm_elastic_net",
     "glm_lasso",
     "glm_ridge",
+    "glm_vanilla",
+    "gam_spline",
+    "mars_hinge",
+    "glmm_logit",
+    "dglm_margin",
     "dynamic_rating",
     "bayes_bt_state_space",
 }
@@ -240,6 +245,8 @@ def _evaluate_promotion(
         "materializable_candidate": _materializable_candidate(candidate_model_name),
         "beats_incumbent_bankroll": bootstrap_mode
         or float(best_row.get("mean_ending_bankroll") or 0.0) > float(baseline_row.get("mean_ending_bankroll") or 0.0),
+        "beats_incumbent_profit": bootstrap_mode
+        or float(best_row.get("mean_net_profit") or 0.0) > float(baseline_row.get("mean_net_profit") or 0.0),
         "max_drawdown_limit": float(best_row.get("mean_max_drawdown") or 0.0) <= max_drawdown_limit,
         "calibration_guardrail": float(best_row.get("mean_ece") or 0.0)
         <= float(baseline_row.get("mean_ece") or 0.0) + max_ece_delta,

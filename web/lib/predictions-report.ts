@@ -4,6 +4,11 @@ const MODEL_REPORT_ORDER = [
   "glm_ridge",
   "glm_elastic_net",
   "glm_lasso",
+  "glm_vanilla",
+  "gam_spline",
+  "mars_hinge",
+  "glmm_logit",
+  "dglm_margin",
   "dynamic_rating",
   "rf",
   "goals_poisson",
@@ -21,6 +26,11 @@ const MODEL_DISPLAY_LABELS: Record<string, string> = {
   glm_ridge: "GLM Ridge",
   glm_elastic_net: "GLM ENet",
   glm_lasso: "GLM Lasso",
+  glm_vanilla: "Vanilla GLM",
+  gam_spline: "GAM Spline",
+  mars_hinge: "MARS Hinge",
+  glmm_logit: "GLMM Logit",
+  dglm_margin: "DGLM Margin",
   dynamic_rating: "Dyn Rating",
   rf: "RF",
   goals_poisson: "Goals Pois",
@@ -45,6 +55,11 @@ export const MODEL_TRUST_NOTES: Record<string, string> = {
     "Lasso-penalized logistic model. Good for pruning weak or redundant inputs. Can zero out small but real shared effects.",
   glm_elastic_net:
     "Elastic-net logistic model. Good when related signals travel in packs. Can still mute smaller edges if the penalty is too strong.",
+  glm_vanilla: "Unpenalized logistic model. Good for checking whether regularization is washing out real signal. Most likely to overfit.",
+  gam_spline: "Spline-based logistic model. Good at smooth nonlinear edges. Can get wobbly if the shape fit is too ambitious.",
+  mars_hinge: "Hinge-based nonlinear model. Good at threshold effects. Can chase sharp cut points that do not hold up.",
+  glmm_logit: "Mixed-effects logistic model. Good when team-level structure matters. Can be slower and harder to keep stable.",
+  dglm_margin: "Margin-first model that turns score-shape estimates into win probabilities. Good when spread shape matters. Can drift if score variance is misspecified.",
   dynamic_rating: "Hot/cold meter. Good for momentum. Can overreact to short streaks.",
   rf: "Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups.",
   goals_poisson: "Score-based model. Good for normal scoring games. Messy games hurt it.",
@@ -122,6 +137,26 @@ export function predictionTrustNote(model: string, league?: string | null): stri
     return "Lasso pregame model using the NCAAM linear feature map with stronger pruning on overlapping scoring-form and rating signals.";
   }
 
+  if (canonicalModel === "glm_vanilla") {
+    return "Unpenalized logistic challenger. Useful when you want to know whether shrinkage is suppressing a real betting edge.";
+  }
+
+  if (canonicalModel === "gam_spline") {
+    return "Spline-based challenger that lets a few continuous signals bend instead of forcing everything to stay linear.";
+  }
+
+  if (canonicalModel === "mars_hinge") {
+    return "Threshold-based challenger that can capture sharp regime changes in matchup features.";
+  }
+
+  if (canonicalModel === "glmm_logit") {
+    return "Mixed-effects challenger that keeps fixed matchup signals while allowing team-level structure to matter.";
+  }
+
+  if (canonicalModel === "dglm_margin") {
+    return "Margin-shape challenger that models score expectation and variance before converting that into a win probability.";
+  }
+
   return (
     MODEL_TRUST_NOTES[canonicalModel] ||
     "Built on that model's own rule set. Good for a second opinion. Watch for large gaps versus the ensemble."
@@ -184,6 +219,26 @@ export function predictionModelHeadline(model: string, league?: string | null, a
 
   if (canonicalModel === "glm_lasso" && leagueCode === "NCAAM") {
     return "Pregame lasso logistic regression driven by the current NCAAM feature map.";
+  }
+
+  if (canonicalModel === "glm_vanilla") {
+    return "Unpenalized logistic challenger built to test whether shrinkage is muting profit signal.";
+  }
+
+  if (canonicalModel === "gam_spline") {
+    return "Spline-based challenger that lets a small nonlinear feature block bend away from a straight-line fit.";
+  }
+
+  if (canonicalModel === "mars_hinge") {
+    return "Hinge-based challenger that hunts for threshold-style matchup edges.";
+  }
+
+  if (canonicalModel === "glmm_logit") {
+    return "Mixed-effects challenger that layers team-level structure on top of fixed pregame features.";
+  }
+
+  if (canonicalModel === "dglm_margin") {
+    return "Two-step margin challenger that estimates both expected spread and spread uncertainty before deriving win odds.";
   }
 
   if (canonicalModel === "dynamic_rating") {

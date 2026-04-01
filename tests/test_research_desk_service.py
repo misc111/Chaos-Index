@@ -8,7 +8,7 @@ import pytest
 
 from src.common.config import load_config
 from src.services.research_backtest import ResearchBacktestResult
-from src.services.research_desk import ResearchDeskBrief, _load_brief, run_research_desk
+from src.services.research_desk import ResearchDeskBrief, _evaluate_promotion, _load_brief, run_research_desk
 from src.storage.db import Database
 
 
@@ -256,3 +256,57 @@ def test_run_research_desk_rejects_candidate_that_breaks_drawdown_policy(tmp_pat
     decisions = db.query("SELECT * FROM promotion_decisions")
     assert len(decisions) == 1
     assert int(decisions[0]["promoted"]) == 0
+
+
+def test_evaluate_promotion_allows_profitable_nonlinear_candidate_when_gates_pass(tmp_path: Path) -> None:
+    brief_dir = tmp_path / "briefs"
+    brief_dir.mkdir(parents=True)
+    path = brief_dir / "default.yaml"
+    path.write_text(
+        "\n".join(
+            [
+                "brief_key: nonlinear-brief",
+                "title: Nonlinear Brief",
+                "league: NBA",
+                "candidate_models:",
+                "  - gam_spline",
+                "policy:",
+                "  max_mean_drawdown_dollars: 800",
+                "  min_bet_count: 20",
+                "  min_profitable_folds: 2",
+                "  max_ece_delta: 0.02",
+            ]
+        )
+        + "\n"
+    )
+
+    cfg = _test_cfg(tmp_path)
+    brief = _load_brief(cfg, brief=None, brief_dir=str(brief_dir))
+    decision = _evaluate_promotion(
+        promotion={
+            "eligible": True,
+            "best_candidate_row": {
+                "mean_ending_bankroll": 5600.0,
+                "mean_net_profit": 600.0,
+                "mean_max_drawdown": 650.0,
+                "mean_ece": 0.045,
+                "bet_count": 28,
+                "profitable_folds": 3,
+            },
+            "baseline_row": {
+                "mean_ending_bankroll": 5200.0,
+                "mean_net_profit": 200.0,
+                "mean_max_drawdown": 500.0,
+                "mean_ece": 0.04,
+                "bet_count": 28,
+                "profitable_folds": 2,
+            },
+        },
+        candidate_model_name="gam_spline",
+        brief=brief,
+        bootstrap_mode=False,
+    )
+
+    assert decision["promoted"] is True
+    assert decision["gates"]["materializable_candidate"] is True
+    assert decision["gates"]["beats_incumbent_profit"] is True

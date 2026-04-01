@@ -10,6 +10,29 @@ from src.models.nn import NNModel
 from src.training.train import normalize_selected_models, train_and_predict
 
 
+def test_penalized_glm_search_grid_exposes_lambda_and_c_for_elastic_net():
+    from src.training.lambda_search import lambda_to_c, penalized_glm_search_grid
+
+    rows = penalized_glm_search_grid("glm_elastic_net")
+
+    assert rows
+    assert all("lambda" in row for row in rows)
+    assert all("c" in row for row in rows)
+    assert any("l1_ratio" in row for row in rows)
+    assert rows[0]["lambda"] > 0
+    assert rows[0]["c"] == pytest.approx(lambda_to_c(rows[0]["lambda"]))
+
+
+def test_default_lambda_grid_is_dense_and_sorted_descending():
+    from src.training.lambda_search import default_lambda_grid
+
+    grid = default_lambda_grid("glm_ridge")
+
+    assert len(grid) >= 9
+    assert grid == sorted(grid, reverse=True)
+    assert min(grid) > 0
+
+
 def _synthetic_features(n_train: int = 260, n_upcoming: int = 20) -> pd.DataFrame:
     n = n_train + n_upcoming
     rng = np.random.default_rng(123)
@@ -78,7 +101,19 @@ def test_normalize_selected_models_aliases_and_validation():
         normalize_selected_models(["not_a_model"])
 
 
+def test_normalize_selected_models_accepts_challenger_names():
+    assert normalize_selected_models(["glm_vanilla", "gam_spline", "mars_hinge", "glmm_logit", "dglm_margin"]) == [
+        "glm_vanilla",
+        "gam_spline",
+        "mars_hinge",
+        "glmm_logit",
+        "dglm_margin",
+    ]
+
+
 def test_train_single_model_glm_only(tmp_path):
+    from src.training.lambda_search import default_lambda_grid, lambda_to_c
+
     df = _synthetic_features()
     out = train_and_predict(
         features_df=df,
@@ -91,7 +126,9 @@ def test_train_single_model_glm_only(tmp_path):
     pred_cols = list(out["upcoming_model_probs"].columns)
     assert pred_cols == ["game_id", "glm_ridge"]
     assert out["run_payload"]["selected_models"] == ["glm_ridge"]
-    assert out["run_payload"]["glm_best_c"] in {0.1, 0.25, 0.5, 1.0, 2.0, 4.0}
+    expected_cs = {lambda_to_c(value) for value in default_lambda_grid("glm_ridge")}
+    assert out["run_payload"]["glm_best_c"] in expected_cs
+    assert out["run_payload"]["glm_tuning"]["best_lambda"] in set(default_lambda_grid("glm_ridge"))
 
     row = out["forecasts"].iloc[0]
     per_model = json.loads(row["per_model_probs_json"])
@@ -99,7 +136,29 @@ def test_train_single_model_glm_only(tmp_path):
     assert 0.0 < float(row["ensemble_prob_home_win"]) < 1.0
 
 
+def test_train_single_model_glm_vanilla_only(tmp_path):
+    df = _synthetic_features()
+    out = train_and_predict(
+        features_df=df,
+        feature_set_version="test_feature_set",
+        artifacts_dir=str(tmp_path / "artifacts"),
+        bayes_cfg={},
+        selected_models=["glm_vanilla"],
+    )
+
+    pred_cols = list(out["upcoming_model_probs"].columns)
+    assert pred_cols == ["game_id", "glm_vanilla"]
+    assert out["run_payload"]["selected_models"] == ["glm_vanilla"]
+
+    row = out["forecasts"].iloc[0]
+    per_model = json.loads(row["per_model_probs_json"])
+    assert list(per_model.keys()) == ["glm_vanilla"]
+    assert 0.0 < float(row["ensemble_prob_home_win"]) < 1.0
+
+
 def test_train_single_model_elastic_net_only(tmp_path):
+    from src.training.lambda_search import default_l1_ratio_grid, default_lambda_grid, lambda_to_c
+
     df = _synthetic_features()
     out = train_and_predict(
         features_df=df,
@@ -112,8 +171,9 @@ def test_train_single_model_elastic_net_only(tmp_path):
     pred_cols = list(out["upcoming_model_probs"].columns)
     assert pred_cols == ["game_id", "glm_elastic_net"]
     assert out["run_payload"]["selected_models"] == ["glm_elastic_net"]
-    assert out["run_payload"]["glm_elastic_net_best_c"] in {0.05, 0.1, 0.25, 0.5, 1.0}
-    assert out["run_payload"]["glm_elastic_net_best_l1_ratio"] in {0.1, 0.25, 0.5, 0.75}
+    expected_cs = {lambda_to_c(value) for value in default_lambda_grid("glm_elastic_net")}
+    assert out["run_payload"]["glm_elastic_net_best_c"] in expected_cs
+    assert out["run_payload"]["glm_elastic_net_best_l1_ratio"] in set(default_l1_ratio_grid("glm_elastic_net"))
 
     row = out["forecasts"].iloc[0]
     per_model = json.loads(row["per_model_probs_json"])
@@ -122,6 +182,8 @@ def test_train_single_model_elastic_net_only(tmp_path):
 
 
 def test_train_single_model_lasso_only(tmp_path):
+    from src.training.lambda_search import default_lambda_grid, lambda_to_c
+
     df = _synthetic_features()
     out = train_and_predict(
         features_df=df,
@@ -135,7 +197,8 @@ def test_train_single_model_lasso_only(tmp_path):
     assert pred_cols == ["game_id", "glm_lasso"]
     assert out["run_payload"]["selected_models"] == ["glm_lasso"]
     assert out["run_payload"]["glm_primary_model"] == "glm_lasso"
-    assert out["run_payload"]["glm_lasso_best_c"] in {0.05, 0.1, 0.25, 0.5, 1.0}
+    expected_cs = {lambda_to_c(value) for value in default_lambda_grid("glm_lasso")}
+    assert out["run_payload"]["glm_lasso_best_c"] in expected_cs
     assert out["run_payload"]["glm_best_c"] == out["run_payload"]["glm_lasso_best_c"]
 
     row = out["forecasts"].iloc[0]

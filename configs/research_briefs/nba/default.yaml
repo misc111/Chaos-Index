@@ -7,9 +7,15 @@ candidate_models:
   - glm_elastic_net
   - glm_ridge
   - glm_lasso
+  - glm_vanilla
+  - gam_spline
+  - mars_hinge
+  - glmm_logit
+  - dglm_margin
 feature_pool: research_broad
 feature_map_model: glm_ridge
 history_seasons: 5
 notes: >
-  Conservative default brief for the NBA research desk. Reuse existing
-  production-trainable GLM-family candidates before expanding the search space.
+  Broad default brief for the NBA research desk. Search across dense GLM and
+  nonlinear challenger families before deciding whether the incumbent should
+  remain active.

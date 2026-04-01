@@ -8,7 +8,9 @@ from src.research.candidate_models import PenalizedLogitCandidate, VanillaGLMBin
 from src.research.model_comparison import CandidateSpec
 from src.services.history_import import import_historical_data
 from src.services.research_backtest import (
+    _choose_best_candidate,
     _latest_pregame_moneylines,
+    _promotion_summary,
     _resolve_adaptive_min_train_days,
     run_research_backtest,
 )
@@ -299,6 +301,78 @@ def test_research_backtest_writes_dual_scorecard_bundle(tmp_path, monkeypatch):
     assert result.promotion_path.exists()
     scorecard = pd.read_csv(result.scorecard_path)
     assert {"glm_ridge", "glm_vanilla"} <= set(scorecard["model_name"].tolist())
+
+
+def test_choose_best_candidate_prefers_profit_over_better_log_loss():
+    scorecard = pd.DataFrame(
+        [
+            {
+                "model_name": "glm_ridge",
+                "strategy": "riskAdjusted",
+                "mean_ending_bankroll": 5120.0,
+                "mean_net_profit": 120.0,
+                "mean_roi": 0.021,
+                "profitable_folds": 2,
+                "mean_max_drawdown": 300.0,
+                "mean_log_loss": 0.59,
+                "mean_brier": 0.20,
+            },
+            {
+                "model_name": "gam_spline",
+                "strategy": "riskAdjusted",
+                "mean_ending_bankroll": 5400.0,
+                "mean_net_profit": 400.0,
+                "mean_roi": 0.031,
+                "profitable_folds": 3,
+                "mean_max_drawdown": 325.0,
+                "mean_log_loss": 0.64,
+                "mean_brier": 0.22,
+            },
+        ]
+    )
+
+    assert _choose_best_candidate(scorecard, baseline_model="glm_ridge") == "gam_spline"
+
+
+def test_promotion_summary_requires_profit_and_drawdown_guardrail():
+    scorecard = pd.DataFrame(
+        [
+            {
+                "model_name": "gam_spline",
+                "strategy": "riskAdjusted",
+                "mean_ending_bankroll": 5450.0,
+                "mean_net_profit": 450.0,
+                "median_roi": 0.033,
+                "profitable_folds": 3,
+                "profit_winning_folds": 3,
+                "mean_max_drawdown": 500.0,
+                "mean_log_loss": 0.64,
+                "mean_brier": 0.22,
+                "mean_ece": 0.05,
+                "all_integrity_checks": True,
+            },
+            {
+                "model_name": "glm_ridge",
+                "strategy": "riskAdjusted",
+                "mean_ending_bankroll": 5120.0,
+                "mean_net_profit": 120.0,
+                "median_roi": 0.021,
+                "profitable_folds": 2,
+                "profit_winning_folds": 2,
+                "mean_max_drawdown": 300.0,
+                "mean_log_loss": 0.59,
+                "mean_brier": 0.20,
+                "mean_ece": 0.045,
+                "all_integrity_checks": True,
+            },
+        ]
+    )
+
+    summary = _promotion_summary(scorecard, best_model="gam_spline", baseline_model="glm_ridge")
+
+    assert summary["checks"]["mean_ending_bankroll"] is True
+    assert summary["checks"]["mean_net_profit"] is True
+    assert summary["checks"]["drawdown_guardrail"] is True
 
 
 def test_research_backtest_supports_structured_glm_research_spec(tmp_path, monkeypatch):

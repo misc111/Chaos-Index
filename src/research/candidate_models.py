@@ -258,7 +258,6 @@ class GLMMLogitCandidate(BaseCandidateModel):
         }
         self.model: BinomialBayesMixedGLM | None = None
         self.result: Any = None
-        self.design_info: Any = None
         self.fixed_effect_mean: np.ndarray | None = None
         self.random_effect_mean: np.ndarray | None = None
         self.vcp_mean: np.ndarray | None = None
@@ -290,7 +289,6 @@ class GLMMLogitCandidate(BaseCandidateModel):
         except Exception:
             self.result = self.model.fit_vb()
             self.fit_method = "variational_bayes"
-        self.design_info = self.model.data.design_info
         self.fixed_effect_mean = np.asarray(self.result.params[: self.model.k_fep], dtype=float)
         self.vcp_mean = np.asarray(self.result.params[self.model.k_fep : self.model.k_fep + self.model.k_vcp], dtype=float)
         self.random_effect_mean = np.asarray(self.result.params[-self.model.k_vc :], dtype=float)
@@ -314,9 +312,14 @@ class GLMMLogitCandidate(BaseCandidateModel):
         if self.result is None or self.fixed_effect_mean is None or self.random_effect_mean is None:
             raise RuntimeError("glmm_logit has not been fit")
         frame = self._fit_frame(df)
-        fixed_design = patsy.build_design_matrices([self.design_info], frame, return_type="dataframe")[0]
+        fixed_design = np.column_stack(
+            [
+                np.ones(len(frame), dtype=float),
+                frame[self.fixed_feature_names].to_numpy(dtype=float) if self.fixed_feature_names else np.empty((len(frame), 0)),
+            ]
+        )
         random_design = self._random_design(frame)
-        linear = fixed_design.to_numpy(dtype=float) @ self.fixed_effect_mean
+        linear = fixed_design @ self.fixed_effect_mean
         if random_design.shape[1]:
             linear = linear + np.asarray(random_design @ self.random_effect_mean, dtype=float).ravel()
         return _clip_probability(_sigmoid(linear))

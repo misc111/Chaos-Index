@@ -32,6 +32,20 @@ candidate_models:
     assert briefs[0].league == "NBA"
 
 
+def test_default_research_brief_includes_broad_challenger_field():
+    cfg = load_config("configs/nba.yaml")
+    briefs = load_structured_research_briefs(cfg, brief="default", brief_dir="configs/research_briefs/nba")
+
+    assert len(briefs) == 1
+    models = briefs[0].candidate_models
+    assert "glm_elastic_net" in models
+    assert "glm_vanilla" in models
+    assert "gam_spline" in models
+    assert "mars_hinge" in models
+    assert "glmm_logit" in models
+    assert "dglm_margin" in models
+
+
 def test_run_research_desk_promotes_and_persists_active_champion(tmp_path, monkeypatch):
     brief_dir = tmp_path / "briefs"
     brief_dir.mkdir(parents=True, exist_ok=True)
