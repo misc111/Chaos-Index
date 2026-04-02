@@ -48,6 +48,19 @@ Import historical source snapshots into the local research dataset.
 - Examples:
   - `python3 -m src.cli import-history --config configs/nba.yaml --history-seasons 3`
 
+## `backfill-historical-odds`
+
+Download historical odds bundles into a regenerable manifest-backed cache.
+
+- Default config: `configs/nba.yaml`
+- Options:
+  - `--history-seasons` `N`: Override the configured number of historical seasons.
+  - `--start-date` `DATE`: Optional inclusive start date for historical odds backfill (YYYY-MM-DD).
+  - `--end-date` `DATE`: Optional inclusive end date for historical odds backfill (YYYY-MM-DD).
+  - `--chunk-days` `N`: Number of dates per historical odds backfill chunk.
+- Examples:
+  - `python3 -m src.cli backfill-historical-odds --config configs/nba.yaml --start-date 2025-10-02 --end-date 2026-04-04`
+
 ## `features`
 
 Build processed feature tables from the current interim snapshot.

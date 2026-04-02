@@ -76,6 +76,53 @@
       ]
     },
     {
+      "name": "backfill-historical-odds",
+      "summary": "Download historical odds bundles into a regenerable manifest-backed cache.",
+      "handler_path": "src.commands.data:backfill_historical_odds",
+      "config_required": true,
+      "arguments": [
+        {
+          "flags": [
+            "--history-seasons"
+          ],
+          "doc_metavar": "N",
+          "help": "Override the configured number of historical seasons.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--start-date"
+          ],
+          "doc_metavar": "DATE",
+          "help": "Optional inclusive start date for historical odds backfill (YYYY-MM-DD).",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--end-date"
+          ],
+          "doc_metavar": "DATE",
+          "help": "Optional inclusive end date for historical odds backfill (YYYY-MM-DD).",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--chunk-days"
+          ],
+          "doc_metavar": "N",
+          "help": "Number of dates per historical odds backfill chunk.",
+          "choices": null,
+          "default": 30
+        }
+      ],
+      "examples": [
+        "python3 -m src.cli backfill-historical-odds --config configs/nba.yaml --start-date 2025-10-02 --end-date 2026-04-04"
+      ]
+    },
+    {
       "name": "features",
       "summary": "Build processed feature tables from the current interim snapshot.",
       "handler_path": "src.commands.data:features",

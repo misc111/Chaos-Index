@@ -10,6 +10,12 @@ HISTORY_SEASONS ?=
 HISTORY_SEASONS_ARGS := $(if $(HISTORY_SEASONS),--history-seasons $(HISTORY_SEASONS),)
 SOURCE_MANIFEST ?=
 SOURCE_MANIFEST_ARGS := $(if $(SOURCE_MANIFEST),--source-manifest "$(SOURCE_MANIFEST)",)
+START_DATE ?=
+START_DATE_ARGS := $(if $(START_DATE),--start-date $(START_DATE),)
+END_DATE ?=
+END_DATE_ARGS := $(if $(END_DATE),--end-date $(END_DATE),)
+CHUNK_DAYS ?=
+CHUNK_DAYS_ARGS := $(if $(CHUNK_DAYS),--chunk-days $(CHUNK_DAYS),)
 APPROVE_FEATURE_CHANGES ?= 0
 APPROVE_FEATURE_ARGS := $(if $(filter 1 true TRUE yes YES,$(APPROVE_FEATURE_CHANGES)),--approve-feature-changes,)
 PAGES_BUILD ?= 1
@@ -43,6 +49,7 @@ help:
 	@echo "Usage:"
 	@echo "  make fetch CONFIG=configs/nba.yaml"
 	@echo "  make refresh-data CONFIG=configs/nba.yaml"
+	@echo "  make backfill-historical-odds CONFIG=configs/nba.yaml START_DATE=2025-10-02 END_DATE=2026-04-04 CHUNK_DAYS=30"
 	@echo "  make data_refresh DRY_RUN=1"
 	@echo "  make query CONFIG=configs/nba.yaml Q=\"What's the chance the Raptors win the next game?\""
 	@echo "  "
@@ -82,6 +89,9 @@ fetch-odds:
 
 import-history:
 	$(PYTHON) -m src.cli import-history --config $(CONFIG) $(HISTORY_SEASONS_ARGS) $(SOURCE_MANIFEST_ARGS)
+
+backfill-historical-odds:
+	$(PYTHON) -m src.cli backfill-historical-odds --config $(CONFIG) $(HISTORY_SEASONS_ARGS) $(START_DATE_ARGS) $(END_DATE_ARGS) $(CHUNK_DAYS_ARGS)
 
 features:
 	$(PYTHON) -m src.cli features --config $(CONFIG)

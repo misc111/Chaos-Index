@@ -5,6 +5,7 @@ from __future__ import annotations
 from argparse import Namespace
 
 from src.common.config import AppConfig
+from src.services import historical_odds_backfill as historical_odds_backfill_service
 from src.services import history_import as history_import_service, ingest, train
 
 
@@ -43,6 +44,22 @@ def import_history(cfg: AppConfig, args: Namespace) -> None:
         cfg,
         history_seasons=getattr(args, "history_seasons", None),
         source_manifest=getattr(args, "source_manifest", None),
+    )
+
+
+def backfill_historical_odds(cfg: AppConfig, args: Namespace) -> None:
+    """Download historical odds bundles into a regenerable manifest-backed cache."""
+
+    result = historical_odds_backfill_service.backfill_historical_odds_cache(
+        cfg,
+        start_date=getattr(args, "start_date", None),
+        end_date=getattr(args, "end_date", None),
+        history_seasons=getattr(args, "history_seasons", None),
+        chunk_days=int(getattr(args, "chunk_days", 30)),
+    )
+    print(
+        f"HISTORICAL_ODDS_CACHE::{result.league}::{result.manifest_path}::{result.chunk_count}::{result.fetched_chunks}::{result.skipped_chunks}",
+        flush=True,
     )
 
 

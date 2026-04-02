@@ -117,6 +117,25 @@ _SOURCE_MANIFEST_ARG = _option(
     help="Optional absolute or config-relative path to the historical import manifest.",
     doc_metavar="PATH",
 )
+_START_DATE_ARG = _option(
+    "--start-date",
+    default=None,
+    help="Optional inclusive start date for historical odds backfill (YYYY-MM-DD).",
+    doc_metavar="DATE",
+)
+_END_DATE_ARG = _option(
+    "--end-date",
+    default=None,
+    help="Optional inclusive end date for historical odds backfill (YYYY-MM-DD).",
+    doc_metavar="DATE",
+)
+_CHUNK_DAYS_ARG = _option(
+    "--chunk-days",
+    type=int,
+    default=30,
+    help="Number of dates per historical odds backfill chunk.",
+    doc_metavar="N",
+)
 _BRIEF_ARG = _option(
     "--brief",
     default=None,
@@ -168,6 +187,15 @@ COMMAND_REGISTRY: tuple[CommandRegistryEntry, ...] = (
         handler_path="src.commands.data:import_history",
         arguments=(_HISTORY_SEASONS_ARG, _SOURCE_MANIFEST_ARG),
         examples=("python3 -m src.cli import-history --config configs/nba.yaml --history-seasons 3",),
+    ),
+    CommandRegistryEntry(
+        name="backfill-historical-odds",
+        summary="Download historical odds bundles into a regenerable manifest-backed cache.",
+        handler_path="src.commands.data:backfill_historical_odds",
+        arguments=(_HISTORY_SEASONS_ARG, _START_DATE_ARG, _END_DATE_ARG, _CHUNK_DAYS_ARG),
+        examples=(
+            "python3 -m src.cli backfill-historical-odds --config configs/nba.yaml --start-date 2025-10-02 --end-date 2026-04-04",
+        ),
     ),
     CommandRegistryEntry(
         name="features",
