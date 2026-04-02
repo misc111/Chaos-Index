@@ -1,9 +1,14 @@
 export const STORED_FORECAST_SOURCE = "stored_prediction_history";
 export const DIAGNOSTIC_FORECAST_SOURCE = "train_oof_history";
+export const WALK_FORWARD_BACKTEST_SOURCE = "walk_forward_backtest";
+export const DIAGNOSTIC_FORECAST_SOURCES = [
+  DIAGNOSTIC_FORECAST_SOURCE,
+  WALK_FORWARD_BACKTEST_SOURCE,
+] as const;
 
 type HistoricalForecastCandidatesSqlOptions = {
   modelName?: string;
-  diagnosticForecastSource?: string;
+  diagnosticForecastSources?: readonly string[];
   storedForecastSource?: string;
 };
 
@@ -31,8 +36,14 @@ export function escapeSqlString(value: string): string {
   return value.replace(/'/g, "''");
 }
 
+export function isDiagnosticForecastSource(value: string | null | undefined): boolean {
+  if (!value) return false;
+  return DIAGNOSTIC_FORECAST_SOURCES.includes(value as (typeof DIAGNOSTIC_FORECAST_SOURCES)[number]);
+}
+
 export function historicalForecastCandidatesUnionSql(options: HistoricalForecastCandidatesSqlOptions = {}): string {
-  const escapedDiagnosticSource = escapeSqlString(options.diagnosticForecastSource ?? DIAGNOSTIC_FORECAST_SOURCE);
+  const diagnosticSources = options.diagnosticForecastSources ?? DIAGNOSTIC_FORECAST_SOURCES;
+  const escapedDiagnosticSources = diagnosticSources.map((source) => `'${escapeSqlString(source)}'`).join(", ");
   const escapedStoredForecastSource = escapeSqlString(options.storedForecastSource ?? STORED_FORECAST_SOURCE);
   const modelFilter = options.modelName ? `AND p.model_name = '${escapeSqlString(options.modelName)}'` : "";
 
@@ -64,7 +75,7 @@ export function historicalForecastCandidatesUnionSql(options: HistoricalForecast
       p.prob_home_win,
       p.model_run_id,
       p.model_name,
-      '${escapedDiagnosticSource}' AS forecast_source,
+      COALESCE(json_extract(p.metadata_json, '$.source'), '${escapeSqlString(DIAGNOSTIC_FORECAST_SOURCE)}') AS forecast_source,
       1 AS source_priority,
       p.diagnostic_id AS row_sort_id,
       p.as_of_utc AS created_at_utc
@@ -72,7 +83,7 @@ export function historicalForecastCandidatesUnionSql(options: HistoricalForecast
     JOIN prediction_diagnostics p
       ON p.game_id = fg.game_id
      ${modelFilter}
-     AND COALESCE(json_extract(p.metadata_json, '$.source'), '') = '${escapedDiagnosticSource}'
+     AND COALESCE(json_extract(p.metadata_json, '$.source'), '') IN (${escapedDiagnosticSources})
      AND DATETIME(p.as_of_utc) <= DATETIME(fg.replay_cutoff_utc)
   `;
 }

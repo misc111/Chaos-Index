@@ -1,8 +1,8 @@
 {
   "league": "NBA",
-  "as_of_utc": "2026-03-10T11:44:16+00:00",
+  "as_of_utc": "2026-03-20T12:55:21+00:00",
   "odds_as_of_utc": "2026-03-30T22:21:03+00:00",
-  "date_central": "2026-03-30",
+  "date_central": "2026-03-31",
   "desk_posture": "guarded",
   "champion": null,
   "strategy_configs": {
@@ -43,5 +43,349 @@
       "description": "Conservative baseline with the shared value screen, a 0.50% per-bet cap, and a 1.50% nightly budget on the reference bankroll."
     }
   },
-  "rows": []
+  "rows": [
+    {
+      "game_id": 401810954,
+      "game_date_utc": "2026-03-31",
+      "start_time_utc": "2026-03-31T23:00Z",
+      "home_team": "ORL",
+      "away_team": "PHX",
+      "home_team_name": "Orlando Magic",
+      "away_team_name": "Phoenix Suns",
+      "home_win_probability": 0.546201360163104,
+      "betting_model_name": "glm_elastic_net",
+      "model_win_probabilities": {
+        "ensemble": 0.6150576734468542,
+        "bayes_bt_state_space": 0.5543083667928577,
+        "bayes_goals": 0.7176,
+        "dynamic_rating": 0.742638109902775,
+        "elo_baseline": 0.5207333524299862,
+        "gbdt": 0.6176310885938117,
+        "glm_elastic_net": 0.546201360163104,
+        "glm_lasso": 0.5477497778796597,
+        "glm_ridge": 0.5415019123509089,
+        "goals_poisson": 0.5498333333333333,
+        "rf": 0.5335148705076087,
+        "simulation_first": 0.5177142857142857,
+        "two_stage": 0.7139572679440199
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 401810955,
+      "game_date_utc": "2026-03-31",
+      "start_time_utc": "2026-03-31T23:30Z",
+      "home_team": "BKN",
+      "away_team": "CHA",
+      "home_team_name": "Brooklyn Nets",
+      "away_team_name": "Charlotte Hornets",
+      "home_win_probability": 0.20612918552771406,
+      "betting_model_name": "glm_elastic_net",
+      "model_win_probabilities": {
+        "ensemble": 0.2296363647493342,
+        "bayes_bt_state_space": 0.31064267702176834,
+        "bayes_goals": 0.3978,
+        "dynamic_rating": 0.07183911204962404,
+        "elo_baseline": 0.29645522739963015,
+        "gbdt": 0.0555050932278759,
+        "glm_elastic_net": 0.20612918552771406,
+        "glm_lasso": 0.19499766332543145,
+        "glm_ridge": 0.20312033095326235,
+        "goals_poisson": 0.2758333333333333,
+        "rf": 0.23690407791132456,
+        "simulation_first": 0.5211428571428571,
+        "two_stage": 0.5040484636952439
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 401810956,
+      "game_date_utc": "2026-04-01",
+      "start_time_utc": "2026-04-01T00:00Z",
+      "home_team": "DET",
+      "away_team": "TOR",
+      "home_team_name": "Detroit Pistons",
+      "away_team_name": "Toronto Raptors",
+      "home_win_probability": 0.7021416731775166,
+      "betting_model_name": "glm_elastic_net",
+      "model_win_probabilities": {
+        "ensemble": 0.6860165646827591,
+        "bayes_bt_state_space": 0.7050576421586895,
+        "bayes_goals": 0.7098,
+        "dynamic_rating": 0.5397108587597073,
+        "elo_baseline": 0.6149006716543608,
+        "gbdt": 0.7739375528294282,
+        "glm_elastic_net": 0.7021416731775166,
+        "glm_lasso": 0.7040653065804626,
+        "glm_ridge": 0.7084240634981247,
+        "goals_poisson": 0.6546666666666667,
+        "rf": 0.5918351636704926,
+        "simulation_first": 0.5091428571428571,
+        "two_stage": 0.8329463506986423
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 401810957,
+      "game_date_utc": "2026-04-01",
+      "start_time_utc": "2026-04-01T00:00Z",
+      "home_team": "HOU",
+      "away_team": "NY",
+      "home_team_name": "Houston Rockets",
+      "away_team_name": "New York Knicks",
+      "home_win_probability": 0.4562136646497215,
+      "betting_model_name": "glm_elastic_net",
+      "model_win_probabilities": {
+        "ensemble": 0.47101950247760666,
+        "bayes_bt_state_space": 0.50808995341123,
+        "bayes_goals": 0.6112,
+        "dynamic_rating": 0.3396037098573799,
+        "elo_baseline": 0.4786424543172849,
+        "gbdt": 0.4269378027187479,
+        "glm_elastic_net": 0.4562136646497215,
+        "glm_lasso": 0.46459047818733507,
+        "glm_ridge": 0.43371626743846214,
+        "goals_poisson": 0.485,
+        "rf": 0.4488950863734711,
+        "simulation_first": 0.5074285714285715,
+        "two_stage": 0.6538624194373304
+      },
+      "moneyline": {
+        "away_price": -112,
+        "home_price": -108,
+        "away_book": "Draft Kings",
+        "home_book": "Draft Kings",
+        "books_count": 1
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -102,
+        "home_price": -118,
+        "away_book": "Draft Kings",
+        "home_book": "Draft Kings",
+        "books_count": 1
+      },
+      "total": {
+        "point": 219.5,
+        "over_price": -110,
+        "under_price": -110,
+        "over_book": "Draft Kings",
+        "under_book": "Draft Kings",
+        "books_count": 1
+      }
+    },
+    {
+      "game_id": 401858694,
+      "game_date_utc": "2026-04-01",
+      "start_time_utc": "2026-04-01T00:00Z",
+      "home_team": "MIL",
+      "away_team": "DAL",
+      "home_team_name": "Milwaukee Bucks",
+      "away_team_name": "Dallas Mavericks",
+      "home_win_probability": 0.6033120411895931,
+      "betting_model_name": "glm_elastic_net",
+      "model_win_probabilities": {
+        "ensemble": 0.6215701347678532,
+        "bayes_bt_state_space": 0.6684594130856144,
+        "bayes_goals": 0.5906,
+        "dynamic_rating": 0.5271107558744291,
+        "elo_baseline": 0.5713618575802181,
+        "gbdt": 0.8805759646741685,
+        "glm_elastic_net": 0.6033120411895931,
+        "glm_lasso": 0.6264653653313688,
+        "glm_ridge": 0.5993898045044287,
+        "goals_poisson": 0.5291666666666667,
+        "rf": 0.652391945535845,
+        "simulation_first": 0.5125714285714286,
+        "two_stage": 0.79693120919844
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 401810958,
+      "game_date_utc": "2026-04-01",
+      "start_time_utc": "2026-04-01T02:30Z",
+      "home_team": "LAL",
+      "away_team": "CLE",
+      "home_team_name": "Los Angeles Lakers",
+      "away_team_name": "Cleveland Cavaliers",
+      "home_win_probability": 0.5782428157466563,
+      "betting_model_name": "glm_elastic_net",
+      "model_win_probabilities": {
+        "ensemble": 0.5812352812697873,
+        "bayes_bt_state_space": 0.5939022987830751,
+        "bayes_goals": 0.5652,
+        "dynamic_rating": 0.7612521111958404,
+        "elo_baseline": 0.5316367345648468,
+        "gbdt": 0.4315941037870766,
+        "glm_elastic_net": 0.5782428157466563,
+        "glm_lasso": 0.5771427877050539,
+        "glm_ridge": 0.5787630347714385,
+        "goals_poisson": 0.4805,
+        "rf": 0.5816395581256782,
+        "simulation_first": 0.5274285714285715,
+        "two_stage": 0.7509832387163904
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 401810959,
+      "game_date_utc": "2026-04-01",
+      "start_time_utc": "2026-04-01T03:00Z",
+      "home_team": "LAC",
+      "away_team": "POR",
+      "home_team_name": "LA Clippers",
+      "away_team_name": "Portland Trail Blazers",
+      "home_win_probability": 0.6074016224301593,
+      "betting_model_name": "glm_elastic_net",
+      "model_win_probabilities": {
+        "ensemble": 0.6134978761674919,
+        "bayes_bt_state_space": 0.64957052711673,
+        "bayes_goals": 0.5848,
+        "dynamic_rating": 0.5424511814675983,
+        "elo_baseline": 0.5496214607466174,
+        "gbdt": 0.6673797040673872,
+        "glm_elastic_net": 0.6074016224301593,
+        "glm_lasso": 0.6060308419394546,
+        "glm_ridge": 0.6132046879549221,
+        "goals_poisson": 0.623,
+        "rf": 0.5457336283348116,
+        "simulation_first": 0.5127142857142857,
+        "two_stage": 0.7146019804057898
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    }
+  ]
 }

@@ -28,13 +28,13 @@ import type {
 import { runSqlJson } from "@/lib/db";
 import type { LeagueCode } from "@/lib/league";
 import {
-  DIAGNOSTIC_FORECAST_SOURCE,
   STORED_FORECAST_SOURCE,
   escapeSqlString,
   historicalForecastCandidatesUnionSql,
   historicalFinalizedGamesCteSql,
   historicalMoneylineSql,
   historicalReplayOddsSelectionSql,
+  isDiagnosticForecastSource,
 } from "@/lib/server/services/replay-data";
 import { getPreferredBettingModelName } from "@/lib/server/services/betting-driver";
 import {
@@ -506,7 +506,7 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
     if (forecastAsOf) gamesWithForecast += 1;
     if (oddsSnapshotId) gamesWithOdds += 1;
     if (forecastAsOf && forecastSource === STORED_FORECAST_SOURCE) storedForecastGames += 1;
-    if (forecastAsOf && forecastSource === DIAGNOSTIC_FORECAST_SOURCE) diagnosticForecastGames += 1;
+    if (forecastAsOf && isDiagnosticForecastSource(forecastSource)) diagnosticForecastGames += 1;
 
     if (gameId === null || !forecastAsOf || !oddsSnapshotId || !oddsAsOf || !homeTeam || !awayTeam || !dateCentral) {
       continue;

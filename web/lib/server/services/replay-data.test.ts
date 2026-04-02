@@ -3,6 +3,7 @@ import test from "node:test";
 
 import {
   DIAGNOSTIC_FORECAST_SOURCE,
+  WALK_FORWARD_BACKTEST_SOURCE,
   STORED_FORECAST_SOURCE,
   effectiveReplayOddsAsOfSql,
   historicalForecastCandidatesUnionSql,
@@ -15,6 +16,7 @@ test("historicalForecastCandidatesUnionSql preserves source names and escapes mo
   const sql = historicalForecastCandidatesUnionSql({ modelName: "glm_o'hare" });
   assert.ok(sql.includes(STORED_FORECAST_SOURCE));
   assert.ok(sql.includes(DIAGNOSTIC_FORECAST_SOURCE));
+  assert.ok(sql.includes(WALK_FORWARD_BACKTEST_SOURCE));
   assert.ok(sql.includes("AND p.model_name = 'glm_o''hare'"));
 });
 

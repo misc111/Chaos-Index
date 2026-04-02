@@ -1,8 +1,8 @@
 {
   "league": "NHL",
-  "as_of_utc": "2026-03-10T11:40:08+00:00",
+  "as_of_utc": "2026-03-20T12:51:44+00:00",
   "odds_as_of_utc": "2026-03-30T15:00:00+00:00",
-  "date_central": "2026-03-30",
+  "date_central": "2026-03-31",
   "desk_posture": "normal",
   "champion": null,
   "strategy_configs": {
@@ -43,5 +43,496 @@
       "description": "Conservative baseline with the shared value screen, a 0.75% per-bet cap, and a 2.50% nightly budget on the reference bankroll."
     }
   },
-  "rows": []
+  "rows": [
+    {
+      "game_id": 2025021178,
+      "game_date_utc": "2026-03-31",
+      "start_time_utc": "2026-03-31T23:00:00Z",
+      "home_team": "BOS",
+      "away_team": "DAL",
+      "home_team_name": "Boston Bruins",
+      "away_team_name": "Dallas Stars",
+      "home_win_probability": 0.47113626899454625,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.47113626899454625,
+        "bayes_bt_state_space": 0.4605123044004085,
+        "bayes_goals": 0.5148,
+        "dynamic_rating": 0.28440656757833405,
+        "elo_baseline": 0.45194791403147416,
+        "gbdt": 0.4341297658983092,
+        "glm_elastic_net": 0.47548710585996473,
+        "glm_lasso": 0.49446693244719553,
+        "glm_ridge": 0.5028616669179753,
+        "goals_poisson": 0.4465,
+        "rf": 0.4474752629315582,
+        "simulation_first": 0.4785714285714286,
+        "two_stage": 0.35344099769886106
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 2025021179,
+      "game_date_utc": "2026-03-31",
+      "start_time_utc": "2026-03-31T23:00:00Z",
+      "home_team": "BUF",
+      "away_team": "NYI",
+      "home_team_name": "Buffalo Sabres",
+      "away_team_name": "New York Islanders",
+      "home_win_probability": 0.6083751818814322,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.6083751818814322,
+        "bayes_bt_state_space": 0.5891992346768332,
+        "bayes_goals": 0.6092,
+        "dynamic_rating": 0.7737067953521949,
+        "elo_baseline": 0.6046469020219559,
+        "gbdt": 0.7090609590379522,
+        "glm_elastic_net": 0.5865376249578769,
+        "glm_lasso": 0.592973584785084,
+        "glm_ridge": 0.5998076843014035,
+        "goals_poisson": 0.5805,
+        "rf": 0.5106132356277479,
+        "simulation_first": 0.6558571428571428,
+        "two_stage": 0.5124383983191022
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 2025021180,
+      "game_date_utc": "2026-03-31",
+      "start_time_utc": "2026-03-31T23:00:00Z",
+      "home_team": "TBL",
+      "away_team": "MTL",
+      "home_team_name": "Tampa Bay Lightning",
+      "away_team_name": "Montréal Canadiens",
+      "home_win_probability": 0.5785518728808735,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.5785518728808735,
+        "bayes_bt_state_space": 0.5385534076458978,
+        "bayes_goals": 0.554,
+        "dynamic_rating": 0.6475257382006655,
+        "elo_baseline": 0.5914332383381727,
+        "gbdt": 0.3554484576053143,
+        "glm_elastic_net": 0.5836333793194741,
+        "glm_lasso": 0.5802583741013775,
+        "glm_ridge": 0.5792956316607321,
+        "goals_poisson": 0.6081666666666666,
+        "rf": 0.48199809111722336,
+        "simulation_first": 0.6097142857142858,
+        "two_stage": 0.49426479338954993
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 2025021181,
+      "game_date_utc": "2026-03-31",
+      "start_time_utc": "2026-03-31T23:00:00Z",
+      "home_team": "FLA",
+      "away_team": "OTT",
+      "home_team_name": "Florida Panthers",
+      "away_team_name": "Ottawa Senators",
+      "home_win_probability": 0.48548388384035174,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.48548388384035174,
+        "bayes_bt_state_space": 0.5430028476555392,
+        "bayes_goals": 0.4858,
+        "dynamic_rating": 0.37319193530737094,
+        "elo_baseline": 0.4848812733683389,
+        "gbdt": 0.09565411207384664,
+        "glm_elastic_net": 0.5201500707414158,
+        "glm_lasso": 0.5269444165525887,
+        "glm_ridge": 0.5401580212292604,
+        "goals_poisson": 0.4488333333333333,
+        "rf": 0.4412629715806432,
+        "simulation_first": 0.43142857142857144,
+        "two_stage": 0.34828844933238784
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 2025021182,
+      "game_date_utc": "2026-03-31",
+      "start_time_utc": "2026-03-31T23:00:00Z",
+      "home_team": "NYR",
+      "away_team": "NJD",
+      "home_team_name": "New York Rangers",
+      "away_team_name": "New Jersey Devils",
+      "home_win_probability": 0.4322536949248028,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.4322536949248028,
+        "bayes_bt_state_space": 0.4760262934798589,
+        "bayes_goals": 0.5446,
+        "dynamic_rating": 0.37033674922616777,
+        "elo_baseline": 0.46184775377116893,
+        "gbdt": 0.08600789935590739,
+        "glm_elastic_net": 0.4219482241020272,
+        "glm_lasso": 0.3942803140719109,
+        "glm_ridge": 0.3734862988818332,
+        "goals_poisson": 0.4945,
+        "rf": 0.3795494793599924,
+        "simulation_first": 0.3931428571428571,
+        "two_stage": 0.24838851874725065
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 2025021183,
+      "game_date_utc": "2026-03-31",
+      "start_time_utc": "2026-03-31T23:00:00Z",
+      "home_team": "PIT",
+      "away_team": "DET",
+      "home_team_name": "Pittsburgh Penguins",
+      "away_team_name": "Detroit Red Wings",
+      "home_win_probability": 0.5380768843785049,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.5380768843785049,
+        "bayes_bt_state_space": 0.533416501066466,
+        "bayes_goals": 0.6128,
+        "dynamic_rating": 0.5352229365547367,
+        "elo_baseline": 0.5102515539924847,
+        "gbdt": 0.5114631876733307,
+        "glm_elastic_net": 0.5325058763735467,
+        "glm_lasso": 0.5226595872396287,
+        "glm_ridge": 0.5171854639311639,
+        "goals_poisson": 0.5561666666666667,
+        "rf": 0.47787219694936334,
+        "simulation_first": 0.51,
+        "two_stage": 0.468341179936453
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 2025021184,
+      "game_date_utc": "2026-03-31",
+      "start_time_utc": "2026-03-31T23:00:00Z",
+      "home_team": "WSH",
+      "away_team": "PHI",
+      "home_team_name": "Washington Capitals",
+      "away_team_name": "Philadelphia Flyers",
+      "home_win_probability": 0.544824271119867,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.544824271119867,
+        "bayes_bt_state_space": 0.5629000228932505,
+        "bayes_goals": 0.5678,
+        "dynamic_rating": 0.43952641713549045,
+        "elo_baseline": 0.541742725788215,
+        "gbdt": 0.35686589313604294,
+        "glm_elastic_net": 0.5539754374828854,
+        "glm_lasso": 0.5590256931916542,
+        "glm_ridge": 0.5732555779167506,
+        "goals_poisson": 0.576,
+        "rf": 0.4610305447777855,
+        "simulation_first": 0.5265714285714286,
+        "two_stage": 0.4910190050203961
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 2025021185,
+      "game_date_utc": "2026-03-31",
+      "start_time_utc": "2026-03-31T23:30:00Z",
+      "home_team": "CBJ",
+      "away_team": "CAR",
+      "home_team_name": "Columbus Blue Jackets",
+      "away_team_name": "Carolina Hurricanes",
+      "home_win_probability": 0.49805769865617894,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.49805769865617894,
+        "bayes_bt_state_space": 0.5085710145829825,
+        "bayes_goals": 0.482,
+        "dynamic_rating": 0.5816701391885045,
+        "elo_baseline": 0.4796080783396242,
+        "gbdt": 0.14725036651175946,
+        "glm_elastic_net": 0.49524325901283095,
+        "glm_lasso": 0.4839825939038564,
+        "glm_ridge": 0.47468605201666286,
+        "goals_poisson": 0.45916666666666667,
+        "rf": 0.4424084246632808,
+        "simulation_first": 0.6242857142857143,
+        "two_stage": 0.39449353780160595
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 2025021186,
+      "game_date_utc": "2026-03-31",
+      "start_time_utc": "2026-04-01T00:30:00Z",
+      "home_team": "CHI",
+      "away_team": "WPG",
+      "home_team_name": "Chicago Blackhawks",
+      "away_team_name": "Winnipeg Jets",
+      "home_win_probability": 0.4764582307705431,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.4764582307705431,
+        "bayes_bt_state_space": 0.4722069868745259,
+        "bayes_goals": 0.5004,
+        "dynamic_rating": 0.5287230262643419,
+        "elo_baseline": 0.504335954797699,
+        "gbdt": 0.2915426239818085,
+        "glm_elastic_net": 0.4643566201762584,
+        "glm_lasso": 0.44314609747661804,
+        "glm_ridge": 0.43110772395297814,
+        "goals_poisson": 0.48066666666666663,
+        "rf": 0.40714703289336346,
+        "simulation_first": 0.5567142857142857,
+        "two_stage": 0.3729561339589937
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    },
+    {
+      "game_id": 2025021187,
+      "game_date_utc": "2026-03-31",
+      "start_time_utc": "2026-04-01T01:00:00Z",
+      "home_team": "EDM",
+      "away_team": "SEA",
+      "home_team_name": "Edmonton Oilers",
+      "away_team_name": "Seattle Kraken",
+      "home_win_probability": 0.6133812905154901,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.6133812905154901,
+        "bayes_bt_state_space": 0.6894762882459181,
+        "bayes_goals": 0.613,
+        "dynamic_rating": 0.6673136632652817,
+        "elo_baseline": 0.548312511203762,
+        "gbdt": 0.7837904892572284,
+        "glm_elastic_net": 0.6638881342112523,
+        "glm_lasso": 0.6709780577681201,
+        "glm_ridge": 0.6744907427664989,
+        "goals_poisson": 0.548,
+        "rf": 0.5236787138578507,
+        "simulation_first": 0.5228571428571429,
+        "two_stage": 0.682745968783123
+      },
+      "moneyline": {
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "spread": {
+        "point": null,
+        "away_price": null,
+        "home_price": null,
+        "away_book": null,
+        "home_book": null,
+        "books_count": 0
+      },
+      "total": {
+        "point": null,
+        "over_price": null,
+        "under_price": null,
+        "over_book": null,
+        "under_book": null,
+        "books_count": 0
+      }
+    }
+  ]
 }
