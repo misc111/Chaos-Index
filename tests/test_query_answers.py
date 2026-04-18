@@ -6,10 +6,14 @@ from src.query.answer import answer_question
 from src.storage.db import Database
 
 
+def _iso_utc(dt: datetime) -> str:
+    return dt.replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
 
 def test_query_answers(tmp_path: Path):
     db = Database(str(tmp_path / "q.db"))
     db.init_schema()
+    recent_model_as_of = datetime.now(timezone.utc) - timedelta(days=7)
 
     db.executemany(
         """
@@ -41,8 +45,32 @@ def test_query_answers(tmp_path: Path):
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         [
-            (1, "glm_ridge", "r1", "2026-02-01T00:00:00Z", "2026-02-02", 0.6, 1, 0.51, 0.16, 1, "2026-02-03T00:00:00Z"),
-            (2, "rf", "r2", "2026-02-01T00:00:00Z", "2026-02-03", 0.4, 0, 0.55, 0.18, 1, "2026-02-04T00:00:00Z"),
+            (
+                1,
+                "glm_ridge",
+                "r1",
+                _iso_utc(recent_model_as_of),
+                (recent_model_as_of + timedelta(days=1)).date().isoformat(),
+                0.6,
+                1,
+                0.51,
+                0.16,
+                1,
+                _iso_utc(recent_model_as_of + timedelta(days=2)),
+            ),
+            (
+                2,
+                "rf",
+                "r2",
+                _iso_utc(recent_model_as_of),
+                (recent_model_as_of + timedelta(days=2)).date().isoformat(),
+                0.4,
+                0,
+                0.55,
+                0.18,
+                1,
+                _iso_utc(recent_model_as_of + timedelta(days=3)),
+            ),
         ],
     )
 
