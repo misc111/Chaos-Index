@@ -167,7 +167,7 @@ COMMAND_REGISTRY: tuple[CommandRegistryEntry, ...] = (
         name="fetch",
         summary="Fetch league data, persist snapshots, and ingest results.",
         handler_path="src.commands.data:fetch",
-        examples=("make fetch", "make fetch CONFIG=configs/ncaam.yaml"),
+        examples=("make fetch", "make fetch CONFIG=configs/nba.yaml"),
     ),
     CommandRegistryEntry(
         name="refresh-data",
@@ -201,7 +201,7 @@ COMMAND_REGISTRY: tuple[CommandRegistryEntry, ...] = (
         name="features",
         summary="Build processed feature tables from the current interim snapshot.",
         handler_path="src.commands.data:features",
-        examples=("make features", "make features CONFIG=configs/ncaam.yaml"),
+        examples=("make features", "make features CONFIG=configs/nba.yaml"),
     ),
     CommandRegistryEntry(
         name="research-features",
@@ -257,7 +257,7 @@ COMMAND_REGISTRY: tuple[CommandRegistryEntry, ...] = (
         summary="Run the walk-forward backtest and scoring pipeline.",
         handler_path="src.commands.modeling:backtest",
         arguments=(_MODELS_ARG, _APPROVE_FEATURE_CHANGES_ARG),
-        examples=("make backtest", "make backtest CONFIG=configs/ncaam.yaml MODELS=glm_ridge"),
+        examples=("make backtest", "make backtest CONFIG=configs/nba.yaml MODELS=glm_ridge"),
     ),
     CommandRegistryEntry(
         name="research-backtest",

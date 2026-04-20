@@ -70,6 +70,11 @@ test("NBA long-shot guardrail blocks extreme underdogs while NHL keeps baseline 
   assert.ok(nhlDecision.stake > 0);
 });
 
+test("supported leagues only expose NHL and NBA defaults", () => {
+  assert.equal(getDefaultBetStrategyForLeague("NHL"), "riskAdjusted");
+  assert.equal(getDefaultBetStrategyForLeague("NBA"), "capitalPreservation");
+});
+
 test("guarded risk regime throttles NBA stakes and does not alter NHL stakes", () => {
   const nbaRow = {
     league: "NBA" as const,
@@ -210,7 +215,6 @@ test("NBA strategy defaults are tighter than the shared fallback", () => {
 test("league-aware default strategy shifts NBA to conservative while leaving NHL unchanged", () => {
   assert.equal(getDefaultBetStrategyForLeague("NBA"), "capitalPreservation");
   assert.equal(getDefaultBetStrategyForLeague("NHL"), "riskAdjusted");
-  assert.equal(getDefaultBetStrategyForLeague("NCAAM"), "riskAdjusted");
 });
 
 test("explainBetDecision exposes raw and adjusted sizing steps for a bet", () => {

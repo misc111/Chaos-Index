@@ -49,7 +49,7 @@ function championPolicyValue(policy: TableRow | null | undefined, key: string): 
 
 function buildResearchDeskUrl(league: string): string {
   if (!STATIC_STAGING) {
-    return withLeague("/api/research-desk", league as "NBA" | "NHL" | "NCAAM");
+    return withLeague("/api/research-desk", league as "NBA" | "NHL");
   }
 
   const path = `${BASE_PATH}/staging-data/${league.toLowerCase()}/research-desk.json`;

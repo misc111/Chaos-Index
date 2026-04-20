@@ -2,8 +2,7 @@
 
 export const ALL_LEAGUES = [
   "NHL",
-  "NBA",
-  "NCAAM"
+  "NBA"
 ] as const;
 export type LeagueCode = typeof ALL_LEAGUES[number];
 
@@ -24,9 +23,7 @@ export type LeagueRuntimeEntry = {
 
 export const LEAGUE_ALIASES: Record<string, LeagueCode> = {
   "NHL": "NHL",
-  "NBA": "NBA",
-  "NCAAM": "NCAAM",
-  "NCAA": "NCAAM"
+  "NBA": "NBA"
 };
 export const LEAGUE_RUNTIME: Record<LeagueCode, LeagueRuntimeEntry> = {
   NHL: {
@@ -56,22 +53,6 @@ export const LEAGUE_RUNTIME: Record<LeagueCode, LeagueRuntimeEntry> = {
     championshipProbabilityKey: "nba_finals_prob",
     uncertaintyPolicyName: "nba_availability_market",
     aliases: []
-  },
-  NCAAM: {
-    code: "NCAAM",
-    slug: "ncaam",
-    displayLabel: "NCAA",
-    defaultConfigPath: "configs/ncaam.yaml",
-    configEnvVar: "NCAAM_CONFIG_PATH",
-    projectName: "ncaam_forecast",
-    dbPath: "data/processed/ncaam_forecast.db",
-    dbEnvVar: "NCAAM_DB_PATH",
-    championshipName: "NCAA Tournament",
-    championshipProbabilityKey: "ncaa_tournament_prob",
-    uncertaintyPolicyName: "ncaam_rotation_market",
-    aliases: [
-      "NCAA"
-    ]
   }
 };
 

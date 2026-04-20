@@ -37,6 +37,17 @@ def resolve_model_feature_map_path(path_template: str, league: str) -> Path:
     return Path(rendered)
 
 
+def default_model_feature_map_json_template(path_template: str) -> str:
+    rendered = str(path_template or MODEL_FEATURE_MAP_PATH_TEMPLATE)
+    if rendered == MODEL_FEATURE_MAP_PATH_TEMPLATE:
+        return MODEL_FEATURE_MAP_JSON_TEMPLATE
+    if rendered.endswith(".yaml"):
+        return f"{rendered[:-5]}.json"
+    if rendered.endswith(".yml"):
+        return f"{rendered[:-4]}.json"
+    return f"{rendered}.json"
+
+
 def export_model_feature_map_json(
     league: str,
     model_features: dict[str, list[str]],
@@ -119,6 +130,7 @@ def save_model_feature_map(
     registry_path = resolve_model_feature_map_path(path_template, league=league_code)
     registry_path.parent.mkdir(parents=True, exist_ok=True)
     guardrails_template = guardrails_path_template or default_guardrails_path_template(path_template)
+    json_path_template = default_model_feature_map_json_template(path_template)
     sanitized_model_features = {
         model_name: apply_model_feature_guardrails(
             list(features),
@@ -141,7 +153,7 @@ def save_model_feature_map(
         },
     }
     registry_path.write_text(yaml.safe_dump(payload, sort_keys=False))
-    export_model_feature_map_json(league_code, sanitized_model_features)
+    export_model_feature_map_json(league_code, sanitized_model_features, path_template=json_path_template)
     return registry_path
 
 
@@ -163,7 +175,7 @@ def _eligible_features_for_model(model_name: str, feature_columns: list[str], le
     league_code = str(league or "NHL").strip().upper()
     cols = [str(c) for c in feature_columns]
 
-    if league_code in {"NBA", "NCAAM"}:
+    if league_code == "NBA":
         glm_pool = [
             c
             for c in cols

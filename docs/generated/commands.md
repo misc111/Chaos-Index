@@ -18,7 +18,7 @@ Fetch league data, persist snapshots, and ingest results.
 - Default config: `configs/nba.yaml`
 - Examples:
   - `make fetch`
-  - `make fetch CONFIG=configs/ncaam.yaml`
+  - `make fetch CONFIG=configs/nba.yaml`
 
 ## `refresh-data`
 
@@ -68,7 +68,7 @@ Build processed feature tables from the current interim snapshot.
 - Default config: `configs/nba.yaml`
 - Examples:
   - `make features`
-  - `make features CONFIG=configs/ncaam.yaml`
+  - `make features CONFIG=configs/nba.yaml`
 
 ## `research-features`
 
@@ -138,7 +138,7 @@ Run the walk-forward backtest and scoring pipeline.
   - `--approve-feature-changes`: Explicitly accept and persist model feature-contract changes.
 - Examples:
   - `make backtest`
-  - `make backtest CONFIG=configs/ncaam.yaml MODELS=glm_ridge`
+  - `make backtest CONFIG=configs/nba.yaml MODELS=glm_ridge`
 
 ## `research-backtest`
 

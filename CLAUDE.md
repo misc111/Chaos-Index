@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-NHL/NBA/NCAAM home-win probability forecasting system with a daily pipeline (`fetch → features → train → predict → ingest results → score → aggregates → artifacts`), walk-forward backtesting, prequential scoring, and a Next.js dashboard deployed as a static GitHub Pages site via committed JSON snapshots.
+NHL/NBA home-win probability forecasting system with a daily pipeline (`fetch → features → train → predict → ingest results → score → aggregates → artifacts`), walk-forward backtesting, prequential scoring, and a Next.js dashboard deployed as a static GitHub Pages site via committed JSON snapshots.
 
 ## Commands
 
@@ -71,8 +71,8 @@ Dashboard code changes that affect the shipped staging experience require regene
 | Package | Role |
 |---------|------|
 | `cli.py` | Typer-style CLI entry; `commands/` dispatches to handlers |
-| `league_registry.py` | `LeagueAdapter` — unified interface for NHL/NBA/NCAAM config, fetchers, feature builders |
-| `data_sources/{nhl,nba,ncaam}/` | League-specific HTTP clients (NHLE, ESPN APIs) |
+| `league_registry.py` | `LeagueAdapter` — unified interface for NHL/NBA config, fetchers, feature builders |
+| `data_sources/{nhl,nba}/` | League-specific HTTP clients (NHLE, ESPN APIs) |
 | `features/` | Feature engineering with leakage checks and guardrails |
 | `models/` | GLM (ridge/lasso/elastic/vanilla), RF, GBDT, NN, Bayesian state-space |
 | `training/` | Fit/predict runners, ensemble builders (weighted avg + stacking), feature selection, CV |
@@ -85,7 +85,7 @@ Dashboard code changes that affect the shipped staging experience require regene
 
 ### Configuration (`configs/`)
 
-YAML inheritance: `default.yaml` → league-specific `nhl.yaml` / `nba.yaml` / `ncaam.yaml`. Key config sections: `project`, `paths`, `data`, `modeling`, `validation_split`, `bayes`, `runtime`, `feature_policy`.
+YAML inheritance: `default.yaml` → league-specific `nhl.yaml` / `nba.yaml`. Key config sections: `project`, `paths`, `data`, `modeling`, `validation_split`, `bayes`, `runtime`, `feature_policy`.
 
 Per-league feature contracts:
 - `model_feature_map_{league}.yaml` — per-model feature subsets
@@ -125,11 +125,11 @@ SQLite with key tables: `games`, `results`, `predictions` (immutable pregame led
 
 ### Cross-league parity
 
-If a bug is found in one league, investigate the same failure mode in all supported leagues (NHL, NBA, NCAAM) before closing. Fix shared or league-specific paths as appropriate and regenerate affected staging snapshots.
+If a bug is found in one league, investigate the same failure mode in all supported leagues (NHL and NBA) before closing. Fix shared or league-specific paths as appropriate and regenerate affected staging snapshots.
 
 ### Hard refresh protocol
 
-`make hard_refresh` runs a deterministic sequential pipeline: init-db → fetch → fetch-odds → train for each league (NHL → NBA → NCAAM), then generates staging snapshots, commits, pushes, and watches the workflow. Must be fail-fast, no parallelization, no step reordering.
+`make hard_refresh` runs a deterministic sequential pipeline: init-db → fetch → fetch-odds → train for each league (NHL → NBA), then generates staging snapshots, commits, pushes, and watches the workflow. Must be fail-fast, no parallelization, no step reordering.
 
 ### Data refresh protocol
 

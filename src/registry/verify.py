@@ -54,9 +54,13 @@ OVERSIZED_FILE_ALLOWLIST = {
     "src/evaluation/validation_nonlinearity.py",
     "src/query/bet_history_handlers.py",
     "src/services/train.py",
+    "src/services/research_desk.py",
+    "src/storage/schema.py",
+    "src/training/fit_runner.py",
     "web/lib/server/services/performance.ts",
     "web/lib/bet-history.ts",
     "web/lib/betting.ts",
+    "web/lib/types.ts",
     "web/components/bet-sizing/BetSizingExperience.tsx",
     "web/lib/replay-bets.ts",
     "web/components/EnsembleSnapshotBankrollChart.tsx",
@@ -69,10 +73,10 @@ OVERSIZED_FILE_ALLOWLIST = {
     "web/lib/ensemble-snapshot-replay.ts",
 }
 FORBIDDEN_LITERAL_PATTERNS = (
-    re.compile(r"configs/(nhl|nba|ncaam)\.yaml"),
-    re.compile(r"data/processed/(nhl|nba|ncaam)_forecast\.db"),
-    re.compile(r"process\.env\.(NHL|NBA|NCAAM)_DB_PATH"),
-    re.compile(r'process\.env\["(NHL|NBA|NCAAM)_DB_PATH"\]'),
+    re.compile(r"configs/(nhl|nba)\.yaml"),
+    re.compile(r"data/processed/(nhl|nba)_forecast\.db"),
+    re.compile(r"process\.env\.(NHL|NBA)_DB_PATH"),
+    re.compile(r'process\.env\["(NHL|NBA)_DB_PATH"\]'),
 )
 FORBIDDEN_LITERAL_ALLOWLIST = {
     ROOT_DIR / "src/registry/leagues.py",

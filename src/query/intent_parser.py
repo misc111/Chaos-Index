@@ -83,26 +83,20 @@ def parse_next_games_count(question: str) -> int | None:
 
 def explicit_league_hint(question: str) -> str | None:
     normalized = normalize_question(question)
-
-    ncaam_signals = bool(
-        re.search(r"\bncaam\b", normalized)
-        or "ncaa tournament" in normalized
-        or "march madness" in normalized
-        or "college basketball" in normalized
+    college_basketball_signals = bool(
+        "college basketball" in normalized
         or "mens college basketball" in normalized
         or "men s college basketball" in normalized
     )
     nba_signals = bool(
         re.search(r"\bnba\b", normalized)
-        or ("basketball" in normalized and not ncaam_signals)
+        or ("basketball" in normalized and not college_basketball_signals)
         or "nba finals" in normalized
         or "larry o brien" in normalized
         or "larry obrien" in normalized
     )
     nhl_signals = bool(re.search(r"\bnhl\b", normalized) or "hockey" in normalized or "stanley cup" in normalized)
 
-    if ncaam_signals and not nba_signals and not nhl_signals:
-        return "NCAAM"
     if nba_signals and not nhl_signals:
         return "NBA"
     if nhl_signals and not nba_signals:
@@ -185,8 +179,6 @@ def competition_for_question(
         return "NHL", "Stanley Cup"
     if "nba finals" in normalized or "larry o brien" in normalized or "larry obrien" in normalized:
         return "NBA", "NBA Finals"
-    if "march madness" in normalized or "ncaa tournament" in normalized or "national championship" in normalized:
-        return "NCAAM", "NCAA Tournament"
 
     championship_signals = [
         "win the cup",
@@ -203,8 +195,6 @@ def competition_for_question(
         league = team_league or explicit_league_hint(question) or canonical_league(default_league) or "NBA"
         if league == "NBA":
             return "NBA", "NBA Finals"
-        if league == "NCAAM":
-            return "NCAAM", "NCAA Tournament"
         return "NHL", "Stanley Cup"
 
     return None, None

@@ -36,7 +36,6 @@ def run(cfg: AppConfig, args: Namespace) -> None:
     question_by_league = {
         "NHL": "What's the chance the Leafs win the next game?",
         "NBA": "What's the chance the Raptors win the next game?",
-        "NCAAM": "What's the chance Duke wins the next game?",
     }
     questions = [
         question_by_league.get(league, "What's the chance the Raptors win the next game?"),

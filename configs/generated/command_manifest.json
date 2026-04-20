@@ -22,7 +22,7 @@
       "arguments": [],
       "examples": [
         "make fetch",
-        "make fetch CONFIG=configs/ncaam.yaml"
+        "make fetch CONFIG=configs/nba.yaml"
       ]
     },
     {
@@ -130,7 +130,7 @@
       "arguments": [],
       "examples": [
         "make features",
-        "make features CONFIG=configs/ncaam.yaml"
+        "make features CONFIG=configs/nba.yaml"
       ]
     },
     {
@@ -402,7 +402,7 @@
       ],
       "examples": [
         "make backtest",
-        "make backtest CONFIG=configs/ncaam.yaml MODELS=glm_ridge"
+        "make backtest CONFIG=configs/nba.yaml MODELS=glm_ridge"
       ]
     },
     {

@@ -38,20 +38,6 @@ LEAGUE_REGISTRY: tuple[LeagueRegistryEntry, ...] = (
         championship_probability_key="nba_finals_prob",
         uncertainty_policy_name="nba_availability_market",
     ),
-    LeagueRegistryEntry(
-        code="NCAAM",
-        slug="ncaam",
-        display_label="NCAA",
-        default_config_path="configs/ncaam.yaml",
-        config_env_var="NCAAM_CONFIG_PATH",
-        project_name="ncaam_forecast",
-        db_path="data/processed/ncaam_forecast.db",
-        db_env_var="NCAAM_DB_PATH",
-        championship_name="NCAA Tournament",
-        championship_probability_key="ncaa_tournament_prob",
-        uncertainty_policy_name="ncaam_rotation_market",
-        aliases=("NCAA",),
-    ),
 )
 
 _LEAGUE_BY_CODE = {entry.code: entry for entry in LEAGUE_REGISTRY}

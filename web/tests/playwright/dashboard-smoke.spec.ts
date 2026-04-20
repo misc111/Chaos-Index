@@ -1,11 +1,11 @@
 import { expect, test, type Page } from "@playwright/test";
 
-type LeagueCode = "NBA" | "NHL" | "NCAAM";
+type LeagueCode = "NBA" | "NHL";
 
-const LEAGUES: readonly LeagueCode[] = ["NBA", "NHL", "NCAAM"];
+const LEAGUES: readonly LeagueCode[] = ["NBA", "NHL"];
 
 function displayLeagueLabel(league: LeagueCode): string {
-  return league === "NCAAM" ? "NCAA" : league;
+  return league;
 }
 
 type RouteExpectation = {

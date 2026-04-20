@@ -53,10 +53,6 @@ ESPN_ENDPOINTS = {
         "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard",
         "summary": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary",
     },
-    "NCAAM": {
-        "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard",
-        "summary": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary",
-    },
     "NHL": {
         "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard",
         "summary": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary",
@@ -90,30 +86,6 @@ NHL_NAME_ALIASES = {
     "tampa bay lightning": "TBL",
     "vegas golden knights": "VGK",
 }
-
-NCAAM_NAME_ALIASES = {
-    "uconn": "UCONN",
-    "uconn huskies": "UCONN",
-    "connecticut": "CONN",
-    "connecticut huskies": "CONN",
-    "unc": "UNC",
-    "north carolina": "UNC",
-    "north carolina tar heels": "UNC",
-    "ole miss": "MISS",
-    "saint johns": "SJU",
-    "st johns": "SJU",
-    "saint johns red storm": "SJU",
-    "st johns red storm": "SJU",
-    "byu": "BYU",
-    "lsu": "LSU",
-    "smu": "SMU",
-    "tcu": "TCU",
-    "ucf": "UCF",
-    "ucla": "UCLA",
-    "usc": "USC",
-    "utah state": "USU",
-}
-
 
 def _normalize_text(value: Any) -> str:
     text = str(value or "").strip()
@@ -206,9 +178,9 @@ def _team_aliases_for_league(league: str) -> dict[str, str]:
     league_code = str(league or "").upper()
     if league_code == "NBA":
         return NBA_NAME_ALIASES
-    if league_code == "NCAAM":
-        return NCAAM_NAME_ALIASES
-    return NHL_NAME_ALIASES
+    if league_code == "NHL":
+        return NHL_NAME_ALIASES
+    raise ValueError(f"Unsupported league '{league}'. Expected one of: NHL, NBA.")
 
 
 def _build_team_name_map(teams_df: pd.DataFrame | None) -> dict[str, str]:
@@ -619,6 +591,8 @@ def _fetch_public_odds_for_date_keys(
 ) -> SourceFetchResult:
     as_of_utc = utc_now_iso()
     normalized_league = str(league or "").upper()
+    if normalized_league not in ESPN_ENDPOINTS:
+        raise ValueError(f"Unsupported league '{league}'. Expected one of: NHL, NBA.")
     endpoints = ESPN_ENDPOINTS[normalized_league]
     normalized_date_keys = [str(date_key).strip() for date_key in date_keys if str(date_key).strip()]
     if not normalized_date_keys:

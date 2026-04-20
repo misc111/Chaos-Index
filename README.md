@@ -1,6 +1,6 @@
-# NHL + NBA + NCAAM Probabilistic Forecasting System
+# NHL + NBA Probabilistic Forecasting System
 
-Production-grade NHL/NBA/NCAAM home-win probability forecasting with:
+Production-grade NHL/NBA home-win probability forecasting with:
 - daily pipeline (`fetch -> features -> train/update -> predict -> ingest results -> score -> aggregates -> artifacts`)
 - walk-forward backtesting and prequential scoring
 - model calibration/diagnostics/validation artifacts
@@ -63,7 +63,6 @@ make fetch
 ```
 ```bash
 make fetch CONFIG=configs/nba.yaml
-make fetch CONFIG=configs/ncaam.yaml
 ```
 
 Fetch the latest standalone odds snapshot for the configured league:
@@ -72,7 +71,6 @@ make fetch-odds
 ```
 ```bash
 make fetch-odds CONFIG=configs/nba.yaml
-make fetch-odds CONFIG=configs/ncaam.yaml
 ```
 
 Build features with leakage checks/fallback metadata:
@@ -154,7 +152,6 @@ League-scoped data-only refresh:
 ```bash
 make refresh-data CONFIG=configs/nhl.yaml
 make refresh-data CONFIG=configs/nba.yaml
-make refresh-data CONFIG=configs/ncaam.yaml
 ```
 
 Deterministic repo-wide data-only refresh across all supported leagues:
@@ -188,15 +185,6 @@ make research-features CONFIG=configs/nba.yaml APPROVE_FEATURE_CHANGES=1
 make train CONFIG=configs/nba.yaml APPROVE_FEATURE_CHANGES=1
 ```
 
-NCAAM build/train/validate flow:
-```bash
-make fetch CONFIG=configs/ncaam.yaml
-make features CONFIG=configs/ncaam.yaml
-make research-features CONFIG=configs/ncaam.yaml APPROVE_FEATURE_CHANGES=1
-make compare-candidates CONFIG=configs/ncaam.yaml
-make train CONFIG=configs/ncaam.yaml APPROVE_FEATURE_CHANGES=1
-```
-
 Launch dashboard:
 ```bash
 make dashboard
@@ -206,8 +194,8 @@ LEAGUE=NBA NBA_DB_PATH=data/processed/nba_forecast.db make dashboard
 Execution architecture:
 - Atomic league-scoped commands stay independently runnable: `init-db`, `fetch`, `refresh-data`, `fetch-odds`, `features`, `research-features`, `train`, `backtest`, and `run_daily`.
 - Model-level execution remains available through `MODELS=...`, for example `make train MODELS=glm_ridge`.
-- The repo-wide ingest-only trigger is `make data_refresh`, which runs the deterministic NHL, NBA, then NCAAM data-collection sequence and stops before features, training, or staging snapshots.
-- The repo-wide composite trigger is `make hard_refresh`, which runs a fixed sequential plan across NHL, NBA, then NCAAM, retrains from the existing processed feature snapshot without rebuilding features, regenerates `web/public/staging-data/`, optionally builds the static Pages output, then commits the refresh results, pushes `origin/main`, and watches the publish workflow for that pushed `HEAD`.
+- The repo-wide ingest-only trigger is `make data_refresh`, which runs the deterministic NHL then NBA data-collection sequence and stops before features, training, or staging snapshots.
+- The repo-wide composite trigger is `make hard_refresh`, which runs a fixed sequential plan across NHL then NBA, retrains from the existing processed feature snapshot without rebuilding features, regenerates `web/public/staging-data/`, optionally builds the static Pages output, then commits the refresh results, pushes `origin/main`, and watches the publish workflow for that pushed `HEAD`.
 
 Maintainer note:
 - Local dashboard changes do not automatically update the GitHub Pages staging site.
@@ -287,7 +275,7 @@ Validation artifact layout:
 ## Data + Temporal Integrity
 
 - Uses public NHL (`api-web.nhle.com`) and NBA public roster/schedule/summary endpoints (`site.api.espn.com`) with retries and caching.
-- Uses public NHL (`api-web.nhle.com`) plus NBA and NCAAM public roster/schedule/summary endpoints (`site.api.espn.com`) with retries and caching.
+- Uses public NHL (`api-web.nhle.com`) plus NBA public roster/schedule/summary endpoints (`site.api.espn.com`) with retries and caching.
 - Raw pulls cached under `data/raw/{source}/{YYYY-MM-DD}/...`.
 - Offline fallback uses latest cached payload when live fetch fails (or when `offline_mode: true`).
 - Features are generated with lagged/rolling calculations only; leakage checks run before training.
@@ -311,7 +299,7 @@ Validation artifact layout:
 - Guardrail logs live at `configs/model_feature_guardrails_{league}.yaml`.
 - `blocked_features` are enforced for the active map: research/save paths strip them out, and training/load fails fast if someone manually puts them back.
 - `watchlist_features` and `watchlist_pairs` are the persistent notebook for validation findings such as multicollinearity and non-linearity that do not yet justify removal.
-- The NBA and NCAAM paths use league-specific basketball feature builders and promoted per-model feature maps during training/backtesting.
+- The NBA path uses a league-specific basketball feature builder and promoted per-model feature maps during training/backtesting.
 
 ## Forecast Outputs Per Upcoming Game
 
@@ -334,7 +322,7 @@ Persisted in SQLite (`upcoming_game_forecasts`, `predictions`) with `as_of_utc`:
 
 Generated under `artifacts/validation/` and surfaced in `/validation`:
 - manifest-driven task pipeline so new validation directions can publish sections without growing `src/cli.py`
-- train/validation/test split summaries plus holdout-first logistic validation outputs for NHL, NBA, and NCAAM
+- train/validation/test split summaries plus holdout-first logistic validation outputs for NHL and NBA
 - blockwise nested-model deviance F-tests + information-criteria candidate tables
 - coefficient stability paths, CV coefficient stability, bootstrap coefficient intervals, trade-deadline break test
 - production multicollinearity suite: structural flags, pairwise correlation scan, VIF/tolerance, condition indices, variance decomposition, summary risk report

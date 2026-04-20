@@ -79,7 +79,6 @@ At a high level, this repo is a multi-league sports forecasting platform for:
 
 - NHL
 - NBA
-- NCAA men's basketball (`NCAAM`)
 
 The system is not just a collection of prediction scripts. It is a full local product stack with:
 
@@ -349,7 +348,6 @@ Structure:
 - per-league modules under:
   - `src/data_sources/nhl/`
   - `src/data_sources/nba/`
-  - `src/data_sources/ncaam/`
 
 The repo standardizes a league adapter surface through `src/league_registry.py`, which makes each league look the same to the shared pipeline.
 
@@ -364,7 +362,7 @@ Shared adapter responsibilities include:
 - fetch xG or similar optional stats
 - build normalized results from raw game tables
 
-Architecturally, this is the key move that lets NHL, NBA, and NCAAM share the same orchestration pipeline.
+Architecturally, this is the key move that lets NHL and NBA share the same orchestration pipeline.
 
 ### `src/features`
 
@@ -377,7 +375,6 @@ Key files:
 - `src/features/leakage_checks.py`
 - `src/features/strategies/nhl.py`
 - `src/features/strategies/nba.py`
-- `src/features/strategies/ncaam.py`
 
 The feature pipeline is shared, but strategy objects inject league-specific behavior.
 
@@ -564,7 +561,6 @@ Important files:
 - `configs/default.yaml`
 - `configs/nhl.yaml`
 - `configs/nba.yaml`
-- `configs/ncaam.yaml`
 
 Important patterns:
 
@@ -713,13 +709,12 @@ It exposes a normalized league adapter with methods like:
 - fetch xG
 - build results from games
 
-This is one of the main reasons the repo can support NHL, NBA, and NCAAM without triplicating the orchestration layer.
+This is one of the main reasons the repo can support NHL and NBA without triplicating the orchestration layer.
 
 The canonical orchestration order is:
 
 1. NHL
 2. NBA
-3. NCAAM
 
 That order matters for repo-level refresh workflows and cross-league operational consistency.
 
@@ -821,12 +816,6 @@ League-specific feature strategy examples:
 - rotation stability
 - DARKO-like total and shot proxies
 - arena, travel, rest, possession, and foul features
-
-### NCAAM
-
-- basketball-style efficiency proxies
-- conference-tournament and season-phase indicators
-- more fallback/proxy behavior than NBA
 
 The repo treats feature governance seriously:
 

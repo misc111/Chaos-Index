@@ -22,7 +22,6 @@ def test_default_config_includes_feature_policy() -> None:
 def test_research_paths_initialize_for_all_supported_leagues() -> None:
     for config_path, league_slug in [
         ("configs/nhl.yaml", "nhl"),
-        ("configs/ncaam.yaml", "ncaam"),
         ("configs/nba.yaml", "nba"),
     ]:
         cfg = load_config(config_path)

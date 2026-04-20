@@ -67,7 +67,7 @@ def main() -> None:
 
     parser = argparse.ArgumentParser(description="Local deterministic sports query command")
     parser.add_argument("--config", type=str, default=default_config_path("NBA"))
-    parser.add_argument("--league", type=str, choices=["NHL", "NBA", "NCAAM"], default=None)
+    parser.add_argument("--league", type=str, choices=["NHL", "NBA"], default=None)
     parser.add_argument("--question", type=str, required=True)
     args = parser.parse_args()
 

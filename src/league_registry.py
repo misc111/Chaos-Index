@@ -83,7 +83,6 @@ def canonicalize_league(league: str | None) -> str:
 def _registry() -> dict[str, LeagueAdapter]:
     nhl = get_league_registry_entry("NHL")
     nba = get_league_registry_entry("NBA")
-    ncaam = get_league_registry_entry("NCAAM")
     from src.data_sources.nba.games import fetch_games as fetch_nba_games
     from src.data_sources.nba.goalies import fetch_goalie_game_stats as fetch_nba_goalie_stats
     from src.data_sources.nba.injuries import fetch_injuries_proxy as fetch_nba_injuries
@@ -93,15 +92,6 @@ def _registry() -> dict[str, LeagueAdapter]:
     from src.data_sources.nba.schedule import fetch_upcoming_schedule as fetch_nba_schedule
     from src.data_sources.nba.teams import fetch_teams as fetch_nba_teams
     from src.data_sources.nba.xg import fetch_xg_optional as fetch_nba_xg
-    from src.data_sources.ncaam.games import fetch_games as fetch_ncaam_games
-    from src.data_sources.ncaam.goalies import fetch_goalie_game_stats as fetch_ncaam_goalie_stats
-    from src.data_sources.ncaam.injuries import fetch_injuries_proxy as fetch_ncaam_injuries
-    from src.data_sources.ncaam.odds import fetch_public_odds_optional as fetch_ncaam_odds
-    from src.data_sources.ncaam.players import fetch_players as fetch_ncaam_players
-    from src.data_sources.ncaam.results import build_results_from_games as build_ncaam_results
-    from src.data_sources.ncaam.schedule import fetch_upcoming_schedule as fetch_ncaam_schedule
-    from src.data_sources.ncaam.teams import fetch_teams as fetch_ncaam_teams
-    from src.data_sources.ncaam.xg import fetch_xg_optional as fetch_ncaam_xg
     from src.data_sources.nhl.games import fetch_games as fetch_nhl_games
     from src.data_sources.nhl.goalies import fetch_goalie_game_stats as fetch_nhl_goalie_stats
     from src.data_sources.nhl.injuries import fetch_injuries_proxy as fetch_nhl_injuries
@@ -160,30 +150,6 @@ def _registry() -> dict[str, LeagueAdapter]:
             fetch_upcoming_schedule=fetch_nba_schedule,
             fetch_teams=fetch_nba_teams,
             fetch_xg_optional=fetch_nba_xg,
-        ),
-        "NCAAM": LeagueAdapter(
-            metadata=LeagueMetadata(
-                code=ncaam.code,
-                slug=ncaam.slug,
-                default_config_path=ncaam.default_config_path,
-                config_env_var=ncaam.config_env_var,
-                project_name=ncaam.project_name,
-                db_path=ncaam.db_path,
-                db_env_var=ncaam.db_env_var,
-                display_label=ncaam.display_label,
-                championship_name=ncaam.championship_name,
-                championship_probability_key=ncaam.championship_probability_key,
-                uncertainty_policy_name=ncaam.uncertainty_policy_name,
-            ),
-            fetch_games=fetch_ncaam_games,
-            fetch_goalie_game_stats=fetch_ncaam_goalie_stats,
-            fetch_injuries_proxy=fetch_ncaam_injuries,
-            fetch_public_odds_optional=fetch_ncaam_odds,
-            fetch_players=fetch_ncaam_players,
-            build_results_from_games=build_ncaam_results,
-            fetch_upcoming_schedule=fetch_ncaam_schedule,
-            fetch_teams=fetch_ncaam_teams,
-            fetch_xg_optional=fetch_ncaam_xg,
         ),
     }
 

@@ -9,7 +9,7 @@
 3. Regenerate manifests and docs with `make docs-generate`.
 4. Extend cross-league tests and dashboard/staging coverage until verification passes.
 
-Current leagues: `NHL`, `NBA`, `NCAAM`.
+Current leagues: `NHL`, `NBA`.
 
 ## Add A Model
 

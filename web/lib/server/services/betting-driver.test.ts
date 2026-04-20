@@ -18,7 +18,6 @@ test("NBA prefers glm_elastic_net as the betting driver", () => {
 
 test("other leagues keep the ensemble betting driver", () => {
   assert.equal(getPreferredBettingModelName("NHL"), "ensemble");
-  assert.equal(getPreferredBettingModelName("NCAAM"), "ensemble");
 });
 
 test("NBA prefers the active champion when one exists", () => {

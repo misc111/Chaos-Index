@@ -40,7 +40,7 @@ def _load_dotenv_file(path: Path) -> None:
 def build_parser() -> argparse.ArgumentParser:
     """Build the CLI parser directly from the canonical command registry."""
 
-    parser = argparse.ArgumentParser(description="NHL/NBA/NCAAM probabilistic forecasting pipeline")
+    parser = argparse.ArgumentParser(description="NHL/NBA probabilistic forecasting pipeline")
     sub = parser.add_subparsers(dest="command", required=True)
 
     for spec in command_registry():

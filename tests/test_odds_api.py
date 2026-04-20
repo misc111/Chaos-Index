@@ -139,76 +139,16 @@ def test_flatten_pickcenter_summary_generates_standard_market_rows() -> None:
 
 
 def test_fetch_public_odds_aggregates_scoreboard_and_summary_payloads(tmp_path, monkeypatch) -> None:
-    scoreboard_payload = {"events": [_sample_scoreboard_event()]}
-    summary_payload = _sample_summary_payload()
-    client = StubClient(
-        {
-            ("scoreboard", "20260319"): scoreboard_payload,
-            ("summary", "401810863"): summary_payload,
-        },
-        raw_dir=tmp_path,
-    )
     teams_df = pd.DataFrame(
         [
-            {"team_abbrev": "OSU", "team_name": "Ohio State"},
-            {"team_abbrev": "TCU", "team_name": "TCU"},
+            {"team_abbrev": "CHA", "team_name": "Charlotte"},
+            {"team_abbrev": "ORL", "team_name": "Orlando"},
         ]
     )
-
-    ncaam_event = {
-        "id": "401856479",
-        "date": "2026-03-19T01:15Z",
-        "competitions": [
-            {
-                "id": "401856479",
-                "date": "2026-03-19T01:15Z",
-                "competitors": [
-                    {
-                        "homeAway": "home",
-                        "team": {
-                            "displayName": "Ohio State Buckeyes",
-                            "shortDisplayName": "Ohio State",
-                            "abbreviation": "OSU",
-                            "location": "Ohio State",
-                            "name": "Buckeyes",
-                        },
-                    },
-                    {
-                        "homeAway": "away",
-                        "team": {
-                            "displayName": "TCU Horned Frogs",
-                            "shortDisplayName": "TCU",
-                            "abbreviation": "TCU",
-                            "location": "TCU",
-                            "name": "Horned Frogs",
-                        },
-                    },
-                ],
-            }
-        ],
-    }
-    ncaam_summary = {
-        "header": {"id": "401856479", "competitions": ncaam_event["competitions"]},
-        "pickcenter": [
-            {
-                "provider": {"id": "100", "name": "Draft Kings"},
-                "homeTeamOdds": {"moneyLine": -310, "spreadOdds": -115.0, "favorite": True},
-                "awayTeamOdds": {"moneyLine": 250, "spreadOdds": -105.0, "favorite": False},
-                "pointSpread": {
-                    "home": {"close": {"line": "-6.5", "odds": "-115"}},
-                    "away": {"close": {"line": "+6.5", "odds": "-105"}},
-                },
-                "total": {
-                    "over": {"close": {"line": "o162.5", "odds": "-105"}},
-                    "under": {"close": {"line": "u162.5", "odds": "-115"}},
-                },
-            }
-        ],
-    }
     client = StubClient(
         {
-            ("scoreboard", "20260319"): {"events": [ncaam_event]},
-            ("summary", "401856479"): ncaam_summary,
+            ("scoreboard", "20260319"): {"events": [_sample_scoreboard_event()]},
+            ("summary", "401810863"): _sample_summary_payload(),
         },
         raw_dir=tmp_path,
     )
@@ -217,9 +157,9 @@ def test_fetch_public_odds_aggregates_scoreboard_and_summary_payloads(tmp_path, 
 
     result = odds_api.fetch_public_odds(
         client,
-        league="NCAAM",
-        sport_key="basketball_ncaab",
-        source="ncaam_odds",
+        league="NBA",
+        sport_key="basketball_nba",
+        source="nba_odds",
         teams_df=teams_df,
         upcoming_days=14,
     )
@@ -227,8 +167,8 @@ def test_fetch_public_odds_aggregates_scoreboard_and_summary_payloads(tmp_path, 
     assert len(result.dataframe) == 6
     assert result.metadata["provider"] == "espn_pickcenter"
     assert result.metadata["n_events"] == 1
-    assert result.dataframe["home_team"].dropna().unique().tolist() == ["OSU"]
-    assert result.dataframe["away_team"].dropna().unique().tolist() == ["TCU"]
+    assert result.dataframe["home_team"].dropna().unique().tolist() == ["CHA"]
+    assert result.dataframe["away_team"].dropna().unique().tolist() == ["ORL"]
     assert Path(result.raw_path).exists()
 
 

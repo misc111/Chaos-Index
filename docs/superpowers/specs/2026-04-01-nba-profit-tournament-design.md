@@ -16,8 +16,8 @@ Build a profit-first NBA challenger tournament that explores broad linear and no
 
 ## Non-Goals
 
-- This design does not change NHL or NCAAM production behavior.
-- This design does not expand the user-facing product to leagues outside NHL, NBA, and NCAAM.
+- This design does not change NHL production behavior.
+- This design does not expand the user-facing product to leagues outside NHL and NBA.
 - This design does not require immediate hard-refresh publication. It focuses on the NBA research and promotion path first.
 - This design does not optimize primarily for log loss, Brier, or calibration. Those remain guardrails, not the north-star objective.
 

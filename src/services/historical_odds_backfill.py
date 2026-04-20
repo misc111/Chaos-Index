@@ -22,7 +22,6 @@ logger = get_logger(__name__)
 CENTRAL_TZ = ZoneInfo("America/Chicago")
 SPORT_KEY_BY_LEAGUE = {
     "NBA": "basketball_nba",
-    "NCAAM": "basketball_ncaab",
     "NHL": "icehockey_nhl",
 }
 

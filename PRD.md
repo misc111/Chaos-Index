@@ -10,7 +10,7 @@ Last updated: 2026-04-02
 
 This document describes the product that already exists in this repository today. It is a baseline PRD, not a future-state roadmap. Its goal is to capture what the system is for, who it serves, what capabilities are already shipped, and which constraints shape product decisions.
 
-The product is a local-first multi-league forecasting and betting-analysis workbench for NHL, NBA, and NCAA men's basketball. It combines:
+The product is a local-first multi-league forecasting and betting-analysis workbench for NHL and NBA. It combines:
 
 - deterministic ingest and training pipelines
 - league-aware feature engineering and model execution
@@ -73,14 +73,14 @@ The product should enable a user to:
 - Deterministic: refresh, query, and publish flows should produce inspectable, repeatable results.
 - Operator-centric: product surfaces are optimized for the model owner rather than a casual fan audience.
 - Profitability-first: unless explicitly discussing statistical quality, model performance is interpreted through betting outcomes.
-- Cross-league where practical: NHL, NBA, and NCAAM should share architecture while allowing league-specific adapters and policies.
+- Cross-league where practical: NHL and NBA should share architecture while allowing league-specific adapters and policies.
 - Historical integrity matters: frozen pregame predictions must remain distinguishable from synthetic replay or diagnostic outputs.
 
 ## 7. In-Scope Product Capabilities
 
 ### 7.1 Multi-league forecasting platform
 
-The product supports NHL, NBA, and NCAAM forecasting under a shared architecture with league-specific data adapters, feature strategies, and configuration.
+The product supports NHL and NBA forecasting under a shared architecture with league-specific data adapters, feature strategies, and configuration.
 
 Expected outcome:
 
@@ -209,7 +209,7 @@ Expected outcome:
 
 ### 9.1 League support
 
-- The system must support NHL, NBA, and NCAAM.
+- The system must support NHL and NBA.
 - Ambiguous product questions should default to NBA when no stronger context exists.
 - Cross-league failure modes should be investigated across all supported leagues before work is considered complete.
 
@@ -269,7 +269,7 @@ The current product baseline does not aim to be:
 
 - a public sportsbook
 - a real-time live-betting engine
-- a generalized sports platform beyond NHL, NBA, and NCAAM
+- a generalized sports platform beyond NHL and NBA
 - a cloud-native multi-user SaaS application
 - a fully automated no-operator system
 - a product where GitHub Pages staging is the live source of truth
@@ -295,7 +295,7 @@ The current product baseline does not aim to be:
 
 These questions are intentionally left open because they are product-direction questions, not baseline facts:
 
-- Should research desk capabilities expand beyond NBA into NHL and NCAAM with equivalent promotion workflows?
+- Should research desk capabilities expand beyond NBA into NHL with equivalent promotion workflows?
 - Should the deterministic query system become a first-class dashboard surface rather than staying CLI-first?
 - Should the product continue optimizing primarily for a single expert operator, or begin supporting broader collaborator workflows?
 - Which dashboard pages are core decision surfaces versus valuable but secondary review tools?
@@ -313,4 +313,3 @@ This PRD is grounded in the current repository structure and shipped surfaces, e
 - `src/orchestration/`
 - `web/app/`
 - `web/public/staging-data/`
-
