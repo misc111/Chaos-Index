@@ -57,6 +57,7 @@ def _ts_string_map(values: dict[str, str]) -> str:
 def _generated_league_ts() -> str:
     entries = ordered_league_entries()
     all_leagues = [entry.code for entry in entries]
+    primary_rebuild_leagues = [entry.code for entry in entries if entry.primary_rebuild_lane]
     alias_map: dict[str, str] = {}
     runtime: dict[str, object] = {}
     for entry in entries:
@@ -76,6 +77,7 @@ def _generated_league_ts() -> str:
             "championshipName": entry.championship_name,
             "championshipProbabilityKey": entry.championship_probability_key,
             "uncertaintyPolicyName": entry.uncertainty_policy_name,
+            "primaryRebuildLane": entry.primary_rebuild_lane,
             "aliases": list(entry.aliases),
         }
     return "\n".join(
@@ -97,17 +99,19 @@ def _generated_league_ts() -> str:
             "  championshipName: string;",
             "  championshipProbabilityKey: string;",
             "  uncertaintyPolicyName: string;",
+            "  primaryRebuildLane: boolean;",
             "  aliases: readonly string[];",
             "};",
             "",
             "export const LEAGUE_ALIASES: Record<string, LeagueCode> = " + _ts_string_map(alias_map) + ";",
+            "export const PRIMARY_LEAGUE = " + json.dumps(primary_rebuild_leagues[0]) + " as const;",
+            "export const PRIMARY_REBUILD_LEAGUES = " + _ts_value(primary_rebuild_leagues) + " as const;",
             "export const LEAGUE_RUNTIME: Record<LeagueCode, LeagueRuntimeEntry> = "
             + _ts_value(runtime)
             + ";",
             "",
         ]
     ) + "\n"
-
 
 def _generated_model_ts() -> str:
     payload = model_manifest_payload()
@@ -119,6 +123,14 @@ def _generated_model_ts() -> str:
             "export const TRAINABLE_MODELS = " + _ts_value(payload["trainable_models"]) + " as const;",
             "export type TrainableModel = typeof TRAINABLE_MODELS[number];",
             "",
+            "export const PRIMARY_MODEL_LANE = " + json.dumps(payload["primary_lane"]) + " as const;",
+            "export const DEFAULT_TRAINING_MODELS = " + _ts_value(payload["default_training_models"]) + " as const;",
+            "export const CORE_MODEL_KEYS = " + _ts_value(payload["core_models"]) + " as const;",
+            "export const BASELINE_MODEL_KEYS = " + _ts_value(payload["baseline_models"]) + " as const;",
+            "export const EXPERIMENTAL_MODEL_KEYS = " + _ts_value(payload["experimental_models"]) + " as const;",
+            "",
+            "export const MODEL_LANE_LABELS: Record<string, string> = " + _ts_value(payload["lane_labels"]) + ";",
+            "export const MODEL_LANE_NOTES: Record<string, string> = " + _ts_value(payload["lane_notes"]) + ";",
             "export const MODEL_ALIASES: Record<string, string> = " + _ts_value(payload["aliases"]) + ";",
             "export const LEGACY_MODEL_KEYS: Record<string, readonly string[]> = "
             + _ts_value(payload["legacy_model_keys"])
@@ -129,7 +141,6 @@ def _generated_model_ts() -> str:
             "",
         ]
     ) + "\n"
-
 
 def _generated_dashboard_routes_ts() -> str:
     routes = []
@@ -175,7 +186,6 @@ def _generated_dashboard_routes_ts() -> str:
             "",
         ]
     ) + "\n"
-
 
 def _architecture_doc() -> str:
     rows = [
@@ -265,9 +275,11 @@ def _extensions_doc() -> str:
             "",
             "## Add A Model",
             "",
-            "1. Register the model in `src/registry/models.py` with aliases, labels, and report order.",
-            "2. Implement training/report behavior behind existing model contracts.",
-            "3. Regenerate manifests and docs, then extend model contract tests.",
+            "1. Register the model in `src/registry/models.py` with aliases, labels, lane, and report order.",
+            "2. Place the model in the core, baseline, or experimental lane deliberately.",
+            "3. Keep non-CAS challengers under `src/models/experimental/` and reserve the top-level `src/models/` package for the default theory lane plus compatibility shims only.",
+            "4. Implement training/report behavior behind existing model contracts.",
+            "5. Regenerate manifests and docs, then extend model contract tests.",
             "",
             f"Current registered models: {model_keys}.",
             "",
@@ -290,8 +302,8 @@ def _manifest_doc() -> str:
             "",
             "# Generated Manifest Inventory",
             "",
-            "- `configs/generated/league_manifest.json`: canonical league metadata for Python, web, and docs consumers.",
-            "- `configs/generated/model_manifest.json`: canonical model labels, aliases, ordering, and trainable-model set.",
+            "- `configs/generated/league_manifest.json`: canonical league metadata including the primary MLB rebuild lane used by Python, the web app, and docs consumers.",
+            "- `configs/generated/model_manifest.json`: canonical model labels, aliases, governance lanes, default MLB training lane, and trainable-model set.",
             "- `configs/generated/command_manifest.json`: canonical CLI command metadata and examples.",
             "- `configs/generated/dashboard_route_manifest.json`: canonical dashboard API/staging route inventory.",
             "- `web/lib/generated/*.ts`: generated TypeScript registry surfaces derived from the same Python source registries.",

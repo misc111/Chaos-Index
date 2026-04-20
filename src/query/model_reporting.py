@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from src.registry.models import get_model_registry_entry
 from src.training.model_catalog import MODEL_ALIASES, MODEL_REPORT_ORDER
 
 
@@ -14,20 +15,27 @@ MODEL_TRUST_NOTES = {
     "glm_lasso": "Statistical model that can drop whole inputs instead of just shrinking them. Good for leaner signal sets. Can miss smaller shared effects.",
     "glm_elastic_net": "Statistical model that mixes ridge-style shrinkage with lasso-style pruning. Good when signals travel in clusters. Can still mute small but real effects.",
     "dynamic_rating": "Hot/cold meter. Good for momentum. Can overreact to short streaks.",
-    "gbdt": "Machine learning model that finds hidden combos. Sometimes too confident.",
-    "rf": "Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups.",
+    "gbdt": "Experimental challenger only. Machine learning model that finds hidden combos. Sometimes too confident.",
+    "rf": "Experimental challenger only. Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups.",
     "two_stage": "Machine learning model with two steps: first predicts game type (fast/slow, close/lopsided), then predicts winner. Good when style matchups matter. If step 1 is wrong, final pick can be wrong.",
     "goals_poisson": "Score-based model. Good for normal scoring games. Messy games hurt it.",
     "simulation_first": "Runs the matchup thousands of times using set assumptions (team strength, pace, and scoring). Good for seeing different paths. If those assumptions are off, this number can be off.",
-    "bayes_bt_state_space": "Tracks team strength after every game and gives a range, not just one number. Good for spotting rising/falling teams with uncertainty shown. Can move fast after injuries, trades, or short weird stretches.",
-    "bayes_goals": "Scoring strength + confidence meter. Good trend read. Can lag sudden lineup changes.",
-    "nn_mlp": "Machine learning model that finds subtle patterns. Hardest to explain.",
+    "bayes_bt_state_space": "Experimental challenger only. Tracks team strength after every game and gives a range, not just one number. Good for spotting rising/falling teams with uncertainty shown. Can move fast after injuries, trades, or short weird stretches.",
+    "bayes_goals": "Experimental challenger only. Scoring strength + confidence meter. Good trend read. Can lag sudden lineup changes.",
+    "nn_mlp": "Experimental challenger only. Machine learning model that finds subtle patterns. Hardest to explain.",
 }
 
 
 def canonical_model_name(model_name: Any) -> str:
     token = str(model_name or "").strip()
     return MODEL_ALIASES.get(token, token)
+
+
+def is_experimental_model(model_name: str) -> bool:
+    try:
+        return get_model_registry_entry(model_name).lane == "experimental"
+    except KeyError:
+        return False
 
 
 def canonicalize_model_probabilities(per_model: dict[str, Any]) -> dict[str, float]:

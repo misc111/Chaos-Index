@@ -8,6 +8,11 @@ import pandas as pd
 from src.simulation.game_simulator import GameSimulator
 from src.training.cv import time_series_splits
 from src.training.fit_runner import fit_model_suite
+from src.training.lasso_credibility import (
+    resolve_lasso_credibility_feature_columns,
+    selected_lasso_credibility_models,
+    tune_lasso_credibility_models,
+)
 from src.training.penalized_glm import resolve_penalized_glm_feature_columns, selected_penalized_glm_models, tune_penalized_glm_models
 from src.training.progress import ProgressCallback, emit_progress
 
@@ -140,6 +145,7 @@ def generate_oof_predictions(
     selected_models: list[str],
     progress_callback: ProgressCallback | None = None,
     glm_params_by_model: dict[str, dict] | None = None,
+    lasso_credibility_params_by_model: dict[str, dict] | None = None,
     model_feature_columns: dict[str, list[str]] | None = None,
 ) -> pd.DataFrame:
     splits = time_series_splits(train_df, n_splits=5, min_train_size=min(220, max(80, len(train_df) // 2)))
@@ -197,6 +203,19 @@ def generate_oof_predictions(
                 n_splits=3,
                 min_train_size=min(140, max(70, len(tr) // 2)),
             )
+        fold_credibility_tuning = dict(lasso_credibility_params_by_model or {})
+        if selected_lasso_credibility_models(selected_models):
+            fold_credibility_cols_by_model = resolve_lasso_credibility_feature_columns(
+                feature_cols,
+                selected_models=selected_models,
+                model_feature_columns=model_feature_columns,
+                fallback_columns=glm_feature_cols,
+            )
+            fold_credibility_tuning = tune_lasso_credibility_models(
+                tr,
+                selected_models=selected_models,
+                feature_columns_by_model=fold_credibility_cols_by_model,
+            )
         models, _, _, _, _ = fit_model_suite(
             tr,
             feature_cols,
@@ -207,6 +226,7 @@ def generate_oof_predictions(
             allow_nn=False,
             glm_feature_cols=glm_feature_cols,
             glm_params_by_model=fold_glm_tuning,
+            lasso_credibility_params_by_model=fold_credibility_tuning,
             model_feature_columns=model_feature_columns,
         )
         pred, _ = predict_model_suite(

@@ -38,6 +38,15 @@ const snapshotManifest = path.join(appRoot, "public", "staging-data", "manifest.
 const apiDir = path.join(appRoot, "app", "api");
 const parkedApiDir = path.join(appRoot, ".pages-build", "api");
 
+const verifyResult = spawnSync(process.execPath, ["--import", "tsx", "scripts/verify-staging-contract.ts"], {
+  cwd: appRoot,
+  stdio: "inherit",
+});
+
+if ((verifyResult.status ?? 1) !== 0) {
+  process.exit(verifyResult.status ?? 1);
+}
+
 if (!fs.existsSync(snapshotManifest)) {
   console.error("Missing web/public/staging-data/manifest.json. Run `npm run generate:staging-data` before building Pages.");
   process.exit(1);

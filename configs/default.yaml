@@ -1,5 +1,5 @@
 project:
-  name: nba_forecast
+  name: mlb_forecast
   timezone: America/Chicago
 
 paths:
@@ -7,14 +7,14 @@ paths:
   interim_dir: data/interim
   processed_dir: data/processed
   artifacts_dir: artifacts
-  db_path: data/processed/nba_forecast.db
+  db_path: data/processed/mlb/mlb_forecast.db
 
 data:
-  league: NBA
-  season_start: "2025-10-01"
-  season_end: "2026-06-30"
-  history_days: 200
-  upcoming_days: 14
+  league: MLB
+  season_start: "2026-03-26"
+  season_end: "2026-11-01"
+  history_days: 365
+  upcoming_days: 21
   offline_mode: false
   timeout_seconds: 30
   max_retries: 3
@@ -39,20 +39,20 @@ bayes:
 
 runtime:
   retrain_daily: true
-  embargo_days: 1
+  embargo_days: 2
 
 feature_policy:
   mode: production
   registry_path: configs/feature_registry_{league}.yaml
 
 research:
-  history_seasons: 5
+  history_seasons: 8
   outer_folds: 10
-  outer_valid_days: 60
-  inner_folds: 4
+  outer_valid_days: 45
+  inner_folds: 5
   inner_valid_days: 30
-  embargo_days: 1
+  embargo_days: 2
   final_holdout_days: 30
   feature_pool: research_broad
-  source_dir: data/raw/historical
+  source_dir: data/raw/historical/mlb
   source_manifest: manifest.json

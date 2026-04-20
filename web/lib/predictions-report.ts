@@ -1,51 +1,9 @@
-const MODEL_REPORT_ORDER = [
-  "ensemble",
-  "elo_baseline",
-  "glm_ridge",
-  "glm_elastic_net",
-  "glm_lasso",
-  "glm_vanilla",
-  "gam_spline",
-  "mars_hinge",
-  "glmm_logit",
-  "dglm_margin",
-  "dynamic_rating",
-  "rf",
-  "goals_poisson",
-  "gbdt",
-  "two_stage",
-  "bayes_bt_state_space",
-  "bayes_goals",
-  "simulation_first",
-  "nn_mlp",
-] as const;
-
-const MODEL_DISPLAY_LABELS: Record<string, string> = {
-  ensemble: "Ensemble",
-  elo_baseline: "Elo",
-  glm_ridge: "GLM Ridge",
-  glm_elastic_net: "GLM ENet",
-  glm_lasso: "GLM Lasso",
-  glm_vanilla: "Vanilla GLM",
-  gam_spline: "GAM Spline",
-  mars_hinge: "MARS Hinge",
-  glmm_logit: "GLMM Logit",
-  dglm_margin: "DGLM Margin",
-  dynamic_rating: "Dyn Rating",
-  rf: "RF",
-  goals_poisson: "Goals Pois",
-  gbdt: "GBDT",
-  two_stage: "Two Stage",
-  bayes_bt_state_space: "Bayes BT",
-  bayes_goals: "Bayes Goals",
-  simulation_first: "Sim",
-  nn_mlp: "NN",
-};
-
-const LEGACY_MODEL_ALIASES: Record<string, string> = {
-  glm_logit: "glm_ridge",
-  lasso: "glm_lasso",
-};
+import {
+  MODEL_ALIASES,
+  MODEL_DISPLAY_LABELS,
+  MODEL_REGISTRY,
+  MODEL_REPORT_ORDER,
+} from "@/lib/generated/model-manifest";
 
 export const MODEL_TRUST_NOTES: Record<string, string> = {
   ensemble: "All models combined. Best default pick. Can share the same blind spot.",
@@ -61,17 +19,17 @@ export const MODEL_TRUST_NOTES: Record<string, string> = {
   glmm_logit: "Mixed-effects logistic model. Good when team-level structure matters. Can be slower and harder to keep stable.",
   dglm_margin: "Margin-first model that turns score-shape estimates into win probabilities. Good when spread shape matters. Can drift if score variance is misspecified.",
   dynamic_rating: "Hot/cold meter. Good for momentum. Can overreact to short streaks.",
-  rf: "Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups.",
+  rf: "Experimental challenger only. Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups.",
   goals_poisson: "Score-based model. Good for normal scoring games. Messy games hurt it.",
-  gbdt: "Machine learning model that finds hidden combos. Sometimes too confident.",
+  gbdt: "Experimental challenger only. Machine learning model that finds hidden combos. Sometimes too confident.",
   two_stage:
     "Machine learning model with two steps: first predicts game type (fast/slow, close/lopsided), then predicts winner. Good when style matchups matter. If step 1 is wrong, final pick can be wrong.",
   bayes_bt_state_space:
-    "Tracks team strength after every game and gives a range, not just one number. Good for spotting rising/falling teams with uncertainty shown. Can move fast after injuries, trades, or short weird stretches.",
-  bayes_goals: "Scoring strength + confidence meter. Good trend read. Can lag sudden lineup changes.",
+    "Experimental challenger only. Tracks team strength after every game and gives a range, not just one number. Good for spotting rising/falling teams with uncertainty shown. Can move fast after injuries, trades, or short weird stretches.",
+  bayes_goals: "Experimental challenger only. Scoring strength + confidence meter. Good trend read. Can lag sudden lineup changes.",
   simulation_first:
     "Runs the matchup thousands of times using set assumptions (team strength, pace, and scoring). Good for seeing different paths. If those assumptions are off, this number can be off.",
-  nn_mlp: "Machine learning model that finds subtle patterns. Hardest to explain.",
+  nn_mlp: "Experimental challenger only. Machine learning model that finds subtle patterns. Hardest to explain.",
 };
 
 function titleCaseIdentifier(value: string): string {
@@ -83,8 +41,8 @@ function titleCaseIdentifier(value: string): string {
 }
 
 export function canonicalizePredictionModel(model: string): string {
-  const token = String(model || "").trim();
-  return LEGACY_MODEL_ALIASES[token] || token;
+  const token = String(model || "").trim().toLowerCase();
+  return MODEL_ALIASES[token] || token;
 }
 
 export function displayPredictionModel(model: string): string {
@@ -94,7 +52,12 @@ export function displayPredictionModel(model: string): string {
 
 function normalizeLeagueLabel(league?: string | null): string {
   const leagueCode = String(league || "").trim().toUpperCase();
-  return leagueCode === "NHL" ? "NHL" : leagueCode === "NBA" ? "NBA" : "";
+  return leagueCode === "MLB" ? "MLB" : leagueCode === "NHL" ? "NHL" : leagueCode === "NBA" ? "NBA" : "";
+}
+
+function isExperimentalPredictionModel(model: string): boolean {
+  const registryEntry = (MODEL_REGISTRY as Record<string, { lane?: string }>)[model];
+  return registryEntry?.lane === "experimental";
 }
 
 export function predictionTrustNote(model: string, league?: string | null): string {
@@ -105,6 +68,10 @@ export function predictionTrustNote(model: string, league?: string | null): stri
     return "Linear pregame model anchored by projected rotation strength, matchup splits, rest, and absence pressure. It is only as good as the lineup view going into tipoff.";
   }
 
+  if (canonicalModel === "glm_ridge" && leagueCode === "MLB") {
+    return "Linear pregame model anchored by starting pitching, bullpen quality, lineup strength, park effects, and rest-travel context. It is only as good as the pregame starter and lineup view.";
+  }
+
   if (canonicalModel === "glm_ridge" && leagueCode === "NHL") {
     return "Linear pregame model anchored by form, xG share, roster strength, and goalie uncertainty. It is strongest when starter and availability info are current.";
   }
@@ -113,12 +80,20 @@ export function predictionTrustNote(model: string, league?: string | null): stri
     return "Elastic-net pregame model using the same NBA linear feature map as ridge while allowing extra shrinkage on overlapping lineup and rating signals.";
   }
 
+  if (canonicalModel === "glm_elastic_net" && leagueCode === "MLB") {
+    return "Elastic-net pregame model using the MLB feature map with extra shrinkage on overlapping starter, bullpen, lineup, park, and weather signals.";
+  }
+
   if (canonicalModel === "glm_elastic_net" && leagueCode === "NHL") {
     return "Elastic-net pregame model using the NHL linear feature map with added sparsity pressure on overlapping form, rating, and goalie signals.";
   }
 
   if (canonicalModel === "glm_lasso" && leagueCode === "NBA") {
     return "Lasso pregame model using the NBA linear feature map with stronger pruning on overlapping lineup, rating, and availability signals.";
+  }
+
+  if (canonicalModel === "glm_lasso" && leagueCode === "MLB") {
+    return "Lasso pregame model using the MLB feature map with stronger pruning on overlapping starter, bullpen, lineup, park, and weather signals.";
   }
 
   if (canonicalModel === "glm_lasso" && leagueCode === "NHL") {
@@ -173,6 +148,10 @@ export function predictionModelHeadline(model: string, league?: string | null, a
       : "Pregame ridge logistic regression driven by the current NBA feature map.";
   }
 
+  if (canonicalModel === "glm_ridge" && leagueCode === "MLB") {
+    return "Pregame ridge logistic regression driven by starting pitcher, bullpen, lineup, park, weather, and scheduling context.";
+  }
+
   if (canonicalModel === "glm_ridge" && leagueCode === "NHL") {
     return "Pregame ridge logistic regression driven by form, roster, goalie, and xG context.";
   }
@@ -183,6 +162,10 @@ export function predictionModelHeadline(model: string, league?: string | null, a
       : "Pregame elastic-net logistic regression driven by the current NBA feature map.";
   }
 
+  if (canonicalModel === "glm_elastic_net" && leagueCode === "MLB") {
+    return "Pregame elastic-net logistic regression driven by starting pitcher, bullpen, lineup, park, weather, and schedule context.";
+  }
+
   if (canonicalModel === "glm_elastic_net" && leagueCode === "NHL") {
     return "Pregame elastic-net logistic regression driven by form, roster, goalie, and xG context.";
   }
@@ -191,6 +174,10 @@ export function predictionModelHeadline(model: string, league?: string | null, a
     return hasDarkoInputs
       ? "Lasso version of the NBA pregame GLM using DARKO-like projected rotation inputs with more aggressive feature pruning."
       : "Pregame lasso logistic regression driven by the current NBA feature map.";
+  }
+
+  if (canonicalModel === "glm_lasso" && leagueCode === "MLB") {
+    return "Pregame lasso logistic regression driven by starting pitcher, bullpen, lineup, park, weather, and schedule context.";
   }
 
   if (canonicalModel === "glm_lasso" && leagueCode === "NHL") {
@@ -222,21 +209,27 @@ export function predictionModelHeadline(model: string, league?: string | null, a
   }
 
   if (canonicalModel === "goals_poisson") {
-    return leagueCode === "NBA"
-      ? "Score-rate model that turns projected offense and defense into a win probability."
-      : "Goal-rate model that turns projected scoring into a win probability.";
+    return leagueCode === "MLB"
+      ? "Run-rate model that turns projected scoring and run prevention into a win probability."
+      : leagueCode === "NBA"
+        ? "Score-rate model that turns projected offense and defense into a win probability."
+        : "Goal-rate model that turns projected scoring into a win probability.";
   }
 
   if (canonicalModel === "bayes_bt_state_space") {
-    return "Bayesian rating layer that tracks team strength with uncertainty over time.";
+    return "Experimental Bayesian challenger that tracks team strength with uncertainty over time.";
   }
 
   if (canonicalModel === "bayes_goals") {
-    return "Bayesian scoring model that estimates team strength from expected scoring rates.";
+    return "Experimental Bayesian challenger that estimates team strength from expected scoring rates.";
   }
 
   if (canonicalModel === "simulation_first") {
     return "Scenario simulator that turns repeated matchup draws into a probability estimate.";
+  }
+
+  if (isExperimentalPredictionModel(canonicalModel)) {
+    return "Experimental challenger. Not part of the default MLB theory lane unless explicitly requested.";
   }
 
   if (features.length > 0) {

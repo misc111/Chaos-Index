@@ -27,18 +27,18 @@ def clarify_team_answer(team_candidates: tuple[tuple[str, str], ...]) -> tuple[s
     options = [f"{league}:{team}" for league, team in team_candidates]
     answer = (
         "That team wording matches multiple teams across leagues. "
-        "Please specify league in your question (for example: 'NHL Boston' or 'NBA Boston')."
+        "Please specify league in your question (for example: 'MLB Boston', 'NHL Boston', or 'NBA Boston')."
     )
     return answer, {"intent": "clarify_team", "team_candidates": options}
 
 
-def answer_question(db: Queryable, question: str, default_league: str | None = "NBA") -> tuple[str, dict]:
+def answer_question(db: Queryable, question: str, default_league: str | None = "MLB") -> tuple[str, dict]:
     """Answer a supported natural-language question against the local forecast DB."""
 
     intent = parse_question(question, default_league=default_league)
 
     if intent.intent_type == "bet_history_summary":
-        league = intent.league or (default_league or "NBA")
+        league = intent.league or (default_league or "MLB")
         return answer_bet_history_summary(
             db,
             league=league,
@@ -50,7 +50,7 @@ def answer_question(db: Queryable, question: str, default_league: str | None = "
     if intent.intent_type == "team_next_n_games":
         return answer_team_next_n_games(db, intent.team, intent.n_games, intent.league)
     if intent.intent_type == "team_championship":
-        league = intent.league or (default_league or "NBA")
+        league = intent.league or (default_league or "MLB")
         competition = intent.competition or competition_name_for_league(league)
         return answer_team_championship(db, intent.team, league=league, competition=competition)
     if intent.intent_type == "league_report":
@@ -66,8 +66,8 @@ def main() -> None:
     """Run the deterministic local query CLI entry point."""
 
     parser = argparse.ArgumentParser(description="Local deterministic sports query command")
-    parser.add_argument("--config", type=str, default=default_config_path("NBA"))
-    parser.add_argument("--league", type=str, choices=["NHL", "NBA"], default=None)
+    parser.add_argument("--config", type=str, default=default_config_path("MLB"))
+    parser.add_argument("--league", type=str, choices=["MLB", "NHL", "NBA"], default=None)
     parser.add_argument("--question", type=str, required=True)
     args = parser.parse_args()
 

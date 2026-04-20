@@ -15,12 +15,24 @@ from src.common.utils import ensure_dir
 from src.evaluation.brier_decomposition import brier_decompose
 from src.evaluation.calibration import calibration_alpha_beta, ece_mce
 from src.evaluation.validation_classification import validate_logistic_probability_model
+from src.evaluation.validation_contract import (
+    ValidationModelMetadata,
+    build_validation_artifact_record,
+    resolve_validation_model_metadata,
+)
 from src.evaluation.diagnostics_glm import save_glm_diagnostics
 from src.evaluation.diagnostics_ml import permutation_importance_report
+from src.evaluation.validation_groups import build_feature_blocks
+from src.evaluation.mlb_data_quality import assess_mlb_data_quality
 from src.evaluation.validation_fragility import missingness_stress_test, perturbation_sensitivity
 from src.evaluation.validation_influence import influence_diagnostics
 from src.evaluation.validation_nonlinearity import assess_nonlinearity
-from src.evaluation.validation_significance import blockwise_nested_deviance_f_test, information_criteria_report
+from src.evaluation.validation_significance import (
+    blockwise_nested_deviance_f_test,
+    information_criteria_report,
+    penalized_block_ablation_report,
+    penalized_information_criteria_report,
+)
 from src.evaluation.validation_stability import (
     assess_multicollinearity,
     bootstrap_glm_coefficients,
@@ -35,15 +47,15 @@ from src.training.model_catalog import LEGACY_MODEL_KEYS, MODEL_ALIASES
 from src.training.penalized_glm import primary_penalized_glm_name, selected_penalized_glm_models
 from src.training.tune import quick_tune_penalized_glm
 
-ValidationTaskRunner = Callable[["ValidationContext"], "ValidationOutputs"]
+ValidationTaskRunner = Callable[["ValidationContext"], "ValidationOutputs | ValidationTaskResult"]
 ValidationTaskPredicate = Callable[["ValidationContext"], bool]
 
 
 def _canonical_league(league: str | None) -> str:
     token = str(league or "").strip().upper()
-    if token in {"NHL", "NBA"}:
+    if token in {"MLB", "NHL", "NBA"}:
         return token
-    raise ValueError(f"Unsupported league '{league}'. Expected one of: NHL, NBA.")
+    raise ValueError(f"Unsupported league '{league}'. Expected one of: MLB, NHL, NBA.")
 
 
 @dataclass(frozen=True, slots=True)
@@ -59,6 +71,7 @@ class ValidationOutputs:
     sections: list[ValidationSectionSpec] = field(default_factory=list)
     csv_payloads: dict[str, pd.DataFrame] = field(default_factory=dict)
     json_payloads: dict[str, dict[str, Any]] = field(default_factory=dict)
+    task_records: list[dict[str, Any]] = field(default_factory=list)
 
     def add_csv(
         self,
@@ -80,6 +93,7 @@ class ValidationOutputs:
             self._register(spec)
         self.csv_payloads.update({key: value.copy() for key, value in other.csv_payloads.items()})
         self.json_payloads.update({key: dict(value) for key, value in other.json_payloads.items()})
+        self.task_records.extend([dict(record) for record in other.task_records])
 
     def write(self, out_dir: Path, *, league: str) -> None:
         root = ensure_dir(out_dir)
@@ -98,6 +112,9 @@ class ValidationOutputs:
             "sections": [asdict(spec) for spec in self.sections],
         }
         (root / "validation_manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True))
+        (root / "validation_outputs_contract.json").write_text(
+            json.dumps({"validation_outputs": list(self.task_records)}, indent=2, sort_keys=True)
+        )
 
     def _register(self, spec: ValidationSectionSpec) -> None:
         if spec.section in self.csv_payloads or spec.section in self.json_payloads:
@@ -124,6 +141,7 @@ class ValidationContext:
     fit_df: pd.DataFrame
     glm: object | None
     diagnostic_feature_cols: list[str]
+    glm_validation_metadata: ValidationModelMetadata
 
     @classmethod
     def from_result(cls, result: dict[str, Any], cfg: AppConfig) -> "ValidationContext":
@@ -149,6 +167,7 @@ class ValidationContext:
             or _validation_feature_columns(feature_cols, run_payload, glm_name or "glm_ridge")
             or feature_cols[: min(40, len(feature_cols))]
         )
+        glm_validation_metadata = resolve_validation_model_metadata(run_payload=run_payload, model=glm)
 
         return cls(
             cfg=cfg,
@@ -166,7 +185,15 @@ class ValidationContext:
             fit_df=fit_df,
             glm=glm,
             diagnostic_feature_cols=diagnostic_feature_cols,
+            glm_validation_metadata=glm_validation_metadata,
         )
+
+
+@dataclass(slots=True)
+class ValidationTaskResult:
+    outputs: ValidationOutputs = field(default_factory=ValidationOutputs)
+    applicability: str = "applicable"
+    summary: dict[str, Any] = field(default_factory=dict)
 
 
 def _safe_archive_token(value: Any) -> str:
@@ -268,6 +295,8 @@ def _validation_run_metadata(
         "latest_performance_dir": _relative_artifact_path(ctx.plots_dir, cfg=ctx.cfg),
         "archive_dir": _relative_artifact_path(archive_root, cfg=ctx.cfg),
         "registered_sections": [asdict(spec) for spec in outputs.sections],
+        "validation_task_count": int(len(outputs.task_records)),
+        "validation_contract_file": "validation_outputs_contract.json",
         "artifact_counts": {
             "validation_root_files": len(root_files),
             "validation_subdir_groups": len(grouped_validation_files),
@@ -530,6 +559,7 @@ class ValidationTask:
     name: str
     runner: ValidationTaskRunner
     enabled: ValidationTaskPredicate | None = None
+    family: str = "diagnostics"
 
     def should_run(self, ctx: ValidationContext) -> bool:
         return True if self.enabled is None else bool(self.enabled(ctx))
@@ -544,31 +574,31 @@ def _has_holdout(ctx: ValidationContext) -> bool:
 
 
 def _feature_blocks_for(ctx: ValidationContext) -> dict[str, list[str]]:
-    if ctx.league == "NBA":
-        return {
-            "availability_block": [
-                c for c in ctx.diagnostic_feature_cols if "availability" in c or "absence" in c or "roster_depth" in c
-            ],
-            "shot_profile_block": [c for c in ctx.diagnostic_feature_cols if "shot" in c or "scoring_efficiency" in c],
-            "discipline_block": [
-                c for c in ctx.diagnostic_feature_cols if "discipline" in c or "foul" in c or "free_throw" in c
-            ],
-            "travel_block": [c for c in ctx.diagnostic_feature_cols if "travel" in c or "rest" in c or "tz_" in c],
-            "arena_block": [c for c in ctx.diagnostic_feature_cols if "arena" in c],
-        }
-    return {
-        "goalie_block": [c for c in ctx.diagnostic_feature_cols if "goalie" in c],
-        "xg_block": [c for c in ctx.diagnostic_feature_cols if "xg" in c],
-        "special_teams_block": [
-            c for c in ctx.diagnostic_feature_cols if "special" in c or "penalty" in c or "pp_" in c
-        ],
-        "travel_block": [c for c in ctx.diagnostic_feature_cols if "travel" in c or "rest" in c or "tz_" in c],
-        "lineup_block": [c for c in ctx.diagnostic_feature_cols if "lineup" in c or "roster" in c or "man_games" in c],
-        "rink_block": [c for c in ctx.diagnostic_feature_cols if "rink" in c],
-    }
+    return build_feature_blocks(
+        ctx.league,
+        ctx.diagnostic_feature_cols,
+        credibility=ctx.glm_validation_metadata.credibility,
+    )
 
 
-def _task_split_summary(ctx: ValidationContext) -> ValidationOutputs:
+def _task_summary_with_model_metadata(ctx: ValidationContext, payload: dict[str, Any]) -> dict[str, Any]:
+    summary = dict(payload)
+    summary |= ctx.glm_validation_metadata.to_summary()
+    return summary
+
+
+def _task_result(
+    ctx: ValidationContext,
+    outputs: ValidationOutputs,
+    *,
+    summary: dict[str, Any] | None = None,
+    applicability: str = "applicable",
+) -> ValidationTaskResult:
+    resolved_summary = _task_summary_with_model_metadata(ctx, summary or {}) if summary else {}
+    return ValidationTaskResult(outputs=outputs, applicability=applicability, summary=resolved_summary)
+
+
+def _task_split_summary(ctx: ValidationContext) -> ValidationTaskResult:
     train_start, train_end = _date_bounds(ctx.tr)
     valid_start, valid_end = _date_bounds(ctx.va)
     holdout = _holdout_df(ctx)
@@ -597,12 +627,12 @@ def _task_split_summary(ctx: ValidationContext) -> ValidationOutputs:
     }
     out = ValidationOutputs()
     out.add_json(section="split_summary", file_name=_validation_path("split", "validation_split_summary.json"), payload=payload)
-    return out
+    return _task_result(ctx, out, summary=payload)
 
 
-def _task_glm_diagnostics(ctx: ValidationContext) -> ValidationOutputs:
+def _task_glm_diagnostics(ctx: ValidationContext) -> ValidationTaskResult:
     if ctx.glm is None:
-        return ValidationOutputs()
+        return ValidationTaskResult()
 
     diagnostic_df = ctx.fit_df if not ctx.fit_df.empty else (ctx.tr if not ctx.tr.empty else ctx.train_df)
     report = save_glm_diagnostics(
@@ -644,7 +674,7 @@ def _task_glm_diagnostics(ctx: ValidationContext) -> ValidationOutputs:
         file_name=_validation_path("glm", "residuals", "validation_glm_partial_residual_bins.csv"),
         rows=report["partial_residual_bins"],
     )
-    return out
+    return _task_result(ctx, out, summary=report["summary"])
 
 
 def _task_permutation_importance(ctx: ValidationContext) -> ValidationOutputs:
@@ -667,7 +697,7 @@ def _task_permutation_importance(ctx: ValidationContext) -> ValidationOutputs:
     return ValidationOutputs()
 
 
-def _task_collinearity(ctx: ValidationContext) -> ValidationOutputs:
+def _task_collinearity(ctx: ValidationContext) -> ValidationTaskResult:
     report = assess_multicollinearity(ctx.train_df, features=ctx.diagnostic_feature_cols)
     out = ValidationOutputs()
     out.add_json(
@@ -700,10 +730,10 @@ def _task_collinearity(ctx: ValidationContext) -> ValidationOutputs:
         file_name=_validation_path("diagnostics", "collinearity", "validation_collinearity_variance_decomposition.csv"),
         rows=report["variance_decomposition"],
     )
-    return out
+    return _task_result(ctx, out, summary=report["summary"])
 
 
-def _task_nonlinearity(ctx: ValidationContext) -> ValidationOutputs:
+def _task_nonlinearity(ctx: ValidationContext) -> ValidationTaskResult:
     report = assess_nonlinearity(
         ctx.tr if not ctx.tr.empty else ctx.train_df,
         ctx.va if not ctx.va.empty else (_holdout_df(ctx) if not _holdout_df(ctx).empty else ctx.train_df),
@@ -725,44 +755,76 @@ def _task_nonlinearity(ctx: ValidationContext) -> ValidationOutputs:
         file_name=_validation_path("diagnostics", "nonlinearity", "validation_nonlinearity_curve_points.csv"),
         rows=report["curve_points"],
     )
-    return out
+    return _task_result(ctx, out, summary=report["summary"])
 
 
-def _task_significance(ctx: ValidationContext) -> ValidationOutputs:
+def _task_significance(ctx: ValidationContext) -> ValidationTaskResult:
     holdout = _holdout_df(ctx)
     fit_df = ctx.fit_df if not ctx.fit_df.empty else ctx.tr
-    sig = blockwise_nested_deviance_f_test(
-        fit_df,
-        holdout,
-        feature_blocks=_feature_blocks_for(ctx),
-        all_features=ctx.diagnostic_feature_cols,
-    )
-    ic = information_criteria_report(
-        fit_df,
-        holdout,
-        feature_blocks=_feature_blocks_for(ctx),
-        all_features=ctx.diagnostic_feature_cols,
-    )
+    feature_blocks = _feature_blocks_for(ctx)
+    if ctx.glm_validation_metadata.uses_penalized_glm and ctx.glm is not None:
+        glm_c = float(getattr(ctx.glm, "c", 1.0))
+        glm_model_name = str(getattr(ctx.glm, "model_name", ctx.glm_validation_metadata.model_name or "glm_ridge"))
+        glm_l1_ratio = getattr(ctx.glm, "l1_ratio", None)
+        sig = penalized_block_ablation_report(
+            fit_df,
+            holdout,
+            feature_blocks=feature_blocks,
+            all_features=ctx.diagnostic_feature_cols,
+            model_name=glm_model_name,
+            c=glm_c,
+            l1_ratio=glm_l1_ratio,
+            credibility=ctx.glm_validation_metadata.credibility,
+        )
+        ic = penalized_information_criteria_report(
+            fit_df,
+            holdout,
+            feature_blocks=feature_blocks,
+            all_features=ctx.diagnostic_feature_cols,
+            model_name=glm_model_name,
+            c=glm_c,
+            l1_ratio=glm_l1_ratio,
+            credibility=ctx.glm_validation_metadata.credibility,
+        )
+        applicability = "partial"
+    else:
+        sig = blockwise_nested_deviance_f_test(
+            fit_df,
+            holdout,
+            feature_blocks=feature_blocks,
+            all_features=ctx.diagnostic_feature_cols,
+        )
+        ic = information_criteria_report(
+            fit_df,
+            holdout,
+            feature_blocks=feature_blocks,
+            all_features=ctx.diagnostic_feature_cols,
+        )
+        applicability = "applicable"
     out = ValidationOutputs()
     out.add_csv(
         section="significance",
         file_name=_validation_path("diagnostics", "significance", "validation_significance.csv"),
         rows=sig,
     )
+    ic_summary = dict(ic["summary"])
+    ic_summary["feature_block_map"] = {block_name: list(cols) for block_name, cols in feature_blocks.items()}
+    ic_summary = _task_summary_with_model_metadata(ctx, ic_summary)
     out.add_json(
         section="information_criteria_summary",
         file_name=_validation_path("diagnostics", "significance", "validation_information_criteria_summary.json"),
-        payload=ic["summary"],
+        payload=ic_summary,
     )
     out.add_csv(
         section="information_criteria_candidates",
         file_name=_validation_path("diagnostics", "significance", "validation_information_criteria_candidates.csv"),
         rows=ic["candidates"],
     )
-    return out
+    summary_payload = dict(ic_summary)
+    return _task_result(ctx, out, summary=summary_payload, applicability=applicability)
 
 
-def _task_stability(ctx: ValidationContext) -> ValidationOutputs:
+def _task_stability(ctx: ValidationContext) -> ValidationTaskResult:
     glm_c = float(getattr(ctx.glm, "c", 1.0)) if ctx.glm is not None else 1.0
     glm_model_name = str(getattr(ctx.glm, "model_name", "glm_ridge")) if ctx.glm is not None else "glm_ridge"
     glm_l1_ratio = getattr(ctx.glm, "l1_ratio", None) if ctx.glm is not None else None
@@ -794,17 +856,18 @@ def _task_stability(ctx: ValidationContext) -> ValidationOutputs:
         ),
         tail_rows=200,
     )
+    break_test = break_test_trade_deadline(
+        ctx.train_df,
+        features=ctx.diagnostic_feature_cols,
+        league=ctx.league,
+        model_name=glm_model_name,
+        c=glm_c,
+        l1_ratio=glm_l1_ratio,
+    )
     out.add_json(
         section="break_test",
         file_name=_validation_path("diagnostics", "stability", "validation_break_test.json"),
-        payload=break_test_trade_deadline(
-            ctx.train_df,
-            features=ctx.diagnostic_feature_cols,
-            league=ctx.league,
-            model_name=glm_model_name,
-            c=glm_c,
-            l1_ratio=glm_l1_ratio,
-        ),
+        payload=break_test,
     )
     out.add_json(
         section="cv_summary",
@@ -841,10 +904,16 @@ def _task_stability(ctx: ValidationContext) -> ValidationOutputs:
         file_name=_validation_path("diagnostics", "stability", "validation_bootstrap_coefficients.csv"),
         rows=bootstrap["coefficients"],
     )
-    return out
+    summary_payload = {
+        "status": "ok",
+        "break_test": break_test,
+        "cv_summary": cv_report["summary"],
+        "bootstrap_summary": bootstrap["summary"],
+    }
+    return _task_result(ctx, out, summary=summary_payload)
 
 
-def _task_influence(ctx: ValidationContext) -> ValidationOutputs:
+def _task_influence(ctx: ValidationContext) -> ValidationTaskResult:
     infl_df, infl_summary = influence_diagnostics(
         ctx.fit_df if not ctx.fit_df.empty else ctx.train_df,
         features=ctx.diagnostic_feature_cols,
@@ -861,26 +930,37 @@ def _task_influence(ctx: ValidationContext) -> ValidationOutputs:
         file_name=_validation_path("diagnostics", "influence", "validation_influence_summary.json"),
         payload=infl_summary,
     )
-    return out
+    return _task_result(ctx, out, summary=infl_summary)
 
 
-def _task_fragility(ctx: ValidationContext) -> ValidationOutputs:
+def _task_fragility(ctx: ValidationContext) -> ValidationTaskResult:
     base_df = _holdout_df(ctx) if not _holdout_df(ctx).empty else ctx.train_df
+    missingness = missingness_stress_test(
+        ctx.glm,
+        base_df,
+        feature_cols=ctx.diagnostic_feature_cols,
+        league=ctx.league,
+        credibility=ctx.glm_validation_metadata.credibility,
+    )
+    perturbation = perturbation_sensitivity(ctx.glm, base_df, feature_cols=ctx.diagnostic_feature_cols)
     out = ValidationOutputs()
     out.add_csv(
         section="fragility_missingness",
         file_name=_validation_path("diagnostics", "fragility", "validation_fragility_missingness.csv"),
-        rows=missingness_stress_test(ctx.glm, base_df, feature_cols=ctx.diagnostic_feature_cols),
+        rows=missingness,
     )
     out.add_json(
         section="fragility_perturbation",
         file_name=_validation_path("diagnostics", "fragility", "validation_fragility_perturbation.json"),
-        payload=perturbation_sensitivity(ctx.glm, base_df, feature_cols=ctx.diagnostic_feature_cols),
+        payload=perturbation,
     )
-    return out
+    summary_payload = dict(perturbation)
+    summary_payload["scenario_count"] = int(len(missingness))
+    summary_payload["applicable_scenarios"] = int((missingness.get("scenario_status", pd.Series(dtype=str)) == "ok").sum())
+    return _task_result(ctx, out, summary=summary_payload)
 
 
-def _task_calibration(ctx: ValidationContext) -> ValidationOutputs:
+def _task_calibration(ctx: ValidationContext) -> ValidationTaskResult:
     holdout = _holdout_df(ctx)
     p = ctx.glm.predict_proba(holdout)
     y = holdout["home_win"].astype(int).to_numpy()
@@ -893,10 +973,10 @@ def _task_calibration(ctx: ValidationContext) -> ValidationOutputs:
         file_name=_validation_path("diagnostics", "calibration", "validation_calibration_robustness.json"),
         payload=payload,
     )
-    return out
+    return _task_result(ctx, out, summary=payload)
 
 
-def _task_classification_curves(ctx: ValidationContext) -> ValidationOutputs:
+def _task_classification_curves(ctx: ValidationContext) -> ValidationTaskResult:
     holdout = _holdout_df(ctx)
     p = ctx.glm.predict_proba(holdout)
     y = holdout["home_win"].astype(int).to_numpy()
@@ -975,7 +1055,26 @@ def _task_classification_curves(ctx: ValidationContext) -> ValidationOutputs:
         file_name=_validation_path("diagnostics", "classification", "validation_logit_tossup_sweep.csv"),
         rows=report["tossup_sweep"],
     )
-    return out
+    summary_payload = dict(report["roc_summary"])
+    summary_payload["quantile_summary"] = report["quantile_summary"]
+    summary_payload["tossup_summary"] = report["tossup_summary"]
+    return _task_result(ctx, out, summary=summary_payload)
+
+
+def _task_mlb_data_quality(ctx: ValidationContext) -> ValidationTaskResult:
+    summary, issues = assess_mlb_data_quality(ctx.cfg.paths.db_path)
+    out = ValidationOutputs()
+    out.add_json(
+        section="mlb_data_quality_summary",
+        file_name=_validation_path("diagnostics", "data_quality", "validation_mlb_data_quality_summary.json"),
+        payload=summary,
+    )
+    out.add_csv(
+        section="mlb_data_quality_issues",
+        file_name=_validation_path("diagnostics", "data_quality", "validation_mlb_data_quality_issues.csv"),
+        rows=issues,
+    )
+    return _task_result(ctx, out, summary=summary)
 
 
 def build_validation_tasks(
@@ -983,24 +1082,32 @@ def build_validation_tasks(
     extra_tasks: Sequence[ValidationTask] | None = None,
 ) -> list[ValidationTask]:
     tasks = [
-        ValidationTask(name="split_summary", runner=_task_split_summary),
-        ValidationTask(name="glm_diagnostics", runner=_task_glm_diagnostics, enabled=_has_glm),
-        ValidationTask(name="permutation_importance", runner=_task_permutation_importance, enabled=_has_holdout),
-        ValidationTask(name="collinearity", runner=_task_collinearity),
-        ValidationTask(name="nonlinearity", runner=_task_nonlinearity, enabled=_has_holdout),
+        ValidationTask(name="split_summary", runner=_task_split_summary, family="split"),
+        ValidationTask(name="mlb_data_quality", runner=_task_mlb_data_quality, enabled=lambda ctx: ctx.league == "MLB", family="data_quality"),
+        ValidationTask(name="glm_diagnostics", runner=_task_glm_diagnostics, enabled=_has_glm, family="glm_diagnostics"),
+        ValidationTask(name="permutation_importance", runner=_task_permutation_importance, enabled=_has_holdout, family="permutation_importance"),
+        ValidationTask(name="collinearity", runner=_task_collinearity, family="collinearity"),
+        ValidationTask(name="nonlinearity", runner=_task_nonlinearity, enabled=_has_holdout, family="nonlinearity"),
         ValidationTask(
             name="significance",
             runner=_task_significance,
             enabled=lambda ctx: _has_holdout(ctx) and not (ctx.fit_df if not ctx.fit_df.empty else ctx.tr).empty,
+            family="significance",
         ),
-        ValidationTask(name="stability", runner=_task_stability, enabled=_has_glm),
-        ValidationTask(name="influence", runner=_task_influence, enabled=_has_glm),
-        ValidationTask(name="fragility", runner=_task_fragility, enabled=_has_glm),
-        ValidationTask(name="calibration", runner=_task_calibration, enabled=lambda ctx: _has_glm(ctx) and _has_holdout(ctx)),
+        ValidationTask(name="stability", runner=_task_stability, enabled=_has_glm, family="stability"),
+        ValidationTask(name="influence", runner=_task_influence, enabled=_has_glm, family="influence"),
+        ValidationTask(name="fragility", runner=_task_fragility, enabled=_has_glm, family="fragility"),
+        ValidationTask(
+            name="calibration",
+            runner=_task_calibration,
+            enabled=lambda ctx: _has_glm(ctx) and _has_holdout(ctx),
+            family="calibration",
+        ),
         ValidationTask(
             name="classification_curves",
             runner=_task_classification_curves,
             enabled=lambda ctx: _has_glm(ctx) and _has_holdout(ctx),
+            family="classification",
         ),
     ]
     if extra_tasks:
@@ -1023,7 +1130,22 @@ def run_validation_pipeline(
     for task in selected_tasks:
         if not task.should_run(ctx):
             continue
-        outputs.merge(task.runner(ctx))
+        task_result = task.runner(ctx)
+        if isinstance(task_result, ValidationOutputs):
+            normalized = ValidationTaskResult(outputs=task_result)
+        else:
+            normalized = task_result
+        outputs.merge(normalized.outputs)
+        if normalized.outputs.sections or normalized.summary:
+            outputs.task_records.append(
+                build_validation_artifact_record(
+                    task_name=task.name,
+                    family=task.family,
+                    applicability=normalized.applicability,
+                    artifacts=[spec.file_name for spec in normalized.outputs.sections],
+                    summary=normalized.summary,
+                ).to_dict()
+            )
 
     outputs.write(ctx.out_dir, league=ctx.league)
     _archive_validation_outputs(ctx, outputs)

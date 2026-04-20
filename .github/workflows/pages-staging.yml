@@ -35,10 +35,8 @@ jobs:
         run: npm ci
 
       - name: Verify committed staging snapshot
-        run: |
-          test -f web/public/staging-data/manifest.json
-          test -f web/public/staging-data/nhl/predictions.json
-          test -f web/public/staging-data/nba/predictions.json
+        working-directory: web
+        run: node --import tsx scripts/verify-staging-contract.ts
 
       - name: Build static staging site
         working-directory: web

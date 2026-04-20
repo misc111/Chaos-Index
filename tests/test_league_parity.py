@@ -11,6 +11,7 @@ from src.storage.db import Database
 @pytest.mark.parametrize(
     ("league", "slug", "config_path", "championship_name", "probability_key"),
     [
+        ("MLB", "mlb", "configs/mlb.yaml", "World Series", "world_series_prob"),
         ("NHL", "nhl", "configs/nhl.yaml", "Stanley Cup", "stanley_cup_prob"),
         ("NBA", "nba", "configs/nba.yaml", "NBA Finals", "nba_finals_prob"),
     ],
@@ -32,20 +33,23 @@ def test_league_adapter_contracts_stay_in_sync(
 
     for attr in (
         "fetch_games",
-        "fetch_goalie_game_stats",
-        "fetch_injuries_proxy",
+        "fetch_team_game_stats",
+        "fetch_starter_context",
+        "fetch_injuries_report",
         "fetch_public_odds_optional",
         "fetch_players",
         "build_results_from_games",
         "fetch_upcoming_schedule",
         "fetch_teams",
-        "fetch_xg_optional",
+        "fetch_context_metrics_optional",
     ):
         assert callable(getattr(adapter, attr))
+    assert not hasattr(adapter, "fetch_goalie_game_stats")
+    assert not hasattr(adapter, "fetch_xg_optional")
 
 
 def test_supported_leagues_are_explicit_and_stable() -> None:
-    assert supported_leagues() == ("NHL", "NBA")
+    assert supported_leagues() == ("MLB", "NHL", "NBA")
 
 
 def test_unknown_league_adapter_is_not_supported() -> None:
@@ -53,19 +57,12 @@ def test_unknown_league_adapter_is_not_supported() -> None:
         get_league_adapter("MLS")
 
 
-@pytest.mark.parametrize(
-    ("league", "slug", "config_path"),
-    [
-        ("NHL", "nhl", "configs/nhl.yaml"),
-        ("NBA", "nba", "configs/nba.yaml"),
-    ],
-)
-def test_data_refresh_steps_cover_all_supported_leagues_with_registry_defaults(league: str, slug: str, config_path: str) -> None:
+def test_data_refresh_steps_cover_mlb_first_rebuild_lane() -> None:
     steps = {step.name: step for step in build_data_refresh_steps()}
 
-    assert steps[f"{slug}:fetch"].command[-1] == config_path
-    assert steps[f"{slug}:fetch-odds"].command[-1] == config_path
-    assert steps[f"{slug}:fetch"].name.startswith(league.lower())
+    assert tuple(steps) == ("mlb:fetch", "mlb:fetch-odds")
+    assert steps["mlb:fetch"].command[-1] == "configs/mlb.yaml"
+    assert steps["mlb:fetch-odds"].command[-1] == "configs/mlb.yaml"
 
 
 def _seed_query_db(tmp_path: Path) -> Database:

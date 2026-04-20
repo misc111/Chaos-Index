@@ -2,7 +2,7 @@ import { NextResponse } from "next/server.js";
 import { computeBetDecisionsForSlate, type BetDecision } from "@/lib/betting";
 import { getBetStrategyConfig, strategyFromRequest } from "@/lib/betting-strategy";
 import { runSqlJson } from "@/lib/db";
-import { leagueFromRequest, type LeagueCode } from "@/lib/league";
+import { displayLeagueLabel, leagueFromRequest, type LeagueCode } from "@/lib/league";
 import { getActiveBetRiskRegime, getActiveChampionSummary } from "@/lib/server/services/betting-driver";
 import { getMarketBoardPayload } from "@/lib/server/services/market-board";
 import type {
@@ -35,9 +35,6 @@ type RawPromotionRow = {
   created_at_utc?: string | null;
 };
 
-const NBA_ONLY_SUMMARY =
-  "Research desk is piloting on NBA only in v1. Other leagues keep their existing dashboard surfaces while promotion and nightly underwriting stay focused on NBA.";
-
 function parseJsonRecord(value?: string | null): TableRow | null {
   if (!value) return null;
   try {
@@ -59,13 +56,22 @@ function normalizePromotionReason(value?: string | null): string | null {
 }
 
 export function buildUnsupportedPayload(league: LeagueCode): ResearchDeskResponse {
+  const emptySummary = buildOvernightSummary({
+    league,
+    deskPosture: "normal",
+    championModelName: null,
+    promotion: null,
+    totalGames: 0,
+    betCount: 0,
+  });
+
   return {
     league,
     as_of_utc: null,
     odds_as_of_utc: null,
     date_central: undefined,
     desk_posture: "normal",
-    overnight_summary: NBA_ONLY_SUMMARY,
+    overnight_summary: emptySummary,
     champion: null,
     latest_promotion: null,
     counts: {
@@ -153,16 +159,18 @@ export function buildNightlyRows(
 }
 
 export function buildOvernightSummary(args: {
+  league: LeagueCode;
   deskPosture: "normal" | "guarded";
   championModelName?: string | null;
   promotion: ResearchPromotionSummary | null;
   totalGames: number;
   betCount: number;
 }): string {
+  const leagueLabel = displayLeagueLabel(args.league);
   const postureSentence =
     args.deskPosture === "guarded"
-      ? "Guarded posture is active, so the desk is using tighter NBA risk controls tonight."
-      : "Normal posture is active, so the desk is running on its standard NBA underwriting rules.";
+      ? `Guarded posture is active, so the desk is using tighter ${leagueLabel} risk controls tonight.`
+      : `Normal posture is active, so the desk is running on its standard ${leagueLabel} underwriting rules.`;
   const championSentence = args.championModelName
     ? `Active champion: ${args.championModelName}.`
     : "No promoted champion is recorded yet, so the desk is leaning on the current fallback model.";
@@ -173,67 +181,68 @@ export function buildOvernightSummary(args: {
     : "No promotion decision has been recorded yet.";
   const slateSentence =
     args.totalGames > 0
-      ? `Tonight's slate has ${pluralize(args.totalGames, "game")}, with ${pluralize(args.betCount, "bet")} and ${pluralize(
+      ? `Tonight's ${leagueLabel} slate has ${pluralize(args.totalGames, "game")}, with ${pluralize(args.betCount, "bet")} and ${pluralize(
           Math.max(0, args.totalGames - args.betCount),
           "pass"
         )}.`
-      : "No NBA games are on the desk slate right now.";
+      : `No ${leagueLabel} games are on the desk slate right now.`;
 
   return [postureSentence, championSentence, promotionSentence, slateSentence].join(" ");
 }
 
 export async function GET(request: Request) {
   const league = leagueFromRequest(request);
-  if (league !== "NBA") {
+  try {
+    const marketBoard = await getMarketBoardPayload(league);
+    const riskRegime = getActiveBetRiskRegime(league);
+    const strategy = strategyFromRequest(request);
+    const strategyConfig = marketBoard.strategy_configs?.[strategy] || getBetStrategyConfig(strategy, { league, riskRegime });
+    const decisions = computeBetDecisionsForSlate(
+      marketBoard.rows.map((row) => ({
+        league,
+        home_team: row.home_team_name,
+        away_team: row.away_team_name,
+        home_win_probability: row.home_win_probability,
+        home_moneyline: row.moneyline.home_price,
+        away_moneyline: row.moneyline.away_price,
+        betting_model_name: row.betting_model_name,
+        model_win_probabilities: row.model_win_probabilities,
+      })),
+      strategy,
+      strategyConfig,
+      undefined,
+      { league, riskRegime }
+    );
+
+    const rows = buildNightlyRows(marketBoard, decisions);
+    const champion = loadChampionSummary(league);
+    const latestPromotion = loadLatestPromotion(league);
+    const counts = {
+      total_games: rows.length,
+      bets: rows.filter((row) => row.bet_label === "bet").length,
+      passes: rows.filter((row) => row.bet_label === "pass").length,
+    };
+
+    return NextResponse.json({
+      league,
+      as_of_utc: marketBoard.as_of_utc,
+      odds_as_of_utc: marketBoard.odds_as_of_utc,
+      date_central: marketBoard.date_central,
+      desk_posture: riskRegime,
+      overnight_summary: buildOvernightSummary({
+        league,
+        deskPosture: riskRegime,
+        championModelName: champion?.model_name,
+        promotion: latestPromotion,
+        totalGames: counts.total_games,
+        betCount: counts.bets,
+      }),
+      champion,
+      latest_promotion: latestPromotion,
+      counts,
+      rows,
+    } satisfies ResearchDeskResponse);
+  } catch {
     return NextResponse.json(buildUnsupportedPayload(league));
   }
-
-  const marketBoard = await getMarketBoardPayload(league);
-  const riskRegime = getActiveBetRiskRegime(league);
-  const strategy = strategyFromRequest(request);
-  const strategyConfig = marketBoard.strategy_configs?.[strategy] || getBetStrategyConfig(strategy, { league, riskRegime });
-  const decisions = computeBetDecisionsForSlate(
-    marketBoard.rows.map((row) => ({
-      league,
-      home_team: row.home_team_name,
-      away_team: row.away_team_name,
-      home_win_probability: row.home_win_probability,
-      home_moneyline: row.moneyline.home_price,
-      away_moneyline: row.moneyline.away_price,
-      betting_model_name: row.betting_model_name,
-      model_win_probabilities: row.model_win_probabilities,
-    })),
-    strategy,
-    strategyConfig,
-    undefined,
-    { league, riskRegime }
-  );
-
-  const rows = buildNightlyRows(marketBoard, decisions);
-  const champion = loadChampionSummary(league);
-  const latestPromotion = loadLatestPromotion(league);
-  const counts = {
-    total_games: rows.length,
-    bets: rows.filter((row) => row.bet_label === "bet").length,
-    passes: rows.filter((row) => row.bet_label === "pass").length,
-  };
-
-  return NextResponse.json({
-    league,
-    as_of_utc: marketBoard.as_of_utc,
-    odds_as_of_utc: marketBoard.odds_as_of_utc,
-    date_central: marketBoard.date_central,
-    desk_posture: riskRegime,
-    overnight_summary: buildOvernightSummary({
-      deskPosture: riskRegime,
-      championModelName: champion?.model_name,
-      promotion: latestPromotion,
-      totalGames: counts.total_games,
-      betCount: counts.bets,
-    }),
-    champion,
-    latest_promotion: latestPromotion,
-    counts,
-    rows,
-  } satisfies ResearchDeskResponse);
 }

@@ -11,7 +11,7 @@
       "arguments": [],
       "examples": [
         "make init-db",
-        "make init-db CONFIG=configs/nhl.yaml"
+        "make init-db CONFIG=configs/mlb.yaml"
       ]
     },
     {
@@ -22,7 +22,7 @@
       "arguments": [],
       "examples": [
         "make fetch",
-        "make fetch CONFIG=configs/nba.yaml"
+        "make fetch CONFIG=configs/mlb.yaml"
       ]
     },
     {
@@ -32,7 +32,7 @@
       "config_required": true,
       "arguments": [],
       "examples": [
-        "make refresh-data CONFIG=configs/nba.yaml"
+        "make refresh-data CONFIG=configs/mlb.yaml"
       ]
     },
     {
@@ -43,7 +43,7 @@
       "arguments": [],
       "examples": [
         "make fetch-odds",
-        "make fetch-odds CONFIG=configs/nhl.yaml"
+        "make fetch-odds CONFIG=configs/mlb.yaml"
       ]
     },
     {
@@ -72,7 +72,7 @@
         }
       ],
       "examples": [
-        "python3 -m src.cli import-history --config configs/nba.yaml --history-seasons 3"
+        "python3 -m src.cli import-history --config configs/mlb.yaml --history-seasons 3"
       ]
     },
     {
@@ -119,7 +119,7 @@
         }
       ],
       "examples": [
-        "python3 -m src.cli backfill-historical-odds --config configs/nba.yaml --start-date 2025-10-02 --end-date 2026-04-04"
+        "python3 -m src.cli backfill-historical-odds --config configs/mlb.yaml --start-date 2025-03-20 --end-date 2025-09-30"
       ]
     },
     {
@@ -130,7 +130,7 @@
       "arguments": [],
       "examples": [
         "make features",
-        "make features CONFIG=configs/nba.yaml"
+        "make features CONFIG=configs/mlb.yaml"
       ]
     },
     {
@@ -144,9 +144,9 @@
             "--models"
           ],
           "doc_metavar": "MODELS",
-          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'.",
+          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core lane.",
           "choices": null,
-          "default": "all"
+          "default": null
         },
         {
           "flags": [
@@ -159,7 +159,7 @@
         }
       ],
       "examples": [
-        "make research-features CONFIG=configs/nba.yaml APPROVE_FEATURE_CHANGES=1"
+        "make research-features CONFIG=configs/mlb.yaml APPROVE_FEATURE_CHANGES=1"
       ]
     },
     {
@@ -173,9 +173,9 @@
             "--models"
           ],
           "doc_metavar": "MODELS",
-          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'.",
+          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core lane.",
           "choices": null,
-          "default": "all"
+          "default": null
         },
         {
           "flags": [
@@ -222,7 +222,7 @@
       ],
       "examples": [
         "make train",
-        "make train CONFIG=configs/nba.yaml MODELS=glm_ridge,rf"
+        "make train CONFIG=configs/mlb.yaml MODELS=glm_ridge,glm_lasso"
       ]
     },
     {
@@ -285,7 +285,7 @@
       ],
       "examples": [
         "make validate",
-        "make validate CONFIG=configs/nba.yaml MODEL_RUN_ID=run_abc123"
+        "make validate CONFIG=configs/mlb.yaml MODEL_RUN_ID=run_abc123"
       ]
     },
     {
@@ -348,7 +348,7 @@
             "--structured-glm-spec"
           ],
           "doc_metavar": "PATH",
-          "help": "Optional research-only YAML spec defining a structured NBA GLM feature slate.",
+          "help": "Optional research-only YAML spec defining a structured MLB GLM feature slate.",
           "choices": null,
           "default": null
         },
@@ -357,7 +357,7 @@
             "--structured-glm-slate"
           ],
           "doc_metavar": "SLATE",
-          "help": "Optional named slate to select from the structured NBA GLM spec.",
+          "help": "Optional named slate to select from the structured MLB GLM spec.",
           "choices": null,
           "default": null
         },
@@ -366,13 +366,13 @@
             "--structured-glm-width-variant"
           ],
           "doc_metavar": "VARIANT",
-          "help": "Optional width variant to select from the structured NBA GLM spec.",
+          "help": "Optional width variant to select from the structured MLB GLM spec.",
           "choices": null,
           "default": null
         }
       ],
       "examples": [
-        "make compare-candidates CONFIG=configs/nba.yaml"
+        "make compare-candidates CONFIG=configs/mlb.yaml"
       ]
     },
     {
@@ -386,9 +386,9 @@
             "--models"
           ],
           "doc_metavar": "MODELS",
-          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'.",
+          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core lane.",
           "choices": null,
-          "default": "all"
+          "default": null
         },
         {
           "flags": [
@@ -402,7 +402,7 @@
       ],
       "examples": [
         "make backtest",
-        "make backtest CONFIG=configs/nba.yaml MODELS=glm_ridge"
+        "make backtest CONFIG=configs/mlb.yaml MODELS=glm_ridge"
       ]
     },
     {
@@ -465,7 +465,7 @@
             "--structured-glm-spec"
           ],
           "doc_metavar": "PATH",
-          "help": "Optional research-only YAML spec defining a structured NBA GLM feature slate.",
+          "help": "Optional research-only YAML spec defining a structured MLB GLM feature slate.",
           "choices": null,
           "default": null
         },
@@ -474,7 +474,7 @@
             "--structured-glm-slate"
           ],
           "doc_metavar": "SLATE",
-          "help": "Optional named slate to select from the structured NBA GLM spec.",
+          "help": "Optional named slate to select from the structured MLB GLM spec.",
           "choices": null,
           "default": null
         },
@@ -483,18 +483,18 @@
             "--structured-glm-width-variant"
           ],
           "doc_metavar": "VARIANT",
-          "help": "Optional width variant to select from the structured NBA GLM spec.",
+          "help": "Optional width variant to select from the structured MLB GLM spec.",
           "choices": null,
           "default": null
         }
       ],
       "examples": [
-        "python3 -m src.cli research-backtest --config configs/nba.yaml --history-seasons 2"
+        "python3 -m src.cli research-backtest --config configs/mlb.yaml --history-seasons 2"
       ]
     },
     {
       "name": "research-desk",
-      "summary": "Run the NBA-first research desk orchestration flow with structured brief intake and champion auto-promotion.",
+      "summary": "Run the MLB-first research desk orchestration flow with structured brief intake and champion auto-promotion.",
       "handler_path": "src.commands.modeling:research_desk",
       "config_required": true,
       "arguments": [
@@ -570,7 +570,7 @@
             "--structured-glm-spec"
           ],
           "doc_metavar": "PATH",
-          "help": "Optional research-only YAML spec defining a structured NBA GLM feature slate.",
+          "help": "Optional research-only YAML spec defining a structured MLB GLM feature slate.",
           "choices": null,
           "default": null
         },
@@ -579,7 +579,7 @@
             "--structured-glm-slate"
           ],
           "doc_metavar": "SLATE",
-          "help": "Optional named slate to select from the structured NBA GLM spec.",
+          "help": "Optional named slate to select from the structured MLB GLM spec.",
           "choices": null,
           "default": null
         },
@@ -588,13 +588,13 @@
             "--structured-glm-width-variant"
           ],
           "doc_metavar": "VARIANT",
-          "help": "Optional width variant to select from the structured NBA GLM spec.",
+          "help": "Optional width variant to select from the structured MLB GLM spec.",
           "choices": null,
           "default": null
         }
       ],
       "examples": [
-        "make research_desk CONFIG=configs/nba.yaml"
+        "make research_desk CONFIG=configs/mlb.yaml"
       ]
     },
     {
@@ -608,9 +608,9 @@
             "--models"
           ],
           "doc_metavar": "MODELS",
-          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'.",
+          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core lane.",
           "choices": null,
-          "default": "all"
+          "default": null
         },
         {
           "flags": [
@@ -657,7 +657,7 @@
       ],
       "examples": [
         "make run_daily",
-        "make run_daily CONFIG=configs/nba.yaml MODELS=glm_ridge"
+        "make run_daily CONFIG=configs/mlb.yaml MODELS=glm_ridge"
       ]
     },
     {

@@ -31,6 +31,12 @@ DIRECT_EVENT_TOKENS = (
     "goals_against",
     "points_for",
     "points_against",
+    "runs_for",
+    "runs_against",
+    "run_diff",
+    "home_runs",
+    "away_runs",
+    "total_runs",
     "shots_for",
     "shots_against",
     "field_goal_attempts_for",
@@ -49,6 +55,7 @@ DIRECT_EVENT_TOKENS = (
     "pace_proxy",
     "scoring_efficiency_proxy",
     "possession_proxy",
+    "winner",
 )
 
 
@@ -58,6 +65,13 @@ def run_leakage_checks(features_df: pd.DataFrame, feature_columns: list[str] | N
     if features_df.empty:
         issues.append("features_empty")
         return issues
+
+    if "available_as_of_utc" in features_df.columns and "start_time_utc" in features_df.columns:
+        available = pd.to_datetime(features_df["available_as_of_utc"], errors="coerce", utc=True)
+        start = pd.to_datetime(features_df["start_time_utc"], errors="coerce", utc=True)
+        bad = available.notna() & start.notna() & available.gt(start)
+        if bad.any():
+            issues.append(f"available_as_of_after_start_count={int(bad.sum())}")
 
     cols = set(feature_columns) if feature_columns is not None else set(features_df.columns)
     forbidden_present = sorted(BANNED_DIRECT_FEATURES.intersection(cols))

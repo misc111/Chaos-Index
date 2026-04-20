@@ -62,6 +62,7 @@ test("buildNightlyRows preserves actual bet decisions from the pricing engine", 
 
 test("buildOvernightSummary mentions posture, promotion outcome, and slate counts", () => {
   const summary = buildOvernightSummary({
+    league: "MLB",
     deskPosture: "guarded",
     championModelName: "glm_ridge",
     promotion: {
@@ -77,17 +78,19 @@ test("buildOvernightSummary mentions posture, promotion outcome, and slate count
   });
 
   assert.match(summary, /Guarded posture is active/i);
+  assert.match(summary, /tighter MLB risk controls/i);
   assert.match(summary, /Active champion: glm_ridge/i);
   assert.match(summary, /calibration_guardrail/i);
-  assert.match(summary, /4 games/i);
+  assert.match(summary, /Tonight's MLB slate has 4 games/i);
   assert.match(summary, /1 bet/i);
 });
 
-test("buildUnsupportedPayload returns the NBA-first fallback state", () => {
-  const payload = buildUnsupportedPayload("NHL");
+test("buildUnsupportedPayload returns a league-aware empty payload", () => {
+  const payload = buildUnsupportedPayload("MLB");
 
-  assert.equal(payload.league, "NHL");
+  assert.equal(payload.league, "MLB");
   assert.equal(payload.rows.length, 0);
   assert.equal(payload.counts.total_games, 0);
-  assert.match(String(payload.overnight_summary), /NBA only/i);
+  assert.match(String(payload.overnight_summary), /No MLB games are on the desk slate right now/i);
+  assert.doesNotMatch(String(payload.overnight_summary), /NBA only/i);
 });

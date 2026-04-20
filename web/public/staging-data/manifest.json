@@ -1,7 +1,53 @@
 {
-  "generated_at_utc": "2026-04-20T12:43:08.040Z",
-  "leagues": [
+  "contract": "mlb-first-static-staging",
+  "generated_at_utc": "2026-04-20T21:03:22.629Z",
+  "primary_league": "MLB",
+  "shipped_leagues": [
+    "MLB",
     "NHL",
     "NBA"
-  ]
+  ],
+  "leagues": [
+    "MLB",
+    "NHL",
+    "NBA"
+  ],
+  "required_files_by_league": {
+    "MLB": [
+      "actual-vs-expected.json",
+      "bet-history.json",
+      "games-today.json",
+      "market-board.json",
+      "metrics.json",
+      "performance.fresh-1d-no-dogs-over-300.json",
+      "performance.json",
+      "predictions.json",
+      "research-desk.json",
+      "validation.json"
+    ],
+    "NHL": [
+      "actual-vs-expected.json",
+      "bet-history.json",
+      "games-today.json",
+      "market-board.json",
+      "metrics.json",
+      "performance.fresh-1d-no-dogs-over-300.json",
+      "performance.json",
+      "predictions.json",
+      "research-desk.json",
+      "validation.json"
+    ],
+    "NBA": [
+      "actual-vs-expected.json",
+      "bet-history.json",
+      "games-today.json",
+      "market-board.json",
+      "metrics.json",
+      "performance.fresh-1d-no-dogs-over-300.json",
+      "performance.json",
+      "predictions.json",
+      "research-desk.json",
+      "validation.json"
+    ]
+  }
 }

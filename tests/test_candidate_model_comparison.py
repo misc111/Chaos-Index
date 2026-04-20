@@ -1,3 +1,5 @@
+import json
+
 import numpy as np
 import pandas as pd
 
@@ -191,11 +193,18 @@ def test_candidate_model_comparison_writes_report_bundle(tmp_path, monkeypatch):
     )
 
     assert result.report_path.exists()
+    assert result.summary_path.exists()
     assert result.validation_metrics_path.exists()
     assert result.test_metrics_path.exists()
     assert result.bootstrap_path.exists()
     assert result.recommendation_model in result.test_metrics["model_name"].tolist()
-    assert "GLM Ridge" in result.report_path.read_text()
+    report_text = result.report_path.read_text()
+    assert "This comparison is a research screen only" in report_text
+    summary_payload = json.loads(result.summary_path.read_text())
+    assert "candidate_scorecards" in summary_payload
+    assert "promotion_decision" in summary_payload
+    assert summary_payload["promotion_decision"]["status"] in {"research_recommended", "research_hold"}
+    assert summary_payload["promotion_decision"]["rationale"]
 
 
 def test_candidate_model_comparison_can_use_production_feature_map_for_penalized_glms(tmp_path, monkeypatch):

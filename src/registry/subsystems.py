@@ -55,7 +55,7 @@ SUBSYSTEM_DOCS: tuple[SubsystemDocEntry, ...] = (
     SubsystemDocEntry(
         path="src/models",
         title="Models",
-        summary="Model implementations for rating, linear, tree, simulation, and Bayesian families.",
+        summary="Actuarial core model implementations plus explicitly fenced experimental challenger families.",
         public_entrypoints=("src/models/base.py", "src/training/model_catalog.py"),
         readme_path="src/models/README.md",
         generate_readme=True,
@@ -63,7 +63,7 @@ SUBSYSTEM_DOCS: tuple[SubsystemDocEntry, ...] = (
     SubsystemDocEntry(
         path="src/orchestration",
         title="Orchestration",
-        summary="Deterministic multi-league refresh and publish pipelines.",
+        summary="Deterministic MLB-first refresh, rebuild, and staging pipelines.",
         public_entrypoints=("src/orchestration/data_refresh.py", "src/orchestration/hard_refresh.py"),
         readme_path="src/orchestration/README.md",
         generate_readme=True,

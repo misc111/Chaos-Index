@@ -9,12 +9,88 @@ from src.training.model_feature_research import (
 
 
 def test_glm_pruning_config_is_league_specific() -> None:
+    assert _model_feature_pruning_config("glm_ridge", league="MLB") == (8, 14, 0.92)
     assert _model_feature_pruning_config("glm_ridge", league="NBA") == (6, 10, 0.92)
     assert _model_feature_pruning_config("glm_ridge", league="NHL") == (14, 24, 0.92)
+    assert _model_feature_pruning_config("glm_elastic_net", league="MLB") == (8, 14, 0.92)
     assert _model_feature_pruning_config("glm_elastic_net", league="NBA") == (6, 10, 0.92)
     assert _model_feature_pruning_config("glm_elastic_net", league="NHL") == (14, 24, 0.92)
+    assert _model_feature_pruning_config("glm_lasso", league="MLB") == (6, 10, 0.92)
     assert _model_feature_pruning_config("glm_lasso", league="NBA") == (6, 10, 0.92)
     assert _model_feature_pruning_config("glm_lasso", league="NHL") == (14, 24, 0.92)
+
+
+def test_mlb_model_feature_research_prefers_baseball_features_and_excludes_hockey_prefixes(tmp_path) -> None:
+    n = 260
+    rng = np.random.default_rng(84)
+    skill = rng.normal(0, 1, n)
+    noise = rng.normal(0, 1, n)
+
+    df = pd.DataFrame(
+        {
+            "game_id": np.arange(1, n + 1),
+            "start_time_utc": pd.date_range("2026-03-01", periods=n, freq="D").astype(str),
+            "game_date_utc": pd.date_range("2026-03-01", periods=n, freq="D").date.astype(str),
+            "home_win": (skill + 0.2 * noise > 0).astype(int),
+            "diff_starting_pitcher_quality": 1.1 * skill + rng.normal(0, 0.1, n),
+            "starting_pitcher_hand_matchup": 0.7 * skill + rng.normal(0, 0.15, n),
+            "diff_bullpen_quality": 0.95 * skill + rng.normal(0, 0.15, n),
+            "diff_bullpen_fatigue": -0.5 * skill + rng.normal(0, 0.2, n),
+            "diff_lineup_talent": 0.9 * skill + rng.normal(0, 0.15, n),
+            "diff_lineup_availability": 0.55 * skill + rng.normal(0, 0.2, n),
+            "lineup_stability_diff": 0.45 * skill + rng.normal(0, 0.2, n),
+            "diff_offense_form": 0.8 * skill + rng.normal(0, 0.15, n),
+            "diff_pitching_form": 0.78 * skill + rng.normal(0, 0.15, n),
+            "park_run_effect": 0.5 * skill + rng.normal(0, 0.15, n),
+            "park_weather_run_effect": 0.42 * skill + rng.normal(0, 0.15, n),
+            "weather_wind_run_effect": 0.35 * skill + rng.normal(0, 0.15, n),
+            "weather_temperature_run_effect": 0.22 * skill + rng.normal(0, 0.18, n),
+            "weather_humidity_run_effect": 0.18 * skill + rng.normal(0, 0.18, n),
+            "umpire_run_effect": 0.2 * skill + rng.normal(0, 0.18, n),
+            "rest_diff": 0.3 * skill + rng.normal(0, 0.2, n),
+            "travel_diff": -0.25 * skill + rng.normal(0, 0.2, n),
+            "home_field_advantage": 0.15 + rng.normal(0, 0.03, n),
+            "series_context_index": 0.28 * skill + rng.normal(0, 0.2, n),
+            "day_game_indicator": rng.integers(0, 2, n),
+            "home_days_into_season": np.linspace(1, 162, n),
+            "away_days_into_season": np.linspace(1, 162, n) + rng.normal(0, 0.1, n),
+            "home_bullpen_quality_index": 0.7 * skill + rng.normal(0, 0.2, n),
+            "away_bullpen_quality_index": -0.6 * skill + rng.normal(0, 0.2, n),
+            "home_starting_pitcher_quality_index": 0.9 * skill + rng.normal(0, 0.2, n),
+            "away_starting_pitcher_quality_index": -0.8 * skill + rng.normal(0, 0.2, n),
+            "home_starting_pitcher_hand": rng.integers(0, 2, n),
+            "away_starting_pitcher_hand": rng.integers(0, 2, n),
+            "goalie_quality_diff": 0.85 * skill + rng.normal(0, 0.15, n),
+            "special_pp_diff": 0.8 * skill + rng.normal(0, 0.15, n),
+            "rink_goal_effect": 0.75 * skill + rng.normal(0, 0.15, n),
+            "target_total_runs": 8.5 + 1.4 * skill + rng.normal(0, 0.4, n),
+            "target_run_differential": 0.8 * skill + rng.normal(0, 0.25, n),
+        }
+    )
+
+    result = research_model_feature_map(
+        df,
+        league="MLB",
+        artifacts_dir=str(tmp_path / "artifacts"),
+        feature_columns=[c for c in df.columns if c not in {"game_id", "start_time_utc", "game_date_utc", "home_win"}],
+        selected_models=["glm_ridge", "two_stage"],
+        approve_changes=True,
+        path_template=str(tmp_path / "model_feature_map_{league}.yaml"),
+    )
+
+    saved = load_model_feature_map("MLB", path_template=str(tmp_path / "model_feature_map_{league}.yaml"))
+    assert result.registry_updated is True
+    assert "glm_ridge" in saved
+    assert "two_stage" in saved
+    assert "diff_starting_pitcher_quality" in saved["glm_ridge"]
+    assert "diff_bullpen_quality" in saved["glm_ridge"]
+    assert "park_run_effect" in saved["glm_ridge"]
+    assert "starting_pitcher_hand_matchup" in saved["two_stage"]
+    assert "series_context_index" in saved["two_stage"]
+    assert len(saved["glm_ridge"]) <= 14
+    assert len(saved["two_stage"]) <= 20
+    assert not any(feature.startswith(("goalie_", "special_", "rink_")) for feature in saved["glm_ridge"])
+    assert not any(feature.startswith(("goalie_", "special_", "rink_")) for feature in saved["two_stage"])
 
 
 def test_nba_model_feature_research_promotes_per_model_feature_map(tmp_path) -> None:

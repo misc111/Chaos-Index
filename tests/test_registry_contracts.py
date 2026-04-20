@@ -29,6 +29,13 @@ def test_cli_parser_stays_in_sync_with_command_registry() -> None:
     assert tuple(subparser_action.choices.keys()) == command_names()
 
 
+def test_mlb_train_cli_defaults_to_the_core_lane() -> None:
+    parser = build_parser()
+    args = parser.parse_args(["train", "--config", "configs/mlb.yaml"])
+
+    assert args.models is None
+
+
 def test_structured_glm_cli_flags_are_exposed_on_research_commands() -> None:
     parser = build_parser()
 
@@ -67,15 +74,63 @@ def test_generated_league_manifest_matches_code_registry() -> None:
     manifest = json.loads((ROOT_DIR / "configs" / "generated" / "league_manifest.json").read_text())
 
     assert manifest == league_manifest_payload()
+    assert manifest["primary_league"] == "MLB"
+    assert manifest["primary_rebuild_leagues"] == ["MLB"]
+    assert manifest["leagues"]["MLB"]["primary_rebuild_lane"] is True
+    assert manifest["leagues"]["NBA"]["primary_rebuild_lane"] is False
 
 
 def test_generated_model_manifest_matches_code_registry_and_training_catalog() -> None:
     manifest = json.loads((ROOT_DIR / "configs" / "generated" / "model_manifest.json").read_text())
 
     assert manifest == model_manifest_payload()
+    assert manifest["primary_lane"] == "core"
     assert manifest["trainable_models"] == ALL_MODEL_NAMES
+    assert manifest["default_training_models"] == [
+        "glm_ridge",
+        "glm_elastic_net",
+        "glm_lasso",
+        "glm_vanilla",
+        "gam_spline",
+        "mars_hinge",
+        "glmm_logit",
+        "dglm_margin",
+        "two_stage",
+        "goals_poisson",
+    ]
+    assert manifest["core_models"] == [
+        "glm_ridge",
+        "glm_elastic_net",
+        "glm_lasso",
+        "glm_lasso_market_credibility",
+        "glm_lasso_prior_credibility",
+        "glm_vanilla",
+        "gam_spline",
+        "mars_hinge",
+        "glmm_logit",
+        "dglm_margin",
+        "two_stage",
+        "goals_poisson",
+    ]
+    assert manifest["baseline_models"] == [
+        "elo_baseline",
+        "dynamic_rating",
+        "simulation_first",
+    ]
+    assert manifest["experimental_models"] == [
+        "gbdt",
+        "rf",
+        "bayes_bt_state_space",
+        "bayes_goals",
+        "nn_mlp",
+    ]
     assert manifest["aliases"] == MODEL_ALIASES
     assert manifest["prediction_report_order"] == MODEL_REPORT_ORDER
+    assert manifest["lane_labels"]["experimental"] == "Experimental challenger lane"
+    assert manifest["models"]["glm_lasso_market_credibility"]["default_enabled"] is False
+    assert manifest["models"]["glm_lasso_prior_credibility"]["default_enabled"] is False
+    assert manifest["models"]["rf"]["default_enabled"] is False
+    assert manifest["models"]["rf"]["governance_note"] == "Experimental non-CAS challenger; explicit opt-in only."
 
 
 def test_generated_command_manifest_matches_code_registry() -> None:

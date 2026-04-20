@@ -11,32 +11,25 @@ import yaml
 
 from src.common.config import AppConfig
 from src.common.logging import get_logger
+from src.registry.models import baseline_model_names, core_model_names, get_model_registry_entry
 from src.research.model_comparison import CANDIDATE_MODEL_NAMES
 from src.services import research_backtest as research_backtest_service
 from src.storage.db import Database
+from src.training.contracts import CandidateScorecardRecord, PromotionDecisionRecord
 
 logger = get_logger(__name__)
 
 DEFAULT_PROFILE_KEY = "default"
 DEFAULT_BRIEF_STATUS = "active"
-DEFAULT_NBA_CHAMPION = "glm_elastic_net"
+DEFAULT_LEGACY_INCUMBENT_MODEL = "glm_elastic_net"
 MAX_DRAWDOWN_LIMIT = 750.0
 MIN_BET_COUNT = 10
 MIN_PROFITABLE_FOLDS = 2
 MAX_ECE_DELTA = 0.01
-MATERIALIZABLE_MODEL_NAMES = {
-    "ensemble",
-    "glm_elastic_net",
-    "glm_lasso",
-    "glm_ridge",
-    "glm_vanilla",
-    "gam_spline",
-    "mars_hinge",
-    "glmm_logit",
-    "dglm_margin",
-    "dynamic_rating",
-    "bayes_bt_state_space",
-}
+MATERIALIZABLE_MODEL_NAMES = {"ensemble", *core_model_names(), *baseline_model_names()}
+RESEARCH_DESK_TARGET_NAME = "moneyline_home_win"
+RESEARCH_DESK_DISTRIBUTION = "binomial"
+RESEARCH_DESK_LINK_FUNCTION = "logit"
 
 
 @dataclass(frozen=True)
@@ -107,6 +100,138 @@ def _candidate_models_from_brief(payload: dict[str, object]) -> list[str] | None
         return None
     values = [str(item).strip() for item in raw if str(item).strip()] if isinstance(raw, list) else []
     return values or None
+
+
+def _safe_float(value: object) -> float | None:
+    try:
+        numeric = float(value)
+    except Exception:
+        return None
+    return numeric if pd.notna(numeric) else None
+
+
+def _safe_int(value: object) -> int | None:
+    try:
+        numeric = int(value)
+    except Exception:
+        return None
+    return numeric
+
+
+def _model_contract_metadata(model_name: str) -> dict[str, str]:
+    token = str(model_name or "").strip()
+    if token == "ensemble":
+        return {
+            "lane": "ensemble",
+            "family": "ensemble",
+            "display_name": "Ensemble",
+            "governance_note": "Fallback ensemble retained until a candidate clears the promotion gate.",
+        }
+    try:
+        entry = get_model_registry_entry(token)
+    except KeyError:
+        return {
+            "lane": "unknown",
+            "family": "unknown",
+            "display_name": token,
+            "governance_note": "",
+        }
+    return {
+        "lane": entry.lane,
+        "family": entry.family,
+        "display_name": entry.display_label,
+        "governance_note": entry.governance_note,
+    }
+
+
+def _metric_delta(candidate: dict[str, object], baseline: dict[str, object], key: str) -> float | None:
+    candidate_value = _safe_float(candidate.get(key))
+    baseline_value = _safe_float(baseline.get(key))
+    if candidate_value is None or baseline_value is None:
+        return None
+    return candidate_value - baseline_value
+
+
+def _promotion_failure_reasons(
+    *,
+    gates: dict[str, bool],
+    best_row: dict[str, object],
+    baseline_row: dict[str, object],
+    policy: dict[str, object],
+    candidate_model_name: str,
+) -> list[str]:
+    reasons: list[str] = []
+    if not gates.get("research_backtest_eligible", True):
+        reasons.append("The research backtest marked the candidate ineligible before promotion review.")
+    if not gates.get("materializable_candidate", True):
+        reasons.append(f"`{candidate_model_name}` is not materializable in the current CAS core promotion lane.")
+    if not gates.get("beats_incumbent_bankroll", True):
+        reasons.append(
+            f"Mean ending bankroll {_safe_float(best_row.get('mean_ending_bankroll')) or 0.0:.1f} did not clear the incumbent at {_safe_float(baseline_row.get('mean_ending_bankroll')) or 0.0:.1f}."
+        )
+    if not gates.get("beats_incumbent_profit", True):
+        reasons.append(
+            f"Mean net profit {_safe_float(best_row.get('mean_net_profit')) or 0.0:.1f} did not clear the incumbent at {_safe_float(baseline_row.get('mean_net_profit')) or 0.0:.1f}."
+        )
+    if not gates.get("max_drawdown_limit", True):
+        reasons.append(
+            f"Mean max drawdown {_safe_float(best_row.get('mean_max_drawdown')) or 0.0:.1f} exceeded the policy cap of {float(policy.get('max_mean_drawdown_dollars') or MAX_DRAWDOWN_LIMIT):.1f}."
+        )
+    if not gates.get("calibration_guardrail", True):
+        baseline_ece = _safe_float(baseline_row.get("mean_ece")) or 0.0
+        tolerance = float(policy.get("max_ece_delta") or MAX_ECE_DELTA)
+        reasons.append(
+            f"Mean ECE {_safe_float(best_row.get('mean_ece')) or 0.0:.4f} exceeded the incumbent-plus-tolerance guardrail of {baseline_ece:.4f} + {tolerance:.4f}."
+        )
+    if not gates.get("minimum_bet_count", True):
+        reasons.append(
+            f"Bet count {_safe_int(best_row.get('bet_count')) or 0} fell short of the minimum {int(policy.get('min_bet_count') or MIN_BET_COUNT)}."
+        )
+    if not gates.get("minimum_profitable_folds", True):
+        profitable = _safe_int(best_row.get("profitable_folds")) or _safe_int(best_row.get("profit_winning_folds")) or 0
+        reasons.append(
+            f"Profitable folds {profitable} fell short of the minimum {int(policy.get('min_profitable_folds') or MIN_PROFITABLE_FOLDS)}."
+        )
+    return reasons
+
+
+def _scorecard_rejection_reasons(
+    *,
+    row: pd.Series,
+    strategy: str,
+    anchor_row: pd.Series | None,
+    candidate_model_name: str,
+    active_model_name: str,
+    decision: dict[str, object],
+) -> list[str]:
+    model_name = str(row.get("model_name") or "")
+    if model_name == active_model_name:
+        return []
+    if model_name == candidate_model_name and isinstance(decision.get("failed_reasons"), list):
+        return [str(reason) for reason in decision["failed_reasons"] if str(reason).strip()]
+
+    reasons: list[str] = []
+    if anchor_row is not None:
+        model_bankroll = _safe_float(row.get("mean_ending_bankroll"))
+        anchor_bankroll = _safe_float(anchor_row.get("mean_ending_bankroll"))
+        model_profit = _safe_float(row.get("mean_net_profit"))
+        anchor_profit = _safe_float(anchor_row.get("mean_net_profit"))
+        model_log_loss = _safe_float(row.get("mean_log_loss"))
+        anchor_log_loss = _safe_float(anchor_row.get("mean_log_loss"))
+        if model_bankroll is not None and anchor_bankroll is not None and model_bankroll < anchor_bankroll - 1e-12:
+            reasons.append(
+                f"Mean ending bankroll {model_bankroll:.1f} trailed `{active_model_name}` at {anchor_bankroll:.1f}."
+            )
+        if model_profit is not None and anchor_profit is not None and model_profit < anchor_profit - 1e-12:
+            reasons.append(f"Mean net profit {model_profit:.1f} trailed `{active_model_name}` at {anchor_profit:.1f}.")
+        if model_log_loss is not None and anchor_log_loss is not None and model_log_loss > anchor_log_loss + 1e-12:
+            reasons.append(f"Mean log loss {model_log_loss:.4f} trailed `{active_model_name}` at {anchor_log_loss:.4f}.")
+    integrity_value = row.get("all_integrity_checks")
+    if pd.notna(integrity_value) and not bool(integrity_value):
+        reasons.append("One or more pregame integrity checks did not stay green.")
+    if not reasons:
+        reasons.append(f"`{model_name}` was not selected for the `{strategy}` promotion review.")
+    return reasons[:3]
 
 
 def _resolve_brief_file(brief: str, *, brief_dir: Path) -> Path:
@@ -184,7 +309,7 @@ def _choose_incumbent_model(db: Database, *, league: str, profile_key: str) -> s
     )
     if rows and rows[0].get("model_name"):
         return str(rows[0]["model_name"])
-    return DEFAULT_NBA_CHAMPION if league == "NBA" else "ensemble"
+    return DEFAULT_LEGACY_INCUMBENT_MODEL if league == "NBA" else "ensemble"
 
 
 def _has_active_champion(db: Database, *, league: str, profile_key: str) -> bool:
@@ -218,14 +343,18 @@ def _evaluate_promotion(
         return {
             "eligible": False,
             "promoted": False,
-            "reason_summary": "Missing best candidate row",
+            "status": "rejected",
+            "reason_summary": "Promotion rejected because the best candidate row was missing.",
+            "failed_reasons": ["The promotion payload did not include a best candidate row."],
             "gates": {"best_candidate_row_present": False},
         }
     if not isinstance(baseline_row, dict):
         return {
             "eligible": False,
             "promoted": False,
-            "reason_summary": "Missing baseline row",
+            "status": "rejected",
+            "reason_summary": "Promotion rejected because the incumbent comparison row was missing.",
+            "failed_reasons": ["The promotion payload did not include a baseline comparison row."],
             "gates": {"baseline_row_present": False},
         }
 
@@ -254,15 +383,42 @@ def _evaluate_promotion(
         "minimum_profitable_folds": profitable_folds >= min_profitable_folds,
     }
     promoted = bool(all(gates.values()))
-    reasons = [name for name, passed in gates.items() if not passed]
+    baseline_model = str(baseline_row.get("model_name") or promotion.get("baseline_model") or "").strip()
+    failed_reasons = _promotion_failure_reasons(
+        gates=gates,
+        best_row=best_row,
+        baseline_row=baseline_row,
+        policy={
+            "max_mean_drawdown_dollars": max_drawdown_limit,
+            "min_bet_count": min_bet_count,
+            "min_profitable_folds": min_profitable_folds,
+            "max_ece_delta": max_ece_delta,
+        },
+        candidate_model_name=candidate_model_name,
+    )
+    reason_summary = (
+        f"Promoted `{candidate_model_name}` over `{baseline_model}` after it improved bankroll and profit while clearing drawdown, calibration, volume, and materialization gates."
+        if promoted
+        else f"Promotion rejected for `{candidate_model_name}`. {' '.join(failed_reasons)}"
+    )
     return {
         "eligible": promoted,
         "promoted": promoted,
-        "reason_summary": "Auto-promoted" if promoted else f"Rejected: {', '.join(reasons)}",
+        "status": "promoted" if promoted else "rejected",
+        "reason_summary": reason_summary,
+        "failed_reasons": failed_reasons,
         "gates": gates,
         "source_checks": source_checks,
         "best_candidate_row": best_row,
         "baseline_row": baseline_row,
+        "comparison_to_incumbent": {
+            "mean_ending_bankroll_delta": _metric_delta(best_row, baseline_row, "mean_ending_bankroll"),
+            "mean_net_profit_delta": _metric_delta(best_row, baseline_row, "mean_net_profit"),
+            "mean_log_loss_delta": _metric_delta(best_row, baseline_row, "mean_log_loss"),
+            "mean_brier_delta": _metric_delta(best_row, baseline_row, "mean_brier"),
+            "mean_ece_delta": _metric_delta(best_row, baseline_row, "mean_ece"),
+            "mean_max_drawdown_delta": _metric_delta(best_row, baseline_row, "mean_max_drawdown"),
+        },
         "policy": {
             "max_mean_drawdown_dollars": max_drawdown_limit,
             "min_bet_count": min_bet_count,
@@ -319,6 +475,167 @@ def _hydrate_promotion_rows(
         elif bootstrap_mode and isinstance(promotion.get("best_candidate_row"), dict):
             promotion["baseline_row"] = dict(promotion["best_candidate_row"])
     return promotion
+
+
+def _promotion_strategy_rows(scorecard: pd.DataFrame, strategy: str) -> pd.DataFrame:
+    if scorecard.empty or "strategy" not in scorecard.columns:
+        return scorecard.copy()
+    filtered = scorecard[scorecard["strategy"] == strategy].copy()
+    return filtered if not filtered.empty else scorecard.copy()
+
+
+def _build_candidate_scorecards(
+    *,
+    scorecard: pd.DataFrame,
+    strategy: str,
+    decision: dict[str, object],
+    candidate_model_name: str,
+    active_model_name: str,
+    incumbent_model_name: str,
+) -> list[CandidateScorecardRecord]:
+    scoped = _promotion_strategy_rows(scorecard, strategy)
+    if scoped.empty:
+        return []
+    sort_plan = [
+        ("mean_ending_bankroll", False),
+        ("mean_net_profit", False),
+        ("mean_log_loss", True),
+        ("mean_brier", True),
+    ]
+    sort_columns = [column for column, _ in sort_plan if column in scoped.columns]
+    if sort_columns:
+        ranked = scoped.sort_values(
+            sort_columns,
+            ascending=[ascending for column, ascending in sort_plan if column in sort_columns],
+        ).reset_index(drop=True)
+    else:
+        ranked = scoped.reset_index(drop=True)
+    anchor_rows = ranked[ranked["model_name"] == active_model_name]
+    anchor_row = anchor_rows.iloc[0] if not anchor_rows.empty else ranked.iloc[0]
+
+    scorecards: list[CandidateScorecardRecord] = []
+    for rank, (_, row) in enumerate(ranked.iterrows(), start=1):
+        model_name = str(row.get("model_name") or "")
+        metadata = _model_contract_metadata(model_name)
+        role = "alternate_contender"
+        if model_name == candidate_model_name:
+            role = "candidate_under_review"
+        elif model_name == incumbent_model_name:
+            role = "incumbent"
+        elif model_name == active_model_name:
+            role = "active_model"
+        scorecards.append(
+            CandidateScorecardRecord(
+                model_name=model_name,
+                lane=metadata["lane"],
+                target_name=RESEARCH_DESK_TARGET_NAME,
+                distribution=RESEARCH_DESK_DISTRIBUTION,
+                link_function=RESEARCH_DESK_LINK_FUNCTION,
+                feature_count=None,
+                active_parameter_count=None,
+                validation_metrics={
+                    "strategy": strategy,
+                    "mean_ending_bankroll": _safe_float(row.get("mean_ending_bankroll")),
+                    "mean_net_profit": _safe_float(row.get("mean_net_profit")),
+                    "mean_roi": _safe_float(row.get("mean_roi")),
+                    "median_roi": _safe_float(row.get("median_roi")),
+                    "mean_log_loss": _safe_float(row.get("mean_log_loss")),
+                    "mean_brier": _safe_float(row.get("mean_brier")),
+                    "mean_auc": _safe_float(row.get("mean_auc")),
+                    "bet_count": _safe_int(row.get("bet_count")),
+                },
+                stability_metrics={
+                    "scorecard_rank": rank,
+                    "mean_turnover": _safe_float(row.get("mean_turnover")),
+                    "mean_max_drawdown": _safe_float(row.get("mean_max_drawdown")),
+                    "profitable_folds": _safe_int(row.get("profitable_folds")),
+                    "profit_winning_folds": _safe_int(row.get("profit_winning_folds")),
+                    "all_integrity_checks": bool(row.get("all_integrity_checks")),
+                    "prediction_before_game": bool(row.get("prediction_before_game")),
+                    "unique_prediction_keys": bool(row.get("unique_prediction_keys")),
+                    "no_missing_results_for_scored": bool(row.get("no_missing_results_for_scored")),
+                    "embargo_respected": bool(row.get("embargo_respected")),
+                },
+                calibration_summary={
+                    "mean_ece": _safe_float(row.get("mean_ece")),
+                },
+                complement_summary={
+                    "display_name": metadata["display_name"],
+                    "family": metadata["family"],
+                    "governance_note": metadata["governance_note"],
+                    "strategy": strategy,
+                    "promotion_role": role,
+                    "active_model_name": active_model_name,
+                    "mean_ending_bankroll_delta_vs_active": (
+                        _safe_float(row.get("mean_ending_bankroll")) - _safe_float(anchor_row.get("mean_ending_bankroll"))
+                        if _safe_float(row.get("mean_ending_bankroll")) is not None
+                        and _safe_float(anchor_row.get("mean_ending_bankroll")) is not None
+                        else None
+                    ),
+                    "mean_log_loss_delta_vs_active": (
+                        _safe_float(row.get("mean_log_loss")) - _safe_float(anchor_row.get("mean_log_loss"))
+                        if _safe_float(row.get("mean_log_loss")) is not None
+                        and _safe_float(anchor_row.get("mean_log_loss")) is not None
+                        else None
+                    ),
+                },
+                rejection_reasons=_scorecard_rejection_reasons(
+                    row=row,
+                    strategy=strategy,
+                    anchor_row=anchor_row,
+                    candidate_model_name=candidate_model_name,
+                    active_model_name=active_model_name,
+                    decision=decision,
+                ),
+            )
+        )
+    return scorecards
+
+
+def _build_promotion_decision_record(
+    *,
+    decision: dict[str, object],
+    candidate_scorecards: list[CandidateScorecardRecord],
+    active_model_name: str,
+    incumbent_model_name: str,
+    candidate_model_name: str,
+    strategy: str,
+    report_path: Path,
+    scorecard_path: Path,
+    scorecard_contract_path: Path,
+) -> PromotionDecisionRecord:
+    rejected_models = {
+        record.model_name: list(record.rejection_reasons)
+        for record in candidate_scorecards
+        if record.rejection_reasons
+    }
+    evidence = {
+        "decision_scope": "research_desk_promotion_review",
+        "strategy": strategy,
+        "candidate_under_review": candidate_model_name,
+        "active_model_after_decision": active_model_name,
+        "gates": decision.get("gates"),
+        "failed_reasons": decision.get("failed_reasons"),
+        "policy": decision.get("policy"),
+        "source_checks": decision.get("source_checks"),
+        "comparison_to_incumbent": decision.get("comparison_to_incumbent"),
+        "best_candidate_row": decision.get("best_candidate_row"),
+        "baseline_row": decision.get("baseline_row"),
+        "top_scorecards": [record.to_dict() for record in candidate_scorecards[:3]],
+        "artifacts": {
+            "report_path": str(report_path),
+            "scorecard_csv": str(scorecard_path),
+            "scorecard_contract_json": str(scorecard_contract_path),
+        },
+    }
+    return PromotionDecisionRecord(
+        recommended_model=active_model_name,
+        baseline_model=incumbent_model_name,
+        status=str(decision.get("status") or "rejected"),
+        rationale=str(decision.get("reason_summary") or ""),
+        evidence=evidence,
+        rejected_models=rejected_models,
+    )
 
 
 def _persist_brief(db: Database, brief: StructuredBrief) -> None:
@@ -443,9 +760,12 @@ def _persist_active_champion(
     policy_payload = {
         **policy_payload,
         "gates": decision.get("gates"),
+        "status": decision.get("status"),
         "reason_summary": decision.get("reason_summary"),
+        "failed_reasons": decision.get("failed_reasons"),
         "candidate_model_name": decision.get("candidate_model_name"),
         "incumbent_model_name": decision.get("incumbent_model_name"),
+        "promotion_decision": decision.get("promotion_decision"),
     }
     descriptor = {
         "model_name": model_name,
@@ -511,8 +831,6 @@ def run_research_desk(
     structured_glm_width_variant: str | None = None,
 ) -> ResearchDeskRunResult:
     league = _normalize_league(cfg.data.league)
-    if league != "NBA":
-        raise ValueError("research_desk is NBA-only in v1")
 
     db = Database(cfg.paths.db_path)
     db.init_schema()
@@ -570,6 +888,47 @@ def run_research_desk(
     decision["candidate_model_name"] = str(result.best_candidate_model)
     decision["league"] = league
     decision["profile_key"] = profile_key
+    strategy = str(promotion.get("strategy") or "default").strip() or "default"
+
+    active_model_name = incumbent_model_name
+    if decision.get("promoted"):
+        active_model_name = str(result.best_candidate_model)
+
+    scorecard = pd.read_csv(result.scorecard_path) if result.scorecard_path.exists() else pd.DataFrame()
+    candidate_scorecards = _build_candidate_scorecards(
+        scorecard=scorecard,
+        strategy=strategy,
+        decision=decision,
+        candidate_model_name=str(result.best_candidate_model),
+        active_model_name=active_model_name,
+        incumbent_model_name=incumbent_model_name,
+    )
+    scorecard_contract_path = result.scorecard_path.with_name("candidate_scorecards.json")
+    scorecard_contract_path.write_text(json.dumps([record.to_dict() for record in candidate_scorecards], sort_keys=True) + "\n")
+    promotion_decision_record = _build_promotion_decision_record(
+        decision=decision,
+        candidate_scorecards=candidate_scorecards,
+        active_model_name=active_model_name,
+        incumbent_model_name=incumbent_model_name,
+        candidate_model_name=str(result.best_candidate_model),
+        strategy=strategy,
+        report_path=result.report_path,
+        scorecard_path=result.scorecard_path,
+        scorecard_contract_path=scorecard_contract_path,
+    )
+    decision["active_model_name"] = active_model_name
+    decision["strategy"] = strategy
+    decision["candidate_scorecards"] = [record.to_dict() for record in candidate_scorecards]
+    decision["promotion_decision"] = promotion_decision_record.to_dict()
+    decision["artifacts"] = {
+        "report_path": str(result.report_path),
+        "scorecard_csv": str(result.scorecard_path),
+        "scorecard_contract_json": str(scorecard_contract_path),
+        "fold_metrics_path": str(result.fold_metrics_path),
+        "promotion_path": str(result.promotion_path),
+    }
+    promotion_payload = {**promotion, **decision}
+    result.promotion_path.write_text(json.dumps(promotion_payload, sort_keys=True) + "\n")
 
     _persist_run(
         db,
@@ -581,7 +940,7 @@ def run_research_desk(
         candidate_model_name=str(result.best_candidate_model),
         report_slug=report_slug_token,
         result=result,
-        promotion_payload=decision,
+        promotion_payload=promotion_payload,
     )
     _persist_decision(
         db,
@@ -590,12 +949,10 @@ def run_research_desk(
         profile_key=profile_key,
         incumbent_model_name=incumbent_model_name,
         candidate_model_name=str(result.best_candidate_model),
-        decision=decision,
+        decision=promotion_payload,
     )
 
-    active_model_name = incumbent_model_name
     if decision.get("promoted"):
-        active_model_name = str(result.best_candidate_model)
         _persist_active_champion(
             db,
             league=league,
@@ -603,7 +960,7 @@ def run_research_desk(
             model_name=active_model_name,
             run_id=run_id,
             brief=selected_brief,
-            decision=decision,
+            decision=promotion_payload,
         )
 
     logger.info(

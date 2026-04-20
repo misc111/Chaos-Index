@@ -403,13 +403,13 @@ Representative files:
 - `src/models/glm_ridge.py`
 - `src/models/glm_elastic_net.py`
 - `src/models/glm_lasso.py`
-- `src/models/gbdt.py`
-- `src/models/rf.py`
 - `src/models/two_stage.py`
 - `src/models/glm_goals.py`
-- `src/models/bayes_state_space_bt.py`
-- `src/models/bayes_state_space_goals.py`
-- `src/models/nn.py`
+- `src/models/experimental/gbdt.py`
+- `src/models/experimental/rf.py`
+- `src/models/experimental/bayes_state_space_bt.py`
+- `src/models/experimental/bayes_state_space_goals.py`
+- `src/models/experimental/nn.py`
 - `src/models/ensemble_weighted.py`
 - `src/models/ensemble_stack.py`
 
@@ -833,13 +833,16 @@ Registered trainable model families include:
 
 - rating baselines
 - penalized GLMs
-- random forest
-- gradient boosted trees
 - hybrid two-stage models
 - goal-based models
+- simulation-derived forecast surface
+
+Experimental challenger families include:
+
+- random forest
+- gradient boosted trees
 - Bayesian state-space models
 - neural network MLP
-- simulation-derived forecast surface
 
 The modeling worldview of the repo seems to be:
 

@@ -7,10 +7,10 @@ import pandas as pd
 
 from src.features.dynamic_ratings import compute_dynamic_rating_features
 from src.features.elo import compute_elo_features
-from src.features.goalie_features import add_goalie_features, combine_goalie_game_features
 from src.features.intermediates import add_intermediate_targets
-from src.features.rink_adjustments import compute_rink_effects
-from src.features.special_teams import add_special_teams_features, combine_special_teams_game_features
+from src.features.nhl.goalies import add_goalie_features, combine_goalie_game_features
+from src.features.nhl.rink_effects import compute_rink_effects
+from src.features.nhl.special_teams import add_special_teams_features, combine_special_teams_game_features
 from src.features.strategies.base import BaseFeatureStrategy
 from src.features.travel import build_travel_features
 
@@ -110,9 +110,9 @@ class NhlFeatureStrategy(BaseFeatureStrategy):
         df["shots_against"] = df["shots_against"].fillna(df["goals_against"] * 6 + 25)
         df["team_save_pct_proxy"] = 1 - (df["goals_against"].fillna(0) / df["shots_against"].replace(0, np.nan))
         df["team_save_pct_proxy"] = df["team_save_pct_proxy"].fillna(0.905)
-        df["roster_strength_index"] = df["roster_strength_index"].fillna(0.1)
-        df["lineup_uncertainty"] = df["lineup_uncertainty"].fillna(1)
-        df["man_games_lost_proxy"] = df["man_games_lost_proxy"].fillna(0)
+        df["roster_strength_index"] = pd.to_numeric(df["roster_strength_index"], errors="coerce").fillna(0.1)
+        df["lineup_uncertainty"] = pd.to_numeric(df["lineup_uncertainty"], errors="coerce").fillna(1)
+        df["man_games_lost_proxy"] = pd.to_numeric(df["man_games_lost_proxy"], errors="coerce").fillna(0)
         return df
 
     def finalize_team_games(self, team_games: pd.DataFrame) -> pd.DataFrame:
@@ -138,7 +138,14 @@ class NhlFeatureStrategy(BaseFeatureStrategy):
         df["coaching_change_indicator"] = 0
         return df
 
-    def enrich_game_level(self, merged: pd.DataFrame, games_df: pd.DataFrame, team_games: pd.DataFrame) -> pd.DataFrame:
+    def enrich_game_level(
+        self,
+        merged: pd.DataFrame,
+        games_df: pd.DataFrame,
+        team_games: pd.DataFrame,
+        context_df: pd.DataFrame,
+    ) -> pd.DataFrame:
+        del context_df
         out = merged.copy()
         out["home_shots_for"] = out["home_shots_for"].fillna(0)
         out["away_shots_for"] = out["away_shots_for"].fillna(0)

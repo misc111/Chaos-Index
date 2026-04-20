@@ -11,7 +11,7 @@ from pydantic import BaseModel, Field
 from src.registry.leagues import default_db_path, get_league_registry_entry
 
 
-DEFAULT_LEAGUE_ENTRY = get_league_registry_entry("NBA")
+DEFAULT_LEAGUE_ENTRY = get_league_registry_entry("MLB")
 
 
 class ProjectConfig(BaseModel):
@@ -24,7 +24,7 @@ class PathsConfig(BaseModel):
     interim_dir: str = "data/interim"
     processed_dir: str = "data/processed"
     artifacts_dir: str = "artifacts"
-    db_path: str = default_db_path("NBA")
+    db_path: str = default_db_path("MLB")
 
 
 class DataConfig(BaseModel):

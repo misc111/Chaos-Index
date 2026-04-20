@@ -18,6 +18,7 @@ from src.common.utils import ensure_dir, stable_hash
 from src.evaluation.metrics import metric_bundle
 from src.features.leakage_checks import run_leakage_checks
 from src.training.artifact_writer import save_model_artifacts, save_training_outputs
+from src.training.contract_builders import build_model_artifact_record, build_model_run_contract
 from src.training.ensemble_builder import blend_ensemble_probabilities, build_ensemble_outputs, build_oof_metrics, fit_stacker
 from src.training.ensemble_policy import demoted_ensemble_models, ensemble_component_columns
 from src.training.feature_selection import (
@@ -25,9 +26,16 @@ from src.training.feature_selection import (
     select_feature_columns,
 )
 from src.training.fit_runner import fit_model_suite
+from src.training.lasso_credibility import (
+    collect_lasso_credibility_artifact_payloads,
+    resolve_lasso_credibility_feature_columns,
+    selected_lasso_credibility_models,
+    tune_lasso_credibility_models,
+)
 from src.training.model_catalog import normalize_selected_models
 from src.training.penalized_glm import (
     PREFERRED_VALIDATION_PENALIZED_GLM_MODELS,
+    collect_penalized_glm_artifact_payloads,
     resolve_penalized_glm_feature_columns,
     selected_penalized_glm_models,
     tune_penalized_glm_models,
@@ -97,6 +105,12 @@ def train_and_predict(
         model_feature_columns=selected_model_feature_columns,
         fallback_columns=glm_feature_subset(feature_cols),
     )
+    lasso_credibility_feature_cols = resolve_lasso_credibility_feature_columns(
+        feature_cols,
+        selected_models=models_selected,
+        model_feature_columns=selected_model_feature_columns,
+        fallback_columns=glm_feature_subset(feature_cols),
+    )
     glm_cols = (
         penalized_glm_feature_cols.get("glm_ridge")
         or penalized_glm_feature_cols.get("glm_elastic_net")
@@ -144,6 +158,8 @@ def train_and_predict(
     glm_tuning_by_model: dict[str, dict] = {}
     primary_penalized_glm = None
     penalized_models = selected_penalized_glm_models(models_selected)
+    lasso_credibility_models = selected_lasso_credibility_models(models_selected)
+    lasso_credibility_tuning_by_model: dict[str, dict] = {}
     if penalized_models:
         emit_progress(
             progress_callback,
@@ -174,6 +190,31 @@ def train_and_predict(
                 "glm_models_tuned": penalized_models,
             },
         )
+    if lasso_credibility_models:
+        emit_progress(
+            progress_callback,
+            {
+                "kind": "pipeline",
+                "stage": "credibility_tuning",
+                "status": "started",
+                "message": "Running lasso-credibility lambda tuning",
+            },
+        )
+        lasso_credibility_tuning_by_model = tune_lasso_credibility_models(
+            train_df,
+            selected_models=models_selected,
+            feature_columns_by_model=lasso_credibility_feature_cols,
+        )
+        emit_progress(
+            progress_callback,
+            {
+                "kind": "pipeline",
+                "stage": "credibility_tuning",
+                "status": "completed",
+                "message": "Completed lasso-credibility lambda tuning",
+                "credibility_models_tuned": lasso_credibility_models,
+            },
+        )
 
     emit_progress(
         progress_callback,
@@ -190,6 +231,7 @@ def train_and_predict(
         glm_feature_cols=glm_cols,
         glm_c=glm_best_c,
         glm_params_by_model=glm_tuning_by_model,
+        lasso_credibility_params_by_model=lasso_credibility_tuning_by_model,
         model_feature_columns=selected_model_feature_columns,
         metric_bundle_fn=metric_bundle,
     )
@@ -203,7 +245,7 @@ def train_and_predict(
             "fitted_model_count": len(models),
         },
     )
-    save_model_artifacts(models, model_dir, progress_callback=progress_callback)
+    model_binary_artifacts = save_model_artifacts(models, model_dir, progress_callback=progress_callback)
 
     oof = generate_oof_predictions(
         train_df,
@@ -214,6 +256,7 @@ def train_and_predict(
         selected_models=models_selected,
         progress_callback=progress_callback,
         glm_params_by_model=glm_tuning_by_model,
+        lasso_credibility_params_by_model=lasso_credibility_tuning_by_model,
         model_feature_columns=selected_model_feature_columns,
     )
     stacker, stack_ready, stack_base_cols = fit_stacker(oof, league=league, progress_callback=progress_callback)
@@ -290,6 +333,53 @@ def train_and_predict(
         per_model_rows.append(json.dumps(per_model, sort_keys=True))
     forecasts["per_model_probs_json"] = per_model_rows
 
+    train_metrics = {}
+    if not train_preds.empty:
+        y = train_df["home_win"].astype(int).to_numpy()
+        for col in [c for c in train_preds.columns if c != "game_id"]:
+            train_metrics[col] = metric_bundle(y, train_preds[col].to_numpy())
+
+    oof_metrics_by_model = {
+        str(row.get("model_name")): {key: value for key, value in row.items() if key != "model_name"} for row in oof_metrics
+    }
+    if not historical_oof.empty and "ensemble" in historical_oof.columns:
+        y_oof = historical_oof["home_win"].astype(int).to_numpy()
+        oof_metrics_by_model["ensemble"] = metric_bundle(y_oof, historical_oof["ensemble"].to_numpy())
+    penalized_artifact_payloads = collect_penalized_glm_artifact_payloads(
+        selected_models=models_selected,
+        models=models,
+        tuning_by_model=glm_tuning_by_model,
+    )
+    lasso_credibility_artifact_payloads = collect_lasso_credibility_artifact_payloads(
+        selected_models=models_selected,
+        models=models,
+        tuning_by_model=lasso_credibility_tuning_by_model,
+    )
+    model_artifact_records = []
+    for model_name, model in models.items():
+        penalized_payload = penalized_artifact_payloads.get(model_name, {})
+        credibility_payload = lasso_credibility_artifact_payloads.get(model_name, {})
+        model_artifact_records.append(
+            build_model_artifact_record(
+                model_name,
+                feature_columns=used_feature_map.get(model_name, []),
+                artifact_files=model_binary_artifacts.get(model_name, {}),
+                metrics_summary={
+                    "train": train_metrics.get(model_name, {}),
+                    "oof": oof_metrics_by_model.get(model_name, {}),
+                },
+                fit_summary={
+                    "feature_count": len(used_feature_map.get(model_name, [])),
+                    **dict(penalized_payload.get("fit_summary", {})),
+                    **dict(credibility_payload.get("fit_summary", {})),
+                },
+                penalty_tuning=glm_tuning_by_model.get(model_name),
+                penalty_selection=penalized_payload.get("penalty") or credibility_payload.get("penalty"),
+                credibility_payload=credibility_payload.get("credibility_metadata"),
+                model=model,
+            )
+        )
+
     run_payload = {
         "model_run_id": f"run_{model_run_prefix}",
         "league": league,
@@ -300,6 +390,7 @@ def train_and_predict(
         "model_feature_columns": used_feature_map,
         "glm_tuning": glm_tune,
         "glm_tuning_by_model": glm_tuning_by_model,
+        "credibility_tuning_by_model": lasso_credibility_tuning_by_model,
         "glm_primary_model": primary_penalized_glm,
         "glm_best_c": glm_best_c,
         "glm_lasso_best_c": float(glm_tuning_by_model["glm_lasso"]["best_c"]) if "glm_lasso" in glm_tuning_by_model else None,
@@ -320,7 +411,7 @@ def train_and_predict(
         "bayes_diagnostics": bayes_diag,
         "model_dir": str(model_dir),
     }
-    save_training_outputs(
+    written_outputs = save_training_outputs(
         model_dir,
         forecasts,
         upcoming_preds,
@@ -328,12 +419,44 @@ def train_and_predict(
         run_payload,
         progress_callback=progress_callback,
     )
-
-    train_metrics = {}
-    if not train_preds.empty:
-        y = train_df["home_win"].astype(int).to_numpy()
-        for col in [c for c in train_preds.columns if c != "game_id"]:
-            train_metrics[col] = metric_bundle(y, train_preds[col].to_numpy())
+    ensemble_metrics = {
+        "train": train_metrics.get("ensemble", {}),
+        "oof": oof_metrics_by_model.get("ensemble", {}),
+    }
+    run_payload["training_output_files"] = written_outputs
+    ensemble_artifact_record = build_model_artifact_record(
+        "ensemble",
+        feature_columns=ensemble_component_cols,
+        artifact_files={key: value for key, value in written_outputs.items() if key in {"upcoming_forecasts", "upcoming_model_probs"}},
+        metrics_summary=ensemble_metrics,
+        fit_summary={
+            "component_count": len(ensemble_component_cols),
+            "stack_ready": bool(stack_ready),
+            "demoted_models": [m for m in demoted_ensemble_models(league=league) if m in models_selected],
+        },
+    )
+    run_contract = build_model_run_contract(
+        model_run_id=run_payload["model_run_id"],
+        league=str(league or ""),
+        feature_set_version=feature_set_version,
+        selected_models=models_selected,
+        feature_columns=feature_cols,
+        model_feature_columns=used_feature_map,
+        model_artifacts=[*model_artifact_records, ensemble_artifact_record],
+        metadata={
+            "glm_primary_model": primary_penalized_glm,
+            "glm_tuning_by_model": glm_tuning_by_model,
+            "credibility_tuning_by_model": lasso_credibility_tuning_by_model,
+            "weights": weights,
+            "stack_base_columns": stack_base_cols,
+            "nn_included": nn_included,
+            "training_output_files": written_outputs,
+        },
+    )
+    run_payload["contract_version"] = 1
+    run_payload["model_artifacts"] = [record.to_dict() for record in [*model_artifact_records, ensemble_artifact_record]]
+    run_payload["run_contract"] = run_contract.to_dict()
+    (model_dir / "run_payload.json").write_text(json.dumps(run_payload, indent=2, sort_keys=True))
 
     emit_progress(
         progress_callback,

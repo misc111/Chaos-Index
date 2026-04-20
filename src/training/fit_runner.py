@@ -8,15 +8,18 @@ import pandas as pd
 
 from src.bayes.fit_offline import run_bayes_offline_fit
 from src.evaluation.metrics import metric_bundle
-from src.models.bayes_state_space_goals import BayesGoalsModel
+from src.models.lasso_credibility import LassoCredibilityModel
 from src.models.challenger_prob import DGLMMarginModel, GAMSplineModel, GLMMLogitModel, MARSHingeModel, VanillaGLMModel
-from src.models.gbdt import GBDTModel
 from src.models.glm_goals import GoalsPoissonModel
 from src.models.glm_penalized import build_penalized_glm
-from src.models.nn import NNModel
-from src.models.rf import RFModel
+from src.models.experimental.bayes_state_space_goals import BayesGoalsModel
+from src.models.experimental.gbdt import GBDTModel
+from src.models.experimental.nn import NNModel
+from src.models.experimental.rf import RFModel
+from src.registry.models import planned_credibility_model_catalog
 from src.models.two_stage import TwoStageModel
 from src.training.feature_selection import bayes_feature_subset, resolve_model_feature_columns
+from src.training.lasso_credibility import selected_lasso_credibility_models
 from src.training.penalized_glm import selected_penalized_glm_models
 from src.training.progress import ProgressCallback, emit_progress
 
@@ -32,6 +35,7 @@ def fit_model_suite(
     glm_feature_cols: list[str] | None = None,
     glm_c: float = 1.0,
     glm_params_by_model: dict[str, dict[str, Any]] | None = None,
+    lasso_credibility_params_by_model: dict[str, dict[str, Any]] | None = None,
     model_feature_columns: dict[str, list[str]] | None = None,
     metric_bundle_fn=metric_bundle,
 ):
@@ -40,6 +44,8 @@ def fit_model_suite(
     used_feature_map: dict[str, list[str]] = {}
 
     glm_params = dict(glm_params_by_model or {})
+    credibility_params = dict(lasso_credibility_params_by_model or {})
+    credibility_catalog = planned_credibility_model_catalog()
     glm_params.setdefault("glm_ridge", {"best_c": float(glm_c)})
     for model_name in selected_penalized_glm_models(selected_models):
         glm_cols = resolve_model_feature_columns(
@@ -63,6 +69,50 @@ def fit_model_suite(
         glm.fit(train_df, glm_cols)
         models[glm.model_name] = glm
         used_feature_map[glm.model_name] = glm_cols
+        emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": model_name,
+                "stage": "fit",
+                "status": "completed",
+                "message": f"Completed {model_name} fit",
+            },
+        )
+
+    for model_name in selected_lasso_credibility_models(selected_models):
+        credibility_cols = resolve_model_feature_columns(
+            feature_cols,
+            model_name=model_name,
+            model_feature_columns=model_feature_columns,
+            fallback_columns=glm_feature_cols if glm_feature_cols else feature_cols,
+        )
+        payload = credibility_catalog.get(model_name, {})
+        if not payload:
+            raise ValueError(f"Missing lasso-credibility catalog payload for {model_name}")
+        params = dict(credibility_params.get(model_name, {}))
+        lambda_value = float(params.get("best_lambda", 1.0))
+        emit_progress(
+            progress_callback,
+            {
+                "kind": "model",
+                "model": model_name,
+                "stage": "fit",
+                "status": "started",
+                "message": f"Fitting {model_name}",
+            },
+        )
+        credibility_model = LassoCredibilityModel(
+            model_name=model_name,
+            lambda_value=lambda_value,
+            complement_kind=str(payload.get("complement_kind") or ""),
+            complement_column=str(payload.get("complement_column") or ""),
+            complement_label=str(payload.get("complement_label") or ""),
+            complement_input_scale="logit",
+        )
+        credibility_model.fit(train_df, credibility_cols)
+        models[model_name] = credibility_model
+        used_feature_map[model_name] = credibility_cols
         emit_progress(
             progress_callback,
             {
@@ -178,7 +228,13 @@ def fit_model_suite(
     if "gbdt" in selected:
         emit_progress(
             progress_callback,
-            {"kind": "model", "model": "gbdt", "stage": "fit", "status": "started", "message": "Fitting gbdt"},
+            {
+                "kind": "model",
+                "model": "gbdt",
+                "stage": "fit",
+                "status": "started",
+                "message": "Fitting experimental gbdt challenger",
+            },
         )
         gbdt_cols = resolve_model_feature_columns(
             feature_cols,
@@ -192,13 +248,19 @@ def fit_model_suite(
         used_feature_map[gbdt.model_name] = gbdt_cols
         emit_progress(
             progress_callback,
-            {"kind": "model", "model": "gbdt", "stage": "fit", "status": "completed", "message": "Completed gbdt fit"},
+            {
+                "kind": "model",
+                "model": "gbdt",
+                "stage": "fit",
+                "status": "completed",
+                "message": "Completed experimental gbdt challenger fit",
+            },
         )
 
     if "rf" in selected:
         emit_progress(
             progress_callback,
-            {"kind": "model", "model": "rf", "stage": "fit", "status": "started", "message": "Fitting rf"},
+            {"kind": "model", "model": "rf", "stage": "fit", "status": "started", "message": "Fitting experimental rf challenger"},
         )
         rf_cols = resolve_model_feature_columns(
             feature_cols,
@@ -212,7 +274,13 @@ def fit_model_suite(
         used_feature_map[rf.model_name] = rf_cols
         emit_progress(
             progress_callback,
-            {"kind": "model", "model": "rf", "stage": "fit", "status": "completed", "message": "Completed rf fit"},
+            {
+                "kind": "model",
+                "model": "rf",
+                "stage": "fit",
+                "status": "completed",
+                "message": "Completed experimental rf challenger fit",
+            },
         )
 
     if "two_stage" in selected:
@@ -274,7 +342,7 @@ def fit_model_suite(
                 "model": "bayes_goals",
                 "stage": "fit",
                 "status": "started",
-                "message": "Fitting bayes_goals",
+                "message": "Fitting experimental bayes_goals challenger",
             },
         )
         bayes_goals = BayesGoalsModel()
@@ -287,7 +355,7 @@ def fit_model_suite(
                 "model": "bayes_goals",
                 "stage": "fit",
                 "status": "completed",
-                "message": "Completed bayes_goals fit",
+                "message": "Completed experimental bayes_goals challenger fit",
             },
         )
 
@@ -301,7 +369,7 @@ def fit_model_suite(
                 "model": "bayes_bt_state_space",
                 "stage": "fit",
                 "status": "started",
-                "message": "Fitting bayes_bt_state_space",
+                "message": "Fitting experimental bayes_bt_state_space challenger",
             },
         )
         bcols = resolve_model_feature_columns(
@@ -327,7 +395,7 @@ def fit_model_suite(
                 "model": "bayes_bt_state_space",
                 "stage": "fit",
                 "status": "completed",
-                "message": "Completed bayes_bt_state_space fit",
+                "message": "Completed experimental bayes_bt_state_space challenger fit",
             },
         )
 
@@ -343,7 +411,13 @@ def fit_model_suite(
         if not va.empty and va["home_win"].nunique() > 1:
             emit_progress(
                 progress_callback,
-                {"kind": "model", "model": "nn_mlp", "stage": "fit", "status": "started", "message": "Fitting nn_mlp"},
+                {
+                    "kind": "model",
+                    "model": "nn_mlp",
+                    "stage": "fit",
+                    "status": "started",
+                    "message": "Fitting experimental nn_mlp challenger",
+                },
             )
             nn_cols = resolve_model_feature_columns(
                 feature_cols,
@@ -381,7 +455,7 @@ def fit_model_suite(
                         "model": "nn_mlp",
                         "stage": "fit",
                         "status": "completed",
-                        "message": "Completed nn_mlp fit",
+                        "message": "Completed experimental nn_mlp challenger fit",
                     },
                 )
             else:
@@ -392,7 +466,7 @@ def fit_model_suite(
                         "model": "nn_mlp",
                         "stage": "fit_gate",
                         "status": "skipped",
-                        "message": "Skipped nn_mlp because holdout did not beat gbdt",
+                        "message": "Skipped experimental nn_mlp challenger because holdout did not beat gbdt",
                     },
                 )
         else:

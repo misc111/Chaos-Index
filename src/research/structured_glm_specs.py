@@ -89,8 +89,6 @@ def load_structured_glm_selection(
         return None
 
     league_code = str(league or "").strip().upper()
-    if league_code != "NBA":
-        raise ValueError("Structured GLM experiment specs are research-only and currently supported for NBA only.")
 
     path = _resolve_spec_path(spec_path)
     if not path.exists():

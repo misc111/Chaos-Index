@@ -1,4 +1,4 @@
-"""CLI entry point for the deterministic repo-wide hard refresh pipeline."""
+"""CLI entry point for the deterministic MLB-first hard refresh pipeline."""
 
 import argparse
 import json
@@ -218,12 +218,12 @@ def main() -> None:
     """Run or preview the deterministic repo-wide hard refresh pipeline."""
 
     parser = argparse.ArgumentParser(
-        description="Run the deterministic multi-league hard-refresh pipeline without rebuilding features."
+        description="Run the deterministic MLB-first hard-refresh pipeline with a fresh feature rebuild before training."
     )
     parser.add_argument(
         "--models",
         default=None,
-        help="Optional comma-separated model list to train for all supported leagues. Defaults to the full model suite.",
+        help="Optional comma-separated model list to train for the MLB rebuild lane. Defaults to the MLB core lane.",
     )
     parser.add_argument(
         "--approve-feature-changes",

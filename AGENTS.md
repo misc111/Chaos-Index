@@ -1,142 +1,81 @@
-# NHL + NBA Agent Instructions
+# MLB-First Rebuild Instructions
 
 ## Instruction Scope
-- Treat this file as a repository-specific contract for domain behavior, local defaults, required command paths, and delivery constraints.
-- For general planning, debugging, testing, delegation, review, and verification behavior, follow the agent's normal workflow unless this file states a repo-specific exception.
-- Do not infer extra process rules from this file beyond the explicit repository constraints written here.
+- Treat this file as the repository contract for the MLB-first actuarial rebuild.
+- The repository is being rebuilt around MLB betting and actuarial GLM-family methods.
+- Legacy NHL/NBA code may still exist during migration, but it is not the governing product contract.
 
 ## Coordinator Mode
-- Only use coordinator-style delegation when the user explicitly asks for orchestration across multiple workstreams or equivalent language.
-- Coordinator work must stay in the top-level Codex thread that actually has access to the agent-spawning tools.
-- Do not assume a spawned child agent can itself spawn more child agents in this environment.
-- If you are coordinating child agents, read `SUBAGENTS.md` before choosing child-agent models, reasoning levels, or prompt styles.
-- The coordinator owns task decomposition, routing, synthesis, conflict handling, and final user-facing completion judgment.
-- Keep overlapping write scopes to one owner whenever possible. If two lanes are likely to edit the same files, either keep that work with one child agent or keep it coordinator-owned.
-- When child agents return work, review and integrate it before treating the task as complete.
-- Leave unrelated worktree changes alone.
+- The user has explicitly requested coordinator-style delegation for this rebuild.
+- Use subagents aggressively for independent workstreams, but keep write scopes controlled.
+- Read `SUBAGENTS.md` before choosing subagent model/routing strategy.
+- The coordinator owns decomposition, synthesis, conflict handling, acceptance, and final user-facing judgment.
+- Keep overlapping write scopes with one owner whenever possible.
+
+## Theory Governance
+- The statistical governing sources for the rebuild are:
+  - `statistical_theory/09_GLM_Generalized_Linear_Models_for_Insurance_Rating.pdf`
+  - `statistical_theory/10_Holmes_Casotto_Penalized_Regression_and_Lasso_Credibility_2025_Revision.pdf`
+- Every major modeling, validation, and governance decision must be traceable to those monographs or explicitly labeled as one of:
+  - direct theory implementation
+  - theory-compatible engineering support
+  - betting overlay
+  - dashboard/reporting layer
+- Do not blur theory-backed modeling decisions with betting-product overlays.
 
 ## Scope Contract
-- This project supports NHL and NBA forecasting.
-- Interpret user questions in the configured league context by default (`config.data.league`).
-- If no config context is available, default to NBA for ambiguous wording.
-- If a bug, regression, or data drift issue is found in one supported league, investigate the same failure mode in the other supported league before closing the task.
-- Cross-league investigation must cover the analogous pipeline stages that could share the bug: storage tables, model outputs, API payloads, dashboard views, and committed staging snapshots.
-- If the same bug exists in the other league, fix it in the shared or league-specific path as appropriate and regenerate any affected staging snapshot files for every impacted league.
+- The active product scope is MLB statistical ensemble betting for:
+  - moneyline
+  - runline
+  - totals
+- The repo contract is MLB-first across docs, configs, commands, storage, features, models, validation, dashboard, and staging outputs.
+- Questions or implementations that depend on other leagues should be treated as migration debt unless the user explicitly asks for legacy comparison.
 
-## Team Interpretation
-- Treat city names, nicknames, mascots, and common shorthand as NHL/NBA clubs.
-- Resolve clear references directly.
-- If wording is ambiguous across leagues and context is missing, ask for a short league clarification.
+## Product Principles
+- Pregame-only features and immutable pregame prediction ledgers are mandatory.
+- Market awareness should be implemented through explicit vig-free market transforms and offset/complement logic, not by collapsing the system into market-copying.
+- The core theory lane is GLM-family, penalized GLM, and lasso-credibility driven.
+- Non-CAS model families may survive only as clearly labeled experimental challengers.
+- Promotion of any champion model or ensemble requires written evidence.
 
-## Supported Query Styles
-- Casual next-game probability phrasing should map to the team forecast.
-- Casual multi-game phrasing should be supported, e.g. `next 3 games`, `next three`, `next couple`, `next few`.
-- Championship questions should be supported:
-  - NHL: Stanley Cup
-  - NBA: NBA Finals
-- Championship answers should be probabilistic heuristic estimates with explicit caveats.
-- Betting-history questions should be supported. This includes:
-  - last-night profit/loss summaries
-  - cumulative net profit/loss
-  - total amount risked
-  - game-by-game bet/no-bet breakdowns
-  - why a team was bet or skipped for a given tracked game
-- Ambiguous betting-history questions should default to NBA unless the user explicitly says NHL.
+## Theory-Backed Model Program
+- The default modeling program must materially cover the monograph-supported families:
+  - vanilla GLMs
+  - ridge / lasso / elastic net
+  - market-offset and prior-offset lasso credibility
+  - GLMM
+  - DGLM
+  - GAM
+  - MARS-style hinge discovery with GLM reuse where sensible
+  - theory-compatible ensembles
+- All key diagnostics and validation families materially supported by the monographs must be implemented and surfaced.
 
-## Out-of-Scope Requests
-- If a user asks about leagues outside NHL/NBA (MLB, MLS, NFL, etc.), respond that this project currently supports NHL and NBA forecasting and ask for an NHL/NBA-framed question.
+## Repository Refresh Contract
+- During the rebuild, repository-level `data_refresh` and `hard_refresh` flows should be treated as MLB-first orchestration commands.
+- If the implementation still carries legacy multi-league plumbing, do not document it as the primary contract.
+- Fail fast on required-step errors. Do not silently skip stale or missing MLB outputs.
 
 ## Dashboard And Staging Sync
-- Treat the local Next.js dashboard and the GitHub Pages staging site as two separate delivery targets.
-- If you change dashboard code or API payloads in a way that affects the shipped staging experience, also update the staging snapshot inputs under `web/public/staging-data/`.
-- The required staging sync path is:
-  - `cd web && npm run generate:staging-data`
-  - commit the updated files in `web/public/staging-data/`
-  - if needed, verify with `cd web && npm run build:pages`
-- Do not assume pushing dashboard code alone updates staging; GitHub Pages serves the committed snapshot files, not live SQLite data.
-
-## Betting History Fast Path
-- For user questions about betting history, use the deterministic local query command first instead of manual repo exploration whenever possible:
-  - `make query Q="<user question>"`
-- This applies to:
-  - money won or lost last night
-  - cumulative net profit/loss
-  - total amount risked
-  - game-by-game bet/no-bet breakdowns
-  - reasons a team was bet or skipped
-- Ambiguous betting-history questions default to NBA unless the user explicitly says NHL.
-
-## Model Analysis Fast Path
-- Treat model-analysis questions as first-class product questions, not side investigations.
-- Unless the user explicitly asks about predictive accuracy, calibration, or another statistical metric, interpret model "performance" as betting profitability: net profit/loss, ROI, bankroll growth, and related money-making outcomes.
-- If the user asks why predictions went right or wrong, what model issues might explain outcomes, or which model behavior should be improved, inspect the local performance/validation surfaces before giving a conclusion.
-- Default NBA unless the user explicitly says NHL or the config context is already league-specific.
-- When the user says `my model`, `the model`, or `my models` without naming a model family, interpret that as the GLM family first, especially the vanilla GLM, elastic-net GLM, and the closely related regularized GLM variants used in this repo.
-- Treat ambiguous model-development questions as GLM questions by default. This includes feature engineering, fitting, coefficient behavior, regularization, cross-validation, diagnostics, and why a modeling change may have hurt betting results.
-- Distinguish between the default model family and the default betting prediction:
-  - default model family under discussion: GLM models
-  - default probability, pick, edge, or bet-driving prediction: the ensemble probability unless the user explicitly asks for a specific model's probability
-- The north star of this project is maximizing long-run betting profit by identifying mispriced odds and betting only when the model-estimated edge is positive enough to create positive expected value over time.
-- When the user asks why things are `going badly`, `failing`, or `losing money`, prioritize diagnoses that explain negative betting outcomes, weak mispricing detection, bad thresholding, poor calibration at bet-trigger points, feature leakage cleanup regressions, over-regularization, or ensemble interactions that may be washing out real GLM signal.
-- If older, leakier, or otherwise less principled historical models appear to lose less money than newer models, treat that as a serious product question rather than a curiosity. Investigate what changed in feature construction, leakage removal, calibration, thresholding, coverage, and ensemble weighting before assuming the newer pipeline is better.
-- Start from the narrowest relevant local evidence source:
-  - `make query Q="<user question>"` for leaderboard-style or recent-best-model questions
-  - `performance_aggregates`, `model_scores`, `validation_results`, `change_points`, and `model_runs` tables for causal follow-up
-  - validation artifacts under `artifacts/validation/<league>/`
-  - committed staging snapshots under `web/public/staging-data/<league>/` when the user is asking about the shipped dashboard view
-
-## Data Refresh Contract
-- When the user asks to refresh data only, pull in data without rebuilding features, or refresh without training, treat that as the repository-level data-only pipeline.
-- The canonical repository trigger for the executable data-only pipeline is `make data_refresh`.
-- A data-only refresh always covers all supported leagues, even if the user names only one team or one league in the same message.
-- Run the data-only refresh steps in this exact order, sequentially, with no league parallelism and no step reordering:
-  - `make fetch CONFIG=configs/nhl.yaml`
-  - `make fetch CONFIG=configs/nba.yaml`
-  - `python3 -m src.cli fetch-odds --config configs/nhl.yaml`
-  - `python3 -m src.cli fetch-odds --config configs/nba.yaml`
-- Data-only refreshes stop after data ingestion:
-  - do not rebuild features
-  - do not train
-  - do not regenerate `web/public/staging-data/`
-  - do not build Pages just because a data-only refresh ran
-- The dedicated `fetch-odds` step is mandatory for data-only refreshes so the ingest cycle ends with the freshest odds snapshot for each league.
-
-## Hard Refresh Contract
-- Treat the exact phrase `do a hard refresh` as a repository-level command alias for a full deterministic refresh/train/publish cycle across both supported leagues without rebuilding features.
-- The canonical repository trigger for the executable refresh pipeline is `make hard_refresh`. After it succeeds, continue with the required commit/push/workflow-watch closeout steps below.
-- A hard refresh always covers all supported leagues, even if the user names only one team or one league in the same message.
-- Run the hard refresh steps in this exact order, sequentially, with no league parallelism and no step reordering:
-  - `make init-db CONFIG=configs/nhl.yaml`
-  - `make init-db CONFIG=configs/nba.yaml`
-  - `make fetch CONFIG=configs/nhl.yaml`
-  - `make fetch CONFIG=configs/nba.yaml`
-  - `python3 -m src.cli fetch-odds --config configs/nhl.yaml`
-  - `python3 -m src.cli fetch-odds --config configs/nba.yaml`
-  - `make train CONFIG=configs/nhl.yaml`
-  - `make train CONFIG=configs/nba.yaml`
-  - `cd web && npm run generate:staging-data`
-  - if dashboard or staging-build behavior changed, `cd web && npm run build:pages`
-  - commit all resulting tracked changes
-  - `git push origin main`
-  - watch the `Publish Sanitized Staging Site` GitHub Actions workflow for the pushed `HEAD`
-- The dedicated `fetch-odds` step is mandatory for hard refreshes. `fetch` already persists an odds snapshot, but hard refreshes must end data collection with an explicit final odds pull for each league before training.
-- Hard refreshes reuse the current processed feature snapshot for each league. They do not run `make features`.
-- Hard refreshes must use the repository defaults for model coverage. Do not narrow `MODELS=` unless the user explicitly asks for a partial rebuild.
-- Hard refreshes must be fail-fast and deterministic in behavior:
-  - do not skip a league because its files look unchanged
-  - do not parallelize NHL and NBA runs
-  - do not silently rerun steps in a different order
-  - do not pass `APPROVE_FEATURE_CHANGES=1` unless the user explicitly asks to approve a feature-contract update
-  - if any required step fails, stop, report the failing command, and do not push partial results
-- When closing a successful hard refresh, report which commit was pushed, whether staging-data changed, and the final GitHub Actions workflow URL plus success/failure status.
+- Treat the local Next.js dashboard and the committed static staging snapshots as separate delivery targets.
+- If dashboard code or API payloads change in a way that affects shipped staging, also update `web/public/staging-data/mlb/`.
+- Do not assume live SQLite changes update staging automatically.
 
 ## Git Workflow
-- Keep this repository on `main`. Do not create or push feature branches unless the user explicitly asks for one.
-- After completing repository edits, commit on `main` and push `main` to `origin` by default so the web app and staging publish can update. Only skip the push if the user explicitly says not to push yet.
-- Do not wait for a separate "push" request once the requested edits are complete; pushing is the default close-out step for this repo.
-- After every push to GitHub, watch the `Publish Sanitized Staging Site` GitHub Actions workflow before closing out the task.
-- The required workflow-watch step is:
-  - `gh run list --workflow "Publish Sanitized Staging Site" --limit 5 --json databaseId,headSha,status,conclusion,url,displayTitle`
-  - identify the run for the pushed `HEAD`
-  - `gh run watch <databaseId> --interval 5`
-  - confirm the final workflow URL and whether it succeeded
+- Keep this repository on `main` unless the user explicitly asks for another branch.
+- For this repo, pushing `main` remains the default close-out once an integrated sprint checkpoint is actually ready.
+- Do not push partial refresh output from a broken MLB pipeline.
+
+## Sprint Expectations
+- Sprint 0 is complete. Do not describe the repo as pre-implementation scaffolding only.
+- The active checkpoint spans:
+  - Sprint 1 MLB data foundation
+  - Sprint 2 MLB-first feature architecture and leakage enforcement
+  - Sprint 8 dashboard/staging contract surgery for shipped MLB payloads
+- Later sprints remain incomplete, especially the full GLM factory, validation gold standard, ensemble promotion package, and release hardening.
+- Each sprint closeout should report:
+  - what changed
+  - what tests passed
+  - what remains
+  - blockers
+  - exact files touched
+  - updated risks and assumptions

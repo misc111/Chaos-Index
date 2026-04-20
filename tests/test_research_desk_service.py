@@ -12,9 +12,10 @@ from src.services.research_desk import ResearchDeskBrief, _evaluate_promotion, _
 from src.storage.db import Database
 
 
-def _test_cfg(tmp_path: Path):
-    cfg = load_config("configs/nba.yaml")
-    cfg.paths.db_path = str(tmp_path / "processed" / "nba_forecast.db")
+def _test_cfg(tmp_path: Path, config_path: str = "configs/nba.yaml"):
+    cfg = load_config(config_path)
+    db_name = "mlb_forecast.db" if "mlb" in config_path else "nba_forecast.db"
+    cfg.paths.db_path = str(tmp_path / "processed" / db_name)
     cfg.paths.processed_dir = str(tmp_path / "processed")
     cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
     cfg.paths.interim_dir = str(tmp_path / "interim")
@@ -138,6 +139,13 @@ def test_run_research_desk_promotes_candidate_and_persists_champion(tmp_path: Pa
     decisions = db.query("SELECT * FROM promotion_decisions")
     assert len(decisions) == 1
     assert int(decisions[0]["promoted"]) == 1
+    stored_policy = json.loads(decisions[0]["policy_json"])
+    assert stored_policy["promotion_decision"]["status"] == "promoted"
+    assert stored_policy["promotion_decision"]["recommended_model"] == "glm_elastic_net"
+    persisted_summary = json.loads(promotion_path.read_text())
+    assert persisted_summary["promotion_decision"]["status"] == "promoted"
+    assert persisted_summary["candidate_scorecards"][0]["model_name"] == "glm_elastic_net"
+    assert persisted_summary["artifacts"]["scorecard_contract_json"].endswith("candidate_scorecards.json")
 
 
 def test_run_research_desk_rejects_candidate_that_breaks_drawdown_policy(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -256,6 +264,76 @@ def test_run_research_desk_rejects_candidate_that_breaks_drawdown_policy(tmp_pat
     decisions = db.query("SELECT * FROM promotion_decisions")
     assert len(decisions) == 1
     assert int(decisions[0]["promoted"]) == 0
+    stored_policy = json.loads(decisions[0]["policy_json"])
+    assert stored_policy["promotion_decision"]["status"] == "rejected"
+    assert stored_policy["promotion_decision"]["recommended_model"] == "glm_ridge"
+    assert any("drawdown" in reason.lower() for reason in stored_policy["failed_reasons"])
+    persisted_summary = json.loads(promotion_path.read_text())
+    assert persisted_summary["promotion_decision"]["status"] == "rejected"
+    rejected = {
+        row["model_name"]: row["rejection_reasons"]
+        for row in persisted_summary["candidate_scorecards"]
+    }
+    assert any("drawdown" in reason.lower() for reason in rejected["glm_elastic_net"])
+
+
+def test_run_research_desk_accepts_mlb_runtime_lane(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    cfg = _test_cfg(tmp_path, "configs/mlb.yaml")
+    brief_dir = tmp_path / "briefs"
+    brief_dir.mkdir(parents=True)
+    (brief_dir / "default.yaml").write_text(
+        "\n".join(
+            [
+                "brief_key: mlb-brief",
+                "title: MLB Brief",
+                "league: MLB",
+                "candidate_models:",
+                "  - glm_ridge",
+            ]
+        )
+        + "\n"
+    )
+
+    report_dir = Path(cfg.paths.artifacts_dir) / "desk_run"
+    report_dir.mkdir(parents=True)
+    scorecard_path = report_dir / "candidate_scorecard.csv"
+    pd.DataFrame(
+        [
+            {
+                "model_name": "glm_ridge",
+                "strategy": "default",
+                "mean_ending_bankroll": 5100.0,
+                "mean_log_loss": 0.60,
+                "mean_ece": 0.03,
+                "mean_max_drawdown": 450.0,
+                "bet_count": 24,
+            }
+        ]
+    ).to_csv(scorecard_path, index=False)
+    promotion_path = report_dir / "promotion_summary.json"
+    promotion_path.write_text(json.dumps({"eligible": False, "best_model": "glm_ridge", "baseline_model": "glm_ridge", "strategy": "default"}))
+    fold_metrics_path = report_dir / "outer_fold_metrics.csv"
+    pd.DataFrame([{"fold": 1}]).to_csv(fold_metrics_path, index=False)
+    report_path = report_dir / "research_backtest_report.md"
+    report_path.write_text("# report\n")
+
+    def fake_run_research_backtest(*args, **kwargs):
+        return ResearchBacktestResult(
+            league="MLB",
+            report_path=report_path,
+            scorecard_path=scorecard_path,
+            fold_metrics_path=fold_metrics_path,
+            promotion_path=promotion_path,
+            best_candidate_model="glm_ridge",
+        )
+
+    monkeypatch.setattr("src.services.research_backtest.run_research_backtest", fake_run_research_backtest)
+
+    result = run_research_desk(cfg, brief_dir=str(brief_dir))
+
+    assert result.league == "MLB"
+    assert result.champion_promoted is False
+    assert result.active_model_name == "ensemble"
 
 
 def test_evaluate_promotion_allows_profitable_nonlinear_candidate_when_gates_pass(tmp_path: Path) -> None:
@@ -310,3 +388,51 @@ def test_evaluate_promotion_allows_profitable_nonlinear_candidate_when_gates_pas
     assert decision["promoted"] is True
     assert decision["gates"]["materializable_candidate"] is True
     assert decision["gates"]["beats_incumbent_profit"] is True
+
+
+def test_evaluate_promotion_rejects_experimental_non_cas_challenger(tmp_path: Path) -> None:
+    brief_dir = tmp_path / "briefs"
+    brief_dir.mkdir(parents=True)
+    path = brief_dir / "default.yaml"
+    path.write_text(
+        "\n".join(
+            [
+                "brief_key: experimental-brief",
+                "title: Experimental Brief",
+                "league: MLB",
+                "candidate_models:",
+                "  - bayes_bt_state_space",
+            ]
+        )
+        + "\n"
+    )
+
+    cfg = _test_cfg(tmp_path, "configs/mlb.yaml")
+    brief = _load_brief(cfg, brief=None, brief_dir=str(brief_dir))
+    decision = _evaluate_promotion(
+        promotion={
+            "eligible": True,
+            "best_candidate_row": {
+                "mean_ending_bankroll": 5600.0,
+                "mean_net_profit": 600.0,
+                "mean_max_drawdown": 500.0,
+                "mean_ece": 0.04,
+                "bet_count": 28,
+                "profitable_folds": 3,
+            },
+            "baseline_row": {
+                "mean_ending_bankroll": 5200.0,
+                "mean_net_profit": 200.0,
+                "mean_max_drawdown": 450.0,
+                "mean_ece": 0.04,
+                "bet_count": 28,
+                "profitable_folds": 2,
+            },
+        },
+        candidate_model_name="bayes_bt_state_space",
+        brief=brief,
+        bootstrap_mode=False,
+    )
+
+    assert decision["promoted"] is False
+    assert decision["gates"]["materializable_candidate"] is False

@@ -79,6 +79,15 @@ JOIN odds_snapshots s
   ON s.odds_snapshot_id = l.odds_snapshot_id
 """
 
+MLB_CONTRACT_VIEWS: dict[str, str] = {
+    "mlb_feature_sets": "SELECT * FROM feature_sets",
+    "mlb_model_runs": "SELECT * FROM model_runs",
+    "mlb_model_predictions": "SELECT * FROM predictions",
+    "mlb_validation_results": "SELECT * FROM validation_results",
+    "mlb_backtest_bets": "SELECT * FROM historical_bet_decisions",
+    "mlb_performance_aggregates": "SELECT * FROM performance_aggregates",
+}
+
 SCHEMA_SQL = """
 CREATE TABLE IF NOT EXISTS raw_snapshots (
   snapshot_id TEXT PRIMARY KEY,
@@ -515,6 +524,118 @@ CREATE TABLE IF NOT EXISTS historical_bet_decisions_by_profile_v2 (
 
 CREATE INDEX IF NOT EXISTS idx_historical_bet_decisions_by_profile_v2_date
   ON historical_bet_decisions_by_profile_v2(strategy, sizing_style, strategy_config_signature, date_central);
+
+CREATE TABLE IF NOT EXISTS mlb_games (
+  game_id INTEGER PRIMARY KEY,
+  season INTEGER,
+  game_date_utc TEXT,
+  start_time_utc TEXT,
+  game_state TEXT,
+  home_team TEXT,
+  away_team TEXT,
+  home_team_id INTEGER,
+  away_team_id INTEGER,
+  venue TEXT,
+  is_neutral_site INTEGER DEFAULT 0,
+  home_score INTEGER,
+  away_score INTEGER,
+  went_ot INTEGER DEFAULT 0,
+  went_so INTEGER DEFAULT 0,
+  home_win INTEGER,
+  status_final INTEGER DEFAULT 0,
+  as_of_utc TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS mlb_results (
+  game_id INTEGER PRIMARY KEY,
+  season INTEGER,
+  game_date_utc TEXT,
+  final_utc TEXT,
+  home_team TEXT,
+  away_team TEXT,
+  home_score INTEGER,
+  away_score INTEGER,
+  home_win INTEGER,
+  ingested_at_utc TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS mlb_odds_snapshots (
+  odds_snapshot_id TEXT PRIMARY KEY,
+  source TEXT NOT NULL,
+  league TEXT NOT NULL,
+  as_of_utc TEXT NOT NULL,
+  raw_path TEXT,
+  regions TEXT,
+  markets TEXT,
+  odds_format TEXT,
+  date_format TEXT,
+  event_count INTEGER DEFAULT 0,
+  row_count INTEGER DEFAULT 0,
+  requests_last INTEGER,
+  requests_used INTEGER,
+  requests_remaining INTEGER,
+  from_cache INTEGER DEFAULT 0,
+  metadata_json TEXT
+);
+
+CREATE TABLE IF NOT EXISTS mlb_odds_market_lines (
+  line_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  odds_snapshot_id TEXT NOT NULL,
+  league TEXT NOT NULL,
+  game_id INTEGER,
+  sport_key TEXT,
+  odds_event_id TEXT NOT NULL,
+  commence_time_utc TEXT,
+  commence_date_central TEXT,
+  api_home_team TEXT,
+  api_away_team TEXT,
+  home_team TEXT,
+  away_team TEXT,
+  bookmaker_key TEXT,
+  bookmaker_title TEXT,
+  bookmaker_last_update_utc TEXT,
+  market_key TEXT,
+  outcome_name TEXT,
+  outcome_side TEXT,
+  outcome_team TEXT,
+  outcome_price REAL,
+  outcome_point REAL,
+  implied_probability REAL,
+  created_at_utc TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS mlb_theory_trace (
+  trace_id TEXT PRIMARY KEY,
+  implementation_key TEXT NOT NULL,
+  category TEXT NOT NULL,
+  theory_source TEXT NOT NULL,
+  theory_reference TEXT NOT NULL,
+  implementation_label TEXT NOT NULL,
+  implementation_type TEXT NOT NULL,
+  notes TEXT,
+  created_at_utc TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS mlb_prediction_components (
+  component_id TEXT PRIMARY KEY,
+  game_id INTEGER NOT NULL,
+  as_of_utc TEXT NOT NULL,
+  model_name TEXT NOT NULL,
+  component_name TEXT NOT NULL,
+  component_role TEXT NOT NULL,
+  component_value REAL,
+  metadata_json TEXT,
+  created_at_utc TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_mlb_games_asof ON mlb_games(as_of_utc);
+CREATE INDEX IF NOT EXISTS idx_mlb_results_final_utc ON mlb_results(final_utc);
+CREATE INDEX IF NOT EXISTS idx_mlb_odds_snapshots_asof ON mlb_odds_snapshots(as_of_utc DESC);
+CREATE INDEX IF NOT EXISTS idx_mlb_odds_lines_snapshot ON mlb_odds_market_lines(odds_snapshot_id);
+CREATE INDEX IF NOT EXISTS idx_mlb_odds_lines_game_market ON mlb_odds_market_lines(game_id, market_key, odds_snapshot_id);
+CREATE INDEX IF NOT EXISTS idx_mlb_prediction_components_game_asof ON mlb_prediction_components(game_id, as_of_utc);
 """
 
-SCHEMA_SQL += "\n" + EFFECTIVE_ODDS_MARKET_LINES_VIEW_SQL + "\n"
+SCHEMA_SQL += "\n" + EFFECTIVE_ODDS_MARKET_LINES_VIEW_SQL + ";\n"
+for _view_name, _view_query in MLB_CONTRACT_VIEWS.items():
+    SCHEMA_SQL += f"CREATE VIEW IF NOT EXISTS {_view_name} AS {_view_query};\n"

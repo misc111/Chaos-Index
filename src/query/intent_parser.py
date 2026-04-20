@@ -88,6 +88,7 @@ def explicit_league_hint(question: str) -> str | None:
         or "mens college basketball" in normalized
         or "men s college basketball" in normalized
     )
+    mlb_signals = bool(re.search(r"\bmlb\b", normalized) or "baseball" in normalized or "world series" in normalized)
     nba_signals = bool(
         re.search(r"\bnba\b", normalized)
         or ("basketball" in normalized and not college_basketball_signals)
@@ -97,9 +98,11 @@ def explicit_league_hint(question: str) -> str | None:
     )
     nhl_signals = bool(re.search(r"\bnhl\b", normalized) or "hockey" in normalized or "stanley cup" in normalized)
 
-    if nba_signals and not nhl_signals:
+    if mlb_signals and not nba_signals and not nhl_signals:
+        return "MLB"
+    if nba_signals and not mlb_signals and not nhl_signals:
         return "NBA"
-    if nhl_signals and not nba_signals:
+    if nhl_signals and not mlb_signals and not nba_signals:
         return "NHL"
     return None
 
@@ -157,7 +160,7 @@ def resolve_team(question: str, default_league: str | None) -> tuple[str | None,
         league, team, _ = strongest[0]
         return team, league, pair_candidates
 
-    preferred = canonical_league(default_league) or "NBA"
+    preferred = canonical_league(default_league) or "MLB"
     preferred_hits = [c for c in strongest if c[0] == preferred]
     if len(preferred_hits) == 1:
         league, team, _ = preferred_hits[0]
@@ -177,6 +180,8 @@ def competition_for_question(
 
     if "stanley cup" in normalized:
         return "NHL", "Stanley Cup"
+    if "world series" in normalized:
+        return "MLB", "World Series"
     if "nba finals" in normalized or "larry o brien" in normalized or "larry obrien" in normalized:
         return "NBA", "NBA Finals"
 
@@ -192,7 +197,9 @@ def competition_for_question(
         "finals",
     ]
     if any(signal in normalized for signal in championship_signals):
-        league = team_league or explicit_league_hint(question) or canonical_league(default_league) or "NBA"
+        league = team_league or explicit_league_hint(question) or canonical_league(default_league) or "MLB"
+        if league == "MLB":
+            return "MLB", "World Series"
         if league == "NBA":
             return "NBA", "NBA Finals"
         return "NHL", "Stanley Cup"
@@ -331,9 +338,9 @@ def parse_bet_history_include_games(question: str) -> bool:
     return has_last_night_scope or _is_casual_last_night_bet_recap(normalized)
 
 
-def parse_question(question: str, default_league: str | None = "NBA") -> QueryIntent:
+def parse_question(question: str, default_league: str | None = "MLB") -> QueryIntent:
     lowered = question.lower().strip()
-    canonical_default = canonical_league(default_league) or "NBA"
+    canonical_default = canonical_league(default_league) or "MLB"
     league_hint = explicit_league_hint(question) or canonical_default
 
     if is_bet_history_request(question):

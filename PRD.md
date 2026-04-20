@@ -1,315 +1,182 @@
 # Product Requirements Document
 
-## SportsModeling Current Product Baseline
+## SportsModeling MLB Rebuild
 
-Status: Baseline
-Audience: Internal product and engineering
-Last updated: 2026-04-02
+Status: Active rebuild  
+Audience: Product, modeling, and engineering  
+Last updated: 2026-04-20
 
 ## 1. Purpose
 
-This document describes the product that already exists in this repository today. It is a baseline PRD, not a future-state roadmap. Its goal is to capture what the system is for, who it serves, what capabilities are already shipped, and which constraints shape product decisions.
+This repository is being rebuilt as an MLB-first actuarial betting platform. The old NHL/NBA product established useful engineering discipline, but the governing contract is now a fresh MLB program centered on statistically principled GLM-family modeling, penalized regression, lasso credibility, and evidence-backed ensemble promotion.
 
-The product is a local-first multi-league forecasting and betting-analysis workbench for NHL and NBA. It combines:
+The two governing statistical sources are:
 
-- deterministic ingest and training pipelines
-- league-aware feature engineering and model execution
-- profitability-focused evaluation and replay
-- a deterministic natural-language query interface
-- a live local dashboard backed by SQLite
-- a static GitHub Pages staging site backed by committed JSON snapshots
+1. `statistical_theory/09_GLM_Generalized_Linear_Models_for_Insurance_Rating.pdf`
+2. `statistical_theory/10_Holmes_Casotto_Penalized_Regression_and_Lasso_Credibility_2025_Revision.pdf`
+
+Anything not directly supported by those texts must be labeled as an overlay.
 
 ## 2. Product Summary
 
-SportsModeling helps a single operator or a small internal team answer one core question:
+The target product is a production-grade MLB statistical ensemble betting platform for:
 
-Which games are worth betting, why does the model think that, and how has that approach performed over time?
+- moneyline
+- runline
+- totals
 
-The product is not just a model-training repository. It is an end-to-end forecasting product with persistent history, operator workflows, performance review, validation surfaces, and publishable dashboard outputs.
+It must combine:
 
-## 3. Problem Statement
+- deterministic ingest and model execution
+- pregame-legal feature engineering with explicit availability controls
+- CAS-monograph-driven GLM and lasso-credibility modeling
+- formal validation and diagnostic artifact generation
+- immutable historical prediction ledgers
+- operator-facing betting, performance, research, and governance surfaces
+- committed staging payloads for shipped dashboard views
 
-Most consumer betting products show market prices but do not provide:
+## 3. Core Product Question
 
-- an independent probability estimate
-- a reproducible local record of pregame predictions
-- a deterministic replay of historical bet decisions
-- a unified way to inspect validation, calibration, and profitability
-- a controlled research-to-promotion loop for model changes
+Which MLB bets are worth taking, why, how stable is that conclusion, how does it compare to the market, and what evidence supports promoting the responsible model or ensemble?
 
-SportsModeling exists to solve that gap for supported leagues by turning raw league and odds data into usable operator decisions and review surfaces.
+## 4. Target User
 
-## 4. Target Users
+The primary user is the operator of a local-first actuarial betting system: a technical model owner who ingests MLB data, reviews forecasts, inspects validation evidence, compares candidate models, and promotes or rejects ensembles based on long-run profitability and statistical credibility.
 
-### Primary user
+## 5. Product Principles
 
-The primary user is the repo operator: a technical sports-model owner who runs data refreshes, trains models, inspects forecasts, reviews betting performance, and decides whether a model or strategy should be trusted.
+- MLB-first contract: the repository contract, defaults, docs, and generated manifests should describe MLB as the primary system.
+- Theory traceability: major modeling and validation behavior should map back to the governing monographs.
+- Overlay clarity: betting, UX, and engineering conveniences must be labeled separately from direct statistical theory.
+- Pregame integrity: predictions must reflect true pregame information only and remain immutable after first pitch.
+- Deterministic workflows: refresh, validation, and staging generation should be reviewable and reproducible.
+- Evidence before promotion: a champion model or ensemble must not be promoted without written comparative evidence.
 
-### Secondary users
+## 6. In-Scope Capabilities
 
-- Internal collaborator reviewing model outputs, validation artifacts, or dashboard pages
-- Research-oriented user comparing candidate models and promotion outcomes
-- External reviewer of the staged dashboard experience
+### 6.1 MLB data foundation
 
-This is not currently a public self-serve multi-tenant product.
+- MLB schedule, game, result, roster, pitcher, weather, and odds ingestion
+- raw snapshot caching
+- normalized persistence for MLB entities and market lines
 
-## 5. User Jobs To Be Done
+### 6.2 Pregame MLB feature store
 
-The product should enable a user to:
+- explicit `available_as_of` logic
+- leakage prevention
+- feature registry and feature contract generation
+- support for raw, logged, polynomial, binned, hinge, spline, grouped-category, and interaction transforms
 
-1. Refresh league data and odds in a deterministic way.
-2. Generate forecasts for upcoming games across supported leagues.
-3. Compare model probabilities against market-implied views.
-4. Identify which games qualify as bets under a defined strategy.
-5. Review historical profit/loss, ROI, bankroll path, and weekly bet breakdowns.
-6. Inspect validation, calibration, leaderboard, slices, and diagnostics outputs.
-7. Ask natural-language questions about forecasts, betting history, team outlooks, and model performance.
-8. Compare candidate models and manage promotion decisions, especially in the NBA-first research workflow.
-9. Publish a stable staging snapshot that mirrors shipped dashboard payloads without requiring live database access.
+### 6.3 CAS-governed model suite
 
-## 6. Product Principles
+- vanilla GLMs
+- ridge, lasso, elastic net
+- lasso credibility with market or prior complements
+- GLMM, DGLM, GAM, and MARS-supported extension lane
+- ensemble promotion lane
 
-- Local-first: SQLite and local artifacts are the system of record for day-to-day operation.
-- Deterministic: refresh, query, and publish flows should produce inspectable, repeatable results.
-- Operator-centric: product surfaces are optimized for the model owner rather than a casual fan audience.
-- Profitability-first: unless explicitly discussing statistical quality, model performance is interpreted through betting outcomes.
-- Cross-league where practical: NHL and NBA should share architecture while allowing league-specific adapters and policies.
-- Historical integrity matters: frozen pregame predictions must remain distinguishable from synthetic replay or diagnostic outputs.
+### 6.4 Validation and governance
 
-## 7. In-Scope Product Capabilities
+- fit statistics
+- residual diagnostics
+- calibration and lift surfaces
+- multicollinearity diagnostics
+- stability diagnostics
+- lasso credibility review outputs
+- model cards and promotion/rejection reporting
 
-### 7.1 Multi-league forecasting platform
+### 6.5 Betting-product overlay
 
-The product supports NHL and NBA forecasting under a shared architecture with league-specific data adapters, feature strategies, and configuration.
+- fair odds conversion
+- vig-free market probabilities
+- edge and EV calculations
+- bet/pass policies
+- bankroll replay and stake sizing
+- reason-code outputs for bet or pass decisions
 
-Expected outcome:
+### 6.6 Operator dashboard and staging
 
-- each supported league can be fetched, trained, scored, queried, and displayed
-- repo-wide refresh flows can execute all leagues in a fixed order
+- live local dashboard
+- committed MLB staging payloads
+- research and admin views
+- validation and diagnostics views
 
-### 7.2 Deterministic pipeline execution
+## 7. Direct Theory vs Overlay Boundary
 
-The product includes operational commands for:
+### Direct theory implementation
 
-- database initialization
-- fetch
-- odds refresh
-- feature generation
-- training
-- validation
-- backtesting
-- daily runs
-- all-league data refresh
-- all-league hard refresh
+- GLM distributions, links, offsets, weights, diagnostics, fit measures, and extensions
+- penalized regression and lambda-governance logic
+- lasso credibility complement and relativity diagnostics
 
-Expected outcome:
+### Theory-compatible engineering support
 
-- the operator can run atomic league-scoped commands or deterministic multi-league orchestration
-- hard refresh performs a full refresh/train/publish flow without rebuilding features
+- deterministic orchestration
+- immutable ledgers
+- schema constraints
+- artifact manifests
+- registry/codegen plumbing
 
-### 7.3 Persistent forecasting and evaluation layer
+### Betting overlay
 
-The product stores forecasts, results, model runs, scores, validation outputs, odds snapshots, and related metadata in SQLite plus file-based artifacts.
-
-Expected outcome:
-
-- the system can answer live and historical product questions from persisted state
-- training and replay do not depend on fragile in-memory workflows
-
-### 7.4 Deterministic query interface
-
-The product includes a natural-language local query surface for:
-
-- betting history questions
-- team forecast questions
-- model leaderboard and performance questions
-- championship probability heuristics
-- report-style team summaries
-
-Expected outcome:
-
-- the operator can ask product questions in plain language and receive deterministic answers over local persisted data
-
-### 7.5 Live dashboard
-
-The Next.js dashboard is a core product surface, not just a demo. It provides league-aware pages for:
-
-- overview
-- predictions
-- games today
-- market board
-- performance
-- bet history
-- bet sizing
-- validation
-- calibration
-- diagnostics
-- slices
-- leaderboard
-- actual vs expected
-- research desk
-- research admin
-
-Expected outcome:
-
-- the operator can inspect both current slate decisions and historical quality/performance from a single UI
-
-### 7.6 Static staging publish
-
-The product ships a second delivery target: a static GitHub Pages staging site generated from committed JSON snapshots in `web/public/staging-data/`.
-
-Expected outcome:
-
-- shipped staging views mirror committed dashboard payloads
-- the staging site does not require live SQLite access
-- dashboard-affecting payload changes can be published through snapshot regeneration and git push
-
-### 7.7 Research and promotion workflow
-
-The product includes a research layer for comparing candidate models, tracking runs, and exposing promotion outcomes. The current research desk experience is intentionally NBA-first, while research admin is a live local control room.
-
-Expected outcome:
-
-- candidate models can be evaluated and compared against current champions
-- promotion history and gating outcomes can be inspected
-- research surfaces stay separate from public staging when appropriate
-
-## 8. Core User Experience
-
-### 8.1 Daily operator flow
-
-1. Refresh data and odds.
-2. Train or update models.
-3. Open the local dashboard.
-4. Review `Games Today`, `Predictions`, and `Market Board`.
-5. Decide which plays qualify under the active strategy.
-6. Revisit `Bet History` and `Performance` to judge whether the system is improving.
-
-### 8.2 Analysis flow
-
-1. Ask a question through `make query Q="..."`.
-2. Inspect answer text and payload derived from local state.
-3. Use dashboard pages for deeper visual review when needed.
-
-### 8.3 Research flow
-
-1. Run candidate comparison or research workflow.
-2. Inspect research desk and research admin surfaces.
-3. Review whether a candidate should be promoted or rejected.
-4. Preserve the decision trail in persistent outputs.
-
-### 8.4 Publish flow
-
-1. Regenerate staging snapshots from local dashboard data.
-2. Commit the updated staged JSON.
-3. Push `main`.
-4. Let GitHub Pages publish the committed snapshot-based site.
-
-## 9. Functional Requirements
-
-### 9.1 League support
-
-- The system must support NHL and NBA.
-- Ambiguous product questions should default to NBA when no stronger context exists.
-- Cross-league failure modes should be investigated across all supported leagues before work is considered complete.
-
-### 9.2 Forecast integrity
-
-- The system must preserve an immutable pregame prediction ledger.
-- Diagnostic, replay, and backtest outputs must remain separable from true historical pregame records.
-
-### 9.3 Profitability review
-
-- The product must support net profit/loss, ROI, bankroll path, amount risked, record, and game-by-game replay analysis.
-- Betting-history questions should use the deterministic query path first.
-
-### 9.4 Market comparison
-
-- The dashboard must expose model probability vs. market-implied views.
-- Users must be able to see whether a game is a bet or a pass under the active strategy and why.
-
-### 9.5 Validation and diagnostics
-
-- The system must surface leaderboard, validation, calibration, diagnostics, slices, and related evaluation artifacts.
-- The operator must be able to inspect both statistical quality and betting-performance outcomes.
-
-### 9.6 Research governance
-
-- Candidate model comparison and promotion decisions must be represented as product surfaces rather than hidden ad hoc scripts.
-- Research admin must remain a live local surface and not be exposed in static staging.
-
-### 9.7 Publish parity
-
-- If a dashboard or payload change affects the shipped staging experience, staging JSON must also be regenerated and committed.
-- Static staging should be treated as a separate delivery target from the live local dashboard.
-
-## 10. Non-Functional Requirements
-
-- Determinism: refresh and query workflows should favor fixed ordering and reproducible outputs.
-- Fail-fast behavior: composite refresh flows should stop on required-step failures rather than silently skipping work.
-- Local operability: the full product should remain useful from a local machine without cloud infrastructure.
-- Clear source of truth: code-first registries and SQLite-backed persisted outputs should remain authoritative.
-- Maintainability: league-specific behavior should live in adapters, strategies, and policies rather than spreading through shared modules.
-- Reviewability: generated docs, manifests, staging snapshots, and validation artifacts should make the system easier to inspect.
-
-## 11. Success Criteria
-
-Because this is a baseline PRD, these are product-health measures rather than new launch goals:
-
-- The operator can reliably produce fresh forecasts for all supported leagues.
-- The operator can answer betting-history and forecast questions from local persisted data without manual SQL spelunking.
-- The dashboard provides a coherent path from current slate review to historical performance review.
-- The staging site reflects committed product outputs rather than diverging from local dashboard payloads.
-- Research and promotion workflows are inspectable enough to explain why a model is active.
-- The system remains aligned with the repo's north star: long-run betting profitability through mispricing detection and disciplined bet selection.
-
-## 12. Non-Goals
-
-The current product baseline does not aim to be:
-
-- a public sportsbook
-- a real-time live-betting engine
-- a generalized sports platform beyond NHL and NBA
-- a cloud-native multi-user SaaS application
-- a fully automated no-operator system
-- a product where GitHub Pages staging is the live source of truth
-
-## 13. Constraints And Assumptions
-
-- SQLite is the canonical local persistence layer.
-- The product is operated from this repository and its make/CLI workflows.
-- Staging is snapshot-based and must be regenerated explicitly.
-- Hard refreshes intentionally reuse current processed feature snapshots instead of rebuilding features.
-- Betting performance is the default lens for model-performance questions unless the user asks for statistical metrics.
-- NBA currently receives the most advanced research-desk product treatment.
-
-## 14. Known Product Risks
-
-- The live dashboard and static staging site can drift if staging snapshots are not regenerated alongside payload changes.
-- Cross-league consistency can erode if shared fixes are not checked against all supported leagues.
-- The product mixes production, validation, and research surfaces closely enough that boundaries must stay intentional.
-- Betting-performance interpretation can be misleading if odds coverage, replay coverage, or frozen-prediction integrity are incomplete.
-- NBA-first research surfaces create an uneven product experience across leagues.
-
-## 15. Open Questions
-
-These questions are intentionally left open because they are product-direction questions, not baseline facts:
-
-- Should research desk capabilities expand beyond NBA into NHL with equivalent promotion workflows?
-- Should the deterministic query system become a first-class dashboard surface rather than staying CLI-first?
-- Should the product continue optimizing primarily for a single expert operator, or begin supporting broader collaborator workflows?
-- Which dashboard pages are core decision surfaces versus valuable but secondary review tools?
-
-## 16. Source Anchors In This Repo
-
-This PRD is grounded in the current repository structure and shipped surfaces, especially:
-
-- `README.md`
-- `CLAUDE.md`
-- `docs/generated/architecture.md`
-- `docs/generated/dashboard-routes.md`
-- `docs/project-organization-deep-dive.md`
-- `src/query/`
-- `src/orchestration/`
-- `web/app/`
-- `web/public/staging-data/`
+- market-vig removal for betting decisions
+- edge thresholds
+- bankroll replay
+- stake sizing
+- ROI reporting
+
+### Dashboard/reporting layer
+
+- route inventory
+- payload formatting
+- static staging snapshots
+- model card presentation
+
+## 8. Target Architecture
+
+The rebuild should converge toward:
+
+- `configs/mlb.yaml`
+- `configs/feature_registry_mlb.yaml`
+- `configs/model_feature_map_mlb.yaml`
+- `configs/model_feature_guardrails_mlb.yaml`
+- `data/raw/mlb/`
+- `data/interim/mlb/`
+- `data/processed/mlb/`
+- `artifacts/validation/mlb/`
+- `artifacts/reports/mlb/`
+- `docs/mlb/`
+- `web/public/staging-data/mlb/`
+
+## 9. Delivery Program
+
+The rebuild is structured in explicit sprints:
+
+1. Sprint 0: theory lock and repo contract reset
+2. Sprint 1: MLB data foundation
+3. Sprint 2: pregame feature store
+4. Sprint 3: vanilla GLM factory
+5. Sprint 4: penalized regression and lasso credibility
+6. Sprint 5: GLM extensions
+7. Sprint 6: validation gold standard
+8. Sprint 7: ensemble and betting engine
+9. Sprint 8: dashboard and operator workflow
+10. Sprint 9: release hardening
+
+Current status note:
+
+- Sprint 0 is complete.
+- The implementation has moved into an integrated MLB modeling-core checkpoint spanning Sprint 1 MLB data foundation, Sprint 2 feature-store architecture, Sprint 4 penalized-regression and lasso-credibility execution, Sprint 6 validation/reporting contracts, and Sprint 8 staging/dashboard contract work.
+- The repo should not be described as Sprint 0-only scaffolding anymore.
+
+## 10. Release Readiness Standard
+
+The rebuild is ready for release only when:
+
+- the repo contract is MLB-first and internally consistent
+- the theory traceability matrix covers the implemented statistical program
+- the MLB data and feature contracts are executable
+- the validation factory regenerates MLB artifacts deterministically
+- the champion ensemble has a written promotion/rejection report
+- dashboard and staging surfaces render MLB payloads coherently
+- documentation matches the actual implementation

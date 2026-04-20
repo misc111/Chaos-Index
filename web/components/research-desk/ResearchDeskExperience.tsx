@@ -49,7 +49,7 @@ function championPolicyValue(policy: TableRow | null | undefined, key: string): 
 
 function buildResearchDeskUrl(league: string): string {
   if (!STATIC_STAGING) {
-    return withLeague("/api/research-desk", league as "NBA" | "NHL");
+    return withLeague("/api/research-desk", league as LeagueCode);
   }
 
   const path = `${BASE_PATH}/staging-data/${league.toLowerCase()}/research-desk.json`;
@@ -163,7 +163,7 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
   }, [league]);
 
   const promotionGates = useMemo(() => gateChips(data.latest_promotion?.policy), [data.latest_promotion?.policy]);
-  const unsupportedLeague = data.league !== "NBA";
+  const unsupportedLeague = data.league !== league;
 
   if (error) {
     return <div className={`card ${styles.errorState}`}>{error}</div>;
@@ -219,8 +219,8 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
         {unsupportedLeague ? (
           <div className={styles.unsupportedNote}>
             <p className={styles.smallCopy}>
-              This view is intentionally NBA-first in v1. Other leagues continue to use the existing dashboard surfaces until the
-              promotion loop is widened.
+              This surface is being reset around the MLB rebuild. Legacy league views remain transitional until the promotion loop is
+              fully migrated.
             </p>
           </div>
         ) : null}

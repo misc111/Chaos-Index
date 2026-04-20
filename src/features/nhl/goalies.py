@@ -1,3 +1,5 @@
+"""NHL-only goalie feature transforms."""
+
 from __future__ import annotations
 
 import numpy as np
@@ -13,10 +15,12 @@ def add_goalie_features(team_games: pd.DataFrame) -> pd.DataFrame:
 
     def _per_team(grp: pd.DataFrame) -> pd.DataFrame:
         g = grp.copy()
+        g["team"] = grp.name
         g["starter_known"] = (g["starter_status"] == "confirmed").astype(int)
         g["starter_unknown"] = 1 - g["starter_known"]
-        g["goalie_quality_raw"] = g["starter_save_pct"].fillna(g["team_save_pct_proxy"])
-        g["goalie_quality_raw"] = g["goalie_quality_raw"].fillna(0.905)
+        starter_save_pct = pd.to_numeric(g["starter_save_pct"], errors="coerce")
+        team_save_pct_proxy = pd.to_numeric(g["team_save_pct_proxy"], errors="coerce")
+        g["goalie_quality_raw"] = starter_save_pct.fillna(team_save_pct_proxy).fillna(0.905)
         g["goalie_quality_ewm"] = g["goalie_quality_raw"].shift(1).ewm(alpha=0.25, adjust=False).mean()
         g["goalie_quality_ewm"] = g["goalie_quality_ewm"].fillna(0.905)
         g["goalie_starts_last7"] = g["starter_known"].shift(1).rolling(7, min_periods=1).sum().fillna(0)
@@ -25,7 +29,7 @@ def add_goalie_features(team_games: pd.DataFrame) -> pd.DataFrame:
         g["goalie_uncertainty_feature"] = g["starter_unknown"].shift(1).fillna(1)
         return g
 
-    out = df.groupby("team", group_keys=False).apply(_per_team)
+    out = df.groupby("team", group_keys=False).apply(_per_team, include_groups=False)
     return out
 
 

@@ -17,7 +17,7 @@ from src.common.config import AppConfig
 from src.common.logging import get_logger
 from src.common.time import utc_now_iso
 from src.common.utils import to_json
-from src.evaluation.validation_pipeline import run_validation_pipeline
+from src.evaluation.validation_pipeline import ValidationOutputs, run_validation_pipeline
 from src.services.ingest import latest_snapshot_id
 from src.storage.db import Database
 from src.storage.prediction_history import FROZEN_PREDICTION_SOURCE
@@ -285,8 +285,8 @@ def persist_historical_oof_predictions(
     )
 
 
-def run_validation_outputs(result: dict[str, Any], cfg: AppConfig) -> None:
-    run_validation_pipeline(result, cfg)
+def run_validation_outputs(result: dict[str, Any], cfg: AppConfig) -> ValidationOutputs:
+    return run_validation_pipeline(result, cfg)
 
 
 def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_changes: bool = False) -> None:
@@ -306,13 +306,14 @@ def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_
     feature_set_rows = db.query("SELECT feature_set_version FROM feature_sets ORDER BY created_at_utc DESC LIMIT 1")
     feature_set_version = feature_set_rows[0]["feature_set_version"] if feature_set_rows else "unknown_feature_set"
     selected_models = parse_models_arg(models_arg)
+    resolved_selected_models = normalize_selected_models(selected_models)
 
     tracker = RunTracker(cfg.paths.artifacts_dir)
     run_id = tracker.start_run(
         "train",
         {
             "feature_set_version": feature_set_version,
-            "selected_models": selected_models if selected_models is not None else ["all"],
+            "selected_models": resolved_selected_models,
         },
     )
     emit_train_progress(
@@ -322,7 +323,7 @@ def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_
             "status": "started",
             "message": "Starting cmd_train",
             "feature_set_version": feature_set_version,
-            "selected_models": selected_models if selected_models is not None else ["all"],
+            "selected_models": resolved_selected_models,
         }
     )
     result = train_and_predict(
@@ -330,7 +331,7 @@ def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_
         feature_set_version=feature_set_version,
         artifacts_dir=cfg.paths.artifacts_dir,
         bayes_cfg=cfg.bayes.model_dump(),
-        selected_models=selected_models,
+        selected_models=resolved_selected_models,
         progress_callback=emit_train_progress,
         selected_feature_columns=approved_feature_columns,
         selected_model_feature_columns=model_feature_columns,
@@ -365,7 +366,26 @@ def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_
     )
 
     run_rows = []
+    artifact_records = {
+        str(record.get("model_name")): record
+        for record in result["run_payload"].get("model_artifacts", [])
+        if isinstance(record, dict) and str(record.get("model_name")).strip()
+    }
     for model_name in [c for c in result["upcoming_model_probs"].columns if c != "game_id"] + ["ensemble"]:
+        artifact_record = artifact_records.get(model_name, {})
+        artifact_files = artifact_record.get("artifact_files", {}) if isinstance(artifact_record, dict) else {}
+        model_artifact_path = (
+            str(Path(result["model_dir"]) / str(artifact_files["binary"]))
+            if isinstance(artifact_files, dict) and str(artifact_files.get("binary") or "").strip()
+            else result["model_dir"]
+        )
+        params_payload = {
+            "contract_version": result["run_payload"].get("contract_version"),
+            "artifact_contract": artifact_record,
+            "run_contract_path": str(Path(result["model_dir"]) / "run_payload.json"),
+        }
+        if model_name == "ensemble":
+            params_payload["weights"] = result["weights"]
         run_rows.append(
             (
                 f"{result['model_run_id']}__{model_name}",
@@ -374,9 +394,9 @@ def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_
                 utc_now_iso(),
                 latest_snapshot_id(db),
                 feature_set_version,
-                to_json({"weights": result["weights"]}),
-                to_json(result["train_metrics"].get(model_name, {})),
-                result["model_dir"],
+                to_json(params_payload),
+                to_json(artifact_record.get("metrics_summary", result["train_metrics"].get(model_name, {}))),
+                model_artifact_path,
                 result["model_run_id"],
             )
         )
@@ -390,7 +410,40 @@ def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_
         run_rows,
     )
 
-    run_validation_outputs(result, cfg)
+    validation_outputs = run_validation_outputs(result, cfg)
+    validation_rows = []
+    validation_root = Path(cfg.paths.artifacts_dir) / "validation" / str(cfg.data.league).lower()
+    primary_model_name = result["run_payload"].get("glm_primary_model")
+    recorded_at_utc = utc_now_iso()
+    for spec in validation_outputs.sections:
+        if spec.kind == "json":
+            payload = validation_outputs.json_payloads.get(spec.section, {})
+        else:
+            frame = validation_outputs.csv_payloads.get(spec.section)
+            payload = {
+                "status": "tabular",
+                "row_count": int(len(frame)) if frame is not None else 0,
+                "tail_rows": spec.tail_rows,
+            }
+        validation_rows.append(
+            (
+                recorded_at_utc,
+                primary_model_name,
+                spec.section,
+                result["run_payload"].get("model_run_id"),
+                to_json(payload),
+                str(validation_root / spec.file_name),
+            )
+        )
+    if validation_rows:
+        db.executemany(
+            """
+            INSERT INTO validation_results(
+              as_of_utc, model_name, validation_name, split_label, result_json, artifact_path
+            ) VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            validation_rows,
+        )
     score_info = score_predictions(db, windows_days=cfg.modeling.rolling_windows_days)
     tracker.end_run(run_id)
     emit_train_progress(

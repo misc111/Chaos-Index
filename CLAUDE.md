@@ -4,11 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-NHL/NBA home-win probability forecasting system with a daily pipeline (`fetch → features → train → predict → ingest results → score → aggregates → artifacts`), walk-forward backtesting, prequential scoring, and a Next.js dashboard deployed as a static GitHub Pages site via committed JSON snapshots.
+MLB-first actuarial betting rebuild with a daily pipeline (`fetch → features → train → predict → ingest results → score → aggregates → artifacts`), walk-forward backtesting, prequential scoring, and a Next.js dashboard deployed as a static GitHub Pages site via committed JSON snapshots.
 
 ## Commands
 
-All commands run via `make` from the repo root. Default config is `configs/nba.yaml`.
+All commands run via `make` from the repo root. Default config is `configs/mlb.yaml`.
 
 ### Python
 
@@ -40,15 +40,15 @@ cd web && npm run playwright:install && npm run test:smoke
 ### Pipeline operations
 
 ```bash
-make init-db CONFIG=configs/nhl.yaml
-make fetch CONFIG=configs/nba.yaml
-make fetch-odds CONFIG=configs/nba.yaml
-make features CONFIG=configs/nba.yaml
-make train CONFIG=configs/nba.yaml MODELS=glm_ridge,rf
-make train CONFIG=configs/nba.yaml APPROVE_FEATURE_CHANGES=1
-make validate CONFIG=configs/nba.yaml
-make backtest CONFIG=configs/nba.yaml
-make run_daily CONFIG=configs/nba.yaml
+make init-db CONFIG=configs/mlb.yaml
+make fetch CONFIG=configs/mlb.yaml
+make fetch-odds CONFIG=configs/mlb.yaml
+make features CONFIG=configs/mlb.yaml
+make train CONFIG=configs/mlb.yaml MODELS=glm_ridge,glm_lasso
+make train CONFIG=configs/mlb.yaml APPROVE_FEATURE_CHANGES=1
+make validate CONFIG=configs/mlb.yaml
+make backtest CONFIG=configs/mlb.yaml
+make run_daily CONFIG=configs/mlb.yaml
 
 make data_refresh                # all-league data-only refresh (no training)
 make hard_refresh                # all-league fetch + train + staging + commit + push
@@ -71,8 +71,8 @@ Dashboard code changes that affect the shipped staging experience require regene
 | Package | Role |
 |---------|------|
 | `cli.py` | Typer-style CLI entry; `commands/` dispatches to handlers |
-| `league_registry.py` | `LeagueAdapter` — unified interface for NHL/NBA config, fetchers, feature builders |
-| `data_sources/{nhl,nba}/` | League-specific HTTP clients (NHLE, ESPN APIs) |
+| `league_registry.py` | `LeagueAdapter` — unified interface for MLB-first config, fetchers, and feature builders |
+| `data_sources/{mlb,nhl,nba}/` | League-specific HTTP clients and ingest scaffolds during the rebuild |
 | `features/` | Feature engineering with leakage checks and guardrails |
 | `models/` | GLM (ridge/lasso/elastic/vanilla), RF, GBDT, NN, Bayesian state-space |
 | `training/` | Fit/predict runners, ensemble builders (weighted avg + stacking), feature selection, CV |
@@ -85,7 +85,7 @@ Dashboard code changes that affect the shipped staging experience require regene
 
 ### Configuration (`configs/`)
 
-YAML inheritance: `default.yaml` → league-specific `nhl.yaml` / `nba.yaml`. Key config sections: `project`, `paths`, `data`, `modeling`, `validation_split`, `bayes`, `runtime`, `feature_policy`.
+YAML inheritance: `default.yaml` → league-specific `mlb.yaml` (plus legacy migration configs). Key config sections: `project`, `paths`, `data`, `modeling`, `validation_split`, `bayes`, `runtime`, `feature_policy`.
 
 Per-league feature contracts:
 - `model_feature_map_{league}.yaml` — per-model feature subsets
@@ -123,21 +123,21 @@ SQLite with key tables: `games`, `results`, `predictions` (immutable pregame led
   gh run watch <databaseId> --interval 5
   ```
 
-### Cross-league parity
+### Rebuild lane
 
-If a bug is found in one league, investigate the same failure mode in all supported leagues (NHL and NBA) before closing. Fix shared or league-specific paths as appropriate and regenerate affected staging snapshots.
+The active product lane is MLB. Legacy NHL/NBA code may still exist for migration reference, but repo-level orchestration and contract changes should be evaluated against the MLB lane first.
 
 ### Hard refresh protocol
 
-`make hard_refresh` runs a deterministic sequential pipeline: init-db → fetch → fetch-odds → train for each league (NHL → NBA), then generates staging snapshots, commits, pushes, and watches the workflow. Must be fail-fast, no parallelization, no step reordering.
+`make hard_refresh` runs the deterministic MLB-first pipeline: init-db → fetch → fetch-odds → train → staging generation, then the usual publish closeout when the lane is ready. It must stay fail-fast with no step reordering.
 
 ### Data refresh protocol
 
-`make data_refresh` runs fetch + fetch-odds for all leagues sequentially. Does not rebuild features, train, or regenerate staging.
+`make data_refresh` runs fetch + fetch-odds for the MLB rebuild lane. It does not rebuild features, train, or regenerate staging.
 
 ### Query system
 
-Use `make query Q="..."` for betting history, team forecasts, model leaderboard, and team report questions. Defaults to NBA config. Interpret model "performance" as betting profitability unless the user explicitly asks about statistical metrics.
+Use `make query Q="..."` for betting history, team forecasts, model leaderboard, and team report questions. The default lane is MLB. Interpret model "performance" as betting profitability unless the user explicitly asks about statistical metrics.
 
 ### Predictions immutability
 

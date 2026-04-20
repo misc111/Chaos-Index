@@ -1,46 +1,46 @@
 {
   "league": "NBA",
-  "as_of_utc": "2026-03-20T12:55:21+00:00",
-  "odds_as_of_utc": "2026-04-02T13:29:15+00:00",
+  "as_of_utc": null,
+  "odds_as_of_utc": null,
   "date_central": "2026-04-20",
-  "desk_posture": "guarded",
+  "desk_posture": "normal",
   "champion": null,
   "strategy_configs": {
     "riskAdjusted": {
       "label": "Balanced",
       "shortLabel": "Standard risk",
-      "allowUnderdogs": false,
-      "maxUnderdogMoneyline": null,
-      "minEdge": 0.06,
+      "allowUnderdogs": true,
+      "maxUnderdogMoneyline": 300,
+      "minEdge": 0.05,
       "minExpectedValue": 0.05,
-      "stakeScale": 0.2,
-      "maxBetBankrollPercent": 0.5,
-      "maxDailyBankrollPercent": 1.5,
-      "description": "Balanced baseline with the shared value screen, a 0.50% per-bet cap, and a 1.50% nightly budget on the reference bankroll."
+      "stakeScale": 0.25,
+      "maxBetBankrollPercent": 0.75,
+      "maxDailyBankrollPercent": 2.5,
+      "description": "Balanced baseline with the shared value screen, a 0.75% per-bet cap, and a 2.50% nightly budget on the reference bankroll. Long-shot underdogs above +300 are skipped."
     },
     "aggressive": {
       "label": "Aggressive",
       "shortLabel": "Wider caps",
-      "allowUnderdogs": false,
-      "maxUnderdogMoneyline": null,
-      "minEdge": 0.06,
+      "allowUnderdogs": true,
+      "maxUnderdogMoneyline": 300,
+      "minEdge": 0.05,
       "minExpectedValue": 0.05,
-      "stakeScale": 0.2,
-      "maxBetBankrollPercent": 0.5,
-      "maxDailyBankrollPercent": 1.5,
-      "description": "Aggressive baseline with the shared value screen, a 0.50% per-bet cap, and a 1.50% nightly budget on the reference bankroll."
+      "stakeScale": 0.4,
+      "maxBetBankrollPercent": 1,
+      "maxDailyBankrollPercent": 3,
+      "description": "Aggressive baseline with the shared value screen, a 1% per-bet cap, and a 3% nightly budget on the reference bankroll. Long-shot underdogs above +300 are skipped."
     },
     "capitalPreservation": {
       "label": "Conservative",
       "shortLabel": "Favorites only",
       "allowUnderdogs": false,
       "maxUnderdogMoneyline": null,
-      "minEdge": 0.05,
-      "minExpectedValue": 0.035,
-      "stakeScale": 0.2,
-      "maxBetBankrollPercent": 0.5,
-      "maxDailyBankrollPercent": 1.5,
-      "description": "Conservative baseline with the shared value screen, a 0.50% per-bet cap, and a 1.50% nightly budget on the reference bankroll."
+      "minEdge": 0.04,
+      "minExpectedValue": 0.03,
+      "stakeScale": 0.25,
+      "maxBetBankrollPercent": 0.75,
+      "maxDailyBankrollPercent": 2.5,
+      "description": "Conservative baseline with the shared value screen, a 0.75% per-bet cap, and a 2.50% nightly budget on the reference bankroll."
     }
   },
   "rows": []

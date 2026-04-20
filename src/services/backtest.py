@@ -20,6 +20,7 @@ from src.services.train import apply_model_feature_policy, load_features_datafra
 from src.storage.db import Database
 from src.training.backtest import run_walk_forward_backtest
 from src.training.model_feature_research import load_model_feature_map
+from src.training.model_catalog import normalize_selected_models
 from src.training.prequential import score_predictions
 from src.evaluation.validation_backtest_integrity import run_backtest_integrity_checks
 
@@ -38,12 +39,13 @@ def run_backtest(cfg: AppConfig, models_arg: str | None = None, approve_feature_
     )
     model_feature_columns = load_model_feature_map(cfg.data.league)
     selected_models = parse_models_arg(models_arg)
+    resolved_selected_models = normalize_selected_models(selected_models)
     bt = run_walk_forward_backtest(
         features_df,
         artifacts_dir=cfg.paths.artifacts_dir,
         bayes_cfg=cfg.bayes.model_dump(),
         n_splits=cfg.modeling.cv_splits,
-        selected_models=selected_models,
+        selected_models=resolved_selected_models,
         selected_feature_columns=approved_feature_columns,
         selected_model_feature_columns=model_feature_columns,
     )
@@ -109,5 +111,5 @@ def run_backtest(cfg: AppConfig, models_arg: str | None = None, approve_feature_
         "Backtest complete | oof_rows=%d scored=%d selected_models=%s",
         len(oof),
         score_info.get("n_scored", 0),
-        selected_models if selected_models is not None else ["all"],
+        resolved_selected_models,
     )

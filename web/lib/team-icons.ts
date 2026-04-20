@@ -81,6 +81,8 @@ const NHL_TEAM_ICON_CODES = [
   "WSH",
 ] as const;
 
+const MLB_TEAM_ICON_CODES = [] as const;
+
 function buildTeamIconMap(pathPrefix: string, extension: "png" | "svg", codes: readonly string[]): Record<string, TeamIconDefinition> {
   return Object.fromEntries(
     codes.map((code) => [
@@ -94,6 +96,7 @@ function buildTeamIconMap(pathPrefix: string, extension: "png" | "svg", codes: r
 }
 
 const TEAM_ICONS: Record<LeagueCode, Record<string, TeamIconDefinition>> = {
+  MLB: buildTeamIconMap("/team-icons/mlb", "svg", MLB_TEAM_ICON_CODES),
   NBA: buildTeamIconMap("/team-icons/nba", "png", NBA_TEAM_ICON_CODES),
   NHL: buildTeamIconMap("/team-icons/nhl", "svg", NHL_TEAM_ICON_CODES),
 };

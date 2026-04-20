@@ -22,7 +22,7 @@ PAGES_BUILD ?= 1
 PAGES_BUILD_ARGS := $(if $(filter 0 false FALSE no NO,$(PAGES_BUILD)),--skip-pages-build,)
 DRY_RUN ?= 0
 DRY_RUN_ARGS := $(if $(filter 1 true TRUE yes YES,$(DRY_RUN)),--dry-run,)
-CONFIG ?= configs/nba.yaml
+CONFIG ?= configs/mlb.yaml
 
 .DEFAULT_GOAL := help
 
@@ -30,10 +30,10 @@ help:
 	@echo "Targets:"
 	@echo "  install-python      Install Python deps"
 	@echo "  install-node        Install Node deps"
-	@echo "  data_refresh        Deterministic multi-league data-only refresh"
+	@echo "  data_refresh        Deterministic MLB-first data-only refresh"
 	@echo "                      Optional: DRY_RUN=1"
-	@echo "  hard_refresh        Deterministic multi-league refresh/train + staging snapshot"
-	@echo "                      Uses existing processed features; does not rebuild features"
+	@echo "  hard_refresh        Deterministic MLB-first refresh/train + staging snapshot"
+	@echo "                      Rebuilds processed MLB features before training and staging"
 	@echo "                      Optional: MODELS=glm_ridge,rf APPROVE_FEATURE_CHANGES=1 PAGES_BUILD=0 DRY_RUN=1"
 	@echo "  docs-generate       Regenerate manifests, generated docs, and boilerplate READMEs"
 	@echo "  docs-check          Fail if generated docs/manifests are stale"
@@ -47,11 +47,11 @@ help:
 	@echo "  verify              Run repo contract checks, tests, lint, and type checks"
 	@echo "  "
 	@echo "Usage:"
-	@echo "  make fetch CONFIG=configs/nba.yaml"
-	@echo "  make refresh-data CONFIG=configs/nba.yaml"
+	@echo "  make fetch CONFIG=configs/mlb.yaml"
+	@echo "  make refresh-data CONFIG=configs/mlb.yaml"
 	@echo "  make backfill-historical-odds CONFIG=configs/nba.yaml START_DATE=2025-10-02 END_DATE=2026-04-04 CHUNK_DAYS=30"
 	@echo "  make data_refresh DRY_RUN=1"
-	@echo "  make query CONFIG=configs/nba.yaml Q=\"What's the chance the Raptors win the next game?\""
+	@echo "  make query CONFIG=configs/mlb.yaml Q=\"What's the chance the Cubs win the next game?\""
 	@echo "  "
 	@$(PYTHON) -m src.registry.commands
 

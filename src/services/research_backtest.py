@@ -99,13 +99,14 @@ def _export_research_interim(cfg: AppConfig, *, history_seasons: int) -> tuple[l
     paths = resolve_research_paths(cfg)
     ensure_dir(paths.interim_dir)
     save_interim(games, str(paths.interim_dir), "games")
-    save_interim(pd.DataFrame(), str(paths.interim_dir), "goalies")
+    save_interim(pd.DataFrame(), str(paths.interim_dir), "team_stats")
+    save_interim(pd.DataFrame(), str(paths.interim_dir), "starting_pitchers")
     save_interim(pd.DataFrame(), str(paths.interim_dir), "players")
     save_interim(pd.DataFrame(), str(paths.interim_dir), "injuries")
     save_interim(pd.DataFrame(), str(paths.interim_dir), "odds")
     save_interim(pd.DataFrame(), str(paths.interim_dir), "schedule")
     save_interim(pd.DataFrame(), str(paths.interim_dir), "teams")
-    save_interim(pd.DataFrame(), str(paths.interim_dir), "xg")
+    save_interim(pd.DataFrame(), str(paths.interim_dir), "weather")
     return seasons, paths.interim_dir
 
 

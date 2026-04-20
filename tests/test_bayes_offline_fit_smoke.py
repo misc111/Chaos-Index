@@ -3,6 +3,7 @@ from pathlib import Path
 import pandas as pd
 
 from src.bayes.fit_offline import run_bayes_offline_fit
+from src.models.experimental.bayes_state_space_bt import BayesStateSpaceBTModel
 
 
 
@@ -23,6 +24,7 @@ def test_bayes_offline_fit_smoke(tmp_path: Path):
         feature_columns=["diff_form_goal_diff", "travel_diff"],
         artifacts_dir=str(tmp_path),
     )
+    assert isinstance(model, BayesStateSpaceBTModel)
     assert len(model.team_to_ix) == 2
     assert "ppc" in diag
     artifact_paths = diag["artifact_paths"]

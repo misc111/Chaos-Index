@@ -49,6 +49,10 @@ ODDS_COLUMNS = [
 ]
 
 ESPN_ENDPOINTS = {
+    "MLB": {
+        "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard",
+        "summary": "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/summary",
+    },
     "NBA": {
         "scoreboard": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard",
         "summary": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary",
@@ -85,6 +89,25 @@ NHL_NAME_ALIASES = {
     "columbus blue jackets": "CBJ",
     "tampa bay lightning": "TBL",
     "vegas golden knights": "VGK",
+}
+
+MLB_NAME_ALIASES = {
+    "athletics": "ATH",
+    "oakland athletics": "ATH",
+    "sacramento athletics": "ATH",
+    "los angeles angels": "LAA",
+    "la angels": "LAA",
+    "los angeles dodgers": "LAD",
+    "la dodgers": "LAD",
+    "chicago white sox": "CWS",
+    "chicago cubs": "CHC",
+    "new york yankees": "NYY",
+    "new york mets": "NYM",
+    "san diego padres": "SD",
+    "san francisco giants": "SF",
+    "tampa bay rays": "TB",
+    "kansas city royals": "KC",
+    "washington nationals": "WSH",
 }
 
 def _normalize_text(value: Any) -> str:
@@ -176,11 +199,13 @@ def _date_keys_for_range(start_date: date | datetime | str, end_date: date | dat
 
 def _team_aliases_for_league(league: str) -> dict[str, str]:
     league_code = str(league or "").upper()
+    if league_code == "MLB":
+        return MLB_NAME_ALIASES
     if league_code == "NBA":
         return NBA_NAME_ALIASES
     if league_code == "NHL":
         return NHL_NAME_ALIASES
-    raise ValueError(f"Unsupported league '{league}'. Expected one of: NHL, NBA.")
+    raise ValueError(f"Unsupported league '{league}'. Expected one of: MLB, NHL, NBA.")
 
 
 def _build_team_name_map(teams_df: pd.DataFrame | None) -> dict[str, str]:
@@ -592,7 +617,7 @@ def _fetch_public_odds_for_date_keys(
     as_of_utc = utc_now_iso()
     normalized_league = str(league or "").upper()
     if normalized_league not in ESPN_ENDPOINTS:
-        raise ValueError(f"Unsupported league '{league}'. Expected one of: NHL, NBA.")
+        raise ValueError(f"Unsupported league '{league}'. Expected one of: MLB, NHL, NBA.")
     endpoints = ESPN_ENDPOINTS[normalized_league]
     normalized_date_keys = [str(date_key).strip() for date_key in date_keys if str(date_key).strip()]
     if not normalized_date_keys:

@@ -284,14 +284,17 @@ def _filter_games_to_recent_seasons(df: pd.DataFrame, selected_seasons: set[int]
     return df[pd.to_numeric(df["season"], errors="coerce").isin(selected_seasons)].copy()
 
 
-def _filter_odds_to_recent_seasons(df: pd.DataFrame, selected_seasons: set[int]) -> pd.DataFrame:
+def _filter_odds_to_recent_seasons(df: pd.DataFrame, selected_seasons: set[int], *, league: str) -> pd.DataFrame:
     if df.empty or not selected_seasons:
         return df
     commence_ts = pd.to_datetime(df["commence_time_utc"], errors="coerce", utc=True)
     if commence_ts.isna().all():
         return df
-    season_values = commence_ts.dt.year + (commence_ts.dt.month >= 7).astype(int)
-    season_codes = (season_values - 1) * 10000 + season_values
+    if canonicalize_league(league) == "MLB":
+        season_codes = commence_ts.dt.year
+    else:
+        season_values = commence_ts.dt.year + (commence_ts.dt.month >= 7).astype(int)
+        season_codes = (season_values - 1) * 10000 + season_values
     return df[season_codes.isin(selected_seasons)].copy()
 
 
@@ -302,8 +305,7 @@ def import_historical_data(
     source_manifest: str | None = None,
 ) -> None:
     league = canonicalize_league(cfg.data.league)
-    if league != "NBA":
-        logger.info("Historical import currently uses NBA as the deep-research pilot; initializing shared storage for %s only", league)
+    logger.info("Historical import initializing manifest-backed research storage for %s", league)
 
     paths = resolve_research_paths(cfg)
     manifest_path = Path(source_manifest).resolve() if source_manifest else paths.source_manifest.resolve()
@@ -360,7 +362,7 @@ def import_historical_data(
             dataframe=filtered,
         )
         insert_snapshot(db, fetch_result)
-        upsert_games(db, filtered)
+        upsert_games(db, filtered, league=league)
         upsert_results(
             db,
             filtered[
@@ -377,6 +379,7 @@ def import_historical_data(
                     "as_of_utc",
                 ]
             ].rename(columns={"start_time_utc": "final_utc", "as_of_utc": "ingested_at_utc"}),
+            league=league,
         )
         imported_game_snapshots += 1
         imported_games += len(filtered)
@@ -387,7 +390,7 @@ def import_historical_data(
         path = _entry_path(paths.source_dir, manifest_path, entry.path)
         extracted_at_utc = entry.extracted_at_utc or utc_now_iso()
         frame = _normalize_odds_frame(_load_tabular_file(path), league=league, as_of_utc=extracted_at_utc)
-        filtered = _filter_odds_to_recent_seasons(frame, selected_seasons)
+        filtered = _filter_odds_to_recent_seasons(frame, selected_seasons, league=league)
         if filtered.empty:
             continue
         snapshot_id = entry.snapshot_id or f"{entry.source}_{stable_hash({'path': str(entry.path), 'as_of_utc': extracted_at_utc, 'rows': len(filtered)})}"

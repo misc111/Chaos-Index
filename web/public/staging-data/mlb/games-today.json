@@ -1,0 +1,60 @@
+{
+  "league": "MLB",
+  "as_of_utc": null,
+  "date_central": "2026-04-20",
+  "desk_posture": "normal",
+  "champion": null,
+  "historical_coverage_start_central": null,
+  "strategy_configs": {
+    "riskAdjusted": {
+      "label": "Balanced",
+      "shortLabel": "Standard risk",
+      "allowUnderdogs": true,
+      "maxUnderdogMoneyline": null,
+      "minEdge": 0.03,
+      "minExpectedValue": 0.02,
+      "stakeScale": 0.5,
+      "maxBetBankrollPercent": 1.25,
+      "maxDailyBankrollPercent": 4,
+      "description": "Balanced baseline with the shared value screen, a 1.25% per-bet cap, and a 4% nightly budget on the reference bankroll."
+    },
+    "aggressive": {
+      "label": "Aggressive",
+      "shortLabel": "Wider caps",
+      "allowUnderdogs": true,
+      "maxUnderdogMoneyline": null,
+      "minEdge": 0.03,
+      "minExpectedValue": 0.02,
+      "stakeScale": 0.75,
+      "maxBetBankrollPercent": 1.75,
+      "maxDailyBankrollPercent": 6,
+      "description": "Aggressive baseline with the shared value screen, a 1.75% per-bet cap, and a 6% nightly budget on the reference bankroll."
+    },
+    "capitalPreservation": {
+      "label": "Conservative",
+      "shortLabel": "Favorites only",
+      "allowUnderdogs": false,
+      "maxUnderdogMoneyline": null,
+      "minEdge": 0.03,
+      "minExpectedValue": 0.02,
+      "stakeScale": 0.25,
+      "maxBetBankrollPercent": 0.75,
+      "maxDailyBankrollPercent": 2.5,
+      "description": "Conservative baseline with the shared value screen, a 0.75% per-bet cap, and a 2.50% nightly budget on the reference bankroll."
+    }
+  },
+  "strategy_optimization": {
+    "method": "Static defaults active until matched replay coverage reaches at least 60 settled games across 20 replay days (current sample: 0 games across 0 days).",
+    "risk_free_rate": 0,
+    "candidate_count": 0,
+    "frontier_point_count": 0,
+    "frontier": [],
+    "selected": {
+      "riskAdjusted": null,
+      "aggressive": null,
+      "capitalPreservation": null
+    }
+  },
+  "historical_rows": [],
+  "rows": []
+}

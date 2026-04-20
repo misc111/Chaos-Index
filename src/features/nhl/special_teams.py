@@ -1,3 +1,5 @@
+"""NHL-only special teams feature transforms."""
+
 from __future__ import annotations
 
 import pandas as pd
@@ -12,6 +14,7 @@ def add_special_teams_features(team_games: pd.DataFrame) -> pd.DataFrame:
 
     def _per_team(grp: pd.DataFrame) -> pd.DataFrame:
         g = grp.copy()
+        g["team"] = grp.name
         g["penalties_taken"] = g["penalties_taken"].fillna(0)
         g["penalties_drawn"] = g["penalties_drawn"].fillna(0)
         g["pp_goals"] = g["pp_goals"].fillna(0)
@@ -23,7 +26,7 @@ def add_special_teams_features(team_games: pd.DataFrame) -> pd.DataFrame:
         g["penalties_taken_ewm"] = g["penalties_taken"].shift(1).ewm(alpha=0.25, adjust=False).mean().fillna(0)
         return g
 
-    return df.groupby("team", group_keys=False).apply(_per_team)
+    return df.groupby("team", group_keys=False).apply(_per_team, include_groups=False)
 
 
 def combine_special_teams_game_features(game_df: pd.DataFrame) -> pd.DataFrame:

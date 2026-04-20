@@ -1,0 +1,238 @@
+version: 1
+league: MLB
+updated_at_utc: '2026-04-20T00:00:00+00:00'
+core_theory_families:
+  penalized_glm:
+    status: active_default
+    model_keys:
+    - glm_ridge
+    - glm_elastic_net
+    - glm_lasso
+    note: Executable CAS-core penalized GLMs stay in the default MLB theory lane.
+  lasso_credibility:
+    status: active_opt_in
+    model_keys:
+    - glm_lasso_market_credibility
+    - glm_lasso_prior_credibility
+    note: Trainable opt-in credibility variants stay explicit in the core lane without entering the default run list.
+models:
+  glm_ridge:
+    active_features:
+    - diff_starting_pitcher_quality
+    - starting_pitcher_hand_matchup
+    - diff_bullpen_quality
+    - diff_bullpen_fatigue
+    - diff_lineup_talent
+    - lineup_stability_diff
+    - park_run_effect
+    - park_weather_run_effect
+    - rest_diff
+    - travel_diff
+    - home_field_advantage
+    feature_count: 11
+  glm_elastic_net:
+    active_features:
+    - diff_starting_pitcher_quality
+    - starting_pitcher_hand_matchup
+    - diff_bullpen_quality
+    - diff_bullpen_fatigue
+    - diff_lineup_talent
+    - lineup_stability_diff
+    - park_run_effect
+    - park_weather_run_effect
+    - rest_diff
+    - travel_diff
+    - home_field_advantage
+    - umpire_run_effect
+    feature_count: 12
+  glm_lasso:
+    active_features:
+    - diff_starting_pitcher_quality
+    - starting_pitcher_hand_matchup
+    - diff_bullpen_quality
+    - diff_lineup_talent
+    - park_run_effect
+    - rest_diff
+    - travel_diff
+    - home_field_advantage
+    feature_count: 8
+  glm_lasso_market_credibility:
+    active_features:
+    - diff_starting_pitcher_quality
+    - starting_pitcher_hand_matchup
+    - diff_bullpen_quality
+    - diff_lineup_talent
+    - park_run_effect
+    - rest_diff
+    - travel_diff
+    - home_field_advantage
+    feature_count: 8
+    complement_kind: market
+    complement_column: market_offset_logit
+    offset_scale: logit
+    default_enabled: false
+  glm_lasso_prior_credibility:
+    active_features:
+    - diff_starting_pitcher_quality
+    - starting_pitcher_hand_matchup
+    - diff_bullpen_quality
+    - diff_lineup_talent
+    - park_run_effect
+    - rest_diff
+    - travel_diff
+    - home_field_advantage
+    feature_count: 8
+    complement_kind: prior_model
+    complement_column: prior_model_offset_logit
+    offset_scale: logit
+    default_enabled: false
+  two_stage:
+    active_features:
+    - diff_starting_pitcher_quality
+    - starting_pitcher_hand_matchup
+    - diff_bullpen_quality
+    - diff_bullpen_fatigue
+    - diff_lineup_talent
+    - lineup_stability_diff
+    - park_run_effect
+    - park_weather_run_effect
+    - weather_wind_run_effect
+    - rest_diff
+    - travel_diff
+    - home_field_advantage
+    - series_context_index
+    - umpire_run_effect
+    - diff_offense_form
+    - diff_pitching_form
+    feature_count: 16
+planned_credibility_models:
+  glm_lasso_market_credibility:
+    status: active_opt_in
+    driver_source_model: glm_lasso
+    complement_kind: market
+    complement_label: Vig-free market logit
+    complement_column: market_offset_logit
+    offset_scale: logit
+    driver_features:
+    - diff_starting_pitcher_quality
+    - starting_pitcher_hand_matchup
+    - diff_bullpen_quality
+    - diff_lineup_talent
+    - park_run_effect
+    - rest_diff
+    - travel_diff
+    - home_field_advantage
+    driver_feature_count: 8
+  glm_lasso_prior_credibility:
+    status: active_opt_in
+    driver_source_model: glm_lasso
+    complement_kind: prior_model
+    complement_label: Prior-model offset logit
+    complement_column: prior_model_offset_logit
+    offset_scale: logit
+    driver_features:
+    - diff_starting_pitcher_quality
+    - starting_pitcher_hand_matchup
+    - diff_bullpen_quality
+    - diff_lineup_talent
+    - park_run_effect
+    - rest_diff
+    - travel_diff
+    - home_field_advantage
+    driver_feature_count: 8
+experimental_models:
+  gbdt:
+    active_features:
+    - diff_starting_pitcher_quality
+    - starting_pitcher_hand_matchup
+    - diff_bullpen_quality
+    - diff_bullpen_fatigue
+    - diff_lineup_talent
+    - lineup_stability_diff
+    - diff_lineup_availability
+    - diff_offense_form
+    - diff_pitching_form
+    - park_run_effect
+    - park_weather_run_effect
+    - weather_wind_run_effect
+    - weather_temperature_run_effect
+    - weather_humidity_run_effect
+    - umpire_run_effect
+    - rest_diff
+    - travel_diff
+    - home_field_advantage
+    - series_context_index
+    - day_game_indicator
+    - home_days_into_season
+    - away_days_into_season
+    - home_bullpen_quality_index
+    - away_bullpen_quality_index
+    - home_starting_pitcher_quality_index
+    feature_count: 25
+  rf:
+    active_features:
+    - diff_starting_pitcher_quality
+    - starting_pitcher_hand_matchup
+    - diff_bullpen_quality
+    - diff_bullpen_fatigue
+    - diff_lineup_talent
+    - lineup_stability_diff
+    - park_run_effect
+    - park_weather_run_effect
+    - weather_wind_run_effect
+    - weather_temperature_run_effect
+    - rest_diff
+    - travel_diff
+    - home_field_advantage
+    - umpire_run_effect
+    - series_context_index
+    - day_game_indicator
+    - diff_offense_form
+    - diff_pitching_form
+    - diff_lineup_availability
+    - home_days_into_season
+    feature_count: 20
+  bayes_bt_state_space:
+    active_features:
+    - diff_starting_pitcher_quality
+    - diff_bullpen_quality
+    - diff_lineup_talent
+    - park_run_effect
+    - park_weather_run_effect
+    - rest_diff
+    - travel_diff
+    - home_field_advantage
+    - series_context_index
+    - day_game_indicator
+    - umpire_run_effect
+    - diff_offense_form
+    feature_count: 12
+  nn_mlp:
+    active_features:
+    - diff_starting_pitcher_quality
+    - starting_pitcher_hand_matchup
+    - diff_bullpen_quality
+    - diff_bullpen_fatigue
+    - diff_lineup_talent
+    - diff_lineup_availability
+    - lineup_stability_diff
+    - park_run_effect
+    - park_weather_run_effect
+    - weather_wind_run_effect
+    - weather_temperature_run_effect
+    - weather_humidity_run_effect
+    - umpire_run_effect
+    - rest_diff
+    - travel_diff
+    - home_field_advantage
+    - series_context_index
+    - day_game_indicator
+    - home_days_into_season
+    - away_days_into_season
+    - home_bullpen_quality_index
+    - away_bullpen_quality_index
+    - home_starting_pitcher_quality_index
+    - away_starting_pitcher_quality_index
+    - diff_offense_form
+    - diff_pitching_form
+    feature_count: 26

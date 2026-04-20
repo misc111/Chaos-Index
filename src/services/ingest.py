@@ -29,10 +29,11 @@ INTERIM_FILES = {
     "schedule": "schedule.parquet",
     "teams": "teams.parquet",
     "players": "players.parquet",
-    "goalies": "goalies.parquet",
+    "team_stats": "team_stats.parquet",
+    "starting_pitchers": "starting_pitchers.parquet",
     "injuries": "injuries.parquet",
     "odds": "odds.parquet",
-    "xg": "xg.parquet",
+    "weather": "weather.parquet",
 }
 
 
@@ -82,10 +83,8 @@ def insert_snapshot(db: Database, res: SourceFetchResult) -> None:
     )
 
 
-def upsert_games(db: Database, games_df: pd.DataFrame) -> None:
-    if games_df.empty:
-        return
-    rows = [
+def _game_rows(games_df: pd.DataFrame) -> list[tuple[Any, ...]]:
+    return [
         (
             int(r.game_id),
             int(r.season) if pd.notna(r.season) else None,
@@ -108,9 +107,12 @@ def upsert_games(db: Database, games_df: pd.DataFrame) -> None:
         )
         for r in games_df.itertuples(index=False)
     ]
+
+
+def _insert_game_rows(db: Database, table_name: str, rows: list[tuple[Any, ...]]) -> None:
     db.executemany(
-        """
-        INSERT OR REPLACE INTO games(
+        f"""
+        INSERT OR REPLACE INTO {table_name}(
           game_id, season, game_date_utc, start_time_utc, game_state,
           home_team, away_team, home_team_id, away_team_id, venue,
           is_neutral_site, home_score, away_score, went_ot, went_so,
@@ -121,10 +123,17 @@ def upsert_games(db: Database, games_df: pd.DataFrame) -> None:
     )
 
 
-def upsert_results(db: Database, results_df: pd.DataFrame) -> None:
-    if results_df.empty:
+def upsert_games(db: Database, games_df: pd.DataFrame, *, league: str | None = None) -> None:
+    if games_df.empty:
         return
-    rows = [
+    rows = _game_rows(games_df)
+    _insert_game_rows(db, "games", rows)
+    if league and canonicalize_league(league) == "MLB":
+        _insert_game_rows(db, "mlb_games", rows)
+
+
+def _result_rows(results_df: pd.DataFrame) -> list[tuple[Any, ...]]:
+    return [
         (
             int(r.game_id),
             int(r.season) if pd.notna(r.season) else None,
@@ -139,15 +148,27 @@ def upsert_results(db: Database, results_df: pd.DataFrame) -> None:
         )
         for r in results_df.itertuples(index=False)
     ]
+
+
+def _insert_result_rows(db: Database, table_name: str, rows: list[tuple[Any, ...]]) -> None:
     db.executemany(
-        """
-        INSERT OR REPLACE INTO results(
+        f"""
+        INSERT OR REPLACE INTO {table_name}(
           game_id, season, game_date_utc, final_utc, home_team, away_team,
           home_score, away_score, home_win, ingested_at_utc
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         rows,
     )
+
+
+def upsert_results(db: Database, results_df: pd.DataFrame, *, league: str | None = None) -> None:
+    if results_df.empty:
+        return
+    rows = _result_rows(results_df)
+    _insert_result_rows(db, "results", rows)
+    if league and canonicalize_league(league) == "MLB":
+        _insert_result_rows(db, "mlb_results", rows)
 
 
 def upsert_teams(
@@ -220,7 +241,7 @@ def parse_iso_or_none(value: Any) -> datetime | None:
         return None
 
 
-def map_odds_rows_to_games(db: Database, odds_df: pd.DataFrame) -> pd.DataFrame:
+def map_odds_rows_to_games(db: Database, odds_df: pd.DataFrame, *, games_table: str = "games") -> pd.DataFrame:
     if odds_df.empty:
         mapped = odds_df.copy()
         mapped["game_id"] = None
@@ -239,9 +260,9 @@ def map_odds_rows_to_games(db: Database, odds_df: pd.DataFrame) -> pd.DataFrame:
 
     games = pd.DataFrame(
         db.query(
-            """
+            f"""
             SELECT game_id, game_date_utc, start_time_utc, home_team, away_team
-            FROM games
+            FROM {games_table}
             WHERE home_team IS NOT NULL
               AND away_team IS NOT NULL
             """
@@ -319,11 +340,32 @@ def insert_odds_snapshot_and_lines(
         return text
 
     metadata = odds_res.metadata or {}
-    rows_df = map_odds_rows_to_games(db, odds_res.dataframe)
+    is_mlb = canonicalize_league(league) == "MLB"
+    rows_df = map_odds_rows_to_games(db, odds_res.dataframe, games_table="mlb_games" if is_mlb else "games")
 
-    db.execute(
-        """
-        INSERT OR REPLACE INTO odds_snapshots(
+    snapshot_row = (
+        odds_res.snapshot_id,
+        odds_res.source,
+        league,
+        odds_res.extracted_at_utc,
+        odds_res.raw_path,
+        str(metadata.get("regions") or ""),
+        str(metadata.get("markets") or ""),
+        str(metadata.get("odds_format") or ""),
+        str(metadata.get("date_format") or ""),
+        int(metadata.get("n_events") or 0),
+        int(len(rows_df)),
+        int(metadata["requests_last"]) if metadata.get("requests_last") is not None else None,
+        int(metadata["requests_used"]) if metadata.get("requests_used") is not None else None,
+        int(metadata["requests_remaining"]) if metadata.get("requests_remaining") is not None else None,
+        int(metadata.get("from_cache") or 0),
+        to_json(metadata),
+    )
+
+    def _insert_snapshot_row(table_name: str) -> None:
+        db.execute(
+            f"""
+        INSERT OR REPLACE INTO {table_name}(
           odds_snapshot_id, source, league, as_of_utc, raw_path,
           regions, markets, odds_format, date_format,
           event_count, row_count,
@@ -331,30 +373,30 @@ def insert_odds_snapshot_and_lines(
           from_cache, metadata_json
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
-        (
-            odds_res.snapshot_id,
-            odds_res.source,
-            league,
-            odds_res.extracted_at_utc,
-            odds_res.raw_path,
-            str(metadata.get("regions") or ""),
-            str(metadata.get("markets") or ""),
-            str(metadata.get("odds_format") or ""),
-            str(metadata.get("date_format") or ""),
-            int(metadata.get("n_events") or 0),
-            int(len(rows_df)),
-            int(metadata["requests_last"]) if metadata.get("requests_last") is not None else None,
-            int(metadata["requests_used"]) if metadata.get("requests_used") is not None else None,
-            int(metadata["requests_remaining"]) if metadata.get("requests_remaining") is not None else None,
-            int(metadata.get("from_cache") or 0),
-            to_json(metadata),
-        ),
-    )
+            snapshot_row,
+        )
+
+    _insert_snapshot_row("odds_snapshots")
+    if is_mlb:
+        _insert_snapshot_row("mlb_odds_snapshots")
 
     if rows_df.empty:
         return
 
-    db.execute("DELETE FROM odds_market_lines WHERE odds_snapshot_id = ?", (odds_res.snapshot_id,))
+    def _replace_lines(table_name: str, rows: list[tuple[Any, ...]]) -> None:
+        db.execute(f"DELETE FROM {table_name} WHERE odds_snapshot_id = ?", (odds_res.snapshot_id,))
+        db.executemany(
+            f"""
+        INSERT INTO {table_name}(
+          odds_snapshot_id, league, game_id, sport_key, odds_event_id,
+          commence_time_utc, commence_date_central, api_home_team, api_away_team,
+          home_team, away_team, bookmaker_key, bookmaker_title, bookmaker_last_update_utc,
+          market_key, outcome_name, outcome_side, outcome_team,
+          outcome_price, outcome_point, implied_probability, created_at_utc
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+            rows,
+        )
 
     created_at_utc = utc_now_iso()
     insert_rows: list[tuple[Any, ...]] = []
@@ -392,18 +434,9 @@ def insert_odds_snapshot_and_lines(
             )
         )
 
-    db.executemany(
-        """
-        INSERT INTO odds_market_lines(
-          odds_snapshot_id, league, game_id, sport_key, odds_event_id,
-          commence_time_utc, commence_date_central, api_home_team, api_away_team,
-          home_team, away_team, bookmaker_key, bookmaker_title, bookmaker_last_update_utc,
-          market_key, outcome_name, outcome_side, outcome_team,
-          outcome_price, outcome_point, implied_probability, created_at_utc
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """,
-        insert_rows,
-    )
+    _replace_lines("odds_market_lines", insert_rows)
+    if is_mlb:
+        _replace_lines("mlb_odds_market_lines", insert_rows)
 
 
 def latest_snapshot_id(db: Database) -> str | None:
@@ -411,10 +444,12 @@ def latest_snapshot_id(db: Database) -> str | None:
     return rows[0]["snapshot_id"] if rows else None
 
 
-def _season_guess(games_df: pd.DataFrame) -> str:
+def _season_guess(games_df: pd.DataFrame, *, league: str | None = None) -> str:
     if not games_df.empty and "season" in games_df.columns and games_df["season"].notna().any():
         return str(int(games_df["season"].dropna().max()))
     now = datetime.now(timezone.utc)
+    if league and canonicalize_league(league) == "MLB":
+        return str(now.year)
     season_end_year = now.year + (1 if now.month >= 7 else 0)
     return f"{season_end_year - 1}{season_end_year}"
 
@@ -436,7 +471,7 @@ def fetch_data(cfg: AppConfig) -> None:
     games_res = adapter.fetch_games(client, start_date=start_date, end_date=end_date)
     save_interim(games_res.dataframe, cfg.paths.interim_dir, "games")
     insert_snapshot(db, games_res)
-    upsert_games(db, games_res.dataframe)
+    upsert_games(db, games_res.dataframe, league=league)
 
     schedule_res = adapter.fetch_upcoming_schedule(client, days_ahead=cfg.data.upcoming_days)
     save_interim(schedule_res.dataframe, cfg.paths.interim_dir, "schedule")
@@ -457,18 +492,23 @@ def fetch_data(cfg: AppConfig) -> None:
     players_res = adapter.fetch_players(
         client,
         team_abbrevs=team_abbrevs,
-        season=_season_guess(games_res.dataframe),
+        season=_season_guess(games_res.dataframe, league=league),
         games_df=games_res.dataframe,
     )
     save_interim(players_res.dataframe, cfg.paths.interim_dir, "players")
     insert_snapshot(db, players_res)
 
     final_ids = games_res.dataframe[games_res.dataframe["status_final"] == 1]["game_id"].astype(int).tolist()
-    goalies_res = adapter.fetch_goalie_game_stats(client, game_ids=final_ids, max_games=350)
-    save_interim(goalies_res.dataframe, cfg.paths.interim_dir, "goalies")
-    insert_snapshot(db, goalies_res)
+    team_stats_res = adapter.fetch_team_game_stats(client, game_ids=final_ids, max_games=350)
+    save_interim(team_stats_res.dataframe, cfg.paths.interim_dir, "team_stats")
+    insert_snapshot(db, team_stats_res)
 
-    injuries_res = adapter.fetch_injuries_proxy(client, teams=team_abbrevs)
+    starter_game_ids = games_res.dataframe["game_id"].dropna().astype(int).tolist() if not games_res.dataframe.empty else []
+    starter_context_res = adapter.fetch_starter_context(client, game_ids=starter_game_ids, max_games=350)
+    save_interim(starter_context_res.dataframe, cfg.paths.interim_dir, "starting_pitchers")
+    insert_snapshot(db, starter_context_res)
+
+    injuries_res = adapter.fetch_injuries_report(client, teams=team_abbrevs, games_df=games_res.dataframe)
     save_interim(injuries_res.dataframe, cfg.paths.interim_dir, "injuries")
     insert_snapshot(db, injuries_res)
 
@@ -482,21 +522,22 @@ def fetch_data(cfg: AppConfig) -> None:
     insert_snapshot(db, odds_res)
     insert_odds_snapshot_and_lines(db, league=league, odds_res=odds_res)
 
-    xg_res = adapter.fetch_xg_optional(client)
-    save_interim(xg_res.dataframe, cfg.paths.interim_dir, "xg")
-    insert_snapshot(db, xg_res)
+    weather_res = adapter.fetch_context_metrics_optional(client)
+    save_interim(weather_res.dataframe, cfg.paths.interim_dir, "weather")
+    insert_snapshot(db, weather_res)
 
     results_df = adapter.build_results_from_games(games_res.dataframe)
-    upsert_results(db, results_df)
+    upsert_results(db, results_df, league=league)
 
     logger.info(
-        "Fetch complete | league=%s games=%d final=%d upcoming=%d players=%d goalie_rows=%d",
+        "Fetch complete | league=%s games=%d final=%d upcoming=%d players=%d team_stat_rows=%d starter_rows=%d",
         league,
         len(games_res.dataframe),
         int(games_res.dataframe["status_final"].sum()) if not games_res.dataframe.empty else 0,
         len(schedule_res.dataframe),
         len(players_res.dataframe),
-        len(goalies_res.dataframe),
+        len(team_stats_res.dataframe),
+        len(starter_context_res.dataframe),
     )
 
 

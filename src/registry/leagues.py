@@ -9,9 +9,24 @@ from src.registry.types import LeagueRegistryEntry
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
+PRIMARY_LEAGUE_CODE = "MLB"
 
 
 LEAGUE_REGISTRY: tuple[LeagueRegistryEntry, ...] = (
+    LeagueRegistryEntry(
+        code="MLB",
+        slug="mlb",
+        display_label="MLB",
+        default_config_path="configs/mlb.yaml",
+        config_env_var="MLB_CONFIG_PATH",
+        project_name="mlb_forecast",
+        db_path="data/processed/mlb/mlb_forecast.db",
+        db_env_var="MLB_DB_PATH",
+        championship_name="World Series",
+        championship_probability_key="world_series_prob",
+        uncertainty_policy_name="mlb_starting_pitcher_bullpen",
+        primary_rebuild_lane=True,
+    ),
     LeagueRegistryEntry(
         code="NHL",
         slug="nhl",
@@ -60,6 +75,18 @@ def league_codes() -> tuple[str, ...]:
     return tuple(entry.code for entry in LEAGUE_REGISTRY)
 
 
+def primary_league_code() -> str:
+    """Return the canonical primary rebuild league."""
+
+    return PRIMARY_LEAGUE_CODE
+
+
+def primary_rebuild_league_codes() -> tuple[str, ...]:
+    """Return leagues that participate in the primary shipped rebuild lane."""
+
+    return tuple(entry.code for entry in LEAGUE_REGISTRY if entry.primary_rebuild_lane)
+
+
 def canonicalize_league(value: str | None) -> str:
     """Normalize user or config league input into a supported code."""
 
@@ -76,13 +103,13 @@ def get_league_registry_entry(value: str | None) -> LeagueRegistryEntry:
     return _LEAGUE_BY_CODE[canonicalize_league(value)]
 
 
-def default_config_path(value: str | None = "NBA") -> str:
+def default_config_path(value: str | None = "MLB") -> str:
     """Return the canonical default config path for a league."""
 
     return get_league_registry_entry(value).default_config_path
 
 
-def default_db_path(value: str | None = "NBA") -> str:
+def default_db_path(value: str | None = "MLB") -> str:
     """Return the canonical default DB path for a league."""
 
     return get_league_registry_entry(value).db_path
@@ -112,6 +139,8 @@ def league_manifest_payload() -> dict[str, object]:
     return {
         "version": 1,
         "source": "code_registry",
+        "primary_league": PRIMARY_LEAGUE_CODE,
+        "primary_rebuild_leagues": [entry.code for entry in LEAGUE_REGISTRY if entry.primary_rebuild_lane],
         "leagues": {
             entry.code: {
                 "code": entry.code,
@@ -125,6 +154,7 @@ def league_manifest_payload() -> dict[str, object]:
                 "championship_name": entry.championship_name,
                 "championship_probability_key": entry.championship_probability_key,
                 "uncertainty_policy_name": entry.uncertainty_policy_name,
+                "primary_rebuild_lane": entry.primary_rebuild_lane,
                 "aliases": list(entry.aliases),
             }
             for entry in LEAGUE_REGISTRY

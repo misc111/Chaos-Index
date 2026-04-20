@@ -2,7 +2,7 @@
 
 # Models
 
-Model implementations for rating, linear, tree, simulation, and Bayesian families.
+Actuarial core model implementations plus explicitly fenced experimental challenger families.
 
 Public entrypoints:
 - `src/models/base.py`

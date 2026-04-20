@@ -870,7 +870,12 @@ def break_test_trade_deadline(
         return {"delta_coef_l2": float("nan"), "n_pre": 0, "n_post": 0}
 
     league_code = str(league or "NHL").strip().upper()
-    month, day = (2, 1) if league_code == "NBA" else (3, 7)
+    if league_code == "MLB":
+        month, day = (7, 31)
+    elif league_code == "NBA":
+        month, day = (2, 1)
+    else:
+        month, day = (3, 7)
     deadline = pd.Timestamp(year=work["game_date_utc"].dt.year.max(), month=month, day=day)
     pre = work[work["game_date_utc"] < deadline]
     post = work[work["game_date_utc"] >= deadline]

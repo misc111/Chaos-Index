@@ -1,1 +1,1 @@
-"""Feature engineering package."""
+"""Shared feature engineering package with league-specific subpackages."""

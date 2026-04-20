@@ -14,34 +14,42 @@ from src.features.strategies.base import FeatureStrategy
 
 
 def load_interim(name: str, interim_dir: str) -> pd.DataFrame:
-    parquet_path = Path(interim_dir) / f"{name}.parquet"
-    if parquet_path.exists():
-        return pd.read_parquet(parquet_path)
-    csv_path = Path(interim_dir) / f"{name}.csv"
-    if csv_path.exists():
-        return pd.read_csv(csv_path)
+    aliases = {
+        "team_stats": ("team_stats", "goalies"),
+        "context_metrics": ("context_metrics", "xg"),
+    }.get(name, (name,))
+    for alias in aliases:
+        parquet_path = Path(interim_dir) / f"{alias}.parquet"
+        if parquet_path.exists():
+            return pd.read_parquet(parquet_path)
+        csv_path = Path(interim_dir) / f"{alias}.csv"
+        if csv_path.exists():
+            return pd.read_csv(csv_path)
     return pd.DataFrame()
 
 
 def _aggregate_stats(stats_df: pd.DataFrame, aggregations: dict[str, tuple[str, str]]) -> pd.DataFrame:
     if stats_df.empty or not aggregations:
         return pd.DataFrame(columns=["game_id", "team", *aggregations.keys()])
-    return stats_df.groupby(["game_id", "team"], dropna=False).agg(**aggregations).reset_index()
+    normalized = stats_df.copy()
+    required_source_columns = {source for source, _ in aggregations.values()}
+    for column in required_source_columns:
+        if column not in normalized.columns:
+            normalized[column] = pd.NA
+    return normalized.groupby(["game_id", "team"], dropna=False).agg(**aggregations).reset_index()
 
 
-def expand_team_games(games_df: pd.DataFrame, stats_df: pd.DataFrame, strategy: FeatureStrategy) -> pd.DataFrame:
+def expand_team_games(
+    games_df: pd.DataFrame,
+    team_stats_df: pd.DataFrame,
+    starter_context_df: pd.DataFrame,
+    strategy: FeatureStrategy,
+) -> pd.DataFrame:
     if games_df.empty:
         return pd.DataFrame()
 
-    summary_rows = stats_df[stats_df["goalie_id"].isna()].copy() if not stats_df.empty else pd.DataFrame()
-    starter_rows = (
-        stats_df[(stats_df["starter_status"] == "confirmed") & stats_df["goalie_id"].notna()].copy()
-        if not stats_df.empty and strategy.starter_aggregations
-        else pd.DataFrame()
-    )
-
-    summary = _aggregate_stats(summary_rows, strategy.summary_aggregations)
-    starters = _aggregate_stats(starter_rows, strategy.starter_aggregations)
+    summary = _aggregate_stats(team_stats_df, strategy.summary_aggregations)
+    starters = _aggregate_stats(starter_context_df, strategy.starter_aggregations)
     team_extra = summary.merge(starters, on=["game_id", "team"], how="outer")
 
     base_cols = [
@@ -113,7 +121,12 @@ def apply_team_rolling_windows(
     return strategy.finalize_team_games(rolled)
 
 
-def merge_game_level_frames(team_games: pd.DataFrame, games_df: pd.DataFrame, strategy: FeatureStrategy) -> pd.DataFrame:
+def merge_game_level_frames(
+    team_games: pd.DataFrame,
+    games_df: pd.DataFrame,
+    strategy: FeatureStrategy,
+    context_df: pd.DataFrame | None = None,
+) -> pd.DataFrame:
     home = team_games[team_games["is_home"] == 1].copy()
     away = team_games[team_games["is_home"] == 0].copy()
 
@@ -162,7 +175,8 @@ def merge_game_level_frames(team_games: pd.DataFrame, games_df: pd.DataFrame, st
         if hc in merged.columns and ac in merged.columns:
             merged[f"diff_{name}"] = merged[hc] - merged[ac]
 
-    enriched = strategy.enrich_game_level(merged, games_df=games_df, team_games=team_games)
+    resolved_context = context_df if context_df is not None else pd.DataFrame()
+    enriched = strategy.enrich_game_level(merged, games_df=games_df, team_games=team_games, context_df=resolved_context)
     existing_drop = [c for c in strategy.direct_event_drop_columns if c in enriched.columns]
     if existing_drop:
         enriched = enriched.drop(columns=existing_drop)
@@ -170,6 +184,20 @@ def merge_game_level_frames(team_games: pd.DataFrame, games_df: pd.DataFrame, st
 
 
 def finalize_feature_frame(game_features: pd.DataFrame, processed_dir: str, strategy: FeatureStrategy) -> FeatureBuildResult:
+    if "available_as_of_utc" not in game_features.columns:
+        if "as_of_utc" in game_features.columns:
+            game_features = game_features.copy()
+            game_features["available_as_of_utc"] = game_features["as_of_utc"]
+        else:
+            game_features = game_features.copy()
+            game_features["available_as_of_utc"] = None
+    if "available_as_of_utc" in game_features.columns and "start_time_utc" in game_features.columns:
+        game_features = game_features.copy()
+        available = pd.to_datetime(game_features["available_as_of_utc"], errors="coerce", utc=True)
+        start = pd.to_datetime(game_features["start_time_utc"], errors="coerce", utc=True)
+        clipped = available.where(start.isna() | available.le(start), start)
+        game_features["available_as_of_utc"] = clipped.dt.strftime("%Y-%m-%dT%H:%M:%SZ").where(clipped.notna(), None)
+
     drop_cols = {
         "game_id",
         "game_date_utc",
@@ -219,12 +247,14 @@ def finalize_feature_frame(game_features: pd.DataFrame, processed_dir: str, stra
 
 def build_features_from_interim_with_strategy(interim_dir: str, processed_dir: str, strategy: FeatureStrategy) -> FeatureBuildResult:
     games = load_interim("games", interim_dir).sort_values("start_time_utc").reset_index(drop=True)
-    stats = load_interim("goalies", interim_dir)
-    players = load_interim("players", interim_dir)
-    injuries = load_interim("injuries", interim_dir)
+    team_stats = load_interim(strategy.team_stats_artifact_name, interim_dir)
+    starter_context = load_interim(strategy.starter_context_artifact_name, interim_dir)
+    players = load_interim(strategy.players_artifact_name, interim_dir)
+    injuries = load_interim(strategy.injuries_artifact_name, interim_dir)
+    context_df = load_interim(strategy.context_metrics_artifact_name, interim_dir) if strategy.context_metrics_artifact_name else pd.DataFrame()
 
-    team_games = expand_team_games(games, stats, strategy)
+    team_games = expand_team_games(games, team_stats, starter_context, strategy)
     team_games = apply_team_rolling_windows(team_games, players_df=players, injuries_df=injuries, strategy=strategy)
-    game_features = merge_game_level_frames(team_games, games, strategy)
+    game_features = merge_game_level_frames(team_games, games, strategy, context_df=context_df)
     game_features = strategy.add_model_transforms(game_features)
     return finalize_feature_frame(game_features, processed_dir=processed_dir, strategy=strategy)

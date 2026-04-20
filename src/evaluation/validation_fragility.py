@@ -4,9 +4,97 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import log_loss
 
+from src.training.contracts import LassoCredibilityMetadata
 
 
-def missingness_stress_test(model, df: pd.DataFrame, feature_cols: list[str], target_col: str = "home_win") -> pd.DataFrame:
+def _columns_matching(feature_cols: list[str], needles: tuple[str, ...]) -> list[str]:
+    out: list[str] = []
+    for feature in feature_cols:
+        token = str(feature or "").strip().lower()
+        if any(needle in token for needle in needles):
+            out.append(feature)
+    return out
+
+
+def _scenario_specs(
+    feature_cols: list[str],
+    *,
+    league: str,
+    credibility: LassoCredibilityMetadata | None,
+) -> list[dict[str, object]]:
+    league_code = str(league or "").strip().upper()
+    market_cols = _columns_matching(feature_cols, ("market", "vig", "implied", "odds", "price", "spread", "total", "offset"))
+    if credibility is not None and credibility.complement_column in feature_cols:
+        market_cols = list(dict.fromkeys([credibility.complement_column, *market_cols]))
+
+    if league_code == "MLB":
+        return [
+            {
+                "scenario": "market_complement_removed",
+                "columns": market_cols,
+                "fill_strategy": "zero" if credibility is not None and credibility.offset_scale in {"log", "logit"} else "median",
+            },
+            {
+                "scenario": "unknown_starter_context",
+                "columns": _columns_matching(feature_cols, ("starter", "starting_pitcher", "pitcher_hand")),
+                "fill_strategy": "median",
+            },
+            {
+                "scenario": "bullpen_context_removed",
+                "columns": _columns_matching(feature_cols, ("bullpen", "pitcher_out_count")),
+                "fill_strategy": "median",
+            },
+            {
+                "scenario": "lineup_context_removed",
+                "columns": _columns_matching(feature_cols, ("lineup", "position_player", "slugging")),
+                "fill_strategy": "median",
+            },
+            {
+                "scenario": "park_weather_removed",
+                "columns": _columns_matching(feature_cols, ("park", "weather", "wind", "temperature", "humidity", "umpire")),
+                "fill_strategy": "median",
+            },
+        ]
+
+    if league_code == "NBA":
+        return [
+            {"scenario": "market_complement_removed", "columns": market_cols, "fill_strategy": "median"},
+            {"scenario": "availability_removed", "columns": _columns_matching(feature_cols, ("availability", "absence")), "fill_strategy": "median"},
+            {"scenario": "travel_removed", "columns": _columns_matching(feature_cols, ("travel", "rest", "tz_")), "fill_strategy": "median"},
+            {
+                "scenario": "discipline_removed",
+                "columns": _columns_matching(feature_cols, ("discipline", "foul", "free_throw")),
+                "fill_strategy": "median",
+            },
+        ]
+
+    return [
+        {"scenario": "market_complement_removed", "columns": market_cols, "fill_strategy": "median"},
+        {"scenario": "no_xg", "columns": _columns_matching(feature_cols, ("xg",)), "fill_strategy": "median"},
+        {"scenario": "unknown_goalie", "columns": _columns_matching(feature_cols, ("goalie",)), "fill_strategy": "median"},
+        {"scenario": "no_injuries", "columns": _columns_matching(feature_cols, ("lineup", "man_games")), "fill_strategy": "median"},
+    ]
+
+
+def _apply_fill_value(frame: pd.DataFrame, column: str, *, fill_strategy: str) -> None:
+    if column not in frame.columns:
+        return
+    if fill_strategy == "zero":
+        frame[column] = 0.0
+        return
+    filled = pd.to_numeric(frame[column], errors="coerce")
+    frame[column] = filled.fillna(filled.median()).fillna(0.0)
+
+
+def missingness_stress_test(
+    model,
+    df: pd.DataFrame,
+    feature_cols: list[str],
+    target_col: str = "home_win",
+    *,
+    league: str = "NHL",
+    credibility: LassoCredibilityMetadata | None = None,
+) -> pd.DataFrame:
     eval_df = df[df[target_col].notna()].copy()
     if eval_df.empty:
         return pd.DataFrame()
@@ -15,24 +103,34 @@ def missingness_stress_test(model, df: pd.DataFrame, feature_cols: list[str], ta
     base_p = np.clip(model.predict_proba(eval_df), 1e-6, 1 - 1e-6)
     base_ll = float(log_loss(y, base_p, labels=[0, 1]))
 
-    scenarios = {
-        "no_xg": [c for c in feature_cols if "xg" in c.lower()],
-        "unknown_goalie": [c for c in feature_cols if "goalie" in c.lower()],
-        "no_injuries": [c for c in feature_cols if "lineup" in c.lower() or "man_games" in c.lower()],
-    }
-
     rows = []
-    for name, cols in scenarios.items():
+    for spec in _scenario_specs(feature_cols, league=league, credibility=credibility):
+        name = str(spec["scenario"])
+        cols = [str(col) for col in spec.get("columns", []) if str(col).strip()]
+        fill_strategy = str(spec.get("fill_strategy") or "median")
         scen = eval_df.copy()
-        for c in cols:
-            if c in scen.columns:
-                scen[c] = scen[c].median()
-        p = np.clip(model.predict_proba(scen), 1e-6, 1 - 1e-6)
-        ll = float(log_loss(y, p, labels=[0, 1]))
-        rows.append({"scenario": name, "log_loss": ll, "delta_log_loss": ll - base_ll})
+        for column in cols:
+            _apply_fill_value(scen, column, fill_strategy=fill_strategy)
+        if cols:
+            p = np.clip(model.predict_proba(scen), 1e-6, 1 - 1e-6)
+            ll = float(log_loss(y, p, labels=[0, 1]))
+            scenario_status = "ok"
+        else:
+            ll = base_ll
+            scenario_status = "not_applicable"
+        rows.append(
+            {
+                "scenario": name,
+                "scenario_status": scenario_status,
+                "applied_feature_count": int(len(cols)),
+                "applied_features": "|".join(cols),
+                "fill_strategy": fill_strategy,
+                "log_loss": ll,
+                "delta_log_loss": ll - base_ll,
+            }
+        )
 
     return pd.DataFrame(rows)
-
 
 
 def perturbation_sensitivity(

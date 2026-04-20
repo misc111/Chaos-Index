@@ -9,15 +9,17 @@
 3. Regenerate manifests and docs with `make docs-generate`.
 4. Extend cross-league tests and dashboard/staging coverage until verification passes.
 
-Current leagues: `NHL`, `NBA`.
+Current leagues: `MLB`, `NHL`, `NBA`.
 
 ## Add A Model
 
-1. Register the model in `src/registry/models.py` with aliases, labels, and report order.
-2. Implement training/report behavior behind existing model contracts.
-3. Regenerate manifests and docs, then extend model contract tests.
+1. Register the model in `src/registry/models.py` with aliases, labels, lane, and report order.
+2. Place the model in the core, baseline, or experimental lane deliberately.
+3. Keep non-CAS challengers under `src/models/experimental/` and reserve the top-level `src/models/` package for the default theory lane plus compatibility shims only.
+4. Implement training/report behavior behind existing model contracts.
+5. Regenerate manifests and docs, then extend model contract tests.
 
-Current registered models: `elo_baseline`, `dynamic_rating`, `glm_ridge`, `glm_elastic_net`, `glm_lasso`, `glm_vanilla`, `gam_spline`, `mars_hinge`, `glmm_logit`, `dglm_margin`, `gbdt`, `rf`, `two_stage`, `goals_poisson`, `simulation_first`, `bayes_bt_state_space`, `bayes_goals`, `nn_mlp`.
+Current registered models: `glm_ridge`, `glm_elastic_net`, `glm_lasso`, `glm_lasso_market_credibility`, `glm_lasso_prior_credibility`, `glm_vanilla`, `gam_spline`, `mars_hinge`, `glmm_logit`, `dglm_margin`, `two_stage`, `goals_poisson`, `elo_baseline`, `dynamic_rating`, `simulation_first`, `gbdt`, `rf`, `bayes_bt_state_space`, `bayes_goals`, `nn_mlp`.
 
 ## Add A Dashboard Payload
 

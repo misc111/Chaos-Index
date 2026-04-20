@@ -1,4 +1,4 @@
-"""Deterministic orchestration step builders for repo-wide refresh flows."""
+"""Deterministic orchestration step builders for MLB-first refresh flows."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Sequence
 
-from src.registry.leagues import ordered_league_entries
+from src.registry.leagues import get_league_registry_entry, ordered_league_entries, primary_rebuild_league_codes
 from src.training.train import normalize_selected_models
 
 
@@ -18,11 +18,15 @@ LEAGUE_CONFIGS: tuple[tuple[str, str], ...] = tuple(
     (entry.slug, entry.default_config_path)
     for entry in ordered_league_entries()
 )
+PRIMARY_REBUILD_CONFIGS: tuple[tuple[str, str], ...] = tuple(
+    (get_league_registry_entry(code).slug, get_league_registry_entry(code).default_config_path)
+    for code in primary_rebuild_league_codes()
+)
 
 
 @dataclass(frozen=True)
 class OrchestrationStep:
-    """A deterministic shell step in a multi-league orchestration pipeline."""
+    """A deterministic shell step in the MLB-first orchestration pipeline."""
 
     name: str
     command: tuple[str, ...]
@@ -56,13 +60,13 @@ def _cli_command(
 
 
 def build_data_refresh_steps(*, root_dir: Path | None = None, include_init_db: bool = False) -> list[OrchestrationStep]:
-    """Build the canonical repo-wide data refresh step sequence."""
+    """Build the canonical MLB-first data refresh step sequence."""
 
     resolved_root = ROOT_DIR if root_dir is None else Path(root_dir).resolve()
     steps: list[OrchestrationStep] = []
 
     if include_init_db:
-        for league, config_path in LEAGUE_CONFIGS:
+        for league, config_path in PRIMARY_REBUILD_CONFIGS:
             steps.append(
                 OrchestrationStep(
                     name=f"{league}:init-db",
@@ -71,7 +75,7 @@ def build_data_refresh_steps(*, root_dir: Path | None = None, include_init_db: b
                 )
             )
 
-    for league, config_path in LEAGUE_CONFIGS:
+    for league, config_path in PRIMARY_REBUILD_CONFIGS:
         steps.append(
             OrchestrationStep(
                 name=f"{league}:fetch",
@@ -80,7 +84,7 @@ def build_data_refresh_steps(*, root_dir: Path | None = None, include_init_db: b
             )
         )
 
-    for league, config_path in LEAGUE_CONFIGS:
+    for league, config_path in PRIMARY_REBUILD_CONFIGS:
         steps.append(
             OrchestrationStep(
                 name=f"{league}:fetch-odds",
@@ -99,13 +103,22 @@ def build_hard_refresh_steps(
     approve_feature_changes: bool = False,
     include_pages_build: bool = True,
 ) -> list[OrchestrationStep]:
-    """Build the canonical repo-wide hard refresh step sequence."""
+    """Build the canonical MLB-first hard refresh step sequence."""
 
     resolved_root = ROOT_DIR if root_dir is None else Path(root_dir).resolve()
     models_csv = _normalize_models_arg(models_arg)
     steps = build_data_refresh_steps(root_dir=resolved_root, include_init_db=True)
 
-    for league, config_path in LEAGUE_CONFIGS:
+    for league, config_path in PRIMARY_REBUILD_CONFIGS:
+        steps.append(
+            OrchestrationStep(
+                name=f"{league}:features",
+                command=_cli_command("features", "--config", config_path),
+                cwd=resolved_root,
+            )
+        )
+
+    for league, config_path in PRIMARY_REBUILD_CONFIGS:
         steps.append(
             OrchestrationStep(
                 name=f"{league}:train",

@@ -1,0 +1,178 @@
+version: 1
+league: MLB
+updated_at_utc: '2026-04-20T00:00:00+00:00'
+models:
+  glm_ridge:
+    blocked_features:
+      raw_team_elo_pre:
+        decision: blocked
+        categories:
+        - imported_rating_stack
+        - actuarial_scope_mismatch
+        rationale: Kept out of the MLB rebuild so the linear base stays anchored to baseball process features instead of a carried-over opaque rating layer.
+        observed_on_utc: '2026-04-20T00:00:00+00:00'
+        evidence:
+          status: not_admitted_in_scaffold
+          note: placeholder guardrail for the first actuarial lane
+        reconsideration_requirements:
+        - prove the rating block improves walk-forward log loss over the process-feature baseline
+        - document how the rating layer maps to MLB game drivers
+      season_win_rate_raw:
+        decision: blocked
+        categories:
+        - leakage_risk
+        - redundancy
+        rationale: A raw season win-rate proxy is too close to the target surface and too stale for the opening MLB scaffold.
+        observed_on_utc: '2026-04-20T00:00:00+00:00'
+        evidence:
+          status: not_admitted_in_scaffold
+          note: deferred until a proper time-aware formulation is validated
+        reconsideration_requirements:
+        - show a time-sliced version that survives leakage review
+        - beat the lineup/pitching baseline in rolling validation
+      batting_average_raw:
+        decision: blocked
+        categories:
+        - redundancy
+        - transform_overfit_risk
+        rationale: Raw batting average is a blunt and noisy summary that does not belong in the first-pass actuarial feature set.
+        observed_on_utc: '2026-04-20T00:00:00+00:00'
+        evidence:
+          status: not_admitted_in_scaffold
+          note: prefer rate-stabilized or park-adjusted formulations
+        reconsideration_requirements:
+        - replace with a park-adjusted or run-value-based metric
+        - demonstrate out-of-sample lift over lineup_talent_diff
+      bullpen_pitch_count_raw:
+        decision: blocked
+        categories:
+        - transform_overfit_risk
+        - redundancy
+        rationale: Raw pitch-count accumulation is better reduced to a fatigue index before it enters a production model.
+        observed_on_utc: '2026-04-20T00:00:00+00:00'
+        evidence:
+          status: not_admitted_in_scaffold
+          note: derive a fatigue proxy before reintroduction
+        reconsideration_requirements:
+        - map pitch counts to a standardized fatigue surface
+        - verify the transformed version is stable across rest patterns
+    watchlist_features:
+      weather_run_environment:
+        status: watch
+        categories:
+        - nonlinearity
+        rationale: Weather should matter in MLB, but it belongs in a shaped environment term rather than a naive raw feed.
+        observed_on_utc: '2026-04-20T00:00:00+00:00'
+        evidence:
+          status: candidate_for_shape_testing
+          note: prioritize park-specific run environment transforms
+        recommendation: consider_spline_transform_or_interaction_block
+      diff_starting_pitcher_quality:
+        status: watch
+        categories:
+        - calibration
+        - nonlinearity
+        rationale: Starter quality should be a core driver, but the exact scale and shape still need evidence.
+        observed_on_utc: '2026-04-20T00:00:00+00:00'
+        evidence:
+          status: candidate_for_shape_testing
+          note: check whether a hand-specific interaction or spline improves calibration
+        recommendation: validate_against_walk_forward_holdouts
+  glm_lasso_market_credibility:
+    blocked_features:
+      market_offset_logit:
+        decision: blocked
+        categories:
+        - offset_role_confusion
+        - credibility_governance
+        rationale: The vig-free market logit is the complement column for this planned credibility lane and must not be duplicated inside the driver-feature block.
+        observed_on_utc: '2026-04-20T00:00:00+00:00'
+        evidence:
+          status: reserved_complement_column
+          note: keep this value in complement_column metadata, not in driver_features
+        reconsideration_requirements:
+        - document a theory-backed reason to move the market term out of the offset role
+        - show that the revised formulation still preserves complement/indicated/observed diagnostics
+      market_implied_prob_raw:
+        decision: blocked
+        categories:
+        - raw_probability_scale
+        - vig_contamination
+        rationale: Raw market probabilities should not enter a lasso-credibility model until they are vig-free and transformed onto the logit scale.
+        observed_on_utc: '2026-04-20T00:00:00+00:00'
+        evidence:
+          status: pre_transform_placeholder
+          note: reserve the credibility lane for link-scale offsets only
+        reconsideration_requirements:
+        - convert to vig-free probability first
+        - apply the proper link transform before promotion into complement_column
+    watchlist_features:
+      diff_starting_pitcher_quality:
+        status: watch
+        categories:
+        - credibility_driver_calibration
+        rationale: Starter quality should remain a lead credibility driver, but its scale needs review once the market complement is in place.
+        observed_on_utc: '2026-04-20T00:00:00+00:00'
+        evidence:
+          status: candidate_for_driver_review
+          note: compare indicated relativities against the market complement by validation fold
+        recommendation: validate_against_complement_residuals
+      starting_pitcher_hand_matchup:
+        status: watch
+        categories:
+        - ordinal_review
+        rationale: Handedness should stay interpretable in the credibility lane, especially if it is later encoded as an ordered relativity.
+        observed_on_utc: '2026-04-20T00:00:00+00:00'
+        evidence:
+          status: candidate_for_ordinal_encoding
+          note: keep ordered treatments reviewable before expanding spline or hinge variants
+        recommendation: prefer_reviewable_ordinal_treatment
+  glm_lasso_prior_credibility:
+    blocked_features:
+      prior_model_offset_logit:
+        decision: blocked
+        categories:
+        - offset_role_confusion
+        - credibility_governance
+        rationale: The prior-model offset belongs in the complement column for this planned credibility lane, not in the driver-feature vector.
+        observed_on_utc: '2026-04-20T00:00:00+00:00'
+        evidence:
+          status: reserved_complement_column
+          note: keep the prior signal reviewable as complement metadata
+        reconsideration_requirements:
+        - document a theory-backed reason to remove the prior-model term from the offset role
+        - preserve complement/indicated/observed reporting after any redesign
+      prior_model_home_win_prob_raw:
+        decision: blocked
+        categories:
+        - raw_probability_scale
+        - complement_misuse
+        rationale: Probability-scale prior outputs should not be mixed into driver features before they are transformed into a proper link-scale complement.
+        observed_on_utc: '2026-04-20T00:00:00+00:00'
+        evidence:
+          status: pre_transform_placeholder
+          note: reserve the prior lane for offset-ready complements only
+        reconsideration_requirements:
+        - transform the prior output onto the model link scale
+        - show that the transformed complement improves walk-forward validation without obscuring diagnostics
+    watchlist_features:
+      diff_lineup_talent:
+        status: watch
+        categories:
+        - credibility_driver_stability
+        rationale: Lineup talent should remain a core driver after prior-model shrinkage, but it needs fold-by-fold stability review against the complement.
+        observed_on_utc: '2026-04-20T00:00:00+00:00'
+        evidence:
+          status: candidate_for_driver_review
+          note: compare active-parameter stability with the base glm_lasso lane
+        recommendation: review_against_prior_residual_block
+      home_field_advantage:
+        status: watch
+        categories:
+        - complement_overlap
+        rationale: Home field is a good candidate to survive prior-offset shrinkage, but only if it is not already absorbed by the prior model.
+        observed_on_utc: '2026-04-20T00:00:00+00:00'
+        evidence:
+          status: candidate_for_overlap_review
+          note: inspect coefficient persistence after the prior complement is introduced
+        recommendation: require_overlap_diagnostic_before_promotion

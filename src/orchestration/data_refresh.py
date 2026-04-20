@@ -1,4 +1,4 @@
-"""CLI entry point for the deterministic repo-wide data refresh pipeline."""
+"""CLI entry point for the deterministic MLB-first data refresh pipeline."""
 
 from __future__ import annotations
 
@@ -8,9 +8,9 @@ from src.orchestration.refresh_pipeline import build_data_refresh_steps, run_ste
 
 
 def main() -> None:
-    """Run or preview the deterministic repo-wide data refresh pipeline."""
+    """Run or preview the deterministic MLB-first data refresh pipeline."""
 
-    parser = argparse.ArgumentParser(description="Run the deterministic data-refresh pipeline across all supported leagues.")
+    parser = argparse.ArgumentParser(description="Run the deterministic MLB-first data-refresh pipeline.")
     parser.add_argument(
         "--dry-run",
         action="store_true",

@@ -5,8 +5,8 @@ import pandas as pd
 import pytest
 
 import src.training.train as train_module
-from src.models.gbdt import GBDTModel
-from src.models.nn import NNModel
+from src.models.experimental.gbdt import GBDTModel
+from src.models.experimental.nn import NNModel
 from src.training.train import normalize_selected_models, train_and_predict
 
 
@@ -99,6 +99,21 @@ def test_normalize_selected_models_aliases_and_validation():
     assert "glm_ridge" in normalize_selected_models(["all"])
     with pytest.raises(ValueError):
         normalize_selected_models(["not_a_model"])
+
+
+def test_normalize_selected_models_defaults_to_the_core_mlb_lane():
+    assert normalize_selected_models(None) == [
+        "glm_ridge",
+        "glm_elastic_net",
+        "glm_lasso",
+        "glm_vanilla",
+        "gam_spline",
+        "mars_hinge",
+        "glmm_logit",
+        "dglm_margin",
+        "two_stage",
+        "goals_poisson",
+    ]
 
 
 def test_normalize_selected_models_accepts_challenger_names():

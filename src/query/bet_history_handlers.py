@@ -64,9 +64,18 @@ def _winner_for_row(row: dict) -> str | None:
 def _display_team_name(team: str | None, league: str) -> str | None:
     if not team:
         return None
-    league_code = canonical_league(league) or "NBA"
+    league_code = canonical_league(league) or "MLB"
     team_code = canonical_team_code(team, league_code)
     aliases = TEAM_ALIAS_GROUPS_BY_LEAGUE.get(league_code, {}).get(team_code, ())
+    if not aliases:
+        fallback_aliases = {
+            candidate_aliases[0]
+            for groups in TEAM_ALIAS_GROUPS_BY_LEAGUE.values()
+            for candidate_code, candidate_aliases in groups.items()
+            if candidate_code == team_code and candidate_aliases
+        }
+        if len(fallback_aliases) == 1:
+            aliases = (next(iter(fallback_aliases)),)
     if not aliases:
         return str(team)
     display = aliases[0]

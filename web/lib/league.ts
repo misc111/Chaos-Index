@@ -4,7 +4,7 @@ export { ALL_LEAGUES, type LeagueCode };
 
 export function normalizeLeague(value?: string | null): LeagueCode {
   const token = String(value || "").trim().toUpperCase();
-  return LEAGUE_ALIASES[token] || "NBA";
+  return LEAGUE_ALIASES[token] || "MLB";
 }
 
 export function leagueFromRequest(request: Request): LeagueCode {

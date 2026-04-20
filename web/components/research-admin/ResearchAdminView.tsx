@@ -304,8 +304,8 @@ export default function ResearchAdminView() {
               </div>
             ) : (
               <p className={styles.empty}>
-                No experiment runs are stored yet{league !== "NBA" ? " for this league" : ""}. NBA is the only v1
-                auto-promotion path.
+                No experiment runs are stored yet for this league. Promotion history will appear here once research
+                comparisons start writing run artifacts.
               </p>
             )}
           </section>

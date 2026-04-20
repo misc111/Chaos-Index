@@ -10,6 +10,7 @@ from src.storage.prediction_history import DIAGNOSTIC_PREDICTION_SOURCES
 from src.storage.schema import (
     EFFECTIVE_ODDS_MARKET_LINES_VIEW_NAME,
     EFFECTIVE_ODDS_MARKET_LINES_VIEW_REPLACE_SQL,
+    MLB_CONTRACT_VIEWS,
     SCHEMA_SQL,
 )
 
@@ -74,3 +75,6 @@ class Database:
         )
         conn.execute(f"DROP VIEW IF EXISTS {EFFECTIVE_ODDS_MARKET_LINES_VIEW_NAME}")
         conn.execute(EFFECTIVE_ODDS_MARKET_LINES_VIEW_REPLACE_SQL)
+        for view_name, view_query in MLB_CONTRACT_VIEWS.items():
+            conn.execute(f"DROP VIEW IF EXISTS {view_name}")
+            conn.execute(f"CREATE VIEW {view_name} AS {view_query}")

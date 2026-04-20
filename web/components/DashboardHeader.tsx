@@ -25,7 +25,7 @@ const links: Array<[string, string]> = [
   ["/bet-sizing", "Bet Sizing"],
 ];
 
-const DEFAULT_QUERY = `?league=NBA&strategy=${getDefaultBetStrategyForLeague("NBA")}`;
+const DEFAULT_QUERY = `?league=MLB&strategy=${getDefaultBetStrategyForLeague("MLB")}`;
 type RefreshResponse = {
   ok?: boolean;
   error?: string;
@@ -249,14 +249,14 @@ function DashboardSidebarFallback() {
       <div className="dashboard-sidebar-inner">
         <SidebarControls
           isRefreshing={false}
-          league="NBA"
+          league="MLB"
           pathname="/"
           refreshError=""
           refreshedAtLabel=""
-          search={new URLSearchParams(`league=NBA&strategy=${getDefaultBetStrategyForLeague("NBA")}`)}
+          search={new URLSearchParams(`league=MLB&strategy=${getDefaultBetStrategyForLeague("MLB")}`)}
           showRefreshedStamp={false}
           staticStaging={false}
-          strategy={getDefaultBetStrategyForLeague("NBA")}
+          strategy={getDefaultBetStrategyForLeague("MLB")}
           theme={DARK_THEME}
         />
       </div>

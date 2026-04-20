@@ -6,6 +6,7 @@ Shared across leagues:
 - `src/training/train.py` is the orchestration entry point.
 - Model metadata lives in `src/training/model_catalog.py`, with fit/predict/ensemble/uncertainty/artifact responsibilities split into dedicated modules.
 - The canonical model manifest is loaded through `src/common/manifests.py` so Python and the web app read the same catalog.
+- CAS-governed core models continue to import from top-level `src.models.*`, while non-CAS challengers import from `src.models.experimental.*`.
 
 League-specific:
 - League-aware behavior should stay in named policies or payload builders, not inline in orchestration.

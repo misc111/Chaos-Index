@@ -12,41 +12,36 @@ def test_build_data_refresh_steps_default_sequence():
     steps = build_data_refresh_steps()
 
     assert [step.name for step in steps] == [
-        "nhl:fetch",
-        "nba:fetch",
-        "nhl:fetch-odds",
-        "nba:fetch-odds",
+        "mlb:fetch",
+        "mlb:fetch-odds",
     ]
-    assert steps[0].command == (sys.executable, "-m", "src.cli", "fetch", "--config", "configs/nhl.yaml")
-    assert steps[2].command == (sys.executable, "-m", "src.cli", "fetch-odds", "--config", "configs/nhl.yaml")
+    assert steps[0].command == (sys.executable, "-m", "src.cli", "fetch", "--config", "configs/mlb.yaml")
+    assert steps[1].command == (sys.executable, "-m", "src.cli", "fetch-odds", "--config", "configs/mlb.yaml")
 
 
 def test_build_hard_refresh_steps_default_sequence():
     steps = build_hard_refresh_steps()
 
     assert [step.name for step in steps] == [
-        "nhl:init-db",
-        "nba:init-db",
-        "nhl:fetch",
-        "nba:fetch",
-        "nhl:fetch-odds",
-        "nba:fetch-odds",
-        "nhl:train",
-        "nba:train",
+        "mlb:init-db",
+        "mlb:fetch",
+        "mlb:fetch-odds",
+        "mlb:features",
+        "mlb:train",
         "staging:generate-data",
         "staging:build-pages",
     ]
-    assert steps[0].command == (sys.executable, "-m", "src.cli", "init-db", "--config", "configs/nhl.yaml")
-    assert steps[6].command == (sys.executable, "-m", "src.cli", "train", "--config", "configs/nhl.yaml")
-    assert steps[8].cwd == ROOT_DIR / "web"
-    assert all(not step.name.endswith(":features") for step in steps)
+    assert steps[0].command == (sys.executable, "-m", "src.cli", "init-db", "--config", "configs/mlb.yaml")
+    assert steps[3].command == (sys.executable, "-m", "src.cli", "features", "--config", "configs/mlb.yaml")
+    assert steps[4].command == (sys.executable, "-m", "src.cli", "train", "--config", "configs/mlb.yaml")
+    assert steps[5].cwd == ROOT_DIR / "web"
 
 
 def test_build_hard_refresh_steps_models_and_approve_flag():
     steps = build_hard_refresh_steps(models_arg="glm,rf,glm", approve_feature_changes=True, include_pages_build=False)
 
     train_steps = [step for step in steps if step.name.endswith(":train")]
-    assert len(train_steps) == 2
+    assert len(train_steps) == 1
     for step in train_steps:
         assert step.command[-3:] == ("--models", "glm_ridge,rf", "--approve-feature-changes")
 

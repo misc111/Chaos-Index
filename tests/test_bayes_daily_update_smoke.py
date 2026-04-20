@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from src.models.bayes_state_space_bt import BayesStateSpaceBTModel
+from src.models.experimental.bayes_state_space_bt import BayesStateSpaceBTModel
 
 
 

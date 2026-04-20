@@ -21,6 +21,7 @@ class LeagueRegistryEntry:
     championship_name: str
     championship_probability_key: str
     uncertainty_policy_name: str
+    primary_rebuild_lane: bool = False
     aliases: tuple[str, ...] = ()
 
 
@@ -32,9 +33,12 @@ class ModelRegistryEntry:
     display_label: str
     short_label: str
     family: str
+    lane: str = "core"
+    governance_note: str = ""
     aliases: tuple[str, ...] = ()
     legacy_model_keys: tuple[str, ...] = ()
     trainable: bool = True
+    default_enabled: bool = True
     prediction_report_rank: int = 0
 
 

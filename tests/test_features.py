@@ -54,7 +54,7 @@ def test_feature_build_smoke(tmp_path: Path):
     pd.DataFrame(columns=["team", "games_played", "points"]).to_csv(interim / "players.csv", index=False)
     pd.DataFrame(columns=["team", "lineup_uncertainty", "man_games_lost_proxy"]).to_csv(interim / "injuries.csv", index=False)
 
-    out = build_features_from_interim(str(interim), str(processed))
+    out = build_features_from_interim(str(interim), str(processed), league="NHL")
     assert not out.dataframe.empty
     assert len(out.feature_columns) > 5
     cols = set(out.feature_columns)

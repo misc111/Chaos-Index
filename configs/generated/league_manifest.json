@@ -1,7 +1,26 @@
 {
   "version": 1,
   "source": "code_registry",
+  "primary_league": "MLB",
+  "primary_rebuild_leagues": [
+    "MLB"
+  ],
   "leagues": {
+    "MLB": {
+      "code": "MLB",
+      "slug": "mlb",
+      "display_label": "MLB",
+      "default_config_path": "configs/mlb.yaml",
+      "config_env_var": "MLB_CONFIG_PATH",
+      "project_name": "mlb_forecast",
+      "db_path": "data/processed/mlb/mlb_forecast.db",
+      "db_env_var": "MLB_DB_PATH",
+      "championship_name": "World Series",
+      "championship_probability_key": "world_series_prob",
+      "uncertainty_policy_name": "mlb_starting_pitcher_bullpen",
+      "primary_rebuild_lane": true,
+      "aliases": []
+    },
     "NHL": {
       "code": "NHL",
       "slug": "nhl",
@@ -14,6 +33,7 @@
       "championship_name": "Stanley Cup",
       "championship_probability_key": "stanley_cup_prob",
       "uncertainty_policy_name": "nhl_goalie_rink",
+      "primary_rebuild_lane": false,
       "aliases": []
     },
     "NBA": {
@@ -28,6 +48,7 @@
       "championship_name": "NBA Finals",
       "championship_probability_key": "nba_finals_prob",
       "uncertainty_policy_name": "nba_availability_market",
+      "primary_rebuild_lane": false,
       "aliases": []
     }
   }

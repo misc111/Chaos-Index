@@ -75,9 +75,9 @@ def build_league_report_markdown(rows: list[dict[str, Any]], model_columns: list
 
 
 def answer_league_report(db: Queryable, league: str | None) -> tuple[str, dict]:
-    league_code = str(league or "NBA").upper()
+    league_code = str(league or "MLB").upper()
     if league_code not in TEAM_ALIAS_GROUPS_BY_LEAGUE:
-        league_code = "NBA"
+        league_code = "MLB"
 
     latest_as_of = latest_upcoming_as_of(db)
     if not latest_as_of:

@@ -2,7 +2,7 @@
 
 # Orchestration
 
-Deterministic multi-league refresh and publish pipelines.
+Deterministic MLB-first refresh, rebuild, and staging pipelines.
 
 Public entrypoints:
 - `src/orchestration/data_refresh.py`

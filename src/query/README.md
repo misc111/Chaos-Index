@@ -1,6 +1,6 @@
 # Query
 
-This subsystem answers local NHL/NBA forecasting questions by intent.
+This subsystem answers local forecasting questions by intent, with the active rebuild contract centered on MLB.
 
 Shared across leagues:
 - `intent_parser.py` resolves intent and league/team targeting.

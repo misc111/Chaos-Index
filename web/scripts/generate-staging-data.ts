@@ -2,12 +2,17 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { DASHBOARD_STAGING_ROUTES } from "../lib/generated/dashboard-routes";
-import { ALL_LEAGUES, type LeagueCode } from "../lib/generated/league-registry";
+import { type LeagueCode } from "../lib/generated/league-registry";
 import {
   buildPerformanceExperimentStagingFileName,
   listPerformanceReplayExperiments,
 } from "../lib/performance-replay-experiments";
 import { STAGING_ROUTE_LOADERS, type JsonRouteHandler } from "./staging-route-loaders";
+import {
+  buildStagingManifestPayload,
+  PRIMARY_STAGING_LEAGUE,
+  SHIPPED_STAGING_LEAGUES,
+} from "./staging-contract";
 
 type JsonRecord = Record<string, unknown>;
 
@@ -120,6 +125,8 @@ async function generateLeagueSnapshot(league: LeagueCode): Promise<void> {
   await writeJson(path.join(leagueDir, "meta.json"), {
     generated_at_utc: generatedAtUtc,
     league,
+    primary_league: PRIMARY_STAGING_LEAGUE,
+    shipping_role: league === PRIMARY_STAGING_LEAGUE ? "primary" : "supported",
     mode: "static-staging-snapshot",
     note: "Generated locally from the current dashboard data sources for GitHub Pages staging.",
     files: generatedFiles,
@@ -127,15 +134,12 @@ async function generateLeagueSnapshot(league: LeagueCode): Promise<void> {
 }
 
 async function main(): Promise<void> {
-  for (const league of ALL_LEAGUES) {
+  for (const league of SHIPPED_STAGING_LEAGUES) {
     await generateLeagueSnapshot(league);
   }
   // Maintainer note: Pages publishes these committed artifacts directly.
   // Regenerating without committing leaves the local dashboard and staging out of sync.
-  await writeJson(path.join(outputRoot, "manifest.json"), {
-    generated_at_utc: generatedAtUtc,
-    leagues: [...ALL_LEAGUES],
-  });
+  await writeJson(path.join(outputRoot, "manifest.json"), buildStagingManifestPayload(generatedAtUtc));
 }
 
 main().catch((error) => {

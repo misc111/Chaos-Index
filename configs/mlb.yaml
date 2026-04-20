@@ -1,0 +1,64 @@
+extends: configs/default.yaml
+
+project:
+  name: mlb_forecast
+  timezone: America/Chicago
+
+paths:
+  raw_dir: data/raw/mlb
+  interim_dir: data/interim/mlb
+  processed_dir: data/processed/mlb
+  artifacts_dir: artifacts
+  db_path: data/processed/mlb/mlb_forecast.db
+
+data:
+  league: MLB
+  season_start: "2026-03-26"
+  season_end: "2026-11-01"
+  history_days: 365
+  upcoming_days: 21
+  offline_mode: false
+  timeout_seconds: 45
+  max_retries: 4
+  backoff_seconds: 2.0
+
+modeling:
+  random_seed: 42
+  cv_splits: 5
+  rolling_windows_days: [7, 14, 30, 60, 90]
+  calibration_bins: 10
+
+validation_split:
+  mode: train_test
+  method: time
+  random_seed:
+
+bayes:
+  process_variance: 0.05
+  prior_variance: 1.2
+  observation_scale: 1.0
+  posterior_draws: 400
+
+runtime:
+  retrain_daily: true
+  embargo_days: 2
+
+feature_policy:
+  mode: production
+  registry_path: configs/feature_registry_{league}.yaml
+
+research:
+  history_seasons: 8
+  outer_folds: 10
+  outer_valid_days: 45
+  inner_folds: 5
+  inner_valid_days: 30
+  embargo_days: 2
+  final_holdout_days: 30
+  feature_pool: research_broad
+  source_dir: data/raw/historical/mlb
+  source_manifest: manifest.json
+  program: CAS monograph rebuild
+  notes:
+    - Center the lane on starting pitching, bullpen usage, park effects, and lineup availability.
+    - Prefer actuarial-style feature discipline over NBA/NHL carryover structure.

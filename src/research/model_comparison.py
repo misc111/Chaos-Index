@@ -11,13 +11,14 @@ import pandas as pd
 
 from src.common.config import AppConfig
 from src.common.research import resolve_research_paths
-from src.common.utils import ensure_dir
+from src.common.utils import ensure_dir, to_json
 from src.evaluation.brier_decomposition import brier_decompose
 from src.evaluation.calibration import calibration_alpha_beta, ece_mce
 from src.evaluation.metrics import metric_bundle, per_game_scores
 from src.evaluation.validation_classification import validate_logistic_probability_model
 from src.evaluation.validation_nonlinearity import assess_nonlinearity
 from src.features.leakage_checks import run_leakage_checks
+from src.registry.models import get_model_registry_entry
 from src.research.candidate_models import (
     BaseCandidateModel,
     CandidateFitStats,
@@ -31,6 +32,7 @@ from src.research.candidate_models import (
 from src.research.structured_glm_specs import StructuredGLMExperimentResolution, resolve_structured_glm_experiment
 from src.services.train import load_features_dataframe
 from src.training.cv import time_series_splits
+from src.training.contracts import CandidateScorecardRecord, PromotionDecisionRecord
 from src.training.feature_selection import select_feature_columns
 from src.training.lambda_search import penalized_glm_search_grid
 from src.training.model_feature_research import load_model_feature_map
@@ -51,6 +53,9 @@ CANDIDATE_MODEL_NAMES = {
 FEATURE_POOL_FULL_SCREENED = "full_screened"
 FEATURE_POOL_PRODUCTION_MODEL_MAP = "production_model_map"
 FEATURE_POOL_RESEARCH_BROAD = "research_broad"
+COMPARISON_TARGET_NAME = "moneyline_home_win"
+COMPARISON_DISTRIBUTION = "binomial"
+COMPARISON_LINK_FUNCTION = "logit"
 
 
 def _safe_numeric_frame(df: pd.DataFrame, features: list[str]) -> pd.DataFrame:
@@ -71,6 +76,16 @@ def _safe_float(value: Any) -> Any:
     return numeric
 
 
+def _safe_int(value: Any) -> int | None:
+    if value is None:
+        return None
+    try:
+        numeric = int(value)
+    except Exception:
+        return None
+    return numeric
+
+
 def _json_value(value: Any) -> str:
     if isinstance(value, float):
         return f"{value:.6g}"
@@ -82,6 +97,39 @@ def _params_json(params: dict[str, Any]) -> str:
         return "{}"
     parts = [f"{key}={_json_value(value)}" for key, value in sorted(params.items())]
     return "; ".join(parts)
+
+
+def _model_contract_metadata(model_name: str) -> dict[str, str]:
+    try:
+        entry = get_model_registry_entry(model_name)
+    except KeyError:
+        return {
+            "lane": "benchmark" if model_name == "intercept_only" else "unknown",
+            "family": "benchmark" if model_name == "intercept_only" else "unknown",
+            "display_name": "Intercept Only" if model_name == "intercept_only" else model_name,
+            "governance_note": "Benchmark-only reference row." if model_name == "intercept_only" else "",
+        }
+    return {
+        "lane": entry.lane,
+        "family": entry.family,
+        "display_name": entry.display_label,
+        "governance_note": entry.governance_note,
+    }
+
+
+def _row_metric_slice(row: pd.Series | None, columns: list[str]) -> dict[str, Any]:
+    if row is None:
+        return {}
+    payload: dict[str, Any] = {}
+    for column in columns:
+        value = row.get(column)
+        if isinstance(value, (np.floating, float)):
+            payload[column] = _safe_float(value)
+        elif isinstance(value, (np.integer, int)):
+            payload[column] = _safe_int(value)
+        else:
+            payload[column] = value
+    return payload
 
 
 @dataclass(slots=True)
@@ -122,6 +170,7 @@ class ComparisonRunResult:
     league: str
     report_slug: str
     report_path: Path
+    summary_path: Path
     validation_metrics_path: Path
     test_metrics_path: Path
     bootstrap_path: Path
@@ -869,10 +918,269 @@ def _best_model_row(metrics_frame: pd.DataFrame) -> pd.Series:
     return valid.sort_values(["log_loss", "brier", "auc"], ascending=[True, True, False]).iloc[0]
 
 
+def _candidate_metric_rows(metrics_frame: pd.DataFrame) -> pd.DataFrame:
+    candidates = metrics_frame[metrics_frame["model_name"] != "intercept_only"].copy()
+    if candidates.empty:
+        return candidates
+    return candidates.sort_values(["log_loss", "brier", "auc"], ascending=[True, True, False]).reset_index(drop=True)
+
+
+def _fit_stat_lookup(fit_stats_frame: pd.DataFrame) -> dict[str, pd.Series]:
+    if fit_stats_frame.empty:
+        return {}
+    lookup: dict[str, pd.Series] = {}
+    for _, row in fit_stats_frame.iterrows():
+        lookup[str(row["model_name"])] = row
+    return lookup
+
+
+def _comparison_rejection_reasons(
+    *,
+    model_row: pd.Series,
+    recommended_model: str,
+    recommended_row: pd.Series | None,
+    benchmark_row: pd.Series | None,
+    bootstrap_row: pd.Series | None,
+    best_named_candidate: str,
+) -> list[str]:
+    model_name = str(model_row["model_name"])
+    if recommended_model != "intercept_only" and model_name == recommended_model:
+        return []
+
+    reasons: list[str] = []
+    model_log_loss = _safe_float(model_row.get("log_loss"))
+    model_brier = _safe_float(model_row.get("brier"))
+
+    if recommended_model == "intercept_only":
+        benchmark_log_loss = _safe_float(benchmark_row.get("log_loss")) if benchmark_row is not None else None
+        benchmark_brier = _safe_float(benchmark_row.get("brier")) if benchmark_row is not None else None
+        if model_log_loss is not None and benchmark_log_loss is not None:
+            reasons.append(
+                f"Final-holdout log loss {model_log_loss:.4f} trailed intercept-only at {benchmark_log_loss:.4f}."
+            )
+        if model_brier is not None and benchmark_brier is not None:
+            reasons.append(f"Final-holdout Brier {model_brier:.4f} trailed intercept-only at {benchmark_brier:.4f}.")
+        if model_name != best_named_candidate:
+            reasons.append(f"Also trailed the best named candidate `{best_named_candidate}` on the final holdout.")
+        return reasons[:3]
+
+    recommended_log_loss = _safe_float(recommended_row.get("log_loss")) if recommended_row is not None else None
+    recommended_brier = _safe_float(recommended_row.get("brier")) if recommended_row is not None else None
+    if model_log_loss is not None and recommended_log_loss is not None and model_log_loss > recommended_log_loss + 1e-12:
+        reasons.append(
+            f"Final-holdout log loss {model_log_loss:.4f} trailed `{recommended_model}` at {recommended_log_loss:.4f}."
+        )
+    if model_brier is not None and recommended_brier is not None and model_brier > recommended_brier + 1e-12:
+        reasons.append(
+            f"Final-holdout Brier {model_brier:.4f} trailed `{recommended_model}` at {recommended_brier:.4f}."
+        )
+    if bootstrap_row is not None:
+        prob = _safe_float(bootstrap_row.get("delta_log_loss_prob_reference_better"))
+        if prob is not None:
+            reasons.append(f"Bootstrap favored `{recommended_model}` on log loss in {prob:.1%} of resamples.")
+    if not reasons:
+        reasons.append(f"`{model_name}` was not selected over `{recommended_model}` on the final-holdout ranking.")
+    return reasons[:3]
+
+
+def _build_candidate_scorecards(
+    *,
+    validation_metrics: pd.DataFrame,
+    test_metrics: pd.DataFrame,
+    test_fit_stats: pd.DataFrame,
+    bootstrap_summary: pd.DataFrame,
+    recommended_model: str,
+) -> list[CandidateScorecardRecord]:
+    validation_lookup = {str(row["model_name"]): row for _, row in validation_metrics.iterrows()}
+    test_candidates = _candidate_metric_rows(test_metrics)
+    test_lookup = {str(row["model_name"]): row for _, row in test_metrics.iterrows()}
+    fit_lookup = _fit_stat_lookup(test_fit_stats)
+    bootstrap_lookup = {str(row["comparison_model"]): row for _, row in bootstrap_summary.iterrows()} if not bootstrap_summary.empty else {}
+    benchmark_row = test_lookup.get("intercept_only")
+    recommended_row = test_lookup.get(recommended_model)
+    best_named_candidate = str(test_candidates.iloc[0]["model_name"]) if not test_candidates.empty else recommended_model
+
+    scorecards: list[CandidateScorecardRecord] = []
+    for rank, (_, test_row) in enumerate(test_candidates.iterrows(), start=1):
+        model_name = str(test_row["model_name"])
+        metadata = _model_contract_metadata(model_name)
+        validation_row = validation_lookup.get(model_name)
+        fit_row = fit_lookup.get(model_name)
+        bootstrap_row = bootstrap_lookup.get(model_name)
+        rejection_reasons = _comparison_rejection_reasons(
+            model_row=test_row,
+            recommended_model=recommended_model,
+            recommended_row=recommended_row,
+            benchmark_row=benchmark_row,
+            bootstrap_row=bootstrap_row,
+            best_named_candidate=best_named_candidate,
+        )
+        scorecards.append(
+            CandidateScorecardRecord(
+                model_name=model_name,
+                lane=metadata["lane"],
+                target_name=COMPARISON_TARGET_NAME,
+                distribution=COMPARISON_DISTRIBUTION,
+                link_function=COMPARISON_LINK_FUNCTION,
+                feature_count=_safe_int(fit_row.get("n_features")) if fit_row is not None else None,
+                active_parameter_count=_safe_int(fit_row.get("active_parameter_count")) if fit_row is not None else None,
+                validation_metrics={
+                    "validation_log_loss": _safe_float(validation_row.get("log_loss")) if validation_row is not None else None,
+                    "validation_brier": _safe_float(validation_row.get("brier")) if validation_row is not None else None,
+                    "validation_auc": _safe_float(validation_row.get("auc")) if validation_row is not None else None,
+                    "validation_accuracy": _safe_float(validation_row.get("accuracy")) if validation_row is not None else None,
+                    "final_holdout_log_loss": _safe_float(test_row.get("log_loss")),
+                    "final_holdout_brier": _safe_float(test_row.get("brier")),
+                    "final_holdout_auc": _safe_float(test_row.get("auc")),
+                    "final_holdout_accuracy": _safe_float(test_row.get("accuracy")),
+                },
+                stability_metrics={
+                    "final_holdout_rank": rank,
+                    "validation_to_test_log_loss_delta": (
+                        _safe_float(test_row.get("log_loss")) - _safe_float(validation_row.get("log_loss"))
+                        if validation_row is not None
+                        and _safe_float(test_row.get("log_loss")) is not None
+                        and _safe_float(validation_row.get("log_loss")) is not None
+                        else None
+                    ),
+                    "validation_to_test_brier_delta": (
+                        _safe_float(test_row.get("brier")) - _safe_float(validation_row.get("brier"))
+                        if validation_row is not None
+                        and _safe_float(test_row.get("brier")) is not None
+                        and _safe_float(validation_row.get("brier")) is not None
+                        else None
+                    ),
+                    "validation_to_test_auc_delta": (
+                        _safe_float(test_row.get("auc")) - _safe_float(validation_row.get("auc"))
+                        if validation_row is not None
+                        and _safe_float(test_row.get("auc")) is not None
+                        and _safe_float(validation_row.get("auc")) is not None
+                        else None
+                    ),
+                    "bootstrap_delta_log_loss_mean_vs_recommended": (
+                        _safe_float(bootstrap_row.get("delta_log_loss_mean")) if bootstrap_row is not None else None
+                    ),
+                    "bootstrap_delta_log_loss_prob_recommended_better": (
+                        _safe_float(bootstrap_row.get("delta_log_loss_prob_reference_better"))
+                        if bootstrap_row is not None
+                        else None
+                    ),
+                },
+                calibration_summary={
+                    "final_holdout_ece": _safe_float(test_row.get("ece")),
+                    "final_holdout_mce": _safe_float(test_row.get("mce")),
+                    "calibration_alpha": _safe_float(test_row.get("calibration_alpha")),
+                    "calibration_beta": _safe_float(test_row.get("calibration_beta")),
+                    "mean_abs_calibration_gap": _safe_float(test_row.get("mean_abs_calibration_gap")),
+                    "max_abs_calibration_gap": _safe_float(test_row.get("max_abs_calibration_gap")),
+                    "normalized_gini": _safe_float(test_row.get("normalized_gini")),
+                },
+                complement_summary={
+                    "display_name": str(test_row.get("display_name") or metadata["display_name"]),
+                    "family": metadata["family"],
+                    "governance_note": metadata["governance_note"],
+                    "params": str(test_row.get("params") or ""),
+                    "fit_status": str(test_row.get("fit_status") or ""),
+                    "fit_error": str(test_row.get("fit_error") or ""),
+                    "recommended_for_next_stage": recommended_model != "intercept_only" and model_name == recommended_model,
+                    "benchmark_model": "intercept_only",
+                },
+                rejection_reasons=rejection_reasons,
+            )
+        )
+    return scorecards
+
+
+def _build_comparison_decision(
+    *,
+    candidate_scorecards: list[CandidateScorecardRecord],
+    validation_metrics: pd.DataFrame,
+    test_metrics: pd.DataFrame,
+    bootstrap_summary: pd.DataFrame,
+    candidate_scope_note: str,
+    feature_pool_note: str,
+) -> PromotionDecisionRecord:
+    best_test = _best_model_row(test_metrics)
+    winner_model = str(best_test["model_name"])
+    winner_display = str(best_test["display_name"])
+    candidate_test = _candidate_metric_rows(test_metrics)
+    best_named_candidate = candidate_test.iloc[0] if not candidate_test.empty else None
+    intercept_row = test_metrics[test_metrics["model_name"] == "intercept_only"]
+    intercept_best = intercept_row.iloc[0] if not intercept_row.empty else None
+    rejected_models = {
+        record.model_name: list(record.rejection_reasons)
+        for record in candidate_scorecards
+        if record.rejection_reasons
+    }
+
+    if winner_model == "intercept_only":
+        recommended_model = "intercept_only"
+        status = "research_hold"
+        rationale = (
+            "No named CAS candidate beat the intercept-only benchmark on the final holdout. "
+            "Keep the comparison lane open rather than promoting a paper winner."
+        )
+    else:
+        recommended_model = winner_model
+        status = "research_recommended"
+        rationale = (
+            f"{winner_display} led the named CAS candidates on the final holdout. "
+            "Advance it to research backtest and promotion review, but do not treat this comparison as a champion declaration."
+        )
+
+    top_rows = candidate_test.head(3)
+    evidence = {
+        "decision_scope": "candidate_model_comparison",
+        "promotion_ready": False,
+        "candidate_scope": candidate_scope_note,
+        "feature_pool_note": feature_pool_note,
+        "final_holdout_winner": _row_metric_slice(best_test, ["model_name", "display_name", "log_loss", "brier", "auc", "ece"]),
+        "best_named_candidate": _row_metric_slice(
+            best_named_candidate,
+            ["model_name", "display_name", "log_loss", "brier", "auc", "ece"],
+        ),
+        "intercept_only_benchmark": _row_metric_slice(
+            intercept_best,
+            ["model_name", "display_name", "log_loss", "brier", "auc", "ece"],
+        ),
+        "top_final_holdout_models": [
+            _row_metric_slice(row, ["model_name", "display_name", "log_loss", "brier", "auc", "ece"])
+            for _, row in top_rows.iterrows()
+        ],
+        "bootstrap_summary": [
+            _row_metric_slice(
+                row,
+                [
+                    "reference_model",
+                    "comparison_model",
+                    "delta_log_loss_mean",
+                    "delta_log_loss_p025",
+                    "delta_log_loss_p975",
+                    "delta_log_loss_prob_reference_better",
+                ],
+            )
+            for _, row in bootstrap_summary.head(3).iterrows()
+        ],
+        "validation_ranking": [
+            _row_metric_slice(row, ["model_name", "display_name", "log_loss", "brier", "auc"])
+            for _, row in _candidate_metric_rows(validation_metrics).head(3).iterrows()
+        ],
+    }
+    return PromotionDecisionRecord(
+        recommended_model=recommended_model,
+        baseline_model="intercept_only",
+        status=status,
+        rationale=rationale,
+        evidence=evidence,
+        rejected_models=rejected_models,
+    )
+
+
 def _write_report(
     *,
     cfg: AppConfig,
     report_path: Path,
+    summary_path: Path,
     raw_feature_count: int,
     train_df: pd.DataFrame,
     validation_df: pd.DataFrame,
@@ -882,6 +1190,7 @@ def _write_report(
     validation_metrics: pd.DataFrame,
     test_metrics: pd.DataFrame,
     bootstrap_summary: pd.DataFrame,
+    comparison_decision: PromotionDecisionRecord,
     candidate_scope_note: str,
     feature_pool_note: str,
 ) -> tuple[str, str]:
@@ -939,6 +1248,7 @@ def _write_report(
         f"- Top MARS candidates: {final_features.nonlinearity_summary.get('top_mars_candidates', '') or 'none flagged'}",
         "",
         "Recommendation",
+        "- This comparison is a research screen only; it does not promote a production champion.",
         f"- Best overall final-holdout model: {winner_display} (`{winner_model}`)",
         f"- Best named candidate on the final holdout: {best_candidate_test['display_name']} (`{best_candidate_test['model_name']}`)",
         f"- Final test log loss of the best named candidate: {float(best_candidate_test['log_loss']):.6f}",
@@ -949,12 +1259,14 @@ def _write_report(
     if winner_model == "intercept_only":
         lines.extend(
             [
-                "- Recommendation: do not switch to any of the tested candidates yet. None beat the intercept-only benchmark on the final holdout under proper scoring rules.",
+                "- Recommendation: hold the line. None of the named candidates beat the intercept-only benchmark on the final holdout under proper scoring rules.",
                 f"- Among the named candidates, the least-bad test model was {best_candidate_test['display_name']} (`{best_candidate_test['model_name']}`), but it still underperformed the benchmark.",
             ]
         )
     else:
-        lines.append(f"- Recommendation: choose {winner_display} (`{winner_model}`) for the next round if the goal is pure out-of-sample probability accuracy among the tested options.")
+        lines.append(
+            f"- Recommendation: advance {winner_display} (`{winner_model}`) into research backtest and promotion review if the goal is pure out-of-sample probability accuracy among the tested options."
+        )
     if not bootstrap_summary.empty:
         second_row = bootstrap_summary.iloc[0]
         lines.extend(
@@ -964,6 +1276,13 @@ def _write_report(
                 f"- 95% bootstrap interval for that log-loss delta: [{float(second_row['delta_log_loss_p025']):.6f}, {float(second_row['delta_log_loss_p975']):.6f}]",
             ]
         )
+    lines.extend(
+        [
+            f"- Contract summary: `{summary_path.name}`",
+            f"- Recorded recommendation status: `{comparison_decision.status}`",
+            f"- Recommendation rationale: {comparison_decision.rationale}",
+        ]
+    )
     report_path.write_text("\n".join(lines) + "\n")
     return winner_model, winner_display
 
@@ -1111,6 +1430,7 @@ def run_candidate_model_comparison(
     test_predictions_path = history_dir / f"{prefix}_test_predictions.csv"
     fit_stats_path = history_dir / f"{prefix}_fit_stats.csv"
     cv_path = history_dir / f"{prefix}_cv_summary.csv"
+    summary_path = history_dir / f"{prefix}_comparison_summary.json"
     report_path = history_dir / f"{prefix}_summary.md"
 
     validation_metrics.to_csv(validation_metrics_path, index=False)
@@ -1136,9 +1456,41 @@ def run_candidate_model_comparison(
     else:
         pd.DataFrame().to_csv(cv_path, index=False)
 
+    candidate_scorecards = _build_candidate_scorecards(
+        validation_metrics=validation_metrics,
+        test_metrics=test_metrics,
+        test_fit_stats=test_fit_stats,
+        bootstrap_summary=bootstrap_summary,
+        recommended_model=str(_best_model_row(test_metrics)["model_name"]),
+    )
+    comparison_decision = _build_comparison_decision(
+        candidate_scorecards=candidate_scorecards,
+        validation_metrics=validation_metrics,
+        test_metrics=test_metrics,
+        bootstrap_summary=bootstrap_summary,
+        candidate_scope_note=candidate_scope_note,
+        feature_pool_note=feature_pool_note,
+    )
+    summary_payload = {
+        "league": str(cfg.data.league).upper(),
+        "report_slug": slug,
+        "candidate_scorecards": [record.to_dict() for record in candidate_scorecards],
+        "promotion_decision": comparison_decision.to_dict(),
+        "artifacts": {
+            "report_path": str(report_path),
+            "validation_metrics_path": str(validation_metrics_path),
+            "test_metrics_path": str(test_metrics_path),
+            "bootstrap_path": str(bootstrap_path),
+            "fit_stats_path": str(fit_stats_path),
+            "cv_path": str(cv_path),
+        },
+    }
+    summary_path.write_text(to_json(summary_payload) + "\n")
+
     recommendation_model, recommendation_display_name = _write_report(
         cfg=cfg,
         report_path=report_path,
+        summary_path=summary_path,
         raw_feature_count=len(raw_features),
         train_df=train_df,
         validation_df=validation_df,
@@ -1148,6 +1500,7 @@ def run_candidate_model_comparison(
         validation_metrics=validation_metrics,
         test_metrics=test_metrics,
         bootstrap_summary=bootstrap_summary,
+        comparison_decision=comparison_decision,
         candidate_scope_note=candidate_scope_note,
         feature_pool_note=feature_pool_note,
     )
@@ -1156,6 +1509,7 @@ def run_candidate_model_comparison(
         league=cfg.data.league,
         report_slug=slug,
         report_path=report_path,
+        summary_path=summary_path,
         validation_metrics_path=validation_metrics_path,
         test_metrics_path=test_metrics_path,
         bootstrap_path=bootstrap_path,

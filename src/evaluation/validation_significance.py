@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -9,6 +10,8 @@ from scipy.stats import f as f_dist
 from sklearn.metrics import log_loss
 
 from src.evaluation.metrics import brier_score
+from src.models.glm_penalized import build_penalized_glm
+from src.training.contracts import LassoCredibilityMetadata
 
 
 @dataclass(frozen=True, slots=True)
@@ -241,6 +244,243 @@ def information_criteria_report(
         }
         frame["delta_aic"] = frame["aic"] - float(frame["aic"].min())
         frame["delta_bic"] = frame["bic"] - float(frame["bic"].min())
+
+    return {"summary": summary, "candidates": frame}
+
+
+def _active_parameter_count(model: object) -> int:
+    coef_frame_fn = getattr(model, "coef_frame", None)
+    if not callable(coef_frame_fn):
+        return 0
+    try:
+        frame = coef_frame_fn()
+    except Exception:
+        return 0
+    if frame is None or getattr(frame, "empty", True):
+        return 0
+    coef_column = "coef"
+    if coef_column not in frame.columns:
+        for candidate in ("coef_original", "coef_scaled"):
+            if candidate in frame.columns:
+                coef_column = candidate
+                break
+    if coef_column not in frame.columns:
+        return 0
+    active = frame[np.abs(pd.to_numeric(frame[coef_column], errors="coerce").fillna(0.0)) > 1e-10]
+    return int(len(active))
+
+
+def _intercept_only_probability(train_df: pd.DataFrame, test_df: pd.DataFrame, *, target_col: str) -> np.ndarray:
+    base_rate = float(train_df[target_col].astype(int).mean()) if not train_df.empty else 0.5
+    return np.full(len(test_df), np.clip(base_rate, 1e-6, 1 - 1e-6), dtype=float)
+
+
+def penalized_block_ablation_report(
+    train_df: pd.DataFrame,
+    test_df: pd.DataFrame,
+    *,
+    feature_blocks: dict[str, list[str]],
+    all_features: list[str],
+    model_name: str,
+    c: float,
+    l1_ratio: float | None,
+    credibility: LassoCredibilityMetadata | None = None,
+    target_col: str = "home_win",
+) -> pd.DataFrame:
+    columns = [
+        "block",
+        "block_role",
+        "small_model_features",
+        "big_model_features",
+        "deviance_small",
+        "deviance_big",
+        "deviance_drop",
+        "added_parameters",
+        "dispersion_big",
+        "f_stat",
+        "df_num",
+        "df_den",
+        "p_value",
+        "full_holdout_log_loss",
+        "reduced_holdout_log_loss",
+        "delta_log_loss",
+        "full_holdout_brier",
+        "reduced_holdout_brier",
+        "delta_brier",
+        "full_active_parameters",
+        "reduced_active_parameters",
+        "removed_feature_count",
+        "removed_features",
+        "contains_credibility_complement",
+        "credibility_driver_count",
+        "inference_applicability",
+        "inference_note",
+    ]
+    if train_df.empty or test_df.empty or not all_features:
+        return pd.DataFrame(columns=columns)
+
+    y_test = test_df[target_col].astype(int).to_numpy()
+    full_features = [feature for feature in all_features if feature in train_df.columns]
+    if not full_features:
+        return pd.DataFrame(columns=columns)
+
+    full_model = build_penalized_glm(model_name, c=float(c), l1_ratio=l1_ratio)
+    full_model.fit(train_df, full_features, target_col=target_col)
+    full_holdout_p = np.clip(full_model.predict_proba(test_df), 1e-6, 1 - 1e-6)
+    full_logloss, full_brier = _holdout_metrics(y_test, full_holdout_p)
+    full_active_parameters = _active_parameter_count(full_model)
+    complement_column = str(credibility.complement_column) if credibility is not None else ""
+    driver_features = set(credibility.driver_features) if credibility is not None else set()
+    inference_note = (
+        "Classical nested-model deviance tests and information criteria are not reported for penalized GLM fits; "
+        "holdout block ablations are reported instead."
+    )
+
+    rows: list[dict[str, Any]] = []
+    for block_name, block_cols in feature_blocks.items():
+        removed = [col for col in full_features if col in set(block_cols)]
+        if not removed:
+            continue
+        reduced_features = [col for col in full_features if col not in removed]
+        if reduced_features:
+            reduced_model = build_penalized_glm(model_name, c=float(c), l1_ratio=l1_ratio)
+            reduced_model.fit(train_df, reduced_features, target_col=target_col)
+            reduced_holdout_p = np.clip(reduced_model.predict_proba(test_df), 1e-6, 1 - 1e-6)
+            reduced_active_parameters = _active_parameter_count(reduced_model)
+        else:
+            reduced_holdout_p = _intercept_only_probability(train_df, test_df, target_col=target_col)
+            reduced_active_parameters = 0
+        reduced_logloss, reduced_brier = _holdout_metrics(y_test, reduced_holdout_p)
+        contains_complement = bool(complement_column and complement_column in removed)
+        driver_count = int(sum(1 for col in removed if col in driver_features))
+        block_role = "complement" if contains_complement else ("driver" if driver_count else "context")
+
+        rows.append(
+            {
+                "block": block_name,
+                "block_role": block_role,
+                "small_model_features": int(len(reduced_features)),
+                "big_model_features": int(len(full_features)),
+                "deviance_small": float("nan"),
+                "deviance_big": float("nan"),
+                "deviance_drop": float("nan"),
+                "added_parameters": int(len(removed)),
+                "dispersion_big": float("nan"),
+                "f_stat": float("nan"),
+                "df_num": int(len(removed)),
+                "df_den": float("nan"),
+                "p_value": float("nan"),
+                "full_holdout_log_loss": float(full_logloss),
+                "reduced_holdout_log_loss": float(reduced_logloss),
+                "delta_log_loss": float(reduced_logloss - full_logloss),
+                "full_holdout_brier": float(full_brier),
+                "reduced_holdout_brier": float(reduced_brier),
+                "delta_brier": float(reduced_brier - full_brier),
+                "full_active_parameters": int(full_active_parameters),
+                "reduced_active_parameters": int(reduced_active_parameters),
+                "removed_feature_count": int(len(removed)),
+                "removed_features": "|".join(removed),
+                "contains_credibility_complement": int(contains_complement),
+                "credibility_driver_count": int(driver_count),
+                "inference_applicability": "not_applicable",
+                "inference_note": inference_note,
+            }
+        )
+
+    return pd.DataFrame(rows, columns=columns)
+
+
+def penalized_information_criteria_report(
+    train_df: pd.DataFrame,
+    test_df: pd.DataFrame,
+    *,
+    feature_blocks: dict[str, list[str]],
+    all_features: list[str],
+    model_name: str,
+    c: float,
+    l1_ratio: float | None,
+    credibility: LassoCredibilityMetadata | None = None,
+    target_col: str = "home_win",
+) -> dict[str, pd.DataFrame | dict[str, float | int | str | bool | dict[str, Any]]]:
+    candidates: list[tuple[str, list[str]]] = [("full_model", list(all_features))]
+    seen = {tuple(all_features)}
+    for block_name, block_cols in feature_blocks.items():
+        reduced_cols = [col for col in all_features if col not in block_cols]
+        key = tuple(reduced_cols)
+        if key in seen:
+            continue
+        seen.add(key)
+        candidates.append((f"without_{block_name}", reduced_cols))
+    if tuple() not in seen:
+        candidates.append(("null_model", []))
+
+    y_test = test_df[target_col].astype(int).to_numpy() if not test_df.empty else np.array([], dtype=int)
+    complement_column = str(credibility.complement_column) if credibility is not None else ""
+    driver_features = set(credibility.driver_features) if credibility is not None else set()
+    rows: list[dict[str, Any]] = []
+    for candidate_name, features in candidates:
+        if features:
+            model = build_penalized_glm(model_name, c=float(c), l1_ratio=l1_ratio)
+            model.fit(train_df, features, target_col=target_col)
+            holdout_p = np.clip(model.predict_proba(test_df), 1e-6, 1 - 1e-6) if len(y_test) else np.array([], dtype=float)
+            active_parameters = _active_parameter_count(model)
+        else:
+            holdout_p = _intercept_only_probability(train_df, test_df, target_col=target_col) if len(y_test) else np.array([], dtype=float)
+            active_parameters = 0
+        holdout_logloss = float("nan")
+        holdout_brier = float("nan")
+        if len(y_test):
+            holdout_logloss, holdout_brier = _holdout_metrics(y_test, holdout_p)
+        feature_set = set(features)
+        candidate_role = (
+            "complement"
+            if complement_column and complement_column in feature_set
+            else ("driver" if driver_features.intersection(feature_set) else "context")
+        )
+        rows.append(
+            {
+                "candidate": candidate_name,
+                "feature_count": int(len(features)),
+                "parameter_count": float("nan"),
+                "active_parameter_count": int(active_parameters),
+                "log_likelihood": float("nan"),
+                "deviance": float("nan"),
+                "aic": float("nan"),
+                "bic": float("nan"),
+                "holdout_log_loss": holdout_logloss,
+                "holdout_brier": holdout_brier,
+                "information_criteria_applicability": "not_applicable",
+                "candidate_role": candidate_role,
+            }
+        )
+
+    frame = pd.DataFrame(rows).sort_values(["holdout_log_loss", "holdout_brier"], na_position="last").reset_index(drop=True)
+    if frame.empty:
+        summary: dict[str, Any] = {
+            "status": "insufficient_data",
+            "candidate_count": 0,
+            "best_holdout_log_loss_candidate": "",
+            "best_holdout_brier_candidate": "",
+            "information_criteria_reported": False,
+            "inferential_statistics_reported": False,
+        }
+    else:
+        summary = {
+            "status": "limited",
+            "headline": (
+                "Reported holdout ablation comparisons for the penalized GLM lane; "
+                "classical AIC/BIC and nested-model p-values were left explicit as not applicable."
+            ),
+            "candidate_count": int(len(frame)),
+            "best_holdout_log_loss_candidate": str(frame.sort_values("holdout_log_loss").iloc[0]["candidate"])
+            if frame["holdout_log_loss"].notna().any()
+            else "",
+            "best_holdout_brier_candidate": str(frame.sort_values("holdout_brier").iloc[0]["candidate"])
+            if frame["holdout_brier"].notna().any()
+            else "",
+            "information_criteria_reported": False,
+            "inferential_statistics_reported": False,
+        }
 
     return {"summary": summary, "candidates": frame}
 

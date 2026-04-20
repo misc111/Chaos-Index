@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from src.query.intent_parser import QueryIntent, parse_question
 from src.query.team_aliases import (
+    MLB_TEAM_ALIAS_GROUPS,
     NBA_TEAM_ALIAS_GROUPS,
     NHL_TEAM_ALIAS_GROUPS,
     TEAM_ABBREV_ALIASES_BY_LEAGUE,
@@ -14,6 +15,7 @@ from src.query.team_aliases import (
 )
 
 __all__ = [
+    "MLB_TEAM_ALIAS_GROUPS",
     "NBA_TEAM_ALIAS_GROUPS",
     "NHL_TEAM_ALIAS_GROUPS",
     "QueryIntent",

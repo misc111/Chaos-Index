@@ -1,12 +1,19 @@
 import path from "node:path";
-import { ALL_LEAGUES, LEAGUE_RUNTIME, type LeagueCode } from "@/lib/generated/league-registry";
+import { ALL_LEAGUES, LEAGUE_RUNTIME, PRIMARY_LEAGUE, PRIMARY_REBUILD_LEAGUES, type LeagueCode } from "@/lib/generated/league-registry";
 import {
-  LEGACY_MODEL_KEYS,
-  MODEL_ALIASES,
-  MODEL_DISPLAY_LABELS,
-  MODEL_REGISTRY,
-  MODEL_REPORT_ORDER,
-  TRAINABLE_MODELS,
+    BASELINE_MODEL_KEYS,
+    CORE_MODEL_KEYS,
+    DEFAULT_TRAINING_MODELS,
+    EXPERIMENTAL_MODEL_KEYS,
+    LEGACY_MODEL_KEYS,
+    MODEL_ALIASES,
+    MODEL_DISPLAY_LABELS,
+    MODEL_LANE_LABELS,
+    MODEL_LANE_NOTES,
+    MODEL_REGISTRY,
+    MODEL_REPORT_ORDER,
+    PRIMARY_MODEL_LANE,
+    TRAINABLE_MODELS,
 } from "@/lib/generated/model-manifest";
 
 export type LeagueManifestEntry = (typeof LEAGUE_RUNTIME)[LeagueCode];
@@ -14,13 +21,22 @@ export type LeagueManifestEntry = (typeof LEAGUE_RUNTIME)[LeagueCode];
 export type LeagueManifestPayload = {
   version: number;
   source: string;
+  primary_league: LeagueCode;
+  primary_rebuild_leagues: LeagueCode[];
   leagues: Record<LeagueCode, LeagueManifestEntry>;
 };
 
 export type ModelManifestPayload = {
   version: number;
   source: string;
+  primary_lane: string;
   trainable_models: string[];
+  default_training_models: string[];
+  core_models: string[];
+  baseline_models: string[];
+  experimental_models: string[];
+  lane_labels: Record<string, string>;
+  lane_notes: Record<string, string>;
   aliases: Record<string, string>;
   legacy_model_keys: Record<string, string[]>;
   prediction_report_order: string[];
@@ -39,6 +55,8 @@ export function loadLeagueManifest(): LeagueManifestPayload {
   return {
     version: 1,
     source: "code_registry",
+    primary_league: PRIMARY_LEAGUE,
+    primary_rebuild_leagues: [...PRIMARY_REBUILD_LEAGUES],
     leagues: Object.fromEntries(ALL_LEAGUES.map((league) => [league, LEAGUE_RUNTIME[league]])) as Record<
       LeagueCode,
       LeagueManifestEntry
@@ -53,7 +71,14 @@ export function loadModelManifest(): ModelManifestPayload {
   return {
     version: 1,
     source: "code_registry",
+    primary_lane: PRIMARY_MODEL_LANE,
     trainable_models: [...TRAINABLE_MODELS],
+    default_training_models: [...DEFAULT_TRAINING_MODELS],
+    core_models: [...CORE_MODEL_KEYS],
+    baseline_models: [...BASELINE_MODEL_KEYS],
+    experimental_models: [...EXPERIMENTAL_MODEL_KEYS],
+    lane_labels: { ...MODEL_LANE_LABELS },
+    lane_notes: { ...MODEL_LANE_NOTES },
     aliases: { ...MODEL_ALIASES },
     legacy_model_keys: Object.fromEntries(
       Object.entries(LEGACY_MODEL_KEYS).map(([model, aliases]) => [model, [...aliases]])
@@ -93,6 +118,20 @@ export function resolveDbPathForLeague(league: LeagueCode): string {
  */
 export function getTrainableModels(): string[] {
   return [...TRAINABLE_MODELS];
+}
+
+/**
+ * Return the canonical core-model list shared with Python.
+ */
+export function getCoreModels(): string[] {
+  return [...CORE_MODEL_KEYS];
+}
+
+/**
+ * Return the canonical default training models for the MLB primary lane.
+ */
+export function getDefaultTrainingModels(): string[] {
+  return [...DEFAULT_TRAINING_MODELS];
 }
 
 /**

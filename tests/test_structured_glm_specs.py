@@ -41,26 +41,29 @@ slates:
     assert set(selection.feature_overrides().keys()) == {"glm_ridge", "glm_elastic_net", "glm_lasso", "glm_vanilla"}
 
 
-def test_load_structured_glm_selection_rejects_non_nba_league(tmp_path):
-    spec_path = tmp_path / "nhl_structured_glm.yaml"
+def test_load_structured_glm_selection_accepts_matching_non_nba_league(tmp_path):
+    spec_path = tmp_path / "mlb_structured_glm.yaml"
     spec_path.write_text(
         """
 version: 1
-league: NHL
-experiment_name: invalid_for_lane
+league: MLB
+experiment_name: valid_for_lane
 slates:
   baseline:
     feature_order:
-      - diff_form_goal_diff
+      - diff_form_run_diff
 """
     )
 
-    with pytest.raises(ValueError, match="supported for NBA only"):
-        load_structured_glm_selection(
-            league="NHL",
-            available_features=["diff_form_goal_diff"],
-            spec_path=str(spec_path),
-        )
+    selection = load_structured_glm_selection(
+        league="MLB",
+        available_features=["diff_form_run_diff"],
+        spec_path=str(spec_path),
+    )
+
+    assert selection is not None
+    assert selection.experiment_name == "valid_for_lane"
+    assert selection.features == ("diff_form_run_diff",)
 
 
 def test_resolve_structured_glm_experiment_without_spec_is_passthrough():

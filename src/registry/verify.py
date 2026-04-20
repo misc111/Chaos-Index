@@ -57,6 +57,7 @@ OVERSIZED_FILE_ALLOWLIST = {
     "src/services/research_desk.py",
     "src/storage/schema.py",
     "src/training/fit_runner.py",
+    "src/registry/generate.py",
     "web/lib/server/services/performance.ts",
     "web/lib/bet-history.ts",
     "web/lib/betting.ts",

@@ -175,6 +175,82 @@ def _eligible_features_for_model(model_name: str, feature_columns: list[str], le
     league_code = str(league or "NHL").strip().upper()
     cols = [str(c) for c in feature_columns]
 
+    if league_code == "MLB":
+        glm_pool = [
+            c
+            for c in cols
+            if c.startswith("diff_")
+            or c
+            in {
+                "starting_pitcher_hand_matchup",
+                "lineup_stability_diff",
+                "park_run_effect",
+                "park_weather_run_effect",
+                "rest_diff",
+                "travel_diff",
+                "home_field_advantage",
+                "series_context_index",
+                "day_game_indicator",
+                "umpire_run_effect",
+                "weather_wind_run_effect",
+                "weather_temperature_run_effect",
+                "weather_humidity_run_effect",
+            }
+        ]
+        bayes_pool = [
+            c
+            for c in cols
+            if c.startswith(("diff_",))
+            or c
+            in {
+                "park_run_effect",
+                "park_weather_run_effect",
+                "rest_diff",
+                "travel_diff",
+                "home_field_advantage",
+                "series_context_index",
+                "day_game_indicator",
+                "umpire_run_effect",
+            }
+        ]
+        two_stage_pool = [
+            c
+            for c in cols
+            if c.startswith(("home_", "away_", "diff_"))
+            or c
+            in {
+                "starting_pitcher_hand_matchup",
+                "lineup_stability_diff",
+                "park_run_effect",
+                "park_weather_run_effect",
+                "weather_wind_run_effect",
+                "weather_temperature_run_effect",
+                "weather_humidity_run_effect",
+                "rest_diff",
+                "travel_diff",
+                "home_field_advantage",
+                "series_context_index",
+                "day_game_indicator",
+                "umpire_run_effect",
+            }
+        ]
+        tree_pool = [
+            c
+            for c in cols
+            if not c.endswith(("_team", "_name", "_id"))
+            and c not in {"home_starting_pitcher_hand", "away_starting_pitcher_hand"}
+        ]
+
+        if model_name in {"glm_ridge", "glm_elastic_net", "glm_lasso"}:
+            return glm_pool
+        if model_name == "bayes_bt_state_space":
+            return bayes_pool
+        if model_name == "two_stage":
+            return two_stage_pool
+        if model_name in {"gbdt", "rf", "nn_mlp"}:
+            return tree_pool
+        return cols
+
     if league_code == "NBA":
         glm_pool = [
             c
@@ -291,6 +367,18 @@ def _model_feature_pruning_config(model_name: str, league: str | None = None) ->
         "bayes_bt_state_space": (12, 20, 0.92),
         "nn_mlp": (18, 34, 0.92),
     }
+    if league_code == "MLB":
+        mlb_limits = {
+            "glm_ridge": (8, 14, 0.92),
+            "glm_elastic_net": (8, 14, 0.92),
+            "glm_lasso": (6, 10, 0.92),
+            "gbdt": (18, 32, 0.88),
+            "rf": (16, 28, 0.92),
+            "two_stage": (12, 20, 0.92),
+            "bayes_bt_state_space": (8, 14, 0.92),
+            "nn_mlp": (18, 32, 0.92),
+        }
+        return mlb_limits.get(model_name, limits.get(model_name, (12, 24, 0.92)))
     if league_code == "NBA" and model_name in {"glm_ridge", "glm_elastic_net", "glm_lasso"}:
         return (6, 10, 0.92)
     return limits.get(model_name, (12, 24, 0.92))
@@ -298,6 +386,19 @@ def _model_feature_pruning_config(model_name: str, league: str | None = None) ->
 
 def _default_model_feature_target_width(model_name: str, league: str) -> int:
     league_code = str(league or "NHL").strip().upper()
+    if league_code == "MLB":
+        defaults = {
+            "glm_ridge": 11,
+            "glm_elastic_net": 12,
+            "glm_lasso": 8,
+            "two_stage": 16,
+            "bayes_bt_state_space": 12,
+            "gbdt": 25,
+            "rf": 20,
+            "nn_mlp": 26,
+        }
+        if model_name in defaults:
+            return defaults[model_name]
     if league_code == "NBA" and model_name in {"glm_ridge", "glm_elastic_net", "glm_lasso"}:
         return 6
     _, max_features, _ = _model_feature_pruning_config(model_name, league=league_code)
@@ -305,6 +406,102 @@ def _default_model_feature_target_width(model_name: str, league: str) -> int:
 
 
 def _anchor_features(model_name: str, league: str) -> list[str]:
+    if str(league or "NHL").strip().upper() == "MLB":
+        anchors = {
+            "glm_ridge": [
+                "diff_starting_pitcher_quality",
+                "starting_pitcher_hand_matchup",
+                "diff_bullpen_quality",
+                "diff_lineup_talent",
+                "park_run_effect",
+                "rest_diff",
+                "travel_diff",
+                "home_field_advantage",
+            ],
+            "glm_elastic_net": [
+                "diff_starting_pitcher_quality",
+                "starting_pitcher_hand_matchup",
+                "diff_bullpen_quality",
+                "diff_bullpen_fatigue",
+                "diff_lineup_talent",
+                "park_run_effect",
+                "park_weather_run_effect",
+                "rest_diff",
+                "travel_diff",
+                "home_field_advantage",
+            ],
+            "glm_lasso": [
+                "diff_starting_pitcher_quality",
+                "diff_bullpen_quality",
+                "diff_lineup_talent",
+                "park_run_effect",
+                "rest_diff",
+                "travel_diff",
+                "home_field_advantage",
+            ],
+            "two_stage": [
+                "diff_starting_pitcher_quality",
+                "starting_pitcher_hand_matchup",
+                "diff_bullpen_quality",
+                "diff_bullpen_fatigue",
+                "diff_lineup_talent",
+                "lineup_stability_diff",
+                "park_run_effect",
+                "park_weather_run_effect",
+                "weather_wind_run_effect",
+                "rest_diff",
+                "travel_diff",
+                "home_field_advantage",
+                "series_context_index",
+                "umpire_run_effect",
+                "diff_offense_form",
+                "diff_pitching_form",
+            ],
+            "gbdt": [
+                "diff_starting_pitcher_quality",
+                "diff_bullpen_quality",
+                "diff_lineup_talent",
+                "park_run_effect",
+                "weather_wind_run_effect",
+                "rest_diff",
+                "travel_diff",
+                "home_field_advantage",
+                "series_context_index",
+            ],
+            "rf": [
+                "diff_starting_pitcher_quality",
+                "diff_bullpen_quality",
+                "diff_lineup_talent",
+                "park_run_effect",
+                "weather_wind_run_effect",
+                "rest_diff",
+                "travel_diff",
+                "home_field_advantage",
+            ],
+            "bayes_bt_state_space": [
+                "diff_starting_pitcher_quality",
+                "diff_bullpen_quality",
+                "diff_lineup_talent",
+                "park_run_effect",
+                "rest_diff",
+                "travel_diff",
+                "home_field_advantage",
+                "series_context_index",
+            ],
+            "nn_mlp": [
+                "diff_starting_pitcher_quality",
+                "diff_bullpen_quality",
+                "diff_lineup_talent",
+                "park_run_effect",
+                "weather_wind_run_effect",
+                "rest_diff",
+                "travel_diff",
+                "home_field_advantage",
+                "series_context_index",
+            ],
+        }
+        return anchors.get(model_name, [])
+
     if str(league or "NHL").strip().upper() == "NBA":
         anchors = {
             "glm_ridge": [
@@ -450,6 +647,11 @@ def rank_model_features(
     stage_targets = [
         c
         for c in [
+            "target_home_runs",
+            "target_away_runs",
+            "target_total_runs",
+            "target_run_differential",
+            "target_run_environment",
             "target_xg_share",
             "target_penalty_diff",
             "target_pace",

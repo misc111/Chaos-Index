@@ -453,7 +453,14 @@ class NbaFeatureStrategy(BaseFeatureStrategy):
         )
         return df
 
-    def enrich_game_level(self, merged: pd.DataFrame, games_df: pd.DataFrame, team_games: pd.DataFrame) -> pd.DataFrame:
+    def enrich_game_level(
+        self,
+        merged: pd.DataFrame,
+        games_df: pd.DataFrame,
+        team_games: pd.DataFrame,
+        context_df: pd.DataFrame,
+    ) -> pd.DataFrame:
+        del context_df
         out = merged.copy()
         for col in [
             "home_fouls_drawn",

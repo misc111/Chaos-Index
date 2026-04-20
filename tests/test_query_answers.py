@@ -31,6 +31,8 @@ def test_query_answers(tmp_path: Path):
             (12, "2026-03-01T00:00:00Z", "2026-03-07", "TBL", "FLA", 0.55, "TBL", '{"glm_ridge":0.56}', 0.49, 0.55, 0.60, 0.55, 0.02, 0.03, 0.48, 0.62, '{"starter_unknown":false}', "s1", "f1", "r1"),
             (13, "2026-03-01T00:00:00Z", "2026-03-06", "BOS", "TOR", 0.57, "BOS", '{"glm_ridge":0.57}', 0.50, 0.56, 0.61, 0.56, 0.03, 0.04, 0.49, 0.63, '{"starter_unknown":false}', "s1", "f1", "r1"),
             (14, "2026-03-01T00:00:00Z", "2026-03-07", "TOR", "OTT", 0.54, "TOR", '{"glm_ridge":0.55}', 0.49, 0.54, 0.60, 0.54, 0.03, 0.04, 0.47, 0.61, '{"starter_unknown":false}', "s1", "f1", "r1"),
+            (30, "2026-03-01T00:00:00Z", "2026-03-05", "CHC", "LAD", 0.47, "LAD", '{"glm_ridge":0.48}', 0.42, 0.47, 0.53, 0.47, 0.03, 0.04, 0.40, 0.55, '{"starter_unknown":false}', "s1", "f1", "r1"),
+            (31, "2026-03-01T00:00:00Z", "2026-03-06", "STL", "MIL", 0.52, "STL", '{"glm_ridge":0.53}', 0.48, 0.52, 0.57, 0.52, 0.02, 0.03, 0.46, 0.60, '{"starter_unknown":false}', "s1", "f1", "r1"),
             (20, "2026-03-01T00:00:00Z", "2026-03-05", "NYK", "CHI", 0.59, "NYK", '{"glm_ridge":0.60}', 0.52, 0.59, 0.64, 0.58, 0.02, 0.03, 0.51, 0.66, '{"injury_noise":false}', "s1", "f1", "r1"),
             (21, "2026-03-01T00:00:00Z", "2026-03-06", "MIA", "NYK", 0.56, "MIA", '{"glm_ridge":0.57}', 0.50, 0.56, 0.61, 0.56, 0.02, 0.03, 0.49, 0.63, '{"injury_noise":false}', "s1", "f1", "r1"),
         ],
@@ -81,6 +83,10 @@ def test_query_answers(tmp_path: Path):
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         [
+            ("MLB", "CHC", "Chicago Cubs", "National", "Central", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
+            ("MLB", "LAD", "Los Angeles Dodgers", "National", "West", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
+            ("MLB", "MIL", "Milwaukee Brewers", "National", "Central", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
+            ("MLB", "STL", "St. Louis Cardinals", "National", "Central", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
             ("NHL", "BOS", "Boston Bruins", "E", "Atlantic", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
             ("NHL", "FLA", "Florida Panthers", "E", "Atlantic", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
             ("NHL", "MTL", "Montreal Canadiens", "E", "Atlantic", "2026-03-01", "2026-03-01T00:00:00Z", "s1", "{}"),
@@ -103,6 +109,11 @@ def test_query_answers(tmp_path: Path):
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         [
+            (301, 2026, "2026-01-05", "2026-01-05T05:00:00Z", "LAD", "CHC", 6, 3, 1, "2026-01-05T06:00:00Z"),
+            (302, 2026, "2026-01-06", "2026-01-06T05:00:00Z", "CHC", "MIL", 5, 2, 1, "2026-01-06T06:00:00Z"),
+            (303, 2026, "2026-01-07", "2026-01-07T05:00:00Z", "STL", "LAD", 2, 4, 0, "2026-01-07T06:00:00Z"),
+            (304, 2026, "2026-01-08", "2026-01-08T05:00:00Z", "MIL", "CHC", 1, 4, 0, "2026-01-08T06:00:00Z"),
+            (305, 2026, "2026-01-09", "2026-01-09T05:00:00Z", "STL", "MIL", 3, 2, 1, "2026-01-09T06:00:00Z"),
             (101, 20252026, "2026-01-05", "2026-01-05T04:00:00Z", "LAK", "SJS", 4, 1, 1, "2026-01-05T05:00:00Z"),
             (102, 20252026, "2026-01-06", "2026-01-06T04:00:00Z", "LAK", "ANA", 3, 2, 1, "2026-01-06T05:00:00Z"),
             (103, 20252026, "2026-01-07", "2026-01-07T04:00:00Z", "LAK", "EDM", 1, 2, 0, "2026-01-07T05:00:00Z"),
@@ -165,6 +176,27 @@ def test_query_answers(tmp_path: Path):
     assert payload_nba["league"] == "NBA"
     assert "NYK" in ans_nba
 
+    ans_mlb, payload_mlb = answer_question(db, "What's the chance the Cubs win the next game?")
+    assert payload_mlb["intent"] == "team_next_game"
+    assert payload_mlb["team"] == "CHC"
+    assert payload_mlb["league"] == "MLB"
+    assert "CHC" in ans_mlb
+
+    ans_mlb_world_series, payload_mlb_world_series = answer_question(
+        db, "What's the probability the Dodgers win the World Series?"
+    )
+    assert payload_mlb_world_series["intent"] == "team_championship"
+    assert payload_mlb_world_series["league"] == "MLB"
+    assert payload_mlb_world_series["competition"] == "World Series"
+    assert payload_mlb_world_series["team"] == "LAD"
+    assert 0 < payload_mlb_world_series["world_series_prob"] < 1
+    assert (
+        payload_mlb_world_series["interval_90"]["low"]
+        <= payload_mlb_world_series["world_series_prob"]
+        <= payload_mlb_world_series["interval_90"]["high"]
+    )
+    assert "Heuristic estimate" in ans_mlb_world_series
+
     ans_nba_finals, payload_nba_finals = answer_question(db, "What's the probability the Knicks win the NBA Finals?")
     assert payload_nba_finals["intent"] == "team_championship"
     assert payload_nba_finals["league"] == "NBA"
@@ -180,14 +212,33 @@ def test_query_answers(tmp_path: Path):
 
     report_answer, report_payload = answer_question(db, "Give me the report of all teams in a table")
     assert report_payload["intent"] == "league_report"
-    assert report_payload["league"] == "NBA"
+    assert report_payload["league"] == "MLB"
     assert report_payload["as_of_utc"] == "2026-03-01T00:00:00Z"
     assert report_payload["model_columns"][:2] == ["ensemble", "glm_ridge"]
     assert "Model trust guide (super brief)" in report_answer
     assert "Home Team | Away Team | Date" in report_answer
-    assert report_answer.count("| NYK | CHI | 2026-03-05 | 59.0% | 60.0% |") == 1
+    assert report_answer.count("| CHC | LAD | 2026-03-05 | 47.0% | 48.0% |") == 1
 
-    nyk_row = next(r for r in report_payload["rows"] if r["team"] == "NYK")
+    cubs_row = next(r for r in report_payload["rows"] if r["team"] == "CHC")
+    assert cubs_row["division"] == "Central"
+    assert cubs_row["next_opponent"] == "LAD"
+    assert cubs_row["home_team"] == "CHC"
+    assert cubs_row["away_team"] == "LAD"
+    assert cubs_row["next_game_date_utc"] == "2026-03-05"
+    assert cubs_row["home_or_away"] == "Home"
+    assert 0 < cubs_row["model_win_probabilities"]["ensemble"] < 1
+
+    dodgers_row = next(r for r in report_payload["rows"] if r["team"] == "LAD")
+    assert dodgers_row["next_opponent"] == "CHC"
+
+    nba_report_answer, nba_report_payload = answer_question(db, "Give me the NBA team report table")
+    assert nba_report_payload["intent"] == "league_report"
+    assert nba_report_payload["league"] == "NBA"
+    assert nba_report_payload["as_of_utc"] == "2026-03-01T00:00:00Z"
+    assert "Home Team | Away Team | Date" in nba_report_answer
+    assert nba_report_answer.count("| NYK | CHI | 2026-03-05 | 59.0% | 60.0% |") == 1
+
+    nyk_row = next(r for r in nba_report_payload["rows"] if r["team"] == "NYK")
     assert nyk_row["division"] == "Atlantic"
     assert nyk_row["next_opponent"] == "CHI"
     assert nyk_row["home_team"] == "NYK"
@@ -196,7 +247,7 @@ def test_query_answers(tmp_path: Path):
     assert nyk_row["home_or_away"] == "Home"
     assert 0 < nyk_row["model_win_probabilities"]["ensemble"] < 1
 
-    bos_row = next(r for r in report_payload["rows"] if r["team"] == "BOS")
+    bos_row = next(r for r in nba_report_payload["rows"] if r["team"] == "BOS")
     assert bos_row["next_opponent"] is None
 
 
@@ -245,7 +296,7 @@ def test_query_answers_bet_history_summary_and_cumulative(tmp_path: Path):
         "How much money did I win/lose last night? Be brief in your summary.",
     )
     assert payload["intent"] == "bet_history_summary"
-    assert payload["league"] == "NBA"
+    assert payload["league"] == "MLB"
     assert payload["period"] == "yesterday"
     assert payload["strategy"] == "riskAdjusted"
     assert payload["sizing_style"] == "continuous"
@@ -256,7 +307,7 @@ def test_query_answers_bet_history_summary_and_cumulative(tmp_path: Path):
     assert round(payload["summary"]["total_risked"], 2) == 100.00
     assert round(payload["summary"]["total_profit"], 2) == 80.13
     assert len(payload["games"]) == 3
-    assert answer.startswith(f"NBA last night ({yesterday}): +$80.13 net, $100.00 risked, 2-0 on 2 bets.")
+    assert answer.startswith(f"MLB last night ({yesterday}): +$80.13 net, $100.00 risked, 2-0 on 2 bets.")
     assert "| Game | Bet on | Winner | P/L | Bet rationale |" in answer
     assert "| CHI @ NYK | NYK | NYK | +$41.67 | New York was the favorite but underpriced. |" in answer
     assert "| BOS @ MIA | BOS | BOS | +$38.46 | Boston was the favorite but underpriced. |" in answer
@@ -268,7 +319,7 @@ def test_query_answers_bet_history_summary_and_cumulative(tmp_path: Path):
         "What are my cumulative net profits or losses and how much have I risked since the beginning of tracking?",
     )
     assert cumulative_payload["intent"] == "bet_history_summary"
-    assert cumulative_payload["league"] == "NBA"
+    assert cumulative_payload["league"] == "MLB"
     assert cumulative_payload["period"] == "all_time"
     assert round(cumulative_payload["summary"]["total_risked"], 2) == 140.00
     assert round(cumulative_payload["summary"]["total_profit"], 2) == 116.49
@@ -281,7 +332,7 @@ def test_query_answers_bet_history_summary_and_cumulative(tmp_path: Path):
     )
     assert recap_payload["intent"] == "bet_history_summary"
     assert recap_payload["period"] == "yesterday"
-    assert recap_answer.startswith(f"NBA last night ({yesterday}): +$80.13 net, $100.00 risked, 2-0 on 2 bets.")
+    assert recap_answer.startswith(f"MLB last night ({yesterday}): +$80.13 net, $100.00 risked, 2-0 on 2 bets.")
     assert "| Game | Bet on | Winner | P/L | Bet rationale |" in recap_answer
 
     net_profit_answer, net_profit_payload = answer_question(
@@ -386,7 +437,7 @@ def test_query_answers_bet_history_prefers_capital_preservation_default_profile_
         ],
     )
 
-    answer, payload = answer_question(db, "How much money did I win or lose last night?")
+    answer, payload = answer_question(db, "How much money did I win or lose last night?", default_league="NBA")
 
     assert payload["intent"] == "bet_history_summary"
     assert payload["league"] == "NBA"

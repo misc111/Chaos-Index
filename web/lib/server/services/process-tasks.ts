@@ -2,7 +2,13 @@ import { spawn } from "node:child_process";
 import fs from "node:fs";
 import { type LeagueCode } from "@/lib/league";
 import { getGlobalState, runBufferedProcess, trimLog, wireLineBufferedStream } from "@/lib/server/task-runner";
-import { getModelAliases, getTrainableModels, repoRootPath, resolveConfigPathForLeague } from "@/lib/server/manifests";
+import {
+  getDefaultTrainingModels,
+  getModelAliases,
+  getTrainableModels,
+  repoRootPath,
+  resolveConfigPathForLeague,
+} from "@/lib/server/manifests";
 
 type RefreshState = {
   running: boolean;
@@ -144,6 +150,10 @@ export function parseRequestedModels(raw: unknown): string[] | null {
   return unique.length ? unique : null;
 }
 
+export function defaultTrainingModelsForLeague(_league: LeagueCode): string[] {
+  return getDefaultTrainingModels();
+}
+
 export function summarizeTrainingState() {
   const state = getTrainingState();
   const events = [...state.events];
@@ -181,11 +191,11 @@ export function summarizeTrainingState() {
 
 export function startTrainingTask(league: LeagueCode, models: string[] | null): void {
   const state = getTrainingState();
-  const supportedModels = getTrainableModels();
+  const defaultModels = defaultTrainingModelsForLeague(league);
   const configPath = requireConfigPath(league);
   state.running = true;
   state.league = league;
-  state.requestedModels = models || [...supportedModels];
+  state.requestedModels = models || [...defaultModels];
   state.startedAtUtc = new Date().toISOString();
   state.finishedAtUtc = undefined;
   state.exitCode = undefined;
@@ -198,8 +208,8 @@ export function startTrainingTask(league: LeagueCode, models: string[] | null): 
     kind: "pipeline",
     stage: "train_request",
     status: "started",
-    message: `Training requested for ${league}: ${(models || supportedModels).join(", ")}`,
-    selected_models: models || [...supportedModels],
+    message: `Training requested for ${league}: ${(models || defaultModels).join(", ")}`,
+    selected_models: models || [...defaultModels],
   });
 
   const args = ["-m", "src.cli", "train", "--config", configPath];
