@@ -58,7 +58,14 @@ def test_penalized_glm_model_reports_active_coefficient_metadata():
     assert fit_summary["penalty_family"] == "lasso"
     assert fit_summary["active_parameter_count"] >= 1
     assert len(fit_summary["active_coefficient_summary"]) <= 2
+    assert fit_summary["active_coefficient_totals"]["active_parameter_count"] == fit_summary["active_parameter_count"]
+    assert fit_summary["active_coefficient_totals"]["top_n_effective"] == len(fit_summary["active_coefficient_summary"])
     assert fit_summary["coefficient_path_metadata"]["path_columns"] == list(coef_frame.columns)
+    assert fit_summary["coefficient_path_metadata"]["n_features_total"] == len(coef_frame)
+    assert fit_summary["coefficient_path_metadata"]["n_features_active"] == fit_summary["active_parameter_count"]
+    assert fit_summary["coefficient_path_metadata"]["top_n_effective"] <= 2
+    assert len(fit_summary["coefficient_path_metadata"]["top_path_rows"]) <= 2
+    assert all("abs_coef_scaled_share" in row for row in fit_summary["active_coefficient_summary"])
     assert set(fit_summary["active_features"]).issubset({"signal", "noise", "weak"})
 
 
@@ -131,3 +138,36 @@ def test_penalized_glm_contract_helpers_build_contract_ready_payloads():
     assert payload["penalty"].active_parameter_count == payload["fit_summary"]["active_parameter_count"]
     assert payload["penalty"].active_features == payload["fit_summary"]["active_features"]
     assert payload["coefficient_path_metadata"]["parameterization"]["c"] == pytest.approx(tuning["best_c"])
+    assert payload["tuning_summary"]["evaluated_parameter_count"] == len(tuning["results"])
+    assert payload["fit_summary"]["tuning_summary"]["best_parameterization"]["c"] == pytest.approx(tuning["best_c"])
+    assert payload["fit_summary"]["active_coefficient_totals"]["active_parameter_count"] == payload["fit_summary"]["active_parameter_count"]
+
+
+def test_penalized_glm_payloads_include_tuning_fallback_without_fitted_model():
+    df = _synthetic_penalized_glm_frame()
+    tuning = quick_tune_penalized_glm(
+        df,
+        feature_cols=["signal", "noise", "weak"],
+        model_name="glm_lasso",
+        c_grid=[0.25, 0.5],
+        n_splits=4,
+        min_train_size=140,
+    )
+
+    payloads = collect_penalized_glm_artifact_payloads(
+        selected_models=["glm_lasso"],
+        models={},
+        tuning_by_model={"glm_lasso": tuning},
+        top_n=3,
+    )
+
+    payload = payloads["glm_lasso"]
+    fit_summary = payload["fit_summary"]
+
+    assert isinstance(payload["penalty"], PenaltySelection)
+    assert fit_summary["active_parameter_count"] == tuning["best_active_parameter_count"]
+    assert fit_summary["active_features"] == tuning["best_active_features"]
+    assert fit_summary["coefficient_path_metadata"]["top_n_effective"] <= 3
+    assert fit_summary["coefficient_path_metadata"]["parameterization"]["c"] == pytest.approx(tuning["best_c"])
+    assert fit_summary["tuning_summary"]["selected_penalty_rank"] is not None
+    assert fit_summary["tuning_summary"]["top_candidates"]

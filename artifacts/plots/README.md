@@ -1,13 +1,11 @@
 `artifacts/plots` stores lightweight, league-scoped summary plots.
 
 Current layout:
-- `nba/glm/performance/`: holdout summary curves for the active NBA GLM validation run
-- `nhl/glm/performance/`: holdout summary curves for the active NHL GLM validation run
+- `mlb/glm/performance/`: holdout summary curves for the active MLB GLM validation run
 - `_legacy/`: historical plot outputs preserved from older layouts
 
 Canonical full diagnostic suites live under:
-- `artifacts/validation/nba/glm/residuals/plots/`
-- `artifacts/validation/nhl/glm/residuals/plots/`
+- `artifacts/validation/mlb/glm/residuals/plots/`
 - archived snapshots of those validation suites live under `artifacts/validation-runs/`
 
 Those validation plot directories are the source of truth for:

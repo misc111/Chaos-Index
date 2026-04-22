@@ -43,6 +43,40 @@ def _positive_share(y: np.ndarray) -> float:
     return _safe_float(float(np.mean(y))) if len(y) else float("nan")
 
 
+def _binary_target_profile(y: np.ndarray) -> dict[str, Any]:
+    n_obs = int(len(y))
+    if n_obs <= 0:
+        return {
+            "n_obs": 0,
+            "positive_count": 0,
+            "negative_count": 0,
+            "positive_rate": float("nan"),
+            "has_class_contrast": False,
+            "calibration_curve_applicability": "not_applicable",
+            "calibration_alpha_beta_applicability": "not_applicable",
+            "lift_curve_applicability": "not_applicable",
+            "roc_curve_applicability": "not_applicable",
+            "overall_applicability": "not_applicable",
+        }
+
+    positives = int(np.sum(y))
+    negatives = max(0, n_obs - positives)
+    has_class_contrast = positives > 0 and negatives > 0
+    overall_applicability = "applicable" if has_class_contrast else "partial"
+    return {
+        "n_obs": n_obs,
+        "positive_count": positives,
+        "negative_count": negatives,
+        "positive_rate": _positive_share(y),
+        "has_class_contrast": bool(has_class_contrast),
+        "calibration_curve_applicability": "applicable",
+        "calibration_alpha_beta_applicability": "applicable" if has_class_contrast else "not_applicable",
+        "lift_curve_applicability": "applicable" if has_class_contrast else "not_applicable",
+        "roc_curve_applicability": "applicable" if has_class_contrast else "not_applicable",
+        "overall_applicability": overall_applicability,
+    }
+
+
 def _wilson_interval(successes: int, n: int, z: float = 1.959963984540054) -> tuple[float, float]:
     if n <= 0:
         return float("nan"), float("nan")
@@ -181,8 +215,15 @@ def lift_report(y_true: np.ndarray, p_pred: np.ndarray, *, bins: int = 10) -> di
                 "bins_realized": 0,
                 "top_quantile_actual_lift": float("nan"),
                 "bottom_quantile_actual_lift": float("nan"),
+                "top_quantile_predicted_lift": float("nan"),
+                "bottom_quantile_predicted_lift": float("nan"),
                 "top_vs_bottom_actual_lift_ratio": float("nan"),
                 "top_vs_bottom_actual_lift_diff": float("nan"),
+                "top_vs_bottom_predicted_lift_ratio": float("nan"),
+                "top_vs_bottom_predicted_lift_diff": float("nan"),
+                "actual_lift_monotonicity_violations": 0,
+                "predicted_lift_monotonicity_violations": 0,
+                "top_quantile_event_share": float("nan"),
             },
             "curve": pd.DataFrame(columns=base_cols),
         }
@@ -195,18 +236,40 @@ def lift_report(y_true: np.ndarray, p_pred: np.ndarray, *, bins: int = 10) -> di
     bottom = curve.iloc[0]
     top_actual = float(top["actual_rate_lift"])
     bottom_actual = float(bottom["actual_rate_lift"])
+    top_pred = float(top["predicted_rate_lift"])
+    bottom_pred = float(bottom["predicted_rate_lift"])
+    actual_lift_monotonicity_violations = (
+        int(np.sum(np.diff(curve["actual_rate_lift"].to_numpy(dtype=float)) < -1e-9)) if len(curve) > 1 else 0
+    )
+    predicted_lift_monotonicity_violations = (
+        int(np.sum(np.diff(curve["predicted_rate_lift"].to_numpy(dtype=float)) < -1e-9)) if len(curve) > 1 else 0
+    )
+    event_counts = curve["actual_rate"].to_numpy(dtype=float) * curve["n_obs"].to_numpy(dtype=float)
+    total_events = float(np.sum(event_counts))
+    top_quantile_event_share = _safe_float(event_counts[-1] / total_events) if total_events > 0 else float("nan")
     summary = {
         "n_obs": int(curve["n_obs"].sum()),
         "positive_rate": _safe_float(positive_rate),
         "bins_realized": int(len(curve)),
         "top_quantile_actual_lift": _safe_float(top_actual),
         "bottom_quantile_actual_lift": _safe_float(bottom_actual),
+        "top_quantile_predicted_lift": _safe_float(top_pred),
+        "bottom_quantile_predicted_lift": _safe_float(bottom_pred),
         "top_vs_bottom_actual_lift_ratio": _safe_float(top_actual / bottom_actual)
         if np.isfinite(top_actual) and np.isfinite(bottom_actual) and abs(bottom_actual) > 1e-12
         else float("nan"),
         "top_vs_bottom_actual_lift_diff": _safe_float(top_actual - bottom_actual)
         if np.isfinite(top_actual) and np.isfinite(bottom_actual)
         else float("nan"),
+        "top_vs_bottom_predicted_lift_ratio": _safe_float(top_pred / bottom_pred)
+        if np.isfinite(top_pred) and np.isfinite(bottom_pred) and abs(bottom_pred) > 1e-12
+        else float("nan"),
+        "top_vs_bottom_predicted_lift_diff": _safe_float(top_pred - bottom_pred)
+        if np.isfinite(top_pred) and np.isfinite(bottom_pred)
+        else float("nan"),
+        "actual_lift_monotonicity_violations": actual_lift_monotonicity_violations,
+        "predicted_lift_monotonicity_violations": predicted_lift_monotonicity_violations,
+        "top_quantile_event_share": top_quantile_event_share,
     }
     return {"summary": summary, "curve": curve[base_cols]}
 
@@ -688,13 +751,15 @@ def validate_logistic_probability_model(
     plot_dir: str | Path | None = None,
     plot_prefix: str = "glm",
 ) -> dict[str, Any]:
-    quantile = quantile_plot_report(y_true, p_pred, bins=bins)
-    actual_vs_predicted = actual_vs_predicted_report(y_true, p_pred, bins=bins)
-    lift = lift_report(y_true, p_pred, bins=bins)
-    lorenz = lorenz_gini_report(y_true, p_pred)
+    y, p = _clean_binary_probability_inputs(y_true, p_pred)
+    target_profile = _binary_target_profile(y)
+    quantile = quantile_plot_report(y, p, bins=bins)
+    actual_vs_predicted = actual_vs_predicted_report(y, p, bins=bins)
+    lift = lift_report(y, p, bins=bins)
+    lorenz = lorenz_gini_report(y, p)
     roc = roc_report(
-        y_true,
-        p_pred,
+        y,
+        p,
         tossup_half_widths=tossup_half_widths,
         current_tossup_half_width=current_tossup_half_width,
     )
@@ -724,5 +789,6 @@ def validate_logistic_probability_model(
         "operating_points": roc["operating_points"],
         "tossup_summary": roc["tossup_summary"],
         "tossup_sweep": roc["tossup_sweep"],
+        "applicability_summary": target_profile,
         "plot_paths": plot_paths,
     }

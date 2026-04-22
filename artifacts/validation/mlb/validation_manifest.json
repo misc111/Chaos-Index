@@ -1,0 +1,299 @@
+{
+  "league": "MLB",
+  "sections": [
+    {
+      "file_name": "split/validation_split_summary.json",
+      "kind": "json",
+      "section": "split_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/data_quality/validation_mlb_data_quality_summary.json",
+      "kind": "json",
+      "section": "mlb_data_quality_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/data_quality/validation_mlb_data_quality_issues.csv",
+      "kind": "csv",
+      "section": "mlb_data_quality_issues",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_residual_summary.json",
+      "kind": "json",
+      "section": "glm_residual_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_residual_feature_summary.csv",
+      "kind": "csv",
+      "section": "glm_residual_feature_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_working_residual_bins_linear_predictor.csv",
+      "kind": "csv",
+      "section": "glm_working_residual_bins_linear_predictor",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_working_residual_bins_features.csv",
+      "kind": "csv",
+      "section": "glm_working_residual_bins_features",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_working_residual_bins_weight.csv",
+      "kind": "csv",
+      "section": "glm_working_residual_bins_weight",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_partial_residual_bins.csv",
+      "kind": "csv",
+      "section": "glm_partial_residual_bins",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/collinearity/validation_collinearity_summary.json",
+      "kind": "json",
+      "section": "collinearity_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/collinearity/validation_vif.csv",
+      "kind": "csv",
+      "section": "vif",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/collinearity/validation_collinearity_structural.csv",
+      "kind": "csv",
+      "section": "collinearity_structural",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/collinearity/validation_collinearity_pairs.csv",
+      "kind": "csv",
+      "section": "collinearity_pairs",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/collinearity/validation_collinearity_condition.csv",
+      "kind": "csv",
+      "section": "collinearity_condition",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/collinearity/validation_collinearity_variance_decomposition.csv",
+      "kind": "csv",
+      "section": "collinearity_variance_decomposition",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/nonlinearity/validation_nonlinearity_summary.json",
+      "kind": "json",
+      "section": "nonlinearity_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/nonlinearity/validation_nonlinearity_feature_summary.csv",
+      "kind": "csv",
+      "section": "nonlinearity_feature_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/nonlinearity/validation_nonlinearity_curve_points.csv",
+      "kind": "csv",
+      "section": "nonlinearity_curve_points",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/significance/validation_significance.csv",
+      "kind": "csv",
+      "section": "significance",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/significance/validation_information_criteria_summary.json",
+      "kind": "json",
+      "section": "information_criteria_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/significance/validation_information_criteria_candidates.csv",
+      "kind": "csv",
+      "section": "information_criteria_candidates",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/stability/validation_coef_paths.csv",
+      "kind": "csv",
+      "section": "coef_paths",
+      "tail_rows": 200
+    },
+    {
+      "file_name": "diagnostics/stability/validation_break_test.json",
+      "kind": "json",
+      "section": "break_test",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/stability/validation_cv_summary.json",
+      "kind": "json",
+      "section": "cv_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/stability/validation_cv_fold_metrics.csv",
+      "kind": "csv",
+      "section": "cv_fold_metrics",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/stability/validation_cv_feature_stability.csv",
+      "kind": "csv",
+      "section": "cv_feature_stability",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/stability/validation_cv_coefficients.csv",
+      "kind": "csv",
+      "section": "cv_coefficients",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/stability/validation_bootstrap_summary.json",
+      "kind": "json",
+      "section": "bootstrap_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/stability/validation_bootstrap_feature_summary.csv",
+      "kind": "csv",
+      "section": "bootstrap_feature_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/stability/validation_bootstrap_coefficients.csv",
+      "kind": "csv",
+      "section": "bootstrap_coefficients",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/influence/validation_influence_top.csv",
+      "kind": "csv",
+      "section": "influence_top",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/influence/validation_influence_summary.json",
+      "kind": "json",
+      "section": "influence_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/fragility/validation_fragility_missingness.csv",
+      "kind": "csv",
+      "section": "fragility_missingness",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/fragility/validation_fragility_perturbation.json",
+      "kind": "json",
+      "section": "fragility_perturbation",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/calibration/validation_calibration_robustness.json",
+      "kind": "json",
+      "section": "calibration_robustness",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_quantile_summary.json",
+      "kind": "json",
+      "section": "logit_quantile_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_quantile_curve.csv",
+      "kind": "csv",
+      "section": "logit_quantile_curve",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_actual_vs_predicted_summary.json",
+      "kind": "json",
+      "section": "logit_actual_vs_predicted_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_actual_vs_predicted_curve.csv",
+      "kind": "csv",
+      "section": "logit_actual_vs_predicted_curve",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_lift_summary.json",
+      "kind": "json",
+      "section": "logit_lift_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_lift_curve.csv",
+      "kind": "csv",
+      "section": "logit_lift_curve",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_lorenz_summary.json",
+      "kind": "json",
+      "section": "logit_lorenz_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_lorenz_curve.csv",
+      "kind": "csv",
+      "section": "logit_lorenz_curve",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_roc_summary.json",
+      "kind": "json",
+      "section": "logit_roc_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_roc_curve.csv",
+      "kind": "csv",
+      "section": "logit_roc_curve",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_operating_points.csv",
+      "kind": "csv",
+      "section": "logit_operating_points",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_tossup_summary.json",
+      "kind": "json",
+      "section": "logit_tossup_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_tossup_sweep.csv",
+      "kind": "csv",
+      "section": "logit_tossup_sweep",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_classification_summary.json",
+      "kind": "json",
+      "section": "logit_classification_summary",
+      "tail_rows": null
+    }
+  ]
+}

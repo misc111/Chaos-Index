@@ -99,6 +99,45 @@ EXPERIMENTAL_MODEL_KEYS: tuple[str, ...] = (
     "bayes_goals",
     "nn_mlp",
 )
+REPORT_LANE_PRIORITY: dict[str, int] = {
+    "core": 0,
+    "baseline": 1,
+    "experimental": 2,
+}
+GOVERNANCE_COMPARISON_GROUPS: dict[str, dict[str, object]] = {
+    "theory_core_default": {
+        "label": "Theory-core default",
+        "lane": "core",
+        "classification": "Direct theory implementation",
+        "champion_eligible": True,
+        "model_keys": DEFAULT_TRAINING_MODEL_KEYS,
+        "note": "Primary MLB run list for core comparison screens and champion decisions.",
+    },
+    "theory_core_opt_in": {
+        "label": "Theory-core opt-in",
+        "lane": "core",
+        "classification": "Direct theory implementation",
+        "champion_eligible": True,
+        "model_keys": PLANNED_CREDIBILITY_MODEL_KEYS,
+        "note": "Lasso-credibility complements stay opt-in and should be reported separately from the default run list.",
+    },
+    "baseline_references": {
+        "label": "Baseline references",
+        "lane": "baseline",
+        "classification": "Theory-compatible engineering support",
+        "champion_eligible": False,
+        "model_keys": BASELINE_MODEL_KEYS,
+        "note": "Reference checks for calibration and stability context; not champion candidates by default.",
+    },
+    "experimental_challengers": {
+        "label": "Experimental challengers",
+        "lane": "experimental",
+        "classification": "Experimental challenger",
+        "champion_eligible": False,
+        "model_keys": EXPERIMENTAL_MODEL_KEYS,
+        "note": "Non-CAS challengers retained behind explicit opt-in and quarantined from default promotions.",
+    },
+}
 
 
 MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
@@ -389,6 +428,22 @@ def cas_core_family_catalog() -> dict[str, dict[str, object]]:
     }
 
 
+def governance_comparison_groups() -> dict[str, dict[str, object]]:
+    """Return governance-first model cohorts for comparison and reporting surfaces."""
+
+    return {
+        group_name: {
+            "label": str(payload["label"]),
+            "lane": str(payload["lane"]),
+            "classification": str(payload["classification"]),
+            "champion_eligible": bool(payload.get("champion_eligible", False)),
+            "model_keys": [str(value) for value in payload.get("model_keys", ())],
+            "note": str(payload["note"]),
+        }
+        for group_name, payload in GOVERNANCE_COMPARISON_GROUPS.items()
+    }
+
+
 def baseline_model_names() -> list[str]:
     """Return the MLB baseline-lane model list."""
 
@@ -410,7 +465,10 @@ def default_training_model_names() -> list[str]:
 def prediction_report_order() -> list[str]:
     """Return the canonical prediction report ordering."""
 
-    ordered = sorted((entry for entry in MODEL_REGISTRY if entry.trainable), key=lambda entry: entry.prediction_report_rank)
+    ordered = sorted(
+        (entry for entry in MODEL_REGISTRY if entry.trainable),
+        key=lambda entry: (REPORT_LANE_PRIORITY.get(entry.lane, 99), entry.prediction_report_rank, entry.key),
+    )
     return ["ensemble", *[entry.key for entry in ordered]]
 
 

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 import warnings
@@ -32,7 +32,7 @@ from src.research.candidate_models import (
 from src.research.structured_glm_specs import StructuredGLMExperimentResolution, resolve_structured_glm_experiment
 from src.services.train import load_features_dataframe
 from src.training.cv import time_series_splits
-from src.training.contracts import CandidateScorecardRecord, PromotionDecisionRecord
+from src.training.contracts import CandidateComparisonContract, CandidateScorecardRecord, PromotionDecisionRecord
 from src.training.feature_selection import select_feature_columns
 from src.training.lambda_search import penalized_glm_search_grid
 from src.training.model_feature_research import load_model_feature_map
@@ -117,6 +117,21 @@ def _model_contract_metadata(model_name: str) -> dict[str, str]:
     }
 
 
+def _is_fixture_or_demo_execution(execution_metadata: dict[str, Any] | None) -> bool:
+    metadata = dict(execution_metadata or {})
+    label_class = str(metadata.get("execution_label_class") or "").lower()
+    scope = str(metadata.get("execution_data_scope") or metadata.get("data_scope") or "").lower()
+    source = str(metadata.get("execution_source_label") or metadata.get("source_label") or "").lower()
+    data_origin = str(metadata.get("data_origin") or "").lower()
+    combined = f"{scope} {source} {data_origin}"
+    return (
+        label_class == "fixture_or_demo"
+        or metadata.get("production_grade") is False
+        or "fixture" in combined
+        or "demo" in combined
+    )
+
+
 def _row_metric_slice(row: pd.Series | None, columns: list[str]) -> dict[str, Any]:
     if row is None:
         return {}
@@ -171,14 +186,25 @@ class ComparisonRunResult:
     report_slug: str
     report_path: Path
     summary_path: Path
+    candidate_scorecards_path: Path
+    candidate_scorecards_contract_path: Path
+    recommendation_path: Path
     validation_metrics_path: Path
     test_metrics_path: Path
     bootstrap_path: Path
+    fit_stats_path: Path
+    cv_path: Path
     recommendation_model: str
     recommendation_display_name: str
     validation_metrics: pd.DataFrame
     test_metrics: pd.DataFrame
     bootstrap_summary: pd.DataFrame
+    scorecards_path: Path | None = None
+    leaderboard_path: Path | None = None
+    leaderboard_json_path: Path | None = None
+    recommendation_surface_path: Path | None = None
+    artifact_manifest_path: Path | None = None
+    service_output_path: Path | None = None
 
 
 def _time_ordered_split(
@@ -911,6 +937,13 @@ def _file_prefix(league: str, report_slug: str) -> str:
     return f"{report_slug}_{league.lower()}"
 
 
+def _resolve_comparison_report_dirs(cfg: AppConfig, *, league: str) -> Path:
+    reports_root = ensure_dir(Path(cfg.paths.artifacts_dir) / "reports")
+    if str(league).upper() == "MLB":
+        return ensure_dir(reports_root / "mlb")
+    return ensure_dir(reports_root / "history")
+
+
 def _best_model_row(metrics_frame: pd.DataFrame) -> pd.Series:
     valid = metrics_frame[metrics_frame["fit_status"] == "ok"].copy()
     if valid.empty:
@@ -923,6 +956,85 @@ def _candidate_metric_rows(metrics_frame: pd.DataFrame) -> pd.DataFrame:
     if candidates.empty:
         return candidates
     return candidates.sort_values(["log_loss", "brier", "auc"], ascending=[True, True, False]).reset_index(drop=True)
+
+
+def _candidate_rank_lookup(metrics_frame: pd.DataFrame) -> dict[str, int]:
+    ranked = _candidate_metric_rows(metrics_frame)
+    return {str(row["model_name"]): int(rank) for rank, (_, row) in enumerate(ranked.iterrows(), start=1)}
+
+
+def _metric_improvement(
+    *,
+    model_row: pd.Series | None,
+    reference_row: pd.Series | None,
+    key: str,
+    higher_is_better: bool = False,
+) -> float | None:
+    if model_row is None or reference_row is None:
+        return None
+    model_value = _safe_float(model_row.get(key))
+    reference_value = _safe_float(reference_row.get(key))
+    if model_value is None or reference_value is None:
+        return None
+    if higher_is_better:
+        return model_value - reference_value
+    return reference_value - model_value
+
+
+def _metric_gap(
+    *,
+    model_row: pd.Series | None,
+    anchor_row: pd.Series | None,
+    key: str,
+) -> float | None:
+    if model_row is None or anchor_row is None:
+        return None
+    model_value = _safe_float(model_row.get(key))
+    anchor_value = _safe_float(anchor_row.get(key))
+    if model_value is None or anchor_value is None:
+        return None
+    return model_value - anchor_value
+
+
+def _recommendation_tier(
+    *,
+    model_name: str,
+    recommended_model: str,
+    test_rank: int | None,
+    log_loss_gap_vs_recommended: float | None,
+    brier_gap_vs_recommended: float | None,
+) -> str:
+    if recommended_model != "intercept_only" and model_name == recommended_model:
+        return "research_screen_leader"
+    if test_rank is not None and test_rank <= 3:
+        if (log_loss_gap_vs_recommended is None or log_loss_gap_vs_recommended <= 0.01) and (
+            brier_gap_vs_recommended is None or brier_gap_vs_recommended <= 0.01
+        ):
+            return "challenge_watchlist"
+    return "hold"
+
+
+def _scorecard_badges(
+    *,
+    model_name: str,
+    recommended_model: str,
+    validation_rank: int | None,
+    test_rank: int | None,
+    log_loss_improvement_vs_intercept: float | None,
+    auc: float | None,
+) -> list[str]:
+    badges: list[str] = []
+    if recommended_model != "intercept_only" and model_name == recommended_model:
+        badges.append("research_screen_leader")
+    if test_rank == 1:
+        badges.append("top_final_holdout")
+    if validation_rank == 1:
+        badges.append("top_validation")
+    if log_loss_improvement_vs_intercept is not None and log_loss_improvement_vs_intercept > 0.0:
+        badges.append("beats_intercept_log_loss")
+    if auc is not None and auc >= 0.55:
+        badges.append("auc_above_055")
+    return badges
 
 
 def _fit_stat_lookup(fit_stats_frame: pd.DataFrame) -> dict[str, pd.Series]:
@@ -990,8 +1102,11 @@ def _build_candidate_scorecards(
     test_fit_stats: pd.DataFrame,
     bootstrap_summary: pd.DataFrame,
     recommended_model: str,
+    execution_metadata: dict[str, Any] | None = None,
 ) -> list[CandidateScorecardRecord]:
     validation_lookup = {str(row["model_name"]): row for _, row in validation_metrics.iterrows()}
+    validation_rank_lookup = _candidate_rank_lookup(validation_metrics)
+    test_rank_lookup = _candidate_rank_lookup(test_metrics)
     test_candidates = _candidate_metric_rows(test_metrics)
     test_lookup = {str(row["model_name"]): row for _, row in test_metrics.iterrows()}
     fit_lookup = _fit_stat_lookup(test_fit_stats)
@@ -999,6 +1114,7 @@ def _build_candidate_scorecards(
     benchmark_row = test_lookup.get("intercept_only")
     recommended_row = test_lookup.get(recommended_model)
     best_named_candidate = str(test_candidates.iloc[0]["model_name"]) if not test_candidates.empty else recommended_model
+    fixture_or_demo = _is_fixture_or_demo_execution(execution_metadata)
 
     scorecards: list[CandidateScorecardRecord] = []
     for rank, (_, test_row) in enumerate(test_candidates.iterrows(), start=1):
@@ -1007,6 +1123,55 @@ def _build_candidate_scorecards(
         validation_row = validation_lookup.get(model_name)
         fit_row = fit_lookup.get(model_name)
         bootstrap_row = bootstrap_lookup.get(model_name)
+        validation_rank = validation_rank_lookup.get(model_name)
+        test_rank = test_rank_lookup.get(model_name, rank)
+        log_loss_improvement_vs_intercept = _metric_improvement(
+            model_row=test_row,
+            reference_row=benchmark_row,
+            key="log_loss",
+        )
+        brier_improvement_vs_intercept = _metric_improvement(
+            model_row=test_row,
+            reference_row=benchmark_row,
+            key="brier",
+        )
+        auc_improvement_vs_intercept = _metric_improvement(
+            model_row=test_row,
+            reference_row=benchmark_row,
+            key="auc",
+            higher_is_better=True,
+        )
+        log_loss_gap_vs_recommended = _metric_gap(model_row=test_row, anchor_row=recommended_row, key="log_loss")
+        brier_gap_vs_recommended = _metric_gap(model_row=test_row, anchor_row=recommended_row, key="brier")
+        auc_gap_vs_recommended = _metric_gap(model_row=test_row, anchor_row=recommended_row, key="auc")
+        recommendation_tier = _recommendation_tier(
+            model_name=model_name,
+            recommended_model=recommended_model,
+            test_rank=test_rank,
+            log_loss_gap_vs_recommended=log_loss_gap_vs_recommended,
+            brier_gap_vs_recommended=brier_gap_vs_recommended,
+        )
+        recommended_for_next_stage = recommended_model != "intercept_only" and model_name == recommended_model
+        if fixture_or_demo and recommendation_tier == "research_screen_leader":
+            recommendation_tier = "fixture_slice_screen_leader"
+            recommended_for_next_stage = False
+        badges = _scorecard_badges(
+            model_name=model_name,
+            recommended_model=recommended_model,
+            validation_rank=validation_rank,
+            test_rank=test_rank,
+            log_loss_improvement_vs_intercept=log_loss_improvement_vs_intercept,
+            auc=_safe_float(test_row.get("auc")),
+        )
+        if fixture_or_demo:
+            badges = ["fixture_slice_screen_leader" if badge == "research_screen_leader" else badge for badge in badges]
+        feature_count = _safe_int(fit_row.get("n_features")) if fit_row is not None else None
+        active_parameter_count = _safe_int(fit_row.get("active_parameter_count")) if fit_row is not None else None
+        active_parameter_ratio = (
+            float(active_parameter_count) / float(feature_count)
+            if feature_count is not None and feature_count > 0 and active_parameter_count is not None
+            else None
+        )
         rejection_reasons = _comparison_rejection_reasons(
             model_row=test_row,
             recommended_model=recommended_model,
@@ -1022,8 +1187,8 @@ def _build_candidate_scorecards(
                 target_name=COMPARISON_TARGET_NAME,
                 distribution=COMPARISON_DISTRIBUTION,
                 link_function=COMPARISON_LINK_FUNCTION,
-                feature_count=_safe_int(fit_row.get("n_features")) if fit_row is not None else None,
-                active_parameter_count=_safe_int(fit_row.get("active_parameter_count")) if fit_row is not None else None,
+                feature_count=feature_count,
+                active_parameter_count=active_parameter_count,
                 validation_metrics={
                     "validation_log_loss": _safe_float(validation_row.get("log_loss")) if validation_row is not None else None,
                     "validation_brier": _safe_float(validation_row.get("brier")) if validation_row is not None else None,
@@ -1033,9 +1198,20 @@ def _build_candidate_scorecards(
                     "final_holdout_brier": _safe_float(test_row.get("brier")),
                     "final_holdout_auc": _safe_float(test_row.get("auc")),
                     "final_holdout_accuracy": _safe_float(test_row.get("accuracy")),
+                    "final_holdout_ece": _safe_float(test_row.get("ece")),
+                    "log_loss_improvement_vs_intercept": log_loss_improvement_vs_intercept,
+                    "brier_improvement_vs_intercept": brier_improvement_vs_intercept,
+                    "auc_improvement_vs_intercept": auc_improvement_vs_intercept,
+                    "log_loss_gap_vs_recommended": log_loss_gap_vs_recommended,
+                    "brier_gap_vs_recommended": brier_gap_vs_recommended,
+                    "auc_gap_vs_recommended": auc_gap_vs_recommended,
                 },
                 stability_metrics={
-                    "final_holdout_rank": rank,
+                    "validation_rank": validation_rank,
+                    "final_holdout_rank": test_rank,
+                    "rank_shift_validation_to_final": (
+                        int(test_rank - validation_rank) if validation_rank is not None and test_rank is not None else None
+                    ),
                     "validation_to_test_log_loss_delta": (
                         _safe_float(test_row.get("log_loss")) - _safe_float(validation_row.get("log_loss"))
                         if validation_row is not None
@@ -1065,15 +1241,31 @@ def _build_candidate_scorecards(
                         if bootstrap_row is not None
                         else None
                     ),
+                    "bootstrap_delta_brier_mean_vs_recommended": (
+                        _safe_float(bootstrap_row.get("delta_brier_mean")) if bootstrap_row is not None else None
+                    ),
+                    "bootstrap_delta_brier_prob_recommended_better": (
+                        _safe_float(bootstrap_row.get("delta_brier_prob_reference_better"))
+                        if bootstrap_row is not None
+                        else None
+                    ),
+                    "active_parameter_ratio": active_parameter_ratio,
                 },
                 calibration_summary={
                     "final_holdout_ece": _safe_float(test_row.get("ece")),
                     "final_holdout_mce": _safe_float(test_row.get("mce")),
                     "calibration_alpha": _safe_float(test_row.get("calibration_alpha")),
                     "calibration_beta": _safe_float(test_row.get("calibration_beta")),
+                    "brier_reliability": _safe_float(test_row.get("brier_reliability")),
+                    "brier_resolution": _safe_float(test_row.get("brier_resolution")),
+                    "brier_uncertainty": _safe_float(test_row.get("brier_uncertainty")),
                     "mean_abs_calibration_gap": _safe_float(test_row.get("mean_abs_calibration_gap")),
                     "max_abs_calibration_gap": _safe_float(test_row.get("max_abs_calibration_gap")),
                     "normalized_gini": _safe_float(test_row.get("normalized_gini")),
+                    "top_decile_event_capture": _safe_float(test_row.get("top_decile_event_capture")),
+                    "top_quantile_actual_lift": _safe_float(test_row.get("top_quantile_actual_lift")),
+                    "top_vs_bottom_actual_lift_ratio": _safe_float(test_row.get("top_vs_bottom_actual_lift_ratio")),
+                    "tossup_share_current_band": _safe_float(test_row.get("tossup_share_current_band")),
                 },
                 complement_summary={
                     "display_name": str(test_row.get("display_name") or metadata["display_name"]),
@@ -1082,13 +1274,146 @@ def _build_candidate_scorecards(
                     "params": str(test_row.get("params") or ""),
                     "fit_status": str(test_row.get("fit_status") or ""),
                     "fit_error": str(test_row.get("fit_error") or ""),
-                    "recommended_for_next_stage": recommended_model != "intercept_only" and model_name == recommended_model,
+                    "recommended_for_next_stage": recommended_for_next_stage,
+                    "next_stage_blocked_by_fixture_scope": bool(fixture_or_demo and model_name == recommended_model),
                     "benchmark_model": "intercept_only",
+                    "benchmark_display_name": str(benchmark_row.get("display_name")) if benchmark_row is not None else "Intercept Only",
+                    "recommended_model": recommended_model,
+                    "recommendation_tier": recommendation_tier,
+                    "recommendation_badges": badges,
+                    "summary_note": (
+                        "Fixture-slice screen leader only; rerun on the full immutable pregame MLB ledger before promotion review."
+                        if recommendation_tier == "fixture_slice_screen_leader"
+                        else (
+                            "Best final-holdout named candidate in this research screen."
+                            if recommendation_tier == "research_screen_leader"
+                            else (
+                                "Close challenger retained on the comparison watchlist."
+                                if recommendation_tier == "challenge_watchlist"
+                                else "Not recommended for the next stage in this comparison run."
+                            )
+                        )
+                    ),
                 },
                 rejection_reasons=rejection_reasons,
             )
         )
     return scorecards
+
+
+def _build_candidate_leaderboard(
+    *,
+    validation_metrics: pd.DataFrame,
+    test_metrics: pd.DataFrame,
+    scorecards: list[CandidateScorecardRecord],
+) -> pd.DataFrame:
+    validation_lookup = {str(row["model_name"]): row for _, row in validation_metrics.iterrows()}
+    validation_rank_lookup = _candidate_rank_lookup(validation_metrics)
+    test_rank_lookup = _candidate_rank_lookup(test_metrics)
+    scorecard_lookup = {record.model_name: record for record in scorecards}
+    rows: list[dict[str, Any]] = []
+
+    for _, test_row in _candidate_metric_rows(test_metrics).iterrows():
+        model_name = str(test_row["model_name"])
+        validation_row = validation_lookup.get(model_name)
+        scorecard = scorecard_lookup.get(model_name)
+        rejection_reasons = list(scorecard.rejection_reasons) if scorecard is not None else []
+        recommendation_tier = (
+            str(scorecard.complement_summary.get("recommendation_tier"))
+            if scorecard is not None and isinstance(scorecard.complement_summary, dict)
+            else "hold"
+        )
+        rows.append(
+            {
+                "model_name": model_name,
+                "display_name": str(test_row.get("display_name") or model_name),
+                "fit_status": str(test_row.get("fit_status") or ""),
+                "validation_rank": validation_rank_lookup.get(model_name),
+                "final_holdout_rank": test_rank_lookup.get(model_name),
+                "rank_shift_validation_to_final": (
+                    int(test_rank_lookup[model_name] - validation_rank_lookup[model_name])
+                    if model_name in test_rank_lookup and model_name in validation_rank_lookup
+                    else None
+                ),
+                "validation_log_loss": _safe_float(validation_row.get("log_loss")) if validation_row is not None else None,
+                "validation_brier": _safe_float(validation_row.get("brier")) if validation_row is not None else None,
+                "validation_auc": _safe_float(validation_row.get("auc")) if validation_row is not None else None,
+                "final_holdout_log_loss": _safe_float(test_row.get("log_loss")),
+                "final_holdout_brier": _safe_float(test_row.get("brier")),
+                "final_holdout_auc": _safe_float(test_row.get("auc")),
+                "final_holdout_ece": _safe_float(test_row.get("ece")),
+                "final_holdout_mce": _safe_float(test_row.get("mce")),
+                "recommendation_tier": recommendation_tier,
+                "rejection_reasons": rejection_reasons,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def _build_recommendation_surface(
+    *,
+    league: str,
+    report_slug: str,
+    comparison_decision: PromotionDecisionRecord,
+    candidate_scorecards: list[CandidateScorecardRecord],
+    candidate_leaderboard: pd.DataFrame,
+) -> dict[str, Any]:
+    decision = comparison_decision.to_dict()
+    recommended_model = str(decision.get("recommended_model") or "")
+    scorecard_lookup = {record.model_name: record for record in candidate_scorecards}
+    recommended_scorecard = scorecard_lookup.get(recommended_model)
+    top_rows = candidate_leaderboard.head(3).to_dict(orient="records") if not candidate_leaderboard.empty else []
+    watchlist = [
+        {
+            "model_name": record.model_name,
+            "display_name": str(record.complement_summary.get("display_name") or record.model_name),
+            "tier": str(record.complement_summary.get("recommendation_tier") or "hold"),
+            "final_holdout_log_loss": _safe_float(record.validation_metrics.get("final_holdout_log_loss")),
+            "final_holdout_brier": _safe_float(record.validation_metrics.get("final_holdout_brier")),
+            "rejection_reasons": list(record.rejection_reasons),
+        }
+        for record in candidate_scorecards
+        if str(record.complement_summary.get("recommendation_tier") or "") == "challenge_watchlist"
+    ][:3]
+
+    if str(decision.get("status")) == "fixture_slice_screen_complete" and recommended_model != "intercept_only":
+        next_actions = [
+            "Rerun this candidate comparison on the full immutable pregame MLB ledger.",
+            "Treat the selected model as a fixture-slice screen leader only.",
+            "Do not enter promotion review until full-data validation evidence exists.",
+        ]
+    elif str(decision.get("status")) == "research_recommended" and recommended_model != "intercept_only":
+        next_actions = [
+            "Run research backtest with full pregame ledger checks.",
+            "Keep at least one challenger in the next backtest sweep for robustness.",
+            "Gate any promotion on written evidence, not only this comparison screen.",
+        ]
+    else:
+        next_actions = [
+            "Hold promotion and keep intercept benchmark in the lane.",
+            "Expand feature diagnostics and challenger variants before the next run.",
+            "Re-run candidate comparison after feature/pipeline adjustments.",
+        ]
+
+    return {
+        "league": str(league).upper(),
+        "report_slug": report_slug,
+        "generated_at_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "decision": {
+            "status": decision.get("status"),
+            "recommended_model": recommended_model,
+            "recommended_display_name": (
+                str(recommended_scorecard.complement_summary.get("display_name"))
+                if recommended_scorecard is not None
+                else recommended_model
+            ),
+            "baseline_model": decision.get("baseline_model"),
+            "rationale": decision.get("rationale"),
+        },
+        "top_candidates": top_rows,
+        "challenger_watchlist": watchlist,
+        "next_actions": next_actions,
+    }
 
 
 def _build_comparison_decision(
@@ -1099,7 +1424,9 @@ def _build_comparison_decision(
     bootstrap_summary: pd.DataFrame,
     candidate_scope_note: str,
     feature_pool_note: str,
+    execution_metadata: dict[str, Any] | None = None,
 ) -> PromotionDecisionRecord:
+    fixture_or_demo = _is_fixture_or_demo_execution(execution_metadata)
     best_test = _best_model_row(test_metrics)
     winner_model = str(best_test["model_name"])
     winner_display = str(best_test["display_name"])
@@ -1122,11 +1449,18 @@ def _build_comparison_decision(
         )
     else:
         recommended_model = winner_model
-        status = "research_recommended"
-        rationale = (
-            f"{winner_display} led the named CAS candidates on the final holdout. "
-            "Advance it to research backtest and promotion review, but do not treat this comparison as a champion declaration."
-        )
+        if fixture_or_demo:
+            status = "fixture_slice_screen_complete"
+            rationale = (
+                f"{winner_display} led the named CAS candidates on the fixture-slice final holdout. "
+                "Rerun on the full immutable pregame MLB ledger before research backtest or promotion review."
+            )
+        else:
+            status = "research_recommended"
+            rationale = (
+                f"{winner_display} led the named CAS candidates on the final holdout. "
+                "Advance it to research backtest and promotion review, but do not treat this comparison as a champion declaration."
+            )
 
     top_rows = candidate_test.head(3)
     evidence = {
@@ -1134,6 +1468,8 @@ def _build_comparison_decision(
         "promotion_ready": False,
         "candidate_scope": candidate_scope_note,
         "feature_pool_note": feature_pool_note,
+        "fixture_or_demo_execution": fixture_or_demo,
+        "next_stage_blocked_by_fixture_scope": bool(fixture_or_demo and recommended_model != "intercept_only"),
         "final_holdout_winner": _row_metric_slice(best_test, ["model_name", "display_name", "log_loss", "brier", "auc", "ece"]),
         "best_named_candidate": _row_metric_slice(
             best_named_candidate,
@@ -1166,6 +1502,8 @@ def _build_comparison_decision(
             for _, row in _candidate_metric_rows(validation_metrics).head(3).iterrows()
         ],
     }
+    if execution_metadata:
+        evidence["execution_metadata"] = dict(execution_metadata)
     return PromotionDecisionRecord(
         recommended_model=recommended_model,
         baseline_model="intercept_only",
@@ -1193,20 +1531,26 @@ def _write_report(
     comparison_decision: PromotionDecisionRecord,
     candidate_scope_note: str,
     feature_pool_note: str,
+    execution_metadata: dict[str, Any] | None = None,
 ) -> tuple[str, str]:
     best_test = _best_model_row(test_metrics)
     candidate_validation = validation_metrics[validation_metrics["model_name"] != "intercept_only"].copy()
     candidate_test = test_metrics[test_metrics["model_name"] != "intercept_only"].copy()
-    best_candidate_validation = _best_model_row(candidate_validation)
     best_candidate_test = _best_model_row(candidate_test)
+    try:
+        best_candidate_validation = _best_model_row(candidate_validation)
+    except RuntimeError:
+        best_candidate_validation = best_candidate_test
     winner_model = str(best_test["model_name"])
     winner_display = str(best_test["display_name"])
     screening_summary = final_features.screening_frame["status"].value_counts().to_dict()
+    fixture_or_demo = _is_fixture_or_demo_execution(execution_metadata)
+    row_count_label = "Fixture-slice rows used" if fixture_or_demo else "Historical rows used"
     lines = [
         f"# {cfg.data.league} Candidate Model Comparison",
         "",
         "Protocol",
-        "- Objective: maximize out-of-sample predictive accuracy for home-win probabilities.",
+        "- Objective: maximize out-of-sample probability quality for home-win probabilities under proper scoring rules.",
         "- Guidance followed from the local CAS monograph sections on train/validation/test splitting (4.3), deviance and penalized fit comparisons (6.1-6.2), residual/nonlinearity/stability checks (6.3-6.4), holdout actual-vs-predicted/lift/ROC validation (7.1-7.3), and extension candidates (10.1-10.5).",
         "- Outer split: 40% train, 30% validation, 30% final test, ordered by `start_time_utc`.",
         "- Hyperparameters were tuned with rolling time-series CV inside the fit window for each phase.",
@@ -1215,7 +1559,7 @@ def _write_report(
         "",
         "Data",
         f"- League: {cfg.data.league}",
-        f"- Historical rows used: {len(train_df) + len(validation_df) + len(test_df)}",
+        f"- {row_count_label}: {len(train_df) + len(validation_df) + len(test_df)}",
         f"- Train / validation / test rows: {len(train_df)} / {len(validation_df)} / {len(test_df)}",
         f"- Raw candidate features after leakage bans: {raw_feature_count}",
         f"- Final screened features retained for broad linear models: {len(final_features.screened_features)}",
@@ -1249,13 +1593,28 @@ def _write_report(
         "",
         "Recommendation",
         "- This comparison is a research screen only; it does not promote a production champion.",
-        f"- Best overall final-holdout model: {winner_display} (`{winner_model}`)",
+        f"- Best final-holdout screen model: {winner_display} (`{winner_model}`)",
         f"- Best named candidate on the final holdout: {best_candidate_test['display_name']} (`{best_candidate_test['model_name']}`)",
         f"- Final test log loss of the best named candidate: {float(best_candidate_test['log_loss']):.6f}",
         f"- Final test Brier score of the best named candidate: {float(best_candidate_test['brier']):.6f}",
         f"- Final test AUC of the best named candidate: {float(best_candidate_test['auc']):.6f}",
         f"- Best validation candidate: {best_candidate_validation['display_name']} (`{best_candidate_validation['model_name']}`)",
     ]
+    if execution_metadata:
+        execution_scope = str(execution_metadata.get("execution_data_scope") or "unspecified")
+        source_label = str(execution_metadata.get("source_label") or execution_scope)
+        lines.extend(
+            [
+                "",
+                "Execution Context",
+                f"- Execution data scope: {execution_scope}",
+                f"- Source label: {source_label}",
+            ]
+        )
+        if execution_scope != "full_mlb_data":
+            lines.append(
+                "- Evidence label: bounded MLB slice/fixture evidence only; this is not a production-grade champion promotion."
+            )
     if winner_model == "intercept_only":
         lines.extend(
             [
@@ -1265,7 +1624,7 @@ def _write_report(
         )
     else:
         lines.append(
-            f"- Recommendation: advance {winner_display} (`{winner_model}`) into research backtest and promotion review if the goal is pure out-of-sample probability accuracy among the tested options."
+            f"- Recommendation: advance {winner_display} (`{winner_model}`) into research backtest and promotion review if the goal is stronger out-of-sample probability quality among the tested options."
         )
     if not bootstrap_summary.empty:
         second_row = bootstrap_summary.iloc[0]
@@ -1298,6 +1657,7 @@ def run_candidate_model_comparison(
     structured_glm_spec_path: str | None = None,
     structured_glm_slate: str | None = None,
     structured_glm_width_variant: str | None = None,
+    execution_metadata: dict[str, Any] | None = None,
 ) -> ComparisonRunResult:
     feature_pool_token = str(feature_pool or FEATURE_POOL_FULL_SCREENED).strip().lower()
     if feature_pool_token == FEATURE_POOL_RESEARCH_BROAD:
@@ -1418,20 +1778,27 @@ def run_candidate_model_comparison(
 
     stamp = datetime.now().strftime("%Y-%m-%d")
     slug = report_slug or f"{stamp}_candidate_model_comparison"
-    history_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "reports" / "history")
+    primary_dir = _resolve_comparison_report_dirs(cfg, league=str(cfg.data.league))
     prefix = _file_prefix(cfg.data.league, slug)
 
-    validation_metrics_path = history_dir / f"{prefix}_validation_metrics.csv"
-    test_metrics_path = history_dir / f"{prefix}_test_metrics.csv"
-    bootstrap_path = history_dir / f"{prefix}_bootstrap.csv"
-    screening_path = history_dir / f"{prefix}_feature_screening.csv"
-    nonlinearity_path = history_dir / f"{prefix}_nonlinearity.csv"
-    validation_predictions_path = history_dir / f"{prefix}_validation_predictions.csv"
-    test_predictions_path = history_dir / f"{prefix}_test_predictions.csv"
-    fit_stats_path = history_dir / f"{prefix}_fit_stats.csv"
-    cv_path = history_dir / f"{prefix}_cv_summary.csv"
-    summary_path = history_dir / f"{prefix}_comparison_summary.json"
-    report_path = history_dir / f"{prefix}_summary.md"
+    validation_metrics_path = primary_dir / f"{prefix}_validation_metrics.csv"
+    test_metrics_path = primary_dir / f"{prefix}_test_metrics.csv"
+    bootstrap_path = primary_dir / f"{prefix}_bootstrap.csv"
+    screening_path = primary_dir / f"{prefix}_feature_screening.csv"
+    nonlinearity_path = primary_dir / f"{prefix}_nonlinearity.csv"
+    validation_predictions_path = primary_dir / f"{prefix}_validation_predictions.csv"
+    test_predictions_path = primary_dir / f"{prefix}_test_predictions.csv"
+    fit_stats_path = primary_dir / f"{prefix}_fit_stats.csv"
+    cv_path = primary_dir / f"{prefix}_cv_summary.csv"
+    candidate_scorecards_path = primary_dir / f"{prefix}_candidate_scorecards.csv"
+    candidate_scorecards_contract_path = primary_dir / f"{prefix}_candidate_scorecards.json"
+    leaderboard_path = primary_dir / f"{prefix}_candidate_leaderboard.csv"
+    leaderboard_json_path = primary_dir / f"{prefix}_candidate_leaderboard.json"
+    recommendation_path = primary_dir / f"{prefix}_recommendation.json"
+    recommendation_surface_path = primary_dir / f"{prefix}_recommendation_surface.json"
+    artifact_manifest_path = primary_dir / f"{prefix}_artifact_manifest.json"
+    summary_path = primary_dir / f"{prefix}_comparison_summary.json"
+    report_path = primary_dir / f"{prefix}_summary.md"
 
     validation_metrics.to_csv(validation_metrics_path, index=False)
     test_metrics.to_csv(test_metrics_path, index=False)
@@ -1462,6 +1829,7 @@ def run_candidate_model_comparison(
         test_fit_stats=test_fit_stats,
         bootstrap_summary=bootstrap_summary,
         recommended_model=str(_best_model_row(test_metrics)["model_name"]),
+        execution_metadata=execution_metadata,
     )
     comparison_decision = _build_comparison_decision(
         candidate_scorecards=candidate_scorecards,
@@ -1470,21 +1838,98 @@ def run_candidate_model_comparison(
         bootstrap_summary=bootstrap_summary,
         candidate_scope_note=candidate_scope_note,
         feature_pool_note=feature_pool_note,
+        execution_metadata=execution_metadata,
     )
-    summary_payload = {
-        "league": str(cfg.data.league).upper(),
+    candidate_scorecard_payload = [record.to_dict() for record in candidate_scorecards]
+    pd.json_normalize(candidate_scorecard_payload, sep="__").to_csv(candidate_scorecards_path, index=False)
+    candidate_scorecards_contract_path.write_text(to_json(candidate_scorecard_payload) + "\n")
+    recommendation_path.write_text(to_json(comparison_decision.to_dict()) + "\n")
+    leaderboard = _build_candidate_leaderboard(
+        validation_metrics=validation_metrics,
+        test_metrics=test_metrics,
+        scorecards=candidate_scorecards,
+    )
+    leaderboard.to_csv(leaderboard_path, index=False)
+    leaderboard_records = leaderboard.to_dict(orient="records")
+    leaderboard_json_path.write_text(to_json(leaderboard_records) + "\n")
+    recommendation_surface = _build_recommendation_surface(
+        league=str(cfg.data.league),
+        report_slug=slug,
+        comparison_decision=comparison_decision,
+        candidate_scorecards=candidate_scorecards,
+        candidate_leaderboard=leaderboard,
+    )
+    recommendation_surface_path.write_text(to_json(recommendation_surface) + "\n")
+    artifact_manifest_payload = {
         "report_slug": slug,
-        "candidate_scorecards": [record.to_dict() for record in candidate_scorecards],
-        "promotion_decision": comparison_decision.to_dict(),
+        "league": str(cfg.data.league).upper(),
+        "artifact_root": str(primary_dir),
         "artifacts": {
+            "report_path": str(report_path),
+            "summary_path": str(summary_path),
+            "validation_metrics_path": str(validation_metrics_path),
+            "test_metrics_path": str(test_metrics_path),
+            "bootstrap_path": str(bootstrap_path),
+            "fit_stats_path": str(fit_stats_path),
+            "cv_path": str(cv_path),
+            "screening_path": str(screening_path),
+            "nonlinearity_path": str(nonlinearity_path),
+            "validation_predictions_path": str(validation_predictions_path),
+            "test_predictions_path": str(test_predictions_path),
+            "candidate_scorecards_path": str(candidate_scorecards_path),
+            "candidate_scorecards_contract_path": str(candidate_scorecards_contract_path),
+            "leaderboard_path": str(leaderboard_path),
+            "leaderboard_json_path": str(leaderboard_json_path),
+            "recommendation_path": str(recommendation_path),
+            "recommendation_surface_path": str(recommendation_surface_path),
+        },
+    }
+    artifact_manifest_path.write_text(to_json(artifact_manifest_payload) + "\n")
+    summary_payload = CandidateComparisonContract(
+        report_slug=slug,
+        league=str(cfg.data.league).upper(),
+        target_name=COMPARISON_TARGET_NAME,
+        distribution=COMPARISON_DISTRIBUTION,
+        link_function=COMPARISON_LINK_FUNCTION,
+        candidate_models=[record.model_name for record in candidate_scorecards],
+        candidate_scorecards=candidate_scorecards,
+        promotion_decision=comparison_decision,
+        artifacts={
             "report_path": str(report_path),
             "validation_metrics_path": str(validation_metrics_path),
             "test_metrics_path": str(test_metrics_path),
             "bootstrap_path": str(bootstrap_path),
             "fit_stats_path": str(fit_stats_path),
             "cv_path": str(cv_path),
+            "screening_path": str(screening_path),
+            "nonlinearity_path": str(nonlinearity_path),
+            "validation_predictions_path": str(validation_predictions_path),
+            "test_predictions_path": str(test_predictions_path),
+            "candidate_scorecards_path": str(candidate_scorecards_path),
+            "candidate_scorecards_contract_path": str(candidate_scorecards_contract_path),
+            "leaderboard_path": str(leaderboard_path),
+            "leaderboard_json_path": str(leaderboard_json_path),
+            "recommendation_path": str(recommendation_path),
+            "recommendation_surface_path": str(recommendation_surface_path),
+            "artifact_manifest_path": str(artifact_manifest_path),
         },
-    }
+        metadata={
+            "generated_at_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+            "candidate_scope_note": candidate_scope_note,
+            "feature_pool_note": feature_pool_note,
+            "artifact_root": str(primary_dir),
+            "raw_feature_count": int(len(raw_features)),
+            "train_rows": int(len(train_df)),
+            "validation_rows": int(len(validation_df)),
+            "test_rows": int(len(test_df)),
+            "screening_summary": final_features.screening_frame["status"].value_counts().to_dict(),
+            "final_nonlinearity_summary": dict(final_features.nonlinearity_summary),
+            "recommended_display_name": str(_best_model_row(test_metrics)["display_name"]),
+            "leaderboard_preview": leaderboard_records[:5],
+            "recommendation_surface": recommendation_surface,
+            "execution_metadata": dict(execution_metadata or {}),
+        },
+    ).to_dict()
     summary_path.write_text(to_json(summary_payload) + "\n")
 
     recommendation_model, recommendation_display_name = _write_report(
@@ -1503,6 +1948,7 @@ def run_candidate_model_comparison(
         comparison_decision=comparison_decision,
         candidate_scope_note=candidate_scope_note,
         feature_pool_note=feature_pool_note,
+        execution_metadata=execution_metadata,
     )
 
     return ComparisonRunResult(
@@ -1510,12 +1956,22 @@ def run_candidate_model_comparison(
         report_slug=slug,
         report_path=report_path,
         summary_path=summary_path,
+        candidate_scorecards_path=candidate_scorecards_path,
+        candidate_scorecards_contract_path=candidate_scorecards_contract_path,
+        recommendation_path=recommendation_path,
         validation_metrics_path=validation_metrics_path,
         test_metrics_path=test_metrics_path,
         bootstrap_path=bootstrap_path,
+        fit_stats_path=fit_stats_path,
+        cv_path=cv_path,
         recommendation_model=recommendation_model,
         recommendation_display_name=recommendation_display_name,
         validation_metrics=validation_metrics,
         test_metrics=test_metrics,
         bootstrap_summary=bootstrap_summary,
+        scorecards_path=candidate_scorecards_contract_path,
+        leaderboard_path=leaderboard_path,
+        leaderboard_json_path=leaderboard_json_path,
+        recommendation_surface_path=recommendation_surface_path,
+        artifact_manifest_path=artifact_manifest_path,
     )

@@ -1,8 +1,8 @@
 `artifacts/validation-runs` stores archived validation snapshots by league and run date.
 
 Layout:
-- `nba/YYYY-MM-DD/<timestamp>_<model_run_id>/`
-- `nhl/YYYY-MM-DD/<timestamp>_<model_run_id>/`
+- `mlb/YYYY-MM-DD/<timestamp>_<model_run_id>/`
+- `<league>/YYYY-MM-DD/<timestamp>_<model_run_id>/` for any retained legacy league snapshots
 
 Each archived run contains:
 - the full contents of `artifacts/validation/<league>/`

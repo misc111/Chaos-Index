@@ -8,6 +8,7 @@ from src.registry.models import (
     core_model_names,
     default_training_model_names,
     experimental_model_names,
+    governance_comparison_groups,
     legacy_model_keys,
     model_aliases,
     penalized_core_model_names,
@@ -25,10 +26,24 @@ EXPERIMENTAL_MODEL_NAMES = experimental_model_names()
 PLANNED_CREDIBILITY_MODEL_NAMES = planned_credibility_model_names()
 PLANNED_CREDIBILITY_MODEL_CATALOG = planned_credibility_model_catalog()
 CAS_CORE_FAMILY_CATALOG = cas_core_family_catalog()
+GOVERNANCE_COMPARISON_GROUPS = governance_comparison_groups()
 MODEL_ALIASES = model_aliases()
 LEGACY_MODEL_KEYS = legacy_model_keys()
 MODEL_REPORT_ORDER = prediction_report_order()
 DEFAULT_MODEL_NAMES = default_training_model_names()
+MODEL_SELECTION_GROUP_ALIASES: dict[str, tuple[str, ...]] = {
+    "core": tuple(CORE_MODEL_NAMES),
+    "core_full": tuple(CORE_MODEL_NAMES),
+    "core_default": tuple(DEFAULT_MODEL_NAMES),
+    "theory_core_default": tuple(GOVERNANCE_COMPARISON_GROUPS["theory_core_default"]["model_keys"]),
+    "theory_core_opt_in": tuple(GOVERNANCE_COMPARISON_GROUPS["theory_core_opt_in"]["model_keys"]),
+    "credibility_opt_in": tuple(PLANNED_CREDIBILITY_MODEL_NAMES),
+    "baseline": tuple(BASELINE_MODEL_NAMES),
+    "baseline_references": tuple(GOVERNANCE_COMPARISON_GROUPS["baseline_references"]["model_keys"]),
+    "experimental": tuple(EXPERIMENTAL_MODEL_NAMES),
+    "challengers": tuple(EXPERIMENTAL_MODEL_NAMES),
+    "experimental_challengers": tuple(GOVERNANCE_COMPARISON_GROUPS["experimental_challengers"]["model_keys"]),
+}
 
 
 def normalize_selected_models(selected_models: list[str] | None) -> list[str]:
@@ -46,6 +61,14 @@ def normalize_selected_models(selected_models: list[str] | None) -> list[str]:
             continue
         if token in {"all", "*"}:
             return list(ALL_MODEL_NAMES)
+        grouped = MODEL_SELECTION_GROUP_ALIASES.get(token)
+        if grouped is not None:
+            for canonical in grouped:
+                if canonical in seen:
+                    continue
+                seen.add(canonical)
+                out.append(canonical)
+            continue
         canonical = MODEL_ALIASES.get(token, token)
         if canonical not in ALL_MODEL_NAMES:
             bad.append(raw)

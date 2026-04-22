@@ -4,13 +4,19 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from typing import Any
 
+from src.registry.models import get_model_registry_entry
 from src.training.contract_builders import build_lasso_credibility_metadata, build_penalty_selection
+from src.training.model_catalog import MODEL_ALIASES
 from src.training.contracts import LassoCredibilityMetadata, PenaltySelection, ValidationArtifactRecord
 
 
 @dataclass(frozen=True, slots=True)
 class ValidationModelMetadata:
     model_name: str
+    model_key: str = ""
+    model_family: str = ""
+    model_lane: str = ""
+    model_governance_note: str = ""
     penalty: PenaltySelection | None = None
     credibility: LassoCredibilityMetadata | None = None
 
@@ -22,6 +28,14 @@ class ValidationModelMetadata:
         payload: dict[str, Any] = {}
         if self.model_name:
             payload["model_name"] = self.model_name
+        if self.model_key:
+            payload["model_key"] = self.model_key
+        if self.model_family:
+            payload["model_family"] = self.model_family
+        if self.model_lane:
+            payload["model_lane"] = self.model_lane
+        if self.model_governance_note:
+            payload["model_governance_note"] = self.model_governance_note
         if self.penalty is not None:
             payload["penalty"] = self.penalty.to_dict()
         if self.credibility is not None:
@@ -31,6 +45,23 @@ class ValidationModelMetadata:
 
 def _mapping_or_none(value: Any) -> dict[str, Any] | None:
     return dict(value) if isinstance(value, Mapping) else None
+
+
+def _resolve_registry_payload(model_name: str) -> dict[str, str]:
+    token = str(model_name or "").strip().lower()
+    if not token:
+        return {}
+    model_key = MODEL_ALIASES.get(token, token)
+    try:
+        entry = get_model_registry_entry(model_key)
+    except KeyError:
+        return {"model_key": model_key} if model_key else {}
+    return {
+        "model_key": model_key,
+        "model_family": str(entry.family),
+        "model_lane": str(entry.lane),
+        "model_governance_note": str(entry.governance_note),
+    }
 
 
 def _extract_credibility_payload(
@@ -90,9 +121,14 @@ def resolve_validation_model_metadata(
         if isinstance(candidate, Mapping):
             penalty_tuning = candidate
 
+    registry_payload = _resolve_registry_payload(model_name)
     credibility_payload = _extract_credibility_payload(run_payload, model_name=model_name) if model_name else None
     return ValidationModelMetadata(
         model_name=model_name,
+        model_key=registry_payload.get("model_key", ""),
+        model_family=registry_payload.get("model_family", ""),
+        model_lane=registry_payload.get("model_lane", ""),
+        model_governance_note=registry_payload.get("model_governance_note", ""),
         penalty=build_penalty_selection(model_name, tuning=penalty_tuning, model=model) if model_name else None,
         credibility=build_lasso_credibility_metadata(
             model_name,

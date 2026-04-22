@@ -1,12 +1,14 @@
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 import json
 import re
 import shutil
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Sequence
+from typing import Any, Callable
 
+import numpy as np
 import pandas as pd
 
 from src.common.config import AppConfig
@@ -201,6 +203,138 @@ def _safe_archive_token(value: Any) -> str:
     return cleaned or "adhoc_validation"
 
 
+def _non_empty_string(value: Any) -> str | None:
+    token = str(value or "").strip()
+    return token or None
+
+
+def _metadata_scopes(run_payload: Mapping[str, Any]) -> list[Mapping[str, Any]]:
+    scopes: list[Mapping[str, Any]] = [run_payload]
+    for key in ("metadata", "run_metadata"):
+        value = run_payload.get(key)
+        if isinstance(value, Mapping):
+            scopes.append(value)
+    for key in ("run_contract", "model_run_contract"):
+        contract = run_payload.get(key)
+        if not isinstance(contract, Mapping):
+            continue
+        scopes.append(contract)
+        contract_metadata = contract.get("metadata")
+        if isinstance(contract_metadata, Mapping):
+            scopes.append(contract_metadata)
+    return scopes
+
+
+def _first_metadata_value(scopes: Sequence[Mapping[str, Any]], keys: Sequence[str]) -> str | None:
+    for scope in scopes:
+        for key in keys:
+            value = _non_empty_string(scope.get(key))
+            if value:
+                return value
+    return None
+
+
+def _resolve_execution_scope_labels(run_payload: Mapping[str, Any]) -> dict[str, str]:
+    scopes = _metadata_scopes(run_payload)
+    execution_data_scope = _first_metadata_value(scopes, ("execution_data_scope", "execution_scope", "data_scope"))
+    execution_source_label = _first_metadata_value(
+        scopes,
+        ("execution_source_label", "source_label", "execution_source", "source"),
+    )
+    if not execution_data_scope and not execution_source_label:
+        return {}
+
+    payload: dict[str, str] = {}
+    if execution_data_scope:
+        payload["execution_data_scope"] = execution_data_scope
+    if execution_source_label:
+        payload["execution_source_label"] = execution_source_label
+    combined = f"{execution_data_scope or ''} {execution_source_label or ''}".lower()
+    if "fixture" in combined or "demo" in combined:
+        payload["execution_label_class"] = "fixture_or_demo"
+    return payload
+
+
+def _has_execution_metadata_labels(scope: Mapping[str, Any]) -> bool:
+    return bool(
+        _first_metadata_value(
+            [scope],
+            (
+                "execution_data_scope",
+                "execution_scope",
+                "data_scope",
+                "execution_source_label",
+                "source_label",
+                "execution_source",
+                "source",
+            ),
+        )
+    ) or any(
+        key in scope
+        for key in (
+            "production_grade",
+            "fixture_rows",
+            "feature_count",
+            "artifact_purpose",
+            "full_mlb_blocker",
+        )
+    )
+
+
+def _execution_metadata_from_scope(scope: Mapping[str, Any]) -> dict[str, Any]:
+    nested = scope.get("execution_metadata")
+    if isinstance(nested, Mapping) and nested:
+        return dict(nested)
+    if _has_execution_metadata_labels(scope):
+        metadata = dict(scope)
+        metadata.pop("execution_metadata", None)
+        return metadata
+    return {}
+
+
+def _resolve_execution_metadata(run_payload: Mapping[str, Any]) -> dict[str, Any]:
+    for key in ("metadata", "run_metadata"):
+        value = run_payload.get(key)
+        if not isinstance(value, Mapping):
+            continue
+        metadata = _execution_metadata_from_scope(value)
+        if metadata:
+            return metadata
+
+    for key in ("run_contract", "model_run_contract"):
+        contract = run_payload.get(key)
+        if not isinstance(contract, Mapping):
+            continue
+        for metadata_key in ("metadata", "run_metadata"):
+            value = contract.get(metadata_key)
+            if not isinstance(value, Mapping):
+                continue
+            metadata = _execution_metadata_from_scope(value)
+            if metadata:
+                return metadata
+        nested = contract.get("execution_metadata")
+        if isinstance(nested, Mapping):
+            return dict(nested)
+
+    payload: dict[str, Any] = {}
+    for key in (
+        "execution_data_scope",
+        "execution_scope",
+        "data_scope",
+        "execution_source_label",
+        "source_label",
+        "execution_source",
+        "production_grade",
+        "fixture_rows",
+        "feature_count",
+        "artifact_purpose",
+        "full_mlb_blocker",
+    ):
+        if key in run_payload:
+            payload[key] = run_payload[key]
+    return payload
+
+
 def _artifacts_root(cfg: AppConfig) -> Path:
     return Path(cfg.paths.artifacts_dir)
 
@@ -268,9 +402,17 @@ def _validation_run_metadata(
             continue
         top_level = rel.split("/", 1)[0]
         grouped_validation_files.setdefault(top_level, []).append(rel)
-    selected_models = ctx.run_payload.get("selected_models", [])
-    if not isinstance(selected_models, list):
-        selected_models = []
+    selected_models_payload = ctx.run_payload.get("selected_models", [])
+    selected_models: list[str] = []
+    if isinstance(selected_models_payload, Sequence) and not isinstance(selected_models_payload, (str, bytes)):
+        selected_models = [str(model) for model in selected_models_payload if str(model).strip()]
+    if not selected_models:
+        selected_models = [str(model) for model in ctx.models.keys() if str(model).strip()]
+    model_run_id = _non_empty_string(ctx.run_payload.get("model_run_id")) or "adhoc_validation"
+    execution_metadata = _resolve_execution_metadata(ctx.run_payload)
+    scoped_labels = _resolve_execution_scope_labels(ctx.run_payload)
+    if not scoped_labels and execution_metadata:
+        scoped_labels = _resolve_execution_scope_labels(execution_metadata)
 
     artifact_groups = [{"name": "validation_root", "relative_dir": ".", "files": root_files}]
     for group_name in sorted(grouped_validation_files):
@@ -283,14 +425,15 @@ def _validation_run_metadata(
         )
     artifact_groups.append({"name": "performance", "relative_dir": "performance", "files": performance_files})
 
-    return {
+    metadata = {
         "league": ctx.league,
         "generated_at_utc": generated_at_utc,
         "archive_id": archive_root.name,
         "archive_date": generated_at_utc[:10],
-        "model_run_id": ctx.run_payload.get("model_run_id"),
+        "model_run_id": model_run_id,
         "feature_set_version": ctx.run_payload.get("feature_set_version"),
-        "selected_models": [str(model) for model in selected_models if str(model).strip()],
+        "selected_models": selected_models,
+        "execution_metadata": dict(execution_metadata),
         "latest_validation_dir": _relative_artifact_path(ctx.out_dir, cfg=ctx.cfg),
         "latest_performance_dir": _relative_artifact_path(ctx.plots_dir, cfg=ctx.cfg),
         "archive_dir": _relative_artifact_path(archive_root, cfg=ctx.cfg),
@@ -302,9 +445,18 @@ def _validation_run_metadata(
             "validation_subdir_groups": len(grouped_validation_files),
             "validation_subdir_files": sum(len(files) for files in grouped_validation_files.values()),
             "performance_files": len(performance_files),
+            "total_files": len(root_files)
+            + sum(len(files) for files in grouped_validation_files.values())
+            + len(performance_files),
         },
         "artifact_groups": artifact_groups,
     }
+    metadata.update(scoped_labels)
+    if "production_grade" in execution_metadata:
+        metadata["production_grade"] = execution_metadata["production_grade"]
+    if "data_origin" in execution_metadata:
+        metadata["data_origin"] = execution_metadata["data_origin"]
+    return metadata
 
 
 def _reset_validation_output_dirs(ctx: ValidationContext) -> None:
@@ -579,6 +731,59 @@ def _feature_blocks_for(ctx: ValidationContext) -> dict[str, list[str]]:
         ctx.diagnostic_feature_cols,
         credibility=ctx.glm_validation_metadata.credibility,
     )
+
+
+def _binary_holdout_profile(y_true: np.ndarray | pd.Series) -> dict[str, Any]:
+    y_raw = np.asarray(y_true, dtype=float)
+    y = y_raw[np.isfinite(y_raw)].astype(int)
+    n_obs = int(len(y))
+    if n_obs <= 0:
+        return {
+            "n_obs": 0,
+            "positive_count": 0,
+            "negative_count": 0,
+            "positive_rate": float("nan"),
+            "has_class_contrast": False,
+            "overall_applicability": "not_applicable",
+        }
+
+    positive_count = int(np.sum(y))
+    negative_count = max(0, n_obs - positive_count)
+    has_class_contrast = positive_count > 0 and negative_count > 0
+    return {
+        "n_obs": n_obs,
+        "positive_count": positive_count,
+        "negative_count": negative_count,
+        "positive_rate": float(positive_count / n_obs),
+        "has_class_contrast": bool(has_class_contrast),
+        "overall_applicability": "applicable" if has_class_contrast else "partial",
+    }
+
+
+def _probability_model_family_applicability(
+    ctx: ValidationContext,
+    *,
+    task_name: str,
+    requires_class_contrast: bool,
+    class_contrast_available: bool,
+    n_obs: int,
+) -> dict[str, Any]:
+    if n_obs <= 0:
+        status = "not_applicable"
+    elif requires_class_contrast and not class_contrast_available:
+        status = "partial"
+    else:
+        status = "applicable"
+    return {
+        "task": task_name,
+        "status": status,
+        "model_family": str(ctx.glm_validation_metadata.model_family or "unknown"),
+        "model_lane": str(ctx.glm_validation_metadata.model_lane or "unknown"),
+        "model_key": str(ctx.glm_validation_metadata.model_key or ""),
+        "requires_class_contrast": bool(requires_class_contrast),
+        "class_contrast_available": bool(class_contrast_available),
+        "probability_output_method": "predict_proba" if ctx.glm is not None and hasattr(ctx.glm, "predict_proba") else "missing",
+    }
 
 
 def _task_summary_with_model_metadata(ctx: ValidationContext, payload: dict[str, Any]) -> dict[str, Any]:
@@ -964,8 +1169,23 @@ def _task_calibration(ctx: ValidationContext) -> ValidationTaskResult:
     holdout = _holdout_df(ctx)
     p = ctx.glm.predict_proba(holdout)
     y = holdout["home_win"].astype(int).to_numpy()
+    holdout_profile = _binary_holdout_profile(y)
+    metric_applicability = {
+        "ece_mce": "applicable" if holdout_profile["n_obs"] > 0 else "not_applicable",
+        "alpha_beta": "applicable" if holdout_profile["has_class_contrast"] else "not_applicable",
+        "brier_decomposition": "applicable" if holdout_profile["n_obs"] > 0 else "not_applicable",
+    }
     payload = calibration_alpha_beta(y, p) | ece_mce(y, p)
     payload |= brier_decompose(y, p)
+    payload["holdout_profile"] = holdout_profile
+    payload["metric_applicability"] = metric_applicability
+    payload["model_family_applicability"] = _probability_model_family_applicability(
+        ctx,
+        task_name="calibration",
+        requires_class_contrast=False,
+        class_contrast_available=bool(holdout_profile["has_class_contrast"]),
+        n_obs=int(holdout_profile["n_obs"]),
+    )
 
     out = ValidationOutputs()
     out.add_json(
@@ -973,7 +1193,7 @@ def _task_calibration(ctx: ValidationContext) -> ValidationTaskResult:
         file_name=_validation_path("diagnostics", "calibration", "validation_calibration_robustness.json"),
         payload=payload,
     )
-    return _task_result(ctx, out, summary=payload)
+    return _task_result(ctx, out, summary=payload, applicability=str(holdout_profile["overall_applicability"]))
 
 
 def _task_classification_curves(ctx: ValidationContext) -> ValidationTaskResult:
@@ -987,6 +1207,23 @@ def _task_classification_curves(ctx: ValidationContext) -> ValidationTaskResult:
         current_tossup_half_width=0.05,
         plot_dir=ctx.plots_dir,
         plot_prefix="",
+    )
+    holdout_profile = dict(report["applicability_summary"])
+    metric_applicability = {
+        "quantile_curve": str(holdout_profile["calibration_curve_applicability"]),
+        "actual_vs_predicted_curve": str(holdout_profile["calibration_curve_applicability"]),
+        "lift_curve": str(holdout_profile["lift_curve_applicability"]),
+        "lorenz_curve": str(holdout_profile["lift_curve_applicability"]),
+        "roc_curve": str(holdout_profile["roc_curve_applicability"]),
+        "operating_points": str(holdout_profile["roc_curve_applicability"]),
+        "tossup_sweep": str(holdout_profile["calibration_curve_applicability"]),
+    }
+    model_family_applicability = _probability_model_family_applicability(
+        ctx,
+        task_name="classification_curves",
+        requires_class_contrast=True,
+        class_contrast_available=bool(holdout_profile["has_class_contrast"]),
+        n_obs=int(holdout_profile["n_obs"]),
     )
 
     out = ValidationOutputs()
@@ -1055,10 +1292,37 @@ def _task_classification_curves(ctx: ValidationContext) -> ValidationTaskResult:
         file_name=_validation_path("diagnostics", "classification", "validation_logit_tossup_sweep.csv"),
         rows=report["tossup_sweep"],
     )
+    classification_summary = {
+        "holdout_profile": holdout_profile,
+        "metric_applicability": metric_applicability,
+        "model_family_applicability": model_family_applicability,
+        "quantile_summary": report["quantile_summary"],
+        "actual_vs_predicted_summary": report["actual_vs_predicted_summary"],
+        "lift_summary": report["lift_summary"],
+        "lorenz_summary": report["lorenz_summary"],
+        "roc_summary": report["roc_summary"],
+        "tossup_summary": report["tossup_summary"],
+    }
+    out.add_json(
+        section="logit_classification_summary",
+        file_name=_validation_path("diagnostics", "classification", "validation_logit_classification_summary.json"),
+        payload=classification_summary,
+    )
     summary_payload = dict(report["roc_summary"])
     summary_payload["quantile_summary"] = report["quantile_summary"]
+    summary_payload["actual_vs_predicted_summary"] = report["actual_vs_predicted_summary"]
+    summary_payload["lift_summary"] = report["lift_summary"]
+    summary_payload["lorenz_summary"] = report["lorenz_summary"]
     summary_payload["tossup_summary"] = report["tossup_summary"]
-    return _task_result(ctx, out, summary=summary_payload)
+    summary_payload["holdout_profile"] = holdout_profile
+    summary_payload["metric_applicability"] = metric_applicability
+    summary_payload["model_family_applicability"] = model_family_applicability
+    return _task_result(
+        ctx,
+        out,
+        summary=summary_payload,
+        applicability=str(holdout_profile["overall_applicability"]),
+    )
 
 
 def _task_mlb_data_quality(ctx: ValidationContext) -> ValidationTaskResult:

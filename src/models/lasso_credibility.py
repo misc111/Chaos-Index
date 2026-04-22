@@ -12,6 +12,7 @@ from src.models.base import BaseProbModel
 
 PROBABILITY_EPS = 1e-6
 ACTIVE_COEF_TOLERANCE = 1e-10
+DEFAULT_COEFFICIENT_TOP_N = 8
 _COMPLEMENT_KIND_ALIASES = {
     "prior": "prior",
     "prior_model": "prior",
@@ -75,10 +76,14 @@ def _summary_stats(values: np.ndarray | pd.Series, prefix: str) -> dict[str, flo
     arr = np.asarray(values, dtype=float)
     if arr.size == 0:
         return {f"{prefix}_count": 0}
+    p25, p75 = np.percentile(arr, [25.0, 75.0])
     return {
         f"{prefix}_count": int(arr.size),
         f"{prefix}_mean": float(np.mean(arr)),
+        f"{prefix}_std": float(np.std(arr)),
         f"{prefix}_median": float(np.median(arr)),
+        f"{prefix}_p25": float(p25),
+        f"{prefix}_p75": float(p75),
         f"{prefix}_min": float(np.min(arr)),
         f"{prefix}_max": float(np.max(arr)),
     }
@@ -175,6 +180,9 @@ class LassoCredibilityModel(BaseProbModel):
             return unit, {
                 "mode": "unit_weight",
                 "column": "",
+                "zero_exposure_count": 0,
+                "positive_exposure_count": int(len(df)),
+                "exposure_total": float(np.sum(unit)),
                 **_summary_stats(unit, "exposure"),
             }
 
@@ -189,6 +197,9 @@ class LassoCredibilityModel(BaseProbModel):
         return exposure, {
             "mode": "column",
             "column": self.exposure_column,
+            "zero_exposure_count": int((values == 0.0).sum()),
+            "positive_exposure_count": int((values > 0.0).sum()),
+            "exposure_total": float(np.sum(exposure)),
             **_summary_stats(exposure, "exposure"),
         }
 
@@ -242,13 +253,59 @@ class LassoCredibilityModel(BaseProbModel):
                     "feature": feature,
                     "coef_scaled": coef_scaled,
                     "coef_original": coef_original,
+                    "abs_coef_scaled": float(abs(coef_scaled)),
+                    "abs_coef_original": float(abs(coef_original)),
+                    "sign": int(np.sign(coef_scaled)),
                     "odds_ratio": float(np.exp(coef_original)),
+                    "feature_mean": float(self.feature_means.get(feature, 0.0)),
                     "mean": float(self.feature_means.get(feature, 0.0)),
                     "scale": scale,
                     "active": bool(abs(coef_scaled) > ACTIVE_COEF_TOLERANCE),
                 }
             )
         return rows
+
+    def lambda_summary(self) -> dict[str, Any]:
+        return {
+            "penalty_family": "lasso",
+            "lambda_value": float(self.lambda_value),
+            "c_value": float(1.0 / self.lambda_value),
+            "l1_ratio": None,
+            "intercept_penalized": False,
+            "regularized_refit": False,
+            "p_values_reported": False,
+        }
+
+    def active_coefficient_summary(self, top_n: int = DEFAULT_COEFFICIENT_TOP_N) -> list[dict[str, Any]]:
+        frame = self.coef_frame()
+        if frame.empty:
+            return []
+        active = frame[frame["active"]].head(max(int(top_n), 0))
+        rows: list[dict[str, Any]] = []
+        for row in active.itertuples(index=False):
+            rows.append(
+                {
+                    "feature": str(row.feature),
+                    "coef_scaled": float(row.coef_scaled),
+                    "coef_original": float(row.coef_original),
+                    "abs_coef_scaled": float(row.abs_coef_scaled),
+                    "abs_coef_original": float(row.abs_coef_original),
+                    "odds_ratio": float(row.odds_ratio),
+                    "sign": int(row.sign),
+                    "active_rank": None if pd.isna(row.active_rank) else int(row.active_rank),
+                }
+            )
+        return rows
+
+    def coefficient_path_metadata(self, top_n: int = DEFAULT_COEFFICIENT_TOP_N) -> dict[str, Any]:
+        frame = self.coef_frame()
+        return {
+            "path_columns": [str(column) for column in frame.columns],
+            "sort_key": "abs_coef_scaled_desc",
+            "top_feature_names": [str(value) for value in frame.head(max(int(top_n), 0))["feature"].tolist()],
+            "active_feature_names": [str(value) for value in frame[frame["active"]]["feature"].tolist()],
+            "parameterization": self.lambda_summary(),
+        }
 
     def _capture_fit_metadata(
         self,
@@ -269,6 +326,7 @@ class LassoCredibilityModel(BaseProbModel):
         active = coef_frame[coef_frame["active"]].copy() if not coef_frame.empty else pd.DataFrame()
         positive = active[active["coef_original"] > 0.0].sort_values("coef_original", ascending=False)
         negative = active[active["coef_original"] < 0.0].sort_values("coef_original", ascending=True)
+        lambda_summary = self.lambda_summary()
 
         def _relativity_rows(frame: pd.DataFrame) -> list[dict[str, Any]]:
             if frame.empty:
@@ -276,6 +334,7 @@ class LassoCredibilityModel(BaseProbModel):
             return [
                 {
                     "feature": str(row["feature"]),
+                    "coef_scaled": float(row["coef_scaled"]),
                     "coef_original": float(row["coef_original"]),
                     "odds_ratio": float(row["odds_ratio"]),
                 }
@@ -293,10 +352,15 @@ class LassoCredibilityModel(BaseProbModel):
                 "requested_driver_feature_count": int(len(self.requested_feature_columns)),
                 "driver_feature_count": int(len(self.feature_columns)),
                 "active_driver_feature_count": int(len(active)),
+                "inactive_driver_feature_count": int(max(len(self.feature_columns) - len(active), 0)),
+                "coefficient_columns": [str(column) for column in coef_frame.columns],
+                "coefficient_path_metadata": self.coefficient_path_metadata(),
+                "active_coefficient_summary": self.active_coefficient_summary(),
                 "top_positive_relativities": _relativity_rows(positive),
                 "top_negative_relativities": _relativity_rows(negative),
             },
             "exposure_summary": dict(exposure_summary),
+            "lambda_summary": dict(lambda_summary),
             "lambda_choice_note": (
                 f"Fixed lasso credibility penalty lambda={self.lambda_value:.6g}; "
                 "the fit stays regularized with no unpenalized refit and no p-values."
@@ -306,6 +370,9 @@ class LassoCredibilityModel(BaseProbModel):
                 "driver coefficients represent residual credibility adjustments around that complement."
             ),
             "p_values_reported": False,
+            "p_values_behavior": (
+                "L1-regularized GLM is fit with refit=False; coefficient p-values are intentionally not computed or reported."
+            ),
         }
 
     def fit(self, df: pd.DataFrame, feature_columns: list[str], target_col: str = "home_win") -> None:
@@ -352,17 +419,41 @@ class LassoCredibilityModel(BaseProbModel):
         rows = self._coefficient_rows()
         if not rows:
             return pd.DataFrame(
-                columns=["feature", "coef_scaled", "coef_original", "odds_ratio", "mean", "scale", "active"]
+                columns=[
+                    "feature",
+                    "coef_scaled",
+                    "coef_original",
+                    "abs_coef_scaled",
+                    "abs_coef_original",
+                    "sign",
+                    "odds_ratio",
+                    "feature_mean",
+                    "mean",
+                    "scale",
+                    "active",
+                    "active_rank",
+                ]
             )
         frame = pd.DataFrame(rows)
-        return frame.sort_values("coef_original", key=lambda values: np.abs(values), ascending=False).reset_index(drop=True)
+        frame = frame.sort_values(["abs_coef_scaled", "feature"], ascending=[False, True], kind="mergesort").reset_index(
+            drop=True
+        )
+        active_rank = pd.Series(pd.NA, index=frame.index, dtype="Int64")
+        if bool(frame["active"].any()):
+            active_rank.loc[frame["active"]] = np.arange(1, int(frame["active"].sum()) + 1, dtype=int)
+        frame["active_rank"] = active_rank
+        return frame
 
     def fit_summary(self) -> dict[str, Any]:
         if self.train_y is None or self.train_prob is None or self.result is None:
             raise RuntimeError("Lasso credibility has not been fit.")
         y = np.asarray(self.train_y, dtype=int)
         p = _clip_probability(self.train_prob)
-        active_features = int((self.coef_frame()["active"]).sum()) if self.feature_columns else 0
+        coefficient_frame = self.coef_frame()
+        active_features = int((coefficient_frame["active"]).sum()) if self.feature_columns else 0
+        active_feature_names = [
+            str(value) for value in coefficient_frame[coefficient_frame["active"]]["feature"].tolist()
+        ] if not coefficient_frame.empty else []
         active_parameter_count = active_features + int(abs(self.intercept_scaled) > ACTIVE_COEF_TOLERANCE)
         log_likelihood = float(np.sum(y * np.log(p) + (1.0 - y) * np.log(1.0 - p)))
         return {
@@ -372,12 +463,20 @@ class LassoCredibilityModel(BaseProbModel):
             "offset_scale": "logit",
             "regularized_refit": False,
             "p_values_reported": False,
+            "p_values_behavior": (
+                "L1-regularized GLM is fit with refit=False; coefficient p-values are intentionally not computed or reported."
+            ),
             "n_obs": int(len(y)),
             "requested_feature_count": int(len(self.requested_feature_columns)),
             "driver_feature_count": int(len(self.feature_columns)),
             "active_feature_count": active_features,
             "active_parameter_count": active_parameter_count,
+            "active_features": active_feature_names,
+            "coefficient_columns": [str(column) for column in coefficient_frame.columns],
+            "active_coefficient_summary": self.active_coefficient_summary(),
+            "coefficient_path_metadata": self.coefficient_path_metadata(),
             "lambda_value": float(self.lambda_value),
+            "lambda_summary": self.lambda_summary(),
             "intercept_scaled": float(self.intercept_scaled),
             "intercept_original": float(self.intercept_original),
             "train_log_likelihood": log_likelihood,

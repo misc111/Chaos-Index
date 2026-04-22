@@ -168,6 +168,34 @@ class PromotionDecisionRecord:
 
 
 @dataclass(slots=True)
+class CandidateComparisonContract:
+    report_slug: str
+    league: str
+    target_name: str
+    distribution: str
+    link_function: str
+    candidate_models: list[str] = field(default_factory=list)
+    candidate_scorecards: list[CandidateScorecardRecord] = field(default_factory=list)
+    promotion_decision: PromotionDecisionRecord | None = None
+    artifacts: dict[str, str] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "report_slug": self.report_slug,
+            "league": self.league,
+            "target_name": self.target_name,
+            "distribution": self.distribution,
+            "link_function": self.link_function,
+            "candidate_models": _clean_string_list(self.candidate_models),
+            "candidate_scorecards": [record.to_dict() for record in self.candidate_scorecards],
+            "promotion_decision": self.promotion_decision.to_dict() if self.promotion_decision is not None else None,
+            "artifacts": _clean_dict(self.artifacts),
+            "metadata": _clean_dict(self.metadata),
+        }
+
+
+@dataclass(slots=True)
 class ModelRunContract:
     model_run_id: str
     league: str

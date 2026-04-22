@@ -1,6 +1,27 @@
 version: 1
 league: MLB
 updated_at_utc: '2026-04-20T00:00:00+00:00'
+comparison_reporting_guardrails:
+  theory_core_default:
+    lane: core
+    champion_eligible: true
+    promotion_gate: require_written_evidence
+    note: Core default rows can be promoted only with full diagnostics and written champion evidence.
+  theory_core_opt_in:
+    lane: core
+    champion_eligible: true
+    promotion_gate: require_complement_diagnostics
+    note: Credibility rows must keep complement/indicated/observed diagnostics intact before any promotion review.
+  baseline_references:
+    lane: baseline
+    champion_eligible: false
+    promotion_gate: comparison_only
+    note: Baseline rows are retained for context and should stay out of champion promotion by default.
+  experimental_challengers:
+    lane: experimental
+    champion_eligible: false
+    promotion_gate: explicit_opt_in_only
+    note: Experimental rows remain challenger-only unless a separate governance decision explicitly broadens scope.
 models:
   glm_ridge:
     blocked_features:

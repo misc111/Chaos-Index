@@ -346,12 +346,25 @@ def test_validation_pipeline_writes_classification_curves_to_structured_plot_dir
 
     run_validation_pipeline(result, cfg, tasks=tasks)
 
+    validation_root = tmp_path / "artifacts" / "validation" / "nba"
+    classification_root = validation_root / "diagnostics" / "classification"
     performance_root = tmp_path / "artifacts" / "plots" / "nba" / "glm" / "performance"
+    assert (classification_root / "validation_logit_classification_summary.json").exists()
     assert (performance_root / "quantile.png").exists()
     assert (performance_root / "actual_vs_predicted.png").exists()
     assert (performance_root / "lift.png").exists()
     assert (performance_root / "lorenz.png").exists()
     assert (performance_root / "roc.png").exists()
+
+    contract_payload = json.loads((validation_root / "validation_outputs_contract.json").read_text())
+    records = {record["task_name"]: record for record in contract_payload["validation_outputs"]}
+    summary = records["classification_curves"]["summary"]
+    assert records["classification_curves"]["applicability"] == "applicable"
+    assert summary["metric_applicability"]["lift_curve"] == "applicable"
+    assert summary["model_family_applicability"]["status"] == "applicable"
+    assert summary["model_family_applicability"]["model_family"] == "linear"
+    assert summary["model_family_applicability"]["model_lane"] == "core"
+    assert summary["lift_summary"]["top_vs_bottom_actual_lift_diff"] > 0
 
 
 def test_validation_pipeline_archives_clean_validation_run_snapshot(tmp_path):
@@ -416,9 +429,12 @@ def test_validation_pipeline_archives_clean_validation_run_snapshot(tmp_path):
     assert (archive_root / "performance" / "roc.png").exists()
 
     metadata = json.loads((archive_root / "validation_run_metadata.json").read_text())
+    assert metadata["league"] == "NBA"
     assert metadata["model_run_id"] == "run_test_archive"
+    assert metadata["selected_models"] == ["glm_ridge"]
     assert metadata["feature_set_version"] == "fset_test_archive"
     assert metadata["artifact_counts"]["performance_files"] == 5
+    assert metadata["artifact_counts"]["total_files"] >= metadata["artifact_counts"]["performance_files"]
     assert "validation_manifest.json" in metadata["artifact_groups"][0]["files"]
 
 

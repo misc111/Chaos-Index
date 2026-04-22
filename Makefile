@@ -41,6 +41,7 @@ help:
 	@echo "  typecheck           Run Python and web type checks"
 	@echo "  dashboard           Launch Next.js dashboard"
 	@echo "  smoke-dashboard     Playwright smoke test for the Next.js dashboard"
+	@echo "  mlb-artifact-slice  Generate bounded MLB fixture-slice compare/validation artifacts"
 	@echo "  query Q=...         Query local forecast/performance DB"
 	@echo "  smoke               End-to-end smoke run"
 	@echo "  test                Run tests"
@@ -107,6 +108,9 @@ validate:
 
 compare-candidates:
 	$(PYTHON) -m src.cli compare-candidates --config $(CONFIG) $(if $(CANDIDATE_MODELS),--candidate-models "$(CANDIDATE_MODELS)",) $(if $(FEATURE_POOL),--feature-pool "$(FEATURE_POOL)",) $(if $(FEATURE_MAP_MODEL),--feature-map-model "$(FEATURE_MAP_MODEL)",)
+
+mlb-artifact-slice:
+	$(PYTHON) scripts/generate_mlb_artifact_slice.py --config $(CONFIG) --force
 
 backtest:
 	$(PYTHON) -m src.cli backtest --config $(CONFIG) $(MODEL_ARGS) $(APPROVE_FEATURE_ARGS)

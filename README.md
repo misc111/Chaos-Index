@@ -20,7 +20,7 @@ Sprint 0 is complete. The repo is now in an integrated MLB modeling-core checkpo
 - Sprint 1 data foundation: MLB config, ingest, storage, and odds lanes are live
 - Sprint 2 feature architecture: MLB-first pregame feature seams, leakage guards, and league-specific feature boundaries are active
 - Sprint 4 penalized regression and lasso credibility: penalized GLM contracts, lambda search, and opt-in lasso-credibility training/reporting lanes are live
-- Sprint 6 validation gold standard: the MLB validation pipeline now emits contract-backed validation outputs, calibration summaries, and honest penalized/credibility applicability handling
+- Sprint 6 validation gold standard: the MLB validation pipeline now emits contract-backed validation outputs, calibration summaries, and contract-backed penalized/credibility applicability handling
 - Sprint 8 dashboard/staging plumbing: MLB staging payloads and shipped-site contract are wired into the web lane
 
 Still incomplete:

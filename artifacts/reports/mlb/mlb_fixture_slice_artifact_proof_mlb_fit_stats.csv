@@ -1,0 +1,11 @@
+model_name,display_name,parameter_count,active_parameter_count,n_features,train_log_likelihood,train_deviance,train_aic,train_bic,notes,split,params
+intercept_only,Intercept Only,1,1,0,-132.23926833984532,,,,Empirical home-win base rate on the fit window,validation,p_home_win=0.546875
+glm_ridge,GLM Ridge,23,23,22,-107.13364807219077,214.26729614438153,,,penalty=l2; solver=lbfgs,validation,c=0.0625; l1_ratio=None; lambda=16; model_name=glm_ridge; penalty_family=ridge
+glm_elastic_net,Elastic Net GLM,23,22,22,-107.90183792146112,215.80367584292225,,,penalty=elasticnet; solver=saga,validation,c=0.0625; l1_ratio=0.05; lambda=16; model_name=glm_elastic_net; penalty_family=elastic_net
+glm_lasso,Lasso GLM,23,15,22,-108.09922994260441,216.19845988520882,,,penalty=l1; solver=saga,validation,c=0.25; l1_ratio=None; lambda=4; model_name=glm_lasso; penalty_family=lasso
+glm_vanilla,Vanilla GLM,23,23,22,-102.38879016978791,204.77758033957582,250.77758033957582,325.69997389621483,statsmodels.GLM(Binomial),validation,{}
+intercept_only,Intercept Only,1,1,0,-232.80220557255416,,,,Empirical home-win base rate on the fit window,test,p_home_win=0.511905
+glm_ridge,GLM Ridge,23,23,22,-202.14278609893876,404.2855721978775,,,penalty=l2; solver=lbfgs,test,c=0.03125; l1_ratio=None; lambda=32; model_name=glm_ridge; penalty_family=ridge
+glm_elastic_net,Elastic Net GLM,23,21,22,-203.44400848881432,406.88801697762864,,,penalty=elasticnet; solver=saga,test,c=0.03125; l1_ratio=0.05; lambda=32; model_name=glm_elastic_net; penalty_family=elastic_net
+glm_lasso,Lasso GLM,23,19,22,-201.17908339021736,402.3581667804347,,,penalty=l1; solver=saga,test,c=0.25; l1_ratio=None; lambda=4; model_name=glm_lasso; penalty_family=lasso
+glm_vanilla,Vanilla GLM,23,23,22,-197.26475778877847,394.52951557755694,440.52951557755694,528.3230722567107,statsmodels.GLM(Binomial),test,{}

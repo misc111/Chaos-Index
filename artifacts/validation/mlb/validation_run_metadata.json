@@ -1,0 +1,478 @@
+{
+  "archive_date": "2026-04-22",
+  "archive_dir": "validation-runs/mlb/2026-04-22/2026-04-22T20-10-09+00-00_mlb_fixture_slice_artifact_proof_validation_fixture_run",
+  "archive_id": "2026-04-22T20-10-09+00-00_mlb_fixture_slice_artifact_proof_validation_fixture_run",
+  "artifact_counts": {
+    "performance_files": 5,
+    "total_files": 108,
+    "validation_root_files": 2,
+    "validation_subdir_files": 101,
+    "validation_subdir_groups": 3
+  },
+  "artifact_groups": [
+    {
+      "files": [
+        "validation_manifest.json",
+        "validation_outputs_contract.json"
+      ],
+      "name": "validation_root",
+      "relative_dir": "."
+    },
+    {
+      "files": [
+        "diagnostics/calibration/validation_calibration_robustness.json",
+        "diagnostics/classification/validation_logit_actual_vs_predicted_curve.csv",
+        "diagnostics/classification/validation_logit_actual_vs_predicted_summary.json",
+        "diagnostics/classification/validation_logit_classification_summary.json",
+        "diagnostics/classification/validation_logit_lift_curve.csv",
+        "diagnostics/classification/validation_logit_lift_summary.json",
+        "diagnostics/classification/validation_logit_lorenz_curve.csv",
+        "diagnostics/classification/validation_logit_lorenz_summary.json",
+        "diagnostics/classification/validation_logit_operating_points.csv",
+        "diagnostics/classification/validation_logit_quantile_curve.csv",
+        "diagnostics/classification/validation_logit_quantile_summary.json",
+        "diagnostics/classification/validation_logit_roc_curve.csv",
+        "diagnostics/classification/validation_logit_roc_summary.json",
+        "diagnostics/classification/validation_logit_tossup_summary.json",
+        "diagnostics/classification/validation_logit_tossup_sweep.csv",
+        "diagnostics/collinearity/validation_collinearity_condition.csv",
+        "diagnostics/collinearity/validation_collinearity_pairs.csv",
+        "diagnostics/collinearity/validation_collinearity_structural.csv",
+        "diagnostics/collinearity/validation_collinearity_summary.json",
+        "diagnostics/collinearity/validation_collinearity_variance_decomposition.csv",
+        "diagnostics/collinearity/validation_vif.csv",
+        "diagnostics/data_quality/validation_mlb_data_quality_issues.csv",
+        "diagnostics/data_quality/validation_mlb_data_quality_summary.json",
+        "diagnostics/fragility/validation_fragility_missingness.csv",
+        "diagnostics/fragility/validation_fragility_perturbation.json",
+        "diagnostics/influence/validation_influence_summary.json",
+        "diagnostics/influence/validation_influence_top.csv",
+        "diagnostics/nonlinearity/validation_nonlinearity_curve_points.csv",
+        "diagnostics/nonlinearity/validation_nonlinearity_feature_summary.csv",
+        "diagnostics/nonlinearity/validation_nonlinearity_summary.json",
+        "diagnostics/significance/validation_information_criteria_candidates.csv",
+        "diagnostics/significance/validation_information_criteria_summary.json",
+        "diagnostics/significance/validation_significance.csv",
+        "diagnostics/stability/validation_bootstrap_coefficients.csv",
+        "diagnostics/stability/validation_bootstrap_feature_summary.csv",
+        "diagnostics/stability/validation_bootstrap_summary.json",
+        "diagnostics/stability/validation_break_test.json",
+        "diagnostics/stability/validation_coef_paths.csv",
+        "diagnostics/stability/validation_cv_coefficients.csv",
+        "diagnostics/stability/validation_cv_feature_stability.csv",
+        "diagnostics/stability/validation_cv_fold_metrics.csv",
+        "diagnostics/stability/validation_cv_summary.json"
+      ],
+      "name": "diagnostics",
+      "relative_dir": "diagnostics"
+    },
+    {
+      "files": [
+        "glm/residuals/plots/glm_validation_deviance_residuals.png",
+        "glm/residuals/plots/glm_validation_deviance_residuals_histogram.png",
+        "glm/residuals/plots/glm_validation_deviance_residuals_qq.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_bookmaker_dispersion_home_prob.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_bullpen_fatigue_edge.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_bullpen_quality_edge.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_day_game.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_division_game.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_lineup_quality_edge.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_lineup_uncertainty_index.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_market_logit_home_prob.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_market_movement_home_prob.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_market_open_home_prob.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_market_vig_free_home_prob.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_park_run_factor.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_recent_defense_edge.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_recent_offense_edge.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_rest_edge.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_starter_quality_edge.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_starter_uncertainty_index.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_team_strength_edge.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_temperature_f.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_time_to_first_pitch_hours.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_timezone_edge.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_travel_miles_edge.png",
+        "glm/residuals/plots/glm_validation_partial_residuals_wind_out_mph.png",
+        "glm/residuals/plots/glm_validation_randomized_quantile_residuals_histogram.png",
+        "glm/residuals/plots/glm_validation_randomized_quantile_residuals_qq.png",
+        "glm/residuals/plots/glm_validation_working_residuals_bookmaker_dispersion_home_prob.png",
+        "glm/residuals/plots/glm_validation_working_residuals_bullpen_fatigue_edge.png",
+        "glm/residuals/plots/glm_validation_working_residuals_bullpen_quality_edge.png",
+        "glm/residuals/plots/glm_validation_working_residuals_day_game.png",
+        "glm/residuals/plots/glm_validation_working_residuals_division_game.png",
+        "glm/residuals/plots/glm_validation_working_residuals_linear_predictor.png",
+        "glm/residuals/plots/glm_validation_working_residuals_lineup_quality_edge.png",
+        "glm/residuals/plots/glm_validation_working_residuals_lineup_uncertainty_index.png",
+        "glm/residuals/plots/glm_validation_working_residuals_market_logit_home_prob.png",
+        "glm/residuals/plots/glm_validation_working_residuals_market_movement_home_prob.png",
+        "glm/residuals/plots/glm_validation_working_residuals_market_open_home_prob.png",
+        "glm/residuals/plots/glm_validation_working_residuals_market_vig_free_home_prob.png",
+        "glm/residuals/plots/glm_validation_working_residuals_park_run_factor.png",
+        "glm/residuals/plots/glm_validation_working_residuals_recent_defense_edge.png",
+        "glm/residuals/plots/glm_validation_working_residuals_recent_offense_edge.png",
+        "glm/residuals/plots/glm_validation_working_residuals_rest_edge.png",
+        "glm/residuals/plots/glm_validation_working_residuals_starter_quality_edge.png",
+        "glm/residuals/plots/glm_validation_working_residuals_starter_uncertainty_index.png",
+        "glm/residuals/plots/glm_validation_working_residuals_team_strength_edge.png",
+        "glm/residuals/plots/glm_validation_working_residuals_temperature_f.png",
+        "glm/residuals/plots/glm_validation_working_residuals_time_to_first_pitch_hours.png",
+        "glm/residuals/plots/glm_validation_working_residuals_timezone_edge.png",
+        "glm/residuals/plots/glm_validation_working_residuals_travel_miles_edge.png",
+        "glm/residuals/plots/glm_validation_working_residuals_wind_out_mph.png",
+        "glm/residuals/validation_glm_partial_residual_bins.csv",
+        "glm/residuals/validation_glm_residual_feature_summary.csv",
+        "glm/residuals/validation_glm_residual_summary.json",
+        "glm/residuals/validation_glm_working_residual_bins_features.csv",
+        "glm/residuals/validation_glm_working_residual_bins_linear_predictor.csv",
+        "glm/residuals/validation_glm_working_residual_bins_weight.csv"
+      ],
+      "name": "glm",
+      "relative_dir": "glm"
+    },
+    {
+      "files": [
+        "split/validation_split_summary.json"
+      ],
+      "name": "split",
+      "relative_dir": "split"
+    },
+    {
+      "files": [
+        "actual_vs_predicted.png",
+        "lift.png",
+        "lorenz.png",
+        "quantile.png",
+        "roc.png"
+      ],
+      "name": "performance",
+      "relative_dir": "performance"
+    }
+  ],
+  "data_origin": "synthetic_fixture",
+  "execution_data_scope": "mlb_fixture_slice",
+  "execution_label_class": "fixture_or_demo",
+  "execution_metadata": {
+    "artifact_purpose": "prove real MLB report and validation artifact paths through real services",
+    "data_origin": "synthetic_fixture",
+    "execution_data_scope": "mlb_fixture_slice",
+    "execution_label_class": "fixture_or_demo",
+    "execution_source_label": "deterministic MLB fixture slice generated by scripts/generate_mlb_artifact_slice.py",
+    "feature_count": 23,
+    "fixture_rows": 480,
+    "full_mlb_blocker": "Local MLB processed features and historical manifest were absent in this worktree; this run uses a bounded fixture slice instead of claiming production data coverage.",
+    "production_grade": false,
+    "required_comparison_output_dir": "artifacts/reports/mlb",
+    "required_validation_output_dir": "artifacts/validation/mlb",
+    "source_label": "deterministic MLB fixture slice generated by scripts/generate_mlb_artifact_slice.py"
+  },
+  "execution_source_label": "deterministic MLB fixture slice generated by scripts/generate_mlb_artifact_slice.py",
+  "feature_set_version": "mlb_fixture_slice_v1",
+  "generated_at_utc": "2026-04-22T20:10:09+00:00",
+  "latest_performance_dir": "plots/mlb/glm/performance",
+  "latest_validation_dir": "validation/mlb",
+  "league": "MLB",
+  "model_run_id": "mlb_fixture_slice_artifact_proof_validation_fixture_run",
+  "production_grade": false,
+  "registered_sections": [
+    {
+      "file_name": "split/validation_split_summary.json",
+      "kind": "json",
+      "section": "split_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/data_quality/validation_mlb_data_quality_summary.json",
+      "kind": "json",
+      "section": "mlb_data_quality_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/data_quality/validation_mlb_data_quality_issues.csv",
+      "kind": "csv",
+      "section": "mlb_data_quality_issues",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_residual_summary.json",
+      "kind": "json",
+      "section": "glm_residual_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_residual_feature_summary.csv",
+      "kind": "csv",
+      "section": "glm_residual_feature_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_working_residual_bins_linear_predictor.csv",
+      "kind": "csv",
+      "section": "glm_working_residual_bins_linear_predictor",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_working_residual_bins_features.csv",
+      "kind": "csv",
+      "section": "glm_working_residual_bins_features",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_working_residual_bins_weight.csv",
+      "kind": "csv",
+      "section": "glm_working_residual_bins_weight",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_partial_residual_bins.csv",
+      "kind": "csv",
+      "section": "glm_partial_residual_bins",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/collinearity/validation_collinearity_summary.json",
+      "kind": "json",
+      "section": "collinearity_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/collinearity/validation_vif.csv",
+      "kind": "csv",
+      "section": "vif",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/collinearity/validation_collinearity_structural.csv",
+      "kind": "csv",
+      "section": "collinearity_structural",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/collinearity/validation_collinearity_pairs.csv",
+      "kind": "csv",
+      "section": "collinearity_pairs",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/collinearity/validation_collinearity_condition.csv",
+      "kind": "csv",
+      "section": "collinearity_condition",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/collinearity/validation_collinearity_variance_decomposition.csv",
+      "kind": "csv",
+      "section": "collinearity_variance_decomposition",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/nonlinearity/validation_nonlinearity_summary.json",
+      "kind": "json",
+      "section": "nonlinearity_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/nonlinearity/validation_nonlinearity_feature_summary.csv",
+      "kind": "csv",
+      "section": "nonlinearity_feature_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/nonlinearity/validation_nonlinearity_curve_points.csv",
+      "kind": "csv",
+      "section": "nonlinearity_curve_points",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/significance/validation_significance.csv",
+      "kind": "csv",
+      "section": "significance",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/significance/validation_information_criteria_summary.json",
+      "kind": "json",
+      "section": "information_criteria_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/significance/validation_information_criteria_candidates.csv",
+      "kind": "csv",
+      "section": "information_criteria_candidates",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/stability/validation_coef_paths.csv",
+      "kind": "csv",
+      "section": "coef_paths",
+      "tail_rows": 200
+    },
+    {
+      "file_name": "diagnostics/stability/validation_break_test.json",
+      "kind": "json",
+      "section": "break_test",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/stability/validation_cv_summary.json",
+      "kind": "json",
+      "section": "cv_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/stability/validation_cv_fold_metrics.csv",
+      "kind": "csv",
+      "section": "cv_fold_metrics",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/stability/validation_cv_feature_stability.csv",
+      "kind": "csv",
+      "section": "cv_feature_stability",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/stability/validation_cv_coefficients.csv",
+      "kind": "csv",
+      "section": "cv_coefficients",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/stability/validation_bootstrap_summary.json",
+      "kind": "json",
+      "section": "bootstrap_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/stability/validation_bootstrap_feature_summary.csv",
+      "kind": "csv",
+      "section": "bootstrap_feature_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/stability/validation_bootstrap_coefficients.csv",
+      "kind": "csv",
+      "section": "bootstrap_coefficients",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/influence/validation_influence_top.csv",
+      "kind": "csv",
+      "section": "influence_top",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/influence/validation_influence_summary.json",
+      "kind": "json",
+      "section": "influence_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/fragility/validation_fragility_missingness.csv",
+      "kind": "csv",
+      "section": "fragility_missingness",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/fragility/validation_fragility_perturbation.json",
+      "kind": "json",
+      "section": "fragility_perturbation",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/calibration/validation_calibration_robustness.json",
+      "kind": "json",
+      "section": "calibration_robustness",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_quantile_summary.json",
+      "kind": "json",
+      "section": "logit_quantile_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_quantile_curve.csv",
+      "kind": "csv",
+      "section": "logit_quantile_curve",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_actual_vs_predicted_summary.json",
+      "kind": "json",
+      "section": "logit_actual_vs_predicted_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_actual_vs_predicted_curve.csv",
+      "kind": "csv",
+      "section": "logit_actual_vs_predicted_curve",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_lift_summary.json",
+      "kind": "json",
+      "section": "logit_lift_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_lift_curve.csv",
+      "kind": "csv",
+      "section": "logit_lift_curve",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_lorenz_summary.json",
+      "kind": "json",
+      "section": "logit_lorenz_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_lorenz_curve.csv",
+      "kind": "csv",
+      "section": "logit_lorenz_curve",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_roc_summary.json",
+      "kind": "json",
+      "section": "logit_roc_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_roc_curve.csv",
+      "kind": "csv",
+      "section": "logit_roc_curve",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_operating_points.csv",
+      "kind": "csv",
+      "section": "logit_operating_points",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_tossup_summary.json",
+      "kind": "json",
+      "section": "logit_tossup_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_tossup_sweep.csv",
+      "kind": "csv",
+      "section": "logit_tossup_sweep",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/classification/validation_logit_classification_summary.json",
+      "kind": "json",
+      "section": "logit_classification_summary",
+      "tail_rows": null
+    }
+  ],
+  "selected_models": [
+    "glm_ridge"
+  ],
+  "validation_contract_file": "validation_outputs_contract.json",
+  "validation_task_count": 11
+}

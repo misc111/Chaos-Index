@@ -99,6 +99,15 @@ def _default_tuning_result(complement_kind: str, model_name: str | None = None) 
         "lambda_choice_note": (
             "Insufficient rows for time-series lambda tuning; defaulted to lambda=1.0 and kept the fit fully regularized."
         ),
+        "lambda_summary": {
+            "selection_strategy": "fallback_default",
+            "penalty_family": "lasso",
+            "best_lambda": best_lambda,
+            "best_c": lambda_to_c(best_lambda),
+            "candidate_count": 0,
+            "fold_count": 0,
+            "metric_priority": ["log_loss", "brier", "accuracy"],
+        },
     }
 
 
@@ -133,11 +142,23 @@ def quick_tune_lasso_credibility(
         raise ValueError(f"Lasso credibility tuning requires target column '{target_col}'.")
     train = df[df[target_col].notna()].copy().sort_values("start_time_utc")
     if len(train) < max(80, min_train_size + 20):
-        return default_result
+        out = dict(default_result)
+        out["lambda_summary"] = {
+            **dict(default_result.get("lambda_summary", {})),
+            "selection_strategy": "fallback_insufficient_rows",
+            "grid_size": int(len(lambda_values)),
+        }
+        return out
 
     splits = time_series_splits(train, n_splits=n_splits, min_train_size=min_train_size)
     if not splits:
-        return default_result
+        out = dict(default_result)
+        out["lambda_summary"] = {
+            **dict(default_result.get("lambda_summary", {})),
+            "selection_strategy": "fallback_no_valid_splits",
+            "grid_size": int(len(lambda_values)),
+        }
+        return out
 
     rows: list[dict[str, Any]] = []
     fold_rows: list[dict[str, Any]] = []
@@ -201,6 +222,12 @@ def quick_tune_lasso_credibility(
     if not rows:
         out = dict(default_result)
         out["fold_metrics"] = fold_rows
+        out["lambda_summary"] = {
+            **dict(default_result.get("lambda_summary", {})),
+            "selection_strategy": "fallback_no_scored_candidates",
+            "grid_size": int(len(lambda_values)),
+            "fold_count": int(len(splits)),
+        }
         return out
 
     best = sorted(rows, key=lambda row: (row["log_loss"], row["brier"], -row["accuracy"]))[0]
@@ -220,6 +247,20 @@ def quick_tune_lasso_credibility(
             "Selected lambda with rolling time-series splits using mean log loss, "
             "then Brier score and accuracy as tiebreakers."
         ),
+        "lambda_summary": {
+            "selection_strategy": "time_series_cv",
+            "penalty_family": "lasso",
+            "best_lambda": best_lambda,
+            "best_c": float(best["c"]),
+            "candidate_count": int(len(rows)),
+            "grid_size": int(len(lambda_values)),
+            "fold_count": int(len(splits)),
+            "metric_priority": ["log_loss", "brier", "accuracy"],
+            "best_log_loss": float(best["log_loss"]),
+            "best_brier": float(best["brier"]),
+            "best_accuracy": float(best["accuracy"]),
+            "best_auc": float(best["auc"]),
+        },
     }
 
 
@@ -309,14 +350,35 @@ def collect_lasso_credibility_artifact_payloads(
         model = resolved_models.get(model_name)
         if not isinstance(model, LassoCredibilityModel):
             continue
+        tuning_payload = dict(resolved_tuning.get(model_name) or {})
+        fit_summary = model.fit_summary()
+        lambda_summary = dict(fit_summary.get("lambda_summary", {}))
+        tuning_lambda_summary = tuning_payload.get("lambda_summary")
+        if isinstance(tuning_lambda_summary, Mapping):
+            lambda_summary.update(dict(tuning_lambda_summary))
+        if lambda_summary:
+            fit_summary["lambda_summary"] = dict(lambda_summary)
+        lambda_choice_note = str(
+            tuning_payload.get("lambda_choice_note") or model.credibility_metadata.get("lambda_choice_note") or ""
+        )
+        if lambda_choice_note:
+            fit_summary["lambda_choice_note"] = lambda_choice_note
+        credibility_metadata = dict(model.credibility_metadata)
+        if lambda_summary:
+            relativity_summary = dict(credibility_metadata.get("relativity_summary", {}))
+            relativity_summary["lambda_summary"] = dict(lambda_summary)
+            credibility_metadata["relativity_summary"] = relativity_summary
+            credibility_metadata["lambda_summary"] = dict(lambda_summary)
+        if lambda_choice_note:
+            credibility_metadata["lambda_choice_note"] = lambda_choice_note
         payloads[model_name] = {
-            "fit_summary": model.fit_summary(),
+            "fit_summary": fit_summary,
             "penalty": build_lasso_credibility_penalty_selection(
                 model_name,
                 model=model,
-                tuning=resolved_tuning.get(model_name),
+                tuning=tuning_payload,
             ),
-            "credibility_metadata": dict(model.credibility_metadata),
+            "credibility_metadata": credibility_metadata,
         }
     return payloads
 
@@ -372,6 +434,15 @@ def build_lasso_credibility_contracts(
     else:
         train_metrics = dict(metrics_summary)
     fit_summary = model.fit_summary()
+    lambda_summary = dict(fit_summary.get("lambda_summary", {}))
+    tuning_lambda_summary = tuning_payload.get("lambda_summary")
+    if isinstance(tuning_lambda_summary, Mapping):
+        lambda_summary.update(dict(tuning_lambda_summary))
+    if lambda_summary:
+        fit_summary["lambda_summary"] = dict(lambda_summary)
+    fit_summary["lambda_choice_note"] = str(
+        tuning_payload.get("lambda_choice_note") or model.credibility_metadata.get("lambda_choice_note") or ""
+    )
     fit_summary["driver_source_model"] = str(model_payload.get("driver_source_model") or "glm_lasso")
     fit_summary["planned_model_key"] = resolved_model_name
 
@@ -387,6 +458,14 @@ def build_lasso_credibility_contracts(
         active_parameter_count=int(len(active_features) + (abs(model.intercept_scaled) > ACTIVE_COEF_TOLERANCE)),
         active_features=active_features,
     )
+    relativity_summary = dict(model.credibility_metadata.get("relativity_summary", {}))
+    if lambda_summary:
+        relativity_summary["lambda_summary"] = dict(lambda_summary)
+    p_values_behavior = str(
+        model.credibility_metadata.get("p_values_behavior") or fit_summary.get("p_values_behavior") or ""
+    )
+    if p_values_behavior:
+        relativity_summary["p_values_behavior"] = p_values_behavior
     credibility = LassoCredibilityMetadata(
         model_name=resolved_model_name,
         complement_kind=str(model.credibility_metadata["complement_kind"]),
@@ -395,7 +474,7 @@ def build_lasso_credibility_contracts(
         offset_scale=str(model.credibility_metadata["offset_scale"]),
         driver_features=list(model.credibility_metadata.get("driver_features", [])),
         complement_summary=dict(model.credibility_metadata.get("complement_summary", {})),
-        relativity_summary=dict(model.credibility_metadata.get("relativity_summary", {})),
+        relativity_summary=relativity_summary,
         exposure_summary=dict(model.credibility_metadata.get("exposure_summary", {})),
         lambda_choice_note=str(
             tuning_payload.get("lambda_choice_note") or model.credibility_metadata.get("lambda_choice_note") or ""

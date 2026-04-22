@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -12,7 +13,13 @@ from src.research.candidate_models import (
     PenalizedLogitCandidate,
     VanillaGLMBinomialCandidate,
 )
-from src.research.model_comparison import CandidateSpec, _feature_screening, run_candidate_model_comparison
+from src.research.model_comparison import (
+    CandidateSpec,
+    ComparisonRunResult,
+    _feature_screening,
+    run_candidate_model_comparison,
+)
+from src.services.model_compare import compare_candidate_models
 
 
 def _synthetic_candidate_frame(n: int = 210) -> pd.DataFrame:
@@ -108,10 +115,10 @@ def test_glmm_candidate_predicts_probabilities_for_seen_and_unseen_teams():
 def test_candidate_model_comparison_writes_report_bundle(tmp_path, monkeypatch):
     df = _synthetic_candidate_frame(210)
     cfg = load_config("configs/default.yaml")
-    cfg.data.league = "NHL"
+    cfg.data.league = "MLB"
     cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
     cfg.paths.processed_dir = str(tmp_path / "processed")
-    cfg.paths.db_path = str(tmp_path / "processed" / "nhl_forecast.db")
+    cfg.paths.db_path = str(tmp_path / "processed" / "mlb_forecast.db")
     cfg.modeling.cv_splits = 2
 
     processed_dir = tmp_path / "processed"
@@ -194,9 +201,19 @@ def test_candidate_model_comparison_writes_report_bundle(tmp_path, monkeypatch):
 
     assert result.report_path.exists()
     assert result.summary_path.exists()
+    assert result.report_path.parent == (tmp_path / "artifacts" / "reports" / "mlb")
+    history_report = tmp_path / "artifacts" / "reports" / "history" / result.report_path.name
+    assert not history_report.exists()
     assert result.validation_metrics_path.exists()
     assert result.test_metrics_path.exists()
     assert result.bootstrap_path.exists()
+    assert result.candidate_scorecards_path.exists()
+    assert result.candidate_scorecards_contract_path.exists()
+    assert result.recommendation_path.exists()
+    assert result.leaderboard_path is not None and result.leaderboard_path.exists()
+    assert result.leaderboard_json_path is not None and result.leaderboard_json_path.exists()
+    assert result.recommendation_surface_path is not None and result.recommendation_surface_path.exists()
+    assert result.artifact_manifest_path is not None and result.artifact_manifest_path.exists()
     assert result.recommendation_model in result.test_metrics["model_name"].tolist()
     report_text = result.report_path.read_text()
     assert "This comparison is a research screen only" in report_text
@@ -205,6 +222,162 @@ def test_candidate_model_comparison_writes_report_bundle(tmp_path, monkeypatch):
     assert "promotion_decision" in summary_payload
     assert summary_payload["promotion_decision"]["status"] in {"research_recommended", "research_hold"}
     assert summary_payload["promotion_decision"]["rationale"]
+    assert summary_payload["metadata"]["leaderboard_preview"]
+    assert summary_payload["metadata"]["recommendation_surface"]["decision"]["recommended_model"]
+    first_scorecard = summary_payload["candidate_scorecards"][0]
+    assert "log_loss_improvement_vs_intercept" in first_scorecard["validation_metrics"]
+    assert "recommendation_tier" in first_scorecard["complement_summary"]
+
+
+def test_compare_candidate_models_generates_mlb_service_output(tmp_path, monkeypatch):
+    cfg = load_config("configs/default.yaml")
+    cfg.data.league = "MLB"
+    cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
+    cfg.paths.processed_dir = str(tmp_path / "processed")
+    cfg.paths.db_path = str(tmp_path / "processed" / "mlb_forecast.db")
+    Path(cfg.paths.processed_dir).mkdir(parents=True, exist_ok=True)
+
+    history_dir = tmp_path / "artifacts" / "reports" / "history"
+    history_dir.mkdir(parents=True, exist_ok=True)
+
+    report_path = history_dir / "unit_mlb_service_report.md"
+    summary_path = history_dir / "unit_mlb_service_summary.json"
+    candidate_scorecards_path = history_dir / "unit_mlb_service_candidate_scorecards.csv"
+    candidate_scorecards_contract_path = history_dir / "unit_mlb_service_candidate_scorecards.json"
+    recommendation_path = history_dir / "unit_mlb_service_recommendation.json"
+    leaderboard_json_path = history_dir / "unit_mlb_service_leaderboard.json"
+    recommendation_surface_path = history_dir / "unit_mlb_service_surface.json"
+    validation_metrics_path = history_dir / "unit_mlb_service_validation.csv"
+    test_metrics_path = history_dir / "unit_mlb_service_test.csv"
+    bootstrap_path = history_dir / "unit_mlb_service_bootstrap.csv"
+    fit_stats_path = history_dir / "unit_mlb_service_fit_stats.csv"
+    cv_path = history_dir / "unit_mlb_service_cv.csv"
+
+    report_path.write_text("# unit report\n")
+    candidate_scorecards_path.write_text("model_name\nglm_ridge\n")
+    candidate_scorecards_contract_path.write_text(json.dumps([{"model_name": "glm_ridge"}]) + "\n")
+    recommendation_path.write_text(
+        json.dumps(
+            {
+                "recommended_model": "glm_ridge",
+                "baseline_model": "intercept_only",
+                "status": "research_recommended",
+                "rationale": "unit",
+                "evidence": {},
+                "rejected_models": {},
+            }
+        )
+        + "\n"
+    )
+    leaderboard_json_path.write_text(json.dumps([{"model_name": "glm_ridge", "final_holdout_rank": 1}]) + "\n")
+    recommendation_surface_path.write_text(
+        json.dumps({"decision": {"recommended_model": "glm_ridge"}, "top_candidates": []}) + "\n"
+    )
+    validation_metrics_path.write_text("model_name,log_loss\nglm_ridge,0.6\n")
+    test_metrics_path.write_text("model_name,log_loss\nglm_ridge,0.5\n")
+    bootstrap_path.write_text("reference_model,comparison_model,delta_log_loss_mean\nglm_ridge,glm_vanilla,0.01\n")
+    fit_stats_path.write_text("model_name,n_features\nglm_ridge,2\n")
+    cv_path.write_text("model_name,mean_log_loss\nglm_ridge,0.6\n")
+
+    summary_payload = {
+        "league": "MLB",
+        "report_slug": "unit_mlb_service",
+        "candidate_scorecards": [
+            {
+                "model_name": "glm_ridge",
+                "validation_metrics": {"final_holdout_log_loss": 0.5},
+                "complement_summary": {"display_name": "GLM Ridge", "recommendation_tier": "research_screen_leader"},
+            }
+        ],
+        "promotion_decision": {
+            "recommended_model": "glm_ridge",
+            "baseline_model": "intercept_only",
+            "status": "research_recommended",
+            "rationale": "unit rationale",
+            "evidence": {},
+            "rejected_models": {},
+        },
+        "artifacts": {
+            "candidate_scorecards_path": str(candidate_scorecards_path),
+            "candidate_scorecards_contract_path": str(candidate_scorecards_contract_path),
+            "recommendation_path": str(recommendation_path),
+            "recommendation_surface_path": str(recommendation_surface_path),
+            "leaderboard_json_path": str(leaderboard_json_path),
+            "cv_path": str(cv_path),
+        },
+        "metadata": {
+            "recommended_display_name": "GLM Ridge",
+            "recommendation_surface": {"decision": {"recommended_model": "glm_ridge"}},
+        },
+    }
+    summary_path.write_text(json.dumps(summary_payload) + "\n")
+
+    fake_result = ComparisonRunResult(
+        league="MLB",
+        report_slug="unit_mlb_service",
+        report_path=report_path,
+        summary_path=summary_path,
+        candidate_scorecards_path=candidate_scorecards_path,
+        candidate_scorecards_contract_path=candidate_scorecards_contract_path,
+        recommendation_path=recommendation_path,
+        validation_metrics_path=validation_metrics_path,
+        test_metrics_path=test_metrics_path,
+        bootstrap_path=bootstrap_path,
+        fit_stats_path=fit_stats_path,
+        cv_path=cv_path,
+        recommendation_model="glm_ridge",
+        recommendation_display_name="GLM Ridge",
+        validation_metrics=pd.DataFrame(),
+        test_metrics=pd.DataFrame(),
+        bootstrap_summary=pd.DataFrame(),
+        leaderboard_json_path=leaderboard_json_path,
+        recommendation_surface_path=recommendation_surface_path,
+    )
+
+    monkeypatch.setattr(
+        "src.services.model_compare.run_candidate_model_comparison",
+        lambda *args, **kwargs: fake_result,
+    )
+    result = compare_candidate_models(cfg, report_slug="unit_mlb_service", bootstrap_samples=20)
+
+    assert result.service_output_path is not None
+    assert result.service_output_path.exists()
+    service_payload = json.loads(result.service_output_path.read_text())
+    assert service_payload["league"] == "MLB"
+    assert service_payload["report_lane"] == "mlb"
+    assert service_payload["recommended_model"] == "glm_ridge"
+    assert service_payload["promotion_decision"]["status"] == "research_recommended"
+    assert service_payload["manifest_path"].endswith("candidate_model_comparison_latest_manifest.json")
+    manifest_payload = json.loads(Path(service_payload["manifest_path"]).read_text())
+    assert manifest_payload["report_lane"] == "mlb"
+    mlb_dir = tmp_path / "artifacts" / "reports" / "mlb"
+    assert Path(service_payload["canonical_artifact_root"]) == mlb_dir
+    assert Path(manifest_payload["canonical_artifact_root"]) == mlb_dir
+    expected_material_names = {
+        "report_path": report_path.name,
+        "summary_path": summary_path.name,
+        "candidate_scorecards_path": candidate_scorecards_path.name,
+        "candidate_scorecards_contract_path": candidate_scorecards_contract_path.name,
+        "recommendation_path": recommendation_path.name,
+        "recommendation_surface_path": recommendation_surface_path.name,
+        "leaderboard_json_path": leaderboard_json_path.name,
+    }
+    for key, file_name in expected_material_names.items():
+        canonical_path = Path(manifest_payload["material_artifacts"][key])
+        assert canonical_path == mlb_dir / file_name
+        assert canonical_path.exists()
+        assert "reports/history" not in canonical_path.as_posix()
+    assert service_payload["material_artifacts"] == manifest_payload["material_artifacts"]
+    assert Path(service_payload["report_path"]) == mlb_dir / report_path.name
+    assert Path(service_payload["summary_path"]) == mlb_dir / summary_path.name
+
+    persisted_summary = json.loads(result.summary_path.read_text())
+    assert persisted_summary["artifacts"]["service_output_path"]
+    assert persisted_summary["artifacts"]["mlb_service_output_path"]
+    assert persisted_summary["artifacts"]["mlb_service_manifest_path"]
+    assert persisted_summary["artifacts"]["mlb_latest_material_artifacts"] == manifest_payload["material_artifacts"]
+    assert report_path.exists()
+    assert "reports/history" not in json.dumps(persisted_summary["artifacts"]["mlb_latest_material_artifacts"])
 
 
 def test_candidate_model_comparison_can_use_production_feature_map_for_penalized_glms(tmp_path, monkeypatch):

@@ -289,6 +289,20 @@ def run_validation_outputs(result: dict[str, Any], cfg: AppConfig) -> Validation
     return run_validation_pipeline(result, cfg)
 
 
+def _persist_validation_contract(result: dict[str, Any], validation_outputs: ValidationOutputs) -> None:
+    run_payload = dict(result.get("run_payload", {}))
+    validation_records = [dict(record) for record in validation_outputs.task_records]
+    run_payload["validation_outputs"] = validation_records
+
+    run_contract = dict(run_payload.get("run_contract", {}))
+    run_contract["validation_outputs"] = validation_records
+    run_payload["run_contract"] = run_contract
+
+    payload_path = Path(result["model_dir"]) / "run_payload.json"
+    payload_path.write_text(json.dumps(run_payload, indent=2, sort_keys=True))
+    result["run_payload"] = run_payload
+
+
 def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_changes: bool = False) -> None:
     def emit_train_progress(event: dict[str, Any]) -> None:
         print(f"TRAIN_PROGRESS::{json.dumps(event, sort_keys=True)}", flush=True)
@@ -411,6 +425,7 @@ def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_
     )
 
     validation_outputs = run_validation_outputs(result, cfg)
+    _persist_validation_contract(result, validation_outputs)
     validation_rows = []
     validation_root = Path(cfg.paths.artifacts_dir) / "validation" / str(cfg.data.league).lower()
     primary_model_name = result["run_payload"].get("glm_primary_model")

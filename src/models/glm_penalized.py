@@ -194,9 +194,21 @@ class PenalizedGLMModel(BaseProbModel):
         return [str(feature) for feature in frame["feature"].tolist() if str(feature).strip()]
 
     def active_coefficient_summary(self, top_n: int = 8) -> list[dict[str, Any]]:
-        frame = self.coef_frame(active_only=True, top_n=top_n)
+        active_frame = self.coef_frame(active_only=True)
+        frame = active_frame.head(max(int(top_n), 0)).reset_index(drop=True)
+        total_abs_scaled = float(active_frame["abs_coef_scaled"].sum()) if not active_frame.empty else 0.0
+        total_abs_original = (
+            float(active_frame["abs_coef_original"].dropna().sum())
+            if "abs_coef_original" in active_frame.columns and not active_frame["abs_coef_original"].dropna().empty
+            else 0.0
+        )
         rows: list[dict[str, Any]] = []
         for row in frame.itertuples(index=False):
+            abs_scaled_share = float(row.abs_coef_scaled / total_abs_scaled) if total_abs_scaled > 0 else None
+            has_original = bool(np.isfinite(row.abs_coef_original))
+            abs_original_share = float(row.abs_coef_original / total_abs_original) if has_original and total_abs_original > 0 else None
+            odds_multiplier_1sd = float(np.exp(row.coef_scaled)) if np.isfinite(row.coef_scaled) else None
+            direction = "positive" if int(row.sign) > 0 else ("negative" if int(row.sign) < 0 else "zero")
             rows.append(
                 {
                     "feature": str(row.feature),
@@ -206,23 +218,94 @@ class PenalizedGLMModel(BaseProbModel):
                     "abs_coef_original": float(row.abs_coef_original) if np.isfinite(row.abs_coef_original) else None,
                     "sign": int(row.sign),
                     "active_rank": None if pd.isna(row.active_rank) else int(row.active_rank),
+                    "direction": direction,
+                    "abs_coef_scaled_share": abs_scaled_share,
+                    "abs_coef_original_share": abs_original_share,
+                    "odds_multiplier_1sd": odds_multiplier_1sd,
                 }
             )
         return rows
 
+    def active_coefficient_totals(self, top_n: int = 8) -> dict[str, Any]:
+        top_n_requested = max(int(top_n), 0)
+        active_frame = self.coef_frame(active_only=True)
+        top_frame = active_frame.head(top_n_requested)
+        abs_scaled_total = float(active_frame["abs_coef_scaled"].sum()) if not active_frame.empty else 0.0
+        abs_scaled_top_n = float(top_frame["abs_coef_scaled"].sum()) if not top_frame.empty else 0.0
+        signs = active_frame["sign"].astype(int) if not active_frame.empty else pd.Series([], dtype=int)
+        positive_count = int((signs > 0).sum()) if not active_frame.empty else 0
+        negative_count = int((signs < 0).sum()) if not active_frame.empty else 0
+        zero_count = int((signs == 0).sum()) if not active_frame.empty else 0
+        top_row = active_frame.iloc[0] if not active_frame.empty else None
+        return {
+            "top_n_requested": int(top_n_requested),
+            "top_n_effective": int(len(top_frame)),
+            "active_parameter_count": int(len(active_frame)),
+            "abs_coef_scaled_total": float(abs_scaled_total),
+            "abs_coef_scaled_top_n": float(abs_scaled_top_n),
+            "top_n_abs_coef_scaled_share": (
+                float(abs_scaled_top_n / abs_scaled_total) if abs_scaled_total > 0 else None
+            ),
+            "positive_count": positive_count,
+            "negative_count": negative_count,
+            "zero_count": zero_count,
+            "strongest_feature": None if top_row is None else str(top_row["feature"]),
+            "strongest_abs_coef_scaled": (
+                None if top_row is None else float(top_row["abs_coef_scaled"])
+            ),
+        }
+
     def coefficient_path_metadata(self, top_n: int = 8) -> dict[str, Any]:
+        top_n_requested = max(int(top_n), 0)
         frame = self.coef_frame()
+        top_frame = frame.head(top_n_requested)
+        active_features = self.active_features()
+        n_features_total = int(len(frame))
+        n_features_active = int(len(active_features))
+        n_features_inactive = int(max(n_features_total - n_features_active, 0))
+        active_totals = self.active_coefficient_totals(top_n=top_n)
+
+        top_path_rows: list[dict[str, Any]] = []
+        for row in top_frame.itertuples(index=False):
+            top_path_rows.append(
+                {
+                    "feature": str(row.feature),
+                    "coef_scaled": float(row.coef_scaled),
+                    "coef_original": float(row.coef_original) if np.isfinite(row.coef_original) else None,
+                    "abs_coef_scaled": float(row.abs_coef_scaled),
+                    "abs_coef_original": float(row.abs_coef_original) if np.isfinite(row.abs_coef_original) else None,
+                    "active": bool(row.active),
+                    "active_rank": None if pd.isna(row.active_rank) else int(row.active_rank),
+                    "sign": int(row.sign),
+                }
+            )
         return {
             "path_columns": [str(column) for column in frame.columns],
             "sort_key": "abs_coef_scaled_desc",
-            "top_feature_names": [str(value) for value in frame.head(max(int(top_n), 0))["feature"].tolist()],
-            "active_feature_names": self.active_features(),
+            "top_n_requested": int(top_n_requested),
+            "top_n_effective": int(len(top_path_rows)),
+            "top_feature_names": [str(value) for value in top_frame["feature"].tolist()],
+            "top_path_rows": top_path_rows,
+            "active_feature_names": active_features,
+            "n_features_total": n_features_total,
+            "n_features_active": n_features_active,
+            "n_features_inactive": n_features_inactive,
+            "active_fraction": float(n_features_active / n_features_total) if n_features_total > 0 else 0.0,
+            "active_sign_counts": {
+                "positive": int(active_totals["positive_count"]),
+                "negative": int(active_totals["negative_count"]),
+                "zero": int(active_totals["zero_count"]),
+            },
+            "active_abs_coef_scaled_total": float(active_totals["abs_coef_scaled_total"]),
+            "top_n_abs_coef_scaled_share": active_totals["top_n_abs_coef_scaled_share"],
+            "active_threshold_abs_coef_scaled": float(ACTIVE_COEF_TOLERANCE),
             "parameterization": self.penalty_metadata(),
         }
 
     def fit_metadata_dict(self, top_n: int = 8) -> dict[str, Any]:
         intercept_scaled = float(np.asarray(self.model.intercept_, dtype=float)[0])
         active_features = self.active_features()
+        active_totals = self.active_coefficient_totals(top_n=top_n)
         return {
             **self.penalty_metadata(),
             "target_col": self.fit_target_col,
@@ -230,6 +313,7 @@ class PenalizedGLMModel(BaseProbModel):
             "feature_count": int(len(self.feature_columns)),
             "active_parameter_count": int(len(active_features)),
             "active_features": active_features,
+            "active_coefficient_totals": active_totals,
             "active_coefficient_summary": self.active_coefficient_summary(top_n=top_n),
             "coefficient_columns": [str(column) for column in self.coef_frame().columns],
             "coefficient_path_metadata": self.coefficient_path_metadata(top_n=top_n),

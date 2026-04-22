@@ -5,7 +5,13 @@ import yaml
 
 from src.registry.models import model_manifest_payload
 from src.training.model_catalog import (
+    BASELINE_MODEL_NAMES,
     CAS_CORE_FAMILY_CATALOG,
+    CORE_MODEL_NAMES,
+    DEFAULT_MODEL_NAMES,
+    EXPERIMENTAL_MODEL_NAMES,
+    GOVERNANCE_COMPARISON_GROUPS,
+    MODEL_SELECTION_GROUP_ALIASES,
     PENALIZED_CORE_MODEL_NAMES,
     PLANNED_CREDIBILITY_MODEL_NAMES,
     normalize_selected_models,
@@ -30,6 +36,20 @@ def test_mlb_active_model_feature_map_stays_cas_core_by_default() -> None:
 def test_mlb_lasso_credibility_models_are_trainable_but_not_default_enabled() -> None:
     assert normalize_selected_models(["market_offset_lasso"]) == ["glm_lasso_market_credibility"]
     assert normalize_selected_models(["prior_offset_lasso"]) == ["glm_lasso_prior_credibility"]
+
+
+def test_mlb_group_tokens_expand_to_governance_aligned_model_sets() -> None:
+    assert normalize_selected_models(["core_default"]) == DEFAULT_MODEL_NAMES
+    assert normalize_selected_models(["core"]) == CORE_MODEL_NAMES
+    assert normalize_selected_models(["baseline"]) == BASELINE_MODEL_NAMES
+    assert normalize_selected_models(["experimental"]) == EXPERIMENTAL_MODEL_NAMES
+    assert normalize_selected_models(["challengers"]) == EXPERIMENTAL_MODEL_NAMES
+    assert normalize_selected_models(["theory_core_opt_in"]) == PLANNED_CREDIBILITY_MODEL_NAMES
+    assert normalize_selected_models(["core_default", "theory_core_opt_in"]) == [
+        *DEFAULT_MODEL_NAMES,
+        *PLANNED_CREDIBILITY_MODEL_NAMES,
+    ]
+    assert MODEL_SELECTION_GROUP_ALIASES["experimental_challengers"] == tuple(EXPERIMENTAL_MODEL_NAMES)
 
 
 def test_mlb_non_cas_challengers_are_quarantined_to_experimental_lane() -> None:
@@ -87,3 +107,25 @@ def test_mlb_credibility_catalog_and_guardrails_stay_coherent() -> None:
     assert payload["models"]["glm_lasso_prior_credibility"]["complement_column"] == "prior_model_offset_logit"
     assert "market_offset_logit" in guardrails["glm_lasso_market_credibility"]["blocked_features"]
     assert "prior_model_offset_logit" in guardrails["glm_lasso_prior_credibility"]["blocked_features"]
+
+
+def test_mlb_comparison_profiles_align_with_catalog_governance() -> None:
+    feature_map_payload = yaml.safe_load(open("configs/model_feature_map_mlb.yaml").read()) or {}
+    guardrails_payload = yaml.safe_load(open("configs/model_feature_guardrails_mlb.yaml").read()) or {}
+    comparison_profiles = feature_map_payload.get("comparison_reporting_profiles", {})
+    policy_profiles = guardrails_payload.get("comparison_reporting_guardrails", {})
+
+    assert set(comparison_profiles) == set(GOVERNANCE_COMPARISON_GROUPS)
+    assert set(policy_profiles) == set(GOVERNANCE_COMPARISON_GROUPS)
+    assert comparison_profiles["theory_core_default"]["model_keys"] == DEFAULT_MODEL_NAMES
+    assert comparison_profiles["theory_core_opt_in"]["model_keys"] == PLANNED_CREDIBILITY_MODEL_NAMES
+    assert comparison_profiles["baseline_references"]["model_keys"] == BASELINE_MODEL_NAMES
+    assert comparison_profiles["experimental_challengers"]["model_keys"] == [
+        "gbdt",
+        "rf",
+        "bayes_bt_state_space",
+        "nn_mlp",
+    ]
+    assert comparison_profiles["experimental_challengers"]["champion_eligible"] is False
+    assert policy_profiles["theory_core_default"]["champion_eligible"] is True
+    assert policy_profiles["experimental_challengers"]["promotion_gate"] == "explicit_opt_in_only"

@@ -4,10 +4,91 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any, Mapping
 
 import pandas as pd
 
 from src.training.progress import ProgressCallback, emit_progress
+
+
+def _write_json_artifact(path: Path, payload: Mapping[str, Any]) -> None:
+    path.write_text(json.dumps(dict(payload), indent=2, sort_keys=True))
+
+
+def _write_frame_artifact(path: Path, frame: pd.DataFrame) -> None:
+    frame.to_csv(path, index=False)
+
+
+def _relativity_frame_from_metadata(metadata: Mapping[str, Any] | None) -> pd.DataFrame:
+    payload = dict(metadata or {})
+    relativity = payload.get("relativity_summary")
+    if not isinstance(relativity, Mapping):
+        return pd.DataFrame()
+
+    rows: list[dict[str, Any]] = []
+    for direction, field_name in (
+        ("positive", "top_positive_relativities"),
+        ("negative", "top_negative_relativities"),
+    ):
+        values = relativity.get(field_name)
+        if not isinstance(values, list):
+            continue
+        for rank, row in enumerate(values, start=1):
+            if not isinstance(row, Mapping):
+                continue
+            rows.append(
+                {
+                    "direction": direction,
+                    "rank": int(rank),
+                    "feature": str(row.get("feature") or ""),
+                    "coef_original": row.get("coef_original"),
+                    "odds_ratio": row.get("odds_ratio"),
+                }
+            )
+    if rows:
+        return pd.DataFrame(rows)
+    return pd.DataFrame(columns=["direction", "rank", "feature", "coef_original", "odds_ratio"])
+
+
+def _save_model_sidecar_artifacts(model_dir: Path, *, model_name: str, model: object) -> dict[str, str]:
+    written: dict[str, str] = {}
+
+    coef_frame_fn = getattr(model, "coef_frame", None)
+    if callable(coef_frame_fn):
+        try:
+            coef_frame = coef_frame_fn()
+        except Exception:
+            coef_frame = None
+        if isinstance(coef_frame, pd.DataFrame) and not coef_frame.empty:
+            path = model_dir / f"{model_name}_coefficients.csv"
+            _write_frame_artifact(path, coef_frame)
+            written["coefficients"] = path.name
+
+    fit_metadata_fn = getattr(model, "fit_metadata_dict", None)
+    if callable(fit_metadata_fn):
+        try:
+            fit_metadata = fit_metadata_fn()
+        except TypeError:
+            fit_metadata = fit_metadata_fn(top_n=8)
+        except Exception:
+            fit_metadata = None
+        if isinstance(fit_metadata, Mapping) and fit_metadata:
+            path = model_dir / f"{model_name}_fit_metadata.json"
+            _write_json_artifact(path, fit_metadata)
+            written["fit_metadata"] = path.name
+
+    credibility_metadata = getattr(model, "credibility_metadata", None)
+    if isinstance(credibility_metadata, Mapping) and credibility_metadata:
+        path = model_dir / f"{model_name}_credibility_metadata.json"
+        _write_json_artifact(path, credibility_metadata)
+        written["credibility_metadata"] = path.name
+
+        relativity_frame = _relativity_frame_from_metadata(credibility_metadata)
+        relativity_path = model_dir / f"{model_name}_relativity.csv"
+        _write_frame_artifact(relativity_path, relativity_frame)
+        written["relativity"] = relativity_path.name
+
+    return written
 
 
 def save_model_artifacts(
@@ -28,6 +109,7 @@ def save_model_artifacts(
         artifact_path = model_dir / f"{name}.{ext}"
         model.save(artifact_path)
         artifact_files[name] = {"binary": artifact_path.name}
+        artifact_files[name].update(_save_model_sidecar_artifacts(model_dir, model_name=name, model=model))
         emit_progress(
             progress_callback,
             {

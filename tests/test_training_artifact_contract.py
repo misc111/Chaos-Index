@@ -84,6 +84,8 @@ def test_train_and_predict_emits_model_run_contract(tmp_path: Path) -> None:
     assert artifact_rows["glm_lasso"]["lane"] == "core"
     assert artifact_rows["glm_lasso"]["penalty"]["penalty_family"] == "lasso"
     assert artifact_rows["glm_lasso"]["artifact_files"]["binary"].endswith(".joblib")
+    assert artifact_rows["glm_lasso"]["artifact_files"]["coefficients"].endswith("_coefficients.csv")
+    assert artifact_rows["glm_lasso"]["artifact_files"]["fit_metadata"].endswith("_fit_metadata.json")
     assert artifact_rows["glm_lasso"]["metrics_summary"]["train"]["log_loss"] >= 0.0
     assert artifact_rows["ensemble"]["model_family"] == "ensemble"
     assert artifact_rows["ensemble"]["artifact_files"]["upcoming_forecasts"] in {"upcoming_forecasts.parquet", "upcoming_forecasts.csv"}
@@ -117,6 +119,9 @@ def test_train_models_persists_artifact_contract_and_validation_rows(tmp_path: P
     assert params_payload["artifact_contract"]["model_name"] == "glm_ridge"
     assert Path(params_payload["run_contract_path"]).name == "run_payload.json"
     assert Path(str(ridge_row["artifact_path"])).name == "glm_ridge.joblib"
+    persisted_run_payload = json.loads(Path(params_payload["run_contract_path"]).read_text())
+    assert persisted_run_payload["validation_outputs"]
+    assert persisted_run_payload["run_contract"]["validation_outputs"]
 
     validation_rows = db.query("SELECT validation_name, artifact_path FROM validation_results")
     assert validation_rows
@@ -158,6 +163,9 @@ def test_train_and_predict_emits_lasso_credibility_contracts_end_to_end(tmp_path
     assert credibility_row["credibility"]["p_values_reported"] is False
     assert credibility_row["penalty"]["penalty_family"] == "lasso"
     assert credibility_row["artifact_files"]["binary"].endswith(".joblib")
+    assert credibility_row["artifact_files"]["coefficients"].endswith("_coefficients.csv")
+    assert credibility_row["artifact_files"]["credibility_metadata"].endswith("_credibility_metadata.json")
+    assert credibility_row["artifact_files"]["relativity"].endswith("_relativity.csv")
     assert credibility_row["fit_summary"]["fit_variant"] == "prior_offset_lasso_credibility"
 
     contract = run_payload["run_contract"]

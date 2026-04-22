@@ -158,6 +158,8 @@ The repo has several important metadata and data surfaces. The table below is th
 | `artifacts/models/` | generated runtime data | training layer | validate, run replay, model inspection | `train`, `backtest`, research flows |
 | `artifacts/validation/` | generated runtime data | evaluation/validation layer | validation API and local review | `train` and `validate` |
 | `artifacts/validation-runs/` | generated runtime data | evaluation/validation layer | archived validation review | `train` and `validate` |
+| `artifacts/reports/mlb/` | generated runtime data | MLB report layer | latest MLB candidate-comparison reports, scorecards, and manifests | `compare-candidates` and research flows |
+| `artifacts/reports/runs/` | generated runtime data | service tracker layer | per-run service metadata and metrics | training and research service flows |
 | [web/public/staging-data/](web/public/staging-data) | generated but committed | web staging snapshot layer | GitHub Pages staging site | `cd web && npm run generate:staging-data` |
 
 ## The three major execution surfaces
@@ -727,7 +729,7 @@ The end-to-end pipeline looks like this:
 3. Raw snapshot persistence into `data/raw/` plus `raw_snapshots`
 4. Normalized interim tables into `data/interim/<league>/`
 5. Feature build into `data/processed/<league>/features.parquet`
-6. Model train/predict into `artifacts/models/` and `artifacts/reports/runs/`
+6. Model train/predict into `artifacts/models/` and service run metadata under `artifacts/reports/runs/`
 7. Forecast and metadata persistence into SQLite tables such as:
    - `predictions`
    - `upcoming_game_forecasts`
@@ -738,8 +740,9 @@ The end-to-end pipeline looks like this:
 8. Validation outputs into:
    - `artifacts/validation/<league>/`
    - `artifacts/validation-runs/<league>/...`
-9. Dashboard APIs and query handlers read those persisted outputs
-10. Staging snapshot generation materializes selected API payloads into `web/public/staging-data/`
+9. MLB candidate-comparison reports into `artifacts/reports/mlb/`
+10. Dashboard APIs and query handlers read those persisted outputs
+11. Staging snapshot generation materializes selected API payloads into `web/public/staging-data/`
 
 This persistence-first architecture is important. The web app and query layer generally read persisted outputs rather than recomputing model behavior on demand.
 
@@ -784,6 +787,8 @@ Because the architecture is persistence-first, these are the tables and director
 | `artifacts/models/` | serialized model and run payload bundles | training/backtest/research | validate, inspection, replay |
 | `artifacts/validation/` | latest local validation snapshot | train/validate | validation API and local review |
 | `artifacts/validation-runs/` | archived immutable validation snapshots | train/validate | historical validation review |
+| `artifacts/reports/mlb/` | primary MLB report artifacts and latest candidate-comparison manifest | compare-candidates/research | model review, promotion evidence, local report inspection |
+| `artifacts/reports/history/` | retained legacy report history, mainly pre-MLB migration snapshots | older comparison flows | legacy audit only |
 | `web/public/staging-data/` | committed static dashboard payloads | staging-data generation | GitHub Pages staging site |
 
 ## Feature engineering model
@@ -1133,8 +1138,10 @@ The repo stores several distinct artifact classes:
 
 ### Report-like outputs
 
-- `artifacts/reports/history/`
-- `artifacts/reports/*latest*`
+- `artifacts/reports/mlb/`
+- `artifacts/reports/mlb/candidate_model_comparison_latest*.json`
+- `artifacts/reports/runs/`
+- `artifacts/reports/history/` for retained legacy/non-MLB history
 
 This layout suggests the repo is trying to preserve:
 

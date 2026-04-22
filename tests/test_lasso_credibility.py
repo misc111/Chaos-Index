@@ -56,6 +56,10 @@ def test_quick_tune_prior_offset_lasso_returns_best_lambda() -> None:
     assert out["best_l1_ratio"] is None
     assert len(out["results"]) >= 1
     assert all(row["complement_kind"] == "prior" for row in out["results"])
+    assert out["lambda_summary"]["selection_strategy"] == "time_series_cv"
+    assert out["lambda_summary"]["best_lambda"] == pytest.approx(out["best_lambda"])
+    assert out["lambda_summary"]["best_c"] == pytest.approx(out["best_c"])
+    assert out["lambda_summary"]["metric_priority"] == ["log_loss", "brier", "accuracy"]
 
 
 def test_build_market_offset_lasso_contracts_emits_complement_metadata() -> None:
@@ -90,14 +94,30 @@ def test_build_market_offset_lasso_contracts_emits_complement_metadata() -> None
     assert artifact.credibility.p_values_reported is False
     assert artifact.credibility.lambda_choice_note
     assert artifact.credibility.complement_summary["offset_count"] == len(df)
+    assert artifact.credibility.complement_summary["offset_p25"] < artifact.credibility.complement_summary["offset_p75"]
     assert artifact.credibility.relativity_summary["driver_feature_count"] == 3
+    assert artifact.credibility.relativity_summary["lambda_summary"]["best_lambda"] == pytest.approx(tuning["best_lambda"])
+    assert artifact.credibility.relativity_summary["lambda_summary"]["best_c"] == pytest.approx(tuning["best_c"])
+    assert "odds_ratio" in artifact.credibility.relativity_summary["coefficient_columns"]
     assert artifact.credibility.exposure_summary["mode"] == "unit_weight"
+    assert artifact.credibility.exposure_summary["exposure_total"] == pytest.approx(float(len(df)))
     assert artifact.fit_summary["fit_variant"] == "market_offset_lasso_credibility"
     assert artifact.fit_summary["p_values_reported"] is False
+    assert "not computed or reported" in artifact.fit_summary["p_values_behavior"]
+    assert artifact.fit_summary["lambda_summary"]["best_lambda"] == pytest.approx(tuning["best_lambda"])
+    assert artifact.fit_summary["lambda_summary"]["best_c"] == pytest.approx(tuning["best_c"])
+    assert artifact.fit_summary["coefficient_path_metadata"]["parameterization"]["penalty_family"] == "lasso"
+    assert "odds_ratio" in artifact.fit_summary["coefficient_columns"]
     assert "p_value" not in artifact.fit_summary
     assert scorecard.model_name == artifact.model_name
     assert scorecard.complement_summary["offset_count"] == len(df)
     assert scorecard.feature_count == 3
+
+    coef_frame = model.coef_frame()
+    assert "odds_ratio" in coef_frame.columns
+    assert "active_rank" in coef_frame.columns
+    if not coef_frame.empty:
+        assert coef_frame["abs_coef_scaled"].is_monotonic_decreasing
 
     probe = pd.DataFrame(
         {
