@@ -8,19 +8,9 @@ export const TRAINABLE_MODELS = [
   "glm_lasso_prior_credibility",
   "glm_vanilla",
   "gam_spline",
-  "mars_hinge",
   "glmm_logit",
   "dglm_margin",
-  "two_stage",
-  "goals_poisson",
-  "elo_baseline",
-  "dynamic_rating",
-  "simulation_first",
-  "gbdt",
-  "rf",
-  "bayes_bt_state_space",
-  "bayes_goals",
-  "nn_mlp"
+  "goals_poisson"
 ] as const;
 export type TrainableModel = typeof TRAINABLE_MODELS[number];
 
@@ -45,20 +35,8 @@ export const THEORY_EXTENSION_MODEL_KEYS = [
   "dglm_margin",
   "goals_poisson"
 ] as const;
-export const BASELINE_MODEL_KEYS = [
-  "elo_baseline",
-  "dynamic_rating",
-  "simulation_first"
-] as const;
-export const EXPERIMENTAL_MODEL_KEYS = [
-  "mars_hinge",
-  "two_stage",
-  "gbdt",
-  "rf",
-  "bayes_bt_state_space",
-  "bayes_goals",
-  "nn_mlp"
-] as const;
+export const BASELINE_MODEL_KEYS = [] as const;
+export const EXPERIMENTAL_MODEL_KEYS = [] as const;
 
 export const MODEL_LANE_LABELS: Record<string, string> = {
   core: "CAS core lane",
@@ -69,8 +47,8 @@ export const MODEL_LANE_LABELS: Record<string, string> = {
 export const MODEL_LANE_NOTES: Record<string, string> = {
   core: "Default MLB actuarial program driven by GLM-family, penalized GLM, and lasso credibility.",
   extension: "GLM-adjacent extension challengers with monograph traceability, opt-in outside the default core lane.",
-  baseline: "Reference models retained for sanity checks and comparison, not for champion promotion by default.",
-  experimental: "Non-CAS challengers retained only behind explicit opt-in and never treated as the default theory lane."
+  baseline: "Retired for the monograph-only MLB lane.",
+  experimental: "Retired for the monograph-only MLB lane."
 };
 export const MODEL_ALIASES: Record<string, string> = {
   glm_ridge: "glm_ridge",
@@ -93,33 +71,12 @@ export const MODEL_ALIASES: Record<string, string> = {
   vanilla_glm: "glm_vanilla",
   gam_spline: "gam_spline",
   gam: "gam_spline",
-  mars_hinge: "mars_hinge",
-  mars: "mars_hinge",
   glmm_logit: "glmm_logit",
   glmm: "glmm_logit",
   dglm_margin: "dglm_margin",
   dglm: "dglm_margin",
-  two_stage: "two_stage",
   goals_poisson: "goals_poisson",
-  goals: "goals_poisson",
-  elo_baseline: "elo_baseline",
-  elo: "elo_baseline",
-  dynamic_rating: "dynamic_rating",
-  dyn: "dynamic_rating",
-  dynamic: "dynamic_rating",
-  simulation_first: "simulation_first",
-  sim: "simulation_first",
-  simulation: "simulation_first",
-  gbdt: "gbdt",
-  gbm: "gbdt",
-  rf: "rf",
-  forest: "rf",
-  bayes_bt_state_space: "bayes_bt_state_space",
-  bayes_bt: "bayes_bt_state_space",
-  bayes_goals: "bayes_goals",
-  bayes_goals_model: "bayes_goals",
-  nn_mlp: "nn_mlp",
-  nn: "nn_mlp"
+  goals: "goals_poisson"
 };
 export const LEGACY_MODEL_KEYS: Record<string, readonly string[]> = {
   glm_ridge: [
@@ -145,17 +102,7 @@ export const MODEL_REPORT_ORDER = [
   "gam_spline",
   "glmm_logit",
   "dglm_margin",
-  "goals_poisson",
-  "elo_baseline",
-  "dynamic_rating",
-  "simulation_first",
-  "mars_hinge",
-  "two_stage",
-  "rf",
-  "gbdt",
-  "bayes_bt_state_space",
-  "bayes_goals",
-  "nn_mlp"
+  "goals_poisson"
 ] as const;
 export const MODEL_DISPLAY_LABELS: Record<string, string> = {
   glm_ridge: "GLM Ridge",
@@ -165,19 +112,9 @@ export const MODEL_DISPLAY_LABELS: Record<string, string> = {
   glm_lasso_prior_credibility: "Lasso Credibility (Prior)",
   glm_vanilla: "Vanilla GLM",
   gam_spline: "GAM Spline",
-  mars_hinge: "MARS Hinge",
   glmm_logit: "GLMM Logit",
   dglm_margin: "DGLM Margin",
-  two_stage: "Two Stage",
   goals_poisson: "Goals Pois",
-  elo_baseline: "Elo",
-  dynamic_rating: "Dyn Rating",
-  simulation_first: "Sim",
-  gbdt: "GBDT Challenger",
-  rf: "RF Challenger",
-  bayes_bt_state_space: "Bayes BT Challenger",
-  bayes_goals: "Bayes Goals Challenger",
-  nn_mlp: "NN Challenger",
   ensemble: "Ensemble"
 };
 export const MODEL_REGISTRY = {
@@ -307,22 +244,6 @@ export const MODEL_REGISTRY = {
     default_enabled: false,
     prediction_report_rank: 7
   },
-  mars_hinge: {
-    display_label: "MARS Hinge",
-    short_label: "MARS",
-    family: "nonlinear",
-    lane: "experimental",
-    theory_classification: "experimental",
-    implementation_namespace: "src.models.experimental",
-    governance_note: "Experimental hinge-basis proxy; canonical MARS is theory-compatible, but this implementation is not full MARS.",
-    aliases: [
-      "mars"
-    ],
-    legacy_model_keys: [],
-    trainable: true,
-    default_enabled: false,
-    prediction_report_rank: 8
-  },
   glmm_logit: {
     display_label: "GLMM Logit",
     short_label: "GLMM",
@@ -337,7 +258,7 @@ export const MODEL_REGISTRY = {
     legacy_model_keys: [],
     trainable: true,
     default_enabled: false,
-    prediction_report_rank: 9
+    prediction_report_rank: 8
   },
   dglm_margin: {
     display_label: "DGLM Margin",
@@ -353,21 +274,7 @@ export const MODEL_REGISTRY = {
     legacy_model_keys: [],
     trainable: true,
     default_enabled: false,
-    prediction_report_rank: 10
-  },
-  two_stage: {
-    display_label: "Two Stage",
-    short_label: "Two Stage",
-    family: "hybrid",
-    lane: "experimental",
-    theory_classification: "experimental",
-    implementation_namespace: "src.models.experimental",
-    governance_note: "Experimental proxy/hybrid lane because the current implementation uses non-CAS intermediate learners.",
-    aliases: [],
-    legacy_model_keys: [],
-    trainable: true,
-    default_enabled: false,
-    prediction_report_rank: 11
+    prediction_report_rank: 9
   },
   goals_poisson: {
     display_label: "Goals Pois",
@@ -383,137 +290,7 @@ export const MODEL_REGISTRY = {
     legacy_model_keys: [],
     trainable: true,
     default_enabled: false,
-    prediction_report_rank: 12
-  },
-  elo_baseline: {
-    display_label: "Elo",
-    short_label: "Elo",
-    family: "ratings",
-    lane: "baseline",
-    theory_classification: "experimental",
-    implementation_namespace: "src.models",
-    governance_note: "Baseline comparison lane, not champion by default.",
-    aliases: [
-      "elo"
-    ],
-    legacy_model_keys: [],
-    trainable: true,
-    default_enabled: false,
-    prediction_report_rank: 13
-  },
-  dynamic_rating: {
-    display_label: "Dyn Rating",
-    short_label: "Dyn Rating",
-    family: "ratings",
-    lane: "baseline",
-    theory_classification: "experimental",
-    implementation_namespace: "src.models",
-    governance_note: "Baseline comparison lane, not champion by default.",
-    aliases: [
-      "dyn",
-      "dynamic"
-    ],
-    legacy_model_keys: [],
-    trainable: true,
-    default_enabled: false,
-    prediction_report_rank: 14
-  },
-  simulation_first: {
-    display_label: "Sim",
-    short_label: "Sim",
-    family: "simulation",
-    lane: "baseline",
-    theory_classification: "experimental",
-    implementation_namespace: "src.models",
-    governance_note: "Baseline comparison lane, not champion by default.",
-    aliases: [
-      "sim",
-      "simulation"
-    ],
-    legacy_model_keys: [],
-    trainable: true,
-    default_enabled: false,
-    prediction_report_rank: 15
-  },
-  gbdt: {
-    display_label: "GBDT Challenger",
-    short_label: "GBDT",
-    family: "tree",
-    lane: "experimental",
-    theory_classification: "experimental",
-    implementation_namespace: "src.models.experimental",
-    governance_note: "Experimental non-CAS challenger; explicit opt-in only.",
-    aliases: [
-      "gbm"
-    ],
-    legacy_model_keys: [],
-    trainable: true,
-    default_enabled: false,
-    prediction_report_rank: 17
-  },
-  rf: {
-    display_label: "RF Challenger",
-    short_label: "RF",
-    family: "tree",
-    lane: "experimental",
-    theory_classification: "experimental",
-    implementation_namespace: "src.models.experimental",
-    governance_note: "Experimental non-CAS challenger; explicit opt-in only.",
-    aliases: [
-      "forest"
-    ],
-    legacy_model_keys: [],
-    trainable: true,
-    default_enabled: false,
-    prediction_report_rank: 16
-  },
-  bayes_bt_state_space: {
-    display_label: "Bayes BT Challenger",
-    short_label: "Bayes BT",
-    family: "bayes",
-    lane: "experimental",
-    theory_classification: "experimental",
-    implementation_namespace: "src.models.experimental",
-    governance_note: "Experimental non-CAS challenger; explicit opt-in only.",
-    aliases: [
-      "bayes_bt"
-    ],
-    legacy_model_keys: [],
-    trainable: true,
-    default_enabled: false,
-    prediction_report_rank: 18
-  },
-  bayes_goals: {
-    display_label: "Bayes Goals Challenger",
-    short_label: "Bayes Goals",
-    family: "bayes",
-    lane: "experimental",
-    theory_classification: "experimental",
-    implementation_namespace: "src.models.experimental",
-    governance_note: "Experimental non-CAS challenger; explicit opt-in only.",
-    aliases: [
-      "bayes_goals_model"
-    ],
-    legacy_model_keys: [],
-    trainable: true,
-    default_enabled: false,
-    prediction_report_rank: 19
-  },
-  nn_mlp: {
-    display_label: "NN Challenger",
-    short_label: "NN",
-    family: "neural",
-    lane: "experimental",
-    theory_classification: "experimental",
-    implementation_namespace: "src.models.experimental",
-    governance_note: "Experimental non-CAS challenger; explicit opt-in only.",
-    aliases: [
-      "nn"
-    ],
-    legacy_model_keys: [],
-    trainable: true,
-    default_enabled: false,
-    prediction_report_rank: 20
+    prediction_report_rank: 10
   }
 };
 

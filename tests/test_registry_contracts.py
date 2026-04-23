@@ -114,33 +114,17 @@ def test_generated_model_manifest_matches_code_registry_and_training_catalog() -
         "dglm_margin",
         "goals_poisson",
     ]
-    assert manifest["baseline_models"] == [
-        "elo_baseline",
-        "dynamic_rating",
-        "simulation_first",
-    ]
-    assert manifest["experimental_models"] == [
-        "mars_hinge",
-        "two_stage",
-        "gbdt",
-        "rf",
-        "bayes_bt_state_space",
-        "bayes_goals",
-        "nn_mlp",
-    ]
+    assert manifest["baseline_models"] == []
+    assert manifest["experimental_models"] == []
     assert manifest["aliases"] == MODEL_ALIASES
     assert manifest["prediction_report_order"] == MODEL_REPORT_ORDER
     assert manifest["theory_extension_models"] == THEORY_EXTENSION_MODEL_NAMES
     assert manifest["lane_labels"]["experimental"] == "Experimental challenger lane"
     assert manifest["models"]["gam_spline"]["lane"] == "extension"
-    assert manifest["models"]["mars_hinge"]["lane"] == "experimental"
     assert manifest["models"]["glm_lasso_market_credibility"]["default_enabled"] is False
     assert manifest["models"]["glm_lasso_prior_credibility"]["default_enabled"] is False
     assert manifest["models"]["gam_spline"]["default_enabled"] is False
     assert manifest["models"]["glmm_logit"]["default_enabled"] is False
-    assert manifest["models"]["elo_baseline"]["default_enabled"] is False
-    assert manifest["models"]["rf"]["default_enabled"] is False
-    assert manifest["models"]["rf"]["governance_note"] == "Experimental non-CAS challenger; explicit opt-in only."
 
 
 def test_prediction_report_order_keeps_core_rows_ahead_of_baseline_and_experimental() -> None:

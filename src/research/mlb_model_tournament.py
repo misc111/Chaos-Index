@@ -27,7 +27,7 @@ DEFAULT_ROUND_TEMPLATES = (
     ("grouped_effects", ("glm_vanilla", "glm_ridge", "glm_lasso", "glm_elastic_net", "glmm_logit", "dglm_margin")),
     (
         "nonlinear_challengers",
-        ("glm_vanilla", "glm_ridge", "glm_lasso", "glm_elastic_net", "glmm_logit", "dglm_margin", "gam_spline", "mars_hinge"),
+        ("glm_vanilla", "glm_ridge", "glm_lasso", "glm_elastic_net", "glmm_logit", "dglm_margin", "gam_spline"),
     ),
 )
 DEFAULT_VALIDATION_VARIANT = "outer_40_30_30"
@@ -766,7 +766,7 @@ def _render_theory_compliance_summary(
             "- Penalized GLM rows are evaluated through cross-validated lambda choices, proper scoring rules, calibration, and stability evidence, not p-values.",
             "- Lasso-credibility rows require explicit complement/offset documentation and no significance-testing language.",
             "- GAM, GLMM, and DGLM rows are kept as `theory-compatible extension`, not default theory-core winners.",
-            "- `mars_hinge` is labeled `experimental`: canonical MARS is traceable to the GLM monograph, but this repo implementation is a hinge-basis proxy.",
+            "- Non-monograph baseline and experimental proxy rows are retired from the active MLB monograph-only lane.",
             "- Null/intercept rows are benchmark references and are not champion candidates.",
             "- Bounded-slice artifacts are not production-grade promotion evidence.",
         ]

@@ -18,7 +18,16 @@ from src.training.model_feature_guardrails import (
 
 MODEL_FEATURE_MAP_PATH_TEMPLATE = "configs/model_feature_map_{league}.yaml"
 MODEL_FEATURE_MAP_JSON_TEMPLATE = "configs/generated/model_feature_map_{league}.json"
-RESEARCHABLE_MODELS = ["glm_ridge", "glm_elastic_net", "glm_lasso", "gbdt", "rf", "two_stage", "bayes_bt_state_space", "nn_mlp"]
+RESEARCHABLE_MODELS = [
+    "glm_ridge",
+    "glm_elastic_net",
+    "glm_lasso",
+    "glm_vanilla",
+    "gam_spline",
+    "glmm_logit",
+    "dglm_margin",
+    "goals_poisson",
+]
 
 
 @dataclass(frozen=True)

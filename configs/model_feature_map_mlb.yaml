@@ -38,14 +38,11 @@ comparison_reporting_profiles:
     note: Credibility variants stay visible as opt-in comparison rows separate from the default slate.
   baseline_references:
     lane: baseline
-    classification: theory_compatible_engineering_support
+    classification: retired
     champion_eligible: false
     report_priority: 4
-    model_keys:
-    - elo_baseline
-    - dynamic_rating
-    - simulation_first
-    note: Baseline rows provide stability context and should not be promoted by default.
+    model_keys: []
+    note: Retired for the monograph-only MLB lane.
   theory_compatible_extensions:
     lane: extension
     classification: theory-compatible extension
@@ -59,18 +56,11 @@ comparison_reporting_profiles:
     note: GLM-adjacent extension rows are traceable but stay outside the default theory-core production lane.
   experimental_challengers:
     lane: experimental
-    classification: experimental_challenger
+    classification: retired
     champion_eligible: false
     report_priority: 5
-    model_keys:
-    - mars_hinge
-    - two_stage
-    - gbdt
-    - rf
-    - bayes_bt_state_space
-    - bayes_goals
-    - nn_mlp
-    note: Non-CAS and proxy challengers remain opt-in and must be reported as challenger-only rows.
+    model_keys: []
+    note: Retired for the monograph-only MLB lane.
 models:
   glm_ridge:
     active_features:
@@ -177,118 +167,3 @@ planned_credibility_models:
     - travel_diff
     - home_field_advantage
     driver_feature_count: 8
-experimental_models:
-  two_stage:
-    active_features:
-    - diff_starting_pitcher_quality
-    - starting_pitcher_hand_matchup
-    - diff_bullpen_quality
-    - diff_bullpen_fatigue
-    - diff_lineup_talent
-    - lineup_stability_diff
-    - park_run_effect
-    - park_weather_run_effect
-    - weather_wind_run_effect
-    - rest_diff
-    - travel_diff
-    - home_field_advantage
-    - series_context_index
-    - umpire_run_effect
-    - diff_offense_form
-    - diff_pitching_form
-    feature_count: 16
-  gbdt:
-    active_features:
-    - diff_starting_pitcher_quality
-    - starting_pitcher_hand_matchup
-    - diff_bullpen_quality
-    - diff_bullpen_fatigue
-    - diff_lineup_talent
-    - lineup_stability_diff
-    - diff_lineup_availability
-    - diff_offense_form
-    - diff_pitching_form
-    - park_run_effect
-    - park_weather_run_effect
-    - weather_wind_run_effect
-    - weather_temperature_run_effect
-    - weather_humidity_run_effect
-    - umpire_run_effect
-    - rest_diff
-    - travel_diff
-    - home_field_advantage
-    - series_context_index
-    - day_game_indicator
-    - home_days_into_season
-    - away_days_into_season
-    - home_bullpen_quality_index
-    - away_bullpen_quality_index
-    - home_starting_pitcher_quality_index
-    feature_count: 25
-  rf:
-    active_features:
-    - diff_starting_pitcher_quality
-    - starting_pitcher_hand_matchup
-    - diff_bullpen_quality
-    - diff_bullpen_fatigue
-    - diff_lineup_talent
-    - lineup_stability_diff
-    - park_run_effect
-    - park_weather_run_effect
-    - weather_wind_run_effect
-    - weather_temperature_run_effect
-    - rest_diff
-    - travel_diff
-    - home_field_advantage
-    - umpire_run_effect
-    - series_context_index
-    - day_game_indicator
-    - diff_offense_form
-    - diff_pitching_form
-    - diff_lineup_availability
-    - home_days_into_season
-    feature_count: 20
-  bayes_bt_state_space:
-    active_features:
-    - diff_starting_pitcher_quality
-    - diff_bullpen_quality
-    - diff_lineup_talent
-    - park_run_effect
-    - park_weather_run_effect
-    - rest_diff
-    - travel_diff
-    - home_field_advantage
-    - series_context_index
-    - day_game_indicator
-    - umpire_run_effect
-    - diff_offense_form
-    feature_count: 12
-  nn_mlp:
-    active_features:
-    - diff_starting_pitcher_quality
-    - starting_pitcher_hand_matchup
-    - diff_bullpen_quality
-    - diff_bullpen_fatigue
-    - diff_lineup_talent
-    - diff_lineup_availability
-    - lineup_stability_diff
-    - park_run_effect
-    - park_weather_run_effect
-    - weather_wind_run_effect
-    - weather_temperature_run_effect
-    - weather_humidity_run_effect
-    - umpire_run_effect
-    - rest_diff
-    - travel_diff
-    - home_field_advantage
-    - series_context_index
-    - day_game_indicator
-    - home_days_into_season
-    - away_days_into_season
-    - home_bullpen_quality_index
-    - away_bullpen_quality_index
-    - home_starting_pitcher_quality_index
-    - away_starting_pitcher_quality_index
-    - diff_offense_form
-    - diff_pitching_form
-    feature_count: 26

@@ -18,8 +18,8 @@ tournament and the traceability matrix in
   - `core`: vanilla GLM, ridge, lasso, elastic net, and explicit lasso
     credibility lanes.
   - `extension`: GAM, GLMM, DGLM, and score/count GLM bridges.
-  - `experimental`: MARS hinge proxy, two-stage proxy, tree, neural, and
-    Bayesian challengers.
+  - `baseline` and `experimental`: retired from the active MLB monograph-only
+    lane and kept out of the canonical registry surfaces.
 - Top-level `src/models/` is reserved for core implementations and
   compatibility shims. Extension implementations live under
   `src/models/extensions/`; non-CAS and proxy implementations live under
@@ -50,7 +50,7 @@ tournament and the traceability matrix in
 2. Normalized MLB persistence
 3. Pregame feature store with leakage enforcement
 4. Core GLM / penalized GLM / lasso credibility model lane
-5. Opt-in extension and experimental challenger lanes
+5. Opt-in extension lane
 6. Validation, diagnostics, and tournament artifacts with theory labels
 7. Ensemble and betting overlays, separated from theory-core model selection
 8. MLB-only dashboard and staging delivery

@@ -202,8 +202,8 @@ def test_mlb_model_tournament_writes_manifest_ledger_and_summary(tmp_path, monke
                 "model_name": model_name,
                 "display_name": model_name.replace("_", " ").title(),
                 "params": "c=0.5" if model_name == "glm_ridge" else ("c=0.25; l1_ratio=0.5" if model_name == "glm_elastic_net" else ""),
-                "log_loss": {"glm_vanilla": 0.610, "glm_ridge": 0.570, "glm_lasso": 0.580, "glm_elastic_net": 0.560, "glmm_logit": 0.595, "dglm_margin": 0.592, "gam_spline": 0.586, "mars_hinge": 0.587}.get(model_name, 0.600),
-                "brier": {"glm_vanilla": 0.220, "glm_ridge": 0.200, "glm_lasso": 0.205, "glm_elastic_net": 0.190, "glmm_logit": 0.208, "dglm_margin": 0.207, "gam_spline": 0.202, "mars_hinge": 0.203}.get(model_name, 0.210),
+                "log_loss": {"glm_vanilla": 0.610, "glm_ridge": 0.570, "glm_lasso": 0.580, "glm_elastic_net": 0.560, "glmm_logit": 0.595, "dglm_margin": 0.592, "gam_spline": 0.586}.get(model_name, 0.600),
+                "brier": {"glm_vanilla": 0.220, "glm_ridge": 0.200, "glm_lasso": 0.205, "glm_elastic_net": 0.190, "glmm_logit": 0.208, "dglm_margin": 0.207, "gam_spline": 0.202}.get(model_name, 0.210),
             }
             for model_name in candidate_models
         ]
@@ -232,7 +232,7 @@ def test_mlb_model_tournament_writes_manifest_ledger_and_summary(tmp_path, monke
     manifest = json.loads(result.manifest_path.read_text())
     assert manifest["status"] == "complete"
     assert manifest["rounds"][0]["status"] == "completed"
-    assert manifest["rounds"][-1]["candidate_models"][-1] == "mars_hinge"
+    assert manifest["rounds"][-1]["candidate_models"][-1] == "gam_spline"
     assert manifest["candidate_scorecards_path"] == str(result.scorecards_path)
     assert manifest["current_best_models_path"] == str(current_best_models_path)
 

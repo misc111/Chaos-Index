@@ -15,8 +15,8 @@ comparison_reporting_guardrails:
   baseline_references:
     lane: baseline
     champion_eligible: false
-    promotion_gate: comparison_only
-    note: Baseline rows are retained for context and should stay out of champion promotion by default.
+    promotion_gate: retired
+    note: Baseline rows are retired for the monograph-only MLB lane.
   theory_compatible_extensions:
     lane: extension
     champion_eligible: false
@@ -25,8 +25,8 @@ comparison_reporting_guardrails:
   experimental_challengers:
     lane: experimental
     champion_eligible: false
-    promotion_gate: explicit_opt_in_only
-    note: Experimental rows remain challenger-only unless a separate governance decision explicitly broadens scope.
+    promotion_gate: retired
+    note: Experimental rows are retired for the monograph-only MLB lane.
 models:
   glm_ridge:
     blocked_features:

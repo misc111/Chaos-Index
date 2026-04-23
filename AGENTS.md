@@ -79,3 +79,10 @@
   - blockers
   - exact files touched
   - updated risks and assumptions
+
+## File Linking
+- When referencing local files in Codex responses, use clickable Markdown links with absolute paths.
+- For paths without spaces, use `[label](/absolute/path/to/file:line)`.
+- For paths with spaces, wrap the target in angle brackets so the renderer keeps the full path together: `[label](</absolute/path with spaces/to/file:line>)`.
+- This repository lives under `/Users/davidiruegas/Library/Application Support/SportsModeling`, so links to files in this repo usually need the angle-bracket form.
+- Example: [AGENTS.md](</Users/davidiruegas/Library/Application Support/SportsModeling/AGENTS.md:1>)

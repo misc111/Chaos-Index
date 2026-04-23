@@ -7,7 +7,6 @@ import {
 
 export const MODEL_TRUST_NOTES: Record<string, string> = {
   ensemble: "All models combined. Best default pick. Can share the same blind spot.",
-  elo_baseline: "Standard sports betting baseline based on past wins/losses. Good long-run read. Slow on sudden changes.",
   glm_ridge: "Ridge-penalized logistic model. Usually steady. Weird matchups can slip through.",
   glm_lasso:
     "Lasso-penalized logistic model. Good for pruning weak or redundant inputs. Can zero out small but real shared effects.",
@@ -15,21 +14,9 @@ export const MODEL_TRUST_NOTES: Record<string, string> = {
     "Elastic-net logistic model. Good when related signals travel in packs. Can still mute smaller edges if the penalty is too strong.",
   glm_vanilla: "Unpenalized logistic model. Good for checking whether regularization is washing out real signal. Most likely to overfit.",
   gam_spline: "Spline-based logistic model. Good at smooth nonlinear edges. Can get wobbly if the shape fit is too ambitious.",
-  mars_hinge: "Hinge-based nonlinear model. Good at threshold effects. Can chase sharp cut points that do not hold up.",
   glmm_logit: "Mixed-effects logistic model. Good when team-level structure matters. Can be slower and harder to keep stable.",
   dglm_margin: "Margin-first model that turns score-shape estimates into win probabilities. Good when spread shape matters. Can drift if score variance is misspecified.",
-  dynamic_rating: "Hot/cold meter. Good for momentum. Can overreact to short streaks.",
-  rf: "Experimental challenger only. Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups.",
   goals_poisson: "Score-based model. Good for normal scoring games. Messy games hurt it.",
-  gbdt: "Experimental challenger only. Machine learning model that finds hidden combos. Sometimes too confident.",
-  two_stage:
-    "Machine learning model with two steps: first predicts game type (fast/slow, close/lopsided), then predicts winner. Good when style matchups matter. If step 1 is wrong, final pick can be wrong.",
-  bayes_bt_state_space:
-    "Experimental challenger only. Tracks team strength after every game and gives a range, not just one number. Good for spotting rising/falling teams with uncertainty shown. Can move fast after injuries, trades, or short weird stretches.",
-  bayes_goals: "Experimental challenger only. Scoring strength + confidence meter. Good trend read. Can lag sudden lineup changes.",
-  simulation_first:
-    "Runs the matchup thousands of times using set assumptions (team strength, pace, and scoring). Good for seeing different paths. If those assumptions are off, this number can be off.",
-  nn_mlp: "Experimental challenger only. Machine learning model that finds subtle patterns. Hardest to explain.",
 };
 
 function titleCaseIdentifier(value: string): string {
@@ -108,10 +95,6 @@ export function predictionTrustNote(model: string, league?: string | null): stri
     return "Spline-based challenger that lets a few continuous signals bend instead of forcing everything to stay linear.";
   }
 
-  if (canonicalModel === "mars_hinge") {
-    return "Threshold-based challenger that can capture sharp regime changes in matchup features.";
-  }
-
   if (canonicalModel === "glmm_logit") {
     return "Mixed-effects challenger that keeps fixed matchup signals while allowing team-level structure to matter.";
   }
@@ -136,10 +119,6 @@ export function predictionModelHeadline(model: string, league?: string | null, a
 
   if (canonicalModel === "ensemble") {
     return "Default forecast that blends the live model stack into one probability.";
-  }
-
-  if (canonicalModel === "elo_baseline") {
-    return "Single-rating baseline built from historical results and home/away context.";
   }
 
   if (canonicalModel === "glm_ridge" && leagueCode === "NBA") {
@@ -192,10 +171,6 @@ export function predictionModelHeadline(model: string, league?: string | null, a
     return "Spline-based challenger that lets a small nonlinear feature block bend away from a straight-line fit.";
   }
 
-  if (canonicalModel === "mars_hinge") {
-    return "Hinge-based challenger that hunts for threshold-style matchup edges.";
-  }
-
   if (canonicalModel === "glmm_logit") {
     return "Mixed-effects challenger that layers team-level structure on top of fixed pregame features.";
   }
@@ -204,28 +179,12 @@ export function predictionModelHeadline(model: string, league?: string | null, a
     return "Two-step margin challenger that estimates both expected spread and spread uncertainty before deriving win odds.";
   }
 
-  if (canonicalModel === "dynamic_rating") {
-    return "Fast-moving strength estimate that reacts more quickly than Elo.";
-  }
-
   if (canonicalModel === "goals_poisson") {
     return leagueCode === "MLB"
       ? "Run-rate model that turns projected scoring and run prevention into a win probability."
       : leagueCode === "NBA"
         ? "Score-rate model that turns projected offense and defense into a win probability."
         : "Goal-rate model that turns projected scoring into a win probability.";
-  }
-
-  if (canonicalModel === "bayes_bt_state_space") {
-    return "Experimental Bayesian challenger that tracks team strength with uncertainty over time.";
-  }
-
-  if (canonicalModel === "bayes_goals") {
-    return "Experimental Bayesian challenger that estimates team strength from expected scoring rates.";
-  }
-
-  if (canonicalModel === "simulation_first") {
-    return "Scenario simulator that turns repeated matchup draws into a probability estimate.";
   }
 
   if (isExperimentalPredictionModel(canonicalModel)) {

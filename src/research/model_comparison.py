@@ -49,7 +49,6 @@ CANDIDATE_MODEL_NAMES = {
     "glmm_logit",
     "dglm_margin",
     "gam_spline",
-    "mars_hinge",
 }
 FEATURE_POOL_FULL_SCREENED = "full_screened"
 FEATURE_POOL_PRODUCTION_MODEL_MAP = "production_model_map"

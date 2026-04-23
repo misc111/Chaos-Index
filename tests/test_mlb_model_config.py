@@ -40,9 +40,7 @@ def test_mlb_lasso_credibility_models_are_trainable_but_not_default_enabled() ->
 def test_mlb_group_tokens_expand_to_governance_aligned_model_sets() -> None:
     assert normalize_selected_models(["core_default"]) == DEFAULT_MODEL_NAMES
     assert normalize_selected_models(["core"]) == CORE_MODEL_NAMES
-    assert normalize_selected_models(["baseline"]) == BASELINE_MODEL_NAMES
-    assert normalize_selected_models(["experimental"]) == EXPERIMENTAL_MODEL_NAMES
-    assert normalize_selected_models(["challengers"]) == EXPERIMENTAL_MODEL_NAMES
+    assert normalize_selected_models(["challengers"]) == THEORY_EXTENSION_MODEL_NAMES
     assert normalize_selected_models(["theory_core_opt_in"]) == PLANNED_CREDIBILITY_MODEL_NAMES
     assert normalize_selected_models(["theory_compatible_extensions"]) == THEORY_EXTENSION_MODEL_NAMES
     assert normalize_selected_models(["core_default", "theory_core_opt_in"]) == [
@@ -52,11 +50,27 @@ def test_mlb_group_tokens_expand_to_governance_aligned_model_sets() -> None:
     assert MODEL_SELECTION_GROUP_ALIASES["experimental_challengers"] == tuple(EXPERIMENTAL_MODEL_NAMES)
 
 
+def test_retired_group_tokens_fail_closed_under_monograph_only_lane() -> None:
+    try:
+        normalize_selected_models(["baseline"])
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("baseline should be retired from the active monograph-only lane")
+
+    try:
+        normalize_selected_models(["experimental"])
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("experimental should be retired from the active monograph-only lane")
+
+
 def test_mlb_non_cas_challengers_are_quarantined_to_experimental_lane() -> None:
     payload = yaml.safe_load(open("configs/model_feature_map_mlb.yaml").read())
 
     experimental = set((payload or {}).get("experimental_models", {}))
-    assert experimental == {"two_stage", "gbdt", "rf", "bayes_bt_state_space", "nn_mlp"}
+    assert experimental == set()
     assert not experimental.intersection(PLANNED_CREDIBILITY_MODEL_NAMES)
 
 
@@ -71,20 +85,8 @@ def test_mlb_model_manifest_spells_out_core_and_challenger_lanes() -> None:
     assert "glm_lasso_prior_credibility" not in manifest["default_training_models"]
     assert manifest["theory_extension_models"] == THEORY_EXTENSION_MODEL_NAMES
     assert manifest["penalized_core_models"] == PENALIZED_CORE_MODEL_NAMES
-    assert manifest["baseline_models"] == [
-        "elo_baseline",
-        "dynamic_rating",
-        "simulation_first",
-    ]
-    assert set(manifest["experimental_models"]) == {
-        "mars_hinge",
-        "two_stage",
-        "gbdt",
-        "rf",
-        "bayes_bt_state_space",
-        "bayes_goals",
-        "nn_mlp",
-    }
+    assert manifest["baseline_models"] == []
+    assert manifest["experimental_models"] == []
     assert manifest["lane_labels"]["core"] == "CAS core lane"
     assert manifest["lane_labels"]["extension"] == "Theory-compatible extension lane"
     assert manifest["planned_credibility_model_keys"] == PLANNED_CREDIBILITY_MODEL_NAMES
@@ -95,8 +97,6 @@ def test_mlb_model_manifest_spells_out_core_and_challenger_lanes() -> None:
     assert manifest["models"]["glm_lasso_prior_credibility"]["default_enabled"] is False
     assert manifest["models"]["gam_spline"]["default_enabled"] is False
     assert manifest["models"]["glmm_logit"]["default_enabled"] is False
-    assert manifest["models"]["elo_baseline"]["default_enabled"] is False
-    assert manifest["models"]["gbdt"]["default_enabled"] is False
 
 
 def test_mlb_credibility_catalog_and_guardrails_stay_coherent() -> None:
@@ -128,16 +128,8 @@ def test_mlb_comparison_profiles_align_with_catalog_governance() -> None:
     assert comparison_profiles["theory_core_opt_in"]["model_keys"] == PLANNED_CREDIBILITY_MODEL_NAMES
     assert comparison_profiles["theory_compatible_extensions"]["model_keys"] == THEORY_EXTENSION_MODEL_NAMES
     assert comparison_profiles["baseline_references"]["model_keys"] == BASELINE_MODEL_NAMES
-    assert comparison_profiles["experimental_challengers"]["model_keys"] == [
-        "mars_hinge",
-        "two_stage",
-        "gbdt",
-        "rf",
-        "bayes_bt_state_space",
-        "bayes_goals",
-        "nn_mlp",
-    ]
+    assert comparison_profiles["experimental_challengers"]["model_keys"] == []
     assert comparison_profiles["experimental_challengers"]["champion_eligible"] is False
     assert policy_profiles["theory_core_default"]["champion_eligible"] is True
     assert policy_profiles["theory_compatible_extensions"]["promotion_gate"] == "require_extension_evidence_packet"
-    assert policy_profiles["experimental_challengers"]["promotion_gate"] == "explicit_opt_in_only"
+    assert policy_profiles["experimental_challengers"]["promotion_gate"] == "retired"

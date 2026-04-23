@@ -47,7 +47,7 @@ MODEL_SELECTION_GROUP_ALIASES: dict[str, tuple[str, ...]] = {
     "baseline": tuple(BASELINE_MODEL_NAMES),
     "baseline_references": tuple(GOVERNANCE_COMPARISON_GROUPS["baseline_references"]["model_keys"]),
     "experimental": tuple(EXPERIMENTAL_MODEL_NAMES),
-    "challengers": tuple(EXPERIMENTAL_MODEL_NAMES),
+    "challengers": tuple(THEORY_EXTENSION_MODEL_NAMES),
     "experimental_challengers": tuple(GOVERNANCE_COMPARISON_GROUPS["experimental_challengers"]["model_keys"]),
 }
 
