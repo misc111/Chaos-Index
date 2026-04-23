@@ -1,6 +1,6 @@
 version: 1
 league: MLB
-updated_at_utc: '2026-04-20T00:00:00+00:00'
+updated_at_utc: '2026-04-23T00:00:00+00:00'
 core_theory_families:
   penalized_glm:
     status: active_default
@@ -29,7 +29,7 @@ comparison_reporting_profiles:
     note: Default production/theory-core slate. Extension and experimental challengers require explicit opt-in.
   theory_core_opt_in:
     lane: core
-    classification: direct_theory_implementation
+    classification: core-supported
     champion_eligible: true
     report_priority: 2
     model_keys:
@@ -38,7 +38,7 @@ comparison_reporting_profiles:
     note: Credibility variants stay visible as opt-in comparison rows separate from the default slate.
   baseline_references:
     lane: baseline
-    classification: retired
+    classification: experimental
     champion_eligible: false
     report_priority: 4
     model_keys: []
@@ -56,11 +56,47 @@ comparison_reporting_profiles:
     note: GLM-adjacent extension rows are traceable but stay outside the default theory-core production lane.
   experimental_challengers:
     lane: experimental
-    classification: retired
+    classification: experimental
     champion_eligible: false
     report_priority: 5
-    model_keys: []
-    note: Retired for the monograph-only MLB lane.
+    model_keys:
+    - mars_hinge
+    - two_stage
+    - rf
+    - gbdt
+    - nn_mlp
+    - bayes_goals
+    - bayes_bt_state_space
+    note: Explicit non-CAS/proxy challengers for opt-in comparison only. Never champion-eligible in the active MLB lane.
+experimental_models:
+  mars_hinge:
+    status: active_opt_in
+    lane: experimental
+    classification: experimental
+  two_stage:
+    status: active_opt_in
+    lane: experimental
+    classification: experimental
+  rf:
+    status: active_opt_in
+    lane: experimental
+    classification: experimental
+  gbdt:
+    status: active_opt_in
+    lane: experimental
+    classification: experimental
+  nn_mlp:
+    status: active_opt_in
+    lane: experimental
+    classification: experimental
+  bayes_goals:
+    status: active_opt_in
+    lane: experimental
+    classification: experimental
+  bayes_bt_state_space:
+    status: active_opt_in
+    lane: experimental
+    classification: experimental
 models:
   glm_ridge:
     active_features:

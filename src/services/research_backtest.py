@@ -13,6 +13,7 @@ from src.common.logging import get_logger
 from src.common.research import resolve_research_paths
 from src.common.utils import ensure_dir, to_json
 from src.evaluation.calibration import calibration_alpha_beta, ece_mce
+from src.evaluation.market_truth import MarketTruthResult, build_market_truth, load_market_truth_moneyline_odds
 from src.evaluation.metrics import metric_bundle
 from src.evaluation.research_betting import score_betting_performance
 from src.evaluation.validation_backtest_integrity import run_backtest_integrity_checks
@@ -48,6 +49,9 @@ class ResearchBacktestResult:
     fold_metrics_path: Path
     promotion_path: Path
     best_candidate_model: str
+    market_truth_summary_path: Path | None = None
+    market_truth_predictions_path: Path | None = None
+    market_truth_calibration_path: Path | None = None
 
 
 def _params_json(params: dict[str, Any]) -> str:
@@ -181,6 +185,10 @@ def _latest_pregame_moneylines(db: Database, *, league: str, seasons: list[int])
     )
     merged = meta.merge(pivot, on="game_id", how="left").rename(columns={"home": "home_moneyline", "away": "away_moneyline"})
     return merged
+
+
+def _market_truth_moneyline_odds(db: Database, *, league: str, seasons: list[int]) -> pd.DataFrame:
+    return load_market_truth_moneyline_odds(db.db_path, league=league, seasons=seasons)
 
 
 def _resolve_raw_features(
@@ -399,6 +407,7 @@ def _write_report(
     seasons: list[int],
     feature_pool_note: str,
     scorecard: pd.DataFrame,
+    market_truth_summary: pd.DataFrame,
     promotion: dict[str, Any],
     best_model: str,
 ) -> None:
@@ -435,7 +444,68 @@ def _write_report(
         to_json(promotion),
         "```",
     ]
+    if not market_truth_summary.empty:
+        display_columns = [
+            column
+            for column in (
+                "model_name",
+                "n_predictions",
+                "current_market_coverage",
+                "closing_market_coverage",
+                "bet_count",
+                "flat_roi",
+                "mean_clv_probability",
+                "positive_clv_rate",
+                "log_loss_gain_vs_current_market",
+                "log_loss_gain_vs_closing_market",
+            )
+            if column in market_truth_summary.columns
+        ]
+        lines.extend(
+            [
+                "",
+                "Market Truth",
+                "```text",
+                market_truth_summary[display_columns].to_string(index=False),
+                "```",
+            ]
+        )
     report_path.write_text("\n".join(lines) + "\n")
+
+
+def _betting_frame_from_market_truth(prediction_frame: pd.DataFrame, market_truth: MarketTruthResult) -> pd.DataFrame:
+    if market_truth.per_game.empty:
+        out = prediction_frame.copy()
+        out["home_moneyline"] = np.nan
+        out["away_moneyline"] = np.nan
+        out["odds_as_of_utc"] = None
+        out["odds_snapshot_id"] = None
+        return out
+
+    market_rows = (
+        market_truth.per_game.sort_values(["game_id", "as_of_utc", "model_name"])
+        .drop_duplicates(["game_id", "as_of_utc"])
+        [
+            [
+                "game_id",
+                "as_of_utc",
+                "current_odds_as_of_utc",
+                "current_odds_snapshot_id",
+                "current_home_moneyline",
+                "current_away_moneyline",
+            ]
+        ]
+        .rename(
+            columns={
+                "current_odds_as_of_utc": "odds_as_of_utc",
+                "current_odds_snapshot_id": "odds_snapshot_id",
+                "current_home_moneyline": "home_moneyline",
+                "current_away_moneyline": "away_moneyline",
+            }
+        )
+    )
+    out = prediction_frame.drop(columns=["home_moneyline", "away_moneyline", "odds_as_of_utc", "odds_snapshot_id"], errors="ignore")
+    return out.merge(market_rows, on=["game_id", "as_of_utc"], how="left")
 
 
 def _resolve_adaptive_min_train_days(
@@ -538,15 +608,15 @@ def run_research_backtest(
 
     odds_db = Database(cfg.paths.db_path)
     odds_db.init_schema()
-    odds_df = _latest_pregame_moneylines(odds_db, league=cfg.data.league, seasons=seasons)
-    if odds_df.empty:
+    odds_lines_df = _market_truth_moneyline_odds(odds_db, league=cfg.data.league, seasons=seasons)
+    if odds_lines_df.empty:
         raise RuntimeError("Research backtest requires historical moneyline odds in odds_snapshots/odds_market_lines")
-    odds_overlap_count = int(research_df["game_id"].isin(set(odds_df["game_id"].tolist())).sum())
+    odds_overlap_count = int(research_df["game_id"].isin(set(odds_lines_df["game_id"].tolist())).sum())
     if odds_overlap_count == 0:
         research_start = str(research_df["start_time_utc"].min())
         research_end = str(research_df["start_time_utc"].max())
-        odds_start = str(odds_df["game_start_time_utc"].min())
-        odds_end = str(odds_df["game_start_time_utc"].max())
+        odds_start = str(odds_lines_df["start_time_utc"].min())
+        odds_end = str(odds_lines_df["start_time_utc"].max())
         raise RuntimeError(
             "Historical moneyline odds do not overlap the outer research window. "
             f"Research window={research_start}..{research_end}; odds window={odds_start}..{odds_end}. "
@@ -565,6 +635,9 @@ def run_research_backtest(
 
     outer_prediction_frames: list[pd.DataFrame] = []
     inner_cv_frames: list[pd.DataFrame] = []
+    market_truth_prediction_frames: list[pd.DataFrame] = []
+    market_truth_summary_frames: list[pd.DataFrame] = []
+    market_truth_calibration_frames: list[pd.DataFrame] = []
     fold_metric_rows: list[dict[str, Any]] = []
     integrity_rows: list[dict[str, Any]] = []
 
@@ -594,7 +667,27 @@ def run_research_backtest(
         if not model_names_for_fold:
             continue
 
-        prediction_frame = prediction_frame.merge(odds_df, on="game_id", how="left")
+        market_truth = build_market_truth(
+            prediction_frame,
+            odds_lines_df,
+            model_names=model_names_for_fold,
+            min_edge=0.0,
+            calibration_bins=cfg.modeling.calibration_bins,
+        )
+        if not market_truth.per_game.empty:
+            market_truth_per_game = market_truth.per_game.copy()
+            market_truth_per_game["fold"] = fold_number
+            market_truth_prediction_frames.append(market_truth_per_game)
+        if not market_truth.summary.empty:
+            market_truth_summary = market_truth.summary.copy()
+            market_truth_summary["fold"] = fold_number
+            market_truth_summary_frames.append(market_truth_summary)
+        if not market_truth.calibration.empty:
+            market_truth_calibration = market_truth.calibration.copy()
+            market_truth_calibration["fold"] = fold_number
+            market_truth_calibration_frames.append(market_truth_calibration)
+
+        prediction_frame = _betting_frame_from_market_truth(prediction_frame, market_truth)
         prediction_frame["fold"] = fold_number
         outer_prediction_frames.append(prediction_frame)
 
@@ -649,6 +742,27 @@ def run_research_backtest(
         raise RuntimeError("Research backtest did not produce any fold metrics")
 
     fold_metrics = pd.DataFrame(fold_metric_rows)
+    market_truth_predictions = (
+        pd.concat(market_truth_prediction_frames, ignore_index=True) if market_truth_prediction_frames else pd.DataFrame()
+    )
+    market_truth_fold_summary = (
+        pd.concat(market_truth_summary_frames, ignore_index=True) if market_truth_summary_frames else pd.DataFrame()
+    )
+    market_truth_calibration = (
+        pd.concat(market_truth_calibration_frames, ignore_index=True) if market_truth_calibration_frames else pd.DataFrame()
+    )
+    if not market_truth_predictions.empty:
+        market_truth_full = build_market_truth(
+            pd.concat(outer_prediction_frames, ignore_index=True),
+            odds_lines_df,
+            model_names=sorted(set(fold_metrics["model_name"].astype(str).tolist())),
+            min_edge=0.0,
+            calibration_bins=cfg.modeling.calibration_bins,
+        )
+        market_truth_summary = market_truth_full.summary
+        market_truth_calibration = market_truth_full.calibration
+    else:
+        market_truth_summary = pd.DataFrame()
     integrity_df = pd.DataFrame(integrity_rows)
     scorecard = (
         fold_metrics.groupby(["model_name", "strategy"], as_index=False)
@@ -691,6 +805,11 @@ def run_research_backtest(
         ]
     ].all(axis=1)
     scorecard = scorecard.merge(integrity_summary, on=["model_name", "strategy"], how="left")
+    if not market_truth_summary.empty:
+        market_truth_scorecard = market_truth_summary.add_prefix("market_truth_").rename(
+            columns={"market_truth_model_name": "model_name"}
+        )
+        scorecard = scorecard.merge(market_truth_scorecard, on="model_name", how="left")
 
     best_model = _choose_best_candidate(scorecard, baseline_model=baseline_model)
     promotion = _promotion_summary(scorecard, best_model=best_model, baseline_model=baseline_model)
@@ -702,8 +821,22 @@ def run_research_backtest(
     fold_metrics_path = run_dir / "outer_fold_metrics.csv"
     promotion_path = run_dir / "promotion_summary.json"
     report_path = run_dir / "research_backtest_report.md"
+    market_truth_summary_path = run_dir / "market_truth_summary.json"
+    market_truth_predictions_path = run_dir / "market_truth_predictions.csv"
+    market_truth_calibration_path = run_dir / "market_truth_calibration.csv"
     scorecard.to_csv(scorecard_path, index=False)
     fold_metrics.to_csv(fold_metrics_path, index=False)
+    market_truth_summary.to_json(market_truth_summary_path, orient="records", indent=2)
+    market_truth_summary_path.write_text(market_truth_summary_path.read_text() + "\n")
+    market_truth_predictions.to_csv(market_truth_predictions_path, index=False)
+    market_truth_calibration.to_csv(market_truth_calibration_path, index=False)
+    promotion["market_truth"] = {
+        "summary_path": str(market_truth_summary_path),
+        "predictions_path": str(market_truth_predictions_path),
+        "calibration_path": str(market_truth_calibration_path),
+        "summary": market_truth_summary.to_dict(orient="records") if not market_truth_summary.empty else [],
+        "fold_summary": market_truth_fold_summary.to_dict(orient="records") if not market_truth_fold_summary.empty else [],
+    }
     promotion_path.write_text(to_json(promotion) + "\n")
     if inner_cv_frames:
         pd.concat(inner_cv_frames, ignore_index=True).to_csv(run_dir / "inner_cv_metrics.csv", index=False)
@@ -716,6 +849,7 @@ def run_research_backtest(
         seasons=seasons,
         feature_pool_note=feature_pool_note,
         scorecard=scorecard,
+        market_truth_summary=market_truth_summary,
         promotion=promotion,
         best_model=best_model,
     )
@@ -733,4 +867,7 @@ def run_research_backtest(
         fold_metrics_path=fold_metrics_path,
         promotion_path=promotion_path,
         best_candidate_model=best_model,
+        market_truth_summary_path=market_truth_summary_path,
+        market_truth_predictions_path=market_truth_predictions_path,
+        market_truth_calibration_path=market_truth_calibration_path,
     )

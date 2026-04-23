@@ -195,8 +195,20 @@ def finalize_feature_frame(game_features: pd.DataFrame, processed_dir: str, stra
         game_features = game_features.copy()
         available = pd.to_datetime(game_features["available_as_of_utc"], errors="coerce", utc=True)
         start = pd.to_datetime(game_features["start_time_utc"], errors="coerce", utc=True)
-        clipped = available.where(start.isna() | available.le(start), start)
-        game_features["available_as_of_utc"] = clipped.dt.strftime("%Y-%m-%dT%H:%M:%SZ").where(clipped.notna(), None)
+        bad = available.notna() & start.notna() & available.gt(start)
+        if bool(bad.any()):
+            sample_columns = [column for column in ("game_id", "home_team", "away_team") if column in game_features.columns]
+            details = game_features.loc[bad, sample_columns].copy() if sample_columns else pd.DataFrame(index=game_features.index[bad])
+            details["available_as_of_utc"] = available.loc[bad].dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+            details["start_time_utc"] = start.loc[bad].dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+            details["lag_seconds"] = (available.loc[bad] - start.loc[bad]).dt.total_seconds().astype(float)
+            sample = details.head(5).to_dict(orient="records")
+            raise ValueError(
+                "Feature availability contract violated: "
+                f"available_as_of_utc is after start_time_utc for {int(bad.sum())} rows. "
+                f"Sample={sample}"
+            )
+        game_features["available_as_of_utc"] = available.dt.strftime("%Y-%m-%dT%H:%M:%SZ").where(available.notna(), None)
 
     drop_cols = {
         "game_id",
@@ -217,7 +229,6 @@ def finalize_feature_frame(game_features: pd.DataFrame, processed_dir: str, stra
     for col in feature_columns:
         game_features[col] = pd.to_numeric(game_features[col], errors="coerce")
     game_features[feature_columns] = game_features[feature_columns].replace([np.inf, -np.inf], np.nan)
-    game_features[feature_columns] = game_features[feature_columns].fillna(game_features[feature_columns].median(numeric_only=True)).fillna(0)
 
     feature_set_version = f"fset_{stable_hash(strategy.feature_hash_payload(feature_columns))}"
     metadata = {

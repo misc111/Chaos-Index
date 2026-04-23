@@ -1,6 +1,6 @@
 version: 1
 league: MLB
-updated_at_utc: '2026-04-20T00:00:00+00:00'
+updated_at_utc: '2026-04-23T00:00:00+00:00'
 comparison_reporting_guardrails:
   theory_core_default:
     lane: core
@@ -25,8 +25,8 @@ comparison_reporting_guardrails:
   experimental_challengers:
     lane: experimental
     champion_eligible: false
-    promotion_gate: retired
-    note: Experimental rows are retired for the monograph-only MLB lane.
+    promotion_gate: comparison_only_non_champion
+    note: Experimental rows are explicit opt-in challenger comparisons and cannot promote into the active MLB champion lane.
 models:
   glm_ridge:
     blocked_features:

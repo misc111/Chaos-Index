@@ -93,3 +93,18 @@ Historical manifests should support:
 - deterministic replay against historical odds and results
 
 Classification: `Theory-compatible engineering support`
+
+## Market Truth Research Artifacts
+
+Research and validation runs should materialize a market-truth scoreboard that compares model probabilities against persisted odds-ledger snapshots:
+
+- opening no-vig moneyline probability
+- prediction-time no-vig moneyline probability
+- closing no-vig moneyline probability
+- model edge versus prediction-time market
+- closing-line value
+- flat unit ROI for positive-edge decisions
+- model log loss and Brier versus current and closing market baselines
+- calibration tables for model, current market, and closing market probabilities
+
+Classification: `Betting overlay` plus `Theory-compatible engineering support`

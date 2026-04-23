@@ -29,6 +29,11 @@ RESERVED_NON_FEATURES = {
     "away_score",
 }
 
+ALLOWED_PREGAME_STARTER_DIFF_PREFIXES = (
+    "diff_starter_",
+    "diff_form_starter_",
+)
+
 
 def select_feature_columns(df: pd.DataFrame) -> list[str]:
     banned_exact = {
@@ -89,6 +94,7 @@ def select_feature_columns(df: pd.DataFrame) -> list[str]:
         "pace_proxy",
         "scoring_efficiency_proxy",
         "possession_proxy",
+        "winner",
     )
 
     cols = []
@@ -107,7 +113,11 @@ def select_feature_columns(df: pd.DataFrame) -> list[str]:
             m in c for m in lag_markers
         ):
             continue
-        if any(tok in c for tok in direct_event_tokens) and not any(m in c for m in lag_markers):
+        if (
+            any(tok in c for tok in direct_event_tokens)
+            and not any(m in c for m in lag_markers)
+            and not c.startswith(ALLOWED_PREGAME_STARTER_DIFF_PREFIXES)
+        ):
             continue
         if pd.api.types.is_numeric_dtype(df[c]):
             cols.append(c)

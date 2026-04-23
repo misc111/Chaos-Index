@@ -10,6 +10,7 @@ from src.registry.models import model_manifest_payload
 from src.registry.subsystems import subsystem_docs
 from src.training.model_catalog import (
     ALL_MODEL_NAMES,
+    EXPERIMENTAL_MODEL_NAMES,
     GOVERNANCE_COMPARISON_GROUPS,
     MODEL_ALIASES,
     MODEL_REPORT_ORDER,
@@ -115,7 +116,7 @@ def test_generated_model_manifest_matches_code_registry_and_training_catalog() -
         "goals_poisson",
     ]
     assert manifest["baseline_models"] == []
-    assert manifest["experimental_models"] == []
+    assert manifest["experimental_models"] == EXPERIMENTAL_MODEL_NAMES
     assert manifest["aliases"] == MODEL_ALIASES
     assert manifest["prediction_report_order"] == MODEL_REPORT_ORDER
     assert manifest["theory_extension_models"] == THEORY_EXTENSION_MODEL_NAMES
@@ -125,6 +126,8 @@ def test_generated_model_manifest_matches_code_registry_and_training_catalog() -
     assert manifest["models"]["glm_lasso_prior_credibility"]["default_enabled"] is False
     assert manifest["models"]["gam_spline"]["default_enabled"] is False
     assert manifest["models"]["glmm_logit"]["default_enabled"] is False
+    assert manifest["models"]["mars_hinge"]["lane"] == "experimental"
+    assert manifest["models"]["bayes_bt_state_space"]["implementation_namespace"] == "src.models.experimental"
 
 
 def test_prediction_report_order_keeps_core_rows_ahead_of_baseline_and_experimental() -> None:

@@ -142,3 +142,65 @@ def test_lasso_credibility_fails_clearly_when_complement_input_is_missing() -> N
             complement_input_scale="logit",
             lambda_value=0.5,
         )
+
+
+def test_lasso_credibility_allows_custom_complement_column_with_explicit_logit_scale() -> None:
+    df = _synthetic_mlb_frame().copy()
+    df["market_offset_logit_alt"] = df["market_offset_logit"]
+
+    _, artifact, _ = build_lasso_credibility_contracts(
+        df,
+        feature_cols=["signal_gap", "discipline_gap", "bullpen_gap"],
+        complement_kind="market",
+        complement_column="market_offset_logit_alt",
+        complement_input_scale="logit",
+        lambda_value=0.5,
+    )
+
+    assert artifact.credibility is not None
+    assert artifact.credibility.complement_column == "market_offset_logit_alt"
+    assert artifact.credibility.offset_scale == "logit"
+
+
+def test_lasso_credibility_keeps_planned_column_scale_default_without_explicit_input_scale() -> None:
+    df = _synthetic_mlb_frame()
+
+    _, artifact, _ = build_lasso_credibility_contracts(
+        df,
+        feature_cols=["signal_gap", "discipline_gap", "bullpen_gap"],
+        complement_kind="market",
+        lambda_value=0.5,
+    )
+
+    assert artifact.credibility is not None
+    assert artifact.credibility.complement_column == "market_offset_logit"
+    assert artifact.credibility.offset_scale == "logit"
+
+
+def test_lasso_credibility_requires_explicit_scale_for_custom_complement_column() -> None:
+    df = _synthetic_mlb_frame().copy()
+    df["market_offset_logit_alt"] = df["market_offset_logit"]
+
+    with pytest.raises(ValueError, match="Pass complement_input_scale explicitly"):
+        build_lasso_credibility_contracts(
+            df,
+            feature_cols=["signal_gap", "discipline_gap", "bullpen_gap"],
+            complement_kind="market",
+            complement_column="market_offset_logit_alt",
+            lambda_value=0.5,
+        )
+
+
+def test_lasso_credibility_rejects_misscaled_probability_complement_inputs() -> None:
+    df = _synthetic_mlb_frame().copy()
+    df["market_offset_logit_alt"] = df["market_offset_logit"]
+
+    with pytest.raises(ValueError, match="to stay within \\[0, 1\\]"):
+        build_lasso_credibility_contracts(
+            df,
+            feature_cols=["signal_gap", "discipline_gap", "bullpen_gap"],
+            complement_kind="market",
+            complement_column="market_offset_logit_alt",
+            complement_input_scale="probability",
+            lambda_value=0.5,
+        )

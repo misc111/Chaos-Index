@@ -1,13 +1,17 @@
 # MLB Model Inventory
 
-## Core Baselines
+Current-state note: the active default MLB lane is `glm_ridge`, `glm_elastic_net`,
+`glm_lasso`, and `glm_vanilla`. Other lanes below are opt-in comparison lanes
+or target-program inventory.
+
+## Retired Baseline References
 
 - `intercept_only`
 - `market_only`
 - `home_field_only`
 - `simple_prior_only`
 
-Classification: `Direct theory implementation`
+Classification: `Experimental` (retired from the active MLB lane)
 
 ## Vanilla GLM Family
 
@@ -51,10 +55,13 @@ Classification: `Direct theory implementation`
 - GLMM
 - DGLM
 - GAM
-- MARS
+- canonical MARS hinge discovery (target-state)
 - MARS-discovered hinge reuse back into GLM candidates when validation supports it
 
-Classification: `Direct theory implementation`
+Classification: `Theory-compatible extension`
+
+Current-state caveat: the shipped `mars_hinge` implementation is a proxy
+challenger and must be labeled `experimental`, not a direct canonical MARS lane.
 
 ## Ensemble Lane
 
@@ -63,18 +70,20 @@ Classification: `Direct theory implementation`
 - geometric average where log-link components justify it
 - final champion committee with explicit promotion package
 
-Classification: `Direct theory implementation`
+Classification: `Theory-compatible engineering support` / betting overlay governance
 
 ## Experimental Challenger Lane
 
-These may be retained for comparison only and must be labeled non-core:
+These are explicit opt-in comparison models and must remain non-core:
 
+- `mars_hinge` (proxy hinge search)
+- `two_stage`
 - random forest
 - gradient-boosted trees
-- neural nets
-- Bayesian challengers
+- neural net MLP
+- Bayesian goals/state-space challengers
 
-Classification: `Betting overlay` / experimental support
+Classification: `Experimental` (comparison-only, non-champion)
 
 ## Candidate Tracking Requirements
 

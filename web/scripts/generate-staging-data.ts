@@ -34,6 +34,7 @@ const PUBLIC_VALIDATION_SECTIONS = [
   "collinearity_summary",
   "nonlinearity_summary",
   "calibration_robustness",
+  "market_truth_summary",
   "logit_quantile_summary",
   "logit_lift_summary",
   "logit_roc_summary",

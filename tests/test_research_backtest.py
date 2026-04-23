@@ -179,7 +179,7 @@ def test_research_backtest_writes_dual_scorecard_bundle(tmp_path, monkeypatch):
             "away_score": away_score,
             "home_win": home_win,
             "status_final": 1,
-            "as_of_utc": (dates + pd.Timedelta(hours=30)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "as_of_utc": (dates + pd.Timedelta(hours=22)).strftime("%Y-%m-%dT%H:%M:%SZ"),
         }
     )
     odds_rows = []
@@ -299,8 +299,19 @@ def test_research_backtest_writes_dual_scorecard_bundle(tmp_path, monkeypatch):
     assert result.scorecard_path.exists()
     assert result.fold_metrics_path.exists()
     assert result.promotion_path.exists()
+    assert result.market_truth_summary_path is not None
+    assert result.market_truth_summary_path.exists()
+    assert result.market_truth_predictions_path is not None
+    assert result.market_truth_predictions_path.exists()
+    assert result.market_truth_calibration_path is not None
+    assert result.market_truth_calibration_path.exists()
     scorecard = pd.read_csv(result.scorecard_path)
     assert {"glm_ridge", "glm_vanilla"} <= set(scorecard["model_name"].tolist())
+    assert "market_truth_current_market_coverage" in scorecard.columns
+
+    market_truth_summary = pd.read_json(result.market_truth_summary_path)
+    assert {"glm_ridge", "glm_vanilla"} <= set(market_truth_summary["model_name"].tolist())
+    assert "log_loss_gain_vs_closing_market" in market_truth_summary.columns
 
 
 def test_choose_best_candidate_prefers_profit_over_better_log_loss():
@@ -397,7 +408,7 @@ def test_research_backtest_supports_structured_glm_research_spec(tmp_path, monke
             "away_score": away_score,
             "home_win": home_win,
             "status_final": 1,
-            "as_of_utc": (dates + pd.Timedelta(hours=30)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "as_of_utc": (dates + pd.Timedelta(hours=22)).strftime("%Y-%m-%dT%H:%M:%SZ"),
         }
     )
     odds_rows = []

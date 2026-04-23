@@ -13,6 +13,14 @@ REQUIRED_TABLES = (
     "mlb_odds_snapshots",
     "mlb_odds_market_lines",
 )
+PENDING_MINIMUM_CHECKS: dict[str, str] = {
+    "market_pair_completeness": "pending_not_implemented",
+    "moneyline_home_away_pairing": "pending_not_implemented",
+    "runline_pairing_and_point_symmetry": "pending_not_implemented",
+    "totals_over_under_pairing": "pending_not_implemented",
+    "snapshot_staleness_window": "pending_not_implemented",
+    "cross_book_snapshot_consistency": "pending_not_implemented",
+}
 
 ISSUE_COLUMNS = [
     "check",
@@ -305,7 +313,17 @@ def assess_mlb_data_quality(db_path: str) -> tuple[dict[str, Any], pd.DataFrame]
                 }
             issues = _normalize_issue_frame(pd.concat(list(issues_by_check.values()), ignore_index=True))
 
-    failed_checks = [name for name, payload in checks.items() if not payload["passed"]]
+    pending_checks = sorted(PENDING_MINIMUM_CHECKS)
+    for check_name in pending_checks:
+        checks[check_name] = {
+            "passed": False,
+            "issue_count": 0,
+            "status": "pending",
+            "implementation_status": str(PENDING_MINIMUM_CHECKS[check_name]),
+            "detail": "Required minimum MLB data-quality check is still pending implementation.",
+        }
+
+    failed_checks = [name for name, payload in checks.items() if payload.get("status") != "pending" and not payload["passed"]]
     summary = {
         "league": "MLB",
         "generated_at_utc": utc_now_iso(),
@@ -316,7 +334,11 @@ def assess_mlb_data_quality(db_path: str) -> tuple[dict[str, Any], pd.DataFrame]
         "checks": checks,
         "failed_checks": failed_checks,
         "n_failed_checks": len(failed_checks),
+        "pending_checks": pending_checks,
+        "n_pending_checks": len(pending_checks),
+        "coverage_status": "partial" if pending_checks else "complete",
+        "coverage_note": "Data-quality contract coverage is partial until pending minimum checks are implemented.",
         "total_issues": int(len(issues)),
-        "passed": len(failed_checks) == 0,
+        "passed": len(failed_checks) == 0 and len(pending_checks) == 0,
     }
     return summary, issues

@@ -19,7 +19,7 @@ Current leagues: `MLB` (primary), `NHL` (legacy), `NBA` (legacy).
 4. Implement training/report behavior behind existing model contracts.
 5. Regenerate manifests and docs, then extend model contract tests.
 
-Current registered models: `glm_ridge`, `glm_elastic_net`, `glm_lasso`, `glm_lasso_market_credibility`, `glm_lasso_prior_credibility`, `glm_vanilla`, `gam_spline`, `glmm_logit`, `dglm_margin`, `goals_poisson`.
+Current registered models: `glm_ridge`, `glm_elastic_net`, `glm_lasso`, `glm_lasso_market_credibility`, `glm_lasso_prior_credibility`, `glm_vanilla`, `gam_spline`, `glmm_logit`, `dglm_margin`, `goals_poisson`, `mars_hinge`, `two_stage`, `rf`, `gbdt`, `nn_mlp`, `bayes_goals`, `bayes_bt_state_space`.
 
 ## Add A Dashboard Payload
 

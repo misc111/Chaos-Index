@@ -26,6 +26,7 @@ from src.evaluation.diagnostics_glm import save_glm_diagnostics
 from src.evaluation.diagnostics_ml import permutation_importance_report
 from src.evaluation.validation_groups import build_feature_blocks
 from src.evaluation.mlb_data_quality import assess_mlb_data_quality
+from src.evaluation.market_truth import build_market_truth, load_market_truth_moneyline_odds
 from src.evaluation.validation_fragility import missingness_stress_test, perturbation_sensitivity
 from src.evaluation.validation_influence import influence_diagnostics
 from src.evaluation.validation_nonlinearity import assess_nonlinearity
@@ -43,10 +44,15 @@ from src.evaluation.validation_stability import (
     cv_glm_stability_report,
 )
 from src.models.experimental.gbdt import GBDTModel
+from src.models.extensions.glm_goals import GoalsPoissonModel
+from src.models.extensions.glm_variants import DGLMMarginModel, GAMSplineModel, GLMMLogitModel, VanillaGLMModel
+from src.models.lasso_credibility import LassoCredibilityModel
 from src.models.glm_penalized import build_penalized_glm
 from src.models.experimental.rf import RFModel
+from src.registry.models import planned_credibility_model_catalog
 from src.training.model_catalog import LEGACY_MODEL_KEYS, MODEL_ALIASES
-from src.training.penalized_glm import primary_penalized_glm_name, selected_penalized_glm_models
+from src.training.lasso_credibility import selected_lasso_credibility_models
+from src.training.penalized_glm import selected_penalized_glm_models
 from src.training.tune import quick_tune_penalized_glm
 
 ValidationTaskRunner = Callable[["ValidationContext"], "ValidationOutputs | ValidationTaskResult"]
@@ -97,7 +103,13 @@ class ValidationOutputs:
         self.json_payloads.update({key: dict(value) for key, value in other.json_payloads.items()})
         self.task_records.extend([dict(record) for record in other.task_records])
 
-    def write(self, out_dir: Path, *, league: str) -> None:
+    def write(
+        self,
+        out_dir: Path,
+        *,
+        league: str,
+        manifest_metadata: Mapping[str, Any] | None = None,
+    ) -> None:
         root = ensure_dir(out_dir)
         for spec in self.sections:
             path = root / spec.file_name
@@ -113,6 +125,8 @@ class ValidationOutputs:
             "league": league,
             "sections": [asdict(spec) for spec in self.sections],
         }
+        if manifest_metadata:
+            manifest["metadata"] = dict(manifest_metadata)
         (root / "validation_manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True))
         (root / "validation_outputs_contract.json").write_text(
             json.dumps({"validation_outputs": list(self.task_records)}, indent=2, sort_keys=True)
@@ -144,6 +158,7 @@ class ValidationContext:
     glm: object | None
     diagnostic_feature_cols: list[str]
     glm_validation_metadata: ValidationModelMetadata
+    primary_model_resolution: dict[str, Any]
 
     @classmethod
     def from_result(cls, result: dict[str, Any], cfg: AppConfig) -> "ValidationContext":
@@ -153,7 +168,7 @@ class ValidationContext:
         selected_models = _selected_validation_models(result, run_payload)
         split_plan, tr, va, te = _validation_split(train_df, cfg)
         fit_df = _concat_frames(tr, va)
-        models = _fit_validation_models(
+        models, model_fit_status = _fit_validation_models(
             fit_df,
             feature_cols=feature_cols,
             selected_models=selected_models,
@@ -162,14 +177,22 @@ class ValidationContext:
         league = _canonical_league(cfg.data.league)
         out_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "validation" / league.lower())
         plots_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "plots" / league.lower() / "glm" / "performance")
-        glm_name = primary_penalized_glm_name(selected_models, models)
-        glm = models.get(glm_name) if glm_name else None
+        glm_name, glm, primary_model_resolution = _resolve_primary_validation_model(
+            selected_models=selected_models,
+            models=models,
+            model_fit_status=model_fit_status,
+            run_payload=run_payload,
+        )
         diagnostic_feature_cols = list(
             getattr(glm, "feature_columns", [])
-            or _validation_feature_columns(feature_cols, run_payload, glm_name or "glm_ridge")
+            or _validation_feature_columns(feature_cols, run_payload, glm_name or "glm_vanilla")
             or feature_cols[: min(40, len(feature_cols))]
         )
-        glm_validation_metadata = resolve_validation_model_metadata(run_payload=run_payload, model=glm)
+        glm_validation_metadata = resolve_validation_model_metadata(
+            run_payload={**run_payload, "glm_primary_model": glm_name or run_payload.get("glm_primary_model")},
+            model=glm,
+            model_name=glm_name,
+        )
 
         return cls(
             cfg=cfg,
@@ -188,6 +211,7 @@ class ValidationContext:
             glm=glm,
             diagnostic_feature_cols=diagnostic_feature_cols,
             glm_validation_metadata=glm_validation_metadata,
+            primary_model_resolution=primary_model_resolution,
         )
 
 
@@ -253,6 +277,17 @@ def _resolve_execution_scope_labels(run_payload: Mapping[str, Any]) -> dict[str,
     if "fixture" in combined or "demo" in combined:
         payload["execution_label_class"] = "fixture_or_demo"
     return payload
+
+
+def _fixture_demo_evidence_labels(scoped_labels: Mapping[str, Any]) -> dict[str, Any]:
+    label_class = str(scoped_labels.get("execution_label_class") or "").strip().lower()
+    if label_class != "fixture_or_demo":
+        return {}
+    return {
+        "evidence_scope": "bounded_non_production",
+        "evidence_grade": "non_production_fixture_or_demo",
+        "evidence_boundary_note": "Validation evidence is fixture/demo bounded and should not be treated as production-grade.",
+    }
 
 
 def _has_execution_metadata_labels(scope: Mapping[str, Any]) -> bool:
@@ -400,8 +435,8 @@ def _validation_run_metadata(
     for rel in validation_files:
         if "/" not in rel:
             continue
-        top_level = rel.split("/", 1)[0]
-        grouped_validation_files.setdefault(top_level, []).append(rel)
+        top_level, remainder = rel.split("/", 1)
+        grouped_validation_files.setdefault(top_level, []).append(remainder)
     selected_models_payload = ctx.run_payload.get("selected_models", [])
     selected_models: list[str] = []
     if isinstance(selected_models_payload, Sequence) and not isinstance(selected_models_payload, (str, bytes)):
@@ -413,6 +448,7 @@ def _validation_run_metadata(
     scoped_labels = _resolve_execution_scope_labels(ctx.run_payload)
     if not scoped_labels and execution_metadata:
         scoped_labels = _resolve_execution_scope_labels(execution_metadata)
+    evidence_labels = _fixture_demo_evidence_labels(scoped_labels)
 
     artifact_groups = [{"name": "validation_root", "relative_dir": ".", "files": root_files}]
     for group_name in sorted(grouped_validation_files):
@@ -450,8 +486,10 @@ def _validation_run_metadata(
             + len(performance_files),
         },
         "artifact_groups": artifact_groups,
+        "primary_model_resolution": dict(ctx.primary_model_resolution),
     }
     metadata.update(scoped_labels)
+    metadata.update(evidence_labels)
     if "production_grade" in execution_metadata:
         metadata["production_grade"] = execution_metadata["production_grade"]
     if "data_origin" in execution_metadata:
@@ -466,6 +504,19 @@ def _reset_validation_output_dirs(ctx: ValidationContext) -> None:
     if ctx.plots_dir.exists():
         shutil.rmtree(ctx.plots_dir)
     ensure_dir(ctx.plots_dir)
+
+
+def _validation_manifest_metadata(ctx: ValidationContext) -> dict[str, Any]:
+    execution_metadata = _resolve_execution_metadata(ctx.run_payload)
+    scoped_labels = _resolve_execution_scope_labels(ctx.run_payload)
+    if not scoped_labels and execution_metadata:
+        scoped_labels = _resolve_execution_scope_labels(execution_metadata)
+    payload: dict[str, Any] = {
+        "primary_model_resolution": dict(ctx.primary_model_resolution),
+    }
+    payload.update(scoped_labels)
+    payload.update(_fixture_demo_evidence_labels(scoped_labels))
+    return payload
 
 
 def _archive_validation_outputs(ctx: ValidationContext, outputs: ValidationOutputs) -> None:
@@ -651,7 +702,7 @@ def _validation_feature_columns(
                 if resolved:
                     return resolved
 
-    if model_name == "glm_ridge":
+    if model_name in {"glm_ridge", "glm_lasso", "glm_elastic_net", "glm_vanilla"}:
         glm_feature_columns = run_payload.get("glm_feature_columns", [])
         if isinstance(glm_feature_columns, list):
             resolved = [str(col) for col in glm_feature_columns if str(col) in feature_cols]
@@ -667,43 +718,223 @@ def _fit_validation_models(
     feature_cols: list[str],
     selected_models: list[str],
     run_payload: dict[str, Any],
-) -> dict[str, object]:
+) -> tuple[dict[str, object], dict[str, dict[str, Any]]]:
+    fit_status: dict[str, dict[str, Any]] = {}
+    selected = [str(model) for model in selected_models if str(model).strip()]
     if tr.empty:
-        return {}
+        for model_name in selected:
+            fit_status[model_name] = {"status": "not_applicable", "reason": "empty_training_frame"}
+        return {}, fit_status
 
-    selected = set(selected_models)
+    selected_set = set(selected)
     models: dict[str, object] = {}
+    credibility_catalog = planned_credibility_model_catalog()
 
-    for model_name in selected_penalized_glm_models(selected_models):
-        if model_name not in selected:
+    def _mark_status(model_name: str, *, status: str, **payload: Any) -> None:
+        fit_status[str(model_name)] = {"status": str(status), **payload}
+
+    for model_name in selected_penalized_glm_models(selected):
+        if model_name not in selected_set:
             continue
         glm_cols = _validation_feature_columns(feature_cols, run_payload, model_name)
-        glm_tune = dict(run_payload.get("glm_tuning_by_model", {}).get(model_name, {}))
-        if "start_time_utc" in tr.columns:
-            glm_tune = quick_tune_penalized_glm(
-                tr,
-                glm_cols,
-                model_name=model_name,
-                n_splits=3,
-                min_train_size=min(140, max(70, len(tr) // 2)),
+        try:
+            glm_tuning_by_model = run_payload.get("glm_tuning_by_model")
+            if isinstance(glm_tuning_by_model, Mapping):
+                glm_tune = dict(glm_tuning_by_model.get(model_name, {}))
+            else:
+                glm_tune = {}
+            if "start_time_utc" in tr.columns:
+                glm_tune = quick_tune_penalized_glm(
+                    tr,
+                    glm_cols,
+                    model_name=model_name,
+                    n_splits=3,
+                    min_train_size=min(140, max(70, len(tr) // 2)),
+                )
+            glm = build_penalized_glm(
+                model_name,
+                c=float(glm_tune.get("best_c", 1.0)),
+                l1_ratio=glm_tune.get("best_l1_ratio"),
             )
-        glm = build_penalized_glm(
-            model_name,
-            c=float(glm_tune.get("best_c", 1.0)),
-            l1_ratio=glm_tune.get("best_l1_ratio"),
-        )
-        glm.fit(tr, glm_cols)
-        models[glm.model_name] = glm
+            glm.fit(tr, glm_cols)
+            models[glm.model_name] = glm
+            _mark_status(model_name, status="fit_ok", model_kind="penalized_glm", feature_count=len(glm_cols))
+        except Exception as exc:
+            _mark_status(
+                model_name,
+                status="fit_failed",
+                model_kind="penalized_glm",
+                error_type=type(exc).__name__,
+                error_message=str(exc),
+            )
 
-    for model_name, model_cls in (("gbdt", GBDTModel), ("rf", RFModel)):
-        if model_name not in selected:
+    credibility_tuning_by_model: dict[str, Any] = {}
+    for key in ("credibility_tuning_by_model", "lasso_credibility_tuning_by_model"):
+        payload = run_payload.get(key)
+        if isinstance(payload, Mapping):
+            credibility_tuning_by_model |= dict(payload)
+    for model_name in selected_lasso_credibility_models(selected):
+        if model_name not in selected_set:
+            continue
+        payload = dict(credibility_catalog.get(model_name, {}))
+        if not payload:
+            _mark_status(
+                model_name,
+                status="not_supported",
+                model_kind="lasso_credibility",
+                reason="missing_credibility_catalog_payload",
+            )
+            continue
+        params = dict(credibility_tuning_by_model.get(model_name, {}))
+        lambda_value = float(params.get("best_lambda", params.get("lambda_value", 1.0)) or 1.0)
+        if not np.isfinite(lambda_value) or lambda_value <= 0:
+            lambda_value = 1.0
+        credibility_cols = _validation_feature_columns(feature_cols, run_payload, model_name)
+        try:
+            model = LassoCredibilityModel(
+                model_name=model_name,
+                lambda_value=lambda_value,
+                complement_kind=str(payload.get("complement_kind") or ""),
+                complement_column=str(payload.get("complement_column") or ""),
+                complement_label=str(payload.get("complement_label") or ""),
+                complement_input_scale=str(payload.get("offset_scale") or "logit"),
+            )
+            model.fit(tr, credibility_cols)
+            models[model_name] = model
+            _mark_status(model_name, status="fit_ok", model_kind="lasso_credibility", feature_count=len(credibility_cols))
+        except Exception as exc:
+            _mark_status(
+                model_name,
+                status="fit_failed",
+                model_kind="lasso_credibility",
+                error_type=type(exc).__name__,
+                error_message=str(exc),
+            )
+
+    extension_builders: dict[str, type] = {
+        "glm_vanilla": VanillaGLMModel,
+        "gam_spline": GAMSplineModel,
+        "glmm_logit": GLMMLogitModel,
+        "dglm_margin": DGLMMarginModel,
+    }
+    for model_name, model_cls in extension_builders.items():
+        if model_name not in selected_set:
             continue
         model_cols = _validation_feature_columns(feature_cols, run_payload, model_name)
-        model = model_cls()
-        model.fit(tr, model_cols)
-        models[model_name] = model
+        try:
+            model = model_cls()
+            model.fit(tr, model_cols)
+            models[model_name] = model
+            _mark_status(model_name, status="fit_ok", model_kind="extension_or_vanilla", feature_count=len(model_cols))
+        except Exception as exc:
+            _mark_status(
+                model_name,
+                status="fit_failed",
+                model_kind="extension_or_vanilla",
+                error_type=type(exc).__name__,
+                error_message=str(exc),
+            )
 
-    return models
+    if "goals_poisson" in selected_set:
+        try:
+            model = GoalsPoissonModel()
+            model.fit(tr)
+            models[model.model_name] = model
+            _mark_status("goals_poisson", status="fit_ok", model_kind="extension_or_vanilla", feature_count=0)
+        except Exception as exc:
+            _mark_status(
+                "goals_poisson",
+                status="fit_failed",
+                model_kind="extension_or_vanilla",
+                error_type=type(exc).__name__,
+                error_message=str(exc),
+            )
+
+    for model_name, model_cls in (("gbdt", GBDTModel), ("rf", RFModel)):
+        if model_name not in selected_set:
+            continue
+        model_cols = _validation_feature_columns(feature_cols, run_payload, model_name)
+        try:
+            model = model_cls()
+            model.fit(tr, model_cols)
+            models[model_name] = model
+            _mark_status(model_name, status="fit_ok", model_kind="ml_baseline", feature_count=len(model_cols))
+        except Exception as exc:
+            _mark_status(
+                model_name,
+                status="fit_failed",
+                model_kind="ml_baseline",
+                error_type=type(exc).__name__,
+                error_message=str(exc),
+            )
+
+    for model_name in selected:
+        fit_status.setdefault(model_name, {"status": "not_supported", "reason": "validation_wrapper_unavailable"})
+
+    return models, fit_status
+
+
+def _resolve_primary_validation_model(
+    *,
+    selected_models: list[str],
+    models: Mapping[str, object],
+    model_fit_status: Mapping[str, Mapping[str, Any]],
+    run_payload: Mapping[str, Any],
+) -> tuple[str | None, object | None, dict[str, Any]]:
+    preferred_default_order = [
+        "glm_ridge",
+        "glm_elastic_net",
+        "glm_lasso",
+        "glm_lasso_market_credibility",
+        "glm_lasso_prior_credibility",
+        "glm_vanilla",
+        "gam_spline",
+        "glmm_logit",
+        "dglm_margin",
+        "goals_poisson",
+        "gbdt",
+        "rf",
+    ]
+    requested_primary_raw = str(run_payload.get("glm_primary_model") or "").strip().lower()
+    requested_primary = MODEL_ALIASES.get(requested_primary_raw, requested_primary_raw) if requested_primary_raw else ""
+    candidate_order: list[str] = []
+    if requested_primary:
+        candidate_order.append(str(requested_primary))
+    candidate_order.extend([str(name) for name in selected_models if str(name).strip()])
+    candidate_order.extend(preferred_default_order)
+
+    resolved_model_name: str | None = None
+    resolved_model: object | None = None
+    for model_name in list(dict.fromkeys(candidate_order)):
+        model = models.get(model_name)
+        if model is None or not callable(getattr(model, "predict_proba", None)):
+            continue
+        resolved_model_name = model_name
+        resolved_model = model
+        break
+
+    if resolved_model_name is None:
+        resolution_status = "not_supported" if selected_models else "not_applicable"
+        resolution_note = "No selected validation model could be fit with a probability interface."
+    elif requested_primary and resolved_model_name != requested_primary:
+        resolution_status = "partial"
+        resolution_note = (
+            f"Requested primary model '{requested_primary}' was unavailable for validation; "
+            f"fell back to '{resolved_model_name}'."
+        )
+    else:
+        resolution_status = "supported"
+        resolution_note = f"Resolved primary validation model '{resolved_model_name}'."
+
+    resolution = {
+        "status": resolution_status,
+        "note": resolution_note,
+        "requested_primary_model": requested_primary or None,
+        "resolved_primary_model": resolved_model_name,
+        "selected_models": [str(name) for name in selected_models if str(name).strip()],
+        "model_fit_status": {str(key): dict(value) for key, value in model_fit_status.items()},
+    }
+    return resolved_model_name, resolved_model, resolution
 
 
 @dataclass(frozen=True, slots=True)
@@ -730,6 +961,132 @@ def _feature_blocks_for(ctx: ValidationContext) -> dict[str, list[str]]:
         ctx.league,
         ctx.diagnostic_feature_cols,
         credibility=ctx.glm_validation_metadata.credibility,
+    )
+
+
+_PENALIZED_VALIDATION_MODEL_KEYS = {"glm_ridge", "glm_lasso", "glm_elastic_net"}
+_CREDIBILITY_VALIDATION_MODEL_KEYS = {"glm_lasso_market_credibility", "glm_lasso_prior_credibility"}
+_EXTENSION_VALIDATION_MODEL_KEYS = {"gam_spline", "glmm_logit", "dglm_margin", "goals_poisson"}
+
+
+def _primary_model_key(ctx: ValidationContext) -> str:
+    return str(ctx.glm_validation_metadata.model_key or ctx.glm_validation_metadata.model_name or "").strip()
+
+
+def _is_penalized_primary_model(ctx: ValidationContext) -> bool:
+    return _primary_model_key(ctx) in _PENALIZED_VALIDATION_MODEL_KEYS
+
+
+def _is_credibility_primary_model(ctx: ValidationContext) -> bool:
+    return _primary_model_key(ctx) in _CREDIBILITY_VALIDATION_MODEL_KEYS or ctx.glm_validation_metadata.credibility is not None
+
+
+def _is_vanilla_primary_model(ctx: ValidationContext) -> bool:
+    return _primary_model_key(ctx) == "glm_vanilla"
+
+
+def _is_extension_primary_model(ctx: ValidationContext) -> bool:
+    return _primary_model_key(ctx) in _EXTENSION_VALIDATION_MODEL_KEYS or str(ctx.glm_validation_metadata.model_lane or "") == "extension"
+
+
+def _task_support_payload(
+    ctx: ValidationContext,
+    *,
+    task_name: str,
+    support_status: str,
+    route: str,
+    note: str,
+) -> dict[str, Any]:
+    return {
+        "task_name": task_name,
+        "task_support_status": support_status,
+        "task_support_route": route,
+        "task_support_note": note,
+        "primary_model_resolution": dict(ctx.primary_model_resolution),
+    }
+
+
+def _unsupported_task_result(
+    ctx: ValidationContext,
+    *,
+    task_name: str,
+    note: str,
+    applicability: str = "not_applicable",
+    route: str = "unsupported_for_selected_model_family",
+) -> ValidationTaskResult:
+    return _task_result(
+        ctx,
+        ValidationOutputs(),
+        summary=_task_support_payload(
+            ctx,
+            task_name=task_name,
+            support_status=applicability,
+            route=route,
+            note=note,
+        ),
+        applicability=applicability,
+    )
+
+
+def _validation_surrogate_penalized_spec(
+    ctx: ValidationContext,
+) -> tuple[str | None, float | None, float | None, dict[str, Any]]:
+    model_key = _primary_model_key(ctx)
+    if _is_penalized_primary_model(ctx):
+        return (
+            model_key,
+            float(getattr(ctx.glm, "c", 1.0)) if ctx.glm is not None else 1.0,
+            getattr(ctx.glm, "l1_ratio", None) if ctx.glm is not None else None,
+            _task_support_payload(
+                ctx,
+                task_name="penalized_surrogate",
+                support_status="applicable",
+                route="selected_model_direct",
+                note="Using the selected penalized GLM directly for penalized-family diagnostics.",
+            ),
+        )
+
+    if _is_credibility_primary_model(ctx):
+        driver_model = "glm_lasso"
+        catalog_payload = planned_credibility_model_catalog().get(model_key, {})
+        planned_driver = str(catalog_payload.get("driver_source_model") or "").strip()
+        if planned_driver in _PENALIZED_VALIDATION_MODEL_KEYS:
+            driver_model = planned_driver
+        credibility_tuning: Mapping[str, Any] | None = None
+        for key in ("credibility_tuning_by_model", "lasso_credibility_tuning_by_model"):
+            payload = ctx.run_payload.get(key)
+            if isinstance(payload, Mapping):
+                candidate = payload.get(model_key)
+                if isinstance(candidate, Mapping):
+                    credibility_tuning = candidate
+                    break
+        surrogate_c = 1.0
+        if credibility_tuning is not None:
+            surrogate_c = float(credibility_tuning.get("best_c", credibility_tuning.get("c", 1.0)) or 1.0)
+        if not np.isfinite(surrogate_c) or surrogate_c <= 0.0:
+            surrogate_c = 1.0
+        return (
+            driver_model,
+            surrogate_c,
+            None,
+            _task_support_payload(
+                ctx,
+                task_name="penalized_surrogate",
+                support_status="partial",
+                route="credibility_driver_surrogate",
+                note=(
+                    "Using the credibility lane's penalized driver model for diagnostics that do not "
+                    "support offsets or credibility shrinkage directly."
+                ),
+            ),
+        )
+
+    return None, None, None, _task_support_payload(
+        ctx,
+        task_name="penalized_surrogate",
+        support_status="not_applicable",
+        route="no_penalized_surrogate_available",
+        note="No valid penalized-GLM surrogate is available for the selected validation primary model.",
     )
 
 
@@ -768,7 +1125,13 @@ def _probability_model_family_applicability(
     class_contrast_available: bool,
     n_obs: int,
 ) -> dict[str, Any]:
-    if n_obs <= 0:
+    if ctx.glm is None:
+        resolution_status = str(ctx.primary_model_resolution.get("status") or "")
+        if resolution_status in {"partial", "not_supported"}:
+            status = "pending"
+        else:
+            status = "not_applicable"
+    elif n_obs <= 0:
         status = "not_applicable"
     elif requires_class_contrast and not class_contrast_available:
         status = "partial"
@@ -783,6 +1146,7 @@ def _probability_model_family_applicability(
         "requires_class_contrast": bool(requires_class_contrast),
         "class_contrast_available": bool(class_contrast_available),
         "probability_output_method": "predict_proba" if ctx.glm is not None and hasattr(ctx.glm, "predict_proba") else "missing",
+        "primary_model_resolution": dict(ctx.primary_model_resolution),
     }
 
 
@@ -801,6 +1165,101 @@ def _task_result(
 ) -> ValidationTaskResult:
     resolved_summary = _task_summary_with_model_metadata(ctx, summary or {}) if summary else {}
     return ValidationTaskResult(outputs=outputs, applicability=applicability, summary=resolved_summary)
+
+
+_MODEL_DEPENDENT_TASKS = {
+    "glm_diagnostics",
+    "stability",
+    "influence",
+    "fragility",
+    "calibration",
+    "market_truth",
+    "classification_curves",
+}
+_HOLDOUT_DEPENDENT_TASKS = {
+    "nonlinearity",
+    "significance",
+    "permutation_importance",
+    "calibration",
+    "market_truth",
+    "classification_curves",
+}
+
+
+def _default_model_family_applicability(
+    ctx: ValidationContext,
+    *,
+    task_name: str,
+    contract_applicability: str,
+) -> dict[str, Any]:
+    if task_name in _MODEL_DEPENDENT_TASKS:
+        resolution_status = str(ctx.primary_model_resolution.get("status") or "")
+        if ctx.glm is not None:
+            status = "applicable" if contract_applicability == "applicable" else contract_applicability
+        elif resolution_status in {"partial", "not_supported"}:
+            status = "pending"
+        else:
+            status = "not_applicable"
+        reason = (
+            str(ctx.primary_model_resolution.get("note") or "")
+            if status in {"pending", "partial"}
+            else "primary_model_available"
+        )
+    else:
+        status = "not_applicable"
+        reason = "task_not_model_family_specific"
+
+    return {
+        "task": task_name,
+        "status": status,
+        "reason": reason,
+        "model_family": str(ctx.glm_validation_metadata.model_family or "unknown"),
+        "model_lane": str(ctx.glm_validation_metadata.model_lane or "unknown"),
+        "model_key": str(ctx.glm_validation_metadata.model_key or ""),
+        "primary_model_resolution": dict(ctx.primary_model_resolution),
+    }
+
+
+def _record_task_summary(
+    ctx: ValidationContext,
+    *,
+    task_name: str,
+    task_result: ValidationTaskResult,
+) -> dict[str, Any]:
+    summary = dict(task_result.summary or {})
+    model_family_applicability = summary.get("model_family_applicability")
+    if not isinstance(model_family_applicability, Mapping):
+        model_family_applicability = _default_model_family_applicability(
+            ctx,
+            task_name=task_name,
+            contract_applicability=task_result.applicability,
+        )
+        summary["model_family_applicability"] = model_family_applicability
+    summary["contract_applicability"] = str(task_result.applicability)
+    summary["applicability_split"] = {
+        "contract_level": str(task_result.applicability),
+        "model_family_level": str(model_family_applicability.get("status") or "not_applicable"),
+    }
+    return _task_summary_with_model_metadata(ctx, summary)
+
+
+def _skipped_task_result(ctx: ValidationContext, task: "ValidationTask") -> ValidationTaskResult:
+    if task.name in _MODEL_DEPENDENT_TASKS and ctx.glm is None:
+        resolution_status = str(ctx.primary_model_resolution.get("status") or "")
+        applicability = "pending" if resolution_status in {"partial", "not_supported"} else "not_applicable"
+        reason = "primary_validation_model_unavailable"
+    elif task.name in _HOLDOUT_DEPENDENT_TASKS and _holdout_df(ctx).empty:
+        applicability = "not_applicable"
+        reason = "holdout_split_unavailable"
+    else:
+        applicability = "pending"
+        reason = "task_predicate_not_met"
+    summary = {
+        "status": "skipped",
+        "skip_reason": reason,
+        "primary_model_resolution": dict(ctx.primary_model_resolution),
+    }
+    return ValidationTaskResult(outputs=ValidationOutputs(), applicability=applicability, summary=_task_summary_with_model_metadata(ctx, summary))
 
 
 def _task_split_summary(ctx: ValidationContext) -> ValidationTaskResult:
@@ -878,6 +1337,26 @@ def _task_glm_diagnostics(ctx: ValidationContext) -> ValidationTaskResult:
         section="glm_partial_residual_bins",
         file_name=_validation_path("glm", "residuals", "validation_glm_partial_residual_bins.csv"),
         rows=report["partial_residual_bins"],
+    )
+    out.add_csv(
+        section="glm_raw_residual_rows",
+        file_name=_validation_path("glm", "residuals", "validation_glm_raw_residual_rows.csv"),
+        rows=report["raw_residuals"],
+    )
+    out.add_csv(
+        section="glm_residual_vs_fitted_bins",
+        file_name=_validation_path("glm", "residuals", "validation_glm_residual_vs_fitted_bins.csv"),
+        rows=report["residual_vs_fitted_bins"],
+    )
+    out.add_csv(
+        section="glm_grouped_residual_summary",
+        file_name=_validation_path("glm", "residuals", "validation_glm_grouped_residual_summary.csv"),
+        rows=report["grouped_residual_summary"],
+    )
+    out.add_json(
+        section="glm_grouped_residual_metadata",
+        file_name=_validation_path("glm", "residuals", "validation_glm_grouped_residual_metadata.json"),
+        payload=report["grouped_residual_metadata"],
     )
     return _task_result(ctx, out, summary=report["summary"])
 
@@ -967,10 +1446,14 @@ def _task_significance(ctx: ValidationContext) -> ValidationTaskResult:
     holdout = _holdout_df(ctx)
     fit_df = ctx.fit_df if not ctx.fit_df.empty else ctx.tr
     feature_blocks = _feature_blocks_for(ctx)
-    if ctx.glm_validation_metadata.uses_penalized_glm and ctx.glm is not None:
-        glm_c = float(getattr(ctx.glm, "c", 1.0))
-        glm_model_name = str(getattr(ctx.glm, "model_name", ctx.glm_validation_metadata.model_name or "glm_ridge"))
-        glm_l1_ratio = getattr(ctx.glm, "l1_ratio", None)
+    if _is_penalized_primary_model(ctx) or _is_credibility_primary_model(ctx):
+        glm_model_name, glm_c, glm_l1_ratio, support_payload = _validation_surrogate_penalized_spec(ctx)
+        if not glm_model_name or glm_c is None:
+            return _unsupported_task_result(
+                ctx,
+                task_name="significance",
+                note="Penalized/credibility significance diagnostics require a valid penalized surrogate model.",
+            )
         sig = penalized_block_ablation_report(
             fit_df,
             holdout,
@@ -992,7 +1475,11 @@ def _task_significance(ctx: ValidationContext) -> ValidationTaskResult:
             credibility=ctx.glm_validation_metadata.credibility,
         )
         applicability = "partial"
-    else:
+        support_payload = {
+            **support_payload,
+            "task_name": "significance",
+        }
+    elif _is_vanilla_primary_model(ctx):
         sig = blockwise_nested_deviance_f_test(
             fit_df,
             holdout,
@@ -1006,6 +1493,22 @@ def _task_significance(ctx: ValidationContext) -> ValidationTaskResult:
             all_features=ctx.diagnostic_feature_cols,
         )
         applicability = "applicable"
+        support_payload = _task_support_payload(
+            ctx,
+            task_name="significance",
+            support_status="applicable",
+            route="selected_model_direct",
+            note="Using direct vanilla-GLM nested-deviance and information-criteria diagnostics.",
+        )
+    else:
+        return _unsupported_task_result(
+            ctx,
+            task_name="significance",
+            note=(
+                "Significance diagnostics currently support vanilla GLM directly and penalized/credibility "
+                "families through penalized ablation surrogates."
+            ),
+        )
     out = ValidationOutputs()
     out.add_csv(
         section="significance",
@@ -1026,13 +1529,24 @@ def _task_significance(ctx: ValidationContext) -> ValidationTaskResult:
         rows=ic["candidates"],
     )
     summary_payload = dict(ic_summary)
+    summary_payload.update(support_payload)
     return _task_result(ctx, out, summary=summary_payload, applicability=applicability)
 
 
 def _task_stability(ctx: ValidationContext) -> ValidationTaskResult:
-    glm_c = float(getattr(ctx.glm, "c", 1.0)) if ctx.glm is not None else 1.0
-    glm_model_name = str(getattr(ctx.glm, "model_name", "glm_ridge")) if ctx.glm is not None else "glm_ridge"
-    glm_l1_ratio = getattr(ctx.glm, "l1_ratio", None) if ctx.glm is not None else None
+    if not (_is_penalized_primary_model(ctx) or _is_credibility_primary_model(ctx)):
+        return _unsupported_task_result(
+            ctx,
+            task_name="stability",
+            note="Stability diagnostics currently support penalized GLMs directly and lasso-credibility via the penalized driver surrogate.",
+        )
+    glm_model_name, glm_c, glm_l1_ratio, support_payload = _validation_surrogate_penalized_spec(ctx)
+    if not glm_model_name or glm_c is None:
+        return _unsupported_task_result(
+            ctx,
+            task_name="stability",
+            note="No penalized surrogate was available for stability diagnostics.",
+        )
     cv_report = cv_glm_stability_report(
         ctx.train_df,
         features=ctx.diagnostic_feature_cols,
@@ -1115,10 +1629,18 @@ def _task_stability(ctx: ValidationContext) -> ValidationTaskResult:
         "cv_summary": cv_report["summary"],
         "bootstrap_summary": bootstrap["summary"],
     }
-    return _task_result(ctx, out, summary=summary_payload)
+    summary_payload.update({**support_payload, "task_name": "stability"})
+    applicability = "applicable" if _is_penalized_primary_model(ctx) else "partial"
+    return _task_result(ctx, out, summary=summary_payload, applicability=applicability)
 
 
 def _task_influence(ctx: ValidationContext) -> ValidationTaskResult:
+    if _is_extension_primary_model(ctx):
+        return _unsupported_task_result(
+            ctx,
+            task_name="influence",
+            note="Influence diagnostics are not yet implemented for theory-extension validation families.",
+        )
     infl_df, infl_summary = influence_diagnostics(
         ctx.fit_df if not ctx.fit_df.empty else ctx.train_df,
         features=ctx.diagnostic_feature_cols,
@@ -1135,7 +1657,27 @@ def _task_influence(ctx: ValidationContext) -> ValidationTaskResult:
         file_name=_validation_path("diagnostics", "influence", "validation_influence_summary.json"),
         payload=infl_summary,
     )
-    return _task_result(ctx, out, summary=infl_summary)
+    if _is_vanilla_primary_model(ctx):
+        support_payload = _task_support_payload(
+            ctx,
+            task_name="influence",
+            support_status="applicable",
+            route="selected_model_direct",
+            note="Influence diagnostics are computed with an unpenalized GLM consistent with the vanilla GLM family.",
+        )
+        applicability = "applicable"
+    else:
+        support_payload = _task_support_payload(
+            ctx,
+            task_name="influence",
+            support_status="partial",
+            route="unpenalized_glm_surrogate",
+            note="Influence diagnostics use an unpenalized GLM surrogate and do not capture shrinkage or credibility offsets directly.",
+        )
+        applicability = "partial"
+    infl_summary = dict(infl_summary)
+    infl_summary.update(support_payload)
+    return _task_result(ctx, out, summary=infl_summary, applicability=applicability)
 
 
 def _task_fragility(ctx: ValidationContext) -> ValidationTaskResult:
@@ -1162,6 +1704,13 @@ def _task_fragility(ctx: ValidationContext) -> ValidationTaskResult:
     summary_payload = dict(perturbation)
     summary_payload["scenario_count"] = int(len(missingness))
     summary_payload["applicable_scenarios"] = int((missingness.get("scenario_status", pd.Series(dtype=str)) == "ok").sum())
+    summary_payload["model_family_applicability"] = _probability_model_family_applicability(
+        ctx,
+        task_name="fragility",
+        requires_class_contrast=False,
+        class_contrast_available=True,
+        n_obs=int(len(base_df)),
+    )
     return _task_result(ctx, out, summary=summary_payload)
 
 
@@ -1325,6 +1874,116 @@ def _task_classification_curves(ctx: ValidationContext) -> ValidationTaskResult:
     )
 
 
+def _validation_market_truth_prediction_frame(ctx: ValidationContext, holdout: pd.DataFrame) -> pd.DataFrame:
+    meta_columns = [
+        column
+        for column in (
+            "game_id",
+            "season",
+            "game_date_utc",
+            "start_time_utc",
+            "available_as_of_utc",
+            "home_team",
+            "away_team",
+            "home_win",
+        )
+        if column in holdout.columns
+    ]
+    predictions = holdout[meta_columns].copy()
+    start = pd.to_datetime(predictions["start_time_utc"], errors="coerce", utc=True)
+    if "available_as_of_utc" in predictions.columns:
+        available = pd.to_datetime(predictions["available_as_of_utc"], errors="coerce", utc=True)
+    else:
+        available = pd.Series(pd.NaT, index=predictions.index, dtype="datetime64[ns, UTC]")
+    prediction_as_of = available.where(available.notna() & start.notna() & available.le(start), start - pd.Timedelta(hours=1))
+    predictions["as_of_utc"] = prediction_as_of.dt.strftime("%Y-%m-%dT%H:%M:%SZ").where(prediction_as_of.notna(), None)
+    model_key = _primary_model_key(ctx) or "primary_model"
+    predictions["model_name"] = model_key
+    predictions["prob_home_win"] = np.asarray(ctx.glm.predict_proba(holdout), dtype=float)
+    return predictions
+
+
+def _task_market_truth(ctx: ValidationContext) -> ValidationTaskResult:
+    holdout = _holdout_df(ctx)
+    required = {"game_id", "start_time_utc", "home_win"}
+    missing = sorted(required - set(holdout.columns))
+    if ctx.glm is None:
+        return _unsupported_task_result(
+            ctx,
+            task_name="market_truth",
+            note="Market-truth validation requires a primary probability model.",
+        )
+    if holdout.empty or missing:
+        return _unsupported_task_result(
+            ctx,
+            task_name="market_truth",
+            note=f"Market-truth validation requires holdout rows with {sorted(required)}. Missing={missing}",
+        )
+
+    game_ids = [int(value) for value in holdout["game_id"].dropna().unique().tolist()]
+    odds_lines = load_market_truth_moneyline_odds(ctx.cfg.paths.db_path, league=ctx.league, game_ids=game_ids)
+    if odds_lines.empty:
+        return _unsupported_task_result(
+            ctx,
+            task_name="market_truth",
+            note="No moneyline odds snapshots were available for the validation holdout games.",
+        )
+
+    predictions = _validation_market_truth_prediction_frame(ctx, holdout)
+    model_key = _primary_model_key(ctx) or "primary_model"
+    result = build_market_truth(
+        predictions,
+        odds_lines,
+        model_names=[model_key],
+        min_edge=0.0,
+        calibration_bins=ctx.cfg.modeling.calibration_bins,
+    )
+    integrity_counts = (
+        result.per_game["timestamp_integrity"].value_counts(dropna=False).to_dict() if "timestamp_integrity" in result.per_game.columns else {}
+    )
+    summary_rows = result.summary.to_dict(orient="records") if not result.summary.empty else []
+    current_coverage = float(result.summary["current_market_coverage"].min()) if "current_market_coverage" in result.summary else 0.0
+    closing_coverage = float(result.summary["closing_market_coverage"].min()) if "closing_market_coverage" in result.summary else 0.0
+    applicability = "applicable" if current_coverage > 0 and closing_coverage > 0 else "partial"
+    payload = {
+        "status": "ok" if summary_rows else "partial",
+        "market_truth_classification": "betting_overlay",
+        "note": "Market truth compares validation probabilities against prediction-time and closing no-vig moneyline prices.",
+        "n_predictions": int(len(result.per_game)),
+        "timestamp_integrity_counts": {str(key): int(value) for key, value in integrity_counts.items()},
+        "models": summary_rows,
+        "market_data_coverage": {
+            "current_market_min": current_coverage,
+            "closing_market_min": closing_coverage,
+        },
+        "model_family_applicability": _probability_model_family_applicability(
+            ctx,
+            task_name="market_truth",
+            requires_class_contrast=False,
+            class_contrast_available=True,
+            n_obs=int(len(result.per_game)),
+        ),
+    }
+
+    out = ValidationOutputs()
+    out.add_json(
+        section="market_truth_summary",
+        file_name=_validation_path("market_truth", "validation_market_truth_summary.json"),
+        payload=payload,
+    )
+    out.add_csv(
+        section="market_truth_by_model",
+        file_name=_validation_path("market_truth", "validation_market_truth_by_model.csv"),
+        rows=result.per_game,
+    )
+    out.add_csv(
+        section="market_truth_calibration",
+        file_name=_validation_path("market_truth", "validation_market_truth_calibration.csv"),
+        rows=result.calibration,
+    )
+    return _task_result(ctx, out, summary=payload, applicability=applicability)
+
+
 def _task_mlb_data_quality(ctx: ValidationContext) -> ValidationTaskResult:
     summary, issues = assess_mlb_data_quality(ctx.cfg.paths.db_path)
     out = ValidationOutputs()
@@ -1338,7 +1997,8 @@ def _task_mlb_data_quality(ctx: ValidationContext) -> ValidationTaskResult:
         file_name=_validation_path("diagnostics", "data_quality", "validation_mlb_data_quality_issues.csv"),
         rows=issues,
     )
-    return _task_result(ctx, out, summary=summary)
+    applicability = "partial" if int(summary.get("n_pending_checks", 0)) > 0 else "applicable"
+    return _task_result(ctx, out, summary=summary, applicability=applicability)
 
 
 def build_validation_tasks(
@@ -1368,6 +2028,12 @@ def build_validation_tasks(
             family="calibration",
         ),
         ValidationTask(
+            name="market_truth",
+            runner=_task_market_truth,
+            enabled=lambda ctx: ctx.league == "MLB" and _has_glm(ctx) and _has_holdout(ctx),
+            family="market_truth",
+        ),
+        ValidationTask(
             name="classification_curves",
             runner=_task_classification_curves,
             enabled=lambda ctx: _has_glm(ctx) and _has_holdout(ctx),
@@ -1393,24 +2059,41 @@ def run_validation_pipeline(
 
     for task in selected_tasks:
         if not task.should_run(ctx):
-            continue
-        task_result = task.runner(ctx)
-        if isinstance(task_result, ValidationOutputs):
-            normalized = ValidationTaskResult(outputs=task_result)
+            normalized = _skipped_task_result(ctx, task)
         else:
-            normalized = task_result
-        outputs.merge(normalized.outputs)
-        if normalized.outputs.sections or normalized.summary:
-            outputs.task_records.append(
-                build_validation_artifact_record(
-                    task_name=task.name,
-                    family=task.family,
-                    applicability=normalized.applicability,
-                    artifacts=[spec.file_name for spec in normalized.outputs.sections],
-                    summary=normalized.summary,
-                ).to_dict()
-            )
+            task_result = task.runner(ctx)
+            if isinstance(task_result, ValidationOutputs):
+                if task_result.sections:
+                    normalized = ValidationTaskResult(outputs=task_result)
+                else:
+                    normalized = ValidationTaskResult(
+                        outputs=task_result,
+                        applicability="not_applicable",
+                        summary={"status": "not_applicable", "note": "task_returned_no_artifacts"},
+                    )
+            else:
+                normalized = task_result
+        summary = _record_task_summary(
+            ctx,
+            task_name=task.name,
+            task_result=normalized,
+        )
+        outputs.task_records.append(
+            build_validation_artifact_record(
+                task_name=task.name,
+                family=task.family,
+                applicability=normalized.applicability,
+                artifacts=[spec.file_name for spec in normalized.outputs.sections],
+                summary=summary,
+            ).to_dict()
+        )
+        if normalized.outputs.sections:
+            outputs.merge(normalized.outputs)
 
-    outputs.write(ctx.out_dir, league=ctx.league)
+    outputs.write(
+        ctx.out_dir,
+        league=ctx.league,
+        manifest_metadata=_validation_manifest_metadata(ctx),
+    )
     _archive_validation_outputs(ctx, outputs)
     return outputs

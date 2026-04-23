@@ -137,6 +137,15 @@ Required:
 
 Classification: `Direct theory implementation`
 
+Current betting-overlay addition:
+
+- validation emits a `market_truth` task when MLB holdout games have persisted moneyline odds snapshots
+- the task compares the selected primary model to prediction-time and closing no-vig market probabilities
+- emitted outputs include summary, per-model rows, CLV, flat unit ROI, log loss/Brier deltas versus market baselines, and calibration tables
+- this is not a CAS theory-core diagnostic; it is the scoreboard for whether a model is gaining betting edge against the market
+
+Classification: `Betting overlay`
+
 ## 8. Lasso Credibility Diagnostics
 
 Required:

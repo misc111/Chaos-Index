@@ -53,8 +53,11 @@ def test_save_glm_diagnostics_creates_all_feature_residual_outputs(tmp_path):
     assert (tmp_path / report["summary"]["deviance_qq_plot_file"]).exists()
     assert (tmp_path / report["summary"]["randomized_quantile_histogram_plot_file"]).exists()
     assert (tmp_path / report["summary"]["randomized_quantile_qq_plot_file"]).exists()
+    assert (tmp_path / report["summary"]["working_vs_fitted_plot_file"]).exists()
+    assert report["summary"]["linear_predictor_method"] in {"model_decision_function", "logit_of_fitted_probability"}
     assert report["summary"]["weight_plot_status"] == "ok"
     assert (tmp_path / report["summary"]["weight_plot_file"]).exists()
+    assert report["summary"]["raw_residual_summary"]["working_residual"]["count"] == n
 
     feature_summary = report["feature_summary"]
     assert feature_summary["feature"].tolist() == ["signal", "counter"]
@@ -71,11 +74,22 @@ def test_save_glm_diagnostics_creates_all_feature_residual_outputs(tmp_path):
     working_bins = report["feature_working_bins"]
     weight_bins = report["weight_bins"]
     partial_bins = report["partial_residual_bins"]
+    raw_rows = report["raw_residuals"]
+    fitted_bins = report["residual_vs_fitted_bins"]
+    grouped = report["grouped_residual_summary"]
     assert set(working_bins["feature"]) == {"signal", "counter"}
     assert not weight_bins.empty
     assert weight_bins["working_residual_mean"].notna().all()
     assert set(partial_bins["feature"]) == {"signal", "counter"}
     assert partial_bins["component_mean"].notna().all()
+    assert len(raw_rows) == n
+    assert {"fitted_probability", "deviance_residual", "randomized_quantile_residual"}.issubset(raw_rows.columns)
+    assert not fitted_bins.empty
+    assert fitted_bins["deviance_residual_mean"].notna().all()
+    assert report["grouped_residual_metadata"]["status"] in {"ok", "partial"}
+    assert "grouping_dimensions" in report["grouped_residual_metadata"]
+    if not grouped.empty:
+        assert {"grouping_dimension", "group_value", "deviance_residual_mae"}.issubset(grouped.columns)
 
 
 def test_save_glm_diagnostics_skips_constant_weight_axis(tmp_path):

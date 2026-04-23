@@ -108,12 +108,15 @@ def resolve_validation_model_metadata(
     *,
     run_payload: Mapping[str, Any],
     model: object | None,
+    model_name: str | None = None,
 ) -> ValidationModelMetadata:
-    model_name = str(getattr(model, "model_name", "") or run_payload.get("glm_primary_model") or "").strip()
+    resolved_model_name = str(
+        model_name or getattr(model, "model_name", "") or run_payload.get("glm_primary_model") or ""
+    ).strip()
     glm_tuning_by_model = run_payload.get("glm_tuning_by_model")
     penalty_tuning: Mapping[str, Any] | None = None
-    if isinstance(glm_tuning_by_model, Mapping) and model_name:
-        candidate = glm_tuning_by_model.get(model_name)
+    if isinstance(glm_tuning_by_model, Mapping) and resolved_model_name:
+        candidate = glm_tuning_by_model.get(resolved_model_name)
         if isinstance(candidate, Mapping):
             penalty_tuning = candidate
     if penalty_tuning is None:
@@ -121,21 +124,25 @@ def resolve_validation_model_metadata(
         if isinstance(candidate, Mapping):
             penalty_tuning = candidate
 
-    registry_payload = _resolve_registry_payload(model_name)
-    credibility_payload = _extract_credibility_payload(run_payload, model_name=model_name) if model_name else None
+    registry_payload = _resolve_registry_payload(resolved_model_name)
+    credibility_payload = (
+        _extract_credibility_payload(run_payload, model_name=resolved_model_name) if resolved_model_name else None
+    )
     return ValidationModelMetadata(
-        model_name=model_name,
+        model_name=resolved_model_name,
         model_key=registry_payload.get("model_key", ""),
         model_family=registry_payload.get("model_family", ""),
         model_lane=registry_payload.get("model_lane", ""),
         model_governance_note=registry_payload.get("model_governance_note", ""),
-        penalty=build_penalty_selection(model_name, tuning=penalty_tuning, model=model) if model_name else None,
+        penalty=build_penalty_selection(resolved_model_name, tuning=penalty_tuning, model=model)
+        if resolved_model_name
+        else None,
         credibility=build_lasso_credibility_metadata(
-            model_name,
+            resolved_model_name,
             model=model,
             credibility_payload=credibility_payload,
         )
-        if model_name
+        if resolved_model_name
         else None,
     )
 

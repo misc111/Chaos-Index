@@ -18,6 +18,7 @@ from zoneinfo import ZoneInfo
 
 import pandas as pd
 
+from src.common.market_transforms import american_price_to_implied_probability
 from src.common.time import utc_now_iso
 from src.data_sources.base import HttpClient, SourceFetchResult
 
@@ -147,11 +148,12 @@ def _parse_american_odds(value: Any) -> float | None:
 
 def _american_to_implied_probability(price: Any) -> float | None:
     value = _parse_american_odds(price)
-    if value is None or value == 0:
+    if value is None:
         return None
-    if value > 0:
-        return 100.0 / (value + 100.0)
-    return (-value) / ((-value) + 100.0)
+    try:
+        return float(american_price_to_implied_probability(value))
+    except ValueError:
+        return None
 
 
 def _central_date_key(value: Any) -> str | None:

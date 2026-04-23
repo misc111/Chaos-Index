@@ -26,6 +26,10 @@ BANNED_PATTERN_RULES = [
 ]
 
 ALLOWED_HISTORICAL_GOALS_MARKERS = ("ewm_", "r5_", "r14_", "form_", "diff_form_")
+ALLOWED_PREGAME_STARTER_DIFF_PREFIXES = (
+    "diff_starter_",
+    "diff_form_starter_",
+)
 DIRECT_EVENT_TOKENS = (
     "goals_for",
     "goals_against",
@@ -94,7 +98,11 @@ def run_leakage_checks(features_df: pd.DataFrame, feature_columns: list[str] | N
         ):
             pattern_forbidden.append(c)
             continue
-        if any(tok in c for tok in DIRECT_EVENT_TOKENS) and not any(m in c for m in ALLOWED_HISTORICAL_GOALS_MARKERS):
+        if (
+            any(tok in c for tok in DIRECT_EVENT_TOKENS)
+            and not any(m in c for m in ALLOWED_HISTORICAL_GOALS_MARKERS)
+            and not c.startswith(ALLOWED_PREGAME_STARTER_DIFF_PREFIXES)
+        ):
             pattern_forbidden.append(c)
             continue
         if "home_win" in c and "win_rate" not in c:

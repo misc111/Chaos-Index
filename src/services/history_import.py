@@ -10,6 +10,7 @@ import pandas as pd
 
 from src.common.config import AppConfig
 from src.common.logging import get_logger
+from src.common.market_transforms import american_price_to_implied_probability
 from src.common.research import resolve_research_paths
 from src.common.time import utc_now_iso
 from src.common.utils import stable_hash
@@ -195,11 +196,10 @@ def _american_to_implied_probability(price: Any) -> float | None:
         value = float(price)
     except Exception:
         return None
-    if value == 0:
+    try:
+        return float(american_price_to_implied_probability(value))
+    except ValueError:
         return None
-    if value > 0:
-        return 100.0 / (value + 100.0)
-    return abs(value) / (abs(value) + 100.0)
 
 
 def _normalize_odds_frame(df: pd.DataFrame, *, league: str, as_of_utc: str) -> pd.DataFrame:

@@ -122,6 +122,8 @@ def test_validation_pipeline_reports_honest_mlb_penalized_significance_and_contr
     contract_payload = json.loads((validation_root / "validation_outputs_contract.json").read_text())
     records = {record["task_name"]: record for record in contract_payload["validation_outputs"]}
     assert records["significance"]["applicability"] == "partial"
+    assert records["significance"]["summary"]["contract_applicability"] == "partial"
+    assert records["significance"]["summary"]["applicability_split"]["contract_level"] == "partial"
     assert records["significance"]["summary"]["model_family"] == "linear"
     assert records["significance"]["summary"]["model_lane"] == "core"
     assert records["significance"]["summary"]["penalty"]["penalty_family"] == "lasso"
@@ -179,6 +181,9 @@ def test_validation_pipeline_reports_honest_mlb_calibration_and_classification_a
     classification_summary = records["classification_curves"]["summary"]
     assert records["calibration"]["applicability"] == "partial"
     assert records["classification_curves"]["applicability"] == "partial"
+    assert calibration_summary["contract_applicability"] == "partial"
+    assert classification_summary["contract_applicability"] == "partial"
+    assert classification_summary["applicability_split"]["contract_level"] == "partial"
     assert calibration_summary["metric_applicability"]["alpha_beta"] == "not_applicable"
     assert classification_summary["metric_applicability"]["lift_curve"] == "not_applicable"
     assert classification_summary["model_family_applicability"]["status"] == "partial"
@@ -256,11 +261,16 @@ def test_validation_pipeline_writes_mlb_run_metadata_with_scope_and_source_label
     assert metadata["execution_data_scope"] == "fixture_demo_window"
     assert metadata["execution_source_label"] == "demo_fixture_payload"
     assert metadata["execution_label_class"] == "fixture_or_demo"
+    assert metadata["evidence_scope"] == "bounded_non_production"
+    assert metadata["evidence_grade"] == "non_production_fixture_or_demo"
     assert metadata["execution_metadata"]["execution_data_scope"] == "fixture_demo_window"
     assert metadata["execution_metadata"]["source_label"] == "demo_fixture_payload"
     assert metadata["artifact_counts"]["validation_subdir_files"] >= 1
     assert metadata["artifact_counts"]["total_files"] >= metadata["artifact_counts"]["validation_root_files"]
     assert manifest["league"] == "MLB"
+    assert manifest["metadata"]["execution_label_class"] == "fixture_or_demo"
+    assert manifest["metadata"]["evidence_scope"] == "bounded_non_production"
+    assert manifest["metadata"]["evidence_grade"] == "non_production_fixture_or_demo"
     assert [section["file_name"] for section in manifest["sections"]] == ["split/validation_split_summary.json"]
 
 

@@ -10,7 +10,14 @@ export const TRAINABLE_MODELS = [
   "gam_spline",
   "glmm_logit",
   "dglm_margin",
-  "goals_poisson"
+  "goals_poisson",
+  "mars_hinge",
+  "two_stage",
+  "rf",
+  "gbdt",
+  "nn_mlp",
+  "bayes_goals",
+  "bayes_bt_state_space"
 ] as const;
 export type TrainableModel = typeof TRAINABLE_MODELS[number];
 
@@ -36,7 +43,15 @@ export const THEORY_EXTENSION_MODEL_KEYS = [
   "goals_poisson"
 ] as const;
 export const BASELINE_MODEL_KEYS = [] as const;
-export const EXPERIMENTAL_MODEL_KEYS = [] as const;
+export const EXPERIMENTAL_MODEL_KEYS = [
+  "mars_hinge",
+  "two_stage",
+  "rf",
+  "gbdt",
+  "nn_mlp",
+  "bayes_goals",
+  "bayes_bt_state_space"
+] as const;
 
 export const MODEL_LANE_LABELS: Record<string, string> = {
   core: "CAS core lane",
@@ -48,7 +63,7 @@ export const MODEL_LANE_NOTES: Record<string, string> = {
   core: "Default MLB actuarial program driven by GLM-family, penalized GLM, and lasso credibility.",
   extension: "GLM-adjacent extension challengers with monograph traceability, opt-in outside the default core lane.",
   baseline: "Retired for the monograph-only MLB lane.",
-  experimental: "Retired for the monograph-only MLB lane."
+  experimental: "Explicit non-CAS/proxy challenger lane for opt-in comparisons only; never champion-eligible in the active MLB lane."
 };
 export const MODEL_ALIASES: Record<string, string> = {
   glm_ridge: "glm_ridge",
@@ -76,7 +91,23 @@ export const MODEL_ALIASES: Record<string, string> = {
   dglm_margin: "dglm_margin",
   dglm: "dglm_margin",
   goals_poisson: "goals_poisson",
-  goals: "goals_poisson"
+  goals: "goals_poisson",
+  mars_hinge: "mars_hinge",
+  mars_proxy: "mars_hinge",
+  two_stage: "two_stage",
+  two_stage_proxy: "two_stage",
+  rf: "rf",
+  random_forest: "rf",
+  gbdt: "gbdt",
+  boosted_trees: "gbdt",
+  nn_mlp: "nn_mlp",
+  nn: "nn_mlp",
+  mlp: "nn_mlp",
+  bayes_goals: "bayes_goals",
+  bayes_goals_model: "bayes_goals",
+  bayes_bt_state_space: "bayes_bt_state_space",
+  bayes_bt: "bayes_bt_state_space",
+  bayes_state_space: "bayes_bt_state_space"
 };
 export const LEGACY_MODEL_KEYS: Record<string, readonly string[]> = {
   glm_ridge: [
@@ -102,7 +133,14 @@ export const MODEL_REPORT_ORDER = [
   "gam_spline",
   "glmm_logit",
   "dglm_margin",
-  "goals_poisson"
+  "goals_poisson",
+  "mars_hinge",
+  "two_stage",
+  "rf",
+  "gbdt",
+  "nn_mlp",
+  "bayes_goals",
+  "bayes_bt_state_space"
 ] as const;
 export const MODEL_DISPLAY_LABELS: Record<string, string> = {
   glm_ridge: "GLM Ridge",
@@ -115,6 +153,13 @@ export const MODEL_DISPLAY_LABELS: Record<string, string> = {
   glmm_logit: "GLMM Logit",
   dglm_margin: "DGLM Margin",
   goals_poisson: "Goals Pois",
+  mars_hinge: "MARS Hinge Challenger (Proxy)",
+  two_stage: "Two Stage Challenger",
+  rf: "Random Forest Challenger",
+  gbdt: "GBDT Challenger",
+  nn_mlp: "Neural Net Challenger (MLP)",
+  bayes_goals: "Bayes Goals Challenger",
+  bayes_bt_state_space: "Bayes BT State Space Challenger",
   ensemble: "Ensemble"
 };
 export const MODEL_REGISTRY = {
@@ -291,6 +336,120 @@ export const MODEL_REGISTRY = {
     trainable: true,
     default_enabled: false,
     prediction_report_rank: 10
+  },
+  mars_hinge: {
+    display_label: "MARS Hinge Challenger (Proxy)",
+    short_label: "MARS Proxy",
+    family: "nonlinear",
+    lane: "experimental",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models.experimental",
+    governance_note: "Experimental hinge-basis proxy. Not equivalent to canonical MARS and excluded from the theory-core promotion lane.",
+    aliases: [
+      "mars_proxy"
+    ],
+    legacy_model_keys: [],
+    trainable: true,
+    default_enabled: false,
+    prediction_report_rank: 11
+  },
+  two_stage: {
+    display_label: "Two Stage Challenger",
+    short_label: "Two Stage",
+    family: "hybrid",
+    lane: "experimental",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models.experimental",
+    governance_note: "Experimental non-CAS two-stage proxy; retained only as a challenger lane comparison row.",
+    aliases: [
+      "two_stage_proxy"
+    ],
+    legacy_model_keys: [],
+    trainable: true,
+    default_enabled: false,
+    prediction_report_rank: 12
+  },
+  rf: {
+    display_label: "Random Forest Challenger",
+    short_label: "RF",
+    family: "tree",
+    lane: "experimental",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models.experimental",
+    governance_note: "Experimental random-forest challenger; never part of the default monograph-backed lane.",
+    aliases: [
+      "random_forest"
+    ],
+    legacy_model_keys: [],
+    trainable: true,
+    default_enabled: false,
+    prediction_report_rank: 13
+  },
+  gbdt: {
+    display_label: "GBDT Challenger",
+    short_label: "GBDT",
+    family: "tree",
+    lane: "experimental",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models.experimental",
+    governance_note: "Experimental boosted-tree challenger; retained for comparison evidence only.",
+    aliases: [
+      "boosted_trees"
+    ],
+    legacy_model_keys: [],
+    trainable: true,
+    default_enabled: false,
+    prediction_report_rank: 14
+  },
+  nn_mlp: {
+    display_label: "Neural Net Challenger (MLP)",
+    short_label: "NN MLP",
+    family: "neural",
+    lane: "experimental",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models.experimental",
+    governance_note: "Experimental neural challenger. Allowed as opt-in comparison output only.",
+    aliases: [
+      "nn",
+      "mlp"
+    ],
+    legacy_model_keys: [],
+    trainable: true,
+    default_enabled: false,
+    prediction_report_rank: 15
+  },
+  bayes_goals: {
+    display_label: "Bayes Goals Challenger",
+    short_label: "Bayes Goals",
+    family: "bayesian",
+    lane: "experimental",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models.experimental",
+    governance_note: "Experimental Bayesian goals challenger retained for uncertainty-focused comparisons outside the core lane.",
+    aliases: [
+      "bayes_goals_model"
+    ],
+    legacy_model_keys: [],
+    trainable: true,
+    default_enabled: false,
+    prediction_report_rank: 16
+  },
+  bayes_bt_state_space: {
+    display_label: "Bayes BT State Space Challenger",
+    short_label: "Bayes BT",
+    family: "bayesian",
+    lane: "experimental",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models.experimental",
+    governance_note: "Experimental Bayesian state-space Bradley-Terry challenger retained as a non-core comparison row.",
+    aliases: [
+      "bayes_bt",
+      "bayes_state_space"
+    ],
+    legacy_model_keys: [],
+    trainable: true,
+    default_enabled: false,
+    prediction_report_rank: 17
   }
 };
 

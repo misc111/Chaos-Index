@@ -103,6 +103,10 @@ export function predictionTrustNote(model: string, league?: string | null): stri
     return "Margin-shape challenger that models score expectation and variance before converting that into a win probability.";
   }
 
+  if (isExperimentalPredictionModel(canonicalModel)) {
+    return "Experimental challenger retained for comparison only. It is not part of the default MLB theory lane unless explicitly requested.";
+  }
+
   return (
     MODEL_TRUST_NOTES[canonicalModel] ||
     "Built on that model's own rule set. Good for a second opinion. Watch for large gaps versus the ensemble."

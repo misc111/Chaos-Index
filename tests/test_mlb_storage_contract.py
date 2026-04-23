@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import pandas as pd
 
+from src.common.market_transforms import vig_free_two_way_logit_offsets
 from src.common.time import utc_now_iso
 from src.common.utils import to_json
 from src.data_sources.base import SourceFetchResult
@@ -181,6 +182,7 @@ def test_mlb_contract_surfaces_reflect_ingest_writes(tmp_path) -> None:
 def test_mlb_theory_trace_and_prediction_components_accept_contract_rows(tmp_path) -> None:
     db = Database(str(tmp_path / "mlb_contract_rows.db"))
     db.init_schema()
+    market_offset_logit, _ = vig_free_two_way_logit_offsets(-120, +110, input_scale="american_price")
 
     db.execute(
         """
@@ -215,7 +217,7 @@ def test_mlb_theory_trace_and_prediction_components_accept_contract_rows(tmp_pat
             "glm_logit_moneyline",
             "market_offset_logit",
             "offset",
-            0.1823215568,
+            float(market_offset_logit),
             to_json({"source": "vig_free_market"}),
             utc_now_iso(),
         ),

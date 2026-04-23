@@ -17,13 +17,15 @@ tournament and the traceability matrix in
 - `src.registry.models` separates model families into:
   - `core`: vanilla GLM, ridge, lasso, elastic net, and explicit lasso
     credibility lanes.
-  - `extension`: GAM, GLMM, DGLM, and score/count GLM bridges.
-  - `baseline` and `experimental`: retired from the active MLB monograph-only
-    lane and kept out of the canonical registry surfaces.
+  - `extension`: theory-compatible GLM extensions (GAM, GLMM, DGLM, and score/count GLM bridges).
+  - `baseline`: retired reference lane for MLB (empty in the active registry contract).
+  - `experimental`: explicit non-CAS/proxy challenger rows (`mars_hinge`, `two_stage`, RF/GBDT/NN/Bayes variants) that are opt-in only and never champion-eligible.
 - Top-level `src/models/` is reserved for core implementations and
   compatibility shims. Extension implementations live under
   `src/models/extensions/`; non-CAS and proxy implementations live under
   `src/models/experimental/`.
+- Current `mars_hinge` is treated as an experimental proxy challenger, not as
+  a direct canonical MARS implementation.
 - `web/public/staging-data/manifest.json` ships only MLB. Legacy NBA/NHL JSON
   snapshots are retained under `web/public/staging-data/legacy/`.
 - Tournament and recommendation artifacts must carry `theory_classification`
@@ -52,7 +54,7 @@ tournament and the traceability matrix in
 4. Core GLM / penalized GLM / lasso credibility model lane
 5. Opt-in extension lane
 6. Validation, diagnostics, and tournament artifacts with theory labels
-7. Ensemble and betting overlays, separated from theory-core model selection
+7. Ensemble and betting overlays, governed separately from theory-core model selection
 8. MLB-only dashboard and staging delivery
 
 ## Residual Migration Debt

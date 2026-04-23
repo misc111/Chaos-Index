@@ -83,6 +83,10 @@ def test_run_saved_validation_regenerates_glm_artifacts_without_training(tmp_pat
         "glm_working_residual_bins_features",
         "glm_working_residual_bins_weight",
         "glm_partial_residual_bins",
+        "glm_raw_residual_rows",
+        "glm_residual_vs_fitted_bins",
+        "glm_grouped_residual_summary",
+        "glm_grouped_residual_metadata",
     ]
 
     validation_root = tmp_path / "artifacts" / "validation" / "nba"
@@ -167,6 +171,10 @@ def test_run_saved_validation_supports_elastic_net_saved_runs(tmp_path):
         "glm_working_residual_bins_features",
         "glm_working_residual_bins_weight",
         "glm_partial_residual_bins",
+        "glm_raw_residual_rows",
+        "glm_residual_vs_fitted_bins",
+        "glm_grouped_residual_summary",
+        "glm_grouped_residual_metadata",
     ]
 
     summary = json.loads(

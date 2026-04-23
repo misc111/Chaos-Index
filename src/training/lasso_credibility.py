@@ -58,11 +58,26 @@ def _complement_kind_for_model(model_name: str) -> str:
     return normalize_lasso_credibility_kind(raw_kind)
 
 
-def _default_input_scale(complement_column: str | None, model_payload: Mapping[str, object]) -> str:
+def _default_input_scale(model_payload: Mapping[str, object]) -> str:
+    return str(model_payload.get("offset_scale") or "logit").strip().lower()
+
+
+def _resolve_input_scale(
+    *,
+    complement_input_scale: str | None,
+    complement_column: str,
+    model_payload: Mapping[str, object],
+) -> str:
+    explicit_scale = str(complement_input_scale or "").strip().lower()
+    if explicit_scale:
+        return explicit_scale
     planned_column = str(model_payload.get("complement_column") or "").strip()
-    if complement_column and complement_column == planned_column:
-        return str(model_payload.get("offset_scale") or "logit").strip().lower()
-    return "probability"
+    if planned_column and complement_column != planned_column:
+        raise ValueError(
+            f"Custom complement column '{complement_column}' differs from planned column '{planned_column}'. "
+            "Pass complement_input_scale explicitly so offset scaling is unambiguous."
+        )
+    return _default_input_scale(model_payload)
 
 
 def _resolve_complement_label(
@@ -132,9 +147,11 @@ def quick_tune_lasso_credibility(
     resolved_complement_column = str(complement_column or model_payload.get("complement_column") or "").strip()
     if not resolved_complement_column:
         raise ValueError("Lasso credibility tuning requires a complement_column.")
-    resolved_input_scale = str(
-        complement_input_scale or _default_input_scale(resolved_complement_column, model_payload)
-    ).strip().lower()
+    resolved_input_scale = _resolve_input_scale(
+        complement_input_scale=complement_input_scale,
+        complement_column=resolved_complement_column,
+        model_payload=model_payload,
+    )
     lambda_values = list(lambda_grid) if lambda_grid is not None else default_lambda_grid("glm_lasso")
     default_result = _default_tuning_result(normalized_kind, model_name=resolved_model_name)
 
@@ -408,9 +425,11 @@ def build_lasso_credibility_contracts(
     resolved_complement_column = str(complement_column or model_payload.get("complement_column") or "").strip()
     if not resolved_complement_column:
         raise ValueError("Lasso credibility contract building requires a complement_column.")
-    resolved_input_scale = str(
-        complement_input_scale or _default_input_scale(resolved_complement_column, model_payload)
-    ).strip().lower()
+    resolved_input_scale = _resolve_input_scale(
+        complement_input_scale=complement_input_scale,
+        complement_column=resolved_complement_column,
+        model_payload=model_payload,
+    )
 
     tuning_payload = dict(tuning or {})
     resolved_lambda = float(lambda_value if lambda_value is not None else tuning_payload.get("best_lambda", 1.0))

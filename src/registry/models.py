@@ -84,7 +84,15 @@ DEFAULT_TRAINING_MODEL_KEYS: tuple[str, ...] = (
     "glm_vanilla",
 )
 BASELINE_MODEL_KEYS: tuple[str, ...] = ()
-EXPERIMENTAL_MODEL_KEYS: tuple[str, ...] = ()
+EXPERIMENTAL_MODEL_KEYS: tuple[str, ...] = (
+    "mars_hinge",
+    "two_stage",
+    "rf",
+    "gbdt",
+    "nn_mlp",
+    "bayes_goals",
+    "bayes_bt_state_space",
+)
 REPORT_LANE_PRIORITY: dict[str, int] = {
     "core": 0,
     "extension": 1,
@@ -142,7 +150,7 @@ GOVERNANCE_COMPARISON_GROUPS: dict[str, dict[str, Any]] = {
         "classification": "experimental",
         "champion_eligible": False,
         "model_keys": EXPERIMENTAL_MODEL_KEYS,
-        "note": "Retired for the monograph-only MLB lane.",
+        "note": "Explicit non-CAS/proxy challengers for opt-in comparison only. These rows are never champion-eligible in the active MLB lane.",
     },
 }
 
@@ -264,6 +272,97 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         aliases=("goals",),
         default_enabled=False,
         prediction_report_rank=10,
+    ),
+    ModelRegistryEntry(
+        key="mars_hinge",
+        display_label="MARS Hinge Challenger (Proxy)",
+        short_label="MARS Proxy",
+        family="nonlinear",
+        lane="experimental",
+        theory_classification="experimental",
+        implementation_namespace="src.models.experimental",
+        governance_note="Experimental hinge-basis proxy. Not equivalent to canonical MARS and excluded from the theory-core promotion lane.",
+        aliases=("mars_proxy",),
+        default_enabled=False,
+        prediction_report_rank=11,
+    ),
+    ModelRegistryEntry(
+        key="two_stage",
+        display_label="Two Stage Challenger",
+        short_label="Two Stage",
+        family="hybrid",
+        lane="experimental",
+        theory_classification="experimental",
+        implementation_namespace="src.models.experimental",
+        governance_note="Experimental non-CAS two-stage proxy; retained only as a challenger lane comparison row.",
+        aliases=("two_stage_proxy",),
+        default_enabled=False,
+        prediction_report_rank=12,
+    ),
+    ModelRegistryEntry(
+        key="rf",
+        display_label="Random Forest Challenger",
+        short_label="RF",
+        family="tree",
+        lane="experimental",
+        theory_classification="experimental",
+        implementation_namespace="src.models.experimental",
+        governance_note="Experimental random-forest challenger; never part of the default monograph-backed lane.",
+        aliases=("random_forest",),
+        default_enabled=False,
+        prediction_report_rank=13,
+    ),
+    ModelRegistryEntry(
+        key="gbdt",
+        display_label="GBDT Challenger",
+        short_label="GBDT",
+        family="tree",
+        lane="experimental",
+        theory_classification="experimental",
+        implementation_namespace="src.models.experimental",
+        governance_note="Experimental boosted-tree challenger; retained for comparison evidence only.",
+        aliases=("boosted_trees",),
+        default_enabled=False,
+        prediction_report_rank=14,
+    ),
+    ModelRegistryEntry(
+        key="nn_mlp",
+        display_label="Neural Net Challenger (MLP)",
+        short_label="NN MLP",
+        family="neural",
+        lane="experimental",
+        theory_classification="experimental",
+        implementation_namespace="src.models.experimental",
+        governance_note="Experimental neural challenger. Allowed as opt-in comparison output only.",
+        aliases=("nn", "mlp"),
+        default_enabled=False,
+        prediction_report_rank=15,
+    ),
+    ModelRegistryEntry(
+        key="bayes_goals",
+        display_label="Bayes Goals Challenger",
+        short_label="Bayes Goals",
+        family="bayesian",
+        lane="experimental",
+        theory_classification="experimental",
+        implementation_namespace="src.models.experimental",
+        governance_note="Experimental Bayesian goals challenger retained for uncertainty-focused comparisons outside the core lane.",
+        aliases=("bayes_goals_model",),
+        default_enabled=False,
+        prediction_report_rank=16,
+    ),
+    ModelRegistryEntry(
+        key="bayes_bt_state_space",
+        display_label="Bayes BT State Space Challenger",
+        short_label="Bayes BT",
+        family="bayesian",
+        lane="experimental",
+        theory_classification="experimental",
+        implementation_namespace="src.models.experimental",
+        governance_note="Experimental Bayesian state-space Bradley-Terry challenger retained as a non-core comparison row.",
+        aliases=("bayes_bt", "bayes_state_space"),
+        default_enabled=False,
+        prediction_report_rank=17,
     ),
 )
 
@@ -465,10 +564,27 @@ def validate_model_registry_contract() -> list[str]:
             failures.append(f"default training model {key!r} must be default_enabled.")
 
     for group_name, payload in GOVERNANCE_COMPARISON_GROUPS.items():
+        group_lane = str(payload.get("lane", ""))
+        group_classification = str(payload.get("classification", ""))
+        expected_group_classification = EXPECTED_THEORY_CLASSIFICATION_BY_LANE.get(group_lane)
+        if expected_group_classification is None:
+            failures.append(f"governance group {group_name!r} uses unknown lane {group_lane!r}.")
+        elif group_classification != expected_group_classification:
+            failures.append(
+                f"governance group {group_name!r} must use classification "
+                f"{expected_group_classification!r} for lane {group_lane!r}."
+            )
         model_keys = [str(value) for value in payload.get("model_keys", ())]
         unknown = sorted(key for key in model_keys if key not in entries)
         if unknown:
             failures.append(f"governance group {group_name!r} references unknown models: {unknown}.")
+        out_of_lane = sorted(
+            key for key in model_keys if key in entries and entries[key].lane != group_lane
+        )
+        if out_of_lane:
+            failures.append(
+                f"governance group {group_name!r} includes models outside lane {group_lane!r}: {out_of_lane}."
+            )
         if bool(payload.get("champion_eligible", False)):
             non_core = sorted(key for key in model_keys if key in entries and entries[key].lane != PRIMARY_MODEL_LANE)
             if non_core:
@@ -513,7 +629,7 @@ def model_manifest_payload() -> dict[str, object]:
             "core": "Default MLB actuarial program driven by GLM-family, penalized GLM, and lasso credibility.",
             "extension": "GLM-adjacent extension challengers with monograph traceability, opt-in outside the default core lane.",
             "baseline": "Retired for the monograph-only MLB lane.",
-            "experimental": "Retired for the monograph-only MLB lane.",
+            "experimental": "Explicit non-CAS/proxy challenger lane for opt-in comparisons only; never champion-eligible in the active MLB lane.",
         },
         "aliases": model_aliases(),
         "legacy_model_keys": {key: list(values) for key, values in legacy_model_keys().items()},

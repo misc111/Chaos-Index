@@ -6,6 +6,8 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from src.common.market_transforms import american_price_to_implied_probability, vig_free_two_way_probabilities
+
 REFERENCE_BANKROLL_DOLLARS = 10_000
 HISTORICAL_BANKROLL_START_DOLLARS = 5_000
 STAKE_ROUNDING_DOLLARS = 5
@@ -46,14 +48,9 @@ def _clamp_probability(value: Any) -> float:
 
 def american_to_implied_probability(odds: Any) -> float | None:
     try:
-        value = float(odds)
+        return float(american_price_to_implied_probability(float(odds)))
     except Exception:
         return None
-    if not np.isfinite(value) or value == 0:
-        return None
-    if value > 0:
-        return 100.0 / (value + 100.0)
-    return abs(value) / (abs(value) + 100.0)
 
 
 def american_to_decimal_odds(odds: Any) -> float | None:
@@ -161,9 +158,9 @@ def compute_strategy_decision(
             "reason": "Missing odds",
         }
 
-    fair_total = imp_home + imp_away
-    fair_home = imp_home / fair_total
-    fair_away = imp_away / fair_total
+    fair_home, fair_away = vig_free_two_way_probabilities(home_odds, away_odds, input_scale="american_price")
+    fair_home = float(fair_home)
+    fair_away = float(fair_away)
     raw_home = _clamp_probability(row.get(model_name))
     raw_away = 1.0 - raw_home
     home_peer, _ = _resolve_peer_consensus(row, model_names, model_name, "home")

@@ -22,6 +22,8 @@ This file lists items that are intentionally outside direct CAS monograph theory
 - bankroll replay
 - ROI by edge bucket
 - realized-vs-expected value by bucket
+- market-truth scoreboards against opening, prediction-time, and closing prices
+- closing-line value tracking
 - bet/pass reason codes
 
 ## Data-Source Overlays

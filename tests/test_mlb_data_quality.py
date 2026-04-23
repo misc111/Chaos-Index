@@ -235,6 +235,11 @@ def test_assess_mlb_data_quality_flags_schema_and_integrity_failures(tmp_path):
     assert summary["checks"]["pregame_snapshot_ordering"]["issue_count"] == 2
     assert summary["checks"]["implied_probability_bounds"]["issue_count"] == 1
     assert summary["checks"]["two_way_market_vig_bounds"]["issue_count"] == 1
+    assert summary["coverage_status"] == "partial"
+    assert summary["n_pending_checks"] >= 1
+    assert "market_pair_completeness" in summary["pending_checks"]
+    assert summary["checks"]["market_pair_completeness"]["status"] == "pending"
+    assert summary["checks"]["market_pair_completeness"]["implementation_status"] == "pending_not_implemented"
 
     assert set(issues["issue_type"]) == {
         "duplicate_market_line",
@@ -348,6 +353,9 @@ def test_validation_pipeline_writes_mlb_data_quality_artifacts(tmp_path):
 
     assert summary["passed"] is False
     assert summary["checks"]["pregame_snapshot_ordering"]["passed"] is False
+    assert summary["coverage_status"] == "partial"
+    assert summary["n_pending_checks"] >= 1
+    assert summary["checks"]["snapshot_staleness_window"]["status"] == "pending"
     assert "snapshot_after_start_time" in set(issues["issue_type"])
     assert [section["section"] for section in manifest["sections"]] == [
         "mlb_data_quality_summary",
@@ -365,4 +373,6 @@ def test_assess_mlb_data_quality_reports_missing_required_tables(tmp_path):
     assert summary["passed"] is False
     assert summary["checks"]["required_tables_present"]["passed"] is False
     assert set(summary["missing_tables"]) == {"mlb_games", "mlb_odds_market_lines", "mlb_odds_snapshots"}
+    assert summary["coverage_status"] == "partial"
+    assert summary["n_pending_checks"] >= 1
     assert set(issues["issue_type"]) == {"missing_required_table"}

@@ -33,6 +33,8 @@ MODEL_ALIASES = model_aliases()
 LEGACY_MODEL_KEYS = legacy_model_keys()
 MODEL_REPORT_ORDER = prediction_report_order()
 DEFAULT_MODEL_NAMES = default_training_model_names()
+NON_CORE_CHALLENGER_MODEL_NAMES = [*THEORY_EXTENSION_MODEL_NAMES, *EXPERIMENTAL_MODEL_NAMES]
+FAIL_CLOSED_GROUP_TOKENS = {"baseline", "experimental"}
 MODEL_SELECTION_GROUP_ALIASES: dict[str, tuple[str, ...]] = {
     "core": tuple(CORE_MODEL_NAMES),
     "core_full": tuple(CORE_MODEL_NAMES),
@@ -44,10 +46,11 @@ MODEL_SELECTION_GROUP_ALIASES: dict[str, tuple[str, ...]] = {
     "extensions": tuple(THEORY_EXTENSION_MODEL_NAMES),
     "theory_extensions": tuple(THEORY_EXTENSION_MODEL_NAMES),
     "theory_compatible_extensions": tuple(GOVERNANCE_COMPARISON_GROUPS["theory_compatible_extensions"]["model_keys"]),
-    "baseline": tuple(BASELINE_MODEL_NAMES),
+    # Top-level baseline/experimental group tokens remain fail-closed in the active MLB lane.
+    "baseline": (),
     "baseline_references": tuple(GOVERNANCE_COMPARISON_GROUPS["baseline_references"]["model_keys"]),
-    "experimental": tuple(EXPERIMENTAL_MODEL_NAMES),
-    "challengers": tuple(THEORY_EXTENSION_MODEL_NAMES),
+    "experimental": (),
+    "challengers": tuple(NON_CORE_CHALLENGER_MODEL_NAMES),
     "experimental_challengers": tuple(GOVERNANCE_COMPARISON_GROUPS["experimental_challengers"]["model_keys"]),
 }
 
@@ -67,6 +70,9 @@ def normalize_selected_models(selected_models: list[str] | None) -> list[str]:
             continue
         if token in {"all", "*"}:
             return list(ALL_MODEL_NAMES)
+        if token in FAIL_CLOSED_GROUP_TOKENS:
+            bad.append(raw)
+            continue
         grouped = MODEL_SELECTION_GROUP_ALIASES.get(token)
         if grouped is not None:
             for canonical in grouped:

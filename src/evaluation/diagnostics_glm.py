@@ -65,6 +65,37 @@ PARTIAL_BIN_COLUMNS = [
     "partial_residual_mean",
     "component_mean",
 ]
+RAW_RESIDUAL_COLUMNS = [
+    "row_index",
+    "fitted_probability",
+    "linear_predictor",
+    "working_residual",
+    "deviance_residual",
+    "randomized_quantile_residual",
+]
+RESIDUAL_VS_FITTED_COLUMNS = [
+    "bin_index",
+    "n_obs",
+    "working_weight_sum",
+    "fitted_probability_mean",
+    "fitted_probability_min",
+    "fitted_probability_max",
+    "working_residual_mean",
+    "deviance_residual_mean",
+    "randomized_quantile_residual_mean",
+]
+GROUPED_RESIDUAL_COLUMNS = [
+    "grouping_dimension",
+    "group_value",
+    "n_obs",
+    "fitted_probability_mean",
+    "working_residual_mean",
+    "working_residual_mae",
+    "deviance_residual_mean",
+    "deviance_residual_mae",
+    "randomized_quantile_residual_mean",
+    "randomized_quantile_residual_mae",
+]
 
 
 def _numeric_frame(df: pd.DataFrame, features: list[str]) -> pd.DataFrame:
@@ -285,6 +316,215 @@ def _weight_axis(df: pd.DataFrame) -> tuple[str, np.ndarray]:
     return "unit_weight", np.ones(len(df), dtype=float)
 
 
+def _distribution_summary(values: np.ndarray) -> dict[str, Any]:
+    sample = np.asarray(values, dtype=float)
+    sample = sample[np.isfinite(sample)]
+    if sample.size == 0:
+        return {
+            "count": 0,
+            "mean": None,
+            "std": None,
+            "mae": None,
+            "p05": None,
+            "p50": None,
+            "p95": None,
+        }
+    return {
+        "count": int(sample.size),
+        "mean": _safe_float(float(np.mean(sample))),
+        "std": _safe_float(float(np.std(sample, ddof=0))),
+        "mae": _safe_float(float(np.mean(np.abs(sample)))),
+        "p05": _safe_float(float(np.percentile(sample, 5.0))),
+        "p50": _safe_float(float(np.percentile(sample, 50.0))),
+        "p95": _safe_float(float(np.percentile(sample, 95.0))),
+    }
+
+
+def _resolve_feature_medians(glm: Any) -> pd.Series:
+    for candidate in (getattr(glm, "feature_medians", None), getattr(getattr(glm, "_candidate", None), "medians", None)):
+        if isinstance(candidate, dict):
+            return pd.Series(candidate, dtype=float)
+        if isinstance(candidate, pd.Series):
+            return candidate.astype(float)
+    return pd.Series(dtype=float)
+
+
+def _resolve_scaler(glm: Any) -> Any | None:
+    scaler = getattr(glm, "scaler", None)
+    if scaler is not None and hasattr(scaler, "transform"):
+        return scaler
+    nested = getattr(getattr(glm, "_candidate", None), "scaler", None)
+    if nested is not None and hasattr(nested, "transform"):
+        return nested
+    return None
+
+
+def _resolve_linear_predictor(glm: Any, x_scaled: np.ndarray, fitted: np.ndarray) -> tuple[np.ndarray, str]:
+    model = getattr(glm, "model", None)
+    if model is not None and hasattr(model, "decision_function"):
+        try:
+            return np.asarray(model.decision_function(x_scaled), dtype=float), "model_decision_function"
+        except Exception:
+            pass
+    return np.log(np.clip(fitted, 1e-6, 1 - 1e-6) / np.clip(1.0 - fitted, 1e-6, 1 - 1e-6)), "logit_of_fitted_probability"
+
+
+def _resolve_scaled_coefficients(glm: Any, feature_cols: list[str]) -> tuple[np.ndarray | None, np.ndarray | None]:
+    if not feature_cols:
+        return None, None
+
+    model = getattr(glm, "model", None)
+    scaler = _resolve_scaler(glm)
+    if model is not None and hasattr(model, "coef_") and scaler is not None and hasattr(scaler, "scale_"):
+        coef_scaled = np.asarray(model.coef_[0], dtype=float)
+        if coef_scaled.size != len(feature_cols):
+            return None, None
+        scale = np.asarray(scaler.scale_, dtype=float)
+        coef_original = np.divide(
+            coef_scaled,
+            scale,
+            out=np.full_like(coef_scaled, np.nan, dtype=float),
+            where=np.isfinite(scale) & (np.abs(scale) > 0),
+        )
+        return coef_scaled, coef_original
+
+    params_payload = None
+    exog_names: list[str] = []
+    feature_scales: dict[str, float] = {}
+
+    result = getattr(glm, "result", None)
+    if result is not None:
+        params_payload = getattr(result, "params", None)
+        exog_names = list(getattr(glm, "exog_names", []) or [])
+        if isinstance(getattr(glm, "feature_scales", None), dict):
+            feature_scales = {str(key): float(value) for key, value in getattr(glm, "feature_scales", {}).items()}
+    if params_payload is None:
+        candidate = getattr(glm, "_candidate", None)
+        result = getattr(candidate, "result", None) if candidate is not None else None
+        if result is not None:
+            params_payload = getattr(result, "params", None)
+            exog_names = list(getattr(candidate, "exog_names", []) or [])
+
+    if params_payload is None:
+        return None, None
+
+    params = np.asarray(params_payload, dtype=float)
+    if params.size == 0:
+        return None, None
+    param_series = pd.Series(params, index=exog_names if len(exog_names) == len(params) else None)
+
+    if scaler is not None and hasattr(scaler, "scale_"):
+        scale_values = np.asarray(scaler.scale_, dtype=float)
+        scale_by_feature = {
+            feature: float(scale_values[idx])
+            for idx, feature in enumerate(feature_cols)
+            if idx < len(scale_values)
+        }
+    else:
+        scale_by_feature = {}
+    scale_by_feature |= feature_scales
+
+    coef_scaled = []
+    coef_original = []
+    for feature in feature_cols:
+        value = float(param_series.get(feature, np.nan))
+        coef_scaled.append(value)
+        scale = float(scale_by_feature.get(feature, 1.0))
+        if np.isfinite(value) and np.isfinite(scale) and abs(scale) > 0:
+            coef_original.append(float(value / scale))
+        else:
+            coef_original.append(np.nan)
+    return np.asarray(coef_scaled, dtype=float), np.asarray(coef_original, dtype=float)
+
+
+def _grouped_residual_summaries(
+    df: pd.DataFrame,
+    residuals: pd.DataFrame,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    metadata_rows: list[dict[str, Any]] = []
+    summary_rows: list[dict[str, Any]] = []
+
+    candidates: dict[str, pd.Series] = {}
+    for column in ("season", "home_team", "away_team", "bookmaker_key", "market_key"):
+        if column in df.columns:
+            candidates[column] = df[column]
+    for date_column in ("game_date_utc", "start_time_utc"):
+        if date_column not in df.columns:
+            continue
+        parsed = pd.to_datetime(df[date_column], errors="coerce", utc=True)
+        if parsed.notna().any():
+            candidates["game_date"] = parsed.dt.date.astype(str)
+            candidates["game_month"] = parsed.dt.tz_convert("UTC").dt.tz_localize(None).dt.to_period("M").astype(str)
+            break
+
+    for dimension, values in candidates.items():
+        frame = residuals.copy()
+        frame["group_value"] = values.astype(str)
+        frame = frame.replace({"group_value": {"": np.nan, "nan": np.nan, "NaT": np.nan}}).dropna(subset=["group_value"])
+        if frame.empty:
+            metadata_rows.append(
+                {
+                    "grouping_dimension": dimension,
+                    "status": "not_applicable",
+                    "reason": "no_non_null_group_values",
+                }
+            )
+            continue
+        n_groups = int(frame["group_value"].nunique())
+        if n_groups < 2:
+            metadata_rows.append(
+                {
+                    "grouping_dimension": dimension,
+                    "status": "not_applicable",
+                    "reason": "insufficient_group_cardinality",
+                    "n_groups": n_groups,
+                }
+            )
+            continue
+
+        grouped = frame.groupby("group_value", dropna=True, sort=True)
+        for group_value, bucket in grouped:
+            summary_rows.append(
+                {
+                    "grouping_dimension": dimension,
+                    "group_value": str(group_value),
+                    "n_obs": int(len(bucket)),
+                    "fitted_probability_mean": _safe_float(float(bucket["fitted_probability"].mean())),
+                    "working_residual_mean": _safe_float(float(bucket["working_residual"].mean())),
+                    "working_residual_mae": _safe_float(float(bucket["working_residual"].abs().mean())),
+                    "deviance_residual_mean": _safe_float(float(bucket["deviance_residual"].mean())),
+                    "deviance_residual_mae": _safe_float(float(bucket["deviance_residual"].abs().mean())),
+                    "randomized_quantile_residual_mean": _safe_float(float(bucket["randomized_quantile_residual"].mean())),
+                    "randomized_quantile_residual_mae": _safe_float(float(bucket["randomized_quantile_residual"].abs().mean())),
+                }
+            )
+        metadata_rows.append(
+            {
+                "grouping_dimension": dimension,
+                "status": "applicable",
+                "n_groups": n_groups,
+                "n_rows": int(len(frame)),
+            }
+        )
+
+    if not metadata_rows:
+        metadata_rows.append(
+            {
+                "grouping_dimension": "none",
+                "status": "not_applicable",
+                "reason": "no_supported_grouping_columns",
+            }
+        )
+
+    grouped_summary = pd.DataFrame(summary_rows, columns=GROUPED_RESIDUAL_COLUMNS)
+    metadata = {
+        "grouping_dimensions": metadata_rows,
+        "status": "ok" if not grouped_summary.empty else "partial",
+        "supported_dimension_count": int(sum(1 for row in metadata_rows if row.get("status") == "applicable")),
+    }
+    return grouped_summary, metadata
+
+
 def _plot_partial_residuals(
     axis_values: np.ndarray,
     partial_residuals: np.ndarray,
@@ -356,17 +596,29 @@ def save_glm_diagnostics(
         "feature_working_bins": pd.DataFrame(columns=FEATURE_WORKING_BIN_COLUMNS),
         "weight_bins": pd.DataFrame(columns=WEIGHT_BIN_COLUMNS),
         "partial_residual_bins": pd.DataFrame(columns=PARTIAL_BIN_COLUMNS),
+        "raw_residuals": pd.DataFrame(columns=RAW_RESIDUAL_COLUMNS),
+        "residual_vs_fitted_bins": pd.DataFrame(columns=RESIDUAL_VS_FITTED_COLUMNS),
+        "grouped_residual_summary": pd.DataFrame(columns=GROUPED_RESIDUAL_COLUMNS),
+        "grouped_residual_metadata": {
+            "status": "not_applicable",
+            "grouping_dimensions": [],
+            "supported_dimension_count": 0,
+        },
     }
     if work.empty or glm is None or not feature_cols:
         return empty
 
     numeric = _numeric_frame(work, feature_cols)
-    medians = pd.Series(getattr(glm, "feature_medians", {}), dtype=float)
+    medians = _resolve_feature_medians(glm)
     filled = numeric.fillna(medians).fillna(0.0)
     y = work[target_col].astype(int).to_numpy(dtype=float)
-    x_scaled = glm.scaler.transform(filled.to_numpy(dtype=float))
-    linear_predictor = glm.model.decision_function(x_scaled)
-    fitted = np.clip(glm.model.predict_proba(x_scaled)[:, 1], 1e-6, 1 - 1e-6)
+    fitted = np.clip(np.asarray(glm.predict_proba(work), dtype=float), 1e-6, 1 - 1e-6)
+    scaler = _resolve_scaler(glm)
+    try:
+        x_scaled = scaler.transform(filled.to_numpy(dtype=float)) if scaler is not None else filled.to_numpy(dtype=float)
+    except Exception:
+        x_scaled = filled.to_numpy(dtype=float)
+    linear_predictor, linear_predictor_method = _resolve_linear_predictor(glm, x_scaled, fitted)
     working_residual = working_residual_logit(y, fitted)
     working_weight = working_weight_logit(fitted)
     deviance_residual = _deviance_residual_binary(y, fitted)
@@ -410,6 +662,26 @@ def save_glm_diagnostics(
         out_path=randomized_qq_path,
     )
 
+    fitted_bins = _aggregate_equal_weight_bins(
+        fitted,
+        working_weight,
+        {
+            "working_residual": working_residual,
+            "deviance_residual": deviance_residual,
+            "randomized_quantile_residual": randomized_quantile_residual,
+        },
+        n_bins=_bin_count(len(work), len(np.unique(np.round(fitted, 12)))),
+    )
+    fitted_plot_path = plot_root / f"{prefix}_working_residuals_fitted_probability.png"
+    _plot_working_residuals(
+        fitted,
+        working_residual,
+        fitted_bins,
+        x_label="Fitted probability",
+        title="Working residuals vs fitted probability",
+        out_path=fitted_plot_path,
+    )
+
     linear_bins = _aggregate_equal_weight_bins(
         linear_predictor,
         working_weight,
@@ -446,13 +718,13 @@ def save_glm_diagnostics(
     else:
         weight_bins = pd.DataFrame(columns=["bin_index", "n_obs", "working_weight_sum", "axis_mean", "axis_min", "axis_max", "working_residual_mean"])
 
-    coef_scaled = np.asarray(glm.model.coef_[0], dtype=float)
-    scale = np.asarray(glm.scaler.scale_, dtype=float)
-    coef_original = np.divide(
-        coef_scaled,
-        scale,
-        out=np.full_like(coef_scaled, np.nan, dtype=float),
-        where=np.isfinite(scale) & (np.abs(scale) > 0),
+    coef_scaled, coef_original = _resolve_scaled_coefficients(glm, feature_cols)
+    has_partial_residual_support = (
+        coef_scaled is not None
+        and coef_original is not None
+        and len(coef_scaled) == len(feature_cols)
+        and len(coef_original) == len(feature_cols)
+        and x_scaled.shape[1] == len(feature_cols)
     )
 
     feature_rows: list[dict[str, Any]] = []
@@ -461,18 +733,18 @@ def save_glm_diagnostics(
     for idx, feature in enumerate(feature_cols):
         values = filled[feature].to_numpy(dtype=float)
         non_missing = numeric[feature].dropna()
-        component = x_scaled[:, idx] * coef_scaled[idx]
-        partial_residual = working_residual + component
+        component = x_scaled[:, idx] * coef_scaled[idx] if has_partial_residual_support else np.full(len(values), np.nan)
+        partial_residual = working_residual + component if has_partial_residual_support else np.full(len(values), np.nan)
         n_bins = _bin_count(len(work), int(non_missing.nunique()) if not non_missing.empty else 0)
 
+        columns = {"working_residual": working_residual}
+        if has_partial_residual_support:
+            columns["partial_residual"] = partial_residual
+            columns["component"] = component
         binned = _aggregate_equal_weight_bins(
             values,
             working_weight,
-            {
-                "working_residual": working_residual,
-                "partial_residual": partial_residual,
-                "component": component,
-            },
+            columns,
             n_bins=n_bins,
         )
 
@@ -486,27 +758,28 @@ def save_glm_diagnostics(
             title=f"Working residuals vs {feature}",
             out_path=working_plot_path,
         )
-        _plot_partial_residuals(
-            values,
-            partial_residual,
-            component,
-            binned[["axis_mean", "partial_residual_mean", "component_mean"]] if not binned.empty else pd.DataFrame(),
-            x_label=feature,
-            title=f"Partial residuals vs {feature}",
-            out_path=partial_plot_path,
-        )
+        if has_partial_residual_support:
+            _plot_partial_residuals(
+                values,
+                partial_residual,
+                component,
+                binned[["axis_mean", "partial_residual_mean", "component_mean"]] if not binned.empty else pd.DataFrame(),
+                x_label=feature,
+                title=f"Partial residuals vs {feature}",
+                out_path=partial_plot_path,
+            )
 
         feature_rows.append(
             {
                 "feature": feature,
-                "coef_scaled": float(coef_scaled[idx]),
-                "coef_original": _safe_float(coef_original[idx]),
+                "coef_scaled": _safe_float(float(coef_scaled[idx])) if has_partial_residual_support else None,
+                "coef_original": _safe_float(coef_original[idx]) if has_partial_residual_support else None,
                 "n_non_missing": int(non_missing.shape[0]),
                 "n_imputed": int(numeric[feature].isna().sum()),
                 "n_unique_non_missing": int(non_missing.nunique()) if not non_missing.empty else 0,
                 "bin_count": int(len(binned)),
                 "working_residual_plot_file": f"{plot_rel}/{working_plot_path.name}",
-                "partial_residual_plot_file": f"{plot_rel}/{partial_plot_path.name}",
+                "partial_residual_plot_file": f"{plot_rel}/{partial_plot_path.name}" if has_partial_residual_support else None,
             }
         )
 
@@ -521,19 +794,27 @@ def save_glm_diagnostics(
                 "feature_value_max": float(row["axis_max"]),
             }
             working_rows.append(base | {"working_residual_mean": float(row["working_residual_mean"])})
-            partial_rows.append(
-                base
-                | {
-                    "partial_residual_mean": float(row["partial_residual_mean"]),
-                    "component_mean": float(row["component_mean"]),
-                }
-            )
+            if has_partial_residual_support:
+                partial_rows.append(
+                    base
+                    | {
+                        "partial_residual_mean": float(row["partial_residual_mean"]),
+                        "component_mean": float(row["component_mean"]),
+                    }
+                )
 
     linear_predictor_bins = linear_bins.rename(
         columns={
             "axis_mean": "linear_predictor_mean",
             "axis_min": "linear_predictor_min",
             "axis_max": "linear_predictor_max",
+        }
+    )
+    residual_vs_fitted_bins = fitted_bins.rename(
+        columns={
+            "axis_mean": "fitted_probability_mean",
+            "axis_min": "fitted_probability_min",
+            "axis_max": "fitted_probability_max",
         }
     )
     weight_bins = weight_bins.rename(
@@ -543,6 +824,19 @@ def save_glm_diagnostics(
             "axis_max": "weight_value_max",
         }
     )
+
+    raw_residuals = pd.DataFrame(
+        {
+            "row_index": np.arange(len(work), dtype=int),
+            "fitted_probability": fitted,
+            "linear_predictor": linear_predictor,
+            "working_residual": working_residual,
+            "deviance_residual": deviance_residual,
+            "randomized_quantile_residual": randomized_quantile_residual,
+        },
+        columns=RAW_RESIDUAL_COLUMNS,
+    )
+    grouped_residual_summary, grouped_residual_metadata = _grouped_residual_summaries(work, raw_residuals)
 
     model_label = str(getattr(glm, "model_name", "glm")).strip() or "glm"
     summary = {
@@ -554,6 +848,8 @@ def save_glm_diagnostics(
         "working_weight_sum": _safe_float(float(working_weight.sum())),
         "variance_rule_recommended_max_bins": int(np.floor(0.01 * float(working_weight.sum()))),
         "linear_predictor_plot_file": f"{plot_rel}/{linear_plot_path.name}",
+        "working_vs_fitted_plot_file": f"{plot_rel}/{fitted_plot_path.name}",
+        "linear_predictor_method": linear_predictor_method,
         "deviance_plot_file": f"{plot_rel}/{deviance_path.name}",
         "deviance_histogram_plot_file": f"{plot_rel}/{deviance_hist_path.name}",
         "deviance_qq_plot_file": f"{plot_rel}/{deviance_qq_path.name}",
@@ -565,7 +861,18 @@ def save_glm_diagnostics(
         "working_residual_definition": "wri = (y - m) / (m * (1 - m))",
         "partial_residual_definition": "partial = wri + beta_j * z_j",
         "binning_note": "Binned residual means use equal-working-weight bins and working-weighted averages.",
-        "component_note": f"beta_j * z_j uses the fitted standardized design-matrix column because {model_label} is trained on scaled predictors.",
+        "component_note": (
+            f"beta_j * z_j uses fitted standardized design-matrix columns for {model_label}."
+            if has_partial_residual_support
+            else f"Partial residual decomposition is not available for {model_label} with the current wrapper payload."
+        ),
+        "partial_residual_status": "ok" if has_partial_residual_support else "partial",
+        "raw_residual_summary": {
+            "working_residual": _distribution_summary(working_residual),
+            "deviance_residual": _distribution_summary(deviance_residual),
+            "randomized_quantile_residual": _distribution_summary(randomized_quantile_residual),
+        },
+        "grouped_residual_metadata": grouped_residual_metadata,
         "deviance_residual_mean": _safe_float(float(np.mean(deviance_residual))),
         "deviance_residual_std": _safe_float(float(np.std(deviance_residual, ddof=0))),
         "randomized_quantile_residual_mean": _safe_float(float(np.mean(randomized_quantile_residual))),
@@ -579,4 +886,8 @@ def save_glm_diagnostics(
         "feature_working_bins": pd.DataFrame(working_rows, columns=FEATURE_WORKING_BIN_COLUMNS),
         "weight_bins": weight_bins.reindex(columns=WEIGHT_BIN_COLUMNS),
         "partial_residual_bins": pd.DataFrame(partial_rows, columns=PARTIAL_BIN_COLUMNS),
+        "raw_residuals": raw_residuals.reindex(columns=RAW_RESIDUAL_COLUMNS),
+        "residual_vs_fitted_bins": residual_vs_fitted_bins.reindex(columns=RESIDUAL_VS_FITTED_COLUMNS),
+        "grouped_residual_summary": grouped_residual_summary.reindex(columns=GROUPED_RESIDUAL_COLUMNS),
+        "grouped_residual_metadata": grouped_residual_metadata,
     }

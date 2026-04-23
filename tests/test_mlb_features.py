@@ -24,7 +24,7 @@ def _write_mlb_interim(interim: Path) -> None:
             "away_score": [2, 4, 3, None],
             "status_final": [1, 1, 1, 0],
             "home_win": [1, 0, 1, None],
-            "as_of_utc": ["2026-04-13T12:00:00Z"] * 4,
+            "as_of_utc": ["2026-04-09T12:00:00Z"] * 4,
         }
     )
     games.to_csv(interim / "games.csv", index=False)
