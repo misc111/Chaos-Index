@@ -93,3 +93,7 @@ Every candidate must record:
 - promotion or rejection reason
 
 Classification: `Theory-compatible engineering support`
+
+## Generated Feature/Beta Matrix
+
+- See [model_feature_beta_matrix.md](</Users/davidiruegas/Library/Application Support/SportsModeling/docs/mlb/model_feature_beta_matrix.md:1>) for the maintained Markdown snapshot of current model feature selection and coefficient output across the production and candidate-comparison lanes.
