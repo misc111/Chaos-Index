@@ -89,6 +89,24 @@ def compare_candidates(cfg: AppConfig, args: Namespace) -> None:
     )
 
 
+def nested_tournament(cfg: AppConfig, args: Namespace) -> None:
+    """Run the nested all-target MLB model tournament."""
+
+    from src.research.nested_tournament import run_mlb_nested_tournament
+
+    result = run_mlb_nested_tournament(
+        cfg,
+        run_id=getattr(args, "run_id", None),
+        targets=str(getattr(args, "targets", "all") or "all"),
+        candidate_models=str(getattr(args, "candidate_models", "all") or "all"),
+        feature_pool=str(getattr(args, "feature_pool", "full_screened")),
+        feature_map_model=str(getattr(args, "feature_map_model", "glm_ridge")),
+        structured_glm_spec_path=getattr(args, "structured_glm_spec", None),
+        bootstrap_samples=int(getattr(args, "bootstrap_samples", 200)),
+    )
+    print(f"MLB_NESTED_TOURNAMENT::{result.run_id}::{result.artifact_root}", flush=True)
+
+
 def best_models(cfg: AppConfig, args: Namespace) -> None:
     """Print the canonical current-best-models summary."""
 

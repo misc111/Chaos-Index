@@ -59,6 +59,21 @@ function asRecordArray(value: unknown): JsonRecord[] {
 }
 
 function sanitizePublicPayload(fileName: string, payload: unknown, league: LeagueCode): unknown {
+  if (fileName === "nested-tournament.json") {
+    const raw = (payload || {}) as JsonRecord;
+    const championRows = asRecordArray(raw.inter_family_leaderboard).filter((row) => Number(row.target_rank) <= 3);
+    const familyRows = asRecordArray(raw.family_champions).filter((row) => row.family_champion === true || row.family_champion === 1);
+    return {
+      league,
+      summary: raw.summary ? { run_id: (raw.summary as JsonRecord).run_id, generated_at_utc: (raw.summary as JsonRecord).generated_at_utc } : null,
+      target_coverage: asRecordArray(raw.target_coverage),
+      family_champions: familyRows,
+      inter_family_leaderboard: championRows,
+      public_note:
+        "Compact nested tournament digest. High-volume per-variant diagnostics stay local; champion/top-challenger diagnostic artifact references are retained.",
+    };
+  }
+
   if (fileName !== "validation.json") {
     return payload;
   }

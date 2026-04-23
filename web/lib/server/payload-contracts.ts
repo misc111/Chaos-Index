@@ -12,6 +12,7 @@ import type {
   GamesTodayResponse,
   MarketBoardResponse,
   MetricsResponse,
+  NestedTournamentResponse,
   PerformanceResponse,
   PredictionsResponse,
   ResearchAdminResponse,
@@ -25,6 +26,7 @@ export type DashboardPayloadByKey = {
   gamesToday: GamesTodayResponse;
   marketBoard: MarketBoardResponse;
   metrics: MetricsResponse;
+  nestedTournament: NestedTournamentResponse;
   performance: PerformanceResponse;
   predictions: PredictionsResponse;
   researchAdmin: ResearchAdminResponse;

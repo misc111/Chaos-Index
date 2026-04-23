@@ -386,6 +386,84 @@
       ]
     },
     {
+      "name": "nested-tournament",
+      "summary": "Run the nested all-target MLB tournament with intra-family selection before inter-family final holdout.",
+      "handler_path": "src.commands.modeling:nested_tournament",
+      "config_required": true,
+      "arguments": [
+        {
+          "flags": [
+            "--run-id"
+          ],
+          "doc_metavar": "RUN_ID",
+          "help": "Optional run identifier override.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--targets"
+          ],
+          "doc_metavar": "TARGETS",
+          "help": "Comma-separated nested tournament targets: moneyline_home_win,runline_home_cover,totals_over, or 'all'.",
+          "choices": null,
+          "default": "all"
+        },
+        {
+          "flags": [
+            "--bootstrap-samples"
+          ],
+          "doc_metavar": "N",
+          "help": "Number of paired bootstrap samples for the final holdout comparison.",
+          "choices": null,
+          "default": 1000
+        },
+        {
+          "flags": [
+            "--candidate-models"
+          ],
+          "doc_metavar": "MODELS",
+          "help": "Comma-separated candidate model list or 'all'.",
+          "choices": null,
+          "default": "all"
+        },
+        {
+          "flags": [
+            "--feature-pool"
+          ],
+          "doc_metavar": "POOL",
+          "help": "Feature pool for the comparison flow.",
+          "choices": [
+            "full_screened",
+            "production_model_map",
+            "research_broad"
+          ],
+          "default": "full_screened"
+        },
+        {
+          "flags": [
+            "--feature-map-model"
+          ],
+          "doc_metavar": "MODEL",
+          "help": "Model key to read from the production feature map when needed.",
+          "choices": null,
+          "default": "glm_ridge"
+        },
+        {
+          "flags": [
+            "--structured-glm-spec"
+          ],
+          "doc_metavar": "PATH",
+          "help": "Optional research-only YAML spec defining a structured MLB GLM feature slate.",
+          "choices": null,
+          "default": null
+        }
+      ],
+      "examples": [
+        "python3 -m src.cli nested-tournament --config configs/mlb.yaml --targets all"
+      ]
+    },
+    {
       "name": "backtest",
       "summary": "Run the walk-forward backtest and scoring pipeline.",
       "handler_path": "src.commands.modeling:backtest",

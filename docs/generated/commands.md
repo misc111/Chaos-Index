@@ -136,6 +136,22 @@ Print the canonical current-best-models summary for the MLB research lane.
 - Examples:
   - `python3 -m src.cli best-models --config configs/mlb.yaml`
 
+## `nested-tournament`
+
+Run the nested all-target MLB tournament with intra-family selection before inter-family final holdout.
+
+- Default config: `configs/mlb.yaml`
+- Options:
+  - `--run-id` `RUN_ID`: Optional run identifier override.
+  - `--targets` `TARGETS`: Comma-separated nested tournament targets: moneyline_home_win,runline_home_cover,totals_over, or 'all'.
+  - `--bootstrap-samples` `N`: Number of paired bootstrap samples for the final holdout comparison.
+  - `--candidate-models` `MODELS`: Comma-separated candidate model list or 'all'.
+  - `--feature-pool` `POOL`: Feature pool for the comparison flow.
+  - `--feature-map-model` `MODEL`: Model key to read from the production feature map when needed.
+  - `--structured-glm-spec` `PATH`: Optional research-only YAML spec defining a structured MLB GLM feature slate.
+- Examples:
+  - `python3 -m src.cli nested-tournament --config configs/mlb.yaml --targets all`
+
 ## `backtest`
 
 Run the walk-forward backtest and scoring pipeline.

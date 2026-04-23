@@ -15,6 +15,7 @@ const STAGING_FILES = {
   gamesToday: "games-today.json",
   marketBoard: "market-board.json",
   metrics: "metrics.json",
+  nestedTournament: "nested-tournament.json",
   performance: "performance.json",
   predictions: "predictions.json",
   validation: "validation.json",

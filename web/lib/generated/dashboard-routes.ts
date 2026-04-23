@@ -6,6 +6,7 @@ export const DASHBOARD_ROUTE_KEYS = [
   "gamesToday",
   "marketBoard",
   "metrics",
+  "nestedTournament",
   "researchAdmin",
   "researchDesk",
   "performance",
@@ -89,6 +90,18 @@ export const DASHBOARD_ROUTES: readonly DashboardRouteEntry[] = [
     supportsExperiments: false
   },
   {
+    key: "nestedTournament",
+    summary: "Nested MLB tournament payload with target-scoped family champions and diagnostics.",
+    modulePath: "app/api/nested-tournament/route.ts",
+    apiPath: "/api/nested-tournament",
+    pagePath: "/nested-tournament",
+    stagingFileName: "nested-tournament.json",
+    payloadContract: "nestedTournament",
+    includeInStaging: true,
+    public: true,
+    supportsExperiments: false
+  },
+  {
     key: "researchAdmin",
     summary: "Live-only research admin payload for experiment briefs, runs, and promotion decisions.",
     modulePath: "app/api/research-admin/route.ts",
@@ -155,6 +168,7 @@ export const DASHBOARD_STAGING_ROUTE_KEYS = [
   "gamesToday",
   "marketBoard",
   "metrics",
+  "nestedTournament",
   "researchDesk",
   "performance",
   "predictions",

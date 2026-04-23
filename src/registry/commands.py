@@ -104,6 +104,18 @@ _BOOTSTRAP_SAMPLES_ARG = _option(
     help="Number of paired bootstrap samples for the final holdout comparison.",
     doc_metavar="N",
 )
+_TARGETS_ARG = _option(
+    "--targets",
+    default="all",
+    help="Comma-separated nested tournament targets: moneyline_home_win,runline_home_cover,totals_over, or 'all'.",
+    doc_metavar="TARGETS",
+)
+_RUN_ID_ARG = _option(
+    "--run-id",
+    default=None,
+    help="Optional run identifier override.",
+    doc_metavar="RUN_ID",
+)
 _HISTORY_SEASONS_ARG = _option(
     "--history-seasons",
     type=int,
@@ -257,6 +269,21 @@ COMMAND_REGISTRY: tuple[CommandRegistryEntry, ...] = (
         summary="Print the canonical current-best-models summary for the MLB research lane.",
         handler_path="src.commands.modeling:best_models",
         examples=("python3 -m src.cli best-models --config configs/mlb.yaml",),
+    ),
+    CommandRegistryEntry(
+        name="nested-tournament",
+        summary="Run the nested all-target MLB tournament with intra-family selection before inter-family final holdout.",
+        handler_path="src.commands.modeling:nested_tournament",
+        arguments=(
+            _RUN_ID_ARG,
+            _TARGETS_ARG,
+            _BOOTSTRAP_SAMPLES_ARG,
+            _CANDIDATE_MODELS_ARG,
+            _FEATURE_POOL_ARG,
+            _FEATURE_MAP_MODEL_ARG,
+            _STRUCTURED_GLM_SPEC_ARG,
+        ),
+        examples=("python3 -m src.cli nested-tournament --config configs/mlb.yaml --targets all",),
     ),
     CommandRegistryEntry(
         name="backtest",

@@ -134,6 +134,8 @@ Required:
 - threshold sensitivity
 - calibration by quantile or decile
 - Brier score and decomposition where applicable
+- per-candidate curve artifacts for tournament candidates, not only the resolved primary model
+- target-scoped family champion diagnostics for moneyline, runline, and totals
 
 Classification: `Direct theory implementation`
 

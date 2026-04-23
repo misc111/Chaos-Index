@@ -51,6 +51,15 @@ DASHBOARD_ROUTE_REGISTRY: tuple[DashboardRouteRegistryEntry, ...] = (
         payload_contract="metrics",
     ),
     DashboardRouteRegistryEntry(
+        key="nestedTournament",
+        summary="Nested MLB tournament payload with target-scoped family champions and diagnostics.",
+        module_path="app/api/nested-tournament/route.ts",
+        api_path="/api/nested-tournament",
+        page_path="/nested-tournament",
+        staging_file_name="nested-tournament.json",
+        payload_contract="nestedTournament",
+    ),
+    DashboardRouteRegistryEntry(
         key="researchAdmin",
         summary="Live-only research admin payload for experiment briefs, runs, and promotion decisions.",
         module_path="app/api/research-admin/route.ts",

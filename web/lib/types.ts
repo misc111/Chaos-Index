@@ -194,6 +194,16 @@ export type ResearchAdminResponse = {
   decisions: ResearchPromotionSummary[];
 };
 
+export type NestedTournamentResponse = {
+  league: string;
+  current_best: TableRow | null;
+  summary: TableRow | null;
+  target_coverage: TableRow[];
+  family_champions: TableRow[];
+  inter_family_leaderboard: TableRow[];
+  artifacts: TableRow;
+};
+
 export type LeaderboardRow = {
   model_name: string;
   window_label: string;
