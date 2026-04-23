@@ -9,7 +9,6 @@ test("default training models stay on the core actuarial lane", () => {
   const defaultSet = new Set<string>(defaults);
 
   assert.deepEqual(defaults, [...DEFAULT_TRAINING_MODELS]);
-  assert.deepEqual(defaultTrainingModelsForLeague("NBA"), [...DEFAULT_TRAINING_MODELS]);
   for (const experimentalModel of EXPERIMENTAL_MODEL_KEYS) {
     assert.equal(defaultSet.has(experimentalModel), false);
   }

@@ -27,7 +27,7 @@ def clarify_team_answer(team_candidates: tuple[tuple[str, str], ...]) -> tuple[s
     options = [f"{league}:{team}" for league, team in team_candidates]
     answer = (
         "That team wording matches multiple teams across leagues. "
-        "Please specify league in your question (for example: 'MLB Boston', 'NHL Boston', or 'NBA Boston')."
+        "Please specify an MLB team in your question (for example: 'MLB Boston')."
     )
     return answer, {"intent": "clarify_team", "team_candidates": options}
 
@@ -67,7 +67,7 @@ def main() -> None:
 
     parser = argparse.ArgumentParser(description="Local deterministic sports query command")
     parser.add_argument("--config", type=str, default=default_config_path("MLB"))
-    parser.add_argument("--league", type=str, choices=["MLB", "NHL", "NBA"], default=None)
+    parser.add_argument("--league", type=str, choices=["MLB"], default=None)
     parser.add_argument("--question", type=str, required=True)
     args = parser.parse_args()
 

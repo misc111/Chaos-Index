@@ -230,8 +230,7 @@ export function getPairedMoneylineRowsForSnapshots(league: LeagueCode, snapshotI
 }
 
 export function getOver190RowsForSnapshots(league: LeagueCode, snapshotIds: string[]): RawOver190Row[] {
-  if (!snapshotIds.length || league !== "NBA") return [];
-  return runSqlJson(over190Sql(snapshotIds), { league }) as RawOver190Row[];
+  return [];
 }
 
 export function getMarketLinesForSnapshot(league: LeagueCode, snapshotId: string, gameIds: number[]): RawOddsLine[] {

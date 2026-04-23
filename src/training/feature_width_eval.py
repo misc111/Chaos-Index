@@ -103,7 +103,9 @@ def run_feature_width_eval(
     guardrails_path_template: str | None = None,
     approve_changes: bool = False,
 ) -> FeatureWidthEvalResult:
-    league_code = str(league or "NHL").strip().upper()
+    league_code = str(league or "MLB").strip().upper()
+    if league_code != "MLB":
+        raise ValueError(f"Unsupported league '{league}'. Expected only: MLB.")
     model_code = str(model_name or "").strip()
     if model_code not in RESEARCHABLE_MODELS:
         raise ValueError(f"Unsupported model_name '{model_name}'. Expected one of {RESEARCHABLE_MODELS}.")

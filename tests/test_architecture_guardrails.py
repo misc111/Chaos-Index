@@ -96,9 +96,8 @@ def test_primary_staging_contract_exposes_only_mlb_at_the_root() -> None:
     assert manifest["shipped_leagues"] == ["MLB"]
     assert manifest["leagues"] == ["MLB"]
     assert sorted(manifest["required_files_by_league"]) == ["MLB"]
-    assert root_dirs == ["legacy", "mlb"]
-    assert (staging_root / "legacy" / "nba" / "meta.json").exists()
-    assert (staging_root / "legacy" / "nhl" / "meta.json").exists()
+    assert root_dirs == ["mlb"]
+    assert not (staging_root / "legacy").exists()
     assert _check_primary_staging_contract() == []
 
 
@@ -110,26 +109,20 @@ def test_mlb_artifact_write_guards_reject_history_and_non_mlb_lanes(tmp_path) ->
     assert require_mlb_report_path(good_report, artifacts_dir, purpose="unit test") == good_report
     assert require_mlb_tournament_path(good_tournament, artifacts_dir, purpose="unit test") == good_tournament
 
-    for bad_path in (
-        artifacts_dir / "reports" / "history" / "scorecard.json",
-        artifacts_dir / "reports" / "nba" / "scorecard.json",
-        artifacts_dir / "reports" / "nhl" / "scorecard.json",
-    ):
-        with pytest.raises(RuntimeError, match="artifacts/reports/mlb"):
-            require_mlb_report_path(bad_path, artifacts_dir, purpose="unit test")
+    with pytest.raises(RuntimeError, match="artifacts/reports/mlb"):
+        require_mlb_report_path(artifacts_dir / "reports" / "history" / "scorecard.json", artifacts_dir, purpose="unit test")
 
     with pytest.raises(RuntimeError, match="artifacts/reports/mlb/tournament"):
         require_mlb_tournament_path(artifacts_dir / "reports" / "mlb" / "scorecard.json", artifacts_dir, purpose="unit test")
 
 
-def test_non_mlb_leagues_are_registry_legacy_not_primary_contract() -> None:
+def test_only_mlb_is_registered_as_a_supported_league() -> None:
     manifest = league_manifest_payload()
 
     assert manifest["primary_league"] == "MLB"
     assert manifest["primary_rebuild_leagues"] == ["MLB"]
+    assert sorted(manifest["leagues"]) == ["MLB"]
     assert manifest["leagues"]["MLB"]["lifecycle"] == "primary"
-    assert manifest["leagues"]["NBA"]["lifecycle"] == "legacy"
-    assert manifest["leagues"]["NHL"]["lifecycle"] == "legacy"
 
 
 def test_leak_repaired_tournament_outputs_retain_theory_labels_when_present() -> None:

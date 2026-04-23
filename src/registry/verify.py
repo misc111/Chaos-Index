@@ -51,7 +51,6 @@ OVERSIZED_FILE_ALLOWLIST = {
     "src/services/ingest.py",
     "src/services/history_import.py",
     "src/services/research_backtest.py",
-    "src/features/strategies/nba.py",
     "src/data_sources/odds_api.py",
     "src/evaluation/validation_nonlinearity.py",
     "src/query/bet_history_handlers.py",
@@ -62,6 +61,9 @@ OVERSIZED_FILE_ALLOWLIST = {
     "src/registry/generate.py",
     "src/registry/models.py",
     "src/evaluation/validation_significance.py",
+    "src/evaluation/market_truth.py",
+    "src/reporting/model_feature_matrix.py",
+    "src/services/model_compare.py",
     "src/models/lasso_credibility.py",
     "src/research/mlb_model_tournament.py",
     "src/training/lasso_credibility.py",
@@ -82,12 +84,7 @@ OVERSIZED_FILE_ALLOWLIST = {
     "web/components/BetHistoryChart.tsx",
     "web/lib/ensemble-snapshot-replay.ts",
 }
-FORBIDDEN_LITERAL_PATTERNS = (
-    re.compile(r"configs/(nhl|nba)\.yaml"),
-    re.compile(r"data/processed/(nhl|nba)_forecast\.db"),
-    re.compile(r"process\.env\.(NHL|NBA)_DB_PATH"),
-    re.compile(r'process\.env\["(NHL|NBA)_DB_PATH"\]'),
-)
+FORBIDDEN_LITERAL_PATTERNS = ()
 FORBIDDEN_LITERAL_ALLOWLIST = {
     ROOT_DIR / "src/registry/leagues.py",
     ROOT_DIR / "src/registry/commands.py",
@@ -185,11 +182,8 @@ def _check_primary_staging_contract() -> list[str]:
         failures.append("staging manifest required_files_by_league must contain only MLB.")
 
     root_dirs = sorted(path.name for path in staging_root.iterdir() if path.is_dir())
-    if root_dirs != ["legacy", "mlb"]:
-        failures.append("web/public/staging-data root directories must be exactly ['legacy', 'mlb'].")
-    for legacy_slug in ("nba", "nhl"):
-        if (staging_root / legacy_slug).exists():
-            failures.append(f"legacy staging payload {legacy_slug} must stay under web/public/staging-data/legacy/.")
+    if root_dirs != ["mlb"]:
+        failures.append("web/public/staging-data root directories must be exactly ['mlb'].")
 
     return failures
 

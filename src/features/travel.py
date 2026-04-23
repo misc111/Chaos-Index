@@ -16,83 +16,6 @@ class TeamCity:
     utc_offset_hours: int
 
 
-NHL_TEAM_CITY = {
-    "ANA": TeamCity(33.8078, -117.8767, -8),
-    "ARI": TeamCity(33.5312, -112.2617, -7),
-    "BOS": TeamCity(42.3662, -71.0621, -5),
-    "BUF": TeamCity(42.8740, -78.8768, -5),
-    "CAR": TeamCity(35.8033, -78.7218, -5),
-    "CBJ": TeamCity(39.9690, -83.0063, -5),
-    "CGY": TeamCity(51.0374, -114.0519, -7),
-    "CHI": TeamCity(41.8807, -87.6742, -6),
-    "COL": TeamCity(39.7487, -105.0077, -7),
-    "DAL": TeamCity(32.7905, -96.8103, -6),
-    "DET": TeamCity(42.3410, -83.0551, -5),
-    "EDM": TeamCity(53.5461, -113.4970, -7),
-    "FLA": TeamCity(26.1585, -80.3256, -5),
-    "LAK": TeamCity(34.0430, -118.2673, -8),
-    "MIN": TeamCity(44.9448, -93.1010, -6),
-    "MTL": TeamCity(45.4960, -73.5693, -5),
-    "NJD": TeamCity(40.7335, -74.1711, -5),
-    "NSH": TeamCity(36.1591, -86.7785, -6),
-    "NYI": TeamCity(40.7229, -73.5909, -5),
-    "NYR": TeamCity(40.7505, -73.9934, -5),
-    "OTT": TeamCity(45.2969, -75.9272, -5),
-    "PHI": TeamCity(39.9012, -75.1720, -5),
-    "PIT": TeamCity(40.4392, -79.9899, -5),
-    "SEA": TeamCity(47.6221, -122.3540, -8),
-    "SJS": TeamCity(37.3328, -121.9010, -8),
-    "STL": TeamCity(38.6268, -90.2026, -6),
-    "TBL": TeamCity(27.9427, -82.4518, -5),
-    "TOR": TeamCity(43.6435, -79.3791, -5),
-    "UTA": TeamCity(40.7683, -111.9012, -7),
-    "VAN": TeamCity(49.2777, -123.1089, -8),
-    "VGK": TeamCity(36.1020, -115.1783, -8),
-    "WPG": TeamCity(49.8927, -97.1436, -6),
-    "WSH": TeamCity(38.8981, -77.0209, -5),
-}
-
-NBA_TEAM_CITY = {
-    "ATL": TeamCity(33.7573, -84.3963, -5),
-    "BOS": TeamCity(42.3663, -71.0622, -5),
-    "BKN": TeamCity(40.6827, -73.9751, -5),
-    "BRK": TeamCity(40.6827, -73.9751, -5),
-    "CHA": TeamCity(35.2251, -80.8392, -5),
-    "CHI": TeamCity(41.8807, -87.6742, -6),
-    "CLE": TeamCity(41.4965, -81.6882, -5),
-    "DAL": TeamCity(32.7905, -96.8103, -6),
-    "DEN": TeamCity(39.7487, -105.0077, -7),
-    "DET": TeamCity(42.3410, -83.0551, -5),
-    "GSW": TeamCity(37.7680, -122.3877, -8),
-    "GS": TeamCity(37.7680, -122.3877, -8),
-    "HOU": TeamCity(29.7508, -95.3621, -6),
-    "IND": TeamCity(39.7639, -86.1555, -5),
-    "LAC": TeamCity(34.0430, -118.2673, -8),
-    "LAL": TeamCity(34.0430, -118.2673, -8),
-    "MEM": TeamCity(35.1382, -90.0505, -6),
-    "MIA": TeamCity(25.7814, -80.1870, -5),
-    "MIL": TeamCity(43.0451, -87.9172, -6),
-    "MIN": TeamCity(44.9795, -93.2760, -6),
-    "NOP": TeamCity(29.9490, -90.0821, -6),
-    "NO": TeamCity(29.9490, -90.0821, -6),
-    "NYK": TeamCity(40.7505, -73.9934, -5),
-    "NY": TeamCity(40.7505, -73.9934, -5),
-    "OKC": TeamCity(35.4634, -97.5151, -6),
-    "ORL": TeamCity(28.5392, -81.3839, -5),
-    "PHI": TeamCity(39.9012, -75.1720, -5),
-    "PHX": TeamCity(33.4457, -112.0712, -7),
-    "PHO": TeamCity(33.4457, -112.0712, -7),
-    "POR": TeamCity(45.5316, -122.6668, -8),
-    "SAC": TeamCity(38.5806, -121.4996, -8),
-    "SAS": TeamCity(29.4270, -98.4375, -6),
-    "SA": TeamCity(29.4270, -98.4375, -6),
-    "TOR": TeamCity(43.6435, -79.3791, -5),
-    "UTA": TeamCity(40.7683, -111.9012, -7),
-    "UTAH": TeamCity(40.7683, -111.9012, -7),
-    "WAS": TeamCity(38.8981, -77.0209, -5),
-    "WSH": TeamCity(38.8981, -77.0209, -5),
-}
-
 MLB_TEAM_CITY = {
     "ARI": TeamCity(33.4484, -112.0740, -7),
     "AZ": TeamCity(33.4484, -112.0740, -7),
@@ -138,8 +61,6 @@ MLB_TEAM_CITY = {
 
 TEAM_CITY_BY_LEAGUE = {
     "MLB": MLB_TEAM_CITY,
-    "NHL": NHL_TEAM_CITY,
-    "NBA": NBA_TEAM_CITY,
 }
 
 
@@ -160,12 +81,14 @@ def _rolling_load(flags: list[int], window: int) -> list[int]:
     return out
 
 
-def build_travel_features(games_df: pd.DataFrame, league: str = "NHL") -> pd.DataFrame:
+def build_travel_features(games_df: pd.DataFrame, league: str = "MLB") -> pd.DataFrame:
     if games_df.empty:
         return pd.DataFrame()
 
-    league_code = str(league or "NHL").strip().upper()
-    team_city = TEAM_CITY_BY_LEAGUE.get(league_code, NHL_TEAM_CITY)
+    league_code = str(league or "MLB").strip().upper()
+    if league_code != "MLB":
+        raise ValueError(f"Unsupported league '{league}'. Expected only: MLB.")
+    team_city = MLB_TEAM_CITY
     games = games_df.sort_values("start_time_utc").copy()
     team_rows = []
     for _, r in games.iterrows():

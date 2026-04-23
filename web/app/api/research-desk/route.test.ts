@@ -92,5 +92,4 @@ test("buildUnsupportedPayload returns a league-aware empty payload", () => {
   assert.equal(payload.rows.length, 0);
   assert.equal(payload.counts.total_games, 0);
   assert.match(String(payload.overnight_summary), /No MLB games are on the desk slate right now/i);
-  assert.doesNotMatch(String(payload.overnight_summary), /NBA only/i);
 });

@@ -2,15 +2,14 @@
 
 ## Objective
 
-Make MLB the only primary shipped lane while preserving legacy code and data for
-audit/migration reference. Modeling governance follows the leak-repaired
-tournament and the traceability matrix in
+Make MLB the only shipped lane. Retired league implementations are recoverable
+from git history if needed, but are intentionally absent from the working tree.
+Modeling governance follows the leak-repaired tournament and the traceability matrix in
 `docs/mlb/theory_traceability_matrix.md`.
 
 ## Enforced Boundaries
 
-- `src.registry.leagues` marks MLB as `lifecycle=primary`; NBA and NHL are
-  `lifecycle=legacy` and are not primary rebuild lanes.
+- `src.registry.leagues` registers MLB only.
 - `make data_refresh` and `make hard_refresh` are the canonical repo-level
   orchestration targets. They call thin Python adapters in `src/orchestration/`
   and build steps only for primary rebuild leagues.
@@ -26,8 +25,8 @@ tournament and the traceability matrix in
   `src/models/experimental/`.
 - Current `mars_hinge` is treated as an experimental proxy challenger, not as
   a direct canonical MARS implementation.
-- `web/public/staging-data/manifest.json` ships only MLB. Legacy NBA/NHL JSON
-  snapshots are retained under `web/public/staging-data/legacy/`.
+- `web/public/staging-data/manifest.json` ships only MLB and the staging root
+  contains no retired league snapshots.
 - Tournament and recommendation artifacts must carry `theory_classification`
   labels: `core-supported`, `theory-compatible extension`, or `experimental`.
 
@@ -59,10 +58,6 @@ tournament and the traceability matrix in
 
 ## Residual Migration Debt
 
-- NBA/NHL configs, feature builders, data sources, and tests still exist as
-  legacy compatibility surfaces.
-- Some legacy tests intentionally exercise non-MLB paths to prevent accidental
-  breakage while the migration finishes.
 - Full production MLB champion promotion is still blocked by bounded-data
   evidence, missing robust market complements, and incomplete long-horizon
   validation depth.

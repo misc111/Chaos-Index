@@ -21,7 +21,6 @@ logger = get_logger(__name__)
 
 DEFAULT_PROFILE_KEY = "default"
 DEFAULT_BRIEF_STATUS = "active"
-DEFAULT_LEGACY_INCUMBENT_MODEL = "glm_elastic_net"
 MAX_DRAWDOWN_LIMIT = 750.0
 MIN_BET_COUNT = 10
 MIN_PROFITABLE_FOLDS = 2
@@ -318,7 +317,7 @@ def _choose_incumbent_model(db: Database, *, league: str, profile_key: str) -> s
     )
     if rows and rows[0].get("model_name"):
         return str(rows[0]["model_name"])
-    return DEFAULT_LEGACY_INCUMBENT_MODEL if league == "NBA" else "ensemble"
+    return "ensemble"
 
 
 def _has_active_champion(db: Database, *, league: str, profile_key: str) -> bool:

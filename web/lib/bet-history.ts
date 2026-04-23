@@ -440,10 +440,7 @@ function buildHistoricalReplayDataset(league: LeagueCode): HistoricalReplayDatas
   const moneylineRows = uniqueSnapshotIds.length
     ? (runSqlJson(historicalMoneylineSql(uniqueSnapshotIds, { includeBookmakerTitles: true }), { league }) as RawMoneylineRow[])
     : [];
-  const over190Rows =
-    uniqueSnapshotIds.length && league === "NBA"
-      ? (runSqlJson(over190Sql(uniqueSnapshotIds), { league }) as RawOver190Row[])
-      : [];
+  const over190Rows: RawOver190Row[] = [];
 
   const moneylineByGame = new Map<string, RawMoneylineRow>();
   const moneylineByTeams = new Map<string, RawMoneylineRow>();
@@ -747,13 +744,7 @@ function selectDefaultHistoricalStrategy(
   strategies: Record<BetStrategy, BetHistoryStrategyBundle>
 ): BetStrategy {
   const leagueDefault = getDefaultBetStrategyForLeague(league) || DEFAULT_BET_STRATEGY;
-  if (league !== "NBA") {
-    return leagueDefault;
-  }
-
-  const conservativeProfit = strategies.capitalPreservation.summary.total_profit;
-  const defaultProfit = strategies[leagueDefault].summary.total_profit;
-  return conservativeProfit > defaultProfit ? "capitalPreservation" : leagueDefault;
+  return leagueDefault;
 }
 
 export function getBetHistory(league: LeagueCode): BetHistoryResponse {

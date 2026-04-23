@@ -60,6 +60,6 @@ def help_answer() -> str:
         "'What are Toronto's odds in the next three games?', "
         "'What's the probability the Dodgers win the World Series?', "
         "'What's the probability the Kings win the Stanley Cup?', "
-        "'What's the probability the Knicks win the NBA Finals?', or "
+        "'What's the probability the Dodgers win the World Series?', or "
         "'Which model has performed best the last 60 days?'"
     )

@@ -12,7 +12,7 @@ const STAGING_ASSET_VERSION = process.env.NEXT_PUBLIC_STAGING_ASSET_VERSION || "
 const STATIC_STAGING = process.env.NEXT_PUBLIC_STATIC_STAGING === "1";
 
 const EMPTY_RESEARCH_DESK: ResearchDeskResponse = {
-  league: "NBA",
+  league: "MLB",
   as_of_utc: null,
   odds_as_of_utc: null,
   date_central: undefined,

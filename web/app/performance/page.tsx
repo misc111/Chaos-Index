@@ -10,7 +10,7 @@ import { usePerformanceReplayExperiment } from "@/lib/hooks/usePerformanceReplay
 import type { PerformanceResponse } from "@/lib/types";
 
 const EMPTY_PERFORMANCE: PerformanceResponse = {
-  league: "NHL",
+  league: "MLB",
   scores: [],
   run_summaries: [],
   change_points: [],

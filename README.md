@@ -11,7 +11,7 @@ The governing statistical sources are:
 - `statistical_theory/09_GLM_Generalized_Linear_Models_for_Insurance_Rating.pdf`
 - `statistical_theory/10_Holmes_Casotto_Penalized_Regression_and_Lasso_Credibility_2025_Revision.pdf`
 
-The old NHL/NBA system established useful infrastructure, but it is no longer the governing product contract. Legacy NHL/NBA code may still exist during migration; the active contract, docs, configs, and sprint plan now point at the MLB rebuild.
+The repository is now MLB-only in the working tree. Retired league implementations can be recovered from git history if they are ever needed again.
 
 ## Current Phase
 
@@ -100,4 +100,4 @@ That boundary matters. The repo should never present an operator UX or betting h
 ## Notes
 
 - The strongest reusable patterns from the legacy system are the code-first registry, manifest generation, immutable prediction ledger, deterministic orchestration, and staging pipeline.
-- The statistical core is being rewritten around MLB and the two CAS monographs, not extended from an NHL/NBA-first theory contract.
+- The statistical core is being written around MLB and the two CAS monographs.

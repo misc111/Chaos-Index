@@ -126,7 +126,7 @@ function buildEmptyOptimizationSummary(): BetStrategyOptimizationSummary {
 }
 
 const EMPTY_BET_HISTORY: BetHistoryResponse = {
-  league: "NHL",
+  league: "MLB",
   default_strategy: DEFAULT_BET_STRATEGY,
   strategy_configs: buildEmptyResolvedStrategyConfigs(),
   strategy_optimization: buildEmptyOptimizationSummary(),

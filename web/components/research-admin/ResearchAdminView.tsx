@@ -16,7 +16,7 @@ import {
 import styles from "./ResearchAdminView.module.css";
 
 const EMPTY_ADMIN_RESPONSE: ResearchAdminResponse = {
-  league: "NBA",
+  league: "MLB",
   as_of_utc: null,
   champion: null,
   briefs: [],

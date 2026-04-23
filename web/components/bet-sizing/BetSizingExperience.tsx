@@ -159,7 +159,7 @@ const EMPTY_BET_HISTORY_STRATEGY: BetHistoryStrategyBundle = {
 };
 
 const EMPTY_BET_HISTORY: BetHistoryResponse = {
-  league: "NHL",
+  league: "MLB",
   default_strategy: "riskAdjusted",
   strategy_configs: buildEmptyStrategyConfigs(),
   strategy_optimization: {
@@ -182,7 +182,7 @@ const EMPTY_BET_HISTORY: BetHistoryResponse = {
 };
 
 const EMPTY_GAMES_TODAY: GamesTodayResponse = {
-  league: "NHL",
+  league: "MLB",
   as_of_utc: null,
   odds_as_of_utc: null,
   date_central: undefined,

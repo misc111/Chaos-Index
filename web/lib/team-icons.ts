@@ -13,74 +13,6 @@ const DEFAULT_ICON: TeamIconDefinition = {
   text: "var(--muted-strong)",
 };
 
-const NBA_TEAM_ICON_CODES = [
-  "ATL",
-  "BKN",
-  "BOS",
-  "CHA",
-  "CHI",
-  "CLE",
-  "DAL",
-  "DEN",
-  "DET",
-  "GS",
-  "HOU",
-  "IND",
-  "LAC",
-  "LAL",
-  "MEM",
-  "MIA",
-  "MIL",
-  "MIN",
-  "NO",
-  "NY",
-  "OKC",
-  "ORL",
-  "PHI",
-  "PHX",
-  "POR",
-  "SA",
-  "SAC",
-  "TOR",
-  "UTAH",
-  "WSH",
-] as const;
-
-const NHL_TEAM_ICON_CODES = [
-  "ANA",
-  "BOS",
-  "BUF",
-  "CAR",
-  "CBJ",
-  "CGY",
-  "CHI",
-  "COL",
-  "DAL",
-  "DET",
-  "EDM",
-  "FLA",
-  "LAK",
-  "MIN",
-  "MTL",
-  "NJD",
-  "NSH",
-  "NYI",
-  "NYR",
-  "OTT",
-  "PHI",
-  "PIT",
-  "SEA",
-  "SJS",
-  "STL",
-  "TBL",
-  "TOR",
-  "UTA",
-  "VAN",
-  "VGK",
-  "WPG",
-  "WSH",
-] as const;
-
 const MLB_TEAM_ICON_CODES = [] as const;
 
 function buildTeamIconMap(pathPrefix: string, extension: "png" | "svg", codes: readonly string[]): Record<string, TeamIconDefinition> {
@@ -97,8 +29,6 @@ function buildTeamIconMap(pathPrefix: string, extension: "png" | "svg", codes: r
 
 const TEAM_ICONS: Record<LeagueCode, Record<string, TeamIconDefinition>> = {
   MLB: buildTeamIconMap("/team-icons/mlb", "svg", MLB_TEAM_ICON_CODES),
-  NBA: buildTeamIconMap("/team-icons/nba", "png", NBA_TEAM_ICON_CODES),
-  NHL: buildTeamIconMap("/team-icons/nhl", "svg", NHL_TEAM_ICON_CODES),
 };
 
 export function normalizeTeamCode(teamCode?: string | null, label?: string | null): string {

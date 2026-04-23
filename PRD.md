@@ -8,7 +8,7 @@ Last updated: 2026-04-20
 
 ## 1. Purpose
 
-This repository is being rebuilt as an MLB-first actuarial betting platform. The old NHL/NBA product established useful engineering discipline, but the governing contract is now a fresh MLB program centered on statistically principled GLM-family modeling, penalized regression, lasso credibility, and evidence-backed ensemble promotion.
+This repository is an MLB actuarial betting platform centered on statistically principled GLM-family modeling, penalized regression, lasso credibility, and evidence-backed ensemble promotion.
 
 The two governing statistical sources are:
 

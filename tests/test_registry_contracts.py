@@ -85,8 +85,7 @@ def test_generated_league_manifest_matches_code_registry() -> None:
     assert manifest["primary_rebuild_leagues"] == ["MLB"]
     assert manifest["leagues"]["MLB"]["primary_rebuild_lane"] is True
     assert manifest["leagues"]["MLB"]["lifecycle"] == "primary"
-    assert manifest["leagues"]["NBA"]["primary_rebuild_lane"] is False
-    assert manifest["leagues"]["NBA"]["lifecycle"] == "legacy"
+    assert sorted(manifest["leagues"]) == ["MLB"]
 
 
 def test_generated_model_manifest_matches_code_registry_and_training_catalog() -> None:

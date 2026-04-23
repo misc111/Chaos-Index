@@ -9,7 +9,7 @@
 3. Regenerate manifests and docs with `make docs-generate`.
 4. Keep new leagues marked `legacy` until a product decision promotes them into the primary rebuild lane.
 
-Current leagues: `MLB` (primary), `NHL` (legacy), `NBA` (legacy).
+Current leagues: `MLB` (primary).
 
 ## Add A Model
 

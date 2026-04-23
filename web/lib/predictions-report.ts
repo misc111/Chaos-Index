@@ -39,7 +39,7 @@ export function displayPredictionModel(model: string): string {
 
 function normalizeLeagueLabel(league?: string | null): string {
   const leagueCode = String(league || "").trim().toUpperCase();
-  return leagueCode === "MLB" ? "MLB" : leagueCode === "NHL" ? "NHL" : leagueCode === "NBA" ? "NBA" : "";
+  return leagueCode === "MLB" ? "MLB" : "";
 }
 
 function isExperimentalPredictionModel(model: string): boolean {
@@ -51,40 +51,16 @@ export function predictionTrustNote(model: string, league?: string | null): stri
   const canonicalModel = canonicalizePredictionModel(model);
   const leagueCode = normalizeLeagueLabel(league);
 
-  if (canonicalModel === "glm_ridge" && leagueCode === "NBA") {
-    return "Linear pregame model anchored by projected rotation strength, matchup splits, rest, and absence pressure. It is only as good as the lineup view going into tipoff.";
-  }
-
   if (canonicalModel === "glm_ridge" && leagueCode === "MLB") {
     return "Linear pregame model anchored by starting pitching, bullpen quality, lineup strength, park effects, and rest-travel context. It is only as good as the pregame starter and lineup view.";
-  }
-
-  if (canonicalModel === "glm_ridge" && leagueCode === "NHL") {
-    return "Linear pregame model anchored by form, xG share, roster strength, and goalie uncertainty. It is strongest when starter and availability info are current.";
-  }
-
-  if (canonicalModel === "glm_elastic_net" && leagueCode === "NBA") {
-    return "Elastic-net pregame model using the same NBA linear feature map as ridge while allowing extra shrinkage on overlapping lineup and rating signals.";
   }
 
   if (canonicalModel === "glm_elastic_net" && leagueCode === "MLB") {
     return "Elastic-net pregame model using the MLB feature map with extra shrinkage on overlapping starter, bullpen, lineup, park, and weather signals.";
   }
 
-  if (canonicalModel === "glm_elastic_net" && leagueCode === "NHL") {
-    return "Elastic-net pregame model using the NHL linear feature map with added sparsity pressure on overlapping form, rating, and goalie signals.";
-  }
-
-  if (canonicalModel === "glm_lasso" && leagueCode === "NBA") {
-    return "Lasso pregame model using the NBA linear feature map with stronger pruning on overlapping lineup, rating, and availability signals.";
-  }
-
   if (canonicalModel === "glm_lasso" && leagueCode === "MLB") {
     return "Lasso pregame model using the MLB feature map with stronger pruning on overlapping starter, bullpen, lineup, park, and weather signals.";
-  }
-
-  if (canonicalModel === "glm_lasso" && leagueCode === "NHL") {
-    return "Lasso pregame model using the NHL linear feature map with stronger pruning on overlapping form, rating, and goalie signals.";
   }
 
   if (canonicalModel === "glm_vanilla") {
@@ -117,54 +93,21 @@ export function predictionModelHeadline(model: string, league?: string | null, a
   const canonicalModel = canonicalizePredictionModel(model);
   const leagueCode = normalizeLeagueLabel(league);
   const features = Array.isArray(activeFeatures) ? activeFeatures : [];
-  const hasDarkoInputs = features.some(
-    (feature) => feature.includes("darko_like") || feature.includes("projected_")
-  );
 
   if (canonicalModel === "ensemble") {
     return "Default forecast that blends the live model stack into one probability.";
-  }
-
-  if (canonicalModel === "glm_ridge" && leagueCode === "NBA") {
-    return hasDarkoInputs
-      ? "Now using DARKO-like projected rotation inputs before tipoff."
-      : "Pregame ridge logistic regression driven by the current NBA feature map.";
   }
 
   if (canonicalModel === "glm_ridge" && leagueCode === "MLB") {
     return "Pregame ridge logistic regression driven by starting pitcher, bullpen, lineup, park, weather, and scheduling context.";
   }
 
-  if (canonicalModel === "glm_ridge" && leagueCode === "NHL") {
-    return "Pregame ridge logistic regression driven by form, roster, goalie, and xG context.";
-  }
-
-  if (canonicalModel === "glm_elastic_net" && leagueCode === "NBA") {
-    return hasDarkoInputs
-      ? "Elastic-net version of the NBA pregame GLM using DARKO-like projected rotation inputs."
-      : "Pregame elastic-net logistic regression driven by the current NBA feature map.";
-  }
-
   if (canonicalModel === "glm_elastic_net" && leagueCode === "MLB") {
     return "Pregame elastic-net logistic regression driven by starting pitcher, bullpen, lineup, park, weather, and schedule context.";
   }
 
-  if (canonicalModel === "glm_elastic_net" && leagueCode === "NHL") {
-    return "Pregame elastic-net logistic regression driven by form, roster, goalie, and xG context.";
-  }
-
-  if (canonicalModel === "glm_lasso" && leagueCode === "NBA") {
-    return hasDarkoInputs
-      ? "Lasso version of the NBA pregame GLM using DARKO-like projected rotation inputs with more aggressive feature pruning."
-      : "Pregame lasso logistic regression driven by the current NBA feature map.";
-  }
-
   if (canonicalModel === "glm_lasso" && leagueCode === "MLB") {
     return "Pregame lasso logistic regression driven by starting pitcher, bullpen, lineup, park, weather, and schedule context.";
-  }
-
-  if (canonicalModel === "glm_lasso" && leagueCode === "NHL") {
-    return "Pregame lasso logistic regression driven by form, roster, goalie, and xG context.";
   }
 
   if (canonicalModel === "glm_vanilla") {
@@ -184,11 +127,7 @@ export function predictionModelHeadline(model: string, league?: string | null, a
   }
 
   if (canonicalModel === "goals_poisson") {
-    return leagueCode === "MLB"
-      ? "Run-rate model that turns projected scoring and run prevention into a win probability."
-      : leagueCode === "NBA"
-        ? "Score-rate model that turns projected offense and defense into a win probability."
-        : "Goal-rate model that turns projected scoring into a win probability.";
+    return "Run-rate model that turns projected scoring and run prevention into a win probability.";
   }
 
   if (isExperimentalPredictionModel(canonicalModel)) {

@@ -27,52 +27,34 @@ def _scenario_specs(
     if credibility is not None and credibility.complement_column in feature_cols:
         market_cols = list(dict.fromkeys([credibility.complement_column, *market_cols]))
 
-    if league_code == "MLB":
-        return [
-            {
-                "scenario": "market_complement_removed",
-                "columns": market_cols,
-                "fill_strategy": "zero" if credibility is not None and credibility.offset_scale in {"log", "logit"} else "median",
-            },
-            {
-                "scenario": "unknown_starter_context",
-                "columns": _columns_matching(feature_cols, ("starter", "starting_pitcher", "pitcher_hand")),
-                "fill_strategy": "median",
-            },
-            {
-                "scenario": "bullpen_context_removed",
-                "columns": _columns_matching(feature_cols, ("bullpen", "pitcher_out_count")),
-                "fill_strategy": "median",
-            },
-            {
-                "scenario": "lineup_context_removed",
-                "columns": _columns_matching(feature_cols, ("lineup", "position_player", "slugging")),
-                "fill_strategy": "median",
-            },
-            {
-                "scenario": "park_weather_removed",
-                "columns": _columns_matching(feature_cols, ("park", "weather", "wind", "temperature", "humidity", "umpire")),
-                "fill_strategy": "median",
-            },
-        ]
-
-    if league_code == "NBA":
-        return [
-            {"scenario": "market_complement_removed", "columns": market_cols, "fill_strategy": "median"},
-            {"scenario": "availability_removed", "columns": _columns_matching(feature_cols, ("availability", "absence")), "fill_strategy": "median"},
-            {"scenario": "travel_removed", "columns": _columns_matching(feature_cols, ("travel", "rest", "tz_")), "fill_strategy": "median"},
-            {
-                "scenario": "discipline_removed",
-                "columns": _columns_matching(feature_cols, ("discipline", "foul", "free_throw")),
-                "fill_strategy": "median",
-            },
-        ]
-
+    if league_code != "MLB":
+        raise ValueError(f"Unsupported league '{league}'. Expected only: MLB.")
     return [
-        {"scenario": "market_complement_removed", "columns": market_cols, "fill_strategy": "median"},
-        {"scenario": "no_xg", "columns": _columns_matching(feature_cols, ("xg",)), "fill_strategy": "median"},
-        {"scenario": "unknown_goalie", "columns": _columns_matching(feature_cols, ("goalie",)), "fill_strategy": "median"},
-        {"scenario": "no_injuries", "columns": _columns_matching(feature_cols, ("lineup", "man_games")), "fill_strategy": "median"},
+        {
+            "scenario": "market_complement_removed",
+            "columns": market_cols,
+            "fill_strategy": "zero" if credibility is not None and credibility.offset_scale in {"log", "logit"} else "median",
+        },
+        {
+            "scenario": "unknown_starter_context",
+            "columns": _columns_matching(feature_cols, ("starter", "starting_pitcher", "pitcher_hand")),
+            "fill_strategy": "median",
+        },
+        {
+            "scenario": "bullpen_context_removed",
+            "columns": _columns_matching(feature_cols, ("bullpen", "pitcher_out_count")),
+            "fill_strategy": "median",
+        },
+        {
+            "scenario": "lineup_context_removed",
+            "columns": _columns_matching(feature_cols, ("lineup", "position_player", "slugging")),
+            "fill_strategy": "median",
+        },
+        {
+            "scenario": "park_weather_removed",
+            "columns": _columns_matching(feature_cols, ("park", "weather", "wind", "temperature", "humidity", "umpire")),
+            "fill_strategy": "median",
+        },
     ]
 
 
@@ -92,7 +74,7 @@ def missingness_stress_test(
     feature_cols: list[str],
     target_col: str = "home_win",
     *,
-    league: str = "NHL",
+    league: str = "MLB",
     credibility: LassoCredibilityMetadata | None = None,
 ) -> pd.DataFrame:
     eval_df = df[df[target_col].notna()].copy()

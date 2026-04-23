@@ -21,38 +21,6 @@
       "primary_rebuild_lane": true,
       "lifecycle": "primary",
       "aliases": []
-    },
-    "NHL": {
-      "code": "NHL",
-      "slug": "nhl",
-      "display_label": "NHL",
-      "default_config_path": "configs/nhl.yaml",
-      "config_env_var": "NHL_CONFIG_PATH",
-      "project_name": "nhl_forecast",
-      "db_path": "data/processed/nhl_forecast.db",
-      "db_env_var": "NHL_DB_PATH",
-      "championship_name": "Stanley Cup",
-      "championship_probability_key": "stanley_cup_prob",
-      "uncertainty_policy_name": "nhl_goalie_rink",
-      "primary_rebuild_lane": false,
-      "lifecycle": "legacy",
-      "aliases": []
-    },
-    "NBA": {
-      "code": "NBA",
-      "slug": "nba",
-      "display_label": "NBA",
-      "default_config_path": "configs/nba.yaml",
-      "config_env_var": "NBA_CONFIG_PATH",
-      "project_name": "nba_forecast",
-      "db_path": "data/processed/nba_forecast.db",
-      "db_env_var": "NBA_DB_PATH",
-      "championship_name": "NBA Finals",
-      "championship_probability_key": "nba_finals_prob",
-      "uncertainty_policy_name": "nba_availability_market",
-      "primary_rebuild_lane": false,
-      "lifecycle": "legacy",
-      "aliases": []
     }
   }
 }

@@ -15,7 +15,7 @@ import TeamWithIcon, { TeamMatchup } from "@/components/TeamWithIcon";
 import styles from "./predictions.module.css";
 
 const EMPTY_REPORT: PredictionsResponse = {
-  league: "NHL",
+  league: "MLB",
   as_of_utc: undefined,
   model_columns: [],
   model_trust_notes: {},

@@ -859,7 +859,7 @@ def break_test_trade_deadline(
     df: pd.DataFrame,
     features: list[str],
     target_col: str = "home_win",
-    league: str = "NHL",
+    league: str = "MLB",
     model_name: str = "glm_ridge",
     c: float = 1.0,
     l1_ratio: float | None = None,
@@ -869,13 +869,10 @@ def break_test_trade_deadline(
     if work.empty:
         return {"delta_coef_l2": float("nan"), "n_pre": 0, "n_post": 0}
 
-    league_code = str(league or "NHL").strip().upper()
-    if league_code == "MLB":
-        month, day = (7, 31)
-    elif league_code == "NBA":
-        month, day = (2, 1)
-    else:
-        month, day = (3, 7)
+    league_code = str(league or "MLB").strip().upper()
+    if league_code != "MLB":
+        raise ValueError(f"Unsupported league '{league}'. Expected only: MLB.")
+    month, day = (7, 31)
     deadline = pd.Timestamp(year=work["game_date_utc"].dt.year.max(), month=month, day=day)
     pre = work[work["game_date_utc"] < deadline]
     post = work[work["game_date_utc"] >= deadline]

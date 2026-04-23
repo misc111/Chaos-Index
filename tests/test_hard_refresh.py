@@ -49,7 +49,9 @@ def test_build_hard_refresh_steps_models_and_approve_flag():
     for step in train_steps:
         assert step.command[-3:] == ("--models", "glm_ridge,rf", "--approve-feature-changes")
 
-    assert [step.name for step in steps][-1] == "staging:generate-data"
+    assert [step.name for step in steps][-2:] == ["staging:generate-data", "staging:verify-contract"]
+    assert steps[-1].command == ("node", "--import", "tsx", "scripts/verify-staging-contract.ts")
+    assert steps[-1].cwd == ROOT_DIR / "web"
 
 
 def test_build_hard_refresh_steps_rejects_unknown_models():

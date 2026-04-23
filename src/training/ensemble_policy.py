@@ -1,22 +1,14 @@
-"""League-aware policy for which model outputs can drive the ensemble."""
+"""Policy for which model outputs can drive the MLB ensemble."""
 
 from __future__ import annotations
 
 from collections.abc import Sequence
 
 
-_DEMOTED_ENSEMBLE_MODELS: dict[str, frozenset[str]] = {
-    "NBA": frozenset({"glm_lasso", "simulation_first"}),
-    "NHL": frozenset({"bayes_bt_state_space", "gbdt", "glm_lasso", "two_stage"}),
-}
-
-
-def _normalize_league(league: str | None) -> str:
-    return str(league or "").strip().upper()
-
-
 def demoted_ensemble_models(*, league: str | None = None) -> list[str]:
-    return sorted(_DEMOTED_ENSEMBLE_MODELS.get(_normalize_league(league), frozenset()))
+    if str(league or "MLB").strip().upper() != "MLB":
+        raise ValueError(f"Unsupported league '{league}'. Expected only: MLB.")
+    return []
 
 
 def ensemble_component_columns(model_columns: Sequence[str], *, league: str | None = None) -> list[str]:

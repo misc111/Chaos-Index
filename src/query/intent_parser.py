@@ -83,27 +83,10 @@ def parse_next_games_count(question: str) -> int | None:
 
 def explicit_league_hint(question: str) -> str | None:
     normalized = normalize_question(question)
-    college_basketball_signals = bool(
-        "college basketball" in normalized
-        or "mens college basketball" in normalized
-        or "men s college basketball" in normalized
-    )
     mlb_signals = bool(re.search(r"\bmlb\b", normalized) or "baseball" in normalized or "world series" in normalized)
-    nba_signals = bool(
-        re.search(r"\bnba\b", normalized)
-        or ("basketball" in normalized and not college_basketball_signals)
-        or "nba finals" in normalized
-        or "larry o brien" in normalized
-        or "larry obrien" in normalized
-    )
-    nhl_signals = bool(re.search(r"\bnhl\b", normalized) or "hockey" in normalized or "stanley cup" in normalized)
 
-    if mlb_signals and not nba_signals and not nhl_signals:
+    if mlb_signals:
         return "MLB"
-    if nba_signals and not mlb_signals and not nhl_signals:
-        return "NBA"
-    if nhl_signals and not mlb_signals and not nba_signals:
-        return "NHL"
     return None
 
 
@@ -178,31 +161,19 @@ def competition_for_question(
 ) -> tuple[str | None, str | None]:
     normalized = normalize_question(question)
 
-    if "stanley cup" in normalized:
-        return "NHL", "Stanley Cup"
     if "world series" in normalized:
         return "MLB", "World Series"
-    if "nba finals" in normalized or "larry o brien" in normalized or "larry obrien" in normalized:
-        return "NBA", "NBA Finals"
 
     championship_signals = [
-        "win the cup",
-        "win cup",
-        "hoist the cup",
-        "lift the cup",
         "win it all",
         "championship",
         "champion",
         "title",
-        "finals",
     ]
     if any(signal in normalized for signal in championship_signals):
-        league = team_league or explicit_league_hint(question) or canonical_league(default_league) or "MLB"
-        if league == "MLB":
+        league = team_league or explicit_league_hint(question) or canonical_league(default_league)
+        if league == "MLB" or league is None:
             return "MLB", "World Series"
-        if league == "NBA":
-            return "NBA", "NBA Finals"
-        return "NHL", "Stanley Cup"
 
     return None, None
 

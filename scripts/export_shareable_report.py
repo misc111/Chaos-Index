@@ -224,7 +224,7 @@ def _format_as_of_label(as_of: str | None, timezone_name: str) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Export shareable single-page PDF report from local forecast DB")
-    parser.add_argument("--config", default="configs/nba.yaml")
+    parser.add_argument("--config", default="configs/mlb.yaml")
     parser.add_argument("--league", default=None)
     parser.add_argument("--question", default="Give me the report of all teams in a table.")
     parser.add_argument("--pdf-output", required=True)

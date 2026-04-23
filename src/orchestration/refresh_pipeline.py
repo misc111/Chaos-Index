@@ -150,6 +150,14 @@ def build_hard_refresh_steps(
                 cwd=web_dir,
             )
         )
+    else:
+        steps.append(
+            OrchestrationStep(
+                name="staging:verify-contract",
+                command=("node", "--import", "tsx", "scripts/verify-staging-contract.ts"),
+                cwd=web_dir,
+            )
+        )
     return steps
 
 

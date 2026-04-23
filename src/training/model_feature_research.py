@@ -67,7 +67,7 @@ def export_model_feature_map_json(
     path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
         "version": 1,
-        "league": str(league or "NHL").strip().upper(),
+        "league": str(league or "MLB").strip().upper(),
         "updated_at_utc": utc_now_iso(),
         "models": {
             model_name: {
@@ -135,7 +135,9 @@ def save_model_feature_map(
     path_template: str = MODEL_FEATURE_MAP_PATH_TEMPLATE,
     guardrails_path_template: str | None = None,
 ) -> Path:
-    league_code = str(league or "NHL").strip().upper()
+    league_code = str(league or "MLB").strip().upper()
+    if league_code != "MLB":
+        raise ValueError(f"Unsupported league '{league}'. Expected only: MLB.")
     registry_path = resolve_model_feature_map_path(path_template, league=league_code)
     registry_path.parent.mkdir(parents=True, exist_ok=True)
     guardrails_template = guardrails_path_template or default_guardrails_path_template(path_template)
@@ -181,7 +183,9 @@ def _safe_abs_corr(feature: pd.Series, target: pd.Series) -> float:
 
 
 def _eligible_features_for_model(model_name: str, feature_columns: list[str], league: str) -> list[str]:
-    league_code = str(league or "NHL").strip().upper()
+    league_code = str(league or "MLB").strip().upper()
+    if league_code != "MLB":
+        raise ValueError(f"Unsupported league '{league}'. Expected only: MLB.")
     cols = [str(c) for c in feature_columns]
 
     if league_code == "MLB":
@@ -260,163 +264,51 @@ def _eligible_features_for_model(model_name: str, feature_columns: list[str], le
             return tree_pool
         return cols
 
-    if league_code == "NBA":
-        glm_pool = [
-            c
-            for c in cols
-            if c.startswith(("diff_", "discipline_", "availability_", "elo_", "dyn_"))
-            or c
-            in {
-                "travel_diff",
-                "rest_diff",
-                "arena_margin_effect",
-                "arena_shot_volume_effect",
-                "conference_tournament_window",
-                "home_conference_tournament_window",
-                "away_conference_tournament_window",
-            }
-        ]
-        bayes_pool = [
-            c
-            for c in cols
-            if c.startswith(("diff_", "availability_", "elo_", "dyn_"))
-            or c
-            in {
-                "travel_diff",
-                "rest_diff",
-                "arena_margin_effect",
-                "arena_shot_volume_effect",
-                "conference_tournament_window",
-                "home_conference_tournament_window",
-                "away_conference_tournament_window",
-            }
-        ]
-        two_stage_pool = [
-            c
-            for c in cols
-            if c.startswith(
-                (
-                    "home_ewm_",
-                    "away_ewm_",
-                    "home_r5_",
-                    "away_r5_",
-                    "home_r14_",
-                    "away_r14_",
-                    "diff_",
-                    "discipline_",
-                    "availability_",
-                    "elo_",
-                    "dyn_",
-                )
-            )
-            or c
-            in {
-                "travel_diff",
-                "rest_diff",
-                "arena_margin_effect",
-                "arena_shot_volume_effect",
-                "home_post_all_star_break",
-                "away_post_all_star_break",
-                "home_post_trade_deadline",
-                "away_post_trade_deadline",
-                "home_conference_tournament_window",
-                "away_conference_tournament_window",
-            }
-        ]
-        tree_pool = [
-            c
-            for c in cols
-            if not c.startswith(("home_season", "away_season"))
-            and not c.endswith(("_team", "_name"))
-        ]
-
-        if model_name in {"glm_ridge", "glm_elastic_net", "glm_lasso"}:
-            return glm_pool
-        if model_name == "bayes_bt_state_space":
-            return bayes_pool
-        if model_name == "two_stage":
-            return two_stage_pool
-        if model_name in {"gbdt", "rf", "nn_mlp"}:
-            return tree_pool
-        return cols
-
-    if model_name in {"glm_ridge", "glm_elastic_net", "glm_lasso"}:
-        return [
-            c
-            for c in cols
-            if c.startswith(("diff_", "special_", "goalie_", "elo_", "dyn_"))
-            or c in {"travel_diff", "rest_diff", "rink_goal_effect", "rink_shot_effect"}
-        ]
-    if model_name == "bayes_bt_state_space":
-        return [
-            c
-            for c in cols
-            if c.startswith(("diff_", "goalie_", "elo_", "dyn_"))
-            or c in {"travel_diff", "rest_diff", "rink_goal_effect", "rink_shot_effect"}
-        ]
-    if model_name == "two_stage":
-        return [
-            c
-            for c in cols
-            if c.startswith(("home_ewm_", "away_ewm_", "home_r5_", "away_r5_", "home_r14_", "away_r14_", "diff_", "special_", "goalie_", "elo_", "dyn_"))
-            or c in {"travel_diff", "rest_diff", "rink_goal_effect", "rink_shot_effect"}
-        ]
     return cols
 
 
 def _model_feature_pruning_config(model_name: str, league: str | None = None) -> tuple[int, int, float]:
-    league_code = str(league or "NHL").strip().upper()
+    league_code = str(league or "MLB").strip().upper()
+    if league_code != "MLB":
+        raise ValueError(f"Unsupported league '{league}'. Expected only: MLB.")
     limits = {
-        "glm_ridge": (14, 24, 0.92),
-        "glm_elastic_net": (14, 24, 0.92),
-        "glm_lasso": (14, 24, 0.92),
-        "gbdt": (24, 40, 0.88),
-        "rf": (20, 44, 0.92),
-        "two_stage": (16, 30, 0.92),
-        "bayes_bt_state_space": (12, 20, 0.92),
-        "nn_mlp": (18, 34, 0.92),
+        "glm_ridge": (8, 14, 0.92),
+        "glm_elastic_net": (8, 14, 0.92),
+        "glm_lasso": (6, 10, 0.92),
+        "gbdt": (18, 32, 0.88),
+        "rf": (16, 28, 0.92),
+        "two_stage": (12, 20, 0.92),
+        "bayes_bt_state_space": (8, 14, 0.92),
+        "nn_mlp": (18, 32, 0.92),
     }
-    if league_code == "MLB":
-        mlb_limits = {
-            "glm_ridge": (8, 14, 0.92),
-            "glm_elastic_net": (8, 14, 0.92),
-            "glm_lasso": (6, 10, 0.92),
-            "gbdt": (18, 32, 0.88),
-            "rf": (16, 28, 0.92),
-            "two_stage": (12, 20, 0.92),
-            "bayes_bt_state_space": (8, 14, 0.92),
-            "nn_mlp": (18, 32, 0.92),
-        }
-        return mlb_limits.get(model_name, limits.get(model_name, (12, 24, 0.92)))
-    if league_code == "NBA" and model_name in {"glm_ridge", "glm_elastic_net", "glm_lasso"}:
-        return (6, 10, 0.92)
     return limits.get(model_name, (12, 24, 0.92))
 
 
 def _default_model_feature_target_width(model_name: str, league: str) -> int:
-    league_code = str(league or "NHL").strip().upper()
-    if league_code == "MLB":
-        defaults = {
-            "glm_ridge": 11,
-            "glm_elastic_net": 12,
-            "glm_lasso": 8,
-            "two_stage": 16,
-            "bayes_bt_state_space": 12,
-            "gbdt": 25,
-            "rf": 20,
-            "nn_mlp": 26,
-        }
-        if model_name in defaults:
-            return defaults[model_name]
-    if league_code == "NBA" and model_name in {"glm_ridge", "glm_elastic_net", "glm_lasso"}:
-        return 6
+    league_code = str(league or "MLB").strip().upper()
+    if league_code != "MLB":
+        raise ValueError(f"Unsupported league '{league}'. Expected only: MLB.")
+    defaults = {
+        "glm_ridge": 11,
+        "glm_elastic_net": 12,
+        "glm_lasso": 8,
+        "two_stage": 16,
+        "bayes_bt_state_space": 12,
+        "gbdt": 25,
+        "rf": 20,
+        "nn_mlp": 26,
+    }
+    if model_name in defaults:
+        return defaults[model_name]
     _, max_features, _ = _model_feature_pruning_config(model_name, league=league_code)
     return max_features
 
 
 def _anchor_features(model_name: str, league: str) -> list[str]:
-    if str(league or "NHL").strip().upper() == "MLB":
-        anchors = {
+    league_code = str(league or "MLB").strip().upper()
+    if league_code != "MLB":
+        raise ValueError(f"Unsupported league '{league}'. Expected only: MLB.")
+    anchors = {
             "glm_ridge": [
                 "diff_starting_pitcher_quality",
                 "starting_pitcher_hand_matchup",
@@ -508,86 +400,6 @@ def _anchor_features(model_name: str, league: str) -> list[str]:
                 "home_field_advantage",
                 "series_context_index",
             ],
-        }
-        return anchors.get(model_name, [])
-
-    if str(league or "NHL").strip().upper() == "NBA":
-        anchors = {
-            "glm_ridge": [
-                "diff_form_point_margin",
-                "diff_form_point_margin_hinge_000",
-                "rest_diff",
-                "elo_home_prob",
-                "elo_home_prob_hinge_055",
-                "arena_margin_effect",
-            ],
-            "glm_elastic_net": [
-                "diff_form_point_margin",
-                "diff_form_point_margin_hinge_000",
-                "rest_diff",
-                "elo_home_prob",
-                "elo_home_prob_hinge_055",
-                "arena_margin_effect",
-            ],
-            "glm_lasso": [
-                "diff_form_point_margin",
-                "diff_form_point_margin_hinge_000",
-                "rest_diff",
-                "elo_home_prob",
-                "elo_home_prob_hinge_055",
-                "arena_margin_effect",
-            ],
-            "gbdt": [
-                "diff_form_point_margin",
-                "travel_diff",
-                "rest_diff",
-                "elo_home_prob",
-                "dyn_home_prob",
-                "home_ewm_points_for",
-                "away_ewm_points_for",
-                "home_ewm_point_margin",
-                "away_ewm_point_margin",
-            ],
-            "rf": [
-                "diff_form_point_margin",
-                "travel_diff",
-                "rest_diff",
-                "elo_home_prob",
-                "dyn_home_prob",
-            ],
-            "two_stage": [
-                "home_ewm_shot_volume_share",
-                "away_ewm_shot_volume_share",
-                "home_ewm_free_throw_pressure",
-                "away_ewm_free_throw_pressure",
-                "home_ewm_possession_proxy",
-                "away_ewm_possession_proxy",
-                "travel_diff",
-                "rest_diff",
-            ],
-            "bayes_bt_state_space": [
-                "diff_form_point_margin",
-                "diff_form_win_rate",
-                "travel_diff",
-                "rest_diff",
-                "elo_home_prob",
-                "dyn_home_prob",
-            ],
-            "nn_mlp": [
-                "diff_form_point_margin",
-                "travel_diff",
-                "rest_diff",
-                "elo_home_prob",
-                "dyn_home_prob",
-            ],
-        }
-        return anchors.get(model_name, [])
-
-    anchors = {
-        "glm_ridge": ["diff_form_goal_diff", "rest_diff", "elo_home_prob", "dyn_home_prob", "diff_xg_share"],
-        "glm_elastic_net": ["diff_form_goal_diff", "rest_diff", "elo_home_prob", "dyn_home_prob", "diff_xg_share"],
-        "glm_lasso": ["diff_form_goal_diff", "rest_diff", "elo_home_prob", "dyn_home_prob", "diff_xg_share"],
-        "bayes_bt_state_space": ["diff_form_goal_diff", "travel_diff", "rest_diff", "elo_home_prob", "dyn_home_prob"],
     }
     return anchors.get(model_name, [])
 
@@ -641,7 +453,9 @@ def rank_model_features(
     league: str,
     guardrails_path_template: str | None = None,
 ) -> list[dict[str, object]]:
-    league_code = str(league or "NHL").strip().upper()
+    league_code = str(league or "MLB").strip().upper()
+    if league_code != "MLB":
+        raise ValueError(f"Unsupported league '{league}'. Expected only: MLB.")
     eligible = [c for c in _eligible_features_for_model(model_name, feature_columns, league_code) if c in train_df.columns]
     eligible, _ = apply_model_feature_guardrails(
         eligible,
@@ -661,12 +475,6 @@ def rank_model_features(
             "target_total_runs",
             "target_run_differential",
             "target_run_environment",
-            "target_xg_share",
-            "target_penalty_diff",
-            "target_pace",
-            "target_shot_volume_share",
-            "target_free_throw_pressure",
-            "target_possession_volume",
         ]
         if c in train_df.columns
     ]
@@ -703,7 +511,9 @@ def select_model_features(
     ranked_features: list[str],
     target_width: int | None = None,
 ) -> list[str]:
-    league_code = str(league or "NHL").strip().upper()
+    league_code = str(league or "MLB").strip().upper()
+    if league_code != "MLB":
+        raise ValueError(f"Unsupported league '{league}'. Expected only: MLB.")
     min_features, max_features, max_abs_corr = _model_feature_pruning_config(model_name, league=league_code)
     width = _default_model_feature_target_width(model_name, league_code) if target_width is None else int(target_width)
     width = max(min_features, min(width, max_features))
@@ -728,7 +538,9 @@ def research_model_feature_map(
     path_template: str = MODEL_FEATURE_MAP_PATH_TEMPLATE,
     guardrails_path_template: str | None = None,
 ) -> ModelFeatureResearchResult:
-    league_code = str(league or "NHL").strip().upper()
+    league_code = str(league or "MLB").strip().upper()
+    if league_code != "MLB":
+        raise ValueError(f"Unsupported league '{league}'. Expected only: MLB.")
     guardrails_template = guardrails_path_template or default_guardrails_path_template(path_template)
     train_df = features_df[features_df["home_win"].notna()].copy().sort_values("start_time_utc")
     if train_df.empty:

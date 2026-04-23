@@ -41,8 +41,6 @@ reporting = [
 [project.scripts]
 sports-forecast = "src.cli:main"
 sports-query = "src.query.answer:main"
-nhl-forecast = "src.cli:main"
-nhl-query = "src.query.answer:main"
 
 [tool.setuptools]
 packages = ["src"]

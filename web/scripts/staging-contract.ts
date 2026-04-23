@@ -184,6 +184,14 @@ export async function collectCommittedStagingSnapshotErrors(
     const metaFiles = Array.isArray(meta.files)
       ? meta.files.filter((value): value is string => typeof value === "string")
       : [];
+    const allowedFiles = new Set([...requiredFiles, "meta.json", ".gitkeep"]);
+    const entries = await fs.readdir(leagueDir, { withFileTypes: true });
+
+    for (const entry of entries.sort((left, right) => left.name.localeCompare(right.name))) {
+      if (!allowedFiles.has(entry.name)) {
+        errors.push(`unexpected ${league} staging payload ${entry.name}`);
+      }
+    }
 
     for (const fileName of requiredFiles) {
       try {

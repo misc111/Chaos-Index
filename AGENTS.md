@@ -3,7 +3,7 @@
 ## Instruction Scope
 - Treat this file as the repository contract for the MLB-first actuarial rebuild.
 - The repository is being rebuilt around MLB betting and actuarial GLM-family methods.
-- Legacy NHL/NBA code may still exist during migration, but it is not the governing product contract.
+- Retired league implementations are intentionally removed from the working tree; recover them from git history only if the user explicitly asks.
 
 ## Coordinator Mode
 - The user has explicitly requested coordinator-style delegation for this rebuild.
@@ -29,7 +29,7 @@
   - runline
   - totals
 - The repo contract is MLB-first across docs, configs, commands, storage, features, models, validation, dashboard, and staging outputs.
-- Questions or implementations that depend on other leagues should be treated as migration debt unless the user explicitly asks for legacy comparison.
+- Questions or implementations that depend on other leagues should be declined or redirected to git history unless the user explicitly asks to resurrect that scope.
 
 ## Product Principles
 - Pregame-only features and immutable pregame prediction ledgers are mandatory.

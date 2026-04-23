@@ -31,7 +31,7 @@ Implemented in the current Sprint 2 foundation slice:
   - Elo and dynamic-rating priors
   - venue-based travel/rest context carried through the shared pipeline
 - the processed feature frame now emits `available_as_of_utc` as an explicit contract column
-- MLB travel features now use MLB team-city mappings and compute travel from prior game venue to current game venue rather than silently falling back to NHL defaults
+- MLB travel features use MLB team-city mappings and compute travel from prior game venue to current game venue without cross-sport fallbacks
 
 This is still an early MLB feature store, not the full target inventory. Weather, market movement, probable-starter depth, bullpen fatigue/usage detail, and richer lineup uncertainty still need to be layered in.
 

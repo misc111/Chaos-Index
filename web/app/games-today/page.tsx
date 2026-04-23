@@ -66,14 +66,6 @@ function formatMoneyline(value?: number | null): string {
   return rounded > 0 ? `+${rounded}` : `${rounded}`;
 }
 
-function formatOver190(value?: number | null, point?: number | null): string {
-  const price = formatMoneyline(value);
-  const p = Number(point);
-  if (price === "—") return "—";
-  if (!Number.isFinite(p)) return price;
-  return `${price} @ ${p.toFixed(1)}`;
-}
-
 function formatCentralTip(value?: string | null): string {
   if (!value) return "Time TBD";
   const parsed = new Date(normalizeUtcTimestamp(value));
@@ -331,7 +323,6 @@ function GamesTodayPageContent() {
                   <col className={styles.timeColumnWidth} />
                   <col className={styles.winChanceColumnWidth} />
                   <col className={styles.moneylineColumnWidth} />
-                  {league === "NBA" ? <col className={styles.overOddsColumnWidth} /> : null}
                   <col className={styles.betColumnWidth} />
                   <col className={styles.reasonColumnWidth} />
                 </colgroup>
@@ -342,8 +333,6 @@ function GamesTodayPageContent() {
                     <th>Time (CST/CDT)</th>
                     <th>Win Chance</th>
                     <th>Moneyline</th>
-                    {/* Maintainer note: this is the one league-specific column in the shared table. */}
-                    {league === "NBA" ? <th>Over Odds</th> : null}
                     <th className={styles.betColumn}>Suggested Bet</th>
                     <th>Reason</th>
                   </tr>
@@ -366,9 +355,6 @@ function GamesTodayPageContent() {
                         <td className={styles.moneylineCell}>
                           {`H ${formatMoneyline(row.home_moneyline)} · A ${formatMoneyline(row.away_moneyline)}`}
                         </td>
-                        {league === "NBA" ? (
-                          <td className={styles.over190Cell}>{formatOver190(row.over_190_price, row.over_190_point)}</td>
-                        ) : null}
                         <td className={`${styles.betCell} ${styles.betColumn}`}>
                           <BetStakeWithIcon league={league} teamCode={bet.team} label={bet.team} stake={bet.stake} />
                         </td>
@@ -438,14 +424,6 @@ function GamesTodayPageContent() {
                             {`H ${formatMoneyline(row.home_moneyline)} · A ${formatMoneyline(row.away_moneyline)}`}
                           </span>
                         </div>
-                        {league === "NBA" ? (
-                          <div className={styles.mobileMetaItem}>
-                            <span className={styles.mobileMetaLabel}>Over odds</span>
-                            <span className={styles.mobileMetaValue}>
-                              {formatOver190(row.over_190_price, row.over_190_point)}
-                            </span>
-                          </div>
-                        ) : null}
                         <div className={styles.mobileMetaItem}>
                           <span className={styles.mobileMetaLabel}>Suggested Bet</span>
                           <span className={styles.mobileMetaValue}>

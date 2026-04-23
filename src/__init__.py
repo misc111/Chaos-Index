@@ -1,1 +1,1 @@
-"""NHL forecasting package."""
+"""MLB forecasting package."""

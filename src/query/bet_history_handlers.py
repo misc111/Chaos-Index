@@ -16,17 +16,6 @@ DEFAULT_PROFILE_PREFERENCES: tuple[tuple[str, str], ...] = (
     ("riskAdjusted", "bucketed"),
     ("balanced", "bucketed"),
 )
-NBA_PROFILE_PREFERENCES: tuple[tuple[str, str], ...] = (
-    ("capitalPreservation", "default"),
-    ("riskAdjusted", "default"),
-    ("balanced", "default"),
-    ("capitalPreservation", "continuous"),
-    ("riskAdjusted", "continuous"),
-    ("balanced", "continuous"),
-    ("capitalPreservation", "bucketed"),
-    ("riskAdjusted", "bucketed"),
-    ("balanced", "bucketed"),
-)
 CENTRAL_TZ = ZoneInfo("America/Chicago")
 PROFILE_TABLE_V2 = "historical_bet_decisions_by_profile_v2"
 PROFILE_TABLE_LEGACY = "historical_bet_decisions_by_profile"
@@ -136,7 +125,9 @@ def _table_exists(db: Queryable, table_name: str) -> bool:
 
 
 def _profile_preferences(league: str | None) -> tuple[tuple[str, str], ...]:
-    return NBA_PROFILE_PREFERENCES if canonical_league(league) == "NBA" else DEFAULT_PROFILE_PREFERENCES
+    if canonical_league(league) not in {None, "MLB"}:
+        raise ValueError(f"Unsupported league '{league}'. Expected only: MLB.")
+    return DEFAULT_PROFILE_PREFERENCES
 
 
 def _select_profile(db: Queryable, league: str | None = None) -> tuple[str, str, str, str] | None:
