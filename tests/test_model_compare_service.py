@@ -1,15 +1,17 @@
 from __future__ import annotations
 
+from argparse import Namespace
 import json
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
+from src.commands.modeling import best_models
 from src.common.config import load_config
 from src.research.candidate_models import PenalizedLogitCandidate, VanillaGLMBinomialCandidate
 from src.research.model_comparison import CandidateSpec
-from src.services.model_compare import compare_candidate_models
+from src.services.model_compare import compare_candidate_models, current_best_models_path, load_current_best_models
 from src.storage.db import Database
 
 
@@ -116,6 +118,7 @@ def test_compare_candidate_models_persists_experiment_run_and_service_artifact(t
 
     latest_payload = json.loads(Path(artifacts["mlb_service_output_path"]).read_text())
     latest_manifest = json.loads(Path(artifacts["mlb_service_manifest_path"]).read_text())
+    current_best = json.loads(Path(artifacts["current_best_models_path"]).read_text())
     mlb_report_dir = tmp_path / "artifacts" / "reports" / "mlb"
     assert latest_payload["report_lane"] == "mlb"
     assert latest_manifest["report_lane"] == "mlb"
@@ -127,7 +130,14 @@ def test_compare_candidate_models_persists_experiment_run_and_service_artifact(t
     assert latest_payload["material_artifacts"]["summary_path"] == str(result.summary_path)
     assert latest_manifest["material_artifacts"] == latest_payload["material_artifacts"]
     assert latest_manifest["service_output_path"] == artifacts["mlb_service_output_path"]
+    assert latest_manifest["current_best_models_path"] == artifacts["current_best_models_path"]
+    assert latest_payload["current_best_models_path"] == artifacts["current_best_models_path"]
     assert artifacts["mlb_latest_material_artifacts"] == latest_manifest["material_artifacts"]
+    assert current_best["recommended_model"] == summary_payload["promotion_decision"]["recommended_model"]
+    assert current_best["best_candidate_model"] == "glm_ridge"
+    assert current_best["source_kind"] == "candidate_model_comparison"
+    assert current_best["ranking_rule"]["primary"] == "final_holdout_log_loss"
+    assert current_best["top_models"][0]["model_name"] == current_best["best_candidate_model"]
     for material_path in latest_manifest["material_artifacts"].values():
         path = Path(material_path)
         assert path.exists()
@@ -144,3 +154,100 @@ def test_compare_candidate_models_persists_experiment_run_and_service_artifact(t
     assert row["scorecard_path"].endswith("_candidate_scorecards.csv")
     assert row["promotion_path"].endswith("_recommendation.json")
     assert Path(artifacts["service_output_path"]).exists()
+
+
+def test_best_models_command_falls_back_to_latest_experiment_run(tmp_path, capsys) -> None:
+    cfg = load_config("configs/mlb.yaml")
+    cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
+    cfg.paths.processed_dir = str(tmp_path / "processed")
+    cfg.paths.db_path = str(tmp_path / "processed" / "mlb_forecast.db")
+
+    db = Database(cfg.paths.db_path)
+    db.init_schema()
+    summary_payload = {
+        "league": "MLB",
+        "report_slug": "unit_compare",
+        "target_name": "moneyline_home_win",
+        "candidate_scorecards": [
+            {
+                "model_name": "glm_elastic_net",
+                "target_name": "moneyline_home_win",
+                "validation_metrics": {
+                    "validation_log_loss": 0.61,
+                    "validation_brier": 0.21,
+                    "validation_auc": 0.66,
+                    "final_holdout_log_loss": 0.59,
+                    "final_holdout_brier": 0.20,
+                    "final_holdout_auc": 0.67,
+                    "final_holdout_ece": 0.03,
+                },
+                "stability_metrics": {"final_holdout_rank": 1},
+                "calibration_summary": {},
+                "complement_summary": {
+                    "display_name": "Elastic Net GLM",
+                    "family": "elastic_net",
+                    "recommendation_tier": "research_screen_leader",
+                    "recommended_for_next_stage": True,
+                },
+            }
+        ],
+        "promotion_decision": {
+            "recommended_model": "glm_elastic_net",
+            "baseline_model": "intercept_only",
+            "status": "research_recommended",
+            "rationale": "unit rationale",
+            "evidence": {
+                "promotion_ready": False,
+                "intercept_only_benchmark": {
+                    "model_name": "intercept_only",
+                    "display_name": "Intercept Only",
+                    "log_loss": 0.69,
+                    "brier": 0.25,
+                    "auc": 0.5,
+                    "ece": 0.02,
+                },
+            },
+            "rejected_models": {},
+        },
+        "metadata": {"recommended_display_name": "Elastic Net GLM"},
+        "artifacts": {},
+    }
+    db.execute(
+        """
+        INSERT INTO experiment_runs(
+          run_id, league, profile_key, brief_id, brief_key, incumbent_model_name, candidate_model_name,
+          report_slug, report_path, scorecard_path, fold_metrics_path, promotion_path, status,
+          auto_promote, started_at_utc, completed_at_utc, summary_json
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            "mlb::candidate_compare::unit_compare",
+            "MLB",
+            "default",
+            None,
+            "candidate_model_comparison",
+            "intercept_only",
+            "glm_elastic_net",
+            "unit_compare",
+            "",
+            "",
+            "",
+            "",
+            "candidate_screen_complete",
+            0,
+            "2026-04-23T00:00:00Z",
+            "2026-04-23T00:05:00Z",
+            json.dumps(summary_payload, sort_keys=True),
+        ),
+    )
+
+    assert not current_best_models_path(cfg).exists()
+    payload = load_current_best_models(cfg)
+    assert payload["recommended_model"] == "glm_elastic_net"
+    assert payload["source_kind"] == "candidate_model_comparison"
+
+    best_models(cfg, Namespace())
+    captured = capsys.readouterr()
+    rendered = json.loads(captured.out)
+    assert rendered["recommended_model"] == "glm_elastic_net"
+    assert rendered["top_models"][0]["display_name"] == "Elastic Net GLM"

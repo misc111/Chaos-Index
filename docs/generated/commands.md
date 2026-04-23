@@ -6,7 +6,7 @@
 
 Initialize the SQLite schema for the selected league config.
 
-- Default config: `configs/nba.yaml`
+- Default config: `configs/mlb.yaml`
 - Examples:
   - `make init-db`
   - `make init-db CONFIG=configs/mlb.yaml`
@@ -15,7 +15,7 @@ Initialize the SQLite schema for the selected league config.
 
 Fetch league data, persist snapshots, and ingest results.
 
-- Default config: `configs/nba.yaml`
+- Default config: `configs/mlb.yaml`
 - Examples:
   - `make fetch`
   - `make fetch CONFIG=configs/mlb.yaml`
@@ -24,7 +24,7 @@ Fetch league data, persist snapshots, and ingest results.
 
 Run the league-scoped data refresh flow including the final odds pull.
 
-- Default config: `configs/nba.yaml`
+- Default config: `configs/mlb.yaml`
 - Examples:
   - `make refresh-data CONFIG=configs/mlb.yaml`
 
@@ -32,7 +32,7 @@ Run the league-scoped data refresh flow including the final odds pull.
 
 Fetch the latest standalone odds snapshot for the selected league.
 
-- Default config: `configs/nba.yaml`
+- Default config: `configs/mlb.yaml`
 - Examples:
   - `make fetch-odds`
   - `make fetch-odds CONFIG=configs/mlb.yaml`
@@ -41,7 +41,7 @@ Fetch the latest standalone odds snapshot for the selected league.
 
 Import historical source snapshots into the local research dataset.
 
-- Default config: `configs/nba.yaml`
+- Default config: `configs/mlb.yaml`
 - Options:
   - `--history-seasons` `N`: Override the configured number of historical seasons.
   - `--source-manifest` `PATH`: Optional absolute or config-relative path to the historical import manifest.
@@ -52,7 +52,7 @@ Import historical source snapshots into the local research dataset.
 
 Download historical odds bundles into a regenerable manifest-backed cache.
 
-- Default config: `configs/nba.yaml`
+- Default config: `configs/mlb.yaml`
 - Options:
   - `--history-seasons` `N`: Override the configured number of historical seasons.
   - `--start-date` `DATE`: Optional inclusive start date for historical odds backfill (YYYY-MM-DD).
@@ -65,7 +65,7 @@ Download historical odds bundles into a regenerable manifest-backed cache.
 
 Build processed feature tables from the current interim snapshot.
 
-- Default config: `configs/nba.yaml`
+- Default config: `configs/mlb.yaml`
 - Examples:
   - `make features`
   - `make features CONFIG=configs/mlb.yaml`
@@ -74,9 +74,9 @@ Build processed feature tables from the current interim snapshot.
 
 Score and optionally promote per-model feature maps.
 
-- Default config: `configs/nba.yaml`
+- Default config: `configs/mlb.yaml`
 - Options:
-  - `--models` `MODELS`: Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core lane.
+  - `--models` `MODELS`: Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core-supported GLM lane.
   - `--approve-feature-changes`: Explicitly accept and persist model feature-contract changes.
 - Examples:
   - `make research-features CONFIG=configs/mlb.yaml APPROVE_FEATURE_CHANGES=1`
@@ -85,9 +85,9 @@ Score and optionally promote per-model feature maps.
 
 Train models, produce forecasts, and persist validation-ready outputs.
 
-- Default config: `configs/nba.yaml`
+- Default config: `configs/mlb.yaml`
 - Options:
-  - `--models` `MODELS`: Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core lane.
+  - `--models` `MODELS`: Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core-supported GLM lane.
   - `--validation-split-mode` `MODE`: Validation split layout: 70/30 train-test or 40/30/30 train-validation-test.
   - `--validation-split-method` `METHOD`: Validation split method: out-of-time or random-by-record.
   - `--validation-split-seed` `SEED`: Optional random seed for random-by-record validation splits.
@@ -100,7 +100,7 @@ Train models, produce forecasts, and persist validation-ready outputs.
 
 Regenerate validation artifacts from the latest saved trained run.
 
-- Default config: `configs/nba.yaml`
+- Default config: `configs/mlb.yaml`
 - Options:
   - `--models` `MODELS`: Comma-separated model list (for example: glm_ridge,rf) or 'all'.
   - `--validation-split-mode` `MODE`: Validation split layout: 70/30 train-test or 40/30/30 train-validation-test.
@@ -115,7 +115,7 @@ Regenerate validation artifacts from the latest saved trained run.
 
 Run the research-only candidate model comparison suite.
 
-- Default config: `configs/nba.yaml`
+- Default config: `configs/mlb.yaml`
 - Options:
   - `--report-slug` `SLUG`: Optional report slug prefix for artifact outputs.
   - `--bootstrap-samples` `N`: Number of paired bootstrap samples for the final holdout comparison.
@@ -128,13 +128,21 @@ Run the research-only candidate model comparison suite.
 - Examples:
   - `make compare-candidates CONFIG=configs/mlb.yaml`
 
+## `best-models`
+
+Print the canonical current-best-models summary for the MLB research lane.
+
+- Default config: `configs/mlb.yaml`
+- Examples:
+  - `python3 -m src.cli best-models --config configs/mlb.yaml`
+
 ## `backtest`
 
 Run the walk-forward backtest and scoring pipeline.
 
-- Default config: `configs/nba.yaml`
+- Default config: `configs/mlb.yaml`
 - Options:
-  - `--models` `MODELS`: Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core lane.
+  - `--models` `MODELS`: Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core-supported GLM lane.
   - `--approve-feature-changes`: Explicitly accept and persist model feature-contract changes.
 - Examples:
   - `make backtest`
@@ -144,7 +152,7 @@ Run the walk-forward backtest and scoring pipeline.
 
 Run the research backtest over a historical candidate-model dataset.
 
-- Default config: `configs/nba.yaml`
+- Default config: `configs/mlb.yaml`
 - Options:
   - `--report-slug` `SLUG`: Optional report slug prefix for artifact outputs.
   - `--candidate-models` `MODELS`: Comma-separated candidate model list or 'all'.
@@ -161,7 +169,7 @@ Run the research backtest over a historical candidate-model dataset.
 
 Run the MLB-first research desk orchestration flow with structured brief intake and champion auto-promotion.
 
-- Default config: `configs/nba.yaml`
+- Default config: `configs/mlb.yaml`
 - Options:
   - `--report-slug` `SLUG`: Optional report slug prefix for artifact outputs.
   - `--brief` `BRIEF`: Optional brief key or path for the research desk flow.
@@ -180,9 +188,9 @@ Run the MLB-first research desk orchestration flow with structured brief intake 
 
 Execute the daily fetch, feature, train, and scoring flow.
 
-- Default config: `configs/nba.yaml`
+- Default config: `configs/mlb.yaml`
 - Options:
-  - `--models` `MODELS`: Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core lane.
+  - `--models` `MODELS`: Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core-supported GLM lane.
   - `--validation-split-mode` `MODE`: Validation split layout: 70/30 train-test or 40/30/30 train-validation-test.
   - `--validation-split-method` `METHOD`: Validation split method: out-of-time or random-by-record.
   - `--validation-split-seed` `SEED`: Optional random seed for random-by-record validation splits.
@@ -195,6 +203,6 @@ Execute the daily fetch, feature, train, and scoring flow.
 
 Exercise the local end-to-end smoke pipeline with reduced data windows.
 
-- Default config: `configs/nba.yaml`
+- Default config: `configs/mlb.yaml`
 - Examples:
   - `make smoke`

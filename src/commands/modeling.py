@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from argparse import Namespace
+import json
 from pathlib import Path
 
 import pandas as pd
@@ -86,6 +87,13 @@ def compare_candidates(cfg: AppConfig, args: Namespace) -> None:
         f"CANDIDATE_MODEL_COMPARISON::{result.league}::{result.recommendation_model}::{result.report_path}",
         flush=True,
     )
+
+
+def best_models(cfg: AppConfig, args: Namespace) -> None:
+    """Print the canonical current-best-models summary."""
+
+    payload = model_compare_service.load_current_best_models(cfg)
+    print(json.dumps(payload, indent=2, sort_keys=True), flush=True)
 
 
 def research_backtest(cfg: AppConfig, args: Namespace) -> None:

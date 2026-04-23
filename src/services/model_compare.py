@@ -11,6 +11,7 @@ from src.common.config import AppConfig
 from src.common.logging import get_logger
 from src.common.time import utc_now_iso
 from src.common.utils import ensure_dir
+from src.research.artifact_guardrails import require_mlb_report_path
 from src.research.model_comparison import run_candidate_model_comparison
 from src.storage.db import Database
 from src.storage.tracker import RunTracker
@@ -27,10 +28,265 @@ _MLB_LATEST_MATERIAL_ARTIFACT_KEYS = (
     "recommendation_surface_path",
     "leaderboard_json_path",
 )
+_CURRENT_BEST_MODELS_FILE_NAME = "current_best_models.json"
 
 
 def _load_summary_payload(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text())
+
+
+def _safe_float(value: Any) -> float | None:
+    try:
+        if value is None:
+            return None
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def current_best_models_path(cfg: AppConfig) -> Path:
+    output_dir = require_mlb_report_path(
+        ensure_dir(Path(cfg.paths.artifacts_dir) / "reports" / _MLB_REPORT_LANE),
+        cfg.paths.artifacts_dir,
+        purpose="MLB current best models artifact",
+    )
+    return output_dir / _CURRENT_BEST_MODELS_FILE_NAME
+
+
+def _market_name_for_target(target_name: str | None) -> str | None:
+    token = str(target_name or "").strip().lower()
+    if not token:
+        return None
+    if token.startswith("moneyline"):
+        return "moneyline"
+    if token.startswith("runline"):
+        return "runline"
+    if token.startswith("totals"):
+        return "totals"
+    return token
+
+
+def _comparison_ranking_rule() -> dict[str, Any]:
+    return {
+        "primary": "final_holdout_log_loss",
+        "secondary": "final_holdout_brier",
+        "tertiary": "final_holdout_auc_desc",
+        "gates": [],
+        "notes": "Lower log loss wins, then lower Brier, then higher AUC. This is the candidate comparison contract.",
+    }
+
+
+def _tournament_ranking_rule() -> dict[str, Any]:
+    return {
+        "primary": "log_loss",
+        "secondary": "brier",
+        "tertiary": "calibration_flag_asc",
+        "quaternary": "stability_flag_asc",
+        "quinary": "roi_secondary_desc_if_present",
+        "notes": "Tournament ranking starts with scoring, then prefers cleaner calibration/stability before any ROI secondary signal.",
+    }
+
+
+def _comparison_top_models(summary_payload: dict[str, Any], *, limit: int = 5) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    recommended_model = str(summary_payload.get("promotion_decision", {}).get("recommended_model") or "")
+    for record in list(summary_payload.get("candidate_scorecards", [])):
+        validation_metrics = dict(record.get("validation_metrics") or {})
+        stability_metrics = dict(record.get("stability_metrics") or {})
+        calibration_summary = dict(record.get("calibration_summary") or {})
+        complement_summary = dict(record.get("complement_summary") or {})
+        rows.append(
+            {
+                "rank": stability_metrics.get("final_holdout_rank"),
+                "model_name": str(record.get("model_name") or ""),
+                "display_name": str(complement_summary.get("display_name") or record.get("model_name") or ""),
+                "target_name": str(record.get("target_name") or ""),
+                "market": _market_name_for_target(record.get("target_name")),
+                "family": complement_summary.get("family"),
+                "governance_note": complement_summary.get("governance_note"),
+                "recommendation_tier": complement_summary.get("recommendation_tier"),
+                "recommended_for_next_stage": bool(complement_summary.get("recommended_for_next_stage")),
+                "is_recommended_model": str(record.get("model_name") or "") == recommended_model,
+                "final_holdout_log_loss": _safe_float(validation_metrics.get("final_holdout_log_loss")),
+                "final_holdout_brier": _safe_float(validation_metrics.get("final_holdout_brier")),
+                "final_holdout_auc": _safe_float(validation_metrics.get("final_holdout_auc")),
+                "final_holdout_ece": _safe_float(validation_metrics.get("final_holdout_ece")),
+                "validation_log_loss": _safe_float(validation_metrics.get("validation_log_loss")),
+                "validation_brier": _safe_float(validation_metrics.get("validation_brier")),
+                "validation_auc": _safe_float(validation_metrics.get("validation_auc")),
+            }
+        )
+
+    def sort_key(row: dict[str, Any]) -> tuple[Any, ...]:
+        rank = row.get("rank")
+        rank_bucket = 0 if isinstance(rank, int) else 1
+        return (
+            rank_bucket,
+            rank if isinstance(rank, int) else 10**9,
+            row.get("final_holdout_log_loss") if row.get("final_holdout_log_loss") is not None else float("inf"),
+            row.get("final_holdout_brier") if row.get("final_holdout_brier") is not None else float("inf"),
+            -(row.get("final_holdout_auc") if row.get("final_holdout_auc") is not None else float("-inf")),
+            row.get("model_name") or "",
+        )
+
+    ordered = sorted(rows, key=sort_key)
+    for index, row in enumerate(ordered, start=1):
+        if not isinstance(row.get("rank"), int):
+            row["rank"] = index
+    return ordered[:limit]
+
+
+def _build_current_best_models_payload_from_comparison(
+    *,
+    summary_payload: dict[str, Any],
+    canonical_output_dir: Path,
+) -> dict[str, Any]:
+    decision = dict(summary_payload.get("promotion_decision") or {})
+    metadata = dict(summary_payload.get("metadata") or {})
+    artifacts = dict(summary_payload.get("artifacts") or {})
+    evidence = dict(decision.get("evidence") or {})
+    execution_metadata = dict(metadata.get("execution_metadata") or evidence.get("execution_metadata") or {})
+    top_models = _comparison_top_models(summary_payload)
+    benchmark = dict(evidence.get("intercept_only_benchmark") or {})
+
+    return {
+        "league": str(summary_payload.get("league") or "MLB").upper(),
+        "as_of_utc": utc_now_iso(),
+        "question_scope": "latest_completed_run",
+        "source_kind": "candidate_model_comparison",
+        "source_status": str(decision.get("status") or "candidate_screen_complete"),
+        "report_slug": str(summary_payload.get("report_slug") or ""),
+        "experiment_run_id": metadata.get("experiment_run_id"),
+        "canonical_artifact_root": str(canonical_output_dir),
+        "production_grade": execution_metadata.get("production_grade"),
+        "execution_scope": execution_metadata.get("execution_data_scope"),
+        "target_name": str(summary_payload.get("target_name") or "moneyline_home_win"),
+        "market": _market_name_for_target(summary_payload.get("target_name") or "moneyline_home_win"),
+        "ranking_rule": _comparison_ranking_rule(),
+        "recommended_model": str(decision.get("recommended_model") or ""),
+        "recommended_display_name": str(metadata.get("recommended_display_name") or decision.get("recommended_model") or ""),
+        "best_candidate_model": top_models[0]["model_name"] if top_models else None,
+        "best_candidate_display_name": top_models[0]["display_name"] if top_models else None,
+        "baseline_model": str(decision.get("baseline_model") or "intercept_only"),
+        "promotion_ready": evidence.get("promotion_ready"),
+        "why_this_won": str(decision.get("rationale") or ""),
+        "closest_challenger": top_models[1] if len(top_models) > 1 else None,
+        "benchmark": {
+            "model_name": benchmark.get("model_name"),
+            "display_name": benchmark.get("display_name"),
+            "log_loss": _safe_float(benchmark.get("log_loss")),
+            "brier": _safe_float(benchmark.get("brier")),
+            "auc": _safe_float(benchmark.get("auc")),
+            "ece": _safe_float(benchmark.get("ece")),
+        },
+        "top_models": top_models,
+        "artifact_paths": {
+            "report_path": artifacts.get("report_path"),
+            "summary_path": artifacts.get("summary_path"),
+            "recommendation_path": artifacts.get("recommendation_path"),
+            "recommendation_surface_path": artifacts.get("recommendation_surface_path"),
+            "leaderboard_json_path": artifacts.get("leaderboard_json_path"),
+        },
+    }
+
+
+def write_current_best_models_from_comparison(
+    cfg: AppConfig,
+    *,
+    summary_payload: dict[str, Any],
+    canonical_output_dir: Path | None = None,
+) -> Path | None:
+    league = str(summary_payload.get("league") or cfg.data.league).upper()
+    if league != "MLB":
+        return None
+    output_dir = canonical_output_dir or current_best_models_path(cfg).parent
+    payload = _build_current_best_models_payload_from_comparison(
+        summary_payload=summary_payload,
+        canonical_output_dir=output_dir,
+    )
+    output_path = output_dir / _CURRENT_BEST_MODELS_FILE_NAME
+    output_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    return output_path
+
+
+def write_current_best_models_from_tournament(
+    cfg: AppConfig,
+    *,
+    run_id: str,
+    artifact_root: Path,
+    summary_path: Path,
+    leaderboard_rows: list[dict[str, Any]],
+    recommendation_rows: list[dict[str, Any]],
+    recommendation_path: Path,
+    production_grade: bool | None = False,
+    execution_scope: str | None = "bounded_mlb_feature_slice",
+) -> Path:
+    output_path = current_best_models_path(cfg)
+    top_rows = list(leaderboard_rows)[:5]
+    best_recommendation = recommendation_rows[0] if recommendation_rows else {}
+    recommended_model = str(best_recommendation.get("model_name") or (top_rows[0].get("model_name") if top_rows else ""))
+    recommended_display_name = str(
+        best_recommendation.get("display_name") or (top_rows[0].get("display_name") if top_rows else recommended_model)
+    )
+    payload = {
+        "league": "MLB",
+        "as_of_utc": utc_now_iso(),
+        "question_scope": "latest_completed_tournament",
+        "source_kind": "mlb_model_tournament",
+        "source_status": "complete",
+        "run_id": run_id,
+        "canonical_artifact_root": str(output_path.parent),
+        "artifact_root": str(artifact_root),
+        "production_grade": production_grade,
+        "execution_scope": execution_scope,
+        "target_name": "moneyline_home_win",
+        "market": "moneyline",
+        "ranking_rule": _tournament_ranking_rule(),
+        "recommended_model": recommended_model,
+        "recommended_display_name": recommended_display_name,
+        "best_candidate_model": top_rows[0].get("model_name") if top_rows else None,
+        "best_candidate_display_name": top_rows[0].get("display_name") if top_rows else None,
+        "baseline_model": "intercept_only",
+        "promotion_ready": False,
+        "why_this_won": str(best_recommendation.get("rationale") or "Top tournament leaderboard row under the current scoring contract."),
+        "closest_challenger": top_rows[1] if len(top_rows) > 1 else None,
+        "top_models": top_rows,
+        "recommendations": recommendation_rows[:5],
+        "artifact_paths": {
+            "summary_path": str(summary_path),
+            "recommendation_path": str(recommendation_path),
+            "leaderboard_json_path": str(artifact_root / "leaderboard.json"),
+        },
+    }
+    output_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    return output_path
+
+
+def load_current_best_models(cfg: AppConfig) -> dict[str, Any]:
+    path = current_best_models_path(cfg)
+    if path.exists():
+        return json.loads(path.read_text())
+
+    db = Database(cfg.paths.db_path)
+    db.init_schema()
+    rows = db.query(
+        """
+        SELECT summary_json
+        FROM experiment_runs
+        WHERE league = ?
+        ORDER BY COALESCE(completed_at_utc, started_at_utc) DESC
+        LIMIT 1
+        """,
+        (str(cfg.data.league).upper(),),
+    )
+    if not rows:
+        raise FileNotFoundError(f"No current best models artifact or experiment runs found for league {cfg.data.league!r}.")
+    summary_payload = json.loads(rows[0]["summary_json"])
+    payload = _build_current_best_models_payload_from_comparison(
+        summary_payload=summary_payload,
+        canonical_output_dir=path.parent,
+    )
+    return payload
 
 
 def _artifact_sources(result, artifacts: dict[str, Any]) -> dict[str, Any]:
@@ -88,7 +344,11 @@ def _canonicalize_mlb_report_artifacts(
     if league != "MLB":
         return None
 
-    output_dir = ensure_dir(Path(cfg.paths.artifacts_dir) / "reports" / _MLB_REPORT_LANE)
+    output_dir = require_mlb_report_path(
+        ensure_dir(Path(cfg.paths.artifacts_dir) / "reports" / _MLB_REPORT_LANE),
+        cfg.paths.artifacts_dir,
+        purpose="MLB latest candidate comparison artifacts",
+    )
     artifacts = summary_payload.setdefault("artifacts", {})
     canonical_artifacts: dict[str, str] = {}
     for key, source in _artifact_sources(result, artifacts).items():
@@ -227,6 +487,7 @@ def _write_mlb_service_output(
         "top_scorecards": list(candidate_scorecards)[:3],
         "material_artifacts": material_artifacts,
         "manifest_path": str(manifest_path),
+        "current_best_models_path": str(canonical_output_dir / _CURRENT_BEST_MODELS_FILE_NAME),
     }
     manifest_payload = {
         "league": league,
@@ -237,6 +498,7 @@ def _write_mlb_service_output(
         "material_artifacts": material_artifacts,
         "service_output_path": str(output_path),
         "tracker_service_output_path": str(tracker_output_path),
+        "current_best_models_path": str(canonical_output_dir / _CURRENT_BEST_MODELS_FILE_NAME),
     }
     output_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     manifest_path.write_text(json.dumps(manifest_payload, indent=2, sort_keys=True) + "\n")
@@ -316,15 +578,22 @@ def compare_candidate_models(
         )
     else:
         mlb_outputs = None
+    summary_payload.setdefault("metadata", {})
+    summary_payload["metadata"]["experiment_run_id"] = experiment_run_id
     if mlb_outputs is not None:
         mlb_service_output_path, mlb_manifest_path, material_artifacts = mlb_outputs
         summary_payload["artifacts"]["mlb_service_output_path"] = str(mlb_service_output_path)
         summary_payload["artifacts"]["mlb_service_manifest_path"] = str(mlb_manifest_path)
         summary_payload["artifacts"]["mlb_latest_material_artifacts"] = material_artifacts
+        current_best_models_output_path = write_current_best_models_from_comparison(
+            cfg,
+            summary_payload=summary_payload,
+            canonical_output_dir=mlb_service_output_path.parent,
+        )
+        if current_best_models_output_path is not None:
+            summary_payload["artifacts"]["current_best_models_path"] = str(current_best_models_output_path)
     else:
         mlb_service_output_path = None
-    summary_payload.setdefault("metadata", {})
-    summary_payload["metadata"]["experiment_run_id"] = experiment_run_id
     summary_text = json.dumps(summary_payload, indent=2, sort_keys=True) + "\n"
     result.summary_path.write_text(summary_text)
     canonical_summary_path = Path(summary_payload["artifacts"].get("summary_path") or result.summary_path)

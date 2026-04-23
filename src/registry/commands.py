@@ -19,7 +19,7 @@ def _option(*flags: str, doc_metavar: str | None = None, **argparse_kwargs: obje
 _MODELS_ARG = _option(
     "--models",
     default=None,
-    help="Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core lane.",
+    help="Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core-supported GLM lane.",
     doc_metavar="MODELS",
 )
 _VALIDATE_MODELS_ARG = _option(
@@ -253,6 +253,12 @@ COMMAND_REGISTRY: tuple[CommandRegistryEntry, ...] = (
         examples=("make compare-candidates CONFIG=configs/mlb.yaml",),
     ),
     CommandRegistryEntry(
+        name="best-models",
+        summary="Print the canonical current-best-models summary for the MLB research lane.",
+        handler_path="src.commands.modeling:best_models",
+        examples=("python3 -m src.cli best-models --config configs/mlb.yaml",),
+    ),
+    CommandRegistryEntry(
         name="backtest",
         summary="Run the walk-forward backtest and scoring pipeline.",
         handler_path="src.commands.modeling:backtest",
@@ -350,7 +356,7 @@ def command_manifest_payload() -> dict[str, object]:
     return {
         "version": 1,
         "source": "code_registry",
-        "default_config_path": default_config_path("NBA"),
+        "default_config_path": default_config_path("MLB"),
         "commands": [
             {
                 "name": entry.name,

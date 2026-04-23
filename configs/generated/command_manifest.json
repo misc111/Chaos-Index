@@ -1,7 +1,7 @@
 {
   "version": 1,
   "source": "code_registry",
-  "default_config_path": "configs/nba.yaml",
+  "default_config_path": "configs/mlb.yaml",
   "commands": [
     {
       "name": "init-db",
@@ -144,7 +144,7 @@
             "--models"
           ],
           "doc_metavar": "MODELS",
-          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core lane.",
+          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core-supported GLM lane.",
           "choices": null,
           "default": null
         },
@@ -173,7 +173,7 @@
             "--models"
           ],
           "doc_metavar": "MODELS",
-          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core lane.",
+          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core-supported GLM lane.",
           "choices": null,
           "default": null
         },
@@ -376,6 +376,16 @@
       ]
     },
     {
+      "name": "best-models",
+      "summary": "Print the canonical current-best-models summary for the MLB research lane.",
+      "handler_path": "src.commands.modeling:best_models",
+      "config_required": true,
+      "arguments": [],
+      "examples": [
+        "python3 -m src.cli best-models --config configs/mlb.yaml"
+      ]
+    },
+    {
       "name": "backtest",
       "summary": "Run the walk-forward backtest and scoring pipeline.",
       "handler_path": "src.commands.modeling:backtest",
@@ -386,7 +396,7 @@
             "--models"
           ],
           "doc_metavar": "MODELS",
-          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core lane.",
+          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core-supported GLM lane.",
           "choices": null,
           "default": null
         },
@@ -608,7 +618,7 @@
             "--models"
           ],
           "doc_metavar": "MODELS",
-          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core lane.",
+          "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core-supported GLM lane.",
           "choices": null,
           "default": null
         },
