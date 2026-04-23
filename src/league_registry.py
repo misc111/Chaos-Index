@@ -95,7 +95,7 @@ def _empty_fetch_result(source: str, note: str) -> SourceFetchResult:
     )
 
 
-def _empty_starter_context(*args, **kwargs) -> SourceFetchResult:
+def _empty_starter_context(*args: object, **kwargs: object) -> SourceFetchResult:
     del args, kwargs
     return _empty_fetch_result("starter_context_empty", "league_has_no_dedicated_starter_context_feed")
 

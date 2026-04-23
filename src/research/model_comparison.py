@@ -19,6 +19,7 @@ from src.evaluation.validation_classification import validate_logistic_probabili
 from src.evaluation.validation_nonlinearity import assess_nonlinearity
 from src.features.leakage_checks import run_leakage_checks
 from src.registry.models import get_model_registry_entry
+from src.research.artifact_guardrails import require_mlb_report_path
 from src.research.candidate_models import (
     BaseCandidateModel,
     CandidateFitStats,
@@ -223,6 +224,17 @@ def _time_ordered_split(
     validation_df = work.iloc[train_end:valid_end].copy()
     test_df = work.iloc[valid_end:].copy()
     return train_df, validation_df, test_df
+
+
+def _date_bounds(df: pd.DataFrame) -> tuple[str | None, str | None]:
+    if df.empty:
+        return None, None
+    for column in ("start_time_utc", "game_date_utc"):
+        if column in df.columns:
+            values = df[column].dropna().astype(str)
+            if not values.empty:
+                return str(values.min()), str(values.max())
+    return None, None
 
 
 def _internal_nonlinearity_split(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -940,7 +952,8 @@ def _file_prefix(league: str, report_slug: str) -> str:
 def _resolve_comparison_report_dirs(cfg: AppConfig, *, league: str) -> Path:
     reports_root = ensure_dir(Path(cfg.paths.artifacts_dir) / "reports")
     if str(league).upper() == "MLB":
-        return ensure_dir(reports_root / "mlb")
+        report_dir = ensure_dir(reports_root / "mlb")
+        return require_mlb_report_path(report_dir, cfg.paths.artifacts_dir, purpose="MLB candidate comparison report")
     return ensure_dir(reports_root / "history")
 
 
@@ -1531,6 +1544,7 @@ def _write_report(
     comparison_decision: PromotionDecisionRecord,
     candidate_scope_note: str,
     feature_pool_note: str,
+    split_metadata: dict[str, Any],
     execution_metadata: dict[str, Any] | None = None,
 ) -> tuple[str, str]:
     best_test = _best_model_row(test_metrics)
@@ -1552,7 +1566,12 @@ def _write_report(
         "Protocol",
         "- Objective: maximize out-of-sample probability quality for home-win probabilities under proper scoring rules.",
         "- Guidance followed from the local CAS monograph sections on train/validation/test splitting (4.3), deviance and penalized fit comparisons (6.1-6.2), residual/nonlinearity/stability checks (6.3-6.4), holdout actual-vs-predicted/lift/ROC validation (7.1-7.3), and extension candidates (10.1-10.5).",
-        "- Outer split: 40% train, 30% validation, 30% final test, ordered by `start_time_utc`.",
+        (
+            f"- Outer split `{split_metadata.get('split_label', 'custom')}`: "
+            f"{float(split_metadata.get('train_fraction') or 0.0):.0%} train, "
+            f"{float(split_metadata.get('validation_fraction') or 0.0):.0%} validation, "
+            f"{float(split_metadata.get('test_fraction') or 0.0):.0%} final test, ordered by `start_time_utc`."
+        ),
         "- Hyperparameters were tuned with rolling time-series CV inside the fit window for each phase.",
         f"- Candidate scope: {candidate_scope_note}",
         f"- Feature pool: {feature_pool_note}",
@@ -1560,6 +1579,8 @@ def _write_report(
         "Data",
         f"- League: {cfg.data.league}",
         f"- {row_count_label}: {len(train_df) + len(validation_df) + len(test_df)}",
+        f"- Data date range: {split_metadata.get('data_start') or 'n/a'} to {split_metadata.get('data_end') or 'n/a'}",
+        f"- Final holdout date range: {split_metadata.get('test_start') or 'n/a'} to {split_metadata.get('test_end') or 'n/a'}",
         f"- Train / validation / test rows: {len(train_df)} / {len(validation_df)} / {len(test_df)}",
         f"- Raw candidate features after leakage bans: {raw_feature_count}",
         f"- Final screened features retained for broad linear models: {len(final_features.screened_features)}",
@@ -1657,6 +1678,9 @@ def run_candidate_model_comparison(
     structured_glm_spec_path: str | None = None,
     structured_glm_slate: str | None = None,
     structured_glm_width_variant: str | None = None,
+    train_fraction: float = 0.4,
+    validation_fraction: float = 0.3,
+    split_label: str = "outer_40_30_30",
     execution_metadata: dict[str, Any] | None = None,
 ) -> ComparisonRunResult:
     feature_pool_token = str(feature_pool or FEATURE_POOL_FULL_SCREENED).strip().lower()
@@ -1735,11 +1759,41 @@ def run_candidate_model_comparison(
         candidate_scope_note = "all registered candidate families"
 
     historical_df = features_df[features_df["home_win"].notna()].copy().sort_values("start_time_utc").reset_index(drop=True)
+    train_fraction = float(train_fraction)
+    validation_fraction = float(validation_fraction)
+    if train_fraction <= 0.0 or validation_fraction < 0.0 or train_fraction + validation_fraction >= 1.0:
+        raise ValueError(
+            "Candidate comparison split fractions must satisfy "
+            "0 < train_fraction, 0 <= validation_fraction, and train+validation < 1."
+        )
     train_df, validation_df, test_df = _time_ordered_split(
         historical_df,
-        train_fraction=0.4,
-        validation_fraction=0.3,
+        train_fraction=train_fraction,
+        validation_fraction=validation_fraction,
     )
+    data_start, data_end = _date_bounds(historical_df)
+    train_start, train_end = _date_bounds(train_df)
+    validation_start, validation_end = _date_bounds(validation_df)
+    test_start, test_end = _date_bounds(test_df)
+    split_metadata = {
+        "split_label": str(split_label or "custom"),
+        "train_fraction": float(train_fraction),
+        "validation_fraction": float(validation_fraction),
+        "test_fraction": float(1.0 - train_fraction - validation_fraction),
+        "n_historical": int(len(historical_df)),
+        "n_train": int(len(train_df)),
+        "n_validation": int(len(validation_df)),
+        "n_test": int(len(test_df)),
+        "data_start": data_start,
+        "data_end": data_end,
+        "train_start": train_start,
+        "train_end": train_end,
+        "validation_start": validation_start,
+        "validation_end": validation_end,
+        "test_start": test_start,
+        "test_end": test_end,
+        "split_method": "time_ordered_by_start_time_utc",
+    }
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", category=PerfectSeparationWarning)
         warnings.filterwarnings("ignore", message="Laplace fitting did not converge")
@@ -1922,6 +1976,7 @@ def run_candidate_model_comparison(
             "train_rows": int(len(train_df)),
             "validation_rows": int(len(validation_df)),
             "test_rows": int(len(test_df)),
+            "split": split_metadata,
             "screening_summary": final_features.screening_frame["status"].value_counts().to_dict(),
             "final_nonlinearity_summary": dict(final_features.nonlinearity_summary),
             "recommended_display_name": str(_best_model_row(test_metrics)["display_name"]),
@@ -1948,6 +2003,7 @@ def run_candidate_model_comparison(
         comparison_decision=comparison_decision,
         candidate_scope_note=candidate_scope_note,
         feature_pool_note=feature_pool_note,
+        split_metadata=split_metadata,
         execution_metadata=execution_metadata,
     )
 

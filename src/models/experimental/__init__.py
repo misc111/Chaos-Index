@@ -8,14 +8,18 @@ from the top-level ``src.models`` package.
 from src.models.experimental.bayes_state_space_bt import BayesStateSpaceBTModel, BayesSummary
 from src.models.experimental.bayes_state_space_goals import BayesGoalsModel
 from src.models.experimental.gbdt import GBDTModel
+from src.models.experimental.mars_hinge import MARSHingeModel
 from src.models.experimental.nn import NNModel
 from src.models.experimental.rf import RFModel
+from src.models.experimental.two_stage import TwoStageModel
 
 __all__ = [
     "BayesGoalsModel",
     "BayesStateSpaceBTModel",
     "BayesSummary",
     "GBDTModel",
+    "MARSHingeModel",
     "NNModel",
     "RFModel",
+    "TwoStageModel",
 ]

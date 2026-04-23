@@ -22,6 +22,7 @@ class LeagueRegistryEntry:
     championship_probability_key: str
     uncertainty_policy_name: str
     primary_rebuild_lane: bool = False
+    lifecycle: str = "legacy"
     aliases: tuple[str, ...] = ()
 
 
@@ -34,6 +35,8 @@ class ModelRegistryEntry:
     short_label: str
     family: str
     lane: str = "core"
+    theory_classification: str = "core-supported"
+    implementation_namespace: str = "src.models"
     governance_note: str = ""
     aliases: tuple[str, ...] = ()
     legacy_model_keys: tuple[str, ...] = ()

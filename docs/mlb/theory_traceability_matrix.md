@@ -2,66 +2,61 @@
 
 ## Purpose
 
-This matrix maps the MLB rebuild to the two governing CAS monographs:
+This matrix is the MLB modeling lane's audit surface for the two governing CAS monographs:
 
-1. `09_GLM_Generalized_Linear_Models_for_Insurance_Rating.pdf`
-2. `10_Holmes_Casotto_Penalized_Regression_and_Lasso_Credibility_2025_Revision.pdf`
+1. `statistical_theory/09_GLM_Generalized_Linear_Models_for_Insurance_Rating.pdf`
+2. `statistical_theory/10_Holmes_Casotto_Penalized_Regression_and_Lasso_Credibility_2025_Revision.pdf`
 
-Every row is tagged as one of:
+Core claims must be traceable to those texts. Anything useful but not directly grounded in them must be labeled as `experimental`, `outside governing theory lane`, and `not justified directly by the monographs`.
 
-- `Direct theory implementation`
-- `Theory-compatible engineering support`
-- `Betting overlay`
-- `Dashboard/reporting layer`
+## Classification Rules
+
+- `core-supported`: Directly supported by the two monographs and eligible for the main actuarial theory lane.
+- `theory-compatible extension`: Discussed as a GLM variation, extension, or careful supporting method, but not the default theory-core champion lane.
+- `experimental`: Not directly justified by the monographs, currently only a benchmark/engineering/research aid, or too approximate to treat as main-lane actuarial truth.
 
 ## Matrix
 
-| Area | MLB implementation target | Source trace | Classification |
-| --- | --- | --- | --- |
-| GLM core structure | Model outcome targets with exponential-family random component plus linear predictor on the proper link scale | GLM monograph pp. 2-7 | Direct theory implementation |
-| Binary moneyline / runline / totals side models | Bernoulli/binomial with logit link for home win, runline cover, totals over | GLM monograph pp. 25-26; lasso monograph pp. 3-6 | Direct theory implementation |
-| Team-runs models | Poisson GLM for home runs and away runs | GLM monograph pp. 21-22 | Direct theory implementation |
-| Overdispersed count lane | Overdispersed Poisson / negative binomial lane for team runs when Poisson variance is inadequate | GLM monograph pp. 21-22 | Direct theory implementation |
-| Positive continuous target lane | Gamma and inverse Gaussian for positive conditional targets such as positive-run components or severity-style overlays | GLM monograph pp. 19-21 | Direct theory implementation |
-| Zero-heavy nonnegative lane | Tweedie for nonnegative zero-heavy aggregates where a compound Poisson-gamma process is reasonable | GLM monograph pp. 22-24 | Direct theory implementation |
-| Normal benchmark lane | Normal GLM for run-differential benchmark comparisons | GLM monograph pp. 7, 19 | Direct theory implementation |
-| Frequency/severity decomposition | Two-stage construction where appropriate instead of forcing a single target | GLM monograph pp. 43-45 | Direct theory implementation |
-| Weights | Exposure-aware or aggregation-aware weighting through variance, not ad hoc sample duplication | GLM monograph pp. 16-18 | Direct theory implementation |
-| Offsets | Market or prior complements transformed onto the linear-predictor scale | GLM monograph pp. 17-18; lasso monograph pp. 38-45 | Direct theory implementation |
-| Market complement lane | Vig-free implied market probabilities converted to logit-scale offsets for credibility-aware models | Lasso monograph pp. 38-45 | Direct theory implementation |
-| Prior-model complement lane | Prior-model offsets for complement-of-credibility modeling | Lasso monograph pp. 41-45, 99-104 | Direct theory implementation |
-| Continuous transforms | Raw, log, polynomial, bin, hinge, and spline transforms driven by partial-residual and validation evidence | GLM monograph pp. 48-55 | Direct theory implementation |
-| Categorical handling | One-hot/base-level treatment, grouped levels, populous base-level selection | GLM monograph pp. 12-15, 55-56 | Direct theory implementation |
-| Ordinal treatment | Prefer ordinal encodings for lasso credibility where sensible so complements and shrinkage remain reviewable | Lasso monograph pp. 24-29, 39-41, 49-52 | Direct theory implementation |
-| Interactions | Categorical x categorical, categorical x continuous, continuous x continuous | GLM monograph pp. 55-61 | Direct theory implementation |
-| Multicollinearity review | Pairwise correlation, VIF, condition indices, aliasing review | GLM monograph pp. 27-28 | Direct theory implementation |
-| Vanilla GLM inferential outputs | Standard errors, p-values, and confidence intervals for unpenalized GLMs only | GLM monograph pp. 8-9 | Direct theory implementation |
-| Penalized regression family | Ridge, lasso, elastic net, lambda path, active-parameter summaries | GLM monograph pp. 101-103; lasso monograph pp. 14-24 | Direct theory implementation |
-| Lasso variable policy | Sparse coefficient policy, implicit materiality threshold, conservative lambda selection | Lasso monograph pp. 21-24, 42-43 | Direct theory implementation |
-| Lasso credibility | Complement via offset, shrinkage toward complement instead of zero, complement/indicated/observed review | Lasso monograph pp. 38-52 | Direct theory implementation |
-| Lasso credibility diagnostics | Lambda review, complement review, relativity plots, exposure overlays, ordinal reversal checks | Lasso monograph pp. 46-52 | Direct theory implementation |
-| Model fit measures | Log-likelihood, deviance, scaled deviance, nested-model F-tests where appropriate, AIC, BIC | GLM monograph pp. 62-67 | Direct theory implementation |
-| Residual diagnostics | Raw, deviance, and working residuals; residual-vs-fitted; residual-vs-predictor; grouped residual views | GLM monograph pp. 67-74 | Direct theory implementation |
-| Influence review | Cook's distance and influence-oriented outlier review | GLM monograph pp. 73-74 | Direct theory implementation |
-| Lift and validation plots | Actual-vs-predicted, quantile plots, double lift, loss-ratio-style charts, Lorenz, Gini, ROC, AUROC | GLM monograph pp. 75-82 | Direct theory implementation |
-| Split governance | Train/test, train/validation/test, cross-validation, holdout discipline | GLM monograph pp. 38-41 | Direct theory implementation |
-| Stability governance | Bootstrap/refit stability, coefficient stability over time and across folds, rebuild governance | GLM monograph pp. 73-74, 86-88; lasso monograph pp. 21-24, 83-85 | Direct theory implementation |
-| GLMM lane | Random-effects shrinkage for sparse grouping structures | GLM monograph pp. 93-96 | Direct theory implementation |
-| DGLM lane | Separate dispersion model when fixed-dispersion GLMs are inadequate | GLM monograph pp. 96-98 | Direct theory implementation |
-| GAM lane | Smooth nonlinearity with controlled flexibility | GLM monograph pp. 98-100 | Direct theory implementation |
-| MARS lane | Hinge-term discovery and interaction mining, reusable into GLM where justified | GLM monograph pp. 100-101 | Direct theory implementation |
-| Ensemble guidance | Compare simple and weighted ensembles only after model-level validation; preserve interpretability and governance | GLM monograph pp. 91-92 | Direct theory implementation |
-| Immutable pregame ledger | Freeze pregame records by as-of timestamp and never overwrite after first pitch | Supports holdout integrity and model-governance discipline; not a monograph statistical primitive | Theory-compatible engineering support |
-| `available_as_of` feature gating | Enforce pregame legality for every feature at build time | Supports monograph data-prep and validation discipline | Theory-compatible engineering support |
-| MLB schema and manifests | Normalize games, odds, feature sets, model runs, predictions, validation outputs, theory trace | Supports reproducibility and documentation expectations | Theory-compatible engineering support |
-| Fair odds, edge, EV, stake sizing | Betting decision layer on top of theory-derived probabilities | Not prescribed by the monographs | Betting overlay |
-| Bet/pass reason codes | Operator-facing narrative of why a play was taken or skipped | Not prescribed by the monographs | Betting overlay |
-| Dashboard pages, staging payloads, model cards | Render and ship operator-facing views of model and betting outputs | Not prescribed by the monographs | Dashboard/reporting layer |
+| Subsystem / Feature | Theory Classification | Governing Source | Short Justification | Limits / Caveats |
+| --- | --- | --- | --- | --- |
+| Vanilla GLM lane | `core-supported` | GLM monograph 2.1, 2.7-2.8, 3.5-3.7, 4.3, 5.1-5.3, 6.1-6.3, 7.1-7.3; Holmes/Casotto 1.1-1.4 | GLM structure, distribution/link selection, model building, fit, residuals, validation, and logistic probability validation are direct monograph material. | For MLB moneyline, the target must remain binary with binomial/logit logic. P-values are appropriate only for unpenalized GLM coefficient review, not penalized or credibility models. |
+| Moneyline `home_win` binomial/logit target | `core-supported` | GLM monograph 2.8; Holmes/Casotto 1.1-1.3 | The target is a dichotomous event modeled through binomial/logistic regression. | Runline/totals/score lanes need separate target/distribution justifications before promotion. |
+| Distribution and link selection | `core-supported` | GLM monograph 2.1, 2.7-2.8, 5.1-5.2 | Distribution and link are chosen from target structure, not from leaderboard convenience. | Current tournament is only the binary moneyline lane. |
+| Offsets | `core-supported` | GLM monograph 2.6; Holmes/Casotto 1.4, 5.1 | Offsets must be on the linear-predictor scale and represent fixed complements or exposure-style adjustments. | Market offsets must be vig-free and logit-scale before use in a binary model. |
+| Complement handling | `core-supported` | Holmes/Casotto 5.1-5.7, 6.2, Appendix B | Lasso credibility uses an explicit complement through the offset and reviews deviations from that complement. | Weak or proxy complements must be labeled. Complement quality is part of model review, not a side note. |
+| Ridge GLM | `core-supported` | Holmes/Casotto 3.1.1-3.1.2, 3.3; GLM monograph 10.5 | Ridge is part of the penalized regression family and can improve generalization under correlation. | Ridge is not sparse; interpretability and credibility review need more caution than lasso. |
+| Lasso GLM | `core-supported` | Holmes/Casotto 3.1.1, 3.1.3, 3.2-3.5, 6.1 | Lasso is explicitly recommended for many actuarial applications because sparsity supports stability, interpretability, and materiality. | Lasso review is about penalty/credibility behavior, not p-values. |
+| Elastic net GLM | `core-supported` | GLM monograph 10.5; Holmes/Casotto 3.1, 3.3, C.2-C.3 | Elastic net is a penalized GLM and is explicitly covered as a GLM variation. | Holmes/Casotto still prefer lasso for actuarial sparsity/credibility framing; elastic net should not be described as lasso credibility. |
+| Lambda selection | `core-supported` | Holmes/Casotto 3.3, 5.5, 6.1; GLM monograph 4.3.4 | Penalty parameters should be selected with generalization evidence such as cross-validation; actuarial judgment may conservatively increase penalty. | Do not pick lambda on a lucky final holdout. Any judgmental increase must be documented. |
+| Lasso credibility | `core-supported` | Holmes/Casotto 5.1-5.7, 6.1-6.4, Appendix B | Lasso credibility shrinks toward a complement by combining offset and lasso penalization; review moves from significance to credibility. | No p-values. Do not describe it as a significance-testing framework. Continuous treatments should be handled cautiously; categorical/ordinal framing is preferred where feasible. |
+| Market-offset lasso credibility | `core-supported` | Holmes/Casotto 5.1, 5.4-5.7, 6.2-6.3; GLM monograph 2.6 | A vig-free market logit can be a documented complement if treated as fixed offset/relevant experience. | Market complement must not collapse the model into market-copying; output needs complement-vs-indicated review. |
+| Prior-offset lasso credibility | `core-supported` when the prior is real; `experimental` when proxy-derived | Holmes/Casotto 5.1, 5.4-5.7, Appendix B | A prior model can be a complement if it is documented and available before the modeled event. | Current tournament prior complement is proxy-derived unless a real prior-model ledger is provided. Proxy prior evidence is outside the production theory lane. |
+| Train/validation/test usage | `core-supported` | GLM monograph 4.3.1-4.3.3; Holmes/Casotto 3.3, 5.5 | Training, validation, and final test separation prevents over-optimistic model selection. | Final holdout should be spent sparingly; repeated tournaments are bounded research evidence, not production proof by themselves. |
+| Cross-validation / rolling CV | `core-supported` | GLM monograph 4.3.4; Holmes/Casotto 3.3, 5.5, 6.1 | CV approximates generalization and supports lambda selection. Time-ordered folds are appropriate for pregame sports data. | CV design must not leak future outcomes into fitting or feature selection. |
+| Holdout design | `core-supported` | GLM monograph 4.3.1-4.3.3 | Out-of-time validation is explicitly favored where event/time overlap can make random splits too optimistic. | Current local evidence is a 480-game bounded real-data slice, not a full immutable historical ledger. |
+| Candidate comparison by log loss / deviance-like probability scoring | `core-supported` | GLM monograph 6.1-6.2; Holmes/Casotto 3.3 | Likelihood/deviance-style fit and generalization metrics are consistent with GLM comparison and lambda selection. | Log loss is not named as the monograph's primary label for insurance rating, but it is the Bernoulli negative log-likelihood used for this binary target. |
+| AIC/BIC and information criteria | `core-supported` for unpenalized/nested GLM context; `theory-compatible extension` for penalized screens | GLM monograph 6.2.2; Holmes/Casotto C.3 | Penalized fit measures are discussed for candidate comparison. | Do not use AIC/BIC as the sole arbiter of penalized or credibility champion selection. |
+| Brier score | `theory-compatible extension` | GLM monograph 7.1-7.3 by validation-plot analogy | Proper probability scoring is useful for binary forecast quality and calibration review. | Not directly prescribed by the monographs; keep as supporting evidence, not sole theory proof. |
+| Calibration outputs: alpha/beta, ECE/MCE, quantile actual-vs-predicted | `core-supported` for actual-vs-predicted/quantile plots; `theory-compatible extension` for alpha/beta and ECE/MCE scalar summaries | GLM monograph 7.1, 7.2.1, 7.3 | Actual-vs-predicted and quantile validation are directly discussed for logistic models. | ECE/MCE and calibration slope/intercept are useful summaries but not named monograph primitives. |
+| Lift / Lorenz / Gini / ROC outputs | `core-supported` | GLM monograph 7.2-7.3 | Lift, Lorenz/Gini, and ROC/AUROC are directly discussed validation tools, including logistic regression. | AUROC and normalized Gini are related; do not double-count them as independent evidence. |
+| Residual analysis | `core-supported` | GLM monograph 6.3 | Raw/deviance/working residuals and binned working residuals are direct GLM diagnostic material. | Residual diagnostics are most directly tied to GLM-family rows; use care with approximation/challenger rows. |
+| Stability / bootstrap checks | `core-supported` for stability review; `theory-compatible extension` for specific bootstrap implementation | GLM monograph 6.4, 8.2-8.4; Holmes/Casotto 3.2, 3.3, 6.1 | Stability over data changes and conservative penalty choice are directly relevant. | The exact bootstrap resampling design is an engineering implementation and must not be overclaimed. |
+| Multicollinearity / aliasing review | `core-supported` | GLM monograph 2.9; Holmes/Casotto C.2 | Predictor correlation and near-aliasing are direct modeling concerns, especially for penalized transformations. | Highly correlated transformation pools require conservative culling and caveats. |
+| Hinge transforms | `core-supported` when manually specified/reused in GLM; `theory-compatible extension` when discovered through MARS-style search | GLM monograph 5.4.4, 10.4; Holmes/Casotto 3.4 | Piecewise linear functions are direct GLM transform material. MARS can discover hinge functions for reuse. | Hinge search can overfit; final use needs holdout and stability proof. |
+| GAM lane | `theory-compatible extension` | GLM monograph 10.3 | GAMs are GLM-like extensions for smooth nonlinear effects. | Current implementation is spline-basis logistic regression, not a full production GAM package. |
+| GLMM lane | `theory-compatible extension` | GLM monograph 10.1 | GLMMs introduce random effects/shrinkage for sparse grouping structures. | Current binary team random-effects implementation is an extension challenger, not default core champion proof. |
+| DGLM lane | `theory-compatible extension` | GLM monograph 10.2 | DGLMs model dispersion separately when fixed-dispersion GLMs are inadequate. | Current `dglm_margin` bridges margin modeling to win probability; that bridge needs separate validation before main-lane promotion. |
+| MARS lane | `theory-compatible extension` for canonical MARS; `experimental` for the current `mars_hinge` proxy | GLM monograph 10.4; GLM monograph 5.4.4 | MARS is discussed for hinge discovery and possible GLM term reuse. | Current `mars_hinge` implementation uses a fixed hinge-basis logistic proxy, not full forward/pruned MARS, so repo artifacts must label it experimental. |
+| Nonlinear challenger handling | `theory-compatible extension` for GAM-style spline GLM; `experimental` for hinge proxy search | GLM monograph 5.4, 10.3-10.4; Holmes/Casotto 3.4 | Nonlinear transforms/extensions can be explored when controlled by validation and stability evidence. | Must be fenced from the theory-core winner unless robustly superior and traceable. |
+| Ensembling | `theory-compatible extension` | GLM monograph 9.3 | Simple ensembles are discussed as potentially useful after separate model validation. | Ensemble championing requires separate governance; not part of this second-round core winner. |
+| Betting overlay metrics: ROI, EV, edge, stake sizing | `experimental` | Not directly justified by the governing monographs | Betting product outputs can be useful after probabilities are generated. | Do not rank a theory-core model primarily on a lucky ROI slice. |
+| Permutation importance / non-CAS ML explainability | `experimental` | Not directly justified by the governing monographs | Useful for non-core challenger analysis. | Outside governing theory lane unless separately justified. |
+| Final recommendation packet | `core-supported` for evidence discipline; `theory-compatible extension` for repo artifact format | GLM monograph 3.6-3.9, 8.1-8.4; Holmes/Casotto 6.1-6.5 | The monographs support model documentation, validation, stability review, and credibility-specific review. | Recommendation language must label evidence grade and not call bounded-slice evidence production-grade. |
 
-## Key Warnings From The Monographs
+## Non-Negotiable Wording Rules
 
-- Do not report p-values for lasso, elastic net, or lasso-credibility models.
-- Do not let holdout data leak into lambda selection or feature selection.
-- Do not use continuous-variable lasso credibility casually; prefer categorical or ordinal treatment where possible.
-- Do not let flexibility from hinges, splines, GAMs, or MARS outrun holdout governance.
-- Do not treat a weak complement as harmless. Lasso credibility only works when the complement is meaningful.
+- Lasso credibility is a credibility framework, not a significance-testing framework.
+- Do not report or rely on p-values for lasso, elastic net, or lasso credibility.
+- Any complement must be explicit, on the correct link scale, and reviewed as relevant experience.
+- Extension lanes may challenge the core lane, but they cannot silently become the default theory lane.
+- Bounded MLB slice evidence must be labeled as bounded real-data evidence, not production-grade proof.

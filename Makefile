@@ -50,7 +50,7 @@ help:
 	@echo "Usage:"
 	@echo "  make fetch CONFIG=configs/mlb.yaml"
 	@echo "  make refresh-data CONFIG=configs/mlb.yaml"
-	@echo "  make backfill-historical-odds CONFIG=configs/nba.yaml START_DATE=2025-10-02 END_DATE=2026-04-04 CHUNK_DAYS=30"
+	@echo "  make backfill-historical-odds CONFIG=configs/mlb.yaml START_DATE=2025-03-20 END_DATE=2025-09-30 CHUNK_DAYS=30"
 	@echo "  make data_refresh DRY_RUN=1"
 	@echo "  make query CONFIG=configs/mlb.yaml Q=\"What's the chance the Cubs win the next game?\""
 	@echo "  "

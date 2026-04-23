@@ -42,9 +42,9 @@ from src.evaluation.validation_stability import (
     coefficient_paths,
     cv_glm_stability_report,
 )
-from src.models.gbdt import GBDTModel
+from src.models.experimental.gbdt import GBDTModel
 from src.models.glm_penalized import build_penalized_glm
-from src.models.rf import RFModel
+from src.models.experimental.rf import RFModel
 from src.training.model_catalog import LEGACY_MODEL_KEYS, MODEL_ALIASES
 from src.training.penalized_glm import primary_penalized_glm_name, selected_penalized_glm_models
 from src.training.tune import quick_tune_penalized_glm

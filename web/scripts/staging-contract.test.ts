@@ -27,7 +27,20 @@ test("committed staging manifest makes MLB the primary shipped league", async ()
 
   assert.equal(manifest.primary_league, PRIMARY_STAGING_LEAGUE);
   assert.equal(manifest.shipped_leagues[0], PRIMARY_STAGING_LEAGUE);
-  assert.ok(manifest.shipped_leagues.includes(PRIMARY_STAGING_LEAGUE));
+  assert.deepEqual(manifest.shipped_leagues, [PRIMARY_STAGING_LEAGUE]);
+  assert.deepEqual(manifest.leagues, [PRIMARY_STAGING_LEAGUE]);
+});
+
+test("legacy league snapshots are retained outside the shipped root contract", async () => {
+  const stagingRoot = path.join(repoRoot, "web", "public", "staging-data");
+  const rootEntries = (await fs.readdir(stagingRoot, { withFileTypes: true }))
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .sort();
+
+  assert.deepEqual(rootEntries, ["legacy", "mlb"]);
+  assert.ok(await fs.stat(path.join(stagingRoot, "legacy", "nba", "meta.json")));
+  assert.ok(await fs.stat(path.join(stagingRoot, "legacy", "nhl", "meta.json")));
 });
 
 test("pages workflow verifies the staging contract instead of hardcoded legacy league files", async () => {

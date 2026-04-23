@@ -384,6 +384,8 @@ def _promotion_summary(scorecard: pd.DataFrame, *, best_model: str, baseline_mod
         "best_model": best_model,
         "strategy": str(chosen["strategy"]),
         "baseline_model": baseline_model,
+        "validation_contract_complete": False,
+        "promotion_review_required": True,
         "checks": checks,
         "best_candidate_row": chosen.to_dict(),
         "baseline_row": baseline.to_dict(),

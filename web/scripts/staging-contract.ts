@@ -13,10 +13,10 @@ const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const appRoot = path.resolve(scriptDir, "..");
 
 export const PRIMARY_STAGING_LEAGUE: LeagueCode = "MLB";
-export const SHIPPED_STAGING_LEAGUES: readonly LeagueCode[] = [
-  PRIMARY_STAGING_LEAGUE,
-  ...ALL_LEAGUES.filter((league) => league !== PRIMARY_STAGING_LEAGUE),
-];
+export const SHIPPED_STAGING_LEAGUES: readonly LeagueCode[] = [PRIMARY_STAGING_LEAGUE];
+export const LEGACY_STAGING_LEAGUES: readonly LeagueCode[] = ALL_LEAGUES.filter(
+  (league) => league !== PRIMARY_STAGING_LEAGUE
+);
 
 export const DEFAULT_STAGING_OUTPUT_ROOT = path.join(appRoot, "public", "staging-data");
 export const DEFAULT_STAGING_MANIFEST_PATH = path.join(DEFAULT_STAGING_OUTPUT_ROOT, "manifest.json");

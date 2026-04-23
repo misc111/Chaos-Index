@@ -29,13 +29,7 @@ export const DEFAULT_TRAINING_MODELS = [
   "glm_ridge",
   "glm_elastic_net",
   "glm_lasso",
-  "glm_vanilla",
-  "gam_spline",
-  "mars_hinge",
-  "glmm_logit",
-  "dglm_margin",
-  "two_stage",
-  "goals_poisson"
+  "glm_vanilla"
 ] as const;
 export const CORE_MODEL_KEYS = [
   "glm_ridge",
@@ -43,12 +37,12 @@ export const CORE_MODEL_KEYS = [
   "glm_lasso",
   "glm_lasso_market_credibility",
   "glm_lasso_prior_credibility",
-  "glm_vanilla",
+  "glm_vanilla"
+] as const;
+export const THEORY_EXTENSION_MODEL_KEYS = [
   "gam_spline",
-  "mars_hinge",
   "glmm_logit",
   "dglm_margin",
-  "two_stage",
   "goals_poisson"
 ] as const;
 export const BASELINE_MODEL_KEYS = [
@@ -57,6 +51,8 @@ export const BASELINE_MODEL_KEYS = [
   "simulation_first"
 ] as const;
 export const EXPERIMENTAL_MODEL_KEYS = [
+  "mars_hinge",
+  "two_stage",
   "gbdt",
   "rf",
   "bayes_bt_state_space",
@@ -66,11 +62,13 @@ export const EXPERIMENTAL_MODEL_KEYS = [
 
 export const MODEL_LANE_LABELS: Record<string, string> = {
   core: "CAS core lane",
+  extension: "Theory-compatible extension lane",
   baseline: "Baseline comparison lane",
   experimental: "Experimental challenger lane"
 };
 export const MODEL_LANE_NOTES: Record<string, string> = {
-  core: "Default MLB actuarial program driven by GLM-family, penalized GLM, lasso credibility, and theory-compatible extensions.",
+  core: "Default MLB actuarial program driven by GLM-family, penalized GLM, and lasso credibility.",
+  extension: "GLM-adjacent extension challengers with monograph traceability, opt-in outside the default core lane.",
   baseline: "Reference models retained for sanity checks and comparison, not for champion promotion by default.",
   experimental: "Non-CAS challengers retained only behind explicit opt-in and never treated as the default theory lane."
 };
@@ -145,14 +143,14 @@ export const MODEL_REPORT_ORDER = [
   "glm_lasso_prior_credibility",
   "glm_vanilla",
   "gam_spline",
-  "mars_hinge",
   "glmm_logit",
   "dglm_margin",
-  "two_stage",
   "goals_poisson",
   "elo_baseline",
   "dynamic_rating",
   "simulation_first",
+  "mars_hinge",
+  "two_stage",
   "rf",
   "gbdt",
   "bayes_bt_state_space",
@@ -188,7 +186,9 @@ export const MODEL_REGISTRY = {
     short_label: "GLM Ridge",
     family: "linear",
     lane: "core",
-    governance_note: "Direct CAS-theory core lane.",
+    theory_classification: "core-supported",
+    implementation_namespace: "src.models",
+    governance_note: "Core-supported penalized GLM lane.",
     aliases: [
       "glm",
       "logit",
@@ -206,7 +206,9 @@ export const MODEL_REGISTRY = {
     short_label: "GLM ENet",
     family: "linear",
     lane: "core",
-    governance_note: "Direct CAS-theory core lane.",
+    theory_classification: "core-supported",
+    implementation_namespace: "src.models",
+    governance_note: "Core-supported penalized GLM lane; not lasso credibility.",
     aliases: [
       "elastic",
       "enet",
@@ -225,7 +227,9 @@ export const MODEL_REGISTRY = {
     short_label: "GLM Lasso",
     family: "linear",
     lane: "core",
-    governance_note: "Direct CAS-theory core lane.",
+    theory_classification: "core-supported",
+    implementation_namespace: "src.models",
+    governance_note: "Core-supported penalized GLM lane with sparsity-focused review.",
     aliases: [
       "lasso"
     ],
@@ -242,7 +246,9 @@ export const MODEL_REGISTRY = {
     short_label: "Cred Market",
     family: "credibility",
     lane: "core",
-    governance_note: "Direct CAS-theory lasso-credibility lane; explicit opt-in until market complement columns are populated.",
+    theory_classification: "core-supported",
+    implementation_namespace: "src.models",
+    governance_note: "Holmes/Casotto lasso-credibility lane; core-supported only when market complement columns are populated and documented.",
     aliases: [
       "market_offset_lasso",
       "market_lasso_credibility"
@@ -257,7 +263,9 @@ export const MODEL_REGISTRY = {
     short_label: "Cred Prior",
     family: "credibility",
     lane: "core",
-    governance_note: "Direct CAS-theory lasso-credibility lane; explicit opt-in until prior complement columns are populated.",
+    theory_classification: "core-supported",
+    implementation_namespace: "src.models",
+    governance_note: "Holmes/Casotto lasso-credibility lane; proxy priors remain experimental until a real prior complement ledger is populated.",
     aliases: [
       "prior_offset_lasso",
       "prior_lasso_credibility"
@@ -272,7 +280,9 @@ export const MODEL_REGISTRY = {
     short_label: "Vanilla GLM",
     family: "linear",
     lane: "core",
-    governance_note: "Direct CAS-theory core lane.",
+    theory_classification: "core-supported",
+    implementation_namespace: "src.models",
+    governance_note: "Core-supported vanilla binomial/logit GLM lane.",
     aliases: [
       "vanilla_glm"
     ],
@@ -285,82 +295,94 @@ export const MODEL_REGISTRY = {
     display_label: "GAM Spline",
     short_label: "GAM",
     family: "nonlinear",
-    lane: "core",
-    governance_note: "Theory-compatible GLM extension in the CAS core lane.",
+    lane: "extension",
+    theory_classification: "theory-compatible extension",
+    implementation_namespace: "src.models.extensions",
+    governance_note: "Theory-compatible GLM extension; spline-basis implementation stays opt-in outside the default theory-core lane.",
     aliases: [
       "gam"
     ],
     legacy_model_keys: [],
     trainable: true,
-    default_enabled: true,
+    default_enabled: false,
     prediction_report_rank: 7
   },
   mars_hinge: {
     display_label: "MARS Hinge",
     short_label: "MARS",
     family: "nonlinear",
-    lane: "core",
-    governance_note: "Theory-compatible GLM extension in the CAS core lane.",
+    lane: "experimental",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models.experimental",
+    governance_note: "Experimental hinge-basis proxy; canonical MARS is theory-compatible, but this implementation is not full MARS.",
     aliases: [
       "mars"
     ],
     legacy_model_keys: [],
     trainable: true,
-    default_enabled: true,
+    default_enabled: false,
     prediction_report_rank: 8
   },
   glmm_logit: {
     display_label: "GLMM Logit",
     short_label: "GLMM",
     family: "nonlinear",
-    lane: "core",
-    governance_note: "Theory-compatible GLM extension in the CAS core lane.",
+    lane: "extension",
+    theory_classification: "theory-compatible extension",
+    implementation_namespace: "src.models.extensions",
+    governance_note: "Theory-compatible GLM extension; opt-in outside the default theory-core lane.",
     aliases: [
       "glmm"
     ],
     legacy_model_keys: [],
     trainable: true,
-    default_enabled: true,
+    default_enabled: false,
     prediction_report_rank: 9
   },
   dglm_margin: {
     display_label: "DGLM Margin",
     short_label: "DGLM",
     family: "nonlinear",
-    lane: "core",
-    governance_note: "Theory-compatible GLM extension in the CAS core lane.",
+    lane: "extension",
+    theory_classification: "theory-compatible extension",
+    implementation_namespace: "src.models.extensions",
+    governance_note: "Theory-compatible GLM extension; margin-to-win bridge requires separate validation before promotion.",
     aliases: [
       "dglm"
     ],
     legacy_model_keys: [],
     trainable: true,
-    default_enabled: true,
+    default_enabled: false,
     prediction_report_rank: 10
   },
   two_stage: {
     display_label: "Two Stage",
     short_label: "Two Stage",
     family: "hybrid",
-    lane: "core",
-    governance_note: "Theory-compatible two-stage actuarial lane.",
+    lane: "experimental",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models.experimental",
+    governance_note: "Experimental proxy/hybrid lane because the current implementation uses non-CAS intermediate learners.",
     aliases: [],
     legacy_model_keys: [],
     trainable: true,
-    default_enabled: true,
+    default_enabled: false,
     prediction_report_rank: 11
   },
   goals_poisson: {
     display_label: "Goals Pois",
     short_label: "Goals Pois",
     family: "goals",
-    lane: "core",
-    governance_note: "Direct CAS-theory run-rate lane.",
+    lane: "extension",
+    theory_classification: "theory-compatible extension",
+    implementation_namespace: "src.models.extensions",
+    governance_note: "Theory-compatible count-GLM lane; current MLB score-to-win bridge requires separate validation before promotion.",
     aliases: [
       "goals"
     ],
     legacy_model_keys: [],
     trainable: true,
-    default_enabled: true,
+    default_enabled: false,
     prediction_report_rank: 12
   },
   elo_baseline: {
@@ -368,13 +390,15 @@ export const MODEL_REGISTRY = {
     short_label: "Elo",
     family: "ratings",
     lane: "baseline",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models",
     governance_note: "Baseline comparison lane, not champion by default.",
     aliases: [
       "elo"
     ],
     legacy_model_keys: [],
     trainable: true,
-    default_enabled: true,
+    default_enabled: false,
     prediction_report_rank: 13
   },
   dynamic_rating: {
@@ -382,6 +406,8 @@ export const MODEL_REGISTRY = {
     short_label: "Dyn Rating",
     family: "ratings",
     lane: "baseline",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models",
     governance_note: "Baseline comparison lane, not champion by default.",
     aliases: [
       "dyn",
@@ -389,7 +415,7 @@ export const MODEL_REGISTRY = {
     ],
     legacy_model_keys: [],
     trainable: true,
-    default_enabled: true,
+    default_enabled: false,
     prediction_report_rank: 14
   },
   simulation_first: {
@@ -397,6 +423,8 @@ export const MODEL_REGISTRY = {
     short_label: "Sim",
     family: "simulation",
     lane: "baseline",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models",
     governance_note: "Baseline comparison lane, not champion by default.",
     aliases: [
       "sim",
@@ -404,7 +432,7 @@ export const MODEL_REGISTRY = {
     ],
     legacy_model_keys: [],
     trainable: true,
-    default_enabled: true,
+    default_enabled: false,
     prediction_report_rank: 15
   },
   gbdt: {
@@ -412,6 +440,8 @@ export const MODEL_REGISTRY = {
     short_label: "GBDT",
     family: "tree",
     lane: "experimental",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models.experimental",
     governance_note: "Experimental non-CAS challenger; explicit opt-in only.",
     aliases: [
       "gbm"
@@ -426,6 +456,8 @@ export const MODEL_REGISTRY = {
     short_label: "RF",
     family: "tree",
     lane: "experimental",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models.experimental",
     governance_note: "Experimental non-CAS challenger; explicit opt-in only.",
     aliases: [
       "forest"
@@ -440,6 +472,8 @@ export const MODEL_REGISTRY = {
     short_label: "Bayes BT",
     family: "bayes",
     lane: "experimental",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models.experimental",
     governance_note: "Experimental non-CAS challenger; explicit opt-in only.",
     aliases: [
       "bayes_bt"
@@ -454,6 +488,8 @@ export const MODEL_REGISTRY = {
     short_label: "Bayes Goals",
     family: "bayes",
     lane: "experimental",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models.experimental",
     governance_note: "Experimental non-CAS challenger; explicit opt-in only.",
     aliases: [
       "bayes_goals_model"
@@ -468,6 +504,8 @@ export const MODEL_REGISTRY = {
     short_label: "NN",
     family: "neural",
     lane: "experimental",
+    theory_classification: "experimental",
+    implementation_namespace: "src.models.experimental",
     governance_note: "Experimental non-CAS challenger; explicit opt-in only.",
     aliases: [
       "nn"

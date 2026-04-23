@@ -1,0 +1,12 @@
+extends: ../mlb.yaml
+
+paths:
+  raw_dir: data/raw/mlb
+  interim_dir: data/interim/mlb
+  processed_dir: data/processed/mlb_tournament_credibility
+  artifacts_dir: artifacts
+  db_path: data/processed/mlb_tournament_credibility/mlb_forecast.db
+
+feature_policy:
+  mode: research
+  registry_path: artifacts/reports/mlb/tournament/credibility_feature_registry_{league}.yaml

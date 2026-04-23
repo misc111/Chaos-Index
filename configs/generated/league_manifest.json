@@ -19,6 +19,7 @@
       "championship_probability_key": "world_series_prob",
       "uncertainty_policy_name": "mlb_starting_pitcher_bullpen",
       "primary_rebuild_lane": true,
+      "lifecycle": "primary",
       "aliases": []
     },
     "NHL": {
@@ -34,6 +35,7 @@
       "championship_probability_key": "stanley_cup_prob",
       "uncertainty_policy_name": "nhl_goalie_rink",
       "primary_rebuild_lane": false,
+      "lifecycle": "legacy",
       "aliases": []
     },
     "NBA": {
@@ -49,6 +51,7 @@
       "championship_probability_key": "nba_finals_prob",
       "uncertainty_policy_name": "nba_availability_market",
       "primary_rebuild_lane": false,
+      "lifecycle": "legacy",
       "aliases": []
     }
   }

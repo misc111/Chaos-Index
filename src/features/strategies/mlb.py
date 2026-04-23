@@ -23,6 +23,22 @@ def _positive_part(series: pd.Series, knot: float) -> pd.Series:
     return (values - float(knot)).clip(lower=0.0)
 
 
+def _numeric_column(df: pd.DataFrame, column: str, default: float = np.nan) -> pd.Series:
+    if column in df.columns:
+        values = df[column]
+    else:
+        values = pd.Series(default, index=df.index)
+    return pd.to_numeric(values, errors="coerce")
+
+
+def _text_column(df: pd.DataFrame, column: str, default: str = "") -> pd.Series:
+    if column in df.columns:
+        values = df[column]
+    else:
+        values = pd.Series(default, index=df.index)
+    return values.astype(str)
+
+
 def _lineup_meta(players_df: pd.DataFrame) -> pd.DataFrame:
     columns = ["game_id", "team", "lineup_card_size", "lineup_availability", "lineup_confirmed"]
     required = {"game_id", "team", "player_id", "batting_order_slot"}
@@ -35,7 +51,7 @@ def _lineup_meta(players_df: pd.DataFrame) -> pd.DataFrame:
     if players.empty:
         return pd.DataFrame(columns=columns)
 
-    players["lineup_confirmed"] = pd.to_numeric(players.get("lineup_confirmed", 0), errors="coerce").fillna(0).clip(lower=0, upper=1)
+    players["lineup_confirmed"] = _numeric_column(players, "lineup_confirmed", 0).fillna(0).clip(lower=0, upper=1)
     lineup = (
         players.sort_values(["game_id", "team", "batting_order_slot"])
         .groupby(["game_id", "team"], as_index=False)
@@ -56,8 +72,8 @@ def _injury_meta(injuries_df: pd.DataFrame) -> pd.DataFrame:
         return pd.DataFrame(columns=columns)
 
     injuries = injuries_df.copy()
-    injuries["position_player_out_count"] = pd.to_numeric(injuries.get("position_player_out_count", 0), errors="coerce").fillna(0).clip(lower=0)
-    injuries["pitcher_out_count"] = pd.to_numeric(injuries.get("pitcher_out_count", 0), errors="coerce").fillna(0).clip(lower=0)
+    injuries["position_player_out_count"] = _numeric_column(injuries, "position_player_out_count", 0).fillna(0).clip(lower=0)
+    injuries["pitcher_out_count"] = _numeric_column(injuries, "pitcher_out_count", 0).fillna(0).clip(lower=0)
     grouped = (
         injuries.groupby(["game_id", "team"], as_index=False)
         .agg(
@@ -148,19 +164,19 @@ class MlbFeatureStrategy(BaseFeatureStrategy):
         df = team_games.sort_values(["team", "start_time_utc"]).copy()
         df["run_diff"] = df["runs_for"].fillna(0.0) - df["runs_against"].fillna(0.0)
         for col in ["hits", "walks", "strikeouts", "home_runs", "total_bases", "stolen_bases"]:
-            df[col] = pd.to_numeric(df.get(col), errors="coerce").fillna(0.0)
+            df[col] = _numeric_column(df, col).fillna(0.0)
 
-        df["starter_innings_pitched"] = pd.to_numeric(df.get("starter_innings_pitched"), errors="coerce")
-        df["starter_era"] = pd.to_numeric(df.get("starter_era"), errors="coerce")
-        df["starter_whip"] = pd.to_numeric(df.get("starter_whip"), errors="coerce")
-        df["starter_pitcher_strikeouts"] = pd.to_numeric(df.get("starter_pitcher_strikeouts"), errors="coerce").fillna(0.0)
-        df["starter_pitcher_walks"] = pd.to_numeric(df.get("starter_pitcher_walks"), errors="coerce").fillna(0.0)
-        df["starter_runs_allowed"] = pd.to_numeric(df.get("starter_runs_allowed"), errors="coerce").fillna(df["runs_against"].fillna(0.0))
+        df["starter_innings_pitched"] = _numeric_column(df, "starter_innings_pitched")
+        df["starter_era"] = _numeric_column(df, "starter_era")
+        df["starter_whip"] = _numeric_column(df, "starter_whip")
+        df["starter_pitcher_strikeouts"] = _numeric_column(df, "starter_pitcher_strikeouts").fillna(0.0)
+        df["starter_pitcher_walks"] = _numeric_column(df, "starter_pitcher_walks").fillna(0.0)
+        df["starter_runs_allowed"] = _numeric_column(df, "starter_runs_allowed").fillna(df["runs_against"].fillna(0.0))
         df["starter_innings_pitched"] = df["starter_innings_pitched"].fillna(5.0).clip(lower=0.0, upper=9.0)
         df["starter_era"] = df["starter_era"].fillna(4.2).clip(lower=0.5, upper=12.0)
         df["starter_whip"] = df["starter_whip"].fillna(1.3).clip(lower=0.6, upper=3.0)
         df["bullpen_innings"] = (9.0 - df["starter_innings_pitched"]).clip(lower=0.0, upper=9.0)
-        df["starter_confirmed"] = df.get("starter_status", "").astype(str).str.lower().eq("confirmed").astype(int)
+        df["starter_confirmed"] = _text_column(df, "starter_status").str.lower().eq("confirmed").astype(int)
 
         lineup = _lineup_meta(players_df)
         if not lineup.empty:
@@ -169,12 +185,12 @@ class MlbFeatureStrategy(BaseFeatureStrategy):
         if not injuries.empty:
             df = df.merge(injuries, on=["game_id", "team"], how="left")
 
-        df["lineup_card_size"] = pd.to_numeric(df.get("lineup_card_size"), errors="coerce").fillna(0.0).clip(lower=0.0, upper=9.0)
-        df["lineup_availability"] = pd.to_numeric(df.get("lineup_availability"), errors="coerce").fillna(0.0).clip(lower=0.0, upper=1.0)
-        df["lineup_confirmed"] = pd.to_numeric(df.get("lineup_confirmed"), errors="coerce").fillna(0).clip(lower=0, upper=1)
-        df["position_player_out_count"] = pd.to_numeric(df.get("position_player_out_count"), errors="coerce").fillna(0.0).clip(lower=0.0)
-        df["pitcher_out_count"] = pd.to_numeric(df.get("pitcher_out_count"), errors="coerce").fillna(0.0).clip(lower=0.0)
-        df["bullpen_availability"] = pd.to_numeric(df.get("bullpen_availability"), errors="coerce").fillna(1.0).clip(lower=0.0, upper=1.0)
+        df["lineup_card_size"] = _numeric_column(df, "lineup_card_size").fillna(0.0).clip(lower=0.0, upper=9.0)
+        df["lineup_availability"] = _numeric_column(df, "lineup_availability").fillna(0.0).clip(lower=0.0, upper=1.0)
+        df["lineup_confirmed"] = _numeric_column(df, "lineup_confirmed").fillna(0).clip(lower=0, upper=1)
+        df["position_player_out_count"] = _numeric_column(df, "position_player_out_count").fillna(0.0).clip(lower=0.0)
+        df["pitcher_out_count"] = _numeric_column(df, "pitcher_out_count").fillna(0.0).clip(lower=0.0)
+        df["bullpen_availability"] = _numeric_column(df, "bullpen_availability", 1.0).fillna(1.0).clip(lower=0.0, upper=1.0)
         return df
 
     def finalize_team_games(self, team_games: pd.DataFrame) -> pd.DataFrame:
@@ -199,22 +215,18 @@ class MlbFeatureStrategy(BaseFeatureStrategy):
     ) -> pd.DataFrame:
         del team_games
         out = merged.copy()
-        out["home_hits"] = pd.to_numeric(out.get("home_hits"), errors="coerce").fillna(0.0)
-        out["away_hits"] = pd.to_numeric(out.get("away_hits"), errors="coerce").fillna(0.0)
-        out["home_total_bases"] = pd.to_numeric(out.get("home_total_bases"), errors="coerce").fillna(0.0)
-        out["away_total_bases"] = pd.to_numeric(out.get("away_total_bases"), errors="coerce").fillna(0.0)
-        out["target_total_runs"] = pd.to_numeric(out.get("home_score"), errors="coerce").fillna(0.0) + pd.to_numeric(
-            out.get("away_score"), errors="coerce"
-        ).fillna(0.0)
-        out["target_run_margin"] = pd.to_numeric(out.get("home_score"), errors="coerce").fillna(0.0) - pd.to_numeric(
-            out.get("away_score"), errors="coerce"
-        ).fillna(0.0)
+        out["home_hits"] = _numeric_column(out, "home_hits").fillna(0.0)
+        out["away_hits"] = _numeric_column(out, "away_hits").fillna(0.0)
+        out["home_total_bases"] = _numeric_column(out, "home_total_bases").fillna(0.0)
+        out["away_total_bases"] = _numeric_column(out, "away_total_bases").fillna(0.0)
+        out["target_total_runs"] = _numeric_column(out, "home_score").fillna(0.0) + _numeric_column(out, "away_score").fillna(0.0)
+        out["target_run_margin"] = _numeric_column(out, "home_score").fillna(0.0) - _numeric_column(out, "away_score").fillna(0.0)
         out["target_hit_margin"] = out["home_hits"] - out["away_hits"]
         total_bases = (out["home_total_bases"] + out["away_total_bases"]).replace(0, np.nan)
         out["slugging_share_proxy"] = (out["home_total_bases"] / total_bases).fillna(0.5)
         out["lineup_confirmation_share"] = (
-            pd.to_numeric(out.get("home_lineup_confirmed"), errors="coerce").fillna(0.0)
-            + pd.to_numeric(out.get("away_lineup_confirmed"), errors="coerce").fillna(0.0)
+            _numeric_column(out, "home_lineup_confirmed").fillna(0.0)
+            + _numeric_column(out, "away_lineup_confirmed").fillna(0.0)
         ) / 2.0
 
         travel = build_travel_features(games_df, league="MLB")

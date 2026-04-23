@@ -1,0 +1,72 @@
+league: MLB
+experiment_name: mlb_theory_core_tournament
+default_slate: stability_reduced
+default_width_variant: narrow
+
+slates:
+  stability_reduced:
+    description: Small pregame process-feature slate for stability and interpretability checks.
+    default_width_variant: narrow
+    feature_order:
+      - team_strength_edge
+      - starter_quality_edge
+      - bullpen_quality_edge
+      - lineup_quality_edge
+      - rest_edge
+      - travel_miles_edge
+      - park_run_factor
+      - starter_uncertainty_index
+      - lineup_uncertainty_index
+    width_variants:
+      narrow:
+        feature_count: 6
+      medium:
+        feature_count: 8
+
+  market_aware:
+    description: Process features plus vig-free market complement candidates for offset-adjacent comparison.
+    default_width_variant: medium
+    feature_order:
+      - market_logit_home_prob
+      - market_vig_free_home_prob
+      - bookmaker_dispersion_home_prob
+      - market_movement_home_prob
+      - team_strength_edge
+      - starter_quality_edge
+      - bullpen_quality_edge
+      - lineup_quality_edge
+      - park_run_factor
+      - rest_edge
+      - travel_miles_edge
+      - time_to_first_pitch_hours
+    width_variants:
+      narrow:
+        feature_count: 6
+      medium:
+        feature_count: 10
+      broad:
+        feature_count: 12
+
+  weather_context:
+    description: MLB run-environment and scheduling context slate for shape-testing around park/weather effects.
+    default_width_variant: medium
+    feature_order:
+      - park_run_factor
+      - temperature_f
+      - wind_out_mph
+      - day_game
+      - division_game
+      - starter_quality_edge
+      - bullpen_fatigue_edge
+      - recent_offense_edge
+      - recent_defense_edge
+      - rest_edge
+      - travel_miles_edge
+      - timezone_edge
+    width_variants:
+      narrow:
+        feature_count: 6
+      medium:
+        feature_count: 10
+      broad:
+        feature_count: 12

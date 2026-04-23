@@ -5,7 +5,11 @@ import pytest
 
 from src.orchestration import hard_refresh as hard_refresh_module
 from src.orchestration.hard_refresh import ROOT_DIR, build_hard_refresh_steps
-from src.orchestration.refresh_pipeline import build_data_refresh_steps
+from src.orchestration.refresh_pipeline import CANONICAL_REPO_REFRESH_TARGETS, build_data_refresh_steps
+
+
+def test_repo_level_refresh_targets_are_canonical_mlb_paths():
+    assert CANONICAL_REPO_REFRESH_TARGETS == ("data_refresh", "hard_refresh")
 
 
 def test_build_data_refresh_steps_default_sequence():

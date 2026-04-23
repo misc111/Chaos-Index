@@ -26,6 +26,7 @@ LEAGUE_REGISTRY: tuple[LeagueRegistryEntry, ...] = (
         championship_probability_key="world_series_prob",
         uncertainty_policy_name="mlb_starting_pitcher_bullpen",
         primary_rebuild_lane=True,
+        lifecycle="primary",
     ),
     LeagueRegistryEntry(
         code="NHL",
@@ -39,6 +40,7 @@ LEAGUE_REGISTRY: tuple[LeagueRegistryEntry, ...] = (
         championship_name="Stanley Cup",
         championship_probability_key="stanley_cup_prob",
         uncertainty_policy_name="nhl_goalie_rink",
+        lifecycle="legacy",
     ),
     LeagueRegistryEntry(
         code="NBA",
@@ -52,6 +54,7 @@ LEAGUE_REGISTRY: tuple[LeagueRegistryEntry, ...] = (
         championship_name="NBA Finals",
         championship_probability_key="nba_finals_prob",
         uncertainty_policy_name="nba_availability_market",
+        lifecycle="legacy",
     ),
 )
 
@@ -155,6 +158,7 @@ def league_manifest_payload() -> dict[str, object]:
                 "championship_probability_key": entry.championship_probability_key,
                 "uncertainty_policy_name": entry.uncertainty_policy_name,
                 "primary_rebuild_lane": entry.primary_rebuild_lane,
+                "lifecycle": entry.lifecycle,
                 "aliases": list(entry.aliases),
             }
             for entry in LEAGUE_REGISTRY

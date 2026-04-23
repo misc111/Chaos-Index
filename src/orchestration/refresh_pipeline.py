@@ -14,6 +14,7 @@ from src.training.train import normalize_selected_models
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
+CANONICAL_REPO_REFRESH_TARGETS: tuple[str, str] = ("data_refresh", "hard_refresh")
 LEAGUE_CONFIGS: tuple[tuple[str, str], ...] = tuple(
     (entry.slug, entry.default_config_path)
     for entry in ordered_league_entries()

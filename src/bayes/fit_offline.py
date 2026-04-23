@@ -8,7 +8,7 @@ import pandas as pd
 from src.bayes.diagnostics import save_bayes_diagnostics
 from src.bayes.posterior_predictive import posterior_predictive_checks
 from src.common.time import utc_now_iso
-from src.models.bayes_state_space_bt import BayesStateSpaceBTModel
+from src.models.experimental.bayes_state_space_bt import BayesStateSpaceBTModel
 
 
 

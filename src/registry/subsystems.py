@@ -55,7 +55,7 @@ SUBSYSTEM_DOCS: tuple[SubsystemDocEntry, ...] = (
     SubsystemDocEntry(
         path="src/models",
         title="Models",
-        summary="Actuarial core model implementations plus explicitly fenced experimental challenger families.",
+        summary="Actuarial core models, theory-compatible extensions, and explicitly fenced experimental challengers.",
         public_entrypoints=("src/models/base.py", "src/training/model_catalog.py"),
         readme_path="src/models/README.md",
         generate_readme=True,

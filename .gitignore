@@ -103,7 +103,11 @@ artifacts/reports/*
 
 # Keep the MLB report lane visible as the canonical report output.
 !artifacts/reports/mlb/
-!artifacts/reports/mlb/*
+artifacts/reports/mlb/*
+!artifacts/reports/mlb/.gitkeep
+!artifacts/reports/mlb/candidate_model_comparison_latest.json
+!artifacts/reports/mlb/candidate_model_comparison_latest_manifest.json
+!artifacts/reports/mlb/mlb_fixture_slice_artifact_proof_*
 
 # Keep the legacy history placeholder visible without making new history mirrors canonical.
 !artifacts/reports/history/

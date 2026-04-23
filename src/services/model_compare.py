@@ -82,8 +82,7 @@ def _tournament_ranking_rule() -> dict[str, Any]:
         "secondary": "brier",
         "tertiary": "calibration_flag_asc",
         "quaternary": "stability_flag_asc",
-        "quinary": "roi_secondary_desc_if_present",
-        "notes": "Tournament ranking starts with scoring, then prefers cleaner calibration/stability before any ROI secondary signal.",
+        "notes": "Tournament ranking starts with scoring, then prefers cleaner calibration and stability. ROI is a betting overlay and does not participate in theory-lane ordering.",
     }
 
 

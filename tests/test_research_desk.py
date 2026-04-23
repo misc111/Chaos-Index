@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 
 import pandas as pd
 
@@ -76,6 +75,7 @@ feature_map_model: glm_elastic_net
                 "model_name": "glm_elastic_net",
                 "strategy": "riskAdjusted",
                 "mean_ending_bankroll": 5400,
+                "mean_net_profit": 400,
                 "mean_max_drawdown": 400,
                 "mean_ece": 0.05,
                 "profit_winning_folds": 8,
@@ -85,6 +85,7 @@ feature_map_model: glm_elastic_net
                 "model_name": "glm_ridge",
                 "strategy": "riskAdjusted",
                 "mean_ending_bankroll": 5100,
+                "mean_net_profit": 100,
                 "mean_max_drawdown": 350,
                 "mean_ece": 0.06,
                 "profit_winning_folds": 6,
@@ -93,7 +94,7 @@ feature_map_model: glm_elastic_net
         ]
     ).to_csv(scorecard_path, index=False)
     pd.DataFrame([{"fold": 1}]).to_csv(fold_metrics_path, index=False)
-    promotion_path.write_text(json.dumps({"eligible": True, "reason": "all_checks_passed"}))
+    promotion_path.write_text(json.dumps({"eligible": True, "validation_contract_complete": True, "reason": "all_checks_passed"}))
     report_path.write_text("# report\n")
 
     def fake_run_research_backtest(*args, **kwargs):

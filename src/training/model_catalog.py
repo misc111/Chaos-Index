@@ -15,12 +15,14 @@ from src.registry.models import (
     prediction_report_order,
     planned_credibility_model_catalog,
     planned_credibility_model_names,
+    theory_extension_model_names,
     trainable_model_names,
 )
 
 ALL_MODEL_NAMES = trainable_model_names()
 CORE_MODEL_NAMES = core_model_names()
 PENALIZED_CORE_MODEL_NAMES = penalized_core_model_names()
+THEORY_EXTENSION_MODEL_NAMES = theory_extension_model_names()
 BASELINE_MODEL_NAMES = baseline_model_names()
 EXPERIMENTAL_MODEL_NAMES = experimental_model_names()
 PLANNED_CREDIBILITY_MODEL_NAMES = planned_credibility_model_names()
@@ -38,6 +40,10 @@ MODEL_SELECTION_GROUP_ALIASES: dict[str, tuple[str, ...]] = {
     "theory_core_default": tuple(GOVERNANCE_COMPARISON_GROUPS["theory_core_default"]["model_keys"]),
     "theory_core_opt_in": tuple(GOVERNANCE_COMPARISON_GROUPS["theory_core_opt_in"]["model_keys"]),
     "credibility_opt_in": tuple(PLANNED_CREDIBILITY_MODEL_NAMES),
+    "extension": tuple(THEORY_EXTENSION_MODEL_NAMES),
+    "extensions": tuple(THEORY_EXTENSION_MODEL_NAMES),
+    "theory_extensions": tuple(THEORY_EXTENSION_MODEL_NAMES),
+    "theory_compatible_extensions": tuple(GOVERNANCE_COMPARISON_GROUPS["theory_compatible_extensions"]["model_keys"]),
     "baseline": tuple(BASELINE_MODEL_NAMES),
     "baseline_references": tuple(GOVERNANCE_COMPARISON_GROUPS["baseline_references"]["model_keys"]),
     "experimental": tuple(EXPERIMENTAL_MODEL_NAMES),

@@ -27,6 +27,5 @@ test("staging manifest declares MLB as the primary shipped lane", () => {
   assert.deepEqual(manifest.shipped_leagues, SHIPPED_STAGING_LEAGUES);
   assert.deepEqual(manifest.leagues, SHIPPED_STAGING_LEAGUES);
   assert.deepEqual(manifest.required_files_by_league.MLB, requiredFiles);
-  assert.deepEqual(manifest.required_files_by_league.NHL, requiredFiles);
-  assert.deepEqual(manifest.required_files_by_league.NBA, requiredFiles);
+  assert.deepEqual(Object.keys(manifest.required_files_by_league), ["MLB"]);
 });

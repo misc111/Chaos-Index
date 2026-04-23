@@ -53,12 +53,18 @@ def select_feature_columns(df: pd.DataFrame) -> list[str]:
         "home_status_final",
         "away_status_final",
     }
-    lag_markers = ("ewm_", "r5_", "r14_")
+    lag_markers = ("ewm_", "r5_", "r14_", "form_", "diff_form_")
     direct_event_tokens = (
         "goals_for",
         "goals_against",
         "points_for",
         "points_against",
+        "runs_for",
+        "runs_against",
+        "run_diff",
+        "home_runs",
+        "away_runs",
+        "total_runs",
         "shots_for",
         "shots_against",
         "field_goal_attempts_for",
@@ -69,6 +75,12 @@ def select_feature_columns(df: pd.DataFrame) -> list[str]:
         "fouls_drawn",
         "pp_goals",
         "free_throws_made",
+        "starter_innings_pitched",
+        "starter_era",
+        "starter_whip",
+        "starter_pitcher_strikeouts",
+        "starter_pitcher_walks",
+        "starter_runs_allowed",
         "starter_save_pct",
         "goalie_quality_raw",
         "team_save_pct_proxy",

@@ -17,6 +17,11 @@ comparison_reporting_guardrails:
     champion_eligible: false
     promotion_gate: comparison_only
     note: Baseline rows are retained for context and should stay out of champion promotion by default.
+  theory_compatible_extensions:
+    lane: extension
+    champion_eligible: false
+    promotion_gate: require_extension_evidence_packet
+    note: Extension rows require explicit theory labels, holdout evidence, and separate promotion review.
   experimental_challengers:
     lane: experimental
     champion_eligible: false

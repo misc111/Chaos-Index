@@ -78,6 +78,7 @@ def _generated_league_ts() -> str:
             "championshipProbabilityKey": entry.championship_probability_key,
             "uncertaintyPolicyName": entry.uncertainty_policy_name,
             "primaryRebuildLane": entry.primary_rebuild_lane,
+            "lifecycle": entry.lifecycle,
             "aliases": list(entry.aliases),
         }
     return "\n".join(
@@ -100,6 +101,7 @@ def _generated_league_ts() -> str:
             "  championshipProbabilityKey: string;",
             "  uncertaintyPolicyName: string;",
             "  primaryRebuildLane: boolean;",
+            "  lifecycle: string;",
             "  aliases: readonly string[];",
             "};",
             "",
@@ -126,6 +128,9 @@ def _generated_model_ts() -> str:
             "export const PRIMARY_MODEL_LANE = " + json.dumps(payload["primary_lane"]) + " as const;",
             "export const DEFAULT_TRAINING_MODELS = " + _ts_value(payload["default_training_models"]) + " as const;",
             "export const CORE_MODEL_KEYS = " + _ts_value(payload["core_models"]) + " as const;",
+            "export const THEORY_EXTENSION_MODEL_KEYS = "
+            + _ts_value(payload["theory_extension_models"])
+            + " as const;",
             "export const BASELINE_MODEL_KEYS = " + _ts_value(payload["baseline_models"]) + " as const;",
             "export const EXPERIMENTAL_MODEL_KEYS = " + _ts_value(payload["experimental_models"]) + " as const;",
             "",
@@ -255,7 +260,9 @@ def _dashboard_route_doc() -> str:
 
 
 def _extensions_doc() -> str:
-    league_codes = ", ".join(f"`{entry.code}`" for entry in ordered_league_entries())
+    league_codes = ", ".join(
+        f"`{entry.code}` ({entry.lifecycle})" for entry in ordered_league_entries()
+    )
     model_keys = ", ".join(f"`{entry.key}`" for entry in ordered_model_entries())
     route_keys = ", ".join(f"`{route.key}`" for route in dashboard_routes())
     return "\n".join(
@@ -269,15 +276,15 @@ def _extensions_doc() -> str:
             "1. Register the new league in `src/registry/leagues.py`.",
             "2. Add league-specific adapters and feature/query support behind existing public entrypoints.",
             "3. Regenerate manifests and docs with `make docs-generate`.",
-            "4. Extend cross-league tests and dashboard/staging coverage until verification passes.",
+            "4. Keep new leagues marked `legacy` until a product decision promotes them into the primary rebuild lane.",
             "",
             f"Current leagues: {league_codes}.",
             "",
             "## Add A Model",
             "",
             "1. Register the model in `src/registry/models.py` with aliases, labels, lane, and report order.",
-            "2. Place the model in the core, baseline, or experimental lane deliberately.",
-            "3. Keep non-CAS challengers under `src/models/experimental/` and reserve the top-level `src/models/` package for the default theory lane plus compatibility shims only.",
+            "2. Place the model in the `core`, `extension`, `baseline`, or `experimental` lane deliberately.",
+            "3. Keep theory-compatible extensions under `src/models/extensions/`, non-CAS challengers under `src/models/experimental/`, and reserve top-level `src/models/` modules for the default theory lane plus compatibility shims only.",
             "4. Implement training/report behavior behind existing model contracts.",
             "5. Regenerate manifests and docs, then extend model contract tests.",
             "",

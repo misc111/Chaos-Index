@@ -1,5 +1,3 @@
-import pytest
-
 from src.research.structured_glm_specs import load_structured_glm_selection, resolve_structured_glm_experiment
 
 

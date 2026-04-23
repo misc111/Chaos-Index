@@ -9,15 +9,16 @@ import pandas as pd
 from src.bayes.fit_offline import run_bayes_offline_fit
 from src.evaluation.metrics import metric_bundle
 from src.models.lasso_credibility import LassoCredibilityModel
-from src.models.challenger_prob import DGLMMarginModel, GAMSplineModel, GLMMLogitModel, MARSHingeModel, VanillaGLMModel
-from src.models.glm_goals import GoalsPoissonModel
+from src.models.experimental.mars_hinge import MARSHingeModel
+from src.models.experimental.two_stage import TwoStageModel
+from src.models.extensions.glm_goals import GoalsPoissonModel
+from src.models.extensions.glm_variants import DGLMMarginModel, GAMSplineModel, GLMMLogitModel, VanillaGLMModel
 from src.models.glm_penalized import build_penalized_glm
 from src.models.experimental.bayes_state_space_goals import BayesGoalsModel
 from src.models.experimental.gbdt import GBDTModel
 from src.models.experimental.nn import NNModel
 from src.models.experimental.rf import RFModel
 from src.registry.models import planned_credibility_model_catalog
-from src.models.two_stage import TwoStageModel
 from src.training.feature_selection import bayes_feature_subset, resolve_model_feature_columns
 from src.training.lasso_credibility import selected_lasso_credibility_models
 from src.training.penalized_glm import selected_penalized_glm_models

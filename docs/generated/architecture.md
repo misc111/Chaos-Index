@@ -12,7 +12,7 @@ This reference is generated from the code registries. Update the registry module
 | `src/data_sources` | League-specific ingest adapters and shared HTTP source contracts. | `src/data_sources/base.py`, `src/league_registry.py` |
 | `src/evaluation` | Scoring, diagnostics, drift checks, and validation artifact generation. | `src/evaluation/validation_pipeline.py`, `src/services/validate.py` |
 | `src/features` | League-aware feature engineering over shared pipeline stages. | `src/features/build_features.py`, `src/features/pipeline.py` |
-| `src/models` | Actuarial core model implementations plus explicitly fenced experimental challenger families. | `src/models/base.py`, `src/training/model_catalog.py` |
+| `src/models` | Actuarial core models, theory-compatible extensions, and explicitly fenced experimental challengers. | `src/models/base.py`, `src/training/model_catalog.py` |
 | `src/orchestration` | Deterministic MLB-first refresh, rebuild, and staging pipelines. | `src/orchestration/data_refresh.py`, `src/orchestration/hard_refresh.py` |
 | `src/query` | Deterministic natural-language query handling for local model/product questions. | `src/query/answer.py`, `src/query/intent_parser.py` |
 | `src/research` | Research-only comparison and experimentation flows over candidate model sets. | `src/research/model_comparison.py`, `src/research/candidate_models.py` |

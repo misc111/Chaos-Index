@@ -11,11 +11,14 @@ Included here:
 - `nn.py`
 - `bayes_state_space_bt.py`
 - `bayes_state_space_goals.py`
+- `mars_hinge.py`
+- `two_stage.py`
 
 Usage rules:
 
 - Import challenger models from `src.models.experimental.*`.
 - Keep CAS-governed GLM, penalized-GLM, lasso-credibility, and theory-backed
-  extensions in the top-level `src.models` package.
+  extensions out of this package unless their current implementation is a
+  proxy that is not directly justified by the governing monographs.
 - Legacy top-level challenger modules exist only as compatibility shims for
   older callers outside the primary MLB training lane.

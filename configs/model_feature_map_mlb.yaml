@@ -18,7 +18,7 @@ core_theory_families:
 comparison_reporting_profiles:
   theory_core_default:
     lane: core
-    classification: direct_theory_implementation
+    classification: core-supported
     champion_eligible: true
     report_priority: 1
     model_keys:
@@ -26,13 +26,7 @@ comparison_reporting_profiles:
     - glm_elastic_net
     - glm_lasso
     - glm_vanilla
-    - gam_spline
-    - mars_hinge
-    - glmm_logit
-    - dglm_margin
-    - two_stage
-    - goals_poisson
-    note: Default theory-core slate for candidate comparison and champion recommendation summaries.
+    note: Default production/theory-core slate. Extension and experimental challengers require explicit opt-in.
   theory_core_opt_in:
     lane: core
     classification: direct_theory_implementation
@@ -46,23 +40,37 @@ comparison_reporting_profiles:
     lane: baseline
     classification: theory_compatible_engineering_support
     champion_eligible: false
-    report_priority: 3
+    report_priority: 4
     model_keys:
     - elo_baseline
     - dynamic_rating
     - simulation_first
     note: Baseline rows provide stability context and should not be promoted by default.
+  theory_compatible_extensions:
+    lane: extension
+    classification: theory-compatible extension
+    champion_eligible: false
+    report_priority: 3
+    model_keys:
+    - gam_spline
+    - glmm_logit
+    - dglm_margin
+    - goals_poisson
+    note: GLM-adjacent extension rows are traceable but stay outside the default theory-core production lane.
   experimental_challengers:
     lane: experimental
     classification: experimental_challenger
     champion_eligible: false
-    report_priority: 4
+    report_priority: 5
     model_keys:
+    - mars_hinge
+    - two_stage
     - gbdt
     - rf
     - bayes_bt_state_space
+    - bayes_goals
     - nn_mlp
-    note: Non-CAS challengers remain opt-in and must be reported as challenger-only rows.
+    note: Non-CAS and proxy challengers remain opt-in and must be reported as challenger-only rows.
 models:
   glm_ridge:
     active_features:
@@ -134,25 +142,6 @@ models:
     complement_column: prior_model_offset_logit
     offset_scale: logit
     default_enabled: false
-  two_stage:
-    active_features:
-    - diff_starting_pitcher_quality
-    - starting_pitcher_hand_matchup
-    - diff_bullpen_quality
-    - diff_bullpen_fatigue
-    - diff_lineup_talent
-    - lineup_stability_diff
-    - park_run_effect
-    - park_weather_run_effect
-    - weather_wind_run_effect
-    - rest_diff
-    - travel_diff
-    - home_field_advantage
-    - series_context_index
-    - umpire_run_effect
-    - diff_offense_form
-    - diff_pitching_form
-    feature_count: 16
 planned_credibility_models:
   glm_lasso_market_credibility:
     status: active_opt_in
@@ -189,6 +178,25 @@ planned_credibility_models:
     - home_field_advantage
     driver_feature_count: 8
 experimental_models:
+  two_stage:
+    active_features:
+    - diff_starting_pitcher_quality
+    - starting_pitcher_hand_matchup
+    - diff_bullpen_quality
+    - diff_bullpen_fatigue
+    - diff_lineup_talent
+    - lineup_stability_diff
+    - park_run_effect
+    - park_weather_run_effect
+    - weather_wind_run_effect
+    - rest_diff
+    - travel_diff
+    - home_field_advantage
+    - series_context_index
+    - umpire_run_effect
+    - diff_offense_form
+    - diff_pitching_form
+    feature_count: 16
   gbdt:
     active_features:
     - diff_starting_pitcher_quality

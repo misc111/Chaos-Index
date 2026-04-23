@@ -13,6 +13,7 @@ import {
     MODEL_REGISTRY,
     MODEL_REPORT_ORDER,
     PRIMARY_MODEL_LANE,
+    THEORY_EXTENSION_MODEL_KEYS,
     TRAINABLE_MODELS,
 } from "@/lib/generated/model-manifest";
 
@@ -33,6 +34,7 @@ export type ModelManifestPayload = {
   trainable_models: string[];
   default_training_models: string[];
   core_models: string[];
+  theory_extension_models: string[];
   baseline_models: string[];
   experimental_models: string[];
   lane_labels: Record<string, string>;
@@ -75,6 +77,7 @@ export function loadModelManifest(): ModelManifestPayload {
     trainable_models: [...TRAINABLE_MODELS],
     default_training_models: [...DEFAULT_TRAINING_MODELS],
     core_models: [...CORE_MODEL_KEYS],
+    theory_extension_models: [...THEORY_EXTENSION_MODEL_KEYS],
     baseline_models: [...BASELINE_MODEL_KEYS],
     experimental_models: [...EXPERIMENTAL_MODEL_KEYS],
     lane_labels: { ...MODEL_LANE_LABELS },

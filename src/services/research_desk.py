@@ -11,7 +11,7 @@ import yaml
 
 from src.common.config import AppConfig
 from src.common.logging import get_logger
-from src.registry.models import baseline_model_names, core_model_names, get_model_registry_entry
+from src.registry.models import baseline_model_names, core_model_names, get_model_registry_entry, theory_extension_model_names
 from src.research.model_comparison import CANDIDATE_MODEL_NAMES
 from src.services import research_backtest as research_backtest_service
 from src.storage.db import Database
@@ -26,7 +26,12 @@ MAX_DRAWDOWN_LIMIT = 750.0
 MIN_BET_COUNT = 10
 MIN_PROFITABLE_FOLDS = 2
 MAX_ECE_DELTA = 0.01
-MATERIALIZABLE_MODEL_NAMES = {"ensemble", *core_model_names(), *baseline_model_names()}
+MATERIALIZABLE_MODEL_NAMES = {
+    "ensemble",
+    *core_model_names(),
+    *theory_extension_model_names(),
+    *baseline_model_names(),
+}
 RESEARCH_DESK_TARGET_NAME = "moneyline_home_win"
 RESEARCH_DESK_DISTRIBUTION = "binomial"
 RESEARCH_DESK_LINK_FUNCTION = "logit"
@@ -165,6 +170,10 @@ def _promotion_failure_reasons(
         reasons.append("The research backtest marked the candidate ineligible before promotion review.")
     if not gates.get("materializable_candidate", True):
         reasons.append(f"`{candidate_model_name}` is not materializable in the current CAS core promotion lane.")
+    if not gates.get("theory_core_candidate", True):
+        reasons.append(f"`{candidate_model_name}` is not in the core-supported theory lane, so it cannot auto-promote as champion.")
+    if not gates.get("validation_contract_complete", True):
+        reasons.append("A separate full validation-contract review has not been recorded yet, so champion promotion is blocked.")
     if not gates.get("beats_incumbent_bankroll", True):
         reasons.append(
             f"Mean ending bankroll {_safe_float(best_row.get('mean_ending_bankroll')) or 0.0:.1f} did not clear the incumbent at {_safe_float(baseline_row.get('mean_ending_bankroll')) or 0.0:.1f}."
@@ -330,6 +339,14 @@ def _materializable_candidate(model_name: str) -> bool:
     return normalized in CANDIDATE_MODEL_NAMES and normalized in MATERIALIZABLE_MODEL_NAMES
 
 
+def _theory_core_candidate(model_name: str) -> bool:
+    normalized = str(model_name).strip()
+    try:
+        return get_model_registry_entry(normalized).lane == "core"
+    except KeyError:
+        return False
+
+
 def _evaluate_promotion(
     *,
     promotion: dict[str, object],
@@ -368,10 +385,13 @@ def _evaluate_promotion(
     profitable_folds = int(best_row.get("profitable_folds") or best_row.get("profit_winning_folds") or 0)
     if profitable_folds <= 0 and bool(source_checks.get("outer_fold_profit_wins")):
         profitable_folds = min_profitable_folds
+    validation_contract_complete = bool(promotion.get("validation_contract_complete"))
 
     gates = {
         "research_backtest_eligible": bool(promotion.get("eligible")),
         "materializable_candidate": _materializable_candidate(candidate_model_name),
+        "theory_core_candidate": _theory_core_candidate(candidate_model_name),
+        "validation_contract_complete": validation_contract_complete,
         "beats_incumbent_bankroll": bootstrap_mode
         or float(best_row.get("mean_ending_bankroll") or 0.0) > float(baseline_row.get("mean_ending_bankroll") or 0.0),
         "beats_incumbent_profit": bootstrap_mode
@@ -397,7 +417,7 @@ def _evaluate_promotion(
         candidate_model_name=candidate_model_name,
     )
     reason_summary = (
-        f"Promoted `{candidate_model_name}` over `{baseline_model}` after it improved bankroll and profit while clearing drawdown, calibration, volume, and materialization gates."
+        f"Promoted `{candidate_model_name}` over `{baseline_model}` after it improved bankroll and profit while clearing drawdown, calibration, volume, theory-lane, and validation-contract gates."
         if promoted
         else f"Promotion rejected for `{candidate_model_name}`. {' '.join(failed_reasons)}"
     )
@@ -425,6 +445,7 @@ def _evaluate_promotion(
             "min_profitable_folds": min_profitable_folds,
             "max_ece_delta": max_ece_delta,
         },
+        "validation_contract_complete": validation_contract_complete,
     }
 
 

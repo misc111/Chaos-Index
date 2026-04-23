@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 from src.registry.types import ModelRegistryEntry
 
 
@@ -12,11 +14,11 @@ CORE_MODEL_KEYS: tuple[str, ...] = (
     "glm_lasso_market_credibility",
     "glm_lasso_prior_credibility",
     "glm_vanilla",
+)
+THEORY_EXTENSION_MODEL_KEYS: tuple[str, ...] = (
     "gam_spline",
-    "mars_hinge",
     "glmm_logit",
     "dglm_margin",
-    "two_stage",
     "goals_poisson",
 )
 PENALIZED_CORE_MODEL_KEYS: tuple[str, ...] = (
@@ -28,7 +30,7 @@ PLANNED_CREDIBILITY_MODEL_KEYS: tuple[str, ...] = (
     "glm_lasso_market_credibility",
     "glm_lasso_prior_credibility",
 )
-PLANNED_CREDIBILITY_MODEL_CATALOG: dict[str, dict[str, object]] = {
+PLANNED_CREDIBILITY_MODEL_CATALOG: dict[str, dict[str, Any]] = {
     "glm_lasso_market_credibility": {
         "display_label": "Lasso Credibility (Market Offset)",
         "short_label": "Cred Market",
@@ -36,7 +38,7 @@ PLANNED_CREDIBILITY_MODEL_CATALOG: dict[str, dict[str, object]] = {
         "lane": "core",
         "status": "active_opt_in",
         "driver_source_model": "glm_lasso",
-        "governance_note": "Direct CAS-theory lasso-credibility lane for vig-free market complements; explicit opt-in until market complements are populated in the MLB feature store.",
+        "governance_note": "Holmes/Casotto lasso-credibility lane for explicit vig-free market complements; core-supported only when the complement is populated and documented pregame.",
         "aliases": ("market_offset_lasso", "market_lasso_credibility"),
         "complement_kind": "market",
         "complement_label": "Vig-free market logit",
@@ -50,7 +52,7 @@ PLANNED_CREDIBILITY_MODEL_CATALOG: dict[str, dict[str, object]] = {
         "lane": "core",
         "status": "active_opt_in",
         "driver_source_model": "glm_lasso",
-        "governance_note": "Direct CAS-theory lasso-credibility lane for prior-model complements on the logit scale; explicit opt-in until the prior offset is populated upstream.",
+        "governance_note": "Holmes/Casotto lasso-credibility lane for explicit prior-model complements on the logit scale; proxy priors remain experimental until an upstream pregame ledger exists.",
         "aliases": ("prior_offset_lasso", "prior_lasso_credibility"),
         "complement_kind": "prior_model",
         "complement_label": "Prior-model offset logit",
@@ -58,17 +60,17 @@ PLANNED_CREDIBILITY_MODEL_CATALOG: dict[str, dict[str, object]] = {
         "offset_scale": "logit",
     },
 }
-CAS_CORE_FAMILY_CATALOG: dict[str, dict[str, object]] = {
+CAS_CORE_FAMILY_CATALOG: dict[str, dict[str, Any]] = {
     "penalized_glm": {
         "label": "CAS-core penalized GLM family",
-        "classification": "Direct theory implementation",
+        "classification": "core-supported",
         "active_model_keys": PENALIZED_CORE_MODEL_KEYS,
         "planned_model_keys": (),
         "note": "Executable MLB defaults for ridge, elastic net, and lasso stay in the primary theory lane.",
     },
     "lasso_credibility": {
         "label": "CAS-core lasso credibility family",
-        "classification": "Direct theory implementation",
+        "classification": "core-supported",
         "active_model_keys": PLANNED_CREDIBILITY_MODEL_KEYS,
         "planned_model_keys": (),
         "note": "Trainable opt-in credibility variants are available for market-offset and prior-offset workflows, but they stay out of the default lane until the complement columns are populated upstream.",
@@ -80,12 +82,6 @@ DEFAULT_TRAINING_MODEL_KEYS: tuple[str, ...] = (
     "glm_elastic_net",
     "glm_lasso",
     "glm_vanilla",
-    "gam_spline",
-    "mars_hinge",
-    "glmm_logit",
-    "dglm_margin",
-    "two_stage",
-    "goals_poisson",
 )
 BASELINE_MODEL_KEYS: tuple[str, ...] = (
     "elo_baseline",
@@ -93,6 +89,8 @@ BASELINE_MODEL_KEYS: tuple[str, ...] = (
     "simulation_first",
 )
 EXPERIMENTAL_MODEL_KEYS: tuple[str, ...] = (
+    "mars_hinge",
+    "two_stage",
     "gbdt",
     "rf",
     "bayes_bt_state_space",
@@ -101,22 +99,35 @@ EXPERIMENTAL_MODEL_KEYS: tuple[str, ...] = (
 )
 REPORT_LANE_PRIORITY: dict[str, int] = {
     "core": 0,
-    "baseline": 1,
-    "experimental": 2,
+    "extension": 1,
+    "baseline": 2,
+    "experimental": 3,
 }
-GOVERNANCE_COMPARISON_GROUPS: dict[str, dict[str, object]] = {
+EXPECTED_THEORY_CLASSIFICATION_BY_LANE: dict[str, str] = {
+    "core": "core-supported",
+    "extension": "theory-compatible extension",
+    "baseline": "experimental",
+    "experimental": "experimental",
+}
+EXPECTED_IMPLEMENTATION_NAMESPACE_BY_LANE: dict[str, str | None] = {
+    "core": "src.models",
+    "extension": "src.models.extensions",
+    "baseline": None,
+    "experimental": "src.models.experimental",
+}
+GOVERNANCE_COMPARISON_GROUPS: dict[str, dict[str, Any]] = {
     "theory_core_default": {
-        "label": "Theory-core default",
+        "label": "Theory program default",
         "lane": "core",
-        "classification": "Direct theory implementation",
+        "classification": "core-supported",
         "champion_eligible": True,
         "model_keys": DEFAULT_TRAINING_MODEL_KEYS,
-        "note": "Primary MLB run list for core comparison screens and champion decisions.",
+        "note": "Default MLB production/theory-core run list. Extension and experimental challengers require explicit opt-in.",
     },
     "theory_core_opt_in": {
         "label": "Theory-core opt-in",
         "lane": "core",
-        "classification": "Direct theory implementation",
+        "classification": "core-supported",
         "champion_eligible": True,
         "model_keys": PLANNED_CREDIBILITY_MODEL_KEYS,
         "note": "Lasso-credibility complements stay opt-in and should be reported separately from the default run list.",
@@ -124,15 +135,23 @@ GOVERNANCE_COMPARISON_GROUPS: dict[str, dict[str, object]] = {
     "baseline_references": {
         "label": "Baseline references",
         "lane": "baseline",
-        "classification": "Theory-compatible engineering support",
+        "classification": "experimental",
         "champion_eligible": False,
         "model_keys": BASELINE_MODEL_KEYS,
         "note": "Reference checks for calibration and stability context; not champion candidates by default.",
     },
+    "theory_compatible_extensions": {
+        "label": "Theory-compatible extensions",
+        "lane": "extension",
+        "classification": "theory-compatible extension",
+        "champion_eligible": False,
+        "model_keys": THEORY_EXTENSION_MODEL_KEYS,
+        "note": "GLM-adjacent extension challengers are traceable but stay out of the default theory-core namespace and promotion lane.",
+    },
     "experimental_challengers": {
         "label": "Experimental challengers",
         "lane": "experimental",
-        "classification": "Experimental challenger",
+        "classification": "experimental",
         "champion_eligible": False,
         "model_keys": EXPERIMENTAL_MODEL_KEYS,
         "note": "Non-CAS challengers retained behind explicit opt-in and quarantined from default promotions.",
@@ -147,7 +166,7 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         short_label="GLM Ridge",
         family="linear",
         lane="core",
-        governance_note="Direct CAS-theory core lane.",
+        governance_note="Core-supported penalized GLM lane.",
         aliases=("glm", "logit", "glm_logit"),
         legacy_model_keys=("glm_logit",),
         prediction_report_rank=1,
@@ -158,7 +177,7 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         short_label="GLM ENet",
         family="linear",
         lane="core",
-        governance_note="Direct CAS-theory core lane.",
+        governance_note="Core-supported penalized GLM lane; not lasso credibility.",
         aliases=("elastic", "enet", "glm_enet"),
         legacy_model_keys=("glm_ridge", "glm_logit"),
         prediction_report_rank=2,
@@ -169,7 +188,7 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         short_label="GLM Lasso",
         family="linear",
         lane="core",
-        governance_note="Direct CAS-theory core lane.",
+        governance_note="Core-supported penalized GLM lane with sparsity-focused review.",
         aliases=("lasso",),
         legacy_model_keys=("glm_ridge", "glm_logit"),
         prediction_report_rank=3,
@@ -180,7 +199,7 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         short_label="Cred Market",
         family="credibility",
         lane="core",
-        governance_note="Direct CAS-theory lasso-credibility lane; explicit opt-in until market complement columns are populated.",
+        governance_note="Holmes/Casotto lasso-credibility lane; core-supported only when market complement columns are populated and documented.",
         aliases=("market_offset_lasso", "market_lasso_credibility"),
         default_enabled=False,
         prediction_report_rank=4,
@@ -191,7 +210,7 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         short_label="Cred Prior",
         family="credibility",
         lane="core",
-        governance_note="Direct CAS-theory lasso-credibility lane; explicit opt-in until prior complement columns are populated.",
+        governance_note="Holmes/Casotto lasso-credibility lane; proxy priors remain experimental until a real prior complement ledger is populated.",
         aliases=("prior_offset_lasso", "prior_lasso_credibility"),
         default_enabled=False,
         prediction_report_rank=5,
@@ -202,7 +221,7 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         short_label="Vanilla GLM",
         family="linear",
         lane="core",
-        governance_note="Direct CAS-theory core lane.",
+        governance_note="Core-supported vanilla binomial/logit GLM lane.",
         aliases=("vanilla_glm",),
         prediction_report_rank=6,
     ),
@@ -211,9 +230,12 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         display_label="GAM Spline",
         short_label="GAM",
         family="nonlinear",
-        lane="core",
-        governance_note="Theory-compatible GLM extension in the CAS core lane.",
+        lane="extension",
+        theory_classification="theory-compatible extension",
+        implementation_namespace="src.models.extensions",
+        governance_note="Theory-compatible GLM extension; spline-basis implementation stays opt-in outside the default theory-core lane.",
         aliases=("gam",),
+        default_enabled=False,
         prediction_report_rank=7,
     ),
     ModelRegistryEntry(
@@ -221,9 +243,12 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         display_label="MARS Hinge",
         short_label="MARS",
         family="nonlinear",
-        lane="core",
-        governance_note="Theory-compatible GLM extension in the CAS core lane.",
+        lane="experimental",
+        theory_classification="experimental",
+        implementation_namespace="src.models.experimental",
+        governance_note="Experimental hinge-basis proxy; canonical MARS is theory-compatible, but this implementation is not full MARS.",
         aliases=("mars",),
+        default_enabled=False,
         prediction_report_rank=8,
     ),
     ModelRegistryEntry(
@@ -231,9 +256,12 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         display_label="GLMM Logit",
         short_label="GLMM",
         family="nonlinear",
-        lane="core",
-        governance_note="Theory-compatible GLM extension in the CAS core lane.",
+        lane="extension",
+        theory_classification="theory-compatible extension",
+        implementation_namespace="src.models.extensions",
+        governance_note="Theory-compatible GLM extension; opt-in outside the default theory-core lane.",
         aliases=("glmm",),
+        default_enabled=False,
         prediction_report_rank=9,
     ),
     ModelRegistryEntry(
@@ -241,9 +269,12 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         display_label="DGLM Margin",
         short_label="DGLM",
         family="nonlinear",
-        lane="core",
-        governance_note="Theory-compatible GLM extension in the CAS core lane.",
+        lane="extension",
+        theory_classification="theory-compatible extension",
+        implementation_namespace="src.models.extensions",
+        governance_note="Theory-compatible GLM extension; margin-to-win bridge requires separate validation before promotion.",
         aliases=("dglm",),
+        default_enabled=False,
         prediction_report_rank=10,
     ),
     ModelRegistryEntry(
@@ -251,8 +282,11 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         display_label="Two Stage",
         short_label="Two Stage",
         family="hybrid",
-        lane="core",
-        governance_note="Theory-compatible two-stage actuarial lane.",
+        lane="experimental",
+        theory_classification="experimental",
+        implementation_namespace="src.models.experimental",
+        governance_note="Experimental proxy/hybrid lane because the current implementation uses non-CAS intermediate learners.",
+        default_enabled=False,
         prediction_report_rank=11,
     ),
     ModelRegistryEntry(
@@ -260,9 +294,12 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         display_label="Goals Pois",
         short_label="Goals Pois",
         family="goals",
-        lane="core",
-        governance_note="Direct CAS-theory run-rate lane.",
+        lane="extension",
+        theory_classification="theory-compatible extension",
+        implementation_namespace="src.models.extensions",
+        governance_note="Theory-compatible count-GLM lane; current MLB score-to-win bridge requires separate validation before promotion.",
         aliases=("goals",),
+        default_enabled=False,
         prediction_report_rank=12,
     ),
     ModelRegistryEntry(
@@ -271,8 +308,10 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         short_label="Elo",
         family="ratings",
         lane="baseline",
+        theory_classification="experimental",
         governance_note="Baseline comparison lane, not champion by default.",
         aliases=("elo",),
+        default_enabled=False,
         prediction_report_rank=13,
     ),
     ModelRegistryEntry(
@@ -281,8 +320,10 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         short_label="Dyn Rating",
         family="ratings",
         lane="baseline",
+        theory_classification="experimental",
         governance_note="Baseline comparison lane, not champion by default.",
         aliases=("dyn", "dynamic"),
+        default_enabled=False,
         prediction_report_rank=14,
     ),
     ModelRegistryEntry(
@@ -291,8 +332,10 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         short_label="Sim",
         family="simulation",
         lane="baseline",
+        theory_classification="experimental",
         governance_note="Baseline comparison lane, not champion by default.",
         aliases=("sim", "simulation"),
+        default_enabled=False,
         prediction_report_rank=15,
     ),
     ModelRegistryEntry(
@@ -301,6 +344,8 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         short_label="GBDT",
         family="tree",
         lane="experimental",
+        theory_classification="experimental",
+        implementation_namespace="src.models.experimental",
         governance_note="Experimental non-CAS challenger; explicit opt-in only.",
         aliases=("gbm",),
         default_enabled=False,
@@ -312,6 +357,8 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         short_label="RF",
         family="tree",
         lane="experimental",
+        theory_classification="experimental",
+        implementation_namespace="src.models.experimental",
         governance_note="Experimental non-CAS challenger; explicit opt-in only.",
         aliases=("forest",),
         default_enabled=False,
@@ -323,6 +370,8 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         short_label="Bayes BT",
         family="bayes",
         lane="experimental",
+        theory_classification="experimental",
+        implementation_namespace="src.models.experimental",
         governance_note="Experimental non-CAS challenger; explicit opt-in only.",
         aliases=("bayes_bt",),
         default_enabled=False,
@@ -334,6 +383,8 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         short_label="Bayes Goals",
         family="bayes",
         lane="experimental",
+        theory_classification="experimental",
+        implementation_namespace="src.models.experimental",
         governance_note="Experimental non-CAS challenger; explicit opt-in only.",
         aliases=("bayes_goals_model",),
         default_enabled=False,
@@ -345,6 +396,8 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
         short_label="NN",
         family="neural",
         lane="experimental",
+        theory_classification="experimental",
+        implementation_namespace="src.models.experimental",
         governance_note="Experimental non-CAS challenger; explicit opt-in only.",
         aliases=("nn",),
         default_enabled=False,
@@ -378,6 +431,12 @@ def core_model_names() -> list[str]:
     return [key for key in CORE_MODEL_KEYS if key in _MODEL_BY_KEY]
 
 
+def theory_extension_model_names() -> list[str]:
+    """Return theory-compatible extension model keys kept out of the default core lane."""
+
+    return [key for key in THEORY_EXTENSION_MODEL_KEYS if key in _MODEL_BY_KEY]
+
+
 def penalized_core_model_names() -> list[str]:
     """Return the penalized-GLM portion of the MLB CAS core lane."""
 
@@ -390,7 +449,7 @@ def planned_credibility_model_names() -> list[str]:
     return list(PLANNED_CREDIBILITY_MODEL_KEYS)
 
 
-def planned_credibility_model_catalog() -> dict[str, dict[str, object]]:
+def planned_credibility_model_catalog() -> dict[str, dict[str, Any]]:
     """Return reserved metadata for upcoming lasso-credibility models."""
 
     return {
@@ -413,7 +472,7 @@ def planned_model_aliases() -> dict[str, str]:
     return out
 
 
-def cas_core_family_catalog() -> dict[str, dict[str, object]]:
+def cas_core_family_catalog() -> dict[str, dict[str, Any]]:
     """Return explicit CAS-core family coverage for the MLB theory lane."""
 
     return {
@@ -428,7 +487,7 @@ def cas_core_family_catalog() -> dict[str, dict[str, object]]:
     }
 
 
-def governance_comparison_groups() -> dict[str, dict[str, object]]:
+def governance_comparison_groups() -> dict[str, dict[str, Any]]:
     """Return governance-first model cohorts for comparison and reporting surfaces."""
 
     return {
@@ -498,8 +557,74 @@ def get_model_registry_entry(value: str) -> ModelRegistryEntry:
     return _MODEL_BY_KEY[value]
 
 
+def validate_model_registry_contract() -> list[str]:
+    """Return hard model-governance violations for default MLB training lanes."""
+
+    failures: list[str] = []
+    entries = {entry.key: entry for entry in MODEL_REGISTRY}
+
+    if len(entries) != len(MODEL_REGISTRY):
+        failures.append("MODEL_REGISTRY contains duplicate model keys.")
+
+    alias_owner: dict[str, str] = {}
+    for entry in MODEL_REGISTRY:
+        expected_classification = EXPECTED_THEORY_CLASSIFICATION_BY_LANE.get(entry.lane)
+        if expected_classification is None:
+            failures.append(f"{entry.key}: unknown lane {entry.lane!r}.")
+        elif entry.theory_classification != expected_classification:
+            failures.append(
+                f"{entry.key}: lane {entry.lane!r} must use theory_classification {expected_classification!r}."
+            )
+
+        expected_namespace = EXPECTED_IMPLEMENTATION_NAMESPACE_BY_LANE.get(entry.lane)
+        if expected_namespace is not None and entry.implementation_namespace != expected_namespace:
+            failures.append(f"{entry.key}: lane {entry.lane!r} must live under {expected_namespace}.")
+
+        if entry.lane != PRIMARY_MODEL_LANE and entry.default_enabled:
+            failures.append(f"{entry.key}: non-core models must not be default_enabled.")
+
+        for alias in (entry.key, *entry.aliases):
+            normalized = alias.lower()
+            owner = alias_owner.get(normalized)
+            if owner is not None and owner != entry.key:
+                failures.append(f"alias {alias!r} is shared by {owner} and {entry.key}.")
+            alias_owner[normalized] = entry.key
+
+    for key in DEFAULT_TRAINING_MODEL_KEYS:
+        default_entry = entries.get(key)
+        if default_entry is None:
+            failures.append(f"default training model {key!r} is not registered.")
+            continue
+        if default_entry.lane != PRIMARY_MODEL_LANE:
+            failures.append(f"default training model {key!r} is in non-core lane {default_entry.lane!r}.")
+        if default_entry.theory_classification != "core-supported":
+            failures.append(f"default training model {key!r} is not core-supported.")
+        if not default_entry.default_enabled:
+            failures.append(f"default training model {key!r} must be default_enabled.")
+
+    for group_name, payload in GOVERNANCE_COMPARISON_GROUPS.items():
+        model_keys = [str(value) for value in payload.get("model_keys", ())]
+        unknown = sorted(key for key in model_keys if key not in entries)
+        if unknown:
+            failures.append(f"governance group {group_name!r} references unknown models: {unknown}.")
+        if bool(payload.get("champion_eligible", False)):
+            non_core = sorted(key for key in model_keys if key in entries and entries[key].lane != PRIMARY_MODEL_LANE)
+            if non_core:
+                failures.append(f"champion-eligible group {group_name!r} contains non-core models: {non_core}.")
+
+    default_group_models = tuple(GOVERNANCE_COMPARISON_GROUPS["theory_core_default"]["model_keys"])
+    if default_group_models != DEFAULT_TRAINING_MODEL_KEYS:
+        failures.append("theory_core_default group must exactly match DEFAULT_TRAINING_MODEL_KEYS.")
+
+    return failures
+
+
 def model_manifest_payload() -> dict[str, object]:
     """Render the deterministic model manifest payload."""
+
+    contract_failures = validate_model_registry_contract()
+    if contract_failures:
+        raise RuntimeError("Model registry governance contract failed:\n" + "\n".join(contract_failures))
 
     return {
         "version": 1,
@@ -508,6 +633,7 @@ def model_manifest_payload() -> dict[str, object]:
         "trainable_models": trainable_model_names(),
         "default_training_models": default_training_model_names(),
         "core_models": core_model_names(),
+        "theory_extension_models": theory_extension_model_names(),
         "penalized_core_models": penalized_core_model_names(),
         "baseline_models": baseline_model_names(),
         "experimental_models": experimental_model_names(),
@@ -517,11 +643,13 @@ def model_manifest_payload() -> dict[str, object]:
         "cas_core_families": cas_core_family_catalog(),
         "lane_labels": {
             "core": "CAS core lane",
+            "extension": "Theory-compatible extension lane",
             "baseline": "Baseline comparison lane",
             "experimental": "Experimental challenger lane",
         },
         "lane_notes": {
-            "core": "Default MLB actuarial program driven by GLM-family, penalized GLM, lasso credibility, and theory-compatible extensions.",
+            "core": "Default MLB actuarial program driven by GLM-family, penalized GLM, and lasso credibility.",
+            "extension": "GLM-adjacent extension challengers with monograph traceability, opt-in outside the default core lane.",
             "baseline": "Reference models retained for sanity checks and comparison, not for champion promotion by default.",
             "experimental": "Non-CAS challengers retained only behind explicit opt-in and never treated as the default theory lane.",
         },
@@ -535,6 +663,8 @@ def model_manifest_payload() -> dict[str, object]:
                 "short_label": entry.short_label,
                 "family": entry.family,
                 "lane": entry.lane,
+                "theory_classification": entry.theory_classification,
+                "implementation_namespace": entry.implementation_namespace,
                 "governance_note": entry.governance_note,
                 "aliases": list(entry.aliases),
                 "legacy_model_keys": list(entry.legacy_model_keys),

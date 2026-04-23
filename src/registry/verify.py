@@ -4,10 +4,12 @@ from __future__ import annotations
 
 import argparse
 import ast
+import json
 from pathlib import Path
 import re
 
 from src.registry.generate import ROOT_DIR, generate_all
+from src.registry.models import validate_model_registry_contract
 from src.registry.subsystems import subsystem_docs
 
 
@@ -58,6 +60,13 @@ OVERSIZED_FILE_ALLOWLIST = {
     "src/storage/schema.py",
     "src/training/fit_runner.py",
     "src/registry/generate.py",
+    "src/registry/models.py",
+    "src/evaluation/validation_significance.py",
+    "src/models/lasso_credibility.py",
+    "src/research/mlb_model_tournament.py",
+    "src/training/lasso_credibility.py",
+    "src/training/penalized_glm.py",
+    "src/training/train.py",
     "web/lib/server/services/performance.ts",
     "web/lib/bet-history.ts",
     "web/lib/betting.ts",
@@ -85,6 +94,7 @@ FORBIDDEN_LITERAL_ALLOWLIST = {
     ROOT_DIR / "src/registry/generate.py",
     ROOT_DIR / "web/lib/generated/league-registry.ts",
 }
+PRIMARY_STAGING_LEAGUE = "MLB"
 SOURCE_GLOBS = ("src/**/*.py", "web/**/*.ts", "web/**/*.tsx", "web/**/*.mjs")
 
 
@@ -151,6 +161,39 @@ def _check_forbidden_literals() -> list[str]:
     return failures
 
 
+def _check_model_registry_contract() -> list[str]:
+    return validate_model_registry_contract()
+
+
+def _check_primary_staging_contract() -> list[str]:
+    failures: list[str] = []
+    staging_root = ROOT_DIR / "web/public/staging-data"
+    manifest_path = staging_root / "manifest.json"
+    if not manifest_path.exists():
+        return ["web/public/staging-data/manifest.json is missing."]
+
+    manifest = json.loads(manifest_path.read_text())
+    if manifest.get("primary_league") != PRIMARY_STAGING_LEAGUE:
+        failures.append("staging manifest primary_league must be MLB.")
+    if manifest.get("shipped_leagues") != [PRIMARY_STAGING_LEAGUE]:
+        failures.append("staging manifest shipped_leagues must be exactly ['MLB'].")
+    if manifest.get("leagues") != [PRIMARY_STAGING_LEAGUE]:
+        failures.append("staging manifest leagues alias must be exactly ['MLB'].")
+
+    required_by_league = manifest.get("required_files_by_league")
+    if not isinstance(required_by_league, dict) or sorted(required_by_league) != [PRIMARY_STAGING_LEAGUE]:
+        failures.append("staging manifest required_files_by_league must contain only MLB.")
+
+    root_dirs = sorted(path.name for path in staging_root.iterdir() if path.is_dir())
+    if root_dirs != ["legacy", "mlb"]:
+        failures.append("web/public/staging-data root directories must be exactly ['legacy', 'mlb'].")
+    for legacy_slug in ("nba", "nhl"):
+        if (staging_root / legacy_slug).exists():
+            failures.append(f"legacy staging payload {legacy_slug} must stay under web/public/staging-data/legacy/.")
+
+    return failures
+
+
 def main() -> None:
     """Run repo-level zero-drift verification checks."""
 
@@ -168,6 +211,16 @@ def main() -> None:
     if missing_readmes:
         failures.append("Missing required READMEs:")
         failures.extend(f"  - {item}" for item in missing_readmes)
+
+    model_contract_failures = _check_model_registry_contract()
+    if model_contract_failures:
+        failures.append("Model registry governance contract failed:")
+        failures.extend(f"  - {item}" for item in model_contract_failures)
+
+    staging_contract_failures = _check_primary_staging_contract()
+    if staging_contract_failures:
+        failures.append("Primary staging contract failed:")
+        failures.extend(f"  - {item}" for item in staging_contract_failures)
 
     docstring_failures = _check_public_docstrings()
     if docstring_failures:

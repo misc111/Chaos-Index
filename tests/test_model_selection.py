@@ -107,12 +107,6 @@ def test_normalize_selected_models_defaults_to_the_core_mlb_lane():
         "glm_elastic_net",
         "glm_lasso",
         "glm_vanilla",
-        "gam_spline",
-        "mars_hinge",
-        "glmm_logit",
-        "dglm_margin",
-        "two_stage",
-        "goals_poisson",
     ]
 
 

@@ -150,7 +150,8 @@ export function parseRequestedModels(raw: unknown): string[] | null {
   return unique.length ? unique : null;
 }
 
-export function defaultTrainingModelsForLeague(_league: LeagueCode): string[] {
+export function defaultTrainingModelsForLeague(league: LeagueCode): string[] {
+  void league;
   return getDefaultTrainingModels();
 }
 

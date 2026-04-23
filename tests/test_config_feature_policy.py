@@ -9,14 +9,15 @@ def test_default_config_includes_feature_policy() -> None:
     assert cfg.validation_split.mode == "train_test"
     assert cfg.validation_split.method == "time"
     assert cfg.validation_split.fractions() == (0.7, 0.0, 0.3)
-    assert cfg.research.history_seasons == 5
+    assert cfg.research.history_seasons == 8
     assert cfg.research.outer_folds == 10
-    assert cfg.research.outer_valid_days == 60
-    assert cfg.research.inner_folds == 4
+    assert cfg.research.outer_valid_days == 45
+    assert cfg.research.inner_folds == 5
     assert cfg.research.inner_valid_days == 30
-    assert cfg.research.embargo_days == 1
+    assert cfg.research.embargo_days == 2
     assert cfg.research.final_holdout_days == 30
     assert cfg.research.feature_pool == "research_broad"
+    assert cfg.research.source_dir == "data/raw/historical/mlb"
 
 
 def test_research_paths_initialize_for_all_supported_leagues() -> None:

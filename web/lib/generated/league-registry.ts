@@ -20,6 +20,7 @@ export type LeagueRuntimeEntry = {
   championshipProbabilityKey: string;
   uncertaintyPolicyName: string;
   primaryRebuildLane: boolean;
+  lifecycle: string;
   aliases: readonly string[];
 };
 
@@ -46,6 +47,7 @@ export const LEAGUE_RUNTIME: Record<LeagueCode, LeagueRuntimeEntry> = {
     championshipProbabilityKey: "world_series_prob",
     uncertaintyPolicyName: "mlb_starting_pitcher_bullpen",
     primaryRebuildLane: true,
+    lifecycle: "primary",
     aliases: []
   },
   NHL: {
@@ -61,6 +63,7 @@ export const LEAGUE_RUNTIME: Record<LeagueCode, LeagueRuntimeEntry> = {
     championshipProbabilityKey: "stanley_cup_prob",
     uncertaintyPolicyName: "nhl_goalie_rink",
     primaryRebuildLane: false,
+    lifecycle: "legacy",
     aliases: []
   },
   NBA: {
@@ -76,6 +79,7 @@ export const LEAGUE_RUNTIME: Record<LeagueCode, LeagueRuntimeEntry> = {
     championshipProbabilityKey: "nba_finals_prob",
     uncertaintyPolicyName: "nba_availability_market",
     primaryRebuildLane: false,
+    lifecycle: "legacy",
     aliases: []
   }
 };

@@ -8,7 +8,13 @@ from src.registry.generate import ROOT_DIR, generate_all
 from src.registry.leagues import league_manifest_payload
 from src.registry.models import model_manifest_payload
 from src.registry.subsystems import subsystem_docs
-from src.training.model_catalog import ALL_MODEL_NAMES, GOVERNANCE_COMPARISON_GROUPS, MODEL_ALIASES, MODEL_REPORT_ORDER
+from src.training.model_catalog import (
+    ALL_MODEL_NAMES,
+    GOVERNANCE_COMPARISON_GROUPS,
+    MODEL_ALIASES,
+    MODEL_REPORT_ORDER,
+    THEORY_EXTENSION_MODEL_NAMES,
+)
 
 
 def _subparser_action(parser: argparse.ArgumentParser) -> argparse._SubParsersAction:
@@ -77,7 +83,9 @@ def test_generated_league_manifest_matches_code_registry() -> None:
     assert manifest["primary_league"] == "MLB"
     assert manifest["primary_rebuild_leagues"] == ["MLB"]
     assert manifest["leagues"]["MLB"]["primary_rebuild_lane"] is True
+    assert manifest["leagues"]["MLB"]["lifecycle"] == "primary"
     assert manifest["leagues"]["NBA"]["primary_rebuild_lane"] is False
+    assert manifest["leagues"]["NBA"]["lifecycle"] == "legacy"
 
 
 def test_generated_model_manifest_matches_code_registry_and_training_catalog() -> None:
@@ -91,12 +99,6 @@ def test_generated_model_manifest_matches_code_registry_and_training_catalog() -
         "glm_elastic_net",
         "glm_lasso",
         "glm_vanilla",
-        "gam_spline",
-        "mars_hinge",
-        "glmm_logit",
-        "dglm_margin",
-        "two_stage",
-        "goals_poisson",
     ]
     assert manifest["core_models"] == [
         "glm_ridge",
@@ -105,11 +107,11 @@ def test_generated_model_manifest_matches_code_registry_and_training_catalog() -
         "glm_lasso_market_credibility",
         "glm_lasso_prior_credibility",
         "glm_vanilla",
+    ]
+    assert manifest["theory_extension_models"] == [
         "gam_spline",
-        "mars_hinge",
         "glmm_logit",
         "dglm_margin",
-        "two_stage",
         "goals_poisson",
     ]
     assert manifest["baseline_models"] == [
@@ -118,6 +120,8 @@ def test_generated_model_manifest_matches_code_registry_and_training_catalog() -
         "simulation_first",
     ]
     assert manifest["experimental_models"] == [
+        "mars_hinge",
+        "two_stage",
         "gbdt",
         "rf",
         "bayes_bt_state_space",
@@ -126,9 +130,15 @@ def test_generated_model_manifest_matches_code_registry_and_training_catalog() -
     ]
     assert manifest["aliases"] == MODEL_ALIASES
     assert manifest["prediction_report_order"] == MODEL_REPORT_ORDER
+    assert manifest["theory_extension_models"] == THEORY_EXTENSION_MODEL_NAMES
     assert manifest["lane_labels"]["experimental"] == "Experimental challenger lane"
+    assert manifest["models"]["gam_spline"]["lane"] == "extension"
+    assert manifest["models"]["mars_hinge"]["lane"] == "experimental"
     assert manifest["models"]["glm_lasso_market_credibility"]["default_enabled"] is False
     assert manifest["models"]["glm_lasso_prior_credibility"]["default_enabled"] is False
+    assert manifest["models"]["gam_spline"]["default_enabled"] is False
+    assert manifest["models"]["glmm_logit"]["default_enabled"] is False
+    assert manifest["models"]["elo_baseline"]["default_enabled"] is False
     assert manifest["models"]["rf"]["default_enabled"] is False
     assert manifest["models"]["rf"]["governance_note"] == "Experimental non-CAS challenger; explicit opt-in only."
 
@@ -136,7 +146,7 @@ def test_generated_model_manifest_matches_code_registry_and_training_catalog() -
 def test_prediction_report_order_keeps_core_rows_ahead_of_baseline_and_experimental() -> None:
     manifest = model_manifest_payload()
     ordered = [name for name in manifest["prediction_report_order"] if name != "ensemble"]
-    lane_priority = {"core": 0, "baseline": 1, "experimental": 2}
+    lane_priority = {"core": 0, "extension": 1, "baseline": 2, "experimental": 3}
     lane_sequence = [lane_priority[manifest["models"][name]["lane"]] for name in ordered]
 
     assert lane_sequence == sorted(lane_sequence)

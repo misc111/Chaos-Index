@@ -25,7 +25,7 @@ BANNED_PATTERN_RULES = [
     r"(^|_)away_home_win($|_)",
 ]
 
-ALLOWED_HISTORICAL_GOALS_MARKERS = ("ewm_", "r5_", "r14_")
+ALLOWED_HISTORICAL_GOALS_MARKERS = ("ewm_", "r5_", "r14_", "form_", "diff_form_")
 DIRECT_EVENT_TOKENS = (
     "goals_for",
     "goals_against",
@@ -47,6 +47,12 @@ DIRECT_EVENT_TOKENS = (
     "fouls_drawn",
     "pp_goals",
     "free_throws_made",
+    "starter_innings_pitched",
+    "starter_era",
+    "starter_whip",
+    "starter_pitcher_strikeouts",
+    "starter_pitcher_walks",
+    "starter_runs_allowed",
     "starter_save_pct",
     "goalie_quality_raw",
     "team_save_pct_proxy",

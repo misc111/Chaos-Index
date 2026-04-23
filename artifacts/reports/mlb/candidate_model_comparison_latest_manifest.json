@@ -1,18 +1,19 @@
 {
   "canonical_artifact_root": "artifacts/reports/mlb",
-  "generated_at_utc": "2026-04-22T20:10:02+00:00",
+  "current_best_models_path": "artifacts/reports/mlb/current_best_models.json",
+  "generated_at_utc": "2026-04-23T17:18:57+00:00",
   "league": "MLB",
   "material_artifacts": {
-    "candidate_scorecards_contract_path": "artifacts/reports/mlb/mlb_fixture_slice_artifact_proof_mlb_candidate_scorecards.json",
-    "candidate_scorecards_path": "artifacts/reports/mlb/mlb_fixture_slice_artifact_proof_mlb_candidate_scorecards.csv",
-    "leaderboard_json_path": "artifacts/reports/mlb/mlb_fixture_slice_artifact_proof_mlb_candidate_leaderboard.json",
-    "recommendation_path": "artifacts/reports/mlb/mlb_fixture_slice_artifact_proof_mlb_recommendation.json",
-    "recommendation_surface_path": "artifacts/reports/mlb/mlb_fixture_slice_artifact_proof_mlb_recommendation_surface.json",
-    "report_path": "artifacts/reports/mlb/mlb_fixture_slice_artifact_proof_mlb_summary.md",
-    "summary_path": "artifacts/reports/mlb/mlb_fixture_slice_artifact_proof_mlb_comparison_summary.json"
+    "candidate_scorecards_contract_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_candidate_scorecards.json",
+    "candidate_scorecards_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_candidate_scorecards.csv",
+    "leaderboard_json_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_candidate_leaderboard.json",
+    "recommendation_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_recommendation.json",
+    "recommendation_surface_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_recommendation_surface.json",
+    "report_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_summary.md",
+    "summary_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_comparison_summary.json"
   },
   "report_lane": "mlb",
-  "report_slug": "mlb_fixture_slice_artifact_proof",
+  "report_slug": "codex_current_best_models_smoke",
   "service_output_path": "artifacts/reports/mlb/candidate_model_comparison_latest.json",
-  "tracker_service_output_path": "artifacts/reports/runs/candidate_compare_2026-04-22T200955+0000_2da3de62/candidate_comparison_service.json"
+  "tracker_service_output_path": "artifacts/reports/runs/candidate_compare_2026-04-23T171436+0000_8bb897fc/candidate_comparison_service.json"
 }

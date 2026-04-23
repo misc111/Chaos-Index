@@ -95,6 +95,7 @@ def test_run_research_desk_promotes_candidate_and_persists_champion(tmp_path: Pa
     scorecard.to_csv(scorecard_path, index=False)
     promotion_payload = {
         "eligible": True,
+        "validation_contract_complete": True,
         "best_model": "glm_elastic_net",
         "baseline_model": "glm_ridge",
         "strategy": "default",
@@ -142,6 +143,7 @@ def test_run_research_desk_promotes_candidate_and_persists_champion(tmp_path: Pa
     stored_policy = json.loads(decisions[0]["policy_json"])
     assert stored_policy["promotion_decision"]["status"] == "promoted"
     assert stored_policy["promotion_decision"]["recommended_model"] == "glm_elastic_net"
+    assert stored_policy["promotion_decision"]["evidence"]["gates"]["validation_contract_complete"] is True
     persisted_summary = json.loads(promotion_path.read_text())
     assert persisted_summary["promotion_decision"]["status"] == "promoted"
     assert persisted_summary["candidate_scorecards"][0]["model_name"] == "glm_elastic_net"
@@ -222,6 +224,7 @@ def test_run_research_desk_rejects_candidate_that_breaks_drawdown_policy(tmp_pat
         json.dumps(
             {
                 "eligible": True,
+                "validation_contract_complete": True,
                 "best_model": "glm_elastic_net",
                 "baseline_model": "glm_ridge",
                 "strategy": "default",
@@ -336,7 +339,7 @@ def test_run_research_desk_accepts_mlb_runtime_lane(tmp_path: Path, monkeypatch:
     assert result.active_model_name == "ensemble"
 
 
-def test_evaluate_promotion_allows_profitable_nonlinear_candidate_when_gates_pass(tmp_path: Path) -> None:
+def test_evaluate_promotion_blocks_theory_extension_candidate_from_auto_promotion(tmp_path: Path) -> None:
     brief_dir = tmp_path / "briefs"
     brief_dir.mkdir(parents=True)
     path = brief_dir / "default.yaml"
@@ -363,6 +366,7 @@ def test_evaluate_promotion_allows_profitable_nonlinear_candidate_when_gates_pas
     decision = _evaluate_promotion(
         promotion={
             "eligible": True,
+            "validation_contract_complete": True,
             "best_candidate_row": {
                 "mean_ending_bankroll": 5600.0,
                 "mean_net_profit": 600.0,
@@ -385,9 +389,9 @@ def test_evaluate_promotion_allows_profitable_nonlinear_candidate_when_gates_pas
         bootstrap_mode=False,
     )
 
-    assert decision["promoted"] is True
+    assert decision["promoted"] is False
     assert decision["gates"]["materializable_candidate"] is True
-    assert decision["gates"]["beats_incumbent_profit"] is True
+    assert decision["gates"]["theory_core_candidate"] is False
 
 
 def test_evaluate_promotion_rejects_experimental_non_cas_challenger(tmp_path: Path) -> None:
@@ -402,6 +406,55 @@ def test_evaluate_promotion_rejects_experimental_non_cas_challenger(tmp_path: Pa
                 "league: MLB",
                 "candidate_models:",
                 "  - bayes_bt_state_space",
+            ]
+        )
+        + "\n"
+    )
+
+    cfg = _test_cfg(tmp_path, "configs/mlb.yaml")
+    brief = _load_brief(cfg, brief=None, brief_dir=str(brief_dir))
+    decision = _evaluate_promotion(
+        promotion={
+            "eligible": True,
+            "validation_contract_complete": True,
+            "best_candidate_row": {
+                "mean_ending_bankroll": 5600.0,
+                "mean_net_profit": 600.0,
+                "mean_max_drawdown": 500.0,
+                "mean_ece": 0.04,
+                "bet_count": 28,
+                "profitable_folds": 3,
+            },
+            "baseline_row": {
+                "mean_ending_bankroll": 5200.0,
+                "mean_net_profit": 200.0,
+                "mean_max_drawdown": 450.0,
+                "mean_ece": 0.04,
+                "bet_count": 28,
+                "profitable_folds": 2,
+            },
+        },
+        candidate_model_name="bayes_bt_state_space",
+        brief=brief,
+        bootstrap_mode=False,
+    )
+
+    assert decision["promoted"] is False
+    assert decision["gates"]["materializable_candidate"] is False
+
+
+def test_evaluate_promotion_requires_explicit_validation_contract_gate(tmp_path: Path) -> None:
+    brief_dir = tmp_path / "briefs"
+    brief_dir.mkdir(parents=True)
+    path = brief_dir / "default.yaml"
+    path.write_text(
+        "\n".join(
+            [
+                "brief_key: validation-brief",
+                "title: Validation Brief",
+                "league: MLB",
+                "candidate_models:",
+                "  - glm_elastic_net",
             ]
         )
         + "\n"
@@ -429,10 +482,12 @@ def test_evaluate_promotion_rejects_experimental_non_cas_challenger(tmp_path: Pa
                 "profitable_folds": 2,
             },
         },
-        candidate_model_name="bayes_bt_state_space",
+        candidate_model_name="glm_elastic_net",
         brief=brief,
         bootstrap_mode=False,
     )
 
     assert decision["promoted"] is False
-    assert decision["gates"]["materializable_candidate"] is False
+    assert decision["gates"]["theory_core_candidate"] is True
+    assert decision["gates"]["validation_contract_complete"] is False
+    assert any("validation-contract review" in reason.lower() for reason in decision["failed_reasons"])

@@ -7,15 +7,15 @@
 1. Register the new league in `src/registry/leagues.py`.
 2. Add league-specific adapters and feature/query support behind existing public entrypoints.
 3. Regenerate manifests and docs with `make docs-generate`.
-4. Extend cross-league tests and dashboard/staging coverage until verification passes.
+4. Keep new leagues marked `legacy` until a product decision promotes them into the primary rebuild lane.
 
-Current leagues: `MLB`, `NHL`, `NBA`.
+Current leagues: `MLB` (primary), `NHL` (legacy), `NBA` (legacy).
 
 ## Add A Model
 
 1. Register the model in `src/registry/models.py` with aliases, labels, lane, and report order.
-2. Place the model in the core, baseline, or experimental lane deliberately.
-3. Keep non-CAS challengers under `src/models/experimental/` and reserve the top-level `src/models/` package for the default theory lane plus compatibility shims only.
+2. Place the model in the `core`, `extension`, `baseline`, or `experimental` lane deliberately.
+3. Keep theory-compatible extensions under `src/models/extensions/`, non-CAS challengers under `src/models/experimental/`, and reserve top-level `src/models/` modules for the default theory lane plus compatibility shims only.
 4. Implement training/report behavior behind existing model contracts.
 5. Regenerate manifests and docs, then extend model contract tests.
 

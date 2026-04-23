@@ -2,7 +2,7 @@
 
 # Models
 
-Actuarial core model implementations plus explicitly fenced experimental challenger families.
+Actuarial core models, theory-compatible extensions, and explicitly fenced experimental challengers.
 
 Public entrypoints:
 - `src/models/base.py`

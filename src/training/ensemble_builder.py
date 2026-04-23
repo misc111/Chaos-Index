@@ -6,8 +6,8 @@ import numpy as np
 import pandas as pd
 
 from src.evaluation.metrics import metric_bundle
-from src.models.ensemble_stack import StackingEnsemble
-from src.models.ensemble_weighted import compute_weights, spread_stats, weighted_ensemble
+from src.models.extensions.ensemble_stack import StackingEnsemble
+from src.models.extensions.ensemble_weighted import compute_weights, spread_stats, weighted_ensemble
 from src.training.ensemble_policy import ensemble_component_columns
 from src.training.progress import ProgressCallback, emit_progress
 
