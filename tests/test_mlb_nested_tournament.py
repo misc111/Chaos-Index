@@ -104,9 +104,13 @@ def test_mlb_nested_tournament_writes_target_scoped_champions_and_diagnostics(tm
 
     champions = pd.read_csv(result.family_champions_path)
     assert {"candidate_key", "variant_key", "champion_status"} <= set(champions.columns)
+    ridge_champions = champions[champions["model_name"] == "glm_ridge"]
+    assert not ridge_champions.empty
+    assert set(ridge_champions["fit_status"]) == {"ok"}
     inter = pd.read_csv(result.inter_family_leaderboard_path)
     assert set(inter["target_name"]) == {"moneyline_home_win", "runline_home_cover", "totals_over"}
     assert inter.groupby("target_name")["target_rank"].min().eq(1).all()
+    assert not ((inter["model_name"] == "glm_ridge") & (inter["fit_status"] == "failed")).any()
 
     first_artifacts = json.loads(inter.iloc[0]["diagnostic_artifacts"].replace("'", '"')) if isinstance(inter.iloc[0]["diagnostic_artifacts"], str) else {}
     assert first_artifacts or "diagnostic_artifacts" in inter.columns
@@ -118,4 +122,3 @@ def test_mlb_nested_tournament_writes_target_scoped_champions_and_diagnostics(tm
         "runline_home_cover",
         "totals_over",
     }
-

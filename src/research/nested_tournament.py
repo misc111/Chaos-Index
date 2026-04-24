@@ -259,6 +259,16 @@ def _model_specs_for_variant(
     def selected(name: str) -> bool:
         return candidate_models is None or name in candidate_models
 
+    def optional_float(value: Any) -> float | None:
+        if value is None:
+            return None
+        if isinstance(value, float) and np.isnan(value):
+            return None
+        text = str(value).strip()
+        if not text or text.lower() in {"none", "nan", "null"}:
+            return None
+        return float(value)
+
     if selected("glm_vanilla"):
         specs.append(
             NestedCandidateSpec(
@@ -297,7 +307,7 @@ def _model_specs_for_variant(
                     features=list(features),
                     penalty=penalty,
                     c=float(params["c"]),
-                    l1_ratio=float(params["l1_ratio"]) if "l1_ratio" in params else None,
+                    l1_ratio=optional_float(params.get("l1_ratio")),
                     solver=solver,
                 ),
             )
@@ -397,6 +407,31 @@ def _params_text(params: dict[str, Any]) -> str:
     if not params:
         return "{}"
     return "; ".join(f"{key}={value}" for key, value in sorted(params.items()))
+
+
+def _parse_params_text(params_text: Any) -> dict[str, Any]:
+    if params_text is None:
+        return {}
+    if isinstance(params_text, float) and np.isnan(params_text):
+        return {}
+    text = str(params_text).strip()
+    if not text or text == "{}" or text.lower() in {"nan", "none", "null"}:
+        return {}
+    parsed: dict[str, Any] = {}
+    for token in text.split(";"):
+        if "=" not in token:
+            continue
+        key, value = token.split("=", 1)
+        key = key.strip()
+        value_text = value.strip()
+        if value_text.lower() in {"none", "nan", "null"}:
+            parsed[key] = None
+            continue
+        try:
+            parsed[key] = float(value_text)
+        except ValueError:
+            parsed[key] = value_text
+    return parsed
 
 
 def _time_series_splits(df: pd.DataFrame, *, n_splits: int) -> list[tuple[np.ndarray, np.ndarray]]:
@@ -700,7 +735,8 @@ def _select_family_champions(validation_rows: pd.DataFrame) -> pd.DataFrame:
     champions: list[dict[str, Any]] = []
     for (target_name, model_name), bucket in valid.groupby(["target_name", "model_name"], sort=True):
         passed = bucket[bucket["gate_passed"]].copy()
-        source = passed if not passed.empty else bucket
+        fitted = bucket[bucket["fit_status"] == "ok"].copy()
+        source = passed if not passed.empty else (fitted if not fitted.empty else bucket)
         ordered = source.sort_values(
             ["log_loss", "brier", "auc", "n_features", "active_parameter_count", "candidate_key"],
             ascending=[True, True, False, True, True, True],
@@ -863,6 +899,8 @@ def run_mlb_nested_tournament(
         for _, champion in family_champions.iterrows():
             if champion.get("champion_status") == "coverage-blocked":
                 continue
+            if str(champion.get("fit_status") or "") != "ok":
+                continue
             target_name = str(champion["target_name"])
             target_result = next(result for result in target_results if result.definition.target_name == target_name)
             target = target_result.definition
@@ -886,16 +924,7 @@ def run_mlb_nested_tournament(
                 spec = next((item for item in specs if item.variant_key == str(champion["variant_key"])), None)
             if spec is None:
                 continue
-            params = {}
-            params_text = str(champion.get("params") or "{}")
-            for token in params_text.split(";"):
-                if "=" not in token:
-                    continue
-                key, value = token.split("=", 1)
-                try:
-                    params[key.strip()] = float(value.strip())
-                except ValueError:
-                    params[key.strip()] = value.strip()
+            params = _parse_params_text(champion.get("params"))
             cv_folds = pd.DataFrame()
             row, prediction = _evaluate_candidate(
                 spec,

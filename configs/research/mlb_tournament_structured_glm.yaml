@@ -70,3 +70,109 @@ slates:
         feature_count: 10
       broad:
         feature_count: 12
+
+  starter_run_prevention:
+    description: Research-backed starter-first run-prevention slate using fielding-independent and contact-quality concepts when available.
+    default_width_variant: medium
+    feature_order:
+      - starter_quality_edge
+      - starter_xfip_edge
+      - starter_fip_minus_edge
+      - starter_siera_edge
+      - starter_k_rate_edge
+      - starter_bb_rate_edge
+      - starter_ground_ball_rate_edge
+      - starter_barrel_rate_allowed_edge
+      - starter_xwoba_allowed_edge
+      - starter_pitch_velocity_edge
+      - starter_pitch_movement_edge
+      - starter_uncertainty_index
+      - team_strength_edge
+      - lineup_quality_edge
+      - park_run_factor
+    width_variants:
+      narrow:
+        feature_count: 6
+      medium:
+        feature_count: 10
+      broad:
+        feature_count: 15
+
+  bullpen_workload:
+    description: Relief-quality and recent-usage slate for testing bullpen fatigue as its own intra-family lane.
+    default_width_variant: medium
+    feature_order:
+      - bullpen_quality_edge
+      - bullpen_fatigue_edge
+      - bullpen_recent_pitch_count_edge
+      - bullpen_back_to_back_usage_edge
+      - bullpen_high_leverage_usage_edge
+      - bullpen_rest_days_edge
+      - bullpen_xfip_edge
+      - bullpen_k_minus_bb_edge
+      - bullpen_barrel_rate_allowed_edge
+      - starter_expected_innings_edge
+      - starter_quality_edge
+      - lineup_quality_edge
+      - market_logit_home_prob
+    width_variants:
+      narrow:
+        feature_count: 5
+      medium:
+        feature_count: 9
+      broad:
+        feature_count: 13
+
+  lineup_platoon_contact:
+    description: Offense and matchup slate for park-adjusted production, platoon fit, and contact-quality inputs.
+    default_width_variant: medium
+    feature_order:
+      - lineup_quality_edge
+      - lineup_confirmed_quality_edge
+      - lineup_uncertainty_index
+      - team_wrc_plus_edge
+      - projected_lineup_wrc_plus_edge
+      - platoon_wrc_plus_edge
+      - batter_xwoba_edge
+      - batter_barrel_rate_edge
+      - batter_hard_hit_rate_edge
+      - batter_chase_rate_edge
+      - batter_strikeout_rate_edge
+      - starter_pitch_hand_matchup_edge
+      - starter_pitch_mix_matchup_edge
+      - park_run_factor
+      - weather_wind_run_effect
+    width_variants:
+      narrow:
+        feature_count: 6
+      medium:
+        feature_count: 11
+      broad:
+        feature_count: 15
+
+  totals_environment:
+    description: Totals-focused run-environment slate for park, weather, roof, umpire, offense, and pitcher suppression effects.
+    default_width_variant: medium
+    feature_order:
+      - park_run_factor
+      - park_weather_run_effect
+      - weather_temperature_run_effect
+      - weather_wind_run_effect
+      - weather_humidity_run_effect
+      - roof_closed_indicator
+      - altitude_run_effect
+      - umpire_run_effect
+      - team_wrc_plus_edge
+      - projected_lineup_wrc_plus_edge
+      - starter_xwoba_allowed_edge
+      - starter_ground_ball_rate_edge
+      - bullpen_fatigue_edge
+      - totals_point
+      - market_movement_total
+    width_variants:
+      narrow:
+        feature_count: 6
+      medium:
+        feature_count: 11
+      broad:
+        feature_count: 15
