@@ -42,9 +42,37 @@ def _base_game_frame() -> pd.DataFrame:
 def test_finalize_feature_frame_fails_fast_on_post_start_availability(tmp_path: Path) -> None:
     frame = _base_game_frame()
     frame.loc[0, "available_as_of_utc"] = "2026-04-10T19:30:00Z"
+    frame.loc[0, "status_final"] = 0
 
     with pytest.raises(ValueError, match="available_as_of_utc is after start_time_utc for 1 rows"):
         finalize_feature_frame(frame, processed_dir=str(tmp_path / "processed"), strategy=_DummyStrategy())
+
+
+def test_finalize_feature_frame_normalizes_historical_final_snapshot_availability(tmp_path: Path) -> None:
+    frame = _base_game_frame()
+    frame["available_as_of_utc"] = ["2026-04-23T19:07:12Z", "2026-04-23T19:07:12Z"]
+    frame["as_of_utc"] = frame["available_as_of_utc"]
+
+    out = finalize_feature_frame(frame, processed_dir=str(tmp_path / "processed"), strategy=_DummyStrategy())
+
+    available = pd.to_datetime(out.dataframe["available_as_of_utc"], errors="coerce", utc=True)
+    start = pd.to_datetime(out.dataframe["start_time_utc"], errors="coerce", utc=True)
+    assert available.lt(start).all()
+    assert (start - available).dt.total_seconds().eq(1.0).all()
+    assert out.metadata["historical_final_availability_normalized_count"] == 2
+
+
+def test_finalize_feature_frame_drops_stale_post_start_nonfinal_without_outcome(tmp_path: Path) -> None:
+    frame = _base_game_frame()
+    frame.loc[0, "status_final"] = 0
+    frame.loc[0, "home_win"] = np.nan
+    frame.loc[0, "available_as_of_utc"] = "2026-04-23T19:07:12Z"
+    frame.loc[0, "as_of_utc"] = "2026-04-23T19:07:12Z"
+
+    out = finalize_feature_frame(frame, processed_dir=str(tmp_path / "processed"), strategy=_DummyStrategy())
+
+    assert out.dataframe["game_id"].tolist() == [2]
+    assert out.metadata["stale_post_start_nonfinal_dropped_count"] == 1
 
 
 def test_finalize_feature_frame_preserves_missing_numeric_values(tmp_path: Path) -> None:

@@ -32,7 +32,7 @@ SELECT
   s.metadata_json AS snapshot_metadata_json,
   CASE
     WHEN COALESCE(json_extract(s.metadata_json, '$.import_mode'), '') IN ('historical_bundle', 'historical_manifest')
-      THEN l.commence_time_utc
+      THEN strftime('%Y-%m-%dT%H:%M:%SZ', datetime(l.commence_time_utc, '-1 second'))
     ELSE COALESCE(l.bookmaker_last_update_utc, s.as_of_utc)
   END AS effective_odds_as_of_utc
 FROM odds_market_lines l
@@ -71,7 +71,7 @@ SELECT
   s.metadata_json AS snapshot_metadata_json,
   CASE
     WHEN COALESCE(json_extract(s.metadata_json, '$.import_mode'), '') IN ('historical_bundle', 'historical_manifest')
-      THEN l.commence_time_utc
+      THEN strftime('%Y-%m-%dT%H:%M:%SZ', datetime(l.commence_time_utc, '-1 second'))
     ELSE COALESCE(l.bookmaker_last_update_utc, s.as_of_utc)
   END AS effective_odds_as_of_utc
 FROM odds_market_lines l

@@ -29,19 +29,28 @@ function latestNestedSummary(root: string): Record<string, unknown> | null {
   return null;
 }
 
+function isNestedTournamentSourceKind(value: unknown): boolean {
+  return value === "nested_mlb_model_tournament" || value === "parallel_nested_mlb_model_tournament";
+}
+
+function resolveRepoArtifactPath(repoRoot: string, artifactPath: string): string {
+  return path.isAbsolute(artifactPath) ? artifactPath : path.resolve(repoRoot, artifactPath);
+}
+
 export async function GET(request: Request) {
   const league = leagueFromRequest(request);
-  const reportRoot = path.resolve(process.cwd(), "..", "artifacts", "reports", league.toLowerCase());
+  const repoRoot = path.resolve(process.cwd(), "..");
+  const reportRoot = path.resolve(repoRoot, "artifacts", "reports", league.toLowerCase());
   const currentBest = readJson(path.join(reportRoot, "current_best_models.json"));
   const summaryPath =
     currentBest &&
     typeof currentBest === "object" &&
-    currentBest.source_kind === "nested_mlb_model_tournament" &&
+    isNestedTournamentSourceKind(currentBest.source_kind) &&
     currentBest.artifact_paths &&
     typeof currentBest.artifact_paths === "object"
       ? String((currentBest.artifact_paths as Record<string, unknown>).summary_path || "")
       : "";
-  const summary = summaryPath ? readJson(summaryPath) : latestNestedSummary(reportRoot);
+  const summary = summaryPath ? readJson(resolveRepoArtifactPath(repoRoot, summaryPath)) : latestNestedSummary(reportRoot);
 
   return NextResponse.json({
     league,
@@ -53,4 +62,3 @@ export async function GET(request: Request) {
     artifacts: summary?.artifacts || {},
   });
 }
-

@@ -227,6 +227,57 @@ def test_mlb_theory_trace_and_prediction_components_accept_contract_rows(tmp_pat
     assert db.query("SELECT COUNT(*) AS count FROM mlb_prediction_components")[0]["count"] == 1
 
 
+def test_historical_bundle_effective_odds_as_of_is_strictly_pregame(tmp_path) -> None:
+    db = Database(str(tmp_path / "mlb_historical_bundle_odds.db"))
+    db.init_schema()
+    odds_res = SourceFetchResult(
+        source="mlb_historical_odds_backfill",
+        snapshot_id="historical_bundle_1",
+        extracted_at_utc="2026-04-24T01:00:00Z",
+        raw_path=str(tmp_path / "odds.csv"),
+        metadata={"import_mode": "historical_bundle", "n_events": 1},
+        dataframe=pd.DataFrame(
+            [
+                {
+                    "sport_key": "baseball_mlb",
+                    "odds_event_id": "401815019",
+                    "commence_time_utc": "2026-04-19T18:35:00Z",
+                    "commence_date_central": "2026-04-19",
+                    "api_home_team": "Chicago Cubs",
+                    "api_away_team": "Los Angeles Dodgers",
+                    "home_team": "CHC",
+                    "away_team": "LAD",
+                    "bookmaker_key": "espn",
+                    "bookmaker_title": "ESPN",
+                    "bookmaker_last_update_utc": "2026-04-24T01:00:00Z",
+                    "market_key": "spreads",
+                    "outcome_name": "Chicago Cubs",
+                    "outcome_side": "home",
+                    "outcome_team": "CHC",
+                    "outcome_price": -110,
+                    "outcome_point": -1.5,
+                    "implied_probability": 0.5238095,
+                }
+            ]
+        ),
+    )
+    insert_odds_snapshot_and_lines(db, league="MLB", odds_res=odds_res)
+
+    rows = db.query(
+        """
+        SELECT commence_time_utc, effective_odds_as_of_utc
+        FROM odds_market_lines_effective_as_of
+        """
+    )
+
+    assert rows == [
+        {
+            "commence_time_utc": "2026-04-19T18:35:00Z",
+            "effective_odds_as_of_utc": "2026-04-19T18:34:59Z",
+        }
+    ]
+
+
 def test_mlb_historical_odds_filter_uses_single_year_seasons() -> None:
     odds_df = pd.DataFrame(
         [

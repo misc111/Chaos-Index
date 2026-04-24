@@ -76,7 +76,7 @@ def _load_games_frame(db: Database, *, seasons: list[int]) -> pd.DataFrame:
     frame = pd.DataFrame(rows)
     if frame.empty:
         return frame
-    frame["start_time_utc"] = pd.to_datetime(frame["start_time_utc"], errors="coerce", utc=True)
+    frame["start_time_utc"] = pd.to_datetime(frame["start_time_utc"], errors="coerce", utc=True, format="mixed")
     frame = frame[frame["start_time_utc"].notna()].copy()
     frame["central_date"] = frame["start_time_utc"].dt.tz_convert(CENTRAL_TZ).dt.date
     return frame.reset_index(drop=True)

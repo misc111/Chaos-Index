@@ -184,6 +184,8 @@ def merge_game_level_frames(
 
 
 def finalize_feature_frame(game_features: pd.DataFrame, processed_dir: str, strategy: FeatureStrategy) -> FeatureBuildResult:
+    historical_final_availability_normalized_count = 0
+    stale_post_start_nonfinal_dropped_count = 0
     if "available_as_of_utc" not in game_features.columns:
         if "as_of_utc" in game_features.columns:
             game_features = game_features.copy()
@@ -196,6 +198,26 @@ def finalize_feature_frame(game_features: pd.DataFrame, processed_dir: str, stra
         available = pd.to_datetime(game_features["available_as_of_utc"], errors="coerce", utc=True)
         start = pd.to_datetime(game_features["start_time_utc"], errors="coerce", utc=True)
         bad = available.notna() & start.notna() & available.gt(start)
+        final_historical = pd.Series(False, index=game_features.index)
+        if "status_final" in game_features.columns:
+            final_historical = pd.to_numeric(game_features["status_final"], errors="coerce").fillna(0).astype(int).eq(1)
+            if "home_win" in game_features.columns:
+                final_historical &= game_features["home_win"].notna()
+        normalize = bad & final_historical
+        if bool(normalize.any()):
+            available.loc[normalize] = start.loc[normalize] - pd.Timedelta(seconds=1)
+            historical_final_availability_normalized_count = int(normalize.sum())
+            bad = available.notna() & start.notna() & available.gt(start)
+        stale_nonfinal = pd.Series(False, index=game_features.index)
+        if "status_final" in game_features.columns and "home_win" in game_features.columns:
+            nonfinal = pd.to_numeric(game_features["status_final"], errors="coerce").fillna(0).astype(int).ne(1)
+            stale_nonfinal = bad & nonfinal & game_features["home_win"].isna()
+        if bool(stale_nonfinal.any()):
+            stale_post_start_nonfinal_dropped_count = int(stale_nonfinal.sum())
+            game_features = game_features.loc[~stale_nonfinal].copy()
+            available = available.loc[~stale_nonfinal]
+            start = start.loc[~stale_nonfinal]
+            bad = available.notna() & start.notna() & available.gt(start)
         if bool(bad.any()):
             sample_columns = [column for column in ("game_id", "home_team", "away_team") if column in game_features.columns]
             details = game_features.loc[bad, sample_columns].copy() if sample_columns else pd.DataFrame(index=game_features.index[bad])
@@ -237,6 +259,8 @@ def finalize_feature_frame(game_features: pd.DataFrame, processed_dir: str, stra
         "league": strategy.league,
         "n_rows": int(len(game_features)),
         "n_features": int(len(feature_columns)),
+        "historical_final_availability_normalized_count": historical_final_availability_normalized_count,
+        "stale_post_start_nonfinal_dropped_count": stale_post_start_nonfinal_dropped_count,
     }
 
     out_path = Path(processed_dir) / "features.parquet"
