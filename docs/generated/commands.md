@@ -149,8 +149,21 @@ Run the nested all-target MLB tournament with intra-family selection before inte
   - `--feature-pool` `POOL`: Feature pool for the comparison flow.
   - `--feature-map-model` `MODEL`: Model key to read from the production feature map when needed.
   - `--structured-glm-spec` `PATH`: Optional research-only YAML spec defining a structured MLB GLM feature slate.
+  - `--parallel`: Evaluate intra-family target/model lanes in parallel before central final-holdout ranking.
+  - `--max-workers` `N`: Maximum parallel intra-family lane workers.
 - Examples:
   - `python3 -m src.cli nested-tournament --config configs/mlb.yaml --targets all`
+
+## `feature-availability`
+
+Write structured MLB feature availability coverage artifacts for tournament slates.
+
+- Default config: `configs/mlb.yaml`
+- Options:
+  - `--run-id` `RUN_ID`: Optional run identifier override.
+  - `--structured-glm-spec` `PATH`: Optional research-only YAML spec defining a structured MLB GLM feature slate.
+- Examples:
+  - `python3 -m src.cli feature-availability --config configs/mlb.yaml`
 
 ## `backtest`
 

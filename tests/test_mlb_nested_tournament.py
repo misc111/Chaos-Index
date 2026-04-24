@@ -5,8 +5,9 @@ import numpy as np
 import pandas as pd
 
 from src.common.config import load_config
+from src.research.mlb_feature_availability import write_mlb_feature_availability_report
 from src.research.mlb_targets import build_target_frames
-from src.research.nested_tournament import run_mlb_nested_tournament
+from src.research.nested_tournament import run_mlb_nested_tournament, run_mlb_parallel_nested_tournament
 
 
 def _nested_frame(n: int = 150) -> pd.DataFrame:
@@ -122,3 +123,71 @@ def test_mlb_nested_tournament_writes_target_scoped_champions_and_diagnostics(tm
         "runline_home_cover",
         "totals_over",
     }
+
+
+def test_mlb_feature_availability_report_tracks_structured_slates(tmp_path):
+    cfg = load_config("configs/default.yaml")
+    cfg.data.league = "MLB"
+    cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
+    cfg.paths.processed_dir = str(tmp_path / "processed")
+    processed_dir = Path(cfg.paths.processed_dir)
+    processed_dir.mkdir(parents=True, exist_ok=True)
+    _nested_frame(48).to_csv(processed_dir / "features.csv", index=False)
+
+    result = write_mlb_feature_availability_report(
+        cfg,
+        run_id="unit_feature_availability",
+        structured_glm_spec_path="configs/research/mlb_tournament_structured_glm.yaml",
+    )
+
+    rows = pd.read_csv(result.csv_path)
+    assert {"slate_name", "feature", "present", "coverage", "source_bucket", "pregame_safe"} <= set(rows.columns)
+    starter = rows[(rows["slate_name"] == "starter_run_prevention") & (rows["feature"] == "starter_quality_edge")]
+    assert not starter.empty
+    assert bool(starter.iloc[0]["present"])
+    missing_xfip = rows[(rows["slate_name"] == "starter_run_prevention") & (rows["feature"] == "starter_xfip_edge")]
+    assert not missing_xfip.empty
+    assert not bool(missing_xfip.iloc[0]["present"])
+    payload = json.loads(result.json_path.read_text())
+    assert payload["run_id"] == "unit_feature_availability"
+    assert payload["summary"]["total_features"] >= 1
+
+
+def test_parallel_nested_tournament_runs_lanes_before_final_holdout(tmp_path):
+    cfg = load_config("configs/default.yaml")
+    cfg.data.league = "MLB"
+    cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
+    cfg.paths.processed_dir = str(tmp_path / "processed")
+    cfg.paths.db_path = str(tmp_path / "processed" / "mlb_forecast.db")
+    cfg.modeling.cv_splits = 2
+    processed_dir = Path(cfg.paths.processed_dir)
+    processed_dir.mkdir(parents=True, exist_ok=True)
+    _nested_frame(150).to_csv(processed_dir / "features.csv", index=False)
+
+    result = run_mlb_parallel_nested_tournament(
+        cfg,
+        run_id="unit_parallel_nested",
+        targets="moneyline_home_win,totals_over",
+        candidate_models="glm_vanilla,glm_ridge",
+        structured_glm_spec_path=None,
+        bootstrap_samples=20,
+        max_workers=2,
+    )
+
+    summary = json.loads(result.summary_path.read_text())
+    assert summary["orchestration"] == "parallel_intra_family_then_central_final_holdout"
+    assert summary["lane_runs"]
+    lane_paths = [Path(row["validation_leaderboard_path"]) for row in summary["lane_runs"]]
+    assert all(path.exists() for path in lane_paths)
+    family_champions = pd.read_csv(result.family_champions_path)
+    inter = pd.read_csv(result.inter_family_leaderboard_path)
+    assert not family_champions.empty
+    promoted = family_champions[family_champions["champion_status"] == "shortlist"]
+    if promoted.empty:
+        assert inter.empty
+        current_best = json.loads(result.current_best_models_path.read_text())
+        assert current_best["target_champions"] == []
+        assert current_best["blocked_family_champions"]
+    else:
+        assert set(inter["candidate_key"]).issubset(set(promoted["candidate_key"]))
+        assert inter.groupby("target_name")["target_rank"].min().eq(1).all()

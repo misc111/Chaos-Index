@@ -457,10 +457,57 @@
           "help": "Optional research-only YAML spec defining a structured MLB GLM feature slate.",
           "choices": null,
           "default": null
+        },
+        {
+          "flags": [
+            "--parallel"
+          ],
+          "doc_metavar": null,
+          "help": "Evaluate intra-family target/model lanes in parallel before central final-holdout ranking.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--max-workers"
+          ],
+          "doc_metavar": "N",
+          "help": "Maximum parallel intra-family lane workers.",
+          "choices": null,
+          "default": 4
         }
       ],
       "examples": [
         "python3 -m src.cli nested-tournament --config configs/mlb.yaml --targets all"
+      ]
+    },
+    {
+      "name": "feature-availability",
+      "summary": "Write structured MLB feature availability coverage artifacts for tournament slates.",
+      "handler_path": "src.commands.modeling:feature_availability",
+      "config_required": true,
+      "arguments": [
+        {
+          "flags": [
+            "--run-id"
+          ],
+          "doc_metavar": "RUN_ID",
+          "help": "Optional run identifier override.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--structured-glm-spec"
+          ],
+          "doc_metavar": "PATH",
+          "help": "Optional research-only YAML spec defining a structured MLB GLM feature slate.",
+          "choices": null,
+          "default": null
+        }
+      ],
+      "examples": [
+        "python3 -m src.cli feature-availability --config configs/mlb.yaml"
       ]
     },
     {

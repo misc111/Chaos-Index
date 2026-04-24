@@ -86,6 +86,14 @@ Source:
 4. Add missing-line/low-coverage gates for runline and totals market-dependent variants.
 5. Run the nested tournament by target, keeping these slates as variants rather than merging them into one large specification.
 
+## Operating Sequence
+
+1. Run `python3 -m src.cli feature-availability --config configs/mlb.yaml` before a full tournament. This writes the structured-slate coverage matrix under `artifacts/reports/mlb/tournament/feature_availability/`.
+2. Run fixture/synthetic parallel smoke before spending real holdout evidence.
+3. Run `python3 -m src.cli nested-tournament --config configs/mlb.yaml --parallel --targets all` only after feature and target coverage are understood.
+4. Treat `coverage-blocked` targets and `validation-blocked` family champions as visible evidence, not promotion-ready champions.
+5. If `python3 -m src.cli features --config configs/mlb.yaml` fails the availability contract, do not overwrite processed feature artifacts; fix the pregame snapshot timing first.
+
 ## Current Config Changes
 
 The structured GLM tournament config now includes these research-backed slates:

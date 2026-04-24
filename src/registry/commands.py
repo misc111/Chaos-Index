@@ -116,6 +116,18 @@ _RUN_ID_ARG = _option(
     help="Optional run identifier override.",
     doc_metavar="RUN_ID",
 )
+_PARALLEL_ARG = _option(
+    "--parallel",
+    action="store_true",
+    help="Evaluate intra-family target/model lanes in parallel before central final-holdout ranking.",
+)
+_MAX_WORKERS_ARG = _option(
+    "--max-workers",
+    type=int,
+    default=4,
+    help="Maximum parallel intra-family lane workers.",
+    doc_metavar="N",
+)
 _HISTORY_SEASONS_ARG = _option(
     "--history-seasons",
     type=int,
@@ -282,8 +294,20 @@ COMMAND_REGISTRY: tuple[CommandRegistryEntry, ...] = (
             _FEATURE_POOL_ARG,
             _FEATURE_MAP_MODEL_ARG,
             _STRUCTURED_GLM_SPEC_ARG,
+            _PARALLEL_ARG,
+            _MAX_WORKERS_ARG,
         ),
         examples=("python3 -m src.cli nested-tournament --config configs/mlb.yaml --targets all",),
+    ),
+    CommandRegistryEntry(
+        name="feature-availability",
+        summary="Write structured MLB feature availability coverage artifacts for tournament slates.",
+        handler_path="src.commands.modeling:feature_availability",
+        arguments=(
+            _RUN_ID_ARG,
+            _STRUCTURED_GLM_SPEC_ARG,
+        ),
+        examples=("python3 -m src.cli feature-availability --config configs/mlb.yaml",),
     ),
     CommandRegistryEntry(
         name="backtest",

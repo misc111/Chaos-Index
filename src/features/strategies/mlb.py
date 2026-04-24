@@ -245,6 +245,14 @@ class MlbFeatureStrategy(BaseFeatureStrategy):
             out["diff_form_run_diff_hinge_000"] = _positive_part(out["diff_form_run_diff"], MLB_GLM_HINGE_KNOTS["diff_form_run_diff"])
         if "diff_starter_era" in out.columns:
             out["diff_starter_era_hinge_000"] = _positive_part(out["diff_starter_era"], MLB_GLM_HINGE_KNOTS["diff_starter_era"])
+            out["starter_quality_edge"] = -pd.to_numeric(out["diff_starter_era"], errors="coerce")
+        if "diff_starter_whip" in out.columns:
+            out["starter_whip_edge"] = -pd.to_numeric(out["diff_starter_whip"], errors="coerce")
+        if "diff_lineup_availability" in out.columns:
+            lineup_edge = pd.to_numeric(out["diff_lineup_availability"], errors="coerce")
+            out["lineup_quality_edge"] = lineup_edge
+            confirmation = _numeric_column(out, "lineup_confirmation_share", 0.0).fillna(0.0)
+            out["lineup_confirmed_quality_edge"] = lineup_edge * confirmation
         if "elo_home_prob" in out.columns:
             out["elo_home_prob_hinge_052"] = _positive_part(out["elo_home_prob"], MLB_GLM_HINGE_KNOTS["elo_home_prob"])
         return out

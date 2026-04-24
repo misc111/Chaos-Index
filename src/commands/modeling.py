@@ -92,9 +92,11 @@ def compare_candidates(cfg: AppConfig, args: Namespace) -> None:
 def nested_tournament(cfg: AppConfig, args: Namespace) -> None:
     """Run the nested all-target MLB model tournament."""
 
-    from src.research.nested_tournament import run_mlb_nested_tournament
+    from src.research.nested_tournament import run_mlb_nested_tournament, run_mlb_parallel_nested_tournament
 
-    result = run_mlb_nested_tournament(
+    runner = run_mlb_parallel_nested_tournament if bool(getattr(args, "parallel", False)) else run_mlb_nested_tournament
+    kwargs = {"max_workers": int(getattr(args, "max_workers", 4))} if runner is run_mlb_parallel_nested_tournament else {}
+    result = runner(
         cfg,
         run_id=getattr(args, "run_id", None),
         targets=str(getattr(args, "targets", "all") or "all"),
@@ -103,8 +105,22 @@ def nested_tournament(cfg: AppConfig, args: Namespace) -> None:
         feature_map_model=str(getattr(args, "feature_map_model", "glm_ridge")),
         structured_glm_spec_path=getattr(args, "structured_glm_spec", None),
         bootstrap_samples=int(getattr(args, "bootstrap_samples", 200)),
+        **kwargs,
     )
     print(f"MLB_NESTED_TOURNAMENT::{result.run_id}::{result.artifact_root}", flush=True)
+
+
+def feature_availability(cfg: AppConfig, args: Namespace) -> None:
+    """Write structured MLB feature availability coverage artifacts."""
+
+    from src.research.mlb_feature_availability import write_mlb_feature_availability_report
+
+    result = write_mlb_feature_availability_report(
+        cfg,
+        run_id=getattr(args, "run_id", None),
+        structured_glm_spec_path=getattr(args, "structured_glm_spec", None),
+    )
+    print(f"MLB_FEATURE_AVAILABILITY::{result.run_id}::{result.csv_path}", flush=True)
 
 
 def best_models(cfg: AppConfig, args: Namespace) -> None:

@@ -95,7 +95,10 @@ def test_mlb_feature_build_smoke_uses_baseball_features(tmp_path: Path) -> None:
     cols = set(out.feature_columns)
     assert "diff_form_run_diff" in cols
     assert "diff_starter_era" in cols
+    assert "starter_quality_edge" in cols
     assert "diff_lineup_availability" in cols
+    assert "lineup_quality_edge" in cols
+    assert "lineup_confirmed_quality_edge" in cols
     assert "diff_bullpen_availability" in cols
     assert "home_lineup_confirmed" in cols
     assert "away_lineup_confirmed" in cols
@@ -109,6 +112,13 @@ def test_mlb_feature_build_smoke_uses_baseball_features(tmp_path: Path) -> None:
     assert not any("xg" in c for c in cols)
     assert not any("darko" in c for c in cols)
     assert not any("arena" in c for c in cols)
+
+    row = out.dataframe[out.dataframe["game_id"] == 4].iloc[0]
+    assert float(row["starter_quality_edge"]) == -float(row["diff_starter_era"])
+    assert float(row["lineup_quality_edge"]) == float(row["diff_lineup_availability"])
+    assert float(row["lineup_confirmed_quality_edge"]) == float(row["diff_lineup_availability"]) * float(
+        row["lineup_confirmation_share"]
+    )
 
 
 def test_mlb_feature_build_carries_availability_metadata_into_upcoming_game(tmp_path: Path) -> None:
