@@ -92,10 +92,15 @@ def compare_candidates(cfg: AppConfig, args: Namespace) -> None:
 def nested_tournament(cfg: AppConfig, args: Namespace) -> None:
     """Run the nested all-target MLB model tournament."""
 
-    from src.research.nested_tournament import run_mlb_nested_tournament, run_mlb_parallel_nested_tournament
+    from src.research.nested_tournament import (
+        DEFAULT_STRUCTURED_SPEC_PATH,
+        run_mlb_nested_tournament,
+        run_mlb_parallel_nested_tournament,
+    )
 
     runner = run_mlb_parallel_nested_tournament if bool(getattr(args, "parallel", False)) else run_mlb_nested_tournament
     kwargs = {"max_workers": int(getattr(args, "max_workers", 4))} if runner is run_mlb_parallel_nested_tournament else {}
+    structured_glm_spec = getattr(args, "structured_glm_spec", None) or DEFAULT_STRUCTURED_SPEC_PATH
     result = runner(
         cfg,
         run_id=getattr(args, "run_id", None),
@@ -103,7 +108,7 @@ def nested_tournament(cfg: AppConfig, args: Namespace) -> None:
         candidate_models=str(getattr(args, "candidate_models", "all") or "all"),
         feature_pool=str(getattr(args, "feature_pool", "full_screened")),
         feature_map_model=str(getattr(args, "feature_map_model", "glm_ridge")),
-        structured_glm_spec_path=getattr(args, "structured_glm_spec", None),
+        structured_glm_spec_path=structured_glm_spec,
         bootstrap_samples=int(getattr(args, "bootstrap_samples", 200)),
         **kwargs,
     )

@@ -246,6 +246,7 @@ class MlbFeatureStrategy(BaseFeatureStrategy):
         if "diff_starter_era" in out.columns:
             out["diff_starter_era_hinge_000"] = _positive_part(out["diff_starter_era"], MLB_GLM_HINGE_KNOTS["diff_starter_era"])
             out["starter_quality_edge"] = -pd.to_numeric(out["diff_starter_era"], errors="coerce")
+            out["diff_starting_pitcher_quality"] = out["starter_quality_edge"]
         if "diff_starter_whip" in out.columns:
             out["starter_whip_edge"] = -pd.to_numeric(out["diff_starter_whip"], errors="coerce")
         if "diff_lineup_availability" in out.columns:
@@ -253,6 +254,18 @@ class MlbFeatureStrategy(BaseFeatureStrategy):
             out["lineup_quality_edge"] = lineup_edge
             confirmation = _numeric_column(out, "lineup_confirmation_share", 0.0).fillna(0.0)
             out["lineup_confirmed_quality_edge"] = lineup_edge * confirmation
+            out["diff_lineup_talent"] = out["lineup_quality_edge"]
+            out["lineup_stability_diff"] = out["lineup_confirmed_quality_edge"]
+        if "diff_bullpen_availability" in out.columns:
+            out["diff_bullpen_quality"] = pd.to_numeric(out["diff_bullpen_availability"], errors="coerce")
+            out["bullpen_quality_edge"] = out["diff_bullpen_quality"]
+        if "diff_form_win_rate" in out.columns:
+            out["team_strength_edge"] = pd.to_numeric(out["diff_form_win_rate"], errors="coerce")
+        if "rest_diff" in out.columns:
+            out["rest_edge"] = pd.to_numeric(out["rest_diff"], errors="coerce")
+        if "travel_diff" in out.columns:
+            out["travel_miles_edge"] = pd.to_numeric(out["travel_diff"], errors="coerce")
+        out["home_field_advantage"] = 1.0
         if "elo_home_prob" in out.columns:
             out["elo_home_prob_hinge_052"] = _positive_part(out["elo_home_prob"], MLB_GLM_HINGE_KNOTS["elo_home_prob"])
         return out

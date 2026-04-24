@@ -99,6 +99,15 @@ def test_mlb_feature_build_smoke_uses_baseball_features(tmp_path: Path) -> None:
     assert "diff_lineup_availability" in cols
     assert "lineup_quality_edge" in cols
     assert "lineup_confirmed_quality_edge" in cols
+    assert "diff_starting_pitcher_quality" in cols
+    assert "diff_lineup_talent" in cols
+    assert "lineup_stability_diff" in cols
+    assert "diff_bullpen_quality" in cols
+    assert "team_strength_edge" in cols
+    assert "rest_edge" in cols
+    assert "travel_miles_edge" in cols
+    assert "bullpen_quality_edge" in cols
+    assert "home_field_advantage" in cols
     assert "diff_bullpen_availability" in cols
     assert "home_lineup_confirmed" in cols
     assert "away_lineup_confirmed" in cols
@@ -115,7 +124,16 @@ def test_mlb_feature_build_smoke_uses_baseball_features(tmp_path: Path) -> None:
 
     row = out.dataframe[out.dataframe["game_id"] == 4].iloc[0]
     assert float(row["starter_quality_edge"]) == -float(row["diff_starter_era"])
+    assert float(row["diff_starting_pitcher_quality"]) == float(row["starter_quality_edge"])
     assert float(row["lineup_quality_edge"]) == float(row["diff_lineup_availability"])
+    assert float(row["diff_lineup_talent"]) == float(row["lineup_quality_edge"])
+    assert float(row["lineup_stability_diff"]) == float(row["lineup_confirmed_quality_edge"])
+    assert float(row["diff_bullpen_quality"]) == float(row["diff_bullpen_availability"])
+    assert float(row["team_strength_edge"]) == float(row["diff_form_win_rate"])
+    assert float(row["rest_edge"]) == float(row["rest_diff"])
+    assert float(row["travel_miles_edge"]) == float(row["travel_diff"])
+    assert float(row["bullpen_quality_edge"]) == float(row["diff_bullpen_quality"])
+    assert float(row["home_field_advantage"]) == 1.0
     assert float(row["lineup_confirmed_quality_edge"]) == float(row["diff_lineup_availability"]) * float(
         row["lineup_confirmation_share"]
     )

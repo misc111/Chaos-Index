@@ -8,6 +8,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from src.common.market_transforms import probability_to_logit, vig_free_two_way_probabilities
 from src.storage.schema import EFFECTIVE_ODDS_MARKET_LINES_VIEW_NAME
 
 
@@ -83,7 +84,17 @@ def _line_source_from_features(features_df: pd.DataFrame, *, market: str) -> pd.
     return pd.DataFrame(columns=["game_id", "line_point"])
 
 
-def _query_odds_lines(db_path: str | Path, *, league: str, market_key: str) -> pd.DataFrame:
+def _market_key(market: str) -> str:
+    if market == "moneyline":
+        return "h2h"
+    if market == "runline":
+        return "spreads"
+    if market == "totals":
+        return "totals"
+    raise ValueError(f"Unsupported MLB target market `{market}`")
+
+
+def _query_market_odds(db_path: str | Path, *, league: str, market_key: str) -> pd.DataFrame:
     path = Path(db_path)
     if not path.exists():
         return pd.DataFrame()
@@ -98,18 +109,54 @@ def _query_odds_lines(db_path: str | Path, *, league: str, market_key: str) -> p
                 return pd.DataFrame()
             rows = conn.execute(
                 f"""
-                SELECT game_id, market_key, outcome_side, outcome_name, outcome_point, effective_odds_as_of_utc
+                SELECT
+                  game_id, market_key, outcome_side, outcome_name,
+                  outcome_price, outcome_point, implied_probability,
+                  effective_odds_as_of_utc
                 FROM {EFFECTIVE_ODDS_MARKET_LINES_VIEW_NAME}
                 WHERE UPPER(league) = UPPER(?)
                   AND market_key = ?
                   AND game_id IS NOT NULL
-                  AND outcome_point IS NOT NULL
                 """,
                 (league, market_key),
             ).fetchall()
     except sqlite3.Error:
         return pd.DataFrame()
     return pd.DataFrame([dict(row) for row in rows])
+
+
+def _latest_pregame_market_rows(
+    features_df: pd.DataFrame,
+    *,
+    db_path: str | Path,
+    league: str,
+    market: str,
+) -> pd.DataFrame:
+    odds = _query_market_odds(db_path, league=league, market_key=_market_key(market))
+    if odds.empty or not {"game_id", "start_time_utc"} <= set(features_df.columns):
+        return pd.DataFrame()
+
+    meta = features_df[["game_id", "start_time_utc"]].copy()
+    meta["start_time_utc"] = pd.to_datetime(meta["start_time_utc"], utc=True, errors="coerce")
+    work = odds.merge(meta, on="game_id", how="inner")
+    work["effective_odds_as_of_utc"] = pd.to_datetime(work["effective_odds_as_of_utc"], utc=True, errors="coerce")
+    work["outcome_price"] = _safe_numeric(work["outcome_price"])
+    work["outcome_point"] = _safe_numeric(work["outcome_point"])
+    work["implied_probability"] = _safe_numeric(work["implied_probability"])
+    work = work[work["effective_odds_as_of_utc"].notna() & work["start_time_utc"].notna()]
+    work = work[work["effective_odds_as_of_utc"] < work["start_time_utc"]].copy()
+    if work.empty:
+        return pd.DataFrame()
+
+    latest = work.groupby("game_id", as_index=False)["effective_odds_as_of_utc"].max()
+    return work.merge(latest, on=["game_id", "effective_odds_as_of_utc"], how="inner")
+
+
+def _side_mask(work: pd.DataFrame, *tokens: str) -> pd.Series:
+    token_set = {token.lower() for token in tokens}
+    side = work["outcome_side"].fillna("").str.lower()
+    name = work["outcome_name"].fillna("").str.lower()
+    return side.isin(token_set) | name.isin(token_set)
 
 
 def _line_source_from_odds(
@@ -119,34 +166,20 @@ def _line_source_from_odds(
     league: str,
     market: str,
 ) -> pd.DataFrame:
-    market_key = "spreads" if market == "runline" else "totals"
-    lines = _query_odds_lines(db_path, league=league, market_key=market_key)
-    if lines.empty:
-        return pd.DataFrame(columns=["game_id", "line_point"])
-
-    meta = features_df[["game_id", "start_time_utc"]].copy()
-    meta["start_time_utc"] = pd.to_datetime(meta["start_time_utc"], utc=True, errors="coerce")
-    work = lines.merge(meta, on="game_id", how="inner")
-    work["effective_odds_as_of_utc"] = pd.to_datetime(work["effective_odds_as_of_utc"], utc=True, errors="coerce")
-    work["outcome_point"] = _safe_numeric(work["outcome_point"])
-    work = work[work["effective_odds_as_of_utc"].notna() & work["start_time_utc"].notna()]
-    work = work[work["effective_odds_as_of_utc"] < work["start_time_utc"]].copy()
+    work = _latest_pregame_market_rows(features_df, db_path=db_path, league=league, market=market)
     if work.empty:
         return pd.DataFrame(columns=["game_id", "line_point"])
 
     if market == "runline":
-        side = work["outcome_side"].fillna("").str.lower()
-        name = work["outcome_name"].fillna("").str.lower()
-        work = work[(side == "home") | (name == "home")]
+        work = work[_side_mask(work, "home")]
     elif market == "totals":
-        side = work["outcome_side"].fillna("").str.lower()
-        name = work["outcome_name"].fillna("").str.lower()
-        work = work[(side == "over") | (name == "over")]
+        work = work[_side_mask(work, "over")]
+    else:
+        return pd.DataFrame(columns=["game_id", "line_point"])
+    work = work[work["outcome_point"].notna()]
     if work.empty:
         return pd.DataFrame(columns=["game_id", "line_point"])
 
-    latest = work.groupby("game_id", as_index=False)["effective_odds_as_of_utc"].max()
-    work = work.merge(latest, on=["game_id", "effective_odds_as_of_utc"], how="inner")
     return (
         work.groupby("game_id", as_index=False)["outcome_point"]
         .median()
@@ -167,6 +200,76 @@ def _line_source(
     return _line_source_from_odds(features_df, db_path=db_path, league=league, market=market)
 
 
+def _market_feature_source(
+    features_df: pd.DataFrame,
+    *,
+    db_path: str | Path,
+    league: str,
+    market: str,
+) -> pd.DataFrame:
+    work = _latest_pregame_market_rows(features_df, db_path=db_path, league=league, market=market)
+    if work.empty:
+        return pd.DataFrame(columns=["game_id"])
+
+    if market in {"moneyline", "runline"}:
+        positive = work[_side_mask(work, "home")].copy()
+        negative = work[_side_mask(work, "away")].copy()
+    elif market == "totals":
+        positive = work[_side_mask(work, "over")].copy()
+        negative = work[_side_mask(work, "under")].copy()
+    else:
+        return pd.DataFrame(columns=["game_id"])
+    if positive.empty or negative.empty:
+        return pd.DataFrame(columns=["game_id"])
+
+    positive_aggs: dict[str, tuple[str, str]] = {
+        "positive_price": ("outcome_price", "median"),
+        "positive_implied_probability": ("implied_probability", "median"),
+    }
+    if market in {"runline", "totals"}:
+        positive_aggs["line_point"] = ("outcome_point", "median")
+    positive = positive.groupby("game_id", as_index=False).agg(**positive_aggs)
+    negative = negative.groupby("game_id", as_index=False).agg(
+        negative_price=("outcome_price", "median"),
+        negative_implied_probability=("implied_probability", "median"),
+    )
+    merged = positive.merge(negative, on="game_id", how="inner")
+    merged = merged[
+        merged["positive_implied_probability"].notna()
+        & merged["negative_implied_probability"].notna()
+    ].copy()
+    if merged.empty:
+        return pd.DataFrame(columns=["game_id"])
+
+    pos_prob, neg_prob = vig_free_two_way_probabilities(
+        merged["positive_implied_probability"],
+        merged["negative_implied_probability"],
+        input_scale="implied_probability",
+    )
+    prefix = f"market_{market}"
+    out = pd.DataFrame(
+        {
+            "game_id": merged["game_id"],
+            f"{prefix}_positive_price": merged["positive_price"],
+            f"{prefix}_negative_price": merged["negative_price"],
+            f"{prefix}_positive_implied_prob": merged["positive_implied_probability"],
+            f"{prefix}_negative_implied_prob": merged["negative_implied_probability"],
+            f"{prefix}_vig_free_positive_prob": pos_prob,
+            f"{prefix}_vig_free_negative_prob": neg_prob,
+            f"{prefix}_logit_positive_prob": probability_to_logit(pos_prob),
+        }
+    )
+    if market == "moneyline":
+        out["market_vig_free_home_prob"] = out[f"{prefix}_vig_free_positive_prob"]
+        out["market_logit_home_prob"] = out[f"{prefix}_logit_positive_prob"]
+        out["market_offset_logit"] = out[f"{prefix}_logit_positive_prob"]
+    elif market == "runline":
+        out["runline_home_point"] = merged["line_point"]
+    elif market == "totals":
+        out["totals_point"] = merged["line_point"]
+    return out
+
+
 def build_target_frame(
     features_df: pd.DataFrame,
     *,
@@ -175,6 +278,12 @@ def build_target_frame(
     league: str = "MLB",
 ) -> TargetFrameResult:
     frame = features_df.copy()
+    market_features = _market_feature_source(frame, db_path=db_path, league=league, market=definition.market)
+    if not market_features.empty:
+        overlap = [column for column in market_features.columns if column != "game_id" and column in frame.columns]
+        if overlap:
+            frame = frame.drop(columns=overlap)
+        frame = frame.merge(market_features, on="game_id", how="left")
     original_rows = int(len(frame))
     scored_mask = frame["home_score"].notna() & frame["away_score"].notna() if {"home_score", "away_score"} <= set(frame.columns) else pd.Series(False, index=frame.index)
     coverage: dict[str, Any] = {
@@ -244,4 +353,3 @@ def build_target_frames(
         build_target_frame(features_df, definition=definition, db_path=db_path, league=league)
         for definition in target_definitions(targets)
     ]
-

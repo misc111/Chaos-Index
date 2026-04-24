@@ -162,6 +162,15 @@ def _raw_features_for_pool(cfg: AppConfig, features_df: pd.DataFrame, *, feature
     raise ValueError(f"Unknown nested tournament feature pool `{feature_pool}`")
 
 
+def _raw_features_for_target(target_df: pd.DataFrame, base_raw_features: list[str]) -> list[str]:
+    target_features = select_feature_columns(target_df)
+    combined = list(dict.fromkeys(list(base_raw_features) + target_features))
+    leakage_issues = run_leakage_checks(target_df, feature_columns=combined)
+    if leakage_issues:
+        raise RuntimeError(f"Leakage checks failed after target/market enrichment: {leakage_issues}")
+    return combined
+
+
 def _load_features(cfg: AppConfig, *, feature_pool: str) -> pd.DataFrame:
     if str(feature_pool or "").strip().lower() == FEATURE_POOL_RESEARCH_BROAD:
         from src.common.research import resolve_research_paths
@@ -187,9 +196,31 @@ def _resolve_spec_path(path_value: str | Path | None) -> Path | None:
 
 
 def _structured_variants(feature_sets: Any, *, spec_path: str | Path | None) -> list[FeatureVariant]:
-    path = _resolve_spec_path(spec_path)
+    path = _resolve_spec_path(spec_path or DEFAULT_STRUCTURED_SPEC_PATH)
     screened_set = set(feature_sets.screened_features)
+    screening_frame = getattr(feature_sets, "screening_frame", pd.DataFrame())
+    screening_by_feature = (
+        {
+            str(row["feature"]): row
+            for row in screening_frame.to_dict(orient="records")
+            if str(row.get("feature") or "").strip()
+        }
+        if isinstance(screening_frame, pd.DataFrame) and not screening_frame.empty
+        else {}
+    )
     variants: list[FeatureVariant] = []
+
+    def structured_feature(feature: str) -> str | None:
+        if feature in screened_set:
+            return feature
+        row = screening_by_feature.get(feature)
+        if not row:
+            return None
+        if str(row.get("reason") or "") == "constant_or_singleton_on_fit_window":
+            return None
+        retained = str(row.get("retained_as") or feature).strip()
+        return retained if retained in screened_set else None
+
     if path is not None:
         payload = yaml.safe_load(path.read_text()) or {}
         slates = payload.get("slates") if isinstance(payload.get("slates"), dict) else {}
@@ -202,7 +233,14 @@ def _structured_variants(feature_sets: Any, *, spec_path: str | Path | None) -> 
                 count = int(width_payload.get("feature_count", 0) if isinstance(width_payload, dict) else 0)
                 if count <= 0:
                     continue
-                features = tuple(feature for feature in feature_order[:count] if feature in screened_set)
+                features = tuple(
+                    dict.fromkeys(
+                        resolved
+                        for feature in feature_order[:count]
+                        for resolved in [structured_feature(feature)]
+                        if resolved
+                    )
+                )
                 if features:
                     key = f"{slate_name}_{width_name}"
                     variants.append(
@@ -716,7 +754,7 @@ def _gate_reasons(row: pd.Series) -> list[str]:
         reasons.append("auc_lt_0.50")
     alpha = _safe_float(row.get("calibration_alpha"))
     beta = _safe_float(row.get("calibration_beta"))
-    if alpha is None or beta is None or abs(alpha - 1.0) > 0.15 or abs(beta - 1.0) > 0.15:
+    if alpha is None or beta is None or abs(alpha) > 0.15 or abs(beta - 1.0) > 0.15:
         reasons.append("calibration_alpha_beta_outside_0.15")
     lift_ratio = _safe_float(row.get("top_vs_bottom_actual_lift_ratio"))
     if lift_ratio is None or lift_ratio <= 1.0:
@@ -748,6 +786,152 @@ def _select_family_champions(validation_rows: pd.DataFrame) -> pd.DataFrame:
         row["family_champion"] = True
         champions.append(row)
     return pd.DataFrame(champions)
+
+
+def _reason_list(value: Any) -> list[str]:
+    if isinstance(value, list):
+        return [str(item) for item in value if str(item).strip()]
+    if isinstance(value, tuple):
+        return [str(item) for item in value if str(item).strip()]
+    if value is None or (isinstance(value, float) and np.isnan(value)):
+        return []
+    text = str(value).strip()
+    if not text or text.lower() in {"nan", "none", "null", "[]"}:
+        return []
+    try:
+        parsed = json.loads(text.replace("'", '"'))
+        if isinstance(parsed, list):
+            return [str(item) for item in parsed if str(item).strip()]
+    except Exception:
+        pass
+    return [token.strip() for token in text.strip("[]").split(",") if token.strip()]
+
+
+def _write_validation_autopsy(
+    *,
+    artifact_root: Path,
+    validation_leaderboard: pd.DataFrame,
+    family_champions: pd.DataFrame,
+    target_coverage: pd.DataFrame,
+) -> dict[str, str]:
+    autopsy_dir = ensure_dir(artifact_root / "validation_autopsy")
+    champion_path = autopsy_dir / "family_champion_gate_autopsy.csv"
+    gate_counts_path = autopsy_dir / "gate_failure_counts.csv"
+    target_path = autopsy_dir / "target_gate_summary.csv"
+    json_path = autopsy_dir / "validation_autopsy.json"
+    markdown_path = autopsy_dir / "validation_autopsy.md"
+
+    champion_rows: list[dict[str, Any]] = []
+    gate_count_rows: list[dict[str, Any]] = []
+    target_rows: list[dict[str, Any]] = []
+    gate_counter: dict[tuple[str, str], int] = {}
+
+    if not family_champions.empty:
+        for row in family_champions.to_dict(orient="records"):
+            reasons = _reason_list(row.get("gate_reasons"))
+            target_name = str(row.get("target_name") or "")
+            for reason in reasons:
+                gate_counter[(target_name, reason)] = gate_counter.get((target_name, reason), 0) + 1
+            champion_rows.append(
+                {
+                    "target_name": target_name,
+                    "model_name": row.get("model_name"),
+                    "variant_key": row.get("variant_key"),
+                    "candidate_key": row.get("candidate_key"),
+                    "champion_status": row.get("champion_status"),
+                    "gate_passed": bool(row.get("gate_passed")),
+                    "gate_failure_count": len(reasons),
+                    "gate_reasons": ";".join(reasons),
+                    "log_loss": row.get("log_loss"),
+                    "brier": row.get("brier"),
+                    "auc": row.get("auc"),
+                    "ece": row.get("ece"),
+                    "calibration_alpha": row.get("calibration_alpha"),
+                    "calibration_beta": row.get("calibration_beta"),
+                    "top_vs_bottom_actual_lift_ratio": row.get("top_vs_bottom_actual_lift_ratio"),
+                    "validation_to_cv_log_loss_delta": row.get("validation_to_cv_log_loss_delta"),
+                    "n_features": row.get("n_features"),
+                    "active_parameter_count": row.get("active_parameter_count"),
+                }
+            )
+
+    for (target_name, reason), count in sorted(gate_counter.items()):
+        gate_count_rows.append({"target_name": target_name, "gate_reason": reason, "family_champion_count": count})
+
+    if not target_coverage.empty:
+        champion_df = pd.DataFrame(champion_rows)
+        for coverage in target_coverage.to_dict(orient="records"):
+            target_name = str(coverage.get("target_name") or "")
+            target_champions = champion_df[champion_df["target_name"] == target_name] if not champion_df.empty else pd.DataFrame()
+            target_rows.append(
+                {
+                    "target_name": target_name,
+                    "coverage_status": coverage.get("status"),
+                    "usable_rows": coverage.get("usable_rows"),
+                    "train_rows": coverage.get("train_rows"),
+                    "validation_rows": coverage.get("validation_rows"),
+                    "test_rows": coverage.get("test_rows"),
+                    "line_rows": coverage.get("line_rows"),
+                    "family_champions": int(len(target_champions)),
+                    "shortlisted_family_champions": int((target_champions.get("champion_status") == "shortlist").sum()) if not target_champions.empty else 0,
+                    "validation_blocked_family_champions": int((target_champions.get("champion_status") == "validation-blocked").sum()) if not target_champions.empty else 0,
+                }
+            )
+
+    champion_autopsy = pd.DataFrame(champion_rows)
+    gate_counts = pd.DataFrame(gate_count_rows)
+    target_summary = pd.DataFrame(target_rows)
+    champion_autopsy.to_csv(champion_path, index=False)
+    gate_counts.to_csv(gate_counts_path, index=False)
+    target_summary.to_csv(target_path, index=False)
+
+    payload = {
+        "target_summary": target_rows,
+        "gate_failure_counts": gate_count_rows,
+        "family_champion_gate_autopsy": champion_rows,
+        "variant_rows": int(len(validation_leaderboard)),
+        "family_champion_rows": int(len(family_champions)),
+    }
+    _safe_json(json_path, payload)
+    markdown_path.write_text(
+        "\n".join(
+            [
+                "# MLB Nested Tournament Validation Autopsy",
+                "",
+                "## Target Summary",
+                target_summary.to_string(index=False) if not target_summary.empty else "No target rows.",
+                "",
+                "## Family Champion Gate Failures",
+                gate_counts.to_string(index=False) if not gate_counts.empty else "No gate failures.",
+                "",
+                "## Champion Details",
+                champion_autopsy[
+                    [
+                        "target_name",
+                        "model_name",
+                        "variant_key",
+                        "champion_status",
+                        "gate_failure_count",
+                        "gate_reasons",
+                        "log_loss",
+                        "auc",
+                        "ece",
+                    ]
+                ].to_string(index=False)
+                if not champion_autopsy.empty
+                else "No family champions.",
+            ]
+        )
+        + "\n"
+    )
+    return {
+        "validation_autopsy_dir": str(autopsy_dir),
+        "validation_autopsy_json": str(json_path),
+        "validation_autopsy_report": str(markdown_path),
+        "family_champion_gate_autopsy_path": str(champion_path),
+        "gate_failure_counts_path": str(gate_counts_path),
+        "target_gate_summary_path": str(target_path),
+    }
 
 
 def _bootstrap_against_best(predictions: pd.DataFrame, leaderboard: pd.DataFrame, *, random_seed: int, n_bootstrap: int) -> pd.DataFrame:
@@ -938,7 +1122,8 @@ def run_mlb_nested_tournament(
             continue
         coverage_rows.append(coverage)
 
-        feature_sets = _screened_feature_sets(train_df, target_col=target.target_col, raw_features=raw_features)
+        target_raw_features = _raw_features_for_target(target_df, raw_features)
+        feature_sets = _screened_feature_sets(train_df, target_col=target.target_col, raw_features=target_raw_features)
         specs = _candidate_specs(
             target=target,
             feature_sets=feature_sets,
@@ -984,7 +1169,8 @@ def run_mlb_nested_tournament(
                 validation_fraction=validation_fraction,
             )
             fit_plus_validation = pd.concat([train_df, validation_df], ignore_index=True).sort_values("start_time_utc")
-            feature_sets = _screened_feature_sets(fit_plus_validation, target_col=target.target_col, raw_features=raw_features)
+            target_raw_features = _raw_features_for_target(target_df, raw_features)
+            feature_sets = _screened_feature_sets(fit_plus_validation, target_col=target.target_col, raw_features=target_raw_features)
             specs = _candidate_specs(
                 target=target,
                 feature_sets=feature_sets,
@@ -1061,6 +1247,12 @@ def run_mlb_nested_tournament(
     summary_path = artifact_root / "nested_tournament_summary.json"
     report_path = artifact_root / "nested_tournament_summary.md"
     current_best_path = Path(cfg.paths.artifacts_dir) / "reports" / "mlb" / "current_best_models.json"
+    validation_autopsy_paths = _write_validation_autopsy(
+        artifact_root=artifact_root,
+        validation_leaderboard=validation_leaderboard,
+        family_champions=family_champions,
+        target_coverage=target_coverage,
+    )
 
     target_coverage.to_csv(target_coverage_path, index=False)
     validation_leaderboard.to_csv(variant_leaderboard_path, index=False)
@@ -1085,7 +1277,7 @@ def run_mlb_nested_tournament(
                 "fit_status_ok",
                 "class_contrast",
                 "ece_lte_0.04",
-                "calibration_alpha_beta_within_0.15",
+                "calibration_alpha_abs_lte_0.15_and_beta_within_0.15_of_1.0",
                 "auc_gte_0.50",
                 "positive_top_bottom_lift",
                 "cv_validation_drift_lte_0.05",
@@ -1099,6 +1291,7 @@ def run_mlb_nested_tournament(
             "family_champions_path": str(family_champions_path),
             "inter_family_leaderboard_path": str(inter_family_path),
             "target_coverage_path": str(target_coverage_path),
+            **validation_autopsy_paths,
         },
     }
     ensure_dir(current_best_path.parent)
@@ -1231,7 +1424,7 @@ def run_mlb_parallel_nested_tournament(
                 _evaluate_validation_lane,
                 target_result=job["target_result"],
                 model_name=job["model_name"],
-                raw_features=raw_features,
+                raw_features=_raw_features_for_target(job["target_result"].frame, raw_features),
                 cv_splits=int(cfg.modeling.cv_splits),
                 train_fraction=train_fraction,
                 validation_fraction=validation_fraction,
@@ -1268,7 +1461,8 @@ def run_mlb_parallel_nested_tournament(
                 validation_fraction=validation_fraction,
             )
             fit_plus_validation = pd.concat([train_df, validation_df], ignore_index=True).sort_values("start_time_utc")
-            feature_sets = _screened_feature_sets(fit_plus_validation, target_col=target.target_col, raw_features=raw_features)
+            target_raw_features = _raw_features_for_target(target_result.frame, raw_features)
+            feature_sets = _screened_feature_sets(fit_plus_validation, target_col=target.target_col, raw_features=target_raw_features)
             specs = _candidate_specs(
                 target=target,
                 feature_sets=feature_sets,
@@ -1343,6 +1537,12 @@ def run_mlb_parallel_nested_tournament(
     summary_path = artifact_root / "nested_tournament_summary.json"
     report_path = artifact_root / "nested_tournament_summary.md"
     current_best_path = Path(cfg.paths.artifacts_dir) / "reports" / "mlb" / "current_best_models.json"
+    validation_autopsy_paths = _write_validation_autopsy(
+        artifact_root=artifact_root,
+        validation_leaderboard=validation_leaderboard,
+        family_champions=family_champions,
+        target_coverage=target_coverage,
+    )
 
     target_coverage.to_csv(target_coverage_path, index=False)
     validation_leaderboard.to_csv(variant_leaderboard_path, index=False)
@@ -1372,6 +1572,7 @@ def run_mlb_parallel_nested_tournament(
             "family_champions_path": str(family_champions_path),
             "inter_family_leaderboard_path": str(inter_family_path),
             "target_coverage_path": str(target_coverage_path),
+            **validation_autopsy_paths,
         },
     }
     ensure_dir(current_best_path.parent)
