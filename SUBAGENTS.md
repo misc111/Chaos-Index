@@ -1,6 +1,6 @@
 # Subagent Model Routing Guide
 
-Last updated: 2026-03-17
+Last updated: 2026-04-23
 
 This file tells Codex which model and reasoning level to use when spawning subagents.
 
@@ -46,24 +46,30 @@ Use reasoning effort conservatively:
 
 Codex-specific availability in this environment:
 
-- `gpt-5.4`, `gpt-5.4-mini`, `gpt-5.3-codex`, `gpt-5.3-codex-spark`, `gpt-5.2-codex`, `gpt-5.2`, and `gpt-5.1-codex-max` expose `low`, `medium`, `high`, and `xhigh`.
+- `gpt-5.5`, `gpt-5.4`, `gpt-5.4-mini`, `gpt-5.3-codex`, `gpt-5.3-codex-spark`, `gpt-5.2-codex`, `gpt-5.2`, and `gpt-5.1-codex-max` expose `low`, `medium`, `high`, and `xhigh`.
 - `gpt-5.1-codex-mini` exposes `medium` and `high`.
+
+Availability note:
+
+- This guide is for Codex subagent routing. OpenAI's 2026-04-23 release says `gpt-5.5` is available in Codex, but API model docs may lag release-day Codex availability. Do not assume API availability from this file.
 
 ## Default Routing
 
 If, after checking the actual delegated task, there is still no strong reason to do otherwise:
 
 1. Use `gpt-5.4-mini` at `medium` for bounded parallel sidecars.
-2. Upgrade to `gpt-5.4` at `medium` or `high` when the task mixes coding with tool use, computer use, long context, or business/research judgment.
-3. Use `gpt-5.3-codex` at `high` for pure coding tasks where coding quality matters more than broad generalist ability.
-4. Use `gpt-5.3-codex-spark` at `low` or `medium` only when latency matters more than depth.
-5. Use `gpt-5.2*` and `gpt-5.1*` models mainly for reproducibility, compatibility, or explicit user preference.
+2. Upgrade to `gpt-5.5` at `medium` or `high` when the task mixes coding with tool use, computer use, long context, or business/research judgment.
+3. Use `gpt-5.5` at `high` for the most important pure coding tasks, especially long-horizon debugging, refactors, test repair, or work where better terminal/tool persistence matters.
+4. Use `gpt-5.4` when `gpt-5.5` is unavailable, when you need a GPT-family comparison point, or when its lower cost is materially more important than peak quality.
+5. Use `gpt-5.3-codex` at `high` for code-first compatibility, reproduction, or explicitly Codex-family specialist runs.
+6. Use `gpt-5.3-codex-spark` at `low` or `medium` only when latency matters more than depth.
+7. Use `gpt-5.2*` and `gpt-5.1*` models mainly for reproducibility, compatibility, or explicit user preference.
 
 ## Prompting Families
 
 Prompting guidance is also evidence-based, but it comes from family-level docs rather than benchmark tables:
 
-- General-purpose GPT family: `gpt-5.4`, `gpt-5.4-mini`, and `gpt-5.2`
+- General-purpose GPT family: `gpt-5.5`, `gpt-5.4`, `gpt-5.4-mini`, and `gpt-5.2`
   - Start lean.
   - Treat reasoning effort as a last-mile knob, not the first fix.
   - Add explicit prompt blocks only when the workflow needs them: `tool_persistence_rules`, `dependency_checks`, `completeness_contract`, `verification_loop`, `citation_rules`, `research_mode`, `parallel_tool_calling`, or a verbosity clamp.
@@ -76,6 +82,47 @@ Prompting guidance is also evidence-based, but it comes from family-level docs r
 
 ## Model-by-Model Guidance
 
+### `gpt-5.5`
+
+Evidence grade: `A`
+
+Use for:
+
+- default frontier model for the highest-value delegated work when availability and budget allow
+- hard implementation, refactor, debugging, test repair, and validation tasks that need sustained tool use
+- mixed software engineering plus research, documents, spreadsheets, presentations, or business judgment
+- GUI/browser/computer-use tasks where screenshot reasoning and precise tool coordination matter
+- large-repo or long-context investigations where the child agent must hold system shape and surrounding constraints
+- comparative review between competing subagent outputs, while the coordinator still owns final acceptance
+
+Default effort:
+
+- `medium` by default
+- `high` for ambiguous, multi-file, long-horizon, or high-stakes tasks
+- `xhigh` only when the task is difficult enough that extra latency and cost are acceptable
+
+Why:
+
+- OpenAI describes `gpt-5.5` as its smartest model yet for real work, with especially strong gains in agentic coding, computer use, knowledge work, and scientific research.
+- OpenAI says `gpt-5.5` is available in Codex with a 400K context window and that API availability is coming soon, so use this section for Codex subagents without treating it as an API integration guide.
+- OpenAI reports `gpt-5.5` at 58.6% on `SWE-Bench Pro`, 82.7% on `Terminal-Bench 2.0`, 84.9% on `GDPval`, 78.7% on `OSWorld-Verified`, 55.6% on `Toolathlon`, 75.3% on `MCP Atlas`, 84.4% on `BrowseComp`, and 98.0% on `Tau2-bench Telecom`.
+- OpenAI says `gpt-5.5` improves on `gpt-5.4` across the cited coding evals while using fewer tokens, and early Codex testing highlights stronger context retention, assumption checking, and persistence through surrounding codebase changes.
+
+Prompting techniques:
+
+- Start with the same lean GPT-family prompt style: goal, relevant repo area, constraints, expected deliverable, and acceptance checks.
+- For long-running tool work, add `tool_persistence_rules`, `dependency_checks`, and `verification_loop`.
+- For research or citation-sensitive tasks, add `research_mode`, `citation_rules`, and explicit source-quality criteria.
+- For broad deliverables, add a concrete `completeness_contract` so the child agent knows which outputs must be returned before it stops.
+- Do not over-scaffold routine tasks. Prefer clearer local success criteria before increasing reasoning effort.
+
+Avoid when:
+
+- the subtask is a cheap bounded sidecar suitable for `gpt-5.4-mini`
+- latency or cost matters more than peak quality
+- you need a reproducible older-model comparison
+- the host environment has not exposed `gpt-5.5` yet
+
 ### `gpt-5.4`
 
 Evidence grade: `A`
@@ -87,6 +134,7 @@ Use for:
 - large-repo or long-context investigations
 - document, spreadsheet, or presentation generation that also touches code
 - high-stakes comparative analysis between competing subagent outputs, while the coordinator still owns final adjudication
+- fallback frontier routing when `gpt-5.5` is unavailable or when lower cost matters more than peak quality
 
 Default effort:
 
@@ -96,9 +144,9 @@ Default effort:
 
 Why:
 
-- Official model docs position `gpt-5.4` as the frontier model for complex professional work. In Codex app routing, do not assume the API-only 1.05M-token context window is available; treat `gpt-5.4` as the best choice for context-heavy app tasks without relying on that API limit.
+- Official model docs position `gpt-5.4` as a frontier model for complex professional work. In Codex app routing, do not assume the API-only 1.05M-token context window is available; treat `gpt-5.4` as a strong context-heavy app-task choice without relying on that API limit.
 - OpenAI reports `gpt-5.4` at 83.0% on `GDPval`, 57.7% on `SWE-Bench Pro`, 75.1% on `Terminal-Bench 2.0`, 75.0% on `OSWorld-Verified`, 54.6% on `Toolathlon`, and 82.7% on `BrowseComp`.
-- OpenAI’s latest-model guide says `gpt-5.4` is the default for the most important general-purpose and coding work, and the better default over `gpt-5.3-codex` when the workflow spans software engineering plus planning, writing, or other business tasks.
+- OpenAI's API latest-model guide still points API users to `gpt-5.4` on release day for `gpt-5.5`, but the `gpt-5.5` release supersedes it for Codex subagent routing when `gpt-5.5` is available.
 
 Prompting techniques:
 
@@ -110,6 +158,7 @@ Prompting techniques:
 Avoid when:
 
 - the subtask is narrow enough for `gpt-5.4-mini`
+- `gpt-5.5` is available and the task is high-value, ambiguous, long-horizon, or heavily tool-using
 - the task is pure coding and you want a specialized coding model with lower cost
 - ultra-low latency matters more than depth
 
@@ -162,7 +211,7 @@ Use for:
 - repo-wide refactors, migrations, and feature builds inside code-first environments
 - terminal-heavy engineering work
 - frontend generation when code quality matters more than raw speed
-- long-running coding tasks that do not need `gpt-5.4`'s broader professional-work advantages
+- long-running coding tasks where you specifically want Codex-family behavior rather than `gpt-5.5`'s broader professional-work advantages
 
 Default effort:
 
@@ -187,7 +236,7 @@ Prompting techniques:
 Avoid when:
 
 - the task mixes coding with heavier business/research deliverables
-- you need the broader cross-domain strength of `gpt-5.4`, especially for context-heavy work in the app, without assuming the API-max context window
+- you need the broader cross-domain strength of `gpt-5.5` or `gpt-5.4`, especially for context-heavy work in the app, without assuming API-max context windows
 - low cost per sidecar matters more than maximum coding strength
 
 ### `gpt-5.3-codex-spark`
@@ -234,7 +283,7 @@ Evidence grade: `A`
 Use for:
 
 - legacy/reproducibility runs against older Codex behavior
-- strong coding work when `gpt-5.3-codex` or `gpt-5.4` are unavailable
+- strong coding work when `gpt-5.5`, `gpt-5.3-codex`, or `gpt-5.4` are unavailable
 - Windows-heavy coding tasks
 - defensive cybersecurity-related coding work when you explicitly want this model generation
 
@@ -279,7 +328,7 @@ Default effort:
 
 Why:
 
-- OpenAI’s model page calls it the previous frontier model for complex professional work and recommends `gpt-5.4` instead for new work.
+- OpenAI’s model page calls it the previous frontier model for complex professional work. Prefer later frontier models such as `gpt-5.5` or `gpt-5.4` for new work when available.
 - OpenAI reports 70.9% on `GDPval`, 55.6% on `SWE-Bench Pro`, 92.4% on `GPQA Diamond`, and 45.5% on `HLE` with search and Python.
 - This is a strong legacy generalist, but not the best current default if newer models are available.
 
@@ -368,9 +417,10 @@ Use this as the shortest path to a choice:
 - Codebase search, large-file reading, supporting-doc processing: `gpt-5.4-mini` at `medium`
 - Small mechanical patch or instant code Q&A: `gpt-5.3-codex-spark` at `low`
 - Medium bug fix in a known area: `gpt-5.4-mini` at `medium`
-- Large refactor or migration in a code-first task: `gpt-5.3-codex` at `high`
-- Mixed coding plus research, docs, or tool orchestration: `gpt-5.4` at `medium`
-- GUI/browser debugging from screenshots: `gpt-5.4` at `high`, or `gpt-5.4-mini` at `medium` for cheaper sidecars
+- High-value medium bug fix, especially with ambiguous failures: `gpt-5.5` at `medium` or `high`
+- Large refactor or migration in a code-first task: `gpt-5.5` at `high`; use `gpt-5.3-codex` at `high` for Codex-family compatibility or comparison
+- Mixed coding plus research, docs, or tool orchestration: `gpt-5.5` at `medium`
+- GUI/browser debugging from screenshots: `gpt-5.5` at `high`, or `gpt-5.4-mini` at `medium` for cheaper sidecars
 - Legacy comparison or reproducibility: `gpt-5.2-codex`, `gpt-5.2`, or `gpt-5.1-codex-max` as needed
 - Cheapest safe legacy helper: `gpt-5.1-codex-mini` at `medium`
 
@@ -381,6 +431,7 @@ Do not:
 - use `gpt-5.3-codex-spark` as the default worker for high-stakes coding just because it is fast
 - use `gpt-5.1-codex-mini` when `gpt-5.4-mini` is available and quality matters
 - use `gpt-5.2` for code-first work if a Codex model is available
+- keep routing high-value frontier work to `gpt-5.4` by habit when `gpt-5.5` is available
 - route by one benchmark alone; match the benchmark family to the delegated task
 - assume published `xhigh` benchmark wins carry over to `low` or `medium`
 
@@ -388,6 +439,7 @@ Do not:
 
 Official OpenAI sources used for this file:
 
+- [Introducing GPT-5.5](https://openai.com/index/introducing-gpt-5-5/)
 - [Introducing GPT-5.4](https://openai.com/index/introducing-gpt-5-4/)
 - [GPT-5.4 model page](https://developers.openai.com/api/docs/models/gpt-5.4)
 - [Using GPT-5.4 / latest model guide](https://developers.openai.com/api/docs/guides/latest-model)
