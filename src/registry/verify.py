@@ -84,7 +84,7 @@ OVERSIZED_FILE_ALLOWLIST = {
     "web/components/BetHistoryChart.tsx",
     "web/lib/ensemble-snapshot-replay.ts",
 }
-FORBIDDEN_LITERAL_PATTERNS = ()
+FORBIDDEN_LITERAL_PATTERNS: tuple[re.Pattern[str], ...] = ()
 FORBIDDEN_LITERAL_ALLOWLIST = {
     ROOT_DIR / "src/registry/leagues.py",
     ROOT_DIR / "src/registry/commands.py",

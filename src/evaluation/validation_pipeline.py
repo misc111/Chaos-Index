@@ -14,6 +14,7 @@ import pandas as pd
 from src.common.config import AppConfig
 from src.common.time import utc_now_iso
 from src.common.utils import ensure_dir
+from src.evaluation.validation_artifacts import ValidationOutputs, validation_path as _validation_path
 from src.evaluation.brier_decomposition import brier_decompose
 from src.evaluation.calibration import calibration_alpha_beta, ece_mce
 from src.evaluation.validation_classification import validate_logistic_probability_model
@@ -30,6 +31,11 @@ from src.evaluation.market_truth import build_market_truth, load_market_truth_mo
 from src.evaluation.validation_fragility import missingness_stress_test, perturbation_sensitivity
 from src.evaluation.validation_influence import influence_diagnostics
 from src.evaluation.validation_nonlinearity import assess_nonlinearity
+from src.evaluation.validation_splits import (
+    ValidationSplitPlan,
+    concat_validation_frames as _concat_frames,
+    resolve_validation_split as _validation_split,
+)
 from src.evaluation.validation_significance import (
     blockwise_nested_deviance_f_test,
     information_criteria_report,
@@ -64,80 +70,6 @@ def _canonical_league(league: str | None) -> str:
     if token == "MLB":
         return token
     raise ValueError(f"Unsupported league '{league}'. Expected only: MLB.")
-
-
-@dataclass(frozen=True, slots=True)
-class ValidationSectionSpec:
-    section: str
-    file_name: str
-    kind: str
-    tail_rows: int | None = None
-
-
-@dataclass(slots=True)
-class ValidationOutputs:
-    sections: list[ValidationSectionSpec] = field(default_factory=list)
-    csv_payloads: dict[str, pd.DataFrame] = field(default_factory=dict)
-    json_payloads: dict[str, dict[str, Any]] = field(default_factory=dict)
-    task_records: list[dict[str, Any]] = field(default_factory=list)
-
-    def add_csv(
-        self,
-        *,
-        section: str,
-        file_name: str,
-        rows: pd.DataFrame,
-        tail_rows: int | None = None,
-    ) -> None:
-        self._register(ValidationSectionSpec(section=section, file_name=file_name, kind="csv", tail_rows=tail_rows))
-        self.csv_payloads[section] = rows.copy()
-
-    def add_json(self, *, section: str, file_name: str, payload: dict[str, Any]) -> None:
-        self._register(ValidationSectionSpec(section=section, file_name=file_name, kind="json"))
-        self.json_payloads[section] = dict(payload)
-
-    def merge(self, other: "ValidationOutputs") -> None:
-        for spec in other.sections:
-            self._register(spec)
-        self.csv_payloads.update({key: value.copy() for key, value in other.csv_payloads.items()})
-        self.json_payloads.update({key: dict(value) for key, value in other.json_payloads.items()})
-        self.task_records.extend([dict(record) for record in other.task_records])
-
-    def write(
-        self,
-        out_dir: Path,
-        *,
-        league: str,
-        manifest_metadata: Mapping[str, Any] | None = None,
-    ) -> None:
-        root = ensure_dir(out_dir)
-        for spec in self.sections:
-            path = root / spec.file_name
-            ensure_dir(path.parent)
-            if spec.kind == "csv":
-                self.csv_payloads[spec.section].to_csv(path, index=False)
-            elif spec.kind == "json":
-                path.write_text(json.dumps(self.json_payloads[spec.section], indent=2, sort_keys=True))
-            else:
-                raise ValueError(f"Unsupported validation artifact kind '{spec.kind}' for section '{spec.section}'")
-
-        manifest = {
-            "league": league,
-            "sections": [asdict(spec) for spec in self.sections],
-        }
-        if manifest_metadata:
-            manifest["metadata"] = dict(manifest_metadata)
-        (root / "validation_manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True))
-        (root / "validation_outputs_contract.json").write_text(
-            json.dumps({"validation_outputs": list(self.task_records)}, indent=2, sort_keys=True)
-        )
-
-    def _register(self, spec: ValidationSectionSpec) -> None:
-        if spec.section in self.csv_payloads or spec.section in self.json_payloads:
-            raise ValueError(f"Duplicate validation section '{spec.section}'")
-        if any(existing.file_name == spec.file_name for existing in self.sections):
-            raise ValueError(f"Duplicate validation artifact path '{spec.file_name}'")
-        self.sections.append(spec)
 
 
 @dataclass(slots=True)
@@ -396,15 +328,6 @@ def _list_relative_files(root: Path, *, exclude: set[str] | None = None) -> list
     return files
 
 
-def _validation_path(*parts: Any) -> str:
-    cleaned: list[str] = []
-    for part in parts:
-        token = str(part).strip("/").replace("\\", "/")
-        if token:
-            cleaned.append(token)
-    return "/".join(cleaned)
-
-
 def _archive_root_for(ctx: ValidationContext, *, generated_at_utc: str) -> Path:
     date_bucket = generated_at_utc[:10]
     timestamp_slug = generated_at_utc.replace(":", "-").replace("+00:00", "Z")
@@ -556,119 +479,6 @@ def _selected_validation_models(result: dict[str, Any], run_payload: dict[str, A
         return [_canonical_model_name(model) for model in raw_models.keys() if str(model).strip()]
 
     return []
-
-
-def _sort_validation_rows(df: pd.DataFrame) -> pd.DataFrame:
-    work = df.copy()
-    for col in ("start_time_utc", "game_date_utc"):
-        if col in work.columns:
-            return work.sort_values(col)
-    return work.reset_index(drop=True)
-
-
-def _concat_frames(*frames: pd.DataFrame) -> pd.DataFrame:
-    non_empty = [frame for frame in frames if frame is not None and not frame.empty]
-    if not non_empty:
-        return pd.DataFrame()
-    out = pd.concat(non_empty, axis=0)
-    return _sort_validation_rows(out)
-
-
-@dataclass(frozen=True, slots=True)
-class ValidationSplitPlan:
-    requested_mode: str
-    requested_method: str
-    resolved_mode: str
-    resolved_method: str
-    train_fraction: float
-    validation_fraction: float
-    holdout_fraction: float
-    random_seed: int | None
-    note: str | None = None
-
-
-def _slice_train_test(work: pd.DataFrame, *, train_fraction: float) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    n_obs = len(work)
-    split = int(round(train_fraction * n_obs))
-    if split <= 0 or split >= n_obs:
-        return work.copy(), work.iloc[0:0].copy(), work.iloc[0:0].copy()
-    return work.iloc[:split].copy(), work.iloc[0:0].copy(), work.iloc[split:].copy()
-
-
-def _slice_train_validation_test(
-    work: pd.DataFrame,
-    *,
-    train_fraction: float,
-    validation_fraction: float,
-) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    n_obs = len(work)
-    train_end = int(round(train_fraction * n_obs))
-    valid_end = int(round((train_fraction + validation_fraction) * n_obs))
-    if train_end <= 0 or valid_end <= train_end or valid_end >= n_obs:
-        return work.copy(), work.iloc[0:0].copy(), work.iloc[0:0].copy()
-    return (
-        work.iloc[:train_end].copy(),
-        work.iloc[train_end:valid_end].copy(),
-        work.iloc[valid_end:].copy(),
-    )
-
-
-def _validation_split(train_df: pd.DataFrame, cfg: AppConfig) -> tuple[ValidationSplitPlan, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    work = train_df[train_df["home_win"].notna()].copy()
-    split_cfg = cfg.validation_split
-    train_fraction, validation_fraction, holdout_fraction = split_cfg.fractions()
-    random_seed = None
-    note: str | None = None
-    if work.empty:
-        plan = ValidationSplitPlan(
-            requested_mode=split_cfg.mode,
-            requested_method=split_cfg.method,
-            resolved_mode=split_cfg.mode,
-            resolved_method=split_cfg.method,
-            train_fraction=train_fraction,
-            validation_fraction=validation_fraction,
-            holdout_fraction=holdout_fraction,
-            random_seed=None,
-            note="no_finalized_rows",
-        )
-        return plan, work, work.copy(), work.copy()
-
-    if split_cfg.method == "random":
-        random_seed = split_cfg.normalized_random_seed(fallback_seed=int(cfg.modeling.random_seed))
-        work = work.sample(frac=1.0, random_state=random_seed).reset_index(drop=True)
-    else:
-        work = _sort_validation_rows(work).reset_index(drop=True)
-
-    resolved_mode = split_cfg.mode
-    if split_cfg.mode == "train_validation_test":
-        tr, va, te = _slice_train_validation_test(
-            work,
-            train_fraction=train_fraction,
-            validation_fraction=validation_fraction,
-        )
-        if min(len(tr), len(va), len(te)) < 20:
-            resolved_mode = "train_test"
-            train_fraction, validation_fraction, holdout_fraction = 0.7, 0.0, 0.3
-            tr, va, te = _slice_train_test(work, train_fraction=train_fraction)
-            note = "requested_train_validation_test_was_too_thin_so_train_test_was_used"
-    else:
-        tr, va, te = _slice_train_test(work, train_fraction=train_fraction)
-
-    tr = _sort_validation_rows(tr)
-    va = _sort_validation_rows(va)
-    te = _sort_validation_rows(te)
-    plan = ValidationSplitPlan(
-        requested_mode=split_cfg.mode,
-        requested_method=split_cfg.method,
-        resolved_mode=resolved_mode,
-        resolved_method=split_cfg.method,
-        train_fraction=train_fraction,
-        validation_fraction=validation_fraction,
-        holdout_fraction=holdout_fraction,
-        random_seed=random_seed,
-        note=note,
-    )
-    return plan, tr, va, te
 
 
 def _holdout_df(ctx: ValidationContext) -> pd.DataFrame:

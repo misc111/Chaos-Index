@@ -91,6 +91,7 @@ export function getPreferredBettingModelName(
 }
 
 export function getActiveBetRiskRegime(league: LeagueCode): BetRiskRegime {
+  void league;
   return "normal";
 }
 

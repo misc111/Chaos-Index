@@ -92,7 +92,6 @@ def _comparison_top_models(summary_payload: dict[str, Any], *, limit: int = 5) -
     for record in list(summary_payload.get("candidate_scorecards", [])):
         validation_metrics = dict(record.get("validation_metrics") or {})
         stability_metrics = dict(record.get("stability_metrics") or {})
-        calibration_summary = dict(record.get("calibration_summary") or {})
         complement_summary = dict(record.get("complement_summary") or {})
         rows.append(
             {

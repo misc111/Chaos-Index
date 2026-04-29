@@ -29,7 +29,6 @@ import { runSqlJson } from "@/lib/db";
 import type { LeagueCode } from "@/lib/league";
 import {
   STORED_FORECAST_SOURCE,
-  escapeSqlString,
   historicalForecastCandidatesUnionSql,
   historicalFinalizedGamesCteSql,
   historicalMoneylineSql,
@@ -333,45 +332,6 @@ function historicalModelProbabilitiesSql(): string {
     SELECT game_id, model_name, prob_home_win
     FROM ranked_forecasts
     WHERE rn = 1
-  `;
-}
-
-function over190Sql(snapshotIds: string[]): string {
-  const inList = snapshotIds.map((snapshotId) => `'${escapeSqlString(snapshotId)}'`).join(", ");
-
-  return `
-    WITH ranked AS (
-      SELECT
-        odds_snapshot_id,
-        game_id,
-        home_team,
-        away_team,
-        outcome_price,
-        outcome_point,
-        bookmaker_title,
-        ROW_NUMBER() OVER (
-          PARTITION BY
-            odds_snapshot_id,
-            COALESCE(CAST(game_id AS TEXT), home_team || '|' || away_team)
-          ORDER BY outcome_point ASC, DATETIME(bookmaker_last_update_utc) DESC, line_id DESC
-        ) AS rn
-      FROM odds_market_lines
-      WHERE odds_snapshot_id IN (${inList})
-        AND market_key = 'alternate_totals'
-        AND outcome_side = 'over'
-        AND outcome_point >= 190.0
-        AND outcome_price IS NOT NULL
-    )
-    SELECT
-      odds_snapshot_id,
-      game_id,
-      home_team,
-      away_team,
-      MAX(CASE WHEN rn = 1 THEN outcome_price END) AS over_190_price,
-      MAX(CASE WHEN rn = 1 THEN outcome_point END) AS over_190_point,
-      MAX(CASE WHEN rn = 1 THEN bookmaker_title END) AS over_190_book
-    FROM ranked
-    GROUP BY odds_snapshot_id, game_id, home_team, away_team
   `;
 }
 
@@ -739,10 +699,7 @@ function buildBetHistoryStrategyBundle(
   };
 }
 
-function selectDefaultHistoricalStrategy(
-  league: LeagueCode,
-  strategies: Record<BetStrategy, BetHistoryStrategyBundle>
-): BetStrategy {
+function selectDefaultHistoricalStrategy(league: LeagueCode): BetStrategy {
   const leagueDefault = getDefaultBetStrategyForLeague(league) || DEFAULT_BET_STRATEGY;
   return leagueDefault;
 }
@@ -753,7 +710,7 @@ export function getBetHistory(league: LeagueCode): BetHistoryResponse {
     strategyAcc[strategy] = buildBetHistoryStrategyBundle(dataset, strategy);
     return strategyAcc;
   }, {} as Record<BetStrategy, BetHistoryStrategyBundle>);
-  const defaultStrategy = selectDefaultHistoricalStrategy(league, strategies);
+  const defaultStrategy = selectDefaultHistoricalStrategy(league);
 
   return {
     league,
