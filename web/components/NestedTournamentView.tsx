@@ -24,6 +24,16 @@ function artifactCount(row: TableRow | undefined): number {
   return Object.keys(artifacts).length;
 }
 
+function reasonText(row: TableRow): string {
+  const summary = row.blocked_reason_summary;
+  if (typeof summary === "string" && summary.trim()) return summary;
+  const labels = row.gate_reason_labels;
+  if (Array.isArray(labels)) return labels.map(String).filter(Boolean).join("; ");
+  const reasons = row.gate_reasons;
+  if (Array.isArray(reasons)) return reasons.map(String).filter(Boolean).join("; ");
+  return "";
+}
+
 export default function NestedTournamentView({ data }: Props) {
   const targets = useMemo(() => {
     const names = new Set<string>();
@@ -50,6 +60,8 @@ export default function NestedTournamentView({ data }: Props) {
   const coverage = rowsForTarget(data.target_coverage || [], activeTarget);
   const champions = rowsForTarget(data.family_champions || [], activeTarget);
   const finalRows = rowsForTarget(data.inter_family_leaderboard || [], activeTarget);
+  const featureCoverage = rowsForTarget(data.feature_coverage_summary || [], activeTarget);
+  const blockedChampions = champions.filter((row) => String(row.champion_status || "") !== "shortlist");
   const leader = finalRows[0];
 
   return (
@@ -87,12 +99,41 @@ export default function NestedTournamentView({ data }: Props) {
             <span className="dataLabel">Diagnostics</span>
             <span className="dataValue">{artifactCount(leader)} artifacts</span>
           </div>
+          <div className="dataField">
+            <span className="dataLabel">Blocked families</span>
+            <span className="dataValue">{blockedChampions.length}</span>
+          </div>
         </div>
       </div>
+      {blockedChampions.length > 0 ? (
+        <div className="card">
+          <h3 className="title">Validation blockers</h3>
+          <div className="tableWrap">
+            <table className="dataTable">
+              <thead>
+                <tr>
+                  <th>Family</th>
+                  <th>Variant</th>
+                  <th>Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                {blockedChampions.map((row) => (
+                  <tr key={String(row.candidate_key || `${row.model_name}-${row.variant_key}`)}>
+                    <td>{metric(row.model_name)}</td>
+                    <td>{metric(row.variant_key)}</td>
+                    <td>{reasonText(row) || "Validation blocked"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : null}
       <ModelTable title="Target coverage" rows={coverage} />
+      <ModelTable title="Feature coverage by split" rows={featureCoverage} />
       <ModelTable title="Family champions" rows={champions} />
       <ModelTable title="Inter-family final holdout" rows={finalRows} />
     </div>
   );
 }
-

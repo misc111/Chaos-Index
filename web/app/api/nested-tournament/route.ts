@@ -37,6 +37,12 @@ function resolveRepoArtifactPath(repoRoot: string, artifactPath: string): string
   return path.isAbsolute(artifactPath) ? artifactPath : path.resolve(repoRoot, artifactPath);
 }
 
+function nestedArtifact(summary: Record<string, unknown> | null, key: string): string {
+  const artifacts = summary?.artifacts;
+  if (!artifacts || typeof artifacts !== "object" || Array.isArray(artifacts)) return "";
+  return String((artifacts as Record<string, unknown>)[key] || "");
+}
+
 export async function GET(request: Request) {
   const league = leagueFromRequest(request);
   const repoRoot = path.resolve(process.cwd(), "..");
@@ -51,6 +57,8 @@ export async function GET(request: Request) {
       ? String((currentBest.artifact_paths as Record<string, unknown>).summary_path || "")
       : "";
   const summary = summaryPath ? readJson(resolveRepoArtifactPath(repoRoot, summaryPath)) : latestNestedSummary(reportRoot);
+  const featureCoverageJson = nestedArtifact(summary, "feature_coverage_by_split_json");
+  const featureCoverage = featureCoverageJson ? readJson(resolveRepoArtifactPath(repoRoot, featureCoverageJson)) : null;
 
   return NextResponse.json({
     league,
@@ -59,6 +67,7 @@ export async function GET(request: Request) {
     target_coverage: Array.isArray(summary?.targets) ? summary?.targets : [],
     family_champions: Array.isArray(summary?.family_champions) ? summary?.family_champions : [],
     inter_family_leaderboard: Array.isArray(summary?.inter_family_leaderboard) ? summary?.inter_family_leaderboard : [],
+    feature_coverage_summary: Array.isArray(featureCoverage?.summary) ? featureCoverage?.summary : [],
     artifacts: summary?.artifacts || {},
   });
 }

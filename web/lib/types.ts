@@ -201,6 +201,7 @@ export type NestedTournamentResponse = {
   target_coverage: TableRow[];
   family_champions: TableRow[];
   inter_family_leaderboard: TableRow[];
+  feature_coverage_summary?: TableRow[];
   artifacts: TableRow;
 };
 

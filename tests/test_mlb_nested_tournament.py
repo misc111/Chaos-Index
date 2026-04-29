@@ -201,7 +201,7 @@ def test_mlb_nested_tournament_writes_target_scoped_champions_and_diagnostics(tm
         cfg,
         run_id="unit_nested",
         targets="moneyline_home_win,runline_home_cover,totals_over",
-        candidate_models="glm_vanilla,glm_ridge",
+        candidate_models="market_baseline,glm_vanilla",
         structured_glm_spec_path=None,
         bootstrap_samples=20,
     )
@@ -218,28 +218,47 @@ def test_mlb_nested_tournament_writes_target_scoped_champions_and_diagnostics(tm
     vanilla_variants = variants[(variants["model_name"] == "glm_vanilla") & (variants["target_name"] == "moneyline_home_win")]
     assert vanilla_variants["variant_key"].nunique() >= 2
     assert vanilla_variants["variant_key"].str.contains("stability_reduced|market_aware").any()
+    assert vanilla_variants["variant_key"].str.contains("platt_calibrated|isotonic_calibrated").any()
     assert vanilla_variants["candidate_key"].is_unique
+    assert (
+        variants["candidate_key"]
+        == variants["target_name"].astype(str) + "::" + variants["model_name"].astype(str) + "::" + variants["variant_key"].astype(str)
+    ).all()
+    market_rows = variants[(variants["model_name"] == "market_baseline") & (variants["target_name"] == "moneyline_home_win")]
+    assert {"market_implied_only", "market_offset_glm", "market_plus_features_glm"} <= set(market_rows["variant_key"])
+
+    feature_coverage_path = Path(summary["artifacts"]["feature_coverage_by_split_path"])
+    feature_coverage_json = Path(summary["artifacts"]["feature_coverage_by_split_json"])
+    assert feature_coverage_path.exists()
+    assert feature_coverage_json.exists()
+    feature_coverage = pd.read_csv(feature_coverage_path)
+    assert {"target_name", "split", "feature", "present", "coverage"} <= set(feature_coverage.columns)
+    assert {"train", "validation", "final_holdout"} <= set(feature_coverage["split"])
+    feature_payload = json.loads(feature_coverage_json.read_text())
+    assert feature_payload["summary"]
 
     champions = pd.read_csv(result.family_champions_path)
     assert {"candidate_key", "variant_key", "champion_status"} <= set(champions.columns)
-    ridge_champions = champions[champions["model_name"] == "glm_ridge"]
-    assert not ridge_champions.empty
-    assert set(ridge_champions["fit_status"]) == {"ok"}
+    assert {"blocked_reason_summary", "gate_reason_labels"} <= set(champions.columns)
+    assert set(champions["candidate_key"]).issubset(set(variants["candidate_key"]))
+    vanilla_champions = champions[champions["model_name"] == "glm_vanilla"]
+    assert not vanilla_champions.empty
+    assert set(vanilla_champions["fit_status"]) == {"ok"}
     inter = pd.read_csv(result.inter_family_leaderboard_path)
-    assert set(inter["target_name"]) == {"moneyline_home_win", "runline_home_cover", "totals_over"}
-    assert inter.groupby("target_name")["target_rank"].min().eq(1).all()
-    assert not ((inter["model_name"] == "glm_ridge") & (inter["fit_status"] == "failed")).any()
-
-    first_artifacts = json.loads(inter.iloc[0]["diagnostic_artifacts"].replace("'", '"')) if isinstance(inter.iloc[0]["diagnostic_artifacts"], str) else {}
-    assert first_artifacts or "diagnostic_artifacts" in inter.columns
+    promoted = champions[champions["champion_status"] == "shortlist"]
+    if promoted.empty:
+        assert inter.empty
+    else:
+        assert set(inter["candidate_key"]).issubset(set(promoted["candidate_key"]))
+        assert inter.groupby("target_name")["target_rank"].min().eq(1).all()
+        assert not ((inter["model_name"] == "glm_ridge") & (inter["fit_status"] == "failed")).any()
+        first_artifacts = json.loads(inter.iloc[0]["diagnostic_artifacts"].replace("'", '"')) if isinstance(inter.iloc[0]["diagnostic_artifacts"], str) else {}
+        assert first_artifacts or "diagnostic_artifacts" in inter.columns
 
     current_best = json.loads(result.current_best_models_path.read_text())
     assert current_best["source_kind"] == "nested_mlb_model_tournament"
-    assert {row["target_name"] for row in current_best["target_champions"]} == {
-        "moneyline_home_win",
-        "runline_home_cover",
-        "totals_over",
-    }
+    assert "blocked_family_champions" in current_best
+    assert {row["candidate_key"] for row in current_best["target_champions"]} == set(inter["candidate_key"])
 
 
 def test_mlb_feature_availability_report_tracks_structured_slates(tmp_path):
@@ -285,7 +304,7 @@ def test_parallel_nested_tournament_runs_lanes_before_final_holdout(tmp_path):
         cfg,
         run_id="unit_parallel_nested",
         targets="moneyline_home_win,totals_over",
-        candidate_models="glm_vanilla,glm_ridge",
+        candidate_models="market_baseline,glm_vanilla",
         structured_glm_spec_path=None,
         bootstrap_samples=20,
         max_workers=2,
@@ -308,3 +327,8 @@ def test_parallel_nested_tournament_runs_lanes_before_final_holdout(tmp_path):
     else:
         assert set(inter["candidate_key"]).issubset(set(promoted["candidate_key"]))
         assert inter.groupby("target_name")["target_rank"].min().eq(1).all()
+    current_best = json.loads(result.current_best_models_path.read_text())
+    blocked_keys = set(family_champions.loc[family_champions["champion_status"] != "shortlist", "candidate_key"])
+    assert {row["candidate_key"] for row in current_best["blocked_family_champions"]} == blocked_keys
+    summary = json.loads(result.summary_path.read_text())
+    assert Path(summary["artifacts"]["feature_coverage_by_split_path"]).exists()

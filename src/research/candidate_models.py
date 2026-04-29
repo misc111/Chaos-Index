@@ -10,6 +10,7 @@ import patsy
 import statsmodels.api as sm
 from scipy import sparse
 from scipy.stats import norm
+from sklearn.isotonic import IsotonicRegression
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import SplineTransformer, StandardScaler
 from statsmodels.genmod.bayes_mixed_glm import BinomialBayesMixedGLM
@@ -84,6 +85,237 @@ class BaseCandidateModel:
 
     def fit_statistics(self) -> CandidateFitStats:
         raise NotImplementedError
+
+
+class MarketProbabilityCandidate(BaseCandidateModel):
+    def __init__(
+        self,
+        *,
+        probability_feature: str,
+        model_name: str = "market_baseline",
+        display_name: str = "Market Baseline",
+    ):
+        self.probability_feature = probability_feature
+        self.model_name = model_name
+        self.display_name = display_name
+        self.train_y: np.ndarray | None = None
+        self.train_prob: np.ndarray | None = None
+        self.fallback_probability = 0.5
+
+    def _probabilities(self, df: pd.DataFrame) -> np.ndarray:
+        raw = df[self.probability_feature] if self.probability_feature in df.columns else pd.Series(np.nan, index=df.index)
+        values = pd.to_numeric(raw, errors="coerce")
+        return _clip_probability(values.fillna(self.fallback_probability).to_numpy(dtype=float))
+
+    def fit(self, df: pd.DataFrame, *, target_col: str = "home_win") -> None:
+        work = df[df[target_col].notna()].copy()
+        y = work[target_col].astype(int).to_numpy()
+        raw = work[self.probability_feature] if self.probability_feature in work.columns else pd.Series(np.nan, index=work.index)
+        observed = pd.to_numeric(raw, errors="coerce")
+        if observed.notna().any():
+            self.fallback_probability = float(np.clip(observed.median(), PROBABILITY_EPS, 1.0 - PROBABILITY_EPS))
+        elif len(y):
+            self.fallback_probability = float(np.clip(np.mean(y), PROBABILITY_EPS, 1.0 - PROBABILITY_EPS))
+        self.train_y = y
+        self.train_prob = self._probabilities(work)
+
+    def predict_proba(self, df: pd.DataFrame) -> np.ndarray:
+        return self._probabilities(df)
+
+    def fit_statistics(self) -> CandidateFitStats:
+        if self.train_y is None or self.train_prob is None:
+            raise RuntimeError(f"{self.model_name} has not been fit")
+        log_likelihood = float(
+            np.sum(
+                self.train_y * np.log(self.train_prob)
+                + (1.0 - self.train_y) * np.log(1.0 - self.train_prob)
+            )
+        )
+        return CandidateFitStats(
+            model_name=self.model_name,
+            display_name=self.display_name,
+            parameter_count=0,
+            active_parameter_count=0,
+            n_features=1,
+            train_log_likelihood=log_likelihood,
+            train_deviance=float(-2.0 * log_likelihood),
+            train_aic=float("nan"),
+            train_bic=float("nan"),
+            notes=f"probability_feature={self.probability_feature}",
+        )
+
+
+class MarketOffsetGLMCandidate(BaseCandidateModel):
+    def __init__(
+        self,
+        *,
+        features: list[str],
+        offset_feature: str | None,
+        model_name: str = "market_baseline",
+        display_name: str = "Market Offset GLM",
+    ):
+        self.features = list(features)
+        self.offset_feature = offset_feature
+        self.model_name = model_name
+        self.display_name = display_name
+        self.medians = pd.Series(dtype=float)
+        self.scaler = StandardScaler()
+        self.offset_median = 0.0
+        self.model: sm.GLM | None = None
+        self.result: Any = None
+        self.exog_names: list[str] = []
+        self.train_y: np.ndarray | None = None
+        self.train_prob: np.ndarray | None = None
+
+    def _offset(self, df: pd.DataFrame, *, fit: bool) -> np.ndarray:
+        if not self.offset_feature:
+            return np.zeros(len(df), dtype=float)
+        raw = df[self.offset_feature] if self.offset_feature in df.columns else pd.Series(np.nan, index=df.index)
+        values = pd.to_numeric(raw, errors="coerce").replace([np.inf, -np.inf], np.nan)
+        if fit and values.notna().any():
+            self.offset_median = float(values.median())
+        return values.fillna(self.offset_median).fillna(0.0).to_numpy(dtype=float)
+
+    def _design_matrix(self, df: pd.DataFrame, *, fit: bool) -> pd.DataFrame:
+        numeric = _safe_numeric_frame(df, self.features)
+        if fit:
+            self.medians = numeric.median(numeric_only=True).fillna(0.0)
+        filled = numeric.fillna(self.medians.reindex(self.features)).fillna(0.0)
+        values = filled.to_numpy(dtype=float)
+        scaled = self.scaler.fit_transform(values) if fit else self.scaler.transform(values)
+        frame = pd.DataFrame(scaled, columns=self.features, index=df.index)
+        return sm.add_constant(frame, has_constant="add")
+
+    def fit(self, df: pd.DataFrame, *, target_col: str = "home_win") -> None:
+        work = df[df[target_col].notna()].copy()
+        y = work[target_col].astype(int).to_numpy()
+        design = self._design_matrix(work, fit=True)
+        offset = self._offset(work, fit=True)
+        self.model = sm.GLM(y, design, family=sm.families.Binomial(), offset=offset)
+        self.result = self.model.fit()
+        self.exog_names = list(design.columns)
+        self.train_y = y
+        self.train_prob = _clip_probability(np.asarray(self.result.predict(design, offset=offset), dtype=float))
+
+    def predict_proba(self, df: pd.DataFrame) -> np.ndarray:
+        if self.result is None:
+            raise RuntimeError(f"{self.model_name} has not been fit")
+        design = self._design_matrix(df, fit=False).reindex(columns=self.exog_names, fill_value=1.0)
+        offset = self._offset(df, fit=False)
+        return _clip_probability(np.asarray(self.result.predict(design, offset=offset), dtype=float))
+
+    def fit_statistics(self) -> CandidateFitStats:
+        if self.result is None or self.train_y is None:
+            raise RuntimeError(f"{self.model_name} has not been fit")
+        parameter_count = int(len(self.exog_names))
+        coefficients = np.asarray(self.result.params, dtype=float)
+        active = int(np.sum(np.abs(coefficients) > 1e-8))
+        log_likelihood = float(self.result.llf)
+        return CandidateFitStats(
+            model_name=self.model_name,
+            display_name=self.display_name,
+            parameter_count=parameter_count,
+            active_parameter_count=active,
+            n_features=len(self.features) + 1,
+            train_log_likelihood=log_likelihood,
+            train_deviance=float(self.result.deviance),
+            train_aic=float(self.result.aic),
+            train_bic=_bic_from_loglike(log_likelihood, parameter_count, len(self.train_y)),
+            notes=f"statsmodels.GLM(Binomial, offset={self.offset_feature or 'none'})",
+        )
+
+
+class CalibratedProbabilityCandidate(BaseCandidateModel):
+    def __init__(
+        self,
+        *,
+        base_model: BaseCandidateModel,
+        calibration_method: str = "platt",
+        calibration_fraction: float = 0.25,
+        min_calibration_rows: int = 20,
+    ):
+        self.base_model = base_model
+        self.calibration_method = calibration_method
+        self.calibration_fraction = float(calibration_fraction)
+        self.min_calibration_rows = int(min_calibration_rows)
+        self.model_name = base_model.model_name
+        self.display_name = f"{base_model.display_name} ({calibration_method.title()} Calibrated)"
+        self.calibrator: LogisticRegression | IsotonicRegression | None = None
+        self.train_y: np.ndarray | None = None
+        self.train_prob: np.ndarray | None = None
+        self.calibration_note = "uncalibrated_fallback"
+
+    def _calibration_split(self, work: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+        ordered = work.sort_values("start_time_utc") if "start_time_utc" in work.columns else work.copy()
+        n_rows = len(ordered)
+        cal_n = max(self.min_calibration_rows, int(round(n_rows * self.calibration_fraction)))
+        if n_rows - cal_n < max(20, self.min_calibration_rows) or cal_n < self.min_calibration_rows:
+            return ordered, ordered.iloc[:0].copy()
+        return ordered.iloc[: n_rows - cal_n].copy(), ordered.iloc[n_rows - cal_n :].copy()
+
+    def _fit_calibrator(self, probs: np.ndarray, y: np.ndarray) -> None:
+        if self.calibration_method == "platt":
+            x = np.log(_clip_probability(probs) / (1.0 - _clip_probability(probs))).reshape(-1, 1)
+            calibrator = LogisticRegression(max_iter=2000, penalty=None, solver="lbfgs")
+            calibrator.fit(x, y)
+            self.calibrator = calibrator
+            self.calibration_note = "platt_on_training_tail"
+            return
+        if self.calibration_method == "isotonic":
+            calibrator = IsotonicRegression(out_of_bounds="clip", y_min=PROBABILITY_EPS, y_max=1.0 - PROBABILITY_EPS)
+            calibrator.fit(_clip_probability(probs), y)
+            self.calibrator = calibrator
+            self.calibration_note = "isotonic_on_training_tail"
+            return
+        raise ValueError(f"Unsupported calibration method `{self.calibration_method}`")
+
+    def _apply_calibrator(self, probs: np.ndarray) -> np.ndarray:
+        clipped = _clip_probability(probs)
+        if self.calibrator is None:
+            return clipped
+        if isinstance(self.calibrator, LogisticRegression):
+            logits = np.log(clipped / (1.0 - clipped)).reshape(-1, 1)
+            return _clip_probability(self.calibrator.predict_proba(logits)[:, 1])
+        return _clip_probability(self.calibrator.predict(clipped))
+
+    def fit(self, df: pd.DataFrame, *, target_col: str = "home_win") -> None:
+        work = df[df[target_col].notna()].copy()
+        base_fit, calibration = self._calibration_split(work)
+        self.base_model.fit(base_fit, target_col=target_col)
+        if not calibration.empty and calibration[target_col].nunique(dropna=True) >= 2:
+            raw = self.base_model.predict_proba(calibration)
+            self._fit_calibrator(raw, calibration[target_col].astype(int).to_numpy())
+        else:
+            self.calibration_note = "calibration_skipped_insufficient_tail_contrast"
+        self.train_y = work[target_col].astype(int).to_numpy()
+        self.train_prob = self.predict_proba(work)
+
+    def predict_proba(self, df: pd.DataFrame) -> np.ndarray:
+        return self._apply_calibrator(self.base_model.predict_proba(df))
+
+    def fit_statistics(self) -> CandidateFitStats:
+        if self.train_y is None or self.train_prob is None:
+            raise RuntimeError(f"{self.model_name} has not been fit")
+        base_stats = self.base_model.fit_statistics()
+        log_likelihood = float(
+            np.sum(
+                self.train_y * np.log(self.train_prob)
+                + (1.0 - self.train_y) * np.log(1.0 - self.train_prob)
+            )
+        )
+        extra_params = 2 if isinstance(self.calibrator, LogisticRegression) else 0
+        return CandidateFitStats(
+            model_name=self.model_name,
+            display_name=self.display_name,
+            parameter_count=int(base_stats.parameter_count + extra_params),
+            active_parameter_count=int(base_stats.active_parameter_count + extra_params),
+            n_features=int(base_stats.n_features),
+            train_log_likelihood=log_likelihood,
+            train_deviance=float(-2.0 * log_likelihood),
+            train_aic=float("nan"),
+            train_bic=float("nan"),
+            notes=f"{base_stats.notes}; calibration={self.calibration_note}",
+        )
 
 
 class PenalizedLogitCandidate(BaseCandidateModel):

@@ -21,9 +21,12 @@ from src.features.leakage_checks import run_leakage_checks
 from src.research.artifact_guardrails import require_mlb_tournament_path
 from src.research.candidate_models import (
     BaseCandidateModel,
+    CalibratedProbabilityCandidate,
     DGLMMarginCandidate,
     GAMSplineCandidate,
     GLMMLogitCandidate,
+    MarketOffsetGLMCandidate,
+    MarketProbabilityCandidate,
     PenalizedLogitCandidate,
     VanillaGLMBinomialCandidate,
 )
@@ -40,9 +43,10 @@ from src.training.lambda_search import penalized_glm_search_grid
 from src.training.model_feature_research import load_model_feature_map
 
 
+MARKET_BASELINE_FAMILIES = ("market_baseline",)
 CORE_LINEAR_FAMILIES = ("glm_vanilla", "glm_ridge", "glm_lasso", "glm_elastic_net")
 EXTENSION_FAMILIES = ("glmm_logit", "dglm_margin", "gam_spline")
-DEFAULT_NESTED_MODELS = CORE_LINEAR_FAMILIES + EXTENSION_FAMILIES
+DEFAULT_NESTED_MODELS = MARKET_BASELINE_FAMILIES + CORE_LINEAR_FAMILIES + EXTENSION_FAMILIES
 DEFAULT_STRUCTURED_SPEC_PATH = "configs/research/mlb_tournament_structured_glm.yaml"
 
 
@@ -286,6 +290,77 @@ def _structured_variants(feature_sets: Any, *, spec_path: str | Path | None) -> 
     return list(deduped.values())
 
 
+def _market_probability_feature(target: TargetDefinition) -> str:
+    if target.target_name == "moneyline_home_win":
+        return "market_vig_free_home_prob"
+    return f"market_{target.market}_vig_free_positive_prob"
+
+
+def _market_offset_feature(target: TargetDefinition) -> str:
+    if target.target_name == "moneyline_home_win":
+        return "market_offset_logit"
+    return f"market_{target.market}_logit_positive_prob"
+
+
+def _market_baseline_variants(target: TargetDefinition, feature_sets: Any) -> list[FeatureVariant]:
+    market_prob = _market_probability_feature(target)
+    market_offset = _market_offset_feature(target)
+    ranked = list(feature_sets.ranking_frame["feature"]) if not feature_sets.ranking_frame.empty else list(feature_sets.screened_features)
+    screened = set(feature_sets.screened_features)
+    non_market = tuple(
+        feature
+        for feature in ranked
+        if feature in screened
+        and feature not in {market_prob, market_offset}
+        and not any(token in feature.lower() for token in ("market", "vig", "odds", "price", "bookmaker"))
+    )[:8]
+    plus_features = tuple(dict.fromkeys((market_prob,) + non_market[:7]))
+    variants = [
+        FeatureVariant(
+            variant_key="market_implied_only",
+            display_name="Market Implied Only",
+            source="market_baseline",
+            features=(market_prob,),
+        )
+    ]
+    if non_market:
+        variants.append(
+            FeatureVariant(
+                variant_key="market_offset_glm",
+                display_name="Market Offset GLM",
+                source="market_baseline",
+                features=(market_offset,) + non_market,
+            )
+        )
+    if plus_features:
+        variants.append(
+            FeatureVariant(
+                variant_key="market_plus_features_glm",
+                display_name="Market Plus Features GLM",
+                source="market_baseline",
+                features=plus_features,
+            )
+        )
+    return variants
+
+
+def _calibrated_variant(variant: FeatureVariant, method: str) -> FeatureVariant:
+    return FeatureVariant(
+        variant_key=f"{variant.variant_key}_{method}_calibrated",
+        display_name=f"{variant.display_name} {method.title()} Calibrated",
+        source=f"{variant.source};calibration:{method}",
+        features=variant.features,
+    )
+
+
+def _wrap_calibrated(
+    builder: Callable[[dict[str, Any]], BaseCandidateModel],
+    *,
+    method: str,
+) -> Callable[[dict[str, Any]], BaseCandidateModel]:
+    return lambda params: CalibratedProbabilityCandidate(base_model=builder(params), calibration_method=method)
+
+
 def _model_specs_for_variant(
     *,
     target: TargetDefinition,
@@ -309,6 +384,7 @@ def _model_specs_for_variant(
         return float(value)
 
     if selected("glm_vanilla"):
+        base_builder = lambda params, features=variant.features: VanillaGLMBinomialCandidate(features=list(features))
         specs.append(
             NestedCandidateSpec(
                 target=target,
@@ -319,9 +395,24 @@ def _model_specs_for_variant(
                 feature_source=variant.source,
                 features=variant.features,
                 param_grid=({},),
-                builder=lambda params, features=variant.features: VanillaGLMBinomialCandidate(features=list(features)),
+                builder=base_builder,
             )
         )
+        for method in ("platt", "isotonic"):
+            calibrated = _calibrated_variant(variant, method)
+            specs.append(
+                NestedCandidateSpec(
+                    target=target,
+                    model_name="glm_vanilla",
+                    display_name="Vanilla GLM",
+                    variant_key=calibrated.variant_key,
+                    variant_display_name=calibrated.display_name,
+                    feature_source=calibrated.source,
+                    features=calibrated.features,
+                    param_grid=({},),
+                    builder=_wrap_calibrated(base_builder, method=method),
+                )
+            )
     for model_name, display_name, penalty, solver in (
         ("glm_ridge", "GLM Ridge", "l2", "lbfgs"),
         ("glm_lasso", "GLM Lasso", "l1", "saga"),
@@ -330,6 +421,15 @@ def _model_specs_for_variant(
         if not selected(model_name):
             continue
         grid = tuple(penalized_glm_search_grid(model_name))
+        base_builder = lambda params, model_name=model_name, display_name=display_name, penalty=penalty, solver=solver, features=variant.features: PenalizedLogitCandidate(
+            model_name=model_name,
+            display_name=display_name,
+            features=list(features),
+            penalty=penalty,
+            c=float(params["c"]),
+            l1_ratio=optional_float(params.get("l1_ratio")),
+            solver=solver,
+        )
         specs.append(
             NestedCandidateSpec(
                 target=target,
@@ -340,17 +440,24 @@ def _model_specs_for_variant(
                 feature_source=variant.source,
                 features=variant.features,
                 param_grid=grid,
-                builder=lambda params, model_name=model_name, display_name=display_name, penalty=penalty, solver=solver, features=variant.features: PenalizedLogitCandidate(
-                    model_name=model_name,
-                    display_name=display_name,
-                    features=list(features),
-                    penalty=penalty,
-                    c=float(params["c"]),
-                    l1_ratio=optional_float(params.get("l1_ratio")),
-                    solver=solver,
-                ),
+                builder=base_builder,
             )
         )
+        for method in ("platt", "isotonic"):
+            calibrated = _calibrated_variant(variant, method)
+            specs.append(
+                NestedCandidateSpec(
+                    target=target,
+                    model_name=model_name,
+                    display_name=display_name,
+                    variant_key=calibrated.variant_key,
+                    variant_display_name=calibrated.display_name,
+                    feature_source=calibrated.source,
+                    features=calibrated.features,
+                    param_grid=grid,
+                    builder=_wrap_calibrated(base_builder, method=method),
+                )
+            )
 
     if selected("glmm_logit"):
         caps = sorted({cap for cap in (6, 10, 14) if cap <= len(feature_sets.glmm_features)}) or [len(feature_sets.glmm_features)]
@@ -430,6 +537,68 @@ def _candidate_specs(
 ) -> list[NestedCandidateSpec]:
     variants = _structured_variants(feature_sets, spec_path=structured_glm_spec_path)
     specs: list[NestedCandidateSpec] = []
+    selected_models = candidate_models
+
+    def selected(name: str) -> bool:
+        return selected_models is None or name in selected_models
+
+    if selected("market_baseline"):
+        market_prob = _market_probability_feature(target)
+        market_offset = _market_offset_feature(target)
+        for variant in _market_baseline_variants(target, feature_sets):
+            if variant.variant_key == "market_implied_only":
+                specs.append(
+                    NestedCandidateSpec(
+                        target=target,
+                        model_name="market_baseline",
+                        display_name="Market Baseline",
+                        variant_key=variant.variant_key,
+                        variant_display_name=variant.display_name,
+                        feature_source=variant.source,
+                        features=variant.features,
+                        param_grid=({},),
+                        builder=lambda params, probability_feature=market_prob: MarketProbabilityCandidate(
+                            probability_feature=probability_feature,
+                        ),
+                    )
+                )
+            elif variant.variant_key == "market_offset_glm":
+                process_features = tuple(feature for feature in variant.features if feature != market_offset)
+                specs.append(
+                    NestedCandidateSpec(
+                        target=target,
+                        model_name="market_baseline",
+                        display_name="Market Baseline",
+                        variant_key=variant.variant_key,
+                        variant_display_name=variant.display_name,
+                        feature_source=variant.source,
+                        features=variant.features,
+                        param_grid=({},),
+                        builder=lambda params, features=process_features, offset_feature=market_offset: MarketOffsetGLMCandidate(
+                            features=list(features),
+                            offset_feature=offset_feature,
+                            display_name="Market Offset GLM",
+                        ),
+                    )
+                )
+            elif variant.variant_key == "market_plus_features_glm":
+                specs.append(
+                    NestedCandidateSpec(
+                        target=target,
+                        model_name="market_baseline",
+                        display_name="Market Baseline",
+                        variant_key=variant.variant_key,
+                        variant_display_name=variant.display_name,
+                        feature_source=variant.source,
+                        features=variant.features,
+                        param_grid=({},),
+                        builder=lambda params, features=variant.features: MarketOffsetGLMCandidate(
+                            features=list(features),
+                            offset_feature=None,
+                            display_name="Market Plus Features GLM",
+                        ),
+                    )
+                )
     for variant in variants:
         specs.extend(
             _model_specs_for_variant(
@@ -765,6 +934,26 @@ def _gate_reasons(row: pd.Series) -> list[str]:
     return reasons
 
 
+GATE_REASON_LABELS = {
+    "fit_failed": "fit did not complete",
+    "no_class_contrast": "validation split has no class contrast",
+    "ece_gt_0.04": "calibration error above 0.04",
+    "auc_lt_0.50": "AUROC below 0.50",
+    "calibration_alpha_beta_outside_0.15": "calibration intercept/slope outside tolerance",
+    "non_positive_top_bottom_lift": "top-vs-bottom lift is not positive",
+    "cv_validation_drift_gt_0.05": "validation log loss drifted from CV by more than 0.05",
+}
+
+
+def _gate_reason_labels(reasons: list[str]) -> list[str]:
+    return [GATE_REASON_LABELS.get(reason, reason.replace("_", " ")) for reason in reasons]
+
+
+def _blocked_reason_summary(reasons: list[str]) -> str:
+    labels = _gate_reason_labels(reasons)
+    return "; ".join(labels) if labels else ""
+
+
 def _select_family_champions(validation_rows: pd.DataFrame) -> pd.DataFrame:
     if validation_rows.empty:
         return pd.DataFrame()
@@ -784,6 +973,9 @@ def _select_family_champions(validation_rows: pd.DataFrame) -> pd.DataFrame:
         row = ordered.iloc[0].to_dict()
         row["champion_status"] = "shortlist" if bool(row.get("gate_passed")) else "validation-blocked"
         row["family_champion"] = True
+        reasons = _reason_list(row.get("gate_reasons"))
+        row["gate_reason_labels"] = _gate_reason_labels(reasons)
+        row["blocked_reason_summary"] = _blocked_reason_summary(reasons)
         champions.append(row)
     return pd.DataFrame(champions)
 
@@ -842,6 +1034,8 @@ def _write_validation_autopsy(
                     "gate_passed": bool(row.get("gate_passed")),
                     "gate_failure_count": len(reasons),
                     "gate_reasons": ";".join(reasons),
+                    "gate_reason_labels": ";".join(_gate_reason_labels(reasons)),
+                    "blocked_reason_summary": _blocked_reason_summary(reasons),
                     "log_loss": row.get("log_loss"),
                     "brier": row.get("brier"),
                     "auc": row.get("auc"),
@@ -982,6 +1176,67 @@ def _target_prediction_frame(eval_df: pd.DataFrame, *, target: TargetDefinition)
     return out
 
 
+def _feature_coverage_rows(
+    *,
+    target: TargetDefinition,
+    split_frames: dict[str, pd.DataFrame],
+    features: list[str],
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    market_prob = _market_probability_feature(target)
+    market_offset = _market_offset_feature(target)
+    tracked = list(dict.fromkeys([market_prob, market_offset] + list(features)))
+    for split_name, frame in split_frames.items():
+        total_rows = int(len(frame))
+        for feature in tracked:
+            present = feature in frame.columns
+            non_null = int(pd.to_numeric(frame[feature], errors="coerce").notna().sum()) if present else 0
+            coverage = float(non_null / total_rows) if total_rows else 0.0
+            rows.append(
+                {
+                    "target_name": target.target_name,
+                    "market": target.market,
+                    "split": split_name,
+                    "feature": feature,
+                    "present": bool(present),
+                    "non_null_rows": non_null,
+                    "total_rows": total_rows,
+                    "coverage": coverage,
+                    "is_market_feature": bool(
+                        feature in {market_prob, market_offset}
+                        or any(token in feature.lower() for token in ("market", "vig", "odds", "price", "bookmaker"))
+                    ),
+                }
+            )
+    return rows
+
+
+def _feature_coverage_summary(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    if not rows:
+        return []
+    frame = pd.DataFrame(rows)
+    if frame.empty:
+        return []
+    grouped = (
+        frame.groupby(["target_name", "split"], as_index=False)
+        .agg(
+            tracked_features=("feature", "count"),
+            present_features=("present", "sum"),
+            full_coverage_features=("coverage", lambda values: int((pd.Series(values) >= 0.999).sum())),
+            market_features=("is_market_feature", "sum"),
+        )
+    )
+    market_present = (
+        frame[frame["is_market_feature"]]
+        .groupby(["target_name", "split"], as_index=False)
+        .agg(market_features_present=("present", "sum"), market_min_coverage=("coverage", "min"))
+    )
+    grouped = grouped.merge(market_present, on=["target_name", "split"], how="left")
+    grouped["market_features_present"] = grouped["market_features_present"].fillna(0).astype(int)
+    grouped["market_min_coverage"] = grouped["market_min_coverage"].fillna(0.0)
+    return grouped.to_dict(orient="records")
+
+
 def _evaluate_validation_lane(
     *,
     target_result: Any,
@@ -1097,6 +1352,7 @@ def run_mlb_nested_tournament(
     variant_rows: list[dict[str, Any]] = []
     cv_frames: list[pd.DataFrame] = []
     final_prediction_frames: list[pd.DataFrame] = []
+    feature_coverage_rows: list[dict[str, Any]] = []
 
     for target_result in target_results:
         target = target_result.definition
@@ -1115,6 +1371,14 @@ def run_mlb_nested_tournament(
                 "test_rows": int(len(test_df)),
             }
         )
+        target_raw_features = _raw_features_for_target(target_df, raw_features)
+        feature_coverage_rows.extend(
+            _feature_coverage_rows(
+                target=target,
+                split_frames={"train": train_df, "validation": validation_df, "final_holdout": test_df},
+                features=target_raw_features,
+            )
+        )
         if coverage.get("status") != "ok" or train_df.empty or validation_df.empty or test_df.empty:
             coverage["status"] = "coverage-blocked"
             coverage["reason"] = coverage.get("reason") or "insufficient_target_split_rows"
@@ -1122,7 +1386,6 @@ def run_mlb_nested_tournament(
             continue
         coverage_rows.append(coverage)
 
-        target_raw_features = _raw_features_for_target(target_df, raw_features)
         feature_sets = _screened_feature_sets(train_df, target_col=target.target_col, raw_features=target_raw_features)
         specs = _candidate_specs(
             target=target,
@@ -1154,9 +1417,9 @@ def run_mlb_nested_tournament(
     inter_rows: list[dict[str, Any]] = []
     if not family_champions.empty:
         for _, champion in family_champions.iterrows():
-            if champion.get("champion_status") == "coverage-blocked":
-                continue
             if str(champion.get("fit_status") or "") != "ok":
+                continue
+            if str(champion.get("champion_status") or "") != "shortlist":
                 continue
             target_name = str(champion["target_name"])
             target_result = next(result for result in target_results if result.definition.target_name == target_name)
@@ -1244,6 +1507,8 @@ def run_mlb_nested_tournament(
     predictions_path = artifact_root / "final_holdout_predictions.csv"
     cv_path = artifact_root / "cv_folds.csv"
     bootstrap_path = artifact_root / "bootstrap.csv"
+    feature_coverage_path = artifact_root / "feature_coverage_by_split.csv"
+    feature_coverage_json_path = artifact_root / "feature_coverage_by_split.json"
     summary_path = artifact_root / "nested_tournament_summary.json"
     report_path = artifact_root / "nested_tournament_summary.md"
     current_best_path = Path(cfg.paths.artifacts_dir) / "reports" / "mlb" / "current_best_models.json"
@@ -1261,11 +1526,25 @@ def run_mlb_nested_tournament(
     predictions.to_csv(predictions_path, index=False)
     (pd.concat(cv_frames, ignore_index=True) if cv_frames else pd.DataFrame()).to_csv(cv_path, index=False)
     bootstrap.to_csv(bootstrap_path, index=False)
+    feature_coverage = pd.DataFrame(feature_coverage_rows)
+    feature_coverage.to_csv(feature_coverage_path, index=False)
+    _safe_json(
+        feature_coverage_json_path,
+        {
+            "rows": feature_coverage.to_dict(orient="records"),
+            "summary": _feature_coverage_summary(feature_coverage_rows),
+        },
+    )
 
     champion_rows = []
     for target_name, bucket in inter_family.groupby("target_name", sort=True) if not inter_family.empty else []:
         top = bucket.sort_values(["target_rank"]).iloc[0].to_dict()
         champion_rows.append(top)
+    blocked_champions = (
+        family_champions[family_champions["champion_status"] != "shortlist"].to_dict(orient="records")
+        if not family_champions.empty and "champion_status" in family_champions.columns
+        else []
+    )
     current_best = {
         "league": str(cfg.data.league).upper(),
         "as_of_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
@@ -1284,6 +1563,7 @@ def run_mlb_nested_tournament(
             ],
         },
         "target_champions": champion_rows,
+        "blocked_family_champions": blocked_champions,
         "top_models": champion_rows,
         "artifact_paths": {
             "summary_path": str(summary_path),
@@ -1291,6 +1571,8 @@ def run_mlb_nested_tournament(
             "family_champions_path": str(family_champions_path),
             "inter_family_leaderboard_path": str(inter_family_path),
             "target_coverage_path": str(target_coverage_path),
+            "feature_coverage_by_split_path": str(feature_coverage_path),
+            "feature_coverage_by_split_json": str(feature_coverage_json_path),
             **validation_autopsy_paths,
         },
     }
@@ -1395,6 +1677,7 @@ def run_mlb_parallel_nested_tournament(
 
     coverage_rows: list[dict[str, Any]] = []
     eligible_targets: list[Any] = []
+    feature_coverage_rows: list[dict[str, Any]] = []
     for target_result in target_results:
         target = target_result.definition
         coverage = dict(target_result.coverage)
@@ -1405,6 +1688,14 @@ def run_mlb_parallel_nested_tournament(
             validation_fraction=validation_fraction,
         )
         coverage.update({"train_rows": int(len(train_df)), "validation_rows": int(len(validation_df)), "test_rows": int(len(test_df))})
+        target_raw_features = _raw_features_for_target(target_result.frame, raw_features)
+        feature_coverage_rows.extend(
+            _feature_coverage_rows(
+                target=target,
+                split_frames={"train": train_df, "validation": validation_df, "final_holdout": test_df},
+                features=target_raw_features,
+            )
+        )
         if coverage.get("status") != "ok" or train_df.empty or validation_df.empty or test_df.empty:
             coverage["status"] = "coverage-blocked"
             coverage["reason"] = coverage.get("reason") or "insufficient_target_split_rows"
@@ -1534,6 +1825,8 @@ def run_mlb_parallel_nested_tournament(
     predictions_path = artifact_root / "final_holdout_predictions.csv"
     cv_path = artifact_root / "cv_folds.csv"
     bootstrap_path = artifact_root / "bootstrap.csv"
+    feature_coverage_path = artifact_root / "feature_coverage_by_split.csv"
+    feature_coverage_json_path = artifact_root / "feature_coverage_by_split.json"
     summary_path = artifact_root / "nested_tournament_summary.json"
     report_path = artifact_root / "nested_tournament_summary.md"
     current_best_path = Path(cfg.paths.artifacts_dir) / "reports" / "mlb" / "current_best_models.json"
@@ -1551,6 +1844,15 @@ def run_mlb_parallel_nested_tournament(
     predictions.to_csv(predictions_path, index=False)
     (pd.concat(cv_frames, ignore_index=True) if cv_frames else pd.DataFrame()).to_csv(cv_path, index=False)
     bootstrap.to_csv(bootstrap_path, index=False)
+    feature_coverage = pd.DataFrame(feature_coverage_rows)
+    feature_coverage.to_csv(feature_coverage_path, index=False)
+    _safe_json(
+        feature_coverage_json_path,
+        {
+            "rows": feature_coverage.to_dict(orient="records"),
+            "summary": _feature_coverage_summary(feature_coverage_rows),
+        },
+    )
 
     champion_rows = [bucket.sort_values(["target_rank"]).iloc[0].to_dict() for _, bucket in inter_family.groupby("target_name", sort=True)] if not inter_family.empty else []
     blocked_champions = (
@@ -1572,6 +1874,8 @@ def run_mlb_parallel_nested_tournament(
             "family_champions_path": str(family_champions_path),
             "inter_family_leaderboard_path": str(inter_family_path),
             "target_coverage_path": str(target_coverage_path),
+            "feature_coverage_by_split_path": str(feature_coverage_path),
+            "feature_coverage_by_split_json": str(feature_coverage_json_path),
             **validation_autopsy_paths,
         },
     }
