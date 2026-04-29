@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -19,7 +18,6 @@ from src.research.nested_tournament_contracts import (
     DEFAULT_NESTED_MODELS,
     DEFAULT_STRUCTURED_SPEC_PATH,
     NestedTournamentResult,
-    _safe_json,
     _split_csv,
     _time_ordered_split,
     _utc_stamp,
@@ -27,7 +25,6 @@ from src.research.nested_tournament_contracts import (
 from src.research.nested_tournament_evaluation import _evaluate_candidate, _evaluate_validation_lane
 from src.research.nested_tournament_features import (
     _feature_coverage_rows,
-    _feature_coverage_summary,
     _load_features,
     _raw_features_for_pool,
     _raw_features_for_target,
@@ -35,7 +32,11 @@ from src.research.nested_tournament_features import (
     _target_prediction_frame,
 )
 from src.research.nested_tournament_governance import _select_family_champions
-from src.research.nested_tournament_reporting import _bootstrap_against_best, _write_validation_autopsy
+from src.research.nested_tournament_reporting import (
+    _bootstrap_against_best,
+    nested_tournament_artifact_paths,
+    write_nested_tournament_artifacts,
+)
 
 def run_mlb_parallel_nested_tournament(
     cfg: AppConfig,
@@ -225,120 +226,33 @@ def run_mlb_parallel_nested_tournament(
         n_bootstrap=int(bootstrap_samples),
     )
 
-    target_coverage_path = artifact_root / "target_coverage.csv"
-    variant_leaderboard_path = artifact_root / "variant_leaderboard.csv"
-    family_champions_path = artifact_root / "family_champions.csv"
-    inter_family_path = artifact_root / "inter_family_leaderboard.csv"
-    predictions_path = artifact_root / "final_holdout_predictions.csv"
-    cv_path = artifact_root / "cv_folds.csv"
-    bootstrap_path = artifact_root / "bootstrap.csv"
-    feature_coverage_path = artifact_root / "feature_coverage_by_split.csv"
-    feature_coverage_json_path = artifact_root / "feature_coverage_by_split.json"
-    summary_path = artifact_root / "nested_tournament_summary.json"
-    report_path = artifact_root / "nested_tournament_summary.md"
-    current_best_path = Path(cfg.paths.artifacts_dir) / "reports" / "mlb" / "current_best_models.json"
-    validation_autopsy_paths = _write_validation_autopsy(
+    paths = nested_tournament_artifact_paths(
         artifact_root=artifact_root,
+        artifacts_dir=cfg.paths.artifacts_dir,
+    )
+    return write_nested_tournament_artifacts(
+        paths=paths,
+        artifact_root=artifact_root,
+        league=cfg.data.league,
+        resolved_run_id=resolved_run_id,
+        source_kind="parallel_nested_mlb_model_tournament",
+        target_coverage=target_coverage,
         validation_leaderboard=validation_leaderboard,
         family_champions=family_champions,
-        target_coverage=target_coverage,
-    )
-
-    target_coverage.to_csv(target_coverage_path, index=False)
-    validation_leaderboard.to_csv(variant_leaderboard_path, index=False)
-    family_champions.to_csv(family_champions_path, index=False)
-    inter_family.to_csv(inter_family_path, index=False)
-    predictions.to_csv(predictions_path, index=False)
-    (pd.concat(cv_frames, ignore_index=True) if cv_frames else pd.DataFrame()).to_csv(cv_path, index=False)
-    bootstrap.to_csv(bootstrap_path, index=False)
-    feature_coverage = pd.DataFrame(feature_coverage_rows)
-    feature_coverage.to_csv(feature_coverage_path, index=False)
-    _safe_json(
-        feature_coverage_json_path,
-        {
-            "rows": feature_coverage.to_dict(orient="records"),
-            "summary": _feature_coverage_summary(feature_coverage_rows),
+        inter_family=inter_family,
+        predictions=predictions,
+        cv_frames=cv_frames,
+        bootstrap=bootstrap,
+        feature_coverage_rows=feature_coverage_rows,
+        feature_pool_note=feature_pool_note,
+        report_title="MLB Parallel Nested Model Tournament",
+        report_intro="Intra-family validation lanes were evaluated independently before central final-holdout ranking.",
+        summary_extra={
+            "orchestration": "parallel_intra_family_then_central_final_holdout",
+            "max_workers": worker_count,
+            "lane_runs": [
+                {key: lane[key] for key in ("target_name", "model_name", "validation_leaderboard_path", "status")}
+                for lane in lane_results
+            ],
         },
-    )
-
-    champion_rows = [bucket.sort_values(["target_rank"]).iloc[0].to_dict() for _, bucket in inter_family.groupby("target_name", sort=True)] if not inter_family.empty else []
-    blocked_champions = (
-        family_champions[family_champions["champion_status"] != "shortlist"].to_dict(orient="records")
-        if not family_champions.empty and "champion_status" in family_champions.columns
-        else []
-    )
-    current_best = {
-        "league": str(cfg.data.league).upper(),
-        "as_of_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
-        "source_kind": "parallel_nested_mlb_model_tournament",
-        "report_slug": resolved_run_id,
-        "target_champions": champion_rows,
-        "blocked_family_champions": blocked_champions,
-        "top_models": champion_rows,
-        "artifact_paths": {
-            "summary_path": str(summary_path),
-            "variant_leaderboard_path": str(variant_leaderboard_path),
-            "family_champions_path": str(family_champions_path),
-            "inter_family_leaderboard_path": str(inter_family_path),
-            "target_coverage_path": str(target_coverage_path),
-            "feature_coverage_by_split_path": str(feature_coverage_path),
-            "feature_coverage_by_split_json": str(feature_coverage_json_path),
-            **validation_autopsy_paths,
-        },
-    }
-    ensure_dir(current_best_path.parent)
-    _safe_json(current_best_path, current_best)
-    summary_payload = {
-        "league": str(cfg.data.league).upper(),
-        "run_id": resolved_run_id,
-        "generated_at_utc": current_best["as_of_utc"],
-        "orchestration": "parallel_intra_family_then_central_final_holdout",
-        "max_workers": worker_count,
-        "feature_pool_note": feature_pool_note,
-        "targets": target_coverage.to_dict(orient="records"),
-        "lane_runs": [{key: lane[key] for key in ("target_name", "model_name", "validation_leaderboard_path", "status")} for lane in lane_results],
-        "family_champions": family_champions.to_dict(orient="records"),
-        "inter_family_leaderboard": inter_family.to_dict(orient="records"),
-        "artifacts": current_best["artifact_paths"]
-        | {
-            "report_path": str(report_path),
-            "predictions_path": str(predictions_path),
-            "cv_path": str(cv_path),
-            "bootstrap_path": str(bootstrap_path),
-            "current_best_models_path": str(current_best_path),
-        },
-    }
-    _safe_json(summary_path, summary_payload)
-    report_path.write_text(
-        "\n".join(
-            [
-                "# MLB Parallel Nested Model Tournament",
-                "",
-                "Intra-family validation lanes were evaluated independently before central final-holdout ranking.",
-                "",
-                "## Target Coverage",
-                target_coverage.to_string(index=False) if not target_coverage.empty else "No target coverage rows.",
-                "",
-                "## Family Champions",
-                family_champions[["target_name", "model_name", "variant_key", "champion_status", "log_loss", "brier", "auc", "gate_reasons"]].to_string(index=False)
-                if not family_champions.empty
-                else "No family champions.",
-                "",
-                "## Inter-Family Final Holdout",
-                inter_family[["target_name", "target_rank", "model_name", "variant_key", "log_loss", "brier", "auc", "intra_family_status"]].to_string(index=False)
-                if not inter_family.empty
-                else "No inter-family rows.",
-            ]
-        )
-        + "\n"
-    )
-    return NestedTournamentResult(
-        run_id=resolved_run_id,
-        artifact_root=artifact_root,
-        summary_path=summary_path,
-        target_coverage_path=target_coverage_path,
-        variant_leaderboard_path=variant_leaderboard_path,
-        family_champions_path=family_champions_path,
-        inter_family_leaderboard_path=inter_family_path,
-        current_best_models_path=current_best_path,
     )
