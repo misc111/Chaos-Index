@@ -10,7 +10,7 @@ from scipy.stats import f as f_dist
 from sklearn.metrics import log_loss
 
 from src.evaluation.metrics import brier_score
-from src.models.glm_penalized import build_penalized_glm
+from src.models.core.glm_penalized import build_penalized_glm
 from src.training.contracts import LassoCredibilityMetadata
 
 

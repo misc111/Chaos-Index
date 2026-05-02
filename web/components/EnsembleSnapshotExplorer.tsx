@@ -119,7 +119,7 @@ export default function EnsembleSnapshotExplorer({
       <div className="card">
         <h3 className="title">Frozen Ensemble Snapshots</h3>
         <p className={styles.emptyState}>
-          No frozen ensemble snapshot history is available yet. This section fills in once the league has both dated ensemble runs and
+          No frozen ensemble snapshot history is available yet. This section fills in once the MLB lane has both dated ensemble runs and
           settled games with replayable odds.
         </p>
       </div>

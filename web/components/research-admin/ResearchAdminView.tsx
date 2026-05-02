@@ -50,6 +50,10 @@ function runArtifactLinks(run: ResearchRunRow) {
 }
 
 function LeagueToggle({ activeLeague }: { activeLeague: LeagueCode }) {
+  if (ALL_LEAGUES.length === 1) {
+    return <p className="small">{displayLeagueLabel(activeLeague)} is the only active research-admin lane.</p>;
+  }
+
   return (
     <div className="league-toggle-row" aria-label="Research admin league toggle">
       {ALL_LEAGUES.map((league) => (

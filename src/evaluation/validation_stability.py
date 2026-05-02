@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 from src.evaluation.metrics import metric_bundle
-from src.models.glm_penalized import build_penalized_glm
+from src.models.core.glm_penalized import build_penalized_glm
 from src.training.cv import time_series_splits
 
 PAIRWISE_WARN_THRESHOLD = 0.80

@@ -1,5 +1,12 @@
 import path from "node:path";
-import { ALL_LEAGUES, LEAGUE_RUNTIME, PRIMARY_LEAGUE, PRIMARY_REBUILD_LEAGUES, type LeagueCode } from "@/lib/generated/league-registry";
+import {
+  ALL_LEAGUES,
+  LEAGUE_RUNTIME,
+  LEGACY_COMPARISON_LEAGUES,
+  PRIMARY_LEAGUE,
+  PRIMARY_REBUILD_LEAGUES,
+  type LeagueCode,
+} from "@/lib/generated/league-registry";
 import {
     BASELINE_MODEL_KEYS,
     CORE_MODEL_KEYS,
@@ -24,6 +31,7 @@ export type LeagueManifestPayload = {
   source: string;
   primary_league: LeagueCode;
   primary_rebuild_leagues: LeagueCode[];
+  legacy_comparison_leagues: typeof LEGACY_COMPARISON_LEAGUES;
   leagues: Record<LeagueCode, LeagueManifestEntry>;
 };
 
@@ -59,6 +67,7 @@ export function loadLeagueManifest(): LeagueManifestPayload {
     source: "code_registry",
     primary_league: PRIMARY_LEAGUE,
     primary_rebuild_leagues: [...PRIMARY_REBUILD_LEAGUES],
+    legacy_comparison_leagues: LEGACY_COMPARISON_LEAGUES,
     leagues: Object.fromEntries(ALL_LEAGUES.map((league) => [league, LEAGUE_RUNTIME[league]])) as Record<
       LeagueCode,
       LeagueManifestEntry

@@ -4,7 +4,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src.training.train import normalize_selected_models, train_and_predict
+from src.training.model_catalog import normalize_selected_models
+from src.training.train import train_and_predict
 
 
 def test_penalized_glm_search_grid_exposes_lambda_and_c_for_elastic_net():

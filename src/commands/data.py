@@ -10,28 +10,28 @@ from src.services import history_import as history_import_service, ingest, train
 
 
 def init_db(cfg: AppConfig, args: Namespace) -> None:
-    """Initialize the SQLite schema for the selected league config."""
+    """Initialize the SQLite schema for the MLB config."""
 
     del args
     ingest.initialize_database(cfg)
 
 
 def fetch(cfg: AppConfig, args: Namespace) -> None:
-    """Fetch the latest league data and persist ingest outputs."""
+    """Fetch the latest MLB data and persist ingest outputs."""
 
     del args
     ingest.fetch_data(cfg)
 
 
 def refresh_data(cfg: AppConfig, args: Namespace) -> None:
-    """Run the league-scoped refresh-data flow."""
+    """Run the MLB refresh-data flow."""
 
     del args
     ingest.refresh_data(cfg)
 
 
 def fetch_odds(cfg: AppConfig, args: Namespace) -> None:
-    """Fetch the latest standalone odds snapshot."""
+    """Fetch the latest standalone MLB odds snapshot."""
 
     del args
     ingest.fetch_odds(cfg)

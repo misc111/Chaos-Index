@@ -5,7 +5,7 @@ from collections import Counter
 from collections.abc import Mapping
 from typing import Any
 
-from src.models.glm_penalized import (
+from src.models.core.glm_penalized import (
     ACTIVE_COEF_TOLERANCE,
     PENALIZED_GLM_MODEL_NAMES,
     penalized_glm_config,

@@ -2,7 +2,7 @@
 
 # Generated Manifest Inventory
 
-- `configs/generated/league_manifest.json`: canonical league metadata including the primary MLB rebuild lane used by Python, the web app, and docs consumers.
+- `configs/generated/league_manifest.json`: canonical MLB runtime metadata plus quarantined legacy/comparison league references that are not product defaults.
 - `configs/generated/model_manifest.json`: canonical model labels, aliases, governance lanes, default MLB training lane, and trainable-model set.
 - `configs/generated/command_manifest.json`: canonical CLI command metadata and examples.
 - `configs/generated/dashboard_route_manifest.json`: canonical dashboard API/staging route inventory.

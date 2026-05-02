@@ -183,25 +183,25 @@ _MODEL_RUN_ID_ARG = _option(
 COMMAND_REGISTRY: tuple[CommandRegistryEntry, ...] = (
     CommandRegistryEntry(
         name="init-db",
-        summary="Initialize the SQLite schema for the selected league config.",
+        summary="Initialize the SQLite schema for the MLB config.",
         handler_path="src.commands.data:init_db",
         examples=("make init-db", "make init-db CONFIG=configs/mlb.yaml"),
     ),
     CommandRegistryEntry(
         name="fetch",
-        summary="Fetch league data, persist snapshots, and ingest results.",
+        summary="Fetch MLB data, persist snapshots, and ingest results.",
         handler_path="src.commands.data:fetch",
         examples=("make fetch", "make fetch CONFIG=configs/mlb.yaml"),
     ),
     CommandRegistryEntry(
         name="refresh-data",
-        summary="Run the league-scoped data refresh flow including the final odds pull.",
+        summary="Run the MLB data refresh flow including the final odds pull.",
         handler_path="src.commands.data:refresh_data",
         examples=("make refresh-data CONFIG=configs/mlb.yaml",),
     ),
     CommandRegistryEntry(
         name="fetch-odds",
-        summary="Fetch the latest standalone odds snapshot for the selected league.",
+        summary="Fetch the latest standalone MLB odds snapshot.",
         handler_path="src.commands.data:fetch_odds",
         examples=("make fetch-odds", "make fetch-odds CONFIG=configs/mlb.yaml"),
     ),

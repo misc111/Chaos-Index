@@ -1,4 +1,9 @@
-"""MLB team alias resolution for casual queries."""
+"""MLB team alias resolution for casual queries.
+
+NBA and NHL alias maps remain intentionally empty compatibility shims. They are
+quarantined as retired comparison-only references and are not eligible for query
+routing, staging, or product defaults during the MLB-first rebuild.
+"""
 
 from __future__ import annotations
 
@@ -37,6 +42,12 @@ MLB_TEAM_ALIAS_GROUPS: dict[str, tuple[str, ...]] = {
     "TEX": ("texas", "texas rangers", "rangers"),
     "TOR": ("toronto", "toronto blue jays", "blue jays", "jays"),
     "WSH": ("washington nationals", "nationals", "nats"),
+}
+NBA_TEAM_ALIAS_GROUPS: dict[str, tuple[str, ...]] = {}
+NHL_TEAM_ALIAS_GROUPS: dict[str, tuple[str, ...]] = {}
+LEGACY_COMPARISON_TEAM_ALIAS_GROUPS_BY_LEAGUE: dict[str, dict[str, tuple[str, ...]]] = {
+    "NBA": NBA_TEAM_ALIAS_GROUPS,
+    "NHL": NHL_TEAM_ALIAS_GROUPS,
 }
 
 TEAM_ALIAS_GROUPS_BY_LEAGUE: dict[str, dict[str, tuple[str, ...]]] = {"MLB": MLB_TEAM_ALIAS_GROUPS}

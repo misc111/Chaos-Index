@@ -64,7 +64,7 @@ OVERSIZED_FILE_ALLOWLIST = {
     "src/evaluation/market_truth.py",
     "src/reporting/model_feature_matrix.py",
     "src/services/model_compare.py",
-    "src/models/lasso_credibility.py",
+    "src/models/core/lasso_credibility.py",
     "src/research/mlb_model_tournament.py",
     "src/training/lasso_credibility.py",
     "src/training/penalized_glm.py",

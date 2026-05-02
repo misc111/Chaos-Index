@@ -5,9 +5,9 @@ export default function HomePage() {
     <div className={styles.page}>
       <section className={styles.card}>
         <p className={styles.eyebrow}>Overview</p>
-        <h1 className={styles.headline}>Betting with a Brain</h1>
+        <h1 className={styles.headline}>MLB Betting with a Brain</h1>
         <p className={styles.body}>
-          Most betting apps show the market. This page gives you independent win probabilities you can compare against it.
+          Most betting apps show the market. This MLB page gives you independent win probabilities you can compare against it.
         </p>
         <p className={styles.body}>
           This page was created and is maintained by{" "}
@@ -30,7 +30,7 @@ export default function HomePage() {
           , with 5 years of actuarial experience.
         </p>
         <p className={styles.body}>
-          These win probabilities are built using advanced statistical and machine learning techniques.
+          These MLB win probabilities are built using advanced statistical and machine learning techniques.
         </p>
       </section>
     </div>

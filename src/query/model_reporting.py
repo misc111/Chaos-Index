@@ -18,10 +18,10 @@ MODEL_TRUST_NOTES = {
     "gbdt": "Experimental challenger only. Machine learning model that finds hidden combos. Sometimes too confident.",
     "rf": "Experimental challenger only. Machine learning model that blends many different predictions from random slices of past games. Good at smoothing out flukes. Can be too cautious on close matchups.",
     "two_stage": "Machine learning model with two steps: first predicts game type (fast/slow, close/lopsided), then predicts winner. Good when style matchups matter. If step 1 is wrong, final pick can be wrong.",
-    "goals_poisson": "Score-based model. Good for normal scoring games. Messy games hurt it.",
+    "goals_poisson": "Run-based score model. Good for normal MLB scoring games. Messy games hurt it.",
     "simulation_first": "Runs the matchup thousands of times using set assumptions (team strength, pace, and scoring). Good for seeing different paths. If those assumptions are off, this number can be off.",
     "bayes_bt_state_space": "Experimental challenger only. Tracks team strength after every game and gives a range, not just one number. Good for spotting rising/falling teams with uncertainty shown. Can move fast after injuries, trades, or short weird stretches.",
-    "bayes_goals": "Experimental challenger only. Scoring strength + confidence meter. Good trend read. Can lag sudden lineup changes.",
+    "bayes_goals": "Experimental challenger only. Score-count strength + confidence meter. Good trend read. Can lag sudden lineup changes.",
     "nn_mlp": "Experimental challenger only. Machine learning model that finds subtle patterns. Hardest to explain.",
 }
 

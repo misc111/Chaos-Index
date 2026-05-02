@@ -84,7 +84,7 @@ def test_run_publish_closeout_commits_pushes_and_watches_matching_run(monkeypatc
         if pathspec == "web/public/staging-data":
             return [" M web/public/staging-data/manifest.json"]
         return [
-            " M data/processed/nba_forecast.db",
+            " M data/processed/mlb/mlb_forecast.db",
             " M web/public/staging-data/manifest.json",
         ]
 

@@ -152,13 +152,13 @@ export const MODEL_DISPLAY_LABELS: Record<string, string> = {
   gam_spline: "GAM Spline",
   glmm_logit: "GLMM Logit",
   dglm_margin: "DGLM Margin",
-  goals_poisson: "Goals Pois",
+  goals_poisson: "Runs Poisson",
   mars_hinge: "MARS Hinge Challenger (Proxy)",
   two_stage: "Two Stage Challenger",
   rf: "Random Forest Challenger",
   gbdt: "GBDT Challenger",
   nn_mlp: "Neural Net Challenger (MLP)",
-  bayes_goals: "Bayes Goals Challenger",
+  bayes_goals: "Bayes Runs Challenger",
   bayes_bt_state_space: "Bayes BT State Space Challenger",
   ensemble: "Ensemble"
 };
@@ -169,7 +169,7 @@ export const MODEL_REGISTRY = {
     family: "linear",
     lane: "core",
     theory_classification: "core-supported",
-    implementation_namespace: "src.models",
+    implementation_namespace: "src.models.core",
     governance_note: "Core-supported penalized GLM lane.",
     aliases: [
       "glm",
@@ -189,7 +189,7 @@ export const MODEL_REGISTRY = {
     family: "linear",
     lane: "core",
     theory_classification: "core-supported",
-    implementation_namespace: "src.models",
+    implementation_namespace: "src.models.core",
     governance_note: "Core-supported penalized GLM lane; not lasso credibility.",
     aliases: [
       "elastic",
@@ -210,7 +210,7 @@ export const MODEL_REGISTRY = {
     family: "linear",
     lane: "core",
     theory_classification: "core-supported",
-    implementation_namespace: "src.models",
+    implementation_namespace: "src.models.core",
     governance_note: "Core-supported penalized GLM lane with sparsity-focused review.",
     aliases: [
       "lasso"
@@ -229,7 +229,7 @@ export const MODEL_REGISTRY = {
     family: "credibility",
     lane: "core",
     theory_classification: "core-supported",
-    implementation_namespace: "src.models",
+    implementation_namespace: "src.models.core",
     governance_note: "Holmes/Casotto lasso-credibility lane; core-supported only when market complement columns are populated and documented.",
     aliases: [
       "market_offset_lasso",
@@ -246,7 +246,7 @@ export const MODEL_REGISTRY = {
     family: "credibility",
     lane: "core",
     theory_classification: "core-supported",
-    implementation_namespace: "src.models",
+    implementation_namespace: "src.models.core",
     governance_note: "Holmes/Casotto lasso-credibility lane; proxy priors remain experimental until a real prior complement ledger is populated.",
     aliases: [
       "prior_offset_lasso",
@@ -263,7 +263,7 @@ export const MODEL_REGISTRY = {
     family: "linear",
     lane: "core",
     theory_classification: "core-supported",
-    implementation_namespace: "src.models",
+    implementation_namespace: "src.models.core",
     governance_note: "Core-supported vanilla binomial/logit GLM lane.",
     aliases: [
       "vanilla_glm"
@@ -322,9 +322,9 @@ export const MODEL_REGISTRY = {
     prediction_report_rank: 9
   },
   goals_poisson: {
-    display_label: "Goals Pois",
-    short_label: "Goals Pois",
-    family: "goals",
+    display_label: "Runs Poisson",
+    short_label: "Runs Pois",
+    family: "score_count",
     lane: "extension",
     theory_classification: "theory-compatible extension",
     implementation_namespace: "src.models.extensions",
@@ -419,13 +419,13 @@ export const MODEL_REGISTRY = {
     prediction_report_rank: 15
   },
   bayes_goals: {
-    display_label: "Bayes Goals Challenger",
-    short_label: "Bayes Goals",
+    display_label: "Bayes Runs Challenger",
+    short_label: "Bayes Runs",
     family: "bayesian",
     lane: "experimental",
     theory_classification: "experimental",
     implementation_namespace: "src.models.experimental",
-    governance_note: "Experimental Bayesian goals challenger retained for uncertainty-focused comparisons outside the core lane.",
+    governance_note: "Experimental Bayesian score-count challenger retained for uncertainty-focused MLB comparisons outside the core lane.",
     aliases: [
       "bayes_goals_model"
     ],

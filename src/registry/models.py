@@ -106,7 +106,7 @@ EXPECTED_THEORY_CLASSIFICATION_BY_LANE: dict[str, str] = {
     "experimental": "experimental",
 }
 EXPECTED_IMPLEMENTATION_NAMESPACE_BY_LANE: dict[str, str | None] = {
-    "core": "src.models",
+    "core": "src.models.core",
     "extension": "src.models.extensions",
     "baseline": None,
     "experimental": "src.models.experimental",
@@ -262,9 +262,9 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
     ),
     ModelRegistryEntry(
         key="goals_poisson",
-        display_label="Goals Pois",
-        short_label="Goals Pois",
-        family="goals",
+        display_label="Runs Poisson",
+        short_label="Runs Pois",
+        family="score_count",
         lane="extension",
         theory_classification="theory-compatible extension",
         implementation_namespace="src.models.extensions",
@@ -340,13 +340,13 @@ MODEL_REGISTRY: tuple[ModelRegistryEntry, ...] = (
     ),
     ModelRegistryEntry(
         key="bayes_goals",
-        display_label="Bayes Goals Challenger",
-        short_label="Bayes Goals",
+        display_label="Bayes Runs Challenger",
+        short_label="Bayes Runs",
         family="bayesian",
         lane="experimental",
         theory_classification="experimental",
         implementation_namespace="src.models.experimental",
-        governance_note="Experimental Bayesian goals challenger retained for uncertainty-focused comparisons outside the core lane.",
+        governance_note="Experimental Bayesian score-count challenger retained for uncertainty-focused MLB comparisons outside the core lane.",
         aliases=("bayes_goals_model",),
         default_enabled=False,
         prediction_report_rank=16,

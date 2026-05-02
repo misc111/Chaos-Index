@@ -21,14 +21,10 @@ from src.training.artifact_writer import save_model_artifacts, save_training_out
 from src.training.contract_builders import build_model_artifact_record, build_model_run_contract
 from src.training.ensemble_builder import blend_ensemble_probabilities, build_ensemble_outputs, build_oof_metrics, fit_stacker
 from src.training.ensemble_policy import demoted_ensemble_models, ensemble_component_columns
-from src.training.feature_selection import (
-    glm_feature_subset,
-    select_feature_columns,
-)
+from src.training.feature_contract import resolve_training_feature_contract
 from src.training.fit_runner import fit_model_suite
 from src.training.lasso_credibility import (
     collect_lasso_credibility_artifact_payloads,
-    resolve_lasso_credibility_feature_columns,
     selected_lasso_credibility_models,
     tune_lasso_credibility_models,
 )
@@ -36,7 +32,6 @@ from src.training.model_catalog import normalize_selected_models
 from src.training.penalized_glm import (
     PREFERRED_VALIDATION_PENALIZED_GLM_MODELS,
     collect_penalized_glm_artifact_payloads,
-    resolve_penalized_glm_feature_columns,
     selected_penalized_glm_models,
     tune_penalized_glm_models,
 )
@@ -89,34 +84,16 @@ def train_and_predict(
         progress_callback,
         {"kind": "pipeline", "stage": "feature_selection", "status": "started", "message": "Selecting feature columns"},
     )
-    if selected_feature_columns is None:
-        feature_cols = select_feature_columns(df)
-    else:
-        missing_cols = [c for c in selected_feature_columns if c not in df.columns]
-        if missing_cols:
-            raise ValueError(f"selected_feature_columns includes missing columns: {missing_cols}")
-        non_numeric = [c for c in selected_feature_columns if not pd.api.types.is_numeric_dtype(df[c])]
-        if non_numeric:
-            raise ValueError(f"selected_feature_columns includes non-numeric columns: {non_numeric}")
-        feature_cols = list(selected_feature_columns)
-    penalized_glm_feature_cols = resolve_penalized_glm_feature_columns(
-        feature_cols,
+    feature_contract = resolve_training_feature_contract(
+        df,
         selected_models=models_selected,
-        model_feature_columns=selected_model_feature_columns,
-        fallback_columns=glm_feature_subset(feature_cols),
+        selected_feature_columns=selected_feature_columns,
+        selected_model_feature_columns=selected_model_feature_columns,
     )
-    lasso_credibility_feature_cols = resolve_lasso_credibility_feature_columns(
-        feature_cols,
-        selected_models=models_selected,
-        model_feature_columns=selected_model_feature_columns,
-        fallback_columns=glm_feature_subset(feature_cols),
-    )
-    glm_cols = (
-        penalized_glm_feature_cols.get("glm_ridge")
-        or penalized_glm_feature_cols.get("glm_elastic_net")
-        or penalized_glm_feature_cols.get("glm_lasso")
-        or glm_feature_subset(feature_cols)
-    )
+    feature_cols = feature_contract.feature_columns
+    penalized_glm_feature_cols = feature_contract.penalized_glm_feature_columns
+    lasso_credibility_feature_cols = feature_contract.lasso_credibility_feature_columns
+    glm_cols = feature_contract.glm_feature_columns
     emit_progress(
         progress_callback,
         {

@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src.models.glm_penalized import GLMLassoModel, build_penalized_glm
+from src.models.core.glm_penalized import GLMLassoModel, build_penalized_glm
 from src.training.contracts import PenaltySelection
 from src.training.penalized_glm import (
     build_penalized_glm_penalty_selection,

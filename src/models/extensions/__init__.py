@@ -11,7 +11,6 @@ from src.models.extensions.glm_variants import (
     DGLMMarginModel,
     GAMSplineModel,
     GLMMLogitModel,
-    VanillaGLMModel,
 )
 
 __all__ = [
@@ -21,7 +20,6 @@ __all__ = [
     "GoalsModelOutput",
     "GoalsPoissonModel",
     "StackingEnsemble",
-    "VanillaGLMModel",
     "compute_weights",
     "spread_stats",
     "weighted_ensemble",

@@ -23,9 +23,11 @@ from src.storage.db import Database
 from src.storage.prediction_history import FROZEN_PREDICTION_SOURCE
 from src.storage.tracker import RunTracker
 from src.training.feature_policy import apply_feature_policy
-from src.training.prequential import score_predictions
+from src.training.feature_selection import select_feature_columns
+from src.training.model_catalog import normalize_selected_models
 from src.training.model_feature_research import load_model_feature_map, research_model_feature_map
-from src.training.train import normalize_selected_models, select_feature_columns, train_and_predict
+from src.training.prequential import score_predictions
+from src.training.train import train_and_predict
 
 logger = get_logger(__name__)
 

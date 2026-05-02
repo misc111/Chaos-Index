@@ -16,7 +16,7 @@ export const MODEL_TRUST_NOTES: Record<string, string> = {
   gam_spline: "Spline-based logistic model. Good at smooth nonlinear edges. Can get wobbly if the shape fit is too ambitious.",
   glmm_logit: "Mixed-effects logistic model. Good when team-level structure matters. Can be slower and harder to keep stable.",
   dglm_margin: "Margin-first model that turns score-shape estimates into win probabilities. Good when spread shape matters. Can drift if score variance is misspecified.",
-  goals_poisson: "Score-based model. Good for normal scoring games. Messy games hurt it.",
+  goals_poisson: "Run-based score model. Good for normal MLB scoring games. Messy games hurt it.",
 };
 
 function titleCaseIdentifier(value: string): string {

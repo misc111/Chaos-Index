@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 import yaml
 
 from src.registry.models import model_manifest_payload
@@ -17,7 +19,7 @@ from src.training.model_catalog import (
     normalize_selected_models,
 )
 from src.training.model_feature_guardrails import load_model_feature_guardrails
-from src.training.model_feature_research import load_model_feature_map
+from src.training.model_feature_research import load_model_feature_map, save_model_feature_map
 
 
 def test_mlb_active_model_feature_map_stays_cas_core_by_default() -> None:
@@ -30,6 +32,24 @@ def test_mlb_active_model_feature_map_stays_cas_core_by_default() -> None:
         "glm_lasso_market_credibility",
         "glm_lasso_prior_credibility",
     }
+
+
+def test_saved_model_feature_map_orders_models_deterministically(tmp_path: Path) -> None:
+    path_template = str(tmp_path / "model_feature_map_{league}.yaml")
+
+    save_model_feature_map(
+        "MLB",
+        {
+            "rf": ["travel_diff", "rest_diff"],
+            "glm_lasso": ["diff_starting_pitcher_quality", "rest_diff"],
+            "glm_ridge": ["park_run_effect"],
+        },
+        path_template=path_template,
+    )
+
+    active_map = load_model_feature_map("MLB", path_template=path_template)
+    assert list(active_map) == ["glm_lasso", "glm_ridge", "rf"]
+    assert active_map["rf"] == ["travel_diff", "rest_diff"]
 
 
 def test_mlb_lasso_credibility_models_are_trainable_but_not_default_enabled() -> None:

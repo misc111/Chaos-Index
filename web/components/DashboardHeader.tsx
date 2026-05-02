@@ -26,6 +26,7 @@ const links: Array<[string, string]> = [
 ];
 
 const DEFAULT_QUERY = `?league=MLB&strategy=${getDefaultBetStrategyForLeague("MLB")}`;
+const SHOW_LEAGUE_SELECTOR = ALL_LEAGUES.length > 1;
 type RefreshResponse = {
   ok?: boolean;
   error?: string;
@@ -143,26 +144,35 @@ function SidebarControls({
         <p className="sidebar-eyebrow">Control Center</p>
         <h2 className="sidebar-title">Dashboard Inputs</h2>
         <p className="small sidebar-copy">
-          Switch leagues and risk assumptions without leaving the current view.
+          Review the MLB product lane and adjust risk assumptions without leaving the current view.
         </p>
       </div>
 
-      <section className="sidebar-card card" aria-labelledby="sidebar-league-title">
-        <span className="strategy-toggle-label" id="sidebar-league-title">
-          League
-        </span>
-        <div className="league-toggle-row" aria-label="League selection">
-          {ALL_LEAGUES.map((code) => (
-            <Link
-              href={hrefWithLeague(pathname, code, search)}
-              key={code}
-              className={`league-toggle-btn ${league === code ? "active" : ""}`}
-            >
-              {displayLeagueLabel(code)}
-            </Link>
-          ))}
-        </div>
-      </section>
+      {SHOW_LEAGUE_SELECTOR ? (
+        <section className="sidebar-card card" aria-labelledby="sidebar-league-title">
+          <span className="strategy-toggle-label" id="sidebar-league-title">
+            League
+          </span>
+          <div className="league-toggle-row" aria-label="League selection">
+            {ALL_LEAGUES.map((code) => (
+              <Link
+                href={hrefWithLeague(pathname, code, search)}
+                key={code}
+                className={`league-toggle-btn ${league === code ? "active" : ""}`}
+              >
+                {displayLeagueLabel(code)}
+              </Link>
+            ))}
+          </div>
+        </section>
+      ) : (
+        <section className="sidebar-card card" aria-labelledby="sidebar-league-title">
+          <span className="strategy-toggle-label" id="sidebar-league-title">
+            Product Lane
+          </span>
+          <p className="small">MLB is the only shipped dashboard lane.</p>
+        </section>
+      )}
 
       <section className="sidebar-card card" aria-labelledby="sidebar-profile-title">
         <span className="strategy-toggle-label" id="sidebar-profile-title">

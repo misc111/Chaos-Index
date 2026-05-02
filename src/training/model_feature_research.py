@@ -40,6 +40,12 @@ class ModelFeatureResearchResult:
     registry_updated: bool
 
 
+def _ordered_model_feature_items(model_features: dict[str, list[str]]) -> list[tuple[str, list[str]]]:
+    """Return model feature-map items in deterministic model-key order."""
+
+    return [(str(model_name), list(features)) for model_name, features in sorted(model_features.items())]
+
+
 def resolve_model_feature_map_path(path_template: str, league: str) -> Path:
     league_token = str(league or "unknown").strip().lower()
     rendered = str(path_template).replace("{league}", league_token)
@@ -74,7 +80,7 @@ def export_model_feature_map_json(
                 "active_features": list(features),
                 "feature_count": len(features),
             }
-            for model_name, features in model_features.items()
+            for model_name, features in _ordered_model_feature_items(model_features)
         },
     }
     path.write_text(json.dumps(payload, indent=2, sort_keys=True))
@@ -149,7 +155,7 @@ def save_model_feature_map(
             model_name=model_name,
             path_template=guardrails_template,
         )[0]
-        for model_name, features in model_features.items()
+        for model_name, features in _ordered_model_feature_items(model_features)
     }
     payload = {
         "version": 1,

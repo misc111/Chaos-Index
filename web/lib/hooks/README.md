@@ -2,7 +2,7 @@
 
 # Web Hooks
 
-Client-side React hooks for league, strategy, and dashboard state wiring.
+Client-side React hooks for MLB strategy and dashboard state wiring.
 
 Public entrypoints:
 - `web/lib/hooks/useLeague.ts`

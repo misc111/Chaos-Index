@@ -2,20 +2,21 @@
 
 # Generated Extension Guide
 
-## Add A League
+## Add A Legacy Or Comparison League
 
-1. Register the new league in `src/registry/leagues.py`.
-2. Add league-specific adapters and feature/query support behind existing public entrypoints.
-3. Regenerate manifests and docs with `make docs-generate`.
-4. Keep new leagues marked `legacy` until a product decision promotes them into the primary rebuild lane.
+1. Keep `LEAGUE_REGISTRY` limited to active shipped product lanes; today that is MLB only.
+2. Register retired or comparison-only references in `LEGACY_COMPARISON_LEAGUES` instead of runtime league defaults.
+3. Add adapters, configs, staging roots, or command defaults only after an explicit product decision promotes a league.
+4. Regenerate manifests and docs with `make docs-generate`.
 
-Current leagues: `MLB` (primary).
+Current product leagues: `MLB` (primary).
+Quarantined legacy/comparison references: `NBA` (comparison_only), `NHL` (comparison_only).
 
 ## Add A Model
 
 1. Register the model in `src/registry/models.py` with aliases, labels, lane, and report order.
 2. Place the model in the `core`, `extension`, `baseline`, or `experimental` lane deliberately.
-3. Keep theory-compatible extensions under `src/models/extensions/`, non-CAS challengers under `src/models/experimental/`, and reserve top-level `src/models/` modules for the default theory lane plus compatibility shims only.
+3. Keep CAS-core implementations under `src/models/core/`, theory-compatible extensions under `src/models/extensions/`, non-CAS challengers under `src/models/experimental/`, and reserve top-level `src/models/` modules for shared contracts plus compatibility shims only.
 4. Implement training/report behavior behind existing model contracts.
 5. Regenerate manifests and docs, then extend model contract tests.
 

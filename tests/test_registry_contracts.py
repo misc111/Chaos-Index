@@ -50,14 +50,14 @@ def test_structured_glm_cli_flags_are_exposed_on_research_commands() -> None:
         [
             "compare-candidates",
             "--structured-glm-spec",
-            "configs/research/nba_glm_rewrite_v1.yaml",
+            "configs/research/mlb_tournament_structured_glm.yaml",
             "--structured-glm-slate",
             "core_market_form",
             "--structured-glm-width-variant",
             "wide",
         ]
     )
-    assert compare_args.structured_glm_spec == "configs/research/nba_glm_rewrite_v1.yaml"
+    assert compare_args.structured_glm_spec == "configs/research/mlb_tournament_structured_glm.yaml"
     assert compare_args.structured_glm_slate == "core_market_form"
     assert compare_args.structured_glm_width_variant == "wide"
 
@@ -65,14 +65,14 @@ def test_structured_glm_cli_flags_are_exposed_on_research_commands() -> None:
         [
             "research-backtest",
             "--structured-glm-spec",
-            "configs/research/nba_glm_rewrite_v1.yaml",
+            "configs/research/mlb_tournament_structured_glm.yaml",
             "--structured-glm-slate",
             "pace_and_pressure",
             "--structured-glm-width-variant",
             "narrow",
         ]
     )
-    assert backtest_args.structured_glm_spec == "configs/research/nba_glm_rewrite_v1.yaml"
+    assert backtest_args.structured_glm_spec == "configs/research/mlb_tournament_structured_glm.yaml"
     assert backtest_args.structured_glm_slate == "pace_and_pressure"
     assert backtest_args.structured_glm_width_variant == "narrow"
 
@@ -86,6 +86,8 @@ def test_generated_league_manifest_matches_code_registry() -> None:
     assert manifest["leagues"]["MLB"]["primary_rebuild_lane"] is True
     assert manifest["leagues"]["MLB"]["lifecycle"] == "primary"
     assert sorted(manifest["leagues"]) == ["MLB"]
+    assert sorted(manifest["legacy_comparison_leagues"]) == ["NBA", "NHL"]
+    assert {entry["allowed_use"] for entry in manifest["legacy_comparison_leagues"].values()} == {"comparison_only"}
 
 
 def test_generated_model_manifest_matches_code_registry_and_training_catalog() -> None:
@@ -120,6 +122,8 @@ def test_generated_model_manifest_matches_code_registry_and_training_catalog() -
     assert manifest["prediction_report_order"] == MODEL_REPORT_ORDER
     assert manifest["theory_extension_models"] == THEORY_EXTENSION_MODEL_NAMES
     assert manifest["lane_labels"]["experimental"] == "Experimental challenger lane"
+    for model_name in manifest["core_models"]:
+        assert manifest["models"][model_name]["implementation_namespace"] == "src.models.core", model_name
     assert manifest["models"]["gam_spline"]["lane"] == "extension"
     assert manifest["models"]["glm_lasso_market_credibility"]["default_enabled"] is False
     assert manifest["models"]["glm_lasso_prior_credibility"]["default_enabled"] is False

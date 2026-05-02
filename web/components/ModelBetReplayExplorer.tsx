@@ -67,7 +67,7 @@ export default function ModelBetReplayExplorer({
       <div className="card">
         <h3 className="title">Versioned Bet Replay</h3>
         <p className={styles.emptyState}>
-          No model-version replay is available yet. This view fills in once a league has settled games with both pregame odds and
+          No model-version replay is available yet. This view fills in once the MLB lane has settled games with both pregame odds and
           versioned forecast history.
         </p>
       </div>

@@ -24,8 +24,9 @@ from src.research.candidate_models import (
 )
 from src.research.model_comparison import _candidate_specs, _select_feature_sets
 from src.services.train import load_features_dataframe
+from src.training.feature_selection import select_feature_columns
 from src.training.model_feature_research import load_model_feature_map
-from src.training.train import select_feature_columns, train_and_predict
+from src.training.train import train_and_predict
 
 _DEFAULT_REPORT_PATH = Path("docs/mlb/model_feature_beta_matrix.md")
 _CURRENT_BEST_MANIFEST = Path("artifacts/reports/mlb/candidate_model_comparison_latest_manifest.json")

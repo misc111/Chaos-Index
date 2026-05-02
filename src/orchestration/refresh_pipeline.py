@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Sequence
 
 from src.registry.leagues import get_league_registry_entry, ordered_league_entries, primary_rebuild_league_codes
-from src.training.train import normalize_selected_models
+from src.training.model_catalog import normalize_selected_models
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]

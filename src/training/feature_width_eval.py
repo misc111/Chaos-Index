@@ -10,6 +10,7 @@ from src.common.time import utc_now_iso
 from src.evaluation.calibration import calibration_alpha_beta, ece_mce
 from src.evaluation.metrics import metric_bundle
 from src.training.backtest import run_walk_forward_backtest
+from src.training.feature_contract import resolve_base_feature_columns
 from src.training.model_feature_research import (
     MODEL_FEATURE_MAP_PATH_TEMPLATE,
     RESEARCHABLE_MODELS,
@@ -20,7 +21,6 @@ from src.training.model_feature_research import (
     select_model_features,
 )
 from src.training.model_feature_guardrails import default_guardrails_path_template
-from src.training.train import select_feature_columns
 
 
 @dataclass(frozen=True)
@@ -115,7 +115,7 @@ def run_feature_width_eval(
     if train_df.empty:
         raise RuntimeError("Feature-width evaluation requires finalized games with non-null home_win.")
 
-    all_feature_columns = list(feature_columns) if feature_columns is not None else select_feature_columns(features_df)
+    all_feature_columns = list(feature_columns) if feature_columns is not None else resolve_base_feature_columns(features_df)
     ranked_rows = rank_model_features(
         train_df,
         model_name=model_code,

@@ -2,10 +2,12 @@
 
 # Models
 
-Actuarial core models, theory-compatible extensions, and explicitly fenced experimental challengers.
+Explicit core, extension, and experimental model namespaces with top-level compatibility shims.
 
 Public entrypoints:
-- `src/models/base.py`
+- `src/models/core`
+- `src/models/extensions`
+- `src/models/experimental`
 - `src/training/model_catalog.py`
 
 This README is generated from the subsystem registry entry for `src/models`.

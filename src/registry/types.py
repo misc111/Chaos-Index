@@ -27,6 +27,18 @@ class LeagueRegistryEntry:
 
 
 @dataclass(frozen=True)
+class LegacyLeagueRegistryEntry:
+    """Quarantined metadata for retired leagues that are not runtime products."""
+
+    code: str
+    slug: str
+    display_label: str
+    lifecycle: str
+    allowed_use: str
+    note: str
+
+
+@dataclass(frozen=True)
 class ModelRegistryEntry:
     """Canonical metadata for a trainable or reportable model."""
 
@@ -36,7 +48,7 @@ class ModelRegistryEntry:
     family: str
     lane: str = "core"
     theory_classification: str = "core-supported"
-    implementation_namespace: str = "src.models"
+    implementation_namespace: str = "src.models.core"
     governance_note: str = ""
     aliases: tuple[str, ...] = ()
     legacy_model_keys: tuple[str, ...] = ()

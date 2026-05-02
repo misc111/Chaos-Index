@@ -8,12 +8,13 @@ import pandas as pd
 
 from src.bayes.fit_offline import run_bayes_offline_fit
 from src.evaluation.metrics import metric_bundle
-from src.models.lasso_credibility import LassoCredibilityModel
+from src.models.core.glm_penalized import build_penalized_glm
+from src.models.core.glm_vanilla import VanillaGLMModel
+from src.models.core.lasso_credibility import LassoCredibilityModel
 from src.models.experimental.mars_hinge import MARSHingeModel
 from src.models.experimental.two_stage import TwoStageModel
 from src.models.extensions.glm_goals import GoalsPoissonModel
-from src.models.extensions.glm_variants import DGLMMarginModel, GAMSplineModel, GLMMLogitModel, VanillaGLMModel
-from src.models.glm_penalized import build_penalized_glm
+from src.models.extensions.glm_variants import DGLMMarginModel, GAMSplineModel, GLMMLogitModel
 from src.models.experimental.bayes_state_space_goals import BayesGoalsModel
 from src.models.experimental.gbdt import GBDTModel
 from src.models.experimental.nn import NNModel

@@ -4,7 +4,7 @@
 
 ## `init-db`
 
-Initialize the SQLite schema for the selected league config.
+Initialize the SQLite schema for the MLB config.
 
 - Default config: `configs/mlb.yaml`
 - Examples:
@@ -13,7 +13,7 @@ Initialize the SQLite schema for the selected league config.
 
 ## `fetch`
 
-Fetch league data, persist snapshots, and ingest results.
+Fetch MLB data, persist snapshots, and ingest results.
 
 - Default config: `configs/mlb.yaml`
 - Examples:
@@ -22,7 +22,7 @@ Fetch league data, persist snapshots, and ingest results.
 
 ## `refresh-data`
 
-Run the league-scoped data refresh flow including the final odds pull.
+Run the MLB data refresh flow including the final odds pull.
 
 - Default config: `configs/mlb.yaml`
 - Examples:
@@ -30,7 +30,7 @@ Run the league-scoped data refresh flow including the final odds pull.
 
 ## `fetch-odds`
 
-Fetch the latest standalone odds snapshot for the selected league.
+Fetch the latest standalone MLB odds snapshot.
 
 - Default config: `configs/mlb.yaml`
 - Examples:

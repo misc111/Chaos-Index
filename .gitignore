@@ -112,6 +112,7 @@ artifacts/reports/mlb/*
 # Keep the legacy history placeholder visible without making new history mirrors canonical.
 !artifacts/reports/history/
 artifacts/reports/history/*
-!artifacts/reports/history/.gitkeep
+!artifacts/reports/history/.gitignore
+!artifacts/reports/history/README.md
 /.gstack/
 .gstack/

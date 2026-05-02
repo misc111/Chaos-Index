@@ -1,7 +1,8 @@
-"""Theory-core model suite and compatibility shims.
+"""Model namespaces and compatibility shims.
 
-CAS-governed core models live at the top level of ``src.models``. Opt-in
+CAS-governed core models live under ``src.models.core``. Opt-in
 theory-compatible extensions live under ``src.models.extensions``. Experimental
-challenger and proxy models live under ``src.models.experimental``. Some
-top-level files are compatibility shims for older callers.
+challenger and proxy models live under ``src.models.experimental``. Top-level
+model files remain compatibility shims for older callers, except for shared
+contracts such as ``src.models.base``.
 """

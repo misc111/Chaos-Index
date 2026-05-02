@@ -6,7 +6,7 @@ from typing import Any
 import pandas as pd
 
 from src.evaluation.metrics import metric_bundle
-from src.models.glm_penalized import PENALIZED_GLM_MODEL_NAMES, build_penalized_glm, penalized_glm_config
+from src.models.core.glm_penalized import PENALIZED_GLM_MODEL_NAMES, build_penalized_glm, penalized_glm_config
 from src.training.cv import time_series_splits
 from src.training.lambda_search import (
     default_l1_ratio_grid,

@@ -81,7 +81,7 @@ These are explicit opt-in comparison models and must remain non-core:
 - random forest
 - gradient-boosted trees
 - neural net MLP
-- Bayesian goals/state-space challengers
+- Bayesian score-count/state-space challengers
 
 Classification: `Experimental` (comparison-only, non-champion)
 

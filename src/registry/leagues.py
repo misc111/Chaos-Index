@@ -1,11 +1,17 @@
-"""Canonical league registry and runtime resolution helpers."""
+"""Canonical league registry and runtime resolution helpers.
+
+Only MLB is a supported runtime product lane.  Retired NBA/NHL identifiers are
+kept in a separate quarantine registry so manifests can explain their status
+without reintroducing them into command defaults, web league selectors, staging
+payloads, or active data refresh orchestration.
+"""
 
 from __future__ import annotations
 
 import os
 from pathlib import Path
 
-from src.registry.types import LeagueRegistryEntry
+from src.registry.types import LeagueRegistryEntry, LegacyLeagueRegistryEntry
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
@@ -27,6 +33,25 @@ LEAGUE_REGISTRY: tuple[LeagueRegistryEntry, ...] = (
         uncertainty_policy_name="mlb_starting_pitcher_bullpen",
         primary_rebuild_lane=True,
         lifecycle="primary",
+    ),
+)
+
+LEGACY_COMPARISON_LEAGUES: tuple[LegacyLeagueRegistryEntry, ...] = (
+    LegacyLeagueRegistryEntry(
+        code="NBA",
+        slug="nba",
+        display_label="NBA",
+        lifecycle="legacy",
+        allowed_use="comparison_only",
+        note="Retired during the MLB-first rebuild; recover from git history only for explicit comparison work.",
+    ),
+    LegacyLeagueRegistryEntry(
+        code="NHL",
+        slug="nhl",
+        display_label="NHL",
+        lifecycle="legacy",
+        allowed_use="comparison_only",
+        note="Retired during the MLB-first rebuild; recover from git history only for explicit comparison work.",
     ),
 )
 
@@ -60,6 +85,18 @@ def primary_rebuild_league_codes() -> tuple[str, ...]:
     """Return leagues that participate in the primary shipped rebuild lane."""
 
     return tuple(entry.code for entry in LEAGUE_REGISTRY if entry.primary_rebuild_lane)
+
+
+def legacy_comparison_league_entries() -> tuple[LegacyLeagueRegistryEntry, ...]:
+    """Return retired leagues that may appear only in explicit comparison notes."""
+
+    return LEGACY_COMPARISON_LEAGUES
+
+
+def legacy_comparison_league_codes() -> tuple[str, ...]:
+    """Return retired league codes that are quarantined from runtime products."""
+
+    return tuple(entry.code for entry in LEGACY_COMPARISON_LEAGUES)
 
 
 def canonicalize_league(value: str | None) -> str:
@@ -116,6 +153,17 @@ def league_manifest_payload() -> dict[str, object]:
         "source": "code_registry",
         "primary_league": PRIMARY_LEAGUE_CODE,
         "primary_rebuild_leagues": [entry.code for entry in LEAGUE_REGISTRY if entry.primary_rebuild_lane],
+        "legacy_comparison_leagues": {
+            entry.code: {
+                "code": entry.code,
+                "slug": entry.slug,
+                "display_label": entry.display_label,
+                "lifecycle": entry.lifecycle,
+                "allowed_use": entry.allowed_use,
+                "note": entry.note,
+            }
+            for entry in LEGACY_COMPARISON_LEAGUES
+        },
         "leagues": {
             entry.code: {
                 "code": entry.code,

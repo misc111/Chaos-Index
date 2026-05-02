@@ -98,7 +98,7 @@ def save_model_artifacts(
     progress_callback: ProgressCallback | None = None,
 ) -> dict[str, dict[str, str]]:
     artifact_files: dict[str, dict[str, str]] = {}
-    for name, model in models.items():
+    for name, model in sorted(models.items()):
         if not hasattr(model, "save"):
             continue
         emit_progress(

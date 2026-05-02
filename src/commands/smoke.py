@@ -16,7 +16,7 @@ logger = get_logger(__name__)
 
 
 def run(cfg: AppConfig, args: Namespace) -> None:
-    """Run the reduced-window smoke pipeline for the selected league."""
+    """Run the reduced-window smoke pipeline for the MLB product lane."""
 
     del args
 

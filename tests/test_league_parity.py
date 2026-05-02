@@ -2,6 +2,7 @@ import pytest
 
 from src.league_registry import get_league_adapter, supported_leagues
 from src.orchestration.refresh_pipeline import build_data_refresh_steps
+from src.registry.leagues import legacy_comparison_league_codes
 
 
 def test_mlb_adapter_contract_is_the_only_supported_league() -> None:
@@ -32,9 +33,10 @@ def test_mlb_adapter_contract_is_the_only_supported_league() -> None:
 
 def test_supported_leagues_are_explicit_and_stable() -> None:
     assert supported_leagues() == ("MLB",)
+    assert legacy_comparison_league_codes() == ("NBA", "NHL")
 
 
-@pytest.mark.parametrize("league", ["MLS"])
+@pytest.mark.parametrize("league", ["NBA", "NHL", "MLS"])
 def test_non_mlb_league_adapter_is_not_supported(league: str) -> None:
     with pytest.raises(ValueError, match="Unsupported league"):
         get_league_adapter(league)

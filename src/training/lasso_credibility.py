@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 from src.evaluation.metrics import metric_bundle
-from src.models.lasso_credibility import (
+from src.models.core.lasso_credibility import (
     ACTIVE_COEF_TOLERANCE,
     LassoCredibilityModel,
     default_lasso_credibility_label,

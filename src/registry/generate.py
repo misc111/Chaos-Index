@@ -8,7 +8,7 @@ from pathlib import Path
 
 from src.registry.commands import command_manifest_payload, command_registry
 from src.registry.dashboard_routes import dashboard_route_manifest_payload, dashboard_routes, staging_dashboard_routes
-from src.registry.leagues import league_manifest_payload, ordered_league_entries
+from src.registry.leagues import legacy_comparison_league_entries, league_manifest_payload, ordered_league_entries
 from src.registry.models import model_manifest_payload, ordered_model_entries
 from src.registry.subsystems import subsystem_docs
 
@@ -56,10 +56,12 @@ def _ts_string_map(values: dict[str, str]) -> str:
 
 def _generated_league_ts() -> str:
     entries = ordered_league_entries()
+    legacy_entries = legacy_comparison_league_entries()
     all_leagues = [entry.code for entry in entries]
     primary_rebuild_leagues = [entry.code for entry in entries if entry.primary_rebuild_lane]
     alias_map: dict[str, str] = {}
     runtime: dict[str, object] = {}
+    legacy_runtime: dict[str, object] = {}
     for entry in entries:
         alias_map[entry.code] = entry.code
         alias_map[entry.slug.upper()] = entry.code
@@ -80,6 +82,15 @@ def _generated_league_ts() -> str:
             "primaryRebuildLane": entry.primary_rebuild_lane,
             "lifecycle": entry.lifecycle,
             "aliases": list(entry.aliases),
+        }
+    for legacy_entry in legacy_entries:
+        legacy_runtime[legacy_entry.code] = {
+            "code": legacy_entry.code,
+            "slug": legacy_entry.slug,
+            "displayLabel": legacy_entry.display_label,
+            "lifecycle": legacy_entry.lifecycle,
+            "allowedUse": legacy_entry.allowed_use,
+            "note": legacy_entry.note,
         }
     return "\n".join(
         [
@@ -111,6 +122,10 @@ def _generated_league_ts() -> str:
             "export const LEAGUE_RUNTIME: Record<LeagueCode, LeagueRuntimeEntry> = "
             + _ts_value(runtime)
             + ";",
+            "",
+            "export const LEGACY_COMPARISON_LEAGUES = "
+            + _ts_value(legacy_runtime)
+            + " as const;",
             "",
         ]
     ) + "\n"
@@ -263,6 +278,9 @@ def _extensions_doc() -> str:
     league_codes = ", ".join(
         f"`{entry.code}` ({entry.lifecycle})" for entry in ordered_league_entries()
     )
+    legacy_codes = ", ".join(
+        f"`{entry.code}` ({entry.allowed_use})" for entry in legacy_comparison_league_entries()
+    )
     model_keys = ", ".join(f"`{entry.key}`" for entry in ordered_model_entries())
     route_keys = ", ".join(f"`{route.key}`" for route in dashboard_routes())
     return "\n".join(
@@ -271,20 +289,21 @@ def _extensions_doc() -> str:
             "",
             "# Generated Extension Guide",
             "",
-            "## Add A League",
+            "## Add A Legacy Or Comparison League",
             "",
-            "1. Register the new league in `src/registry/leagues.py`.",
-            "2. Add league-specific adapters and feature/query support behind existing public entrypoints.",
-            "3. Regenerate manifests and docs with `make docs-generate`.",
-            "4. Keep new leagues marked `legacy` until a product decision promotes them into the primary rebuild lane.",
+            "1. Keep `LEAGUE_REGISTRY` limited to active shipped product lanes; today that is MLB only.",
+            "2. Register retired or comparison-only references in `LEGACY_COMPARISON_LEAGUES` instead of runtime league defaults.",
+            "3. Add adapters, configs, staging roots, or command defaults only after an explicit product decision promotes a league.",
+            "4. Regenerate manifests and docs with `make docs-generate`.",
             "",
-            f"Current leagues: {league_codes}.",
+            f"Current product leagues: {league_codes}.",
+            f"Quarantined legacy/comparison references: {legacy_codes}.",
             "",
             "## Add A Model",
             "",
             "1. Register the model in `src/registry/models.py` with aliases, labels, lane, and report order.",
             "2. Place the model in the `core`, `extension`, `baseline`, or `experimental` lane deliberately.",
-            "3. Keep theory-compatible extensions under `src/models/extensions/`, non-CAS challengers under `src/models/experimental/`, and reserve top-level `src/models/` modules for the default theory lane plus compatibility shims only.",
+            "3. Keep CAS-core implementations under `src/models/core/`, theory-compatible extensions under `src/models/extensions/`, non-CAS challengers under `src/models/experimental/`, and reserve top-level `src/models/` modules for shared contracts plus compatibility shims only.",
             "4. Implement training/report behavior behind existing model contracts.",
             "5. Regenerate manifests and docs, then extend model contract tests.",
             "",
@@ -309,7 +328,7 @@ def _manifest_doc() -> str:
             "",
             "# Generated Manifest Inventory",
             "",
-            "- `configs/generated/league_manifest.json`: canonical league metadata including the primary MLB rebuild lane used by Python, the web app, and docs consumers.",
+            "- `configs/generated/league_manifest.json`: canonical MLB runtime metadata plus quarantined legacy/comparison league references that are not product defaults.",
             "- `configs/generated/model_manifest.json`: canonical model labels, aliases, governance lanes, default MLB training lane, and trainable-model set.",
             "- `configs/generated/command_manifest.json`: canonical CLI command metadata and examples.",
             "- `configs/generated/dashboard_route_manifest.json`: canonical dashboard API/staging route inventory.",

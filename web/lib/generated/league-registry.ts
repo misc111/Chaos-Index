@@ -48,3 +48,22 @@ export const LEAGUE_RUNTIME: Record<LeagueCode, LeagueRuntimeEntry> = {
   }
 };
 
+export const LEGACY_COMPARISON_LEAGUES = {
+  NBA: {
+    code: "NBA",
+    slug: "nba",
+    displayLabel: "NBA",
+    lifecycle: "legacy",
+    allowedUse: "comparison_only",
+    note: "Retired during the MLB-first rebuild; recover from git history only for explicit comparison work."
+  },
+  NHL: {
+    code: "NHL",
+    slug: "nhl",
+    displayLabel: "NHL",
+    lifecycle: "legacy",
+    allowedUse: "comparison_only",
+    note: "Retired during the MLB-first rebuild; recover from git history only for explicit comparison work."
+  }
+} as const;
+

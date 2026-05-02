@@ -11,7 +11,6 @@ from src.research.candidate_models import (
     DGLMMarginCandidate,
     GAMSplineCandidate,
     GLMMLogitCandidate,
-    VanillaGLMBinomialCandidate,
 )
 
 
@@ -43,17 +42,6 @@ class _WrappedCandidateModel(BaseProbModel):
         if self._candidate is None:
             raise RuntimeError(f"{self.model_name} has not been fit")
         return self._candidate.predict_proba(df)
-
-
-class VanillaGLMModel(_WrappedCandidateModel):
-    """Core-supported vanilla binomial/logit GLM wrapper."""
-
-    model_name = "glm_vanilla"
-
-    def fit(self, df: pd.DataFrame, feature_columns: list[str], target_col: str = "home_win") -> None:
-        self.feature_columns = _unique_features(feature_columns)
-        self._candidate = VanillaGLMBinomialCandidate(features=self.feature_columns)
-        self._candidate.fit(df, target_col=target_col)
 
 
 class GAMSplineModel(_WrappedCandidateModel):

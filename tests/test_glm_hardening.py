@@ -4,7 +4,7 @@ import pandas as pd
 from src.models.glm_elastic_net import GLMElasticNetModel
 from src.models.glm_lasso import GLMLassoModel
 from src.models.glm_ridge import GLMRidgeModel
-from src.training.train import glm_feature_subset
+from src.training.feature_selection import glm_feature_subset
 from src.training.tune import quick_tune_glm, quick_tune_penalized_glm
 
 

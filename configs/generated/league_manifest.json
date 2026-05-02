@@ -5,6 +5,24 @@
   "primary_rebuild_leagues": [
     "MLB"
   ],
+  "legacy_comparison_leagues": {
+    "NBA": {
+      "code": "NBA",
+      "slug": "nba",
+      "display_label": "NBA",
+      "lifecycle": "legacy",
+      "allowed_use": "comparison_only",
+      "note": "Retired during the MLB-first rebuild; recover from git history only for explicit comparison work."
+    },
+    "NHL": {
+      "code": "NHL",
+      "slug": "nhl",
+      "display_label": "NHL",
+      "lifecycle": "legacy",
+      "allowed_use": "comparison_only",
+      "note": "Retired during the MLB-first rebuild; recover from git history only for explicit comparison work."
+    }
+  },
   "leagues": {
     "MLB": {
       "code": "MLB",

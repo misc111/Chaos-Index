@@ -9,15 +9,13 @@ from src.common.utils import ensure_dir
 from src.evaluation.calibration import calibration_alpha_beta, ece_mce, reliability_table
 from src.evaluation.metrics import metric_bundle, per_game_scores
 from src.training.cv import time_series_splits
+from src.training.feature_contract import resolve_training_feature_contract
+from src.training.model_catalog import normalize_selected_models
 from src.training.train import (
     _fit_suite,
     _predict_suite,
-    glm_feature_subset,
-    normalize_selected_models,
-    select_feature_columns,
 )
-from src.training.penalized_glm import resolve_penalized_glm_feature_columns, selected_penalized_glm_models, tune_penalized_glm_models
-
+from src.training.penalized_glm import selected_penalized_glm_models, tune_penalized_glm_models
 
 
 def run_walk_forward_backtest(
@@ -33,17 +31,14 @@ def run_walk_forward_backtest(
 ) -> dict:
     df = features_df[features_df["home_win"].notna()].copy().sort_values("start_time_utc")
     models_selected = normalize_selected_models(selected_models)
-    if selected_feature_columns is None:
-        feature_cols = select_feature_columns(df)
-    else:
-        missing_cols = [c for c in selected_feature_columns if c not in df.columns]
-        if missing_cols:
-            raise ValueError(f"selected_feature_columns includes missing columns: {missing_cols}")
-        non_numeric = [c for c in selected_feature_columns if not pd.api.types.is_numeric_dtype(df[c])]
-        if non_numeric:
-            raise ValueError(f"selected_feature_columns includes non-numeric columns: {non_numeric}")
-        feature_cols = list(selected_feature_columns)
-    glm_cols = glm_feature_subset(feature_cols)
+    feature_contract = resolve_training_feature_contract(
+        df,
+        selected_models=models_selected,
+        selected_feature_columns=selected_feature_columns,
+        selected_model_feature_columns=selected_model_feature_columns,
+    )
+    feature_cols = feature_contract.feature_columns
+    glm_cols = feature_contract.glm_feature_columns
     resolved_min_train_size = min(220, max(80, len(df) // 2)) if min_train_size is None else int(min_train_size)
     splits = time_series_splits(df, n_splits=n_splits, min_train_size=resolved_min_train_size)
 
@@ -56,16 +51,10 @@ def run_walk_forward_backtest(
 
         fold_glm_tuning: dict[str, dict] = {}
         if selected_penalized_glm_models(models_selected):
-            fold_glm_cols_by_model = resolve_penalized_glm_feature_columns(
-                feature_cols,
-                selected_models=models_selected,
-                model_feature_columns=selected_model_feature_columns,
-                fallback_columns=glm_cols,
-            )
             fold_glm_tuning = tune_penalized_glm_models(
                 tr,
                 selected_models=models_selected,
-                feature_columns_by_model=fold_glm_cols_by_model,
+                feature_columns_by_model=feature_contract.penalized_glm_feature_columns,
                 n_splits=3,
                 min_train_size=min(140, max(70, len(tr) // 2)),
             )

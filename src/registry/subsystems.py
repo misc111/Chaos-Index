@@ -33,7 +33,7 @@ SUBSYSTEM_DOCS: tuple[SubsystemDocEntry, ...] = (
     SubsystemDocEntry(
         path="src/data_sources",
         title="Data Sources",
-        summary="League-specific ingest adapters and shared HTTP source contracts.",
+        summary="MLB ingest adapters and shared HTTP source contracts.",
         public_entrypoints=("src/data_sources/base.py", "src/league_registry.py"),
         readme_path="src/data_sources/README.md",
     ),
@@ -48,15 +48,15 @@ SUBSYSTEM_DOCS: tuple[SubsystemDocEntry, ...] = (
     SubsystemDocEntry(
         path="src/features",
         title="Features",
-        summary="League-aware feature engineering over shared pipeline stages.",
+        summary="MLB feature engineering over shared pipeline stages.",
         public_entrypoints=("src/features/build_features.py", "src/features/pipeline.py"),
         readme_path="src/features/README.md",
     ),
     SubsystemDocEntry(
         path="src/models",
         title="Models",
-        summary="Actuarial core models, theory-compatible extensions, and explicitly fenced experimental challengers.",
-        public_entrypoints=("src/models/base.py", "src/training/model_catalog.py"),
+        summary="Explicit core, extension, and experimental model namespaces with top-level compatibility shims.",
+        public_entrypoints=("src/models/core", "src/models/extensions", "src/models/experimental", "src/training/model_catalog.py"),
         readme_path="src/models/README.md",
         generate_readme=True,
     ),
@@ -110,8 +110,8 @@ SUBSYSTEM_DOCS: tuple[SubsystemDocEntry, ...] = (
     SubsystemDocEntry(
         path="src/training",
         title="Training",
-        summary="Training orchestration, feature policy, ensembles, and prediction runners.",
-        public_entrypoints=("src/training/train.py", "src/training/model_catalog.py"),
+        summary="Training orchestration, deterministic feature contracts, ensembles, and prediction runners.",
+        public_entrypoints=("src/training/train.py", "src/training/feature_contract.py", "src/training/model_catalog.py"),
         readme_path="src/training/README.md",
     ),
     SubsystemDocEntry(
@@ -125,7 +125,7 @@ SUBSYSTEM_DOCS: tuple[SubsystemDocEntry, ...] = (
     SubsystemDocEntry(
         path="web/lib/hooks",
         title="Web Hooks",
-        summary="Client-side React hooks for league, strategy, and dashboard state wiring.",
+        summary="Client-side React hooks for MLB strategy and dashboard state wiring.",
         public_entrypoints=("web/lib/hooks/useLeague.ts", "web/lib/hooks/useDashboardData.ts"),
         readme_path="web/lib/hooks/README.md",
         generate_readme=True,

@@ -15,10 +15,11 @@ import pandas as pd
 
 from src.models.experimental.gbdt import GBDTModel
 from src.models.experimental.rf import RFModel
+from src.models.core.glm_penalized import build_penalized_glm
+from src.models.core.glm_vanilla import VanillaGLMModel
+from src.models.core.lasso_credibility import LassoCredibilityModel
 from src.models.extensions.glm_goals import GoalsPoissonModel
-from src.models.extensions.glm_variants import DGLMMarginModel, GAMSplineModel, GLMMLogitModel, VanillaGLMModel
-from src.models.glm_penalized import build_penalized_glm
-from src.models.lasso_credibility import LassoCredibilityModel
+from src.models.extensions.glm_variants import DGLMMarginModel, GAMSplineModel, GLMMLogitModel
 from src.registry.models import planned_credibility_model_catalog
 from src.training.lasso_credibility import selected_lasso_credibility_models
 from src.training.model_catalog import LEGACY_MODEL_KEYS, MODEL_ALIASES
