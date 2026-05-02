@@ -19,6 +19,7 @@ from src.evaluation.research_betting import score_betting_performance
 from src.evaluation.validation_backtest_integrity import run_backtest_integrity_checks
 from src.features.build_features import build_features_from_interim
 from src.features.leakage_checks import run_leakage_checks
+from src.governance.evidence import BETTING_OVERLAY, BETTING_OVERLAY_LANE, GOVERNANCE_CONTRACT_VERSION
 from src.research.model_comparison import (
     CANDIDATE_MODEL_NAMES,
     FEATURE_POOL_FULL_SCREENED,
@@ -361,9 +362,20 @@ def _choose_best_candidate(scorecard: pd.DataFrame, *, baseline_model: str) -> s
 
 
 def _promotion_summary(scorecard: pd.DataFrame, *, best_model: str, baseline_model: str) -> dict[str, Any]:
+    governance_fields = {
+        "governance_contract_version": GOVERNANCE_CONTRACT_VERSION,
+        "governance_lane": BETTING_OVERLAY_LANE,
+        "theory_governance": BETTING_OVERLAY,
+        "ranking_rule": {
+            "primary": "mean_ending_bankroll",
+            "secondary": "mean_net_profit",
+            "tertiary": "mean_roi",
+            "notes": "Research backtest promotion uses betting-overlay economics after pregame integrity checks.",
+        },
+    }
     best_rows = scorecard[scorecard["model_name"] == best_model].copy()
     if best_rows.empty:
-        return {"eligible": False, "reason": "best_model_not_present"}
+        return {**governance_fields, "eligible": False, "reason": "best_model_not_present"}
     if "mean_roi" not in best_rows.columns and "median_roi" in best_rows.columns:
         best_rows["mean_roi"] = best_rows["median_roi"]
     chosen = best_rows.sort_values(
@@ -374,7 +386,7 @@ def _promotion_summary(scorecard: pd.DataFrame, *, best_model: str, baseline_mod
         (scorecard["model_name"] == baseline_model) & (scorecard["strategy"] == chosen["strategy"])
     ].copy()
     if baseline_rows.empty:
-        return {"eligible": False, "reason": "baseline_row_missing", "best_model": best_model}
+        return {**governance_fields, "eligible": False, "reason": "baseline_row_missing", "best_model": best_model}
     if "mean_roi" not in baseline_rows.columns and "median_roi" in baseline_rows.columns:
         baseline_rows["mean_roi"] = baseline_rows["median_roi"]
     baseline = baseline_rows.iloc[0]
@@ -388,6 +400,7 @@ def _promotion_summary(scorecard: pd.DataFrame, *, best_model: str, baseline_mod
         "integrity_checks": bool(chosen["all_integrity_checks"]),
     }
     return {
+        **governance_fields,
         "eligible": bool(all(checks.values())),
         "best_model": best_model,
         "strategy": str(chosen["strategy"]),

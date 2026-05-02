@@ -12,6 +12,7 @@ from src.common.config import AppConfig
 from src.common.logging import get_logger
 from src.common.utils import ensure_dir
 from src.services import backtest as backtest_service
+from src.services import current_season_predictiveness as current_season_predictiveness_service
 from src.services import ingest, model_compare as model_compare_service, train as train_service
 from src.services import research_backtest as research_backtest_service
 from src.services import validate as validate_service
@@ -133,6 +134,21 @@ def best_models(cfg: AppConfig, args: Namespace) -> None:
 
     payload = model_compare_service.load_current_best_models(cfg)
     print(json.dumps(payload, indent=2, sort_keys=True), flush=True)
+
+
+def current_season_predictiveness(cfg: AppConfig, args: Namespace) -> None:
+    """Write current-season predictive-skill evidence from frozen MLB predictions."""
+
+    result = current_season_predictiveness_service.run_current_season_predictiveness(
+        cfg,
+        report_slug=getattr(args, "report_slug", None),
+        season=getattr(args, "season", None),
+    )
+    print(
+        "MLB_CURRENT_SEASON_PREDICTIVENESS::"
+        f"{result['league']}::{result['status']}::{result['artifact_paths']['summary_json']}",
+        flush=True,
+    )
 
 
 def research_backtest(cfg: AppConfig, args: Namespace) -> None:

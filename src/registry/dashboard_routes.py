@@ -51,6 +51,14 @@ DASHBOARD_ROUTE_REGISTRY: tuple[DashboardRouteRegistryEntry, ...] = (
         payload_contract="metrics",
     ),
     DashboardRouteRegistryEntry(
+        key="currentSeasonPredictiveness",
+        summary="Current-season predictive-skill evidence from frozen MLB pregame predictions.",
+        module_path="app/api/current-season-predictiveness/route.ts",
+        api_path="/api/current-season-predictiveness",
+        staging_file_name="current-season-predictiveness.json",
+        payload_contract="currentSeasonPredictiveness",
+    ),
+    DashboardRouteRegistryEntry(
         key="nestedTournament",
         summary="Nested MLB tournament payload with target-scoped family champions and diagnostics.",
         module_path="app/api/nested-tournament/route.ts",

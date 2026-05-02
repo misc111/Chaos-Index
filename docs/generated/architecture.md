@@ -10,13 +10,14 @@ This reference is generated from the code registries. Update the registry module
 | `src/commands` | Thin CLI wrappers that translate parsed arguments into service calls. | `src/cli.py`, `src/commands/__init__.py` |
 | `src/common` | Cross-cutting config, manifest, logging, time, and utility helpers. | `src/common/config.py`, `src/common/manifests.py` |
 | `src/data_sources` | MLB ingest adapters and shared HTTP source contracts. | `src/data_sources/base.py`, `src/league_registry.py` |
-| `src/evaluation` | Scoring, diagnostics, drift checks, and validation artifact generation. | `src/evaluation/validation_pipeline.py`, `src/services/validate.py` |
+| `src/evaluation` | Scoring, diagnostics, drift checks, validation artifact generation, and task-level evidence governance. | `src/evaluation/validation_pipeline.py`, `src/evaluation/validation_governance.py`, `src/services/validate.py` |
 | `src/features` | MLB feature engineering over shared pipeline stages. | `src/features/build_features.py`, `src/features/pipeline.py` |
 | `src/models` | Explicit core, extension, and experimental model namespaces with top-level compatibility shims. | `src/models/core`, `src/models/extensions`, `src/models/experimental`, `src/training/model_catalog.py` |
+| `src/governance` | Shared evidence labels for theory diagnostics, engineering checks, betting overlays, and reporting payloads. | `src/governance/evidence.py` |
 | `src/orchestration` | Deterministic MLB-first refresh, rebuild, and staging pipelines. | `src/orchestration/data_refresh.py`, `src/orchestration/hard_refresh.py` |
 | `src/query` | Deterministic natural-language query handling for local model/product questions. | `src/query/answer.py`, `src/query/intent_parser.py` |
-| `src/research` | Research-only comparison and experimentation flows over candidate model sets. | `src/research/model_comparison.py`, `src/research/candidate_models.py` |
-| `src/services` | Application-layer orchestration for ingest, training, validation, and backtests. | `src/services/ingest.py`, `src/services/train.py` |
+| `src/research` | Research-only comparison, tournament, and evidence-packet flows over candidate model sets. | `src/research/model_comparison.py`, `src/research/nested_tournament.py`, `src/research/candidate_models.py` |
+| `src/services` | Application-layer orchestration for ingest, training, validation, predictive evidence, and backtests. | `src/services/ingest.py`, `src/services/train.py`, `src/services/current_season_predictiveness.py` |
 | `src/simulation` | Simulation-specific helpers used by forecast and betting workflows. | `src/simulation/game_simulator.py` |
 | `src/storage` | SQLite schema, query helpers, and persistence contracts. | `src/storage/db.py`, `src/storage/schema.py` |
 | `src/training` | Training orchestration, deterministic feature contracts, ensembles, and prediction runners. | `src/training/train.py`, `src/training/feature_contract.py`, `src/training/model_catalog.py` |

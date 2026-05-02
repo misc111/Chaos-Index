@@ -16,6 +16,7 @@ class ValidationModelMetadata:
     model_key: str = ""
     model_family: str = ""
     model_lane: str = ""
+    theory_classification: str = ""
     model_governance_note: str = ""
     penalty: PenaltySelection | None = None
     credibility: LassoCredibilityMetadata | None = None
@@ -34,6 +35,8 @@ class ValidationModelMetadata:
             payload["model_family"] = self.model_family
         if self.model_lane:
             payload["model_lane"] = self.model_lane
+        if self.theory_classification:
+            payload["theory_classification"] = self.theory_classification
         if self.model_governance_note:
             payload["model_governance_note"] = self.model_governance_note
         if self.penalty is not None:
@@ -60,6 +63,7 @@ def _resolve_registry_payload(model_name: str) -> dict[str, str]:
         "model_key": model_key,
         "model_family": str(entry.family),
         "model_lane": str(entry.lane),
+        "theory_classification": str(entry.theory_classification),
         "model_governance_note": str(entry.governance_note),
     }
 
@@ -133,6 +137,7 @@ def resolve_validation_model_metadata(
         model_key=registry_payload.get("model_key", ""),
         model_family=registry_payload.get("model_family", ""),
         model_lane=registry_payload.get("model_lane", ""),
+        theory_classification=registry_payload.get("theory_classification", ""),
         model_governance_note=registry_payload.get("model_governance_note", ""),
         penalty=build_penalty_selection(resolved_model_name, tuning=penalty_tuning, model=model)
         if resolved_model_name
@@ -154,11 +159,22 @@ def build_validation_artifact_record(
     applicability: str,
     artifacts: Sequence[str],
     summary: Mapping[str, Any] | None = None,
+    governance: Mapping[str, Any] | None = None,
 ) -> ValidationArtifactRecord:
+    governance_fields = dict(governance or {})
     return ValidationArtifactRecord(
         task_name=str(task_name),
         family=str(family),
         applicability=str(applicability),
+        governance_contract_version=governance_fields.get("governance_contract_version"),
+        validation_lane=str(governance_fields.get("validation_lane") or ""),
+        theory_governance=str(governance_fields.get("theory_governance") or ""),
+        dashboard_output_lane=str(governance_fields.get("dashboard_output_lane") or ""),
+        split_label=str(governance_fields.get("split_label") or ""),
+        target_scope=dict(governance_fields.get("target_scope") or {}),
+        model_lane=str(governance_fields.get("model_lane") or ""),
+        theory_classification=str(governance_fields.get("theory_classification") or ""),
+        governing_sources=[str(value) for value in governance_fields.get("governing_sources") or []],
         artifacts=[str(path) for path in artifacts if str(path).strip()],
         summary=dict(summary or {}),
     )

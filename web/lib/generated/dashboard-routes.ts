@@ -6,6 +6,7 @@ export const DASHBOARD_ROUTE_KEYS = [
   "gamesToday",
   "marketBoard",
   "metrics",
+  "currentSeasonPredictiveness",
   "nestedTournament",
   "researchAdmin",
   "researchDesk",
@@ -90,6 +91,18 @@ export const DASHBOARD_ROUTES: readonly DashboardRouteEntry[] = [
     supportsExperiments: false
   },
   {
+    key: "currentSeasonPredictiveness",
+    summary: "Current-season predictive-skill evidence from frozen MLB pregame predictions.",
+    modulePath: "app/api/current-season-predictiveness/route.ts",
+    apiPath: "/api/current-season-predictiveness",
+    pagePath: null,
+    stagingFileName: "current-season-predictiveness.json",
+    payloadContract: "currentSeasonPredictiveness",
+    includeInStaging: true,
+    public: true,
+    supportsExperiments: false
+  },
+  {
     key: "nestedTournament",
     summary: "Nested MLB tournament payload with target-scoped family champions and diagnostics.",
     modulePath: "app/api/nested-tournament/route.ts",
@@ -168,6 +181,7 @@ export const DASHBOARD_STAGING_ROUTE_KEYS = [
   "gamesToday",
   "marketBoard",
   "metrics",
+  "currentSeasonPredictiveness",
   "nestedTournament",
   "researchDesk",
   "performance",

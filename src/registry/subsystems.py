@@ -40,8 +40,12 @@ SUBSYSTEM_DOCS: tuple[SubsystemDocEntry, ...] = (
     SubsystemDocEntry(
         path="src/evaluation",
         title="Evaluation",
-        summary="Scoring, diagnostics, drift checks, and validation artifact generation.",
-        public_entrypoints=("src/evaluation/validation_pipeline.py", "src/services/validate.py"),
+        summary="Scoring, diagnostics, drift checks, validation artifact generation, and task-level evidence governance.",
+        public_entrypoints=(
+            "src/evaluation/validation_pipeline.py",
+            "src/evaluation/validation_governance.py",
+            "src/services/validate.py",
+        ),
         readme_path="src/evaluation/README.md",
         generate_readme=True,
     ),
@@ -58,6 +62,14 @@ SUBSYSTEM_DOCS: tuple[SubsystemDocEntry, ...] = (
         summary="Explicit core, extension, and experimental model namespaces with top-level compatibility shims.",
         public_entrypoints=("src/models/core", "src/models/extensions", "src/models/experimental", "src/training/model_catalog.py"),
         readme_path="src/models/README.md",
+        generate_readme=True,
+    ),
+    SubsystemDocEntry(
+        path="src/governance",
+        title="Governance",
+        summary="Shared evidence labels for theory diagnostics, engineering checks, betting overlays, and reporting payloads.",
+        public_entrypoints=("src/governance/evidence.py",),
+        readme_path="src/governance/README.md",
         generate_readme=True,
     ),
     SubsystemDocEntry(
@@ -78,16 +90,24 @@ SUBSYSTEM_DOCS: tuple[SubsystemDocEntry, ...] = (
     SubsystemDocEntry(
         path="src/research",
         title="Research",
-        summary="Research-only comparison and experimentation flows over candidate model sets.",
-        public_entrypoints=("src/research/model_comparison.py", "src/research/candidate_models.py"),
+        summary="Research-only comparison, tournament, and evidence-packet flows over candidate model sets.",
+        public_entrypoints=(
+            "src/research/model_comparison.py",
+            "src/research/nested_tournament.py",
+            "src/research/candidate_models.py",
+        ),
         readme_path="src/research/README.md",
         generate_readme=True,
     ),
     SubsystemDocEntry(
         path="src/services",
         title="Services",
-        summary="Application-layer orchestration for ingest, training, validation, and backtests.",
-        public_entrypoints=("src/services/ingest.py", "src/services/train.py"),
+        summary="Application-layer orchestration for ingest, training, validation, predictive evidence, and backtests.",
+        public_entrypoints=(
+            "src/services/ingest.py",
+            "src/services/train.py",
+            "src/services/current_season_predictiveness.py",
+        ),
         readme_path="src/services/README.md",
         generate_readme=True,
     ),

@@ -386,6 +386,35 @@
       ]
     },
     {
+      "name": "current-season-predictiveness",
+      "summary": "Score frozen pregame MLB predictions against current-season settled outcomes.",
+      "handler_path": "src.commands.modeling:current_season_predictiveness",
+      "config_required": true,
+      "arguments": [
+        {
+          "flags": [
+            "--report-slug"
+          ],
+          "doc_metavar": "SLUG",
+          "help": "Optional report slug prefix for artifact outputs.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--season"
+          ],
+          "doc_metavar": "SEASON",
+          "help": "Optional MLB season override for current-season evidence reports.",
+          "choices": null,
+          "default": null
+        }
+      ],
+      "examples": [
+        "python3 -m src.cli current-season-predictiveness --config configs/mlb.yaml"
+      ]
+    },
+    {
       "name": "nested-tournament",
       "summary": "Run the nested all-target MLB tournament with intra-family selection before inter-family final holdout.",
       "handler_path": "src.commands.modeling:nested_tournament",

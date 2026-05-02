@@ -431,6 +431,14 @@ def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_
     validation_rows = []
     validation_root = Path(cfg.paths.artifacts_dir) / "validation" / str(cfg.data.league).lower()
     primary_model_name = result["run_payload"].get("glm_primary_model")
+    validation_split_label = next(
+        (
+            str(record.get("split_label"))
+            for record in validation_outputs.task_records
+            if str(record.get("split_label") or "").strip()
+        ),
+        str(result["run_payload"].get("model_run_id") or ""),
+    )
     recorded_at_utc = utc_now_iso()
     for spec in validation_outputs.sections:
         if spec.kind == "json":
@@ -447,7 +455,7 @@ def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_
                 recorded_at_utc,
                 primary_model_name,
                 spec.section,
-                result["run_payload"].get("model_run_id"),
+                validation_split_label,
                 to_json(payload),
                 str(validation_root / spec.file_name),
             )

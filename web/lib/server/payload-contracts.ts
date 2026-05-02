@@ -9,6 +9,7 @@ import type { DashboardRouteKey } from "@/lib/generated/dashboard-routes";
 import type { BetHistoryResponse } from "@/lib/bet-history-types";
 import type {
   ActualVsExpectedResponse,
+  CurrentSeasonPredictivenessResponse,
   GamesTodayResponse,
   MarketBoardResponse,
   MetricsResponse,
@@ -26,6 +27,7 @@ export type DashboardPayloadByKey = {
   gamesToday: GamesTodayResponse;
   marketBoard: MarketBoardResponse;
   metrics: MetricsResponse;
+  currentSeasonPredictiveness: CurrentSeasonPredictivenessResponse;
   nestedTournament: NestedTournamentResponse;
   performance: PerformanceResponse;
   predictions: PredictionsResponse;

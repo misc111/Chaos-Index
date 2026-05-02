@@ -178,6 +178,13 @@ _MODEL_RUN_ID_ARG = _option(
     help="Optional saved base model run id to validate.",
     doc_metavar="RUN_ID",
 )
+_SEASON_ARG = _option(
+    "--season",
+    type=int,
+    default=None,
+    help="Optional MLB season override for current-season evidence reports.",
+    doc_metavar="SEASON",
+)
 
 
 COMMAND_REGISTRY: tuple[CommandRegistryEntry, ...] = (
@@ -281,6 +288,16 @@ COMMAND_REGISTRY: tuple[CommandRegistryEntry, ...] = (
         summary="Print the canonical current-best-models summary for the MLB research lane.",
         handler_path="src.commands.modeling:best_models",
         examples=("python3 -m src.cli best-models --config configs/mlb.yaml",),
+    ),
+    CommandRegistryEntry(
+        name="current-season-predictiveness",
+        summary="Score frozen pregame MLB predictions against current-season settled outcomes.",
+        handler_path="src.commands.modeling:current_season_predictiveness",
+        arguments=(
+            _REPORT_SLUG_ARG,
+            _SEASON_ARG,
+        ),
+        examples=("python3 -m src.cli current-season-predictiveness --config configs/mlb.yaml",),
     ),
     CommandRegistryEntry(
         name="nested-tournament",

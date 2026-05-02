@@ -1,0 +1,50 @@
+{
+  "artifact_paths": {
+    "manifest_json": "artifacts/reports/mlb/current_season_predictiveness_manifest.json",
+    "metrics_csv": "artifacts/reports/mlb/current_season_predictiveness.csv",
+    "reliability_csv": "artifacts/reports/mlb/current_season_predictiveness_reliability.csv",
+    "report_md": "artifacts/reports/mlb/current_season_predictiveness.md",
+    "scores_csv": "artifacts/reports/mlb/current_season_predictiveness_scores.csv",
+    "summary_json": "artifacts/reports/mlb/current_season_predictiveness.json"
+  },
+  "as_of_utc": "2026-05-02T03:36:23+00:00",
+  "betting_overlay": {
+    "reason": "Predictive probability skill is evaluated separately from ROI; pregame odds decisions are not part of this artifact.",
+    "status": "not_measured"
+  },
+  "league": "MLB",
+  "report_slug": "current_season_predictiveness",
+  "scoreboard": {
+    "ignored_non_live_predictions": 0,
+    "joined_prediction_rows": 0,
+    "quarantined_invalid_probability_predictions": 0,
+    "quarantined_missing_start_time_predictions": 0,
+    "quarantined_post_start_predictions": 0,
+    "regular_season_results": 368,
+    "scored_live_predictions": 0,
+    "unsupported_target_predictions": 0
+  },
+  "season": 2026,
+  "season_window": {
+    "end_date": "2026-11-01",
+    "start_date": "2026-03-26"
+  },
+  "status": "not_measurable",
+  "targets": {
+    "moneyline_home_win": {
+      "baselines": {},
+      "model_vs_baseline": {},
+      "models": {},
+      "reason": "No settled frozen pregame moneyline predictions are available for the current season window.",
+      "status": "not_measurable"
+    },
+    "runline_home_cover": {
+      "reason": "The frozen live ledger currently stores moneyline prob_home_win only.",
+      "status": "ledger_not_available"
+    },
+    "totals_over": {
+      "reason": "The frozen live ledger currently stores moneyline prob_home_win only.",
+      "status": "ledger_not_available"
+    }
+  }
+}

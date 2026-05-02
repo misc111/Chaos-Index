@@ -136,6 +136,17 @@ Print the canonical current-best-models summary for the MLB research lane.
 - Examples:
   - `python3 -m src.cli best-models --config configs/mlb.yaml`
 
+## `current-season-predictiveness`
+
+Score frozen pregame MLB predictions against current-season settled outcomes.
+
+- Default config: `configs/mlb.yaml`
+- Options:
+  - `--report-slug` `SLUG`: Optional report slug prefix for artifact outputs.
+  - `--season` `SEASON`: Optional MLB season override for current-season evidence reports.
+- Examples:
+  - `python3 -m src.cli current-season-predictiveness --config configs/mlb.yaml`
+
 ## `nested-tournament`
 
 Run the nested all-target MLB tournament with intra-family selection before inter-family final holdout.

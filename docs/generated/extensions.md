@@ -28,4 +28,4 @@ Current registered models: `glm_ridge`, `glm_elastic_net`, `glm_lasso`, `glm_las
 2. Implement the route module and payload contract in the web app.
 3. Regenerate manifests/docs, then update route and staging contract tests.
 
-Current registered dashboard routes: `actualVsExpected`, `betHistory`, `gamesToday`, `marketBoard`, `metrics`, `nestedTournament`, `researchAdmin`, `researchDesk`, `performance`, `predictions`, `validation`.
+Current registered dashboard routes: `actualVsExpected`, `betHistory`, `gamesToday`, `marketBoard`, `metrics`, `currentSeasonPredictiveness`, `nestedTournament`, `researchAdmin`, `researchDesk`, `performance`, `predictions`, `validation`.

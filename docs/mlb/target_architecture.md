@@ -29,6 +29,10 @@ Modeling governance follows the leak-repaired tournament and the traceability ma
   contains no retired league snapshots.
 - Tournament and recommendation artifacts must carry `theory_classification`
   labels: `core-supported`, `theory-compatible extension`, or `experimental`.
+- Validation, tournament, current-best, and promotion artifacts carry a shared
+  governance contract that separates direct theory implementation,
+  theory-compatible engineering support, betting overlays, and dashboard/reporting
+  surfaces.
 
 ## Preferred Directory Targets
 

@@ -2,10 +2,11 @@
 
 # Research
 
-Research-only comparison and experimentation flows over candidate model sets.
+Research-only comparison, tournament, and evidence-packet flows over candidate model sets.
 
 Public entrypoints:
 - `src/research/model_comparison.py`
+- `src/research/nested_tournament.py`
 - `src/research/candidate_models.py`
 
 This README is generated from the subsystem registry entry for `src/research`.

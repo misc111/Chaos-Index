@@ -2,10 +2,11 @@
 
 # Services
 
-Application-layer orchestration for ingest, training, validation, and backtests.
+Application-layer orchestration for ingest, training, validation, predictive evidence, and backtests.
 
 Public entrypoints:
 - `src/services/ingest.py`
 - `src/services/train.py`
+- `src/services/current_season_predictiveness.py`
 
 This README is generated from the subsystem registry entry for `src/services`.

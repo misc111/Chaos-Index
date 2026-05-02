@@ -17,6 +17,11 @@ import pandas as pd
 
 from src.common.utils import ensure_dir
 from src.evaluation.metrics import per_game_scores
+from src.governance.evidence import (
+    GOVERNANCE_CONTRACT_VERSION,
+    THEORY_COMPATIBLE_ENGINEERING_SUPPORT,
+    target_scope_fields,
+)
 from src.research.nested_tournament_contracts import NestedTournamentResult, _safe_json
 from src.research.nested_tournament_features import _feature_coverage_summary
 from src.research.nested_tournament_governance import _blocked_reason_summary, _gate_reason_labels, _reason_list
@@ -116,6 +121,10 @@ def write_nested_tournament_artifacts(
         else []
     )
     current_best: dict[str, Any] = {
+        "governance_contract_version": GOVERNANCE_CONTRACT_VERSION,
+        "evidence_scope": "nested_mlb_model_tournament",
+        "theory_governance": THEORY_COMPATIBLE_ENGINEERING_SUPPORT,
+        "target_scope": target_scope_fields(league=league),
         "league": str(league).upper(),
         "as_of_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "source_kind": source_kind,
@@ -140,6 +149,10 @@ def write_nested_tournament_artifacts(
     _safe_json(paths.current_best_path, current_best)
 
     summary_payload = {
+        "governance_contract_version": GOVERNANCE_CONTRACT_VERSION,
+        "evidence_scope": "nested_mlb_model_tournament",
+        "theory_governance": THEORY_COMPATIBLE_ENGINEERING_SUPPORT,
+        "target_scope": target_scope_fields(league=league),
         "league": str(league).upper(),
         "run_id": resolved_run_id,
         "generated_at_utc": current_best["as_of_utc"],

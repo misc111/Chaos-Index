@@ -17,6 +17,7 @@ from src.common.utils import ensure_dir
 from src.evaluation.calibration import calibration_alpha_beta
 from src.evaluation.metrics import metric_bundle
 from src.evaluation.validation_classification import validate_logistic_probability_model
+from src.governance.evidence import model_evidence_fields
 from src.research.nested_tournament_candidates import _candidate_specs, _params_text
 from src.research.nested_tournament_contracts import NestedCandidateSpec, _safe_float, _safe_json, _time_ordered_split
 from src.research.nested_tournament_features import _screened_feature_sets
@@ -175,6 +176,12 @@ def _metric_row(
     cv_ok = cv_folds[cv_folds["status"] == "ok"].copy() if not cv_folds.empty else pd.DataFrame()
     cv_mean_log_loss = _safe_float(cv_ok["mean_log_loss"].mean()) if not cv_ok.empty else None
     validation_to_cv_delta = (float(metrics["log_loss"]) - cv_mean_log_loss) if cv_mean_log_loss is not None else None
+    evidence_fields = model_evidence_fields(
+        spec.model_name,
+        target_name=spec.target.target_name,
+        target_col=spec.target.target_col,
+        market=spec.target.market,
+    )
     return {
         "target_name": spec.target.target_name,
         "target_col": spec.target.target_col,
@@ -208,10 +215,17 @@ def _metric_row(
         "diagnostic_artifacts": diagnostic_paths,
         "fit_status": "ok",
         "fit_error": "",
+        **evidence_fields,
     }
 
 
 def _failed_row(spec: NestedCandidateSpec, *, split: str, error: str) -> dict[str, Any]:
+    evidence_fields = model_evidence_fields(
+        spec.model_name,
+        target_name=spec.target.target_name,
+        target_col=spec.target.target_col,
+        market=spec.target.market,
+    )
     return {
         "target_name": spec.target.target_name,
         "target_col": spec.target.target_col,
@@ -245,6 +259,7 @@ def _failed_row(spec: NestedCandidateSpec, *, split: str, error: str) -> dict[st
         "diagnostic_artifacts": {},
         "fit_status": "failed",
         "fit_error": error,
+        **evidence_fields,
     }
 
 

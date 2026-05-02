@@ -52,7 +52,7 @@ def run_validation_pipeline(
                 normalized = task_result
         summary = _record_task_summary(
             ctx,
-            task_name=task.name,
+            task=task,
             task_result=normalized,
         )
         outputs.task_records.append(
@@ -62,6 +62,7 @@ def run_validation_pipeline(
                 applicability=normalized.applicability,
                 artifacts=[spec.file_name for spec in normalized.outputs.sections],
                 summary=summary,
+                governance=summary,
             ).to_dict()
         )
         if normalized.outputs.sections:

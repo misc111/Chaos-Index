@@ -11,6 +11,12 @@ from src.common.config import AppConfig
 from src.common.logging import get_logger
 from src.common.time import utc_now_iso
 from src.common.utils import ensure_dir
+from src.governance.evidence import (
+    GOVERNANCE_CONTRACT_VERSION,
+    THEORY_COMPATIBLE_ENGINEERING_SUPPORT,
+    model_evidence_fields,
+    target_scope_fields,
+)
 from src.research.artifact_guardrails import require_mlb_report_path
 from src.research.model_comparison import run_candidate_model_comparison
 from src.storage.db import Database
@@ -93,13 +99,14 @@ def _comparison_top_models(summary_payload: dict[str, Any], *, limit: int = 5) -
         validation_metrics = dict(record.get("validation_metrics") or {})
         stability_metrics = dict(record.get("stability_metrics") or {})
         complement_summary = dict(record.get("complement_summary") or {})
+        target_name = str(record.get("target_name") or summary_payload.get("target_name") or "moneyline_home_win")
         rows.append(
             {
                 "rank": stability_metrics.get("final_holdout_rank"),
                 "model_name": str(record.get("model_name") or ""),
                 "display_name": str(complement_summary.get("display_name") or record.get("model_name") or ""),
-                "target_name": str(record.get("target_name") or ""),
-                "market": _market_name_for_target(record.get("target_name")),
+                "target_name": target_name,
+                "market": _market_name_for_target(target_name),
                 "family": complement_summary.get("family"),
                 "governance_note": complement_summary.get("governance_note"),
                 "recommendation_tier": complement_summary.get("recommendation_tier"),
@@ -112,6 +119,12 @@ def _comparison_top_models(summary_payload: dict[str, Any], *, limit: int = 5) -
                 "validation_log_loss": _safe_float(validation_metrics.get("validation_log_loss")),
                 "validation_brier": _safe_float(validation_metrics.get("validation_brier")),
                 "validation_auc": _safe_float(validation_metrics.get("validation_auc")),
+                **model_evidence_fields(
+                    str(record.get("model_name") or ""),
+                    target_name=target_name,
+                    target_col="home_win",
+                    market=_market_name_for_target(target_name),
+                ),
             }
         )
 
@@ -146,8 +159,18 @@ def _build_current_best_models_payload_from_comparison(
     execution_metadata = dict(metadata.get("execution_metadata") or evidence.get("execution_metadata") or {})
     top_models = _comparison_top_models(summary_payload)
     benchmark = dict(evidence.get("intercept_only_benchmark") or {})
+    target_name = str(summary_payload.get("target_name") or "moneyline_home_win")
 
     return {
+        "governance_contract_version": GOVERNANCE_CONTRACT_VERSION,
+        "evidence_scope": "candidate_model_comparison",
+        "theory_governance": THEORY_COMPATIBLE_ENGINEERING_SUPPORT,
+        "target_scope": target_scope_fields(
+            league=str(summary_payload.get("league") or "MLB"),
+            target_name=target_name,
+            target_col="home_win",
+            market=_market_name_for_target(target_name),
+        ),
         "league": str(summary_payload.get("league") or "MLB").upper(),
         "as_of_utc": utc_now_iso(),
         "question_scope": "latest_completed_run",
@@ -158,8 +181,8 @@ def _build_current_best_models_payload_from_comparison(
         "canonical_artifact_root": str(canonical_output_dir),
         "production_grade": execution_metadata.get("production_grade"),
         "execution_scope": execution_metadata.get("execution_data_scope"),
-        "target_name": str(summary_payload.get("target_name") or "moneyline_home_win"),
-        "market": _market_name_for_target(summary_payload.get("target_name") or "moneyline_home_win"),
+        "target_name": target_name,
+        "market": _market_name_for_target(target_name),
         "ranking_rule": _comparison_ranking_rule(),
         "recommended_model": str(decision.get("recommended_model") or ""),
         "recommended_display_name": str(metadata.get("recommended_display_name") or decision.get("recommended_model") or ""),
@@ -227,6 +250,15 @@ def write_current_best_models_from_tournament(
         best_recommendation.get("display_name") or (top_rows[0].get("display_name") if top_rows else recommended_model)
     )
     payload = {
+        "governance_contract_version": GOVERNANCE_CONTRACT_VERSION,
+        "evidence_scope": "mlb_model_tournament",
+        "theory_governance": THEORY_COMPATIBLE_ENGINEERING_SUPPORT,
+        "target_scope": target_scope_fields(
+            league="MLB",
+            target_name="moneyline_home_win",
+            target_col="home_win",
+            market="moneyline",
+        ),
         "league": "MLB",
         "as_of_utc": utc_now_iso(),
         "question_scope": "latest_completed_tournament",

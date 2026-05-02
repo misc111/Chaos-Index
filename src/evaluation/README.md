@@ -2,10 +2,11 @@
 
 # Evaluation
 
-Scoring, diagnostics, drift checks, and validation artifact generation.
+Scoring, diagnostics, drift checks, validation artifact generation, and task-level evidence governance.
 
 Public entrypoints:
 - `src/evaluation/validation_pipeline.py`
+- `src/evaluation/validation_governance.py`
 - `src/services/validate.py`
 
 This README is generated from the subsystem registry entry for `src/evaluation`.

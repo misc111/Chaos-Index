@@ -12,6 +12,10 @@ import pandas as pd
 from src.evaluation.validation_artifacts import ValidationOutputs
 from src.evaluation.validation_context import ValidationContext, holdout_df as _holdout_df
 from src.evaluation.validation_groups import build_feature_blocks
+from src.evaluation.validation_governance import (
+    ENGINEERING_TASK_GOVERNANCE,
+    validation_record_governance_fields,
+)
 from src.registry.models import planned_credibility_model_catalog
 
 ValidationTaskRunner = Callable[["ValidationContext"], "ValidationOutputs | ValidationTaskResult"]
@@ -31,6 +35,8 @@ class ValidationTask:
     runner: ValidationTaskRunner
     enabled: ValidationTaskPredicate | None = None
     family: str = "diagnostics"
+    validation_lane: str = ENGINEERING_TASK_GOVERNANCE.validation_lane
+    theory_governance: str = ENGINEERING_TASK_GOVERNANCE.theory_governance
 
     def should_run(self, ctx: ValidationContext) -> bool:
         return True if self.enabled is None else bool(self.enabled(ctx))
@@ -311,7 +317,7 @@ def _default_model_family_applicability(
 def _record_task_summary(
     ctx: ValidationContext,
     *,
-    task_name: str,
+    task: "ValidationTask",
     task_result: ValidationTaskResult,
 ) -> dict[str, Any]:
     summary = dict(task_result.summary or {})
@@ -319,7 +325,7 @@ def _record_task_summary(
     if not isinstance(model_family_applicability, Mapping):
         model_family_applicability = _default_model_family_applicability(
             ctx,
-            task_name=task_name,
+            task_name=task.name,
             contract_applicability=task_result.applicability,
         )
         summary["model_family_applicability"] = model_family_applicability
@@ -328,6 +334,14 @@ def _record_task_summary(
         "contract_level": str(task_result.applicability),
         "model_family_level": str(model_family_applicability.get("status") or "not_applicable"),
     }
+    summary.update(
+        validation_record_governance_fields(
+            ctx,
+            task_name=task.name,
+            validation_lane=task.validation_lane,
+            theory_governance=task.theory_governance,
+        )
+    )
     return _task_summary_with_model_metadata(ctx, summary)
 
 

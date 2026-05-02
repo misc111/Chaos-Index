@@ -435,6 +435,19 @@ export type MetricsResponse = {
   slices: TableRow[];
 };
 
+export type CurrentSeasonPredictivenessResponse = {
+  league?: string;
+  status?: string;
+  as_of_utc?: string;
+  report_slug?: string;
+  season?: number | null;
+  season_window?: Record<string, unknown>;
+  scoreboard?: Record<string, number>;
+  targets?: Record<string, unknown>;
+  betting_overlay?: Record<string, unknown>;
+  artifact_paths?: Record<string, string>;
+};
+
 export type GamesTodayRow = {
   game_id: number;
   game_date_utc?: string | null;

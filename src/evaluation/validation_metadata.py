@@ -15,6 +15,7 @@ from src.common.time import utc_now_iso
 from src.common.utils import ensure_dir
 from src.evaluation.validation_artifacts import ValidationOutputs
 from src.evaluation.validation_context import ValidationContext
+from src.evaluation.validation_governance import split_label_for_context, target_scope_for_context
 
 def _safe_archive_token(value: Any) -> str:
     cleaned = re.sub(r"[^A-Za-z0-9._-]+", "_", str(value or "")).strip("_")
@@ -272,6 +273,8 @@ def _validation_run_metadata(
         },
         "artifact_groups": artifact_groups,
         "primary_model_resolution": dict(ctx.primary_model_resolution),
+        "split_label": split_label_for_context(ctx),
+        "target_scope": target_scope_for_context(ctx),
     }
     metadata.update(scoped_labels)
     metadata.update(evidence_labels)
@@ -298,6 +301,8 @@ def _validation_manifest_metadata(ctx: ValidationContext) -> dict[str, Any]:
         scoped_labels = _resolve_execution_scope_labels(execution_metadata)
     payload: dict[str, Any] = {
         "primary_model_resolution": dict(ctx.primary_model_resolution),
+        "split_label": split_label_for_context(ctx),
+        "target_scope": target_scope_for_context(ctx),
     }
     payload.update(scoped_labels)
     payload.update(_fixture_demo_evidence_labels(scoped_labels))

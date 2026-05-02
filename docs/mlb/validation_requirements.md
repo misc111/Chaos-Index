@@ -35,6 +35,7 @@ Current implementation status:
   - conservative two-way vig-sum sanity checks
 - feature leakage checks now explicitly reject `available_as_of_utc` timestamps later than first pitch
 - feature leakage checks now explicitly flag MLB postgame outcome tokens such as runs, run differential, and winner labels when they appear in feature columns
+- validation contracts now stamp each task with an MLB target scope, resolved split label, model lane, theory classification, and evidence lane
 
 The remainder of this section is still required before Sprint 6 acceptance.
 
@@ -145,6 +146,7 @@ Current betting-overlay addition:
 - the task compares the selected primary model to prediction-time and closing no-vig market probabilities
 - emitted outputs include summary, per-model rows, CLV, flat unit ROI, log loss/Brier deltas versus market baselines, and calibration tables
 - this is not a CAS theory-core diagnostic; it is the scoreboard for whether a model is gaining betting edge against the market
+- validation task records now carry explicit task-level governance labels so this overlay cannot be confused with theory-core diagnostics
 
 Classification: `Betting overlay`
 

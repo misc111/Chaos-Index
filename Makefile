@@ -42,6 +42,7 @@ help:
 	@echo "  dashboard           Launch Next.js dashboard"
 	@echo "  smoke-dashboard     Playwright smoke test for the Next.js dashboard"
 	@echo "  mlb-artifact-slice  Generate bounded MLB fixture-slice compare/validation artifacts"
+	@echo "  predictiveness      Score frozen MLB predictions against current-season outcomes"
 	@echo "  query Q=...         Query local forecast/performance DB"
 	@echo "  smoke               End-to-end smoke run"
 	@echo "  test                Run tests"
@@ -108,6 +109,9 @@ validate:
 
 compare-candidates:
 	$(PYTHON) -m src.cli compare-candidates --config $(CONFIG) $(if $(CANDIDATE_MODELS),--candidate-models "$(CANDIDATE_MODELS)",) $(if $(FEATURE_POOL),--feature-pool "$(FEATURE_POOL)",) $(if $(FEATURE_MAP_MODEL),--feature-map-model "$(FEATURE_MAP_MODEL)",)
+
+predictiveness:
+	$(PYTHON) -m src.cli current-season-predictiveness --config $(CONFIG) $(if $(REPORT_SLUG),--report-slug "$(REPORT_SLUG)",) $(if $(SEASON),--season $(SEASON),)
 
 mlb-artifact-slice:
 	$(PYTHON) scripts/generate_mlb_artifact_slice.py --config $(CONFIG) --force

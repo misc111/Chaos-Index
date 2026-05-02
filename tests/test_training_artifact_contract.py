@@ -123,8 +123,9 @@ def test_train_models_persists_artifact_contract_and_validation_rows(tmp_path: P
     assert persisted_run_payload["validation_outputs"]
     assert persisted_run_payload["run_contract"]["validation_outputs"]
 
-    validation_rows = db.query("SELECT validation_name, artifact_path FROM validation_results")
+    validation_rows = db.query("SELECT validation_name, split_label, artifact_path FROM validation_results")
     assert validation_rows
+    assert {row["split_label"] for row in validation_rows} == {"train_test:time"}
     assert any(str(row["artifact_path"]).endswith(".json") or str(row["artifact_path"]).endswith(".csv") for row in validation_rows)
 
 

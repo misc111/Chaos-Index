@@ -100,6 +100,15 @@ class ValidationArtifactRecord:
     task_name: str
     family: str
     applicability: str
+    governance_contract_version: int | None = None
+    validation_lane: str = ""
+    theory_governance: str = ""
+    dashboard_output_lane: str = ""
+    split_label: str = ""
+    target_scope: dict[str, Any] = field(default_factory=dict)
+    model_lane: str = ""
+    theory_classification: str = ""
+    governing_sources: list[str] = field(default_factory=list)
     artifacts: list[str] = field(default_factory=list)
     summary: dict[str, Any] = field(default_factory=dict)
 
@@ -108,6 +117,15 @@ class ValidationArtifactRecord:
             "task_name": self.task_name,
             "family": self.family,
             "applicability": self.applicability,
+            "governance_contract_version": self.governance_contract_version,
+            "validation_lane": self.validation_lane,
+            "theory_governance": self.theory_governance,
+            "dashboard_output_lane": self.dashboard_output_lane,
+            "split_label": self.split_label,
+            "target_scope": _clean_dict(self.target_scope),
+            "model_lane": self.model_lane,
+            "theory_classification": self.theory_classification,
+            "governing_sources": _clean_string_list(self.governing_sources),
             "artifacts": _clean_string_list(self.artifacts),
             "summary": _clean_dict(self.summary),
         }
