@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 from pathlib import Path
 
 import pandas as pd
+import pytest
+import requests
 
+from src.data_sources.base import HttpClient
 from src.data_sources.mlb.games import fetch_games
 from src.data_sources.mlb.injuries import fetch_injuries_report
 from src.data_sources.mlb.players import fetch_players
@@ -469,6 +473,64 @@ def test_mlb_module_names_are_baseball_faithful() -> None:
     assert not (mlb_dir / "xg.py").exists()
 
 
+def test_http_client_reuses_identical_json_requests_within_refresh_run(tmp_path, monkeypatch) -> None:
+    client = HttpClient(raw_dir=str(tmp_path), max_retries=1)
+    calls = 0
+
+    def fake_request(url: str, params: dict | None = None) -> dict:
+        nonlocal calls
+        calls += 1
+        return {"url": url, "params": params, "event": "401815019"}
+
+    monkeypatch.setattr(client, "_request", fake_request)
+
+    first_payload, first_path = client.get_json("mlb_summary", "https://example.test/summary", params={"event": "401815019"}, key="401815019")
+    second_payload, second_path = client.get_json(
+        "mlb_summary",
+        "https://example.test/summary",
+        params={"event": "401815019"},
+        key="401815019",
+    )
+
+    assert calls == 1
+    assert second_payload == first_payload
+    assert second_path == first_path
+
+
+def test_http_client_cache_fallback_is_key_specific(tmp_path, monkeypatch) -> None:
+    client = HttpClient(raw_dir=str(tmp_path), max_retries=1)
+    client.save_raw("mlb_summary", {"event": "401815019"}, key="401815019")
+    client.save_raw("mlb_summary", {"event": "401815020"}, key="401815020")
+
+    def fail_request(url: str, params: dict | None = None) -> dict:
+        del url, params
+        raise requests.Timeout("forced timeout")
+
+    monkeypatch.setattr(client, "_request", fail_request)
+
+    payload, raw_path = client.get_json("mlb_summary", "https://example.test/summary", params={"event": "401815019"}, key="401815019")
+
+    assert payload == {"event": "401815019"}
+    assert Path(raw_path).name.startswith("401815019_")
+
+
+def test_http_client_honors_configured_retry_attempts(tmp_path, monkeypatch) -> None:
+    client = HttpClient(raw_dir=str(tmp_path), max_retries=2, backoff_seconds=0)
+    calls = 0
+
+    def fail_get(*args, **kwargs):
+        nonlocal calls
+        calls += 1
+        raise requests.Timeout("forced timeout")
+
+    monkeypatch.setattr(requests, "get", fail_get)
+
+    with pytest.raises(requests.Timeout):
+        client._request_response("https://example.test/slow")
+
+    assert calls == 2
+
+
 def test_fetch_mlb_team_game_stats_parses_summary_boxscore_totals(tmp_path) -> None:
     client = StubClient(
         {
@@ -526,6 +588,22 @@ def test_fetch_mlb_players_parses_lineup_cards_from_rosters(tmp_path) -> None:
     assert result.dataframe["lineup_confirmed"].eq(1).all()
 
 
+def test_fetch_mlb_players_caps_summary_fetches_to_recent_games(tmp_path) -> None:
+    client = StubClient(
+        {
+            ("3", json.dumps({"event": "3"}, sort_keys=True)): _boxscore_summary_payload(),
+        },
+        raw_dir=tmp_path,
+    )
+    games_df = pd.DataFrame([{"game_id": 1}, {"game_id": 2}, {"game_id": 3}])
+
+    result = fetch_players(client, team_abbrevs=["CHC", "LAD"], season="2026", games_df=games_df, max_games=1)
+
+    assert result.metadata["n_games_requested"] == 3
+    assert result.metadata["n_games"] == 1
+    assert result.metadata["max_games"] == 1
+
+
 def test_fetch_mlb_injuries_report_aggregates_pitcher_and_position_player_counts(tmp_path) -> None:
     client = StubClient(
         {
@@ -543,6 +621,46 @@ def test_fetch_mlb_injuries_report_aggregates_pitcher_and_position_player_counts
     assert row["team"] == "CHC"
     assert row["position_player_out_count"] == 1
     assert row["pitcher_out_count"] == 1
+
+
+def test_fetch_mlb_injuries_handles_string_position_type(tmp_path) -> None:
+    payload = deepcopy(_boxscore_summary_payload())
+    payload["injuries"][0]["injuries"].append(
+        {
+            "athlete": {"id": "9003", "displayName": "Injured Starter"},
+            "status": {"name": "15-Day IL"},
+            "details": {"type": "SP"},
+        }
+    )
+    client = StubClient(
+        {
+            ("401815019", json.dumps({"event": "401815019"}, sort_keys=True)): payload,
+        },
+        raw_dir=tmp_path,
+    )
+    games_df = pd.DataFrame([{"game_id": 401815019}])
+
+    result = fetch_injuries_report(client, teams=["CHC", "LAD"], games_df=games_df)
+
+    row = result.dataframe.iloc[0]
+    assert row["position_player_out_count"] == 1
+    assert row["pitcher_out_count"] == 2
+
+
+def test_fetch_mlb_injuries_caps_summary_fetches_to_recent_games(tmp_path) -> None:
+    client = StubClient(
+        {
+            ("3", json.dumps({"event": "3"}, sort_keys=True)): _boxscore_summary_payload(),
+        },
+        raw_dir=tmp_path,
+    )
+    games_df = pd.DataFrame([{"game_id": 1}, {"game_id": 2}, {"game_id": 3}])
+
+    result = fetch_injuries_report(client, teams=["CHC", "LAD"], games_df=games_df, max_games=1)
+
+    assert result.metadata["n_games_requested"] == 3
+    assert result.metadata["n_games"] == 1
+    assert result.metadata["max_games"] == 1
 
 
 def test_fetch_mlb_weather_context_stays_honest_when_provider_has_no_weather(tmp_path) -> None:

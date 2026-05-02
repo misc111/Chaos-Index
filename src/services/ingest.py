@@ -468,15 +468,20 @@ def fetch_data(cfg: AppConfig) -> None:
     end_date = datetime.now(timezone.utc) + timedelta(days=cfg.data.upcoming_days)
     start_date = datetime.now(timezone.utc) - timedelta(days=cfg.data.history_days)
 
+    logger.info("Refresh phase started | league=%s phase=games start=%s end=%s", league, start_date.date(), end_date.date())
     games_res = adapter.fetch_games(client, start_date=start_date, end_date=end_date)
     save_interim(games_res.dataframe, cfg.paths.interim_dir, "games")
     insert_snapshot(db, games_res)
     upsert_games(db, games_res.dataframe, league=league)
+    logger.info("Refresh phase complete | league=%s phase=games rows=%d", league, len(games_res.dataframe))
 
+    logger.info("Refresh phase started | league=%s phase=schedule days_ahead=%d", league, cfg.data.upcoming_days)
     schedule_res = adapter.fetch_upcoming_schedule(client, days_ahead=cfg.data.upcoming_days)
     save_interim(schedule_res.dataframe, cfg.paths.interim_dir, "schedule")
     insert_snapshot(db, schedule_res)
+    logger.info("Refresh phase complete | league=%s phase=schedule rows=%d", league, len(schedule_res.dataframe))
 
+    logger.info("Refresh phase started | league=%s phase=teams", league)
     teams_res = adapter.fetch_teams(client)
     save_interim(teams_res.dataframe, cfg.paths.interim_dir, "teams")
     insert_snapshot(db, teams_res)
@@ -487,8 +492,10 @@ def fetch_data(cfg: AppConfig) -> None:
         snapshot_id=teams_res.snapshot_id,
         as_of_utc=teams_res.extracted_at_utc,
     )
+    logger.info("Refresh phase complete | league=%s phase=teams rows=%d", league, len(teams_res.dataframe))
 
     team_abbrevs = _team_abbrevs(teams_res.dataframe)
+    logger.info("Refresh phase started | league=%s phase=lineups max_games=%d", league, 350)
     players_res = adapter.fetch_players(
         client,
         team_abbrevs=team_abbrevs,
@@ -497,21 +504,29 @@ def fetch_data(cfg: AppConfig) -> None:
     )
     save_interim(players_res.dataframe, cfg.paths.interim_dir, "players")
     insert_snapshot(db, players_res)
+    logger.info("Refresh phase complete | league=%s phase=lineups rows=%d", league, len(players_res.dataframe))
 
     final_ids = games_res.dataframe[games_res.dataframe["status_final"] == 1]["game_id"].astype(int).tolist()
+    logger.info("Refresh phase started | league=%s phase=team_stats max_games=%d", league, 350)
     team_stats_res = adapter.fetch_team_game_stats(client, game_ids=final_ids, max_games=350)
     save_interim(team_stats_res.dataframe, cfg.paths.interim_dir, "team_stats")
     insert_snapshot(db, team_stats_res)
+    logger.info("Refresh phase complete | league=%s phase=team_stats rows=%d", league, len(team_stats_res.dataframe))
 
     starter_game_ids = games_res.dataframe["game_id"].dropna().astype(int).tolist() if not games_res.dataframe.empty else []
+    logger.info("Refresh phase started | league=%s phase=starting_pitchers max_games=%d", league, 350)
     starter_context_res = adapter.fetch_starter_context(client, game_ids=starter_game_ids, max_games=350)
     save_interim(starter_context_res.dataframe, cfg.paths.interim_dir, "starting_pitchers")
     insert_snapshot(db, starter_context_res)
+    logger.info("Refresh phase complete | league=%s phase=starting_pitchers rows=%d", league, len(starter_context_res.dataframe))
 
+    logger.info("Refresh phase started | league=%s phase=injuries max_games=%d", league, 350)
     injuries_res = adapter.fetch_injuries_report(client, teams=team_abbrevs, games_df=games_res.dataframe)
     save_interim(injuries_res.dataframe, cfg.paths.interim_dir, "injuries")
     insert_snapshot(db, injuries_res)
+    logger.info("Refresh phase complete | league=%s phase=injuries rows=%d", league, len(injuries_res.dataframe))
 
+    logger.info("Refresh phase started | league=%s phase=odds", league)
     odds_res = adapter.fetch_public_odds_optional(
         client,
         teams_df=teams_res.dataframe,
@@ -521,10 +536,13 @@ def fetch_data(cfg: AppConfig) -> None:
     save_interim(odds_res.dataframe, cfg.paths.interim_dir, "odds")
     insert_snapshot(db, odds_res)
     insert_odds_snapshot_and_lines(db, league=league, odds_res=odds_res)
+    logger.info("Refresh phase complete | league=%s phase=odds rows=%d", league, len(odds_res.dataframe))
 
+    logger.info("Refresh phase started | league=%s phase=weather", league)
     weather_res = adapter.fetch_context_metrics_optional(client)
     save_interim(weather_res.dataframe, cfg.paths.interim_dir, "weather")
     insert_snapshot(db, weather_res)
+    logger.info("Refresh phase complete | league=%s phase=weather rows=%d", league, len(weather_res.dataframe))
 
     results_df = adapter.build_results_from_games(games_res.dataframe)
     upsert_results(db, results_df, league=league)

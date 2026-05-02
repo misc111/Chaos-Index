@@ -1,13 +1,13 @@
 {
-  "archive_date": "2026-04-22",
-  "archive_dir": "validation-runs/mlb/2026-04-22/2026-04-22T20-10-09+00-00_mlb_fixture_slice_artifact_proof_validation_fixture_run",
-  "archive_id": "2026-04-22T20-10-09+00-00_mlb_fixture_slice_artifact_proof_validation_fixture_run",
+  "archive_date": "2026-05-02",
+  "archive_dir": "validation-runs/mlb/2026-05-02/2026-05-02T15-39-44+00-00_run_a965728ef03c2c8d",
+  "archive_id": "2026-05-02T15-39-44+00-00_run_a965728ef03c2c8d",
   "artifact_counts": {
     "performance_files": 5,
-    "total_files": 108,
+    "total_files": 94,
     "validation_root_files": 2,
-    "validation_subdir_files": 101,
-    "validation_subdir_groups": 3
+    "validation_subdir_files": 87,
+    "validation_subdir_groups": 4
   },
   "artifact_groups": [
     {
@@ -20,119 +20,111 @@
     },
     {
       "files": [
-        "diagnostics/calibration/validation_calibration_robustness.json",
-        "diagnostics/classification/validation_logit_actual_vs_predicted_curve.csv",
-        "diagnostics/classification/validation_logit_actual_vs_predicted_summary.json",
-        "diagnostics/classification/validation_logit_classification_summary.json",
-        "diagnostics/classification/validation_logit_lift_curve.csv",
-        "diagnostics/classification/validation_logit_lift_summary.json",
-        "diagnostics/classification/validation_logit_lorenz_curve.csv",
-        "diagnostics/classification/validation_logit_lorenz_summary.json",
-        "diagnostics/classification/validation_logit_operating_points.csv",
-        "diagnostics/classification/validation_logit_quantile_curve.csv",
-        "diagnostics/classification/validation_logit_quantile_summary.json",
-        "diagnostics/classification/validation_logit_roc_curve.csv",
-        "diagnostics/classification/validation_logit_roc_summary.json",
-        "diagnostics/classification/validation_logit_tossup_summary.json",
-        "diagnostics/classification/validation_logit_tossup_sweep.csv",
-        "diagnostics/collinearity/validation_collinearity_condition.csv",
-        "diagnostics/collinearity/validation_collinearity_pairs.csv",
-        "diagnostics/collinearity/validation_collinearity_structural.csv",
-        "diagnostics/collinearity/validation_collinearity_summary.json",
-        "diagnostics/collinearity/validation_collinearity_variance_decomposition.csv",
-        "diagnostics/collinearity/validation_vif.csv",
-        "diagnostics/data_quality/validation_mlb_data_quality_issues.csv",
-        "diagnostics/data_quality/validation_mlb_data_quality_summary.json",
-        "diagnostics/fragility/validation_fragility_missingness.csv",
-        "diagnostics/fragility/validation_fragility_perturbation.json",
-        "diagnostics/influence/validation_influence_summary.json",
-        "diagnostics/influence/validation_influence_top.csv",
-        "diagnostics/nonlinearity/validation_nonlinearity_curve_points.csv",
-        "diagnostics/nonlinearity/validation_nonlinearity_feature_summary.csv",
-        "diagnostics/nonlinearity/validation_nonlinearity_summary.json",
-        "diagnostics/significance/validation_information_criteria_candidates.csv",
-        "diagnostics/significance/validation_information_criteria_summary.json",
-        "diagnostics/significance/validation_significance.csv",
-        "diagnostics/stability/validation_bootstrap_coefficients.csv",
-        "diagnostics/stability/validation_bootstrap_feature_summary.csv",
-        "diagnostics/stability/validation_bootstrap_summary.json",
-        "diagnostics/stability/validation_break_test.json",
-        "diagnostics/stability/validation_coef_paths.csv",
-        "diagnostics/stability/validation_cv_coefficients.csv",
-        "diagnostics/stability/validation_cv_feature_stability.csv",
-        "diagnostics/stability/validation_cv_fold_metrics.csv",
-        "diagnostics/stability/validation_cv_summary.json"
+        "calibration/validation_calibration_robustness.json",
+        "classification/validation_logit_actual_vs_predicted_curve.csv",
+        "classification/validation_logit_actual_vs_predicted_summary.json",
+        "classification/validation_logit_classification_summary.json",
+        "classification/validation_logit_lift_curve.csv",
+        "classification/validation_logit_lift_summary.json",
+        "classification/validation_logit_lorenz_curve.csv",
+        "classification/validation_logit_lorenz_summary.json",
+        "classification/validation_logit_operating_points.csv",
+        "classification/validation_logit_quantile_curve.csv",
+        "classification/validation_logit_quantile_summary.json",
+        "classification/validation_logit_roc_curve.csv",
+        "classification/validation_logit_roc_summary.json",
+        "classification/validation_logit_tossup_summary.json",
+        "classification/validation_logit_tossup_sweep.csv",
+        "collinearity/validation_collinearity_condition.csv",
+        "collinearity/validation_collinearity_pairs.csv",
+        "collinearity/validation_collinearity_structural.csv",
+        "collinearity/validation_collinearity_summary.json",
+        "collinearity/validation_collinearity_variance_decomposition.csv",
+        "collinearity/validation_vif.csv",
+        "data_quality/validation_mlb_data_quality_issues.csv",
+        "data_quality/validation_mlb_data_quality_summary.json",
+        "fragility/validation_fragility_missingness.csv",
+        "fragility/validation_fragility_perturbation.json",
+        "influence/validation_influence_summary.json",
+        "influence/validation_influence_top.csv",
+        "nonlinearity/validation_nonlinearity_curve_points.csv",
+        "nonlinearity/validation_nonlinearity_feature_summary.csv",
+        "nonlinearity/validation_nonlinearity_summary.json",
+        "significance/validation_information_criteria_candidates.csv",
+        "significance/validation_information_criteria_summary.json",
+        "significance/validation_significance.csv",
+        "stability/validation_bootstrap_coefficients.csv",
+        "stability/validation_bootstrap_feature_summary.csv",
+        "stability/validation_bootstrap_summary.json",
+        "stability/validation_break_test.json",
+        "stability/validation_coef_paths.csv",
+        "stability/validation_cv_coefficients.csv",
+        "stability/validation_cv_feature_stability.csv",
+        "stability/validation_cv_fold_metrics.csv",
+        "stability/validation_cv_summary.json"
       ],
       "name": "diagnostics",
       "relative_dir": "diagnostics"
     },
     {
       "files": [
-        "glm/residuals/plots/glm_validation_deviance_residuals.png",
-        "glm/residuals/plots/glm_validation_deviance_residuals_histogram.png",
-        "glm/residuals/plots/glm_validation_deviance_residuals_qq.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_bookmaker_dispersion_home_prob.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_bullpen_fatigue_edge.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_bullpen_quality_edge.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_day_game.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_division_game.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_lineup_quality_edge.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_lineup_uncertainty_index.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_market_logit_home_prob.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_market_movement_home_prob.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_market_open_home_prob.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_market_vig_free_home_prob.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_park_run_factor.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_recent_defense_edge.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_recent_offense_edge.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_rest_edge.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_starter_quality_edge.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_starter_uncertainty_index.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_team_strength_edge.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_temperature_f.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_time_to_first_pitch_hours.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_timezone_edge.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_travel_miles_edge.png",
-        "glm/residuals/plots/glm_validation_partial_residuals_wind_out_mph.png",
-        "glm/residuals/plots/glm_validation_randomized_quantile_residuals_histogram.png",
-        "glm/residuals/plots/glm_validation_randomized_quantile_residuals_qq.png",
-        "glm/residuals/plots/glm_validation_working_residuals_bookmaker_dispersion_home_prob.png",
-        "glm/residuals/plots/glm_validation_working_residuals_bullpen_fatigue_edge.png",
-        "glm/residuals/plots/glm_validation_working_residuals_bullpen_quality_edge.png",
-        "glm/residuals/plots/glm_validation_working_residuals_day_game.png",
-        "glm/residuals/plots/glm_validation_working_residuals_division_game.png",
-        "glm/residuals/plots/glm_validation_working_residuals_linear_predictor.png",
-        "glm/residuals/plots/glm_validation_working_residuals_lineup_quality_edge.png",
-        "glm/residuals/plots/glm_validation_working_residuals_lineup_uncertainty_index.png",
-        "glm/residuals/plots/glm_validation_working_residuals_market_logit_home_prob.png",
-        "glm/residuals/plots/glm_validation_working_residuals_market_movement_home_prob.png",
-        "glm/residuals/plots/glm_validation_working_residuals_market_open_home_prob.png",
-        "glm/residuals/plots/glm_validation_working_residuals_market_vig_free_home_prob.png",
-        "glm/residuals/plots/glm_validation_working_residuals_park_run_factor.png",
-        "glm/residuals/plots/glm_validation_working_residuals_recent_defense_edge.png",
-        "glm/residuals/plots/glm_validation_working_residuals_recent_offense_edge.png",
-        "glm/residuals/plots/glm_validation_working_residuals_rest_edge.png",
-        "glm/residuals/plots/glm_validation_working_residuals_starter_quality_edge.png",
-        "glm/residuals/plots/glm_validation_working_residuals_starter_uncertainty_index.png",
-        "glm/residuals/plots/glm_validation_working_residuals_team_strength_edge.png",
-        "glm/residuals/plots/glm_validation_working_residuals_temperature_f.png",
-        "glm/residuals/plots/glm_validation_working_residuals_time_to_first_pitch_hours.png",
-        "glm/residuals/plots/glm_validation_working_residuals_timezone_edge.png",
-        "glm/residuals/plots/glm_validation_working_residuals_travel_miles_edge.png",
-        "glm/residuals/plots/glm_validation_working_residuals_wind_out_mph.png",
-        "glm/residuals/validation_glm_partial_residual_bins.csv",
-        "glm/residuals/validation_glm_residual_feature_summary.csv",
-        "glm/residuals/validation_glm_residual_summary.json",
-        "glm/residuals/validation_glm_working_residual_bins_features.csv",
-        "glm/residuals/validation_glm_working_residual_bins_linear_predictor.csv",
-        "glm/residuals/validation_glm_working_residual_bins_weight.csv"
+        "residuals/plots/glm_validation_deviance_residuals.png",
+        "residuals/plots/glm_validation_deviance_residuals_histogram.png",
+        "residuals/plots/glm_validation_deviance_residuals_qq.png",
+        "residuals/plots/glm_validation_partial_residuals_bullpen_quality_edge.png",
+        "residuals/plots/glm_validation_partial_residuals_diff_bullpen_availability.png",
+        "residuals/plots/glm_validation_partial_residuals_diff_bullpen_quality.png",
+        "residuals/plots/glm_validation_partial_residuals_diff_lineup_talent.png",
+        "residuals/plots/glm_validation_partial_residuals_diff_starting_pitcher_quality.png",
+        "residuals/plots/glm_validation_partial_residuals_home_field_advantage.png",
+        "residuals/plots/glm_validation_partial_residuals_lineup_confirmation_share.png",
+        "residuals/plots/glm_validation_partial_residuals_lineup_stability_diff.png",
+        "residuals/plots/glm_validation_partial_residuals_rest_diff.png",
+        "residuals/plots/glm_validation_partial_residuals_slugging_share_proxy.png",
+        "residuals/plots/glm_validation_partial_residuals_starter_quality_edge.png",
+        "residuals/plots/glm_validation_partial_residuals_travel_diff.png",
+        "residuals/plots/glm_validation_randomized_quantile_residuals_histogram.png",
+        "residuals/plots/glm_validation_randomized_quantile_residuals_qq.png",
+        "residuals/plots/glm_validation_working_residuals_bullpen_quality_edge.png",
+        "residuals/plots/glm_validation_working_residuals_diff_bullpen_availability.png",
+        "residuals/plots/glm_validation_working_residuals_diff_bullpen_quality.png",
+        "residuals/plots/glm_validation_working_residuals_diff_lineup_talent.png",
+        "residuals/plots/glm_validation_working_residuals_diff_starting_pitcher_quality.png",
+        "residuals/plots/glm_validation_working_residuals_fitted_probability.png",
+        "residuals/plots/glm_validation_working_residuals_home_field_advantage.png",
+        "residuals/plots/glm_validation_working_residuals_linear_predictor.png",
+        "residuals/plots/glm_validation_working_residuals_lineup_confirmation_share.png",
+        "residuals/plots/glm_validation_working_residuals_lineup_stability_diff.png",
+        "residuals/plots/glm_validation_working_residuals_rest_diff.png",
+        "residuals/plots/glm_validation_working_residuals_slugging_share_proxy.png",
+        "residuals/plots/glm_validation_working_residuals_starter_quality_edge.png",
+        "residuals/plots/glm_validation_working_residuals_travel_diff.png",
+        "residuals/validation_glm_grouped_residual_metadata.json",
+        "residuals/validation_glm_grouped_residual_summary.csv",
+        "residuals/validation_glm_partial_residual_bins.csv",
+        "residuals/validation_glm_raw_residual_rows.csv",
+        "residuals/validation_glm_residual_feature_summary.csv",
+        "residuals/validation_glm_residual_summary.json",
+        "residuals/validation_glm_residual_vs_fitted_bins.csv",
+        "residuals/validation_glm_working_residual_bins_features.csv",
+        "residuals/validation_glm_working_residual_bins_linear_predictor.csv",
+        "residuals/validation_glm_working_residual_bins_weight.csv"
       ],
       "name": "glm",
       "relative_dir": "glm"
     },
     {
       "files": [
-        "split/validation_split_summary.json"
+        "validation_market_truth_by_model.csv",
+        "validation_market_truth_calibration.csv",
+        "validation_market_truth_summary.json"
+      ],
+      "name": "market_truth",
+      "relative_dir": "market_truth"
+    },
+    {
+      "files": [
+        "validation_split_summary.json"
       ],
       "name": "split",
       "relative_dir": "split"
@@ -149,31 +141,47 @@
       "relative_dir": "performance"
     }
   ],
-  "data_origin": "synthetic_fixture",
-  "execution_data_scope": "mlb_fixture_slice",
-  "execution_label_class": "fixture_or_demo",
-  "execution_metadata": {
-    "artifact_purpose": "prove real MLB report and validation artifact paths through real services",
-    "data_origin": "synthetic_fixture",
-    "execution_data_scope": "mlb_fixture_slice",
-    "execution_label_class": "fixture_or_demo",
-    "execution_source_label": "deterministic MLB fixture slice generated by scripts/generate_mlb_artifact_slice.py",
-    "feature_count": 23,
-    "fixture_rows": 480,
-    "full_mlb_blocker": "Local MLB processed features and historical manifest were absent in this worktree; this run uses a bounded fixture slice instead of claiming production data coverage.",
-    "production_grade": false,
-    "required_comparison_output_dir": "artifacts/reports/mlb",
-    "required_validation_output_dir": "artifacts/validation/mlb",
-    "source_label": "deterministic MLB fixture slice generated by scripts/generate_mlb_artifact_slice.py"
-  },
-  "execution_source_label": "deterministic MLB fixture slice generated by scripts/generate_mlb_artifact_slice.py",
-  "feature_set_version": "mlb_fixture_slice_v1",
-  "generated_at_utc": "2026-04-22T20:10:09+00:00",
+  "execution_metadata": {},
+  "feature_set_version": "fset_6d7cdf2e28206260",
+  "generated_at_utc": "2026-05-02T15:39:44+00:00",
   "latest_performance_dir": "plots/mlb/glm/performance",
   "latest_validation_dir": "validation/mlb",
   "league": "MLB",
-  "model_run_id": "mlb_fixture_slice_artifact_proof_validation_fixture_run",
-  "production_grade": false,
+  "model_run_id": "run_a965728ef03c2c8d",
+  "primary_model_resolution": {
+    "model_fit_status": {
+      "glm_elastic_net": {
+        "feature_count": 12,
+        "model_kind": "penalized_glm",
+        "status": "fit_ok"
+      },
+      "glm_lasso": {
+        "feature_count": 8,
+        "model_kind": "penalized_glm",
+        "status": "fit_ok"
+      },
+      "glm_ridge": {
+        "feature_count": 11,
+        "model_kind": "penalized_glm",
+        "status": "fit_ok"
+      },
+      "glm_vanilla": {
+        "feature_count": 11,
+        "model_kind": "extension_or_vanilla",
+        "status": "fit_ok"
+      }
+    },
+    "note": "Resolved primary validation model 'glm_elastic_net'.",
+    "requested_primary_model": "glm_elastic_net",
+    "resolved_primary_model": "glm_elastic_net",
+    "selected_models": [
+      "glm_ridge",
+      "glm_elastic_net",
+      "glm_lasso",
+      "glm_vanilla"
+    ],
+    "status": "supported"
+  },
   "registered_sections": [
     {
       "file_name": "split/validation_split_summary.json",
@@ -227,6 +235,30 @@
       "file_name": "glm/residuals/validation_glm_partial_residual_bins.csv",
       "kind": "csv",
       "section": "glm_partial_residual_bins",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_raw_residual_rows.csv",
+      "kind": "csv",
+      "section": "glm_raw_residual_rows",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_residual_vs_fitted_bins.csv",
+      "kind": "csv",
+      "section": "glm_residual_vs_fitted_bins",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_grouped_residual_summary.csv",
+      "kind": "csv",
+      "section": "glm_grouped_residual_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_grouped_residual_metadata.json",
+      "kind": "json",
+      "section": "glm_grouped_residual_metadata",
       "tail_rows": null
     },
     {
@@ -386,6 +418,24 @@
       "tail_rows": null
     },
     {
+      "file_name": "market_truth/validation_market_truth_summary.json",
+      "kind": "json",
+      "section": "market_truth_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "market_truth/validation_market_truth_by_model.csv",
+      "kind": "csv",
+      "section": "market_truth_by_model",
+      "tail_rows": null
+    },
+    {
+      "file_name": "market_truth/validation_market_truth_calibration.csv",
+      "kind": "csv",
+      "section": "market_truth_calibration",
+      "tail_rows": null
+    },
+    {
       "file_name": "diagnostics/classification/validation_logit_quantile_summary.json",
       "kind": "json",
       "section": "logit_quantile_summary",
@@ -471,8 +521,23 @@
     }
   ],
   "selected_models": [
-    "glm_ridge"
+    "glm_ridge",
+    "glm_elastic_net",
+    "glm_lasso",
+    "glm_vanilla"
   ],
+  "split_label": "train_test:time",
+  "target_scope": {
+    "league": "MLB",
+    "market": "moneyline",
+    "product_scope": [
+      "moneyline",
+      "runline",
+      "totals"
+    ],
+    "target_column": "home_win",
+    "target_name": "moneyline_home_win"
+  },
   "validation_contract_file": "validation_outputs_contract.json",
-  "validation_task_count": 11
+  "validation_task_count": 13
 }

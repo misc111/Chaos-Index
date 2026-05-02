@@ -1,5 +1,53 @@
 {
   "league": "MLB",
+  "metadata": {
+    "primary_model_resolution": {
+      "model_fit_status": {
+        "glm_elastic_net": {
+          "feature_count": 12,
+          "model_kind": "penalized_glm",
+          "status": "fit_ok"
+        },
+        "glm_lasso": {
+          "feature_count": 8,
+          "model_kind": "penalized_glm",
+          "status": "fit_ok"
+        },
+        "glm_ridge": {
+          "feature_count": 11,
+          "model_kind": "penalized_glm",
+          "status": "fit_ok"
+        },
+        "glm_vanilla": {
+          "feature_count": 11,
+          "model_kind": "extension_or_vanilla",
+          "status": "fit_ok"
+        }
+      },
+      "note": "Resolved primary validation model 'glm_elastic_net'.",
+      "requested_primary_model": "glm_elastic_net",
+      "resolved_primary_model": "glm_elastic_net",
+      "selected_models": [
+        "glm_ridge",
+        "glm_elastic_net",
+        "glm_lasso",
+        "glm_vanilla"
+      ],
+      "status": "supported"
+    },
+    "split_label": "train_test:time",
+    "target_scope": {
+      "league": "MLB",
+      "market": "moneyline",
+      "product_scope": [
+        "moneyline",
+        "runline",
+        "totals"
+      ],
+      "target_column": "home_win",
+      "target_name": "moneyline_home_win"
+    }
+  },
   "sections": [
     {
       "file_name": "split/validation_split_summary.json",
@@ -53,6 +101,30 @@
       "file_name": "glm/residuals/validation_glm_partial_residual_bins.csv",
       "kind": "csv",
       "section": "glm_partial_residual_bins",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_raw_residual_rows.csv",
+      "kind": "csv",
+      "section": "glm_raw_residual_rows",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_residual_vs_fitted_bins.csv",
+      "kind": "csv",
+      "section": "glm_residual_vs_fitted_bins",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_grouped_residual_summary.csv",
+      "kind": "csv",
+      "section": "glm_grouped_residual_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "glm/residuals/validation_glm_grouped_residual_metadata.json",
+      "kind": "json",
+      "section": "glm_grouped_residual_metadata",
       "tail_rows": null
     },
     {
@@ -209,6 +281,24 @@
       "file_name": "diagnostics/calibration/validation_calibration_robustness.json",
       "kind": "json",
       "section": "calibration_robustness",
+      "tail_rows": null
+    },
+    {
+      "file_name": "market_truth/validation_market_truth_summary.json",
+      "kind": "json",
+      "section": "market_truth_summary",
+      "tail_rows": null
+    },
+    {
+      "file_name": "market_truth/validation_market_truth_by_model.csv",
+      "kind": "csv",
+      "section": "market_truth_by_model",
+      "tail_rows": null
+    },
+    {
+      "file_name": "market_truth/validation_market_truth_calibration.csv",
+      "kind": "csv",
+      "section": "market_truth_calibration",
       "tail_rows": null
     },
     {

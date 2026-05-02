@@ -7,10 +7,23 @@ from src.data_sources.base import HttpClient, SourceFetchResult
 from src.data_sources.mlb._helpers import fetch_game_summary
 
 
+def _injury_position_abbrev(injury: dict) -> str:
+    details = injury.get("details") if isinstance(injury, dict) else None
+    if not isinstance(details, dict):
+        details = {}
+    injury_type = details.get("type")
+    if isinstance(injury_type, dict):
+        raw = injury_type.get("abbreviation") or injury_type.get("name") or injury_type.get("displayName")
+    else:
+        raw = injury_type or details.get("typeDescription") or injury.get("type")
+    return str(raw or "").upper()
+
+
 def fetch_injuries_report(
     client: HttpClient,
     teams: list[str] | None = None,
     games_df: pd.DataFrame | None = None,
+    max_games: int = 350,
 ) -> SourceFetchResult:
     as_of_utc = utc_now_iso()
     team_filter = set(str(team) for team in (teams or []))
@@ -21,7 +34,9 @@ def fetch_injuries_report(
     if games_df is not None and not games_df.empty and "game_id" in games_df.columns:
         game_ids = [int(game_id) for game_id in games_df["game_id"].dropna().astype(int).tolist()]
 
-    for game_id in game_ids:
+    selected_game_ids = game_ids[-max_games:]
+
+    for game_id in selected_game_ids:
         try:
             payload, raw_path = fetch_game_summary(client, game_id)
             raw_paths.append(raw_path)
@@ -35,7 +50,7 @@ def fetch_injuries_report(
             position_player_out_count = 0
             pitcher_out_count = 0
             for injury in team_block.get("injuries") or []:
-                pos = str((((injury.get("details") or {}).get("type") or {}).get("abbreviation")) or "").upper()
+                pos = _injury_position_abbrev(injury)
                 if pos in {"P", "SP", "RP"}:
                     pitcher_out_count += 1
                 else:
@@ -51,8 +66,10 @@ def fetch_injuries_report(
 
     df = pd.DataFrame(rows)
     metadata = {
-        "n_games": int(len(game_ids)),
+        "n_games_requested": int(len(game_ids)),
+        "n_games": int(len(selected_game_ids)),
         "n_rows": int(len(df)),
+        "max_games": int(max_games),
         "fetched_at_utc": as_of_utc,
         "provider": "espn_summary_injuries",
     }

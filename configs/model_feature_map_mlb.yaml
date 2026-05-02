@@ -101,13 +101,13 @@ models:
   glm_ridge:
     active_features:
     - diff_starting_pitcher_quality
-    - starting_pitcher_hand_matchup
     - diff_bullpen_quality
-    - diff_bullpen_fatigue
+    - diff_bullpen_availability
     - diff_lineup_talent
     - lineup_stability_diff
-    - park_run_effect
-    - park_weather_run_effect
+    - starter_quality_edge
+    - bullpen_quality_edge
+    - lineup_confirmation_share
     - rest_diff
     - travel_diff
     - home_field_advantage
@@ -115,25 +115,25 @@ models:
   glm_elastic_net:
     active_features:
     - diff_starting_pitcher_quality
-    - starting_pitcher_hand_matchup
     - diff_bullpen_quality
-    - diff_bullpen_fatigue
+    - diff_bullpen_availability
     - diff_lineup_talent
     - lineup_stability_diff
-    - park_run_effect
-    - park_weather_run_effect
+    - starter_quality_edge
+    - bullpen_quality_edge
+    - lineup_confirmation_share
+    - slugging_share_proxy
     - rest_diff
     - travel_diff
     - home_field_advantage
-    - umpire_run_effect
     feature_count: 12
   glm_lasso:
     active_features:
     - diff_starting_pitcher_quality
-    - starting_pitcher_hand_matchup
     - diff_bullpen_quality
     - diff_lineup_talent
-    - park_run_effect
+    - starter_quality_edge
+    - bullpen_quality_edge
     - rest_diff
     - travel_diff
     - home_field_advantage
@@ -141,10 +141,10 @@ models:
   glm_lasso_market_credibility:
     active_features:
     - diff_starting_pitcher_quality
-    - starting_pitcher_hand_matchup
     - diff_bullpen_quality
     - diff_lineup_talent
-    - park_run_effect
+    - starter_quality_edge
+    - bullpen_quality_edge
     - rest_diff
     - travel_diff
     - home_field_advantage
@@ -156,10 +156,10 @@ models:
   glm_lasso_prior_credibility:
     active_features:
     - diff_starting_pitcher_quality
-    - starting_pitcher_hand_matchup
     - diff_bullpen_quality
     - diff_lineup_talent
-    - park_run_effect
+    - starter_quality_edge
+    - bullpen_quality_edge
     - rest_diff
     - travel_diff
     - home_field_advantage
@@ -178,10 +178,10 @@ planned_credibility_models:
     offset_scale: logit
     driver_features:
     - diff_starting_pitcher_quality
-    - starting_pitcher_hand_matchup
     - diff_bullpen_quality
     - diff_lineup_talent
-    - park_run_effect
+    - starter_quality_edge
+    - bullpen_quality_edge
     - rest_diff
     - travel_diff
     - home_field_advantage
@@ -195,10 +195,10 @@ planned_credibility_models:
     offset_scale: logit
     driver_features:
     - diff_starting_pitcher_quality
-    - starting_pitcher_hand_matchup
     - diff_bullpen_quality
     - diff_lineup_talent
-    - park_run_effect
+    - starter_quality_edge
+    - bullpen_quality_edge
     - rest_diff
     - travel_diff
     - home_field_advantage

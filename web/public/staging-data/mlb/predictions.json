@@ -1,8 +1,349 @@
 {
   "league": "MLB",
-  "as_of_utc": null,
-  "model_columns": [],
-  "model_trust_notes": {},
-  "model_summaries": {},
-  "rows": []
+  "as_of_utc": "2026-04-23T19:07:12+00:00",
+  "model_columns": [
+    "ensemble",
+    "glm_ridge",
+    "glm_elastic_net",
+    "glm_lasso",
+    "glm_vanilla"
+  ],
+  "model_trust_notes": {
+    "ensemble": "All models combined. Best default pick. Can share the same blind spot.",
+    "glm_ridge": "Linear pregame model anchored by starting pitching, bullpen quality, lineup strength, park effects, and rest-travel context. It is only as good as the pregame starter and lineup view.",
+    "glm_elastic_net": "Elastic-net pregame model using the MLB feature map with extra shrinkage on overlapping starter, bullpen, lineup, park, and weather signals.",
+    "glm_lasso": "Lasso pregame model using the MLB feature map with stronger pruning on overlapping starter, bullpen, lineup, park, and weather signals.",
+    "glm_vanilla": "Unpenalized logistic challenger. Useful when you want to know whether shrinkage is suppressing a real betting edge."
+  },
+  "model_summaries": {
+    "ensemble": {
+      "headline": "Default forecast that blends the live model stack into one probability.",
+      "trust_note": "All models combined. Best default pick. Can share the same blind spot.",
+      "active_features": []
+    },
+    "glm_ridge": {
+      "headline": "Pregame ridge logistic regression driven by starting pitcher, bullpen, lineup, park, weather, and scheduling context.",
+      "trust_note": "Linear pregame model anchored by starting pitching, bullpen quality, lineup strength, park effects, and rest-travel context. It is only as good as the pregame starter and lineup view.",
+      "active_features": []
+    },
+    "glm_elastic_net": {
+      "headline": "Pregame elastic-net logistic regression driven by starting pitcher, bullpen, lineup, park, weather, and schedule context.",
+      "trust_note": "Elastic-net pregame model using the MLB feature map with extra shrinkage on overlapping starter, bullpen, lineup, park, and weather signals.",
+      "active_features": []
+    },
+    "glm_lasso": {
+      "headline": "Pregame lasso logistic regression driven by starting pitcher, bullpen, lineup, park, weather, and schedule context.",
+      "trust_note": "Lasso pregame model using the MLB feature map with stronger pruning on overlapping starter, bullpen, lineup, park, and weather signals.",
+      "active_features": []
+    },
+    "glm_vanilla": {
+      "headline": "Unpenalized logistic challenger built to test whether shrinkage is muting profit signal.",
+      "trust_note": "Unpenalized logistic challenger. Useful when you want to know whether shrinkage is suppressing a real betting edge.",
+      "active_features": []
+    }
+  },
+  "rows": [
+    {
+      "game_id": 401815069,
+      "game_date_utc": "2026-04-24",
+      "home_team": "TB",
+      "away_team": "MIN",
+      "ensemble_prob_home_win": 0.5622973684316963,
+      "predicted_winner": "TB",
+      "spread_mean": 0.5664678932480789,
+      "spread_sd": 0.02279392719264935,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": true, \"starter_unknown\": true, \"weather_unavailable\": false}",
+      "model_win_probabilities": {
+        "ensemble": 0.5622973684316963,
+        "glm_elastic_net": 0.5440657730518591,
+        "glm_lasso": 0.544072407766674,
+        "glm_ridge": 0.5828906199914287,
+        "glm_vanilla": 0.5948427721823539
+      }
+    },
+    {
+      "game_id": 401815073,
+      "game_date_utc": "2026-04-25",
+      "home_team": "HOU",
+      "away_team": "NYY",
+      "ensemble_prob_home_win": 0.5619114287448601,
+      "predicted_winner": "HOU",
+      "spread_mean": 0.5654154068413089,
+      "spread_sd": 0.021742521939556808,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": true, \"starter_unknown\": true, \"weather_unavailable\": false}",
+      "odds_as_of_utc": "2026-04-24T01:38:42+00:00",
+      "home_moneyline": 119,
+      "away_moneyline": -143,
+      "moneyline_book": "DraftKings",
+      "model_win_probabilities": {
+        "ensemble": 0.5619114287448601,
+        "glm_elastic_net": 0.5440657730518591,
+        "glm_lasso": 0.544072407766674,
+        "glm_ridge": 0.5809184314660212,
+        "glm_vanilla": 0.5926050150806808
+      }
+    },
+    {
+      "game_id": 401815065,
+      "game_date_utc": "2026-04-24",
+      "home_team": "BAL",
+      "away_team": "BOS",
+      "ensemble_prob_home_win": 0.5613804348562175,
+      "predicted_winner": "BAL",
+      "spread_mean": 0.5639614572981657,
+      "spread_sd": 0.020308569813702507,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": true, \"starter_unknown\": true, \"weather_unavailable\": false}",
+      "odds_as_of_utc": "2026-04-24T01:38:42+00:00",
+      "home_moneyline": -122,
+      "away_moneyline": 102,
+      "moneyline_book": "DraftKings",
+      "model_win_probabilities": {
+        "ensemble": 0.5613804348562175,
+        "glm_elastic_net": 0.5440657730518591,
+        "glm_lasso": 0.544072407766674,
+        "glm_ridge": 0.5780690611092844,
+        "glm_vanilla": 0.5896385872648454
+      }
+    },
+    {
+      "game_id": 401815068,
+      "game_date_utc": "2026-04-24",
+      "home_team": "CIN",
+      "away_team": "DET",
+      "ensemble_prob_home_win": 0.5603596759645548,
+      "predicted_winner": "CIN",
+      "spread_mean": 0.5611997297770408,
+      "spread_sd": 0.017487605390634965,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": true, \"starter_unknown\": true, \"weather_unavailable\": false}",
+      "odds_as_of_utc": "2026-04-24T01:38:42+00:00",
+      "home_moneyline": 113,
+      "away_moneyline": -136,
+      "moneyline_book": "DraftKings",
+      "model_win_probabilities": {
+        "ensemble": 0.5603596759645548,
+        "glm_elastic_net": 0.5440657730518591,
+        "glm_lasso": 0.544072407766674,
+        "glm_ridge": 0.5733589444702569,
+        "glm_vanilla": 0.5833017938193727
+      }
+    },
+    {
+      "game_id": 401815074,
+      "game_date_utc": "2026-04-24",
+      "home_team": "MIL",
+      "away_team": "PIT",
+      "ensemble_prob_home_win": 0.5561933286240708,
+      "predicted_winner": "MIL",
+      "spread_mean": 0.5499438775335488,
+      "spread_sd": 0.00594715334054673,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": true, \"starter_unknown\": true, \"weather_unavailable\": false}",
+      "odds_as_of_utc": "2026-04-24T01:38:42+00:00",
+      "home_moneyline": 113,
+      "away_moneyline": -136,
+      "moneyline_book": "DraftKings",
+      "model_win_probabilities": {
+        "ensemble": 0.5561933286240708,
+        "glm_elastic_net": 0.5440657730518591,
+        "glm_lasso": 0.544072407766674,
+        "glm_ridge": 0.5545106099205094,
+        "glm_vanilla": 0.5571267193951523
+      }
+    },
+    {
+      "game_id": 401815075,
+      "game_date_utc": "2026-04-25",
+      "home_team": "STL",
+      "away_team": "SEA",
+      "ensemble_prob_home_win": 0.5554364700162973,
+      "predicted_winner": "STL",
+      "spread_mean": 0.5478967557655998,
+      "spread_sd": 0.0038589377871315503,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": true, \"starter_unknown\": true, \"weather_unavailable\": false}",
+      "odds_as_of_utc": "2026-04-24T01:38:42+00:00",
+      "home_moneyline": 129,
+      "away_moneyline": -156,
+      "moneyline_book": "DraftKings",
+      "model_win_probabilities": {
+        "ensemble": 0.5554364700162973,
+        "glm_elastic_net": 0.5440657730518591,
+        "glm_lasso": 0.544072407766674,
+        "glm_ridge": 0.5510310622502844,
+        "glm_vanilla": 0.5524177799935821
+      }
+    },
+    {
+      "game_id": 401815071,
+      "game_date_utc": "2026-04-24",
+      "home_team": "KC",
+      "away_team": "LAA",
+      "ensemble_prob_home_win": 0.554807905490673,
+      "predicted_winner": "KC",
+      "spread_mean": 0.5462069040054806,
+      "spread_sd": 0.002137945029107143,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": true, \"starter_unknown\": true, \"weather_unavailable\": false}",
+      "odds_as_of_utc": "2026-04-24T01:38:42+00:00",
+      "home_moneyline": -115,
+      "away_moneyline": -105,
+      "moneyline_book": "DraftKings",
+      "model_win_probabilities": {
+        "ensemble": 0.554807905490673,
+        "glm_elastic_net": 0.5440657730518591,
+        "glm_lasso": 0.544072407766674,
+        "glm_ridge": 0.5483780784439014,
+        "glm_vanilla": 0.5483113567594877
+      }
+    },
+    {
+      "game_id": 401815070,
+      "game_date_utc": "2026-04-24",
+      "home_team": "ATL",
+      "away_team": "PHI",
+      "ensemble_prob_home_win": 0.5545559444150303,
+      "predicted_winner": "ATL",
+      "spread_mean": 0.5455049156249618,
+      "spread_sd": 0.0014423677141230478,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": true, \"starter_unknown\": true, \"weather_unavailable\": false}",
+      "odds_as_of_utc": "2026-04-24T01:38:42+00:00",
+      "home_moneyline": -143,
+      "away_moneyline": 119,
+      "moneyline_book": "DraftKings",
+      "model_win_probabilities": {
+        "ensemble": 0.5545559444150303,
+        "glm_elastic_net": 0.5440657730518591,
+        "glm_lasso": 0.544072407766674,
+        "glm_ridge": 0.5467467043992966,
+        "glm_vanilla": 0.5471347772820178
+      }
+    },
+    {
+      "game_id": 401815058,
+      "game_date_utc": "2026-04-23",
+      "home_team": "NYM",
+      "away_team": "MIN",
+      "ensemble_prob_home_win": 0.5542143135077842,
+      "predicted_winner": "NYM",
+      "spread_mean": 0.5445799197720311,
+      "spread_sd": 0.0005127680619829609,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": true, \"starter_unknown\": true, \"weather_unavailable\": false}",
+      "model_win_probabilities": {
+        "ensemble": 0.5542143135077842,
+        "glm_elastic_net": 0.5440657730518591,
+        "glm_lasso": 0.544072407766674,
+        "glm_ridge": 0.5451536608999467,
+        "glm_vanilla": 0.5450278373696448
+      }
+    },
+    {
+      "game_id": 401815059,
+      "game_date_utc": "2026-04-23",
+      "home_team": "BOS",
+      "away_team": "NYY",
+      "ensemble_prob_home_win": 0.5542143135077842,
+      "predicted_winner": "BOS",
+      "spread_mean": 0.5445799197720311,
+      "spread_sd": 0.0005127680619829609,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": true, \"starter_unknown\": true, \"weather_unavailable\": false}",
+      "model_win_probabilities": {
+        "ensemble": 0.5542143135077842,
+        "glm_elastic_net": 0.5440657730518591,
+        "glm_lasso": 0.544072407766674,
+        "glm_ridge": 0.5451536608999467,
+        "glm_vanilla": 0.5450278373696448
+      }
+    },
+    {
+      "game_id": 401815062,
+      "game_date_utc": "2026-04-23",
+      "home_team": "COL",
+      "away_team": "SD",
+      "ensemble_prob_home_win": 0.5542143135077842,
+      "predicted_winner": "COL",
+      "spread_mean": 0.5445799197720311,
+      "spread_sd": 0.0005127680619829609,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": true, \"starter_unknown\": true, \"weather_unavailable\": false}",
+      "model_win_probabilities": {
+        "ensemble": 0.5542143135077842,
+        "glm_elastic_net": 0.5440657730518591,
+        "glm_lasso": 0.544072407766674,
+        "glm_ridge": 0.5451536608999467,
+        "glm_vanilla": 0.5450278373696448
+      }
+    },
+    {
+      "game_id": 401815063,
+      "game_date_utc": "2026-04-23",
+      "home_team": "ARI",
+      "away_team": "CHW",
+      "ensemble_prob_home_win": 0.5542143135077842,
+      "predicted_winner": "ARI",
+      "spread_mean": 0.5445799197720311,
+      "spread_sd": 0.0005127680619829609,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": true, \"starter_unknown\": true, \"weather_unavailable\": false}",
+      "model_win_probabilities": {
+        "ensemble": 0.5542143135077842,
+        "glm_elastic_net": 0.5440657730518591,
+        "glm_lasso": 0.544072407766674,
+        "glm_ridge": 0.5451536608999467,
+        "glm_vanilla": 0.5450278373696448
+      }
+    },
+    {
+      "game_id": 401815064,
+      "game_date_utc": "2026-04-23",
+      "home_team": "SF",
+      "away_team": "LAD",
+      "ensemble_prob_home_win": 0.5542143135077842,
+      "predicted_winner": "SF",
+      "spread_mean": 0.5445799197720311,
+      "spread_sd": 0.0005127680619829609,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": true, \"starter_unknown\": true, \"weather_unavailable\": false}",
+      "model_win_probabilities": {
+        "ensemble": 0.5542143135077842,
+        "glm_elastic_net": 0.5440657730518591,
+        "glm_lasso": 0.544072407766674,
+        "glm_ridge": 0.5451536608999467,
+        "glm_vanilla": 0.5450278373696448
+      }
+    },
+    {
+      "game_id": 401815061,
+      "game_date_utc": "2026-04-24",
+      "home_team": "TEX",
+      "away_team": "PIT",
+      "ensemble_prob_home_win": 0.5542143135077842,
+      "predicted_winner": "TEX",
+      "spread_mean": 0.5445799197720311,
+      "spread_sd": 0.0005127680619829609,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": true, \"starter_unknown\": true, \"weather_unavailable\": false}",
+      "model_win_probabilities": {
+        "ensemble": 0.5542143135077842,
+        "glm_elastic_net": 0.5440657730518591,
+        "glm_lasso": 0.544072407766674,
+        "glm_ridge": 0.5451536608999467,
+        "glm_vanilla": 0.5450278373696448
+      }
+    },
+    {
+      "game_id": 401815066,
+      "game_date_utc": "2026-04-24",
+      "home_team": "TOR",
+      "away_team": "CLE",
+      "ensemble_prob_home_win": 0.553194324465198,
+      "predicted_winner": "TOR",
+      "spread_mean": 0.5417894326515618,
+      "spread_sd": 0.0022851184790437387,
+      "uncertainty_flags_json": "{\"lineup_uncertainty\": true, \"starter_unknown\": true, \"weather_unavailable\": false}",
+      "odds_as_of_utc": "2026-04-24T01:38:42+00:00",
+      "home_moneyline": 109,
+      "away_moneyline": -131,
+      "moneyline_book": "DraftKings",
+      "model_win_probabilities": {
+        "ensemble": 0.553194324465198,
+        "glm_elastic_net": 0.5440657730518591,
+        "glm_lasso": 0.544072407766674,
+        "glm_ridge": 0.539733030212152,
+        "glm_vanilla": 0.539286519575562
+      }
+    }
+  ]
 }
