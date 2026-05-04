@@ -137,6 +137,7 @@ Required:
 - Brier score and decomposition where applicable
 - per-candidate curve artifacts for tournament candidates, not only the resolved primary model
 - target-scoped family champion diagnostics for moneyline, runline, and totals
+- structured slate variants must report only retained feature sets that still match their stated context; weather/run-environment slates require retained context features before they can enter the tournament
 
 Classification: `Direct theory implementation`
 

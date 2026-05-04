@@ -105,6 +105,43 @@ def _structured_variants(feature_sets: Any, *, spec_path: str | Path | None) -> 
         retained = str(row.get("retained_as") or feature).strip()
         return retained if retained in screened_set else None
 
+    def retained_features(feature_order: list[str], count: int) -> tuple[str, ...]:
+        return tuple(
+            dict.fromkeys(
+                resolved
+                for feature in feature_order[:count]
+                for resolved in [structured_feature(feature)]
+                if resolved
+            )
+        )
+
+    def guarded_variant_features(
+        *,
+        slate_payload: dict[str, Any],
+        width_payload: dict[str, Any],
+        feature_order: list[str],
+        count: int,
+    ) -> tuple[str, ...]:
+        features = retained_features(feature_order, count)
+        min_retained = int(
+            width_payload.get("minimum_retained_features", slate_payload.get("minimum_retained_features", 1)) or 1
+        )
+        min_ratio = float(
+            width_payload.get("minimum_retained_ratio", slate_payload.get("minimum_retained_ratio", 0.0)) or 0.0
+        )
+        required_any = [
+            str(feature)
+            for feature in width_payload.get("required_any_features", slate_payload.get("required_any_features", []))
+            if str(feature).strip()
+        ]
+        if len(features) < max(1, min_retained):
+            return ()
+        if min_ratio > 0.0 and count > 0 and (len(features) / count) < min_ratio:
+            return ()
+        if required_any and not any(structured_feature(feature) in features for feature in required_any):
+            return ()
+        return features
+
     if path is not None:
         payload = yaml.safe_load(path.read_text()) or {}
         slates = payload.get("slates") if isinstance(payload.get("slates"), dict) else {}
@@ -117,13 +154,12 @@ def _structured_variants(feature_sets: Any, *, spec_path: str | Path | None) -> 
                 count = int(width_payload.get("feature_count", 0) if isinstance(width_payload, dict) else 0)
                 if count <= 0:
                     continue
-                features = tuple(
-                    dict.fromkeys(
-                        resolved
-                        for feature in feature_order[:count]
-                        for resolved in [structured_feature(feature)]
-                        if resolved
-                    )
+                width_config = width_payload if isinstance(width_payload, dict) else {}
+                features = guarded_variant_features(
+                    slate_payload=slate_payload,
+                    width_payload=width_config,
+                    feature_order=feature_order,
+                    count=count,
                 )
                 if features:
                     key = f"{slate_name}_{width_name}"

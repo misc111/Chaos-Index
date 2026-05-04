@@ -722,7 +722,7 @@ def save_probability_validation_plots(
         lorenz_path = plot_path("lorenz")
         plt.savefig(lorenz_path, dpi=140)
         plt.close()
-        paths["lorenz_curve"] = str(lorenz_path)
+        paths["lorenz_plot"] = str(lorenz_path)
 
     if not roc_curve_df.empty:
         plt.figure(figsize=(7, 4))
@@ -739,7 +739,7 @@ def save_probability_validation_plots(
         roc_path = plot_path("roc")
         plt.savefig(roc_path, dpi=140)
         plt.close()
-        paths["roc_curve"] = str(roc_path)
+        paths["roc_plot"] = str(roc_path)
 
     return paths
 

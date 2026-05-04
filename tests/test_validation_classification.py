@@ -81,6 +81,10 @@ def test_validate_logistic_probability_model_emits_expected_reports(tmp_path):
     assert roc_summary["best_youden_threshold"] > 0.0
     assert len(report["operating_points"]) == 19
     assert not report["roc_curve"].empty
+    assert report["plot_paths"]["lorenz_plot"].endswith("unit_lorenz.png")
+    assert report["plot_paths"]["roc_plot"].endswith("unit_roc.png")
+    assert "lorenz_curve" not in report["plot_paths"]
+    assert "roc_curve" not in report["plot_paths"]
 
     assert math.isclose(tossup_summary["tossup_lower_threshold"], 0.45, rel_tol=1e-9)
     assert math.isclose(tossup_summary["tossup_upper_threshold"], 0.55, rel_tol=1e-9)

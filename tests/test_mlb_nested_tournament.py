@@ -1,14 +1,17 @@
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import numpy as np
 import pandas as pd
+import yaml
 
 from src.common.config import load_config
 from src.data_sources.base import SourceFetchResult
 from src.research.mlb_feature_availability import write_mlb_feature_availability_report
 from src.research.mlb_targets import build_target_frames
 from src.research.nested_tournament import _gate_reasons, run_mlb_nested_tournament, run_mlb_parallel_nested_tournament
+from src.research.nested_tournament_features import _structured_variants
 from src.services.ingest import insert_odds_snapshot_and_lines, upsert_games
 from src.storage.db import Database
 
@@ -183,6 +186,57 @@ def test_nested_gate_uses_calibration_intercept_near_zero_and_slope_near_one():
 
     row["calibration_alpha"] = 1.0
     assert "calibration_alpha_beta_outside_0.15" in _gate_reasons(row)
+
+
+def test_structured_weather_context_requires_real_context_features(tmp_path):
+    spec_path = tmp_path / "structured.yaml"
+    spec_path.write_text(
+        yaml.safe_dump(
+            {
+                "slates": {
+                    "weather_context": {
+                        "minimum_retained_features": 4,
+                        "minimum_retained_ratio": 0.5,
+                        "required_any_features": ["park_run_factor", "temperature_f", "wind_out_mph"],
+                        "feature_order": [
+                            "park_run_factor",
+                            "temperature_f",
+                            "wind_out_mph",
+                            "starter_quality_edge",
+                            "rest_edge",
+                            "travel_miles_edge",
+                        ],
+                        "width_variants": {"broad": {"feature_count": 6}},
+                    },
+                    "schedule_context": {
+                        "feature_order": ["rest_edge", "travel_miles_edge"],
+                        "width_variants": {"narrow": {"feature_count": 2}},
+                    },
+                }
+            }
+        )
+    )
+    feature_sets = SimpleNamespace(
+        screened_features=["rest_diff", "travel_diff"],
+        ranking_frame=pd.DataFrame({"feature": ["rest_diff", "travel_diff"]}),
+        screening_frame=pd.DataFrame(
+            [
+                {"feature": "rest_edge", "reason": "exact_duplicate", "retained_as": "rest_diff"},
+                {"feature": "travel_miles_edge", "reason": "exact_duplicate", "retained_as": "travel_diff"},
+                {
+                    "feature": "starter_quality_edge",
+                    "reason": "constant_or_singleton_on_fit_window",
+                    "retained_as": "starter_quality_edge",
+                },
+            ]
+        ),
+    )
+
+    variants = _structured_variants(feature_sets, spec_path=spec_path)
+    keys = {variant.variant_key for variant in variants}
+
+    assert "weather_context_broad" not in keys
+    assert "schedule_context_narrow" in keys
 
 
 def test_mlb_nested_tournament_writes_target_scoped_champions_and_diagnostics(tmp_path):

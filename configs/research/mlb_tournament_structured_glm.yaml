@@ -50,6 +50,14 @@ slates:
   weather_context:
     description: MLB run-environment and scheduling context slate for shape-testing around park/weather effects.
     default_width_variant: medium
+    minimum_retained_features: 4
+    minimum_retained_ratio: 0.5
+    required_any_features:
+      - park_run_factor
+      - temperature_f
+      - wind_out_mph
+      - day_game
+      - division_game
     feature_order:
       - park_run_factor
       - temperature_f
