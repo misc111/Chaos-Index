@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -27,6 +28,7 @@ const links: Array<[string, string]> = [
 
 const DEFAULT_QUERY = `?league=MLB&strategy=${getDefaultBetStrategyForLeague("MLB")}`;
 const SHOW_LEAGUE_SELECTOR = ALL_LEAGUES.length > 1;
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 type RefreshResponse = {
   ok?: boolean;
   error?: string;
@@ -35,6 +37,106 @@ type RefreshResponse = {
 };
 
 type DashboardTheme = "light" | "market-board-dark";
+
+type RouteHero = {
+  title: string;
+  copy: string;
+  image: string;
+  signals: [string, string, string];
+};
+
+const routeHeroes: Record<string, RouteHero> = {
+  "/actual-vs-expected": {
+    title: "Actual vs Expected",
+    copy: "A clean check on whether pregame probabilities are meeting real MLB outcomes.",
+    image: "/images/pages/actual-vs-expected.png",
+    signals: ["Expected path", "Actual result", "Pregame proof"],
+  },
+  "/bet-history": {
+    title: "Bet History",
+    copy: "Replay the ledger, bankroll path, and realized betting outcomes without the noise.",
+    image: "/images/pages/bet-history.png",
+    signals: ["Replay ledger", "Bankroll path", "Settled results"],
+  },
+  "/bet-sizing": {
+    title: "Bet Sizing",
+    copy: "Turn edge into stake size with budget, caps, and uncertainty kept visible.",
+    image: "/images/pages/bet-sizing.png",
+    signals: ["Risk budget", "Stake cap", "Bankroll scale"],
+  },
+  "/calibration": {
+    title: "Calibration",
+    copy: "Reliability curves, error checks, and probability discipline for the model lane.",
+    image: "/images/pages/calibration.png",
+    signals: ["ECE", "MCE", "Reliability"],
+  },
+  "/diagnostics": {
+    title: "Diagnostics",
+    copy: "Coefficient, residual, and stability checks for the GLM-family model program.",
+    image: "/images/pages/diagnostics.png",
+    signals: ["Residuals", "Coefficients", "Stability"],
+  },
+  "/games-today": {
+    title: "Games Today",
+    copy: "Today’s MLB slate, first-pitch timing, win probabilities, and bet calls.",
+    image: "/images/pages/games-today.png",
+    signals: ["Slate", "First pitch", "Bet call"],
+  },
+  "/leaderboard": {
+    title: "Leaderboard",
+    copy: "Model ranks, rolling performance, and the current evidence order.",
+    image: "/images/pages/leaderboard.png",
+    signals: ["Rank", "Lift", "Evidence"],
+  },
+  "/market-board": {
+    title: "Market Board",
+    copy: "A market-aware pricing board for MLB moneyline, spread, total, and model edge.",
+    image: "/images/pages/market-board.png",
+    signals: ["Odds", "Fair price", "Model edge"],
+  },
+  "/nested-tournament": {
+    title: "Nested Tournament",
+    copy: "Target-scoped model-family contests, challengers, and champion evidence.",
+    image: "/images/pages/nested-tournament.png",
+    signals: ["Family lanes", "Challengers", "Champion"],
+  },
+  "/performance": {
+    title: "Performance",
+    copy: "Bankroll trajectories, replay experiments, and model behavior over time.",
+    image: "/images/pages/performance.png",
+    signals: ["Trajectory", "Replay", "Drawdown"],
+  },
+  "/predictions": {
+    title: "Model Summary",
+    copy: "Pregame model probabilities, market comparison, and feature traceability.",
+    image: "/images/pages/predictions.png",
+    signals: ["Pregame", "Model layer", "Market lens"],
+  },
+  "/research-admin": {
+    title: "Research Admin",
+    copy: "Experiment briefs, run control, and promotion operations for the research loop.",
+    image: "/images/pages/research-admin.png",
+    signals: ["Briefs", "Runs", "Promotion"],
+  },
+  "/research-desk": {
+    title: "Research Desk",
+    copy: "The clean daily view of slate status, evidence posture, and promotion gates.",
+    image: "/images/pages/research-desk.png",
+    signals: ["Desk status", "Evidence", "Promotion"],
+  },
+  "/slices": {
+    title: "Slice Analysis",
+    copy: "Drift and context checks across teams, parks, weather, and game states.",
+    image: "/images/pages/slices.png",
+    signals: ["Context", "Drift", "Segment"],
+  },
+  "/validation": {
+    title: "Validation",
+    copy: "Immutable pregame ledgers, validation gates, and evidence contract checks.",
+    image: "/images/pages/validation.png",
+    signals: ["Ledger", "Gates", "Audit"],
+  },
+};
 
 type SidebarControlsProps = {
   isRefreshing: boolean;
@@ -59,6 +161,12 @@ function isActivePath(currentPath: string, href: string): boolean {
   const normalizedCurrentPath = currentPath !== "/" ? currentPath.replace(/\/+$/, "") : currentPath;
   const normalizedHref = href !== "/" ? href.replace(/\/+$/, "") : href;
   return normalizedCurrentPath === normalizedHref;
+}
+
+function normalizeRoutePath(pathname: string): string {
+  const withoutBase =
+    BASE_PATH && pathname.startsWith(BASE_PATH) ? pathname.slice(BASE_PATH.length) || "/" : pathname;
+  return withoutBase !== "/" ? withoutBase.replace(/\/+$/, "") : withoutBase;
 }
 
 function isDashboardTheme(value: string | null): value is DashboardTheme {
@@ -387,6 +495,29 @@ function HeaderFallback() {
   );
 }
 
+function DashboardRouteHero({ pathname }: { pathname: string }) {
+  const hero = routeHeroes[normalizeRoutePath(pathname)];
+  if (!hero) return null;
+
+  return (
+    <section
+      className="dashboard-route-hero"
+      style={{ "--route-hero-image": `url(${BASE_PATH}${hero.image})` } as CSSProperties}
+      aria-labelledby="dashboard-route-hero-title"
+    >
+      <div className="dashboard-route-hero-content">
+        <h2 id="dashboard-route-hero-title">{hero.title}</h2>
+        <p>{hero.copy}</p>
+      </div>
+      <div className="dashboard-route-hero-strip" aria-label={`${hero.title} signals`}>
+        {hero.signals.map((signal) => (
+          <span key={signal}>{signal}</span>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function DashboardHeaderContent() {
   const pathname = usePathname() || "/";
   const searchParams = useSearchParams();
@@ -420,6 +551,7 @@ function DashboardHeaderContent() {
           );
         })}
       </nav>
+      <DashboardRouteHero pathname={pathname} />
     </>
   );
 }
