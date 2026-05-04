@@ -1,418 +1,395 @@
 .page {
   display: grid;
-  padding: 8px 0 18px;
+  gap: clamp(28px, 5vw, 56px);
+  padding: 8px 0 48px;
 }
 
-.card {
+:global(body:has(.beauty-home) .dashboard-sidebar),
+:global(body:has(.beauty-home) .dashboard-topbar),
+:global(body:has(.beauty-home) .dashboard-nav) {
+  display: none;
+}
+
+:global(body:has(.beauty-home) .dashboard-shell) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+:global(body:has(.beauty-home) .container) {
+  width: min(1680px, calc(100vw - 32px));
+}
+
+.hero {
   position: relative;
+  min-height: min(760px, calc(100vh - 170px));
   overflow: hidden;
-  padding: clamp(28px, 4vw, 48px);
-  border: 1px solid var(--border);
-  border-radius: 32px;
-  background: var(--surface-hero);
-  box-shadow: var(--shadow-elevated);
+  display: grid;
+  align-items: end;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: #06131a;
+  box-shadow: 0 34px 90px rgba(2, 8, 12, 0.48);
+  isolation: isolate;
 }
 
-.card::after {
-  content: "";
+.heroImage {
   position: absolute;
-  inset: auto -12% -20% auto;
-  width: 220px;
-  height: 220px;
-  border-radius: 999px;
-  background: var(--surface-hero-orb);
-  pointer-events: none;
+  inset: 0;
+  z-index: -3;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.01);
 }
 
-.eyebrow {
-  margin: 0 0 12px;
-  color: var(--accent-strong);
+.heroShade {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(90deg, rgba(2, 8, 12, 0.86) 0%, rgba(5, 16, 22, 0.58) 42%, rgba(3, 9, 14, 0.24) 100%),
+    linear-gradient(180deg, rgba(2, 8, 12, 0.08) 0%, rgba(2, 8, 12, 0.34) 60%, rgba(2, 8, 12, 0.88) 100%);
+}
+
+.heroContent {
+  width: min(760px, 100%);
+  padding: clamp(32px, 7vw, 82px);
+  color: #fffdf5;
+}
+
+.eyebrow,
+.kicker {
+  margin: 0;
+  color: #ffd98a;
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .headline {
-  margin: 0;
-  max-width: 14ch;
-  color: var(--ink-strong);
+  margin: 12px 0 0;
+  max-width: 9ch;
   font-family: "Space Grotesk", "Avenir Next", sans-serif;
-  font-size: clamp(34px, 5vw, 54px);
-  line-height: 0.95;
-  letter-spacing: -0.05em;
+  font-size: clamp(58px, 10vw, 136px);
+  line-height: 0.84;
+  letter-spacing: 0;
+  text-wrap: balance;
 }
 
-.body {
-  position: relative;
-  z-index: 1;
-  max-width: 64ch;
-  margin: 18px 0 0;
-  color: var(--muted-strong);
-  font-size: 17px;
-  line-height: 1.75;
+.heroCopy {
+  max-width: 650px;
+  margin: 24px 0 0;
+  color: rgba(255, 253, 245, 0.88);
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.45;
 }
 
-.link {
-  color: var(--accent);
-  font-weight: 700;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.18em;
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
 }
 
-.link:hover {
-  color: var(--accent-strong);
-}
-
-@media (max-width: 700px) {
-  .card {
-    padding: 24px;
-    border-radius: 24px;
-  }
-
-  .headline {
-    max-width: none;
-  }
-
-  .body {
-    font-size: 16px;
-    line-height: 1.7;
-  }
-}
-
-.primaryActionButton,
-.modelButton {
-  border: 1px solid var(--border-secondary);
-  border-radius: 18px;
-  background: var(--surface-secondary);
-  color: var(--accent-2-strong);
+.primaryAction,
+.secondaryAction,
+.destinationLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  border-radius: 999px;
   font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
+  font-weight: 800;
   transition:
     transform 160ms ease,
-    background-color 160ms ease,
     border-color 160ms ease,
-    box-shadow 160ms ease,
-    color 160ms ease;
+    background-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
 }
 
-.primaryActionButton {
-  min-height: 52px;
-  padding: 0 22px;
+.primaryAction {
+  padding: 0 20px;
+  border: 1px solid rgba(255, 217, 138, 0.74);
+  background: rgba(255, 217, 138, 0.18);
+  color: #fff7dd;
+  box-shadow: 0 16px 38px rgba(2, 8, 12, 0.22);
 }
 
-.modelGrid {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(156px, 1fr));
-  margin-top: 18px;
+.secondaryAction {
+  padding: 0 20px;
+  border: 1px solid rgba(239, 247, 246, 0.3);
+  background: rgba(6, 19, 26, 0.48);
+  color: #eff7f6;
 }
 
-.modelButton {
-  min-height: 50px;
-  padding: 0 16px;
-}
-
-.primaryActionButton:hover:enabled,
-.modelButton:hover:enabled,
-.linkCard:hover {
+.primaryAction:hover,
+.secondaryAction:hover,
+.destinationLink:hover {
   transform: translateY(-1px);
 }
 
-.buttonActive {
-  border-color: var(--border-accent-strong);
-  background: var(--surface-accent);
-  color: var(--accent-strong);
-  box-shadow: var(--shadow-soft);
-}
-
-.buttonMuted {
-  border-color: var(--neutral-border);
-  background: var(--surface-chip-muted);
-  color: var(--muted);
-}
-
-.primaryActionButton:disabled,
-.modelButton:disabled {
-  opacity: 0.82;
-  cursor: not-allowed;
-}
-
-.primaryActionButton:focus-visible,
-.modelButton:focus-visible,
-.linkCard:focus-visible {
+.primaryAction:focus-visible,
+.secondaryAction:focus-visible,
+.textLink:focus-visible,
+.destinationLink:focus-visible {
   outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
-.primaryActionHint {
+.signalStrip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(2, 8, 12, 0.58);
+  backdrop-filter: blur(18px);
+}
+
+.signalStrip span {
+  min-width: 0;
+  padding: 18px clamp(14px, 3vw, 28px);
+  color: rgba(255, 253, 245, 0.82);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.signalStrip span:first-child {
+  border-left: 0;
+}
+
+.intro,
+.linkBand {
+  display: grid;
+  gap: 18px;
+  padding: clamp(8px, 2vw, 16px) 0;
+}
+
+.intro h2,
+.featureCopy h2,
+.linkBand h2 {
   margin: 0;
-  max-width: 30ch;
+  max-width: 720px;
+  color: var(--ink-strong);
+  font-family: "Space Grotesk", "Avenir Next", sans-serif;
+  font-size: clamp(34px, 5vw, 72px);
+  line-height: 0.95;
+  letter-spacing: 0;
+  text-wrap: balance;
 }
 
-.footerNote {
-  margin: 16px 0 0;
+.intro p:not(.kicker),
+.featureCopy p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted-strong);
+  font-size: clamp(17px, 1.7vw, 21px);
+  line-height: 1.65;
 }
 
-.linkList {
+.textLink {
+  width: fit-content;
+  color: var(--accent-strong);
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+}
+
+.principleGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.principleCard {
   display: grid;
   gap: 12px;
-  margin-top: 16px;
-}
-
-.linkCard {
-  display: grid;
-  gap: 8px;
-  padding: 18px;
+  min-height: 270px;
+  padding: clamp(22px, 3vw, 32px);
   border: 1px solid var(--border);
-  border-radius: 20px;
-  background: var(--surface-card-soft);
-  transition:
-    transform 160ms ease,
-    border-color 160ms ease,
-    background-color 160ms ease,
-    box-shadow 160ms ease;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 44%),
+    var(--surface-card);
+  box-shadow: var(--shadow-card);
 }
 
-.linkCard:hover,
-.linkCard:focus-visible {
-  border-color: var(--border-accent);
-  background: var(--surface-card-hover);
-  box-shadow: var(--shadow-soft);
-}
-
-.linkTitle {
-  color: var(--ink);
-  font-size: 15px;
-  font-weight: 700;
-}
-
-.linkDescription {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.55;
-}
-
-.noteLead {
-  margin: 8px 0 0;
-  color: var(--ink);
-  font-size: 17px;
-  font-weight: 700;
-  line-height: 1.35;
-}
-
-.noteBody {
-  margin: 12px 0 0;
-}
-
-.monitorTop {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.statusBadge {
-  border: 1px solid transparent;
-}
-
-.statusLive {
-  color: var(--accent-strong);
-  border-color: var(--border-accent);
-  background: var(--accent-soft);
-}
-
-.statusBusy {
-  color: var(--warning);
-  border-color: var(--warning-border);
-  background: var(--warning-soft);
-}
-
-.statusIdle {
-  color: var(--neutral);
-  border-color: var(--neutral-border);
-  background: var(--neutral-soft);
-}
-
-.requestedRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  margin-top: 18px;
-}
-
-.requestedLabel {
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.requestedChip {
-  border: 1px solid var(--border-accent);
-  background: var(--accent-soft);
-  color: var(--accent-strong);
-}
-
-.stageNote {
-  margin: 16px 0 0;
-}
-
-.stageNote strong {
-  color: var(--ink);
-}
-
-.progressBlock {
-  display: grid;
-  gap: 8px;
-  margin-top: 18px;
-}
-
-.progressTrack {
-  width: min(520px, 100%);
-  height: 10px;
-  overflow: hidden;
-  border: 1px solid var(--border-secondary);
-  border-radius: 999px;
-  background: var(--surface-progress-track);
-}
-
-.progressFill {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--accent-2) 0%, var(--accent) 100%);
-  transition: width 250ms ease;
-}
-
-.progressText,
-.errorText,
-.emptyState {
+.principleCard p {
   margin: 0;
-}
-
-.errorText {
-  margin-top: 12px;
-  color: var(--danger);
-  font-weight: 600;
-}
-
-.eventsWindow {
-  margin-top: 18px;
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  background: var(--surface-card-alt);
-  max-height: 330px;
-  overflow: auto;
-}
-
-.eventList {
-  list-style: none;
-  margin: 0;
-  padding: 14px;
-  display: grid;
-  gap: 10px;
-}
-
-.eventItem {
-  display: grid;
-  grid-template-columns: auto auto minmax(0, 1fr);
-  gap: 10px;
-  align-items: start;
-}
-
-.eventTime {
-  color: var(--muted);
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-
-.eventStatus {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 24px;
-  padding: 0 8px;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  font-size: 10px;
+  color: var(--accent-2-strong);
+  font-size: 11px;
   font-weight: 800;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  white-space: nowrap;
 }
 
-.eventStatusStarted {
+.principleCard h3 {
+  margin: 0;
+  color: var(--ink-strong);
+  font-family: "Space Grotesk", "Avenir Next", sans-serif;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.principleCard span {
+  align-self: end;
+  color: var(--muted-strong);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.featureBand {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.72fr);
+  gap: clamp(22px, 4vw, 44px);
+  align-items: stretch;
+}
+
+.featureImageWrap {
+  min-height: 520px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #06131a;
+  box-shadow: var(--shadow-elevated);
+}
+
+.featureImage {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  display: block;
+  object-fit: cover;
+}
+
+.featureCopy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: clamp(18px, 3vw, 30px) 0;
+}
+
+.metricRow {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.metricRow span {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-card-soft);
+  color: var(--muted-strong);
+  font-weight: 700;
+}
+
+.metricRow strong {
+  color: var(--accent-2-strong);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+.linkBand {
+  grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.7fr);
+  align-items: end;
+  border-top: 1px solid var(--border);
+  padding-top: clamp(26px, 4vw, 44px);
+}
+
+.destinationGrid {
+  display: grid;
+  gap: 10px;
+}
+
+.destinationLink {
+  width: 100%;
+  min-height: 56px;
+  padding: 0 18px;
+  border: 1px solid var(--border-accent);
+  background: var(--surface-accent);
   color: var(--accent-strong);
-  border-color: var(--border-accent);
-  background: var(--accent-soft);
 }
 
-.eventStatusCompleted {
-  color: var(--info);
-  border-color: var(--info-border);
-  background: var(--info-soft);
-}
+@media (max-width: 1050px) {
+  .hero {
+    min-height: 680px;
+  }
 
-.eventStatusSkipped {
-  color: var(--warning);
-  border-color: var(--warning-border);
-  background: var(--warning-soft);
-}
+  .principleGrid,
+  .featureBand,
+  .linkBand {
+    grid-template-columns: 1fr;
+  }
 
-.eventStatusFailed {
-  color: var(--danger);
-  border-color: var(--danger-border);
-  background: var(--danger-soft);
-}
-
-.eventMessage {
-  color: var(--ink);
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.emptyState {
-  padding: 16px;
-  color: var(--muted);
-}
-
-@media (max-width: 1080px) {
-  .hero,
-  .workspaceGrid {
-    grid-template-columns: minmax(0, 1fr);
+  .principleCard {
+    min-height: 220px;
   }
 }
 
-@media (max-width: 720px) {
-  .heroLead,
-  .summaryCard,
-  .actionPanel,
-  .linkPanel,
-  .notePanel,
-  .monitorCard {
-    padding: 20px;
-    border-radius: 24px;
+@media (max-width: 700px) {
+  .page {
+    gap: 30px;
+    padding-bottom: 32px;
+  }
+
+  .hero {
+    min-height: 620px;
+  }
+
+  .heroImage {
+    object-position: 62% center;
+  }
+
+  .heroShade {
+    background:
+      linear-gradient(90deg, rgba(2, 8, 12, 0.86) 0%, rgba(4, 14, 20, 0.66) 58%, rgba(4, 14, 20, 0.42) 100%),
+      linear-gradient(180deg, rgba(2, 8, 12, 0.08) 0%, rgba(2, 8, 12, 0.32) 48%, rgba(2, 8, 12, 0.9) 100%);
+  }
+
+  .heroContent {
+    padding: 28px 22px 34px;
   }
 
   .headline {
-    max-width: none;
-    font-size: clamp(28px, 9vw, 38px);
+    font-size: clamp(54px, 18vw, 86px);
   }
 
-  .pipelineStrip,
-  .summaryGrid {
-    grid-template-columns: minmax(0, 1fr);
+  .heroActions {
+    display: grid;
   }
 
-  .modelGrid {
-    grid-template-columns: minmax(0, 1fr);
+  .primaryAction,
+  .secondaryAction {
+    width: 100%;
   }
 
-  .eventItem {
-    grid-template-columns: minmax(0, 1fr);
+  .signalStrip {
+    grid-template-columns: 1fr;
+  }
+
+  .signalStrip span {
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    text-align: left;
+  }
+
+  .signalStrip span:first-child {
+    border-top: 0;
+  }
+
+  .featureImageWrap {
+    min-height: 360px;
   }
 }
