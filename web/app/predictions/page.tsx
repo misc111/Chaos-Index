@@ -4,6 +4,7 @@ import { Suspense, useMemo, useState } from "react";
 import { useDashboardData } from "@/lib/hooks/useDashboardData";
 import { useLeague } from "@/lib/hooks/useLeague";
 import { americanToImpliedProbability } from "@/lib/betting";
+import { getModelSprite } from "@/lib/model-sprites";
 import {
   displayPredictionModel,
   formatPredictionAsOf,
@@ -11,6 +12,7 @@ import {
   formatPredictionProbability,
 } from "@/lib/predictions-report";
 import { type ForecastRow, type PredictionsResponse } from "@/lib/types";
+import ModelSprite from "@/components/ModelSprite";
 import TeamWithIcon, { TeamMatchup } from "@/components/TeamWithIcon";
 import styles from "./predictions.module.css";
 
@@ -110,6 +112,7 @@ function PredictionsPageContent() {
   const modelEntries = report.model_columns.map((model) => ({
     key: model,
     label: displayPredictionModel(model),
+    spriteName: getModelSprite(model)?.name || model,
     summary: report.model_summaries[model],
   }));
 
@@ -352,11 +355,17 @@ function PredictionsPageContent() {
               key={model.key}
               className={`${styles.noteCard} ${model.summary?.active_feature_count ? styles.noteCardFeatureMap : ""}`}
             >
-              <div className={styles.noteHeader}>
-                <p className={styles.noteLabel}>{model.label}</p>
-                {model.summary?.active_feature_count ? (
-                  <span className={styles.noteMetric}>{model.summary.active_feature_count} inputs</span>
-                ) : null}
+              <div className={styles.noteTop}>
+                <ModelSprite model={model.key} className={styles.noteSprite} />
+                <div className={styles.noteHeader}>
+                  <div>
+                    <p className={styles.noteLabel}>{model.label}</p>
+                    <p className={styles.spriteName}>{model.spriteName}</p>
+                  </div>
+                  {model.summary?.active_feature_count ? (
+                    <span className={styles.noteMetric}>{model.summary.active_feature_count} inputs</span>
+                  ) : null}
+                </div>
               </div>
               {model.summary?.headline ? <p className={styles.noteHeadline}>{model.summary.headline}</p> : null}
               <p className={styles.noteText}>{model.summary?.trust_note || report.model_trust_notes[model.key]}</p>

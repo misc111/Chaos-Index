@@ -167,6 +167,41 @@
   font-size: 1.1rem;
 }
 
+.modelSpotlight {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.modelSprite {
+  display: grid;
+  width: 74px;
+  height: 74px;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--accent) 15%, transparent), transparent 62%),
+    var(--surface-card-soft);
+}
+
+.modelSprite img {
+  display: block;
+  width: 66px;
+  height: 66px;
+  object-fit: contain;
+}
+
+.modelSpotlightTitle {
+  margin: 4px 0 0;
+  color: var(--ink-strong);
+  font-family: "Space Grotesk", "Avenir Next", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
 .tableWrap {
   overflow-x: auto;
 }

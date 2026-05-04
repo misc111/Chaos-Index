@@ -5,6 +5,7 @@ import { formatUsd } from "@/lib/currency";
 import type { LeagueCode } from "@/lib/league";
 import { withLeague } from "@/lib/league";
 import type { ResearchDeskResponse, TableRow } from "@/lib/types";
+import ModelSprite from "@/components/ModelSprite";
 import { EMPTY_RESEARCH_DESK } from "./defaults";
 import { displayModelName, gateChips, promotionSummary } from "./copy";
 import EvidenceStatusCard from "./EvidenceStatusCard";
@@ -270,6 +271,17 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
           </div>
           {data.latest_promotion ? (
             <>
+              {data.latest_promotion.candidate_model_name ? (
+                <div className={styles.modelSpotlight}>
+                  <ModelSprite model={data.latest_promotion.candidate_model_name} className={styles.modelSprite} />
+                  <div>
+                    <span className={styles.sectionLabel}>Candidate</span>
+                    <p className={styles.modelSpotlightTitle}>
+                      {displayModelName(data.latest_promotion.candidate_model_name)}
+                    </p>
+                  </div>
+                </div>
+              ) : null}
               <div className={styles.promotionMeta}>
                 <span
                   className={`${styles.statusPill} ${

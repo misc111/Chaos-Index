@@ -391,6 +391,33 @@
   border-color: var(--border-accent);
 }
 
+.noteTop {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.noteSprite {
+  display: grid;
+  width: 72px;
+  height: 72px;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 62%),
+    var(--surface-card);
+}
+
+.noteSprite img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
 .noteHeader {
   display: flex;
   flex-wrap: wrap;
@@ -404,6 +431,13 @@
   color: var(--ink);
   font-size: 15px;
   font-weight: 700;
+}
+
+.spriteName {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-family: "SFMono-Regular", "SF Mono", "Roboto Mono", "Consolas", monospace;
+  font-size: 11px;
 }
 
 .noteMetric,
