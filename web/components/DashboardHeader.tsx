@@ -368,20 +368,16 @@ function SidebarControls({
 
 function DashboardSidebarFallback() {
   return (
-    <aside className="dashboard-sidebar" aria-label="Dashboard controls">
+    <aside className="dashboard-sidebar dashboard-sidebar-collapsed" aria-label="Dashboard controls">
       <div className="dashboard-sidebar-inner">
-        <SidebarControls
-          isRefreshing={false}
-          league="MLB"
-          pathname="/"
-          refreshError=""
-          refreshedAtLabel=""
-          search={new URLSearchParams(`league=MLB&strategy=${getDefaultBetStrategyForLeague("MLB")}`)}
-          showRefreshedStamp={false}
-          staticStaging={false}
-          strategy={getDefaultBetStrategyForLeague("MLB")}
-          theme={DARK_THEME}
-        />
+        <button type="button" className="sidebar-toggle-btn" aria-label="Open dashboard controls" disabled>
+          <span className="sidebar-hamburger" aria-hidden>
+            <span />
+            <span />
+            <span />
+          </span>
+          <span className="sidebar-toggle-copy">Controls</span>
+        </button>
       </div>
     </aside>
   );
@@ -396,6 +392,7 @@ function DashboardSidebarContent() {
   const strategy = strategyParam ? normalizeBetStrategy(strategyParam) : getDefaultBetStrategyForLeague(league);
   const staticStaging = isStaticStagingBuild();
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [refreshError, setRefreshError] = useState("");
   const [theme, setTheme] = useState<DashboardTheme>(DARK_THEME);
   const refreshedAtRaw = searchParams.get("refreshedAt");
@@ -457,22 +454,44 @@ function DashboardSidebarContent() {
   };
 
   return (
-    <aside className="dashboard-sidebar" aria-label="Dashboard controls">
+    <aside
+      className={`dashboard-sidebar ${isSidebarOpen ? "dashboard-sidebar-open" : "dashboard-sidebar-collapsed"}`}
+      aria-label="Dashboard controls"
+    >
       <div className="dashboard-sidebar-inner">
-        <SidebarControls
-          isRefreshing={isRefreshing}
-          league={league}
-          onRefresh={handleRefresh}
-          onThemeToggle={handleThemeToggle}
-          pathname={pathname}
-          refreshError={refreshError}
-          refreshedAtLabel={refreshedAtLabel}
-          search={search}
-          showRefreshedStamp={showRefreshedStamp}
-          staticStaging={staticStaging}
-          strategy={strategy}
-          theme={theme}
-        />
+        <button
+          type="button"
+          className="sidebar-toggle-btn"
+          onClick={() => setIsSidebarOpen((open) => !open)}
+          aria-expanded={isSidebarOpen}
+          aria-controls="dashboard-sidebar-controls"
+        >
+          <span className="sidebar-hamburger" aria-hidden>
+            <span />
+            <span />
+            <span />
+          </span>
+          <span className="sidebar-toggle-copy">{isSidebarOpen ? "Hide Controls" : "Controls"}</span>
+        </button>
+
+        {isSidebarOpen ? (
+          <div id="dashboard-sidebar-controls" className="sidebar-controls-stack">
+            <SidebarControls
+              isRefreshing={isRefreshing}
+              league={league}
+              onRefresh={handleRefresh}
+              onThemeToggle={handleThemeToggle}
+              pathname={pathname}
+              refreshError={refreshError}
+              refreshedAtLabel={refreshedAtLabel}
+              search={search}
+              showRefreshedStamp={showRefreshedStamp}
+              staticStaging={staticStaging}
+              strategy={strategy}
+              theme={theme}
+            />
+          </div>
+        ) : null}
       </div>
     </aside>
   );

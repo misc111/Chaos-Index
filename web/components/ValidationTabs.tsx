@@ -14,12 +14,12 @@ export default function ValidationTabs({ sections }: Props) {
   const active = requestedActive && keys.includes(requestedActive) ? requestedActive : (keys[0] ?? "");
 
   if (!keys.length) {
-    return <div className="card">No validation artifacts yet.</div>;
+    return <div className="card reportCard reportCardEmpty">No validation artifacts yet.</div>;
   }
 
   return (
-    <div>
-      <div className="tabRail" role="tablist" aria-label="Validation sections">
+    <div className="reportStack">
+      <div className="tabRail reportTabRail" role="tablist" aria-label="Validation sections">
         {keys.map((k) => (
           <button
             key={k}

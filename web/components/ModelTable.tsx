@@ -22,9 +22,13 @@ function formatCellValue(value: unknown): string {
 export default function ModelTable({ title, rows }: Props) {
   if (!rows || rows.length === 0) {
     return (
-      <div className="card">
-        <h3 className="title">{title}</h3>
-        <p className="small">No rows available</p>
+      <div className="card reportCard">
+        <div className="reportHeader">
+          <div>
+            <h3 className="title reportTitle">{title}</h3>
+          </div>
+          <span className="badge reportBadge">No rows</span>
+        </div>
       </div>
     );
   }
@@ -32,12 +36,18 @@ export default function ModelTable({ title, rows }: Props) {
   const cols = Object.keys(rows[0]);
   const primaryCol = cols[0] || "";
   const detailCols = primaryCol ? cols.slice(1) : cols;
+  const rowLabel = rows.length === 1 ? "1 row" : `${rows.length} rows`;
 
   return (
-    <div className="card">
-      <h3 className="title">{title}</h3>
-      <div className="tableDesktop" style={{ overflowX: "auto" }}>
-        <table>
+    <div className="card reportCard">
+      <div className="reportHeader">
+        <div>
+          <h3 className="title reportTitle">{title}</h3>
+        </div>
+        <span className="badge reportBadge">{rowLabel}</span>
+      </div>
+      <div className="tableDesktop reportTableScroll">
+        <table className="reportTable">
           <thead>
             <tr>
               {cols.map((c) => (

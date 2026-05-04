@@ -44,6 +44,11 @@ textarea {
   align-items: start;
 }
 
+.dashboard-shell:has(.dashboard-sidebar-collapsed) {
+  grid-template-columns: minmax(44px, 52px) minmax(0, 1fr);
+  gap: 18px;
+}
+
 .dashboard-sidebar,
 .dashboard-main {
   min-width: 0;
@@ -55,6 +60,82 @@ textarea {
   padding-top: 22px;
   display: grid;
   gap: 14px;
+}
+
+.sidebar-controls-stack {
+  display: grid;
+  gap: 14px;
+}
+
+.sidebar-toggle-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-field-muted);
+  color: var(--ink-strong);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.sidebar-toggle-btn:hover {
+  border-color: var(--border-accent-strong);
+  background: var(--surface-card-hover);
+  transform: translateY(-1px);
+}
+
+.sidebar-toggle-btn:disabled {
+  opacity: 0.8;
+  cursor: progress;
+  transform: none;
+}
+
+.sidebar-hamburger {
+  display: inline-grid;
+  gap: 4px;
+  width: 18px;
+  color: currentColor;
+}
+
+.sidebar-hamburger span {
+  display: block;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.sidebar-toggle-copy {
+  color: var(--ink-strong);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.dashboard-sidebar-collapsed .sidebar-toggle-btn {
+  width: 44px;
+  min-height: 44px;
+  padding: 0;
+}
+
+.dashboard-sidebar-collapsed .sidebar-toggle-copy {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .dashboard-topbar {
@@ -442,6 +523,7 @@ textarea {
 }
 
 .theme-toggle-btn:focus-visible,
+.sidebar-toggle-btn:focus-visible,
 .league-toggle-btn:focus-visible,
 .strategy-toggle-btn:focus-visible,
 .nav a:focus-visible,
@@ -699,7 +781,9 @@ textarea {
 }
 
 .card {
-  background: var(--surface-card);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--ink-strong) 3%, transparent), transparent 42%),
+    var(--surface-card);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 16px;
@@ -726,6 +810,83 @@ textarea {
 .small {
   color: var(--muted);
   font-size: 13px;
+}
+
+.reportStack {
+  display: grid;
+  gap: 12px;
+}
+
+.reportCard {
+  overflow: hidden;
+  padding: 0;
+  background:
+    radial-gradient(circle at top right, rgba(86, 216, 194, 0.1), transparent 34%),
+    var(--surface-card);
+}
+
+.reportCardEmpty {
+  padding: 18px;
+}
+
+.reportHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 18px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.reportTitle {
+  margin-bottom: 6px;
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  line-height: 1.05;
+}
+
+.reportBadge {
+  flex: 0 0 auto;
+  margin-top: 1px;
+  background: var(--surface-field-muted);
+}
+
+.reportTableScroll {
+  overflow-x: auto;
+  max-width: 100%;
+  scrollbar-width: thin;
+}
+
+.reportTable {
+  min-width: 760px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.reportTable thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--surface-table-head);
+  color: var(--muted-strong);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.reportTable th,
+.reportTable td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: top;
+}
+
+.reportTable tbody tr:hover {
+  background: var(--surface-row-hover);
+}
+
+.reportTable tbody tr:last-child td {
+  border-bottom: 0;
 }
 
 table {
@@ -951,8 +1112,10 @@ td {
   gap: 12px;
   padding: 14px;
   border: 1px solid var(--border);
-  border-radius: 18px;
-  background: var(--surface-card-alt);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--ink-strong) 3%, transparent), transparent 48%),
+    var(--surface-card-alt);
 }
 
 .dataCardHeader {
@@ -1008,6 +1171,10 @@ td {
   overflow-x: auto;
   padding: 0 0 12px;
   scrollbar-width: thin;
+}
+
+.reportTabRail {
+  padding: 0 0 10px;
 }
 
 .tabButton {
@@ -1079,8 +1246,35 @@ td {
 }
 
 @media (max-width: 980px) {
-  .dashboard-shell {
+  .dashboard-shell,
+  .dashboard-shell:has(.dashboard-sidebar-collapsed) {
     grid-template-columns: 1fr;
+  }
+
+  .dashboard-sidebar {
+    order: -2;
+  }
+
+  .dashboard-sidebar-collapsed .dashboard-sidebar-inner {
+    padding-top: 0;
+  }
+
+  .dashboard-sidebar-collapsed .sidebar-toggle-btn {
+    min-height: 48px;
+    grid-template-columns: auto minmax(0, 1fr);
+    justify-items: start;
+    width: 100%;
+    justify-content: flex-start;
+    padding: 9px 12px;
+  }
+
+  .dashboard-sidebar-collapsed .sidebar-toggle-copy {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
   }
 
   .dashboard-main {
