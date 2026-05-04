@@ -89,6 +89,33 @@ function titleCaseToken(value: string): string {
   return value.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
+function displayModelName(value?: string | null): string {
+  const raw = String(value || "").trim();
+  if (!raw) return "candidate";
+  return raw
+    .split(/[_\s-]+/)
+    .filter(Boolean)
+    .map((token) => {
+      const lower = token.toLowerCase();
+      if (["glm", "gam", "dglm", "mars"].includes(lower)) return lower.toUpperCase();
+      return token.charAt(0).toUpperCase() + token.slice(1);
+    })
+    .join(" ");
+}
+
+function gateLabel(value: string): string {
+  const labels: Record<string, string> = {
+    calibration_guardrail: "Calibration",
+    materializable_candidate: "Buildable model",
+    minimum_bet_count: "Bet volume",
+    minimum_profitable_folds: "Profitable folds",
+    research_backtest_eligible: "Backtest",
+    theory_core_candidate: "Theory lane",
+    validation_contract_complete: "Validation",
+  };
+  return labels[value] || titleCaseToken(value);
+}
+
 function gateChips(policy?: TableRow | null): GateChip[] {
   const gates = policy?.gates;
   if (!gates || typeof gates !== "object" || Array.isArray(gates)) {
@@ -96,11 +123,17 @@ function gateChips(policy?: TableRow | null): GateChip[] {
   }
 
   return Object.entries(gates)
-    .filter(([, value]) => typeof value === "boolean")
+    .filter(([, value]) => value === false)
     .map(([key, value]) => ({
-      label: titleCaseToken(key),
+      label: gateLabel(key),
       passed: Boolean(value),
     }));
+}
+
+function promotionSummary(promotion: ResearchDeskResponse["latest_promotion"]): string {
+  if (!promotion) return "No promotion review yet.";
+  const candidate = displayModelName(promotion.candidate_model_name);
+  return promotion.promoted ? `${candidate} is champion.` : `${candidate} stayed in research. Promotion gates did their job.`;
 }
 
 export default function ResearchDeskExperience({ league }: { league: LeagueCode }) {
@@ -161,14 +194,14 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
       <section className={`card ${styles.heroCard}`}>
         <div className={styles.heroTop}>
           <div>
-            <p className={styles.eyebrow}>Research Desk</p>
-            <h1 className={styles.title}>Nightly underwriting sheet</h1>
+            <p className={styles.eyebrow}>MLB Desk</p>
+            <h1 className={styles.title}>Research Desk</h1>
             <p className={styles.copy}>
-              {data.overnight_summary || "The desk summarizes champion state, risk posture, and tonight's bet or pass calls."}
+              {data.overnight_summary || "Today’s slate, model status, and bet calls."}
             </p>
           </div>
           <div className={styles.heroMeta}>
-            <span className={styles.pill}>League {data.league}</span>
+            <span className={styles.pill}>{data.league}</span>
             <span className={`${styles.pill} ${data.production_ready ? styles.postureNormal : styles.postureGuarded}`}>
               {evidenceStage ? titleCaseToken(evidenceStage) : data.production_ready ? "Production Ready" : "Not Production Ready"}
             </span>
@@ -177,27 +210,27 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
                 data.desk_posture === "guarded" ? styles.postureGuarded : styles.postureNormal
               }`}
             >
-              {data.desk_posture === "guarded" ? "Guarded posture" : "Normal posture"}
+              {data.desk_posture === "guarded" ? "Guarded risk" : "Normal risk"}
             </span>
-            <span className={styles.pill}>Model {data.champion?.model_name || "fallback"}</span>
+            <span className={styles.pill}>{data.champion?.model_name ? displayModelName(data.champion.model_name) : "Fallback model"}</span>
           </div>
         </div>
 
         <div className={styles.countGrid}>
           <div className={styles.countTile}>
-            <span className={styles.countLabel}>Games on desk</span>
+            <span className={styles.countLabel}>Games</span>
             <strong className={styles.countValue}>{data.counts.total_games}</strong>
           </div>
           <div className={styles.countTile}>
-            <span className={styles.countLabel}>Bets tonight</span>
+            <span className={styles.countLabel}>Bets</span>
             <strong className={styles.countValue}>{data.counts.bets}</strong>
           </div>
           <div className={styles.countTile}>
-            <span className={styles.countLabel}>Passes tonight</span>
+            <span className={styles.countLabel}>Passes</span>
             <strong className={styles.countValue}>{data.counts.passes}</strong>
           </div>
           <div className={styles.countTile}>
-            <span className={styles.countLabel}>As of</span>
+            <span className={styles.countLabel}>Updated</span>
             <strong className={styles.factValue}>{formatAsOf(data.as_of_utc || data.odds_as_of_utc)}</strong>
           </div>
         </div>
@@ -205,25 +238,24 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
         {unsupportedLeague ? (
           <div className={styles.unsupportedNote}>
             <p className={styles.smallCopy}>
-              This surface is being reset around the MLB rebuild. Legacy league views remain transitional until the promotion loop is
-              fully migrated.
+              MLB is the shipped lane for this dashboard.
             </p>
           </div>
         ) : null}
       </section>
 
       <div className={styles.summaryGrid}>
-        <section className={`card ${styles.summaryCard}`}>
-          <div className={styles.sectionHeader}>
-            <div>
-              <span className={styles.sectionLabel}>Champion</span>
-              <h2 className={styles.sectionTitle}>Active model summary</h2>
+        {data.champion ? (
+          <section className={`card ${styles.summaryCard}`}>
+            <div className={styles.sectionHeader}>
+              <div>
+                <span className={styles.sectionLabel}>Model</span>
+                <h2 className={styles.sectionTitle}>Active Model</h2>
+              </div>
             </div>
-          </div>
-          {data.champion ? (
             <>
               <div className={styles.pillRow}>
-                <span className={styles.pill}>{data.champion.model_name}</span>
+                <span className={styles.pill}>{displayModelName(data.champion.model_name)}</span>
                 {data.champion.source_run_id ? <span className={styles.pill}>Run {data.champion.source_run_id}</span> : null}
                 {data.champion.source_brief_id ? <span className={styles.pill}>Brief {data.champion.source_brief_id}</span> : null}
               </div>
@@ -270,14 +302,11 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
                 </div>
               ) : null}
             </>
-          ) : (
-            <p className={styles.smallCopy}>No promoted champion has been recorded yet.</p>
-          )}
-        </section>
+          </section>
+        ) : null}
 
         <EvidenceStatusCard
           evidenceStatus={data.evidence_status}
-          latestArtifactRole={data.latest_artifact_role}
           promotionEligible={data.promotion_eligible}
           productionReady={data.production_ready}
           sourceStatus={data.source_status}
@@ -286,8 +315,8 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
         <section className={`card ${styles.summaryCard}`}>
           <div className={styles.sectionHeader}>
             <div>
-              <span className={styles.sectionLabel}>Promotion</span>
-              <h2 className={styles.sectionTitle}>Latest rationale</h2>
+              <span className={styles.sectionLabel}>Review</span>
+              <h2 className={styles.sectionTitle}>Promotion Status</h2>
             </div>
           </div>
           {data.latest_promotion ? (
@@ -301,13 +330,13 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
                   {data.latest_promotion.promoted ? "Promoted" : "Rejected"}
                 </span>
                 {data.latest_promotion.candidate_model_name ? (
-                  <span className={styles.pill}>Candidate {data.latest_promotion.candidate_model_name}</span>
+                  <span className={styles.pill}>{displayModelName(data.latest_promotion.candidate_model_name)}</span>
                 ) : null}
                 {data.latest_promotion.incumbent_model_name ? (
-                  <span className={styles.pill}>Incumbent {data.latest_promotion.incumbent_model_name}</span>
+                  <span className={styles.pill}>vs {displayModelName(data.latest_promotion.incumbent_model_name)}</span>
                 ) : null}
               </div>
-              <p className={styles.copy}>{data.latest_promotion.reason_summary || "No summary was stored for the last promotion decision."}</p>
+              <p className={styles.copy}>{promotionSummary(data.latest_promotion)}</p>
               {promotionGates.length ? (
                 <div className={styles.gateRow}>
                   {promotionGates.map((gate) => (
@@ -320,10 +349,10 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
                   ))}
                 </div>
               ) : null}
-              <p className={styles.smallCopy}>Decision time {formatAsOf(data.latest_promotion.created_at_utc)}</p>
+              <p className={styles.smallCopy}>Reviewed {formatAsOf(data.latest_promotion.created_at_utc)}</p>
             </>
           ) : (
-            <p className={styles.smallCopy}>No promotion decision has been written yet.</p>
+            <p className={styles.smallCopy}>No promotion review yet.</p>
           )}
         </section>
       </div>
@@ -331,16 +360,13 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
       <section className={`card ${styles.tableCard}`}>
         <div className={styles.sectionHeader}>
           <div>
-            <span className={styles.sectionLabel}>Tonight</span>
-            <h2 className={styles.sectionTitle}>Bet, pass, size, reason</h2>
+            <span className={styles.sectionLabel}>Slate</span>
+            <h2 className={styles.sectionTitle}>Today’s Calls</h2>
           </div>
-          <p className={styles.smallCopy}>
-            The desk rows come from the existing market-board pricing surface and betting rules, not a parallel recommendation stack.
-          </p>
         </div>
 
         {data.rows.length === 0 ? (
-          <div className={styles.emptyState}>No games are on the current desk slate.</div>
+          <div className={styles.emptyState}>No slate loaded.</div>
         ) : (
           <div className={styles.tableWrap}>
             <table className={styles.table}>
@@ -381,7 +407,9 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
                     <td>
                       <div className={styles.reasonCell}>
                         <span className={styles.metricStrong}>{row.reason}</span>
-                        <span className={styles.metaText}>EV {formatExpectedValue(row.expected_value)}</span>
+                        {typeof row.expected_value === "number" && Number.isFinite(row.expected_value) ? (
+                          <span className={styles.metaText}>EV {formatExpectedValue(row.expected_value)}</span>
+                        ) : null}
                       </div>
                     </td>
                   </tr>

@@ -229,7 +229,7 @@ function MarketBoardPageContent() {
 
         {loading ? <p className={styles.boardStatus}>Loading market board...</p> : null}
         {error ? <p className={styles.boardError}>Failed to load market board: {error}</p> : null}
-        {!loading && !error && !derivedRows.length ? <p className={styles.boardStatus}>No games scheduled today.</p> : null}
+        {!loading && !error && !derivedRows.length ? <p className={styles.boardStatus}>No games on this slate.</p> : null}
 
         {!loading && !error && derivedRows.length ? (
           <div className={styles.boardList}>
@@ -304,7 +304,7 @@ function MarketBoardPageContent() {
                       <TeamWithIcon league={league} teamCode={row.home_team} label={row.home_team} />
                       <strong>{formatMoneyline(row.moneyline.home_price)}</strong>
                     </div>
-                    <p className={styles.marketMeta}>Best current moneyline by side</p>
+                    <p className={styles.marketMeta}>Best current line</p>
                   </div>
 
                   <div className={styles.signalCell}>
@@ -317,7 +317,7 @@ function MarketBoardPageContent() {
                         </>
                       ) : (
                         <>
-                          <span>Likeliest winner:</span>
+                          <span>Lean:</span>
                           <TeamWithIcon league={league} teamCode={entry.modelWinnerCode} label={entry.modelWinner} />
                         </>
                       )}

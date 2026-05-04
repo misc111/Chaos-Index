@@ -97,10 +97,24 @@ function pluralize(count: number, singular: string, plural = `${singular}s`): st
   return `${count} ${count === 1 ? singular : plural}`;
 }
 
-function normalizePromotionReason(value?: string | null): string | null {
+function displayModelName(value?: string | null): string {
   const raw = String(value || "").trim();
-  if (!raw) return null;
-  return raw.replace(/^Rejected:\s*/i, "").replace(/^Auto-promoted\s*/i, "Auto-promoted");
+  if (!raw) return "candidate";
+  return raw
+    .split(/[_\s-]+/)
+    .filter(Boolean)
+    .map((token) => {
+      const lower = token.toLowerCase();
+      if (["glm", "gam", "dglm", "mars"].includes(lower)) return lower.toUpperCase();
+      return token.charAt(0).toUpperCase() + token.slice(1);
+    })
+    .join(" ");
+}
+
+function summarizePromotion(promotion: ResearchPromotionSummary | null): string {
+  if (!promotion) return "No promotion review yet.";
+  const candidate = displayModelName(promotion.candidate_model_name);
+  return promotion.promoted ? `${candidate} promoted.` : `${candidate} stayed in research.`;
 }
 
 export function buildUnsupportedPayload(league: LeagueCode): ResearchDeskResponse {
@@ -216,27 +230,20 @@ export function buildOvernightSummary(args: {
   betCount: number;
 }): string {
   const leagueLabel = displayLeagueLabel(args.league);
-  const postureSentence =
-    args.deskPosture === "guarded"
-      ? `Guarded posture is active, so the desk is using tighter ${leagueLabel} risk controls tonight.`
-      : `Normal posture is active, so the desk is running on its standard ${leagueLabel} underwriting rules.`;
-  const championSentence = args.championModelName
-    ? `Active champion: ${args.championModelName}.`
-    : "No promoted champion is recorded yet, so the desk is leaning on the current fallback model.";
-  const promotionSentence = args.promotion
-    ? args.promotion.promoted
-      ? `Latest promotion: ${args.promotion.candidate_model_name || "candidate"} cleared the gates.`
-      : `Latest promotion review stayed put: ${normalizePromotionReason(args.promotion.reason_summary) || "the last candidate did not clear the gates"}.`
-    : "No promotion decision has been recorded yet.";
-  const slateSentence =
+  const riskLabel = args.deskPosture === "guarded" ? "Guarded risk" : "Normal risk";
+  const modelSentence = args.championModelName
+    ? `Champion: ${displayModelName(args.championModelName)}.`
+    : "Fallback model active.";
+  const slateLead =
     args.totalGames > 0
-      ? `Tonight's ${leagueLabel} slate has ${pluralize(args.totalGames, "game")}, with ${pluralize(args.betCount, "bet")} and ${pluralize(
+      ? `${leagueLabel} desk: ${pluralize(args.totalGames, "game")}, ${pluralize(args.betCount, "bet")}, ${pluralize(
           Math.max(0, args.totalGames - args.betCount),
-          "pass"
+          "pass",
+          "passes"
         )}.`
-      : `No ${leagueLabel} games are on the desk slate right now.`;
+      : `${leagueLabel} desk: no games loaded.`;
 
-  return [postureSentence, championSentence, promotionSentence, slateSentence].join(" ");
+  return [slateLead, riskLabel + ".", modelSentence, summarizePromotion(args.promotion)].join(" ");
 }
 
 export async function GET(request: Request) {

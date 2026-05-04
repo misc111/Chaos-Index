@@ -11,15 +11,28 @@ function titleCaseToken(value: string): string {
     .join(" ");
 }
 
+function cleanReasonLabel(value: string): string {
+  const labels: Record<string, string> = {
+    calibration_guardrail: "Calibration",
+    minimum_bet_count: "Bet volume",
+    minimum_profitable_folds: "Profitable folds",
+    missing_ledger_audit: "Missing audit",
+    not_full_immutable_pregame_mlb_ledger: "Ledger incomplete",
+    not_production_grade: "Not production grade",
+    research_backtest_eligible: "Backtest",
+    theory_core_candidate: "Theory lane",
+    validation_contract_complete: "Validation",
+  };
+  return labels[value] || titleCaseToken(value);
+}
+
 export default function EvidenceStatusCard({
   evidenceStatus,
-  latestArtifactRole,
   promotionEligible,
   productionReady,
   sourceStatus,
 }: {
   evidenceStatus?: EvidenceStatusSummary | null;
-  latestArtifactRole?: string | null;
   promotionEligible?: boolean;
   productionReady?: boolean;
   sourceStatus?: string | null;
@@ -27,53 +40,49 @@ export default function EvidenceStatusCard({
   const evidenceStage = evidenceStatus?.evidence_stage;
   const stageLabel =
     evidenceStage === "fixture_demo_smoke"
-      ? "Fixture/demo/smoke"
+      ? "Demo evidence"
       : evidenceStage === "promotion_eligible"
-        ? "Promotion-eligible evidence"
+        ? "Promotion eligible"
         : evidenceStage === "production_ready"
           ? "Production ready"
           : evidenceStage === "research_only"
-            ? "Research-only evidence"
+            ? "Research only"
             : promotionEligible
-              ? "Promotion-eligible evidence"
-              : "Blocked from promotion";
+              ? "Promotion eligible"
+              : "Blocked";
+  const blockedReasons = [
+    ...(evidenceStatus?.readiness_blocked_reasons || []),
+    ...(evidenceStatus?.blocked_reasons || []),
+  ].filter(Boolean);
+  const uniqueBlockedReasons = Array.from(new Set(blockedReasons)).slice(0, 4);
 
   return (
     <section className={`card ${styles.summaryCard}`}>
       <div className={styles.sectionHeader}>
         <div>
-          <span className={styles.sectionLabel}>Evidence</span>
-          <h2 className={styles.sectionTitle}>Latest artifact status</h2>
+          <span className={styles.sectionLabel}>Status</span>
+          <h2 className={styles.sectionTitle}>Evidence</h2>
         </div>
       </div>
       <div className={styles.promotionMeta}>
         <span className={`${styles.statusPill} ${productionReady ? styles.statusBet : styles.statusPass}`}>
           {stageLabel}
         </span>
-        {latestArtifactRole ? <span className={styles.pill}>{titleCaseToken(latestArtifactRole)}</span> : null}
         {sourceStatus ? <span className={styles.pill}>{titleCaseToken(sourceStatus)}</span> : null}
-        {evidenceStatus?.fixture_demo_smoke ? <span className={styles.pill}>Fixture/demo/smoke</span> : null}
         {evidenceStatus?.full_immutable_pregame_ledger ? <span className={styles.pill}>Full ledger</span> : null}
-        {evidenceStatus?.ledger_audit_present ? <span className={styles.pill}>Ledger audit</span> : null}
       </div>
       <p className={styles.copy}>
-        {evidenceStatus?.pointer_semantics ||
-          "Latest research recommendations and promotion-eligible evidence are tracked as separate artifact lanes."}
+        {productionReady
+          ? "Promotion evidence is ready."
+          : promotionEligible
+            ? "Evidence is ready for review."
+            : "Champion promotion is still blocked."}
       </p>
-      {evidenceStatus?.blocked_reasons?.length ? (
+      {uniqueBlockedReasons.length ? (
         <div className={styles.gateRow}>
-          {evidenceStatus.blocked_reasons.map((reason) => (
+          {uniqueBlockedReasons.map((reason) => (
             <span key={reason} className={`${styles.gatePill} ${styles.gateFail}`}>
-              {titleCaseToken(reason)}
-            </span>
-          ))}
-        </div>
-      ) : null}
-      {evidenceStatus?.readiness_blocked_reasons?.length ? (
-        <div className={styles.gateRow}>
-          {evidenceStatus.readiness_blocked_reasons.map((reason) => (
-            <span key={reason} className={`${styles.gatePill} ${styles.gateFail}`}>
-              {titleCaseToken(reason)}
+              {cleanReasonLabel(reason)}
             </span>
           ))}
         </div>

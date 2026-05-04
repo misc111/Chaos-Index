@@ -208,19 +208,21 @@ function GamesTodayPageContent() {
   const scheduleSummary = formatCentralDateSummary(activeDateKey);
   const dateLabel = formatCentralDateLabel(activeDateKey);
   const title = activeDateKey === todayKey ? "Games Today" : `Games on ${dateLabel}`;
-  const slateSummary = `Showing ${formatGameCountLabel(rows.length)} for ${dateLabel} (Central Time).`;
+  const slateSummary = `${formatGameCountLabel(rows.length)} for ${dateLabel}.`;
   const description =
     mode === "historical"
-      ? `Stored pregame replay rows for ${dateLabel} (Central Time) are shown.`
+      ? `Pregame replay for ${dateLabel}.`
       : mode === "snapshotFallback"
-        ? `Stored forecast snapshot rows for ${dateLabel} (Central Time) are shown because replay rows are not available yet.`
-        : `Only games scheduled for ${scheduleSummary} (Central Time) are shown.`;
+        ? `Forecast snapshot for ${dateLabel}.`
+        : activeDateKey === todayKey
+          ? "Today’s slate. Central time."
+          : `${dateLabel}. Central time.`;
   const emptyState =
     isPastDate && historicalCoverageStart && activeDateKey < historicalCoverageStart
-      ? `No stored pregame replay data for ${dateLabel}. Replay coverage starts on ${formatCentralDateLabel(historicalCoverageStart)}.`
+      ? `No replay for ${dateLabel}. Coverage starts ${formatCentralDateLabel(historicalCoverageStart)}.`
       : isPastDate
-        ? `No stored forecast or replay rows are available for ${dateLabel}.`
-        : `No games scheduled for ${scheduleSummary}.`;
+        ? `No saved rows for ${dateLabel}.`
+        : `No games for ${scheduleSummary}.`;
 
   const handleRefreshOdds = async () => {
     if (staticStaging) {
@@ -289,7 +291,7 @@ function GamesTodayPageContent() {
         <p className="small">{description}</p>
         {!loading && !error ? <p className="small">{slateSummary}</p> : null}
         <p className="small">
-          Stakes use uncertainty-adjusted edge and a bankroll-linked scale. A {formatUsd(REFERENCE_STAKE_DOLLARS)} recommendation corresponds to 1% of the ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()} reference bankroll.
+          Stake scale: {formatUsd(REFERENCE_STAKE_DOLLARS)} = 1% of ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()}.
         </p>
         <div className={styles.actionsRow}>
           <button

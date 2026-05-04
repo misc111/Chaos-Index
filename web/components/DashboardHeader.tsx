@@ -141,11 +141,9 @@ function SidebarControls({
   return (
     <>
       <div className="sidebar-brand card">
-        <p className="sidebar-eyebrow">Control Center</p>
-        <h2 className="sidebar-title">Dashboard Inputs</h2>
-        <p className="small sidebar-copy">
-          Review the MLB product lane and adjust risk assumptions without leaving the current view.
-        </p>
+        <p className="sidebar-eyebrow">Controls</p>
+        <h2 className="sidebar-title">Inputs</h2>
+        <p className="small sidebar-copy">MLB only. Choose risk, then scan the board.</p>
       </div>
 
       {SHOW_LEAGUE_SELECTOR ? (
@@ -170,7 +168,7 @@ function SidebarControls({
           <span className="strategy-toggle-label" id="sidebar-league-title">
             Product Lane
           </span>
-          <p className="small">MLB is the only shipped dashboard lane.</p>
+          <p className="small">MLB only.</p>
         </section>
       )}
 
@@ -217,12 +215,12 @@ function SidebarControls({
           ) : null}
           <div className="refresh-meta" aria-live="polite">
             <p className="small">
-              Active bet objective: {strategyConfig.label}. {strategyConfig.description}
+              {strategyConfig.label}: {strategyConfig.shortLabel}.
             </p>
-            {!staticStaging ? <p className="small">Ingest only. No feature rebuild and no retraining.</p> : null}
+            {!staticStaging ? <p className="small">Refresh updates ingest only.</p> : null}
             {isRefreshing ? (
               <>
-                <p className="small">Refreshing {displayLeagueLabel(league)} data without rebuilding models...</p>
+                <p className="small">Refreshing {displayLeagueLabel(league)} data...</p>
                 <div className="refresh-progress-track">
                   <span className="refresh-progress-fill" />
                 </div>
@@ -373,7 +371,7 @@ function HeaderFallback() {
           <p className="sidebar-eyebrow dashboard-eyebrow">Chaos Index</p>
           <h1 className="title app-title">Win Probability Forecasting</h1>
           <p className="small dashboard-subtitle">
-            Independent win probabilities you can compare against the market.
+            Forecasts vs market.
           </p>
         </div>
       </div>
@@ -402,7 +400,7 @@ function DashboardHeaderContent() {
           <p className="sidebar-eyebrow dashboard-eyebrow">Chaos Index</p>
           <h1 className="title app-title">{displayLeagueLabel(league)} Win Probability Forecasting</h1>
           <p className="small dashboard-subtitle">
-            Independent win probabilities you can compare against the market.
+            Forecasts vs market.
           </p>
         </div>
       </div>
