@@ -1,0 +1,206 @@
+.page {
+  display: grid;
+  gap: 22px;
+  padding: 0 0 24px;
+}
+
+.intro,
+.group {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-card);
+  box-shadow: var(--shadow-card);
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.42fr);
+  gap: 24px;
+  align-items: end;
+  padding: clamp(22px, 4vw, 34px);
+}
+
+.intro h2,
+.groupHeader h3,
+.modelCard h4 {
+  margin: 0;
+  color: var(--ink-strong);
+  font-family: "Space Grotesk", "Avenir Next", sans-serif;
+  letter-spacing: 0;
+}
+
+.intro h2 {
+  max-width: 820px;
+  font-size: clamp(34px, 5vw, 72px);
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.intro p,
+.groupHeader p,
+.plain,
+.explainGrid p {
+  margin: 0;
+  color: var(--muted-strong);
+  line-height: 1.6;
+}
+
+.intro p {
+  max-width: 760px;
+  margin-top: 16px;
+  font-size: clamp(17px, 1.5vw, 20px);
+}
+
+.legend {
+  display: grid;
+  gap: 10px;
+}
+
+.legend span,
+.role,
+.explainGrid span {
+  color: var(--accent-2-strong);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.legend span {
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-card-soft);
+}
+
+.groupStack {
+  display: grid;
+  gap: 18px;
+}
+
+.group {
+  display: grid;
+  gap: 18px;
+  padding: clamp(18px, 3vw, 26px);
+}
+
+.groupHeader {
+  display: grid;
+  gap: 8px;
+  max-width: 880px;
+}
+
+.groupHeader h3 {
+  font-size: clamp(24px, 3vw, 38px);
+  line-height: 1;
+}
+
+.modelGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 14px;
+}
+
+.modelCard {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-height: 320px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 46%),
+    var(--surface-card-soft);
+}
+
+.modelTop {
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+}
+
+.sprite {
+  display: grid;
+  width: 86px;
+  height: 86px;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 64%),
+    var(--surface-card);
+}
+
+.sprite img {
+  display: block;
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+}
+
+.modelCard h4 {
+  margin-top: 6px;
+  font-size: 20px;
+  line-height: 1.05;
+}
+
+.shortName {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.plain {
+  color: var(--ink-strong);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.explainGrid {
+  display: grid;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.explainGrid div {
+  display: grid;
+  gap: 5px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-card);
+}
+
+.explainGrid p {
+  font-size: 13px;
+}
+
+@media (max-width: 820px) {
+  .intro {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .modelGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .modelTop {
+    grid-template-columns: 74px minmax(0, 1fr);
+  }
+
+  .sprite {
+    width: 74px;
+    height: 74px;
+  }
+
+  .sprite img {
+    width: 66px;
+    height: 66px;
+  }
+}

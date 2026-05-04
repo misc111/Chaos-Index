@@ -19,6 +19,7 @@ const links: Array<[string, string]> = [
   ["/games-today", "Games Today"],
   ["/market-board", "Market Board"],
   ["/research-desk", "Research Desk"],
+  ["/meet-the-models", "Meet Models"],
   ["/bet-history", "Bet History"],
   ["/actual-vs-expected", "Actual vs Expected"],
   ["/predictions", "Model Summary"],
@@ -93,6 +94,12 @@ const routeHeroes: Record<string, RouteHero> = {
     copy: "A market-aware pricing board for MLB moneyline, spread, total, and model edge.",
     image: "/images/pages/market-board.png",
     signals: ["Odds", "Fair price", "Model edge"],
+  },
+  "/meet-the-models": {
+    title: "Meet the Models",
+    copy: "A plain-English roster of the model family, what each one sees, and how each one can get fooled.",
+    image: "/images/pages/predictions.png",
+    signals: ["Plain English", "Model roles", "Trust notes"],
   },
   "/nested-tournament": {
     title: "Nested Tournament",
