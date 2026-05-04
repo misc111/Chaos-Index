@@ -13,6 +13,7 @@ from src.common.config import AppConfig
 from src.common.logging import get_logger
 from src.registry.models import baseline_model_names, core_model_names, get_model_registry_entry, theory_extension_model_names
 from src.research.model_comparison import CANDIDATE_MODEL_NAMES
+from src.services import model_compare as model_compare_service
 from src.services import research_backtest as research_backtest_service
 from src.storage.db import Database
 from src.training.contracts import CandidateScorecardRecord, PromotionDecisionRecord
@@ -946,9 +947,22 @@ def run_research_desk(
         "scorecard_contract_json": str(scorecard_contract_path),
         "fold_metrics_path": str(result.fold_metrics_path),
         "promotion_path": str(result.promotion_path),
+        "market_truth_summary_path": str(result.market_truth_summary_path) if result.market_truth_summary_path else None,
+        "market_truth_predictions_path": str(result.market_truth_predictions_path) if result.market_truth_predictions_path else None,
+        "market_truth_calibration_path": str(result.market_truth_calibration_path) if result.market_truth_calibration_path else None,
     }
     promotion_payload = {**promotion, **decision}
     result.promotion_path.write_text(json.dumps(promotion_payload, sort_keys=True) + "\n")
+    current_best_models_path = model_compare_service.write_current_best_models_from_promotion_review(
+        cfg,
+        run_id=run_id,
+        promotion_payload=promotion_payload,
+    )
+    if current_best_models_path is not None:
+        promotion_payload.setdefault("artifacts", {})
+        if isinstance(promotion_payload["artifacts"], dict):
+            promotion_payload["artifacts"]["current_best_models_path"] = str(current_best_models_path)
+        result.promotion_path.write_text(json.dumps(promotion_payload, sort_keys=True) + "\n")
 
     _persist_run(
         db,

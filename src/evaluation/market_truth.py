@@ -69,8 +69,8 @@ def load_market_truth_moneyline_odds(
     frame = pd.DataFrame(rows)
     if frame.empty:
         return frame
-    frame["odds_as_of_utc"] = pd.to_datetime(frame["odds_as_of_utc"], errors="coerce", utc=True)
-    frame["start_time_utc"] = pd.to_datetime(frame["start_time_utc"], errors="coerce", utc=True)
+    frame["odds_as_of_utc"] = pd.to_datetime(frame["odds_as_of_utc"], errors="coerce", utc=True, format="mixed")
+    frame["start_time_utc"] = pd.to_datetime(frame["start_time_utc"], errors="coerce", utc=True, format="mixed")
     frame["outcome_price"] = pd.to_numeric(frame["outcome_price"], errors="coerce")
     frame = frame[
         frame["odds_as_of_utc"].notna()
@@ -202,8 +202,8 @@ def _best_moneyline_snapshots(odds_lines: pd.DataFrame) -> pd.DataFrame:
     if "start_time_utc" not in work.columns:
         raise ValueError("Odds lines require start_time_utc or commence_time_utc.")
 
-    work["odds_as_of_ts"] = pd.to_datetime(work[as_of_source], errors="coerce", utc=True)
-    work["start_time_ts"] = pd.to_datetime(work["start_time_utc"], errors="coerce", utc=True)
+    work["odds_as_of_ts"] = pd.to_datetime(work[as_of_source], errors="coerce", utc=True, format="mixed")
+    work["start_time_ts"] = pd.to_datetime(work["start_time_utc"], errors="coerce", utc=True, format="mixed")
     work["outcome_price"] = pd.to_numeric(work["outcome_price"], errors="coerce")
     work["outcome_side"] = work["outcome_side"].fillna("").astype(str).str.lower()
     work = work[
@@ -281,8 +281,10 @@ def _market_snapshots_for_predictions(predictions: pd.DataFrame, odds_lines: pd.
     snapshots = _best_moneyline_snapshots(odds_lines)
     rows: list[dict[str, Any]] = []
     prediction_keys = predictions[["game_id", "as_of_utc", "start_time_utc"]].drop_duplicates().copy()
-    prediction_keys["prediction_as_of_ts"] = pd.to_datetime(prediction_keys["as_of_utc"], errors="coerce", utc=True)
-    prediction_keys["start_time_ts"] = pd.to_datetime(prediction_keys["start_time_utc"], errors="coerce", utc=True)
+    prediction_keys["prediction_as_of_ts"] = pd.to_datetime(
+        prediction_keys["as_of_utc"], errors="coerce", utc=True, format="mixed"
+    )
+    prediction_keys["start_time_ts"] = pd.to_datetime(prediction_keys["start_time_utc"], errors="coerce", utc=True, format="mixed")
 
     for item in prediction_keys.itertuples(index=False):
         game_id = item.game_id

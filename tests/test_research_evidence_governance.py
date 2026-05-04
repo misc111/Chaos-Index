@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import json
+
 import pandas as pd
 
 from src.research.nested_tournament_evaluation import _failed_row
 from src.research.nested_tournament_governance import _select_family_champions
-from src.services.model_compare import _build_current_best_models_payload_from_comparison
+from src.common.config import load_config
+from src.services.model_compare import _build_current_best_models_payload_from_comparison, write_current_best_models_from_promotion_review
 from src.services.research_backtest import _promotion_summary
 
 
@@ -150,3 +153,61 @@ def test_research_backtest_promotion_summary_declares_betting_overlay_governance
     assert promotion["governance_lane"] == "betting_overlay"
     assert promotion["theory_governance"] == "betting overlay"
     assert promotion["ranking_rule"]["primary"] == "mean_ending_bankroll"
+
+
+def test_current_best_promotion_review_keeps_betting_overlay_and_model_theory_labels(tmp_path):
+    cfg = load_config("configs/mlb.yaml")
+    cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
+    payload = {
+        "league": "MLB",
+        "status": "rejected",
+        "promoted": False,
+        "active_model_name": "glm_ridge",
+        "candidate_model_name": "gam_spline",
+        "incumbent_model_name": "glm_ridge",
+        "reason_summary": "unit promotion review stayed put",
+        "strategy": "flat",
+        "gates": {"research_backtest_eligible": True, "candidate_beats_incumbent": False},
+        "policy": {"min_bet_count": 10},
+        "candidate_scorecards": [
+            {
+                "model_name": "gam_spline",
+                "lane": "extension",
+                "target_name": "moneyline_home_win",
+                "validation_metrics": {
+                    "strategy": "flat",
+                    "mean_ending_bankroll": 5100.0,
+                    "mean_net_profit": 100.0,
+                    "mean_log_loss": 0.68,
+                    "mean_brier": 0.24,
+                    "bet_count": 12,
+                },
+                "stability_metrics": {
+                    "scorecard_rank": 1,
+                    "profitable_folds": 3,
+                    "profit_winning_folds": 3,
+                    "all_integrity_checks": True,
+                },
+                "calibration_summary": {"mean_ece": 0.02},
+                "complement_summary": {
+                    "display_name": "GAM Spline",
+                    "family": "nonlinear",
+                    "governance_note": "Theory-compatible GLM extension.",
+                    "promotion_role": "candidate_under_review",
+                },
+            }
+        ],
+        "promotion_decision": {"status": "rejected", "rationale": "unit"},
+        "artifacts": {"promotion_path": str(tmp_path / "promotion_summary.json")},
+    }
+
+    path = write_current_best_models_from_promotion_review(cfg, run_id="unit-run", promotion_payload=payload)
+    current_best = json.loads(path.read_text())
+
+    assert current_best["evidence_scope"] == "research_desk_promotion_review"
+    assert current_best["theory_governance"] == "betting overlay"
+    assert current_best["candidate_model_name"] == "gam_spline"
+    assert current_best["top_models"][0]["model_name"] == "gam_spline"
+    assert current_best["top_models"][0]["model_lane"] == "extension"
+    assert current_best["top_models"][0]["theory_classification"] == "theory-compatible extension"
+    assert (tmp_path / "artifacts" / "reports" / "mlb" / "promotion_review_latest.json").exists()

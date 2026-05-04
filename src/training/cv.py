@@ -44,7 +44,7 @@ def expanding_window_date_splits(
     if work.empty or date_col not in work.columns:
         return []
 
-    work[date_col] = pd.to_datetime(work[date_col], errors="coerce", utc=True)
+    work[date_col] = pd.to_datetime(work[date_col], errors="coerce", utc=True, format="mixed")
     work = work[work[date_col].notna()].sort_values(date_col)
     if work.empty:
         return []

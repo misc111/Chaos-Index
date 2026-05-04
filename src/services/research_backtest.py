@@ -158,8 +158,8 @@ def _latest_pregame_moneylines(db: Database, *, league: str, seasons: list[int])
     if frame.empty:
         return frame
 
-    frame["odds_as_of_utc"] = pd.to_datetime(frame["odds_as_of_utc"], errors="coerce", utc=True)
-    frame["start_time_utc"] = pd.to_datetime(frame["start_time_utc"], errors="coerce", utc=True)
+    frame["odds_as_of_utc"] = pd.to_datetime(frame["odds_as_of_utc"], errors="coerce", utc=True, format="mixed")
+    frame["start_time_utc"] = pd.to_datetime(frame["start_time_utc"], errors="coerce", utc=True, format="mixed")
     frame["outcome_price"] = pd.to_numeric(frame["outcome_price"], errors="coerce")
     frame = frame[
         frame["odds_as_of_utc"].notna()
@@ -533,7 +533,7 @@ def _resolve_adaptive_min_train_days(
     if work.empty or date_col not in work.columns:
         return None
 
-    work[date_col] = pd.to_datetime(work[date_col], errors="coerce", utc=True)
+    work[date_col] = pd.to_datetime(work[date_col], errors="coerce", utc=True, format="mixed")
     work = work[work[date_col].notna()].sort_values(date_col)
     if work.empty:
         return None
@@ -587,7 +587,7 @@ def run_research_backtest(
     candidate_model_set = _parse_candidate_models(candidate_models)
 
     historical_df = features_df[features_df["home_win"].notna()].copy().sort_values("start_time_utc").reset_index(drop=True)
-    historical_df["start_time_utc"] = pd.to_datetime(historical_df["start_time_utc"], errors="coerce", utc=True)
+    historical_df["start_time_utc"] = pd.to_datetime(historical_df["start_time_utc"], errors="coerce", utc=True, format="mixed")
     historical_df = historical_df[historical_df["start_time_utc"].notna()].copy().reset_index(drop=True)
     max_date = historical_df["start_time_utc"].dt.normalize().max()
     holdout_start = max_date - pd.Timedelta(days=max(1, cfg.research.final_holdout_days) - 1)

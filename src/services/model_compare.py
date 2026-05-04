@@ -12,6 +12,8 @@ from src.common.logging import get_logger
 from src.common.time import utc_now_iso
 from src.common.utils import ensure_dir
 from src.governance.evidence import (
+    BETTING_OVERLAY,
+    BETTING_OVERLAY_LANE,
     GOVERNANCE_CONTRACT_VERSION,
     THEORY_COMPATIBLE_ENGINEERING_SUPPORT,
     model_evidence_fields,
@@ -98,6 +100,7 @@ def _comparison_top_models(summary_payload: dict[str, Any], *, limit: int = 5) -
     for record in list(summary_payload.get("candidate_scorecards", [])):
         validation_metrics = dict(record.get("validation_metrics") or {})
         stability_metrics = dict(record.get("stability_metrics") or {})
+        calibration_summary = dict(record.get("calibration_summary") or {})
         complement_summary = dict(record.get("complement_summary") or {})
         target_name = str(record.get("target_name") or summary_payload.get("target_name") or "moneyline_home_win")
         rows.append(
@@ -289,6 +292,180 @@ def write_current_best_models_from_tournament(
         },
     }
     output_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    return output_path
+
+
+def _promotion_review_top_models(promotion_payload: dict[str, Any]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for record in list(promotion_payload.get("candidate_scorecards") or []):
+        if not isinstance(record, dict):
+            continue
+        validation_metrics = dict(record.get("validation_metrics") or {})
+        stability_metrics = dict(record.get("stability_metrics") or {})
+        calibration_summary = dict(record.get("calibration_summary") or {})
+        complement_summary = dict(record.get("complement_summary") or {})
+        target_name = str(record.get("target_name") or "moneyline_home_win")
+        model_name = str(record.get("model_name") or "")
+        rows.append(
+            {
+                "rank": stability_metrics.get("scorecard_rank"),
+                "model_name": model_name,
+                "display_name": str(complement_summary.get("display_name") or model_name),
+                "target_name": target_name,
+                "market": _market_name_for_target(target_name),
+                "family": complement_summary.get("family"),
+                "governance_note": complement_summary.get("governance_note"),
+                "promotion_role": complement_summary.get("promotion_role"),
+                "strategy": validation_metrics.get("strategy") or promotion_payload.get("strategy"),
+                "mean_ending_bankroll": _safe_float(validation_metrics.get("mean_ending_bankroll")),
+                "mean_net_profit": _safe_float(validation_metrics.get("mean_net_profit")),
+                "mean_roi": _safe_float(validation_metrics.get("mean_roi")),
+                "median_roi": _safe_float(validation_metrics.get("median_roi")),
+                "mean_log_loss": _safe_float(validation_metrics.get("mean_log_loss")),
+                "mean_brier": _safe_float(validation_metrics.get("mean_brier")),
+                "mean_auc": _safe_float(validation_metrics.get("mean_auc")),
+                "mean_ece": _safe_float(calibration_summary.get("mean_ece")),
+                "bet_count": validation_metrics.get("bet_count"),
+                "profitable_folds": stability_metrics.get("profitable_folds"),
+                "profit_winning_folds": stability_metrics.get("profit_winning_folds"),
+                "all_integrity_checks": bool(stability_metrics.get("all_integrity_checks")),
+                **model_evidence_fields(
+                    model_name,
+                    target_name=target_name,
+                    target_col="home_win",
+                    market=_market_name_for_target(target_name),
+                ),
+            }
+        )
+
+    def sort_key(row: dict[str, Any]) -> tuple[Any, ...]:
+        rank = row.get("rank")
+        rank_bucket = 0 if isinstance(rank, int) else 1
+        return (
+            rank_bucket,
+            rank if isinstance(rank, int) else 10**9,
+            -(row.get("mean_ending_bankroll") if row.get("mean_ending_bankroll") is not None else float("-inf")),
+            row.get("model_name") or "",
+        )
+
+    ordered = sorted(rows, key=sort_key)
+    for index, row in enumerate(ordered, start=1):
+        if not isinstance(row.get("rank"), int):
+            row["rank"] = index
+    return ordered[:5]
+
+
+def write_current_best_models_from_promotion_review(
+    cfg: AppConfig,
+    *,
+    run_id: str,
+    promotion_payload: dict[str, Any],
+    canonical_output_dir: Path | None = None,
+) -> Path | None:
+    league = str(promotion_payload.get("league") or cfg.data.league).upper()
+    if league != "MLB":
+        return None
+    output_path = current_best_models_path(cfg)
+    output_dir = canonical_output_dir or output_path.parent
+    top_models = _promotion_review_top_models(promotion_payload)
+    artifacts = dict(promotion_payload.get("artifacts") or {})
+    decision = dict(promotion_payload.get("promotion_decision") or {})
+    target_name = str(decision.get("target_name") or "moneyline_home_win")
+    payload = {
+        "governance_contract_version": GOVERNANCE_CONTRACT_VERSION,
+        "evidence_scope": "research_desk_promotion_review",
+        "theory_governance": BETTING_OVERLAY,
+        "governance_lane": BETTING_OVERLAY_LANE,
+        "target_scope": target_scope_fields(
+            league=league,
+            target_name=target_name,
+            target_col="home_win",
+            market=_market_name_for_target(target_name),
+        ),
+        "league": league,
+        "as_of_utc": utc_now_iso(),
+        "question_scope": "latest_promotion_review",
+        "source_kind": "research_desk_promotion_review",
+        "source_status": str(promotion_payload.get("status") or "rejected"),
+        "run_id": run_id,
+        "canonical_artifact_root": str(output_dir),
+        "production_grade": True,
+        "execution_scope": "full_immutable_pregame_mlb_research_backtest",
+        "target_name": target_name,
+        "market": _market_name_for_target(target_name),
+        "ranking_rule": {
+            "primary": "mean_ending_bankroll",
+            "secondary": "mean_net_profit",
+            "tertiary": "integrity_and_calibration_gates",
+            "notes": "Promotion review applies betting-overlay economics only after immutable pregame integrity checks; model-family theory labels are carried per row.",
+        },
+        "recommended_model": str(promotion_payload.get("active_model_name") or decision.get("recommended_model") or ""),
+        "recommended_display_name": str(
+            next(
+                (
+                    row.get("display_name")
+                    for row in top_models
+                    if row.get("model_name") == (promotion_payload.get("active_model_name") or decision.get("recommended_model"))
+                ),
+                promotion_payload.get("active_model_name") or decision.get("recommended_model") or "",
+            )
+        ),
+        "candidate_model_name": str(promotion_payload.get("candidate_model_name") or ""),
+        "incumbent_model_name": str(promotion_payload.get("incumbent_model_name") or ""),
+        "best_candidate_model": str(promotion_payload.get("candidate_model_name") or ""),
+        "baseline_model": str(promotion_payload.get("incumbent_model_name") or promotion_payload.get("baseline_model") or ""),
+        "promotion_ready": bool(promotion_payload.get("promoted")),
+        "promoted": bool(promotion_payload.get("promoted")),
+        "why_this_won": str(promotion_payload.get("reason_summary") or decision.get("rationale") or ""),
+        "failed_reasons": list(promotion_payload.get("failed_reasons") or []),
+        "gates": dict(promotion_payload.get("gates") or {}),
+        "policy": dict(promotion_payload.get("policy") or {}),
+        "top_models": top_models,
+        "promotion_decision": decision,
+        "artifact_paths": {
+            "report_path": artifacts.get("report_path"),
+            "scorecard_csv": artifacts.get("scorecard_csv"),
+            "scorecard_contract_json": artifacts.get("scorecard_contract_json"),
+            "fold_metrics_path": artifacts.get("fold_metrics_path"),
+            "promotion_path": artifacts.get("promotion_path"),
+            "market_truth_summary_path": artifacts.get("market_truth_summary_path"),
+            "market_truth_predictions_path": artifacts.get("market_truth_predictions_path"),
+            "market_truth_calibration_path": artifacts.get("market_truth_calibration_path"),
+        },
+    }
+    output_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+
+    latest_path = output_dir / "promotion_review_latest.json"
+    manifest_path = output_dir / "promotion_review_latest_manifest.json"
+    latest_payload = {
+        "league": league,
+        "report_lane": _MLB_REPORT_LANE,
+        "canonical_artifact_root": str(output_dir),
+        "generated_at_utc": utc_now_iso(),
+        "source_kind": "research_desk_promotion_review",
+        "source_status": payload["source_status"],
+        "run_id": run_id,
+        "candidate_model_name": payload["candidate_model_name"],
+        "incumbent_model_name": payload["incumbent_model_name"],
+        "active_model_name": payload["recommended_model"],
+        "promoted": payload["promoted"],
+        "reason_summary": payload["why_this_won"],
+        "current_best_models_path": str(output_path),
+        "material_artifacts": payload["artifact_paths"],
+    }
+    manifest_payload = {
+        "league": league,
+        "report_lane": _MLB_REPORT_LANE,
+        "canonical_artifact_root": str(output_dir),
+        "generated_at_utc": utc_now_iso(),
+        "source_kind": "research_desk_promotion_review",
+        "run_id": run_id,
+        "current_best_models_path": str(output_path),
+        "service_output_path": str(latest_path),
+        "material_artifacts": payload["artifact_paths"],
+    }
+    latest_path.write_text(json.dumps(latest_payload, indent=2, sort_keys=True) + "\n")
+    manifest_path.write_text(json.dumps(manifest_payload, indent=2, sort_keys=True) + "\n")
     return output_path
 
 

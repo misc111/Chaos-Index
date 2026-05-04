@@ -321,7 +321,11 @@ def score_betting_performance(
     summary_rows: list[dict[str, Any]] = []
 
     work = prediction_frame.copy()
-    work["date_central"] = pd.to_datetime(work["start_time_utc"], errors="coerce", utc=True).dt.tz_convert("America/Chicago").dt.date.astype(str)
+    work["date_central"] = (
+        pd.to_datetime(work["start_time_utc"], errors="coerce", utc=True, format="mixed")
+        .dt.tz_convert("America/Chicago")
+        .dt.date.astype(str)
+    )
 
     for model_name in model_names:
         for strategy_name in BETTING_STRATEGIES:
