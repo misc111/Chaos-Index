@@ -1,10 +1,10 @@
 {
   "league": "MLB",
-  "as_of_utc": "2026-04-23T19:07:12+00:00",
-  "odds_as_of_utc": "2026-05-04T12:06:52+00:00",
+  "as_of_utc": "2026-05-04T17:26:46+00:00",
+  "odds_as_of_utc": "2026-05-04T17:32:11+00:00",
   "date_central": "2026-05-04",
   "desk_posture": "normal",
-  "overnight_summary": "Normal posture is active, so the desk is running on its standard MLB underwriting rules. No promoted champion is recorded yet, so the desk is leaning on the current fallback model. Latest promotion review stayed put: Promotion rejected for `gam_spline`. The research backtest marked the candidate ineligible before promotion review. `gam_spline` is not in the core-supported theory lane, so it cannot auto-promote as champion. A separate full validation-contract review has not been recorded yet, so champion promotion is blocked. Mean ECE 0.1640 exceeded the incumbent-plus-tolerance guardrail of 0.1263 + 0.0100. Bet count 0 fell short of the minimum 10.. No MLB games are on the desk slate right now.",
+  "overnight_summary": "Normal posture is active, so the desk is running on its standard MLB underwriting rules. No promoted champion is recorded yet, so the desk is leaning on the current fallback model. Latest promotion review stayed put: Promotion rejected for `gam_spline`. The research backtest marked the candidate ineligible before promotion review. `gam_spline` is not in the core-supported theory lane, so it cannot auto-promote as champion. A separate full validation-contract review has not been recorded yet, so champion promotion is blocked. Mean ECE 0.1640 exceeded the incumbent-plus-tolerance guardrail of 0.1263 + 0.0100. Bet count 0 fell short of the minimum 10.. Tonight's MLB slate has 12 games, with 4 bets and 8 passs.",
   "champion": null,
   "model_diagnostics": {
     "glm_ridge": {
@@ -24,52 +24,82 @@
         "travel_diff",
         "home_field_advantage"
       ],
-      "fit_active_feature_count": 2,
+      "fit_active_feature_count": 5,
       "fit_active_features": [
         "rest_diff",
-        "travel_diff"
+        "diff_starting_pitcher_quality",
+        "starter_quality_edge",
+        "travel_diff",
+        "lineup_confirmation_share"
       ],
       "candidate_feature_count": 11,
       "coefficient_top_features": [
         "rest_diff",
+        "diff_starting_pitcher_quality",
+        "starter_quality_edge",
         "travel_diff",
+        "lineup_confirmation_share",
         "bullpen_quality_edge",
         "diff_bullpen_availability",
-        "diff_bullpen_quality",
-        "diff_lineup_talent",
-        "diff_starting_pitcher_quality",
-        "home_field_advantage"
+        "diff_bullpen_quality"
       ],
       "coefficient_summary": [
         {
           "feature": "rest_diff",
           "active_rank": 1,
-          "coef_scaled": 0.06987125439951371,
-          "coef_original": 0.11784119203280768,
-          "abs_coef_scaled": 0.06987125439951371,
+          "coef_scaled": -0.027337198823335494,
+          "coef_original": -0.0042666549806406615,
+          "abs_coef_scaled": 0.027337198823335494,
+          "direction": "negative",
+          "odds_multiplier_1sd": 0.9730330805898643
+        },
+        {
+          "feature": "diff_starting_pitcher_quality",
+          "active_rank": 2,
+          "coef_scaled": 0.0249947786198768,
+          "coef_original": 0.37488123373806626,
+          "abs_coef_scaled": 0.0249947786198768,
           "direction": "positive",
-          "odds_multiplier_1sd": 1.072370109432655
+          "odds_multiplier_1sd": 1.025309766978415
+        },
+        {
+          "feature": "starter_quality_edge",
+          "active_rank": 3,
+          "coef_scaled": 0.0249947786198768,
+          "coef_original": 0.37488123373806626,
+          "abs_coef_scaled": 0.0249947786198768,
+          "direction": "positive",
+          "odds_multiplier_1sd": 1.025309766978415
         },
         {
           "feature": "travel_diff",
-          "active_rank": 2,
-          "coef_scaled": -0.004199934361406154,
-          "coef_original": -0.0000062179110275354515,
-          "abs_coef_scaled": 0.004199934361406154,
+          "active_rank": 4,
+          "coef_scaled": 0.02206896815811835,
+          "coef_original": 0.00003724073108718905,
+          "abs_coef_scaled": 0.02206896815811835,
+          "direction": "positive",
+          "odds_multiplier_1sd": 1.0223142891726629
+        },
+        {
+          "feature": "lineup_confirmation_share",
+          "active_rank": 5,
+          "coef_scaled": -0.005240332439344576,
+          "coef_original": -0.039392843813767786,
+          "abs_coef_scaled": 0.005240332439344576,
           "direction": "negative",
-          "odds_multiplier_1sd": 0.9958088730284466
+          "odds_multiplier_1sd": 0.9947733741498797
         }
       ],
       "coefficient_totals": {
-        "abs_coef_scaled_top_n": 0.07407118876091986,
-        "abs_coef_scaled_total": 0.07407118876091986,
-        "active_parameter_count": 2,
-        "negative_count": 1,
-        "positive_count": 1,
-        "strongest_abs_coef_scaled": 0.06987125439951371,
+        "abs_coef_scaled_top_n": 0.10463605666055202,
+        "abs_coef_scaled_total": 0.10463605666055202,
+        "active_parameter_count": 5,
+        "negative_count": 2,
+        "positive_count": 3,
+        "strongest_abs_coef_scaled": 0.027337198823335494,
         "strongest_feature": "rest_diff",
         "top_n_abs_coef_scaled_share": 1,
-        "top_n_effective": 2,
+        "top_n_effective": 5,
         "top_n_requested": 8,
         "zero_count": 0
       },
@@ -79,8 +109,8 @@
       "complement_kind": null,
       "complement_column": null,
       "complement_label": null,
-      "artifact_path": "artifacts/models/a965728ef03c2c8d",
-      "fit_metadata_path": "artifacts/models/a965728ef03c2c8d/glm_ridge_fit_metadata.json",
+      "artifact_path": "artifacts/models/fa69037fe1a2ad52",
+      "fit_metadata_path": "artifacts/models/fa69037fe1a2ad52/glm_ridge_fit_metadata.json",
       "theory_trace": {
         "lane": "core",
         "lane_label": "CAS core lane",
@@ -107,30 +137,72 @@
         "travel_diff",
         "home_field_advantage"
       ],
-      "fit_active_feature_count": 0,
-      "fit_active_features": [],
+      "fit_active_feature_count": 4,
+      "fit_active_features": [
+        "slugging_share_proxy",
+        "diff_starting_pitcher_quality",
+        "starter_quality_edge",
+        "rest_diff"
+      ],
       "candidate_feature_count": 12,
       "coefficient_top_features": [
+        "slugging_share_proxy",
+        "diff_starting_pitcher_quality",
+        "starter_quality_edge",
+        "rest_diff",
         "bullpen_quality_edge",
         "diff_bullpen_availability",
         "diff_bullpen_quality",
-        "diff_lineup_talent",
-        "diff_starting_pitcher_quality",
-        "home_field_advantage",
-        "lineup_confirmation_share",
-        "lineup_stability_diff"
+        "diff_lineup_talent"
       ],
-      "coefficient_summary": [],
+      "coefficient_summary": [
+        {
+          "feature": "slugging_share_proxy",
+          "active_rank": 1,
+          "coef_scaled": 0.6653677311472733,
+          "coef_original": 12.69801147770834,
+          "abs_coef_scaled": 0.6653677311472733,
+          "direction": "positive",
+          "odds_multiplier_1sd": 1.9452057025562501
+        },
+        {
+          "feature": "diff_starting_pitcher_quality",
+          "active_rank": 2,
+          "coef_scaled": 0.004050792040576538,
+          "coef_original": 0.060755325777522594,
+          "abs_coef_scaled": 0.004050792040576538,
+          "direction": "positive",
+          "odds_multiplier_1sd": 1.0040590075880669
+        },
+        {
+          "feature": "starter_quality_edge",
+          "active_rank": 3,
+          "coef_scaled": 0.004050792040576538,
+          "coef_original": 0.060755325777522594,
+          "abs_coef_scaled": 0.004050792040576538,
+          "direction": "positive",
+          "odds_multiplier_1sd": 1.0040590075880669
+        },
+        {
+          "feature": "rest_diff",
+          "active_rank": 4,
+          "coef_scaled": -0.0014603375028985688,
+          "coef_original": -0.00022792226520443077,
+          "abs_coef_scaled": 0.0014603375028985688,
+          "direction": "negative",
+          "odds_multiplier_1sd": 0.9985407282710529
+        }
+      ],
       "coefficient_totals": {
-        "abs_coef_scaled_top_n": 0,
-        "abs_coef_scaled_total": 0,
-        "active_parameter_count": 0,
-        "negative_count": 0,
-        "positive_count": 0,
-        "strongest_abs_coef_scaled": null,
-        "strongest_feature": null,
-        "top_n_abs_coef_scaled_share": null,
-        "top_n_effective": 0,
+        "abs_coef_scaled_top_n": 0.674929652731325,
+        "abs_coef_scaled_total": 0.674929652731325,
+        "active_parameter_count": 4,
+        "negative_count": 1,
+        "positive_count": 3,
+        "strongest_abs_coef_scaled": 0.6653677311472733,
+        "strongest_feature": "slugging_share_proxy",
+        "top_n_abs_coef_scaled_share": 1,
+        "top_n_effective": 4,
         "top_n_requested": 8,
         "zero_count": 0
       },
@@ -140,8 +212,8 @@
       "complement_kind": null,
       "complement_column": null,
       "complement_label": null,
-      "artifact_path": "artifacts/models/a965728ef03c2c8d",
-      "fit_metadata_path": "artifacts/models/a965728ef03c2c8d/glm_elastic_net_fit_metadata.json",
+      "artifact_path": "artifacts/models/fa69037fe1a2ad52",
+      "fit_metadata_path": "artifacts/models/fa69037fe1a2ad52/glm_elastic_net_fit_metadata.json",
       "theory_trace": {
         "lane": "core",
         "lane_label": "CAS core lane",
@@ -164,30 +236,72 @@
         "travel_diff",
         "home_field_advantage"
       ],
-      "fit_active_feature_count": 0,
-      "fit_active_features": [],
+      "fit_active_feature_count": 4,
+      "fit_active_features": [
+        "diff_starting_pitcher_quality",
+        "starter_quality_edge",
+        "rest_diff",
+        "travel_diff"
+      ],
       "candidate_feature_count": 8,
       "coefficient_top_features": [
+        "diff_starting_pitcher_quality",
+        "starter_quality_edge",
+        "rest_diff",
+        "travel_diff",
         "bullpen_quality_edge",
         "diff_bullpen_quality",
         "diff_lineup_talent",
-        "diff_starting_pitcher_quality",
-        "home_field_advantage",
-        "rest_diff",
-        "starter_quality_edge",
-        "travel_diff"
+        "home_field_advantage"
       ],
-      "coefficient_summary": [],
+      "coefficient_summary": [
+        {
+          "feature": "diff_starting_pitcher_quality",
+          "active_rank": 1,
+          "coef_scaled": 0.014279856102384497,
+          "coef_original": 0.21417473443860977,
+          "abs_coef_scaled": 0.014279856102384497,
+          "direction": "positive",
+          "odds_multiplier_1sd": 1.0143823002961605
+        },
+        {
+          "feature": "starter_quality_edge",
+          "active_rank": 2,
+          "coef_scaled": 0.014279856102384497,
+          "coef_original": 0.21417473443860977,
+          "abs_coef_scaled": 0.014279856102384497,
+          "direction": "positive",
+          "odds_multiplier_1sd": 1.0143823002961605
+        },
+        {
+          "feature": "rest_diff",
+          "active_rank": 3,
+          "coef_scaled": -0.005009137697907564,
+          "coef_original": -0.0007818014729895618,
+          "abs_coef_scaled": 0.005009137697907564,
+          "direction": "negative",
+          "odds_multiplier_1sd": 0.9950033871107736
+        },
+        {
+          "feature": "travel_diff",
+          "active_rank": 4,
+          "coef_scaled": 0.0004359421666011683,
+          "coef_original": 7.356395133493586e-7,
+          "abs_coef_scaled": 0.0004359421666011683,
+          "direction": "positive",
+          "odds_multiplier_1sd": 1.000436037203197
+        }
+      ],
       "coefficient_totals": {
-        "abs_coef_scaled_top_n": 0,
-        "abs_coef_scaled_total": 0,
-        "active_parameter_count": 0,
-        "negative_count": 0,
-        "positive_count": 0,
-        "strongest_abs_coef_scaled": null,
-        "strongest_feature": null,
-        "top_n_abs_coef_scaled_share": null,
-        "top_n_effective": 0,
+        "abs_coef_scaled_top_n": 0.03400479206927772,
+        "abs_coef_scaled_total": 0.03400479206927772,
+        "active_parameter_count": 4,
+        "negative_count": 1,
+        "positive_count": 3,
+        "strongest_abs_coef_scaled": 0.014279856102384497,
+        "strongest_feature": "diff_starting_pitcher_quality",
+        "top_n_abs_coef_scaled_share": 1,
+        "top_n_effective": 4,
         "top_n_requested": 8,
         "zero_count": 0
       },
@@ -197,8 +311,8 @@
       "complement_kind": null,
       "complement_column": null,
       "complement_label": null,
-      "artifact_path": "artifacts/models/a965728ef03c2c8d",
-      "fit_metadata_path": "artifacts/models/a965728ef03c2c8d/glm_lasso_fit_metadata.json",
+      "artifact_path": "artifacts/models/fa69037fe1a2ad52",
+      "fit_metadata_path": "artifacts/models/fa69037fe1a2ad52/glm_lasso_fit_metadata.json",
       "theory_trace": {
         "lane": "core",
         "lane_label": "CAS core lane",
@@ -236,7 +350,7 @@
       "complement_kind": null,
       "complement_column": null,
       "complement_label": null,
-      "artifact_path": "artifacts/models/a965728ef03c2c8d",
+      "artifact_path": "artifacts/models/fa69037fe1a2ad52",
       "fit_metadata_path": null,
       "theory_trace": {
         "lane": "core",
@@ -268,7 +382,7 @@
       "complement_kind": null,
       "complement_column": null,
       "complement_label": null,
-      "artifact_path": "artifacts/models/a965728ef03c2c8d",
+      "artifact_path": "artifacts/models/fa69037fe1a2ad52",
       "fit_metadata_path": null
     },
     "glm_lasso_market_credibility": {
@@ -354,9 +468,9 @@
       }
     }
   },
-  "model_feature_map_updated_at_utc": "2026-05-04T12:08:10.548Z",
+  "model_feature_map_updated_at_utc": "2026-05-04T17:35:22.234Z",
   "model_feature_map_source": "latest_fit_artifacts",
-  "model_feature_map_run_id": "run_a965728ef03c2c8d",
+  "model_feature_map_run_id": "run_fa69037fe1a2ad52",
   "model_feature_set_version": "fset_6d7cdf2e28206260",
   "latest_promotion": {
     "promoted": false,
@@ -1092,9 +1206,202 @@
     "readiness_label": "not production ready"
   },
   "counts": {
-    "total_games": 0,
-    "bets": 0,
-    "passes": 0
+    "total_games": 12,
+    "bets": 4,
+    "passes": 8
   },
-  "rows": []
+  "rows": [
+    {
+      "game_id": 401815210,
+      "start_time_utc": "2026-05-04T21:40Z",
+      "home_team": "Colorado Rockies",
+      "away_team": "New York Mets",
+      "bet_label": "pass",
+      "reason": "Adjusted price fair",
+      "side": "none",
+      "team": null,
+      "stake": 0,
+      "odds": null,
+      "edge": null,
+      "expected_value": null,
+      "home_win_probability": 0.5030208445934473,
+      "betting_model_name": "ensemble"
+    },
+    {
+      "game_id": 401815203,
+      "start_time_utc": "2026-05-04T22:10Z",
+      "home_team": "Detroit Tigers",
+      "away_team": "Boston Red Sox",
+      "bet_label": "bet",
+      "reason": "Underdog underpriced after uncertainty adjustment",
+      "side": "away",
+      "team": "Boston Red Sox",
+      "stake": 125,
+      "odds": 163,
+      "edge": 0.08686427165070337,
+      "expected_value": 0.18467711849110846,
+      "home_win_probability": 0.49534354643230805,
+      "betting_model_name": "ensemble"
+    },
+    {
+      "game_id": 401815204,
+      "start_time_utc": "2026-05-04T22:40Z",
+      "home_team": "Miami Marlins",
+      "away_team": "Philadelphia Phillies",
+      "bet_label": "pass",
+      "reason": "Adjusted price fair",
+      "side": "none",
+      "team": null,
+      "stake": 0,
+      "odds": null,
+      "edge": null,
+      "expected_value": null,
+      "home_win_probability": 0.5171739127716555,
+      "betting_model_name": "ensemble"
+    },
+    {
+      "game_id": 401815205,
+      "start_time_utc": "2026-05-04T22:40Z",
+      "home_team": "Tampa Bay Rays",
+      "away_team": "Toronto Blue Jays",
+      "bet_label": "bet",
+      "reason": "Underdog underpriced after uncertainty adjustment; daily risk cap",
+      "side": "away",
+      "team": "Toronto Blue Jays",
+      "stake": 25,
+      "odds": 104,
+      "edge": 0.03764306773303733,
+      "expected_value": 0.031246975764001705,
+      "home_win_probability": 0.4950231825070925,
+      "betting_model_name": "ensemble"
+    },
+    {
+      "game_id": 401815202,
+      "start_time_utc": "2026-05-04T23:05Z",
+      "home_team": "New York Yankees",
+      "away_team": "Baltimore Orioles",
+      "bet_label": "pass",
+      "reason": "Adjusted price fair",
+      "side": "none",
+      "team": null,
+      "stake": 0,
+      "odds": null,
+      "edge": null,
+      "expected_value": null,
+      "home_win_probability": 0.5846164598582959,
+      "betting_model_name": "ensemble"
+    },
+    {
+      "game_id": 401815206,
+      "start_time_utc": "2026-05-04T23:10Z",
+      "home_team": "Chicago Cubs",
+      "away_team": "Cincinnati Reds",
+      "bet_label": "bet",
+      "reason": "Underdog underpriced after uncertainty adjustment",
+      "side": "away",
+      "team": "Cincinnati Reds",
+      "stake": 125,
+      "odds": 169,
+      "edge": 0.0627111747949568,
+      "expected_value": 0.12470292325019172,
+      "home_win_probability": 0.5330357143604234,
+      "betting_model_name": "ensemble"
+    },
+    {
+      "game_id": 401815207,
+      "start_time_utc": "2026-05-04T23:40Z",
+      "home_team": "Kansas City Royals",
+      "away_team": "Cleveland Guardians",
+      "bet_label": "pass",
+      "reason": "Adjusted price fair",
+      "side": "none",
+      "team": null,
+      "stake": 0,
+      "odds": null,
+      "edge": null,
+      "expected_value": null,
+      "home_win_probability": 0.5378664420932159,
+      "betting_model_name": "ensemble"
+    },
+    {
+      "game_id": 401815209,
+      "start_time_utc": "2026-05-04T23:45Z",
+      "home_team": "St. Louis Cardinals",
+      "away_team": "Milwaukee Brewers",
+      "bet_label": "pass",
+      "reason": "Adjusted price fair",
+      "side": "none",
+      "team": null,
+      "stake": 0,
+      "odds": null,
+      "edge": null,
+      "expected_value": null,
+      "home_win_probability": 0.5063191355080711,
+      "betting_model_name": "ensemble"
+    },
+    {
+      "game_id": 401815208,
+      "start_time_utc": "2026-05-05T00:10Z",
+      "home_team": "Houston Astros",
+      "away_team": "Los Angeles Dodgers",
+      "bet_label": "bet",
+      "reason": "Underdog underpriced after uncertainty adjustment",
+      "side": "home",
+      "team": "Houston Astros",
+      "stake": 125,
+      "odds": 163,
+      "edge": 0.0728491640641366,
+      "expected_value": 0.14781738553843793,
+      "home_win_probability": 0.5214676483950512,
+      "betting_model_name": "ensemble"
+    },
+    {
+      "game_id": 401815212,
+      "start_time_utc": "2026-05-05T01:38Z",
+      "home_team": "Los Angeles Angels",
+      "away_team": "Chicago White Sox",
+      "bet_label": "pass",
+      "reason": "Adjusted price fair",
+      "side": "none",
+      "team": null,
+      "stake": 0,
+      "odds": null,
+      "edge": null,
+      "expected_value": null,
+      "home_win_probability": 0.5377856542811812,
+      "betting_model_name": "ensemble"
+    },
+    {
+      "game_id": 401815211,
+      "start_time_utc": "2026-05-05T01:40Z",
+      "home_team": "Seattle Mariners",
+      "away_team": "Atlanta Braves",
+      "bet_label": "pass",
+      "reason": "Adjusted price fair",
+      "side": "none",
+      "team": null,
+      "stake": 0,
+      "odds": null,
+      "edge": null,
+      "expected_value": null,
+      "home_win_probability": 0.5420271134672288,
+      "betting_model_name": "ensemble"
+    },
+    {
+      "game_id": 401815213,
+      "start_time_utc": "2026-05-05T01:45Z",
+      "home_team": "San Francisco Giants",
+      "away_team": "San Diego Padres",
+      "bet_label": "pass",
+      "reason": "Adjusted price fair",
+      "side": "none",
+      "team": null,
+      "stake": 0,
+      "odds": null,
+      "edge": null,
+      "expected_value": null,
+      "home_win_probability": 0.5124482401484367,
+      "betting_model_name": "ensemble"
+    }
+  ]
 }

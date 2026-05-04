@@ -1,8 +1,8 @@
 {
   "league": "MLB",
-  "as_of_utc": "2026-04-23T19:07:12+00:00",
-  "odds_as_of_utc": "2026-05-02T15:36:43+00:00",
-  "date_central": "2026-05-02",
+  "as_of_utc": "2026-05-04T17:26:46+00:00",
+  "odds_as_of_utc": "2026-05-04T17:32:11+00:00",
+  "date_central": "2026-05-04",
   "desk_posture": "normal",
   "champion": null,
   "strategy_configs": {
@@ -43,5 +43,498 @@
       "description": "Conservative baseline with the shared value screen, a 0.75% per-bet cap, and a 2.50% nightly budget on the reference bankroll."
     }
   },
-  "rows": []
+  "rows": [
+    {
+      "game_id": 401815210,
+      "game_date_utc": "2026-05-04",
+      "start_time_utc": "2026-05-04T21:40Z",
+      "home_team": "COL",
+      "away_team": "NYM",
+      "home_team_name": "Colorado Rockies",
+      "away_team_name": "New York Mets",
+      "home_win_probability": 0.5030208445934473,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.5030208445934473,
+        "glm_elastic_net": 0.5111260131739732,
+        "glm_lasso": 0.45190613180873285,
+        "glm_ridge": 0.38667492139855586,
+        "glm_vanilla": 0.3805085487926358
+      },
+      "moneyline": {
+        "away_price": -143,
+        "home_price": 119,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": 109,
+        "home_price": -131,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "total": {
+        "point": 11,
+        "over_price": -102,
+        "under_price": -118,
+        "over_book": "DraftKings",
+        "under_book": "DraftKings",
+        "books_count": 1
+      }
+    },
+    {
+      "game_id": 401815203,
+      "game_date_utc": "2026-05-04",
+      "start_time_utc": "2026-05-04T22:10Z",
+      "home_team": "DET",
+      "away_team": "BOS",
+      "home_team_name": "Detroit Tigers",
+      "away_team_name": "Boston Red Sox",
+      "home_win_probability": 0.49534354643230805,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.49534354643230805,
+        "glm_elastic_net": 0.5045592116005994,
+        "glm_lasso": 0.42911945895107734,
+        "glm_ridge": 0.35096593581639274,
+        "glm_vanilla": 0.34376025281754713
+      },
+      "moneyline": {
+        "away_price": 163,
+        "home_price": -199,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -136,
+        "home_price": 113,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "total": {
+        "point": 7,
+        "over_price": -105,
+        "under_price": -115,
+        "over_book": "DraftKings",
+        "under_book": "DraftKings",
+        "books_count": 1
+      }
+    },
+    {
+      "game_id": 401815204,
+      "game_date_utc": "2026-05-04",
+      "start_time_utc": "2026-05-04T22:40Z",
+      "home_team": "MIA",
+      "away_team": "PHI",
+      "home_team_name": "Miami Marlins",
+      "away_team_name": "Philadelphia Phillies",
+      "home_win_probability": 0.5171739127716555,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.5171739127716555,
+        "glm_elastic_net": 0.5213691772300233,
+        "glm_lasso": 0.48805887097509776,
+        "glm_ridge": 0.45574298767992627,
+        "glm_vanilla": 0.45265430622189945
+      },
+      "moneyline": {
+        "away_price": -110,
+        "home_price": -110,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": 144,
+        "home_price": -175,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "total": {
+        "point": 8.5,
+        "over_price": -112,
+        "under_price": -108,
+        "over_book": "DraftKings",
+        "under_book": "DraftKings",
+        "books_count": 1
+      }
+    },
+    {
+      "game_id": 401815205,
+      "game_date_utc": "2026-05-04",
+      "start_time_utc": "2026-05-04T22:40Z",
+      "home_team": "TB",
+      "away_team": "TOR",
+      "home_team_name": "Tampa Bay Rays",
+      "away_team_name": "Toronto Blue Jays",
+      "home_win_probability": 0.4950231825070925,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.4950231825070925,
+        "glm_elastic_net": 0.5051114940590024,
+        "glm_lasso": 0.4309020866888159,
+        "glm_ridge": 0.34795317720036967,
+        "glm_vanilla": 0.34026102324047486
+      },
+      "moneyline": {
+        "away_price": 104,
+        "home_price": -126,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": 165,
+        "home_price": -201,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "total": {
+        "point": 8,
+        "over_price": -108,
+        "under_price": -112,
+        "over_book": "DraftKings",
+        "under_book": "DraftKings",
+        "books_count": 1
+      }
+    },
+    {
+      "game_id": 401815202,
+      "game_date_utc": "2026-05-04",
+      "start_time_utc": "2026-05-04T23:05Z",
+      "home_team": "NYY",
+      "away_team": "BAL",
+      "home_team_name": "New York Yankees",
+      "away_team_name": "Baltimore Orioles",
+      "home_win_probability": 0.5846164598582959,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.5846164598582959,
+        "glm_elastic_net": 0.5777996452726564,
+        "glm_lasso": 0.6806459891293628,
+        "glm_ridge": 0.7739398975412429,
+        "glm_vanilla": 0.7817631614810399
+      },
+      "moneyline": {
+        "away_price": 179,
+        "home_price": -219,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -112,
+        "home_price": -108,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "total": {
+        "point": 8.5,
+        "over_price": -108,
+        "under_price": -112,
+        "over_book": "DraftKings",
+        "under_book": "DraftKings",
+        "books_count": 1
+      }
+    },
+    {
+      "game_id": 401815206,
+      "game_date_utc": "2026-05-04",
+      "start_time_utc": "2026-05-04T23:10Z",
+      "home_team": "CHC",
+      "away_team": "CIN",
+      "home_team_name": "Chicago Cubs",
+      "away_team_name": "Cincinnati Reds",
+      "home_win_probability": 0.5330357143604234,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.5330357143604234,
+        "glm_elastic_net": 0.5341225297236044,
+        "glm_lasso": 0.5330324760607652,
+        "glm_ridge": 0.5307407810106484,
+        "glm_vanilla": 0.5304652565948189
+      },
+      "moneyline": {
+        "away_price": 169,
+        "home_price": -207,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -108,
+        "home_price": -112,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "total": {
+        "point": 11.5,
+        "over_price": -108,
+        "under_price": -112,
+        "over_book": "DraftKings",
+        "under_book": "DraftKings",
+        "books_count": 1
+      }
+    },
+    {
+      "game_id": 401815207,
+      "game_date_utc": "2026-05-04",
+      "start_time_utc": "2026-05-04T23:40Z",
+      "home_team": "KC",
+      "away_team": "CLE",
+      "home_team_name": "Kansas City Royals",
+      "away_team_name": "Cleveland Guardians",
+      "home_win_probability": 0.5378664420932159,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.5378664420932159,
+        "glm_elastic_net": 0.5373375888010812,
+        "glm_lasso": 0.5444413019746717,
+        "glm_ridge": 0.55483872804084,
+        "glm_vanilla": 0.5558242834750345
+      },
+      "moneyline": {
+        "away_price": -102,
+        "home_price": -118,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": 152,
+        "home_price": -185,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "total": {
+        "point": 9,
+        "over_price": -112,
+        "under_price": -108,
+        "over_book": "DraftKings",
+        "under_book": "DraftKings",
+        "books_count": 1
+      }
+    },
+    {
+      "game_id": 401815209,
+      "game_date_utc": "2026-05-04",
+      "start_time_utc": "2026-05-04T23:45Z",
+      "home_team": "STL",
+      "away_team": "MIL",
+      "home_team_name": "St. Louis Cardinals",
+      "away_team_name": "Milwaukee Brewers",
+      "home_win_probability": 0.5063191355080711,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.5063191355080711,
+        "glm_elastic_net": 0.5136391999182393,
+        "glm_lasso": 0.46072348373425004,
+        "glm_ridge": 0.4025547654232083,
+        "glm_vanilla": 0.3970208869803953
+      },
+      "moneyline": {
+        "away_price": -115,
+        "home_price": -105,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": 144,
+        "home_price": -175,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "total": {
+        "point": 8.5,
+        "over_price": -118,
+        "under_price": -102,
+        "over_book": "DraftKings",
+        "under_book": "DraftKings",
+        "books_count": 1
+      }
+    },
+    {
+      "game_id": 401815208,
+      "game_date_utc": "2026-05-05",
+      "start_time_utc": "2026-05-05T00:10Z",
+      "home_team": "HOU",
+      "away_team": "LAD",
+      "home_team_name": "Houston Astros",
+      "away_team_name": "Los Angeles Dodgers",
+      "home_win_probability": 0.5214676483950512,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.5214676483950512,
+        "glm_elastic_net": 0.5236337858302116,
+        "glm_lasso": 0.4962261928800464,
+        "glm_ridge": 0.4782263371157357,
+        "glm_vanilla": 0.47659298523427374
+      },
+      "moneyline": {
+        "away_price": -199,
+        "home_price": 163,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -126,
+        "home_price": 104,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "total": {
+        "point": 9,
+        "over_price": -112,
+        "under_price": -108,
+        "over_book": "DraftKings",
+        "under_book": "DraftKings",
+        "books_count": 1
+      }
+    },
+    {
+      "game_id": 401815212,
+      "game_date_utc": "2026-05-05",
+      "start_time_utc": "2026-05-05T01:38Z",
+      "home_team": "LAA",
+      "away_team": "CHW",
+      "home_team_name": "Los Angeles Angels",
+      "away_team_name": "Chicago White Sox",
+      "home_win_probability": 0.5377856542811812,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.5377856542811812,
+        "glm_elastic_net": 0.5374460219955655,
+        "glm_lasso": 0.5447956655207228,
+        "glm_ridge": 0.5541380054359343,
+        "glm_vanilla": 0.5550070649186739
+      },
+      "moneyline": {
+        "away_price": 129,
+        "home_price": -156,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -163,
+        "home_price": 135,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "total": {
+        "point": 7.5,
+        "over_price": -115,
+        "under_price": -105,
+        "over_book": "DraftKings",
+        "under_book": "DraftKings",
+        "books_count": 1
+      }
+    },
+    {
+      "game_id": 401815211,
+      "game_date_utc": "2026-05-05",
+      "start_time_utc": "2026-05-05T01:40Z",
+      "home_team": "SEA",
+      "away_team": "ATL",
+      "home_team_name": "Seattle Mariners",
+      "away_team_name": "Atlanta Braves",
+      "home_win_probability": 0.5420271134672288,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.5420271134672288,
+        "glm_elastic_net": 0.5418339982315278,
+        "glm_lasso": 0.5600203300251954,
+        "glm_ridge": 0.572450780020263,
+        "glm_vanilla": 0.5735154466986374
+      },
+      "moneyline": {
+        "away_price": 119,
+        "home_price": -143,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": -171,
+        "home_price": 141,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "total": {
+        "point": 7.5,
+        "over_price": -118,
+        "under_price": -102,
+        "over_book": "DraftKings",
+        "under_book": "DraftKings",
+        "books_count": 1
+      }
+    },
+    {
+      "game_id": 401815213,
+      "game_date_utc": "2026-05-05",
+      "start_time_utc": "2026-05-05T01:45Z",
+      "home_team": "SF",
+      "away_team": "SD",
+      "home_team_name": "San Francisco Giants",
+      "away_team_name": "San Diego Padres",
+      "home_win_probability": 0.5124482401484367,
+      "betting_model_name": "ensemble",
+      "model_win_probabilities": {
+        "ensemble": 0.5124482401484367,
+        "glm_elastic_net": 0.5154426060382881,
+        "glm_lasso": 0.46753840571263156,
+        "glm_ridge": 0.4373106606519539,
+        "glm_vanilla": 0.4346305513309036
+      },
+      "moneyline": {
+        "away_price": -136,
+        "home_price": 113,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "spread": {
+        "point": 1.5,
+        "away_price": 119,
+        "home_price": -143,
+        "away_book": "DraftKings",
+        "home_book": "DraftKings",
+        "books_count": 1
+      },
+      "total": {
+        "point": 8,
+        "over_price": -112,
+        "under_price": -108,
+        "over_book": "DraftKings",
+        "under_book": "DraftKings",
+        "books_count": 1
+      }
+    }
+  ]
 }
