@@ -82,6 +82,7 @@ export async function getPredictionsPayload(league: LeagueCode) {
     return {
       game_id: Number(row.game_id),
       game_date_utc: String(row.game_date_utc || ""),
+      start_time_utc: row.start_time_utc == null ? undefined : String(row.start_time_utc),
       home_team: String(row.home_team || ""),
       away_team: String(row.away_team || ""),
       ensemble_prob_home_win: Number(row.ensemble_prob_home_win),

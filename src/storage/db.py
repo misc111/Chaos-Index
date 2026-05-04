@@ -51,17 +51,20 @@ class Database:
             return [dict(r) for r in cur.fetchall()]
 
     def _apply_online_migrations(self, conn: sqlite3.Connection) -> None:
+        _ensure_column(conn, "predictions", "start_time_utc", "TEXT")
+        _ensure_column(conn, "prediction_diagnostics", "start_time_utc", "TEXT")
+        _ensure_column(conn, "upcoming_game_forecasts", "start_time_utc", "TEXT")
         diagnostic_sources = ", ".join(f"'{source}'" for source in DIAGNOSTIC_PREDICTION_SOURCES)
         conn.execute(
             f"""
             INSERT OR IGNORE INTO prediction_diagnostics(
               game_id, as_of_utc, model_name, model_run_id, feature_set_version, snapshot_id,
-              game_date_utc, home_team, away_team, prob_home_win, pred_winner, prob_low, prob_high,
+              game_date_utc, start_time_utc, home_team, away_team, prob_home_win, pred_winner, prob_low, prob_high,
               uncertainty_flags_json, metadata_json
             )
             SELECT
               game_id, as_of_utc, model_name, model_run_id, feature_set_version, snapshot_id,
-              game_date_utc, home_team, away_team, prob_home_win, pred_winner, prob_low, prob_high,
+              game_date_utc, start_time_utc, home_team, away_team, prob_home_win, pred_winner, prob_low, prob_high,
               uncertainty_flags_json, metadata_json
             FROM predictions
             WHERE COALESCE(json_extract(metadata_json, '$.source'), '') IN ({diagnostic_sources})
@@ -78,3 +81,9 @@ class Database:
         for view_name, view_query in MLB_CONTRACT_VIEWS.items():
             conn.execute(f"DROP VIEW IF EXISTS {view_name}")
             conn.execute(f"CREATE VIEW {view_name} AS {view_query}")
+
+
+def _ensure_column(conn: sqlite3.Connection, table_name: str, column_name: str, definition: str) -> None:
+    existing_columns = {row["name"] for row in conn.execute(f"PRAGMA table_info({table_name})").fetchall()}
+    if column_name not in existing_columns:
+        conn.execute(f"ALTER TABLE {table_name} ADD COLUMN {column_name} {definition}")

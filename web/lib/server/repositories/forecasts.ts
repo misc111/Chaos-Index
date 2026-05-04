@@ -5,6 +5,7 @@ import { escapeSqlString } from "@/lib/server/repositories/sql";
 export type RawPredictionRow = {
   game_id: number;
   game_date_utc?: string | null;
+  start_time_utc?: string | null;
   home_team: string;
   away_team: string;
   ensemble_prob_home_win: number;
@@ -54,6 +55,7 @@ export function getPredictionRows(league: LeagueCode, asOf: string): RawPredicti
     SELECT
       u.game_id,
       u.game_date_utc,
+      COALESCE(u.start_time_utc, g.start_time_utc) AS start_time_utc,
       u.home_team,
       u.away_team,
       u.ensemble_prob_home_win,
@@ -119,7 +121,7 @@ export function getScheduledTodayRows(league: LeagueCode, asOf: string): RawToda
       u.away_team,
       u.ensemble_prob_home_win AS home_win_probability,
       u.as_of_utc AS forecast_as_of_utc,
-      g.start_time_utc,
+      COALESCE(u.start_time_utc, g.start_time_utc) AS start_time_utc,
       u.per_model_probs_json
     FROM upcoming_game_forecasts u
     LEFT JOIN games g ON g.game_id = u.game_id
@@ -148,7 +150,7 @@ export function getGamesTodaySnapshotRows(league: LeagueCode, asOf: string): Raw
       u.away_team,
       u.ensemble_prob_home_win AS home_win_probability,
       u.as_of_utc AS forecast_as_of_utc,
-      g.start_time_utc,
+      COALESCE(u.start_time_utc, g.start_time_utc) AS start_time_utc,
       u.per_model_probs_json,
       COALESCE(g.status_final, 0) AS status_final,
       (

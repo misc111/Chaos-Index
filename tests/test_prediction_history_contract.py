@@ -3,6 +3,19 @@ from pathlib import Path
 from src.storage.db import Database
 
 
+def test_init_schema_adds_first_pitch_columns_to_prediction_ledgers(tmp_path: Path):
+    db = Database(str(tmp_path / "x.db"))
+    db.init_schema()
+
+    prediction_columns = {row["name"] for row in db.query("PRAGMA table_info(predictions)")}
+    diagnostic_columns = {row["name"] for row in db.query("PRAGMA table_info(prediction_diagnostics)")}
+    forecast_columns = {row["name"] for row in db.query("PRAGMA table_info(upcoming_game_forecasts)")}
+
+    assert "start_time_utc" in prediction_columns
+    assert "start_time_utc" in diagnostic_columns
+    assert "start_time_utc" in forecast_columns
+
+
 def test_init_schema_moves_legacy_diagnostics_out_of_predictions(tmp_path: Path):
     db = Database(str(tmp_path / "x.db"))
     db.init_schema()

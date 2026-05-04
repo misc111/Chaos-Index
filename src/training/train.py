@@ -292,7 +292,7 @@ def train_and_predict(
             stack_ready,
         )
 
-    forecasts = upcoming_df[["game_id", "game_date_utc", "home_team", "away_team", "as_of_utc"]].copy()
+    forecasts = upcoming_df[["game_id", "game_date_utc", "start_time_utc", "home_team", "away_team", "as_of_utc"]].copy()
     forecasts["ensemble_prob_home_win"] = ensemble_prob
     forecasts["predicted_winner"] = np.where(ensemble_prob >= 0.5, forecasts["home_team"], forecasts["away_team"])
     forecasts = pd.concat([forecasts.reset_index(drop=True), spread.reset_index(drop=True)], axis=1)

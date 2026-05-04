@@ -108,6 +108,22 @@ def persist_predictions(
     model_run_id: str,
     feature_set_version: str,
 ) -> None:
+    required_columns = {"game_id", "as_of_utc", "start_time_utc"}
+    missing_columns = required_columns - set(forecasts.columns)
+    if missing_columns:
+        raise RuntimeError(f"Frozen MLB predictions require columns: {sorted(missing_columns)}")
+
+    timing = forecasts[["game_id", "as_of_utc", "start_time_utc"]].copy()
+    timing["as_of_ts"] = pd.to_datetime(timing["as_of_utc"], utc=True, errors="coerce")
+    timing["start_ts"] = pd.to_datetime(timing["start_time_utc"], utc=True, errors="coerce")
+    invalid_timing = timing[timing["as_of_ts"].isna() | timing["start_ts"].isna() | (timing["as_of_ts"] >= timing["start_ts"])]
+    if not invalid_timing.empty:
+        bad_games = ", ".join(str(int(game_id)) for game_id in invalid_timing["game_id"].head(10))
+        raise RuntimeError(
+            "Frozen MLB predictions must be strictly pregame with valid as_of_utc and start_time_utc. "
+            f"Invalid game_id values: {bad_games}"
+        )
+
     snapshot_id = latest_snapshot_id(db)
     pred_rows = []
     forecast_rows = []
@@ -117,6 +133,7 @@ def persist_predictions(
         game_id = int(r.game_id)
         model_probs = per_model_map.get(game_id, {})
         as_of = str(r.as_of_utc)
+        start_time_utc = str(r.start_time_utc)
 
         for model_name, p in model_probs.items():
             if model_name == "game_id":
@@ -132,6 +149,7 @@ def persist_predictions(
                     feature_set_version,
                     snapshot_id,
                     r.game_date_utc,
+                    start_time_utc,
                     r.home_team,
                     r.away_team,
                     prob,
@@ -154,6 +172,7 @@ def persist_predictions(
                 feature_set_version,
                 snapshot_id,
                 r.game_date_utc,
+                start_time_utc,
                 r.home_team,
                 r.away_team,
                 ensemble_prob,
@@ -170,6 +189,7 @@ def persist_predictions(
                 game_id,
                 as_of,
                 r.game_date_utc,
+                start_time_utc,
                 r.home_team,
                 r.away_team,
                 ensemble_prob,
@@ -194,21 +214,21 @@ def persist_predictions(
         """
         INSERT OR REPLACE INTO predictions(
           game_id, as_of_utc, model_name, model_run_id, feature_set_version, snapshot_id,
-          game_date_utc, home_team, away_team, prob_home_win, pred_winner, prob_low, prob_high,
+          game_date_utc, start_time_utc, home_team, away_team, prob_home_win, pred_winner, prob_low, prob_high,
           uncertainty_flags_json, metadata_json
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         pred_rows,
     )
     db.executemany(
         """
         INSERT OR REPLACE INTO upcoming_game_forecasts(
-          game_id, as_of_utc, game_date_utc, home_team, away_team,
+          game_id, as_of_utc, game_date_utc, start_time_utc, home_team, away_team,
           ensemble_prob_home_win, predicted_winner, per_model_probs_json,
           spread_min, spread_median, spread_max, spread_mean, spread_sd, spread_iqr,
           bayes_ci_low, bayes_ci_high, uncertainty_flags_json, snapshot_id,
           feature_set_version, model_run_id
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         forecast_rows,
     )
@@ -263,6 +283,7 @@ def persist_historical_oof_predictions(
                     feature_set_version,
                     snapshot_id,
                     str(row.game_date_utc),
+                    str(getattr(row, "start_time_utc", "") or ""),
                     home_team,
                     away_team,
                     prob_value,
@@ -279,9 +300,9 @@ def persist_historical_oof_predictions(
         -- OOF rows are diagnostics, not frozen historical live forecasts.
         INSERT OR REPLACE INTO prediction_diagnostics(
           game_id, as_of_utc, model_name, model_run_id, feature_set_version, snapshot_id,
-          game_date_utc, home_team, away_team, prob_home_win, pred_winner, prob_low, prob_high,
+          game_date_utc, start_time_utc, home_team, away_team, prob_home_win, pred_winner, prob_low, prob_high,
           uncertainty_flags_json, metadata_json
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         pred_rows,
     )
@@ -320,7 +341,12 @@ def train_models(cfg: AppConfig, models_arg: str | None = None, approve_feature_
     )
     model_feature_columns = load_model_feature_map(cfg.data.league)
     feature_set_rows = db.query("SELECT feature_set_version FROM feature_sets ORDER BY created_at_utc DESC LIMIT 1")
-    feature_set_version = feature_set_rows[0]["feature_set_version"] if feature_set_rows else "unknown_feature_set"
+    if not feature_set_rows:
+        raise RuntimeError(
+            "Missing feature_sets metadata for MLB training. Run the feature build before training so predictions "
+            "can be tied to an explicit feature_set_version."
+        )
+    feature_set_version = feature_set_rows[0]["feature_set_version"]
     selected_models = parse_models_arg(models_arg)
     resolved_selected_models = normalize_selected_models(selected_models)
 

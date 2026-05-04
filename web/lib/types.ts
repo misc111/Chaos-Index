@@ -9,6 +9,7 @@ export type ReplayStrategyMap<T> = Record<BetStrategy, T>;
 export type ForecastRow = {
   game_id: number;
   game_date_utc: string;
+  start_time_utc?: string | null;
   home_team: string;
   away_team: string;
   ensemble_prob_home_win: number;

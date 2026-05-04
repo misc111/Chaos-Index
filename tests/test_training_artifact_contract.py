@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 from src.common.config import load_config
-from src.services.train import train_models
+from src.services.train import persist_predictions, train_models
 from src.storage.db import Database
 from src.training.train import train_and_predict
 
@@ -45,9 +45,13 @@ def _synthetic_features(n_train: int = 220, n_upcoming: int = 16) -> pd.DataFram
             "status_final": [1] * n_train + [0] * n_upcoming,
             "diff_starting_pitcher_quality": signal,
             "diff_bullpen_quality": counter,
+            "diff_bullpen_availability": -diff_bullpen_fatigue,
             "diff_bullpen_fatigue": diff_bullpen_fatigue,
             "diff_lineup_talent": diff_lineup_talent,
             "lineup_stability_diff": lineup_stability_diff,
+            "starter_quality_edge": signal,
+            "bullpen_quality_edge": counter,
+            "lineup_confirmation_share": np.ones(n, dtype=float),
             "park_run_effect": park_run_effect,
             "park_weather_run_effect": park_weather_run_effect,
             "starting_pitcher_hand_matchup": starting_pitcher_hand_matchup,
@@ -107,6 +111,17 @@ def test_train_models_persists_artifact_contract_and_validation_rows(tmp_path: P
     processed_dir = Path(cfg.paths.processed_dir)
     processed_dir.mkdir(parents=True, exist_ok=True)
     _synthetic_features().to_csv(processed_dir / "features.csv", index=False)
+    db = Database(cfg.paths.db_path)
+    db.init_schema()
+    db.execute(
+        """
+        INSERT INTO feature_sets(
+          feature_set_version, created_at_utc, snapshot_id, feature_columns_json, metadata_json
+        ) VALUES (
+          'features_v1', '2026-04-01T12:00:00Z', 'snapshot_v1', '[]', '{}'
+        )
+        """
+    )
 
     train_models(cfg, models_arg="glm_ridge")
 
@@ -127,6 +142,82 @@ def test_train_models_persists_artifact_contract_and_validation_rows(tmp_path: P
     assert validation_rows
     assert {row["split_label"] for row in validation_rows} == {"train_test:time"}
     assert any(str(row["artifact_path"]).endswith(".json") or str(row["artifact_path"]).endswith(".csv") for row in validation_rows)
+
+
+def test_train_models_fails_fast_without_feature_set_metadata(tmp_path: Path) -> None:
+    cfg = load_config("configs/mlb.yaml")
+    cfg.paths.artifacts_dir = str(tmp_path / "artifacts")
+    cfg.paths.processed_dir = str(tmp_path / "processed")
+    cfg.paths.db_path = str(tmp_path / "processed" / "mlb_forecast.db")
+    cfg.feature_policy.mode = "research"
+    cfg.feature_policy.registry_path = str(tmp_path / "feature_registry_{league}.yaml")
+
+    processed_dir = Path(cfg.paths.processed_dir)
+    processed_dir.mkdir(parents=True, exist_ok=True)
+    _synthetic_features().to_csv(processed_dir / "features.csv", index=False)
+
+    try:
+        train_models(cfg, models_arg="glm_ridge")
+    except RuntimeError as exc:
+        assert "feature_sets" in str(exc)
+    else:
+        raise AssertionError("train_models must fail when feature-build metadata is missing")
+
+
+def test_persist_predictions_requires_pregame_start_time_and_preserves_it(tmp_path: Path) -> None:
+    db = Database(str(tmp_path / "mlb.db"))
+    db.init_schema()
+    forecasts = pd.DataFrame(
+        [
+            {
+                "game_id": 1,
+                "game_date_utc": "2026-04-01",
+                "start_time_utc": "2026-04-01T18:00:00Z",
+                "home_team": "CHC",
+                "away_team": "LAD",
+                "as_of_utc": "2026-04-01T12:00:00Z",
+                "ensemble_prob_home_win": 0.56,
+                "per_model_probs_json": "{}",
+                "spread_min": 0.0,
+                "spread_median": 0.0,
+                "spread_max": 0.0,
+                "spread_mean": 0.0,
+                "spread_sd": 0.0,
+                "spread_iqr": 0.0,
+                "bayes_ci_low": None,
+                "bayes_ci_high": None,
+                "uncertainty_flags_json": "{}",
+            }
+        ]
+    )
+    per_model_probs = pd.DataFrame([{"game_id": 1, "glm_ridge": 0.55}])
+
+    persist_predictions(db, forecasts, per_model_probs, "run_1", "features_v1")
+
+    prediction_rows = db.query("SELECT game_id, model_name, start_time_utc FROM predictions ORDER BY model_name")
+    forecast_rows = db.query("SELECT game_id, start_time_utc FROM upcoming_game_forecasts")
+    assert prediction_rows == [
+        {"game_id": 1, "model_name": "ensemble", "start_time_utc": "2026-04-01T18:00:00Z"},
+        {"game_id": 1, "model_name": "glm_ridge", "start_time_utc": "2026-04-01T18:00:00Z"},
+    ]
+    assert forecast_rows == [{"game_id": 1, "start_time_utc": "2026-04-01T18:00:00Z"}]
+
+    post_start = forecasts.copy()
+    post_start.loc[0, "as_of_utc"] = "2026-04-01T18:00:00Z"
+    try:
+        persist_predictions(db, post_start, per_model_probs, "run_2", "features_v1")
+    except RuntimeError as exc:
+        assert "strictly pregame" in str(exc)
+    else:
+        raise AssertionError("post-start forecasts must not enter the frozen prediction ledger")
+
+    missing_start = forecasts.drop(columns=["start_time_utc"])
+    try:
+        persist_predictions(db, missing_start, per_model_probs, "run_3", "features_v1")
+    except RuntimeError as exc:
+        assert "start_time_utc" in str(exc)
+    else:
+        raise AssertionError("forecasts without scheduled first pitch must not enter the frozen prediction ledger")
 
 
 def test_train_and_predict_emits_lasso_credibility_contracts_end_to_end(tmp_path: Path) -> None:
