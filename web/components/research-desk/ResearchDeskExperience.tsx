@@ -5,29 +5,13 @@ import { formatUsd } from "@/lib/currency";
 import type { LeagueCode } from "@/lib/league";
 import { withLeague } from "@/lib/league";
 import type { ResearchDeskResponse, TableRow } from "@/lib/types";
+import { EMPTY_RESEARCH_DESK } from "./defaults";
+import EvidenceStatusCard from "./EvidenceStatusCard";
 import styles from "./ResearchDeskExperience.module.css";
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const STAGING_ASSET_VERSION = process.env.NEXT_PUBLIC_STAGING_ASSET_VERSION || "";
 const STATIC_STAGING = process.env.NEXT_PUBLIC_STATIC_STAGING === "1";
-
-const EMPTY_RESEARCH_DESK: ResearchDeskResponse = {
-  league: "MLB",
-  as_of_utc: null,
-  odds_as_of_utc: null,
-  date_central: undefined,
-  desk_posture: "normal",
-  overnight_summary: null,
-  champion: null,
-  model_diagnostics: {},
-  latest_promotion: null,
-  counts: {
-    total_games: 0,
-    bets: 0,
-    passes: 0,
-  },
-  rows: [],
-};
 
 type GateChip = {
   label: string;
@@ -102,11 +86,7 @@ function formatProbability(value?: number | null): string {
 }
 
 function titleCaseToken(value: string): string {
-  return value
-    .split(/[_\s]+/)
-    .filter(Boolean)
-    .map((token) => token.charAt(0).toUpperCase() + token.slice(1))
-    .join(" ");
+  return value.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
 function gateChips(policy?: TableRow | null): GateChip[] {
@@ -166,6 +146,7 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
   const promotionGates = useMemo(() => gateChips(data.latest_promotion?.policy), [data.latest_promotion?.policy]);
   const championDiagnostics = data.champion?.model_name ? data.model_diagnostics?.[data.champion.model_name] : null;
   const unsupportedLeague = data.league !== league;
+  const evidenceStage = data.evidence_status?.evidence_stage || data.evidence_stage;
 
   if (error) {
     return <div className={`card ${styles.errorState}`}>{error}</div>;
@@ -188,6 +169,9 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
           </div>
           <div className={styles.heroMeta}>
             <span className={styles.pill}>League {data.league}</span>
+            <span className={`${styles.pill} ${data.production_ready ? styles.postureNormal : styles.postureGuarded}`}>
+              {evidenceStage ? titleCaseToken(evidenceStage) : data.production_ready ? "Production Ready" : "Not Production Ready"}
+            </span>
             <span
               className={`${styles.pill} ${
                 data.desk_posture === "guarded" ? styles.postureGuarded : styles.postureNormal
@@ -290,6 +274,14 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
             <p className={styles.smallCopy}>No promoted champion has been recorded yet.</p>
           )}
         </section>
+
+        <EvidenceStatusCard
+          evidenceStatus={data.evidence_status}
+          latestArtifactRole={data.latest_artifact_role}
+          promotionEligible={data.promotion_eligible}
+          productionReady={data.production_ready}
+          sourceStatus={data.source_status}
+        />
 
         <section className={`card ${styles.summaryCard}`}>
           <div className={styles.sectionHeader}>

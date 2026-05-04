@@ -34,6 +34,14 @@ function reasonText(row: TableRow): string {
   return "";
 }
 
+function titleCaseToken(value: string): string {
+  return value
+    .split(/[_\s]+/)
+    .filter(Boolean)
+    .map((token) => token.charAt(0).toUpperCase() + token.slice(1))
+    .join(" ");
+}
+
 export default function NestedTournamentView({ data }: Props) {
   const targets = useMemo(() => {
     const names = new Set<string>();
@@ -63,6 +71,11 @@ export default function NestedTournamentView({ data }: Props) {
   const featureCoverage = rowsForTarget(data.feature_coverage_summary || [], activeTarget);
   const blockedChampions = champions.filter((row) => String(row.champion_status || "") !== "shortlist");
   const leader = finalRows[0];
+  const evidenceStatus = data.current_best?.evidence_status;
+  const latestArtifactRole = String(data.current_best?.latest_artifact_role || "");
+  const promotionEligible = data.current_best?.promotion_eligible === true;
+  const productionReady = data.current_best?.production_ready === true || (evidenceStatus as TableRow | undefined)?.production_ready === true;
+  const evidenceStage = String((evidenceStatus as TableRow | undefined)?.evidence_stage || data.current_best?.evidence_stage || "");
 
   return (
     <div className="grid">
@@ -103,7 +116,27 @@ export default function NestedTournamentView({ data }: Props) {
             <span className="dataLabel">Blocked families</span>
             <span className="dataValue">{blockedChampions.length}</span>
           </div>
+          <div className="dataField">
+            <span className="dataLabel">Evidence status</span>
+            <span className="dataValue">
+              {evidenceStage ? titleCaseToken(evidenceStage) : productionReady ? "Production Ready" : promotionEligible ? "Promotion Eligible" : "Research Only"}
+            </span>
+          </div>
+          {latestArtifactRole ? (
+            <div className="dataField">
+              <span className="dataLabel">Latest pointer</span>
+              <span className="dataValue">{latestArtifactRole.replace(/_/g, " ")}</span>
+            </div>
+          ) : null}
         </div>
+        {evidenceStatus && typeof evidenceStatus === "object" && !Array.isArray(evidenceStatus) ? (
+          <p className="small">
+            {String(
+              (evidenceStatus as TableRow).pointer_semantics ||
+                "Nested tournament evidence is a research recommendation surface, not promotion proof."
+            )}
+          </p>
+        ) : null}
       </div>
       {blockedChampions.length > 0 ? (
         <div className="card">

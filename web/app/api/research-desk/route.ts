@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server.js";
+import fs from "node:fs";
+import path from "node:path";
 import { computeBetDecisionsForSlate, type BetDecision } from "@/lib/betting";
 import { getBetStrategyConfig, strategyFromRequest } from "@/lib/betting-strategy";
 import { runSqlJson } from "@/lib/db";
@@ -46,6 +48,49 @@ function parseJsonRecord(value?: string | null): TableRow | null {
   } catch {
     return null;
   }
+}
+
+function readJsonRecord(filePath: string): TableRow | null {
+  if (!fs.existsSync(filePath)) return null;
+  try {
+    const parsed = JSON.parse(fs.readFileSync(filePath, "utf8")) as unknown;
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? (parsed as TableRow) : null;
+  } catch {
+    return null;
+  }
+}
+
+function loadEvidenceStatus(league: LeagueCode): Pick<
+  ResearchDeskResponse,
+  "source_kind" | "source_status" | "evidence_stage" | "latest_artifact_role" | "promotion_eligible" | "production_ready" | "evidence_status"
+> {
+  if (league !== "MLB") {
+    return {
+      source_kind: null,
+      source_status: null,
+      evidence_stage: null,
+      latest_artifact_role: null,
+      promotion_eligible: false,
+      production_ready: false,
+      evidence_status: null,
+    };
+  }
+  const repoRoot = path.resolve(process.cwd(), "..");
+  const currentBest = readJsonRecord(path.resolve(repoRoot, "artifacts", "reports", league.toLowerCase(), "current_best_models.json"));
+  const evidenceStatus = parseJsonRecord(JSON.stringify(currentBest?.evidence_status ?? null));
+  const latestArtifactRole =
+    typeof currentBest?.latest_artifact_role === "string" ? String(currentBest.latest_artifact_role) : null;
+  const evidenceStage =
+    typeof evidenceStatus?.evidence_stage === "string" ? String(evidenceStatus.evidence_stage) : null;
+  return {
+    source_kind: typeof currentBest?.source_kind === "string" ? String(currentBest.source_kind) : null,
+    source_status: typeof currentBest?.source_status === "string" ? String(currentBest.source_status) : null,
+    evidence_stage: evidenceStage,
+    latest_artifact_role: latestArtifactRole,
+    promotion_eligible: Boolean(currentBest?.promotion_eligible === true),
+    production_ready: Boolean(currentBest?.production_ready === true || evidenceStatus?.production_ready === true),
+    evidence_status: evidenceStatus,
+  };
 }
 
 function pluralize(count: number, singular: string, plural = `${singular}s`): string {
@@ -228,6 +273,7 @@ export async function GET(request: Request) {
       ])
     );
     const latestPromotion = loadLatestPromotion(league);
+    const evidenceStatus = loadEvidenceStatus(league);
     const counts = {
       total_games: rows.length,
       bets: rows.filter((row) => row.bet_label === "bet").length,
@@ -255,6 +301,13 @@ export async function GET(request: Request) {
       model_feature_map_run_id: featureMap.model_run_id,
       model_feature_set_version: featureMap.feature_set_version,
       latest_promotion: latestPromotion,
+      source_kind: evidenceStatus.source_kind,
+      source_status: evidenceStatus.source_status,
+      evidence_stage: evidenceStatus.evidence_stage,
+      latest_artifact_role: evidenceStatus.latest_artifact_role,
+      promotion_eligible: evidenceStatus.promotion_eligible,
+      production_ready: evidenceStatus.production_ready,
+      evidence_status: evidenceStatus.evidence_status,
       counts,
       rows,
     } satisfies ResearchDeskResponse);

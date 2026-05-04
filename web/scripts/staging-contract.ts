@@ -25,6 +25,68 @@ function isLeagueCode(value: unknown): value is LeagueCode {
   return typeof value === "string" && (ALL_LEAGUES as readonly string[]).includes(value);
 }
 
+function asRecord(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
+}
+
+function validateEvidenceStatusPayload(args: {
+  league: LeagueCode;
+  fileName: string;
+  payload: Record<string, unknown>;
+}): string[] {
+  const { league, fileName, payload } = args;
+  const errors: string[] = [];
+  const currentBest = asRecord(payload.current_best);
+  const source = fileName === "nested-tournament.json" ? currentBest : payload;
+  if (fileName !== "nested-tournament.json" && fileName !== "research-desk.json") {
+    return errors;
+  }
+
+  if (fileName === "nested-tournament.json" && source.latest_artifact_role !== "latest_research_recommendation") {
+    errors.push(`${league} ${fileName} must expose nested tournament evidence as latest_research_recommendation.`);
+  }
+  if (fileName === "nested-tournament.json" && source.promotion_eligible !== false) {
+    errors.push(`${league} ${fileName} must block nested tournament evidence from promotion.`);
+  }
+  if (!source.latest_artifact_role) {
+    errors.push(`${league} ${fileName} must declare latest_artifact_role.`);
+  }
+  if (source.promotion_eligible !== true && source.promotion_eligible !== false) {
+    errors.push(`${league} ${fileName} must declare boolean promotion_eligible.`);
+  }
+  const evidenceStatus = asRecord(source.evidence_status);
+  const evidenceStage = String(evidenceStatus.evidence_stage || source.evidence_stage || "");
+  const allowedStages = new Set(["fixture_demo_smoke", "promotion_eligible", "production_ready", "research_only"]);
+  if (!allowedStages.has(evidenceStage)) {
+    errors.push(`${league} ${fileName} must expose a valid evidence_stage.`);
+  }
+  if (!evidenceStatus.pointer_semantics) {
+    errors.push(`${league} ${fileName} must expose evidence_status.pointer_semantics.`);
+  }
+  if (source.latest_artifact_role === "latest_research_recommendation" && source.promotion_eligible === true) {
+    errors.push(`${league} ${fileName} cannot mark a latest research recommendation as promotion eligible.`);
+  }
+  if (
+    asRecord(evidenceStatus).fixture_demo_smoke === true &&
+    (source.promotion_eligible === true || asRecord(evidenceStatus).promotion_eligible === true)
+  ) {
+    errors.push(`${league} ${fileName} cannot mark fixture/demo/smoke evidence as promotion eligible.`);
+  }
+  if (
+    (source.promotion_eligible === true || evidenceStatus.promotion_eligible === true) &&
+    (evidenceStatus.production_grade !== true || evidenceStatus.full_immutable_pregame_ledger !== true)
+  ) {
+    errors.push(`${league} ${fileName} promotion-eligible evidence must be production-grade full-ledger evidence.`);
+  }
+  if (
+    (source.production_ready === true || evidenceStatus.production_ready === true) &&
+    (source.promotion_eligible !== true || evidenceStatus.promotion_gate_passed !== true)
+  ) {
+    errors.push(`${league} ${fileName} production-ready evidence must pass promotion gates.`);
+  }
+  return errors;
+}
+
 export function listRequiredStagingFiles(): string[] {
   const requiredFiles = new Set<string>();
 
@@ -194,13 +256,26 @@ export async function collectCommittedStagingSnapshotErrors(
     }
 
     for (const fileName of requiredFiles) {
+      const payloadPath = path.join(leagueDir, fileName);
       try {
-        await fs.access(path.join(leagueDir, fileName));
+        await fs.access(payloadPath);
       } catch {
         errors.push(`missing ${league} staging payload ${fileName}`);
       }
       if (!metaFiles.includes(fileName)) {
         errors.push(`${league} meta.json must list ${fileName}.`);
+      }
+      if (fileName === "nested-tournament.json" || fileName === "research-desk.json") {
+        try {
+          const payload = JSON.parse(await fs.readFile(payloadPath, "utf8")) as Record<string, unknown>;
+          errors.push(...validateEvidenceStatusPayload({ league, fileName, payload }));
+        } catch (error) {
+          errors.push(
+            error instanceof Error
+              ? `unable to read ${league} ${fileName}: ${error.message}`
+              : `unable to read ${league} ${fileName}`
+          );
+        }
       }
     }
   }

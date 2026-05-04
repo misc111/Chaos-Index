@@ -65,6 +65,49 @@ test("staging snapshot verifier rejects unexpected shipped league files", async 
   }
 });
 
+test("staging snapshot verifier requires evidence-status semantics", async () => {
+  const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "staging-evidence-contract-"));
+  const leagueDir = path.join(tempRoot, "mlb");
+  const requiredFiles = listRequiredStagingFiles();
+
+  try {
+    await fs.mkdir(leagueDir, { recursive: true });
+    await fs.writeFile(path.join(tempRoot, "manifest.json"), JSON.stringify(buildStagingManifestPayload("2026-04-23T00:00:00.000Z")));
+    await fs.writeFile(path.join(leagueDir, ".gitkeep"), "");
+    for (const fileName of requiredFiles) {
+      const payload =
+        fileName === "nested-tournament.json"
+          ? { current_best: { latest_artifact_role: "latest_research_recommendation", promotion_eligible: true, evidence_status: {} } }
+          : fileName === "research-desk.json"
+            ? { latest_artifact_role: "latest_research_recommendation", promotion_eligible: true, evidence_status: {} }
+            : {};
+      await fs.writeFile(path.join(leagueDir, fileName), JSON.stringify(payload));
+    }
+    await fs.writeFile(
+      path.join(leagueDir, "meta.json"),
+      JSON.stringify({
+        league: PRIMARY_STAGING_LEAGUE,
+        primary_league: PRIMARY_STAGING_LEAGUE,
+        shipping_role: "primary",
+        files: requiredFiles,
+      })
+    );
+
+    const errors = await collectCommittedStagingSnapshotErrors(tempRoot);
+
+    assert.ok(errors.includes("MLB nested-tournament.json must expose evidence_status.pointer_semantics."));
+    assert.ok(errors.includes("MLB nested-tournament.json must expose a valid evidence_stage."));
+    assert.ok(errors.includes("MLB nested-tournament.json cannot mark a latest research recommendation as promotion eligible."));
+    assert.ok(errors.includes("MLB nested-tournament.json must block nested tournament evidence from promotion."));
+    assert.ok(errors.includes("MLB research-desk.json must expose evidence_status.pointer_semantics."));
+    assert.ok(errors.includes("MLB research-desk.json must expose a valid evidence_stage."));
+    assert.ok(errors.includes("MLB research-desk.json cannot mark a latest research recommendation as promotion eligible."));
+    assert.ok(errors.includes("MLB research-desk.json promotion-eligible evidence must be production-grade full-ledger evidence."));
+  } finally {
+    await fs.rm(tempRoot, { recursive: true, force: true });
+  }
+});
+
 test("staging root contains only the MLB payload directory", async () => {
   const stagingRoot = path.join(repoRoot, "web", "public", "staging-data");
   const rootEntries = (await fs.readdir(stagingRoot, { withFileTypes: true }))

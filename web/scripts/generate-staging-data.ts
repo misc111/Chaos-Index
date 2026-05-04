@@ -64,8 +64,20 @@ function sanitizePublicPayload(fileName: string, payload: unknown, league: Leagu
     const championRows = asRecordArray(raw.inter_family_leaderboard).filter((row) => Number(row.target_rank) <= 3);
     const familyRows = asRecordArray(raw.family_champions).filter((row) => row.family_champion === true || row.family_champion === 1);
     const rawArtifacts = ((raw.artifacts as JsonRecord | undefined) || {}) as JsonRecord;
+    const currentBest = ((raw.current_best as JsonRecord | undefined) || {}) as JsonRecord;
     return {
       league,
+      current_best: {
+        source_kind: currentBest.source_kind ?? null,
+        source_status: currentBest.source_status ?? null,
+        evidence_stage: currentBest.evidence_stage ?? ((currentBest.evidence_status as JsonRecord | undefined)?.evidence_stage ?? null),
+        latest_artifact_role: currentBest.latest_artifact_role ?? null,
+        promotion_eligible: currentBest.promotion_eligible === true,
+        production_ready: currentBest.production_ready === true || (currentBest.evidence_status as JsonRecord | undefined)?.production_ready === true,
+        evidence_status: currentBest.evidence_status ?? null,
+        latest_research_recommendation: currentBest.latest_research_recommendation ?? null,
+        latest_promotion_eligible_evidence: currentBest.latest_promotion_eligible_evidence ?? null,
+      },
       summary: raw.summary ? { run_id: (raw.summary as JsonRecord).run_id, generated_at_utc: (raw.summary as JsonRecord).generated_at_utc } : null,
       target_coverage: asRecordArray(raw.target_coverage),
       family_champions: familyRows,

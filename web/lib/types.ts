@@ -177,6 +177,23 @@ export type ResearchPromotionSummary = {
   created_at_utc?: string | null;
 };
 
+export type EvidenceStatusSummary = {
+  evidence_stage?: "fixture_demo_smoke" | "promotion_eligible" | "production_ready" | "research_only" | string | null;
+  label?: string | null;
+  latest_artifact_role?: string | null;
+  pointer_semantics?: string | null;
+  promotion_eligible?: boolean;
+  production_grade?: boolean;
+  production_ready?: boolean;
+  promotion_gate_passed?: boolean;
+  fixture_demo_smoke?: boolean;
+  full_immutable_pregame_ledger?: boolean;
+  blocked_reasons?: string[];
+  readiness_blocked_reasons?: string[];
+  readiness_label?: string | null;
+  ledger_audit_present?: boolean;
+};
+
 export type ResearchDeskResponse = {
   league: string;
   as_of_utc?: string | null;
@@ -191,6 +208,13 @@ export type ResearchDeskResponse = {
   model_feature_map_run_id?: string;
   model_feature_set_version?: string;
   latest_promotion: ResearchPromotionSummary | null;
+  source_kind?: string | null;
+  source_status?: string | null;
+  evidence_stage?: string | null;
+  latest_artifact_role?: string | null;
+  promotion_eligible?: boolean;
+  production_ready?: boolean;
+  evidence_status?: EvidenceStatusSummary | null;
   counts: ResearchDeskCounts;
   rows: ResearchDeskNightlyRow[];
 };

@@ -37,6 +37,8 @@ _MLB_LATEST_MATERIAL_ARTIFACT_KEYS = (
     "leaderboard_json_path",
 )
 _CURRENT_BEST_MODELS_FILE_NAME = "current_best_models.json"
+_LATEST_RESEARCH_RECOMMENDATION_FILE_NAME = "latest_research_recommendation.json"
+_PROMOTION_ELIGIBLE_EVIDENCE_FILE_NAME = "promotion_eligible_evidence_latest.json"
 
 
 def _load_summary_payload(path: Path) -> dict[str, Any]:
@@ -91,6 +93,127 @@ def _tournament_ranking_rule() -> dict[str, Any]:
         "tertiary": "calibration_flag_asc",
         "quaternary": "stability_flag_asc",
         "notes": "Tournament ranking starts with scoring, then prefers cleaner calibration and stability. ROI is a betting overlay and does not participate in theory-lane ordering.",
+    }
+
+
+def _contains_fixture_demo_smoke_token(*values: Any) -> bool:
+    combined = " ".join(str(value or "").lower() for value in values)
+    return any(token in combined for token in ("fixture", "demo", "smoke"))
+
+
+def _comparison_evidence_status(
+    *,
+    summary_payload: dict[str, Any],
+    canonical_output_dir: Path,
+) -> dict[str, Any]:
+    decision = dict(summary_payload.get("promotion_decision") or {})
+    evidence = dict(decision.get("evidence") or {})
+    metadata = dict(summary_payload.get("metadata") or {})
+    execution_metadata = dict(metadata.get("execution_metadata") or evidence.get("execution_metadata") or {})
+    artifacts = dict(summary_payload.get("artifacts") or {})
+    report_slug = str(summary_payload.get("report_slug") or "")
+    production_grade = bool(execution_metadata.get("production_grade") is True)
+    fixture_demo_smoke = bool(
+        evidence.get("fixture_or_demo_execution")
+        or evidence.get("next_stage_blocked_by_fixture_scope")
+        or execution_metadata.get("production_grade") is False
+        or _contains_fixture_demo_smoke_token(
+            report_slug,
+            execution_metadata.get("execution_label_class"),
+            execution_metadata.get("execution_data_scope"),
+            execution_metadata.get("data_scope"),
+            execution_metadata.get("execution_source_label"),
+            execution_metadata.get("source_label"),
+            execution_metadata.get("data_origin"),
+            *artifacts.values(),
+        )
+    )
+    blocked_reasons = ["candidate_comparison_is_research_only"]
+    if fixture_demo_smoke:
+        blocked_reasons.append("fixture_demo_smoke")
+    if not production_grade:
+        blocked_reasons.append("not_full_immutable_pregame_mlb_ledger")
+    if not bool(evidence.get("promotion_ready")):
+        blocked_reasons.append("promotion_ready_false")
+
+    evidence_stage = "fixture_demo_smoke" if fixture_demo_smoke else "research_only"
+    return {
+        "evidence_stage": evidence_stage,
+        "label": "fixture/demo/smoke research screen" if fixture_demo_smoke else "research recommendation only",
+        "latest_artifact_role": "latest_research_recommendation",
+        "pointer_semantics": (
+            "This pointer identifies the latest research recommendation artifact. "
+            "It is not promotion-eligible evidence and must not be used as champion promotion proof."
+        ),
+        "promotion_eligible": False,
+        "production_grade": production_grade,
+        "production_ready": False,
+        "fixture_demo_smoke": fixture_demo_smoke,
+        "full_immutable_pregame_ledger": production_grade and not fixture_demo_smoke,
+        "blocked_reasons": sorted(set(blocked_reasons)),
+        "canonical_research_recommendation_path": str(canonical_output_dir / _LATEST_RESEARCH_RECOMMENDATION_FILE_NAME),
+        "canonical_promotion_eligible_evidence_path": None,
+    }
+
+
+def _promotion_review_evidence_status(payload: dict[str, Any]) -> dict[str, Any]:
+    execution_scope = str(payload.get("execution_scope") or "")
+    production_grade = bool(payload.get("production_grade") is True)
+    gates = dict(payload.get("gates") or {})
+    ledger_audit = dict(payload.get("ledger_audit") or {})
+    fixture_demo_smoke = _contains_fixture_demo_smoke_token(
+        payload.get("run_id"),
+        execution_scope,
+        payload.get("source_status"),
+        *(dict(payload.get("artifact_paths") or {}).values()),
+    )
+    ledger_audit_present = bool(ledger_audit)
+    full_ledger = bool(
+        ledger_audit.get("full_immutable_pregame_ledger") is True
+        and ledger_audit.get("pregame_timing_proven") is True
+        and ledger_audit.get("immutable_write_proven") is True
+    )
+    blocked_reasons: list[str] = []
+    if fixture_demo_smoke:
+        blocked_reasons.append("fixture_demo_smoke")
+    if not production_grade:
+        blocked_reasons.append("not_production_grade")
+    if not ledger_audit_present:
+        blocked_reasons.append("missing_ledger_audit")
+    if not full_ledger:
+        blocked_reasons.append("not_full_immutable_pregame_mlb_ledger")
+    promotion_eligible = production_grade and full_ledger and not fixture_demo_smoke
+    failed_gates = sorted(str(key) for key, value in gates.items() if value is False)
+    promotion_gate_passed = promotion_eligible and bool(payload.get("promoted"))
+    production_ready = promotion_eligible and promotion_gate_passed and not failed_gates
+    if fixture_demo_smoke:
+        evidence_stage = "fixture_demo_smoke"
+    elif production_ready:
+        evidence_stage = "production_ready"
+    elif promotion_eligible:
+        evidence_stage = "promotion_eligible"
+    else:
+        evidence_stage = "research_only"
+    return {
+        "evidence_stage": evidence_stage,
+        "label": "promotion-eligible full-ledger evidence" if promotion_eligible else "promotion evidence blocked",
+        "latest_artifact_role": "latest_promotion_eligible_evidence" if promotion_eligible else "blocked_promotion_evidence",
+        "pointer_semantics": (
+            "This pointer identifies the latest full-ledger MLB promotion-review evidence packet. "
+            "Promotion may still be rejected by gates; the pointer only means the evidence lane is eligible for review."
+        )
+        if promotion_eligible
+        else "This packet is not eligible for promotion evidence because it failed provenance or ledger-scope gates.",
+        "promotion_eligible": promotion_eligible,
+        "production_grade": production_grade,
+        "fixture_demo_smoke": fixture_demo_smoke,
+        "full_immutable_pregame_ledger": full_ledger,
+        "blocked_reasons": blocked_reasons,
+        "promotion_gate_passed": promotion_gate_passed,
+        "production_ready": production_ready,
+        "readiness_label": "production ready" if production_ready else "not production ready",
+        "readiness_blocked_reasons": [] if production_ready else (failed_gates or ["not_promoted"]),
+        "ledger_audit_present": ledger_audit_present,
     }
 
 
@@ -163,6 +286,10 @@ def _build_current_best_models_payload_from_comparison(
     top_models = _comparison_top_models(summary_payload)
     benchmark = dict(evidence.get("intercept_only_benchmark") or {})
     target_name = str(summary_payload.get("target_name") or "moneyline_home_win")
+    evidence_status = _comparison_evidence_status(
+        summary_payload=summary_payload,
+        canonical_output_dir=canonical_output_dir,
+    )
 
     return {
         "governance_contract_version": GOVERNANCE_CONTRACT_VERSION,
@@ -182,7 +309,20 @@ def _build_current_best_models_payload_from_comparison(
         "report_slug": str(summary_payload.get("report_slug") or ""),
         "experiment_run_id": metadata.get("experiment_run_id"),
         "canonical_artifact_root": str(canonical_output_dir),
-        "production_grade": execution_metadata.get("production_grade"),
+        "latest_artifact_role": evidence_status["latest_artifact_role"],
+        "evidence_stage": evidence_status["evidence_stage"],
+        "evidence_status": evidence_status,
+        "promotion_eligible": False,
+        "latest_research_recommendation": {
+            "recommended_model": str(decision.get("recommended_model") or ""),
+            "recommended_display_name": str(metadata.get("recommended_display_name") or decision.get("recommended_model") or ""),
+            "source_status": str(decision.get("status") or "candidate_screen_complete"),
+            "pointer_semantics": evidence_status["pointer_semantics"],
+            "artifact_path": str(canonical_output_dir / _LATEST_RESEARCH_RECOMMENDATION_FILE_NAME),
+        },
+        "latest_promotion_eligible_evidence": None,
+        "production_grade": evidence_status["production_grade"],
+        "production_ready": False,
         "execution_scope": execution_metadata.get("execution_data_scope"),
         "target_name": target_name,
         "market": _market_name_for_target(target_name),
@@ -270,7 +410,34 @@ def write_current_best_models_from_tournament(
         "run_id": run_id,
         "canonical_artifact_root": str(output_path.parent),
         "artifact_root": str(artifact_root),
+        "latest_artifact_role": "latest_research_recommendation",
+        "evidence_stage": "fixture_demo_smoke" if _contains_fixture_demo_smoke_token(run_id, artifact_root, execution_scope) else "research_only",
+        "evidence_status": {
+            "evidence_stage": "fixture_demo_smoke" if _contains_fixture_demo_smoke_token(run_id, artifact_root, execution_scope) else "research_only",
+            "label": "bounded tournament research evidence",
+            "latest_artifact_role": "latest_research_recommendation",
+            "pointer_semantics": (
+                "This pointer identifies the latest tournament research recommendation. "
+                "It is not full-ledger promotion-eligible evidence."
+            ),
+            "promotion_eligible": False,
+            "production_grade": bool(production_grade is True),
+            "production_ready": False,
+            "fixture_demo_smoke": _contains_fixture_demo_smoke_token(run_id, artifact_root, execution_scope),
+            "full_immutable_pregame_ledger": False,
+            "blocked_reasons": ["tournament_research_only", "not_full_immutable_pregame_mlb_ledger"],
+        },
+        "promotion_eligible": False,
+        "latest_research_recommendation": {
+            "recommended_model": recommended_model,
+            "recommended_display_name": recommended_display_name,
+            "source_status": "complete",
+            "pointer_semantics": "Latest tournament research recommendation only; not promotion-eligible evidence.",
+            "artifact_path": str(recommendation_path),
+        },
+        "latest_promotion_eligible_evidence": None,
         "production_grade": production_grade,
+        "production_ready": False,
         "execution_scope": execution_scope,
         "target_name": "moneyline_home_win",
         "market": "moneyline",
@@ -371,6 +538,13 @@ def write_current_best_models_from_promotion_review(
     artifacts = dict(promotion_payload.get("artifacts") or {})
     decision = dict(promotion_payload.get("promotion_decision") or {})
     target_name = str(decision.get("target_name") or "moneyline_home_win")
+    ledger_audit = dict(promotion_payload.get("ledger_audit") or {})
+    production_grade = bool(promotion_payload.get("production_grade") is True or ledger_audit.get("production_grade") is True)
+    execution_scope = str(
+        promotion_payload.get("execution_scope")
+        or ledger_audit.get("execution_scope")
+        or "research_backtest_reconstructed_features"
+    )
     payload = {
         "governance_contract_version": GOVERNANCE_CONTRACT_VERSION,
         "evidence_scope": "research_desk_promotion_review",
@@ -389,8 +563,9 @@ def write_current_best_models_from_promotion_review(
         "source_status": str(promotion_payload.get("status") or "rejected"),
         "run_id": run_id,
         "canonical_artifact_root": str(output_dir),
-        "production_grade": True,
-        "execution_scope": "full_immutable_pregame_mlb_research_backtest",
+        "production_grade": production_grade,
+        "execution_scope": execution_scope,
+        "ledger_audit": ledger_audit,
         "target_name": target_name,
         "market": _market_name_for_target(target_name),
         "ranking_rule": {
@@ -433,10 +608,29 @@ def write_current_best_models_from_promotion_review(
             "market_truth_calibration_path": artifacts.get("market_truth_calibration_path"),
         },
     }
+    evidence_status = _promotion_review_evidence_status(payload)
+    payload["latest_artifact_role"] = evidence_status["latest_artifact_role"]
+    payload["evidence_stage"] = evidence_status["evidence_stage"]
+    payload["evidence_status"] = evidence_status
+    payload["promotion_eligible"] = evidence_status["promotion_eligible"]
+    payload["production_ready"] = evidence_status["production_ready"]
+    payload["evidence_packet_eligible"] = bool(not evidence_status["fixture_demo_smoke"])
+    payload["latest_research_recommendation"] = None
+    payload["latest_promotion_eligible_evidence"] = {
+        "run_id": run_id,
+        "candidate_model_name": payload["candidate_model_name"],
+        "incumbent_model_name": payload["incumbent_model_name"],
+        "active_model_name": payload["recommended_model"],
+        "promoted": payload["promoted"],
+        "source_status": payload["source_status"],
+        "pointer_semantics": evidence_status["pointer_semantics"],
+        "artifact_path": str(output_dir / _PROMOTION_ELIGIBLE_EVIDENCE_FILE_NAME),
+    } if evidence_status["promotion_eligible"] else None
     output_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
 
     latest_path = output_dir / "promotion_review_latest.json"
     manifest_path = output_dir / "promotion_review_latest_manifest.json"
+    eligible_latest_path = output_dir / _PROMOTION_ELIGIBLE_EVIDENCE_FILE_NAME
     latest_payload = {
         "league": league,
         "report_lane": _MLB_REPORT_LANE,
@@ -449,6 +643,12 @@ def write_current_best_models_from_promotion_review(
         "incumbent_model_name": payload["incumbent_model_name"],
         "active_model_name": payload["recommended_model"],
         "promoted": payload["promoted"],
+        "latest_artifact_role": payload["latest_artifact_role"],
+        "evidence_stage": payload["evidence_stage"],
+        "evidence_status": payload["evidence_status"],
+        "promotion_eligible": payload["promotion_eligible"],
+        "production_ready": payload["production_ready"],
+        "evidence_packet_eligible": payload["evidence_packet_eligible"],
         "reason_summary": payload["why_this_won"],
         "current_best_models_path": str(output_path),
         "material_artifacts": payload["artifact_paths"],
@@ -462,9 +662,19 @@ def write_current_best_models_from_promotion_review(
         "run_id": run_id,
         "current_best_models_path": str(output_path),
         "service_output_path": str(latest_path),
+        "promotion_eligible_evidence_path": str(eligible_latest_path) if evidence_status["promotion_eligible"] else None,
         "material_artifacts": payload["artifact_paths"],
     }
     latest_path.write_text(json.dumps(latest_payload, indent=2, sort_keys=True) + "\n")
+    if evidence_status["promotion_eligible"]:
+        eligible_latest_payload = {
+            **latest_payload,
+            "service_output_path": str(eligible_latest_path),
+            "current_best_models_path": str(output_path),
+        }
+        eligible_latest_path.write_text(json.dumps(eligible_latest_payload, indent=2, sort_keys=True) + "\n")
+    elif eligible_latest_path.exists():
+        eligible_latest_path.unlink()
     manifest_path.write_text(json.dumps(manifest_payload, indent=2, sort_keys=True) + "\n")
     return output_path
 
@@ -676,6 +886,10 @@ def _write_mlb_service_output(
         "report_slug": str(result.report_slug),
         "generated_at_utc": utc_now_iso(),
         "status": str(promotion_decision.get("status") or "candidate_screen_complete"),
+        "latest_artifact_role": "latest_research_recommendation",
+        "evidence_stage": "research_only",
+        "promotion_eligible": False,
+        "production_ready": False,
         "recommended_model": str(promotion_decision.get("recommended_model") or result.recommendation_model),
         "recommended_display_name": str(metadata.get("recommended_display_name") or result.recommendation_display_name),
         "rationale": str(promotion_decision.get("rationale") or ""),
@@ -696,6 +910,14 @@ def _write_mlb_service_output(
         "manifest_path": str(manifest_path),
         "current_best_models_path": str(canonical_output_dir / _CURRENT_BEST_MODELS_FILE_NAME),
     }
+    evidence_status = _comparison_evidence_status(
+        summary_payload=summary_payload,
+        canonical_output_dir=canonical_output_dir,
+    )
+    payload["evidence_status"] = evidence_status
+    payload["evidence_stage"] = evidence_status["evidence_stage"]
+    payload["latest_research_recommendation_path"] = str(canonical_output_dir / _LATEST_RESEARCH_RECOMMENDATION_FILE_NAME)
+    payload["latest_promotion_eligible_evidence_path"] = None
     manifest_payload = {
         "league": league,
         "report_lane": _MLB_REPORT_LANE,
@@ -706,8 +928,17 @@ def _write_mlb_service_output(
         "service_output_path": str(output_path),
         "tracker_service_output_path": str(tracker_output_path),
         "current_best_models_path": str(canonical_output_dir / _CURRENT_BEST_MODELS_FILE_NAME),
+        "latest_artifact_role": "latest_research_recommendation",
+        "evidence_stage": evidence_status["evidence_stage"],
+        "promotion_eligible": False,
+        "production_ready": False,
+        "latest_research_recommendation_path": str(canonical_output_dir / _LATEST_RESEARCH_RECOMMENDATION_FILE_NAME),
+        "latest_promotion_eligible_evidence_path": None,
     }
     output_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    (canonical_output_dir / _LATEST_RESEARCH_RECOMMENDATION_FILE_NAME).write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n"
+    )
     manifest_path.write_text(json.dumps(manifest_payload, indent=2, sort_keys=True) + "\n")
     return output_path, manifest_path, material_artifacts
 

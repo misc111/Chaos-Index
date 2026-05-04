@@ -23,6 +23,7 @@ from src.governance.evidence import (
     target_scope_fields,
 )
 from src.research.nested_tournament_contracts import NestedTournamentResult, _safe_json
+from src.research.nested_tournament_evidence import nested_tournament_evidence_fields
 from src.research.nested_tournament_features import _feature_coverage_summary
 from src.research.nested_tournament_governance import _blocked_reason_summary, _gate_reason_labels, _reason_list
 
@@ -129,6 +130,12 @@ def write_nested_tournament_artifacts(
         "as_of_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "source_kind": source_kind,
         "report_slug": resolved_run_id,
+        **nested_tournament_evidence_fields(
+            run_id=resolved_run_id,
+            source_kind=source_kind,
+            artifact_root=artifact_root,
+            summary_path=paths.summary_path,
+        ),
         "target_champions": champion_rows,
         "blocked_family_champions": blocked_champions,
         "top_models": champion_rows,

@@ -12,13 +12,17 @@ Moneyline family champion:
 - `candidate_key`: `moneyline_home_win::glm_ridge::weather_context_broad_platt_calibrated`
 - Governance lane: direct theory implementation for ridge/logit scoring and calibration diagnostics; theory-compatible engineering support for structured slate guardrails.
 
-Primary evidence:
+Historical smoke-run evidence only:
 
 - `artifacts/reports/mlb/tournament/nested/real_all_target_market_calibration_smoke_20260428T0000Z/family_champions.csv`
 - `artifacts/reports/mlb/tournament/nested/real_all_target_market_calibration_smoke_20260428T0000Z/validation_autopsy/family_champion_gate_autopsy.csv`
 - `artifacts/reports/mlb/tournament/nested/real_all_target_market_calibration_smoke_20260428T0000Z/validation_autopsy/validation_autopsy.md`
 - `artifacts/reports/mlb/tournament/nested/real_all_target_market_calibration_smoke_20260428T0000Z/diagnostics/moneyline_home_win/validation/glm_ridge/weather_context_broad_platt_calibrated/`
 - `web/public/staging-data/mlb/nested-tournament.json`
+
+The reviewed run is retained as an autopsy record, not as full-ledger MLB
+validation or promotion evidence. Its `smoke` provenance blocks champion
+promotion and any promotion-eligible latest pointer.
 
 ## Gate Failure
 

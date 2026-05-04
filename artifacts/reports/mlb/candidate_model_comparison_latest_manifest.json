@@ -2,6 +2,9 @@
   "canonical_artifact_root": "artifacts/reports/mlb",
   "current_best_models_path": "artifacts/reports/mlb/current_best_models.json",
   "generated_at_utc": "2026-04-23T17:18:57+00:00",
+  "latest_artifact_role": "latest_research_recommendation",
+  "latest_promotion_eligible_evidence_path": null,
+  "latest_research_recommendation_path": "artifacts/reports/mlb/latest_research_recommendation.json",
   "league": "MLB",
   "material_artifacts": {
     "candidate_scorecards_contract_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_candidate_scorecards.json",
@@ -12,6 +15,7 @@
     "report_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_summary.md",
     "summary_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_comparison_summary.json"
   },
+  "promotion_eligible": false,
   "report_lane": "mlb",
   "report_slug": "codex_current_best_models_smoke",
   "service_output_path": "artifacts/reports/mlb/candidate_model_comparison_latest.json",
