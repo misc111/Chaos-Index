@@ -19,6 +19,7 @@ const EMPTY_RESEARCH_DESK: ResearchDeskResponse = {
   desk_posture: "normal",
   overnight_summary: null,
   champion: null,
+  model_diagnostics: {},
   latest_promotion: null,
   counts: {
     total_games: 0,
@@ -163,6 +164,7 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
   }, [league]);
 
   const promotionGates = useMemo(() => gateChips(data.latest_promotion?.policy), [data.latest_promotion?.policy]);
+  const championDiagnostics = data.champion?.model_name ? data.model_diagnostics?.[data.champion.model_name] : null;
   const unsupportedLeague = data.league !== league;
 
   if (error) {
@@ -263,6 +265,26 @@ export default function ResearchDeskExperience({ league }: { league: LeagueCode 
                   </strong>
                 </div>
               </div>
+              {championDiagnostics ? (
+                <div className={styles.diagnosticPanel}>
+                  <div className={styles.diagnosticStats}>
+                    <span>{championDiagnostics.active_feature_count ?? 0} fitted inputs</span>
+                    <span>{championDiagnostics.fit_active_feature_count ?? 0} coefficient-active</span>
+                    <span>{championDiagnostics.theory_trace?.governance ?? "dashboard/reporting layer"}</span>
+                  </div>
+                  <div className={styles.featureList}>
+                    {(championDiagnostics.active_features || []).map((feature) => (
+                      <code key={`${data.champion?.model_name}-${feature}`}>{feature}</code>
+                    ))}
+                  </div>
+                  {data.model_feature_map_run_id || data.model_feature_set_version ? (
+                    <p className={styles.smallCopy}>
+                      Fit artifact <code>{data.model_feature_map_run_id ?? "—"}</code> · feature set{" "}
+                      <code>{data.model_feature_set_version ?? "—"}</code>
+                    </p>
+                  ) : null}
+                </div>
+              ) : null}
             </>
           ) : (
             <p className={styles.smallCopy}>No promoted champion has been recorded yet.</p>

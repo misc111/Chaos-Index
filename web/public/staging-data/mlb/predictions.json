@@ -19,29 +19,272 @@
     "ensemble": {
       "headline": "Default forecast that blends the live model stack into one probability.",
       "trust_note": "All models combined. Best default pick. Can share the same blind spot.",
-      "active_features": []
+      "active_feature_count": 4,
+      "active_features": [
+        "glm_ridge",
+        "glm_elastic_net",
+        "glm_lasso",
+        "glm_vanilla"
+      ],
+      "fit_active_feature_count": 0,
+      "fit_active_features": [],
+      "candidate_feature_count": 4,
+      "coefficient_top_features": [],
+      "coefficient_summary": [],
+      "coefficient_totals": null,
+      "penalty_family": null,
+      "distribution": "ensemble",
+      "link_function": "blend",
+      "complement_kind": null,
+      "complement_column": null,
+      "complement_label": null,
+      "artifact_path": "artifacts/models/a965728ef03c2c8d",
+      "fit_metadata_path": null
     },
     "glm_ridge": {
       "headline": "Pregame ridge logistic regression driven by starting pitcher, bullpen, lineup, park, weather, and scheduling context.",
       "trust_note": "Linear pregame model anchored by starting pitching, bullpen quality, lineup strength, park effects, and rest-travel context. It is only as good as the pregame starter and lineup view.",
-      "active_features": []
+      "active_feature_count": 11,
+      "active_features": [
+        "diff_starting_pitcher_quality",
+        "diff_bullpen_quality",
+        "diff_bullpen_availability",
+        "diff_lineup_talent",
+        "lineup_stability_diff",
+        "starter_quality_edge",
+        "bullpen_quality_edge",
+        "lineup_confirmation_share",
+        "rest_diff",
+        "travel_diff",
+        "home_field_advantage"
+      ],
+      "fit_active_feature_count": 2,
+      "fit_active_features": [
+        "rest_diff",
+        "travel_diff"
+      ],
+      "candidate_feature_count": 11,
+      "coefficient_top_features": [
+        "rest_diff",
+        "travel_diff",
+        "bullpen_quality_edge",
+        "diff_bullpen_availability",
+        "diff_bullpen_quality",
+        "diff_lineup_talent",
+        "diff_starting_pitcher_quality",
+        "home_field_advantage"
+      ],
+      "coefficient_summary": [
+        {
+          "feature": "rest_diff",
+          "active_rank": 1,
+          "coef_scaled": 0.06987125439951371,
+          "coef_original": 0.11784119203280768,
+          "abs_coef_scaled": 0.06987125439951371,
+          "direction": "positive",
+          "odds_multiplier_1sd": 1.072370109432655
+        },
+        {
+          "feature": "travel_diff",
+          "active_rank": 2,
+          "coef_scaled": -0.004199934361406154,
+          "coef_original": -0.0000062179110275354515,
+          "abs_coef_scaled": 0.004199934361406154,
+          "direction": "negative",
+          "odds_multiplier_1sd": 0.9958088730284466
+        }
+      ],
+      "coefficient_totals": {
+        "abs_coef_scaled_top_n": 0.07407118876091986,
+        "abs_coef_scaled_total": 0.07407118876091986,
+        "active_parameter_count": 2,
+        "negative_count": 1,
+        "positive_count": 1,
+        "strongest_abs_coef_scaled": 0.06987125439951371,
+        "strongest_feature": "rest_diff",
+        "top_n_abs_coef_scaled_share": 1,
+        "top_n_effective": 2,
+        "top_n_requested": 8,
+        "zero_count": 0
+      },
+      "penalty_family": "ridge",
+      "distribution": "binomial",
+      "link_function": "logit",
+      "complement_kind": null,
+      "complement_column": null,
+      "complement_label": null,
+      "artifact_path": "artifacts/models/a965728ef03c2c8d",
+      "fit_metadata_path": "artifacts/models/a965728ef03c2c8d/glm_ridge_fit_metadata.json",
+      "theory_trace": {
+        "lane": "core",
+        "lane_label": "CAS core lane",
+        "classification": "core-supported",
+        "governance": "direct theory implementation",
+        "note": "Core-supported penalized GLM lane."
+      }
     },
     "glm_elastic_net": {
       "headline": "Pregame elastic-net logistic regression driven by starting pitcher, bullpen, lineup, park, weather, and schedule context.",
       "trust_note": "Elastic-net pregame model using the MLB feature map with extra shrinkage on overlapping starter, bullpen, lineup, park, and weather signals.",
-      "active_features": []
+      "active_feature_count": 12,
+      "active_features": [
+        "diff_starting_pitcher_quality",
+        "diff_bullpen_quality",
+        "diff_bullpen_availability",
+        "diff_lineup_talent",
+        "lineup_stability_diff",
+        "starter_quality_edge",
+        "bullpen_quality_edge",
+        "lineup_confirmation_share",
+        "slugging_share_proxy",
+        "rest_diff",
+        "travel_diff",
+        "home_field_advantage"
+      ],
+      "fit_active_feature_count": 0,
+      "fit_active_features": [],
+      "candidate_feature_count": 12,
+      "coefficient_top_features": [
+        "bullpen_quality_edge",
+        "diff_bullpen_availability",
+        "diff_bullpen_quality",
+        "diff_lineup_talent",
+        "diff_starting_pitcher_quality",
+        "home_field_advantage",
+        "lineup_confirmation_share",
+        "lineup_stability_diff"
+      ],
+      "coefficient_summary": [],
+      "coefficient_totals": {
+        "abs_coef_scaled_top_n": 0,
+        "abs_coef_scaled_total": 0,
+        "active_parameter_count": 0,
+        "negative_count": 0,
+        "positive_count": 0,
+        "strongest_abs_coef_scaled": null,
+        "strongest_feature": null,
+        "top_n_abs_coef_scaled_share": null,
+        "top_n_effective": 0,
+        "top_n_requested": 8,
+        "zero_count": 0
+      },
+      "penalty_family": "elastic_net",
+      "distribution": "binomial",
+      "link_function": "logit",
+      "complement_kind": null,
+      "complement_column": null,
+      "complement_label": null,
+      "artifact_path": "artifacts/models/a965728ef03c2c8d",
+      "fit_metadata_path": "artifacts/models/a965728ef03c2c8d/glm_elastic_net_fit_metadata.json",
+      "theory_trace": {
+        "lane": "core",
+        "lane_label": "CAS core lane",
+        "classification": "core-supported",
+        "governance": "direct theory implementation",
+        "note": "Core-supported penalized GLM lane; not lasso credibility."
+      }
     },
     "glm_lasso": {
       "headline": "Pregame lasso logistic regression driven by starting pitcher, bullpen, lineup, park, weather, and schedule context.",
       "trust_note": "Lasso pregame model using the MLB feature map with stronger pruning on overlapping starter, bullpen, lineup, park, and weather signals.",
-      "active_features": []
+      "active_feature_count": 8,
+      "active_features": [
+        "diff_starting_pitcher_quality",
+        "diff_bullpen_quality",
+        "diff_lineup_talent",
+        "starter_quality_edge",
+        "bullpen_quality_edge",
+        "rest_diff",
+        "travel_diff",
+        "home_field_advantage"
+      ],
+      "fit_active_feature_count": 0,
+      "fit_active_features": [],
+      "candidate_feature_count": 8,
+      "coefficient_top_features": [
+        "bullpen_quality_edge",
+        "diff_bullpen_quality",
+        "diff_lineup_talent",
+        "diff_starting_pitcher_quality",
+        "home_field_advantage",
+        "rest_diff",
+        "starter_quality_edge",
+        "travel_diff"
+      ],
+      "coefficient_summary": [],
+      "coefficient_totals": {
+        "abs_coef_scaled_top_n": 0,
+        "abs_coef_scaled_total": 0,
+        "active_parameter_count": 0,
+        "negative_count": 0,
+        "positive_count": 0,
+        "strongest_abs_coef_scaled": null,
+        "strongest_feature": null,
+        "top_n_abs_coef_scaled_share": null,
+        "top_n_effective": 0,
+        "top_n_requested": 8,
+        "zero_count": 0
+      },
+      "penalty_family": "lasso",
+      "distribution": "binomial",
+      "link_function": "logit",
+      "complement_kind": null,
+      "complement_column": null,
+      "complement_label": null,
+      "artifact_path": "artifacts/models/a965728ef03c2c8d",
+      "fit_metadata_path": "artifacts/models/a965728ef03c2c8d/glm_lasso_fit_metadata.json",
+      "theory_trace": {
+        "lane": "core",
+        "lane_label": "CAS core lane",
+        "classification": "core-supported",
+        "governance": "direct theory implementation",
+        "note": "Core-supported penalized GLM lane with sparsity-focused review."
+      }
     },
     "glm_vanilla": {
       "headline": "Unpenalized logistic challenger built to test whether shrinkage is muting profit signal.",
       "trust_note": "Unpenalized logistic challenger. Useful when you want to know whether shrinkage is suppressing a real betting edge.",
-      "active_features": []
+      "active_feature_count": 11,
+      "active_features": [
+        "diff_starting_pitcher_quality",
+        "diff_bullpen_quality",
+        "diff_bullpen_availability",
+        "diff_lineup_talent",
+        "lineup_stability_diff",
+        "starter_quality_edge",
+        "bullpen_quality_edge",
+        "lineup_confirmation_share",
+        "rest_diff",
+        "travel_diff",
+        "home_field_advantage"
+      ],
+      "fit_active_feature_count": 0,
+      "fit_active_features": [],
+      "candidate_feature_count": 11,
+      "coefficient_top_features": [],
+      "coefficient_summary": [],
+      "coefficient_totals": null,
+      "penalty_family": null,
+      "distribution": "binomial",
+      "link_function": "logit",
+      "complement_kind": null,
+      "complement_column": null,
+      "complement_label": null,
+      "artifact_path": "artifacts/models/a965728ef03c2c8d",
+      "fit_metadata_path": null,
+      "theory_trace": {
+        "lane": "core",
+        "lane_label": "CAS core lane",
+        "classification": "core-supported",
+        "governance": "direct theory implementation",
+        "note": "Core-supported vanilla binomial/logit GLM lane."
+      }
     }
   },
+  "model_feature_map_updated_at_utc": "2026-05-04T12:08:10.548Z",
+  "model_feature_map_source": "latest_fit_artifacts",
+  "model_feature_map_run_id": "run_a965728ef03c2c8d",
+  "model_feature_set_version": "fset_6d7cdf2e28206260",
   "rows": [
     {
       "game_id": 401815069,

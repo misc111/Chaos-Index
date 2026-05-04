@@ -218,6 +218,78 @@
   background: var(--surface-card-hover);
 }
 
+.modelDiagnosticsGrid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.modelDiagnosticCard {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface-card-soft);
+}
+
+.modelDiagnosticHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.modelName {
+  margin: 0;
+  color: var(--ink-strong);
+  font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.modelLane,
+.modelDiagnosticFoot {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.modelDiagnosticStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--muted-strong);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.modelDiagnosticStats span {
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-field-muted);
+}
+
+.modelFeatureList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.modelFeatureList code {
+  max-width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--neutral-border);
+  border-radius: 999px;
+  background: var(--surface-chip);
+  color: var(--ink);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
 @media (max-width: 720px) {
   .headline {
     font-size: 1.7rem;

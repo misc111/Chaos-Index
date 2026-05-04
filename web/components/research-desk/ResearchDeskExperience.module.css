@@ -235,6 +235,43 @@
   flex-wrap: wrap;
 }
 
+.diagnosticPanel {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-card-soft);
+}
+
+.diagnosticStats,
+.featureList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.diagnosticStats span {
+  padding: 6px 9px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-field-muted);
+  color: var(--muted-strong);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.featureList code {
+  max-width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--neutral-border);
+  border-radius: 999px;
+  background: var(--surface-chip);
+  color: var(--ink);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
 .gatePass {
   background: var(--success-soft);
   color: var(--success);

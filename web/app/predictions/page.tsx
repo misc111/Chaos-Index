@@ -62,6 +62,10 @@ function formatMoneyline(value?: number | null): string {
   return rounded > 0 ? `+${rounded}` : `${rounded}`;
 }
 
+function formatDiagnosticCount(value?: number | null): string {
+  return typeof value === "number" && Number.isFinite(value) ? String(value) : "—";
+}
+
 function getMoneylineImpliedView(row: ForecastRow): MoneylineImpliedView {
   const homeMoneyline = numericOrNull(row.home_moneyline);
   const awayMoneyline = numericOrNull(row.away_moneyline);
@@ -330,11 +334,17 @@ function PredictionsPageContent() {
         <div>
           <h3 className={styles.sectionTitle}>Model guide</h3>
           <p className={styles.sectionSubtitle}>
-            Live model notes plus the current active inputs from the {report.league} feature map
+            Live model notes plus fitted inputs and coefficient diagnostics from the {report.league} feature artifacts
             {report.model_feature_map_updated_at_utc
               ? `, updated ${formatPredictionAsOf(report.model_feature_map_updated_at_utc)}.`
               : "."}
           </p>
+          {report.model_feature_map_run_id || report.model_feature_set_version ? (
+            <p className={styles.artifactLine}>
+              Run <code>{report.model_feature_map_run_id ?? "—"}</code> · feature set{" "}
+              <code>{report.model_feature_set_version ?? "—"}</code>
+            </p>
+          ) : null}
         </div>
         <div className={styles.notesGrid}>
           {modelEntries.map((model) => (
@@ -350,22 +360,64 @@ function PredictionsPageContent() {
               </div>
               {model.summary?.headline ? <p className={styles.noteHeadline}>{model.summary.headline}</p> : null}
               <p className={styles.noteText}>{model.summary?.trust_note || report.model_trust_notes[model.key]}</p>
+              {model.summary ? (
+                <div className={styles.diagnosticGrid}>
+                  <div className={styles.diagnosticItem}>
+                    <span className={styles.diagnosticLabel}>Candidate</span>
+                    <strong>{formatDiagnosticCount(model.summary.candidate_feature_count)}</strong>
+                  </div>
+                  <div className={styles.diagnosticItem}>
+                    <span className={styles.diagnosticLabel}>Coefficient-active</span>
+                    <strong>{formatDiagnosticCount(model.summary.fit_active_feature_count)}</strong>
+                  </div>
+                  <div className={styles.diagnosticItem}>
+                    <span className={styles.diagnosticLabel}>Lane</span>
+                    <strong>{model.summary.theory_trace?.lane ?? "—"}</strong>
+                  </div>
+                </div>
+              ) : null}
+              {model.summary?.theory_trace?.governance ? (
+                <p className={styles.theoryTrace}>{model.summary.theory_trace.governance}</p>
+              ) : null}
               {model.summary?.active_features?.length ? (
                 <div className={styles.featureGroup}>
-                  <p className={styles.featureLabel}>Current inputs</p>
+                  <p className={styles.featureLabel}>Fitted inputs</p>
                   <div className={styles.featureList}>
-                    {model.summary.active_features.slice(0, 8).map((feature) => (
+                    {model.summary.active_features.map((feature) => (
                       <code key={`${model.key}-${feature}`} className={styles.featureChip}>
                         {feature}
                       </code>
                     ))}
-                    {model.summary.active_features.length > 8 ? (
-                      <span className={styles.featureOverflow}>
-                        +{model.summary.active_features.length - 8} more
-                      </span>
-                    ) : null}
                   </div>
                 </div>
+              ) : null}
+              {model.summary?.fit_active_features?.length ? (
+                <div className={styles.featureGroup}>
+                  <p className={styles.featureLabel}>Coefficient-active subset</p>
+                  <div className={styles.featureList}>
+                    {model.summary.fit_active_features.map((feature) => (
+                      <code key={`${model.key}-fit-${feature}`} className={styles.featureChipStrong}>
+                        {feature}
+                      </code>
+                    ))}
+                  </div>
+                </div>
+              ) : model.summary?.coefficient_top_features?.length ? (
+                <div className={styles.featureGroup}>
+                  <p className={styles.featureLabel}>Coefficient path leaders</p>
+                  <div className={styles.featureList}>
+                    {model.summary.coefficient_top_features.slice(0, 8).map((feature) => (
+                      <code key={`${model.key}-top-${feature}`} className={styles.featureChipMuted}>
+                        {feature}
+                      </code>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+              {model.summary?.artifact_path || model.summary?.fit_metadata_path ? (
+                <p className={styles.artifactPath}>
+                  <code>{model.summary.fit_metadata_path || model.summary.artifact_path}</code>
+                </p>
               ) : null}
             </article>
           ))}

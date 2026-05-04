@@ -25,11 +25,44 @@ export type ForecastRow = {
   moneyline_book?: string;
 };
 
+export type ModelFeatureTheoryTrace = {
+  lane?: string;
+  lane_label?: string;
+  classification?: string;
+  governance?: string;
+  note?: string;
+};
+
+export type ModelCoefficientDiagnostic = {
+  feature: string;
+  active_rank?: number | null;
+  coef_scaled?: number | null;
+  coef_original?: number | null;
+  abs_coef_scaled?: number | null;
+  direction?: string | null;
+  odds_multiplier_1sd?: number | null;
+};
+
 export type PredictionModelSummary = {
   headline?: string;
   trust_note: string;
   active_feature_count?: number;
   active_features?: string[];
+  fit_active_feature_count?: number;
+  fit_active_features?: string[];
+  candidate_feature_count?: number;
+  coefficient_top_features?: string[];
+  coefficient_summary?: ModelCoefficientDiagnostic[];
+  coefficient_totals?: TableRow | null;
+  penalty_family?: string | null;
+  distribution?: string | null;
+  link_function?: string | null;
+  complement_kind?: string | null;
+  complement_column?: string | null;
+  complement_label?: string | null;
+  artifact_path?: string | null;
+  fit_metadata_path?: string | null;
+  theory_trace?: ModelFeatureTheoryTrace;
 };
 
 export type PredictionsResponse = {
@@ -39,6 +72,9 @@ export type PredictionsResponse = {
   model_trust_notes: Record<string, string>;
   model_summaries: Record<string, PredictionModelSummary>;
   model_feature_map_updated_at_utc?: string;
+  model_feature_map_source?: string;
+  model_feature_map_run_id?: string;
+  model_feature_set_version?: string;
   rows: ForecastRow[];
 };
 
@@ -148,6 +184,11 @@ export type ResearchDeskResponse = {
   desk_posture: DeskPosture;
   overnight_summary?: string | null;
   champion: ResearchChampionSummary | null;
+  model_diagnostics?: Record<string, PredictionModelSummary>;
+  model_feature_map_updated_at_utc?: string;
+  model_feature_map_source?: string;
+  model_feature_map_run_id?: string;
+  model_feature_set_version?: string;
   latest_promotion: ResearchPromotionSummary | null;
   counts: ResearchDeskCounts;
   rows: ResearchDeskNightlyRow[];
@@ -189,6 +230,11 @@ export type ResearchAdminResponse = {
   league: string;
   as_of_utc?: string | null;
   champion: ResearchChampionSummary | null;
+  model_diagnostics?: Record<string, PredictionModelSummary>;
+  model_feature_map_updated_at_utc?: string;
+  model_feature_map_source?: string;
+  model_feature_map_run_id?: string;
+  model_feature_set_version?: string;
   briefs: ResearchBriefRow[];
   runs: ResearchRunRow[];
   decisions: ResearchPromotionSummary[];

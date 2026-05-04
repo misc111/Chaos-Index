@@ -8,10 +8,40 @@ import {
 import { type LeagueCode } from "@/lib/league";
 import { getLatestUpcomingAsOf, getPredictionRows } from "@/lib/server/repositories/forecasts";
 import { getPairedMoneylineRowsForSnapshots, type RawPairedMoneylineRow } from "@/lib/server/repositories/odds";
-import { loadServerModelFeatureMap } from "@/lib/server/repositories/model-feature-map";
+import { loadServerModelFeatureMap, type ModelFeatureDiagnostics } from "@/lib/server/repositories/model-feature-map";
 
 function pairKey(homeTeam?: string | null, awayTeam?: string | null): string {
   return `${String(homeTeam || "").trim()}|${String(awayTeam || "").trim()}`;
+}
+
+export function buildPredictionModelSummary(
+  model: string,
+  league: LeagueCode,
+  trustNote: string,
+  diagnostics?: ModelFeatureDiagnostics
+) {
+  const activeFeatures = diagnostics?.active_features || [];
+  return {
+    headline: predictionModelHeadline(model, league, activeFeatures),
+    trust_note: trustNote,
+    active_feature_count: activeFeatures.length || undefined,
+    active_features: activeFeatures,
+    fit_active_feature_count: diagnostics?.fit_active_feature_count,
+    fit_active_features: diagnostics?.fit_active_features,
+    candidate_feature_count: diagnostics?.candidate_feature_count,
+    coefficient_top_features: diagnostics?.coefficient_top_features,
+    coefficient_summary: diagnostics?.coefficient_summary,
+    coefficient_totals: diagnostics?.coefficient_totals,
+    penalty_family: diagnostics?.penalty_family,
+    distribution: diagnostics?.distribution,
+    link_function: diagnostics?.link_function,
+    complement_kind: diagnostics?.complement_kind,
+    complement_column: diagnostics?.complement_column,
+    complement_label: diagnostics?.complement_label,
+    artifact_path: diagnostics?.artifact_path,
+    fit_metadata_path: diagnostics?.fit_metadata_path,
+    theory_trace: diagnostics?.theory_trace,
+  };
 }
 
 export async function getPredictionsPayload(league: LeagueCode) {
@@ -95,16 +125,7 @@ export async function getPredictionsPayload(league: LeagueCode) {
   const modelTrustNotes = Object.fromEntries(modelColumns.map((model) => [model, predictionTrustNote(model, league)]));
   const modelSummaries = Object.fromEntries(
     modelColumns.map((model) => {
-      const activeFeatures = featureMap.models[model] || [];
-      return [
-        model,
-        {
-          headline: predictionModelHeadline(model, league, activeFeatures),
-          trust_note: modelTrustNotes[model],
-          active_feature_count: activeFeatures.length || undefined,
-          active_features: activeFeatures,
-        },
-      ];
+      return [model, buildPredictionModelSummary(model, league, modelTrustNotes[model], featureMap.models[model])];
     })
   );
 
@@ -115,6 +136,9 @@ export async function getPredictionsPayload(league: LeagueCode) {
     model_trust_notes: modelTrustNotes,
     model_summaries: modelSummaries,
     model_feature_map_updated_at_utc: featureMap.updated_at_utc,
+    model_feature_map_source: featureMap.source,
+    model_feature_map_run_id: featureMap.model_run_id,
+    model_feature_set_version: featureMap.feature_set_version,
     rows,
   };
 }

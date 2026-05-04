@@ -95,6 +95,15 @@
   line-height: 1.5;
 }
 
+.artifactLine,
+.artifactPath,
+.theoryTrace {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .marketHelp {
   margin: 10px 0 0;
   max-width: 72ch;
@@ -429,6 +438,42 @@
   line-height: 1.55;
 }
 
+.diagnosticGrid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.diagnosticItem {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 9px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-card-soft);
+}
+
+.diagnosticItem strong {
+  overflow-wrap: anywhere;
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.diagnosticLabel {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.theoryTrace {
+  margin-top: 0;
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
 .featureGroup {
   display: grid;
   gap: 8px;
@@ -445,6 +490,8 @@
 }
 
 .featureChip,
+.featureChipMuted,
+.featureChipStrong,
 .featureOverflow {
   display: inline-flex;
   align-items: center;
@@ -463,11 +510,31 @@
   white-space: nowrap;
 }
 
+.featureChipStrong {
+  border: 1px solid var(--success-border);
+  background: var(--success-soft);
+  color: var(--success);
+  font-family: "SFMono-Regular", "SF Mono", "Roboto Mono", "Consolas", monospace;
+  white-space: nowrap;
+}
+
+.featureChipMuted {
+  border: 1px dashed var(--neutral-border);
+  background: var(--surface-field-muted);
+  color: var(--muted-strong);
+  font-family: "SFMono-Regular", "SF Mono", "Roboto Mono", "Consolas", monospace;
+  white-space: nowrap;
+}
+
 .featureOverflow {
   border: 1px dashed var(--border-accent);
   background: var(--accent-soft);
   color: var(--accent-strong);
   font-weight: 700;
+}
+
+.artifactPath {
+  overflow-wrap: anywhere;
 }
 
 @media (max-width: 960px) {

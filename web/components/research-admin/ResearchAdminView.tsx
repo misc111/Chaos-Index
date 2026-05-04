@@ -19,6 +19,7 @@ const EMPTY_ADMIN_RESPONSE: ResearchAdminResponse = {
   league: "MLB",
   as_of_utc: null,
   champion: null,
+  model_diagnostics: {},
   briefs: [],
   runs: [],
   decisions: [],
@@ -93,6 +94,14 @@ export default function ResearchAdminView() {
             league,
             as_of_utc: nextPayload.as_of_utc ?? null,
             champion: nextPayload.champion ?? null,
+            model_diagnostics:
+              nextPayload.model_diagnostics && typeof nextPayload.model_diagnostics === "object"
+                ? nextPayload.model_diagnostics
+                : {},
+            model_feature_map_updated_at_utc: nextPayload.model_feature_map_updated_at_utc,
+            model_feature_map_source: nextPayload.model_feature_map_source,
+            model_feature_map_run_id: nextPayload.model_feature_map_run_id,
+            model_feature_set_version: nextPayload.model_feature_set_version,
             briefs: Array.isArray(nextPayload.briefs) ? nextPayload.briefs : [],
             runs: Array.isArray(nextPayload.runs) ? nextPayload.runs : [],
             decisions: Array.isArray(nextPayload.decisions) ? nextPayload.decisions : [],
@@ -120,6 +129,15 @@ export default function ResearchAdminView() {
   const counts = useMemo(() => buildAdminCounts(payload), [payload]);
   const timeline = useMemo(() => buildChampionTimeline(payload.champion, payload.decisions), [payload.champion, payload.decisions]);
   const championRun = useMemo(() => latestRunForChampion(payload), [payload]);
+  const modelDiagnostics = useMemo(
+    () =>
+      Object.entries(payload.model_diagnostics || {}).sort(
+        ([leftName, left], [rightName, right]) =>
+          (left.theory_trace?.lane || "").localeCompare(right.theory_trace?.lane || "") ||
+          leftName.localeCompare(rightName)
+      ),
+    [payload.model_diagnostics]
+  );
 
   return (
     <div className={styles.page}>
@@ -169,7 +187,54 @@ export default function ResearchAdminView() {
       {error ? <div className="card">{error}</div> : null}
 
       {!isLoading && !error ? (
-        <div className="grid two">
+        <>
+          <section className="card">
+            <div className={styles.sectionHeader}>
+              <div>
+                <h2 className="title">Model Feature Diagnostics</h2>
+                <p className="small">
+                  Latest fit artifact: <code>{payload.model_feature_map_run_id ?? "—"}</code> · feature set{" "}
+                  <code>{payload.model_feature_set_version ?? "—"}</code>
+                </p>
+              </div>
+            </div>
+            {modelDiagnostics.length ? (
+              <div className={styles.modelDiagnosticsGrid}>
+                {modelDiagnostics.map(([modelName, summary]) => (
+                  <article key={modelName} className={styles.modelDiagnosticCard}>
+                    <div className={styles.modelDiagnosticHeader}>
+                      <div>
+                        <p className={styles.modelName}>{modelName}</p>
+                        <p className={styles.modelLane}>
+                          {summary.theory_trace?.lane_label ?? summary.theory_trace?.lane ?? "Unclassified"}
+                        </p>
+                      </div>
+                      <span className={styles.statusBadge}>{summary.active_feature_count ?? 0} fitted inputs</span>
+                    </div>
+                    <div className={styles.modelDiagnosticStats}>
+                      <span>candidate {summary.candidate_feature_count ?? "—"}</span>
+                      <span>coefficient-active {summary.fit_active_feature_count ?? "—"}</span>
+                      <span>{summary.theory_trace?.governance ?? "dashboard/reporting layer"}</span>
+                    </div>
+                    <div className={styles.modelFeatureList}>
+                      {(summary.active_features || []).map((feature) => (
+                        <code key={`${modelName}-${feature}`}>{feature}</code>
+                      ))}
+                    </div>
+                    {summary.coefficient_top_features?.length ? (
+                      <p className={styles.modelDiagnosticFoot}>
+                        Path leaders: {summary.coefficient_top_features.slice(0, 5).join(", ")}
+                      </p>
+                    ) : null}
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <p className={styles.empty}>No model feature diagnostics are available from the latest fit artifacts.</p>
+            )}
+          </section>
+
+          <div className="grid two">
           <section className="card">
             <div className={styles.sectionHeader}>
               <div>
@@ -352,7 +417,8 @@ export default function ResearchAdminView() {
               <p className={styles.empty}>No structured briefs have been persisted yet.</p>
             )}
           </section>
-        </div>
+          </div>
+        </>
       ) : null}
     </div>
   );

@@ -3,8 +3,11 @@ import { computeBetDecisionsForSlate, type BetDecision } from "@/lib/betting";
 import { getBetStrategyConfig, strategyFromRequest } from "@/lib/betting-strategy";
 import { runSqlJson } from "@/lib/db";
 import { displayLeagueLabel, leagueFromRequest, type LeagueCode } from "@/lib/league";
+import { predictionTrustNote } from "@/lib/predictions-report";
+import { loadServerModelFeatureMap } from "@/lib/server/repositories/model-feature-map";
 import { getActiveBetRiskRegime, getActiveChampionSummary } from "@/lib/server/services/betting-driver";
 import { getMarketBoardPayload } from "@/lib/server/services/market-board";
+import { buildPredictionModelSummary } from "@/lib/server/services/predictions";
 import type {
   ResearchChampionSummary,
   ResearchDeskNightlyRow,
@@ -73,6 +76,7 @@ export function buildUnsupportedPayload(league: LeagueCode): ResearchDeskRespons
     desk_posture: "normal",
     overnight_summary: emptySummary,
     champion: null,
+    model_diagnostics: {},
     latest_promotion: null,
     counts: {
       total_games: 0,
@@ -216,6 +220,13 @@ export async function GET(request: Request) {
 
     const rows = buildNightlyRows(marketBoard, decisions);
     const champion = loadChampionSummary(league);
+    const featureMap = await loadServerModelFeatureMap(league);
+    const modelDiagnostics = Object.fromEntries(
+      Object.entries(featureMap.models).map(([modelName, diagnostics]) => [
+        modelName,
+        buildPredictionModelSummary(modelName, league, predictionTrustNote(modelName, league), diagnostics),
+      ])
+    );
     const latestPromotion = loadLatestPromotion(league);
     const counts = {
       total_games: rows.length,
@@ -238,6 +249,11 @@ export async function GET(request: Request) {
         betCount: counts.bets,
       }),
       champion,
+      model_diagnostics: modelDiagnostics,
+      model_feature_map_updated_at_utc: featureMap.updated_at_utc,
+      model_feature_map_source: featureMap.source,
+      model_feature_map_run_id: featureMap.model_run_id,
+      model_feature_set_version: featureMap.feature_set_version,
       latest_promotion: latestPromotion,
       counts,
       rows,

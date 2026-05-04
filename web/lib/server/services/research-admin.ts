@@ -1,7 +1,10 @@
 import { runSqlJson } from "@/lib/db";
 import { type LeagueCode } from "@/lib/league";
 import { getLatestUpcomingAsOf } from "@/lib/server/repositories/forecasts";
+import { loadServerModelFeatureMap } from "@/lib/server/repositories/model-feature-map";
 import { getActiveChampionSummary } from "@/lib/server/services/betting-driver";
+import { buildPredictionModelSummary } from "@/lib/server/services/predictions";
+import { predictionTrustNote } from "@/lib/predictions-report";
 import type {
   ResearchAdminResponse,
   ResearchBriefRow,
@@ -168,10 +171,22 @@ function listDecisions(league: LeagueCode): ResearchPromotionSummary[] {
 
 export async function getResearchAdminPayload(league: LeagueCode): Promise<ResearchAdminResponse> {
   const champion = getActiveChampionSummary(league);
+  const featureMap = await loadServerModelFeatureMap(league);
+  const modelDiagnostics = Object.fromEntries(
+    Object.entries(featureMap.models).map(([modelName, diagnostics]) => [
+      modelName,
+      buildPredictionModelSummary(modelName, league, predictionTrustNote(modelName, league), diagnostics),
+    ])
+  );
   return {
     league,
     as_of_utc: getLatestUpcomingAsOf(league),
     champion: (champion as ResearchChampionSummary | null) ?? null,
+    model_diagnostics: modelDiagnostics,
+    model_feature_map_updated_at_utc: featureMap.updated_at_utc,
+    model_feature_map_source: featureMap.source,
+    model_feature_map_run_id: featureMap.model_run_id,
+    model_feature_set_version: featureMap.feature_set_version,
     briefs: listBriefs(league),
     runs: listRuns(league),
     decisions: listDecisions(league),
