@@ -132,9 +132,9 @@
   position: relative;
   min-width: 0;
   display: grid;
-  grid-template-rows: auto minmax(146px, auto) auto auto 1fr auto;
+  grid-template-rows: auto minmax(156px, auto) auto auto 1fr auto;
   gap: 12px;
-  min-height: 472px;
+  min-height: 500px;
   padding: 13px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.22);
@@ -174,22 +174,27 @@
   z-index: 1;
 }
 
-.cardIdentity {
+.cardHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
 }
 
-.cardChrome {
-  display: flex;
-  align-items: center;
+.cardHeader h3 {
+  min-width: 0;
+  margin: 0;
+  color: #fffdf5;
+  font-family: "Space Grotesk", "Avenir Next", sans-serif;
+  font-size: clamp(18px, 1.45vw, 23px);
+  line-height: 1;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
 }
 
-.cardChrome span,
-.cardMove span,
-.cardWatch span,
-.cardEvidence span {
+.cardHeader span,
+.cardPower span,
+.cardAttack span {
   color: #ffd98a;
   font-size: 10px;
   font-weight: 900;
@@ -198,10 +203,14 @@
   text-transform: uppercase;
 }
 
+.cardHeader span {
+  flex: 0 0 auto;
+}
+
 .cardPortrait {
   display: grid;
   place-items: center;
-  min-height: 146px;
+  min-height: 156px;
   border: 1px solid rgba(136, 245, 225, 0.26);
   border-radius: 7px;
   background:
@@ -224,79 +233,73 @@
   object-fit: contain;
 }
 
-.cardIdentity {
-  align-items: flex-start;
+.cardSpecies {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 30px;
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 217, 138, 0.26);
+  border-radius: 6px;
+  background: rgba(255, 217, 138, 0.1);
 }
 
-.cardIdentity p {
+.cardSpecies span {
   min-width: 0;
-  margin: 0;
   color: #ffd98a;
   font-size: 12px;
   font-weight: 900;
-  line-height: 1.2;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
   text-transform: uppercase;
-}
-
-.cardIdentity h3 {
-  min-width: 0;
-  max-width: 62%;
-  margin: 0;
-  color: #fffdf5;
-  font-family: "Space Grotesk", "Avenir Next", sans-serif;
-  font-size: clamp(18px, 1.55vw, 24px);
-  line-height: 1;
-  letter-spacing: 0;
-  text-align: right;
-  text-wrap: balance;
   overflow-wrap: anywhere;
 }
 
-.cardMove,
-.cardWatch,
-.cardEvidence {
+.cardSpecies p {
+  flex: 0 0 auto;
+  margin: 0;
+  color: rgba(255, 253, 245, 0.78);
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.cardPower,
+.cardAttack,
+.cardFlavor {
   display: grid;
-  gap: 6px;
+  gap: 7px;
   padding: 10px 0 0;
   border-top: 1px solid rgba(255, 255, 255, 0.16);
 }
 
-.cardMove p,
-.cardWatch p,
-.cardEvidence p {
+.cardPower p,
+.cardAttack p,
+.cardFlavor p {
   margin: 0;
   color: rgba(255, 253, 245, 0.86);
   font-size: 13px;
   line-height: 1.45;
 }
 
-.cardEvidence {
-  gap: 7px;
-}
-
-.cardEvidence p {
-  color: rgba(255, 253, 245, 0.78);
-  font-size: 12px;
-}
-
-.cardEvidence.research span {
+.cardPower span {
   color: #9ef5d4;
 }
 
-.cardEvidence.blocked span {
-  color: #ffb4b4;
-}
-
-.cardEvidence.review span {
-  color: #ffe6a8;
-}
-
-.cardWatch {
+.cardFlavor {
   align-self: end;
 }
 
-.cardWatch span {
-  color: #ffb4b4;
+.cardFlavor p {
+  padding: 8px 9px;
+  border: 1px solid rgba(255, 217, 138, 0.22);
+  border-radius: 6px;
+  background: rgba(255, 217, 138, 0.08);
+  color: rgba(255, 253, 245, 0.78);
+  font-size: 12px;
+  font-style: italic;
 }
 
 .textLink {
@@ -358,16 +361,11 @@
     min-height: 0;
   }
 
-  .cardEvidence {
-    grid-template-columns: 1fr;
+  .cardHeader {
+    align-items: flex-start;
   }
 
-  .cardIdentity {
+  .cardSpecies {
     display: grid;
-  }
-
-  .cardIdentity h3 {
-    max-width: none;
-    text-align: left;
   }
 }
