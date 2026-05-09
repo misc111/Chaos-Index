@@ -211,10 +211,10 @@ const modelTypeOrder = {
   "Linear Type": 1,
   "Credibility Type": 2,
   "Shape Type": 3,
-  "Count Type": 4,
-  "Context Type": 5,
-  "Tree Type": 6,
-  "Neural Type": 7,
+  "Neural Type": 4,
+  "Count Type": 5,
+  "Context Type": 6,
+  "Tree Type": 7,
   "Bayesian Type": 8,
 } satisfies Record<ModelCardIntro["cardClass"], number>;
 
