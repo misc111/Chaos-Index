@@ -9,7 +9,15 @@ const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 type ModelCardIntro = {
   displayName: string;
   cardName?: string;
-  cardClass: string;
+  cardClass:
+    | "Linear Type"
+    | "Credibility Type"
+    | "Shape Type"
+    | "Count Type"
+    | "Context Type"
+    | "Tree Type"
+    | "Neural Type"
+    | "Bayesian Type";
   powerName: string;
   power: string;
   attackName: string;
@@ -20,7 +28,7 @@ type ModelCardIntro = {
 const modelCardIntros = {
   glm_ridge: {
     displayName: "Ridge",
-    cardClass: "Shrinkage Type",
+    cardClass: "Linear Type",
     powerName: "Noise Guard",
     power: "Quiet the loud inputs without throwing away the whole scouting report.",
     attackName: "Steady Forecast",
@@ -29,7 +37,7 @@ const modelCardIntros = {
   },
   glm_elastic_net: {
     displayName: "Elastic Net",
-    cardClass: "Balance Type",
+    cardClass: "Linear Type",
     powerName: "Balanced Grip",
     power: "Keeps related baseball clues together without letting any one clue run wild.",
     attackName: "Signal Blend",
@@ -38,7 +46,7 @@ const modelCardIntros = {
   },
   glm_lasso: {
     displayName: "Lasso",
-    cardClass: "Sparse Type",
+    cardClass: "Linear Type",
     powerName: "Feature Trim",
     power: "Cuts clutter so the strongest pregame clues get the spotlight.",
     attackName: "Clean Cut",
@@ -48,7 +56,7 @@ const modelCardIntros = {
   glm_lasso_market_credibility: {
     displayName: "Market Credibility",
     cardName: "Halo Scout",
-    cardClass: "Price Type",
+    cardClass: "Credibility Type",
     powerName: "Price Sense",
     power: "Reads the market as a baseline before deciding what baseball adds.",
     attackName: "Vig-Free Check",
@@ -58,7 +66,7 @@ const modelCardIntros = {
   glm_lasso_prior_credibility: {
     displayName: "Prior Credibility",
     cardName: "Memory Pup",
-    cardClass: "Memory Type",
+    cardClass: "Credibility Type",
     powerName: "Memory Boost",
     power: "Carries yesterday's useful read into today's game.",
     attackName: "Prior Pull",
@@ -68,7 +76,7 @@ const modelCardIntros = {
   glm_vanilla: {
     displayName: "Generalized Linear Model",
     cardName: "Starter Sheet",
-    cardClass: "Classic Type",
+    cardClass: "Linear Type",
     powerName: "Clean Read",
     power: "Shows the simple relationship before penalties start negotiating.",
     attackName: "Baseline Swing",
@@ -78,7 +86,7 @@ const modelCardIntros = {
   gam_spline: {
     displayName: "Spline",
     cardName: "Curve Charmer",
-    cardClass: "Curve Type",
+    cardClass: "Shape Type",
     powerName: "Curve Sense",
     power: "Feels when a baseball relationship needs to bend.",
     attackName: "Bend the Line",
@@ -87,7 +95,7 @@ const modelCardIntros = {
   },
   glmm_logit: {
     displayName: "Mixed Effects",
-    cardClass: "Team Type",
+    cardClass: "Context Type",
     powerName: "Team Aura",
     power: "Lets team context breathe around the main matchup clues.",
     attackName: "Context Shift",
@@ -96,7 +104,7 @@ const modelCardIntros = {
   },
   dglm_margin: {
     displayName: "Run Margin",
-    cardClass: "Margin Type",
+    cardClass: "Shape Type",
     powerName: "Margin Bridge",
     power: "Thinks about the shape of the score before picking a winner.",
     attackName: "Score Swing",
@@ -114,7 +122,7 @@ const modelCardIntros = {
   },
   mars_hinge: {
     displayName: "Threshold Scout",
-    cardClass: "Hinge Type",
+    cardClass: "Shape Type",
     powerName: "Breakpoint Radar",
     power: "Looks for places where a relationship suddenly changes shape.",
     attackName: "Hinge Hit",
@@ -123,7 +131,7 @@ const modelCardIntros = {
   },
   two_stage: {
     displayName: "Two Stage",
-    cardClass: "Relay Type",
+    cardClass: "Context Type",
     powerName: "Relay Read",
     power: "Builds one baseball read before making the final call.",
     attackName: "Double Play",
@@ -141,7 +149,7 @@ const modelCardIntros = {
   },
   gbdt: {
     displayName: "Boosted Trees",
-    cardClass: "Boost Type",
+    cardClass: "Tree Type",
     powerName: "Comeback Chain",
     power: "Each small tree learns from the last miss.",
     attackName: "Boost Rush",
@@ -150,7 +158,7 @@ const modelCardIntros = {
   },
   nn_mlp: {
     displayName: "Neural Net",
-    cardClass: "Pattern Type",
+    cardClass: "Neural Type",
     powerName: "Pattern Sponge",
     power: "Absorbs many clues and searches for flexible combinations.",
     attackName: "Hidden Layer",
@@ -159,7 +167,7 @@ const modelCardIntros = {
   },
   bayes_goals: {
     displayName: "Bayes Runs",
-    cardClass: "Bayes Type",
+    cardClass: "Bayesian Type",
     powerName: "Uncertainty Pack",
     power: "Carries uncertainty along with the run-scoring view.",
     attackName: "Posterior Pitch",
@@ -168,7 +176,7 @@ const modelCardIntros = {
   },
   bayes_bt_state_space: {
     displayName: "Form Tracker",
-    cardClass: "State Type",
+    cardClass: "Bayesian Type",
     powerName: "Moving Form",
     power: "Tracks team strength as something that changes over time.",
     attackName: "State Shift",
@@ -176,6 +184,17 @@ const modelCardIntros = {
     flavor: "Short hot and cold streaks can look too meaningful.",
   },
 } satisfies Record<(typeof TRAINABLE_MODELS)[number], ModelCardIntro>;
+
+const modelTypeIconFiles = {
+  "Linear Type": "linear.png",
+  "Credibility Type": "credibility.png",
+  "Shape Type": "shape.png",
+  "Count Type": "count.png",
+  "Context Type": "context.png",
+  "Tree Type": "tree.png",
+  "Neural Type": "neural.png",
+  "Bayesian Type": "bayesian.png",
+} satisfies Record<ModelCardIntro["cardClass"], string>;
 
 export default function HomePage() {
   const heroImage = `${BASE_PATH}/images/chaos-index-hero.png`;
@@ -220,16 +239,22 @@ export default function HomePage() {
           <p>Every forecasting style gets its own card.</p>
         </div>
         <div className={styles.tradingCardGrid}>
-          {TRAINABLE_MODELS.map((modelKey, index) => {
+          {TRAINABLE_MODELS.map((modelKey) => {
             const sprite = MODEL_SPRITES[modelKey];
             const intro = modelCardIntros[modelKey];
             const cardName = "cardName" in intro ? intro.cardName : undefined;
             const displayCardName = cardName || sprite?.name || intro.displayName;
+            const typeIconSrc = `${BASE_PATH}/images/model-sprites/type-icons/${modelTypeIconFiles[intro.cardClass]}`;
             return (
               <article className={styles.tradingCard} key={modelKey}>
                 <div className={styles.cardHeader}>
                   <h3>{intro.displayName}</h3>
-                  <span>No. {String(index + 1).padStart(3, "0")}</span>
+                  <img
+                    className={styles.typeIcon}
+                    src={typeIconSrc}
+                    alt={intro.cardClass}
+                    title={intro.cardClass}
+                  />
                 </div>
                 <div className={styles.cardPortrait}>
                   <ModelSprite model={modelKey} className={styles.cardSprite} title={displayCardName} />
