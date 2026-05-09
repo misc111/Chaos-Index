@@ -196,6 +196,17 @@ const modelTypeIconFiles = {
   "Bayesian Type": "bayesian.png",
 } satisfies Record<ModelCardIntro["cardClass"], string>;
 
+const modelTypeCardClasses = {
+  "Linear Type": styles.linearTypeCard,
+  "Credibility Type": styles.credibilityTypeCard,
+  "Shape Type": styles.shapeTypeCard,
+  "Count Type": styles.countTypeCard,
+  "Context Type": styles.contextTypeCard,
+  "Tree Type": styles.treeTypeCard,
+  "Neural Type": styles.neuralTypeCard,
+  "Bayesian Type": styles.bayesianTypeCard,
+} satisfies Record<ModelCardIntro["cardClass"], string>;
+
 export default function HomePage() {
   const heroImage = `${BASE_PATH}/images/chaos-index-hero.png`;
 
@@ -246,7 +257,7 @@ export default function HomePage() {
             const displayCardName = cardName || sprite?.name || intro.displayName;
             const typeIconSrc = `${BASE_PATH}/images/model-sprites/type-icons/${modelTypeIconFiles[intro.cardClass]}`;
             return (
-              <article className={styles.tradingCard} key={modelKey}>
+              <article className={`${styles.tradingCard} ${modelTypeCardClasses[intro.cardClass]}`} key={modelKey}>
                 <div className={styles.cardHeader}>
                   <h3>{intro.displayName}</h3>
                   <img
