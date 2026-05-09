@@ -83,7 +83,8 @@
 
 ## Git Workflow
 - Keep this repository on `main` unless the user explicitly asks for another branch.
-- For this repo, pushing `main` remains the default close-out once an integrated sprint checkpoint is actually ready.
+- For this repo, every completed feature and patch should close out by staging the relevant files, creating a clear commit, and pushing `main` to `origin` automatically after verification, unless the user explicitly says not to commit or push.
+- Do not wait for a separate "commit and push" request after feature or patch work that has been implemented and verified.
 - Do not push partial refresh output from a broken MLB pipeline.
 
 ## Sprint Expectations
