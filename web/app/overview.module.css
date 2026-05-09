@@ -145,76 +145,76 @@
   border: 1px solid rgba(var(--type-main-rgb), 0.46);
   border-radius: 8px;
   background:
-    radial-gradient(circle at 85% 7%, rgba(var(--type-accent-rgb), 0.32), transparent 30%),
-    linear-gradient(145deg, rgba(var(--type-main-rgb), 0.3), rgba(var(--type-accent-rgb), 0.11) 42%),
-    linear-gradient(180deg, rgba(var(--type-dark-rgb), 0.98), rgba(var(--type-dark-rgb), 0.82) 56%, rgba(4, 12, 18, 0.98));
+    radial-gradient(circle at 85% 7%, rgba(var(--type-accent-rgb), 0.36), transparent 30%),
+    linear-gradient(145deg, rgba(var(--type-main-rgb), 0.34), rgba(var(--type-accent-rgb), 0.14) 42%),
+    linear-gradient(180deg, rgba(var(--type-dark-rgb), 0.99), rgba(var(--type-dark-rgb), 0.86) 56%, rgba(4, 12, 18, 0.98));
   box-shadow:
     inset 0 0 0 2px rgba(var(--type-main-rgb), 0.22),
     0 18px 36px rgba(2, 8, 12, 0.32);
 }
 
 .linearTypeCard {
-  --type-main-rgb: 255, 210, 46;
-  --type-accent-rgb: 36, 218, 255;
-  --type-dark-rgb: 11, 31, 62;
-  --type-name: #ffe262;
-  --type-power: #7deeff;
+  --type-main-rgb: 255, 218, 42;
+  --type-accent-rgb: 57, 174, 255;
+  --type-dark-rgb: 12, 31, 72;
+  --type-name: #ffda2a;
+  --type-power: #73bdff;
 }
 
 .credibilityTypeCard {
-  --type-main-rgb: 45, 224, 183;
-  --type-accent-rgb: 255, 214, 104;
-  --type-dark-rgb: 5, 44, 38;
-  --type-name: #74f2d4;
-  --type-power: #ffe38d;
+  --type-main-rgb: 49, 235, 195;
+  --type-accent-rgb: 255, 232, 135;
+  --type-dark-rgb: 4, 52, 45;
+  --type-name: #76f4d7;
+  --type-power: #ffe887;
 }
 
 .shapeTypeCard {
-  --type-main-rgb: 175, 238, 64;
-  --type-accent-rgb: 42, 211, 119;
-  --type-dark-rgb: 21, 47, 15;
-  --type-name: #cfff66;
-  --type-power: #82efaa;
+  --type-main-rgb: 177, 245, 55;
+  --type-accent-rgb: 72, 224, 98;
+  --type-dark-rgb: 25, 60, 12;
+  --type-name: #c7ff53;
+  --type-power: #8df29c;
 }
 
 .countTypeCard {
-  --type-main-rgb: 255, 116, 72;
-  --type-accent-rgb: 255, 205, 75;
-  --type-dark-rgb: 54, 19, 12;
-  --type-name: #ff9d72;
-  --type-power: #ffd36d;
+  --type-main-rgb: 255, 92, 56;
+  --type-accent-rgb: 255, 188, 56;
+  --type-dark-rgb: 72, 20, 12;
+  --type-name: #ff8b70;
+  --type-power: #ffca67;
 }
 
 .contextTypeCard {
-  --type-main-rgb: 61, 151, 255;
-  --type-accent-rgb: 140, 211, 255;
-  --type-dark-rgb: 7, 27, 64;
-  --type-name: #80bdff;
-  --type-power: #bde7ff;
+  --type-main-rgb: 50, 132, 255;
+  --type-accent-rgb: 132, 224, 255;
+  --type-dark-rgb: 5, 30, 82;
+  --type-name: #80b2ff;
+  --type-power: #b9ecff;
 }
 
 .treeTypeCard {
-  --type-main-rgb: 32, 169, 112;
-  --type-accent-rgb: 228, 181, 88;
-  --type-dark-rgb: 9, 45, 32;
-  --type-name: #60d6a2;
-  --type-power: #e8c16d;
+  --type-main-rgb: 199, 134, 54;
+  --type-accent-rgb: 96, 196, 105;
+  --type-dark-rgb: 58, 39, 16;
+  --type-name: #dfa75d;
+  --type-power: #93df91;
 }
 
 .neuralTypeCard {
-  --type-main-rgb: 226, 90, 230;
-  --type-accent-rgb: 74, 220, 255;
-  --type-dark-rgb: 47, 15, 63;
-  --type-name: #f19af4;
-  --type-power: #91edff;
+  --type-main-rgb: 240, 78, 228;
+  --type-accent-rgb: 85, 226, 255;
+  --type-dark-rgb: 64, 14, 67;
+  --type-name: #f892f2;
+  --type-power: #96f0ff;
 }
 
 .bayesianTypeCard {
-  --type-main-rgb: 103, 122, 255;
-  --type-accent-rgb: 255, 212, 105;
-  --type-dark-rgb: 18, 24, 83;
-  --type-name: #9facff;
-  --type-power: #ffe291;
+  --type-main-rgb: 132, 96, 255;
+  --type-accent-rgb: 255, 216, 92;
+  --type-dark-rgb: 29, 20, 92;
+  --type-name: #ac99ff;
+  --type-power: #ffdd73;
 }
 
 .tradingCard::before {
