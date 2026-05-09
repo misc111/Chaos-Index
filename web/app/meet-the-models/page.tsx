@@ -1,10 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { loadEvidenceStatus } from "@/app/api/research-desk/route-support";
 import ModelSprite from "@/components/ModelSprite";
 import { MODEL_REGISTRY } from "@/lib/generated/model-manifest";
 import { displayPredictionModel } from "@/lib/predictions-report";
+import { loadEvidenceStatus } from "@/lib/server/research-evidence-status";
 import type { CurrentBestTopModelSummary, ResearchDeskResponse, TableRow } from "@/lib/types";
 import styles from "./styles.module.css";
 
