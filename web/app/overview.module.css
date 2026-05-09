@@ -145,76 +145,76 @@
   border: 1px solid rgba(var(--type-main-rgb), 0.46);
   border-radius: 8px;
   background:
-    radial-gradient(circle at 85% 7%, rgba(var(--type-accent-rgb), 0.28), transparent 30%),
-    linear-gradient(145deg, rgba(var(--type-main-rgb), 0.26), rgba(var(--type-accent-rgb), 0.08) 42%),
-    linear-gradient(180deg, rgba(var(--type-dark-rgb), 0.98), rgba(7, 20, 29, 0.98));
+    radial-gradient(circle at 85% 7%, rgba(var(--type-accent-rgb), 0.32), transparent 30%),
+    linear-gradient(145deg, rgba(var(--type-main-rgb), 0.3), rgba(var(--type-accent-rgb), 0.11) 42%),
+    linear-gradient(180deg, rgba(var(--type-dark-rgb), 0.98), rgba(var(--type-dark-rgb), 0.82) 56%, rgba(4, 12, 18, 0.98));
   box-shadow:
     inset 0 0 0 2px rgba(var(--type-main-rgb), 0.22),
     0 18px 36px rgba(2, 8, 12, 0.32);
 }
 
 .linearTypeCard {
-  --type-main-rgb: 255, 212, 79;
-  --type-accent-rgb: 103, 232, 249;
-  --type-dark-rgb: 36, 31, 12;
-  --type-name: #ffe28b;
-  --type-power: #a8f4ff;
+  --type-main-rgb: 255, 210, 46;
+  --type-accent-rgb: 36, 218, 255;
+  --type-dark-rgb: 11, 31, 62;
+  --type-name: #ffe262;
+  --type-power: #7deeff;
 }
 
 .credibilityTypeCard {
-  --type-main-rgb: 101, 232, 199;
-  --type-accent-rgb: 255, 204, 92;
-  --type-dark-rgb: 8, 43, 43;
-  --type-name: #9ff4df;
-  --type-power: #ffe08f;
+  --type-main-rgb: 45, 224, 183;
+  --type-accent-rgb: 255, 214, 104;
+  --type-dark-rgb: 5, 44, 38;
+  --type-name: #74f2d4;
+  --type-power: #ffe38d;
 }
 
 .shapeTypeCard {
-  --type-main-rgb: 166, 230, 82;
-  --type-accent-rgb: 73, 214, 183;
-  --type-dark-rgb: 22, 43, 24;
-  --type-name: #c9f584;
-  --type-power: #8ff2df;
+  --type-main-rgb: 175, 238, 64;
+  --type-accent-rgb: 42, 211, 119;
+  --type-dark-rgb: 21, 47, 15;
+  --type-name: #cfff66;
+  --type-power: #82efaa;
 }
 
 .countTypeCard {
-  --type-main-rgb: 255, 157, 75;
-  --type-accent-rgb: 255, 91, 97;
-  --type-dark-rgb: 47, 25, 17;
-  --type-name: #ffbd7a;
-  --type-power: #ff9aa0;
+  --type-main-rgb: 255, 116, 72;
+  --type-accent-rgb: 255, 205, 75;
+  --type-dark-rgb: 54, 19, 12;
+  --type-name: #ff9d72;
+  --type-power: #ffd36d;
 }
 
 .contextTypeCard {
-  --type-main-rgb: 88, 179, 255;
-  --type-accent-rgb: 142, 239, 255;
-  --type-dark-rgb: 10, 31, 55;
-  --type-name: #92d7ff;
-  --type-power: #b6f6ff;
+  --type-main-rgb: 61, 151, 255;
+  --type-accent-rgb: 140, 211, 255;
+  --type-dark-rgb: 7, 27, 64;
+  --type-name: #80bdff;
+  --type-power: #bde7ff;
 }
 
 .treeTypeCard {
-  --type-main-rgb: 88, 203, 112;
-  --type-accent-rgb: 238, 194, 91;
-  --type-dark-rgb: 16, 43, 24;
-  --type-name: #91eba4;
-  --type-power: #f3d083;
+  --type-main-rgb: 32, 169, 112;
+  --type-accent-rgb: 228, 181, 88;
+  --type-dark-rgb: 9, 45, 32;
+  --type-name: #60d6a2;
+  --type-power: #e8c16d;
 }
 
 .neuralTypeCard {
-  --type-main-rgb: 183, 126, 255;
-  --type-accent-rgb: 86, 224, 236;
-  --type-dark-rgb: 32, 24, 60;
-  --type-name: #cfadff;
-  --type-power: #98f2fb;
+  --type-main-rgb: 226, 90, 230;
+  --type-accent-rgb: 74, 220, 255;
+  --type-dark-rgb: 47, 15, 63;
+  --type-name: #f19af4;
+  --type-power: #91edff;
 }
 
 .bayesianTypeCard {
-  --type-main-rgb: 130, 145, 255;
-  --type-accent-rgb: 255, 202, 91;
-  --type-dark-rgb: 18, 27, 63;
-  --type-name: #aab6ff;
-  --type-power: #ffe08a;
+  --type-main-rgb: 103, 122, 255;
+  --type-accent-rgb: 255, 212, 105;
+  --type-dark-rgb: 18, 24, 83;
+  --type-name: #9facff;
+  --type-power: #ffe291;
 }
 
 .tradingCard::before {
@@ -288,7 +288,7 @@
   background:
     linear-gradient(180deg, rgba(var(--type-accent-rgb), 0.16), rgba(var(--type-main-rgb), 0.1)),
     repeating-linear-gradient(90deg, rgba(var(--type-main-rgb), 0.1) 0 1px, transparent 1px 12px),
-    rgba(6, 19, 26, 0.72);
+    rgba(var(--type-dark-rgb), 0.68);
 }
 
 .cardSprite {
