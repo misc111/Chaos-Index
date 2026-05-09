@@ -71,6 +71,8 @@ Classification: `Theory-compatible engineering support` plus `Betting overlay`
 
 - True pregame predictions must never be overwritten after first pitch.
 - Replay, OOF, and diagnostic outputs must remain separate from frozen historical pregame records.
+- Routine daily scoring reads frozen pregame predictions and settled outcomes;
+  it must not backfill, overwrite, or retrain the frozen ledger as a side effect.
 
 Classification: `Theory-compatible engineering support`
 

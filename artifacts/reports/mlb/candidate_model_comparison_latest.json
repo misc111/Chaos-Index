@@ -1,543 +1,503 @@
 {
-  "candidate_scorecards_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_candidate_scorecards.json",
+  "candidate_scorecards_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_candidate_scorecards.json",
   "canonical_artifact_root": "artifacts/reports/mlb",
   "current_best_models_path": "artifacts/reports/mlb/current_best_models.json",
+  "evidence_stage": "research_only",
   "evidence_status": {
     "blocked_reasons": [
       "candidate_comparison_is_research_only",
-      "fixture_demo_smoke",
       "not_full_immutable_pregame_mlb_ledger",
       "promotion_ready_false"
     ],
     "canonical_promotion_eligible_evidence_path": null,
     "canonical_research_recommendation_path": "artifacts/reports/mlb/latest_research_recommendation.json",
-    "fixture_demo_smoke": true,
+    "evidence_stage": "research_only",
+    "fixture_demo_smoke": false,
     "full_immutable_pregame_ledger": false,
-    "label": "fixture/demo/smoke research screen",
+    "label": "research recommendation only",
     "latest_artifact_role": "latest_research_recommendation",
     "pointer_semantics": "This pointer identifies the latest research recommendation artifact. It is not promotion-eligible evidence and must not be used as champion promotion proof.",
     "production_grade": false,
+    "production_ready": false,
     "promotion_eligible": false
   },
   "execution_metadata": {},
-  "generated_at_utc": "2026-04-23T17:18:57+00:00",
+  "generated_at_utc": "2026-05-06T17:21:51+00:00",
   "latest_artifact_role": "latest_research_recommendation",
   "latest_promotion_eligible_evidence_path": null,
   "latest_research_recommendation_path": "artifacts/reports/mlb/latest_research_recommendation.json",
-  "leaderboard_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_candidate_leaderboard.json",
+  "leaderboard_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_candidate_leaderboard.json",
   "league": "MLB",
   "manifest_path": "artifacts/reports/mlb/candidate_model_comparison_latest_manifest.json",
   "material_artifacts": {
-    "candidate_scorecards_contract_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_candidate_scorecards.json",
-    "candidate_scorecards_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_candidate_scorecards.csv",
-    "leaderboard_json_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_candidate_leaderboard.json",
-    "recommendation_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_recommendation.json",
-    "recommendation_surface_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_recommendation_surface.json",
-    "report_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_summary.md",
-    "summary_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_comparison_summary.json"
+    "candidate_scorecards_contract_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_candidate_scorecards.json",
+    "candidate_scorecards_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_candidate_scorecards.csv",
+    "dglm_margin_diagnostics_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_dglm_margin_diagnostics.json",
+    "dglm_margin_metrics_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_dglm_margin_metrics.csv",
+    "leaderboard_json_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_candidate_leaderboard.json",
+    "recommendation_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_recommendation.json",
+    "recommendation_surface_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_recommendation_surface.json",
+    "report_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_summary.md",
+    "summary_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_comparison_summary.json"
   },
+  "production_ready": false,
   "promotion_decision": {
     "baseline_model": "intercept_only",
     "evidence": {
       "best_named_candidate": {
-        "auc": 0.548096600427846,
-        "brier": 0.2469386821620293,
-        "display_name": "GAM Spline",
-        "ece": 0.02886873262303548,
-        "log_loss": 0.6869920310912638,
-        "model_name": "gam_spline"
+        "auc": 0.517079124360539,
+        "brier": 0.25852069758042184,
+        "display_name": "DGLM Margin",
+        "ece": 0.10458656821612161,
+        "log_loss": 0.7104430303492003,
+        "model_name": "dglm_margin"
       },
       "bootstrap_summary": [
         {
-          "comparison_model": "glm_vanilla",
-          "delta_log_loss_mean": 6.8729250168499405,
-          "delta_log_loss_p025": 6.367951771276386,
-          "delta_log_loss_p975": 7.279353940315733,
-          "delta_log_loss_prob_reference_better": 1.0,
-          "reference_model": "gam_spline"
-        },
-        {
           "comparison_model": "glm_ridge",
-          "delta_log_loss_mean": 0.14175490349141973,
-          "delta_log_loss_p025": 0.07220004562118895,
-          "delta_log_loss_p975": 0.22376845539941478,
+          "delta_log_loss_mean": 0.0588075139674857,
+          "delta_log_loss_p025": 0.0386858370751777,
+          "delta_log_loss_p975": 0.07929467818300956,
           "delta_log_loss_prob_reference_better": 1.0,
-          "reference_model": "gam_spline"
+          "reference_model": "intercept_only"
         },
         {
           "comparison_model": "dglm_margin",
-          "delta_log_loss_mean": 0.008307857585248324,
-          "delta_log_loss_p025": -0.0013383443323356113,
-          "delta_log_loss_p975": 0.018259523701159637,
-          "delta_log_loss_prob_reference_better": 0.95,
-          "reference_model": "gam_spline"
+          "delta_log_loss_mean": 0.02040658204971464,
+          "delta_log_loss_p025": 0.009582409581916326,
+          "delta_log_loss_p975": 0.03346372601226625,
+          "delta_log_loss_prob_reference_better": 1.0,
+          "reference_model": "intercept_only"
         }
       ],
-      "candidate_scope": "all registered candidate families",
+      "candidate_scope": "dglm_margin, glm_ridge",
       "decision_scope": "candidate_model_comparison",
       "feature_pool_note": "Built from the full numeric feature pool after leakage bans, not from the repo's production `glm_feature_subset` or per-model feature map.",
       "final_holdout_winner": {
-        "auc": 0.548096600427846,
-        "brier": 0.2469386821620293,
-        "display_name": "GAM Spline",
-        "ece": 0.02886873262303548,
-        "log_loss": 0.6869920310912638,
-        "model_name": "gam_spline"
+        "auc": 0.5,
+        "brier": 0.24808268483764548,
+        "display_name": "Intercept Only",
+        "ece": 0.02390313418551815,
+        "log_loss": 0.6893097018106941,
+        "model_name": "intercept_only"
       },
       "fixture_or_demo_execution": false,
       "intercept_only_benchmark": {
         "auc": 0.5,
-        "brier": 0.24838708256860617,
+        "brier": 0.24808268483764548,
         "display_name": "Intercept Only",
-        "ece": 0.011787308372576688,
-        "log_loss": 0.6899185416670384,
+        "ece": 0.02390313418551815,
+        "log_loss": 0.6893097018106941,
         "model_name": "intercept_only"
       },
       "next_stage_blocked_by_fixture_scope": false,
       "promotion_ready": false,
       "top_final_holdout_models": [
         {
-          "auc": 0.548096600427846,
-          "brier": 0.2469386821620293,
-          "display_name": "GAM Spline",
-          "ece": 0.02886873262303548,
-          "log_loss": 0.6869920310912638,
-          "model_name": "gam_spline"
+          "auc": 0.517079124360539,
+          "brier": 0.25852069758042184,
+          "display_name": "DGLM Margin",
+          "ece": 0.10458656821612161,
+          "log_loss": 0.7104430303492003,
+          "model_name": "dglm_margin"
         },
         {
-          "auc": 0.5285187762571201,
-          "brier": 0.2478372483182737,
-          "display_name": "Elastic Net GLM",
-          "ece": 0.014399994616392782,
-          "log_loss": 0.6887964521788998,
-          "model_name": "glm_elastic_net"
-        },
-        {
-          "auc": 0.5273022500579911,
-          "brier": 0.24810297213593896,
-          "display_name": "Lasso GLM",
-          "ece": 0.02062469998978153,
-          "log_loss": 0.6893336158298559,
-          "model_name": "glm_lasso"
+          "auc": 0.5149289776415902,
+          "brier": 0.2760439814851188,
+          "display_name": "GLM Ridge",
+          "ece": 0.15634443332926592,
+          "log_loss": 0.7485717387328551,
+          "model_name": "glm_ridge"
         }
       ],
       "validation_ranking": [
         {
-          "auc": 0.5524672977801507,
-          "brier": 0.2471613768561081,
-          "display_name": "Elastic Net GLM",
-          "log_loss": 0.6874087511314404,
-          "model_name": "glm_elastic_net"
+          "auc": 0.575204692781048,
+          "brier": 0.24848287060003107,
+          "display_name": "DGLM Margin",
+          "log_loss": 0.6925509138767828,
+          "model_name": "dglm_margin"
         },
         {
-          "auc": 0.548375669959135,
-          "brier": 0.24741955036197394,
-          "display_name": "Lasso GLM",
-          "log_loss": 0.6879150623282201,
-          "model_name": "glm_lasso"
-        },
-        {
-          "auc": 0.5492124771546502,
-          "brier": 0.2479626427550737,
-          "display_name": "MARS Hinge",
-          "log_loss": 0.6892831821933203,
-          "model_name": "mars_hinge"
+          "auc": 0.5275269413710564,
+          "brier": 0.2610014501999513,
+          "display_name": "GLM Ridge",
+          "log_loss": 0.7923378148492222,
+          "model_name": "glm_ridge"
         }
       ]
     },
-    "rationale": "GAM Spline led the named CAS candidates on the final holdout. Advance it to research backtest and promotion review, but do not treat this comparison as a champion declaration.",
-    "recommended_model": "gam_spline",
+    "rationale": "No named CAS candidate beat the intercept-only benchmark on the final holdout. Keep the comparison lane open rather than promoting a paper winner.",
+    "recommended_model": "intercept_only",
     "rejected_models": {
       "dglm_margin": [
-        "Final-holdout log loss 0.6955 trailed `gam_spline` at 0.6870.",
-        "Final-holdout Brier 0.2511 trailed `gam_spline` at 0.2469.",
-        "Bootstrap favored `gam_spline` on log loss in 95.0% of resamples."
-      ],
-      "glm_elastic_net": [
-        "Final-holdout log loss 0.6888 trailed `gam_spline` at 0.6870.",
-        "Final-holdout Brier 0.2478 trailed `gam_spline` at 0.2469.",
-        "Bootstrap favored `gam_spline` on log loss in 81.0% of resamples."
-      ],
-      "glm_lasso": [
-        "Final-holdout log loss 0.6893 trailed `gam_spline` at 0.6870.",
-        "Final-holdout Brier 0.2481 trailed `gam_spline` at 0.2469.",
-        "Bootstrap favored `gam_spline` on log loss in 74.0% of resamples."
+        "Final-holdout log loss 0.7104 trailed intercept-only at 0.6893.",
+        "Final-holdout Brier 0.2585 trailed intercept-only at 0.2481."
       ],
       "glm_ridge": [
-        "Final-holdout log loss 0.8267 trailed `gam_spline` at 0.6870.",
-        "Final-holdout Brier 0.2613 trailed `gam_spline` at 0.2469.",
-        "Bootstrap favored `gam_spline` on log loss in 100.0% of resamples."
-      ],
-      "glm_vanilla": [
-        "Final-holdout log loss 7.5329 trailed `gam_spline` at 0.6870.",
-        "Final-holdout Brier 0.5452 trailed `gam_spline` at 0.2469.",
-        "Bootstrap favored `gam_spline` on log loss in 100.0% of resamples."
-      ],
-      "glmm_logit": [
-        "Final-holdout log loss 0.6914 trailed `gam_spline` at 0.6870.",
-        "Final-holdout Brier 0.2491 trailed `gam_spline` at 0.2469.",
-        "Bootstrap favored `gam_spline` on log loss in 91.0% of resamples."
-      ],
-      "mars_hinge": [
-        "Final-holdout log loss 0.6904 trailed `gam_spline` at 0.6870.",
-        "Final-holdout Brier 0.2486 trailed `gam_spline` at 0.2469.",
-        "Bootstrap favored `gam_spline` on log loss in 88.0% of resamples."
+        "Final-holdout log loss 0.7486 trailed intercept-only at 0.6893.",
+        "Final-holdout Brier 0.2760 trailed intercept-only at 0.2481.",
+        "Also trailed the best named candidate `dglm_margin` on the final holdout."
       ]
     },
-    "status": "research_recommended"
+    "status": "research_hold"
   },
   "promotion_eligible": false,
-  "rationale": "GAM Spline led the named CAS candidates on the final holdout. Advance it to research backtest and promotion review, but do not treat this comparison as a champion declaration.",
-  "recommendation_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_recommendation.json",
+  "rationale": "No named CAS candidate beat the intercept-only benchmark on the final holdout. Keep the comparison lane open rather than promoting a paper winner.",
+  "recommendation_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_recommendation.json",
   "recommendation_surface": {
-    "challenger_watchlist": [
-      {
-        "display_name": "Elastic Net GLM",
-        "final_holdout_brier": 0.2478372483182737,
-        "final_holdout_log_loss": 0.6887964521788998,
-        "model_name": "glm_elastic_net",
-        "rejection_reasons": [
-          "Final-holdout log loss 0.6888 trailed `gam_spline` at 0.6870.",
-          "Final-holdout Brier 0.2478 trailed `gam_spline` at 0.2469.",
-          "Bootstrap favored `gam_spline` on log loss in 81.0% of resamples."
-        ],
-        "tier": "challenge_watchlist"
-      },
-      {
-        "display_name": "Lasso GLM",
-        "final_holdout_brier": 0.24810297213593896,
-        "final_holdout_log_loss": 0.6893336158298559,
-        "model_name": "glm_lasso",
-        "rejection_reasons": [
-          "Final-holdout log loss 0.6893 trailed `gam_spline` at 0.6870.",
-          "Final-holdout Brier 0.2481 trailed `gam_spline` at 0.2469.",
-          "Bootstrap favored `gam_spline` on log loss in 74.0% of resamples."
-        ],
-        "tier": "challenge_watchlist"
-      }
-    ],
+    "challenger_watchlist": [],
     "decision": {
       "baseline_model": "intercept_only",
-      "rationale": "GAM Spline led the named CAS candidates on the final holdout. Advance it to research backtest and promotion review, but do not treat this comparison as a champion declaration.",
-      "recommended_display_name": "GAM Spline",
-      "recommended_model": "gam_spline",
-      "status": "research_recommended"
+      "rationale": "No named CAS candidate beat the intercept-only benchmark on the final holdout. Keep the comparison lane open rather than promoting a paper winner.",
+      "recommended_display_name": "intercept_only",
+      "recommended_model": "intercept_only",
+      "status": "research_hold"
     },
-    "generated_at_utc": "2026-04-23T17:18:57Z",
+    "generated_at_utc": "2026-05-06T17:21:51Z",
     "league": "MLB",
     "next_actions": [
-      "Run research backtest with full pregame ledger checks.",
-      "Keep at least one challenger in the next backtest sweep for robustness.",
-      "Gate any promotion on written evidence, not only this comparison screen."
+      "Hold promotion and keep intercept benchmark in the lane.",
+      "Expand feature diagnostics and challenger variants before the next run.",
+      "Re-run candidate comparison after feature/pipeline adjustments."
     ],
-    "report_slug": "codex_current_best_models_smoke",
+    "report_slug": "dglm_margin_evidence_packet_20260506",
     "top_candidates": [
       {
-        "display_name": "GAM Spline",
-        "final_holdout_auc": 0.548096600427846,
-        "final_holdout_brier": 0.2469386821620293,
-        "final_holdout_ece": 0.02886873262303548,
-        "final_holdout_log_loss": 0.6869920310912638,
-        "final_holdout_mce": 0.22940160405104792,
+        "display_name": "DGLM Margin",
+        "final_holdout_auc": 0.517079124360539,
+        "final_holdout_brier": 0.25852069758042184,
+        "final_holdout_ece": 0.10458656821612161,
+        "final_holdout_log_loss": 0.7104430303492003,
+        "final_holdout_mce": 0.13163676891669918,
         "final_holdout_rank": 1,
         "fit_status": "ok",
-        "model_name": "gam_spline",
-        "rank_shift_validation_to_final": -5,
-        "recommendation_tier": "research_screen_leader",
-        "rejection_reasons": [],
-        "validation_auc": 0.534791670944822,
-        "validation_brier": 0.2578675160951254,
-        "validation_log_loss": 0.7104843034363834,
-        "validation_rank": 6
-      },
-      {
-        "display_name": "Elastic Net GLM",
-        "final_holdout_auc": 0.5285187762571201,
-        "final_holdout_brier": 0.2478372483182737,
-        "final_holdout_ece": 0.014399994616392782,
-        "final_holdout_log_loss": 0.6887964521788998,
-        "final_holdout_mce": 0.03524103705633791,
-        "final_holdout_rank": 2,
-        "fit_status": "ok",
-        "model_name": "glm_elastic_net",
-        "rank_shift_validation_to_final": 1,
-        "recommendation_tier": "challenge_watchlist",
+        "model_name": "dglm_margin",
+        "rank_shift_validation_to_final": 0,
+        "recommendation_tier": "hold",
         "rejection_reasons": [
-          "Final-holdout log loss 0.6888 trailed `gam_spline` at 0.6870.",
-          "Final-holdout Brier 0.2478 trailed `gam_spline` at 0.2469.",
-          "Bootstrap favored `gam_spline` on log loss in 81.0% of resamples."
+          "Final-holdout log loss 0.7104 trailed intercept-only at 0.6893.",
+          "Final-holdout Brier 0.2585 trailed intercept-only at 0.2481."
         ],
-        "validation_auc": 0.5524672977801507,
-        "validation_brier": 0.2471613768561081,
-        "validation_log_loss": 0.6874087511314404,
+        "validation_auc": 0.575204692781048,
+        "validation_brier": 0.24848287060003107,
+        "validation_log_loss": 0.6925509138767828,
         "validation_rank": 1
       },
       {
-        "display_name": "Lasso GLM",
-        "final_holdout_auc": 0.5273022500579911,
-        "final_holdout_brier": 0.24810297213593896,
-        "final_holdout_ece": 0.02062469998978153,
-        "final_holdout_log_loss": 0.6893336158298559,
-        "final_holdout_mce": 0.6019730799909255,
-        "final_holdout_rank": 3,
+        "display_name": "GLM Ridge",
+        "final_holdout_auc": 0.5149289776415902,
+        "final_holdout_brier": 0.2760439814851188,
+        "final_holdout_ece": 0.15634443332926592,
+        "final_holdout_log_loss": 0.7485717387328551,
+        "final_holdout_mce": 0.40268310829846793,
+        "final_holdout_rank": 2,
         "fit_status": "ok",
-        "model_name": "glm_lasso",
-        "rank_shift_validation_to_final": 1,
-        "recommendation_tier": "challenge_watchlist",
+        "model_name": "glm_ridge",
+        "rank_shift_validation_to_final": 0,
+        "recommendation_tier": "hold",
         "rejection_reasons": [
-          "Final-holdout log loss 0.6893 trailed `gam_spline` at 0.6870.",
-          "Final-holdout Brier 0.2481 trailed `gam_spline` at 0.2469.",
-          "Bootstrap favored `gam_spline` on log loss in 74.0% of resamples."
+          "Final-holdout log loss 0.7486 trailed intercept-only at 0.6893.",
+          "Final-holdout Brier 0.2760 trailed intercept-only at 0.2481.",
+          "Also trailed the best named candidate `dglm_margin` on the final holdout."
         ],
-        "validation_auc": 0.548375669959135,
-        "validation_brier": 0.24741955036197394,
-        "validation_log_loss": 0.6879150623282201,
+        "validation_auc": 0.5275269413710564,
+        "validation_brier": 0.2610014501999513,
+        "validation_log_loss": 0.7923378148492222,
         "validation_rank": 2
       }
     ]
   },
-  "recommendation_surface_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_recommendation_surface.json",
-  "recommended_display_name": "GAM Spline",
-  "recommended_model": "gam_spline",
+  "recommendation_surface_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_recommendation_surface.json",
+  "recommended_display_name": "Intercept Only",
+  "recommended_model": "intercept_only",
   "report_lane": "mlb",
-  "report_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_summary.md",
-  "report_slug": "codex_current_best_models_smoke",
-  "status": "research_recommended",
-  "summary_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_comparison_summary.json",
+  "report_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_summary.md",
+  "report_slug": "dglm_margin_evidence_packet_20260506",
+  "status": "research_hold",
+  "summary_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_comparison_summary.json",
   "top_scorecards": [
     {
-      "active_parameter_count": 24,
+      "active_parameter_count": 14,
       "calibration_summary": {
-        "brier_reliability": 0.0017676990777365225,
-        "brier_resolution": 0.001520855557952345,
-        "brier_uncertainty": 0.2482481419299359,
-        "calibration_alpha": 0.08805254600184151,
-        "calibration_beta": 0.5938030154169223,
-        "final_holdout_ece": 0.02886873262303548,
-        "final_holdout_mce": 0.22940160405104792,
-        "max_abs_calibration_gap": 0.1054578170951252,
-        "mean_abs_calibration_gap": 0.04799469861283824,
-        "normalized_gini": 0.09619320085569193,
-        "top_decile_event_capture": 0.12317327766179541,
-        "top_quantile_actual_lift": 1.2234289601463724,
-        "top_vs_bottom_actual_lift_ratio": 1.3409090909090908,
+        "brier_reliability": 0.011173691384654648,
+        "brier_resolution": 0.0012965668792430161,
+        "brier_uncertainty": 0.24751132501375456,
+        "calibration_alpha": 0.2915690982783344,
+        "calibration_beta": 0.411652341817275,
+        "final_holdout_ece": 0.10458656821612161,
+        "final_holdout_mce": 0.13163676891669918,
+        "max_abs_calibration_gap": 0.26524397893562074,
+        "mean_abs_calibration_gap": 0.104561890631604,
+        "normalized_gini": 0.03415824872107793,
+        "top_decile_event_capture": 0.11958762886597939,
+        "top_quantile_actual_lift": 1.1851268388740879,
+        "top_vs_bottom_actual_lift_ratio": 1.3809523809523812,
         "tossup_share_current_band": null
       },
       "complement_summary": {
         "benchmark_display_name": "Intercept Only",
         "benchmark_model": "intercept_only",
-        "display_name": "GAM Spline",
+        "display_name": "DGLM Margin",
         "family": "nonlinear",
         "fit_error": "",
         "fit_status": "ok",
-        "governance_note": "Theory-compatible GLM extension; spline-basis implementation stays opt-in outside the default theory-core lane.",
+        "governance_note": "Theory-compatible GLM extension; margin-to-win bridge requires separate validation before promotion.",
+        "margin_diagnostics": {
+          "final_holdout": {
+            "abs_residual_predicted_sd_corr": 0.05987564799037016,
+            "bridge": "logit_calibrated",
+            "bridge_intercept": 0.10836093726136742,
+            "bridge_slope": 2.2107083504199396,
+            "bridge_status": "logit_calibrated",
+            "dispersion_diagnostics": {
+              "abs_residual_predicted_sd_corr": 0.05987564799037016,
+              "mean_predicted_margin": -0.6939711823987283,
+              "mean_predicted_sd": 4.6358129201450975,
+              "mean_predicted_variance": 21.5143176948393,
+              "residual_mse": 21.886251107454417,
+              "status": "ok",
+              "variance_to_residual_mse_ratio": 1.017287715924374,
+              "within_1sd_gap_vs_normal": 0.017990779971757687,
+              "within_1sd_share": 0.7006802721088435,
+              "within_2sd_gap_vs_normal": 0.0035501505176736003,
+              "within_2sd_share": 0.9580498866213152
+            },
+            "margin_bias": 0.9842206155053044,
+            "margin_mae": 3.6929564475800256,
+            "margin_rmse": 4.678274372827487,
+            "mean_abs_standardized_residual": 0.7963192194965872,
+            "mean_predicted_margin": -0.6939711823987283,
+            "mean_predicted_sd": 4.6358129201450975,
+            "n": 882.0,
+            "realized_margin_sd": 4.556236679711371,
+            "residual_diagnostics": {
+              "margin_bias": 0.9842206155053044,
+              "margin_mae": 3.6929564475800256,
+              "margin_rmse": 4.678274372827487,
+              "mean_abs_standardized_residual": 0.7963192194965872,
+              "n": 882.0,
+              "realized_margin_sd": 4.556236679711371,
+              "residual_quantiles": {
+                "q05": -6.499150777217594,
+                "q25": -1.7830946391201874,
+                "q50": 1.4988201363583253,
+                "q75": 3.823282339504639,
+                "q95": 8.169172533813583
+              },
+              "residual_sd": 4.573572005278672,
+              "standardized_residual_mean": 0.21045630107198268,
+              "standardized_residual_sd": 0.9857998003608156,
+              "status": "ok"
+            },
+            "residual_quantiles": {
+              "q05": -6.499150777217594,
+              "q25": -1.7830946391201874,
+              "q50": 1.4988201363583253,
+              "q75": 3.823282339504639,
+              "q95": 8.169172533813583
+            },
+            "residual_sd": 4.573572005278672,
+            "standardized_residual_mean": 0.21045630107198268,
+            "standardized_residual_sd": 0.9857998003608156,
+            "status": "ok",
+            "variance_to_residual_mse_ratio": 1.017287715924374,
+            "within_1sd_share": 0.7006802721088435,
+            "within_2sd_share": 0.9580498866213152
+          },
+          "interpretation": "DGLM Margin must pass direct margin residual/dispersion checks and probability bridge calibration before it can move beyond the theory-compatible extension lane.",
+          "promotion_gate": "separate_margin_and_bridge_validation_required",
+          "validation": {
+            "abs_residual_predicted_sd_corr": -0.06021055906489505,
+            "bridge": "normal",
+            "bridge_intercept": null,
+            "bridge_slope": null,
+            "bridge_status": "normal_cdf",
+            "dispersion_diagnostics": {
+              "abs_residual_predicted_sd_corr": -0.06021055906489505,
+              "mean_predicted_margin": -0.18326015555497635,
+              "mean_predicted_sd": 4.581259216638587,
+              "mean_predicted_variance": 21.31764176402438,
+              "residual_mse": 21.687791102488102,
+              "status": "ok",
+              "variance_to_residual_mse_ratio": 1.0173635218454786,
+              "within_1sd_gap_vs_normal": 0.011534743423503024,
+              "within_1sd_share": 0.6942242355605889,
+              "within_2sd_gap_vs_normal": -0.009992374835238405,
+              "within_2sd_share": 0.9445073612684032
+            },
+            "margin_bias": 0.15268257911103542,
+            "margin_mae": 3.634290101742921,
+            "margin_rmse": 4.657015256845107,
+            "mean_abs_standardized_residual": 0.8108239520992694,
+            "mean_predicted_margin": -0.18326015555497635,
+            "mean_predicted_sd": 4.581259216638587,
+            "n": 883.0,
+            "realized_margin_sd": 4.614735176974749,
+            "residual_diagnostics": {
+              "margin_bias": 0.15268257911103542,
+              "margin_mae": 3.634290101742921,
+              "margin_rmse": 4.657015256845107,
+              "mean_abs_standardized_residual": 0.8108239520992694,
+              "n": 883.0,
+              "realized_margin_sd": 4.614735176974749,
+              "residual_quantiles": {
+                "q05": -7.639326514039034,
+                "q25": -2.8990040891149955,
+                "q50": 0.6090668200919771,
+                "q75": 3.111799270431171,
+                "q95": 7.189829843057397
+              },
+              "residual_sd": 4.654511696464421,
+              "standardized_residual_mean": 0.03660871117731468,
+              "standardized_residual_sd": 1.0531794665145173,
+              "status": "ok"
+            },
+            "residual_quantiles": {
+              "q05": -7.639326514039034,
+              "q25": -2.8990040891149955,
+              "q50": 0.6090668200919771,
+              "q75": 3.111799270431171,
+              "q95": 7.189829843057397
+            },
+            "residual_sd": 4.654511696464421,
+            "standardized_residual_mean": 0.03660871117731468,
+            "standardized_residual_sd": 1.0531794665145173,
+            "status": "ok",
+            "variance_to_residual_mse_ratio": 1.0173635218454786,
+            "within_1sd_share": 0.6942242355605889,
+            "within_2sd_share": 0.9445073612684032
+          }
+        },
         "next_stage_blocked_by_fixture_scope": false,
-        "params": "c=0.5; feature_cap=3; n_knots=5",
+        "params": "bridge=logit_calibrated; dispersion_feature_cap=4; feature_cap=6; iterations=1",
         "recommendation_badges": [
-          "research_screen_leader",
           "top_final_holdout",
-          "beats_intercept_log_loss"
+          "top_validation"
         ],
-        "recommendation_tier": "research_screen_leader",
-        "recommended_for_next_stage": true,
-        "recommended_model": "gam_spline",
-        "summary_note": "Best final-holdout named candidate in this research screen."
+        "recommendation_tier": "hold",
+        "recommended_for_next_stage": false,
+        "recommended_model": "intercept_only",
+        "summary_note": "Not recommended for the next stage in this comparison run."
       },
       "distribution": "binomial",
-      "feature_count": 8,
+      "feature_count": 6,
       "lane": "extension",
       "link_function": "logit",
-      "model_name": "gam_spline",
-      "rejection_reasons": [],
+      "model_name": "dglm_margin",
+      "rejection_reasons": [
+        "Final-holdout log loss 0.7104 trailed intercept-only at 0.6893.",
+        "Final-holdout Brier 0.2585 trailed intercept-only at 0.2481."
+      ],
       "stability_metrics": {
-        "active_parameter_ratio": 3.0,
-        "bootstrap_delta_brier_mean_vs_recommended": null,
-        "bootstrap_delta_brier_prob_recommended_better": null,
-        "bootstrap_delta_log_loss_mean_vs_recommended": null,
-        "bootstrap_delta_log_loss_prob_recommended_better": null,
+        "active_parameter_ratio": 2.3333333333333335,
+        "bootstrap_delta_brier_mean_vs_recommended": 0.010074363859552418,
+        "bootstrap_delta_brier_prob_recommended_better": 1.0,
+        "bootstrap_delta_log_loss_mean_vs_recommended": 0.02040658204971464,
+        "bootstrap_delta_log_loss_prob_recommended_better": 1.0,
         "final_holdout_rank": 1,
-        "rank_shift_validation_to_final": -5,
-        "validation_rank": 6,
-        "validation_to_test_auc_delta": 0.013304929483023975,
-        "validation_to_test_brier_delta": -0.010928833933096127,
-        "validation_to_test_log_loss_delta": -0.023492272345119525
-      },
-      "target_name": "moneyline_home_win",
-      "validation_metrics": {
-        "auc_gap_vs_recommended": 0.0,
-        "auc_improvement_vs_intercept": 0.048096600427846026,
-        "brier_gap_vs_recommended": 0.0,
-        "brier_improvement_vs_intercept": 0.0014484004065768719,
-        "final_holdout_accuracy": 0.5373303167420814,
-        "final_holdout_auc": 0.548096600427846,
-        "final_holdout_brier": 0.2469386821620293,
-        "final_holdout_ece": 0.02886873262303548,
-        "final_holdout_log_loss": 0.6869920310912638,
-        "log_loss_gap_vs_recommended": 0.0,
-        "log_loss_improvement_vs_intercept": 0.0029265105757745324,
-        "validation_accuracy": 0.5395927601809954,
-        "validation_auc": 0.534791670944822,
-        "validation_brier": 0.2578675160951254,
-        "validation_log_loss": 0.7104843034363834
-      }
-    },
-    {
-      "active_parameter_count": 8,
-      "calibration_summary": {
-        "brier_reliability": 0.00035778194396069547,
-        "brier_resolution": 0.0004651396164412849,
-        "brier_uncertainty": 0.2482481419299359,
-        "calibration_alpha": 0.10077078925735528,
-        "calibration_beta": 0.5668935776685405,
-        "final_holdout_ece": 0.014399994616392782,
-        "final_holdout_mce": 0.03524103705633791,
-        "max_abs_calibration_gap": 0.1243630502639419,
-        "mean_abs_calibration_gap": 0.06094067159212583,
-        "normalized_gini": 0.057037552514240086,
-        "top_decile_event_capture": 0.10438413361169102,
-        "top_quantile_actual_lift": 1.036804203513875,
-        "top_vs_bottom_actual_lift_ratio": 1.1627906976744187,
-        "tossup_share_current_band": null
-      },
-      "complement_summary": {
-        "benchmark_display_name": "Intercept Only",
-        "benchmark_model": "intercept_only",
-        "display_name": "Elastic Net GLM",
-        "family": "linear",
-        "fit_error": "",
-        "fit_status": "ok",
-        "governance_note": "Core-supported penalized GLM lane; not lasso credibility.",
-        "next_stage_blocked_by_fixture_scope": false,
-        "params": "c=0.03125; l1_ratio=0.85; lambda=32; model_name=glm_elastic_net; penalty_family=elastic_net",
-        "recommendation_badges": [
-          "top_validation",
-          "beats_intercept_log_loss"
-        ],
-        "recommendation_tier": "challenge_watchlist",
-        "recommended_for_next_stage": false,
-        "recommended_model": "gam_spline",
-        "summary_note": "Close challenger retained on the comparison watchlist."
-      },
-      "distribution": "binomial",
-      "feature_count": 50,
-      "lane": "core",
-      "link_function": "logit",
-      "model_name": "glm_elastic_net",
-      "rejection_reasons": [
-        "Final-holdout log loss 0.6888 trailed `gam_spline` at 0.6870.",
-        "Final-holdout Brier 0.2478 trailed `gam_spline` at 0.2469.",
-        "Bootstrap favored `gam_spline` on log loss in 81.0% of resamples."
-      ],
-      "stability_metrics": {
-        "active_parameter_ratio": 0.16,
-        "bootstrap_delta_brier_mean_vs_recommended": 0.0013180276656885232,
-        "bootstrap_delta_brier_prob_recommended_better": 0.81,
-        "bootstrap_delta_log_loss_mean_vs_recommended": 0.002688030753772762,
-        "bootstrap_delta_log_loss_prob_recommended_better": 0.81,
-        "final_holdout_rank": 2,
-        "rank_shift_validation_to_final": 1,
+        "rank_shift_validation_to_final": 0,
         "validation_rank": 1,
-        "validation_to_test_auc_delta": -0.02394852152303062,
-        "validation_to_test_brier_delta": 0.0006758714621656059,
-        "validation_to_test_log_loss_delta": 0.0013877010474594442
+        "validation_to_test_auc_delta": -0.05812556842050898,
+        "validation_to_test_brier_delta": 0.010037826980390768,
+        "validation_to_test_log_loss_delta": 0.017892116472417507
       },
       "target_name": "moneyline_home_win",
       "validation_metrics": {
-        "auc_gap_vs_recommended": -0.019577824170725955,
-        "auc_improvement_vs_intercept": 0.02851877625712007,
-        "brier_gap_vs_recommended": 0.0008985661562443958,
-        "brier_improvement_vs_intercept": 0.000549834250332476,
-        "final_holdout_accuracy": 0.5361990950226244,
-        "final_holdout_auc": 0.5285187762571201,
-        "final_holdout_brier": 0.2478372483182737,
-        "final_holdout_ece": 0.014399994616392782,
-        "final_holdout_log_loss": 0.6887964521788998,
-        "log_loss_gap_vs_recommended": 0.00180442108763601,
-        "log_loss_improvement_vs_intercept": 0.0011220894881385224,
-        "validation_accuracy": 0.5305429864253394,
-        "validation_auc": 0.5524672977801507,
-        "validation_brier": 0.2471613768561081,
-        "validation_log_loss": 0.6874087511314404
+        "auc_gap_vs_recommended": 0.017079124360539044,
+        "auc_improvement_vs_intercept": 0.017079124360539044,
+        "brier_gap_vs_recommended": 0.010438012742776365,
+        "brier_improvement_vs_intercept": -0.010438012742776365,
+        "final_holdout_accuracy": 0.481859410430839,
+        "final_holdout_auc": 0.517079124360539,
+        "final_holdout_brier": 0.25852069758042184,
+        "final_holdout_ece": 0.10458656821612161,
+        "final_holdout_log_loss": 0.7104430303492003,
+        "log_loss_gap_vs_recommended": 0.021133328538506246,
+        "log_loss_improvement_vs_intercept": -0.021133328538506246,
+        "validation_accuracy": 0.535673839184598,
+        "validation_auc": 0.575204692781048,
+        "validation_brier": 0.24848287060003107,
+        "validation_log_loss": 0.6925509138767828
       }
     },
     {
-      "active_parameter_count": 8,
+      "active_parameter_count": 56,
       "calibration_summary": {
-        "brier_reliability": 0.0011852730591895184,
-        "brier_resolution": 0.00045085770368427983,
-        "brier_uncertainty": 0.2482481419299359,
-        "calibration_alpha": 0.1075094104118774,
-        "calibration_beta": 0.5020817621649344,
-        "final_holdout_ece": 0.02062469998978153,
-        "final_holdout_mce": 0.6019730799909255,
-        "max_abs_calibration_gap": 0.13395469163854612,
-        "mean_abs_calibration_gap": 0.06881278880513796,
-        "normalized_gini": 0.054604500115982384,
-        "top_decile_event_capture": 0.10438413361169102,
-        "top_quantile_actual_lift": 1.036804203513875,
-        "top_vs_bottom_actual_lift_ratio": 1.1904761904761905,
+        "brier_reliability": 0.03144956214280211,
+        "brier_resolution": 0.002435982011203005,
+        "brier_uncertainty": 0.24751132501375456,
+        "calibration_alpha": 0.23628962818118848,
+        "calibration_beta": 0.08133656769982767,
+        "final_holdout_ece": 0.15634443332926592,
+        "final_holdout_mce": 0.40268310829846793,
+        "max_abs_calibration_gap": 0.3243529092884826,
+        "mean_abs_calibration_gap": 0.15576642921664874,
+        "normalized_gini": 0.029857955283180377,
+        "top_decile_event_capture": 0.10103092783505155,
+        "top_quantile_actual_lift": 1.0012278466350053,
+        "top_vs_bottom_actual_lift_ratio": 0.9074074074074074,
         "tossup_share_current_band": null
       },
       "complement_summary": {
         "benchmark_display_name": "Intercept Only",
         "benchmark_model": "intercept_only",
-        "display_name": "Lasso GLM",
+        "display_name": "GLM Ridge",
         "family": "linear",
         "fit_error": "",
         "fit_status": "ok",
-        "governance_note": "Core-supported penalized GLM lane with sparsity-focused review.",
+        "governance_note": "Core-supported penalized GLM lane.",
+        "margin_diagnostics": {},
         "next_stage_blocked_by_fixture_scope": false,
-        "params": "c=0.0416667; l1_ratio=None; lambda=24; model_name=glm_lasso; penalty_family=lasso",
-        "recommendation_badges": [
-          "beats_intercept_log_loss"
-        ],
-        "recommendation_tier": "challenge_watchlist",
+        "params": "c=0.015625; l1_ratio=None; lambda=64; model_name=glm_ridge; penalty_family=ridge",
+        "recommendation_badges": [],
+        "recommendation_tier": "hold",
         "recommended_for_next_stage": false,
-        "recommended_model": "gam_spline",
-        "summary_note": "Close challenger retained on the comparison watchlist."
+        "recommended_model": "intercept_only",
+        "summary_note": "Not recommended for the next stage in this comparison run."
       },
       "distribution": "binomial",
-      "feature_count": 50,
+      "feature_count": 55,
       "lane": "core",
       "link_function": "logit",
-      "model_name": "glm_lasso",
+      "model_name": "glm_ridge",
       "rejection_reasons": [
-        "Final-holdout log loss 0.6893 trailed `gam_spline` at 0.6870.",
-        "Final-holdout Brier 0.2481 trailed `gam_spline` at 0.2469.",
-        "Bootstrap favored `gam_spline` on log loss in 74.0% of resamples."
+        "Final-holdout log loss 0.7486 trailed intercept-only at 0.6893.",
+        "Final-holdout Brier 0.2760 trailed intercept-only at 0.2481.",
+        "Also trailed the best named candidate `dglm_margin` on the final holdout."
       ],
       "stability_metrics": {
-        "active_parameter_ratio": 0.16,
-        "bootstrap_delta_brier_mean_vs_recommended": 0.0010435797318093603,
-        "bootstrap_delta_brier_prob_recommended_better": 0.74,
-        "bootstrap_delta_log_loss_mean_vs_recommended": 0.0020932151582251732,
-        "bootstrap_delta_log_loss_prob_recommended_better": 0.74,
-        "final_holdout_rank": 3,
-        "rank_shift_validation_to_final": 1,
+        "active_parameter_ratio": 1.018181818181818,
+        "bootstrap_delta_brier_mean_vs_recommended": 0.027740821541511737,
+        "bootstrap_delta_brier_prob_recommended_better": 1.0,
+        "bootstrap_delta_log_loss_mean_vs_recommended": 0.0588075139674857,
+        "bootstrap_delta_log_loss_prob_recommended_better": 1.0,
+        "final_holdout_rank": 2,
+        "rank_shift_validation_to_final": 0,
         "validation_rank": 2,
-        "validation_to_test_auc_delta": -0.021073419901143864,
-        "validation_to_test_brier_delta": 0.0006834217739650206,
-        "validation_to_test_log_loss_delta": 0.0014185535016357775
+        "validation_to_test_auc_delta": -0.0125979637294662,
+        "validation_to_test_brier_delta": 0.01504253128516747,
+        "validation_to_test_log_loss_delta": -0.04376607611636707
       },
       "target_name": "moneyline_home_win",
       "validation_metrics": {
-        "auc_gap_vs_recommended": -0.020794350369854886,
-        "auc_improvement_vs_intercept": 0.02730225005799114,
-        "brier_gap_vs_recommended": 0.0011642899739096602,
-        "brier_improvement_vs_intercept": 0.0002841104326672117,
-        "final_holdout_accuracy": 0.5316742081447964,
-        "final_holdout_auc": 0.5273022500579911,
-        "final_holdout_brier": 0.24810297213593896,
-        "final_holdout_ece": 0.02062469998978153,
-        "final_holdout_log_loss": 0.6893336158298559,
-        "log_loss_gap_vs_recommended": 0.0023415847385920285,
-        "log_loss_improvement_vs_intercept": 0.0005849258371825039,
-        "validation_accuracy": 0.5294117647058824,
-        "validation_auc": 0.548375669959135,
-        "validation_brier": 0.24741955036197394,
-        "validation_log_loss": 0.6879150623282201
+        "auc_gap_vs_recommended": 0.01492897764159018,
+        "auc_improvement_vs_intercept": 0.01492897764159018,
+        "brier_gap_vs_recommended": 0.027961296647473294,
+        "brier_improvement_vs_intercept": -0.027961296647473294,
+        "final_holdout_accuracy": 0.4614512471655329,
+        "final_holdout_auc": 0.5149289776415902,
+        "final_holdout_brier": 0.2760439814851188,
+        "final_holdout_ece": 0.15634443332926592,
+        "final_holdout_log_loss": 0.7485717387328551,
+        "log_loss_gap_vs_recommended": 0.05926203692216103,
+        "log_loss_improvement_vs_intercept": -0.05926203692216103,
+        "validation_accuracy": 0.5277463193657984,
+        "validation_auc": 0.5275269413710564,
+        "validation_brier": 0.2610014501999513,
+        "validation_log_loss": 0.7923378148492222
       }
     }
   ],
-  "tracker_service_output_path": "artifacts/reports/runs/candidate_compare_2026-04-23T171436+0000_8bb897fc/candidate_comparison_service.json"
+  "tracker_service_output_path": "artifacts/reports/runs/candidate_compare_2026-05-06T172123+0000_193fd953/candidate_comparison_service.json"
 }

@@ -1,0 +1,17 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+
+# Project-scoped Codex defaults for the MLB-first rebuild. Keep personal
+# preferences in ~/.codex/config.toml; keep repo-specific harness here.
+review_model = "gpt-5.5"
+project_doc_max_bytes = 65536
+
+[agents]
+max_threads = 6
+max_depth = 1
+job_max_runtime_seconds = 3600
+
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
+startup_timeout_sec = 10
+tool_timeout_sec = 60
+

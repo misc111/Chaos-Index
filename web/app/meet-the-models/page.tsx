@@ -1,5 +1,11 @@
+import fs from "node:fs";
+import path from "node:path";
+
+import { loadEvidenceStatus } from "@/app/api/research-desk/route-support";
 import ModelSprite from "@/components/ModelSprite";
+import { MODEL_REGISTRY } from "@/lib/generated/model-manifest";
 import { displayPredictionModel } from "@/lib/predictions-report";
+import type { CurrentBestTopModelSummary, ResearchDeskResponse, TableRow } from "@/lib/types";
 import styles from "./styles.module.css";
 
 type ModelCard = {
@@ -13,13 +19,223 @@ type ModelCard = {
 
 type ModelGroup = {
   title: string;
+  lane: string;
   intro: string;
   models: ModelCard[];
 };
 
+type ModelEvidence = {
+  label: string;
+  tone: "ready" | "review" | "blocked" | "research" | "quiet";
+  copy: string;
+  detail?: string;
+};
+
+type ValidationFitStatus = {
+  status?: string | null;
+  feature_count?: number | null;
+};
+
+type EvidencePayload = Pick<
+  ResearchDeskResponse,
+  | "source_kind"
+  | "source_status"
+  | "evidence_stage"
+  | "latest_artifact_role"
+  | "promotion_eligible"
+  | "production_ready"
+  | "evidence_status"
+  | "current_best_top_models"
+>;
+
+function repoRootFromCwd(): string {
+  return path.basename(process.cwd()) === "web" ? path.resolve(process.cwd(), "..") : process.cwd();
+}
+
+function readJsonRecord(filePath: string): TableRow | null {
+  if (!fs.existsSync(filePath)) return null;
+  try {
+    const parsed = JSON.parse(fs.readFileSync(filePath, "utf8")) as unknown;
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? (parsed as TableRow) : null;
+  } catch {
+    return null;
+  }
+}
+
+function readValidationFitStatuses(): Record<string, ValidationFitStatus> {
+  const metadata = readJsonRecord(path.join(repoRootFromCwd(), "artifacts", "validation", "mlb", "validation_run_metadata.json"));
+  const fitStatus = metadata?.primary_model_resolution;
+  if (!fitStatus || typeof fitStatus !== "object" || Array.isArray(fitStatus)) {
+    return {};
+  }
+  const byModel = (fitStatus as TableRow).model_fit_status;
+  if (!byModel || typeof byModel !== "object" || Array.isArray(byModel)) {
+    return {};
+  }
+  return Object.fromEntries(
+    Object.entries(byModel as Record<string, unknown>)
+      .filter(([, value]) => Boolean(value) && typeof value === "object" && !Array.isArray(value))
+      .map(([modelName, value]) => {
+        const row = value as TableRow;
+        return [
+          modelName,
+          {
+            status: typeof row.status === "string" ? row.status : null,
+            feature_count: typeof row.feature_count === "number" && Number.isFinite(row.feature_count) ? row.feature_count : null,
+          },
+        ];
+      })
+  );
+}
+
+function titleCaseToken(value?: string | null): string {
+  return String(value || "")
+    .replace(/[_-]+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function formatEvidenceStage(value?: string | null): string {
+  if (value === "production_ready") return "Production ready";
+  if (value === "promotion_eligible") return "Promotion eligible";
+  if (value === "fixture_demo_smoke") return "Fixture/demo smoke";
+  if (value === "research_only") return "Research only";
+  return value ? titleCaseToken(value) : "Unknown";
+}
+
+function formatArtifactRole(value?: string | null): string {
+  if (value === "blocked_promotion_evidence") return "Blocked promotion evidence";
+  if (value === "latest_research_recommendation") return "Latest research recommendation";
+  if (value === "latest_promotion_eligible_evidence") return "Promotion-eligible evidence";
+  return value ? titleCaseToken(value) : "No current artifact";
+}
+
+function formatReason(value?: string | null): string {
+  const normalized = titleCaseToken(value).replace(/\bMlb\b/g, "MLB").replace(/\bCv\b/g, "CV").replace(/\bGlm\b/g, "GLM");
+  return normalized || "Evidence gate still open";
+}
+
+function firstReason(evidence: EvidencePayload): string {
+  const readinessReasons = evidence.evidence_status?.readiness_blocked_reasons || [];
+  const blockedReasons = evidence.evidence_status?.blocked_reasons || [];
+  return formatReason(readinessReasons[0] || blockedReasons[0]);
+}
+
+function indexTopModels(rows?: CurrentBestTopModelSummary[]): Map<string, CurrentBestTopModelSummary> {
+  return new Map(
+    (rows || [])
+      .filter((row) => row.model_name)
+      .map((row) => [String(row.model_name), row])
+  );
+}
+
+function modelRegistryLane(modelKey: string): string {
+  const row = (MODEL_REGISTRY as Record<string, { lane?: string }>)[modelKey];
+  return row?.lane || "experimental";
+}
+
+function buildModelEvidence(
+  modelKey: string,
+  evidence: EvidencePayload,
+  topModels: Map<string, CurrentBestTopModelSummary>,
+  fitStatuses: Record<string, ValidationFitStatus>
+): ModelEvidence {
+  const topModel = topModels.get(modelKey);
+  const fitStatus = fitStatuses[modelKey];
+  const lane = modelRegistryLane(modelKey);
+  const artifactRole = formatArtifactRole(evidence.latest_artifact_role);
+
+  if (modelKey === "ensemble") {
+    if (evidence.production_ready) {
+      return {
+        label: "Production ready",
+        tone: "ready",
+        copy: "The desk blend can only claim approval when its source champion clears the full-ledger gate.",
+      };
+    }
+    return {
+      label: "No approved champion",
+      tone: "blocked",
+      copy: "The final call stays gated until a model family clears full-ledger promotion evidence.",
+      detail: artifactRole,
+    };
+  }
+
+  if (topModel && evidence.production_ready) {
+    return {
+      label: "Production ready",
+      tone: "ready",
+      copy: `${topModel.display_name || displayPredictionModel(modelKey)} is present in the current production-ready packet.`,
+      detail: topModel.rank ? `Rank ${topModel.rank}` : undefined,
+    };
+  }
+
+  if (topModel && evidence.promotion_eligible) {
+    return {
+      label: "Promotion review",
+      tone: "review",
+      copy: "This family is in the current full-ledger review packet but still needs production-readiness gates.",
+      detail: topModel.rank ? `Rank ${topModel.rank}` : artifactRole,
+    };
+  }
+
+  if (topModel) {
+    if (evidence.latest_artifact_role === "latest_research_recommendation") {
+      return {
+        label: "Research-ranked",
+        tone: "research",
+        copy: "Current research ranks this family, but the artifact is not promotion-eligible evidence.",
+        detail: topModel.rank ? `Rank ${topModel.rank} in ${artifactRole.toLowerCase()}` : artifactRole,
+      };
+    }
+
+    return {
+      label: "Promotion blocked",
+      tone: "blocked",
+      copy: `Current evidence ranks it, but promotion is blocked by ${firstReason(evidence).toLowerCase()}.`,
+      detail: topModel.rank ? `Rank ${topModel.rank} in ${artifactRole.toLowerCase()}` : artifactRole,
+    };
+  }
+
+  if (fitStatus?.status === "fit_ok") {
+    return {
+      label: "Fit diagnostics only",
+      tone: "research",
+      copy: "A validation fit exists, but this card is not in the current promotion packet.",
+      detail: fitStatus.feature_count ? `${fitStatus.feature_count} active features` : undefined,
+    };
+  }
+
+  if (lane === "core") {
+    return {
+      label: "Core, not promoted",
+      tone: "research",
+      copy: "Theory-core status does not make this family promotion-ready without a current evidence packet.",
+      detail: artifactRole,
+    };
+  }
+
+  if (lane === "extension") {
+    return {
+      label: "Challenger only",
+      tone: "quiet",
+      copy: "Theory-compatible challenger lane; kept separate from the core champion path until evidence catches up.",
+      detail: "Not promotion-ready",
+    };
+  }
+
+  return {
+    label: "Research-only",
+    tone: "quiet",
+    copy: "Opt-in comparison family. Useful as a scout, not eligible for automatic promotion.",
+    detail: "Not promotion-ready",
+  };
+}
+
 const groups: ModelGroup[] = [
   {
     title: "The final desk call",
+    lane: "Desk blend",
     intro: "This is the model you usually want first. It listens to the room instead of trusting one voice.",
     models: [
       {
@@ -34,6 +250,7 @@ const groups: ModelGroup[] = [
   },
   {
     title: "The steady core",
+    lane: "Core models",
     intro: "These are the workhorse actuarial models. They prefer simple relationships and punish noise.",
     models: [
       {
@@ -72,6 +289,7 @@ const groups: ModelGroup[] = [
   },
   {
     title: "Credibility models",
+    lane: "Core models, opt-in",
     intro: "These start with another opinion, then ask how much the data should move away from it.",
     models: [
       {
@@ -94,6 +312,7 @@ const groups: ModelGroup[] = [
   },
   {
     title: "Theory-compatible challengers",
+    lane: "Theory-compatible challengers",
     intro: "These are still actuarial-adjacent, but they are kept out of the default champion lane until evidence catches up.",
     models: [
       {
@@ -132,6 +351,7 @@ const groups: ModelGroup[] = [
   },
   {
     title: "Experimental scouts",
+    lane: "Not promotion-ready",
     intro: "These are useful second opinions. They can spot patterns, but they do not get automatic trust.",
     models: [
       {
@@ -195,54 +415,95 @@ const groups: ModelGroup[] = [
 ];
 
 export default function MeetTheModelsPage() {
+  const evidence = loadEvidenceStatus("MLB");
+  const topModels = indexTopModels(evidence.current_best_top_models);
+  const fitStatuses = readValidationFitStatuses();
+  const evidenceLabel = evidence.evidence_status?.label || formatArtifactRole(evidence.latest_artifact_role);
+
   return (
     <div className={styles.page}>
-      <section className={styles.intro} aria-labelledby="meet-models-title">
-        <div>
-          <h2 id="meet-models-title">The model room, without the math fog.</h2>
-          <p>
-            Each model is a different kind of scout. Some are steady actuaries, some are curve readers, and some are
-            experimental scouts that are only here to challenge the room.
-          </p>
-        </div>
-        <div className={styles.legend} aria-label="How to read the model cards">
-          <span>Plain idea</span>
-          <span>When it helps</span>
-          <span>How it gets fooled</span>
-        </div>
-      </section>
+      <div className={styles.overviewGrid}>
+        <section className={styles.intro} aria-labelledby="meet-models-title">
+          <div>
+            <h2 id="meet-models-title">The model room, without the math fog.</h2>
+            <p>
+              Each model is a different kind of scout. The badges below come from current MLB evidence artifacts, so
+              a good research showing stays separate from promotion readiness.
+            </p>
+          </div>
+          <div className={styles.legend} aria-label="How to read the model cards">
+            <span>Plain idea</span>
+            <span>When it helps</span>
+            <span>How it gets fooled</span>
+          </div>
+        </section>
+
+        <section className={styles.evidenceStrip} aria-label="Current MLB evidence status">
+          <div>
+            <span className={styles.evidenceEyebrow}>Live MLB evidence</span>
+            <strong>{evidenceLabel}</strong>
+            <p>{evidence.evidence_status?.pointer_semantics || "Current model evidence is loaded from the MLB report artifacts."}</p>
+          </div>
+          <div className={styles.evidenceFacts}>
+            <div>
+              <span>Stage</span>
+              <strong>{formatEvidenceStage(evidence.evidence_stage || evidence.evidence_status?.evidence_stage)}</strong>
+            </div>
+            <div>
+              <span>Artifact role</span>
+              <strong>{formatArtifactRole(evidence.latest_artifact_role)}</strong>
+            </div>
+            <div>
+              <span>Promotion-ready</span>
+              <strong>{evidence.production_ready ? "Yes" : "No"}</strong>
+            </div>
+          </div>
+        </section>
+      </div>
 
       <div className={styles.groupStack}>
         {groups.map((group) => (
           <section className={styles.group} key={group.title} aria-labelledby={`${group.title}-heading`}>
             <div className={styles.groupHeader}>
+              <span className={styles.groupLane}>{group.lane}</span>
               <h3 id={`${group.title}-heading`}>{group.title}</h3>
               <p>{group.intro}</p>
             </div>
             <div className={styles.modelGrid}>
-              {group.models.map((model) => (
-                <article className={styles.modelCard} key={model.key}>
-                  <div className={styles.modelTop}>
-                    <ModelSprite model={model.key} className={styles.sprite} />
-                    <div>
-                      <span className={styles.role}>{model.role}</span>
-                      <h4>{displayPredictionModel(model.key)}</h4>
-                      <p className={styles.shortName}>{model.shortName}</p>
+              {group.models.map((model) => {
+                const modelEvidence = buildModelEvidence(model.key, evidence, topModels, fitStatuses);
+                return (
+                  <article className={styles.modelCard} key={model.key}>
+                    <div className={styles.modelTop}>
+                      <ModelSprite model={model.key} className={styles.sprite} />
+                      <div>
+                        <div className={styles.roleRow}>
+                          <span className={styles.role}>{model.role}</span>
+                          <span className={`${styles.statusBadge} ${styles[modelEvidence.tone]}`}>{modelEvidence.label}</span>
+                        </div>
+                        <h4>{displayPredictionModel(model.key)}</h4>
+                        <p className={styles.shortName}>{model.shortName}</p>
+                      </div>
                     </div>
-                  </div>
-                  <p className={styles.plain}>{model.plain}</p>
-                  <div className={styles.explainGrid}>
-                    <div>
-                      <span>Helps when</span>
-                      <p>{model.helps}</p>
+                    <div className={styles.statusCallout}>
+                      <span>Evidence status</span>
+                      <p>{modelEvidence.copy}</p>
+                      {modelEvidence.detail ? <small>{modelEvidence.detail}</small> : null}
                     </div>
-                    <div>
-                      <span>Gets fooled by</span>
-                      <p>{model.fooled}</p>
+                    <p className={styles.plain}>{model.plain}</p>
+                    <div className={styles.explainGrid}>
+                      <div>
+                        <span>Helps when</span>
+                        <p>{model.helps}</p>
+                      </div>
+                      <div>
+                        <span>Gets fooled by</span>
+                        <p>{model.fooled}</p>
+                      </div>
                     </div>
-                  </div>
-                </article>
-              ))}
+                  </article>
+                );
+              })}
             </div>
           </section>
         ))}

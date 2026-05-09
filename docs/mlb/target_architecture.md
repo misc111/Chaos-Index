@@ -10,9 +10,16 @@ Modeling governance follows the leak-repaired tournament and the traceability ma
 ## Enforced Boundaries
 
 - `src.registry.leagues` registers MLB only.
-- `make data_refresh` and `make hard_refresh` are the canonical repo-level
+- `make daily_score`, `make data_refresh`, and `make hard_refresh` are the canonical repo-level
   orchestration targets. They call thin Python adapters in `src/orchestration/`
   and build steps only for primary rebuild leagues.
+- Routine daily automation uses `make daily_score`: refresh MLB data and odds,
+  then score frozen pregame predictions for current-season predictiveness. It
+  does not rebuild features, retrain models, generate staging snapshots, commit,
+  push, or require a clean worktree.
+- Full retraining uses `make hard_refresh` or an explicit `make run_daily
+  RETRAIN=1`. Retraining is not part of the default daily scoring lane and
+  should be treated as a checkpoint action with validation and evidence review.
 - `src.registry.models` separates model families into:
   - `core`: vanilla GLM, ridge, lasso, elastic net, and explicit lasso
     credibility lanes.

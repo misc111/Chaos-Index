@@ -32,6 +32,8 @@ _MLB_LATEST_MATERIAL_ARTIFACT_KEYS = (
     "summary_path",
     "candidate_scorecards_path",
     "candidate_scorecards_contract_path",
+    "dglm_margin_diagnostics_path",
+    "dglm_margin_metrics_path",
     "recommendation_path",
     "recommendation_surface_path",
     "leaderboard_json_path",
@@ -223,7 +225,6 @@ def _comparison_top_models(summary_payload: dict[str, Any], *, limit: int = 5) -
     for record in list(summary_payload.get("candidate_scorecards", [])):
         validation_metrics = dict(record.get("validation_metrics") or {})
         stability_metrics = dict(record.get("stability_metrics") or {})
-        calibration_summary = dict(record.get("calibration_summary") or {})
         complement_summary = dict(record.get("complement_summary") or {})
         target_name = str(record.get("target_name") or summary_payload.get("target_name") or "moneyline_home_win")
         rows.append(
@@ -245,6 +246,9 @@ def _comparison_top_models(summary_payload: dict[str, Any], *, limit: int = 5) -
                 "validation_log_loss": _safe_float(validation_metrics.get("validation_log_loss")),
                 "validation_brier": _safe_float(validation_metrics.get("validation_brier")),
                 "validation_auc": _safe_float(validation_metrics.get("validation_auc")),
+                "margin_diagnostics": complement_summary.get("margin_diagnostics")
+                if str(record.get("model_name") or "") == "dglm_margin"
+                else None,
                 **model_evidence_fields(
                     str(record.get("model_name") or ""),
                     target_name=target_name,
@@ -350,6 +354,8 @@ def _build_current_best_models_payload_from_comparison(
             "recommendation_path": artifacts.get("recommendation_path"),
             "recommendation_surface_path": artifacts.get("recommendation_surface_path"),
             "leaderboard_json_path": artifacts.get("leaderboard_json_path"),
+            "dglm_margin_diagnostics_path": artifacts.get("dglm_margin_diagnostics_path"),
+            "dglm_margin_metrics_path": artifacts.get("dglm_margin_metrics_path"),
         },
     }
 
@@ -724,6 +730,10 @@ def _artifact_sources(result, artifacts: dict[str, Any]) -> dict[str, Any]:
         or getattr(result, "candidate_scorecards_path", None),
         "candidate_scorecards_contract_path": artifacts.get("candidate_scorecards_contract_path")
         or getattr(result, "candidate_scorecards_contract_path", None),
+        "dglm_margin_diagnostics_path": artifacts.get("dglm_margin_diagnostics_path")
+        or getattr(result, "dglm_margin_diagnostics_path", None),
+        "dglm_margin_metrics_path": artifacts.get("dglm_margin_metrics_path")
+        or getattr(result, "dglm_margin_metrics_path", None),
         "leaderboard_path": artifacts.get("leaderboard_path") or getattr(result, "leaderboard_path", None),
         "leaderboard_json_path": artifacts.get("leaderboard_json_path")
         or getattr(result, "leaderboard_json_path", None),

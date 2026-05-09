@@ -185,6 +185,11 @@ _SEASON_ARG = _option(
     help="Optional MLB season override for current-season evidence reports.",
     doc_metavar="SEASON",
 )
+_RETRAIN_ARG = _option(
+    "--retrain",
+    action="store_true",
+    help="Explicitly rebuild features and train models during run-daily; omit for routine scoring-only automation.",
+)
 
 
 COMMAND_REGISTRY: tuple[CommandRegistryEntry, ...] = (
@@ -369,16 +374,19 @@ COMMAND_REGISTRY: tuple[CommandRegistryEntry, ...] = (
     ),
     CommandRegistryEntry(
         name="run-daily",
-        summary="Execute the daily fetch, feature, train, and scoring flow.",
+        summary="Execute routine MLB daily data refresh and scoring without retraining unless --retrain is explicit.",
         handler_path="src.commands.modeling:run_daily",
         arguments=(
             _MODELS_ARG,
+            _RETRAIN_ARG,
+            _REPORT_SLUG_ARG,
+            _SEASON_ARG,
             _VALIDATION_MODE_ARG,
             _VALIDATION_METHOD_ARG,
             _VALIDATION_SEED_ARG,
             _APPROVE_FEATURE_CHANGES_ARG,
         ),
-        examples=("make run_daily", "make run_daily CONFIG=configs/mlb.yaml MODELS=glm_ridge"),
+        examples=("make run_daily", "make run_daily RETRAIN=1 CONFIG=configs/mlb.yaml MODELS=glm_ridge"),
     ),
     CommandRegistryEntry(
         name="smoke",

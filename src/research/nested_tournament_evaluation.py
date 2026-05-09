@@ -114,6 +114,8 @@ def _diagnostic_artifacts(
     p_pred: np.ndarray,
     out_dir: Path,
     prefix: str,
+    model: Any | None = None,
+    eval_df: pd.DataFrame | None = None,
 ) -> tuple[dict[str, Any], dict[str, str]]:
     validation = validate_logistic_probability_model(
         y_true,
@@ -146,6 +148,12 @@ def _diagnostic_artifacts(
         "tossup_summary": validation.get("tossup_summary"),
         "applicability_summary": validation.get("applicability_summary"),
     }
+    if model is not None and eval_df is not None and hasattr(model, "margin_diagnostics"):
+        margin_summary = model.margin_diagnostics(eval_df)
+        summaries["margin_summary"] = margin_summary
+        margin_path = out_dir / f"{prefix}_margin_summary.json"
+        _safe_json(margin_path, margin_summary)
+        paths["margin_summary"] = str(margin_path)
     summary_path = out_dir / f"{prefix}_summary.json"
     _safe_json(summary_path, summaries)
     paths["summary"] = str(summary_path)
@@ -173,6 +181,7 @@ def _metric_row(
     lorenz = dict(diagnostic_summary.get("lorenz_summary") or {})
     roc = dict(diagnostic_summary.get("roc_summary") or {})
     applicability = dict(diagnostic_summary.get("applicability_summary") or {})
+    margin = dict(diagnostic_summary.get("margin_summary") or {})
     cv_ok = cv_folds[cv_folds["status"] == "ok"].copy() if not cv_folds.empty else pd.DataFrame()
     cv_mean_log_loss = _safe_float(cv_ok["mean_log_loss"].mean()) if not cv_ok.empty else None
     validation_to_cv_delta = (float(metrics["log_loss"]) - cv_mean_log_loss) if cv_mean_log_loss is not None else None
@@ -213,6 +222,7 @@ def _metric_row(
         "cv_mean_log_loss": cv_mean_log_loss,
         "validation_to_cv_log_loss_delta": validation_to_cv_delta,
         "diagnostic_artifacts": diagnostic_paths,
+        "margin_diagnostics": margin,
         "fit_status": "ok",
         "fit_error": "",
         **evidence_fields,
@@ -284,6 +294,8 @@ def _evaluate_candidate(
             p_pred=p_pred,
             out_dir=ensure_dir(diagnostics_root / spec.target.target_name / split / spec.model_name / spec.variant_key),
             prefix=prefix,
+            model=model,
+            eval_df=eval_df,
         )
         fit_stats = model.fit_statistics()
         row = _metric_row(

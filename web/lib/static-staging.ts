@@ -53,10 +53,12 @@ export async function fetchDashboardJson<T>(
   key: StagingDataKey,
   livePath: string,
   league: LeagueCode,
-  stagingVariant?: string | null
+  stagingVariant?: string | null,
+  signal?: AbortSignal
 ): Promise<T> {
   const response = await fetch(buildDashboardDataUrl(key, livePath, league, stagingVariant), {
     cache: STATIC_STAGING ? "force-cache" : "no-store",
+    signal,
   });
 
   if (!response.ok) {

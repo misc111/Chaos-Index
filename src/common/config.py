@@ -68,7 +68,7 @@ class BayesConfig(BaseModel):
 
 
 class RuntimeConfig(BaseModel):
-    retrain_daily: bool = True
+    retrain_daily: bool = False
     embargo_days: int = 1
 
 

@@ -189,7 +189,36 @@ def test_best_models_command_falls_back_to_latest_experiment_run(tmp_path, capsy
                     "recommendation_tier": "research_screen_leader",
                     "recommended_for_next_stage": True,
                 },
-            }
+            },
+            {
+                "model_name": "dglm_margin",
+                "target_name": "moneyline_home_win",
+                "validation_metrics": {
+                    "validation_log_loss": 0.62,
+                    "validation_brier": 0.22,
+                    "validation_auc": 0.64,
+                    "final_holdout_log_loss": 0.60,
+                    "final_holdout_brier": 0.21,
+                    "final_holdout_auc": 0.65,
+                    "final_holdout_ece": 0.04,
+                },
+                "stability_metrics": {"final_holdout_rank": 2},
+                "calibration_summary": {},
+                "complement_summary": {
+                    "display_name": "DGLM Margin",
+                    "family": "nonlinear",
+                    "recommendation_tier": "challenge_watchlist",
+                    "recommended_for_next_stage": False,
+                    "margin_diagnostics": {
+                        "promotion_gate": "separate_margin_and_bridge_validation_required",
+                        "final_holdout": {
+                            "status": "ok",
+                            "bridge": "logit_calibrated",
+                            "margin_rmse": 3.2,
+                        },
+                    },
+                },
+            },
         ],
         "promotion_decision": {
             "recommended_model": "glm_elastic_net",
@@ -245,6 +274,9 @@ def test_best_models_command_falls_back_to_latest_experiment_run(tmp_path, capsy
     payload = load_current_best_models(cfg)
     assert payload["recommended_model"] == "glm_elastic_net"
     assert payload["source_kind"] == "candidate_model_comparison"
+    assert payload["top_models"][1]["model_name"] == "dglm_margin"
+    assert payload["top_models"][1]["margin_diagnostics"]["final_holdout"]["margin_rmse"] == 3.2
+    assert payload["top_models"][1]["final_holdout_log_loss"] == 0.60
 
     best_models(cfg, Namespace())
     captured = capsys.readouterr()

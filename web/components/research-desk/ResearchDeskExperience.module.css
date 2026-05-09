@@ -36,6 +36,40 @@
   gap: 18px;
 }
 
+.heroTop > :first-child {
+  display: grid;
+  max-width: 760px;
+  gap: 8px;
+}
+
+.heroStatusPanel {
+  display: grid;
+  min-width: 260px;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--surface-field-muted) 84%, transparent);
+}
+
+.heroStatusPanel div {
+  display: grid;
+  gap: 2px;
+}
+
+.heroStatusPanel span,
+.statusFacts span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.heroStatusPanel strong,
+.statusFacts strong {
+  color: var(--ink-strong);
+  font-size: 14px;
+}
+
 .summaryGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -55,7 +89,7 @@
   margin: 0;
   color: var(--ink-strong);
   font-family: "Space Grotesk", "Avenir Next", sans-serif;
-  font-size: clamp(1.4rem, 2vw, 2rem);
+  font-size: clamp(1.9rem, 3vw, 3.2rem);
   line-height: 1.1;
 }
 
@@ -114,7 +148,7 @@
   display: grid;
   gap: 4px;
   padding: 14px;
-  border-radius: 18px;
+  border-radius: 8px;
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--surface-field-muted) 84%, transparent);
 }
@@ -167,31 +201,15 @@
   font-size: 1.1rem;
 }
 
-.modelSpotlight {
+.modelReviewBlock {
   display: grid;
-  grid-template-columns: 74px minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 12px;
   align-items: center;
-}
-
-.modelSprite {
-  display: grid;
-  width: 74px;
-  height: 74px;
-  place-items: center;
-  overflow: hidden;
+  padding: 14px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background:
-    radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--accent) 15%, transparent), transparent 62%),
-    var(--surface-card-soft);
-}
-
-.modelSprite img {
-  display: block;
-  width: 66px;
-  height: 66px;
-  object-fit: contain;
+  background: color-mix(in srgb, var(--surface-field-muted) 70%, transparent);
 }
 
 .modelSpotlightTitle {
@@ -268,10 +286,93 @@
   gap: 6px;
 }
 
-.gateRow {
-  display: flex;
+.answerBlock {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.answerBadge {
+  display: inline-flex;
+  min-width: 82px;
+  min-height: 34px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.answerYes {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.answerNo {
+  background: var(--warning-soft);
+  color: var(--warning);
+}
+
+.statusFacts {
+  display: grid;
   gap: 8px;
-  flex-wrap: wrap;
+  padding: 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface-field-muted) 66%, transparent);
+}
+
+.checkList {
+  display: grid;
+  gap: 10px;
+}
+
+.checkItem {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface-field-muted) 72%, transparent);
+}
+
+.checkItem strong {
+  color: var(--ink-strong);
+  font-size: 14px;
+}
+
+.checkItem p {
+  margin: 4px 0 0;
+  color: var(--muted-strong);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.checkStatus,
+.checkStatusPass {
+  display: inline-flex;
+  min-height: 26px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  padding: 0 8px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.checkStatus {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.checkStatusPass {
+  background: var(--success-soft);
+  color: var(--success);
 }
 
 .diagnosticPanel {
@@ -279,7 +380,7 @@
   gap: 12px;
   padding: 14px;
   border: 1px solid var(--border);
-  border-radius: 18px;
+  border-radius: 8px;
   background: var(--surface-card-soft);
 }
 
@@ -323,7 +424,7 @@
 
 .unsupportedNote {
   padding: 14px;
-  border-radius: 18px;
+  border-radius: 8px;
   border: 1px solid var(--border);
   background: var(--surface-field-muted);
 }
@@ -340,6 +441,80 @@
   }
 
   .table {
-    min-width: 720px;
+    min-width: 0;
+  }
+
+  .heroStatusPanel {
+    width: 100%;
+  }
+
+  .answerBlock,
+  .checkItem {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 1000px) {
+  .tableWrap {
+    overflow-x: visible;
+  }
+
+  .table {
+    min-width: 0;
+  }
+
+  .table,
+  .table thead,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tbody {
+    display: grid;
+    gap: 12px;
+  }
+
+  .table tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--surface-field-muted) 68%, transparent);
+  }
+
+  .table td {
+    padding: 0;
+    border-top: 0;
+  }
+
+  .table td::before {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--muted);
+    content: attr(data-label);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .table td:first-child,
+  .table td:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .reasonCell .metricStrong {
+    color: var(--muted-strong);
+    font-weight: 600;
+    line-height: 1.45;
   }
 }

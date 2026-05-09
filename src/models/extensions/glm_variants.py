@@ -43,6 +43,12 @@ class _WrappedCandidateModel(BaseProbModel):
             raise RuntimeError(f"{self.model_name} has not been fit")
         return self._candidate.predict_proba(df)
 
+    def __getattr__(self, name: str):
+        candidate = self.__dict__.get("_candidate")
+        if candidate is not None and hasattr(candidate, name):
+            return getattr(candidate, name)
+        raise AttributeError(name)
+
 
 class GAMSplineModel(_WrappedCandidateModel):
     """Theory-compatible spline-basis GAM challenger wrapper."""
@@ -82,11 +88,18 @@ class DGLMMarginModel(_WrappedCandidateModel):
 
     model_name = "dglm_margin"
 
-    def __init__(self, *, iterations: int = 2) -> None:
+    def __init__(self, *, iterations: int = 2, bridge: str = "logit_calibrated") -> None:
         super().__init__()
         self.iterations = int(iterations)
+        self.bridge = str(bridge)
 
     def fit(self, df: pd.DataFrame, feature_columns: list[str], target_col: str = "home_win") -> None:
         self.feature_columns = _unique_features(feature_columns, limit=10)
-        self._candidate = DGLMMarginCandidate(features=self.feature_columns, iterations=self.iterations)
+        dispersion_features = self.feature_columns[: min(6, len(self.feature_columns))]
+        self._candidate = DGLMMarginCandidate(
+            features=self.feature_columns,
+            dispersion_features=dispersion_features,
+            iterations=self.iterations,
+            bridge=self.bridge,
+        )
         self._candidate.fit(df, target_col=target_col)

@@ -263,6 +263,7 @@ def _task_result(
 
 _MODEL_DEPENDENT_TASKS = {
     "glm_diagnostics",
+    "dglm_margin_diagnostics",
     "stability",
     "influence",
     "fragility",
@@ -277,6 +278,7 @@ _HOLDOUT_DEPENDENT_TASKS = {
     "calibration",
     "market_truth",
     "classification_curves",
+    "dglm_margin_diagnostics",
 }
 
 

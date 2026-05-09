@@ -579,28 +579,73 @@ class GLMMLogitCandidate(BaseCandidateModel):
 
 
 class DGLMMarginCandidate(BaseCandidateModel):
-    def __init__(self, *, features: list[str], iterations: int = 2):
+    def __init__(
+        self,
+        *,
+        features: list[str],
+        dispersion_features: list[str] | None = None,
+        iterations: int = 2,
+        bridge: str = "normal",
+    ):
         self.features = list(features)
+        self.dispersion_features = list(dispersion_features if dispersion_features is not None else features)
         self.iterations = int(max(iterations, 1))
+        self.bridge = str(bridge or "normal")
+        if self.bridge not in {"normal", "logit_calibrated"}:
+            self.bridge = "normal"
         self.model_name = "dglm_margin"
         self.display_name = "DGLM Margin"
         self.medians = pd.Series(dtype=float)
+        self.dispersion_medians = pd.Series(dtype=float)
         self.scaler = StandardScaler()
+        self.dispersion_scaler = StandardScaler()
         self.exog_names: list[str] = []
+        self.dispersion_exog_names: list[str] = []
         self.mean_result: Any = None
         self.dispersion_result: Any = None
+        self.bridge_model: LogisticRegression | None = None
+        self.bridge_intercept: float | None = None
+        self.bridge_slope: float | None = None
+        self.bridge_status = "uncalibrated_normal"
         self.train_n = 0
 
-    def _design_matrix(self, df: pd.DataFrame, *, fit: bool) -> pd.DataFrame:
-        numeric = _safe_numeric_frame(df, self.features)
+    def _design_matrix_for(
+        self,
+        df: pd.DataFrame,
+        *,
+        features: list[str],
+        fit: bool,
+        medians_attr: str,
+        scaler: StandardScaler,
+    ) -> pd.DataFrame:
+        numeric = _safe_numeric_frame(df, features)
         if fit:
-            self.medians = numeric.median(numeric_only=True).fillna(0.0)
-        filled = numeric.fillna(self.medians.reindex(self.features)).fillna(0.0)
+            setattr(self, medians_attr, numeric.median(numeric_only=True).fillna(0.0))
+        medians = getattr(self, medians_attr)
+        filled = numeric.fillna(medians.reindex(features)).fillna(0.0)
         values = filled.to_numpy(dtype=float)
-        scaled = self.scaler.fit_transform(values) if fit else self.scaler.transform(values)
-        frame = pd.DataFrame(scaled, columns=self.features, index=df.index)
+        scaled = scaler.fit_transform(values) if fit else scaler.transform(values)
+        frame = pd.DataFrame(scaled, columns=features, index=df.index)
         design = sm.add_constant(frame, has_constant="add")
         return design
+
+    def _mean_design_matrix(self, df: pd.DataFrame, *, fit: bool) -> pd.DataFrame:
+        return self._design_matrix_for(
+            df,
+            features=self.features,
+            fit=fit,
+            medians_attr="medians",
+            scaler=self.scaler,
+        )
+
+    def _dispersion_design_matrix(self, df: pd.DataFrame, *, fit: bool) -> pd.DataFrame:
+        return self._design_matrix_for(
+            df,
+            features=self.dispersion_features,
+            fit=fit,
+            medians_attr="dispersion_medians",
+            scaler=self.dispersion_scaler,
+        )
 
     def fit(self, df: pd.DataFrame, *, target_col: str = "home_win") -> None:
         work = df[df[target_col].notna()].copy()
@@ -610,8 +655,10 @@ class DGLMMarginCandidate(BaseCandidateModel):
         if margin.isna().any():
             raise ValueError("DGLM margin candidate requires realized home_score and away_score")
 
-        design = self._design_matrix(work, fit=True)
+        design = self._mean_design_matrix(work, fit=True)
+        dispersion_design = self._dispersion_design_matrix(work, fit=True)
         self.exog_names = list(design.columns)
+        self.dispersion_exog_names = list(dispersion_design.columns)
         weights = np.ones(len(work), dtype=float)
         for _ in range(self.iterations):
             self.mean_result = sm.GLM(
@@ -624,28 +671,175 @@ class DGLMMarginCandidate(BaseCandidateModel):
             squared_residual = np.square(margin.to_numpy(dtype=float) - mu) + 1e-6
             self.dispersion_result = sm.GLM(
                 squared_residual,
-                design,
-                family=sm.families.Gamma(link=sm.families.links.log()),
+                dispersion_design,
+                family=sm.families.Gamma(link=sm.families.links.Log()),
             ).fit()
-            weights = np.clip(np.asarray(self.dispersion_result.predict(design), dtype=float), 1e-6, None)
+            weights = np.clip(np.asarray(self.dispersion_result.predict(dispersion_design), dtype=float), 1e-6, None)
+        self._fit_bridge(work, design, dispersion_design, target_col=target_col)
         self.train_n = int(len(work))
 
-    def predict_proba(self, df: pd.DataFrame) -> np.ndarray:
+    def _fit_bridge(
+        self,
+        work: pd.DataFrame,
+        mean_design: pd.DataFrame,
+        dispersion_design: pd.DataFrame,
+        *,
+        target_col: str,
+    ) -> None:
+        if self.mean_result is None or self.dispersion_result is None:
+            return
+        if self.bridge != "logit_calibrated":
+            self.bridge_status = "normal_cdf"
+            return
+        y = work[target_col].astype(int).to_numpy()
+        if len(np.unique(y)) < 2:
+            self.bridge_status = "normal_cdf_single_class_training"
+            return
+        mean_margin = np.asarray(self.mean_result.predict(mean_design), dtype=float)
+        variance = np.clip(np.asarray(self.dispersion_result.predict(dispersion_design), dtype=float), 1e-6, None)
+        z_score = (mean_margin / np.sqrt(variance)).reshape(-1, 1)
+        bridge_model = LogisticRegression(C=1_000_000.0, solver="lbfgs", max_iter=1000)
+        bridge_model.fit(z_score, y)
+        self.bridge_model = bridge_model
+        self.bridge_intercept = float(bridge_model.intercept_[0])
+        self.bridge_slope = float(bridge_model.coef_[0][0])
+        self.bridge_status = "logit_calibrated"
+
+    def predict_margin_distribution(self, df: pd.DataFrame) -> tuple[np.ndarray, np.ndarray]:
         if self.mean_result is None or self.dispersion_result is None:
             raise RuntimeError("dglm_margin has not been fit")
-        design = self._design_matrix(df, fit=False).reindex(columns=self.exog_names, fill_value=1.0)
+        design = self._mean_design_matrix(df, fit=False).reindex(columns=self.exog_names, fill_value=1.0)
+        dispersion_design = self._dispersion_design_matrix(df, fit=False).reindex(columns=self.dispersion_exog_names, fill_value=1.0)
         mean_margin = np.asarray(self.mean_result.predict(design), dtype=float)
-        variance = np.clip(np.asarray(self.dispersion_result.predict(design), dtype=float), 1e-6, None)
-        probability = 1.0 - norm.cdf((0.0 - mean_margin) / np.sqrt(variance))
+        variance = np.clip(np.asarray(self.dispersion_result.predict(dispersion_design), dtype=float), 1e-6, None)
+        return mean_margin, variance
+
+    def predict_proba(self, df: pd.DataFrame) -> np.ndarray:
+        mean_margin, variance = self.predict_margin_distribution(df)
+        z_score = mean_margin / np.sqrt(variance)
+        if self.bridge == "logit_calibrated" and self.bridge_model is not None:
+            probability = self.bridge_model.predict_proba(z_score.reshape(-1, 1))[:, 1]
+        else:
+            probability = 1.0 - norm.cdf(-z_score)
         return _clip_probability(probability)
+
+    def margin_prediction_frame(self, df: pd.DataFrame) -> pd.DataFrame:
+        if "home_score" not in df.columns or "away_score" not in df.columns:
+            return pd.DataFrame()
+        margin = pd.to_numeric(df["home_score"], errors="coerce") - pd.to_numeric(df["away_score"], errors="coerce")
+        valid = margin.notna()
+        if not bool(valid.any()):
+            return pd.DataFrame()
+        work = df.loc[valid].copy()
+        mean_margin, variance = self.predict_margin_distribution(work)
+        realized = margin.loc[valid].to_numpy(dtype=float)
+        predicted_sd = np.sqrt(np.clip(variance, 1e-6, None))
+        residual = realized - mean_margin
+        frame = pd.DataFrame(index=work.index)
+        for column in ("game_id", "start_time_utc", "game_date_utc", "home_team", "away_team"):
+            if column in work.columns:
+                frame[column] = work[column].to_numpy()
+        frame["realized_home_score"] = pd.to_numeric(work["home_score"], errors="coerce").to_numpy(dtype=float)
+        frame["realized_away_score"] = pd.to_numeric(work["away_score"], errors="coerce").to_numpy(dtype=float)
+        frame["realized_margin"] = realized
+        frame["predicted_margin"] = mean_margin
+        frame["predicted_variance"] = variance
+        frame["predicted_sd"] = predicted_sd
+        frame["predicted_home_win_probability"] = self.predict_proba(work)
+        frame["residual"] = residual
+        frame["abs_residual"] = np.abs(residual)
+        frame["squared_residual"] = np.square(residual)
+        frame["standardized_residual"] = residual / predicted_sd
+        return frame.reset_index(drop=True)
+
+    @staticmethod
+    def _margin_summary_from_frame(frame: pd.DataFrame) -> dict[str, Any]:
+        if frame.empty:
+            return {"status": "missing_realized_scores"}
+        realized = frame["realized_margin"].to_numpy(dtype=float)
+        mean_margin = frame["predicted_margin"].to_numpy(dtype=float)
+        variance = frame["predicted_variance"].to_numpy(dtype=float)
+        predicted_sd = frame["predicted_sd"].to_numpy(dtype=float)
+        residual = frame["residual"].to_numpy(dtype=float)
+        standardized = frame["standardized_residual"].to_numpy(dtype=float)
+        abs_residual = frame["abs_residual"].to_numpy(dtype=float)
+        squared_residual = frame["squared_residual"].to_numpy(dtype=float)
+        residual_mse = float(np.mean(squared_residual))
+        mean_predicted_variance = float(np.mean(variance))
+        variance_ratio = float(residual_mse / max(mean_predicted_variance, 1e-6))
+        within_1sd_share = float(np.mean(np.abs(standardized) <= 1.0))
+        within_2sd_share = float(np.mean(np.abs(standardized) <= 2.0))
+        corr = np.nan
+        if len(abs_residual) >= 3 and np.std(abs_residual) > 0 and np.std(predicted_sd) > 0:
+            corr = float(np.corrcoef(abs_residual, predicted_sd)[0, 1])
+        residual_quantiles = {
+            f"q{int(q * 100):02d}": float(np.quantile(residual, q))
+            for q in (0.05, 0.25, 0.50, 0.75, 0.95)
+        }
+        residual_diagnostics = {
+            "status": "ok",
+            "n": int(len(realized)),
+            "margin_bias": float(np.mean(residual)),
+            "margin_mae": float(np.mean(abs_residual)),
+            "margin_rmse": float(np.sqrt(residual_mse)),
+            "realized_margin_sd": float(np.std(realized, ddof=0)),
+            "residual_sd": float(np.std(residual, ddof=0)),
+            "residual_quantiles": residual_quantiles,
+            "standardized_residual_mean": float(np.mean(standardized)),
+            "standardized_residual_sd": float(np.std(standardized, ddof=0)),
+            "mean_abs_standardized_residual": float(np.mean(np.abs(standardized))),
+        }
+        dispersion_diagnostics = {
+            "status": "ok",
+            "mean_predicted_margin": float(np.mean(mean_margin)),
+            "mean_predicted_sd": float(np.mean(predicted_sd)),
+            "mean_predicted_variance": mean_predicted_variance,
+            "residual_mse": residual_mse,
+            "variance_to_residual_mse_ratio": variance_ratio,
+            "within_1sd_share": within_1sd_share,
+            "within_2sd_share": within_2sd_share,
+            "within_1sd_gap_vs_normal": float(within_1sd_share - 0.6826894921370859),
+            "within_2sd_gap_vs_normal": float(within_2sd_share - 0.9544997361036416),
+            "abs_residual_predicted_sd_corr": corr if np.isfinite(corr) else None,
+        }
+        return {
+            "status": "ok",
+            "n": int(len(realized)),
+            **residual_diagnostics,
+            **{
+                "mean_predicted_margin": dispersion_diagnostics["mean_predicted_margin"],
+                "mean_predicted_sd": dispersion_diagnostics["mean_predicted_sd"],
+                "variance_to_residual_mse_ratio": variance_ratio,
+                "within_1sd_share": within_1sd_share,
+                "within_2sd_share": within_2sd_share,
+                "abs_residual_predicted_sd_corr": dispersion_diagnostics["abs_residual_predicted_sd_corr"],
+            },
+            "residual_diagnostics": residual_diagnostics,
+            "dispersion_diagnostics": dispersion_diagnostics,
+        }
+
+    def margin_diagnostics(self, df: pd.DataFrame) -> dict[str, Any]:
+        summary = self._margin_summary_from_frame(self.margin_prediction_frame(df))
+        if summary.get("status") != "ok":
+            return summary
+        return {
+            **summary,
+            "bridge": self.bridge,
+            "bridge_status": self.bridge_status,
+            "bridge_intercept": self.bridge_intercept,
+            "bridge_slope": self.bridge_slope,
+        }
 
     def fit_statistics(self) -> CandidateFitStats:
         if self.mean_result is None or self.dispersion_result is None:
             raise RuntimeError("dglm_margin has not been fit")
-        parameter_count = int(len(self.exog_names) * 2)
+        bridge_parameter_count = 2 if self.bridge_model is not None else 0
+        parameter_count = int(len(self.exog_names) + len(self.dispersion_exog_names) + bridge_parameter_count)
         active_parameters = int(
             np.sum(np.abs(np.asarray(self.mean_result.params, dtype=float)) > 1e-8)
             + np.sum(np.abs(np.asarray(self.dispersion_result.params, dtype=float)) > 1e-8)
+            + (1 if self.bridge_intercept is not None and abs(self.bridge_intercept) > 1e-8 else 0)
+            + (1 if self.bridge_slope is not None and abs(self.bridge_slope) > 1e-8 else 0)
         )
         mean_log_like = float(getattr(self.mean_result, "llf", np.nan))
         dispersion_log_like = float(getattr(self.dispersion_result, "llf", np.nan))
@@ -667,7 +861,10 @@ class DGLMMarginCandidate(BaseCandidateModel):
             train_deviance=total_deviance,
             train_aic=total_aic,
             train_bic=total_bic,
-            notes=f"iterations={self.iterations}",
+            notes=(
+                f"iterations={self.iterations}; bridge={self.bridge}; bridge_status={self.bridge_status}; "
+                f"mean_features={len(self.features)}; dispersion_features={len(self.dispersion_features)}"
+            ),
         )
 
 

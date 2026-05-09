@@ -71,9 +71,15 @@ make validate CONFIG=configs/mlb.yaml
 Repo-level orchestration is also being rewritten around the MLB lane:
 
 ```bash
+make daily_score
 make data_refresh
 make hard_refresh
 ```
+
+`make daily_score` is the routine daily automation path: refresh MLB data and
+score frozen pregame predictions without retraining or publishing. Use
+`make hard_refresh` only for an explicit full retrain, staging snapshot, and
+publish closeout checkpoint.
 
 ## Repo Structure
 

@@ -43,6 +43,19 @@ def test_mlb_train_cli_defaults_to_the_core_lane() -> None:
     assert args.models is None
 
 
+def test_run_daily_cli_makes_retraining_explicit() -> None:
+    parser = build_parser()
+
+    default_args = parser.parse_args(["run-daily", "--config", "configs/mlb.yaml"])
+    retrain_args = parser.parse_args(["run-daily", "--config", "configs/mlb.yaml", "--retrain"])
+    manifest = command_manifest_payload()
+    run_daily_entry = next(entry for entry in manifest["commands"] if entry["name"] == "run-daily")
+
+    assert default_args.retrain is False
+    assert retrain_args.retrain is True
+    assert "without retraining unless --retrain is explicit" in run_daily_entry["summary"]
+
+
 def test_structured_glm_cli_flags_are_exposed_on_research_commands() -> None:
     parser = build_parser()
 

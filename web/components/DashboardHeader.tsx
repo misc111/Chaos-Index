@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import type { CSSProperties, MouseEvent } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -24,7 +24,7 @@ const links: Array<[string, string]> = [
   ["/actual-vs-expected", "Actual vs Expected"],
   ["/predictions", "Model Summary"],
   ["/performance", "Performance"],
-  ["/bet-sizing", "Bet Sizing"],
+  ["/bet-sizing", "Flat Betting"],
 ];
 
 const DEFAULT_QUERY = `?league=MLB&strategy=${getDefaultBetStrategyForLeague("MLB")}`;
@@ -44,6 +44,7 @@ type RouteHero = {
   copy: string;
   image: string;
   signals: [string, string, string];
+  compact?: boolean;
 };
 
 const routeHeroes: Record<string, RouteHero> = {
@@ -60,10 +61,10 @@ const routeHeroes: Record<string, RouteHero> = {
     signals: ["Replay ledger", "Bankroll path", "Settled results"],
   },
   "/bet-sizing": {
-    title: "Bet Sizing",
-    copy: "Turn edge into stake size with budget, caps, and uncertainty kept visible.",
+    title: "Flat Betting",
+    copy: "Use one fixed amount for every bet and zero dollars for every pass.",
     image: "/images/pages/bet-sizing.png",
-    signals: ["Risk budget", "Stake cap", "Bankroll scale"],
+    signals: ["Bet or pass", "$100 bets", "$0 passes"],
   },
   "/calibration": {
     title: "Calibration",
@@ -100,6 +101,7 @@ const routeHeroes: Record<string, RouteHero> = {
     copy: "A plain-English roster of the model family, what each one sees, and how each one can get fooled.",
     image: "/images/pages/predictions.png",
     signals: ["Plain English", "Model roles", "Trust notes"],
+    compact: true,
   },
   "/nested-tournament": {
     title: "Nested Tournament",
@@ -126,10 +128,10 @@ const routeHeroes: Record<string, RouteHero> = {
     signals: ["Briefs", "Runs", "Promotion"],
   },
   "/research-desk": {
-    title: "Research Desk",
-    copy: "The clean daily view of slate status, evidence posture, and promotion gates.",
+    title: "Today’s Model Review",
+    copy: "See today’s games, which ones the model likes, and whether the model has passed enough checks to trust.",
     image: "/images/pages/research-desk.png",
-    signals: ["Desk status", "Evidence", "Promotion"],
+    signals: ["Games today", "Model checks", "Pick review"],
   },
   "/slices": {
     title: "Slice Analysis",
@@ -220,6 +222,11 @@ function hrefWithParams(href: string, searchParams: URLSearchParams, updates: Re
   }
   const query = params.toString();
   return query ? `${href}?${query}` : href;
+}
+
+function toBrowserHref(href: string): string {
+  if (!BASE_PATH || !href.startsWith("/")) return href;
+  return href === "/" ? `${BASE_PATH}/` : `${BASE_PATH}${href}`;
 }
 
 function formatRefreshTimestamp(value: string): string {
@@ -512,9 +519,9 @@ function HeaderFallback() {
 
       <nav className="nav dashboard-nav" aria-label="Primary dashboard navigation">
         {links.map(([href, label]) => (
-          <Link href={`${href}${DEFAULT_QUERY}`} key={href} className="nav-link">
+          <a href={toBrowserHref(`${href}${DEFAULT_QUERY}`)} key={href} className="nav-link">
             {label}
-          </Link>
+          </a>
         ))}
       </nav>
     </>
@@ -527,7 +534,7 @@ function DashboardRouteHero({ pathname }: { pathname: string }) {
 
   return (
     <section
-      className="dashboard-route-hero"
+      className={`dashboard-route-hero ${hero.compact ? "dashboard-route-hero-compact" : ""}`}
       style={{ "--route-hero-image": `url(${BASE_PATH}${hero.image})` } as CSSProperties}
       aria-labelledby="dashboard-route-hero-title"
     >
@@ -550,6 +557,12 @@ function DashboardHeaderContent() {
   const search = new URLSearchParams(searchParams.toString());
   const league = normalizeLeague(searchParams.get("league"));
 
+  const handleNavClick = (event: MouseEvent<HTMLAnchorElement>, isActive: boolean) => {
+    if (!isActive) return;
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <>
       <div className="dashboard-topbar">
@@ -566,14 +579,15 @@ function DashboardHeaderContent() {
         {links.map(([href, label]) => {
           const isActive = isActivePath(pathname, href);
           return (
-            <Link
-              href={hrefWithLeague(href, league, search)}
+            <a
+              href={toBrowserHref(hrefWithLeague(href, league, search))}
               key={href}
               className={`nav-link ${isActive ? "active" : ""}`}
               aria-current={isActive ? "page" : undefined}
+              onClick={(event) => handleNavClick(event, isActive)}
             >
               {label}
-            </Link>
+            </a>
           );
         })}
       </nav>

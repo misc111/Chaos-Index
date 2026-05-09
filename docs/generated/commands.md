@@ -226,18 +226,21 @@ Run the MLB-first research desk orchestration flow with structured brief intake 
 
 ## `run-daily`
 
-Execute the daily fetch, feature, train, and scoring flow.
+Execute routine MLB daily data refresh and scoring without retraining unless --retrain is explicit.
 
 - Default config: `configs/mlb.yaml`
 - Options:
   - `--models` `MODELS`: Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core-supported GLM lane.
+  - `--retrain`: Explicitly rebuild features and train models during run-daily; omit for routine scoring-only automation.
+  - `--report-slug` `SLUG`: Optional report slug prefix for artifact outputs.
+  - `--season` `SEASON`: Optional MLB season override for current-season evidence reports.
   - `--validation-split-mode` `MODE`: Validation split layout: 70/30 train-test or 40/30/30 train-validation-test.
   - `--validation-split-method` `METHOD`: Validation split method: out-of-time or random-by-record.
   - `--validation-split-seed` `SEED`: Optional random seed for random-by-record validation splits.
   - `--approve-feature-changes`: Explicitly accept and persist model feature-contract changes.
 - Examples:
   - `make run_daily`
-  - `make run_daily CONFIG=configs/mlb.yaml MODELS=glm_ridge`
+  - `make run_daily RETRAIN=1 CONFIG=configs/mlb.yaml MODELS=glm_ridge`
 
 ## `smoke`
 

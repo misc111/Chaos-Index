@@ -1,0 +1,95 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - complementary "Dashboard controls" [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - paragraph [ref=e7]: Controls
+          - heading "Inputs" [level=2] [ref=e8]
+          - paragraph [ref=e9]: MLB only. Choose risk, then scan the board.
+        - region "Product Lane" [ref=e10]:
+          - generic [ref=e11]: Product Lane
+          - paragraph [ref=e12]: MLB only.
+        - region "Bet Objective" [ref=e13]:
+          - generic [ref=e14]: Bet Objective
+          - generic "Bet objective selection" [ref=e15]:
+            - link "Balanced Standard risk" [ref=e16] [cursor=pointer]:
+              - /url: /predictions?league=MLB&strategy=riskAdjusted
+              - generic [ref=e17]: Balanced
+              - generic [ref=e18]: Standard risk
+            - link "Aggressive Wider caps" [ref=e19] [cursor=pointer]:
+              - /url: /predictions?league=MLB&strategy=aggressive
+              - generic [ref=e20]: Aggressive
+              - generic [ref=e21]: Wider caps
+            - link "Conservative Favorites only" [ref=e22] [cursor=pointer]:
+              - /url: /predictions?league=MLB&strategy=capitalPreservation
+              - generic [ref=e23]: Conservative
+              - generic [ref=e24]: Favorites only
+        - region "Utilities" [ref=e25]:
+          - generic [ref=e26]: Utilities
+          - generic [ref=e27]:
+            - button "Refresh Data" [ref=e28] [cursor=pointer]
+            - generic [ref=e29]:
+              - paragraph [ref=e30]: "Balanced: Standard risk."
+              - paragraph [ref=e31]: Refresh updates ingest only.
+          - button "Switch to light mode" [pressed] [ref=e32] [cursor=pointer]:
+            - generic [ref=e33]:
+              - generic [ref=e34]: Dark Mode
+              - generic [ref=e35]: "On"
+    - generic [ref=e38]:
+      - generic [ref=e40]:
+        - paragraph [ref=e41]: Chaos Index
+        - heading "MLB Win Probability Forecasting" [level=1] [ref=e42]
+        - paragraph [ref=e43]: Forecasts vs market.
+      - navigation "Primary dashboard navigation" [ref=e44]:
+        - link "Overview" [ref=e45] [cursor=pointer]:
+          - /url: /?league=MLB&strategy=riskAdjusted
+        - link "Games Today" [ref=e46] [cursor=pointer]:
+          - /url: /games-today?league=MLB&strategy=riskAdjusted
+        - link "Market Board" [ref=e47] [cursor=pointer]:
+          - /url: /market-board?league=MLB&strategy=riskAdjusted
+        - link "Research Desk" [ref=e48] [cursor=pointer]:
+          - /url: /research-desk?league=MLB&strategy=riskAdjusted
+        - link "Bet History" [ref=e49] [cursor=pointer]:
+          - /url: /bet-history?league=MLB&strategy=riskAdjusted
+        - link "Actual vs Expected" [ref=e50] [cursor=pointer]:
+          - /url: /actual-vs-expected?league=MLB&strategy=riskAdjusted
+        - link "Model Summary" [ref=e51] [cursor=pointer]:
+          - /url: /predictions?league=MLB&strategy=riskAdjusted
+        - link "Performance" [ref=e52] [cursor=pointer]:
+          - /url: /performance?league=MLB&strategy=riskAdjusted
+        - link "Bet Sizing" [ref=e53] [cursor=pointer]:
+          - /url: /bet-sizing?league=MLB&strategy=riskAdjusted
+      - region "Model Summary" [ref=e54]:
+        - generic [ref=e55]:
+          - heading "Model Summary" [level=2] [ref=e56]
+          - paragraph [ref=e57]: Pregame model probabilities, market comparison, and feature traceability.
+        - generic "Model Summary signals" [ref=e58]:
+          - generic [ref=e59]: Pregame
+          - generic [ref=e60]: Model layer
+          - generic [ref=e61]: Market lens
+      - main [ref=e62]:
+        - generic [ref=e63]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: Home team
+            - combobox "Home team" [ref=e68]:
+              - option "All home teams" [selected]
+          - generic [ref=e69]:
+            - generic [ref=e70]:
+              - generic [ref=e71]:
+                - heading "Next home games" [level=3] [ref=e72]
+                - paragraph [ref=e73]: One row per home team when that team's next scheduled game is at home.
+                - paragraph [ref=e74]:
+                  - code [ref=e75]: ML implied
+                  - text: uses one paired home/away moneyline from the same book when available.
+                  - code [ref=e76]: raw
+                  - text: is the direct home-side implied chance from that line;
+                  - code [ref=e77]: fair
+                  - text: rescales both sides to strip out the visible vig, which is still only a market estimate, not the sportsbook's hidden true probability.
+              - paragraph [ref=e78]: 0 teams shown
+            - generic [ref=e79]: Loading the latest predictions report...
+          - generic [ref=e81]:
+            - heading "Model guide" [level=3] [ref=e82]
+            - paragraph [ref=e83]: Live model notes plus fitted inputs and coefficient diagnostics from the MLB feature artifacts.
+  - button "Open Next.js Dev Tools" [ref=e89] [cursor=pointer]:
+    - img [ref=e90]
+  - alert [ref=e93]

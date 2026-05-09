@@ -1,12 +1,12 @@
 {
-  "archive_date": "2026-05-02",
-  "archive_dir": "validation-runs/mlb/2026-05-02/2026-05-02T15-39-44+00-00_run_a965728ef03c2c8d",
-  "archive_id": "2026-05-02T15-39-44+00-00_run_a965728ef03c2c8d",
+  "archive_date": "2026-05-06",
+  "archive_dir": "validation-runs/mlb/2026-05-06/2026-05-06T17-22-08+00-00_dglm_margin_validation_packet_20260506",
+  "archive_id": "2026-05-06T17-22-08+00-00_dglm_margin_validation_packet_20260506",
   "artifact_counts": {
     "performance_files": 5,
-    "total_files": 94,
+    "total_files": 72,
     "validation_root_files": 2,
-    "validation_subdir_files": 87,
+    "validation_subdir_files": 65,
     "validation_subdir_groups": 4
   },
   "artifact_groups": [
@@ -43,25 +43,17 @@
         "collinearity/validation_vif.csv",
         "data_quality/validation_mlb_data_quality_issues.csv",
         "data_quality/validation_mlb_data_quality_summary.json",
+        "dglm_margin/validation_dglm_margin_dispersion_bins.csv",
+        "dglm_margin/validation_dglm_margin_dispersion_diagnostics.json",
+        "dglm_margin/validation_dglm_margin_metrics.csv",
+        "dglm_margin/validation_dglm_margin_residual_diagnostics.json",
+        "dglm_margin/validation_dglm_margin_residuals.csv",
+        "dglm_margin/validation_dglm_margin_summary.json",
         "fragility/validation_fragility_missingness.csv",
         "fragility/validation_fragility_perturbation.json",
-        "influence/validation_influence_summary.json",
-        "influence/validation_influence_top.csv",
         "nonlinearity/validation_nonlinearity_curve_points.csv",
         "nonlinearity/validation_nonlinearity_feature_summary.csv",
-        "nonlinearity/validation_nonlinearity_summary.json",
-        "significance/validation_information_criteria_candidates.csv",
-        "significance/validation_information_criteria_summary.json",
-        "significance/validation_significance.csv",
-        "stability/validation_bootstrap_coefficients.csv",
-        "stability/validation_bootstrap_feature_summary.csv",
-        "stability/validation_bootstrap_summary.json",
-        "stability/validation_break_test.json",
-        "stability/validation_coef_paths.csv",
-        "stability/validation_cv_coefficients.csv",
-        "stability/validation_cv_feature_stability.csv",
-        "stability/validation_cv_fold_metrics.csv",
-        "stability/validation_cv_summary.json"
+        "nonlinearity/validation_nonlinearity_summary.json"
       ],
       "name": "diagnostics",
       "relative_dir": "diagnostics"
@@ -71,34 +63,20 @@
         "residuals/plots/glm_validation_deviance_residuals.png",
         "residuals/plots/glm_validation_deviance_residuals_histogram.png",
         "residuals/plots/glm_validation_deviance_residuals_qq.png",
-        "residuals/plots/glm_validation_partial_residuals_bullpen_quality_edge.png",
-        "residuals/plots/glm_validation_partial_residuals_diff_bullpen_availability.png",
-        "residuals/plots/glm_validation_partial_residuals_diff_bullpen_quality.png",
-        "residuals/plots/glm_validation_partial_residuals_diff_lineup_talent.png",
-        "residuals/plots/glm_validation_partial_residuals_diff_starting_pitcher_quality.png",
-        "residuals/plots/glm_validation_partial_residuals_home_field_advantage.png",
-        "residuals/plots/glm_validation_partial_residuals_lineup_confirmation_share.png",
-        "residuals/plots/glm_validation_partial_residuals_lineup_stability_diff.png",
-        "residuals/plots/glm_validation_partial_residuals_rest_diff.png",
-        "residuals/plots/glm_validation_partial_residuals_slugging_share_proxy.png",
-        "residuals/plots/glm_validation_partial_residuals_starter_quality_edge.png",
-        "residuals/plots/glm_validation_partial_residuals_travel_diff.png",
         "residuals/plots/glm_validation_randomized_quantile_residuals_histogram.png",
         "residuals/plots/glm_validation_randomized_quantile_residuals_qq.png",
-        "residuals/plots/glm_validation_working_residuals_bullpen_quality_edge.png",
-        "residuals/plots/glm_validation_working_residuals_diff_bullpen_availability.png",
-        "residuals/plots/glm_validation_working_residuals_diff_bullpen_quality.png",
-        "residuals/plots/glm_validation_working_residuals_diff_lineup_talent.png",
-        "residuals/plots/glm_validation_working_residuals_diff_starting_pitcher_quality.png",
         "residuals/plots/glm_validation_working_residuals_fitted_probability.png",
-        "residuals/plots/glm_validation_working_residuals_home_field_advantage.png",
+        "residuals/plots/glm_validation_working_residuals_home_bullpen_innings.png",
+        "residuals/plots/glm_validation_working_residuals_home_hits.png",
+        "residuals/plots/glm_validation_working_residuals_home_is_home.png",
+        "residuals/plots/glm_validation_working_residuals_home_lineup_card_size.png",
+        "residuals/plots/glm_validation_working_residuals_home_season.png",
+        "residuals/plots/glm_validation_working_residuals_home_starter_confirmed.png",
+        "residuals/plots/glm_validation_working_residuals_home_stolen_bases.png",
+        "residuals/plots/glm_validation_working_residuals_home_strikeouts.png",
+        "residuals/plots/glm_validation_working_residuals_home_total_bases.png",
+        "residuals/plots/glm_validation_working_residuals_home_walks.png",
         "residuals/plots/glm_validation_working_residuals_linear_predictor.png",
-        "residuals/plots/glm_validation_working_residuals_lineup_confirmation_share.png",
-        "residuals/plots/glm_validation_working_residuals_lineup_stability_diff.png",
-        "residuals/plots/glm_validation_working_residuals_rest_diff.png",
-        "residuals/plots/glm_validation_working_residuals_slugging_share_proxy.png",
-        "residuals/plots/glm_validation_working_residuals_starter_quality_edge.png",
-        "residuals/plots/glm_validation_working_residuals_travel_diff.png",
         "residuals/validation_glm_grouped_residual_metadata.json",
         "residuals/validation_glm_grouped_residual_summary.csv",
         "residuals/validation_glm_partial_residual_bins.csv",
@@ -141,47 +119,37 @@
       "relative_dir": "performance"
     }
   ],
-  "execution_metadata": {},
-  "feature_set_version": "fset_6d7cdf2e28206260",
-  "generated_at_utc": "2026-05-02T15:39:44+00:00",
+  "execution_data_scope": "current_processed_mlb_validation_packet",
+  "execution_metadata": {
+    "execution_data_scope": "current_processed_mlb_validation_packet",
+    "execution_label_class": "research_packet",
+    "production_grade": false,
+    "source_label": "dglm_margin_validation_packet_20260506"
+  },
+  "execution_source_label": "dglm_margin_validation_packet_20260506",
+  "feature_set_version": "current_processed_mlb_dglm_margin_validation_packet",
+  "generated_at_utc": "2026-05-06T17:22:08+00:00",
   "latest_performance_dir": "plots/mlb/glm/performance",
   "latest_validation_dir": "validation/mlb",
   "league": "MLB",
-  "model_run_id": "run_a965728ef03c2c8d",
+  "model_run_id": "dglm_margin_validation_packet_20260506",
   "primary_model_resolution": {
     "model_fit_status": {
-      "glm_elastic_net": {
-        "feature_count": 12,
-        "model_kind": "penalized_glm",
-        "status": "fit_ok"
-      },
-      "glm_lasso": {
-        "feature_count": 8,
-        "model_kind": "penalized_glm",
-        "status": "fit_ok"
-      },
-      "glm_ridge": {
-        "feature_count": 11,
-        "model_kind": "penalized_glm",
-        "status": "fit_ok"
-      },
-      "glm_vanilla": {
-        "feature_count": 11,
+      "dglm_margin": {
+        "feature_count": 168,
         "model_kind": "extension_or_vanilla",
         "status": "fit_ok"
       }
     },
-    "note": "Resolved primary validation model 'glm_elastic_net'.",
-    "requested_primary_model": "glm_elastic_net",
-    "resolved_primary_model": "glm_elastic_net",
+    "note": "Resolved primary validation model 'dglm_margin'.",
+    "requested_primary_model": "dglm_margin",
+    "resolved_primary_model": "dglm_margin",
     "selected_models": [
-      "glm_ridge",
-      "glm_elastic_net",
-      "glm_lasso",
-      "glm_vanilla"
+      "dglm_margin"
     ],
     "status": "supported"
   },
+  "production_grade": false,
   "registered_sections": [
     {
       "file_name": "split/validation_split_summary.json",
@@ -316,87 +284,39 @@
       "tail_rows": null
     },
     {
-      "file_name": "diagnostics/significance/validation_significance.csv",
-      "kind": "csv",
-      "section": "significance",
-      "tail_rows": null
-    },
-    {
-      "file_name": "diagnostics/significance/validation_information_criteria_summary.json",
+      "file_name": "diagnostics/dglm_margin/validation_dglm_margin_summary.json",
       "kind": "json",
-      "section": "information_criteria_summary",
+      "section": "dglm_margin_diagnostics_summary",
       "tail_rows": null
     },
     {
-      "file_name": "diagnostics/significance/validation_information_criteria_candidates.csv",
+      "file_name": "diagnostics/dglm_margin/validation_dglm_margin_metrics.csv",
       "kind": "csv",
-      "section": "information_criteria_candidates",
+      "section": "dglm_margin_diagnostics_metrics",
       "tail_rows": null
     },
     {
-      "file_name": "diagnostics/stability/validation_coef_paths.csv",
+      "file_name": "diagnostics/dglm_margin/validation_dglm_margin_residuals.csv",
       "kind": "csv",
-      "section": "coef_paths",
-      "tail_rows": 200
+      "section": "dglm_margin_residuals",
+      "tail_rows": null
     },
     {
-      "file_name": "diagnostics/stability/validation_break_test.json",
+      "file_name": "diagnostics/dglm_margin/validation_dglm_margin_residual_diagnostics.json",
       "kind": "json",
-      "section": "break_test",
+      "section": "dglm_margin_residual_diagnostics",
       "tail_rows": null
     },
     {
-      "file_name": "diagnostics/stability/validation_cv_summary.json",
+      "file_name": "diagnostics/dglm_margin/validation_dglm_margin_dispersion_bins.csv",
+      "kind": "csv",
+      "section": "dglm_margin_dispersion_bins",
+      "tail_rows": null
+    },
+    {
+      "file_name": "diagnostics/dglm_margin/validation_dglm_margin_dispersion_diagnostics.json",
       "kind": "json",
-      "section": "cv_summary",
-      "tail_rows": null
-    },
-    {
-      "file_name": "diagnostics/stability/validation_cv_fold_metrics.csv",
-      "kind": "csv",
-      "section": "cv_fold_metrics",
-      "tail_rows": null
-    },
-    {
-      "file_name": "diagnostics/stability/validation_cv_feature_stability.csv",
-      "kind": "csv",
-      "section": "cv_feature_stability",
-      "tail_rows": null
-    },
-    {
-      "file_name": "diagnostics/stability/validation_cv_coefficients.csv",
-      "kind": "csv",
-      "section": "cv_coefficients",
-      "tail_rows": null
-    },
-    {
-      "file_name": "diagnostics/stability/validation_bootstrap_summary.json",
-      "kind": "json",
-      "section": "bootstrap_summary",
-      "tail_rows": null
-    },
-    {
-      "file_name": "diagnostics/stability/validation_bootstrap_feature_summary.csv",
-      "kind": "csv",
-      "section": "bootstrap_feature_summary",
-      "tail_rows": null
-    },
-    {
-      "file_name": "diagnostics/stability/validation_bootstrap_coefficients.csv",
-      "kind": "csv",
-      "section": "bootstrap_coefficients",
-      "tail_rows": null
-    },
-    {
-      "file_name": "diagnostics/influence/validation_influence_top.csv",
-      "kind": "csv",
-      "section": "influence_top",
-      "tail_rows": null
-    },
-    {
-      "file_name": "diagnostics/influence/validation_influence_summary.json",
-      "kind": "json",
-      "section": "influence_summary",
+      "section": "dglm_margin_dispersion_diagnostics",
       "tail_rows": null
     },
     {
@@ -521,10 +441,7 @@
     }
   ],
   "selected_models": [
-    "glm_ridge",
-    "glm_elastic_net",
-    "glm_lasso",
-    "glm_vanilla"
+    "dglm_margin"
   ],
   "split_label": "train_test:time",
   "target_scope": {
@@ -539,5 +456,5 @@
     "target_name": "moneyline_home_win"
   },
   "validation_contract_file": "validation_outputs_contract.json",
-  "validation_task_count": 13
+  "validation_task_count": 14
 }

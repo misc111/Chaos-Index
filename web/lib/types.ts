@@ -194,6 +194,32 @@ export type EvidenceStatusSummary = {
   ledger_audit_present?: boolean;
 };
 
+export type CurrentBestTopModelSummary = {
+  model_name?: string | null;
+  display_name?: string | null;
+  rank?: number | null;
+  promotion_role?: string | null;
+  model_lane?: string | null;
+  evidence_lane?: string | null;
+  theory_classification?: string | null;
+  theory_governance?: string | null;
+  governance_note?: string | null;
+  mean_auc?: number | null;
+  mean_log_loss?: number | null;
+  mean_brier?: number | null;
+  mean_ece?: number | null;
+  mean_roi?: number | null;
+  final_holdout_log_loss?: number | null;
+  final_holdout_brier?: number | null;
+  final_holdout_auc?: number | null;
+  final_holdout_ece?: number | null;
+  validation_log_loss?: number | null;
+  validation_brier?: number | null;
+  validation_auc?: number | null;
+  bet_count?: number | null;
+  margin_diagnostics?: TableRow | null;
+};
+
 export type ResearchDeskResponse = {
   league: string;
   as_of_utc?: string | null;
@@ -215,6 +241,7 @@ export type ResearchDeskResponse = {
   promotion_eligible?: boolean;
   production_ready?: boolean;
   evidence_status?: EvidenceStatusSummary | null;
+  current_best_top_models?: CurrentBestTopModelSummary[];
   counts: ResearchDeskCounts;
   rows: ResearchDeskNightlyRow[];
 };

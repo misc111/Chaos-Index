@@ -5,11 +5,11 @@ import pytest
 
 from src.orchestration import hard_refresh as hard_refresh_module
 from src.orchestration.hard_refresh import ROOT_DIR, build_hard_refresh_steps
-from src.orchestration.refresh_pipeline import CANONICAL_REPO_REFRESH_TARGETS, build_data_refresh_steps
+from src.orchestration.refresh_pipeline import CANONICAL_REPO_REFRESH_TARGETS, build_daily_score_steps, build_data_refresh_steps
 
 
 def test_repo_level_refresh_targets_are_canonical_mlb_paths():
-    assert CANONICAL_REPO_REFRESH_TARGETS == ("data_refresh", "hard_refresh")
+    assert CANONICAL_REPO_REFRESH_TARGETS == ("daily_score", "data_refresh", "hard_refresh")
 
 
 def test_build_data_refresh_steps_default_sequence():
@@ -21,6 +21,26 @@ def test_build_data_refresh_steps_default_sequence():
     ]
     assert steps[0].command == (sys.executable, "-m", "src.cli", "fetch", "--config", "configs/mlb.yaml")
     assert steps[1].command == (sys.executable, "-m", "src.cli", "fetch-odds", "--config", "configs/mlb.yaml")
+
+
+def test_build_daily_score_steps_scores_without_training_or_staging():
+    steps = build_daily_score_steps()
+
+    assert [step.name for step in steps] == [
+        "mlb:fetch",
+        "mlb:fetch-odds",
+        "mlb:current-season-predictiveness",
+    ]
+    assert steps[-1].command == (
+        sys.executable,
+        "-m",
+        "src.cli",
+        "current-season-predictiveness",
+        "--config",
+        "configs/mlb.yaml",
+    )
+    assert not any("train" in step.name or "features" in step.name for step in steps)
+    assert not any(step.name.startswith("staging:") or step.name.startswith("git:") for step in steps)
 
 
 def test_build_hard_refresh_steps_default_sequence():

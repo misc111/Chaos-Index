@@ -14,7 +14,7 @@ from src.training.model_catalog import normalize_selected_models
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
-CANONICAL_REPO_REFRESH_TARGETS: tuple[str, str] = ("data_refresh", "hard_refresh")
+CANONICAL_REPO_REFRESH_TARGETS: tuple[str, ...] = ("daily_score", "data_refresh", "hard_refresh")
 LEAGUE_CONFIGS: tuple[tuple[str, str], ...] = tuple(
     (entry.slug, entry.default_config_path)
     for entry in ordered_league_entries()
@@ -90,6 +90,24 @@ def build_data_refresh_steps(*, root_dir: Path | None = None, include_init_db: b
             OrchestrationStep(
                 name=f"{league}:fetch-odds",
                 command=_cli_command("fetch-odds", "--config", config_path),
+                cwd=resolved_root,
+            )
+        )
+
+    return steps
+
+
+def build_daily_score_steps(*, root_dir: Path | None = None) -> list[OrchestrationStep]:
+    """Build the routine MLB daily data and scoring sequence without retraining."""
+
+    resolved_root = ROOT_DIR if root_dir is None else Path(root_dir).resolve()
+    steps = build_data_refresh_steps(root_dir=resolved_root)
+
+    for league, config_path in PRIMARY_REBUILD_CONFIGS:
+        steps.append(
+            OrchestrationStep(
+                name=f"{league}:current-season-predictiveness",
+                command=_cli_command("current-season-predictiveness", "--config", config_path),
                 cwd=resolved_root,
             )
         )

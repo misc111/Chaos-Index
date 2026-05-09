@@ -18,12 +18,13 @@ export function useDashboardData<T>(
 
   useEffect(() => {
     let cancelled = false;
+    const controller = new AbortController();
 
     async function load() {
       setIsLoading(true);
       setError("");
       try {
-        const payload = await fetchDashboardJson<T>(key, livePath, league, stagingVariant);
+        const payload = await fetchDashboardJson<T>(key, livePath, league, stagingVariant, controller.signal);
         if (!cancelled) {
           setData(payload);
         }
@@ -42,6 +43,7 @@ export function useDashboardData<T>(
     void load();
     return () => {
       cancelled = true;
+      controller.abort();
     };
   }, [emptyValue, key, league, livePath, refreshToken, stagingVariant]);
 

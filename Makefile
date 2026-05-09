@@ -18,6 +18,8 @@ CHUNK_DAYS ?=
 CHUNK_DAYS_ARGS := $(if $(CHUNK_DAYS),--chunk-days $(CHUNK_DAYS),)
 APPROVE_FEATURE_CHANGES ?= 0
 APPROVE_FEATURE_ARGS := $(if $(filter 1 true TRUE yes YES,$(APPROVE_FEATURE_CHANGES)),--approve-feature-changes,)
+RETRAIN ?= 0
+RETRAIN_ARGS := $(if $(filter 1 true TRUE yes YES,$(RETRAIN)),--retrain,)
 PAGES_BUILD ?= 1
 PAGES_BUILD_ARGS := $(if $(filter 0 false FALSE no NO,$(PAGES_BUILD)),--skip-pages-build,)
 DRY_RUN ?= 0
@@ -30,6 +32,8 @@ help:
 	@echo "Targets:"
 	@echo "  install-python      Install Python deps"
 	@echo "  install-node        Install Node deps"
+	@echo "  daily_score         Routine MLB daily data + fresh scoring, no retraining"
+	@echo "                      Optional: DRY_RUN=1"
 	@echo "  data_refresh        Deterministic MLB-first data-only refresh"
 	@echo "                      Optional: DRY_RUN=1"
 	@echo "  hard_refresh        Deterministic MLB-first refresh/train + staging snapshot"
@@ -52,6 +56,7 @@ help:
 	@echo "  make fetch CONFIG=configs/mlb.yaml"
 	@echo "  make refresh-data CONFIG=configs/mlb.yaml"
 	@echo "  make backfill-historical-odds CONFIG=configs/mlb.yaml START_DATE=2025-03-20 END_DATE=2025-09-30 CHUNK_DAYS=30"
+	@echo "  make daily_score DRY_RUN=1"
 	@echo "  make data_refresh DRY_RUN=1"
 	@echo "  make query CONFIG=configs/mlb.yaml Q=\"What's the chance the Cubs win the next game?\""
 	@echo "  "
@@ -126,7 +131,10 @@ research_desk:
 	$(PYTHON) -m src.cli research-desk --config $(CONFIG) $(if $(BRIEF),--brief "$(BRIEF)",) $(if $(BRIEF_DIR),--brief-dir "$(BRIEF_DIR)",) $(if $(CANDIDATE_MODELS),--candidate-models "$(CANDIDATE_MODELS)",) $(if $(FEATURE_POOL),--feature-pool "$(FEATURE_POOL)",) $(if $(FEATURE_MAP_MODEL),--feature-map-model "$(FEATURE_MAP_MODEL)",) $(HISTORY_SEASONS_ARGS)
 
 run_daily:
-	$(PYTHON) -m src.cli run-daily --config $(CONFIG) $(MODEL_ARGS) $(APPROVE_FEATURE_ARGS)
+	$(PYTHON) -m src.cli run-daily --config $(CONFIG) $(MODEL_ARGS) $(RETRAIN_ARGS) $(APPROVE_FEATURE_ARGS)
+
+daily_score:
+	$(PYTHON) -m src.orchestration.data_refresh --include-current-season-scoring $(DRY_RUN_ARGS)
 
 data_refresh:
 	$(PYTHON) -m src.orchestration.data_refresh $(DRY_RUN_ARGS)

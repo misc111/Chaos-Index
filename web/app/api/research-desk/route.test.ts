@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { buildNightlyRows, buildOvernightSummary, buildUnsupportedPayload } from "./route";
+import { buildNightlyRows, buildOvernightSummary, buildUnsupportedPayload, loadEvidenceStatus } from "./route-support";
 
 test("buildNightlyRows preserves actual bet decisions from the pricing engine", () => {
   const rows = buildNightlyRows(
@@ -77,12 +77,12 @@ test("buildOvernightSummary stays concise while naming status and slate counts",
     betCount: 1,
   });
 
-  assert.match(summary, /MLB desk: 4 games, 1 bet, 3 passes/i);
-  assert.match(summary, /Guarded risk/i);
-  assert.match(summary, /Champion: GLM Ridge/i);
-  assert.match(summary, /GLM Lasso stayed in research/i);
+  assert.match(summary, /Today: 4 games reviewed, 1 suggested bet, 3 no-bet games/i);
+  assert.match(summary, /Risk level: more cautious than usual/i);
+  assert.match(summary, /Approved model: GLM Ridge/i);
+  assert.match(summary, /GLM Lasso was tested but was not approved/i);
   assert.doesNotMatch(summary, /calibration_guardrail/i);
-  assert.match(summary, /1 bet/i);
+  assert.match(summary, /1 suggested bet/i);
 });
 
 test("buildUnsupportedPayload returns a league-aware empty payload", () => {
@@ -91,5 +91,16 @@ test("buildUnsupportedPayload returns a league-aware empty payload", () => {
   assert.equal(payload.league, "MLB");
   assert.equal(payload.rows.length, 0);
   assert.equal(payload.counts.total_games, 0);
-  assert.match(String(payload.overnight_summary), /MLB desk: no games loaded/i);
+  assert.match(String(payload.overnight_summary), /No games are loaded for today yet/i);
+});
+
+test("loadEvidenceStatus preserves comparison top-model scores and DGLM diagnostics", () => {
+  const payload = loadEvidenceStatus("MLB");
+  const dglm = payload.current_best_top_models?.find((row) => row.model_name === "dglm_margin");
+
+  assert.ok(dglm);
+  assert.equal(typeof dglm.final_holdout_log_loss, "number");
+  assert.equal(typeof dglm.final_holdout_brier, "number");
+  assert.equal(typeof dglm.final_holdout_auc, "number");
+  assert.ok(dglm.margin_diagnostics);
 });

@@ -23,6 +23,7 @@ from src.evaluation.validation_tasks_core import (
     _task_permutation_importance,
     _task_split_summary,
 )
+from src.evaluation.validation_tasks_dglm import is_dglm_margin_primary, task_dglm_margin_diagnostics
 from src.evaluation.validation_tasks_model import _task_fragility, _task_influence, _task_significance, _task_stability
 from src.evaluation.validation_tasks_probability import _task_calibration, _task_classification_curves, _task_market_truth
 
@@ -72,6 +73,13 @@ def build_validation_tasks(
             enabled=_has_holdout,
             family="nonlinearity",
             **_governance_kwargs(THEORY_CORE_TASK_GOVERNANCE),
+        ),
+        ValidationTask(
+            name="dglm_margin_diagnostics",
+            runner=task_dglm_margin_diagnostics,
+            enabled=lambda ctx: is_dglm_margin_primary(ctx) and _has_holdout(ctx),
+            family="dglm_margin",
+            **_governance_kwargs(ENGINEERING_TASK_GOVERNANCE),
         ),
         ValidationTask(
             name="significance",

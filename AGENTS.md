@@ -12,6 +12,14 @@
 - The coordinator owns decomposition, synthesis, conflict handling, acceptance, and final user-facing judgment.
 - Keep overlapping write scopes with one owner whenever possible.
 
+## Codex Harness
+- Repo-specific Codex configuration lives in `.codex/config.toml`.
+- Project custom agents live in `.codex/agents/`; use them when a delegated task matches their description and keep write ownership explicit.
+- Repeatable daily MLB evidence work lives in `.agents/skills/mlb-daily-evidence-loop/SKILL.md`; automations should invoke or mirror that skill instead of carrying a long bespoke prompt.
+- Review guidance lives in `code_review.md`; use it for `/review`, PR-style reviews, and pre-closeout self-review.
+- Before editing Codex config, custom agents, skills, model routing, or `SUBAGENTS.md`, fetch current OpenAI/Codex docs with the OpenAI Developer Docs MCP through `$openai-docs`.
+- Keep harness changes narrow. Do not let tooling, agent, or automation changes alter the MLB modeling contract unless the user explicitly asks.
+
 ## Theory Governance
 - The statistical governing sources for the rebuild are:
   - `statistical_theory/09_GLM_Generalized_Linear_Models_for_Insurance_Rating.pdf`
@@ -54,6 +62,19 @@
 - During the rebuild, repository-level `data_refresh` and `hard_refresh` flows should be treated as MLB-first orchestration commands.
 - If the implementation still carries legacy multi-league plumbing, do not document it as the primary contract.
 - Fail fast on required-step errors. Do not silently skip stale or missing MLB outputs.
+- `hard_refresh` includes publish closeout behavior; do not run it from routine daily automation or dirty worktrees unless the user explicitly wants the integrated publish path.
+
+## Project Learnings
+- Read `LEARNINGS.md` before planning or writing project code.
+- Put durable lessons, recurring mistakes, and correction history in `LEARNINGS.md`; promote only stable repo-wide rules back into this file.
+
+## Verification Contract
+- Inspect `git status --short --untracked-files=all` before edits and before final reporting.
+- For repo-wide closeout, prefer `make verify`.
+- For Python-only changes, run targeted `pytest` first; broaden to `make test` when behavior crosses module boundaries.
+- For registry, generated docs, command manifests, dashboard route manifests, or staging contract changes, run `make docs-check` or the matching generation command plus the relevant tests.
+- For dashboard/staging changes, run the relevant `web` checks: `npm run test:unit`, `npm run lint`, `npm run typecheck`, or `npm run test:smoke` based on the changed surface.
+- If verification is skipped or blocked, report the exact command and reason.
 
 ## Dashboard And Staging Sync
 - Treat the local Next.js dashboard and the committed static staging snapshots as separate delivery targets.

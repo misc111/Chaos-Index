@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+from argparse import Namespace
 import json
 from pathlib import Path
 from types import SimpleNamespace
 
 import pandas as pd
 
+from src.commands import modeling as modeling_commands
 from src.registry.commands import command_names
 from src.services.current_season_predictiveness import run_current_season_predictiveness
 from src.storage.db import Database
@@ -218,3 +220,69 @@ def test_current_season_predictiveness_scores_frozen_pregame_predictions_and_qua
 
 def test_current_season_predictiveness_command_is_registered() -> None:
     assert "current-season-predictiveness" in command_names()
+
+
+def test_run_daily_skips_retraining_by_default_even_if_legacy_config_allows_it(monkeypatch, tmp_path: Path) -> None:
+    calls: list[str] = []
+
+    class FakeDatabase:
+        def __init__(self, path: str) -> None:
+            self.path = path
+
+        def query(self, sql: str) -> list[dict[str, object]]:
+            return []
+
+    cfg = SimpleNamespace(
+        paths=SimpleNamespace(db_path=str(tmp_path / "mlb.db"), artifacts_dir=str(tmp_path / "artifacts")),
+        data=SimpleNamespace(league="MLB"),
+        modeling=SimpleNamespace(rolling_windows_days=[7, 30]),
+        runtime=SimpleNamespace(retrain_daily=True),
+    )
+
+    monkeypatch.setattr(modeling_commands.ingest, "refresh_data", lambda cfg: calls.append("refresh"))
+    monkeypatch.setattr(modeling_commands.ingest, "build_features", lambda cfg: calls.append("features"))
+    monkeypatch.setattr(modeling_commands, "train", lambda cfg, args: calls.append("train"))
+    monkeypatch.setattr(modeling_commands, "Database", FakeDatabase)
+    monkeypatch.setattr(modeling_commands, "score_predictions", lambda db, windows_days: {"n_scored": 0})
+    monkeypatch.setattr(
+        modeling_commands.current_season_predictiveness_service,
+        "run_current_season_predictiveness",
+        lambda cfg, report_slug=None, season=None: {"status": "not_measurable"},
+    )
+
+    modeling_commands.run_daily(cfg, Namespace(retrain=False, report_slug=None, season=None))
+
+    assert calls == ["refresh"]
+
+
+def test_run_daily_retrains_only_when_requested(monkeypatch, tmp_path: Path) -> None:
+    calls: list[str] = []
+
+    class FakeDatabase:
+        def __init__(self, path: str) -> None:
+            self.path = path
+
+        def query(self, sql: str) -> list[dict[str, object]]:
+            return []
+
+    cfg = SimpleNamespace(
+        paths=SimpleNamespace(db_path=str(tmp_path / "mlb.db"), artifacts_dir=str(tmp_path / "artifacts")),
+        data=SimpleNamespace(league="MLB"),
+        modeling=SimpleNamespace(rolling_windows_days=[7, 30]),
+        runtime=SimpleNamespace(retrain_daily=False),
+    )
+
+    monkeypatch.setattr(modeling_commands.ingest, "refresh_data", lambda cfg: calls.append("refresh"))
+    monkeypatch.setattr(modeling_commands.ingest, "build_features", lambda cfg: calls.append("features"))
+    monkeypatch.setattr(modeling_commands, "train", lambda cfg, args: calls.append("train"))
+    monkeypatch.setattr(modeling_commands, "Database", FakeDatabase)
+    monkeypatch.setattr(modeling_commands, "score_predictions", lambda db, windows_days: {"n_scored": 0})
+    monkeypatch.setattr(
+        modeling_commands.current_season_predictiveness_service,
+        "run_current_season_predictiveness",
+        lambda cfg, report_slug=None, season=None: {"status": "not_measurable"},
+    )
+
+    modeling_commands.run_daily(cfg, Namespace(retrain=True, report_slug=None, season=None))
+
+    assert calls == ["refresh", "features", "train"]

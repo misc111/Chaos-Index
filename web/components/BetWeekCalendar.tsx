@@ -92,7 +92,7 @@ export default function BetWeekCalendar({ league, weekStart, bets }: Props) {
               {dayBets.length ? (
                 <p className={styles.riskText}>Risked {formatRisked(dayRisked)}</p>
               ) : (
-                <p className={styles.emptyState}>No bets.</p>
+                <p className={styles.emptyState}>No qualifying bets for this strategy.</p>
               )}
             </header>
 

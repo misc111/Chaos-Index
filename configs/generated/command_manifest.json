@@ -763,7 +763,7 @@
     },
     {
       "name": "run-daily",
-      "summary": "Execute the daily fetch, feature, train, and scoring flow.",
+      "summary": "Execute routine MLB daily data refresh and scoring without retraining unless --retrain is explicit.",
       "handler_path": "src.commands.modeling:run_daily",
       "config_required": true,
       "arguments": [
@@ -773,6 +773,33 @@
           ],
           "doc_metavar": "MODELS",
           "help": "Comma-separated model list (for example: glm_ridge,rf) or 'all'. Omit to use the MLB core-supported GLM lane.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--retrain"
+          ],
+          "doc_metavar": null,
+          "help": "Explicitly rebuild features and train models during run-daily; omit for routine scoring-only automation.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--report-slug"
+          ],
+          "doc_metavar": "SLUG",
+          "help": "Optional report slug prefix for artifact outputs.",
+          "choices": null,
+          "default": null
+        },
+        {
+          "flags": [
+            "--season"
+          ],
+          "doc_metavar": "SEASON",
+          "help": "Optional MLB season override for current-season evidence reports.",
           "choices": null,
           "default": null
         },
@@ -821,7 +848,7 @@
       ],
       "examples": [
         "make run_daily",
-        "make run_daily CONFIG=configs/mlb.yaml MODELS=glm_ridge"
+        "make run_daily RETRAIN=1 CONFIG=configs/mlb.yaml MODELS=glm_ridge"
       ]
     },
     {

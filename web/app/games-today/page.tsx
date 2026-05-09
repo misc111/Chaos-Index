@@ -9,7 +9,6 @@ import {
 } from "@/lib/betting-strategy";
 import {
   REFERENCE_STAKE_DOLLARS,
-  REFERENCE_BANKROLL_DOLLARS,
   computeBetDecisionsForSlate,
   expectedSide,
   expectedWinChance,
@@ -290,9 +289,7 @@ function GamesTodayPageContent() {
         </div>
         <p className="small">{description}</p>
         {!loading && !error ? <p className="small">{slateSummary}</p> : null}
-        <p className="small">
-          Stake scale: {formatUsd(REFERENCE_STAKE_DOLLARS)} = 1% of ${REFERENCE_BANKROLL_DOLLARS.toLocaleString()}.
-        </p>
+        <p className="small">Flat stake: {formatUsd(REFERENCE_STAKE_DOLLARS)} on every bet. No bet means $0.</p>
         <div className={styles.actionsRow}>
           <button
             type="button"
@@ -335,7 +332,7 @@ function GamesTodayPageContent() {
                     <th>Time (CST/CDT)</th>
                     <th>Win Chance</th>
                     <th>Moneyline</th>
-                    <th className={styles.betColumn}>Suggested Bet</th>
+                    <th className={styles.betColumn}>Bet</th>
                     <th>Reason</th>
                   </tr>
                 </thead>
@@ -358,7 +355,7 @@ function GamesTodayPageContent() {
                           {`H ${formatMoneyline(row.home_moneyline)} · A ${formatMoneyline(row.away_moneyline)}`}
                         </td>
                         <td className={`${styles.betCell} ${styles.betColumn}`}>
-                          <BetStakeWithIcon league={league} teamCode={bet.team} label={bet.team} stake={bet.stake} />
+                          <BetStakeWithIcon league={league} teamCode={bet.team} label={bet.team} stake={bet.stake} zeroLabel="No bet" />
                         </td>
                         <td className={styles.reasonCell}>{bet.reason}</td>
                       </tr>
@@ -427,9 +424,9 @@ function GamesTodayPageContent() {
                           </span>
                         </div>
                         <div className={styles.mobileMetaItem}>
-                          <span className={styles.mobileMetaLabel}>Suggested Bet</span>
+                          <span className={styles.mobileMetaLabel}>Bet</span>
                           <span className={styles.mobileMetaValue}>
-                            <BetStakeWithIcon league={league} teamCode={bet.team} label={bet.team} stake={bet.stake} />
+                            <BetStakeWithIcon league={league} teamCode={bet.team} label={bet.team} stake={bet.stake} zeroLabel="No bet" />
                           </span>
                         </div>
                         <div className={styles.mobileMetaItem}>

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
@@ -18,6 +18,12 @@ from src.evaluation.metrics import metric_bundle, per_game_scores
 from src.evaluation.validation_classification import validate_logistic_probability_model
 from src.evaluation.validation_nonlinearity import assess_nonlinearity
 from src.features.leakage_checks import run_leakage_checks
+from src.governance.evidence import (
+    GOVERNANCE_CONTRACT_VERSION,
+    THEORY_COMPATIBLE_ENGINEERING_SUPPORT,
+    model_evidence_fields,
+    target_scope_fields,
+)
 from src.registry.models import get_model_registry_entry
 from src.research.artifact_guardrails import require_mlb_report_path
 from src.research.candidate_models import (
@@ -84,6 +90,20 @@ def _safe_int(value: Any) -> int | None:
     except Exception:
         return None
     return numeric
+
+
+def _safe_nested_dict(value: Any) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        return {}
+    cleaned: dict[str, Any] = {}
+    for key, item in value.items():
+        if isinstance(item, dict):
+            cleaned[str(key)] = _safe_nested_dict(item)
+        elif isinstance(item, list):
+            cleaned[str(key)] = [_safe_nested_dict(row) if isinstance(row, dict) else _safe_float(row) for row in item]
+        else:
+            cleaned[str(key)] = _safe_float(item)
+    return cleaned
 
 
 def _json_value(value: Any) -> str:
@@ -156,6 +176,7 @@ class CandidateFeatureSets:
     mars_features: list[str]
     glmm_features: list[str]
     dglm_features: list[str]
+    dglm_dispersion_features: list[str]
     screening_frame: pd.DataFrame
     nonlinearity_summary: dict[str, Any]
     nonlinearity_frame: pd.DataFrame
@@ -205,6 +226,8 @@ class ComparisonRunResult:
     recommendation_surface_path: Path | None = None
     artifact_manifest_path: Path | None = None
     service_output_path: Path | None = None
+    dglm_margin_diagnostics_path: Path | None = None
+    dglm_margin_metrics_path: Path | None = None
 
 
 def _time_ordered_split(
@@ -343,6 +366,27 @@ def _fit_ranking_frame(fit_df: pd.DataFrame, screened_features: list[str]) -> pd
     return frame
 
 
+def _rank_dglm_dispersion_features(fit_df: pd.DataFrame, features: list[str]) -> list[str]:
+    if "home_score" not in fit_df.columns or "away_score" not in fit_df.columns:
+        return features
+    margin = pd.to_numeric(fit_df["home_score"], errors="coerce") - pd.to_numeric(fit_df["away_score"], errors="coerce")
+    abs_margin = margin.abs()
+    numeric = _safe_numeric_frame(fit_df, features)
+    rows: list[dict[str, Any]] = []
+    for feature in features:
+        values = numeric[feature]
+        valid = values.notna() & abs_margin.notna()
+        if int(valid.sum()) < 20 or int(values.loc[valid].nunique()) < 3:
+            continue
+        corr = values.loc[valid].corr(abs_margin.loc[valid], method="spearman")
+        rows.append({"feature": feature, "abs_margin_corr": abs(float(corr)) if np.isfinite(corr) else 0.0})
+    if not rows:
+        return features
+    frame = pd.DataFrame(rows).sort_values(["abs_margin_corr", "feature"], ascending=[False, True])
+    ranked = frame["feature"].tolist()
+    return ranked + [feature for feature in features if feature not in set(ranked)]
+
+
 def _select_feature_sets(fit_df: pd.DataFrame, raw_features: list[str]) -> CandidateFeatureSets:
     screened_features, screening_frame = _feature_screening(fit_df, raw_features)
     ranking_frame = _fit_ranking_frame(fit_df, screened_features)
@@ -373,6 +417,7 @@ def _select_feature_sets(fit_df: pd.DataFrame, raw_features: list[str]) -> Candi
     dglm_features = [feature for feature in core_features if unique_counts.get(feature, 0) >= 3][: min(14, len(core_features))]
     if not dglm_features:
         dglm_features = core_features[: min(10, len(core_features))]
+    dglm_dispersion_features = _rank_dglm_dispersion_features(fit_df, dglm_features)[: min(14, len(dglm_features))]
 
     return CandidateFeatureSets(
         raw_feature_count=len(raw_features),
@@ -382,6 +427,7 @@ def _select_feature_sets(fit_df: pd.DataFrame, raw_features: list[str]) -> Candi
         mars_features=mars_features,
         glmm_features=glmm_features,
         dglm_features=dglm_features,
+        dglm_dispersion_features=dglm_dispersion_features,
         screening_frame=screening_frame,
         nonlinearity_summary=dict(nonlinearity["summary"]),
         nonlinearity_frame=nonlinearity_frame,
@@ -471,14 +517,31 @@ def _candidate_specs(
     )
 
     dglm_caps = sorted({cap for cap in [6, 10, 14] if cap <= len(feature_sets.dglm_features)}) or [len(feature_sets.dglm_features)]
+    dglm_dispersion_caps = (
+        sorted({cap for cap in [4, 6, 10] if cap <= len(feature_sets.dglm_dispersion_features)})
+        or [len(feature_sets.dglm_dispersion_features)]
+    )
     specs.append(
         CandidateSpec(
             model_name="dglm_margin",
             display_name="DGLM Margin",
-            param_grid=[{"feature_cap": cap, "iterations": iterations} for cap in dglm_caps for iterations in [1, 2]],
+            param_grid=[
+                {
+                    "feature_cap": cap,
+                    "dispersion_feature_cap": dispersion_cap,
+                    "iterations": iterations,
+                    "bridge": bridge,
+                }
+                for cap in dglm_caps
+                for dispersion_cap in dglm_dispersion_caps
+                for iterations in [1, 2]
+                for bridge in ["normal", "logit_calibrated"]
+            ],
             builder=lambda fs, params: DGLMMarginCandidate(
                 features=fs.dglm_features[: int(params["feature_cap"])],
+                dispersion_features=fs.dglm_dispersion_features[: int(params["dispersion_feature_cap"])],
                 iterations=int(params["iterations"]),
+                bridge=str(params["bridge"]),
             ),
         )
     )
@@ -578,7 +641,8 @@ def _candidate_cv_tune(
                 )
                 continue
             try:
-                model = spec.builder(feature_sets, params)
+                fold_feature_sets = _fold_feature_sets_for_spec(spec, feature_sets=feature_sets, train_df=tr)
+                model = spec.builder(fold_feature_sets, params)
                 model.fit(tr)
                 p = model.predict_proba(va)
                 metrics = metric_bundle(va["home_win"].astype(int).to_numpy(), p)
@@ -670,6 +734,22 @@ def _candidate_cv_tune(
         cv_summary=summary_frame,
         cv_folds=fold_frame,
         failure_reason="",
+    )
+
+
+def _fold_feature_sets_for_spec(
+    spec: CandidateSpec,
+    *,
+    feature_sets: CandidateFeatureSets,
+    train_df: pd.DataFrame,
+) -> CandidateFeatureSets:
+    if spec.model_name != "dglm_margin":
+        return feature_sets
+    return replace(
+        feature_sets,
+        dglm_dispersion_features=_rank_dglm_dispersion_features(train_df, feature_sets.dglm_features)[
+            : len(feature_sets.dglm_dispersion_features)
+        ],
     )
 
 
@@ -842,6 +922,8 @@ def _phase_evaluation(
             )
             metric_row["fit_status"] = "ok"
             metric_row["fit_error"] = ""
+            if hasattr(model, "margin_diagnostics"):
+                metric_row["margin_diagnostics"] = model.margin_diagnostics(eval_df)
             metric_rows.append(metric_row)
             fit_stats: CandidateFitStats = model.fit_statistics()
             fit_stat_row = fit_stats.to_row()
@@ -1192,6 +1274,17 @@ def _build_candidate_scorecards(
             bootstrap_row=bootstrap_row,
             best_named_candidate=best_named_candidate,
         )
+        margin_diagnostics = {}
+        if model_name == "dglm_margin":
+            margin_diagnostics = {
+                "validation": _safe_nested_dict(validation_row.get("margin_diagnostics")) if validation_row is not None else {},
+                "final_holdout": _safe_nested_dict(test_row.get("margin_diagnostics")),
+                "promotion_gate": "separate_margin_and_bridge_validation_required",
+                "interpretation": (
+                    "DGLM Margin must pass direct margin residual/dispersion checks and probability bridge calibration "
+                    "before it can move beyond the theory-compatible extension lane."
+                ),
+            }
         scorecards.append(
             CandidateScorecardRecord(
                 model_name=model_name,
@@ -1293,6 +1386,7 @@ def _build_candidate_scorecards(
                     "recommended_model": recommended_model,
                     "recommendation_tier": recommendation_tier,
                     "recommendation_badges": badges,
+                    "margin_diagnostics": margin_diagnostics,
                     "summary_note": (
                         "Fixture-slice screen leader only; rerun on the full immutable pregame MLB ledger before promotion review."
                         if recommendation_tier == "fixture_slice_screen_leader"
@@ -1311,6 +1405,132 @@ def _build_candidate_scorecards(
             )
         )
     return scorecards
+
+
+def _build_dglm_margin_artifacts(
+    *,
+    candidate_scorecards: list[CandidateScorecardRecord],
+    validation_metrics: pd.DataFrame,
+    test_metrics: pd.DataFrame,
+) -> tuple[dict[str, Any] | None, pd.DataFrame]:
+    dglm_scorecard = next((record for record in candidate_scorecards if record.model_name == "dglm_margin"), None)
+    if dglm_scorecard is None:
+        return None, pd.DataFrame()
+
+    complement = dict(dglm_scorecard.complement_summary or {})
+    diagnostics = _safe_nested_dict(complement.get("margin_diagnostics"))
+    validation_diag = _safe_nested_dict(diagnostics.get("validation"))
+    final_diag = _safe_nested_dict(diagnostics.get("final_holdout"))
+    validation_residual = _safe_nested_dict(validation_diag.get("residual_diagnostics"))
+    final_residual = _safe_nested_dict(final_diag.get("residual_diagnostics"))
+    validation_dispersion = _safe_nested_dict(validation_diag.get("dispersion_diagnostics"))
+    final_dispersion = _safe_nested_dict(final_diag.get("dispersion_diagnostics"))
+    validation_row = _row_metric_slice(
+        validation_metrics[validation_metrics["model_name"] == "dglm_margin"].iloc[0]
+        if not validation_metrics[validation_metrics["model_name"] == "dglm_margin"].empty
+        else None,
+        ["params", "log_loss", "brier", "accuracy", "auc", "ece", "calibration_alpha", "calibration_beta"],
+    )
+    test_row = _row_metric_slice(
+        test_metrics[test_metrics["model_name"] == "dglm_margin"].iloc[0]
+        if not test_metrics[test_metrics["model_name"] == "dglm_margin"].empty
+        else None,
+        ["params", "log_loss", "brier", "accuracy", "auc", "ece", "calibration_alpha", "calibration_beta"],
+    )
+    final_status = str(final_diag.get("status") or validation_diag.get("status") or "unknown")
+    payload = {
+        "governance_contract_version": GOVERNANCE_CONTRACT_VERSION,
+        "model_name": "dglm_margin",
+        "display_name": str(complement.get("display_name") or "DGLM Margin"),
+        "target_scope": target_scope_fields(
+            league="MLB",
+            target_name=COMPARISON_TARGET_NAME,
+            target_col="home_win",
+            market="moneyline",
+        ),
+        "theory_governance": THEORY_COMPATIBLE_ENGINEERING_SUPPORT,
+        "artifact_role": "dglm_margin_research_diagnostics",
+        "evidence_stage": "research_only",
+        "latest_artifact_role": "latest_research_recommendation",
+        **model_evidence_fields(
+            "dglm_margin",
+            target_name=COMPARISON_TARGET_NAME,
+            target_col="home_win",
+            market="moneyline",
+        ),
+        "status": final_status,
+        "bridge": final_diag.get("bridge") or validation_diag.get("bridge"),
+        "bridge_status": final_diag.get("bridge_status") or validation_diag.get("bridge_status"),
+        "chosen_params": str(complement.get("params") or test_row.get("params") or validation_row.get("params") or ""),
+        "promotion_gate": diagnostics.get("promotion_gate") or "separate_margin_and_bridge_validation_required",
+        "recommendation_tier": complement.get("recommendation_tier"),
+        "recommended_for_next_stage": bool(complement.get("recommended_for_next_stage")),
+        "interpretation": diagnostics.get("interpretation")
+        or (
+            "DGLM Margin must pass direct margin residual/dispersion checks and probability bridge calibration "
+            "before it can move beyond the theory-compatible extension lane."
+        ),
+        "validation": {
+            "probability_metrics": validation_row,
+            "margin_diagnostics": validation_diag,
+            "residual_diagnostics": validation_residual,
+            "dispersion_diagnostics": validation_dispersion,
+        },
+        "final_holdout": {
+            "probability_metrics": test_row,
+            "margin_diagnostics": final_diag,
+            "residual_diagnostics": final_residual,
+            "dispersion_diagnostics": final_dispersion,
+        },
+        "residual_diagnostics": {
+            "validation": validation_residual,
+            "final_holdout": final_residual,
+        },
+        "dispersion_diagnostics": {
+            "validation": validation_dispersion,
+            "final_holdout": final_dispersion,
+        },
+    }
+    rows = []
+    for phase, metrics, margin in (
+        ("validation", validation_row, validation_diag),
+        ("final_holdout", test_row, final_diag),
+    ):
+        if not metrics and not margin:
+            continue
+        residual = _safe_nested_dict(margin.get("residual_diagnostics"))
+        dispersion = _safe_nested_dict(margin.get("dispersion_diagnostics"))
+        rows.append(
+            {
+                "phase": phase,
+                "status": margin.get("status"),
+                "bridge": margin.get("bridge"),
+                "bridge_status": margin.get("bridge_status"),
+                "params": metrics.get("params"),
+                "log_loss": _safe_float(metrics.get("log_loss")),
+                "brier": _safe_float(metrics.get("brier")),
+                "accuracy": _safe_float(metrics.get("accuracy")),
+                "auc": _safe_float(metrics.get("auc")),
+                "ece": _safe_float(metrics.get("ece")),
+                "margin_bias": _safe_float(margin.get("margin_bias")),
+                "margin_mae": _safe_float(margin.get("margin_mae")),
+                "margin_rmse": _safe_float(margin.get("margin_rmse")),
+                "residual_sd": _safe_float(margin.get("residual_sd")),
+                "mean_predicted_sd": _safe_float(margin.get("mean_predicted_sd")),
+                "variance_to_residual_mse_ratio": _safe_float(margin.get("variance_to_residual_mse_ratio")),
+                "standardized_residual_mean": _safe_float(margin.get("standardized_residual_mean")),
+                "standardized_residual_sd": _safe_float(margin.get("standardized_residual_sd")),
+                "mean_abs_standardized_residual": _safe_float(residual.get("mean_abs_standardized_residual")),
+                "mean_predicted_variance": _safe_float(dispersion.get("mean_predicted_variance")),
+                "residual_mse": _safe_float(dispersion.get("residual_mse")),
+                "within_1sd_share": _safe_float(margin.get("within_1sd_share")),
+                "within_2sd_share": _safe_float(margin.get("within_2sd_share")),
+                "within_1sd_gap_vs_normal": _safe_float(dispersion.get("within_1sd_gap_vs_normal")),
+                "within_2sd_gap_vs_normal": _safe_float(dispersion.get("within_2sd_gap_vs_normal")),
+                "abs_residual_predicted_sd_corr": _safe_float(margin.get("abs_residual_predicted_sd_corr")),
+            }
+        )
+    return payload, pd.DataFrame(rows)
 
 
 def _build_candidate_leaderboard(
@@ -1845,6 +2065,8 @@ def run_candidate_model_comparison(
     cv_path = primary_dir / f"{prefix}_cv_summary.csv"
     candidate_scorecards_path = primary_dir / f"{prefix}_candidate_scorecards.csv"
     candidate_scorecards_contract_path = primary_dir / f"{prefix}_candidate_scorecards.json"
+    dglm_margin_diagnostics_path = primary_dir / f"{prefix}_dglm_margin_diagnostics.json"
+    dglm_margin_metrics_path = primary_dir / f"{prefix}_dglm_margin_metrics.csv"
     leaderboard_path = primary_dir / f"{prefix}_candidate_leaderboard.csv"
     leaderboard_json_path = primary_dir / f"{prefix}_candidate_leaderboard.json"
     recommendation_path = primary_dir / f"{prefix}_recommendation.json"
@@ -1896,6 +2118,14 @@ def run_candidate_model_comparison(
     candidate_scorecard_payload = [record.to_dict() for record in candidate_scorecards]
     pd.json_normalize(candidate_scorecard_payload, sep="__").to_csv(candidate_scorecards_path, index=False)
     candidate_scorecards_contract_path.write_text(to_json(candidate_scorecard_payload) + "\n")
+    dglm_margin_payload, dglm_margin_metrics = _build_dglm_margin_artifacts(
+        candidate_scorecards=candidate_scorecards,
+        validation_metrics=validation_metrics,
+        test_metrics=test_metrics,
+    )
+    if dglm_margin_payload is not None:
+        dglm_margin_diagnostics_path.write_text(to_json(dglm_margin_payload) + "\n")
+        dglm_margin_metrics.to_csv(dglm_margin_metrics_path, index=False)
     recommendation_path.write_text(to_json(comparison_decision.to_dict()) + "\n")
     leaderboard = _build_candidate_leaderboard(
         validation_metrics=validation_metrics,
@@ -1931,6 +2161,14 @@ def run_candidate_model_comparison(
             "test_predictions_path": str(test_predictions_path),
             "candidate_scorecards_path": str(candidate_scorecards_path),
             "candidate_scorecards_contract_path": str(candidate_scorecards_contract_path),
+            **(
+                {
+                    "dglm_margin_diagnostics_path": str(dglm_margin_diagnostics_path),
+                    "dglm_margin_metrics_path": str(dglm_margin_metrics_path),
+                }
+                if dglm_margin_payload is not None
+                else {}
+            ),
             "leaderboard_path": str(leaderboard_path),
             "leaderboard_json_path": str(leaderboard_json_path),
             "recommendation_path": str(recommendation_path),
@@ -1960,6 +2198,14 @@ def run_candidate_model_comparison(
             "test_predictions_path": str(test_predictions_path),
             "candidate_scorecards_path": str(candidate_scorecards_path),
             "candidate_scorecards_contract_path": str(candidate_scorecards_contract_path),
+            **(
+                {
+                    "dglm_margin_diagnostics_path": str(dglm_margin_diagnostics_path),
+                    "dglm_margin_metrics_path": str(dglm_margin_metrics_path),
+                }
+                if dglm_margin_payload is not None
+                else {}
+            ),
             "leaderboard_path": str(leaderboard_path),
             "leaderboard_json_path": str(leaderboard_json_path),
             "recommendation_path": str(recommendation_path),
@@ -2029,4 +2275,6 @@ def run_candidate_model_comparison(
         leaderboard_json_path=leaderboard_json_path,
         recommendation_surface_path=recommendation_surface_path,
         artifact_manifest_path=artifact_manifest_path,
+        dglm_margin_diagnostics_path=dglm_margin_diagnostics_path if dglm_margin_payload is not None else None,
+        dglm_margin_metrics_path=dglm_margin_metrics_path if dglm_margin_payload is not None else None,
     )

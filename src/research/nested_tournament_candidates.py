@@ -193,10 +193,16 @@ def _model_specs_for_variant(
                     variant_display_name=f"DGLM Cap {cap}",
                     feature_source="dispersion",
                     features=features,
-                    param_grid=tuple({"feature_cap": cap, "iterations": iterations} for iterations in (1, 2)),
+                    param_grid=tuple(
+                        {"feature_cap": cap, "dispersion_feature_cap": min(6, cap), "iterations": iterations, "bridge": bridge}
+                        for iterations in (1, 2)
+                        for bridge in ("normal", "logit_calibrated")
+                    ),
                     builder=lambda params, features=features: DGLMMarginCandidate(
                         features=list(features),
+                        dispersion_features=list(features[: int(params.get("dispersion_feature_cap", min(6, len(features))))]),
                         iterations=int(params["iterations"]),
+                        bridge=str(params.get("bridge", "normal")),
                     ),
                 )
             )

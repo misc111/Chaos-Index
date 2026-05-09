@@ -1,0 +1,9 @@
+interface:
+  display_name: "MLB Daily Evidence Loop"
+  short_description: "Run safe MLB daily evidence checks"
+  brand_color: "#2563EB"
+  default_prompt: "Use $mlb-daily-evidence-loop to run today's MLB evidence loop and report the result."
+
+policy:
+  allow_implicit_invocation: true
+

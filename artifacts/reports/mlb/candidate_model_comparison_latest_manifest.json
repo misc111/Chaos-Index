@@ -1,23 +1,27 @@
 {
   "canonical_artifact_root": "artifacts/reports/mlb",
   "current_best_models_path": "artifacts/reports/mlb/current_best_models.json",
-  "generated_at_utc": "2026-04-23T17:18:57+00:00",
+  "evidence_stage": "research_only",
+  "generated_at_utc": "2026-05-06T17:21:51+00:00",
   "latest_artifact_role": "latest_research_recommendation",
   "latest_promotion_eligible_evidence_path": null,
   "latest_research_recommendation_path": "artifacts/reports/mlb/latest_research_recommendation.json",
   "league": "MLB",
   "material_artifacts": {
-    "candidate_scorecards_contract_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_candidate_scorecards.json",
-    "candidate_scorecards_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_candidate_scorecards.csv",
-    "leaderboard_json_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_candidate_leaderboard.json",
-    "recommendation_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_recommendation.json",
-    "recommendation_surface_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_recommendation_surface.json",
-    "report_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_summary.md",
-    "summary_path": "artifacts/reports/mlb/codex_current_best_models_smoke_mlb_comparison_summary.json"
+    "candidate_scorecards_contract_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_candidate_scorecards.json",
+    "candidate_scorecards_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_candidate_scorecards.csv",
+    "dglm_margin_diagnostics_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_dglm_margin_diagnostics.json",
+    "dglm_margin_metrics_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_dglm_margin_metrics.csv",
+    "leaderboard_json_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_candidate_leaderboard.json",
+    "recommendation_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_recommendation.json",
+    "recommendation_surface_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_recommendation_surface.json",
+    "report_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_summary.md",
+    "summary_path": "artifacts/reports/mlb/dglm_margin_evidence_packet_20260506_mlb_comparison_summary.json"
   },
+  "production_ready": false,
   "promotion_eligible": false,
   "report_lane": "mlb",
-  "report_slug": "codex_current_best_models_smoke",
+  "report_slug": "dglm_margin_evidence_packet_20260506",
   "service_output_path": "artifacts/reports/mlb/candidate_model_comparison_latest.json",
-  "tracker_service_output_path": "artifacts/reports/runs/candidate_compare_2026-04-23T171436+0000_8bb897fc/candidate_comparison_service.json"
+  "tracker_service_output_path": "artifacts/reports/runs/candidate_compare_2026-05-06T172123+0000_193fd953/candidate_comparison_service.json"
 }

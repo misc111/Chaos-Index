@@ -1,61 +1,32 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import BetSizingFrontier from "@/components/BetSizingFrontier";
-import BetSizingBudgetFlow from "@/components/bet-sizing/BetSizingBudgetFlow";
-import BetSizingProbabilityBridge from "@/components/bet-sizing/BetSizingProbabilityBridge";
-import BetSizingStakeFlow from "@/components/bet-sizing/BetSizingStakeFlow";
+import { useMemo } from "react";
 import { BetStakeWithIcon, TeamMatchup } from "@/components/TeamWithIcon";
-import { buildBetSizingExplainerModel } from "@/lib/bet-sizing-explainer";
 import {
-  buildBetSizingGamePreviews,
-  collectBetSizingPolicies,
-  selectBetSizingSlate,
-  selectDefaultGameId,
-  selectDefaultPolicyKey,
-} from "@/lib/bet-sizing-view";
-import {
-  HISTORICAL_BANKROLL_START_DATE_CENTRAL,
-  HISTORICAL_BANKROLL_START_DOLLARS,
-  REFERENCE_BANKROLL_DOLLARS,
-  REFERENCE_STAKE_BANKROLL_FRACTION,
+  computeBetDecisionsForSlate,
+  formatBetRecommendation,
   REFERENCE_STAKE_DOLLARS,
+  type BetInput,
+  type BetDecision,
 } from "@/lib/betting";
-import type { BetStrategyPerformanceSnapshot, FrontierPointSummary, ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
-import type { BetHistoryResponse, BetHistoryStrategyBundle } from "@/lib/bet-history-types";
-import { BET_STRATEGIES, getBetStrategyConfig, type BetStrategy } from "@/lib/betting-strategy";
+import { getBetStrategyConfig } from "@/lib/betting-strategy";
 import { formatUsd } from "@/lib/currency";
+import { centralTodayDateKey } from "@/lib/games-today";
+import { resolveGamesTodayDateView } from "@/lib/games-today-view";
 import { useBetStrategy } from "@/lib/hooks/useBetStrategy";
 import { useDashboardData } from "@/lib/hooks/useDashboardData";
 import { useLeague } from "@/lib/hooks/useLeague";
-import type { GamesTodayResponse } from "@/lib/types";
+import type { LeagueCode } from "@/lib/league";
+import type { GamesTodayResponse, GamesTodayRow } from "@/lib/types";
 import styles from "./BetSizingExperience.module.css";
 
-function formatPercent(value: number | null | undefined): string {
-  if (typeof value !== "number" || !Number.isFinite(value)) return "—";
-  return `${(value * 100).toFixed(1)}%`;
-}
-
-function formatBankrollPercent(value: number | null | undefined): string {
-  if (typeof value !== "number" || !Number.isFinite(value)) return "—";
-  return `${(value * 100).toFixed(2)}%`;
-}
-
-function formatProbabilityPoints(value: number | null | undefined): string {
-  if (typeof value !== "number" || !Number.isFinite(value)) return "—";
-  return `${value >= 0 ? "+" : ""}${(value * 100).toFixed(1)} pts`;
-}
-
-function formatExpectedValue(value: number | null | undefined): string {
-  if (typeof value !== "number" || !Number.isFinite(value)) return "—";
-  return `${value >= 0 ? "+" : ""}${value.toFixed(3)}`;
-}
-
-function formatMoneyline(value: number | null | undefined): string {
-  if (typeof value !== "number" || !Number.isFinite(value) || value === 0) return "—";
-  const rounded = Math.round(value);
-  return rounded > 0 ? `+${rounded}` : `${rounded}`;
-}
+const EMPTY_GAMES_TODAY: GamesTodayResponse = {
+  league: "MLB",
+  as_of_utc: null,
+  odds_as_of_utc: null,
+  rows: [],
+  historical_rows: [],
+};
 
 function formatAsOfLabel(value?: string | null): string {
   if (!value) return "Unknown";
@@ -80,591 +51,200 @@ function formatTipTime(value?: string | null): string {
   });
 }
 
-function metricOrDash(
-  metrics: BetStrategyPerformanceSnapshot | FrontierPointSummary | null | undefined,
-  accessor: (metrics: BetStrategyPerformanceSnapshot | FrontierPointSummary) => number,
-  formatter: (value: number) => string
-): string {
-  if (!metrics) return "—";
-  const value = accessor(metrics);
-  return Number.isFinite(value) ? formatter(value) : "—";
+function formatMoneyline(value?: number | null): string {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric) || numeric === 0) return "No odds";
+  const rounded = Math.round(numeric);
+  return rounded > 0 ? `+${rounded}` : `${rounded}`;
 }
 
-function sourceLabel(value: string): string {
-  switch (value) {
-    case "historical_frontier":
-      return "Replay-ranked";
-    case "historical_downside":
-      return "Downside-ranked";
-    case "static_fallback":
-      return "Static default";
-    default:
-      return "Replay preview";
-  }
-}
-
-function screeningTone(current: number, previous: number): string {
-  if (current === previous) return styles.screenStepStable;
-  if (current === 0) return styles.screenStepEmpty;
-  return styles.screenStepActive;
-}
-
-function buildEmptyStrategyConfigs(): Record<BetStrategy, ResolvedBetStrategyConfig> {
+function rowToDecisionInput(row: GamesTodayRow, league: LeagueCode): BetInput {
   return {
-    riskAdjusted: {
-      ...getBetStrategyConfig("riskAdjusted"),
-      config_signature: "riskAdjusted",
-      optimization_objective: "Unavailable",
-      optimization_source: "static_fallback",
-      metrics: null,
-    },
-    aggressive: {
-      ...getBetStrategyConfig("aggressive"),
-      config_signature: "aggressive",
-      optimization_objective: "Unavailable",
-      optimization_source: "static_fallback",
-      metrics: null,
-    },
-    capitalPreservation: {
-      ...getBetStrategyConfig("capitalPreservation"),
-      config_signature: "capitalPreservation",
-      optimization_objective: "Unavailable",
-      optimization_source: "static_fallback",
-      metrics: null,
-    },
+    league: league === "MLB" ? "MLB" : null,
+    home_team: row.home_team,
+    away_team: row.away_team,
+    home_win_probability: row.home_win_probability,
+    home_moneyline: row.home_moneyline,
+    away_moneyline: row.away_moneyline,
+    betting_model_name: row.betting_model_name,
+    model_win_probabilities: row.model_win_probabilities,
   };
 }
 
-const EMPTY_BET_HISTORY_STRATEGY: BetHistoryStrategyBundle = {
-  summary: {
-    total_final_games: 0,
-    games_with_forecast: 0,
-    games_with_odds: 0,
-    analyzed_games: 0,
-    suggested_bets: 0,
-    wins: 0,
-    losses: 0,
-    total_risked: 0,
-    total_profit: 0,
-    roi: 0,
-    starting_bankroll: HISTORICAL_BANKROLL_START_DOLLARS,
-    current_bankroll: HISTORICAL_BANKROLL_START_DOLLARS,
-    bankroll_start_central: HISTORICAL_BANKROLL_START_DATE_CENTRAL,
-    coverage_start_central: null,
-    coverage_end_central: null,
-    note: "",
-  },
-  daily_points: [],
-  bets: [],
-};
-
-const EMPTY_BET_HISTORY: BetHistoryResponse = {
-  league: "MLB",
-  default_strategy: "riskAdjusted",
-  strategy_configs: buildEmptyStrategyConfigs(),
-  strategy_optimization: {
-    method: "",
-    risk_free_rate: 0,
-    candidate_count: 0,
-    frontier_point_count: 0,
-    frontier: [],
-    selected: {
-      riskAdjusted: null,
-      aggressive: null,
-      capitalPreservation: null,
-    },
-  },
-  strategies: {
-    riskAdjusted: EMPTY_BET_HISTORY_STRATEGY,
-    aggressive: EMPTY_BET_HISTORY_STRATEGY,
-    capitalPreservation: EMPTY_BET_HISTORY_STRATEGY,
-  },
-};
-
-const EMPTY_GAMES_TODAY: GamesTodayResponse = {
-  league: "MLB",
-  as_of_utc: null,
-  odds_as_of_utc: null,
-  date_central: undefined,
-  historical_coverage_start_central: null,
-  strategy_configs: buildEmptyStrategyConfigs(),
-  strategy_optimization: EMPTY_BET_HISTORY.strategy_optimization,
-  historical_rows: [],
-  rows: [],
-};
+function replayDecisionFor(row: GamesTodayRow, strategy: string): BetDecision | null {
+  const replay = row.replay_decisions?.[strategy as keyof NonNullable<GamesTodayRow["replay_decisions"]>];
+  if (!replay) return null;
+  return {
+    bet: replay.bet_label,
+    reason: replay.reason,
+    side: replay.side,
+    team: replay.team,
+    stake: replay.stake,
+    odds: replay.odds,
+    modelProbability: replay.model_probability,
+    marketProbability: replay.market_probability,
+    edge: replay.edge,
+    expectedValue: replay.expected_value,
+  };
+}
 
 export default function BetSizingExperience() {
   const league = useLeague();
   const strategy = useBetStrategy(league);
-  const betHistory = useDashboardData<BetHistoryResponse>("betHistory", "/api/bet-history", league, EMPTY_BET_HISTORY);
   const gamesToday = useDashboardData<GamesTodayResponse>("gamesToday", "/api/games-today", league, EMPTY_GAMES_TODAY);
-
-  const { policies, frontierPolicies, byKey } = useMemo(
-    () => collectBetSizingPolicies(betHistory.data.strategy_configs, betHistory.data.strategy_optimization.frontier),
-    [betHistory.data.strategy_configs, betHistory.data.strategy_optimization.frontier]
+  const strategyConfig = gamesToday.data.strategy_configs?.[strategy] || getBetStrategyConfig(strategy, { league });
+  const todayKey = centralTodayDateKey();
+  const rows = useMemo(
+    () =>
+      resolveGamesTodayDateView({
+        activeDateKey: gamesToday.data.date_central || todayKey,
+        todayKey,
+        upcomingRows: gamesToday.data.rows || [],
+        historicalRows: gamesToday.data.historical_rows || [],
+      }).rows,
+    [gamesToday.data.date_central, gamesToday.data.historical_rows, gamesToday.data.rows, todayKey]
   );
 
-  const defaultPolicyKey = useMemo(
-    () => selectDefaultPolicyKey(strategy, betHistory.data.strategy_configs, frontierPolicies),
-    [betHistory.data.strategy_configs, frontierPolicies, strategy]
-  );
+  const decisions = useMemo(() => {
+    const liveRows = rows.filter((row) => !replayDecisionFor(row, strategy));
+    const liveDecisions = computeBetDecisionsForSlate(
+      liveRows.map((row) => rowToDecisionInput(row, league)),
+      strategy,
+      strategyConfig
+    );
+    const liveByGame = new Map(liveRows.map((row, index) => [row.game_id, liveDecisions[index]]));
+    return rows.map((row) => replayDecisionFor(row, strategy) || liveByGame.get(row.game_id) || null);
+  }, [league, rows, strategy, strategyConfig]);
 
-  const [selectedPolicyKey, setSelectedPolicyKey] = useState("");
-  const [selectedGameId, setSelectedGameId] = useState<number | null>(null);
-  const effectiveSelectedPolicyKey = selectedPolicyKey && byKey.has(selectedPolicyKey) ? selectedPolicyKey : defaultPolicyKey;
-  const selectedPolicy = byKey.get(effectiveSelectedPolicyKey) || byKey.get(defaultPolicyKey) || policies[0] || null;
-  const officialPolicyKey = betHistory.data.strategy_configs[strategy]?.config_signature || null;
-  const officialPolicy = officialPolicyKey ? byKey.get(officialPolicyKey) || null : null;
-  const replayRankingAvailable = frontierPolicies.length > 0;
-  const slate = useMemo(() => selectBetSizingSlate(gamesToday.data), [gamesToday.data]);
-
-  const gamePreviews = useMemo(
-    () => (selectedPolicy ? buildBetSizingGamePreviews(slate.rows, strategy, selectedPolicy) : []),
-    [selectedPolicy, slate.rows, strategy]
-  );
-
-  const defaultGameId = useMemo(() => selectDefaultGameId(gamePreviews), [gamePreviews]);
-  const effectiveSelectedGameId =
-    selectedGameId !== null && gamePreviews.some((preview) => preview.row.game_id === selectedGameId)
-      ? selectedGameId
-      : defaultGameId;
-
-  const explainer = useMemo(
-    () => (selectedPolicy ? buildBetSizingExplainerModel(gamePreviews, selectedPolicy, slate, effectiveSelectedGameId) : null),
-    [effectiveSelectedGameId, gamePreviews, selectedPolicy, slate]
-  );
-
-  const selectedGame = explainer?.selectedGame || null;
-  const loading = betHistory.isLoading || gamesToday.isLoading;
-  const error = betHistory.error || gamesToday.error;
+  const betRows = rows
+    .map((row, index) => ({ row, decision: decisions[index] }))
+    .filter(({ decision }) => Boolean(decision && decision.stake > 0 && decision.side !== "none"));
+  const noBetCount = Math.max(0, rows.length - betRows.length);
+  const totalAtRisk = betRows.length * REFERENCE_STAKE_DOLLARS;
 
   return (
     <div className="grid">
       <section className={`card ${styles.heroCard}`}>
         <div className={styles.heroTop}>
           <div>
-            <p className={styles.eyebrow}>Bet Sizing</p>
-            <h2 className="title">{explainer?.headline || "How today&apos;s budget turns into a bet amount"}</h2>
+            <p className={styles.eyebrow}>Flat Betting Rule</p>
+            <h2 className="title">Bet {formatUsd(REFERENCE_STAKE_DOLLARS)} or bet nothing.</h2>
             <p className={styles.heroText}>
-              {explainer?.dek ||
-                "This page starts with the daily budget, shows how each game earns or loses the right to ask for money, and then shows exactly how much of that budget lands on each game."}
+              The model still checks the price first. Once a game passes that screen, the stake is always the same fixed amount.
+              If the game does not pass, the stake is $0.
             </p>
           </div>
           <div className={styles.heroMeta}>
             <span className={styles.heroPill}>{league}</span>
-            <span className={styles.heroPill}>{getBetStrategyConfig(strategy).label}</span>
+            <span className={styles.heroPill}>{strategyConfig.label}</span>
           </div>
         </div>
 
-        {explainer ? (
-          <>
-            <div className={styles.heroMetrics}>
-              <div className={styles.heroMetric}>
-                <span className={styles.heroMetricLabel}>{explainer.hasDailyRiskLimit ? "Daily budget" : "Daily cap"}</span>
-                <strong className={styles.heroMetricValue}>
-                  {explainer.hasDailyRiskLimit ? formatUsd(explainer.totalBudget) : "None"}
-                </strong>
-              </div>
-              <div className={styles.heroMetric}>
-                <span className={styles.heroMetricLabel}>Max per game</span>
-                <strong className={styles.heroMetricValue}>{formatUsd(explainer.maxBetSize)}</strong>
-              </div>
-              <div className={styles.heroMetric}>
-                <span className={styles.heroMetricLabel}>Budget committed</span>
-                <strong className={styles.heroMetricValue}>{formatUsd(explainer.allocatedBudget)}</strong>
-              </div>
-              <div className={styles.heroMetric}>
-                <span className={styles.heroMetricLabel}>Budget left</span>
-                <strong className={styles.heroMetricValue}>
-                  {explainer.hasDailyRiskLimit ? formatUsd(explainer.remainingBudget) : "No cap"}
-                </strong>
-              </div>
-            </div>
-
-            <div className={styles.heroBudgetBar}>
-              {explainer.allocationSteps
-                .filter((step) => step.finalStake > 0)
-                .map((step) => (
-                  <span
-                    key={step.gameId}
-                    className={styles.heroBudgetSegment}
-                    style={{ width: `${(step.finalStake / explainer.totalBudget) * 100}%` }}
-                  />
-                ))}
-              {explainer.remainingBudget > 0 ? (
-                <span
-                  className={styles.heroBudgetRemainder}
-                  style={{ width: `${(explainer.remainingBudget / explainer.totalBudget) * 100}%` }}
-                />
-              ) : null}
-            </div>
-          </>
-        ) : null}
+        <div className={styles.heroMetrics}>
+          <div className={styles.heroMetric}>
+            <span className={styles.heroMetricLabel}>Amount per bet</span>
+            <strong className={styles.heroMetricValue}>{formatUsd(REFERENCE_STAKE_DOLLARS)}</strong>
+          </div>
+          <div className={styles.heroMetric}>
+            <span className={styles.heroMetricLabel}>Bets today</span>
+            <strong className={styles.heroMetricValue}>{betRows.length}</strong>
+          </div>
+          <div className={styles.heroMetric}>
+            <span className={styles.heroMetricLabel}>No-bet games</span>
+            <strong className={styles.heroMetricValue}>{noBetCount}</strong>
+          </div>
+          <div className={styles.heroMetric}>
+            <span className={styles.heroMetricLabel}>Total at risk</span>
+            <strong className={styles.heroMetricValue}>{formatUsd(totalAtRisk)}</strong>
+          </div>
+        </div>
 
         <div className={styles.stageGrid}>
           <article className={styles.stageCard}>
-            <p className={styles.stageStep}>1. Screen</p>
-            <p className={styles.stageTitle}>Check whether the game deserves any money at all</p>
-            <p className={styles.stageBody}>The app looks for priced games, positive value after adjustment, and a large enough edge.</p>
+            <p className={styles.stageStep}>1. Check the price</p>
+            <p className={styles.stageTitle}>The model needs usable sportsbook odds.</p>
+            <p className={styles.stageBody}>If the page has no odds for a game, it is automatically a no-bet.</p>
           </article>
           <article className={styles.stageCard}>
-            <p className={styles.stageStep}>2. Size</p>
-            <p className={styles.stageTitle}>Let the game ask for a stake</p>
-            <p className={styles.stageBody}>A base bankroll fraction asks for an amount, then the profile scale and per-game cap cut it down.</p>
+            <p className={styles.stageStep}>2. Decide bet or no bet</p>
+            <p className={styles.stageTitle}>The model compares its estimate to the sportsbook price.</p>
+            <p className={styles.stageBody}>A bet only appears when the model sees enough advantage after its uncertainty checks.</p>
           </article>
           <article className={styles.stageCard}>
-            <p className={styles.stageStep}>3. Allocate</p>
-            <p className={styles.stageTitle}>
-              {(explainer?.hasDailyRiskLimit ?? true)
-                ? "Spend today&apos;s budget on the best asks first"
-                : "Fund every surviving ask"}
-            </p>
-            <p className={styles.stageBody}>
-              {(explainer?.hasDailyRiskLimit ?? true)
-                ? "Higher-value bets receive budget first until the day&apos;s max risk is reached."
-                : "Without a daily cap, the slate only applies the value screens and the per-game cap."}
-            </p>
+            <p className={styles.stageStep}>3. Use the fixed stake</p>
+            <p className={styles.stageTitle}>Every accepted bet gets the same amount.</p>
+            <p className={styles.stageBody}>There is no bigger-or-smaller sizing layer. A bet is {formatUsd(REFERENCE_STAKE_DOLLARS)}; a pass is $0.</p>
           </article>
         </div>
 
         <div className={styles.asOfRow}>
-          <span className="small">{explainer?.slateLabel || slate.label}</span>
-          <span className="small">Replay data as of {formatAsOfLabel(gamesToday.data.as_of_utc)}</span>
+          <span className="small">Forecast snapshot as of {formatAsOfLabel(gamesToday.data.as_of_utc)}</span>
           <span className="small">Odds snapshot as of {formatAsOfLabel(gamesToday.data.odds_as_of_utc)}</span>
         </div>
       </section>
 
-      {loading ? <p className="small">Loading bet sizing view...</p> : null}
-      {error ? <p className="small">Failed to load bet sizing data: {error}</p> : null}
+      {gamesToday.isLoading ? <p className="small">Loading flat bet view...</p> : null}
+      {gamesToday.error ? <p className="small">Failed to load flat bet data: {gamesToday.error}</p> : null}
 
-      {!loading && !error && selectedPolicy && explainer ? (
-        <>
-          <section className={`card ${styles.policyCard}`}>
-            <div className={styles.policyHeader}>
-              <div>
-                <p className={styles.eyebrow}>Stage 0</p>
-                <h2 className="title">Pick the House Rules</h2>
-                <p className="small">
-                  The strategy changes the daily budget, the max size of any one bet, and whether underdogs are allowed.
-                </p>
-              </div>
-              <div className={styles.policyButtonRow}>
-                {BET_STRATEGIES.map((code) => {
-                  const policy = betHistory.data.strategy_configs[code];
-                  const isSelected = policy.config_signature === selectedPolicy.configSignature;
-                  return (
-                    <button
-                      key={code}
-                      type="button"
-                      className={`${styles.policyButton} ${isSelected ? styles.policyButtonActive : ""}`}
-                      onClick={() => setSelectedPolicyKey(policy.config_signature)}
-                    >
-                      <span className={styles.policyButtonLabel}>{policy.label}</span>
-                      <span className={styles.policyButtonNote}>{sourceLabel(policy.optimization_source)}</span>
-                    </button>
-                  );
-                })}
-              </div>
+      {!gamesToday.isLoading && !gamesToday.error ? (
+        <section className={`card ${styles.gamesCard}`}>
+          <div className={styles.gamesHeader}>
+            <div>
+              <p className={styles.eyebrow}>Today</p>
+              <h2 className="title">Bet List</h2>
+              <p className="small">These are the games currently receiving the fixed stake.</p>
             </div>
-
-            <div className={styles.summaryGrid}>
-              <article className={styles.ruleCard}>
-                <p className={styles.ruleEyebrow}>Selected policy</p>
-                <h3 className={styles.ruleTitle}>{selectedPolicy.label}</h3>
-                <p className={styles.ruleBody}>{selectedPolicy.description}</p>
-                <div className={styles.ruleGrid}>
-                  <div className={styles.ruleTile}>
-                    <span className={styles.ruleLabel}>Daily budget</span>
-                    <strong className={styles.ruleValue}>
-                      {typeof selectedPolicy.maxDailyBankrollPercent === "number"
-                        ? formatUsd((selectedPolicy.maxDailyBankrollPercent / 100) * REFERENCE_BANKROLL_DOLLARS)
-                        : "No cap"}
-                    </strong>
-                  </div>
-                  <div className={styles.ruleTile}>
-                    <span className={styles.ruleLabel}>Per-game cap</span>
-                    <strong className={styles.ruleValue}>
-                      {formatUsd((selectedPolicy.maxBetBankrollPercent / 100) * REFERENCE_BANKROLL_DOLLARS)}
-                    </strong>
-                  </div>
-                  <div className={styles.ruleTile}>
-                    <span className={styles.ruleLabel}>Value floor</span>
-                    <strong className={styles.ruleValue}>{formatProbabilityPoints(selectedPolicy.minEdge)}</strong>
-                  </div>
-                  <div className={styles.ruleTile}>
-                    <span className={styles.ruleLabel}>Sizing scale</span>
-                    <strong className={styles.ruleValue}>{selectedPolicy.stakeScale.toFixed(2)}x</strong>
-                  </div>
-                </div>
-                <p className={styles.ruleFootnote}>
-                  Dollar amounts are anchored to a {formatUsd(REFERENCE_BANKROLL_DOLLARS)} reference bankroll. For example, a {formatBankrollPercent(REFERENCE_STAKE_BANKROLL_FRACTION)} bankroll share is {formatUsd(REFERENCE_STAKE_DOLLARS)}.
-                </p>
-                {selectedPolicy.optimizationSource === "static_fallback" ? (
-                  <p className={styles.ruleFootnote}>
-                    Replay coverage is still thin, so this policy is using fixed defaults rather than a replay-ranked profile.
-                  </p>
-                ) : null}
-              </article>
-
-              <article className={styles.screeningCard}>
-                <p className={styles.ruleEyebrow}>Stage 1</p>
-                <h3 className={styles.ruleTitle}>Today&apos;s Screening Funnel</h3>
-                <p className={styles.ruleBody}>Each bar shows how many games are still alive after one more rule is applied.</p>
-                <div className={styles.screeningSteps}>
-                  {explainer.screening.map((step, index) => {
-                    const previousCount = index === 0 ? step.count : (explainer.screening[index - 1]?.count ?? 0);
-                    const width = explainer.screening[0]?.count ? (step.count / explainer.screening[0].count) * 100 : 0;
-                    return (
-                      <div key={step.key} className={styles.screeningRow}>
-                        <div className={styles.screeningCopy}>
-                          <span className={styles.screeningLabel}>{step.label}</span>
-                          <span className={styles.screeningDesc}>{step.description}</span>
-                        </div>
-                        <div className={styles.screeningBarWrap}>
-                          <div className={styles.screeningTrack}>
-                            <span
-                              className={`${styles.screeningBar} ${screeningTone(step.count, previousCount)}`}
-                              style={{ width: `${width}%` }}
-                            />
-                          </div>
-                          <strong className={styles.screeningCount}>{step.count}</strong>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </article>
+            <div className={styles.gamesPills}>
+              <span className={styles.heroPill}>{betRows.length} bets</span>
+              <span className={styles.heroPill}>{noBetCount} no-bets</span>
             </div>
-          </section>
+          </div>
 
-          <BetSizingBudgetFlow
-            league={league}
-            hasDailyRiskLimit={explainer.hasDailyRiskLimit}
-            totalBudget={explainer.totalBudget}
-            allocatedBudget={explainer.allocatedBudget}
-            remainingBudget={explainer.remainingBudget}
-            steps={explainer.allocationSteps}
-          />
-
-          <section className={styles.explorerGrid}>
-            <article className={`card ${styles.gamesCard}`}>
-              <div className={styles.gamesHeader}>
-                <div>
-                  <p className={styles.eyebrow}>Slate Explorer</p>
-                  <h2 className="title">Every Game, Bet or Pass</h2>
-                  <p className="small">Pick a game to see the exact walk from price to final stake.</p>
-                </div>
-                <div className={styles.gamesPills}>
-                  <span className={styles.heroPill}>{explainer.fundedBetCount} funded</span>
-                  <span className={styles.heroPill}>{explainer.passCount} passed</span>
-                </div>
-              </div>
-
-              <div className={styles.gameList}>
-                {explainer.games.map((game) => {
-                  const isSelected = game.preview.row.game_id === selectedGame?.preview.row.game_id;
-                  return (
-                    <button
-                      key={game.preview.row.game_id}
-                      type="button"
-                      className={`${styles.gameButton} ${isSelected ? styles.gameButtonActive : ""}`}
-                      onClick={() => setSelectedGameId(game.preview.row.game_id)}
-                    >
-                      <div className={styles.gameButtonTop}>
-                        <span className={styles.tipBadge}>{formatTipTime(game.preview.row.start_time_utc)} CT</span>
-                        <span className={`${styles.statusBadge} ${game.status === "bet" ? styles.statusBet : styles.statusPass}`}>
-                          {game.status === "bet" ? formatUsd(game.finalStake) : game.passLabel}
-                        </span>
-                      </div>
-                      <TeamMatchup
+          <div className={styles.gameList}>
+            {betRows.length ? (
+              betRows.map(({ row, decision }) => {
+                const display = formatBetRecommendation({
+                  team: decision?.team || null,
+                  stake: decision?.stake || 0,
+                  reason: decision?.reason || "",
+                });
+                return (
+                  <article key={row.game_id} className={styles.gameButton}>
+                    <div className={styles.gameButtonTop}>
+                      <span className={styles.tipBadge}>{formatTipTime(row.start_time_utc)} CT</span>
+                      <BetStakeWithIcon
                         league={league}
-                        awayTeamCode={game.preview.row.away_team}
-                        homeTeamCode={game.preview.row.home_team}
-                        awayLabel={game.preview.row.away_team}
-                        homeLabel={game.preview.row.home_team}
-                        size="sm"
+                        teamCode={decision?.team}
+                        label={decision?.team}
+                        stake={decision?.stake || 0}
+                        zeroLabel="No bet"
                       />
-                      <div className={styles.gameStats}>
-                        <span>{game.allocationRank ? `Rank #${game.allocationRank}` : `Stops at ${game.stopStage}`}</span>
-                        <span>{formatProbabilityPoints(game.preview.trace.candidateEdge)}</span>
-                        <span>{formatExpectedValue(game.preview.trace.candidateExpectedValue)}</span>
-                      </div>
-                      <p className={styles.gameSummary}>{game.laymanSummary}</p>
-                    </button>
-                  );
-                })}
-              </div>
-            </article>
-
-            {selectedGame ? (
-              <div className={styles.detailColumn}>
-                <section className={`card ${styles.selectedCard}`}>
-                  <div className={styles.selectedTop}>
-                    <div>
-                      <p className={styles.eyebrow}>Selected game</p>
-                      <h2 className="title">{selectedGame.matchupLabel}</h2>
-                      <p className="small">{selectedGame.laymanSummary}</p>
                     </div>
-                    <BetStakeWithIcon
-                      league={league}
-                      teamCode={selectedGame.preview.trace.decision.team}
-                      label={selectedGame.preview.trace.decision.team}
-                      stake={selectedGame.finalStake}
-                      size="md"
-                      zeroLabel="$0 pass"
-                      className={styles.breakdownStake}
-                    />
-                  </div>
-
-                  <div className={styles.matchupDetails}>
                     <TeamMatchup
                       league={league}
-                      awayTeamCode={selectedGame.preview.row.away_team}
-                      homeTeamCode={selectedGame.preview.row.home_team}
-                      awayLabel={selectedGame.preview.row.away_team}
-                      homeLabel={selectedGame.preview.row.home_team}
-                      size="md"
+                      awayTeamCode={row.away_team}
+                      homeTeamCode={row.home_team}
+                      awayLabel={row.away_team}
+                      homeLabel={row.home_team}
+                      size="sm"
                     />
-                    <div className={styles.factGrid}>
-                      <div className={styles.factTile}>
-                        <span className={styles.factLabel}>Home model win %</span>
-                        <strong className={styles.factValue}>{formatPercent(selectedGame.preview.trace.homeRawModelProbability)}</strong>
-                      </div>
-                      <div className={styles.factTile}>
-                        <span className={styles.factLabel}>Home moneyline</span>
-                        <strong className={styles.factValue}>{formatMoneyline(selectedGame.preview.row.home_moneyline)}</strong>
-                      </div>
-                      <div className={styles.factTile}>
-                        <span className={styles.factLabel}>Away moneyline</span>
-                        <strong className={styles.factValue}>{formatMoneyline(selectedGame.preview.row.away_moneyline)}</strong>
-                      </div>
-                      <div className={styles.factTile}>
-                        <span className={styles.factLabel}>Requested stake</span>
-                        <strong className={styles.factValue}>{formatUsd(selectedGame.requestedStake)}</strong>
-                      </div>
+                    <div className={styles.gameStats}>
+                      <span>Home {formatMoneyline(row.home_moneyline)}</span>
+                      <span>Away {formatMoneyline(row.away_moneyline)}</span>
+                      <span>{display.label}</span>
                     </div>
-                  </div>
-                </section>
-
-                <BetSizingProbabilityBridge
-                  marketProbability={selectedGame.preview.trace.candidateMarketProbability}
-                  referenceProbability={selectedGame.preview.trace.candidateReferenceProbability}
-                  adjustedProbability={selectedGame.preview.trace.candidateAdjustedProbability}
-                  rawProbability={selectedGame.preview.trace.candidateRawModelProbability}
-                  expectedValue={selectedGame.preview.trace.candidateExpectedValue}
-                  edge={selectedGame.preview.trace.candidateEdge}
-                />
-
-                <BetSizingStakeFlow
-                  game={selectedGame}
-                  policy={selectedPolicy}
-                  hasDailyRiskLimit={explainer.hasDailyRiskLimit}
-                  totalBudget={explainer.totalBudget}
-                />
-
-                <section className={`card ${styles.storyCard}`}>
-                  <div>
-                    <p className={styles.eyebrow}>Selected game summary</p>
-                    <h3 className="title">Why this game ends where it does</h3>
-                  </div>
-                  <div className={styles.storyGrid}>
-                    <div className={styles.storyTile}>
-                      <span className={styles.storyLabel}>Chosen side</span>
-                      <strong className={styles.storyValue}>{selectedGame.preview.trace.decision.team || "No bet"}</strong>
-                    </div>
-                    <div className={styles.storyTile}>
-                      <span className={styles.storyLabel}>Adjusted edge</span>
-                      <strong className={styles.storyValue}>{formatProbabilityPoints(selectedGame.preview.trace.candidateEdge)}</strong>
-                    </div>
-                    <div className={styles.storyTile}>
-                      <span className={styles.storyLabel}>Expected value</span>
-                      <strong className={styles.storyValue}>{formatExpectedValue(selectedGame.preview.trace.candidateExpectedValue)}</strong>
-                    </div>
-                    <div className={styles.storyTile}>
-                      <span className={styles.storyLabel}>Requested bankroll share</span>
-                      <strong className={styles.storyValue}>
-                        {formatBankrollPercent(selectedGame.scaledStakeShareOfBankroll)}
-                      </strong>
-                    </div>
-                    <div className={styles.storyTile}>
-                      <span className={styles.storyLabel}>Budget rank</span>
-                      <strong className={styles.storyValue}>{selectedGame.allocationRank ? `#${selectedGame.allocationRank}` : "Not funded"}</strong>
-                    </div>
-                    <div className={styles.storyTile}>
-                      <span className={styles.storyLabel}>Budget after this game</span>
-                      <strong className={styles.storyValue}>
-                        {selectedGame.budgetAfter !== null ? formatUsd(selectedGame.budgetAfter) : "—"}
-                      </strong>
-                    </div>
-                  </div>
-                </section>
-              </div>
-            ) : null}
-          </section>
-
-          <details className={`card ${styles.advancedCard}`}>
-            <summary className={styles.advancedSummary}>Advanced replay diagnostics and formulas</summary>
-            <div className={styles.advancedBody}>
-              <div className={styles.advancedGrid}>
-                <article className={styles.metricCard}>
-                  <p className={styles.ruleEyebrow}>Replay notes</p>
-                  <h3 className={styles.ruleTitle}>Policy backtest context</h3>
-                  <p className={styles.ruleBody}>
-                    {replayRankingAvailable
-                      ? "Replay-tested points are available below. Use them to compare higher-risk and lower-risk policy shapes."
-                      : "Replay policy ranking stays muted until more matched replay coverage is available."}
-                  </p>
-                  <div className={styles.ruleGrid}>
-                    <div className={styles.ruleTile}>
-                      <span className={styles.ruleLabel}>Candidates tested</span>
-                      <strong className={styles.ruleValue}>{betHistory.data.strategy_optimization.candidate_count}</strong>
-                    </div>
-                    <div className={styles.ruleTile}>
-                      <span className={styles.ruleLabel}>Replay points</span>
-                      <strong className={styles.ruleValue}>{betHistory.data.strategy_optimization.frontier_point_count}</strong>
-                    </div>
-                    <div className={styles.ruleTile}>
-                      <span className={styles.ruleLabel}>ROI</span>
-                      <strong className={styles.ruleValue}>
-                        {metricOrDash(selectedPolicy.metrics, (metrics) => metrics.roi, (value) => formatPercent(value))}
-                      </strong>
-                    </div>
-                    <div className={styles.ruleTile}>
-                      <span className={styles.ruleLabel}>Log growth / bet</span>
-                      <strong className={styles.ruleValue}>
-                        {metricOrDash(selectedPolicy.metrics, (metrics) => metrics.expected_log_growth_per_bet, (value) => value.toFixed(4))}
-                      </strong>
-                    </div>
-                  </div>
-                </article>
-
-                <article className={styles.metricCard}>
-                  <p className={styles.ruleEyebrow}>Exact formulas</p>
-                  <h3 className={styles.ruleTitle}>Behind the walk-through</h3>
-                  <div className={styles.formulaBody}>
-                    <p className="small">Reference probability = 70% market fair probability + 30% peer-model consensus when peer models exist.</p>
-                    <p className="small">Adjusted probability = reference probability + confidence weight × (raw model probability - reference probability).</p>
-                    <p className="small">Edge = adjusted probability - market fair probability.</p>
-                    <p className="small">Expected value = adjusted probability × decimal odds - 1.</p>
-                    <p className="small">Base stake fraction = (adjusted probability × decimal odds - 1) / (decimal odds - 1).</p>
-                    <p className="small">
-                      {explainer.hasDailyRiskLimit
-                        ? "Final stake = scaled base amount, capped per game, then capped again by the daily budget."
-                        : "Final stake = scaled base amount, then capped per game because this profile has no daily budget limit."}
-                    </p>
-                  </div>
-                </article>
-              </div>
-
-              <BetSizingFrontier
-                points={frontierPolicies}
-                selectedKey={selectedPolicy.configSignature}
-                officialPolicy={officialPolicy}
-                onSelect={setSelectedPolicyKey}
-              />
-            </div>
-          </details>
-        </>
+                    <p className={styles.gameSummary}>{display.reason}</p>
+                  </article>
+                );
+              })
+            ) : (
+              <article className={styles.stageCard}>
+                <p className={styles.stageTitle}>No fixed-stake bets right now.</p>
+                <p className={styles.stageBody}>The current slate is all passes, or odds are not available yet.</p>
+              </article>
+            )}
+          </div>
+        </section>
       ) : null}
     </div>
   );

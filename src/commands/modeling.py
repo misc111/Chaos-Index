@@ -204,15 +204,25 @@ def research_desk(cfg: AppConfig, args: Namespace) -> None:
 
 
 def run_daily(cfg: AppConfig, args: Namespace) -> None:
-    """Execute the daily fetch, feature, train, and scoring flow."""
+    """Execute routine daily fetch and scoring; retraining is explicit opt-in."""
 
-    ingest.fetch_data(cfg)
-    ingest.build_features(cfg)
-    if cfg.runtime.retrain_daily:
+    ingest.refresh_data(cfg)
+    retrain_requested = bool(getattr(args, "retrain", False))
+    if retrain_requested:
+        ingest.build_features(cfg)
         train(cfg, args)
+    elif cfg.runtime.retrain_daily:
+        logger.warning(
+            "runtime.retrain_daily=true is ignored for routine run-daily safety; pass --retrain or use make hard_refresh."
+        )
 
     db = Database(cfg.paths.db_path)
     score_info = score_predictions(db, windows_days=cfg.modeling.rolling_windows_days)
+    predictiveness_result = current_season_predictiveness_service.run_current_season_predictiveness(
+        cfg,
+        report_slug=getattr(args, "report_slug", None),
+        season=getattr(args, "season", None),
+    )
 
     perf = pd.DataFrame(db.query("SELECT * FROM performance_aggregates ORDER BY as_of_utc DESC"))
     if not perf.empty:
@@ -220,4 +230,8 @@ def run_daily(cfg: AppConfig, args: Namespace) -> None:
         ensure_dir(out.parent)
         perf.to_csv(out, index=False)
 
-    logger.info("Daily run complete | scored=%s", score_info)
+    logger.info(
+        "Daily scoring run complete | scored=%s current_season_status=%s",
+        score_info,
+        predictiveness_result.get("status"),
+    )

@@ -90,7 +90,6 @@ export type BetDecisionTrace = {
   };
 };
 
-// Reference bankroll drives stake sizing, replay materialization, and UI copy.
 // Historical replay curves still start from the fixed comparison bankroll below.
 export const REFERENCE_BANKROLL_DOLLARS = 10_000;
 export const REFERENCE_STAKE_BANKROLL_FRACTION = 0.01;
@@ -105,6 +104,8 @@ const MIN_MODEL_CONFIDENCE_WEIGHT = 0.25;
 const FULL_MARGIN_FOR_FULL_WEIGHT = 0.2;
 const MIN_PEER_AGREEMENT_WEIGHT = 0.55;
 const PEER_DISAGREEMENT_FOR_MIN_WEIGHT = 0.2;
+const FAIR_PRICE_REASON = "No bet: the sportsbook price is close to the model's estimate.";
+const MISSING_ODDS_REASON = "No sportsbook odds available yet.";
 
 type BetDisplayRecommendation = {
   team: string | null;
@@ -154,13 +155,18 @@ function decimalOddsToBaseStakeShare(probability: number, decimalOdds: number): 
   return Number.isFinite(fraction) ? fraction : null;
 }
 
-function quotedStakeFromBaseShare(baseStakeShare: number, stakeScale: number, maxBetBankrollPercent: number): number {
+function variableStakeFromBaseShare(baseStakeShare: number, stakeScale: number, maxBetBankrollPercent: number): number {
   if (!Number.isFinite(baseStakeShare) || baseStakeShare <= 0) return 0;
   if (!Number.isFinite(stakeScale) || stakeScale <= 0) return 0;
 
   const scaledShare = clampPositive(baseStakeShare * stakeScale);
   const cappedShare = Math.min(maxBetBankrollPercent / 100, scaledShare);
   return roundStakeAmount(dollarsFromBankrollShare(cappedShare));
+}
+
+function flatStakeForAcceptedBet(baseStakeShare: number | null): number {
+  if (baseStakeShare === null || !Number.isFinite(baseStakeShare) || baseStakeShare <= 0) return 0;
+  return REFERENCE_STAKE_DOLLARS;
 }
 
 function sideProbabilityFromHomeProbability(homeProbability: number, side: ExpectedSide): number {
@@ -263,7 +269,7 @@ function buildProbabilityAdjustment(
 }
 
 function buildPricedBetReason(candidateIsUnderdog: boolean): string {
-  return candidateIsUnderdog ? "Underdog underpriced after uncertainty adjustment" : "Favorite underpriced after uncertainty adjustment";
+  return candidateIsUnderdog ? "Bet: the model likes this underdog price." : "Bet: the model likes this favorite price.";
 }
 
 function buildLongShotUnderdogReason(strategyLabel: string, maxUnderdogMoneyline: number): string {
@@ -275,6 +281,16 @@ function formatStakeForDecision(team: string | null, stake: number): string {
   if (!Number.isFinite(stake)) return "$0";
   const fractionDigits = Number.isInteger(stake) ? 0 : 2;
   return `$${stake.toFixed(fractionDigits)} ${team}`;
+}
+
+export function normalizeBetDecisionReason(reason: string): string {
+  const normalized = String(reason || "").trim();
+  if (!normalized) return "No recommendation available.";
+  if (normalized === "Adjusted price fair") return FAIR_PRICE_REASON;
+  if (normalized === "Missing odds") return MISSING_ODDS_REASON;
+  if (normalized === "Favorite underpriced after uncertainty adjustment") return "Bet: the model likes this favorite price.";
+  if (normalized === "Underdog underpriced after uncertainty adjustment") return "Bet: the model likes this underdog price.";
+  return normalized;
 }
 
 function buildDecision(
@@ -439,7 +455,7 @@ export function applyDailyRiskCapToDecisionTraces(traces: BetDecisionTrace[]): B
     const cappedStake = capStakeToRemainingBudget(trace, remainingBudget);
 
     if (cappedStake <= 0) {
-      next[index] = applyStakeOverride(trace, 0, "Daily risk budget exhausted", true);
+      next[index] = applyStakeOverride(trace, 0, "No bet: today's fixed-bet budget is already used.", true);
       continue;
     }
 
@@ -499,7 +515,7 @@ export function explainBetDecision(
   };
 
   if (!oddsAvailable) {
-    return buildTrace(context, buildDecision(row, "none", 0, "Missing odds"), baseGates);
+    return buildTrace(context, buildDecision(row, "none", 0, MISSING_ODDS_REASON), baseGates);
   }
 
   const pHomeRaw = clampProbability(Number(row.home_win_probability));
@@ -509,7 +525,7 @@ export function explainBetDecision(
   if (impHome === null || impAway === null) {
     return buildTrace(
       context,
-      buildDecision(row, "none", 0, "Missing odds"),
+      buildDecision(row, "none", 0, MISSING_ODDS_REASON),
       baseGates,
       {
         homeRawModelProbability: pHomeRaw,
@@ -522,7 +538,7 @@ export function explainBetDecision(
   if (!Number.isFinite(impTotal) || impTotal <= 0) {
     return buildTrace(
       context,
-      buildDecision(row, "none", 0, "Missing odds"),
+      buildDecision(row, "none", 0, MISSING_ODDS_REASON),
       baseGates,
       {
         homeRawModelProbability: pHomeRaw,
@@ -551,7 +567,7 @@ export function explainBetDecision(
   if (decHome === null || decAway === null) {
     return buildTrace(
       context,
-      buildDecision(row, "none", 0, "Missing odds"),
+      buildDecision(row, "none", 0, MISSING_ODDS_REASON),
       baseGates,
       {
         homeRawModelProbability: pHomeRaw,
@@ -574,7 +590,7 @@ export function explainBetDecision(
   if (!positiveExpectedValue) {
     return buildTrace(
       context,
-      buildDecision(row, "none", 0, "Adjusted price fair"),
+      buildDecision(row, "none", 0, FAIR_PRICE_REASON),
       {
         ...baseGates,
         positiveExpectedValue,
@@ -644,7 +660,7 @@ export function explainBetDecision(
   if (!edgeGate || !expectedValueGate) {
     return buildTrace(
       context,
-      buildDecision(row, "none", 0, "Adjusted price fair"),
+      buildDecision(row, "none", 0, FAIR_PRICE_REASON),
       {
         ...baseGates,
         positiveExpectedValue,
@@ -706,16 +722,17 @@ export function explainBetDecision(
     scaledStakeShareOfBankroll === null
       ? null
       : Math.min(strategyConfig.maxBetBankrollPercent / 100, scaledStakeShareOfBankroll);
-  const quotedStake =
+  const variableStake =
     baseStakeShareOfBankroll === null
       ? 0
-      : quotedStakeFromBaseShare(baseStakeShareOfBankroll, strategyConfig.stakeScale, strategyConfig.maxBetBankrollPercent);
+      : variableStakeFromBaseShare(baseStakeShareOfBankroll, strategyConfig.stakeScale, strategyConfig.maxBetBankrollPercent);
+  const quotedStake = flatStakeForAcceptedBet(baseStakeShareOfBankroll);
   const stake = quotedStake;
 
   if (stake <= 0) {
     return buildTrace(
       context,
-      buildDecision(row, "none", 0, "Adjusted price fair"),
+        buildDecision(row, "none", 0, FAIR_PRICE_REASON),
       {
         ...baseGates,
         positiveExpectedValue,
@@ -730,6 +747,7 @@ export function explainBetDecision(
         scaledStakeShareOfBankroll,
         cappedStakeShareOfBankroll,
         quotedStake,
+        finalStake: variableStake,
       }
     );
   }
@@ -836,7 +854,7 @@ export function formatBetRecommendationLabel(team: string | null, stake: number)
 export function formatBetRecommendation(recommendation: BetDisplayRecommendation): { label: string; reason: string } {
   return {
     label: formatBetRecommendationLabel(recommendation.team, recommendation.stake),
-    reason: recommendation.reason,
+    reason: normalizeBetDecisionReason(recommendation.reason),
   };
 }
 
