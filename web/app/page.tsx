@@ -207,6 +207,28 @@ const modelTypeCardClasses = {
   "Bayesian Type": styles.bayesianTypeCard,
 } satisfies Record<ModelCardIntro["cardClass"], string>;
 
+const modelTypeOrder = {
+  "Linear Type": 1,
+  "Credibility Type": 2,
+  "Shape Type": 3,
+  "Count Type": 4,
+  "Context Type": 5,
+  "Tree Type": 6,
+  "Neural Type": 7,
+  "Bayesian Type": 8,
+} satisfies Record<ModelCardIntro["cardClass"], number>;
+
+const groupedTrainableModels = TRAINABLE_MODELS.map((modelKey, originalIndex) => ({
+  modelKey,
+  originalIndex,
+}))
+  .sort((left, right) => {
+    const leftType = modelCardIntros[left.modelKey].cardClass;
+    const rightType = modelCardIntros[right.modelKey].cardClass;
+    return modelTypeOrder[leftType] - modelTypeOrder[rightType] || left.originalIndex - right.originalIndex;
+  })
+  .map(({ modelKey }) => modelKey);
+
 export default function HomePage() {
   const heroImage = `${BASE_PATH}/images/chaos-index-hero.png`;
 
@@ -250,7 +272,7 @@ export default function HomePage() {
           <p>Every forecasting style gets its own card.</p>
         </div>
         <div className={styles.tradingCardGrid}>
-          {TRAINABLE_MODELS.map((modelKey) => {
+          {groupedTrainableModels.map((modelKey) => {
             const sprite = MODEL_SPRITES[modelKey];
             const intro = modelCardIntros[modelKey];
             const cardName = "cardName" in intro ? intro.cardName : undefined;
