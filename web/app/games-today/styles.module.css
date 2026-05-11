@@ -193,24 +193,24 @@
 }
 
 .gamesTable {
-  min-width: 920px;
+  min-width: 760px;
   table-layout: fixed;
 }
 
 .teamColumnWidth {
-  width: 13%;
+  width: 15%;
 }
 
 .timeColumnWidth {
-  width: 11%;
+  width: 13%;
 }
 
 .winChanceColumnWidth {
-  width: 10%;
+  width: 11%;
 }
 
 .moneylineColumnWidth {
-  width: 13%;
+  width: 11%;
 }
 
 .overOddsColumnWidth {
@@ -218,11 +218,11 @@
 }
 
 .betColumnWidth {
-  width: 14%;
+  width: 12%;
 }
 
 .reasonColumnWidth {
-  width: 16%;
+  width: 18%;
 }
 
 .gamesTable th,
@@ -231,35 +231,15 @@
 }
 
 .betColumn {
-  position: relative;
-  z-index: 1;
-  border-left: 3px solid color-mix(in srgb, #ff4d4d 84%, white 16%);
-  border-right: 3px solid color-mix(in srgb, #ff4d4d 84%, white 16%);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, #ff3b3b 18%, transparent),
-    color-mix(in srgb, #ff3b3b 8%, transparent)
-  );
-  box-shadow:
-    inset 14px 0 18px -20px rgba(255, 82, 82, 0.9),
-    inset -14px 0 18px -20px rgba(255, 82, 82, 0.9),
-    0 0 18px rgba(255, 56, 56, 0.28);
+  background: rgba(255, 185, 89, 0.07);
 }
 
 .gamesTable thead .betColumn {
-  border-top: 3px solid color-mix(in srgb, #ff4d4d 90%, white 10%);
-  box-shadow:
-    0 -10px 24px rgba(255, 56, 56, 0.42),
-    inset 14px 0 18px -20px rgba(255, 82, 82, 0.9),
-    inset -14px 0 18px -20px rgba(255, 82, 82, 0.9);
+  color: var(--accent-2-strong);
 }
 
 .gamesTable tbody tr:last-child .betColumn {
-  border-bottom: 3px solid color-mix(in srgb, #ff4d4d 90%, white 10%);
-  box-shadow:
-    0 10px 24px rgba(255, 56, 56, 0.38),
-    inset 14px 0 18px -20px rgba(255, 82, 82, 0.9),
-    inset -14px 0 18px -20px rgba(255, 82, 82, 0.9);
+  border-bottom-color: var(--border);
 }
 
 .teamWin {
@@ -309,7 +289,7 @@
 }
 
 .reasonCell {
-  white-space: nowrap;
+  white-space: normal;
   font-weight: 600;
 }
 

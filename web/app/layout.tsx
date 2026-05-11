@@ -1,23 +1,23 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
-import DashboardHeader, { DashboardSidebar } from "@/components/DashboardHeader";
+import DashboardHeader from "@/components/DashboardHeader";
 
 const DEFAULT_DASHBOARD_THEME = "market-board-dark";
 const THEME_STORAGE_KEY = "dashboard-theme";
 
 export const metadata: Metadata = {
   title: "Chaos Index",
-  description: "Predictions, calibration, diagnostics, and validation artifacts",
+  description: "A small MLB probability notebook for today’s games and model-family tournaments",
   applicationName: "Chaos Index",
   openGraph: {
     title: "Chaos Index",
     siteName: "Chaos Index",
-    description: "Predictions, calibration, diagnostics, and validation artifacts",
+    description: "A small MLB probability notebook for today’s games and model-family tournaments",
   },
   twitter: {
     card: "summary",
     title: "Chaos Index",
-    description: "Predictions, calibration, diagnostics, and validation artifacts",
+    description: "A small MLB probability notebook for today’s games and model-family tournaments",
   },
 };
 
@@ -34,7 +34,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeInitializer }} />
         <div className="container">
           <div className="dashboard-shell">
-            <DashboardSidebar />
             <div className="dashboard-main">
               <DashboardHeader />
               <main style={{ paddingBottom: 48 }}>{children}</main>

@@ -1,4 +1,4 @@
-import { type LeagueCode, withLeague } from "@/lib/league";
+import { type LeagueCode } from "@/lib/league";
 import { buildPerformanceExperimentStagingFileName } from "@/lib/performance-replay-experiments";
 
 // Maintainer note: GitHub Pages staging does not call the live API routes.
@@ -6,6 +6,7 @@ import { buildPerformanceExperimentStagingFileName } from "@/lib/performance-rep
 // dashboard/API change that should show up on staging also needs a fresh
 // `npm run generate:staging-data` and committed snapshot files.
 const STATIC_STAGING = process.env.NEXT_PUBLIC_STATIC_STAGING === "1";
+const PUBLIC_VIEWS_USE_STATIC_SNAPSHOTS = true;
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const STAGING_ASSET_VERSION = process.env.NEXT_PUBLIC_STAGING_ASSET_VERSION || "";
 
@@ -46,7 +47,8 @@ export function buildDashboardDataUrl(
   league: LeagueCode,
   stagingVariant?: string | null
 ): string {
-  return STATIC_STAGING ? buildStaticStagingUrl(key, league, stagingVariant) : withLeague(livePath, league);
+  void livePath;
+  return buildStaticStagingUrl(key, league, stagingVariant);
 }
 
 export async function fetchDashboardJson<T>(
@@ -57,7 +59,7 @@ export async function fetchDashboardJson<T>(
   signal?: AbortSignal
 ): Promise<T> {
   const response = await fetch(buildDashboardDataUrl(key, livePath, league, stagingVariant), {
-    cache: STATIC_STAGING ? "force-cache" : "no-store",
+    cache: STATIC_STAGING || PUBLIC_VIEWS_USE_STATIC_SNAPSHOTS ? "force-cache" : "no-store",
     signal,
   });
 

@@ -14,13 +14,14 @@
 }
 
 .logoBox {
-  overflow: visible;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: #f8f3e6;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16);
   width: var(--team-logo-box-size, 1.4rem);
   height: var(--team-logo-box-size, 1.4rem);
+  padding: 2px;
 }
 
 .fallbackFrame {

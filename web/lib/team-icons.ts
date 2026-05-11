@@ -13,7 +13,71 @@ const DEFAULT_ICON: TeamIconDefinition = {
   text: "var(--muted-strong)",
 };
 
-const MLB_TEAM_ICON_CODES = [] as const;
+const MLB_TEAM_ICON_CODES = [
+  "ARI",
+  "ATH",
+  "ATL",
+  "BAL",
+  "BOS",
+  "CHC",
+  "CHW",
+  "CIN",
+  "CLE",
+  "COL",
+  "DET",
+  "HOU",
+  "KC",
+  "LAA",
+  "LAD",
+  "MIA",
+  "MIL",
+  "MIN",
+  "NYM",
+  "NYY",
+  "PHI",
+  "PIT",
+  "SD",
+  "SEA",
+  "SF",
+  "STL",
+  "TB",
+  "TEX",
+  "TOR",
+  "WSH",
+] as const;
+
+const MLB_TEAM_ICON_FILE_CODES: Record<(typeof MLB_TEAM_ICON_CODES)[number], string> = {
+  ARI: "ari",
+  ATH: "ath",
+  ATL: "atl",
+  BAL: "bal",
+  BOS: "bos",
+  CHC: "chc",
+  CHW: "cws",
+  CIN: "cin",
+  CLE: "cle",
+  COL: "col",
+  DET: "det",
+  HOU: "hou",
+  KC: "kc",
+  LAA: "laa",
+  LAD: "lad",
+  MIA: "mia",
+  MIL: "mil",
+  MIN: "min",
+  NYM: "nym",
+  NYY: "nyy",
+  PHI: "phi",
+  PIT: "pit",
+  SD: "sd",
+  SEA: "sea",
+  SF: "sf",
+  STL: "stl",
+  TB: "tb",
+  TEX: "tex",
+  TOR: "tor",
+  WSH: "wsh",
+};
 
 function buildTeamIconMap(pathPrefix: string, extension: "png" | "svg", codes: readonly string[]): Record<string, TeamIconDefinition> {
   return Object.fromEntries(
@@ -21,14 +85,14 @@ function buildTeamIconMap(pathPrefix: string, extension: "png" | "svg", codes: r
       code,
       {
         ...DEFAULT_ICON,
-        src: `${pathPrefix}/${code.toLowerCase()}.${extension}`,
+        src: `${pathPrefix}/${MLB_TEAM_ICON_FILE_CODES[code as keyof typeof MLB_TEAM_ICON_FILE_CODES] || code.toLowerCase()}.${extension}`,
       },
     ])
   );
 }
 
 const TEAM_ICONS: Record<LeagueCode, Record<string, TeamIconDefinition>> = {
-  MLB: buildTeamIconMap("/team-icons/mlb", "svg", MLB_TEAM_ICON_CODES),
+  MLB: buildTeamIconMap("/team-icons/mlb", "png", MLB_TEAM_ICON_CODES),
 };
 
 export function normalizeTeamCode(teamCode?: string | null, label?: string | null): string {
