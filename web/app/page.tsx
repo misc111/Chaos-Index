@@ -35,7 +35,7 @@ export default function HomePage() {
       <section className={styles.hero} aria-labelledby="home-title">
         <div className={styles.heroCopy}>
           <p className={styles.kicker}>Chaos Index</p>
-          <h1 id="home-title">Baseball odds, made readable.</h1>
+          <h1 id="home-title">Baseball &amp; Insurance Premiums</h1>
           <p>
             A small MLB notebook for modeling today’s games, keeping the tournament evidence honest, and making the
             probabilities feel friendly enough to actually read.
