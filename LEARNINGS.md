@@ -159,6 +159,19 @@ Action: Preserve `start_time_utc` in `predictions`, `prediction_diagnostics`, an
 `upcoming_game_forecasts`. Fail fast before persisting any frozen prediction that
 cannot prove strict pregame timing.
 
+### 2026-05-10 - Staging generation should avoid the tsx CLI wrapper
+
+Source: current working tree, `web/package.json`,
+`web/scripts/generate-staging-data.ts`.
+
+Lesson: In the Codex desktop environment, invoking the `tsx` CLI can try to open
+an IPC listener and fail with `listen EPERM`, blocking static MLB staging
+refreshes even when current-season predictiveness artifacts are measurable.
+
+Action: Keep staging generation on `node --import tsx` so the TypeScript loader
+runs without the CLI IPC wrapper. Verify with `npm run generate:staging-data`
+and the shared staging contract before committing snapshots.
+
 ### 2026-05-04 - Feature-set metadata is mandatory for training outputs
 
 Source: current working tree, `src/services/train.py`,
