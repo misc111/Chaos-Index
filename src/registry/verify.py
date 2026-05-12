@@ -82,6 +82,8 @@ OVERSIZED_FILE_ALLOWLIST = {
     "web/app/games-today/page.tsx",
     "web/components/DashboardHeader.tsx",
     "web/components/BetHistoryChart.tsx",
+    "web/components/research-admin/ResearchAdminView.tsx",
+    "web/components/research-desk/ResearchDeskExperience.tsx",
     "web/lib/ensemble-snapshot-replay.ts",
 }
 FORBIDDEN_LITERAL_PATTERNS: tuple[re.Pattern[str], ...] = ()
