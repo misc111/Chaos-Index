@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chaos Index</title>
+    <meta
+      name="description"
+      content="A vanilla MLB probability webpage for pregame slate notes, model-family evidence, and ensemble context."
+    />
+    <link rel="stylesheet" href="/site.css" />
+  </head>
+  <body>
+    <header class="site-header" aria-label="Site header">
+      <a class="brand" href="#top" aria-label="Chaos Index home">
+        <span class="brand-mark" aria-hidden="true">CI</span>
+        <span>
+          <strong>Chaos Index</strong>
+          <small>baseball probabilities</small>
+        </span>
+      </a>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <img class="hero-image" src="/images/chaos-index-hero.png" alt="" />
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-content">
+          <p class="section-label">MLB pregame notebook</p>
+          <h1 id="hero-title">Chaos Index</h1>
+          <p class="hero-copy">
+            A clean baseball probability page for today’s slate, model-family evidence, and the ensemble readout.
+          </p>
+          <nav class="hero-actions" aria-label="Page sections">
+            <a href="#games">Games today</a>
+            <a href="#families">Model families</a>
+            <a href="#ensemble">Ensemble</a>
+          </nav>
+        </div>
+      </section>
+
+      <section class="quick-nav" aria-label="Main sections">
+        <a href="#games">
+          <span>01</span>
+          <strong>Games today</strong>
+          <small>Pregame slate, probabilities, market context.</small>
+        </a>
+        <a href="#families">
+          <span>02</span>
+          <strong>Family tournaments</strong>
+          <small>Intra-family and inter-family evidence.</small>
+        </a>
+        <a href="#ensemble">
+          <span>03</span>
+          <strong>Ensemble table</strong>
+          <small>Component models and final probability read.</small>
+        </a>
+      </section>
+
+      <section id="games" class="feature feature-slate">
+        <div>
+          <p class="section-label">Games today</p>
+          <h2>Start with the slate.</h2>
+          <p>
+            The front page stays deliberately simple: matchups first, confidence second, and no framework navigation
+            between you and the baseball.
+          </p>
+        </div>
+        <div class="scoreboard" aria-label="Sample pregame slate">
+          <article>
+            <span>SEA</span>
+            <strong>54%</strong>
+            <small>Moneyline lean</small>
+          </article>
+          <article>
+            <span>BOS</span>
+            <strong>51%</strong>
+            <small>Pass unless price moves</small>
+          </article>
+          <article>
+            <span>HOU</span>
+            <strong>57%</strong>
+            <small>Runline watch</small>
+          </article>
+        </div>
+      </section>
+
+      <section id="families" class="feature feature-media">
+        <img src="/images/chaos-index-credibility.png" alt="Baseball probability sketches over an actuarial notebook." />
+        <div>
+          <p class="section-label">Model families</p>
+          <h2>Evidence before winners.</h2>
+          <p>
+            Keep the page readable while preserving the governing idea: model-family comparisons are evidence, not
+            decoration. The good stuff is calm, legible, and pregame-only.
+          </p>
+          <div class="model-strip" aria-label="Model family icons">
+            <img src="/images/model-sprites/glm_lasso.png" alt="" />
+            <img src="/images/model-sprites/glm_ridge.png" alt="" />
+            <img src="/images/model-sprites/dglm_margin.png" alt="" />
+            <img src="/images/model-sprites/gam_spline.png" alt="" />
+            <img src="/images/model-sprites/ensemble.png" alt="" />
+          </div>
+        </div>
+      </section>
+
+      <section id="ensemble" class="feature feature-ensemble">
+        <div>
+          <p class="section-label">Ensemble</p>
+          <h2>One final readout.</h2>
+          <p>
+            A compact end state: probability, price discipline, and whether the model actually wants action.
+          </p>
+        </div>
+        <div class="ensemble-table" role="table" aria-label="Sample ensemble summary">
+          <div role="row">
+            <span role="columnheader">Market</span>
+            <span role="columnheader">Model</span>
+            <span role="columnheader">Note</span>
+          </div>
+          <div role="row">
+            <span role="cell">Moneyline</span>
+            <span role="cell">56.4%</span>
+            <span role="cell">Price sensitive</span>
+          </div>
+          <div role="row">
+            <span role="cell">Runline</span>
+            <span role="cell">48.9%</span>
+            <span role="cell">No chase</span>
+          </div>
+          <div role="row">
+            <span role="cell">Total</span>
+            <span role="cell">8.2</span>
+            <span role="cell">Weather check</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
