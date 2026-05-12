@@ -35,9 +35,10 @@ function HeaderContent() {
   const pathname = usePathname() || "/";
   const searchParams = useSearchParams();
   const query = searchParams.toString() ? `?${searchParams.toString()}` : DEFAULT_QUERY;
+  const isHome = isActivePath(pathname, "/");
 
   return (
-    <header className="site-header">
+    <header className={`site-header ${isHome ? "site-header-home" : ""}`}>
       <Link href={toBrowserHref("/", "")} className="site-brand" aria-label="Chaos Index front page">
         <span className="site-brand-mark" aria-hidden="true">
           CI
@@ -47,21 +48,23 @@ function HeaderContent() {
           <small>baseball probabilities</small>
         </span>
       </Link>
-      <nav className="site-nav" aria-label="Primary navigation">
-        {links.map(([href, label]) => {
-          const isActive = isActivePath(pathname, href);
-          return (
-            <Link
-              href={toBrowserHref(href, query)}
-              key={href}
-              className={`site-nav-link ${isActive ? "active" : ""}`}
-              aria-current={isActive ? "page" : undefined}
-            >
-              {label}
-            </Link>
-          );
-        })}
-      </nav>
+      {!isHome ? (
+        <nav className="site-nav" aria-label="Primary navigation">
+          {links.map(([href, label]) => {
+            const isActive = isActivePath(pathname, href);
+            return (
+              <Link
+                href={toBrowserHref(href, query)}
+                key={href}
+                className={`site-nav-link ${isActive ? "active" : ""}`}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {label}
+              </Link>
+            );
+          })}
+        </nav>
+      ) : null}
     </header>
   );
 }

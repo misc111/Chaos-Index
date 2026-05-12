@@ -9,23 +9,31 @@ const iconCodes = ["sf", "lad", "nyy", "bos", "sea", "ari", "chc", "hou", "atl",
 const pageCards = [
   {
     href: "/games-today?league=MLB",
+    number: "01",
     title: "Games today",
-    copy: "The slate, the probabilities, and the little bet/no-bet note.",
+    copy: "Pregame slate, model probabilities, market context, and the bet/no-bet note.",
+    action: "Open slate",
   },
   {
     href: "/intra-family-tournament?league=MLB",
+    number: "02",
     title: "Intra-Family Tournament",
-    copy: "Each model family picks its own best baseball brain.",
+    copy: "Model-family evidence before the bracket promotes a representative.",
+    action: "Review families",
   },
   {
     href: "/inter-family-tournament?league=MLB",
+    number: "03",
     title: "Inter-Family Tournament",
-    copy: "The family winners meet on the final evidence board.",
+    copy: "Champion comparison across families with governance labels kept visible.",
+    action: "Compare winners",
   },
   {
     href: "/ensemble-summary?league=MLB",
+    number: "04",
     title: "Ensemble Summary Table",
-    copy: "A compact roster of probabilities and component models.",
+    copy: "Compact probability roster, component model weights, and ensemble readout.",
+    action: "View table",
   },
 ];
 
@@ -34,33 +42,37 @@ export default function HomePage() {
     <div className={styles.page}>
       <section className={styles.hero} aria-labelledby="home-title">
         <div className={styles.heroCopy}>
-          <p className={styles.kicker}>Chaos Index</p>
-          <h1 id="home-title">Baseball &amp; Insurance Premiums</h1>
+          <h1 id="home-title">Chaos Index</h1>
+          <p className={styles.deck}>MLB probability desk for the pregame slate.</p>
           <p>
-            A small MLB notebook for modeling today’s games, keeping the tournament evidence honest, and making the
-            probabilities feel friendly enough to actually read.
+            Pregame probabilities, market context, and model-family evidence stay in one MLB-focused notebook.
           </p>
-          <div className={styles.heroActions}>
-            <Link href="/games-today?league=MLB" className={styles.primaryLink}>
-              See games today
-            </Link>
-            <Link href="/ensemble-summary?league=MLB" className={styles.secondaryLink}>
-              View ensemble table
-            </Link>
-          </div>
         </div>
-        <div className={styles.logoConstellation} aria-hidden="true">
-          {iconCodes.map((code) => (
-            <img key={code} src={`${BASE_PATH}/team-icons/mlb/${code}.png`} alt="" />
-          ))}
+        <div className={styles.heroPanel} aria-hidden="true">
+          <div className={styles.heroPanelTop}>
+            <span>MLB</span>
+            <span>Pregame only</span>
+          </div>
+          <div className={styles.logoConstellation}>
+            {iconCodes.map((code) => (
+              <img key={code} src={`${BASE_PATH}/team-icons/mlb/${code}.png`} alt="" />
+            ))}
+          </div>
         </div>
       </section>
 
       <section className={styles.pageGrid} aria-label="Main pages">
         {pageCards.map((card) => (
           <Link href={card.href} className={styles.pageCard} key={card.href}>
-            <span>{card.title}</span>
-            <p>{card.copy}</p>
+            <span className={styles.pageCardNumber}>{card.number}</span>
+            <span className={styles.pageCardBody}>
+              <span className={styles.pageCardTitle}>{card.title}</span>
+              <span className={styles.pageCardCopy}>{card.copy}</span>
+            </span>
+            <span className={styles.pageCardAction}>
+              {card.action}
+              <span aria-hidden="true">&rarr;</span>
+            </span>
           </Link>
         ))}
       </section>
