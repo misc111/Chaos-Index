@@ -6,135 +6,112 @@
     <title>Chaos Index</title>
     <meta
       name="description"
-      content="A vanilla MLB probability webpage for pregame slate notes, model-family evidence, and ensemble context."
+      content="Chaos Index MLB Modeling front page for pregame slate edges, model-family tournaments, and ensemble context."
     />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/site.css" />
   </head>
   <body>
-    <header class="site-header" aria-label="Site header">
-      <a class="brand" href="#top" aria-label="Chaos Index home">
-        <span class="brand-mark" aria-hidden="true">CI</span>
-        <span>
-          <strong>Chaos Index</strong>
-          <small>baseball probabilities</small>
-        </span>
-      </a>
-    </header>
-
-    <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
-        <img class="hero-image" src="/images/chaos-index-hero.png" alt="" />
-        <div class="hero-overlay" aria-hidden="true"></div>
-        <div class="hero-content">
-          <p class="section-label">MLB pregame notebook</p>
-          <h1 id="hero-title">Chaos Index</h1>
-          <p class="hero-copy">
-            A clean baseball probability page for today’s slate, model-family evidence, and the ensemble readout.
-          </p>
-          <nav class="hero-actions" aria-label="Page sections">
-            <a href="#games">Games today</a>
-            <a href="#families">Model families</a>
-            <a href="#ensemble">Ensemble</a>
-          </nav>
-        </div>
-      </section>
-
-      <section class="quick-nav" aria-label="Main sections">
-        <a href="#games">
-          <span>01</span>
-          <strong>Games today</strong>
-          <small>Pregame slate, probabilities, market context.</small>
+    <div class="page">
+      <header class="topChrome">
+        <a href="/" class="brand" aria-label="Chaos Index front page">
+          <svg viewBox="0 0 80 80" class="baseballLogo" aria-hidden="true">
+            <circle cx="40" cy="40" r="34"></circle>
+            <path d="M27 11c-8 7-11.9 16.7-11.9 29S19 62 27 69"></path>
+            <path d="M53 11c8 7 11.9 16.7 11.9 29S61 62 53 69"></path>
+            <path d="M22.4 21l7 3M57.6 21l-7 3M23 28l7 3M57 28l-7 3M23.6 35l7 3M56.4 35l-7 3M24.2 42l7 3M55.8 42l-7 3M24.8 49l7 3M55.2 49l-7 3M25.4 56l7 3M54.6 56l-7 3"></path>
+          </svg>
+          <span class="wordmark"><span>Chaos <strong>Index</strong></span><small>MLB Modeling</small></span>
         </a>
-        <a href="#families">
-          <span>02</span>
-          <strong>Family tournaments</strong>
-          <small>Intra-family and inter-family evidence.</small>
-        </a>
-        <a href="#ensemble">
-          <span>03</span>
-          <strong>Ensemble table</strong>
-          <small>Component models and final probability read.</small>
-        </a>
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="/" class="navItem activeNavItem" aria-current="page"><span class="navGlyph">⌂</span><span>Front page</span></a>
+          <a href="/games-today?league=MLB" class="navItem"><span class="navGlyph">▣</span><span>Games today</span></a>
+          <a href="/intra-family-tournament?league=MLB" class="navItem"><span class="navGlyph">♜</span><span>Intra-Family Tournament</span></a>
+          <a href="/inter-family-tournament?league=MLB" class="navItem"><span class="navGlyph">♜</span><span>Inter-Family Tournament</span></a>
+          <a href="/ensemble-summary?league=MLB" class="navItem"><span class="navGlyph">▦</span><span>Ensemble Summary Table</span></a>
+        </nav>
+        <div class="modelStamp"><span>Model as of</span><strong>May 17, 2025 8:00 AM ET</strong></div>
+      </header>
+
+      <section class="kpiStrip" aria-label="Slate summary">
+        <article class="kpi"><span>Games Today</span><strong>12</strong><small class="tealText">4 starting soon</small></article>
+        <article class="kpi"><span>Top Edge</span><strong>2.41%</strong><small class="orangeText">LAD @ SF</small></article>
+        <article class="kpi"><span>Best Bet</span><strong>SF -1.5</strong><small class="tealText">Edge 2.41%</small></article>
+        <article class="kpi"><span>Positive EV</span><strong>6</strong><small class="tealText">of 24 sides</small></article>
+        <article class="kpi"><span>Total Edge</span><strong>11.37%</strong><small class="tealText">All sides</small></article>
+        <article class="edgeChart">
+          <span>Edge Over Time (7d)</span>
+          <div class="chartWrap">
+            <svg viewBox="0 0 400 82" class="sparkline" aria-hidden="true">
+              <path class="sparkGrid" d="M0 41H400M0 3H400M0 79H400M80 0V82M160 0V82M240 0V82M320 0V82"></path>
+              <path d="M2 58 18 54 34 50 50 47 66 58 82 68 98 63 114 55 130 49 146 54 162 45 178 25 194 23 210 38 226 58 242 50 258 33 274 28 290 39 306 61 322 52 338 45 354 42 370 30 386 17 398 15"></path>
+            </svg>
+            <div class="axisLabels" aria-hidden="true"><span>2%</span><span>0%</span><span>-2%</span></div>
+          </div>
+        </article>
       </section>
 
-      <section id="games" class="feature feature-slate">
-        <div>
-          <p class="section-label">Games today</p>
-          <h2>Start with the slate.</h2>
-          <p>
-            The front page stays deliberately simple: matchups first, confidence second, and no framework navigation
-            between you and the baseball.
-          </p>
-        </div>
-        <div class="scoreboard" aria-label="Sample pregame slate">
-          <article>
-            <span>SEA</span>
-            <strong>54%</strong>
-            <small>Moneyline lean</small>
-          </article>
-          <article>
-            <span>BOS</span>
-            <strong>51%</strong>
-            <small>Pass unless price moves</small>
-          </article>
-          <article>
-            <span>HOU</span>
-            <strong>57%</strong>
-            <small>Runline watch</small>
-          </article>
-        </div>
-      </section>
+      <main class="dashboardGrid">
+        <section class="gamesPanel" aria-labelledby="games-title">
+          <div class="panelHeader"><span class="sectionGlyph">▣</span><h2 id="games-title">Games Today</h2></div>
+          <div class="gamesTable" role="table" aria-label="Games today">
+            <div class="gameRow tableHead" role="row"><span>Time ET</span><span>Matchup</span><span>Spread</span><span>Total</span><span>Chaos Index</span><span>Edge</span><span>Best Bet</span><span></span></div>
+            <div class="gameRow" role="row"><span class="gameTime">1:05 PM</span><span class="matchup"><span class="teamMark"><img src="/team-icons/mlb/lad.png" alt="" /></span><strong>LAD</strong><span>@</span><span class="teamMark"><img src="/team-icons/mlb/sf.png" alt="" /></span><strong>SF</strong></span><span class="marketCell"><strong>SF -1.5</strong><small>(-110)</small></span><span class="marketCell"><strong>O 8.0</strong><small>(-110)</small></span><span class="chaosCell" title="Pregame attention score from model disagreement, market movement, uncertainty, price sensitivity, and edge dispersion."><strong>72</strong><span class="chaosTrack"><span style="width:72%"></span></span></span><strong class="edgeValue">2.41%</strong><strong class="bestBet orangeBet">SF -1.5</strong><span class="chevron">›</span></div>
+            <div class="gameRow" role="row"><span class="gameTime">1:10 PM</span><span class="matchup"><span class="teamMark"><img src="/team-icons/mlb/bos.png" alt="" /></span><strong>BOS</strong><span>@</span><span class="teamMark"><img src="/team-icons/mlb/sea.png" alt="" /></span><strong>SEA</strong></span><span class="marketCell"><strong>SEA -1.5</strong><small>(+105)</small></span><span class="marketCell"><strong>O 7.5</strong><small>(-105)</small></span><span class="chaosCell"><strong>68</strong><span class="chaosTrack"><span style="width:68%"></span></span></span><strong class="edgeValue">1.87%</strong><strong class="bestBet tealBet">SEA -1.5</strong><span class="chevron">›</span></div>
+            <div class="gameRow" role="row"><span class="gameTime">1:20 PM</span><span class="matchup"><span class="teamMark"><img src="/team-icons/mlb/chc.png" alt="" /></span><strong>CHC</strong><span>@</span><span class="teamMark"><img src="/team-icons/mlb/pit.png" alt="" /></span><strong>PIT</strong></span><span class="marketCell"><strong>CHC -1.5</strong><small>(-115)</small></span><span class="marketCell"><strong>O 8.5</strong><small>(-110)</small></span><span class="chaosCell"><strong>66</strong><span class="chaosTrack"><span style="width:66%"></span></span></span><strong class="edgeValue">1.64%</strong><strong class="bestBet tealBet">CHC -1.5</strong><span class="chevron">›</span></div>
+            <div class="gameRow" role="row"><span class="gameTime">2:10 PM</span><span class="matchup"><span class="teamMark"><img src="/team-icons/mlb/col.png" alt="" /></span><strong>COL</strong><span>@</span><span class="teamMark"><img src="/team-icons/mlb/ari.png" alt="" /></span><strong>ARI</strong></span><span class="marketCell"><strong>ARI -1.5</strong><small>(-120)</small></span><span class="marketCell"><strong>O 9.0</strong><small>(-110)</small></span><span class="chaosCell"><strong>61</strong><span class="chaosTrack"><span style="width:61%"></span></span></span><strong class="edgeValue">1.21%</strong><strong class="bestBet redBet">ARI -1.5</strong><span class="chevron">›</span></div>
+            <div class="gameRow" role="row"><span class="gameTime">2:20 PM</span><span class="matchup"><span class="teamMark"><img src="/team-icons/mlb/bal.png" alt="" /></span><strong>BAL</strong><span>@</span><span class="teamMark"><img src="/team-icons/mlb/tor.png" alt="" /></span><strong>TOR</strong></span><span class="marketCell"><strong>TOR -1.5</strong><small>(-105)</small></span><span class="marketCell"><strong>O 8.0</strong><small>(-115)</small></span><span class="chaosCell"><strong>59</strong><span class="chaosTrack"><span style="width:59%"></span></span></span><strong class="edgeValue">0.98%</strong><strong class="bestBet blueBet">TOR -1.5</strong><span class="chevron">›</span></div>
+            <div class="gameRow" role="row"><span class="gameTime">3:10 PM</span><span class="matchup"><span class="teamMark"><img src="/team-icons/mlb/min.png" alt="" /></span><strong>MIN</strong><span>@</span><span class="teamMark"><img src="/team-icons/mlb/cws.png" alt="" /></span><strong>CWS</strong></span><span class="marketCell"><strong>MIN -1.5</strong><small>(-110)</small></span><span class="marketCell"><strong>O 7.5</strong><small>(-105)</small></span><span class="chaosCell"><strong>57</strong><span class="chaosTrack"><span style="width:57%"></span></span></span><strong class="edgeValue">0.76%</strong><strong class="bestBet redBet">MIN -1.5</strong><span class="chevron">›</span></div>
+            <div class="gameRow" role="row"><span class="gameTime">4:05 PM</span><span class="matchup"><span class="teamMark"><img src="/team-icons/mlb/mia.png" alt="" /></span><strong>MIA</strong><span>@</span><span class="teamMark"><img src="/team-icons/mlb/nym.png" alt="" /></span><strong>NYM</strong></span><span class="marketCell"><strong>NYM -1.5</strong><small>(-120)</small></span><span class="marketCell"><strong>O 8.5</strong><small>(-110)</small></span><span class="chaosCell"><strong>56</strong><span class="chaosTrack"><span style="width:56%"></span></span></span><strong class="edgeValue">0.68%</strong><strong class="bestBet orangeBet">NYM -1.5</strong><span class="chevron">›</span></div>
+            <div class="gameRow" role="row"><span class="gameTime">4:10 PM</span><span class="matchup"><span class="teamMark"><img src="/team-icons/mlb/phi.png" alt="" /></span><strong>PHI</strong><span>@</span><span class="teamMark"><img src="/team-icons/mlb/atl.png" alt="" /></span><strong>ATL</strong></span><span class="marketCell"><strong>ATL -1.5</strong><small>(-105)</small></span><span class="marketCell"><strong>O 8.0</strong><small>(-115)</small></span><span class="chaosCell"><strong>54</strong><span class="chaosTrack"><span style="width:54%"></span></span></span><strong class="edgeValue">0.55%</strong><strong class="bestBet blueBet">ATL -1.5</strong><span class="chevron">›</span></div>
+          </div>
+          <a href="/games-today?league=MLB" class="footerLink">View all games today <span aria-hidden="true">→</span></a>
+        </section>
 
-      <section id="families" class="feature feature-media">
-        <img src="/images/chaos-index-credibility.png" alt="Baseball probability sketches over an actuarial notebook." />
-        <div>
-          <p class="section-label">Model families</p>
-          <h2>Evidence before winners.</h2>
-          <p>
-            Keep the page readable while preserving the governing idea: model-family comparisons are evidence, not
-            decoration. The good stuff is calm, legible, and pregame-only.
-          </p>
-          <div class="model-strip" aria-label="Model family icons">
-            <img src="/images/model-sprites/glm_lasso.png" alt="" />
-            <img src="/images/model-sprites/glm_ridge.png" alt="" />
-            <img src="/images/model-sprites/dglm_margin.png" alt="" />
-            <img src="/images/model-sprites/gam_spline.png" alt="" />
-            <img src="/images/model-sprites/ensemble.png" alt="" />
+        <section class="upcomingPanel" aria-labelledby="upcoming-title">
+          <div class="upcomingHeader"><span class="sectionGlyph">◷</span><h2 id="upcoming-title">Upcoming Starters</h2><span>Next 3 Games</span></div>
+          <div class="starterGrid">
+            <article class="starterCard"><time>7:05 PM</time><span class="teamMark"><img src="/team-icons/mlb/stl.png" alt="" /></span><span>vs</span><span class="teamMark"><img src="/team-icons/mlb/mil.png" alt="" /></span><a href="/games-today?league=MLB">More info →</a></article>
+            <article class="starterCard"><time>7:10 PM</time><span class="teamMark"><img src="/team-icons/mlb/sea.png" alt="" /></span><span>vs</span><span class="teamMark"><img src="/team-icons/mlb/bal.png" alt="" /></span><a href="/games-today?league=MLB">More info →</a></article>
+            <article class="starterCard"><time>8:40 PM</time><span class="teamMark"><img src="/team-icons/mlb/col.png" alt="" /></span><span>vs</span><span class="teamMark"><img src="/team-icons/mlb/tor.png" alt="" /></span><a href="/games-today?league=MLB">More info →</a></article>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="ensemble" class="feature feature-ensemble">
-        <div>
-          <p class="section-label">Ensemble</p>
-          <h2>One final readout.</h2>
-          <p>
-            A compact end state: probability, price discipline, and whether the model actually wants action.
-          </p>
-        </div>
-        <div class="ensemble-table" role="table" aria-label="Sample ensemble summary">
-          <div role="row">
-            <span role="columnheader">Market</span>
-            <span role="columnheader">Model</span>
-            <span role="columnheader">Note</span>
-          </div>
-          <div role="row">
-            <span role="cell">Moneyline</span>
-            <span role="cell">56.4%</span>
-            <span role="cell">Price sensitive</span>
-          </div>
-          <div role="row">
-            <span role="cell">Runline</span>
-            <span role="cell">48.9%</span>
-            <span role="cell">No chase</span>
-          </div>
-          <div role="row">
-            <span role="cell">Total</span>
-            <span role="cell">8.2</span>
-            <span role="cell">Weather check</span>
-          </div>
-        </div>
-      </section>
-    </main>
+        <aside class="sideColumn">
+          <section class="panelBlock" aria-labelledby="tournament-title">
+            <div class="panelHeader"><span class="sectionGlyph orangeText">♜</span><h2 id="tournament-title">Tournament Summary</h2></div>
+            <section class="tournamentCard">
+              <div class="cardTitleRow"><h3>Intra-Family Tournament</h3><span>Top 3 Families</span></div>
+              <div class="familyHeader"><span></span><span></span><span>Score</span><span>W-L</span><span>Win %</span></div>
+              <div class="familyRow"><span class="rank">1</span><span>East Power</span><strong>184.7</strong><span>23-11</span><span>67.6%</span></div>
+              <div class="familyRow"><span class="rank">2</span><span>West Power</span><strong>173.2</strong><span>21-13</span><span>61.8%</span></div>
+              <div class="familyRow"><span class="rank">3</span><span>Central Core</span><strong>161.9</strong><span>20-14</span><span>58.8%</span></div>
+              <a href="/intra-family-tournament?league=MLB" class="panelLink">View full intra-family <span aria-hidden="true">→</span></a>
+            </section>
+            <section class="tournamentCard">
+              <div class="cardTitleRow"><h3 class="tealHeading">Inter-Family Tournament</h3><span>Top 3 Families</span></div>
+              <div class="familyHeader"><span></span><span></span><span>Score</span><span>W-L</span><span>Win %</span></div>
+              <div class="familyRow"><span class="rank">1</span><span>East Power</span><strong>92.1</strong><span>14-6</span><span>70.0%</span></div>
+              <div class="familyRow"><span class="rank">2</span><span>West Power</span><strong>88.7</strong><span>13-7</span><span>65.0%</span></div>
+              <div class="familyRow"><span class="rank">3</span><span>Central Core</span><strong>76.4</strong><span>11-9</span><span>55.0%</span></div>
+              <a href="/inter-family-tournament?league=MLB" class="panelLinkTeal">View full inter-family <span aria-hidden="true">→</span></a>
+            </section>
+          </section>
+
+          <section class="ensemblePanel" aria-labelledby="ensemble-title">
+            <div class="panelHeader"><span class="sectionGlyph">▦</span><h2 id="ensemble-title">Ensemble Edge Snapshot</h2></div>
+            <div class="ensembleTable" role="table" aria-label="Ensemble edge snapshot">
+              <div class="ensembleHead" role="row"><span>Model</span><span>Weight</span><span>ROI (30d)</span><span>Avg Edge</span></div>
+              <div class="ensembleRow" role="row"><span>Chaos Index</span><span>32%</span><strong>8.31%</strong><strong>1.23%</strong></div>
+              <div class="ensembleRow" role="row"><span>Power Model</span><span>24%</span><strong>6.27%</strong><strong>1.02%</strong></div>
+              <div class="ensembleRow" role="row"><span>Pitching Model</span><span>20%</span><strong>5.18%</strong><strong>0.88%</strong></div>
+              <div class="ensembleRow" role="row"><span>Market Model</span><span>14%</span><strong>4.02%</strong><strong>0.76%</strong></div>
+              <div class="ensembleRow" role="row"><span>Batted Ball Model</span><span>10%</span><strong>3.15%</strong><strong>0.61%</strong></div>
+            </div>
+            <a href="/ensemble-summary?league=MLB" class="footerLink">View full ensemble table <span aria-hidden="true">→</span></a>
+          </section>
+        </aside>
+      </main>
+    </div>
   </body>
 </html>

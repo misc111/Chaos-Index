@@ -4,78 +4,463 @@ import styles from "./overview.module.css";
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-const iconCodes = ["sf", "lad", "nyy", "bos", "sea", "ari", "chc", "hou", "atl", "tor"];
+const navItems = [
+  { href: "/", label: "Front page", icon: "home", active: true },
+  { href: "/games-today?league=MLB", label: "Games today", icon: "calendar" },
+  { href: "/intra-family-tournament?league=MLB", label: "Intra-Family Tournament", icon: "trophy" },
+  { href: "/inter-family-tournament?league=MLB", label: "Inter-Family Tournament", icon: "trophy" },
+  { href: "/ensemble-summary?league=MLB", label: "Ensemble Summary Table", icon: "table" },
+] as const;
 
-const pageCards = [
+const kpis = [
+  { label: "Games Today", value: "12", note: "4 starting soon", noteTone: "teal" },
+  { label: "Top Edge", value: "2.41%", note: "LAD @ SF", noteTone: "orange" },
+  { label: "Best Bet", value: "SF -1.5", note: "Edge 2.41%", noteTone: "teal" },
+  { label: "Positive EV", value: "6", note: "of 24 sides", noteTone: "teal" },
+  { label: "Total Edge", value: "11.37%", note: "All sides", noteTone: "teal" },
+] as const;
+
+// Chaos Index is a pregame attention score: model-family disagreement, market movement,
+// lineup/pitching uncertainty, price sensitivity, and edge dispersion rolled into one read.
+const games = [
   {
-    href: "/games-today?league=MLB",
-    number: "01",
-    title: "Games today",
-    copy: "Pregame slate, model probabilities, market context, and the bet/no-bet note.",
-    action: "Open slate",
+    time: "1:05 PM",
+    away: "LAD",
+    home: "SF",
+    spread: ["SF -1.5", "(-110)"],
+    total: ["O 8.0", "(-110)"],
+    chaos: 72,
+    edge: "2.41%",
+    bestBet: "SF -1.5",
+    betTone: "orange",
   },
   {
-    href: "/intra-family-tournament?league=MLB",
-    number: "02",
-    title: "Intra-Family Tournament",
-    copy: "Model-family evidence before the bracket promotes a representative.",
-    action: "Review families",
+    time: "1:10 PM",
+    away: "BOS",
+    home: "SEA",
+    spread: ["SEA -1.5", "(+105)"],
+    total: ["O 7.5", "(-105)"],
+    chaos: 68,
+    edge: "1.87%",
+    bestBet: "SEA -1.5",
+    betTone: "teal",
   },
   {
-    href: "/inter-family-tournament?league=MLB",
-    number: "03",
-    title: "Inter-Family Tournament",
-    copy: "Champion comparison across families with governance labels kept visible.",
-    action: "Compare winners",
+    time: "1:20 PM",
+    away: "CHC",
+    home: "PIT",
+    spread: ["CHC -1.5", "(-115)"],
+    total: ["O 8.5", "(-110)"],
+    chaos: 66,
+    edge: "1.64%",
+    bestBet: "CHC -1.5",
+    betTone: "teal",
   },
   {
-    href: "/ensemble-summary?league=MLB",
-    number: "04",
-    title: "Ensemble Summary Table",
-    copy: "Compact probability roster, component model weights, and ensemble readout.",
-    action: "View table",
+    time: "2:10 PM",
+    away: "COL",
+    home: "ARI",
+    spread: ["ARI -1.5", "(-120)"],
+    total: ["O 9.0", "(-110)"],
+    chaos: 61,
+    edge: "1.21%",
+    bestBet: "ARI -1.5",
+    betTone: "red",
   },
-];
+  {
+    time: "2:20 PM",
+    away: "BAL",
+    home: "TOR",
+    spread: ["TOR -1.5", "(-105)"],
+    total: ["O 8.0", "(-115)"],
+    chaos: 59,
+    edge: "0.98%",
+    bestBet: "TOR -1.5",
+    betTone: "blue",
+  },
+  {
+    time: "3:10 PM",
+    away: "MIN",
+    home: "CWS",
+    spread: ["MIN -1.5", "(-110)"],
+    total: ["O 7.5", "(-105)"],
+    chaos: 57,
+    edge: "0.76%",
+    bestBet: "MIN -1.5",
+    betTone: "red",
+  },
+  {
+    time: "4:05 PM",
+    away: "MIA",
+    home: "NYM",
+    spread: ["NYM -1.5", "(-120)"],
+    total: ["O 8.5", "(-110)"],
+    chaos: 56,
+    edge: "0.68%",
+    bestBet: "NYM -1.5",
+    betTone: "orange",
+  },
+  {
+    time: "4:10 PM",
+    away: "PHI",
+    home: "ATL",
+    spread: ["ATL -1.5", "(-105)"],
+    total: ["O 8.0", "(-115)"],
+    chaos: 54,
+    edge: "0.55%",
+    bestBet: "ATL -1.5",
+    betTone: "blue",
+  },
+] as const;
+
+const upcomingStarters = [
+  { time: "7:05 PM", away: "STL", home: "MIL" },
+  { time: "7:10 PM", away: "SEA", home: "BAL" },
+  { time: "8:40 PM", away: "COL", home: "TOR" },
+] as const;
+
+const intraFamilies = [
+  ["1", "East Power", "184.7", "23-11", "67.6%"],
+  ["2", "West Power", "173.2", "21-13", "61.8%"],
+  ["3", "Central Core", "161.9", "20-14", "58.8%"],
+] as const;
+
+const interFamilies = [
+  ["1", "East Power", "92.1", "14-6", "70.0%"],
+  ["2", "West Power", "88.7", "13-7", "65.0%"],
+  ["3", "Central Core", "76.4", "11-9", "55.0%"],
+] as const;
+
+const ensembleRows = [
+  ["Chaos Index", "32%", "8.31%", "1.23%"],
+  ["Power Model", "24%", "6.27%", "1.02%"],
+  ["Pitching Model", "20%", "5.18%", "0.88%"],
+  ["Market Model", "14%", "4.02%", "0.76%"],
+  ["Batted Ball Model", "10%", "3.15%", "0.61%"],
+] as const;
+
+type IconName = (typeof navItems)[number]["icon"];
+
+function Icon({ name, className }: { name: IconName | "clock"; className?: string }) {
+  if (name === "home") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+        <path d="M3.5 11.2 12 3.8l8.5 7.4" />
+        <path d="M6.4 10.5v9.1h4.1v-5.8h3v5.8h4.1v-9.1" />
+      </svg>
+    );
+  }
+
+  if (name === "calendar") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+        <path d="M5 4.8h14v15H5z" />
+        <path d="M5 9h14" />
+        <path d="M8 3.2v3.1M16 3.2v3.1" />
+        <path d="M8.2 12.2h2.2M13.6 12.2h2.2M8.2 15.8h2.2M13.6 15.8h2.2" />
+      </svg>
+    );
+  }
+
+  if (name === "trophy") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+        <path d="M8 4.5h8v4.9c0 3.1-1.6 5-4 5s-4-1.9-4-5z" />
+        <path d="M8 6.4H4.9v2.2c0 2.1 1.2 3.4 3.3 3.5M16 6.4h3.1v2.2c0 2.1-1.2 3.4-3.3 3.5" />
+        <path d="M12 14.4v3.4M8.6 20h6.8M10 17.8h4" />
+      </svg>
+    );
+  }
+
+  if (name === "table") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+        <path d="M4.5 5.3h15v13.4h-15z" />
+        <path d="M4.5 9.8h15M9.4 5.3v13.4M14.6 5.3v13.4" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 6v6l4.2 2.4" />
+    </svg>
+  );
+}
+
+function BaseballLogo() {
+  return (
+    <svg viewBox="0 0 80 80" className={styles.baseballLogo} aria-hidden="true">
+      <circle cx="40" cy="40" r="34" />
+      <path d="M27 11c-8 7-11.9 16.7-11.9 29S19 62 27 69" />
+      <path d="M53 11c8 7 11.9 16.7 11.9 29S61 62 53 69" />
+      {[-19, -12, -5, 2, 9, 16].map((offset) => (
+        <g key={offset}>
+          <path d={`M${24 + offset / 12} ${40 + offset}l7 3`} />
+          <path d={`M${56 - offset / 12} ${40 + offset}l-7 3`} />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function TeamMark({ code }: { code: string }) {
+  const fileCode = code === "CHW" ? "cws" : code.toLowerCase();
+
+  return (
+    <span className={styles.teamMark}>
+      <img src={`${BASE_PATH}/team-icons/mlb/${fileCode}.png`} alt="" />
+    </span>
+  );
+}
+
+function Chevron() {
+  return (
+    <svg viewBox="0 0 16 24" className={styles.chevron} aria-hidden="true">
+      <path d="m3 3 9 9-9 9" />
+    </svg>
+  );
+}
+
+function Sparkline() {
+  return (
+    <svg viewBox="0 0 400 82" className={styles.sparkline} aria-hidden="true">
+      <defs>
+        <linearGradient id="spark-orange" x1="0" x2="1">
+          <stop offset="0" stopColor="#f58b00" />
+          <stop offset="1" stopColor="#ffb020" />
+        </linearGradient>
+        <filter id="spark-glow" x="-10%" y="-80%" width="120%" height="260%">
+          <feGaussianBlur stdDeviation="2.3" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+      <path className={styles.sparkGrid} d="M0 41H400M0 3H400M0 79H400M80 0V82M160 0V82M240 0V82M320 0V82" />
+      <path
+        filter="url(#spark-glow)"
+        d="M2 58 18 54 34 50 50 47 66 58 82 68 98 63 114 55 130 49 146 54 162 45 178 25 194 23 210 38 226 58 242 50 258 33 274 28 290 39 306 61 322 52 338 45 354 42 370 30 386 17 398 15"
+      />
+    </svg>
+  );
+}
+
+function TournamentCard({
+  title,
+  rows,
+  tone,
+  href,
+}: {
+  title: string;
+  rows: readonly (readonly [string, string, string, string, string])[];
+  tone: "orange" | "teal";
+  href: string;
+}) {
+  return (
+    <section className={styles.tournamentCard}>
+      <div className={styles.cardTitleRow}>
+        <h3 className={tone === "teal" ? styles.tealHeading : undefined}>{title}</h3>
+        <span>Top 3 Families</span>
+      </div>
+      <div className={styles.familyHeader}>
+        <span />
+        <span />
+        <span>Score</span>
+        <span>W-L</span>
+        <span>Win %</span>
+      </div>
+      {rows.map(([rank, family, score, record, win]) => (
+        <div className={styles.familyRow} key={`${title}-${rank}`}>
+          <span className={styles.rank}>{rank}</span>
+          <span>{family}</span>
+          <strong>{score}</strong>
+          <span>{record}</span>
+          <span>{win}</span>
+        </div>
+      ))}
+      <Link href={href} className={tone === "teal" ? styles.panelLinkTeal : styles.panelLink}>
+        View full {tone === "teal" ? "inter-family" : "intra-family"} <span aria-hidden="true">→</span>
+      </Link>
+    </section>
+  );
+}
 
 export default function HomePage() {
   return (
     <div className={styles.page}>
-      <section className={styles.hero} aria-labelledby="home-title">
-        <div className={styles.heroCopy}>
-          <h1 id="home-title">Chaos Index</h1>
-          <p className={styles.deck}>MLB probability desk for the pregame slate.</p>
-          <p>
-            Pregame probabilities, market context, and model-family evidence stay in one MLB-focused notebook.
-          </p>
+      <header className={styles.topChrome}>
+        <Link href="/" className={styles.brand} aria-label="Chaos Index front page">
+          <BaseballLogo />
+          <span className={styles.wordmark}>
+            <span>
+              Chaos <strong>Index</strong>
+            </span>
+            <small>MLB Modeling</small>
+          </span>
+        </Link>
+
+        <nav className={styles.nav} aria-label="Primary navigation">
+          {navItems.map((item) => (
+            <Link
+              href={item.href}
+              className={`${styles.navItem} ${item.href === "/" ? styles.activeNavItem : ""}`}
+              aria-current={item.href === "/" ? "page" : undefined}
+              key={item.href}
+            >
+              <Icon name={item.icon} className={styles.navIcon} />
+              <span>{item.label}</span>
+            </Link>
+          ))}
+        </nav>
+
+        <div className={styles.modelStamp}>
+          <span>Model as of</span>
+          <strong>May 17, 2025 8:00 AM ET</strong>
         </div>
-        <div className={styles.heroPanel} aria-hidden="true">
-          <div className={styles.heroPanelTop}>
-            <span>MLB</span>
-            <span>Pregame only</span>
+      </header>
+
+      <section className={styles.kpiStrip} aria-label="Slate summary">
+        {kpis.map((kpi) => (
+          <article className={styles.kpi} key={kpi.label}>
+            <span>{kpi.label}</span>
+            <strong>{kpi.value}</strong>
+            <small className={kpi.noteTone === "orange" ? styles.orangeText : styles.tealText}>{kpi.note}</small>
+          </article>
+        ))}
+        <article className={styles.edgeChart}>
+          <span>Edge Over Time (7d)</span>
+          <div className={styles.chartWrap}>
+            <Sparkline />
+            <div className={styles.axisLabels} aria-hidden="true">
+              <span>2%</span>
+              <span>0%</span>
+              <span>-2%</span>
+            </div>
           </div>
-          <div className={styles.logoConstellation}>
-            {iconCodes.map((code) => (
-              <img key={code} src={`${BASE_PATH}/team-icons/mlb/${code}.png`} alt="" />
-            ))}
-          </div>
-        </div>
+        </article>
       </section>
 
-      <section className={styles.pageGrid} aria-label="Main pages">
-        {pageCards.map((card) => (
-          <Link href={card.href} className={styles.pageCard} key={card.href}>
-            <span className={styles.pageCardNumber}>{card.number}</span>
-            <span className={styles.pageCardBody}>
-              <span className={styles.pageCardTitle}>{card.title}</span>
-              <span className={styles.pageCardCopy}>{card.copy}</span>
-            </span>
-            <span className={styles.pageCardAction}>
-              {card.action}
-              <span aria-hidden="true">&rarr;</span>
-            </span>
+      <main className={styles.dashboardGrid}>
+        <section className={styles.gamesPanel} aria-labelledby="games-title">
+          <div className={styles.panelHeader}>
+            <Icon name="calendar" className={styles.sectionIcon} />
+            <h2 id="games-title">Games Today</h2>
+          </div>
+          <div className={styles.gamesTable} role="table" aria-label="Games today">
+            <div className={`${styles.gameRow} ${styles.tableHead}`} role="row">
+              <span>Time ET</span>
+              <span>Matchup</span>
+              <span>Spread</span>
+              <span>Total</span>
+              <span>Chaos Index</span>
+              <span>Edge</span>
+              <span>Best Bet</span>
+              <span />
+            </div>
+            {games.map((game) => (
+              <div className={styles.gameRow} role="row" key={`${game.away}-${game.home}`}>
+                <span className={styles.gameTime}>{game.time}</span>
+                <span className={styles.matchup}>
+                  <TeamMark code={game.away} />
+                  <strong>{game.away}</strong>
+                  <span>@</span>
+                  <TeamMark code={game.home} />
+                  <strong>{game.home}</strong>
+                </span>
+                <span className={styles.marketCell}>
+                  <strong>{game.spread[0]}</strong>
+                  <small>{game.spread[1]}</small>
+                </span>
+                <span className={styles.marketCell}>
+                  <strong>{game.total[0]}</strong>
+                  <small>{game.total[1]}</small>
+                </span>
+                <span className={styles.chaosCell} title="Pregame attention score from model disagreement, market movement, uncertainty, price sensitivity, and edge dispersion.">
+                  <strong>{game.chaos}</strong>
+                  <span className={styles.chaosTrack}>
+                    <span style={{ width: `${game.chaos}%` }} />
+                  </span>
+                </span>
+                <strong className={styles.edgeValue}>{game.edge}</strong>
+                <strong className={`${styles.bestBet} ${styles[`${game.betTone}Bet`]}`}>{game.bestBet}</strong>
+                <Chevron />
+              </div>
+            ))}
+          </div>
+          <Link href="/games-today?league=MLB" className={styles.footerLink}>
+            View all games today <span aria-hidden="true">→</span>
           </Link>
-        ))}
-      </section>
+        </section>
+
+        <section className={styles.upcomingPanel} aria-labelledby="upcoming-title">
+          <div className={styles.upcomingHeader}>
+            <Icon name="clock" className={styles.sectionIcon} />
+            <h2 id="upcoming-title">Upcoming Starters</h2>
+            <span>Next 3 Games</span>
+          </div>
+          <div className={styles.starterGrid}>
+            {upcomingStarters.map((starter) => (
+              <article className={styles.starterCard} key={`${starter.away}-${starter.home}`}>
+                <time>{starter.time}</time>
+                <TeamMark code={starter.away} />
+                <span>vs</span>
+                <TeamMark code={starter.home} />
+                <Link href="/games-today?league=MLB">More info <span aria-hidden="true">→</span></Link>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <aside className={styles.sideColumn}>
+          <section className={styles.panelBlock} aria-labelledby="tournament-title">
+            <div className={styles.panelHeader}>
+              <Icon name="trophy" className={styles.sectionIconOrange} />
+              <h2 id="tournament-title">Tournament Summary</h2>
+            </div>
+            <TournamentCard
+              title="Intra-Family Tournament"
+              rows={intraFamilies}
+              tone="orange"
+              href="/intra-family-tournament?league=MLB"
+            />
+            <TournamentCard
+              title="Inter-Family Tournament"
+              rows={interFamilies}
+              tone="teal"
+              href="/inter-family-tournament?league=MLB"
+            />
+          </section>
+
+          <section className={styles.ensemblePanel} aria-labelledby="ensemble-title">
+            <div className={styles.panelHeader}>
+              <Icon name="table" className={styles.sectionIcon} />
+              <h2 id="ensemble-title">Ensemble Edge Snapshot</h2>
+            </div>
+            <div className={styles.ensembleTable} role="table" aria-label="Ensemble edge snapshot">
+              <div className={styles.ensembleHead} role="row">
+                <span>Model</span>
+                <span>Weight</span>
+                <span>ROI (30d)</span>
+                <span>Avg Edge</span>
+              </div>
+              {ensembleRows.map(([model, weight, roi, edge]) => (
+                <div className={styles.ensembleRow} role="row" key={model}>
+                  <span>{model}</span>
+                  <span>{weight}</span>
+                  <strong>{roi}</strong>
+                  <strong>{edge}</strong>
+                </div>
+              ))}
+            </div>
+            <Link href="/ensemble-summary?league=MLB" className={styles.footerLink}>
+              View full ensemble table <span aria-hidden="true">→</span>
+            </Link>
+          </section>
+        </aside>
+      </main>
     </div>
   );
 }

@@ -37,8 +37,10 @@ function HeaderContent() {
   const query = searchParams.toString() ? `?${searchParams.toString()}` : DEFAULT_QUERY;
   const isHome = isActivePath(pathname, "/");
 
+  if (isHome) return null;
+
   return (
-    <header className={`site-header ${isHome ? "site-header-home" : ""}`}>
+    <header className="site-header">
       <Link href={toBrowserHref("/", "")} className="site-brand" aria-label="Chaos Index front page">
         <span className="site-brand-mark" aria-hidden="true">
           CI
