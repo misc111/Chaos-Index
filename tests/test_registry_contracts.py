@@ -173,6 +173,9 @@ def test_generated_dashboard_route_manifest_matches_code_registry_and_real_files
     for route in manifest["routes"]:
         route_path = ROOT_DIR / "web" / route["module_path"]
         assert route_path.exists()
+        if route["page_path"] is not None:
+            page_path = ROOT_DIR / "web/app" / route["page_path"].strip("/") / "page.tsx"
+            assert page_path.exists()
         assert route["key"] == route["payload_contract"]
         assert route["module_path"] not in route_files
         assert route["staging_file_name"] not in staging_files

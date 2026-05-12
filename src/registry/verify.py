@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 import re
 
+from src.registry.dashboard_routes import dashboard_routes
 from src.registry.generate import ROOT_DIR, generate_all
 from src.registry.models import validate_model_registry_contract
 from src.registry.subsystems import subsystem_docs
@@ -190,6 +191,26 @@ def _check_primary_staging_contract() -> list[str]:
     return failures
 
 
+def _dashboard_page_file_for_path(page_path: str) -> Path:
+    if page_path == "/":
+        return ROOT_DIR / "web/app/page.tsx"
+    return ROOT_DIR / "web/app" / page_path.strip("/") / "page.tsx"
+
+
+def _check_dashboard_page_paths() -> list[str]:
+    failures: list[str] = []
+    for route in dashboard_routes():
+        if route.page_path is None:
+            continue
+        if not route.page_path.startswith("/"):
+            failures.append(f"{route.key}: page_path must start with '/': {route.page_path}")
+            continue
+        page_file = _dashboard_page_file_for_path(route.page_path)
+        if not page_file.exists():
+            failures.append(f"{route.key}: {route.page_path} -> {page_file.relative_to(ROOT_DIR)} is missing.")
+    return failures
+
+
 def main() -> None:
     """Run repo-level zero-drift verification checks."""
 
@@ -217,6 +238,11 @@ def main() -> None:
     if staging_contract_failures:
         failures.append("Primary staging contract failed:")
         failures.extend(f"  - {item}" for item in staging_contract_failures)
+
+    route_page_failures = _check_dashboard_page_paths()
+    if route_page_failures:
+        failures.append("Dashboard route page_path contract failed:")
+        failures.extend(f"  - {item}" for item in route_page_failures)
 
     docstring_failures = _check_public_docstrings()
     if docstring_failures:

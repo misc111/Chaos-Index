@@ -6,15 +6,15 @@ All dashboard API and staging routes are derived from the code-first dashboard r
 
 | Key | API Path | Staging File | Page | Experiments |
 | --- | --- | --- | --- | --- |
-| `actualVsExpected` | `/api/actual-vs-expected` | `actual-vs-expected.json` | `/actual-vs-expected` | no |
-| `betHistory` | `/api/bet-history` | `bet-history.json` | `/bet-history` | no |
+| `actualVsExpected` | `/api/actual-vs-expected` | `actual-vs-expected.json` | n/a | no |
+| `betHistory` | `/api/bet-history` | `bet-history.json` | n/a | no |
 | `gamesToday` | `/api/games-today` | `games-today.json` | `/games-today` | no |
-| `marketBoard` | `/api/market-board` | `market-board.json` | `/market-board` | no |
+| `marketBoard` | `/api/market-board` | `market-board.json` | n/a | no |
 | `metrics` | `/api/metrics` | `metrics.json` | n/a | no |
 | `currentSeasonPredictiveness` | `/api/current-season-predictiveness` | `current-season-predictiveness.json` | n/a | no |
-| `nestedTournament` | `/api/nested-tournament` | `nested-tournament.json` | `/nested-tournament` | no |
-| `researchAdmin` | `/api/research-admin` | `research-admin.json` | `/research-admin` | no |
-| `researchDesk` | `/api/research-desk` | `research-desk.json` | `/research-desk` | no |
-| `performance` | `/api/performance` | `performance.json` | `/performance` | yes |
-| `predictions` | `/api/predictions` | `predictions.json` | `/predictions` | no |
-| `validation` | `/api/validation` | `validation.json` | `/validation` | no |
+| `nestedTournament` | `/api/nested-tournament` | `nested-tournament.json` | n/a | no |
+| `researchAdmin` | `/api/research-admin` | `research-admin.json` | n/a | no |
+| `researchDesk` | `/api/research-desk` | `research-desk.json` | n/a | no |
+| `performance` | `/api/performance` | `performance.json` | n/a | yes |
+| `predictions` | `/api/predictions` | `predictions.json` | n/a | no |
+| `validation` | `/api/validation` | `validation.json` | n/a | no |
