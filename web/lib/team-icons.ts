@@ -13,7 +13,7 @@ const DEFAULT_ICON: TeamIconDefinition = {
   text: "var(--muted-strong)",
 };
 
-const MLB_TEAM_ICON_CODES = [
+export const MLB_TEAM_ICON_CODES = [
   "ARI",
   "ATH",
   "ATL",
@@ -46,7 +46,7 @@ const MLB_TEAM_ICON_CODES = [
   "WSH",
 ] as const;
 
-const MLB_TEAM_ICON_FILE_CODES: Record<(typeof MLB_TEAM_ICON_CODES)[number], string> = {
+export const MLB_TEAM_ICON_FILE_CODES: Record<(typeof MLB_TEAM_ICON_CODES)[number], string> = {
   ARI: "ari",
   ATH: "ath",
   ATL: "atl",
