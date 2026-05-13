@@ -146,15 +146,32 @@ a {
   content: "";
 }
 
-.navGlyph,
-.sectionGlyph {
-  display: inline-grid;
-  place-items: center;
+.navIcon,
+.sectionIcon,
+.sectionIconOrange {
   width: 24px;
   height: 24px;
-  color: currentColor;
-  font-size: 22px;
-  line-height: 1;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.35;
+}
+
+.navIcon {
+  width: 23px;
+  height: 23px;
+  flex: 0 0 auto;
+}
+
+.sectionIcon {
+  color: #d1d4d6;
+  flex: 0 0 auto;
+}
+
+.sectionIconOrange {
+  color: var(--orange);
+  flex: 0 0 auto;
 }
 
 .modelStamp {
@@ -183,6 +200,7 @@ a {
   border: 1px solid var(--line-strong);
   border-radius: 8px;
   background: linear-gradient(180deg, rgba(17, 24, 27, 0.86), rgba(12, 17, 20, 0.98)), var(--panel);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 .kpi {
@@ -250,11 +268,10 @@ a {
 
 .sparkline path:not(.sparkGrid) {
   fill: none;
-  stroke: var(--orange);
+  stroke: url("#spark-orange");
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 3.2;
-  filter: drop-shadow(0 0 4px rgba(255, 159, 0, 0.72));
 }
 
 .sparkGrid {
@@ -293,6 +310,7 @@ a {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: linear-gradient(180deg, rgba(15, 21, 24, 0.9), rgba(10, 15, 17, 0.98)), var(--panel);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 .gamesPanel {
@@ -459,10 +477,13 @@ a {
 }
 
 .chevron {
-  color: #aeb1b4;
-  font-size: 42px;
-  font-weight: 300;
-  line-height: 1;
+  width: 17px;
+  height: 26px;
+  fill: none;
+  stroke: #aeb1b4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
 }
 
 .footerLink,
