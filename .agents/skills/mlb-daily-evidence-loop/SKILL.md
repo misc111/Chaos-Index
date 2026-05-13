@@ -14,6 +14,7 @@ Use this skill to run the repeatable daily MLB evidence loop without broad refac
 - Do not run commands that commit, push, reset, delete, or backfill frozen prediction ledgers unless the user explicitly asks.
 - Do not run `make hard_refresh` for routine daily automation; it performs publish closeout behavior after the pipeline. Use its dry run only when checking the integrated plan.
 - Do not retrain during routine daily automation. Use `make daily_score` for the default fresh-scoring path, and reserve `make run_daily RETRAIN=1` or `make hard_refresh` for explicit retraining work.
+- If live fetch is blocked by an environment/network failure, use `make daily_score SCORE_ONLY=1` to refresh current-season predictiveness from existing frozen ledgers instead of waiting on cache replay.
 - Keep scope MLB-only. Redirect legacy league needs to git history unless explicitly requested.
 
 ## Workflow
@@ -22,6 +23,7 @@ Use this skill to run the repeatable daily MLB evidence loop without broad refac
 2. Confirm the routine daily plan with `make daily_score DRY_RUN=1`.
 3. Run the safest relevant MLB lane:
    - Default daily scoring: `make daily_score`.
+   - Score-only fallback after fetch/network blockage: `make daily_score SCORE_ONLY=1`.
    - Data-only refresh: `make data_refresh`.
    - Explicit retraining checkpoint: `make run_daily RETRAIN=1` for local retraining without publish closeout, or `make hard_refresh` only when the user wants the integrated clean-worktree publish path.
 4. If dashboard or API payloads changed outside the routine scoring lane, regenerate staging with `cd web && npm run generate:staging-data`, then verify the staging contract with the existing project script or tests.

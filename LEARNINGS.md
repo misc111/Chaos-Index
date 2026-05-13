@@ -172,6 +172,20 @@ Action: Keep staging generation on `node --import tsx` so the TypeScript loader
 runs without the CLI IPC wrapper. Verify with `npm run generate:staging-data`
 and the shared staging contract before committing snapshots.
 
+### 2026-05-13 - Daily predictiveness needs a score-only fallback
+
+Source: daily MLB predictiveness automation, `src/orchestration/data_refresh.py`,
+`src/orchestration/refresh_pipeline.py`.
+
+Lesson: A DNS or source outage in the live fetch path can turn routine daily
+scoring into a long cache-replay loop before predictiveness is measured, even
+when the frozen ledger and settled outcomes are already sufficient for a fresh
+report.
+
+Action: Use `make daily_score SCORE_ONLY=1` after fetch/network blockage to
+refresh current-season predictiveness from existing frozen ledgers without
+backfilling predictions, retraining, or waiting on source retries.
+
 ### 2026-05-04 - Feature-set metadata is mandatory for training outputs
 
 Source: current working tree, `src/services/train.py`,

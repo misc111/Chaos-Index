@@ -11,10 +11,15 @@ it does not commit, push, publish, rebuild features, retrain models, or require 
 clean `main` checkout.
 
 Use `make daily_score DRY_RUN=1` to verify the exact step plan before execution.
+If the live fetch path is blocked by an environment or network failure, use
+`make daily_score SCORE_ONLY=1` to refresh current-season predictiveness from
+existing frozen pregame ledgers without retrying the data refresh first.
 
 ## Adjacent Paths
 
 - `make data_refresh`: data and odds refresh only; no scoring and no retraining.
+- `make daily_score SCORE_ONLY=1`: score current-season settled outcomes from
+  existing frozen ledgers when live fetch is unavailable.
 - `make predictiveness`: score current-season settled outcomes from the frozen
   pregame ledger only.
 - `make run_daily`: routine refresh plus scoring; add `RETRAIN=1` only when an

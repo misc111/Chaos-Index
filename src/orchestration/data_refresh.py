@@ -4,7 +4,12 @@ from __future__ import annotations
 
 import argparse
 
-from src.orchestration.refresh_pipeline import build_daily_score_steps, build_data_refresh_steps, run_steps
+from src.orchestration.refresh_pipeline import (
+    build_current_season_predictiveness_steps,
+    build_daily_score_steps,
+    build_data_refresh_steps,
+    run_steps,
+)
 
 
 def main() -> None:
@@ -21,9 +26,22 @@ def main() -> None:
         action="store_true",
         help="Append fresh current-season predictiveness scoring without rebuilding features or retraining models.",
     )
+    parser.add_argument(
+        "--score-only",
+        action="store_true",
+        help="Run only current-season predictiveness scoring from existing frozen ledgers.",
+    )
     args = parser.parse_args()
 
-    steps = build_daily_score_steps() if args.include_current_season_scoring else build_data_refresh_steps()
+    if args.score_only and not args.include_current_season_scoring:
+        parser.error("--score-only requires --include-current-season-scoring")
+
+    if args.score_only:
+        steps = build_current_season_predictiveness_steps()
+    elif args.include_current_season_scoring:
+        steps = build_daily_score_steps()
+    else:
+        steps = build_data_refresh_steps()
 
     if args.dry_run:
         for index, step in enumerate(steps, start=1):
@@ -32,7 +50,12 @@ def main() -> None:
             print(f"  cmd={step.display_command}")
         return
 
-    pipeline_name = "Daily scoring" if args.include_current_season_scoring else "Data refresh"
+    if args.score_only:
+        pipeline_name = "Daily score-only evidence"
+    elif args.include_current_season_scoring:
+        pipeline_name = "Daily scoring"
+    else:
+        pipeline_name = "Data refresh"
     run_steps(steps, pipeline_name=pipeline_name)
 
 

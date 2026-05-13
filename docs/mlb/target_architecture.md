@@ -17,6 +17,9 @@ Modeling governance follows the leak-repaired tournament and the traceability ma
   then score frozen pregame predictions for current-season predictiveness. It
   does not rebuild features, retrain models, generate staging snapshots, commit,
   push, or require a clean worktree.
+- When live data fetches are unavailable, `make daily_score SCORE_ONLY=1` keeps
+  current-season predictiveness measurable from existing frozen ledgers without
+  backfilling or mutating prediction history.
 - Full retraining uses `make hard_refresh` or an explicit `make run_daily
   RETRAIN=1`. Retraining is not part of the default daily scoring lane and
   should be treated as a checkpoint action with validation and evidence review.

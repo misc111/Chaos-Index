@@ -115,6 +115,20 @@ def build_daily_score_steps(*, root_dir: Path | None = None) -> list[Orchestrati
     return steps
 
 
+def build_current_season_predictiveness_steps(*, root_dir: Path | None = None) -> list[OrchestrationStep]:
+    """Build the score-only daily evidence sequence from existing frozen ledgers."""
+
+    resolved_root = ROOT_DIR if root_dir is None else Path(root_dir).resolve()
+    return [
+        OrchestrationStep(
+            name=f"{league}:current-season-predictiveness",
+            command=_cli_command("current-season-predictiveness", "--config", config_path),
+            cwd=resolved_root,
+        )
+        for league, config_path in PRIMARY_REBUILD_CONFIGS
+    ]
+
+
 def build_hard_refresh_steps(
     *,
     root_dir: Path | None = None,

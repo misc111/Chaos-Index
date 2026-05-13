@@ -24,6 +24,8 @@ PAGES_BUILD ?= 1
 PAGES_BUILD_ARGS := $(if $(filter 0 false FALSE no NO,$(PAGES_BUILD)),--skip-pages-build,)
 DRY_RUN ?= 0
 DRY_RUN_ARGS := $(if $(filter 1 true TRUE yes YES,$(DRY_RUN)),--dry-run,)
+SCORE_ONLY ?= 0
+SCORE_ONLY_ARGS := $(if $(filter 1 true TRUE yes YES,$(SCORE_ONLY)),--score-only,)
 CONFIG ?= configs/mlb.yaml
 
 .DEFAULT_GOAL := help
@@ -33,7 +35,7 @@ help:
 	@echo "  install-python      Install Python deps"
 	@echo "  install-node        Install Node deps"
 	@echo "  daily_score         Routine MLB daily data + fresh scoring, no retraining"
-	@echo "                      Optional: DRY_RUN=1"
+	@echo "                      Optional: DRY_RUN=1 SCORE_ONLY=1"
 	@echo "  data_refresh        Deterministic MLB-first data-only refresh"
 	@echo "                      Optional: DRY_RUN=1"
 	@echo "  hard_refresh        Deterministic MLB-first refresh/train + staging snapshot"
@@ -134,7 +136,7 @@ run_daily:
 	$(PYTHON) -m src.cli run-daily --config $(CONFIG) $(MODEL_ARGS) $(RETRAIN_ARGS) $(APPROVE_FEATURE_ARGS)
 
 daily_score:
-	$(PYTHON) -m src.orchestration.data_refresh --include-current-season-scoring $(DRY_RUN_ARGS)
+	$(PYTHON) -m src.orchestration.data_refresh --include-current-season-scoring $(SCORE_ONLY_ARGS) $(DRY_RUN_ARGS)
 
 data_refresh:
 	$(PYTHON) -m src.orchestration.data_refresh $(DRY_RUN_ARGS)
