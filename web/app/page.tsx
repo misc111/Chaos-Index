@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import styles from "./overview.module.css";
+import { frontPageData, type FrontPageTournamentRow } from "@/lib/front-page-data";
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
@@ -12,132 +13,9 @@ const navItems = [
   { href: "/ensemble-summary?league=MLB", label: "Ensemble Summary Table", icon: "table" },
 ] as const;
 
-const kpis = [
-  { label: "Games Today", value: "12", note: "4 starting soon", noteTone: "teal" },
-  { label: "Top Edge", value: "2.41%", note: "LAD @ SF", noteTone: "orange" },
-  { label: "Best Bet", value: "SF -1.5", note: "Edge 2.41%", noteTone: "teal" },
-  { label: "Positive EV", value: "6", note: "of 24 sides", noteTone: "teal" },
-  { label: "Total Edge", value: "11.37%", note: "All sides", noteTone: "teal" },
-] as const;
-
 // Chaos Index is a pregame attention score: model-family disagreement, market movement,
 // lineup/pitching uncertainty, price sensitivity, and edge dispersion rolled into one read.
-const games = [
-  {
-    time: "1:05 PM",
-    away: "LAD",
-    home: "SF",
-    spread: ["SF -1.5", "(-110)"],
-    total: ["O 8.0", "(-110)"],
-    chaos: 72,
-    edge: "2.41%",
-    bestBet: "SF -1.5",
-    betTone: "orange",
-  },
-  {
-    time: "1:10 PM",
-    away: "BOS",
-    home: "SEA",
-    spread: ["SEA -1.5", "(+105)"],
-    total: ["O 7.5", "(-105)"],
-    chaos: 68,
-    edge: "1.87%",
-    bestBet: "SEA -1.5",
-    betTone: "teal",
-  },
-  {
-    time: "1:20 PM",
-    away: "CHC",
-    home: "PIT",
-    spread: ["CHC -1.5", "(-115)"],
-    total: ["O 8.5", "(-110)"],
-    chaos: 66,
-    edge: "1.64%",
-    bestBet: "CHC -1.5",
-    betTone: "teal",
-  },
-  {
-    time: "2:10 PM",
-    away: "COL",
-    home: "ARI",
-    spread: ["ARI -1.5", "(-120)"],
-    total: ["O 9.0", "(-110)"],
-    chaos: 61,
-    edge: "1.21%",
-    bestBet: "ARI -1.5",
-    betTone: "red",
-  },
-  {
-    time: "2:20 PM",
-    away: "BAL",
-    home: "TOR",
-    spread: ["TOR -1.5", "(-105)"],
-    total: ["O 8.0", "(-115)"],
-    chaos: 59,
-    edge: "0.98%",
-    bestBet: "TOR -1.5",
-    betTone: "blue",
-  },
-  {
-    time: "3:10 PM",
-    away: "MIN",
-    home: "CWS",
-    spread: ["MIN -1.5", "(-110)"],
-    total: ["O 7.5", "(-105)"],
-    chaos: 57,
-    edge: "0.76%",
-    bestBet: "MIN -1.5",
-    betTone: "red",
-  },
-  {
-    time: "4:05 PM",
-    away: "MIA",
-    home: "NYM",
-    spread: ["NYM -1.5", "(-120)"],
-    total: ["O 8.5", "(-110)"],
-    chaos: 56,
-    edge: "0.68%",
-    bestBet: "NYM -1.5",
-    betTone: "orange",
-  },
-  {
-    time: "4:10 PM",
-    away: "PHI",
-    home: "ATL",
-    spread: ["ATL -1.5", "(-105)"],
-    total: ["O 8.0", "(-115)"],
-    chaos: 54,
-    edge: "0.55%",
-    bestBet: "ATL -1.5",
-    betTone: "blue",
-  },
-] as const;
-
-const upcomingStarters = [
-  { time: "7:05 PM", away: "STL", home: "MIL" },
-  { time: "7:10 PM", away: "SEA", home: "BAL" },
-  { time: "8:40 PM", away: "COL", home: "TOR" },
-] as const;
-
-const intraFamilies = [
-  ["1", "East Power", "184.7", "23-11", "67.6%"],
-  ["2", "West Power", "173.2", "21-13", "61.8%"],
-  ["3", "Central Core", "161.9", "20-14", "58.8%"],
-] as const;
-
-const interFamilies = [
-  ["1", "East Power", "92.1", "14-6", "70.0%"],
-  ["2", "West Power", "88.7", "13-7", "65.0%"],
-  ["3", "Central Core", "76.4", "11-9", "55.0%"],
-] as const;
-
-const ensembleRows = [
-  ["Chaos Index", "32%", "8.31%", "1.23%"],
-  ["Power Model", "24%", "6.27%", "1.02%"],
-  ["Pitching Model", "20%", "5.18%", "0.88%"],
-  ["Market Model", "14%", "4.02%", "0.76%"],
-  ["Batted Ball Model", "10%", "3.15%", "0.61%"],
-] as const;
+const { kpis, games, upcomingStarters, intraFamilies, interFamilies, ensembleRows, modelStamp } = frontPageData;
 
 type IconName = (typeof navItems)[number]["icon"];
 
@@ -255,7 +133,7 @@ function TournamentCard({
   href,
 }: {
   title: string;
-  rows: readonly (readonly [string, string, string, string, string])[];
+  rows: readonly FrontPageTournamentRow[];
   tone: "orange" | "teal";
   href: string;
 }) {
@@ -272,7 +150,15 @@ function TournamentCard({
         <span>W-L</span>
         <span>Win %</span>
       </div>
-      {rows.map(([rank, family, score, record, win]) => (
+      {rows.length === 0 ? (
+        <div className={styles.familyRow}>
+          <span className={styles.rank}>-</span>
+          <span>No rows</span>
+          <strong>N/A</strong>
+          <span>research-only</span>
+          <span>N/A</span>
+        </div>
+      ) : rows.map(([rank, family, score, record, win]) => (
         <div className={styles.familyRow} key={`${title}-${rank}`}>
           <span className={styles.rank}>{rank}</span>
           <span>{family}</span>
@@ -318,7 +204,7 @@ export default function HomePage() {
 
         <div className={styles.modelStamp}>
           <span>Model as of</span>
-          <strong>May 17, 2025 8:00 AM ET</strong>
+          <strong>{modelStamp}</strong>
         </div>
       </header>
 
@@ -442,9 +328,9 @@ export default function HomePage() {
             <div className={styles.ensembleTable} role="table" aria-label="Ensemble edge snapshot">
               <div className={styles.ensembleHead} role="row">
                 <span>Model</span>
-                <span>Weight</span>
-                <span>ROI (30d)</span>
-                <span>Avg Edge</span>
+                <span>Sample</span>
+                <span>Log Loss</span>
+                <span>Accuracy</span>
               </div>
               {ensembleRows.map(([model, weight, roi, edge]) => (
                 <div className={styles.ensembleRow} role="row" key={model}>

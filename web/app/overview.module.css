@@ -722,7 +722,7 @@
   }
 
   .topChrome {
-    grid-template-columns: 280px minmax(0, 1fr) 190px;
+    grid-template-columns: 230px minmax(0, 1fr) 170px;
   }
 
   .brand {
@@ -743,12 +743,20 @@
   }
 
   .nav {
-    gap: 16px;
-    padding-left: 24px;
+    gap: 10px;
+    padding-left: 18px;
   }
 
   .navItem {
-    font-size: 15px;
+    font-size: 13px;
+  }
+
+  .navItem:first-child {
+    width: auto;
+  }
+
+  .activeNavItem::after {
+    width: 112px;
   }
 
   .kpiStrip {

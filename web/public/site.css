@@ -1,5 +1,6 @@
 :root {
   color-scheme: dark;
+  --page-scale: 1;
 }
 
 * {
@@ -14,6 +15,18 @@ body {
 
 body {
   background: #070b0d;
+  min-height: max(100vh, calc(1306px * var(--page-scale)));
+  overflow-x: hidden;
+}
+
+@media (max-width: 1500px) {
+  :root {
+    --page-scale: 0.708;
+  }
+
+  body {
+    min-height: 925px;
+  }
 }
 
 a {
@@ -33,10 +46,12 @@ a {
   --teal: #22c7b0;
   --blue: #3599ff;
   --red: #ff4f58;
-  width: 100vw;
-  min-width: 1180px;
+  width: 1928px;
+  min-width: 1928px;
   min-height: 1306px;
   overflow: hidden;
+  transform: scale(var(--page-scale));
+  transform-origin: top left;
   background:
     radial-gradient(circle at 34% 14%, rgba(38, 54, 59, 0.18), transparent 27%),
     radial-gradient(circle at 83% 9%, rgba(28, 31, 34, 0.28), transparent 24%),
@@ -701,61 +716,4 @@ a {
 .ensembleRow strong {
   color: var(--teal);
   font-weight: 700;
-}
-
-@media (max-width: 1350px) {
-  .page {
-    min-width: 0;
-    overflow-x: auto;
-  }
-
-  .topChrome,
-  .kpiStrip,
-  .dashboardGrid {
-    width: 1180px;
-  }
-
-  .topChrome {
-    grid-template-columns: 280px minmax(0, 1fr) 190px;
-  }
-
-  .brand {
-    padding-left: 18px;
-  }
-
-  .baseballLogo {
-    width: 58px;
-    height: 58px;
-  }
-
-  .wordmark > span {
-    font-size: 24px;
-  }
-
-  .wordmark small {
-    font-size: 12px;
-  }
-
-  .nav {
-    gap: 16px;
-    padding-left: 24px;
-  }
-
-  .navItem {
-    font-size: 15px;
-  }
-
-  .kpiStrip {
-    grid-template-columns: repeat(5, 1fr) 1.7fr;
-  }
-
-  .dashboardGrid {
-    grid-template-columns: minmax(0, 1fr) 420px;
-  }
-
-  .gameRow {
-    grid-template-columns: 98px 245px 122px 96px 188px 94px 106px 24px;
-    padding-left: 18px;
-    padding-right: 14px;
-  }
 }
