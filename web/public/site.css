@@ -57,7 +57,7 @@ a {
     radial-gradient(circle at 83% 9%, rgba(28, 31, 34, 0.28), transparent 24%),
     linear-gradient(180deg, #070b0d 0%, #090d0f 46%, #070b0d 100%);
   color: var(--text);
-  font-family: "Avenir Next Condensed", "Roboto Condensed", "Arial Narrow", "IBM Plex Sans", "Segoe UI", sans-serif;
+  font-family: "Arial Narrow", "Roboto Condensed", "Avenir Next Condensed", "IBM Plex Sans", "Segoe UI", sans-serif;
 }
 
 .topChrome {
@@ -124,9 +124,9 @@ a {
 .nav {
   display: flex;
   align-items: stretch;
-  gap: 26px;
+  gap: 22px;
   min-width: 0;
-  padding-left: 42px;
+  padding-left: 40px;
 }
 
 .navItem {
@@ -136,7 +136,7 @@ a {
   gap: 13px;
   min-height: 102px;
   color: #8e8f93;
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 700;
   white-space: nowrap;
 }
