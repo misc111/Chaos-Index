@@ -16,6 +16,7 @@ export type FrontPageGame = {
   spread: readonly [string, string];
   total: readonly [string, string];
   chaos: number;
+  edgeProbability: number;
   edge: string;
   bestBet: string;
   betTone: Tone;
@@ -56,17 +57,39 @@ function formatPercent(value?: number | null, digits = 1): string {
   return Number.isFinite(numeric) ? `${(numeric * 100).toFixed(digits)}%` : "N/A";
 }
 
-function modelDisagreement(row: MarketRow): number {
-  const values = Object.values(row.model_win_probabilities || {}).filter((value): value is number => Number.isFinite(value));
-  if (values.length < 2) return 0;
-  return Math.max(...values) - Math.min(...values);
+function americanOddsToProbability(value?: number | null): number | null {
+  const price = Number(value);
+  if (!Number.isFinite(price) || price === 0) return null;
+  return price > 0 ? 100 / (price + 100) : Math.abs(price) / (Math.abs(price) + 100);
+}
+
+function moneylineOverlay(row: MarketRow): { edge: number; side: string } {
+  const homeModel = Number(row.home_win_probability);
+  if (!Number.isFinite(homeModel)) return { edge: 0, side: "No bet" };
+
+  const homeMarketRaw = americanOddsToProbability(row.moneyline?.home_price);
+  const awayMarketRaw = americanOddsToProbability(row.moneyline?.away_price);
+  if (homeMarketRaw === null || awayMarketRaw === null) return { edge: 0, side: "No bet" };
+
+  const marketTotal = homeMarketRaw + awayMarketRaw;
+  if (!Number.isFinite(marketTotal) || marketTotal <= 0) return { edge: 0, side: "No bet" };
+
+  const homeOverlay = homeModel - homeMarketRaw / marketTotal;
+  const awayOverlay = (1 - homeModel) - awayMarketRaw / marketTotal;
+  if (homeOverlay <= 0 && awayOverlay <= 0) return { edge: 0, side: "No bet" };
+  return homeOverlay >= awayOverlay ? { edge: homeOverlay, side: row.home_team } : { edge: awayOverlay, side: row.away_team };
+}
+
+function chaosIndexFromOverlay(edge: number): number {
+  return Math.max(0, Math.min(100, Math.round(edge * 3000)));
+}
+
+function isPricedMoneyline(row: MarketRow): boolean {
+  return americanOddsToProbability(row.moneyline?.home_price) !== null && americanOddsToProbability(row.moneyline?.away_price) !== null;
 }
 
 function frontPageGame(row: MarketRow): FrontPageGame {
-  const homeProb = Number(row.home_win_probability);
-  const favorite = Number.isFinite(homeProb) && homeProb >= 0.5 ? row.home_team : row.away_team;
-  const favoriteProb = Number.isFinite(homeProb) ? Math.max(homeProb, 1 - homeProb) : null;
-  const disagreement = modelDisagreement(row);
+  const overlay = moneylineOverlay(row);
   const hasSpread = Number.isFinite(Number(row.spread?.point));
   const hasTotal = Number.isFinite(Number(row.total?.point));
 
@@ -76,10 +99,11 @@ function frontPageGame(row: MarketRow): FrontPageGame {
     home: row.home_team,
     spread: hasSpread ? [`${row.spread.point}`, formatPrice(row.spread.home_price)] : ["Market pending", "No spread"],
     total: hasTotal ? [`${row.total.point}`, formatPrice(row.total.over_price)] : ["Market pending", "No total"],
-    chaos: Math.max(1, Math.min(100, Math.round(disagreement * 500))),
-    edge: favoriteProb === null ? "N/A" : formatPercent(favoriteProb - 0.5, 1),
-    bestBet: row.moneyline?.books_count ? favorite : "No bet",
-    betTone: row.moneyline?.books_count ? "teal" : "blue",
+    chaos: chaosIndexFromOverlay(overlay.edge),
+    edgeProbability: overlay.edge,
+    edge: formatPercent(overlay.edge, 1),
+    bestBet: overlay.side,
+    betTone: overlay.edge > 0 ? "teal" : "blue",
   };
 }
 
@@ -102,17 +126,37 @@ function ensembleRows(): FrontPageEnsembleRow[] {
   ]);
 }
 
+const marketRows = marketBoard.rows || [];
+const derivedGames = marketRows.map(frontPageGame);
+const pricedSides = marketRows.filter(isPricedMoneyline).length * 2;
+const positiveOverlayGames = derivedGames.filter((game) => game.edgeProbability > 0);
+const topOverlayGame = positiveOverlayGames.reduce<FrontPageGame | null>(
+  (best, game) => (!best || game.edgeProbability > best.edgeProbability ? game : best),
+  null,
+);
+const totalPositiveOverlay = positiveOverlayGames.reduce((sum, game) => sum + game.edgeProbability, 0);
+
 export const frontPageData = {
   modelStamp: formatAsOf(gamesToday.as_of_utc || marketBoard.as_of_utc),
   kpis: [
-    { label: "Games Today", value: String(marketBoard.rows?.length || 0), note: marketBoard.date_central || "MLB snapshot", noteTone: "teal" },
-    { label: "Top Signal", value: "Market pending", note: "No sportsbook odds", noteTone: "orange" },
-    { label: "Best Bet", value: "No bet", note: "Awaiting prices", noteTone: "teal" },
-    { label: "Positive EV", value: "0", note: "contract-safe fallback", noteTone: "teal" },
-    { label: "Model Edge", value: "Prob. lean", note: "vs 50/50 baseline", noteTone: "teal" },
+    { label: "Games Today", value: String(marketRows.length), note: marketBoard.date_central || "MLB snapshot", noteTone: "teal" },
+    {
+      label: "Top Edge",
+      value: topOverlayGame ? topOverlayGame.edge : "Market pending",
+      note: topOverlayGame ? `${topOverlayGame.away} @ ${topOverlayGame.home}` : "No sportsbook odds",
+      noteTone: "orange",
+    },
+    {
+      label: "Best Bet",
+      value: topOverlayGame?.bestBet || "No bet",
+      note: topOverlayGame ? `Edge ${topOverlayGame.edge}` : "Awaiting prices",
+      noteTone: "teal",
+    },
+    { label: "Positive EV", value: String(positiveOverlayGames.length), note: `of ${pricedSides} priced sides`, noteTone: "teal" },
+    { label: "Total Edge", value: formatPercent(totalPositiveOverlay, 2), note: "market overlays", noteTone: "teal" },
   ] as FrontPageKpi[],
-  games: (marketBoard.rows || []).slice(0, 8).map(frontPageGame),
-  upcomingStarters: (marketBoard.rows || []).slice(8, 11).map((row) => ({
+  games: derivedGames.slice(0, 8),
+  upcomingStarters: marketRows.slice(8, 11).map((row) => ({
     time: formatGameTime(row.start_time_utc),
     away: row.away_team,
     home: row.home_team,

@@ -1,4 +1,6 @@
 (function () {
+  const chaosTitle = "Largest positive vig-free gap between the ensemble probability and market implied probability.";
+
   const games = [
     ["1:05 PM", "LAD", "SF", "SF -1.5", "(-110)", "O 8.0", "(-110)", 72, "2.41%", "SF -1.5", "orangeBet"],
     ["1:10 PM", "BOS", "SEA", "SEA -1.5", "(+105)", "O 7.5", "(-105)", 68, "1.87%", "SEA -1.5", "tealBet"],
@@ -50,7 +52,7 @@
   }
 
   function gameRow([time, away, home, spread, spreadPrice, total, totalPrice, chaos, edge, bestBet, betTone]) {
-    return `<div class="gameRow" role="row"><span class="gameTime">${time}</span><span class="matchup">${teamMark(away)}<strong>${away}</strong><span>@</span>${teamMark(home)}<strong>${home}</strong></span><span class="marketCell"><strong>${spread}</strong><small>${spreadPrice}</small></span><span class="marketCell"><strong>${total}</strong><small>${totalPrice}</small></span><span class="chaosCell" title="Pregame attention score from model disagreement, market movement, uncertainty, price sensitivity, and edge dispersion."><strong>${chaos}</strong><span class="chaosTrack"><span style="width:${chaos}%"></span></span></span><strong class="edgeValue">${edge}</strong><strong class="bestBet ${betTone}">${bestBet}</strong>${chevron()}</div>`;
+    return `<div class="gameRow" role="row"><span class="gameTime">${time}</span><span class="matchup">${teamMark(away)}<strong>${away}</strong><span>@</span>${teamMark(home)}<strong>${home}</strong></span><span class="marketCell"><strong>${spread}</strong><small>${spreadPrice}</small></span><span class="marketCell"><strong>${total}</strong><small>${totalPrice}</small></span><span class="chaosCell" title="${chaosTitle}"><strong>${chaos}</strong><span class="chaosTrack"><span style="width:${chaos}%"></span></span></span><strong class="edgeValue">${edge}</strong><strong class="bestBet ${betTone}">${bestBet}</strong>${chevron()}</div>`;
   }
 
   function familyRow([rank, name, score, record, win]) {

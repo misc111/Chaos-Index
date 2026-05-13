@@ -13,8 +13,8 @@ const navItems = [
   { href: "/ensemble-summary?league=MLB", label: "Ensemble Summary Table", icon: "table" },
 ] as const;
 
-// Chaos Index is a pregame attention score: model-family disagreement, market movement,
-// lineup/pitching uncertainty, price sensitivity, and edge dispersion rolled into one read.
+// Chaos Index is the largest positive vig-free market overlay:
+// ensemble probability minus market implied probability for the best available side.
 const { kpis, games, upcomingStarters, intraFamilies, interFamilies, ensembleRows, modelStamp } = frontPageData;
 
 type IconName = (typeof navItems)[number]["icon"];
@@ -264,7 +264,7 @@ export default function HomePage() {
                   <strong>{game.total[0]}</strong>
                   <small>{game.total[1]}</small>
                 </span>
-                <span className={styles.chaosCell} title="Pregame attention score from model disagreement, market movement, uncertainty, price sensitivity, and edge dispersion.">
+                <span className={styles.chaosCell} title="Largest positive vig-free gap between the ensemble probability and market implied probability.">
                   <strong>{game.chaos}</strong>
                   <span className={styles.chaosTrack}>
                     <span style={{ width: `${game.chaos}%` }} />
