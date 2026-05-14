@@ -6,20 +6,21 @@ Routine daily automation is a fresh-scoring lane, not a full retraining lane.
 
 Use `make daily_score` for scheduled or manual daily evidence runs. It executes
 the MLB data refresh steps, then runs current-season predictiveness scoring
-against frozen pregame predictions. The path is safe on a dirty worktree because
-it does not commit, push, publish, rebuild features, retrain models, or require a
-clean `main` checkout.
+against frozen pregame predictions, then refreshes the committed static staging
+snapshots from the local dashboard routes. The path does not commit, push,
+publish, rebuild features, retrain models, or require a clean `main` checkout.
 
 Use `make daily_score DRY_RUN=1` to verify the exact step plan before execution.
 If the live fetch path is blocked by an environment or network failure, use
 `make daily_score SCORE_ONLY=1` to refresh current-season predictiveness from
-existing frozen pregame ledgers without retrying the data refresh first.
+existing frozen pregame ledgers without retrying the data refresh first; the
+score-only lane still refreshes static staging snapshots after scoring.
 
 ## Adjacent Paths
 
 - `make data_refresh`: data and odds refresh only; no scoring and no retraining.
 - `make daily_score SCORE_ONLY=1`: score current-season settled outcomes from
-  existing frozen ledgers when live fetch is unavailable.
+  existing frozen ledgers when live fetch is unavailable, then refresh staging.
 - `make predictiveness`: score current-season settled outcomes from the frozen
   pregame ledger only.
 - `make run_daily`: routine refresh plus scoring; add `RETRAIN=1` only when an

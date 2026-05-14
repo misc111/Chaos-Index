@@ -98,7 +98,7 @@ def build_data_refresh_steps(*, root_dir: Path | None = None, include_init_db: b
 
 
 def build_daily_score_steps(*, root_dir: Path | None = None) -> list[OrchestrationStep]:
-    """Build the routine MLB daily data and scoring sequence without retraining."""
+    """Build the routine MLB daily data, scoring, and staging snapshot sequence without retraining."""
 
     resolved_root = ROOT_DIR if root_dir is None else Path(root_dir).resolve()
     steps = build_data_refresh_steps(root_dir=resolved_root)
@@ -112,14 +112,15 @@ def build_daily_score_steps(*, root_dir: Path | None = None) -> list[Orchestrati
             )
         )
 
+    steps.append(_build_staging_generation_step(resolved_root))
     return steps
 
 
 def build_current_season_predictiveness_steps(*, root_dir: Path | None = None) -> list[OrchestrationStep]:
-    """Build the score-only daily evidence sequence from existing frozen ledgers."""
+    """Build the score-only daily evidence and staging snapshot sequence from existing frozen ledgers."""
 
     resolved_root = ROOT_DIR if root_dir is None else Path(root_dir).resolve()
-    return [
+    steps = [
         OrchestrationStep(
             name=f"{league}:current-season-predictiveness",
             command=_cli_command("current-season-predictiveness", "--config", config_path),
@@ -127,6 +128,18 @@ def build_current_season_predictiveness_steps(*, root_dir: Path | None = None) -
         )
         for league, config_path in PRIMARY_REBUILD_CONFIGS
     ]
+    steps.append(_build_staging_generation_step(resolved_root))
+    return steps
+
+
+def _build_staging_generation_step(root_dir: Path) -> OrchestrationStep:
+    """Build the shared static-staging data generation step."""
+
+    return OrchestrationStep(
+        name="staging:generate-data",
+        command=("npm", "run", "generate:staging-data"),
+        cwd=root_dir / "web",
+    )
 
 
 def build_hard_refresh_steps(
@@ -167,13 +180,7 @@ def build_hard_refresh_steps(
         )
 
     web_dir = resolved_root / "web"
-    steps.append(
-        OrchestrationStep(
-            name="staging:generate-data",
-            command=("npm", "run", "generate:staging-data"),
-            cwd=web_dir,
-        )
-    )
+    steps.append(_build_staging_generation_step(resolved_root))
     if include_pages_build:
         steps.append(
             OrchestrationStep(

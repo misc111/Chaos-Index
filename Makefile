@@ -34,7 +34,7 @@ help:
 	@echo "Targets:"
 	@echo "  install-python      Install Python deps"
 	@echo "  install-node        Install Node deps"
-	@echo "  daily_score         Routine MLB daily data + fresh scoring, no retraining"
+	@echo "  daily_score         Routine MLB daily data + fresh scoring + staging, no retraining"
 	@echo "                      Optional: DRY_RUN=1 SCORE_ONLY=1"
 	@echo "  data_refresh        Deterministic MLB-first data-only refresh"
 	@echo "                      Optional: DRY_RUN=1"

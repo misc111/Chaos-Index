@@ -17,18 +17,18 @@
       "optimization_objective": "Best replay expected log growth among sampled policies",
       "optimization_source": "historical_frontier",
       "metrics": {
-        "mean_daily_profit_dollars": 65.771429,
-        "daily_volatility_dollars": 322.428477,
-        "downside_deviation_dollars": 188.407461,
-        "sharpe_ratio": 0.203988,
-        "expected_log_growth_per_bet": 0.002004,
-        "max_drawdown_dollars": 845,
-        "total_profit": 2302,
-        "total_risked": 18900,
-        "roi": 0.121799,
-        "settled_bets": 189,
-        "active_days": 35,
-        "total_days": 35
+        "mean_daily_profit_dollars": 45.25641,
+        "daily_volatility_dollars": 314.146355,
+        "downside_deviation_dollars": 188.272034,
+        "sharpe_ratio": 0.144062,
+        "expected_log_growth_per_bet": 0.001535,
+        "max_drawdown_dollars": 1002,
+        "total_profit": 1765,
+        "total_risked": 19700,
+        "roi": 0.089594,
+        "settled_bets": 197,
+        "active_days": 39,
+        "total_days": 39
       }
     },
     "aggressive": {
@@ -37,27 +37,27 @@
       "allowUnderdogs": true,
       "maxUnderdogMoneyline": null,
       "minEdge": 0.025,
-      "minExpectedValue": 0.015,
+      "minExpectedValue": 0.02,
       "stakeScale": 0.2,
-      "maxBetBankrollPercent": 0.5,
+      "maxBetBankrollPercent": 0.75,
       "maxDailyBankrollPercent": 6,
       "description": "Aggressive baseline with the shared value screen, a 1.75% per-bet cap, and a 6% nightly budget on the reference bankroll.",
-      "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.025|0.015|0.200|0.500|6.000",
+      "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.025|0.020|0.200|0.750|6.000",
       "optimization_objective": "Higher-return replay policy than the balanced selection",
       "optimization_source": "historical_frontier",
       "metrics": {
-        "mean_daily_profit_dollars": 67.4,
-        "daily_volatility_dollars": 329.467324,
-        "downside_deviation_dollars": 196.571179,
-        "sharpe_ratio": 0.204573,
-        "expected_log_growth_per_bet": 0.002003,
-        "max_drawdown_dollars": 845,
-        "total_profit": 2359,
-        "total_risked": 19300,
-        "roi": 0.122228,
-        "settled_bets": 193,
-        "active_days": 35,
-        "total_days": 35
+        "mean_daily_profit_dollars": 45.25641,
+        "daily_volatility_dollars": 314.146355,
+        "downside_deviation_dollars": 188.272034,
+        "sharpe_ratio": 0.144062,
+        "expected_log_growth_per_bet": 0.001535,
+        "max_drawdown_dollars": 1002,
+        "total_profit": 1765,
+        "total_risked": 19700,
+        "roi": 0.089594,
+        "settled_bets": 197,
+        "active_days": 39,
+        "total_days": 39
       }
     },
     "capitalPreservation": {
@@ -81,7 +81,7 @@
     "method": "Historical replay candidate sweep ranked by expected log growth, return, and drawdown",
     "risk_free_rate": 0,
     "candidate_count": 3087,
-    "frontier_point_count": 13,
+    "frontier_point_count": 8,
     "frontier": [
       {
         "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.035|0.015|0.200|0.500|1.500",
@@ -92,18 +92,18 @@
         "stakeScale": 0.2,
         "maxBetBankrollPercent": 0.5,
         "maxDailyBankrollPercent": 1.5,
-        "mean_daily_profit_dollars": 11.671429,
-        "daily_volatility_dollars": 162.544245,
-        "downside_deviation_dollars": 93.572814,
-        "sharpe_ratio": 0.071805,
-        "expected_log_growth_per_bet": 0.001172,
+        "mean_daily_profit_dollars": 3.115385,
+        "daily_volatility_dollars": 159.807428,
+        "downside_deviation_dollars": 96.270918,
+        "sharpe_ratio": 0.019495,
+        "expected_log_growth_per_bet": 0.000324,
         "max_drawdown_dollars": 550,
-        "total_profit": 408.5,
-        "total_risked": 5050,
-        "roi": 0.080891,
-        "settled_bets": 67,
-        "active_days": 34,
-        "total_days": 35
+        "total_profit": 121.5,
+        "total_risked": 5600,
+        "roi": 0.021696,
+        "settled_bets": 74,
+        "active_days": 38,
+        "total_days": 39
       },
       {
         "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.025|0.020|0.200|0.500|1.500",
@@ -114,18 +114,18 @@
         "stakeScale": 0.2,
         "maxBetBankrollPercent": 0.5,
         "maxDailyBankrollPercent": 1.5,
-        "mean_daily_profit_dollars": 14.671429,
-        "daily_volatility_dollars": 163.289753,
-        "downside_deviation_dollars": 93.572814,
-        "sharpe_ratio": 0.089849,
-        "expected_log_growth_per_bet": 0.001438,
+        "mean_daily_profit_dollars": 5.807692,
+        "daily_volatility_dollars": 160.635892,
+        "downside_deviation_dollars": 96.270918,
+        "sharpe_ratio": 0.036154,
+        "expected_log_growth_per_bet": 0.000591,
         "max_drawdown_dollars": 550,
-        "total_profit": 513.5,
-        "total_risked": 5150,
-        "roi": 0.099709,
-        "settled_bets": 68,
-        "active_days": 35,
-        "total_days": 35
+        "total_profit": 226.5,
+        "total_risked": 5700,
+        "roi": 0.039737,
+        "settled_bets": 75,
+        "active_days": 39,
+        "total_days": 39
       },
       {
         "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.025|0.015|0.200|0.500|1.500",
@@ -136,84 +136,18 @@
         "stakeScale": 0.2,
         "maxBetBankrollPercent": 0.5,
         "maxDailyBankrollPercent": 1.5,
-        "mean_daily_profit_dollars": 16.514286,
-        "daily_volatility_dollars": 164.69707,
-        "downside_deviation_dollars": 93.572814,
-        "sharpe_ratio": 0.100271,
-        "expected_log_growth_per_bet": 0.001585,
+        "mean_daily_profit_dollars": 7.461538,
+        "daily_volatility_dollars": 162.010168,
+        "downside_deviation_dollars": 96.270918,
+        "sharpe_ratio": 0.046056,
+        "expected_log_growth_per_bet": 0.000744,
         "max_drawdown_dollars": 550,
-        "total_profit": 578,
-        "total_risked": 5200,
-        "roi": 0.111154,
-        "settled_bets": 69,
-        "active_days": 35,
-        "total_days": 35
-      },
-      {
-        "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.025|0.020|0.200|0.500|2.500",
-        "allowUnderdogs": true,
-        "maxUnderdogMoneyline": null,
-        "minEdge": 0.025,
-        "minExpectedValue": 0.02,
-        "stakeScale": 0.2,
-        "maxBetBankrollPercent": 0.5,
-        "maxDailyBankrollPercent": 2.5,
-        "mean_daily_profit_dollars": 17.514286,
-        "daily_volatility_dollars": 200.41767,
-        "downside_deviation_dollars": 125.18221,
-        "sharpe_ratio": 0.087389,
-        "expected_log_growth_per_bet": 0.001145,
-        "max_drawdown_dollars": 715.5,
-        "total_profit": 613,
-        "total_risked": 8450,
-        "roi": 0.072544,
-        "settled_bets": 101,
-        "active_days": 35,
-        "total_days": 35
-      },
-      {
-        "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.025|0.015|0.200|0.500|2.500",
-        "allowUnderdogs": true,
-        "maxUnderdogMoneyline": null,
-        "minEdge": 0.025,
-        "minExpectedValue": 0.015,
-        "stakeScale": 0.2,
-        "maxBetBankrollPercent": 0.5,
-        "maxDailyBankrollPercent": 2.5,
-        "mean_daily_profit_dollars": 21.2,
-        "daily_volatility_dollars": 203.240158,
-        "downside_deviation_dollars": 125.18221,
-        "sharpe_ratio": 0.10431,
-        "expected_log_growth_per_bet": 0.001357,
-        "max_drawdown_dollars": 715.5,
-        "total_profit": 742,
-        "total_risked": 8550,
-        "roi": 0.086784,
-        "settled_bets": 102,
-        "active_days": 35,
-        "total_days": 35
-      },
-      {
-        "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.025|0.020|0.200|0.500|3.000",
-        "allowUnderdogs": true,
-        "maxUnderdogMoneyline": null,
-        "minEdge": 0.025,
-        "minExpectedValue": 0.02,
-        "stakeScale": 0.2,
-        "maxBetBankrollPercent": 0.5,
-        "maxDailyBankrollPercent": 3,
-        "mean_daily_profit_dollars": 22.971429,
-        "daily_volatility_dollars": 220.74053,
-        "downside_deviation_dollars": 138.738294,
-        "sharpe_ratio": 0.104065,
-        "expected_log_growth_per_bet": 0.001476,
-        "max_drawdown_dollars": 731,
-        "total_profit": 804,
-        "total_risked": 10100,
-        "roi": 0.079604,
-        "settled_bets": 101,
-        "active_days": 35,
-        "total_days": 35
+        "total_profit": 291,
+        "total_risked": 5750,
+        "roi": 0.050609,
+        "settled_bets": 76,
+        "active_days": 39,
+        "total_days": 39
       },
       {
         "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.025|0.015|0.200|0.500|3.000",
@@ -224,18 +158,18 @@
         "stakeScale": 0.2,
         "maxBetBankrollPercent": 0.5,
         "maxDailyBankrollPercent": 3,
-        "mean_daily_profit_dollars": 26.657143,
-        "daily_volatility_dollars": 223.213554,
-        "downside_deviation_dollars": 138.738294,
-        "sharpe_ratio": 0.119424,
-        "expected_log_growth_per_bet": 0.001677,
-        "max_drawdown_dollars": 731,
-        "total_profit": 933,
-        "total_risked": 10200,
-        "roi": 0.091471,
-        "settled_bets": 102,
-        "active_days": 35,
-        "total_days": 35
+        "mean_daily_profit_dollars": 7.589744,
+        "daily_volatility_dollars": 224.230816,
+        "downside_deviation_dollars": 148.815063,
+        "sharpe_ratio": 0.033848,
+        "expected_log_growth_per_bet": 0.000518,
+        "max_drawdown_dollars": 1134,
+        "total_profit": 296,
+        "total_risked": 11100,
+        "roi": 0.026667,
+        "settled_bets": 111,
+        "active_days": 39,
+        "total_days": 39
       },
       {
         "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.025|0.020|0.200|0.500|5.000",
@@ -246,18 +180,18 @@
         "stakeScale": 0.2,
         "maxBetBankrollPercent": 0.5,
         "maxDailyBankrollPercent": 5,
-        "mean_daily_profit_dollars": 27.714286,
-        "daily_volatility_dollars": 288.933187,
-        "downside_deviation_dollars": 179.849064,
-        "sharpe_ratio": 0.095919,
-        "expected_log_growth_per_bet": 0.001081,
-        "max_drawdown_dollars": 875,
-        "total_profit": 970,
-        "total_risked": 16400,
-        "roi": 0.059146,
-        "settled_bets": 164,
-        "active_days": 35,
-        "total_days": 35
+        "mean_daily_profit_dollars": 11.102564,
+        "daily_volatility_dollars": 281.18385,
+        "downside_deviation_dollars": 180.604327,
+        "sharpe_ratio": 0.039485,
+        "expected_log_growth_per_bet": 0.000483,
+        "max_drawdown_dollars": 1412,
+        "total_profit": 433,
+        "total_risked": 17200,
+        "roi": 0.025174,
+        "settled_bets": 172,
+        "active_days": 39,
+        "total_days": 39
       },
       {
         "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.030|0.015|0.200|0.500|5.000",
@@ -268,40 +202,18 @@
         "stakeScale": 0.2,
         "maxBetBankrollPercent": 0.5,
         "maxDailyBankrollPercent": 5,
-        "mean_daily_profit_dollars": 34.742857,
-        "daily_volatility_dollars": 295.244101,
-        "downside_deviation_dollars": 179.849064,
-        "sharpe_ratio": 0.117675,
-        "expected_log_growth_per_bet": 0.001327,
-        "max_drawdown_dollars": 875,
-        "total_profit": 1216,
-        "total_risked": 16400,
-        "roi": 0.074146,
-        "settled_bets": 164,
-        "active_days": 35,
-        "total_days": 35
-      },
-      {
-        "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.025|0.015|0.200|0.500|5.000",
-        "allowUnderdogs": true,
-        "maxUnderdogMoneyline": null,
-        "minEdge": 0.025,
-        "minExpectedValue": 0.015,
-        "stakeScale": 0.2,
-        "maxBetBankrollPercent": 0.5,
-        "maxDailyBankrollPercent": 5,
-        "mean_daily_profit_dollars": 35.057143,
-        "daily_volatility_dollars": 295.310001,
-        "downside_deviation_dollars": 179.849064,
-        "sharpe_ratio": 0.118713,
-        "expected_log_growth_per_bet": 0.001322,
-        "max_drawdown_dollars": 875,
-        "total_profit": 1227,
-        "total_risked": 16600,
-        "roi": 0.073916,
-        "settled_bets": 166,
-        "active_days": 35,
-        "total_days": 35
+        "mean_daily_profit_dollars": 17.410256,
+        "daily_volatility_dollars": 287.372097,
+        "downside_deviation_dollars": 180.604327,
+        "sharpe_ratio": 0.060584,
+        "expected_log_growth_per_bet": 0.00074,
+        "max_drawdown_dollars": 1412,
+        "total_profit": 679,
+        "total_risked": 17200,
+        "roi": 0.039477,
+        "settled_bets": 172,
+        "active_days": 39,
+        "total_days": 39
       },
       {
         "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.035|0.015|0.200|0.500|6.000",
@@ -312,18 +224,18 @@
         "stakeScale": 0.2,
         "maxBetBankrollPercent": 0.5,
         "maxDailyBankrollPercent": 6,
-        "mean_daily_profit_dollars": 49.114286,
-        "daily_volatility_dollars": 304.88964,
-        "downside_deviation_dollars": 177.272107,
-        "sharpe_ratio": 0.161089,
-        "expected_log_growth_per_bet": 0.001633,
-        "max_drawdown_dollars": 702,
-        "total_profit": 1719,
-        "total_risked": 18100,
-        "roi": 0.094972,
-        "settled_bets": 181,
-        "active_days": 34,
-        "total_days": 35
+        "mean_daily_profit_dollars": 30.307692,
+        "daily_volatility_dollars": 297.052818,
+        "downside_deviation_dollars": 178.303185,
+        "sharpe_ratio": 0.102028,
+        "expected_log_growth_per_bet": 0.001123,
+        "max_drawdown_dollars": 1002,
+        "total_profit": 1182,
+        "total_risked": 18900,
+        "roi": 0.06254,
+        "settled_bets": 189,
+        "active_days": 38,
+        "total_days": 39
       },
       {
         "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.025|0.020|0.200|0.500|6.000",
@@ -334,40 +246,18 @@
         "stakeScale": 0.2,
         "maxBetBankrollPercent": 0.5,
         "maxDailyBankrollPercent": 6,
-        "mean_daily_profit_dollars": 65.771429,
-        "daily_volatility_dollars": 322.428477,
-        "downside_deviation_dollars": 188.407461,
-        "sharpe_ratio": 0.203988,
-        "expected_log_growth_per_bet": 0.002004,
-        "max_drawdown_dollars": 845,
-        "total_profit": 2302,
-        "total_risked": 18900,
-        "roi": 0.121799,
-        "settled_bets": 189,
-        "active_days": 35,
-        "total_days": 35
-      },
-      {
-        "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.025|0.015|0.200|0.500|6.000",
-        "allowUnderdogs": true,
-        "maxUnderdogMoneyline": null,
-        "minEdge": 0.025,
-        "minExpectedValue": 0.015,
-        "stakeScale": 0.2,
-        "maxBetBankrollPercent": 0.5,
-        "maxDailyBankrollPercent": 6,
-        "mean_daily_profit_dollars": 67.4,
-        "daily_volatility_dollars": 329.467324,
-        "downside_deviation_dollars": 196.571179,
-        "sharpe_ratio": 0.204573,
-        "expected_log_growth_per_bet": 0.002003,
-        "max_drawdown_dollars": 845,
-        "total_profit": 2359,
-        "total_risked": 19300,
-        "roi": 0.122228,
-        "settled_bets": 193,
-        "active_days": 35,
-        "total_days": 35
+        "mean_daily_profit_dollars": 45.25641,
+        "daily_volatility_dollars": 314.146355,
+        "downside_deviation_dollars": 188.272034,
+        "sharpe_ratio": 0.144062,
+        "expected_log_growth_per_bet": 0.001535,
+        "max_drawdown_dollars": 1002,
+        "total_profit": 1765,
+        "total_risked": 19700,
+        "roi": 0.089594,
+        "settled_bets": 197,
+        "active_days": 39,
+        "total_days": 39
       }
     ],
     "selected": {
@@ -380,40 +270,40 @@
         "stakeScale": 0.2,
         "maxBetBankrollPercent": 0.5,
         "maxDailyBankrollPercent": 6,
-        "mean_daily_profit_dollars": 65.771429,
-        "daily_volatility_dollars": 322.428477,
-        "downside_deviation_dollars": 188.407461,
-        "sharpe_ratio": 0.203988,
-        "expected_log_growth_per_bet": 0.002004,
-        "max_drawdown_dollars": 845,
-        "total_profit": 2302,
-        "total_risked": 18900,
-        "roi": 0.121799,
-        "settled_bets": 189,
-        "active_days": 35,
-        "total_days": 35
+        "mean_daily_profit_dollars": 45.25641,
+        "daily_volatility_dollars": 314.146355,
+        "downside_deviation_dollars": 188.272034,
+        "sharpe_ratio": 0.144062,
+        "expected_log_growth_per_bet": 0.001535,
+        "max_drawdown_dollars": 1002,
+        "total_profit": 1765,
+        "total_risked": 19700,
+        "roi": 0.089594,
+        "settled_bets": 197,
+        "active_days": 39,
+        "total_days": 39
       },
       "aggressive": {
-        "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.025|0.015|0.200|0.500|6.000",
+        "config_signature": "bet_strategy_frontier_v1|dogs|maxdognone|0.025|0.020|0.200|0.750|6.000",
         "allowUnderdogs": true,
         "maxUnderdogMoneyline": null,
         "minEdge": 0.025,
-        "minExpectedValue": 0.015,
+        "minExpectedValue": 0.02,
         "stakeScale": 0.2,
-        "maxBetBankrollPercent": 0.5,
+        "maxBetBankrollPercent": 0.75,
         "maxDailyBankrollPercent": 6,
-        "mean_daily_profit_dollars": 67.4,
-        "daily_volatility_dollars": 329.467324,
-        "downside_deviation_dollars": 196.571179,
-        "sharpe_ratio": 0.204573,
-        "expected_log_growth_per_bet": 0.002003,
-        "max_drawdown_dollars": 845,
-        "total_profit": 2359,
-        "total_risked": 19300,
-        "roi": 0.122228,
-        "settled_bets": 193,
-        "active_days": 35,
-        "total_days": 35
+        "mean_daily_profit_dollars": 45.25641,
+        "daily_volatility_dollars": 314.146355,
+        "downside_deviation_dollars": 188.272034,
+        "sharpe_ratio": 0.144062,
+        "expected_log_growth_per_bet": 0.001535,
+        "max_drawdown_dollars": 1002,
+        "total_profit": 1765,
+        "total_risked": 19700,
+        "roi": 0.089594,
+        "settled_bets": 197,
+        "active_days": 39,
+        "total_days": 39
       },
       "capitalPreservation": null
     }
@@ -421,21 +311,21 @@
   "strategies": {
     "riskAdjusted": {
       "summary": {
-        "total_final_games": 3450,
-        "games_with_forecast": 2720,
-        "games_with_odds": 442,
-        "analyzed_games": 442,
-        "suggested_bets": 189,
-        "wins": 86,
-        "losses": 103,
-        "total_risked": 18900,
-        "total_profit": 2302,
-        "roi": 0.1217989417989418,
+        "total_final_games": 3550,
+        "games_with_forecast": 2819,
+        "games_with_odds": 474,
+        "analyzed_games": 474,
+        "suggested_bets": 197,
+        "wins": 87,
+        "losses": 110,
+        "total_risked": 19700,
+        "total_profit": 1765,
+        "roi": 0.08959390862944162,
         "starting_bankroll": 5000,
-        "current_bankroll": 7302,
+        "current_bankroll": 6765,
         "bankroll_start_central": "2026-03-05",
         "coverage_start_central": "2026-03-25",
-        "coverage_end_central": "2026-05-03",
+        "coverage_end_central": "2026-05-07",
         "note": "Replay uses the latest stored pregame forecast before game time and backfills older gaps with historical diagnostics, paired with the latest pregame odds before game time."
       },
       "daily_points": [
@@ -718,6 +608,38 @@
           "cumulative_profit": 2302,
           "cumulative_bankroll": 7302,
           "bet_count": 6
+        },
+        {
+          "date_central": "2026-05-04",
+          "risked": 300,
+          "daily_profit": -300,
+          "cumulative_profit": 2002,
+          "cumulative_bankroll": 7002,
+          "bet_count": 3
+        },
+        {
+          "date_central": "2026-05-05",
+          "risked": 200,
+          "daily_profit": 63,
+          "cumulative_profit": 2065,
+          "cumulative_bankroll": 7065,
+          "bet_count": 2
+        },
+        {
+          "date_central": "2026-05-06",
+          "risked": 200,
+          "daily_profit": -200,
+          "cumulative_profit": 1865,
+          "cumulative_bankroll": 6865,
+          "bet_count": 2
+        },
+        {
+          "date_central": "2026-05-07",
+          "risked": 100,
+          "daily_profit": -100,
+          "cumulative_profit": 1765,
+          "cumulative_bankroll": 6765,
+          "bet_count": 1
         }
       ],
       "bets": [
@@ -6390,26 +6312,266 @@
           "profit": -100,
           "payout": 0,
           "cumulative_profit": 2302
+        },
+        {
+          "game_id": 401815205,
+          "date_central": "2026-05-04",
+          "week_start_central": "2026-05-04",
+          "start_time_utc": "2026-05-04T22:40Z",
+          "final_utc": "2026-05-04T22:40Z",
+          "home_team": "TB",
+          "away_team": "TOR",
+          "home_score": 5,
+          "away_score": 1,
+          "forecast_as_of_utc": "2026-05-04T17:26:46+00:00",
+          "odds_as_of_utc": "2026-05-04T19:58:52+00:00",
+          "odds_snapshot_id": "mlb_odds_fd647626ff51236a",
+          "home_moneyline": -126,
+          "away_moneyline": 104,
+          "bet_label": "$100 TOR",
+          "reason": "Bet: the model likes this underdog price.",
+          "side": "away",
+          "team": "TOR",
+          "stake": 100,
+          "odds": 104,
+          "expected_value": 0.031246975764001705,
+          "edge": 0.03764306773303733,
+          "model_probability": 0.5055132234137263,
+          "market_probability": 0.46787015568068896,
+          "outcome": "loss",
+          "profit": -100,
+          "payout": 0,
+          "cumulative_profit": 2202
+        },
+        {
+          "game_id": 401815206,
+          "date_central": "2026-05-04",
+          "week_start_central": "2026-05-04",
+          "start_time_utc": "2026-05-04T23:10Z",
+          "final_utc": "2026-05-04T23:10Z",
+          "home_team": "CHC",
+          "away_team": "CIN",
+          "home_score": 5,
+          "away_score": 4,
+          "forecast_as_of_utc": "2026-05-04T17:26:46+00:00",
+          "odds_as_of_utc": "2026-05-04T19:58:52+00:00",
+          "odds_snapshot_id": "mlb_odds_fd647626ff51236a",
+          "home_moneyline": -219,
+          "away_moneyline": 179,
+          "bet_label": "$100 CIN",
+          "reason": "Bet: the model likes this underdog price.",
+          "side": "away",
+          "team": "CIN",
+          "stake": 100,
+          "odds": 179,
+          "expected_value": 0.15132387901375122,
+          "edge": 0.06965382409522741,
+          "model_probability": 0.41266088853539473,
+          "market_probability": 0.3430070644401673,
+          "outcome": "loss",
+          "profit": -100,
+          "payout": 0,
+          "cumulative_profit": 2102
+        },
+        {
+          "game_id": 401815208,
+          "date_central": "2026-05-04",
+          "week_start_central": "2026-05-04",
+          "start_time_utc": "2026-05-05T00:10Z",
+          "final_utc": "2026-05-05T00:10Z",
+          "home_team": "HOU",
+          "away_team": "LAD",
+          "home_score": 3,
+          "away_score": 8,
+          "forecast_as_of_utc": "2026-05-04T17:26:46+00:00",
+          "odds_as_of_utc": "2026-05-04T19:58:52+00:00",
+          "odds_snapshot_id": "mlb_odds_fd647626ff51236a",
+          "home_moneyline": 163,
+          "away_moneyline": -199,
+          "bet_label": "$100 HOU",
+          "reason": "Bet: the model likes this underdog price.",
+          "side": "home",
+          "team": "HOU",
+          "stake": 100,
+          "odds": 163,
+          "expected_value": 0.14781738553843793,
+          "edge": 0.0728491640641366,
+          "model_probability": 0.43643246598419694,
+          "market_probability": 0.36358330192006033,
+          "outcome": "loss",
+          "profit": -100,
+          "payout": 0,
+          "cumulative_profit": 2002
+        },
+        {
+          "game_id": 401815220,
+          "date_central": "2026-05-05",
+          "week_start_central": "2026-05-04",
+          "start_time_utc": "2026-05-05T23:40Z",
+          "final_utc": "2026-05-05T23:40Z",
+          "home_team": "CHC",
+          "away_team": "CIN",
+          "home_score": 3,
+          "away_score": 2,
+          "forecast_as_of_utc": "2026-05-04T17:26:46+00:00",
+          "odds_as_of_utc": "2026-05-04T19:58:52+00:00",
+          "odds_snapshot_id": "mlb_odds_fd647626ff51236a",
+          "home_moneyline": -219,
+          "away_moneyline": 179,
+          "bet_label": "$100 CIN",
+          "reason": "Bet: the model likes this underdog price.",
+          "side": "away",
+          "team": "CIN",
+          "stake": 100,
+          "odds": 179,
+          "expected_value": 0.15042147794390526,
+          "edge": 0.06933038285155496,
+          "model_probability": 0.4123374472917223,
+          "market_probability": 0.3430070644401673,
+          "outcome": "loss",
+          "profit": -100,
+          "payout": 0,
+          "cumulative_profit": 1902
+        },
+        {
+          "game_id": 401815222,
+          "date_central": "2026-05-05",
+          "week_start_central": "2026-05-04",
+          "start_time_utc": "2026-05-06T00:10Z",
+          "final_utc": "2026-05-06T00:10Z",
+          "home_team": "HOU",
+          "away_team": "LAD",
+          "home_score": 2,
+          "away_score": 1,
+          "forecast_as_of_utc": "2026-05-04T17:26:46+00:00",
+          "odds_as_of_utc": "2026-05-04T19:58:52+00:00",
+          "odds_snapshot_id": "mlb_odds_fd647626ff51236a",
+          "home_moneyline": 163,
+          "away_moneyline": -199,
+          "bet_label": "$100 HOU",
+          "reason": "Bet: the model likes this underdog price.",
+          "side": "home",
+          "team": "HOU",
+          "stake": 100,
+          "odds": 163,
+          "expected_value": 0.1542974872399847,
+          "edge": 0.07531308106092244,
+          "model_probability": 0.43889638298098277,
+          "market_probability": 0.36358330192006033,
+          "outcome": "win",
+          "profit": 163,
+          "payout": 263,
+          "cumulative_profit": 2065
+        },
+        {
+          "game_id": 401815237,
+          "date_central": "2026-05-06",
+          "week_start_central": "2026-05-04",
+          "start_time_utc": "2026-05-06T18:10Z",
+          "final_utc": "2026-05-06T18:10Z",
+          "home_team": "HOU",
+          "away_team": "LAD",
+          "home_score": 2,
+          "away_score": 12,
+          "forecast_as_of_utc": "2026-05-04T17:26:46+00:00",
+          "odds_as_of_utc": "2026-05-04T19:58:52+00:00",
+          "odds_snapshot_id": "mlb_odds_fd647626ff51236a",
+          "home_moneyline": 163,
+          "away_moneyline": -199,
+          "bet_label": "$100 HOU",
+          "reason": "Bet: the model likes this underdog price.",
+          "side": "home",
+          "team": "HOU",
+          "stake": 100,
+          "odds": 163,
+          "expected_value": 0.16491276405555078,
+          "edge": 0.07934930798699324,
+          "model_probability": 0.4429326099070536,
+          "market_probability": 0.36358330192006033,
+          "outcome": "loss",
+          "profit": -100,
+          "payout": 0,
+          "cumulative_profit": 1965
+        },
+        {
+          "game_id": 401815235,
+          "date_central": "2026-05-06",
+          "week_start_central": "2026-05-04",
+          "start_time_utc": "2026-05-06T23:40Z",
+          "final_utc": "2026-05-06T23:40Z",
+          "home_team": "CHC",
+          "away_team": "CIN",
+          "home_score": 7,
+          "away_score": 6,
+          "forecast_as_of_utc": "2026-05-04T17:26:46+00:00",
+          "odds_as_of_utc": "2026-05-04T19:58:52+00:00",
+          "odds_snapshot_id": "mlb_odds_fd647626ff51236a",
+          "home_moneyline": -219,
+          "away_moneyline": 179,
+          "bet_label": "$100 CIN",
+          "reason": "Bet: the model likes this underdog price.",
+          "side": "away",
+          "team": "CIN",
+          "stake": 100,
+          "odds": 179,
+          "expected_value": 0.1504238190357683,
+          "edge": 0.06933122195258118,
+          "model_probability": 0.4123382863927485,
+          "market_probability": 0.3430070644401673,
+          "outcome": "loss",
+          "profit": -100,
+          "payout": 0,
+          "cumulative_profit": 1865
+        },
+        {
+          "game_id": 401815249,
+          "date_central": "2026-05-07",
+          "week_start_central": "2026-05-04",
+          "start_time_utc": "2026-05-07T18:20Z",
+          "final_utc": "2026-05-07T18:20Z",
+          "home_team": "CHC",
+          "away_team": "CIN",
+          "home_score": 8,
+          "away_score": 3,
+          "forecast_as_of_utc": "2026-05-04T17:26:46+00:00",
+          "odds_as_of_utc": "2026-05-04T19:58:52+00:00",
+          "odds_snapshot_id": "mlb_odds_fd647626ff51236a",
+          "home_moneyline": -219,
+          "away_moneyline": 179,
+          "bet_label": "$100 CIN",
+          "reason": "Bet: the model likes this underdog price.",
+          "side": "away",
+          "team": "CIN",
+          "stake": 100,
+          "odds": 179,
+          "expected_value": 0.15042569190118882,
+          "edge": 0.06933189323050964,
+          "model_probability": 0.41233895767067696,
+          "market_probability": 0.3430070644401673,
+          "outcome": "loss",
+          "profit": -100,
+          "payout": 0,
+          "cumulative_profit": 1765
         }
       ]
     },
     "aggressive": {
       "summary": {
-        "total_final_games": 3450,
-        "games_with_forecast": 2720,
-        "games_with_odds": 442,
-        "analyzed_games": 442,
-        "suggested_bets": 193,
-        "wins": 88,
-        "losses": 105,
-        "total_risked": 19300,
-        "total_profit": 2359,
-        "roi": 0.1222279792746114,
+        "total_final_games": 3550,
+        "games_with_forecast": 2819,
+        "games_with_odds": 474,
+        "analyzed_games": 474,
+        "suggested_bets": 197,
+        "wins": 87,
+        "losses": 110,
+        "total_risked": 19700,
+        "total_profit": 1765,
+        "roi": 0.08959390862944162,
         "starting_bankroll": 5000,
-        "current_bankroll": 7359,
+        "current_bankroll": 6765,
         "bankroll_start_central": "2026-03-05",
         "coverage_start_central": "2026-03-25",
-        "coverage_end_central": "2026-05-03",
+        "coverage_end_central": "2026-05-07",
         "note": "Replay uses the latest stored pregame forecast before game time and backfills older gaps with historical diagnostics, paired with the latest pregame odds before game time."
       },
       "daily_points": [
@@ -6479,219 +6641,251 @@
         },
         {
           "date_central": "2026-04-02",
-          "risked": 200,
-          "daily_profit": 234,
-          "cumulative_profit": 678,
-          "cumulative_bankroll": 5678,
-          "bet_count": 2
+          "risked": 100,
+          "daily_profit": 105,
+          "cumulative_profit": 549,
+          "cumulative_bankroll": 5549,
+          "bet_count": 1
         },
         {
           "date_central": "2026-04-03",
           "risked": 600,
           "daily_profit": -337,
-          "cumulative_profit": 341,
-          "cumulative_bankroll": 5341,
+          "cumulative_profit": 212,
+          "cumulative_bankroll": 5212,
           "bet_count": 6
         },
         {
           "date_central": "2026-04-04",
           "risked": 600,
           "daily_profit": -146,
-          "cumulative_profit": 195,
-          "cumulative_bankroll": 5195,
+          "cumulative_profit": 66,
+          "cumulative_bankroll": 5066,
           "bet_count": 6
         },
         {
           "date_central": "2026-04-05",
           "risked": 600,
           "daily_profit": 664,
-          "cumulative_profit": 859,
-          "cumulative_bankroll": 5859,
+          "cumulative_profit": 730,
+          "cumulative_bankroll": 5730,
           "bet_count": 6
         },
         {
           "date_central": "2026-04-06",
           "risked": 600,
           "daily_profit": -112,
-          "cumulative_profit": 747,
-          "cumulative_bankroll": 5747,
+          "cumulative_profit": 618,
+          "cumulative_bankroll": 5618,
           "bet_count": 6
         },
         {
           "date_central": "2026-04-07",
           "risked": 600,
           "daily_profit": 66.99999999999997,
-          "cumulative_profit": 814,
-          "cumulative_bankroll": 5814,
+          "cumulative_profit": 685,
+          "cumulative_bankroll": 5685,
           "bet_count": 6
         },
         {
           "date_central": "2026-04-08",
           "risked": 600,
           "daily_profit": 559,
-          "cumulative_profit": 1373,
-          "cumulative_bankroll": 6373,
+          "cumulative_profit": 1244,
+          "cumulative_bankroll": 6244,
           "bet_count": 6
         },
         {
           "date_central": "2026-04-09",
           "risked": 500,
           "daily_profit": 484,
-          "cumulative_profit": 1857,
-          "cumulative_bankroll": 6857,
+          "cumulative_profit": 1728,
+          "cumulative_bankroll": 6728,
           "bet_count": 5
         },
         {
           "date_central": "2026-04-10",
           "risked": 600,
           "daily_profit": 384,
-          "cumulative_profit": 2241,
-          "cumulative_bankroll": 7241,
+          "cumulative_profit": 2112,
+          "cumulative_bankroll": 7112,
           "bet_count": 6
         },
         {
           "date_central": "2026-04-11",
           "risked": 600,
           "daily_profit": -107,
-          "cumulative_profit": 2134,
-          "cumulative_bankroll": 7134,
+          "cumulative_profit": 2005,
+          "cumulative_bankroll": 7005,
           "bet_count": 6
         },
         {
           "date_central": "2026-04-12",
           "risked": 600,
           "daily_profit": 144,
-          "cumulative_profit": 2278,
-          "cumulative_bankroll": 7278,
+          "cumulative_profit": 2149,
+          "cumulative_bankroll": 7149,
           "bet_count": 6
         },
         {
           "date_central": "2026-04-13",
           "risked": 600,
           "daily_profit": -365,
-          "cumulative_profit": 1913,
-          "cumulative_bankroll": 6913,
+          "cumulative_profit": 1784,
+          "cumulative_bankroll": 6784,
           "bet_count": 6
         },
         {
           "date_central": "2026-04-14",
           "risked": 600,
           "daily_profit": 120,
-          "cumulative_profit": 2033,
-          "cumulative_bankroll": 7033,
+          "cumulative_profit": 1904,
+          "cumulative_bankroll": 6904,
           "bet_count": 6
         },
         {
           "date_central": "2026-04-15",
           "risked": 600,
           "daily_profit": -600,
-          "cumulative_profit": 1433,
-          "cumulative_bankroll": 6433,
+          "cumulative_profit": 1304,
+          "cumulative_bankroll": 6304,
           "bet_count": 6
         },
         {
           "date_central": "2026-04-16",
           "risked": 500,
           "daily_profit": 531,
-          "cumulative_profit": 1964,
-          "cumulative_bankroll": 6964,
+          "cumulative_profit": 1835,
+          "cumulative_bankroll": 6835,
           "bet_count": 5
         },
         {
           "date_central": "2026-04-17",
           "risked": 500,
           "daily_profit": -24,
-          "cumulative_profit": 1940,
-          "cumulative_bankroll": 6940,
+          "cumulative_profit": 1811,
+          "cumulative_bankroll": 6811,
           "bet_count": 5
         },
         {
           "date_central": "2026-04-18",
           "risked": 500,
           "daily_profit": 91,
-          "cumulative_profit": 2031,
-          "cumulative_bankroll": 7031,
+          "cumulative_profit": 1902,
+          "cumulative_bankroll": 6902,
           "bet_count": 5
         },
         {
           "date_central": "2026-04-19",
-          "risked": 500,
-          "daily_profit": 451,
-          "cumulative_profit": 2482,
-          "cumulative_bankroll": 7482,
-          "bet_count": 5
+          "risked": 400,
+          "daily_profit": 323,
+          "cumulative_profit": 2225,
+          "cumulative_bankroll": 7225,
+          "bet_count": 4
         },
         {
           "date_central": "2026-04-20",
           "risked": 300,
           "daily_profit": -57,
-          "cumulative_profit": 2425,
-          "cumulative_bankroll": 7425,
+          "cumulative_profit": 2168,
+          "cumulative_bankroll": 7168,
           "bet_count": 3
         },
         {
           "date_central": "2026-04-21",
-          "risked": 600,
-          "daily_profit": 396,
-          "cumulative_profit": 2821,
-          "cumulative_bankroll": 7821,
-          "bet_count": 6
+          "risked": 500,
+          "daily_profit": 496,
+          "cumulative_profit": 2664,
+          "cumulative_bankroll": 7664,
+          "bet_count": 5
         },
         {
           "date_central": "2026-04-22",
           "risked": 600,
           "daily_profit": 103,
-          "cumulative_profit": 2924,
-          "cumulative_bankroll": 7924,
+          "cumulative_profit": 2767,
+          "cumulative_bankroll": 7767,
           "bet_count": 6
         },
         {
           "date_central": "2026-04-23",
-          "risked": 600,
-          "daily_profit": -600,
-          "cumulative_profit": 2324,
-          "cumulative_bankroll": 7324,
-          "bet_count": 6
+          "risked": 500,
+          "daily_profit": -500,
+          "cumulative_profit": 2267,
+          "cumulative_bankroll": 7267,
+          "bet_count": 5
         },
         {
           "date_central": "2026-04-24",
           "risked": 600,
           "daily_profit": 131,
-          "cumulative_profit": 2455,
-          "cumulative_bankroll": 7455,
+          "cumulative_profit": 2398,
+          "cumulative_bankroll": 7398,
           "bet_count": 6
         },
         {
           "date_central": "2026-04-25",
           "risked": 600,
           "daily_profit": -178,
-          "cumulative_profit": 2277,
-          "cumulative_bankroll": 7277,
+          "cumulative_profit": 2220,
+          "cumulative_bankroll": 7220,
           "bet_count": 6
         },
         {
           "date_central": "2026-04-26",
           "risked": 600,
           "daily_profit": 390,
-          "cumulative_profit": 2667,
-          "cumulative_bankroll": 7667,
+          "cumulative_profit": 2610,
+          "cumulative_bankroll": 7610,
           "bet_count": 6
         },
         {
           "date_central": "2026-05-02",
           "risked": 600,
           "daily_profit": -134,
-          "cumulative_profit": 2533,
-          "cumulative_bankroll": 7533,
+          "cumulative_profit": 2476,
+          "cumulative_bankroll": 7476,
           "bet_count": 6
         },
         {
           "date_central": "2026-05-03",
           "risked": 600,
           "daily_profit": -174.00000000000003,
-          "cumulative_profit": 2359,
-          "cumulative_bankroll": 7359,
+          "cumulative_profit": 2302,
+          "cumulative_bankroll": 7302,
           "bet_count": 6
+        },
+        {
+          "date_central": "2026-05-04",
+          "risked": 300,
+          "daily_profit": -300,
+          "cumulative_profit": 2002,
+          "cumulative_bankroll": 7002,
+          "bet_count": 3
+        },
+        {
+          "date_central": "2026-05-05",
+          "risked": 200,
+          "daily_profit": 63,
+          "cumulative_profit": 2065,
+          "cumulative_bankroll": 7065,
+          "bet_count": 2
+        },
+        {
+          "date_central": "2026-05-06",
+          "risked": 200,
+          "daily_profit": -200,
+          "cumulative_profit": 1865,
+          "cumulative_bankroll": 6865,
+          "bet_count": 2
+        },
+        {
+          "date_central": "2026-05-07",
+          "risked": 100,
+          "daily_profit": -100,
+          "cumulative_profit": 1765,
+          "cumulative_bankroll": 6765,
+          "bet_count": 1
         }
       ],
       "bets": [
@@ -7986,36 +8180,6 @@
           "cumulative_profit": 444
         },
         {
-          "game_id": 401814779,
-          "date_central": "2026-04-02",
-          "week_start_central": "2026-03-30",
-          "start_time_utc": "2026-04-02T18:10Z",
-          "final_utc": "2026-04-02T18:10Z",
-          "home_team": "KC",
-          "away_team": "MIN",
-          "home_score": 1,
-          "away_score": 5,
-          "forecast_as_of_utc": "2026-04-01T18:10:00+00:00",
-          "odds_as_of_utc": "2026-04-02T18:09:59Z",
-          "odds_snapshot_id": "mlb_historical_odds_backfill_828b6aa2a504479a",
-          "home_moneyline": -156,
-          "away_moneyline": 129,
-          "bet_label": "$100 MIN",
-          "reason": "Bet: the model likes this underdog price.",
-          "side": "away",
-          "team": "MIN",
-          "stake": 100,
-          "odds": 129,
-          "expected_value": 0.01921149960319024,
-          "edge": 0.027615693761349203,
-          "model_probability": 0.4450705238441879,
-          "market_probability": 0.4174548300828387,
-          "outcome": "win",
-          "profit": 129,
-          "payout": 229,
-          "cumulative_profit": 573
-        },
-        {
           "game_id": 401814782,
           "date_central": "2026-04-02",
           "week_start_central": "2026-03-30",
@@ -8043,7 +8207,7 @@
           "outcome": "win",
           "profit": 105,
           "payout": 205,
-          "cumulative_profit": 678
+          "cumulative_profit": 549
         },
         {
           "game_id": 401814785,
@@ -8073,7 +8237,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 578
+          "cumulative_profit": 449
         },
         {
           "game_id": 401814788,
@@ -8103,7 +8267,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 478
+          "cumulative_profit": 349
         },
         {
           "game_id": 401814786,
@@ -8133,7 +8297,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 378
+          "cumulative_profit": 249
         },
         {
           "game_id": 401867263,
@@ -8163,7 +8327,7 @@
           "outcome": "win",
           "profit": 163,
           "payout": 263,
-          "cumulative_profit": 541
+          "cumulative_profit": 412
         },
         {
           "game_id": 401814792,
@@ -8193,7 +8357,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 441
+          "cumulative_profit": 312
         },
         {
           "game_id": 401814796,
@@ -8223,7 +8387,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 341
+          "cumulative_profit": 212
         },
         {
           "game_id": 401814802,
@@ -8253,7 +8417,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 241
+          "cumulative_profit": 112
         },
         {
           "game_id": 401814806,
@@ -8283,7 +8447,7 @@
           "outcome": "win",
           "profit": 123,
           "payout": 223,
-          "cumulative_profit": 364
+          "cumulative_profit": 235
         },
         {
           "game_id": 401814799,
@@ -8313,7 +8477,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 264
+          "cumulative_profit": 135
         },
         {
           "game_id": 401814800,
@@ -8343,7 +8507,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 164
+          "cumulative_profit": 35
         },
         {
           "game_id": 401814807,
@@ -8373,7 +8537,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 64
+          "cumulative_profit": -65
         },
         {
           "game_id": 401814811,
@@ -8403,7 +8567,7 @@
           "outcome": "win",
           "profit": 131,
           "payout": 231,
-          "cumulative_profit": 195
+          "cumulative_profit": 66
         },
         {
           "game_id": 401814814,
@@ -8433,7 +8597,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 95
+          "cumulative_profit": -34
         },
         {
           "game_id": 401814815,
@@ -8463,7 +8627,7 @@
           "outcome": "win",
           "profit": 250.99999999999997,
           "payout": 351,
-          "cumulative_profit": 346
+          "cumulative_profit": 216.99999999999997
         },
         {
           "game_id": 401814821,
@@ -8493,7 +8657,7 @@
           "outcome": "win",
           "profit": 135,
           "payout": 235,
-          "cumulative_profit": 481
+          "cumulative_profit": 352
         },
         {
           "game_id": 401814822,
@@ -8523,7 +8687,7 @@
           "outcome": "win",
           "profit": 129,
           "payout": 229,
-          "cumulative_profit": 610
+          "cumulative_profit": 481
         },
         {
           "game_id": 401814824,
@@ -8553,7 +8717,7 @@
           "outcome": "win",
           "profit": 110.00000000000001,
           "payout": 210,
-          "cumulative_profit": 720
+          "cumulative_profit": 591
         },
         {
           "game_id": 401814826,
@@ -8583,7 +8747,7 @@
           "outcome": "win",
           "profit": 139,
           "payout": 239,
-          "cumulative_profit": 859
+          "cumulative_profit": 730
         },
         {
           "game_id": 401814831,
@@ -8613,7 +8777,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 759
+          "cumulative_profit": 630
         },
         {
           "game_id": 401814830,
@@ -8643,7 +8807,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 659
+          "cumulative_profit": 530
         },
         {
           "game_id": 401814834,
@@ -8673,7 +8837,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 559
+          "cumulative_profit": 430
         },
         {
           "game_id": 401814837,
@@ -8703,7 +8867,7 @@
           "outcome": "win",
           "profit": 139,
           "payout": 239,
-          "cumulative_profit": 698
+          "cumulative_profit": 569
         },
         {
           "game_id": 401814838,
@@ -8733,7 +8897,7 @@
           "outcome": "win",
           "profit": 149,
           "payout": 249,
-          "cumulative_profit": 847
+          "cumulative_profit": 718
         },
         {
           "game_id": 401814839,
@@ -8763,7 +8927,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 747
+          "cumulative_profit": 618
         },
         {
           "game_id": 401814849,
@@ -8793,7 +8957,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 647
+          "cumulative_profit": 518
         },
         {
           "game_id": 401814841,
@@ -8823,7 +8987,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 547
+          "cumulative_profit": 418
         },
         {
           "game_id": 401814845,
@@ -8853,7 +9017,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 447
+          "cumulative_profit": 318
         },
         {
           "game_id": 401814850,
@@ -8883,7 +9047,7 @@
           "outcome": "win",
           "profit": 141,
           "payout": 241,
-          "cumulative_profit": 588
+          "cumulative_profit": 459
         },
         {
           "game_id": 401814852,
@@ -8913,7 +9077,7 @@
           "outcome": "win",
           "profit": 112.99999999999999,
           "payout": 213,
-          "cumulative_profit": 701
+          "cumulative_profit": 572
         },
         {
           "game_id": 401814854,
@@ -8943,7 +9107,7 @@
           "outcome": "win",
           "profit": 112.99999999999999,
           "payout": 213,
-          "cumulative_profit": 814
+          "cumulative_profit": 685
         },
         {
           "game_id": 401814859,
@@ -8973,7 +9137,7 @@
           "outcome": "win",
           "profit": 112.99999999999999,
           "payout": 213,
-          "cumulative_profit": 927
+          "cumulative_profit": 798
         },
         {
           "game_id": 401814864,
@@ -9003,7 +9167,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 827
+          "cumulative_profit": 698
         },
         {
           "game_id": 401814860,
@@ -9033,7 +9197,7 @@
           "outcome": "win",
           "profit": 135,
           "payout": 235,
-          "cumulative_profit": 962
+          "cumulative_profit": 833
         },
         {
           "game_id": 401814867,
@@ -9063,7 +9227,7 @@
           "outcome": "win",
           "profit": 112.99999999999999,
           "payout": 213,
-          "cumulative_profit": 1075
+          "cumulative_profit": 946
         },
         {
           "game_id": 401814856,
@@ -9093,7 +9257,7 @@
           "outcome": "win",
           "profit": 169,
           "payout": 269,
-          "cumulative_profit": 1244
+          "cumulative_profit": 1115
         },
         {
           "game_id": 401814865,
@@ -9123,7 +9287,7 @@
           "outcome": "win",
           "profit": 129,
           "payout": 229,
-          "cumulative_profit": 1373
+          "cumulative_profit": 1244
         },
         {
           "game_id": 401814871,
@@ -9153,7 +9317,7 @@
           "outcome": "win",
           "profit": 163,
           "payout": 263,
-          "cumulative_profit": 1536
+          "cumulative_profit": 1407
         },
         {
           "game_id": 401814874,
@@ -9183,7 +9347,7 @@
           "outcome": "win",
           "profit": 119,
           "payout": 219,
-          "cumulative_profit": 1655
+          "cumulative_profit": 1526
         },
         {
           "game_id": 401814870,
@@ -9213,7 +9377,7 @@
           "outcome": "win",
           "profit": 153,
           "payout": 253,
-          "cumulative_profit": 1808
+          "cumulative_profit": 1679
         },
         {
           "game_id": 401814873,
@@ -9243,7 +9407,7 @@
           "outcome": "win",
           "profit": 149,
           "payout": 249,
-          "cumulative_profit": 1957
+          "cumulative_profit": 1828
         },
         {
           "game_id": 401814875,
@@ -9273,7 +9437,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1857
+          "cumulative_profit": 1728
         },
         {
           "game_id": 401814877,
@@ -9303,7 +9467,7 @@
           "outcome": "win",
           "profit": 153,
           "payout": 253,
-          "cumulative_profit": 2010
+          "cumulative_profit": 1881
         },
         {
           "game_id": 401814876,
@@ -9333,7 +9497,7 @@
           "outcome": "win",
           "profit": 149,
           "payout": 249,
-          "cumulative_profit": 2159
+          "cumulative_profit": 2030
         },
         {
           "game_id": 401814885,
@@ -9363,7 +9527,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2059
+          "cumulative_profit": 1930
         },
         {
           "game_id": 401814887,
@@ -9393,7 +9557,7 @@
           "outcome": "win",
           "profit": 169,
           "payout": 269,
-          "cumulative_profit": 2228
+          "cumulative_profit": 2099
         },
         {
           "game_id": 401814884,
@@ -9423,7 +9587,7 @@
           "outcome": "win",
           "profit": 112.99999999999999,
           "payout": 213,
-          "cumulative_profit": 2341
+          "cumulative_profit": 2212
         },
         {
           "game_id": 401814890,
@@ -9453,7 +9617,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2241
+          "cumulative_profit": 2112
         },
         {
           "game_id": 401814900,
@@ -9483,7 +9647,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2141
+          "cumulative_profit": 2012
         },
         {
           "game_id": 401814897,
@@ -9513,7 +9677,7 @@
           "outcome": "win",
           "profit": 144,
           "payout": 244,
-          "cumulative_profit": 2285
+          "cumulative_profit": 2156
         },
         {
           "game_id": 401814902,
@@ -9543,7 +9707,7 @@
           "outcome": "win",
           "profit": 149,
           "payout": 249,
-          "cumulative_profit": 2434
+          "cumulative_profit": 2305
         },
         {
           "game_id": 401814899,
@@ -9573,7 +9737,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2334
+          "cumulative_profit": 2205
         },
         {
           "game_id": 401814903,
@@ -9603,7 +9767,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2234
+          "cumulative_profit": 2105
         },
         {
           "game_id": 401814905,
@@ -9633,7 +9797,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2134
+          "cumulative_profit": 2005
         },
         {
           "game_id": 401814912,
@@ -9663,7 +9827,7 @@
           "outcome": "win",
           "profit": 112.99999999999999,
           "payout": 213,
-          "cumulative_profit": 2247
+          "cumulative_profit": 2118
         },
         {
           "game_id": 401814915,
@@ -9693,7 +9857,7 @@
           "outcome": "win",
           "profit": 152,
           "payout": 252,
-          "cumulative_profit": 2399
+          "cumulative_profit": 2270
         },
         {
           "game_id": 401814917,
@@ -9723,7 +9887,7 @@
           "outcome": "win",
           "profit": 179,
           "payout": 279,
-          "cumulative_profit": 2578
+          "cumulative_profit": 2449
         },
         {
           "game_id": 401814918,
@@ -9753,7 +9917,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2478
+          "cumulative_profit": 2349
         },
         {
           "game_id": 401814919,
@@ -9783,7 +9947,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2378
+          "cumulative_profit": 2249
         },
         {
           "game_id": 401814909,
@@ -9813,7 +9977,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2278
+          "cumulative_profit": 2149
         },
         {
           "game_id": 401814928,
@@ -9843,7 +10007,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2178
+          "cumulative_profit": 2049
         },
         {
           "game_id": 401814923,
@@ -9873,7 +10037,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2078
+          "cumulative_profit": 1949
         },
         {
           "game_id": 401814925,
@@ -9903,7 +10067,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1978
+          "cumulative_profit": 1849
         },
         {
           "game_id": 401814921,
@@ -9933,7 +10097,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1878
+          "cumulative_profit": 1749
         },
         {
           "game_id": 401814926,
@@ -9963,7 +10127,7 @@
           "outcome": "win",
           "profit": 135,
           "payout": 235,
-          "cumulative_profit": 2013
+          "cumulative_profit": 1884
         },
         {
           "game_id": 401814929,
@@ -9993,7 +10157,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1913
+          "cumulative_profit": 1784
         },
         {
           "game_id": 401814937,
@@ -10023,7 +10187,7 @@
           "outcome": "win",
           "profit": 157,
           "payout": 257,
-          "cumulative_profit": 2070
+          "cumulative_profit": 1941
         },
         {
           "game_id": 401814931,
@@ -10053,7 +10217,7 @@
           "outcome": "win",
           "profit": 144,
           "payout": 244,
-          "cumulative_profit": 2214
+          "cumulative_profit": 2085
         },
         {
           "game_id": 401814938,
@@ -10083,7 +10247,7 @@
           "outcome": "win",
           "profit": 119,
           "payout": 219,
-          "cumulative_profit": 2333
+          "cumulative_profit": 2204
         },
         {
           "game_id": 401814941,
@@ -10113,7 +10277,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2233
+          "cumulative_profit": 2104
         },
         {
           "game_id": 401814940,
@@ -10143,7 +10307,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2133
+          "cumulative_profit": 2004
         },
         {
           "game_id": 401814943,
@@ -10173,7 +10337,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2033
+          "cumulative_profit": 1904
         },
         {
           "game_id": 401814953,
@@ -10203,7 +10367,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1933
+          "cumulative_profit": 1804
         },
         {
           "game_id": 401814952,
@@ -10233,7 +10397,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1833
+          "cumulative_profit": 1704
         },
         {
           "game_id": 401814946,
@@ -10263,7 +10427,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1733
+          "cumulative_profit": 1604
         },
         {
           "game_id": 401814950,
@@ -10293,7 +10457,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1633
+          "cumulative_profit": 1504
         },
         {
           "game_id": 401814955,
@@ -10323,7 +10487,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1533
+          "cumulative_profit": 1404
         },
         {
           "game_id": 401814958,
@@ -10353,7 +10517,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1433
+          "cumulative_profit": 1304
         },
         {
           "game_id": 401814965,
@@ -10383,7 +10547,7 @@
           "outcome": "win",
           "profit": 139,
           "payout": 239,
-          "cumulative_profit": 1572
+          "cumulative_profit": 1443
         },
         {
           "game_id": 401814961,
@@ -10413,7 +10577,7 @@
           "outcome": "win",
           "profit": 244,
           "payout": 344,
-          "cumulative_profit": 1816
+          "cumulative_profit": 1687
         },
         {
           "game_id": 401814967,
@@ -10443,7 +10607,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1716
+          "cumulative_profit": 1587
         },
         {
           "game_id": 401814966,
@@ -10473,7 +10637,7 @@
           "outcome": "win",
           "profit": 146,
           "payout": 246,
-          "cumulative_profit": 1862
+          "cumulative_profit": 1733
         },
         {
           "game_id": 401814969,
@@ -10503,7 +10667,7 @@
           "outcome": "win",
           "profit": 102,
           "payout": 202,
-          "cumulative_profit": 1964
+          "cumulative_profit": 1835
         },
         {
           "game_id": 401814976,
@@ -10533,7 +10697,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1864
+          "cumulative_profit": 1735
         },
         {
           "game_id": 401814974,
@@ -10563,7 +10727,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1764
+          "cumulative_profit": 1635
         },
         {
           "game_id": 401814978,
@@ -10593,7 +10757,7 @@
           "outcome": "win",
           "profit": 141,
           "payout": 241,
-          "cumulative_profit": 1905
+          "cumulative_profit": 1776
         },
         {
           "game_id": 401814981,
@@ -10623,7 +10787,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1805
+          "cumulative_profit": 1676
         },
         {
           "game_id": 401814982,
@@ -10653,7 +10817,7 @@
           "outcome": "win",
           "profit": 135,
           "payout": 235,
-          "cumulative_profit": 1940
+          "cumulative_profit": 1811
         },
         {
           "game_id": 401814989,
@@ -10683,7 +10847,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1840
+          "cumulative_profit": 1711
         },
         {
           "game_id": 401814992,
@@ -10713,7 +10877,7 @@
           "outcome": "win",
           "profit": 133,
           "payout": 233,
-          "cumulative_profit": 1973
+          "cumulative_profit": 1844
         },
         {
           "game_id": 401814997,
@@ -10743,7 +10907,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1873
+          "cumulative_profit": 1744
         },
         {
           "game_id": 401814988,
@@ -10773,7 +10937,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 1773
+          "cumulative_profit": 1644
         },
         {
           "game_id": 401814996,
@@ -10803,7 +10967,7 @@
           "outcome": "win",
           "profit": 258,
           "payout": 358,
-          "cumulative_profit": 2031
+          "cumulative_profit": 1902
         },
         {
           "game_id": 401815006,
@@ -10833,37 +10997,7 @@
           "outcome": "win",
           "profit": 119,
           "payout": 219,
-          "cumulative_profit": 2150
-        },
-        {
-          "game_id": 401815010,
-          "date_central": "2026-04-19",
-          "week_start_central": "2026-04-13",
-          "start_time_utc": "2026-04-19T18:10Z",
-          "final_utc": "2026-04-19T18:10Z",
-          "home_team": "HOU",
-          "away_team": "STL",
-          "home_score": 5,
-          "away_score": 7,
-          "forecast_as_of_utc": "2026-04-18T18:10:00+00:00",
-          "odds_as_of_utc": "2026-04-19T18:09:59Z",
-          "odds_snapshot_id": "mlb_historical_odds_backfill_9d00a670d7f6481d",
-          "home_moneyline": -154,
-          "away_moneyline": 128,
-          "bet_label": "$100 STL",
-          "reason": "Bet: the model likes this underdog price.",
-          "side": "away",
-          "team": "STL",
-          "stake": 100,
-          "odds": 128,
-          "expected_value": 0.017050074575363228,
-          "edge": 0.026323139854994515,
-          "model_probability": 0.44607459411200134,
-          "market_probability": 0.41975145425700683,
-          "outcome": "win",
-          "profit": 128,
-          "payout": 228,
-          "cumulative_profit": 2278
+          "cumulative_profit": 2021
         },
         {
           "game_id": 401815011,
@@ -10893,7 +11027,7 @@
           "outcome": "win",
           "profit": 169,
           "payout": 269,
-          "cumulative_profit": 2447
+          "cumulative_profit": 2190
         },
         {
           "game_id": 401815012,
@@ -10923,7 +11057,7 @@
           "outcome": "win",
           "profit": 135,
           "payout": 235,
-          "cumulative_profit": 2582
+          "cumulative_profit": 2325
         },
         {
           "game_id": 401815013,
@@ -10953,7 +11087,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2482
+          "cumulative_profit": 2225
         },
         {
           "game_id": 401815016,
@@ -10983,7 +11117,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2382
+          "cumulative_profit": 2125
         },
         {
           "game_id": 401815023,
@@ -11013,7 +11147,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2282
+          "cumulative_profit": 2025
         },
         {
           "game_id": 401815024,
@@ -11043,37 +11177,7 @@
           "outcome": "win",
           "profit": 143,
           "payout": 243,
-          "cumulative_profit": 2425
-        },
-        {
-          "game_id": 401815028,
-          "date_central": "2026-04-21",
-          "week_start_central": "2026-04-20",
-          "start_time_utc": "2026-04-21T22:10Z",
-          "final_utc": "2026-04-21T22:10Z",
-          "home_team": "CLE",
-          "away_team": "HOU",
-          "home_score": 8,
-          "away_score": 5,
-          "forecast_as_of_utc": "2026-04-20T22:10:00+00:00",
-          "odds_as_of_utc": "2026-04-21T22:09:59Z",
-          "odds_snapshot_id": "mlb_historical_odds_backfill_9d00a670d7f6481d",
-          "home_moneyline": -156,
-          "away_moneyline": 129,
-          "bet_label": "$100 HOU",
-          "reason": "Bet: the model likes this underdog price.",
-          "side": "away",
-          "team": "HOU",
-          "stake": 100,
-          "odds": 129,
-          "expected_value": 0.01921149960319024,
-          "edge": 0.027615693761349203,
-          "model_probability": 0.4450705238441879,
-          "market_probability": 0.4174548300828387,
-          "outcome": "loss",
-          "profit": -100,
-          "payout": 0,
-          "cumulative_profit": 2325
+          "cumulative_profit": 2168
         },
         {
           "game_id": 401815026,
@@ -11103,7 +11207,7 @@
           "outcome": "win",
           "profit": 135,
           "payout": 235,
-          "cumulative_profit": 2460
+          "cumulative_profit": 2303
         },
         {
           "game_id": 401815030,
@@ -11133,7 +11237,7 @@
           "outcome": "win",
           "profit": 135,
           "payout": 235,
-          "cumulative_profit": 2595
+          "cumulative_profit": 2438
         },
         {
           "game_id": 401815036,
@@ -11163,7 +11267,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2495
+          "cumulative_profit": 2338
         },
         {
           "game_id": 401815037,
@@ -11193,7 +11297,7 @@
           "outcome": "win",
           "profit": 157,
           "payout": 257,
-          "cumulative_profit": 2652
+          "cumulative_profit": 2495
         },
         {
           "game_id": 401815039,
@@ -11223,7 +11327,7 @@
           "outcome": "win",
           "profit": 169,
           "payout": 269,
-          "cumulative_profit": 2821
+          "cumulative_profit": 2664
         },
         {
           "game_id": 401815043,
@@ -11253,7 +11357,7 @@
           "outcome": "win",
           "profit": 139,
           "payout": 239,
-          "cumulative_profit": 2960
+          "cumulative_profit": 2803
         },
         {
           "game_id": 401815052,
@@ -11283,7 +11387,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2860
+          "cumulative_profit": 2703
         },
         {
           "game_id": 401815041,
@@ -11313,7 +11417,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2760
+          "cumulative_profit": 2603
         },
         {
           "game_id": 401815049,
@@ -11343,7 +11447,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2660
+          "cumulative_profit": 2503
         },
         {
           "game_id": 401815051,
@@ -11373,7 +11477,7 @@
           "outcome": "win",
           "profit": 129,
           "payout": 229,
-          "cumulative_profit": 2789
+          "cumulative_profit": 2632
         },
         {
           "game_id": 401815054,
@@ -11403,7 +11507,7 @@
           "outcome": "win",
           "profit": 135,
           "payout": 235,
-          "cumulative_profit": 2924
+          "cumulative_profit": 2767
         },
         {
           "game_id": 401815056,
@@ -11433,7 +11537,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2824
+          "cumulative_profit": 2667
         },
         {
           "game_id": 401815057,
@@ -11463,7 +11567,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2724
+          "cumulative_profit": 2567
         },
         {
           "game_id": 401815062,
@@ -11493,7 +11597,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2624
+          "cumulative_profit": 2467
         },
         {
           "game_id": 401815064,
@@ -11523,7 +11627,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2524
+          "cumulative_profit": 2367
         },
         {
           "game_id": 401815059,
@@ -11553,37 +11657,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2424
-        },
-        {
-          "game_id": 401815061,
-          "date_central": "2026-04-23",
-          "week_start_central": "2026-04-20",
-          "start_time_utc": "2026-04-24T00:05Z",
-          "final_utc": "2026-04-24T00:05Z",
-          "home_team": "TEX",
-          "away_team": "PIT",
-          "home_score": 6,
-          "away_score": 1,
-          "forecast_as_of_utc": "2026-04-23T00:05:00+00:00",
-          "odds_as_of_utc": "2026-04-24T00:04:59Z",
-          "odds_snapshot_id": "mlb_historical_odds_backfill_9d00a670d7f6481d",
-          "home_moneyline": -156,
-          "away_moneyline": 129,
-          "bet_label": "$100 PIT",
-          "reason": "Bet: the model likes this underdog price.",
-          "side": "away",
-          "team": "PIT",
-          "stake": 100,
-          "odds": 129,
-          "expected_value": 0.01921149960319024,
-          "edge": 0.027615693761349203,
-          "model_probability": 0.4450705238441879,
-          "market_probability": 0.4174548300828387,
-          "outcome": "loss",
-          "profit": -100,
-          "payout": 0,
-          "cumulative_profit": 2324
+          "cumulative_profit": 2267
         },
         {
           "game_id": 401815068,
@@ -11613,7 +11687,7 @@
           "outcome": "win",
           "profit": 112.99999999999999,
           "payout": 213,
-          "cumulative_profit": 2437
+          "cumulative_profit": 2380
         },
         {
           "game_id": 401815067,
@@ -11643,7 +11717,7 @@
           "outcome": "win",
           "profit": 179,
           "payout": 279,
-          "cumulative_profit": 2616
+          "cumulative_profit": 2559
         },
         {
           "game_id": 401815074,
@@ -11673,7 +11747,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2516
+          "cumulative_profit": 2459
         },
         {
           "game_id": 401815073,
@@ -11703,7 +11777,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2416
+          "cumulative_profit": 2359
         },
         {
           "game_id": 401815075,
@@ -11733,7 +11807,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2316
+          "cumulative_profit": 2259
         },
         {
           "game_id": 401815077,
@@ -11763,7 +11837,7 @@
           "outcome": "win",
           "profit": 139,
           "payout": 239,
-          "cumulative_profit": 2455
+          "cumulative_profit": 2398
         },
         {
           "game_id": 401815090,
@@ -11793,7 +11867,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2355
+          "cumulative_profit": 2298
         },
         {
           "game_id": 401815081,
@@ -11823,7 +11897,7 @@
           "outcome": "win",
           "profit": 109.00000000000001,
           "payout": 209,
-          "cumulative_profit": 2464
+          "cumulative_profit": 2407
         },
         {
           "game_id": 401815088,
@@ -11853,7 +11927,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2364
+          "cumulative_profit": 2307
         },
         {
           "game_id": 401815089,
@@ -11883,7 +11957,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2264
+          "cumulative_profit": 2207
         },
         {
           "game_id": 401815083,
@@ -11913,7 +11987,7 @@
           "outcome": "win",
           "profit": 112.99999999999999,
           "payout": 213,
-          "cumulative_profit": 2377
+          "cumulative_profit": 2320
         },
         {
           "game_id": 401815092,
@@ -11943,7 +12017,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2277
+          "cumulative_profit": 2220
         },
         {
           "game_id": 401815097,
@@ -11973,7 +12047,7 @@
           "outcome": "win",
           "profit": 179,
           "payout": 279,
-          "cumulative_profit": 2456
+          "cumulative_profit": 2399
         },
         {
           "game_id": 401815098,
@@ -12003,7 +12077,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2356
+          "cumulative_profit": 2299
         },
         {
           "game_id": 401815103,
@@ -12033,7 +12107,7 @@
           "outcome": "win",
           "profit": 119,
           "payout": 219,
-          "cumulative_profit": 2475
+          "cumulative_profit": 2418
         },
         {
           "game_id": 401815104,
@@ -12063,7 +12137,7 @@
           "outcome": "win",
           "profit": 112.99999999999999,
           "payout": 213,
-          "cumulative_profit": 2588
+          "cumulative_profit": 2531
         },
         {
           "game_id": 401815105,
@@ -12093,7 +12167,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2488
+          "cumulative_profit": 2431
         },
         {
           "game_id": 401870380,
@@ -12123,7 +12197,7 @@
           "outcome": "win",
           "profit": 179,
           "payout": 279,
-          "cumulative_profit": 2667
+          "cumulative_profit": 2610
         },
         {
           "game_id": 401815172,
@@ -12153,7 +12227,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2567
+          "cumulative_profit": 2510
         },
         {
           "game_id": 401815181,
@@ -12183,7 +12257,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2467
+          "cumulative_profit": 2410
         },
         {
           "game_id": 401815175,
@@ -12213,7 +12287,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2367
+          "cumulative_profit": 2310
         },
         {
           "game_id": 401815180,
@@ -12243,7 +12317,7 @@
           "outcome": "win",
           "profit": 112.99999999999999,
           "payout": 213,
-          "cumulative_profit": 2480
+          "cumulative_profit": 2423
         },
         {
           "game_id": 401815182,
@@ -12273,7 +12347,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2380
+          "cumulative_profit": 2323
         },
         {
           "game_id": 401815183,
@@ -12303,7 +12377,7 @@
           "outcome": "win",
           "profit": 153,
           "payout": 253,
-          "cumulative_profit": 2533
+          "cumulative_profit": 2476
         },
         {
           "game_id": 401815196,
@@ -12333,7 +12407,7 @@
           "outcome": "win",
           "profit": 112.99999999999999,
           "payout": 213,
-          "cumulative_profit": 2646
+          "cumulative_profit": 2589
         },
         {
           "game_id": 401815187,
@@ -12363,7 +12437,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2546
+          "cumulative_profit": 2489
         },
         {
           "game_id": 401815190,
@@ -12393,7 +12467,7 @@
           "outcome": "win",
           "profit": 112.99999999999999,
           "payout": 213,
-          "cumulative_profit": 2659
+          "cumulative_profit": 2602
         },
         {
           "game_id": 401815195,
@@ -12423,7 +12497,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2559
+          "cumulative_profit": 2502
         },
         {
           "game_id": 401815197,
@@ -12453,7 +12527,7 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2459
+          "cumulative_profit": 2402
         },
         {
           "game_id": 401815198,
@@ -12483,16 +12557,256 @@
           "outcome": "loss",
           "profit": -100,
           "payout": 0,
-          "cumulative_profit": 2359
+          "cumulative_profit": 2302
+        },
+        {
+          "game_id": 401815205,
+          "date_central": "2026-05-04",
+          "week_start_central": "2026-05-04",
+          "start_time_utc": "2026-05-04T22:40Z",
+          "final_utc": "2026-05-04T22:40Z",
+          "home_team": "TB",
+          "away_team": "TOR",
+          "home_score": 5,
+          "away_score": 1,
+          "forecast_as_of_utc": "2026-05-04T17:26:46+00:00",
+          "odds_as_of_utc": "2026-05-04T19:58:52+00:00",
+          "odds_snapshot_id": "mlb_odds_fd647626ff51236a",
+          "home_moneyline": -126,
+          "away_moneyline": 104,
+          "bet_label": "$100 TOR",
+          "reason": "Bet: the model likes this underdog price.",
+          "side": "away",
+          "team": "TOR",
+          "stake": 100,
+          "odds": 104,
+          "expected_value": 0.031246975764001705,
+          "edge": 0.03764306773303733,
+          "model_probability": 0.5055132234137263,
+          "market_probability": 0.46787015568068896,
+          "outcome": "loss",
+          "profit": -100,
+          "payout": 0,
+          "cumulative_profit": 2202
+        },
+        {
+          "game_id": 401815206,
+          "date_central": "2026-05-04",
+          "week_start_central": "2026-05-04",
+          "start_time_utc": "2026-05-04T23:10Z",
+          "final_utc": "2026-05-04T23:10Z",
+          "home_team": "CHC",
+          "away_team": "CIN",
+          "home_score": 5,
+          "away_score": 4,
+          "forecast_as_of_utc": "2026-05-04T17:26:46+00:00",
+          "odds_as_of_utc": "2026-05-04T19:58:52+00:00",
+          "odds_snapshot_id": "mlb_odds_fd647626ff51236a",
+          "home_moneyline": -219,
+          "away_moneyline": 179,
+          "bet_label": "$100 CIN",
+          "reason": "Bet: the model likes this underdog price.",
+          "side": "away",
+          "team": "CIN",
+          "stake": 100,
+          "odds": 179,
+          "expected_value": 0.15132387901375122,
+          "edge": 0.06965382409522741,
+          "model_probability": 0.41266088853539473,
+          "market_probability": 0.3430070644401673,
+          "outcome": "loss",
+          "profit": -100,
+          "payout": 0,
+          "cumulative_profit": 2102
+        },
+        {
+          "game_id": 401815208,
+          "date_central": "2026-05-04",
+          "week_start_central": "2026-05-04",
+          "start_time_utc": "2026-05-05T00:10Z",
+          "final_utc": "2026-05-05T00:10Z",
+          "home_team": "HOU",
+          "away_team": "LAD",
+          "home_score": 3,
+          "away_score": 8,
+          "forecast_as_of_utc": "2026-05-04T17:26:46+00:00",
+          "odds_as_of_utc": "2026-05-04T19:58:52+00:00",
+          "odds_snapshot_id": "mlb_odds_fd647626ff51236a",
+          "home_moneyline": 163,
+          "away_moneyline": -199,
+          "bet_label": "$100 HOU",
+          "reason": "Bet: the model likes this underdog price.",
+          "side": "home",
+          "team": "HOU",
+          "stake": 100,
+          "odds": 163,
+          "expected_value": 0.14781738553843793,
+          "edge": 0.0728491640641366,
+          "model_probability": 0.43643246598419694,
+          "market_probability": 0.36358330192006033,
+          "outcome": "loss",
+          "profit": -100,
+          "payout": 0,
+          "cumulative_profit": 2002
+        },
+        {
+          "game_id": 401815220,
+          "date_central": "2026-05-05",
+          "week_start_central": "2026-05-04",
+          "start_time_utc": "2026-05-05T23:40Z",
+          "final_utc": "2026-05-05T23:40Z",
+          "home_team": "CHC",
+          "away_team": "CIN",
+          "home_score": 3,
+          "away_score": 2,
+          "forecast_as_of_utc": "2026-05-04T17:26:46+00:00",
+          "odds_as_of_utc": "2026-05-04T19:58:52+00:00",
+          "odds_snapshot_id": "mlb_odds_fd647626ff51236a",
+          "home_moneyline": -219,
+          "away_moneyline": 179,
+          "bet_label": "$100 CIN",
+          "reason": "Bet: the model likes this underdog price.",
+          "side": "away",
+          "team": "CIN",
+          "stake": 100,
+          "odds": 179,
+          "expected_value": 0.15042147794390526,
+          "edge": 0.06933038285155496,
+          "model_probability": 0.4123374472917223,
+          "market_probability": 0.3430070644401673,
+          "outcome": "loss",
+          "profit": -100,
+          "payout": 0,
+          "cumulative_profit": 1902
+        },
+        {
+          "game_id": 401815222,
+          "date_central": "2026-05-05",
+          "week_start_central": "2026-05-04",
+          "start_time_utc": "2026-05-06T00:10Z",
+          "final_utc": "2026-05-06T00:10Z",
+          "home_team": "HOU",
+          "away_team": "LAD",
+          "home_score": 2,
+          "away_score": 1,
+          "forecast_as_of_utc": "2026-05-04T17:26:46+00:00",
+          "odds_as_of_utc": "2026-05-04T19:58:52+00:00",
+          "odds_snapshot_id": "mlb_odds_fd647626ff51236a",
+          "home_moneyline": 163,
+          "away_moneyline": -199,
+          "bet_label": "$100 HOU",
+          "reason": "Bet: the model likes this underdog price.",
+          "side": "home",
+          "team": "HOU",
+          "stake": 100,
+          "odds": 163,
+          "expected_value": 0.1542974872399847,
+          "edge": 0.07531308106092244,
+          "model_probability": 0.43889638298098277,
+          "market_probability": 0.36358330192006033,
+          "outcome": "win",
+          "profit": 163,
+          "payout": 263,
+          "cumulative_profit": 2065
+        },
+        {
+          "game_id": 401815237,
+          "date_central": "2026-05-06",
+          "week_start_central": "2026-05-04",
+          "start_time_utc": "2026-05-06T18:10Z",
+          "final_utc": "2026-05-06T18:10Z",
+          "home_team": "HOU",
+          "away_team": "LAD",
+          "home_score": 2,
+          "away_score": 12,
+          "forecast_as_of_utc": "2026-05-04T17:26:46+00:00",
+          "odds_as_of_utc": "2026-05-04T19:58:52+00:00",
+          "odds_snapshot_id": "mlb_odds_fd647626ff51236a",
+          "home_moneyline": 163,
+          "away_moneyline": -199,
+          "bet_label": "$100 HOU",
+          "reason": "Bet: the model likes this underdog price.",
+          "side": "home",
+          "team": "HOU",
+          "stake": 100,
+          "odds": 163,
+          "expected_value": 0.16491276405555078,
+          "edge": 0.07934930798699324,
+          "model_probability": 0.4429326099070536,
+          "market_probability": 0.36358330192006033,
+          "outcome": "loss",
+          "profit": -100,
+          "payout": 0,
+          "cumulative_profit": 1965
+        },
+        {
+          "game_id": 401815235,
+          "date_central": "2026-05-06",
+          "week_start_central": "2026-05-04",
+          "start_time_utc": "2026-05-06T23:40Z",
+          "final_utc": "2026-05-06T23:40Z",
+          "home_team": "CHC",
+          "away_team": "CIN",
+          "home_score": 7,
+          "away_score": 6,
+          "forecast_as_of_utc": "2026-05-04T17:26:46+00:00",
+          "odds_as_of_utc": "2026-05-04T19:58:52+00:00",
+          "odds_snapshot_id": "mlb_odds_fd647626ff51236a",
+          "home_moneyline": -219,
+          "away_moneyline": 179,
+          "bet_label": "$100 CIN",
+          "reason": "Bet: the model likes this underdog price.",
+          "side": "away",
+          "team": "CIN",
+          "stake": 100,
+          "odds": 179,
+          "expected_value": 0.1504238190357683,
+          "edge": 0.06933122195258118,
+          "model_probability": 0.4123382863927485,
+          "market_probability": 0.3430070644401673,
+          "outcome": "loss",
+          "profit": -100,
+          "payout": 0,
+          "cumulative_profit": 1865
+        },
+        {
+          "game_id": 401815249,
+          "date_central": "2026-05-07",
+          "week_start_central": "2026-05-04",
+          "start_time_utc": "2026-05-07T18:20Z",
+          "final_utc": "2026-05-07T18:20Z",
+          "home_team": "CHC",
+          "away_team": "CIN",
+          "home_score": 8,
+          "away_score": 3,
+          "forecast_as_of_utc": "2026-05-04T17:26:46+00:00",
+          "odds_as_of_utc": "2026-05-04T19:58:52+00:00",
+          "odds_snapshot_id": "mlb_odds_fd647626ff51236a",
+          "home_moneyline": -219,
+          "away_moneyline": 179,
+          "bet_label": "$100 CIN",
+          "reason": "Bet: the model likes this underdog price.",
+          "side": "away",
+          "team": "CIN",
+          "stake": 100,
+          "odds": 179,
+          "expected_value": 0.15042569190118882,
+          "edge": 0.06933189323050964,
+          "model_probability": 0.41233895767067696,
+          "market_probability": 0.3430070644401673,
+          "outcome": "loss",
+          "profit": -100,
+          "payout": 0,
+          "cumulative_profit": 1765
         }
       ]
     },
     "capitalPreservation": {
       "summary": {
-        "total_final_games": 3450,
-        "games_with_forecast": 2720,
-        "games_with_odds": 442,
-        "analyzed_games": 442,
+        "total_final_games": 3550,
+        "games_with_forecast": 2819,
+        "games_with_odds": 474,
+        "analyzed_games": 474,
         "suggested_bets": 0,
         "wins": 0,
         "losses": 0,
@@ -12503,7 +12817,7 @@
         "current_bankroll": 5000,
         "bankroll_start_central": "2026-03-05",
         "coverage_start_central": "2026-03-25",
-        "coverage_end_central": "2026-05-03",
+        "coverage_end_central": "2026-05-07",
         "note": "Replay uses the latest stored pregame forecast before game time and backfills older gaps with historical diagnostics, paired with the latest pregame odds before game time. None of the covered games cleared the current bet threshold."
       },
       "daily_points": [],

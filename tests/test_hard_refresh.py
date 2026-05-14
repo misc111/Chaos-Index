@@ -28,15 +28,16 @@ def test_build_data_refresh_steps_default_sequence():
     assert steps[1].command == (sys.executable, "-m", "src.cli", "fetch-odds", "--config", "configs/mlb.yaml")
 
 
-def test_build_daily_score_steps_scores_without_training_or_staging():
+def test_build_daily_score_steps_scores_and_refreshes_staging_without_training():
     steps = build_daily_score_steps()
 
     assert [step.name for step in steps] == [
         "mlb:fetch",
         "mlb:fetch-odds",
         "mlb:current-season-predictiveness",
+        "staging:generate-data",
     ]
-    assert steps[-1].command == (
+    assert steps[-2].command == (
         sys.executable,
         "-m",
         "src.cli",
@@ -44,14 +45,16 @@ def test_build_daily_score_steps_scores_without_training_or_staging():
         "--config",
         "configs/mlb.yaml",
     )
+    assert steps[-1].command == ("npm", "run", "generate:staging-data")
+    assert steps[-1].cwd == ROOT_DIR / "web"
     assert not any("train" in step.name or "features" in step.name for step in steps)
-    assert not any(step.name.startswith("staging:") or step.name.startswith("git:") for step in steps)
+    assert not any(step.name.startswith("git:") for step in steps)
 
 
 def test_build_current_season_predictiveness_steps_is_score_only():
     steps = build_current_season_predictiveness_steps()
 
-    assert [step.name for step in steps] == ["mlb:current-season-predictiveness"]
+    assert [step.name for step in steps] == ["mlb:current-season-predictiveness", "staging:generate-data"]
     assert steps[0].command == (
         sys.executable,
         "-m",
@@ -60,6 +63,8 @@ def test_build_current_season_predictiveness_steps_is_score_only():
         "--config",
         "configs/mlb.yaml",
     )
+    assert steps[1].command == ("npm", "run", "generate:staging-data")
+    assert steps[1].cwd == ROOT_DIR / "web"
     assert not any("fetch" in step.name for step in steps)
     assert not any("train" in step.name or "features" in step.name for step in steps)
 

@@ -186,6 +186,20 @@ Action: Use `make daily_score SCORE_ONLY=1` after fetch/network blockage to
 refresh current-season predictiveness from existing frozen ledgers without
 backfilling predictions, retraining, or waiting on source retries.
 
+### 2026-05-14 - Daily evidence must refresh static staging snapshots
+
+Source: stale shipped MLB staging data after the Chaos Index front-page update,
+`src/orchestration/refresh_pipeline.py`, `web/scripts/generate-staging-data.ts`.
+
+Lesson: A fresh current-season predictiveness artifact does not update GitHub
+Pages staging unless the static staging bridge runs afterward. Score-only daily
+evidence can be fresh locally while `web/public/staging-data/mlb/` remains
+frozen on an older committed snapshot.
+
+Action: Keep `make daily_score` and `make daily_score SCORE_ONLY=1` chained to
+`npm run generate:staging-data` after scoring. Report regenerated staging files
+as generated output, separate from publish closeout.
+
 ### 2026-05-04 - Feature-set metadata is mandatory for training outputs
 
 Source: current working tree, `src/services/train.py`,
