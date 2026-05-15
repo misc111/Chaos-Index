@@ -15,7 +15,7 @@ if [[ "$existing_page" == *"/Chaos-Index/_next/static/"* ]]; then
     sleep 1
   fi
 elif [[ "$existing_page" == *"<title>Chaos Index</title>"* ]]; then
-  open "$dashboard_url"
+  echo "Chaos Index is already running at $dashboard_url"
   exit 0
 elif [[ -n "$existing_page" ]]; then
   echo "Port 3000 is already serving a different app. Stop it, then rerun launch_dashboard.command."
@@ -34,7 +34,7 @@ trap cleanup EXIT INT TERM
 
 for _ in {1..120}; do
   if page="$(curl -fsS "$dashboard_url" 2>/dev/null)" && [[ "$page" == *"<title>Chaos Index</title>"* ]]; then
-    open "$dashboard_url"
+    echo "Chaos Index is running at $dashboard_url"
     break
   fi
   if ! kill -0 "$dashboard_pid" 2>/dev/null; then
