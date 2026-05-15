@@ -109,7 +109,7 @@
     kpiHtml.forEach((html, index) => {
       if (kpis[index]) kpis[index].innerHTML = html;
     });
-    byId("games-body").insertAdjacentHTML("beforeend", rows.slice(0, 8).map(gameRow).join(""));
+    byId("games-body").innerHTML = rows.slice(0, 8).map(gameRow).join("");
     byId("starter-grid").innerHTML = rows.slice(8, 11).map((row) => `<article class="starterCard"><time>${fmtTime(row.start_time_utc)}</time>${teamMark(row.away_team)}<span>vs</span>${teamMark(row.home_team)}<a href="/games-today?league=MLB">More info →</a></article>`).join("");
     byId("intra-family-body").innerHTML = familyRows(nested.family_champions);
     byId("inter-family-body").innerHTML = familyRows(nested.inter_family_leaderboard);

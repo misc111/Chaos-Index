@@ -141,14 +141,14 @@ function TournamentCard({
     <section className={styles.tournamentCard}>
       <div className={styles.cardTitleRow}>
         <h3 className={tone === "teal" ? styles.tealHeading : undefined}>{title}</h3>
-        <span>Top 3 Families</span>
+        <span>{tone === "teal" ? "Family leaderboard" : "Family champions"}</span>
       </div>
       <div className={styles.familyHeader}>
         <span />
-        <span />
-        <span>Score</span>
-        <span>W-L</span>
-        <span>Win %</span>
+        <span>Model family</span>
+        <span>AUC</span>
+        <span>Status</span>
+        <span>Accuracy</span>
       </div>
       {rows.length === 0 ? (
         <div className={styles.familyRow}>
