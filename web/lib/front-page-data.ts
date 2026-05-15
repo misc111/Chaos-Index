@@ -155,7 +155,7 @@ export const frontPageData = {
     { label: "Games Today", value: String(marketRows.length), note: marketBoard.date_central || "MLB snapshot", noteTone: "teal" },
     {
       label: "Top Edge",
-      value: topOverlayGame ? topOverlayGame.edge : "Market pending",
+      value: topOverlayGame ? topOverlayGame.edge : "Pending",
       note: topOverlayGame ? `${topOverlayGame.away} @ ${topOverlayGame.home}` : "No sportsbook odds",
       noteTone: "orange",
     },
