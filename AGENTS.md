@@ -17,6 +17,7 @@
 - Project custom agents live in `.codex/agents/`; use them when a delegated task matches their description and keep write ownership explicit.
 - Repeatable daily MLB evidence work lives in `.agents/skills/mlb-daily-evidence-loop/SKILL.md`; automations should invoke or mirror that skill instead of carrying a long bespoke prompt.
 - Review guidance lives in `code_review.md`; use it for `/review`, PR-style reviews, and pre-closeout self-review.
+- Never open Chrome for the user. For local website launch, preview, and browser QA, use the local Codex browser/in-app browser surface instead of Chrome, including across future threads.
 - Before editing Codex config, custom agents, skills, model routing, or `SUBAGENTS.md`, fetch current OpenAI/Codex docs with the OpenAI Developer Docs MCP through `$openai-docs`.
 - Keep harness changes narrow. Do not let tooling, agent, or automation changes alter the MLB modeling contract unless the user explicitly asks.
 
