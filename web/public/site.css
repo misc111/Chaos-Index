@@ -641,9 +641,9 @@ a {
 .familyHeader,
 .familyRow {
   display: grid;
-  grid-template-columns: 36px minmax(0, 1fr) 115px 98px 84px;
+  grid-template-columns: 34px minmax(0, 1fr) 82px 86px;
   align-items: center;
-  column-gap: 1px;
+  column-gap: 8px;
 }
 
 .familyHeader {
@@ -656,8 +656,17 @@ a {
 .familyRow {
   min-height: 43px;
   color: #d4d5d6;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 650;
+}
+
+.familyHeader span,
+.familyRow span,
+.familyRow strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .familyRow strong,

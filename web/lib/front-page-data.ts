@@ -21,7 +21,7 @@ export type FrontPageGame = {
   bestBet: string;
   betTone: Tone;
 };
-export type FrontPageTournamentRow = readonly [string, string, string, string, string];
+export type FrontPageTournamentRow = readonly [string, string, string, string];
 export type FrontPageEnsembleRow = readonly [string, string, string, string];
 
 const gamesToday = gamesTodaySnapshot as unknown as GamesTodayResponse;
@@ -57,6 +57,11 @@ function formatPercent(value?: number | null, digits = 1): string {
   return Number.isFinite(numeric) ? `${(numeric * 100).toFixed(digits)}%` : "N/A";
 }
 
+function hasMarketNumber(value?: number | string | null): boolean {
+  if (value === null || value === undefined || value === "") return false;
+  return Number.isFinite(Number(value));
+}
+
 function americanOddsToProbability(value?: number | null): number | null {
   const price = Number(value);
   if (!Number.isFinite(price) || price === 0) return null;
@@ -90,8 +95,8 @@ function isPricedMoneyline(row: MarketRow): boolean {
 
 function frontPageGame(row: MarketRow): FrontPageGame {
   const overlay = moneylineOverlay(row);
-  const hasSpread = Number.isFinite(Number(row.spread?.point));
-  const hasTotal = Number.isFinite(Number(row.total?.point));
+  const hasSpread = hasMarketNumber(row.spread?.point);
+  const hasTotal = hasMarketNumber(row.total?.point);
 
   return {
     time: formatGameTime(row.start_time_utc),
@@ -112,9 +117,17 @@ function tournamentRows(rows?: Array<Record<string, unknown>>): FrontPageTournam
     String(index + 1),
     String(row.display_name || row.model_name || "Research row"),
     formatPercent(Number(row.roc_auc), 1),
-    String(row.champion_status || "research-only"),
-    formatPercent(Number(row.accuracy), 1),
+    compactChampionStatus(row.champion_status),
   ]);
+}
+
+function compactChampionStatus(value: unknown): string {
+  const raw = String(value || "research-only").toLowerCase();
+  if (raw.includes("blocked")) return "Blocked";
+  if (raw.includes("passed")) return "Passed";
+  if (raw.includes("promoted") || raw.includes("approved")) return "Promoted";
+  if (raw.includes("challenger")) return "Challenger";
+  return "Research";
 }
 
 function ensembleRows(): FrontPageEnsembleRow[] {

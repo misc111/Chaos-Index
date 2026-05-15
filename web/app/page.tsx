@@ -141,30 +141,27 @@ function TournamentCard({
     <section className={styles.tournamentCard}>
       <div className={styles.cardTitleRow}>
         <h3 className={tone === "teal" ? styles.tealHeading : undefined}>{title}</h3>
-        <span>{tone === "teal" ? "Family leaderboard" : "Family champions"}</span>
+        <span>{tone === "teal" ? "Model family rank" : "Best in each family"}</span>
       </div>
       <div className={styles.familyHeader}>
         <span />
-        <span>Model family</span>
+        <span>Family champion</span>
         <span>AUC</span>
-        <span>Status</span>
-        <span>Accuracy</span>
+        <span>Gate</span>
       </div>
       {rows.length === 0 ? (
         <div className={styles.familyRow}>
           <span className={styles.rank}>-</span>
-          <span>No rows</span>
+          <span>Awaiting rows</span>
           <strong>N/A</strong>
-          <span>research-only</span>
-          <span>N/A</span>
+          <span>Research</span>
         </div>
-      ) : rows.map(([rank, family, score, record, win]) => (
+      ) : rows.map(([rank, family, score, status]) => (
         <div className={styles.familyRow} key={`${title}-${rank}`}>
           <span className={styles.rank}>{rank}</span>
           <span>{family}</span>
           <strong>{score}</strong>
-          <span>{record}</span>
-          <span>{win}</span>
+          <span>{status}</span>
         </div>
       ))}
       <Link href={href} className={tone === "teal" ? styles.panelLinkTeal : styles.panelLink}>

@@ -69,9 +69,18 @@
   function familyRows(rows) {
     const source = (rows || []).slice(0, 3);
     if (!source.length) {
-      return '<div class="familyRow"><span class="rank">-</span><span>No rows</span><strong>N/A</strong><span>research-only</span><span>N/A</span></div>';
+      return '<div class="familyRow"><span class="rank">-</span><span>Awaiting rows</span><strong>N/A</strong><span>Research</span></div>';
     }
-    return source.map((row, index) => `<div class="familyRow"><span class="rank">${index + 1}</span><span>${row.display_name || row.model_name || "Research row"}</span><strong>${pct(row.roc_auc, 1)}</strong><span>${row.champion_status || "research-only"}</span><span>${pct(row.accuracy, 1)}</span></div>`).join("");
+    return source.map((row, index) => `<div class="familyRow"><span class="rank">${index + 1}</span><span>${row.display_name || row.model_name || "Research row"}</span><strong>${pct(row.roc_auc, 1)}</strong><span>${compactChampionStatus(row.champion_status)}</span></div>`).join("");
+  }
+
+  function compactChampionStatus(value) {
+    const raw = String(value || "research-only").toLowerCase();
+    if (raw.includes("blocked")) return "Blocked";
+    if (raw.includes("passed")) return "Passed";
+    if (raw.includes("promoted") || raw.includes("approved")) return "Promoted";
+    if (raw.includes("challenger")) return "Challenger";
+    return "Research";
   }
 
   function ensembleRows(rows) {
