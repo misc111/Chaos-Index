@@ -46,7 +46,6 @@ help:
 	@echo "  lint                Run Python and web lint checks"
 	@echo "  typecheck           Run Python and web type checks"
 	@echo "  dashboard           Launch Next.js dashboard"
-	@echo "  smoke-dashboard     Playwright smoke test for the Next.js dashboard"
 	@echo "  mlb-artifact-slice  Generate bounded MLB fixture-slice compare/validation artifacts"
 	@echo "  predictiveness      Score frozen MLB predictions against current-season outcomes"
 	@echo "  query Q=...         Query local forecast/performance DB"
@@ -146,9 +145,6 @@ hard_refresh:
 
 dashboard:
 	cd web && $(NPM) run dev
-
-smoke-dashboard:
-	cd web && $(NPM) run playwright:install && $(NPM) run test:smoke
 
 query:
 	$(PYTHON) -m src.query.answer --config $(CONFIG) --question "$(Q)"

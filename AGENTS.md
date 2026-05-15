@@ -74,7 +74,7 @@
 - For repo-wide closeout, prefer `make verify`.
 - For Python-only changes, run targeted `pytest` first; broaden to `make test` when behavior crosses module boundaries.
 - For registry, generated docs, command manifests, dashboard route manifests, or staging contract changes, run `make docs-check` or the matching generation command plus the relevant tests.
-- For dashboard/staging changes, run the relevant `web` checks: `npm run test:unit`, `npm run lint`, `npm run typecheck`, or `npm run test:smoke` based on the changed surface.
+- For dashboard/staging changes, run the relevant `web` checks: `npm run test:unit`, `npm run lint`, or `npm run typecheck` based on the changed surface. Do not use Playwright for browser-facing checks.
 - If verification is skipped or blocked, report the exact command and reason.
 
 ## Dashboard And Staging Sync
