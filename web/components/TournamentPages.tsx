@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useMemo, type ReactNode } from "react";
+import { Suspense, useMemo, useState, type ReactNode } from "react";
 import { useSearchParams } from "next/navigation";
 import { useDashboardData } from "@/lib/hooks/useDashboardData";
 import { normalizeLeague } from "@/lib/league";
@@ -64,6 +64,20 @@ function getRowsForTarget(rows: TableRow[], target: string): TableRow[] {
   return rows.filter((row) => String(row.target_name || "") === target);
 }
 
+function getTournamentTargets(data: NestedTournamentResponse): string[] {
+  const names = new Set<string>();
+  for (const row of data.target_coverage || []) {
+    if (row.target_name) names.add(String(row.target_name));
+  }
+  for (const row of data.family_champions || []) {
+    if (row.target_name) names.add(String(row.target_name));
+  }
+  for (const row of data.inter_family_leaderboard || []) {
+    if (row.target_name) names.add(String(row.target_name));
+  }
+  return Array.from(names);
+}
+
 function useNestedTournamentData() {
   const searchParams = useSearchParams();
   const league = normalizeLeague(searchParams.get("league"));
@@ -105,6 +119,34 @@ function MiniMetric({ label, value }: { label: string; value: string }) {
   );
 }
 
+function TargetPicker({
+  targets,
+  activeTarget,
+  onSelect,
+}: {
+  targets: string[];
+  activeTarget: string;
+  onSelect: (target: string) => void;
+}) {
+  if (targets.length < 2) return null;
+  return (
+    <div className="target-switcher" role="tablist" aria-label="Tournament target">
+      {targets.map((target) => (
+        <button
+          type="button"
+          role="tab"
+          key={target}
+          className={target === activeTarget ? "active" : ""}
+          onClick={() => onSelect(target)}
+          aria-selected={target === activeTarget}
+        >
+          {titleCase(target)}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function TournamentLoading({ title }: { title: string }) {
   return (
     <TournamentFrame title={title} subtitle="Loading the latest MLB model evidence.">
@@ -117,17 +159,9 @@ function TournamentLoading({ title }: { title: string }) {
 
 function IntraFamilyContent() {
   const { data, error, isLoading } = useNestedTournamentData();
-  const targets = useMemo(() => {
-    const names = new Set<string>();
-    for (const row of data.target_coverage || []) {
-      if (row.target_name) names.add(String(row.target_name));
-    }
-    for (const row of data.family_champions || []) {
-      if (row.target_name) names.add(String(row.target_name));
-    }
-    return Array.from(names);
-  }, [data]);
-  const target = targets[0] || "";
+  const targets = useMemo(() => getTournamentTargets(data), [data]);
+  const [selectedTarget, setSelectedTarget] = useState("");
+  const target = targets.includes(selectedTarget) ? selectedTarget : targets[0] || "";
   const coverage = getRowsForTarget(data.target_coverage || [], target)[0];
   const champions = getRowsForTarget(data.family_champions || [], target);
 
@@ -140,6 +174,8 @@ function IntraFamilyContent() {
       {error ? <section className="notebook-panel"><p className="small">Failed to load: {error}</p></section> : null}
       {!isLoading && !error ? (
         <>
+          <TargetPicker targets={targets} activeTarget={target} onSelect={setSelectedTarget} />
+
           <section className="notebook-metric-strip">
             <MiniMetric label="Target" value={titleCase(target)} />
             <MiniMetric label="Usable games" value={formatNumber(coverage?.usable_rows, 0)} />
@@ -157,7 +193,7 @@ function IntraFamilyContent() {
             <div className="notebook-card-grid">
               {champions.length ? (
                 champions.map((row) => (
-                  <article className="model-bubble" key={getString(row, "candidate_key") || getString(row, "model_name")}>
+                  <article className="model-bubble" key={`${target}-${getString(row, "candidate_key") || getString(row, "model_name")}`}>
                     <div>
                       <p>{titleCase(row.model_name)}</p>
                       <h3>{titleCase(row.variant_display_name || row.variant_key)}</h3>
@@ -185,8 +221,11 @@ function IntraFamilyContent() {
 
 function InterFamilyContent() {
   const { data, error, isLoading } = useNestedTournamentData();
-  const targetRows = data.inter_family_leaderboard || [];
-  const fallbackRows = data.family_champions || [];
+  const targets = useMemo(() => getTournamentTargets(data), [data]);
+  const [selectedTarget, setSelectedTarget] = useState("");
+  const target = targets.includes(selectedTarget) ? selectedTarget : targets[0] || "";
+  const targetRows = getRowsForTarget(data.inter_family_leaderboard || [], target);
+  const fallbackRows = getRowsForTarget(data.family_champions || [], target);
   const visibleRows = targetRows.length ? targetRows : fallbackRows;
   const leader = visibleRows[0];
   const evidence = data.current_best?.evidence_status as TableRow | undefined;
@@ -200,7 +239,10 @@ function InterFamilyContent() {
       {error ? <section className="notebook-panel"><p className="small">Failed to load: {error}</p></section> : null}
       {!isLoading && !error ? (
         <>
+          <TargetPicker targets={targets} activeTarget={target} onSelect={setSelectedTarget} />
+
           <section className="notebook-metric-strip">
+            <MiniMetric label="Target" value={titleCase(target)} />
             <MiniMetric label="Current leader" value={titleCase(leader?.model_name || leader?.candidate_key)} />
             <MiniMetric label="Log loss" value={formatNumber(leader?.log_loss)} />
             <MiniMetric label="Evidence" value={titleCase(evidence?.evidence_stage || data.current_best?.source_status)} />
@@ -228,7 +270,7 @@ function InterFamilyContent() {
                 </thead>
                 <tbody>
                   {visibleRows.map((row, index) => (
-                    <tr key={getString(row, "candidate_key") || `${getString(row, "model_name")}-${index}`}>
+                    <tr key={`${target}-${getString(row, "candidate_key") || `${getString(row, "model_name")}-${index}`}`}>
                       <td>{titleCase(row.model_name)}</td>
                       <td>{titleCase(row.variant_display_name || row.variant_key || row.candidate_key)}</td>
                       <td>
