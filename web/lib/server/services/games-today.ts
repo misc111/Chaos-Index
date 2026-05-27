@@ -3,7 +3,7 @@ import { parseModelWinProbabilities, selectBettingModelProbability } from "@/lib
 import { BET_STRATEGIES, getBetStrategyConfig, type BetStrategy } from "@/lib/betting-strategy";
 import { centralTodayDateKey, dateKeyForScheduledGame, shiftCentralDateKey } from "@/lib/games-today";
 import { type LeagueCode } from "@/lib/league";
-import { getGamesTodaySnapshotRows, getLatestUpcomingAsOf } from "@/lib/server/repositories/forecasts";
+import { getFreshUpcomingAsOfForDate, getGamesTodaySnapshotRows } from "@/lib/server/repositories/forecasts";
 import { getBettingDriverContext } from "@/lib/server/services/betting-driver";
 import {
   getMoneylineRowsForSnapshots,
@@ -20,8 +20,8 @@ function normalizeProbability(value: unknown): number {
 
 export async function getGamesTodayPayload(league: LeagueCode) {
   const historicalReplay = getHistoricalReplayGames(league);
-  const asOf = getLatestUpcomingAsOf(league);
   const todayKey = centralTodayDateKey();
+  const asOf = getFreshUpcomingAsOfForDate(league, todayKey);
   const snapshotFallbackWindowStart = shiftCentralDateKey(todayKey, -1);
   const bettingDriver = getBettingDriverContext(league);
   const preferredBettingModelName = bettingDriver.preferred_model_name;

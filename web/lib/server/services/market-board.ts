@@ -2,7 +2,7 @@ import { parseModelWinProbabilities, selectBettingModelProbability } from "@/lib
 import { BET_STRATEGIES, getBetStrategyConfig, type BetStrategy } from "@/lib/betting-strategy";
 import { centralTodayDateKey, dateKeyForScheduledGame } from "@/lib/games-today";
 import { type LeagueCode } from "@/lib/league";
-import { getLatestUpcomingAsOf, getLatestTeamNames, getScheduledTodayRows } from "@/lib/server/repositories/forecasts";
+import { getFreshUpcomingAsOfForDate, getLatestTeamNames, getScheduledTodayRows } from "@/lib/server/repositories/forecasts";
 import { getLatestOddsSnapshot, getMarketLinesForSnapshot, type RawOddsLine } from "@/lib/server/repositories/odds";
 import { getBettingDriverContext } from "@/lib/server/services/betting-driver";
 
@@ -120,7 +120,8 @@ function pickTotalBoard(rows: RawOddsLine[]) {
 }
 
 export async function getMarketBoardPayload(league: LeagueCode) {
-  const asOf = getLatestUpcomingAsOf(league);
+  const todayKey = centralTodayDateKey();
+  const asOf = getFreshUpcomingAsOfForDate(league, todayKey);
   const bettingDriver = getBettingDriverContext(league);
   const preferredBettingModelName = bettingDriver.preferred_model_name;
   const riskRegime = bettingDriver.desk_posture;
@@ -133,7 +134,7 @@ export async function getMarketBoardPayload(league: LeagueCode) {
       league,
       as_of_utc: null,
       odds_as_of_utc: null,
-      date_central: centralTodayDateKey(),
+      date_central: todayKey,
       desk_posture: bettingDriver.desk_posture,
       champion: bettingDriver.champion,
       strategy_configs: liveStrategyConfigs,
@@ -141,7 +142,6 @@ export async function getMarketBoardPayload(league: LeagueCode) {
     };
   }
 
-  const todayKey = centralTodayDateKey();
   const rows = getScheduledTodayRows(league, asOf)
     .map((row) => ({
       ...row,

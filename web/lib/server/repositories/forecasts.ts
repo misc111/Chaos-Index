@@ -1,4 +1,5 @@
 import { runSqlJson } from "@/lib/db";
+import { centralDateKeyFromTimestamp, shiftCentralDateKey } from "@/lib/games-today";
 import { type LeagueCode } from "@/lib/league";
 import { escapeSqlString } from "@/lib/server/repositories/sql";
 
@@ -45,6 +46,26 @@ export type RawTeamNameRow = {
 export function getLatestUpcomingAsOf(league: LeagueCode): string | null {
   const latest = runSqlJson("SELECT MAX(as_of_utc) AS as_of_utc FROM upcoming_game_forecasts", { league });
   return typeof latest?.[0]?.as_of_utc === "string" ? latest[0].as_of_utc : null;
+}
+
+export function getFreshUpcomingAsOfForDate(league: LeagueCode, dateCentral: string): string | null {
+  const minimumForecastDate = shiftCentralDateKey(dateCentral, -1);
+  const rows = runSqlJson<{ as_of_utc?: string | null }>(
+    `
+    SELECT DISTINCT as_of_utc
+    FROM upcoming_game_forecasts
+    ORDER BY DATETIME(as_of_utc) DESC
+    `,
+    { league }
+  );
+  for (const row of rows) {
+    const asOf = typeof row.as_of_utc === "string" ? row.as_of_utc : null;
+    const forecastDateCentral = centralDateKeyFromTimestamp(asOf);
+    if (forecastDateCentral && forecastDateCentral >= minimumForecastDate) {
+      return asOf;
+    }
+  }
+  return null;
 }
 
 export function getPredictionRows(league: LeagueCode, asOf: string): RawPredictionRow[] {

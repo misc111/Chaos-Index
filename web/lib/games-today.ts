@@ -61,6 +61,8 @@ export function centralDateKeyFromTimestamp(value?: string | null): string | nul
 }
 
 export function centralTodayDateKey(): string {
+  const override = normalizeCentralDateKey(process.env.DASHBOARD_DATE_CENTRAL);
+  if (override) return override;
   return dateKeyFromDate(new Date(), CENTRAL_TIME_ZONE) || new Date().toISOString().slice(0, 10);
 }
 

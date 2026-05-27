@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 import { DASHBOARD_STAGING_ROUTES } from "../lib/generated/dashboard-routes";
 import { ALL_LEAGUES, type LeagueCode } from "../lib/generated/league-registry";
+import { centralDateKeyFromTimestamp, normalizeCentralDateKey, shiftCentralDateKey } from "../lib/games-today";
 import {
   buildPerformanceExperimentStagingFileName,
   listPerformanceReplayExperiments,
@@ -85,6 +86,29 @@ function validateEvidenceStatusPayload(args: {
     errors.push(`${league} ${fileName} production-ready evidence must pass promotion gates.`);
   }
   return errors;
+}
+
+function validateForecastFreshnessPayload(args: {
+  league: LeagueCode;
+  fileName: string;
+  payload: Record<string, unknown>;
+}): string[] {
+  const { league, fileName, payload } = args;
+  if (fileName !== "games-today.json" && fileName !== "market-board.json" && fileName !== "research-desk.json") {
+    return [];
+  }
+
+  const dateCentral = normalizeCentralDateKey(String(payload.date_central || ""));
+  const forecastAsOfCentral = centralDateKeyFromTimestamp(
+    typeof payload.as_of_utc === "string" ? payload.as_of_utc : null
+  );
+  const minimumForecastDate = dateCentral ? shiftCentralDateKey(dateCentral, -1) : null;
+  if (dateCentral && forecastAsOfCentral && minimumForecastDate && forecastAsOfCentral < minimumForecastDate) {
+    return [
+      `${league} ${fileName} forecast as_of_utc central date ${forecastAsOfCentral} is stale for date_central ${dateCentral}.`,
+    ];
+  }
+  return [];
 }
 
 export function listRequiredStagingFiles(): string[] {
@@ -269,6 +293,18 @@ export async function collectCommittedStagingSnapshotErrors(
         try {
           const payload = JSON.parse(await fs.readFile(payloadPath, "utf8")) as Record<string, unknown>;
           errors.push(...validateEvidenceStatusPayload({ league, fileName, payload }));
+        } catch (error) {
+          errors.push(
+            error instanceof Error
+              ? `unable to read ${league} ${fileName}: ${error.message}`
+              : `unable to read ${league} ${fileName}`
+          );
+        }
+      }
+      if (fileName === "games-today.json" || fileName === "market-board.json" || fileName === "research-desk.json") {
+        try {
+          const payload = JSON.parse(await fs.readFile(payloadPath, "utf8")) as Record<string, unknown>;
+          errors.push(...validateForecastFreshnessPayload({ league, fileName, payload }));
         } catch (error) {
           errors.push(
             error instanceof Error

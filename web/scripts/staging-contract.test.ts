@@ -108,6 +108,64 @@ test("staging snapshot verifier requires evidence-status semantics", async () =>
   }
 });
 
+test("staging snapshot verifier rejects stale forecast freshness for current slate payloads", async () => {
+  const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "staging-freshness-contract-"));
+  const leagueDir = path.join(tempRoot, "mlb");
+  const requiredFiles = listRequiredStagingFiles();
+
+  try {
+    await fs.mkdir(leagueDir, { recursive: true });
+    await fs.writeFile(path.join(tempRoot, "manifest.json"), JSON.stringify(buildStagingManifestPayload("2026-05-25T12:00:00.000Z")));
+    await fs.writeFile(path.join(leagueDir, ".gitkeep"), "");
+    for (const fileName of requiredFiles) {
+      const payload =
+        fileName === "games-today.json" || fileName === "market-board.json"
+          ? { league: PRIMARY_STAGING_LEAGUE, as_of_utc: "2026-05-04T17:26:46+00:00", date_central: "2026-05-25" }
+          : fileName === "research-desk.json"
+            ? {
+                league: PRIMARY_STAGING_LEAGUE,
+                as_of_utc: "2026-05-04T17:26:46+00:00",
+                date_central: "2026-05-25",
+                latest_artifact_role: "latest_research_recommendation",
+                promotion_eligible: false,
+                evidence_stage: "research_only",
+                evidence_status: { evidence_stage: "research_only", pointer_semantics: "test" },
+              }
+            : {};
+      await fs.writeFile(path.join(leagueDir, fileName), JSON.stringify(payload));
+    }
+    await fs.writeFile(
+      path.join(leagueDir, "meta.json"),
+      JSON.stringify({
+        league: PRIMARY_STAGING_LEAGUE,
+        primary_league: PRIMARY_STAGING_LEAGUE,
+        shipping_role: "primary",
+        files: requiredFiles,
+      })
+    );
+
+    const errors = await collectCommittedStagingSnapshotErrors(tempRoot);
+
+    assert.ok(
+      errors.includes(
+        "MLB games-today.json forecast as_of_utc central date 2026-05-04 is stale for date_central 2026-05-25."
+      )
+    );
+    assert.ok(
+      errors.includes(
+        "MLB market-board.json forecast as_of_utc central date 2026-05-04 is stale for date_central 2026-05-25."
+      )
+    );
+    assert.ok(
+      errors.includes(
+        "MLB research-desk.json forecast as_of_utc central date 2026-05-04 is stale for date_central 2026-05-25."
+      )
+    );
+  } finally {
+    await fs.rm(tempRoot, { recursive: true, force: true });
+  }
+});
+
 test("staging root contains only the MLB payload directory", async () => {
   const stagingRoot = path.join(repoRoot, "web", "public", "staging-data");
   const rootEntries = (await fs.readdir(stagingRoot, { withFileTypes: true }))
