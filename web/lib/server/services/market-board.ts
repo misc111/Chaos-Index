@@ -2,7 +2,12 @@ import { parseModelWinProbabilities, selectBettingModelProbability } from "@/lib
 import { BET_STRATEGIES, getBetStrategyConfig, type BetStrategy } from "@/lib/betting-strategy";
 import { centralTodayDateKey, dateKeyForScheduledGame } from "@/lib/games-today";
 import { type LeagueCode } from "@/lib/league";
-import { getFreshUpcomingAsOfForDate, getLatestTeamNames, getScheduledTodayRows } from "@/lib/server/repositories/forecasts";
+import {
+  getFreshUpcomingAsOfForDate,
+  getLatestTeamNames,
+  getOpenScheduledGameRows,
+  getScheduledTodayRows,
+} from "@/lib/server/repositories/forecasts";
 import { getLatestOddsSnapshot, getMarketLinesForSnapshot, type RawOddsLine } from "@/lib/server/repositories/odds";
 import { getBettingDriverContext } from "@/lib/server/services/betting-driver";
 
@@ -122,6 +127,10 @@ function pickTotalBoard(rows: RawOddsLine[]) {
 export async function getMarketBoardPayload(league: LeagueCode) {
   const todayKey = centralTodayDateKey();
   const asOf = getFreshUpcomingAsOfForDate(league, todayKey);
+  const scheduledGameCount = getOpenScheduledGameRows(league).filter(
+    (row) => dateKeyForScheduledGame(row) === todayKey
+  ).length;
+  const freshForecastStatus = asOf ? "available" : scheduledGameCount > 0 ? "missing" : "no_slate";
   const bettingDriver = getBettingDriverContext(league);
   const preferredBettingModelName = bettingDriver.preferred_model_name;
   const riskRegime = bettingDriver.desk_posture;
@@ -135,6 +144,8 @@ export async function getMarketBoardPayload(league: LeagueCode) {
       as_of_utc: null,
       odds_as_of_utc: null,
       date_central: todayKey,
+      scheduled_game_count: scheduledGameCount,
+      fresh_forecast_status: freshForecastStatus,
       desk_posture: bettingDriver.desk_posture,
       champion: bettingDriver.champion,
       strategy_configs: liveStrategyConfigs,
@@ -213,6 +224,8 @@ export async function getMarketBoardPayload(league: LeagueCode) {
     as_of_utc: asOf,
     odds_as_of_utc: oddsAsOfUtc,
     date_central: todayKey,
+    scheduled_game_count: scheduledGameCount,
+    fresh_forecast_status: freshForecastStatus,
     desk_posture: bettingDriver.desk_posture,
     champion: bettingDriver.champion,
     strategy_configs: liveStrategyConfigs,

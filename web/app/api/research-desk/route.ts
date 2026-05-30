@@ -65,6 +65,8 @@ export async function GET(request: Request) {
       as_of_utc: marketBoard.as_of_utc,
       odds_as_of_utc: marketBoard.odds_as_of_utc,
       date_central: marketBoard.date_central,
+      scheduled_game_count: marketBoard.scheduled_game_count,
+      fresh_forecast_status: marketBoard.fresh_forecast_status,
       desk_posture: riskRegime,
       overnight_summary: buildOvernightSummary({
         league,
@@ -73,6 +75,8 @@ export async function GET(request: Request) {
         promotion: latestPromotion,
         totalGames: counts.total_games,
         betCount: counts.bets,
+        scheduledGameCount: marketBoard.scheduled_game_count,
+        freshForecastStatus: marketBoard.fresh_forecast_status,
       }),
       champion,
       model_diagnostics: modelDiagnostics,

@@ -43,6 +43,14 @@ export type RawTeamNameRow = {
   team_name?: string | null;
 };
 
+export type RawScheduledSlateRow = {
+  game_id: number;
+  game_date_utc?: string | null;
+  start_time_utc?: string | null;
+  home_team: string;
+  away_team: string;
+};
+
 export function getLatestUpcomingAsOf(league: LeagueCode): string | null {
   const latest = runSqlJson("SELECT MAX(as_of_utc) AS as_of_utc FROM upcoming_game_forecasts", { league });
   return typeof latest?.[0]?.as_of_utc === "string" ? latest[0].as_of_utc : null;
@@ -221,6 +229,27 @@ export function getGamesTodaySnapshotRows(league: LeagueCode, asOf: string): Raw
     `,
     { league }
   ) as RawGamesTodaySnapshotRow[];
+}
+
+export function getOpenScheduledGameRows(league: LeagueCode): RawScheduledSlateRow[] {
+  return runSqlJson(
+    `
+    SELECT
+      game_id,
+      game_date_utc,
+      start_time_utc,
+      home_team,
+      away_team
+    FROM games
+    WHERE COALESCE(status_final, 0) = 0
+    ORDER BY
+      CASE WHEN start_time_utc IS NULL THEN 1 ELSE 0 END,
+      DATETIME(start_time_utc) ASC,
+      game_date_utc ASC,
+      game_id ASC
+    `,
+    { league }
+  ) as RawScheduledSlateRow[];
 }
 
 export function getLatestTeamNames(league: LeagueCode): RawTeamNameRow[] {

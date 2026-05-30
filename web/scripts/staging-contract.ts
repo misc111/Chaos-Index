@@ -94,6 +94,7 @@ function validateForecastFreshnessPayload(args: {
   payload: Record<string, unknown>;
 }): string[] {
   const { league, fileName, payload } = args;
+  const errors: string[] = [];
   if (fileName !== "games-today.json" && fileName !== "market-board.json" && fileName !== "research-desk.json") {
     return [];
   }
@@ -104,11 +105,26 @@ function validateForecastFreshnessPayload(args: {
   );
   const minimumForecastDate = dateCentral ? shiftCentralDateKey(dateCentral, -1) : null;
   if (dateCentral && forecastAsOfCentral && minimumForecastDate && forecastAsOfCentral < minimumForecastDate) {
-    return [
+    errors.push(
       `${league} ${fileName} forecast as_of_utc central date ${forecastAsOfCentral} is stale for date_central ${dateCentral}.`,
-    ];
+    );
   }
-  return [];
+  const scheduledGameCount = Number(payload.scheduled_game_count);
+  const freshForecastStatus = String(payload.fresh_forecast_status || "");
+  const allowedFreshForecastStatuses = new Set(["available", "missing", "no_slate"]);
+  if (!Number.isInteger(scheduledGameCount) || scheduledGameCount < 0) {
+    errors.push(`${league} ${fileName} must expose nonnegative scheduled_game_count.`);
+  }
+  if (!allowedFreshForecastStatuses.has(freshForecastStatus)) {
+    errors.push(`${league} ${fileName} must expose a valid fresh_forecast_status.`);
+  }
+  if (payload.as_of_utc && freshForecastStatus !== "available") {
+    errors.push(`${league} ${fileName} fresh_forecast_status must be available when as_of_utc is present.`);
+  }
+  if (!payload.as_of_utc && scheduledGameCount > 0 && freshForecastStatus !== "missing") {
+    errors.push(`${league} ${fileName} fresh_forecast_status must be missing when a scheduled slate has no as_of_utc.`);
+  }
+  return errors;
 }
 
 export function listRequiredStagingFiles(): string[] {

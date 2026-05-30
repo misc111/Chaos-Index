@@ -126,6 +126,8 @@ export type MarketBoardResponse = {
   as_of_utc?: string | null;
   odds_as_of_utc?: string | null;
   date_central?: string;
+  scheduled_game_count?: number;
+  fresh_forecast_status?: "available" | "missing" | "no_slate" | string;
   desk_posture?: DeskPosture;
   champion?: ResearchChampionSummary | null;
   strategy_configs?: Record<BetStrategy, ResolvedBetStrategyConfig>;
@@ -225,6 +227,8 @@ export type ResearchDeskResponse = {
   as_of_utc?: string | null;
   odds_as_of_utc?: string | null;
   date_central?: string;
+  scheduled_game_count?: number;
+  fresh_forecast_status?: "available" | "missing" | "no_slate" | string;
   desk_posture: DeskPosture;
   overnight_summary?: string | null;
   champion: ResearchChampionSummary | null;
@@ -572,6 +576,8 @@ export type GamesTodayResponse = {
   as_of_utc?: string | null;
   odds_as_of_utc?: string | null;
   date_central?: string;
+  scheduled_game_count?: number;
+  fresh_forecast_status?: "available" | "missing" | "no_slate" | string;
   desk_posture?: DeskPosture;
   champion?: ResearchChampionSummary | null;
   historical_coverage_start_central?: string | null;

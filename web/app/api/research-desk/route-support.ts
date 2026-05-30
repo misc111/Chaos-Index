@@ -12,6 +12,8 @@ import type {
 import type { BetDecision } from "@/lib/betting";
 
 type NightlyBoardInput = {
+  scheduled_game_count?: number;
+  fresh_forecast_status?: "available" | "missing" | "no_slate" | string;
   rows: Array<{
     game_id: number;
     start_time_utc?: string | null;
@@ -80,6 +82,8 @@ export function buildUnsupportedPayload(league: LeagueCode): ResearchDeskRespons
     as_of_utc: null,
     odds_as_of_utc: null,
     date_central: undefined,
+    scheduled_game_count: 0,
+    fresh_forecast_status: "no_slate",
     desk_posture: "normal",
     overnight_summary: emptySummary,
     champion: null,
@@ -184,17 +188,24 @@ export function buildOvernightSummary(args: {
   promotion: ResearchPromotionSummary | null;
   totalGames: number;
   betCount: number;
+  scheduledGameCount?: number;
+  freshForecastStatus?: string | null;
 }): string {
   const riskLabel = args.deskPosture === "guarded" ? "more cautious than usual" : "normal";
   const modelSentence = args.championModelName
     ? `Approved model: ${displayModelName(args.championModelName)}.`
     : "No model is fully approved yet.";
+  const scheduledGameCount = Number.isFinite(Number(args.scheduledGameCount))
+    ? Math.max(0, Number(args.scheduledGameCount))
+    : 0;
   const slateLead =
     args.totalGames > 0
       ? `Today: ${pluralize(args.totalGames, "game")} reviewed, ${pluralize(args.betCount, "suggested bet")}, ${pluralize(
           Math.max(0, args.totalGames - args.betCount),
           "no-bet game"
         )}.`
+      : scheduledGameCount > 0 && args.freshForecastStatus === "missing"
+        ? `Today: ${pluralize(scheduledGameCount, "game")} scheduled; no fresh forecast snapshot is loaded yet.`
       : "No games are loaded for today yet.";
 
   return [slateLead, `Risk level: ${riskLabel}.`, modelSentence, summarizePromotion(args.promotion)].join(" ");

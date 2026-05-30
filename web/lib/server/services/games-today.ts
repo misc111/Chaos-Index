@@ -3,7 +3,11 @@ import { parseModelWinProbabilities, selectBettingModelProbability } from "@/lib
 import { BET_STRATEGIES, getBetStrategyConfig, type BetStrategy } from "@/lib/betting-strategy";
 import { centralTodayDateKey, dateKeyForScheduledGame, shiftCentralDateKey } from "@/lib/games-today";
 import { type LeagueCode } from "@/lib/league";
-import { getFreshUpcomingAsOfForDate, getGamesTodaySnapshotRows } from "@/lib/server/repositories/forecasts";
+import {
+  getFreshUpcomingAsOfForDate,
+  getGamesTodaySnapshotRows,
+  getOpenScheduledGameRows,
+} from "@/lib/server/repositories/forecasts";
 import { getBettingDriverContext } from "@/lib/server/services/betting-driver";
 import {
   getMoneylineRowsForSnapshots,
@@ -22,6 +26,10 @@ export async function getGamesTodayPayload(league: LeagueCode) {
   const historicalReplay = getHistoricalReplayGames(league);
   const todayKey = centralTodayDateKey();
   const asOf = getFreshUpcomingAsOfForDate(league, todayKey);
+  const scheduledGameCount = getOpenScheduledGameRows(league).filter(
+    (row) => dateKeyForScheduledGame(row) === todayKey
+  ).length;
+  const freshForecastStatus = asOf ? "available" : scheduledGameCount > 0 ? "missing" : "no_slate";
   const snapshotFallbackWindowStart = shiftCentralDateKey(todayKey, -1);
   const bettingDriver = getBettingDriverContext(league);
   const preferredBettingModelName = bettingDriver.preferred_model_name;
@@ -36,6 +44,8 @@ export async function getGamesTodayPayload(league: LeagueCode) {
       league,
       as_of_utc: null,
       date_central: todayKey,
+      scheduled_game_count: scheduledGameCount,
+      fresh_forecast_status: freshForecastStatus,
       desk_posture: bettingDriver.desk_posture,
       champion: bettingDriver.champion,
       historical_coverage_start_central: historicalReplay.coverage_start_central,
@@ -156,6 +166,8 @@ export async function getGamesTodayPayload(league: LeagueCode) {
     league,
     as_of_utc: asOf,
     date_central: todayKey,
+    scheduled_game_count: scheduledGameCount,
+    fresh_forecast_status: freshForecastStatus,
     desk_posture: bettingDriver.desk_posture,
     champion: bettingDriver.champion,
     historical_coverage_start_central: historicalReplay.coverage_start_central,
