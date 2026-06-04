@@ -1,8 +1,9 @@
 "use client";
 
-import { Suspense, useMemo, useState, type ReactNode } from "react";
-import { useSearchParams } from "next/navigation";
+import { Suspense, useMemo, type ReactNode } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useDashboardData } from "@/lib/hooks/useDashboardData";
+import { formatCentralTimestamp, shortenToken } from "@/lib/dashboard-display";
 import { normalizeLeague } from "@/lib/league";
 import type { NestedTournamentResponse, PerformanceResponse, PredictionsResponse, TableRow } from "@/lib/types";
 import TeamWithIcon, { TeamMatchup } from "@/components/TeamWithIcon";
@@ -64,6 +65,11 @@ function getRowsForTarget(rows: TableRow[], target: string): TableRow[] {
   return rows.filter((row) => String(row.target_name || "") === target);
 }
 
+function numericValue(value: unknown): number {
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? numeric : 0;
+}
+
 function getTournamentTargets(data: NestedTournamentResponse): string[] {
   const names = new Set<string>();
   for (const row of data.target_coverage || []) {
@@ -85,6 +91,13 @@ function useNestedTournamentData() {
     league,
     ...useDashboardData<NestedTournamentResponse>("nestedTournament", "/api/nested-tournament", league, EMPTY_NESTED),
   };
+}
+
+function updateQueryParam(searchParams: { toString(): string }, router: ReturnType<typeof useRouter>, key: string, value: string, league: string) {
+  const params = new URLSearchParams(searchParams.toString());
+  params.set(key, value);
+  if (!params.get("league")) params.set("league", league);
+  router.replace(`?${params.toString()}`, { scroll: false });
 }
 
 function TournamentFrame({
@@ -110,12 +123,30 @@ function TournamentFrame({
   );
 }
 
-function MiniMetric({ label, value }: { label: string; value: string }) {
+function MiniMetric({ label, value, detail, title }: { label: string; value: string; detail?: string; title?: string }) {
   return (
     <div className="mini-metric">
       <span>{label}</span>
-      <strong>{value}</strong>
+      <strong title={title}>{value}</strong>
+      {detail ? <small>{detail}</small> : null}
     </div>
+  );
+}
+
+function TargetStatusNote({
+  title,
+  children,
+  tone = "warn",
+}: {
+  title: string;
+  children: ReactNode;
+  tone?: "good" | "warn";
+}) {
+  return (
+    <section className={`notebook-status-note ${tone}`}>
+      <strong>{title}</strong>
+      <p>{children}</p>
+    </section>
   );
 }
 
@@ -158,12 +189,18 @@ function TournamentLoading({ title }: { title: string }) {
 }
 
 function IntraFamilyContent() {
-  const { data, error, isLoading } = useNestedTournamentData();
+  const { data, error, isLoading, league } = useNestedTournamentData();
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const targets = useMemo(() => getTournamentTargets(data), [data]);
-  const [selectedTarget, setSelectedTarget] = useState("");
-  const target = targets.includes(selectedTarget) ? selectedTarget : targets[0] || "";
+  const requestedTarget = searchParams.get("target") || "";
+  const target = targets.includes(requestedTarget) ? requestedTarget : targets[0] || "";
   const coverage = getRowsForTarget(data.target_coverage || [], target)[0];
   const champions = getRowsForTarget(data.family_champions || [], target);
+  const usableRows = numericValue(coverage?.usable_rows);
+  const targetHasEvidence = usableRows > 0 || champions.length > 0;
+  const runId = getString(data.summary, "run_id");
+  const targetLabel = titleCase(target);
 
   return (
     <TournamentFrame
@@ -174,14 +211,37 @@ function IntraFamilyContent() {
       {error ? <section className="notebook-panel"><p className="small">Failed to load: {error}</p></section> : null}
       {!isLoading && !error ? (
         <>
-          <TargetPicker targets={targets} activeTarget={target} onSelect={setSelectedTarget} />
+          <TargetPicker
+            targets={targets}
+            activeTarget={target}
+            onSelect={(nextTarget) => updateQueryParam(searchParams, router, "target", nextTarget, league)}
+          />
 
           <section className="notebook-metric-strip">
-            <MiniMetric label="Target" value={titleCase(target)} />
-            <MiniMetric label="Usable games" value={formatNumber(coverage?.usable_rows, 0)} />
+            <MiniMetric label="Target" value={targetLabel} />
+            <MiniMetric
+              label="Usable games"
+              value={formatNumber(coverage?.usable_rows, 0)}
+              detail={targetHasEvidence ? "Tournament coverage" : "No generated rows"}
+            />
             <MiniMetric label="Families shown" value={String(champions.length)} />
-            <MiniMetric label="Run" value={getString(data.summary, "run_id").slice(0, 22) || "—"} />
+            <MiniMetric
+              label="Run"
+              value={targetHasEvidence ? shortenToken(runId, 22) : "Not generated"}
+              title={targetHasEvidence ? runId : undefined}
+              detail={targetHasEvidence ? "Full run ID retained" : "Target waiting on coverage"}
+            />
           </section>
+
+          {targetHasEvidence ? (
+            <TargetStatusNote title={`${targetLabel} evidence is published`} tone="good">
+              This target has tournament coverage and family rows. Validation status remains separate from betting recommendations.
+            </TargetStatusNote>
+          ) : (
+            <TargetStatusNote title={`${targetLabel} has no generated tournament rows yet`}>
+              Moneyline evidence is published separately; this target is waiting on its own usable target coverage before it can show family winners.
+            </TargetStatusNote>
+          )}
 
           <section className="notebook-panel">
             <div className="notebook-panel-header">
@@ -209,7 +269,9 @@ function IntraFamilyContent() {
                   </article>
                 ))
               ) : (
-                <p className="small">No family champion rows have been published yet.</p>
+                <p className="small">
+                  No family champion rows have been published for {targetLabel}. This target remains separate from the moneyline bracket.
+                </p>
               )}
             </div>
           </section>
@@ -220,15 +282,19 @@ function IntraFamilyContent() {
 }
 
 function InterFamilyContent() {
-  const { data, error, isLoading } = useNestedTournamentData();
+  const { data, error, isLoading, league } = useNestedTournamentData();
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const targets = useMemo(() => getTournamentTargets(data), [data]);
-  const [selectedTarget, setSelectedTarget] = useState("");
-  const target = targets.includes(selectedTarget) ? selectedTarget : targets[0] || "";
+  const requestedTarget = searchParams.get("target") || "";
+  const target = targets.includes(requestedTarget) ? requestedTarget : targets[0] || "";
   const targetRows = getRowsForTarget(data.inter_family_leaderboard || [], target);
   const fallbackRows = getRowsForTarget(data.family_champions || [], target);
   const visibleRows = targetRows.length ? targetRows : fallbackRows;
   const leader = visibleRows[0];
   const evidence = data.current_best?.evidence_status as TableRow | undefined;
+  const targetLabel = titleCase(target);
+  const promotionEligible = Boolean(data.current_best?.promotion_eligible);
 
   return (
     <TournamentFrame
@@ -239,15 +305,29 @@ function InterFamilyContent() {
       {error ? <section className="notebook-panel"><p className="small">Failed to load: {error}</p></section> : null}
       {!isLoading && !error ? (
         <>
-          <TargetPicker targets={targets} activeTarget={target} onSelect={setSelectedTarget} />
+          <TargetPicker
+            targets={targets}
+            activeTarget={target}
+            onSelect={(nextTarget) => updateQueryParam(searchParams, router, "target", nextTarget, league)}
+          />
 
           <section className="notebook-metric-strip">
-            <MiniMetric label="Target" value={titleCase(target)} />
+            <MiniMetric label="Target" value={targetLabel} />
             <MiniMetric label="Current leader" value={titleCase(leader?.model_name || leader?.candidate_key)} />
             <MiniMetric label="Log loss" value={formatNumber(leader?.log_loss)} />
-            <MiniMetric label="Evidence" value={titleCase(evidence?.evidence_stage || data.current_best?.source_status)} />
-            <MiniMetric label="Promotion" value={data.current_best?.promotion_eligible ? "Eligible" : "Research only"} />
+            <MiniMetric
+              label="Evidence"
+              value={titleCase(evidence?.evidence_stage || data.current_best?.source_status)}
+              detail={promotionEligible ? "Promotion review allowed" : "Not promotion-grade"}
+            />
+            <MiniMetric label="Promotion" value={promotionEligible ? "Eligible" : "Research only"} detail="Requires written evidence" />
           </section>
+
+          <TargetStatusNote title={promotionEligible ? "Promotion evidence is available" : "Research only, not a betting promotion"}>
+            {visibleRows.length
+              ? "The final comparison is visible, but promotion requires the written evidence package before any champion becomes production-grade."
+              : `No final comparison rows are published for ${targetLabel} yet.`}
+          </TargetStatusNote>
 
           <section className="notebook-panel">
             <div className="notebook-panel-header">
@@ -305,6 +385,8 @@ function EnsembleSummaryContent() {
   const performance = useDashboardData<PerformanceResponse>("performance", "/api/performance", league, EMPTY_PERFORMANCE);
   const snapshot = performance.data.ensemble_snapshots?.[0];
   const components = snapshot?.component_models || [];
+  const featureSet = predictions.data.model_feature_set_version || snapshot?.feature_set_version || "";
+  const asOf = predictions.data.as_of_utc || snapshot?.finalized_at_utc || "";
 
   return (
     <div className="notebook-page">
@@ -319,8 +401,8 @@ function EnsembleSummaryContent() {
       <section className="notebook-metric-strip">
         <MiniMetric label="Games" value={String(predictions.data.rows.length)} />
         <MiniMetric label="Models" value={String(predictions.data.model_columns.length || components.length)} />
-        <MiniMetric label="Feature set" value={predictions.data.model_feature_set_version || snapshot?.feature_set_version || "—"} />
-        <MiniMetric label="As of" value={String(predictions.data.as_of_utc || snapshot?.finalized_at_utc || "—").slice(0, 16)} />
+        <MiniMetric label="Feature set" value={shortenToken(featureSet, 13)} title={featureSet || undefined} detail="Full ID retained" />
+        <MiniMetric label="As of" value={formatCentralTimestamp(asOf)} />
       </section>
 
       <section className="notebook-panel">
@@ -360,7 +442,7 @@ function EnsembleSummaryContent() {
                     <TeamWithIcon league={league} teamCode={row.predicted_winner} label={row.predicted_winner} />
                   </td>
                   <td>{formatPercent(row.ensemble_prob_home_win)}</td>
-                  <td>{row.moneyline_book || "—"}</td>
+                  <td title={row.moneyline_book || "Market data unavailable"}>{row.moneyline_book || "Market unavailable"}</td>
                   <td>{Object.keys(row.model_win_probabilities || {}).length}</td>
                 </tr>
               ))}

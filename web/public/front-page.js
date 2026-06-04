@@ -18,6 +18,12 @@
     return `${date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: ctZone })} ${date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: ctZone })} CT`;
   }
 
+  function fmtDate(value) {
+    const date = new Date(`${String(value || "")}T12:00:00-05:00`);
+    if (Number.isNaN(date.getTime())) return value || "selected date";
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: ctZone });
+  }
+
   function pct(value, digits) {
     const num = Number(value);
     return Number.isFinite(num) ? `${(num * 100).toFixed(digits)}%` : "N/A";
@@ -57,6 +63,28 @@
 
   function isPricedMoneyline(row) {
     return americanOddsToProbability(row.moneyline && row.moneyline.home_price) !== null && americanOddsToProbability(row.moneyline && row.moneyline.away_price) !== null;
+  }
+
+  function snapshotStatusCopy(games, market) {
+    const status = games.fresh_forecast_status || market.fresh_forecast_status;
+    const scheduled = Number(games.scheduled_game_count || market.scheduled_game_count || 0);
+    const dateLabel = fmtDate(games.date_central || market.date_central);
+    if (status === "no_slate") {
+      return {
+        headline: `No MLB slate for ${dateLabel}`,
+        detail: "There are no scheduled games in this snapshot, so betting rows are intentionally empty.",
+      };
+    }
+    if (status === "missing") {
+      return {
+        headline: "Forecast snapshot missing",
+        detail: `${scheduled || "Scheduled"} MLB game${scheduled === 1 ? "" : "s"} found, but no fresh forecast snapshot is available yet.`,
+      };
+    }
+    return {
+      headline: "Snapshot status pending",
+      detail: "The dashboard has not received enough snapshot metadata to explain this state yet.",
+    };
   }
 
   function gameRow(row) {
@@ -100,7 +128,9 @@
     const topOverlay = positiveOverlays.reduce((best, item) => (!best || item.overlay.edge > best.overlay.edge ? item : best), null);
     const totalEdge = positiveOverlays.reduce((sum, item) => sum + item.overlay.edge, 0);
     const pricedSides = rows.filter(isPricedMoneyline).length * 2;
-    byId("model-stamp").textContent = fmtStamp(games.as_of_utc || market.as_of_utc);
+    const statusCopy = snapshotStatusCopy(games, market);
+    const noSlate = (games.fresh_forecast_status || market.fresh_forecast_status) === "no_slate";
+    byId("model-stamp").textContent = games.as_of_utc || market.as_of_utc ? fmtStamp(games.as_of_utc || market.as_of_utc) : statusCopy.headline;
     byId("kpi-games").textContent = String(rows.length);
     byId("kpi-games-note").textContent = market.date_central || "MLB snapshot";
     const kpis = document.querySelectorAll(".kpi");
@@ -108,18 +138,22 @@
       `<span>Games Today</span><strong id="kpi-games">${rows.length}</strong><small id="kpi-games-note" class="tealText">${market.date_central || "MLB snapshot"}</small>`,
       topOverlay
         ? `<span>Top Edge</span><strong>${pct(topOverlay.overlay.edge, 1)}</strong><small class="orangeText">${topOverlay.row.away_team} @ ${topOverlay.row.home_team}</small>`
-        : '<span>Top Edge</span><strong>Market pending</strong><small class="orangeText">No sportsbook odds</small>',
+        : `<span>Top Edge</span><strong>${noSlate ? "No slate" : "Market pending"}</strong><small class="orangeText">${noSlate ? "No scheduled games" : "No sportsbook odds"}</small>`,
       topOverlay
         ? `<span>Best Bet</span><strong>${topOverlay.overlay.side}</strong><small class="tealText">Edge ${pct(topOverlay.overlay.edge, 1)}</small>`
-        : '<span>Best Bet</span><strong>No bet</strong><small class="tealText">Awaiting prices</small>',
+        : `<span>Best Bet</span><strong>No bet</strong><small class="tealText">${noSlate ? "No game to price" : "Awaiting prices"}</small>`,
       `<span>Positive EV</span><strong>${positiveOverlays.length}</strong><small class="tealText">of ${pricedSides} priced sides</small>`,
       `<span>Total Edge</span><strong>${pct(totalEdge, 2)}</strong><small class="tealText">market overlays</small>`,
     ];
     kpiHtml.forEach((html, index) => {
       if (kpis[index]) kpis[index].innerHTML = html;
     });
-    byId("games-body").innerHTML = rows.slice(0, 8).map(gameRow).join("");
-    byId("starter-grid").innerHTML = rows.slice(8, 11).map((row) => `<article class="starterCard"><time>${fmtTime(row.start_time_utc)}</time>${teamMark(row.away_team)}<span>vs</span>${teamMark(row.home_team)}<a href="/games-today?league=MLB">More info →</a></article>`).join("");
+    byId("games-body").innerHTML = rows.length
+      ? rows.slice(0, 8).map(gameRow).join("")
+      : `<div class="frontEmptyState"><strong>${statusCopy.headline}</strong><span>${statusCopy.detail}</span></div>`;
+    byId("starter-grid").innerHTML = rows.slice(8, 11).length
+      ? rows.slice(8, 11).map((row) => `<article class="starterCard"><time>${fmtTime(row.start_time_utc)}</time>${teamMark(row.away_team)}<span>vs</span>${teamMark(row.home_team)}<a href="/games-today?league=MLB">More info →</a></article>`).join("")
+      : `<article class="starterCard starterEmpty"><strong>No starter cards</strong><span>${statusCopy.headline}</span></article>`;
     byId("intra-family-body").innerHTML = familyRows(nested.family_champions);
     byId("inter-family-body").innerHTML = familyRows(nested.inter_family_leaderboard);
     byId("ensemble-body").innerHTML = ensembleRows(performance.run_summaries);

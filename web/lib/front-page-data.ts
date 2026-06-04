@@ -2,6 +2,7 @@ import gamesTodaySnapshot from "@/public/staging-data/mlb/games-today.json";
 import marketBoardSnapshot from "@/public/staging-data/mlb/market-board.json";
 import nestedTournamentSnapshot from "@/public/staging-data/mlb/nested-tournament.json";
 import performanceSnapshot from "@/public/staging-data/mlb/performance.json";
+import { describeFreshForecastStatus, formatCentralTimestamp } from "@/lib/dashboard-display";
 import { normalizeUtcTimestamp } from "@/lib/games-today";
 import type { GamesTodayResponse, MarketBoardResponse, NestedTournamentResponse } from "@/lib/types";
 
@@ -32,10 +33,7 @@ const performance = performanceSnapshot as {
 };
 
 function formatAsOf(value?: string | null): string {
-  if (!value) return "Snapshot unavailable";
-  const parsed = new Date(normalizeUtcTimestamp(value));
-  if (Number.isNaN(parsed.getTime())) return value;
-  return `${parsed.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "America/Chicago" })} ${parsed.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/Chicago" })} CT`;
+  return formatCentralTimestamp(value);
 }
 
 function formatGameTime(value?: string | null): string {
@@ -148,21 +146,31 @@ const topOverlayGame = positiveOverlayGames.reduce<FrontPageGame | null>(
   null,
 );
 const totalPositiveOverlay = positiveOverlayGames.reduce((sum, game) => sum + game.edgeProbability, 0);
+const freshStatus = gamesToday.fresh_forecast_status || marketBoard.fresh_forecast_status;
+const scheduledGameCount = gamesToday.scheduled_game_count ?? marketBoard.scheduled_game_count ?? marketRows.length;
+const statusCopy = describeFreshForecastStatus({
+  status: freshStatus,
+  scheduledGameCount,
+  dateCentral: gamesToday.date_central || marketBoard.date_central,
+});
+const modelStamp = gamesToday.as_of_utc || marketBoard.as_of_utc ? formatAsOf(gamesToday.as_of_utc || marketBoard.as_of_utc) : statusCopy.headline;
+const noSlate = freshStatus === "no_slate";
 
 export const frontPageData = {
-  modelStamp: formatAsOf(gamesToday.as_of_utc || marketBoard.as_of_utc),
+  modelStamp,
+  statusCopy,
   kpis: [
     { label: "Games Today", value: String(marketRows.length), note: marketBoard.date_central || "MLB snapshot", noteTone: "teal" },
     {
       label: "Top Edge",
-      value: topOverlayGame ? topOverlayGame.edge : "Pending",
-      note: topOverlayGame ? `${topOverlayGame.away} @ ${topOverlayGame.home}` : "No sportsbook odds",
+      value: topOverlayGame ? topOverlayGame.edge : noSlate ? "No slate" : "Pending",
+      note: topOverlayGame ? `${topOverlayGame.away} @ ${topOverlayGame.home}` : noSlate ? "No scheduled games" : "No sportsbook odds",
       noteTone: "orange",
     },
     {
       label: "Best Bet",
       value: topOverlayGame?.bestBet || "No bet",
-      note: topOverlayGame ? `Edge ${topOverlayGame.edge}` : "Awaiting prices",
+      note: topOverlayGame ? `Edge ${topOverlayGame.edge}` : noSlate ? "No game to price" : "Awaiting prices",
       noteTone: "teal",
     },
     { label: "Positive EV", value: String(positiveOverlayGames.length), note: `of ${pricedSides} priced sides`, noteTone: "teal" },

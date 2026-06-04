@@ -15,7 +15,7 @@ const navItems = [
 
 // Chaos Index is the largest positive vig-free market overlay:
 // ensemble probability minus market implied probability for the best available side.
-const { kpis, games, upcomingStarters, intraFamilies, interFamilies, ensembleRows, modelStamp } = frontPageData;
+const { kpis, games, upcomingStarters, intraFamilies, interFamilies, ensembleRows, modelStamp, statusCopy } = frontPageData;
 
 type IconName = (typeof navItems)[number]["icon"];
 
@@ -200,7 +200,7 @@ export default function HomePage() {
         </nav>
 
         <div className={styles.modelStamp}>
-          <span>Model as of</span>
+          <span>Snapshot status</span>
           <strong>{modelStamp}</strong>
         </div>
       </header>
@@ -272,6 +272,12 @@ export default function HomePage() {
                 <Chevron />
               </div>
             ))}
+            {games.length === 0 ? (
+              <div className={styles.frontEmptyState} role="row">
+                <strong>{statusCopy.headline}</strong>
+                <span>{statusCopy.detail}</span>
+              </div>
+            ) : null}
           </div>
           <Link href="/games-today?league=MLB" className={styles.footerLink}>
             View all games today <span aria-hidden="true">→</span>
@@ -294,6 +300,12 @@ export default function HomePage() {
                 <Link href="/games-today?league=MLB">More info <span aria-hidden="true">→</span></Link>
               </article>
             ))}
+            {upcomingStarters.length === 0 ? (
+              <article className={`${styles.starterCard} ${styles.starterEmpty}`}>
+                <strong>No starter cards</strong>
+                <span>{statusCopy.headline}</span>
+              </article>
+            ) : null}
           </div>
         </section>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   getBetStrategyConfig,
   normalizeBetStrategy,
@@ -16,10 +16,10 @@ import {
 } from "@/lib/betting";
 import type { ResolvedBetStrategyConfig } from "@/lib/betting-optimizer";
 import TeamWithIcon, { BetStakeWithIcon, TeamMatchup } from "@/components/TeamWithIcon";
+import { describeFreshForecastStatus, formatCentralDate } from "@/lib/dashboard-display";
 import {
   centralTodayDateKey,
   formatCentralDateLabel,
-  formatCentralDateSummary,
   normalizeCentralDateKey,
   normalizeUtcTimestamp,
   shiftCentralDateKey,
@@ -81,6 +81,48 @@ function formatGameCountLabel(count: number): string {
   return `${count} game${count === 1 ? "" : "s"}`;
 }
 
+function buildEmptyStateCopy(args: {
+  activeDateKey: string;
+  todayKey: string;
+  mode: string;
+  isPastDate: boolean;
+  historicalCoverageStart: string;
+  freshForecastStatus: string;
+  scheduledGameCount: number;
+}) {
+  const dateLabel = formatCentralDate(args.activeDateKey);
+  if (args.isPastDate && args.historicalCoverageStart && args.activeDateKey < args.historicalCoverageStart) {
+    return {
+      title: `Replay coverage starts ${formatCentralDate(args.historicalCoverageStart)}`,
+      body: `No saved replay rows are expected for ${dateLabel} because it is before the current historical coverage window.`,
+    };
+  }
+
+  if (args.mode === "emptyPast") {
+    return {
+      title: `No saved replay rows for ${dateLabel}`,
+      body: "The date is in the replay window, but no scored replay rows are published for it in this snapshot.",
+    };
+  }
+
+  if (args.activeDateKey > args.todayKey) {
+    return {
+      title: `No scheduled snapshot rows for ${dateLabel}`,
+      body: "Future dates only appear after the slate enters the published pregame snapshot.",
+    };
+  }
+
+  const statusCopy = describeFreshForecastStatus({
+    status: args.freshForecastStatus,
+    scheduledGameCount: args.scheduledGameCount,
+    dateCentral: args.activeDateKey,
+  });
+  return {
+    title: statusCopy.headline,
+    body: statusCopy.detail,
+  };
+}
+
 function displayBetRecommendation(
   row: GamesTodayRow,
   liveDecisionMap: Map<number, BetRecommendationDisplay>,
@@ -121,8 +163,10 @@ function latestTimestamp(rows: GamesTodayRow[], field: "forecast_as_of_utc" | "o
 
 function GamesTodayPageContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const league = normalizeLeague(searchParams.get("league"));
   const strategy = normalizeBetStrategy(searchParams.get("strategy"));
+  const requestedDateKey = normalizeCentralDateKey(searchParams.get("date"));
   const staticStaging = isStaticStagingBuild();
   const [upcomingRows, setUpcomingRows] = useState<GamesTodayRow[]>([]);
   const [historicalRows, setHistoricalRows] = useState<GamesTodayRow[]>([]);
@@ -135,7 +179,9 @@ function GamesTodayPageContent() {
   const [refreshingOdds, setRefreshingOdds] = useState(false);
   const [refreshOddsError, setRefreshOddsError] = useState("");
   const [refreshOddsStatus, setRefreshOddsStatus] = useState("");
-  const [selectedDateKey, setSelectedDateKey] = useState<string>("");
+  const [selectedDateKey, setSelectedDateKey] = useState<string>(requestedDateKey || "");
+  const [freshForecastStatus, setFreshForecastStatus] = useState("");
+  const [scheduledGameCount, setScheduledGameCount] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -152,7 +198,10 @@ function GamesTodayPageContent() {
         setHistoricalCoverageStart(
           typeof payload.historical_coverage_start_central === "string" ? payload.historical_coverage_start_central : ""
         );
+        setFreshForecastStatus(typeof payload.fresh_forecast_status === "string" ? payload.fresh_forecast_status : "");
+        setScheduledGameCount(Number(payload.scheduled_game_count || 0));
         setSelectedDateKey((current) => {
+          if (requestedDateKey) return requestedDateKey;
           if (current) return current;
           return normalizeCentralDateKey(payload.date_central) || centralTodayDateKey();
         });
@@ -169,10 +218,10 @@ function GamesTodayPageContent() {
     return () => {
       cancelled = true;
     };
-  }, [league, reloadKey]);
+  }, [league, reloadKey, requestedDateKey]);
 
   const todayKey = centralTodayDateKey();
-  const activeDateKey = selectedDateKey || todayKey;
+  const activeDateKey = requestedDateKey || selectedDateKey || todayKey;
   const dateView = useMemo(
     () =>
       resolveGamesTodayDateView({
@@ -204,7 +253,6 @@ function GamesTodayPageContent() {
       ])
     );
   }, [rows, strategy, strategyConfigs]);
-  const scheduleSummary = formatCentralDateSummary(activeDateKey);
   const dateLabel = formatCentralDateLabel(activeDateKey);
   const title = activeDateKey === todayKey ? "Games Today" : `Games on ${dateLabel}`;
   const slateSummary = `${formatGameCountLabel(rows.length)} for ${dateLabel}.`;
@@ -216,12 +264,23 @@ function GamesTodayPageContent() {
         : activeDateKey === todayKey
           ? "Today’s slate. Central time."
           : `${dateLabel}. Central time.`;
-  const emptyState =
-    isPastDate && historicalCoverageStart && activeDateKey < historicalCoverageStart
-      ? `No replay for ${dateLabel}. Coverage starts ${formatCentralDateLabel(historicalCoverageStart)}.`
-      : isPastDate
-        ? `No saved rows for ${dateLabel}.`
-        : `No games for ${scheduleSummary}.`;
+  const emptyState = buildEmptyStateCopy({
+    activeDateKey,
+    todayKey,
+    mode,
+    isPastDate,
+    historicalCoverageStart,
+    freshForecastStatus,
+    scheduledGameCount,
+  });
+
+  const updateSelectedDate = (nextDateKey: string) => {
+    setSelectedDateKey(nextDateKey);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("date", nextDateKey);
+    if (!params.get("league")) params.set("league", league);
+    router.replace(`?${params.toString()}`, { scroll: false });
+  };
 
   const handleRefreshOdds = async () => {
     if (staticStaging) {
@@ -271,7 +330,7 @@ function GamesTodayPageContent() {
           <button
             type="button"
             className={styles.dayNavButton}
-            onClick={() => setSelectedDateKey((current) => shiftCentralDateKey(current || centralTodayDateKey(), -1))}
+            onClick={() => updateSelectedDate(shiftCentralDateKey(activeDateKey, -1))}
             disabled={loading}
             aria-label="Show the previous day"
           >
@@ -280,7 +339,7 @@ function GamesTodayPageContent() {
           <button
             type="button"
             className={styles.dayNavButton}
-            onClick={() => setSelectedDateKey((current) => shiftCentralDateKey(current || centralTodayDateKey(), 1))}
+            onClick={() => updateSelectedDate(shiftCentralDateKey(activeDateKey, 1))}
             disabled={loading}
             aria-label="Show the next day"
           >
@@ -291,15 +350,22 @@ function GamesTodayPageContent() {
         {!loading && !error ? <p className="small">{slateSummary}</p> : null}
         <p className="small">Flat stake: {formatUsd(REFERENCE_STAKE_DOLLARS)} on every bet. No bet means $0.</p>
         <div className={styles.actionsRow}>
-          <button
-            type="button"
-            className={styles.refreshOddsButton}
-            onClick={handleRefreshOdds}
-            disabled={refreshingOdds || staticStaging}
-            aria-busy={refreshingOdds}
-          >
-            {staticStaging ? "Snapshot Only" : refreshingOdds ? "Refreshing odds..." : "Refresh Odds"}
-          </button>
+          {staticStaging ? (
+            <span className={styles.staticSnapshotPill} role="status">
+              Static snapshot
+            </span>
+          ) : (
+            <button
+              type="button"
+              className={styles.refreshOddsButton}
+              onClick={handleRefreshOdds}
+              disabled={refreshingOdds}
+              aria-busy={refreshingOdds}
+            >
+              {refreshingOdds ? "Refreshing odds..." : "Refresh Odds"}
+            </button>
+          )}
+          {staticStaging ? <p className={styles.snapshotNote}>Odds refresh is available only in the live local dashboard.</p> : null}
           {refreshOddsStatus ? <p className={styles.refreshStatus}>{refreshOddsStatus}</p> : null}
           {refreshOddsError ? <p className={styles.refreshError}>{refreshOddsError}</p> : null}
         </div>
@@ -309,7 +375,10 @@ function GamesTodayPageContent() {
         {error ? <p className="small">Failed to load: {error}</p> : null}
 
         {!loading && !error && rows.length === 0 ? (
-          <p className="small">{emptyState}</p>
+          <div className={styles.emptyStateBox}>
+            <p className={styles.emptyStateTitle}>{emptyState.title}</p>
+            <p className={styles.emptyStateBody}>{emptyState.body}</p>
+          </div>
         ) : null}
 
         {!loading && !error && rows.length > 0 ? (

@@ -203,7 +203,7 @@ a {
 .modelStamp strong {
   color: #9b9da0;
   font-size: 14px;
-  white-space: nowrap;
+  line-height: 1.25;
 }
 
 .kpiStrip {
@@ -359,6 +359,32 @@ a {
 .gamesTable {
   display: grid;
   overflow: hidden;
+}
+
+.frontEmptyState {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  min-height: 148px;
+  padding: 36px 28px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+  text-align: center;
+}
+
+.frontEmptyState strong {
+  color: var(--text-strong);
+  font-size: 25px;
+  font-weight: 750;
+  line-height: 1.05;
+}
+
+.frontEmptyState span {
+  max-width: 620px;
+  color: #a9adb0;
+  font-size: 18px;
+  font-weight: 650;
+  line-height: 1.35;
 }
 
 .gameRow {
@@ -582,6 +608,18 @@ a {
   font-weight: 700;
   justify-self: end;
   white-space: nowrap;
+}
+
+.starterEmpty {
+  grid-column: 1 / -1;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 14px;
+}
+
+.starterEmpty strong {
+  color: var(--text-strong);
+  font-size: 18px;
+  font-weight: 750;
 }
 
 .sideColumn {

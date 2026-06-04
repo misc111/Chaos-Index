@@ -175,6 +175,27 @@
   cursor: wait;
 }
 
+.staticSnapshotPill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--border-accent);
+  border-radius: 999px;
+  background: var(--surface-accent);
+  color: var(--accent-strong);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.snapshotNote {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
 .refreshStatus,
 .refreshError {
   margin: 0;
@@ -190,6 +211,34 @@
 .refreshError {
   color: var(--danger);
   font-weight: 600;
+}
+
+.emptyStateBox {
+  display: grid;
+  gap: 6px;
+  max-width: 680px;
+  margin-top: 10px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-card-soft);
+}
+
+.emptyStateTitle,
+.emptyStateBody {
+  margin: 0;
+}
+
+.emptyStateTitle {
+  color: var(--ink-strong);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.emptyStateBody {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .gamesTable {

@@ -148,13 +148,13 @@ textarea {
 
 .site-header {
   position: sticky;
-  top: 12px;
+  top: 0;
   z-index: 30;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  margin: 14px 0 22px;
+  margin: 0 0 18px;
   padding: 10px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
@@ -930,7 +930,7 @@ textarea {
 .notebook-hero {
   display: grid;
   gap: 14px;
-  padding: clamp(24px, 4vw, 44px);
+  padding: clamp(22px, 3vw, 34px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
   background:
@@ -939,7 +939,7 @@ textarea {
 }
 
 .notebook-hero.compact {
-  min-height: 220px;
+  min-height: 178px;
   align-items: end;
 }
 
@@ -948,15 +948,15 @@ textarea {
   margin: 0;
   color: var(--ink-strong);
   font-family: "Space Grotesk", "Avenir Next", sans-serif;
-  font-size: clamp(42px, 6.5vw, 84px);
-  line-height: 0.9;
+  font-size: clamp(38px, 5.8vw, 72px);
+  line-height: 0.92;
   letter-spacing: 0;
   text-wrap: balance;
 }
 
 .notebook-hero p {
   max-width: 760px;
-  margin: 14px 0 0;
+  margin: 10px 0 0;
   color: var(--muted-strong);
   font-size: clamp(16px, 1.6vw, 20px);
   line-height: 1.55;
@@ -999,7 +999,7 @@ textarea {
 .notebook-metric-strip,
 .notebook-card-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(178px, 1fr));
   gap: 12px;
 }
 
@@ -1024,9 +1024,47 @@ textarea {
 .mini-metric strong {
   min-width: 0;
   color: var(--ink-strong);
-  font-size: clamp(18px, 2.4vw, 28px);
-  line-height: 1;
+  font-size: clamp(18px, 2.2vw, 26px);
+  line-height: 1.05;
   overflow-wrap: anywhere;
+}
+
+.mini-metric small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.notebook-status-note {
+  display: grid;
+  gap: 5px;
+  padding: 12px 14px;
+  border: 1px solid var(--warning-border);
+  border-radius: 18px;
+  background: var(--warning-soft);
+}
+
+.notebook-status-note.good {
+  border-color: var(--success-border);
+  background: var(--success-soft);
+}
+
+.notebook-status-note strong,
+.notebook-status-note p {
+  margin: 0;
+}
+
+.notebook-status-note strong {
+  color: var(--ink-strong);
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.notebook-status-note p {
+  color: var(--muted-strong);
+  font-size: 13px;
+  line-height: 1.45;
 }
 
 .target-switcher {
